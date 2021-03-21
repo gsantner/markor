@@ -32,7 +32,7 @@ import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.BackupRestoreHelper;
+import net.gsantner.opoc.util.BackupUtils;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -379,11 +379,11 @@ public class SettingsActivity extends AppActivityBase {
                     break;
                 }
                 case R.string.pref_key__backup_settings: {
-                    BackupRestoreHelper.backupConfig(getContext(), getFragmentManager());
+                    BackupUtils.backupConfig(getContext(), getFragmentManager());
                     break;
                 }
                 case R.string.pref_key__restore_settings: {
-                    BackupRestoreHelper.restoreConfig(getContext(), getFragmentManager());
+                    BackupUtils.restoreConfig(getContext(), getFragmentManager());
                     break;
                 }
             }

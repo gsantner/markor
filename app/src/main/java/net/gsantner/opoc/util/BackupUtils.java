@@ -1,4 +1,13 @@
-package net.gsantner.markor.util;
+/*#######################################################
+ *
+ *   Maintained by Gregor Santner, 2021-
+ *   https://gsantner.net/
+ *
+ *   License of this file: Apache 2.0 (Commercial upon request)
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+#########################################################*/
+package net.gsantner.opoc.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,9 +22,9 @@ import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.GashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,12 +40,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class BackupRestoreHelper {
+public class BackupUtils {
     private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
             null, // Default pref
-            AppSettings.SHARED_PREF_APP,
+            SharedPreferencesPropertyBackend.SHARED_PREF_APP,
             DatetimeFormatDialog.DATETIME_SETTINGS,
             TextActions.ACTION_ORDER_PREF_NAME,
             SearchReplaceDialog.SEARCH_REPLACE_SETTINGS
@@ -48,7 +57,6 @@ public class BackupRestoreHelper {
     };
 
     public static void backupConfig(final Context context, final FragmentManager manager) {
-
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
@@ -70,7 +78,7 @@ public class BackupRestoreHelper {
     }
 
     public static File getSaveFile(final Context context, final File folder) {
-        final ContextUtils cu = new ContextUtils(context);
+        final net.gsantner.markor.util.ContextUtils cu = new net.gsantner.markor.util.ContextUtils(context);
         try {
             final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
             final String date = ShareUtil.SDF_IMAGES.format(new Date());
@@ -100,14 +108,14 @@ public class BackupRestoreHelper {
 
     @SuppressWarnings("deprecation")
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
-        final ContextUtils cu = new ContextUtils(context);
+        final net.gsantner.markor.util.ContextUtils cu = new net.gsantner.markor.util.ContextUtils(context);
         try {
             final JSONObject json = new JSONObject();
 
             // Collect metadata for backup file
             final Date now = new Date();
             final JSONObject metadata = new JSONObject(new GashMap<>().load(
-                    "BACKUP_DATE", String.format("local %s, utc %s, epoch-timestamp %d", now.toLocaleString(), now.toString(), now.getTime()),
+                    "BACKUP_DATE", String.format("%s ; %d", now.toLocaleString(), now.toString(), now.getTime()),
                     "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
                     "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
                     "ISOURCE", cu.getAppInstallationSource(),
@@ -130,7 +138,7 @@ public class BackupRestoreHelper {
                 for (final String key : map.keySet()) {
                     if (includeKey(key)) {
                         final Object value = map.get(key);
-                        if ( (value instanceof Integer) ||
+                        if ((value instanceof Integer) ||
                                 (value instanceof Long) ||
                                 (value instanceof Float) ||
                                 (value instanceof String) ||
