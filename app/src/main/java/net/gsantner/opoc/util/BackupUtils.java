@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class BackupUtils {
+    protected static final String LOG_PREFIX = BackupUtils.class.getSimpleName();
     protected static final String FIELD_BACKUP_METADATA = "__BACKUP_METADATA__";
 
     private static final String[] PREF_NAMES = {
@@ -149,7 +150,7 @@ public class BackupUtils {
                             }
                             jsonFromPref.put(prefKey, jsonArray);
                         } else {
-                            Log.w("backup", "Unhandled backup type");
+                            Log.w(LOG_PREFIX, "Unhandled backup type");
                         }
                     }
                 }
@@ -168,7 +169,7 @@ public class BackupUtils {
             if (jsonFile.exists()) {
                 jsonFile.delete();
             }
-            Log.e("backup", e.getMessage());
+            Log.e(LOG_PREFIX, e.getMessage());
             Toast.makeText(context, R.string.creation_of_backup_failed, Toast.LENGTH_SHORT).show();
         } finally {
             cu.freeContextRef();
@@ -230,7 +231,7 @@ public class BackupUtils {
                                 }
                                 edit.putStringSet(key, ss);
                             } else {
-                                Log.w("backup", "Unhandled backup type");
+                                Log.w(LOG_PREFIX, "Unhandled backup type");
                             }
                         }
                     }
