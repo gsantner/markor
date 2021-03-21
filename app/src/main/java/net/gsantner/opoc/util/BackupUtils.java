@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("MalformedFormatString")
 public class BackupUtils {
     private static final String BACKUP_METADATA = "__BACKUP_METADATA__";
 
@@ -70,20 +71,20 @@ public class BackupUtils {
 
                         @Override
                         public void onFsViewerSelected(String request, File dir) {
-                            createAndSaveBackup(context, getSaveFile(context, dir));
+                            createAndSaveBackup(context, generateBackupFilepath(context, dir));
                         }
                     }, manager, activity
             );
         }
     }
 
-    public static File getSaveFile(final Context context, final File folder) {
-        final net.gsantner.markor.util.ContextUtils cu = new net.gsantner.markor.util.ContextUtils(context);
+    public static File generateBackupFilepath(final Context context, final File targetFolder) {
+        final ContextUtils cu = new ContextUtils(context);
         try {
             final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
             final String date = ShareUtil.SDF_IMAGES.format(new Date());
             final String filename = String.format("%s-settings-backup-%s.json", appName, date);
-            return new File(folder, filename);
+            return new File(targetFolder, filename);
         } finally {
             cu.freeContextRef();
         }
@@ -106,16 +107,15 @@ public class BackupUtils {
         return true;
     }
 
-    @SuppressWarnings("deprecation")
     public static void createAndSaveBackup(final Context context, final File saveLoc) {
-        final net.gsantner.markor.util.ContextUtils cu = new net.gsantner.markor.util.ContextUtils(context);
+        final ContextUtils cu = new ContextUtils(context);
         try {
             final JSONObject json = new JSONObject();
 
             // Collect metadata for backup file
             final Date now = new Date();
             final JSONObject metadata = new JSONObject(new GashMap<>().load(
-                    "BACKUP_DATE", String.format("%s ; %d", now.toLocaleString(), now.toString(), now.getTime()),
+                    "BACKUP_DATE", String.format("%s ::: %d", now.toString(), now.getTime()),
                     "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
                     "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
                     "ISOURCE", cu.getAppInstallationSource(),
