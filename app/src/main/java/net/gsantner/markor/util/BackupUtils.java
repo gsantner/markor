@@ -5,9 +5,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
@@ -61,9 +59,7 @@ public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
 
     public static List<String> getPrefNamesToBackup() {
         List<String> prefs = net.gsantner.opoc.util.BackupUtils.getPrefNamesToBackup();
-        prefs.add(DatetimeFormatDialog.DATETIME_SETTINGS);
         prefs.add(TextActions.ACTION_ORDER_PREF_NAME);
-        prefs.add(SearchReplaceDialog.SEARCH_REPLACE_SETTINGS);
         return prefs;
     }
 }
