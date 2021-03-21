@@ -52,9 +52,7 @@ public class BackupUtils {
         final ContextUtils cu = new ContextUtils(context);
         try {
             final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
-            final String date = ShareUtil.SDF_IMAGES.format(new Date());
-            final String filename = String.format("%s-settings-backup-%s.json", appName, date);
-            return new File(targetFolder, filename);
+            return new File(targetFolder, ShareUtil.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
         } finally {
             cu.freeContextRef();
         }
