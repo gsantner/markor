@@ -31,6 +31,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/**
+ * Utility class for backup of Android {@link SharedPreferences}
+ */
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class BackupUtils {
     protected static final String LOG_PREFIX = BackupUtils.class.getSimpleName();
@@ -41,6 +44,11 @@ public class BackupUtils {
             Pattern.compile(FIELD_BACKUP_METADATA, Pattern.MULTILINE),
     };
 
+    /**
+     * Get a {@link List} of preference (file)names to be included in backup
+     *
+     * @return String list of preference names to be included in backup
+     */
     public static List<String> getPrefNamesToBackup() {
         ArrayList<String> prefNames = new ArrayList<>();
         prefNames.add(null); // Default pref
@@ -48,6 +56,13 @@ public class BackupUtils {
         return prefNames;
     }
 
+    /**
+     * Generate a timestamped filepath for the backup file
+     *
+     * @param context      Android {@link Context}
+     * @param targetFolder Folder in which the {@link File} should be placed
+     * @return The {@link File} that should be created
+     */
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
         final ContextUtils cu = new ContextUtils(context);
         try {
@@ -59,13 +74,15 @@ public class BackupUtils {
     }
 
     public static String getPrefName(final Context context, final String raw) {
-        if (TextUtils.isEmpty(raw)) {
-            return context.getPackageName() + "_preferences";
-        } else {
-            return raw;
-        }
+        return !TextUtils.isEmpty(raw) ? raw : (context.getPackageName() + "_preferences");
     }
 
+    /**
+     * Determine if the key is allowed to be included in the backup - see  {@link BackupUtils#getPrefNamesToBackup()}
+     *
+     * @param key Check if this key is allowed
+     * @return True if allowed -> backup
+     */
     public static boolean isPrefKeyAllowBackup(final String key) {
         for (final Pattern ep : PREF_EXCLUDE_PATTERNS) {
             if (ep.matcher(key).matches()) {
@@ -75,6 +92,13 @@ public class BackupUtils {
         return true;
     }
 
+    /**
+     * Make backup of Android {@link SharedPreferences}, combined into a single .json file
+     *
+     * @param context           Android context
+     * @param prefNamesToBackup Names of the {@link SharedPreferences}'s to backup
+     * @param targetJsonFile    Target json file to write to, overwritten if already exists
+     */
     public static void makeBackup(final Context context, final List<String> prefNamesToBackup, final File targetJsonFile) {
         final ContextUtils cu = new ContextUtils(context);
         try {
@@ -144,6 +168,12 @@ public class BackupUtils {
         }
     }
 
+    /**
+     * Load a backup-json file that should have been exported by the same app
+     *
+     * @param context                  Android context
+     * @param backupFileContainingJson A existing & accessible json file
+     */
     public static void loadBackup(final Context context, final File backupFileContainingJson) {
         try {
             final JSONObject json = new JSONObject(FileUtils.readTextFileFast(backupFileContainingJson));
