@@ -442,13 +442,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showCopyMoveConflictDialog(
-            final Activity activity,
-            final String fileName,
-            final String destName,
-            final boolean multiple,
-            final Callback.a2<String, Integer> callback)
-    {
+    public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a2<String, Integer> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.withPositionCallback = callback;

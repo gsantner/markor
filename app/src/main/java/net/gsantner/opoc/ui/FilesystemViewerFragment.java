@@ -602,13 +602,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
             @Override
             public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
                 if (_dopt.listener instanceof FilesystemViewerDialog) {
-                    final TextView title = ((FilesystemViewerDialog) _dopt.listener)._dialogTitle;
-                    if (title != null) {
-                        title.setText(
-                                getActivity().getString(isMove ? R.string.move : R.string.copy)
-                                + " → "
-                                + adapter.getCurrentFolder().getName()
-                        );
+                    final TextView titleView = ((FilesystemViewerDialog) _dopt.listener)._dialogTitle;
+                    if (titleView != null) {
+                        titleView.setText(String.format("%s → %s", titleView.getContext().getString(isMove ? R.string.move : R.string.copy), adapter.getCurrentFolder().getName()));
                     }
                 }
             }
