@@ -68,6 +68,7 @@
                 android:layout_weight="30"
                 android:gravity="end"
                 android:inputType="text|textNoSuggestions"
+                android:hint=".extension"
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
