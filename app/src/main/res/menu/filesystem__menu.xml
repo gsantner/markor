@@ -72,8 +72,7 @@
         android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"
         android:visible="false"
-        app:showAsAction="always" />
-
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_go_to"
