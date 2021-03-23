@@ -422,7 +422,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
-                if ((saveDocument() || _hlEditor.length() == 0) && activity != null) {
+                if ((saveDocument() || _hlEditor.toString().trim().length() == 0) && activity != null) {
                     activity.onBackPressed();
                 }
                 return true;
