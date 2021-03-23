@@ -771,14 +771,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setBool(R.string.pref_key__default_encryption_password_set_once, b);
     }
 
-    public boolean getNewFileDialogLastUsedEncryption() {
-        return getBool(R.string.pref_key__new_file_dialog_lastused_encryption, false);
-    }
-
-    public void setNewFileDialogLastUsedEncryption(boolean b) {
-        setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
-    }
-
     public String getNewFileDialogLastUsedExtension() {
         return getString(R.string.pref_key__new_file_dialog_lastused_extension, ".md");
     }

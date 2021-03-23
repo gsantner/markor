@@ -20,8 +20,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -103,20 +105,24 @@ public class NewFileDialog extends DialogFragment {
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final List<String> extensions = setExtSpinnerSelection(context, typeSpinner, lastExt);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
-            if (appSettings.getNewFileDialogLastUsedEncryption()) {
-                encryptCheckbox.setChecked(true);
-                if (!lastExt.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
-                    lastExt += JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION;
-                }
-            } else {
-                encryptCheckbox.setChecked(false);
-            }
-        } else {
+        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) || !appSettings.hasPasswordBeenSetOnce()) {
             encryptCheckbox.setVisibility(View.GONE);
         }
 
+        fileExtEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {};
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {};
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                encryptCheckbox.setChecked(s.toString().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION));
+            }
+        });
         fileExtEdit.setText(lastExt);
+
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
 
@@ -169,7 +175,6 @@ public class NewFileDialog extends DialogFragment {
             } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
                 fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
             }
-            appSettings.setNewFileDialogLastUsedEncryption(isChecked);
         });
 
         dialogBuilder.setView(root);
@@ -308,22 +313,13 @@ public class NewFileDialog extends DialogFragment {
     // Otherwise it is added to the list of entries
     List<String> setExtSpinnerSelection(final Context context, final Spinner spinner, final String lastExt)
     {
-        // Remove trailing encryption before search
-        final String searchExt;
-        final String encExt = JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION;
-        if (lastExt.endsWith(encExt)) {
-            searchExt = lastExt.substring(0, lastExt.length() - encExt.length());
-        } else {
-            searchExt = lastExt;
-        }
-
         final Resources res = context.getResources();
         final List<String> extensions = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.new_file_types__file_extension)));
-
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1);
         adapter.addAll(Arrays.asList(res.getStringArray(R.array.new_file_types)));
 
-        int index = extensions.indexOf(searchExt);
+        // Get index without trailing encryption extension
+        int index = extensions.indexOf(lastExt.replaceFirst("\\" + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION + "$", ""));
         if (index < 0) {
             adapter.add(lastExt);
             extensions.add(lastExt);
