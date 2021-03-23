@@ -787,14 +787,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__new_file_dialog_lastused_extension, v);
     }
 
-    public int getNewFileDialogLastUsedType() {
-        return getInt(R.string.pref_key__new_file_dialog_lastused_type, 0);
-    }
-
-    public void setNewFileDialogLastUsedType(int i) {
-        setInt(R.string.pref_key__new_file_dialog_lastused_type, i);
-    }
-
     public void setFileBrowserLastBrowsedFolder(File f) {
         setString(R.string.pref_key__file_browser_last_browsed_folder, f.getAbsolutePath());
     }

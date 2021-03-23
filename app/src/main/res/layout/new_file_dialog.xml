@@ -67,7 +67,6 @@
                 android:layout_marginRight="32dp"
                 android:layout_weight="30"
                 android:gravity="end"
-                android:hint=".md"
                 android:inputType="text|textNoSuggestions"
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -92,8 +91,7 @@
             android:id="@+id/new_file_dialog__type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"
-            android:entries="@array/new_file_types" />
+            android:drawSelectorOnTop="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,8 +107,7 @@
             android:id="@+id/new_file_dialog__template"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"
-            android:entries="@array/arr_file_templates" />
+            android:drawSelectorOnTop="true"/>
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"

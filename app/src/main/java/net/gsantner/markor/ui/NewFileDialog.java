@@ -11,6 +11,8 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,7 +43,10 @@ import net.gsantner.opoc.util.ContextUtils;
 import java.io.File;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -86,20 +92,31 @@ public class NewFileDialog extends DialogFragment {
         final AppSettings appSettings = new AppSettings(inflater.getContext());
         dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
         root = inflater.inflate(R.layout.new_file_dialog, null);
+        final Context context = getContext();
+
+        String lastExt = appSettings.getNewFileDialogLastUsedExtension();
 
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
         final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
-        final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+        final List<String> extensions = setExtSpinnerSelection(context, typeSpinner, lastExt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
-            encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
+            if (appSettings.getNewFileDialogLastUsedEncryption()) {
+                encryptCheckbox.setChecked(true);
+                if (!lastExt.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
+                    lastExt += JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION;
+                }
+            } else {
+                encryptCheckbox.setChecked(false);
+            }
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
-        fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
+
+        fileExtEdit.setText(lastExt);
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
 
@@ -114,7 +131,7 @@ public class NewFileDialog extends DialogFragment {
             if (typeSpinnerNoTriggerOnFirst.getAndSet(false)) {
                 return;
             }
-            String ext = pos < typeSpinnerToExtension.length ? typeSpinnerToExtension[pos] : "";
+            final String ext = pos < extensions.size() ? extensions.get(pos) : "";
 
             if (ext != null) {
                 if (encryptCheckbox.isChecked()) {
@@ -124,10 +141,12 @@ public class NewFileDialog extends DialogFragment {
                 }
             }
             fileNameEdit.setSelection(fileNameEdit.length());
-            appSettings.setNewFileDialogLastUsedType(typeSpinner.getSelectedItemPosition());
         }));
-        typeSpinner.setSelection(appSettings.getNewFileDialogLastUsedType());
 
+        // Setting adapter explicitly to have same format at typeSpinner
+        final ArrayAdapter<String> templateAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1);
+        templateAdapter.addAll(Arrays.asList(context.getResources().getStringArray(R.array.arr_file_templates)));
+        templateSpinner.setAdapter(templateAdapter);
         templateSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
             String prefix = null;
 
@@ -137,8 +156,7 @@ public class NewFileDialog extends DialogFragment {
                 prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
-                fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
-            }
+                fileNameEdit.setText(prefix + fileNameEdit.getText().toString()); }
             fileNameEdit.setSelection(fileNameEdit.length());
         }));
 
@@ -157,7 +175,7 @@ public class NewFileDialog extends DialogFragment {
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
 
-        final ShareUtil shareUtil = new ShareUtil(getContext());
+        final ShareUtil shareUtil = new ShareUtil(context);
         dialogBuilder
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
@@ -285,4 +303,35 @@ public class NewFileDialog extends DialogFragment {
         }
         return bytes;
     }
+
+    // Sets the format spinner. If the last extension is known, the appropriate item is selected.
+    // Otherwise it is added to the list of entries
+    List<String> setExtSpinnerSelection(final Context context, final Spinner spinner, final String lastExt)
+    {
+        // Remove trailing encryption before search
+        final String searchExt;
+        final String encExt = JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION;
+        if (lastExt.endsWith(encExt)) {
+            searchExt = lastExt.substring(0, lastExt.length() - encExt.length());
+        } else {
+            searchExt = lastExt;
+        }
+
+        final Resources res = context.getResources();
+        final List<String> extensions = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.new_file_types__file_extension)));
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1);
+        adapter.addAll(Arrays.asList(res.getStringArray(R.array.new_file_types)));
+
+        int index = extensions.indexOf(searchExt);
+        if (index < 0) {
+            adapter.add(lastExt);
+            extensions.add(lastExt);
+            index = extensions.size() - 1;
+        }
+        spinner.setAdapter(adapter);
+        spinner.setSelection(index);
+        return extensions;
+    }
+
 }
