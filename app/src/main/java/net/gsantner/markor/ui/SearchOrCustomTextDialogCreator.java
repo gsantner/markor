@@ -476,8 +476,7 @@ public class SearchOrCustomTextDialogCreator {
         if (plus != null) {
             uniq.addAll(Arrays.asList(plus));
         }
-        data.clear();
-        data.addAll(uniq);
+        data = new ArrayList<>(uniq);
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).trim().isEmpty()) {
                 data.remove(i);
