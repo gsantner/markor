@@ -111,10 +111,16 @@ public class NewFileDialog extends DialogFragment {
 
         fileExtEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {};
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            ;
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {};
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            ;
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -162,7 +168,8 @@ public class NewFileDialog extends DialogFragment {
                 prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
             }
             if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
-                fileNameEdit.setText(prefix + fileNameEdit.getText().toString()); }
+                fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
+            }
             fileNameEdit.setSelection(fileNameEdit.length());
         }));
 
@@ -311,8 +318,7 @@ public class NewFileDialog extends DialogFragment {
 
     // Sets the format spinner. If the last extension is known, the appropriate item is selected.
     // Otherwise it is added to the list of entries
-    List<String> setExtSpinnerSelection(final Context context, final Spinner spinner, final String lastExt)
-    {
+    List<String> setExtSpinnerSelection(final Context context, final Spinner spinner, final String lastExt) {
         final Resources res = context.getResources();
         final List<String> extensions = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.new_file_types__file_extension)));
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1);
