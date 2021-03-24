@@ -579,7 +579,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
-            private FilesystemViewerData.Options _dopt;
+            private FilesystemViewerData.Options _doptMoC;
 
             @Override
             public void onFsViewerSelected(String request, File file) {
@@ -591,18 +591,18 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
             @Override
             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
-                _dopt = dopt;
-                _dopt.titleText = isMove ? R.string.move : R.string.copy;
-                _dopt.rootFolder = _appSettings.getNotebookDirectory();
-                _dopt.startFolder = getCurrentFolder();
+                _doptMoC = dopt;
+                _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
+                _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
+                _doptMoC.startFolder = getCurrentFolder();
 
             }
 
             @SuppressLint("SetTextI18n")
             @Override
             public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
-                if (_dopt.listener instanceof FilesystemViewerDialog) {
-                    final TextView titleView = ((FilesystemViewerDialog) _dopt.listener)._dialogTitle;
+                if (_doptMoC.listener instanceof FilesystemViewerDialog) {
+                    final TextView titleView = ((FilesystemViewerDialog) _doptMoC.listener)._dialogTitle;
                     if (titleView != null) {
                         titleView.setText(String.format("%s → %s", titleView.getContext().getString(isMove ? R.string.move : R.string.copy), adapter.getCurrentFolder().getName()));
                     }
