@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -54,17 +57,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         Bundle args = new Bundle();
 
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT) == null ? "" : intent.getStringExtra(Intent.EXTRA_TEXT);
-        String tmp;
-        if (intent.hasExtra(Intent.EXTRA_SUBJECT) && (tmp = intent.getStringExtra(Intent.EXTRA_SUBJECT)) != null && !sharedText.contains(tmp)) {
-            if (!tmp.trim().contains("\n") && !sharedText.trim().contains("\n") && !sharedText.trim().contains(" ") && (sharedText.startsWith("http://") || sharedText.startsWith("https://"))) {
-                tmp = "[" + tmp.trim().replace("[", "\\[").replace("]", "\\]") + "]";
-                sharedText = "(" + sharedText.trim().replace("(", "\\(").replace(")", "\\)") + " )";
-            } else {
-                tmp += " ";
-            }
-            sharedText = tmp + sharedText;
-        }
+        final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
         Object intentFile = intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
         if (intentFile != null && intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false)) {
@@ -139,7 +132,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
-        private static final String SEP_RULER = "\n---\n";
         private File workingDir;
 
         @Override
@@ -209,14 +201,14 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
         }
 
-        private void appendToExistingDocument(File file, String seperator, boolean showEditor) {
+        private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             Bundle args = new Bundle();
             args.putSerializable(DocumentIO.EXTRA_PATH, file);
             args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
             Document document = DocumentIO.loadDocument(getContext(), args, null);
             String trimmedContent = document.getContent().trim();
             String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            DocumentIO.saveDocument(document, currentContent + seperator + _sharedText, new ShareUtil(getContext()), getContext());
+            DocumentIO.saveDocument(document, currentContent + separator + _sharedText, new ShareUtil(getContext()), getContext());
             if (showEditor) {
                 showInDocumentActivity(document);
             }
@@ -254,7 +246,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file) {
-                    appendToExistingDocument(file, SEP_RULER, true);
+                    appendToExistingDocument(file, getSeparator(_sharedText), true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -320,7 +312,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), _sharedText.length() > 200 ? SEP_RULER : "\n", false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), getSeparator(_sharedText), false);
                         close = true;
                     }
                     break;
@@ -364,7 +356,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), SEP_RULER, true);
+                    appendToExistingDocument(new File(preference.getKey()), getSeparator(_sharedText), true);
                     close = false;
                 }
             }
@@ -398,4 +390,57 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
         }
     }
+
+    /**
+     * Convert text and link into a formatted link, if the text and string appear to be a link
+     *
+     * @param text Link description
+     * @param link Link url
+     * @return formatted URL of format [text](url)
+     */
+    private static String formatLink(String text, String link) {
+        link = link == null ? "" : link;
+        text = text == null ? "" : text;
+
+        final String formattedLink;
+        final Matcher linkMatch = Patterns.WEB_URL.matcher(link.trim());
+        if (linkMatch.matches() && !link.trim().matches("\\s") && !text.trim().matches("\\s")) {
+            // Get a resonable default text if one is not present. group 4 is the domain name
+            try {
+                text = TextUtils.isEmpty(text) ? linkMatch.group(4).replaceAll("\\.$", "") : text;
+            } catch (IllegalStateException | IndexOutOfBoundsException e) {
+                text = "";
+            }
+
+            formattedLink = String.format("[%s](%s )",
+                    text.trim().replace("[", "\\[").replace("]", "\\]"),
+                    link.trim().replace("(", "\\(").replace(")", "\\)")
+            );
+        } else {
+            formattedLink = text + " " + link;
+        }
+        return formattedLink;
+    }
+
+    /**
+     * Get separator for use with appendToExistingDocument
+     * If a small amount of text is being inserted, a newline is a sufficient separator.
+     * If a larger amount of text is being inserted, a horizontal line `----` is added as well
+     *
+     * @param s String to be inserted
+     * @return Separator to be used
+     */
+    private static String getSeparator(final String s) {
+        int length = 0;
+        if (!TextUtils.isEmpty(s)) {
+            length = s.length();
+            // Detect if string to be inserted is a formatted link. If so, only count characters in the description
+            final Matcher match = Pattern.compile("\\[(.*)(?<!\\\\)\\]\\(.*(?<!\\\\)\\)").matcher(s);
+            if (match.matches()) {
+                length = match.group(1).length();
+            }
+        }
+        return (length > 400) ? "\n----\n" : "\n";
+    }
+
 }
