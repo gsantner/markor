@@ -41,7 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-14dp"
+            android:layout_marginTop="-12dp"
             android:weightSum="100">
 
             <EditText
@@ -51,10 +51,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="70"
                 android:hint="@string/my_note"
+                android:importantForAutofill="no"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                android:importantForAutofill="no"
                 tools:ignore="TextFields" />
 
 
@@ -67,14 +67,14 @@
                 android:layout_marginRight="32dp"
                 android:layout_weight="30"
                 android:gravity="end"
-                android:inputType="text|textNoSuggestions"
                 android:hint=".extension"
+                android:importantForAutofill="no"
+                android:inputType="text|textNoSuggestions"
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
                 tools:ignore="HardcodedText"
-                tools:text=".md"
-                android:importantForAutofill="no" />
+                tools:text=".md" />
         </LinearLayout>
 
 
@@ -92,7 +92,8 @@
             android:id="@+id/new_file_dialog__type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
+            android:layout_marginTop="-12dp"
+            android:drawSelectorOnTop="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,7 +109,8 @@
             android:id="@+id/new_file_dialog__template"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawSelectorOnTop="true"/>
+            android:layout_marginTop="-12dp"
+            android:drawSelectorOnTop="true" />
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"
