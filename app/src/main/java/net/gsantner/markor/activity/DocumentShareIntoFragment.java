@@ -393,6 +393,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
     /**
      * Convert text and link into a formatted link, if the text and string appear to be a link
+     *
      * @param text Link description
      * @param link Link url
      * @return formatted URL of format [text](url)
@@ -425,6 +426,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
      * Get separator for use with appendToExistingDocument
      * If a small amount of text is being inserted, a newline is a sufficient separator.
      * If a larger amount of text is being inserted, a horizontal line `----` is added as well
+     *
      * @param s String to be inserted
      * @return Separator to be used
      */
