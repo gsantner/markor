@@ -52,12 +52,17 @@ import net.gsantner.opoc.util.ContextUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Queue;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
@@ -387,30 +392,107 @@ public class SearchOrCustomTextDialog {
             }
         }
 
+        private List<String> getFilesByEqualsFileNames(File currentDir){
+            List<String> ret = new ArrayList<>();
+            try {
+                File[] files = currentDir.listFiles();
+
+                for (int i = 0; i < files.length; i++) {
+
+                    File file = files[i];
+                    String fileName = file.getName();
+                    boolean isMatch = _isRegex ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_query);
+
+                    if(isMatch){
+                        String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
+                        ret.add(path);
+                    };
+                }
+            } catch (Exception ex){
+                ;
+            }
+
+            return ret;
+        }
+
+        private boolean isFileContainSearchQuery(File file){
+            boolean ret = false;
+
+            if(file.isDirectory()){
+                return ret;
+            }
+
+
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+                for(String line; (line = br.readLine()) != null; ) {
+                    boolean isMatch = _isRegex ? _regex.matcher(line).matches() : line.toLowerCase().contains(_query);
+                    if(isMatch){
+                        ret = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex){
+                ;
+            }
+
+            return ret;
+        }
+
+        private List<String> getFilesByContext(File currentDir){
+            List<String> ret = new ArrayList<>();
+
+            try{
+                File[] files = currentDir.listFiles();
+
+                for (int i = 0; i < files.length; i++) {
+                    File file = files[i];
+                    if(file.isDirectory()){
+                        continue;
+                    }
+
+                    if(isFileContainSearchQuery(file)){
+                        String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
+                        ret.add(path);
+                    }
+                }
+            } catch (Exception ex){
+                ;
+            }
+
+            return ret;
+        }
+
         @Override
         protected List<String> doInBackground(Void... voidp) {
             List<String> ret = new ArrayList<>();
+            Queue<File> queue = new LinkedList<File>();
+            queue.add(_searchDir);
 
-            boolean first = true;
-            Iterator<File> iter = null;
-            try {
-                iter = FileUtils.iterateFilesAndDirs(_searchDir, this, this);
-            } catch (Exception ex) {
-                // Iterator may throw an error at creation
-                return ret;
-            }
-            while (iter.hasNext() && !isCancelled()) {
-                File f = iter.next();
-                if (first) {
-                    first = false;
-                    if (f.equals(_searchDir)) {
-                        continue;
+            boolean isSearchInFiles = true;
+            while (!queue.isEmpty()){
+                File currentDirectory = queue.remove();
+
+                ret.addAll(getFilesByEqualsFileNames(currentDirectory));
+
+                if(isSearchInFiles){
+                    ret.addAll(getFilesByContext(currentDirectory));
+                }
+
+                try{
+                    File[] files = currentDirectory.listFiles();
+                    for(int i = 0; i < files.length; i++){
+                        File file = files[i];
+
+                        if(file.isDirectory()){
+                            queue.add(file);
+                        }
                     }
-                }
-                if (f.isFile() || (f.isDirectory() && isMatching(f, false))) {
-                    ret.add(f.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", ""));
+                } catch (Exception ex){
+                    ;
                 }
             }
+
             return ret;
         }
 
