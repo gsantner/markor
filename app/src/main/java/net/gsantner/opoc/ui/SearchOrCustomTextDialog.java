@@ -331,7 +331,7 @@ public class SearchOrCustomTextDialog {
         return task;
     }
 
-    public static class SearchFilesTask extends AsyncTask<Void, File, List<String>> implements IOFileFilter {
+    public static class SearchFilesTask extends AsyncTask<Void, File, List<String>> {
         private final Callback.a1<List<String>> _callback;
         private final File _searchDir;
         private final String _query;
@@ -350,36 +350,6 @@ public class SearchOrCustomTextDialog {
             _isSearchInFiles = isSearchInFiles;
             _regex = isRegex ? Pattern.compile(_query) : null;
             _activityRef = new WeakReference<>(activity);
-        }
-
-        // Called for both, file and folder filter
-        @Override
-        public boolean accept(File file) {
-            return isMatching(file, true);
-        }
-
-        // Not called
-        @Override
-        public boolean accept(File dir, String name) {
-            return isMatching(new File(dir, name), true);
-        }
-
-        // In iterateFilesAndDirs, subdirs are only scanned when returning true on it
-        // But those dirs will also occur in iterator
-        // Hence call this aagain with alwaysMatchDir=false
-        public boolean isMatching(File file, boolean alwaysMatchDir) {
-            if (file.isDirectory()) {
-                // Do never scan .git directories, lots of files, lots of time
-                if (file.getName().equals(".git")) {
-                    return false;
-                }
-                if (alwaysMatchDir) {
-                    return true;
-                }
-            }
-            String name = file.getName();
-            file = file.getParentFile();
-            return _isRegex ? _regex.matcher(name).matches() : name.toLowerCase().contains(_query);
         }
 
         @Override
@@ -471,7 +441,7 @@ public class SearchOrCustomTextDialog {
             Queue<File> queue = new LinkedList<File>();
             queue.add(_searchDir);
 
-            while (!queue.isEmpty()){
+            while (!queue.isEmpty() && !isCancelled()){
                 File currentDirectory = queue.remove();
 
                 ret.addAll(getFilesByEqualsFileNames(currentDirectory));

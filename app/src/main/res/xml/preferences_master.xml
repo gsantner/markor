@@ -107,7 +107,7 @@
         <PreferenceCategory android:title="@string/searchCategory">
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_border_outer_black_24dp"
+                android:icon="@drawable/ic_search_black_24dp"
                 android:key="@string/pref_key__is_search_in_files_enabled"
                 android:summary="@string/search_in_files_summary"
                 android:title="@string/search_in_files" />
