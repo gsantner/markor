@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.ui.SearchEngine;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 
@@ -121,23 +122,28 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        AppSettings appSettings = new AppSettings(activity);
-        final boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
-        final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
-        final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
+
         baseConf(activity, dopt);
-        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth, (Callback.a1<List<String>>) searchResults -> {
-            dopt.callback = callback;
-            dopt.isSearchEnabled = true;
-            dopt.data = searchResults;
-            dopt.cancelButtonText = R.string.close;
-            dopt.titleText = R.string.select;
-            dopt.messageText = null;
-            if (dopt.data.isEmpty()) {
-                dopt.messageText = "     ¯\\_(ツ)_/¯     ";
-            }
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-        });
+        dopt.callback = query -> {
+            AppSettings appSettings = new AppSettings(activity);
+            final boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
+            final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
+            final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
+            SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth);
+
+            SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
+                dopt.callback = callback;
+                dopt.isSearchEnabled = true;
+                dopt.data = searchResults;
+                dopt.cancelButtonText = R.string.close;
+                dopt.titleText = R.string.select;
+                dopt.messageText = null;
+                if (dopt.data.isEmpty()) {
+                    dopt.messageText = "     ¯\\_(ツ)_/¯     ";
+                }
+                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+            });
+        };
         dopt.titleText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
