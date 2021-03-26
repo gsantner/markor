@@ -49,16 +49,12 @@ import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -324,25 +320,30 @@ public class SearchOrCustomTextDialog {
     }
 
 
-    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, boolean isSearchInFiles, Callback.a1<List<String>> callback) {
+    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Callback.a1<List<String>> callback) {
         query = query.replaceAll("(?<![.])[*]", ".*");
-        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"), isSearchInFiles);
+        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"), isSearchInFiles, isShowResultOnCancel);
         task.execute();
         return task;
     }
 
-    public static class SearchFilesTask extends AsyncTask<Void, File, List<String>> {
+    public static class SearchFilesTask extends AsyncTask<Void, Integer, List<String>> {
         private final Callback.a1<List<String>> _callback;
         private final File _searchDir;
         private final String _query;
         private final boolean _isRegex;
         private final boolean _isSearchInFiles;
+        private final boolean _isShowResultOnCancel;
         private final WeakReference<Activity> _activityRef;
 
         private final Pattern _regex;
         private Snackbar _snackBar;
+        private Integer _countCheckedFiles;
+        private Integer _queueLength;
+        private boolean _isCanceled;
+        private List<String> _result;
 
-        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex, boolean isSearchInFiles) {
+        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex, boolean isSearchInFiles, boolean isShowResultOnCancel) {
             _searchDir = searchDir;
             _query = isRegex ? query : query.toLowerCase();
             _callback = callback;
@@ -350,6 +351,10 @@ public class SearchOrCustomTextDialog {
             _isSearchInFiles = isSearchInFiles;
             _regex = isRegex ? Pattern.compile(_query) : null;
             _activityRef = new WeakReference<>(activity);
+            _countCheckedFiles = 0;
+            _isShowResultOnCancel = isShowResultOnCancel;
+            _isCanceled = false;
+            _result = new ArrayList<>();
         }
 
         @Override
@@ -359,44 +364,60 @@ public class SearchOrCustomTextDialog {
                 _snackBar = Snackbar.make(_activityRef.get().findViewById(android.R.id.content), _query + "...", Snackbar.LENGTH_INDEFINITE);
                 _snackBar.setAction(android.R.string.cancel, (v) -> {
                     _snackBar.dismiss();
-                    cancel(true);
+                    preCancel();
                 }).show();
             }
         }
 
-        private List<String> getFilesByEqualsFileNames(File currentDir){
-            List<String> ret = new ArrayList<>();
+        private void preCancel(){
+            if(_isShowResultOnCancel){
+                _isCanceled = true;
+                return;
+            }
+
+            cancel(true);
+        }
+
+        private void getFilesByEqualsFileNames(File currentDir){
             try {
+                if(!currentDir.canRead() || currentDir.isFile()){
+                    return;
+                }
+
                 File[] files = currentDir.listFiles();
 
                 for (int i = 0; i < files.length; i++) {
+                    if(isCancelled() || _isCanceled){
+                        break;
+                    }
 
+                    _countCheckedFiles++;
                     File file = files[i];
                     String fileName = file.getName();
                     boolean isMatch = _isRegex ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_query);
 
                     if(isMatch){
                         String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
-                        ret.add(path);
+                        _result.add(path);
                     };
                 }
             } catch (Exception ex){
                 ;
             }
-
-            return ret;
         }
 
         private boolean isFileContainSearchQuery(File file){
             boolean ret = false;
 
-            if(file.isDirectory() || !file.exists()){
+            if(!file.canRead() || file.isDirectory()){
                 return ret;
             }
 
-
             try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
                 for(String line; (line = br.readLine()) != null; ) {
+                    if(isCancelled() || _isCanceled){
+                        break;
+                    }
                     boolean isMatch = _isRegex ? _regex.matcher(line).matches() : line.toLowerCase().contains(_query);
                     if(isMatch){
                         ret = true;
@@ -411,43 +432,55 @@ public class SearchOrCustomTextDialog {
             return ret;
         }
 
-        private List<String> getFilesByContext(File currentDir){
-            List<String> ret = new ArrayList<>();
-
+        private void getFilesByContext(File currentDir){
             try{
+                if(!currentDir.canRead()){
+                    return;
+                }
+
                 File[] files = currentDir.listFiles();
 
                 for (int i = 0; i < files.length; i++) {
+                    if(isCancelled() || _isCanceled){
+                        break;
+                    }
+
                     File file = files[i];
-                    if(file.isDirectory()){
+                    _countCheckedFiles++;
+                    publishProgress(_queueLength, _result.size(), _countCheckedFiles);
+                    if(!file.canRead() || file.isDirectory()){
                         continue;
                     }
 
                     if(isFileContainSearchQuery(file)){
                         String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
-                        ret.add(path);
+                        _result.add(path);
                     }
                 }
             } catch (Exception ex){
                 ;
             }
-
-            return ret;
         }
 
         @Override
         protected List<String> doInBackground(Void... voidp) {
-            List<String> ret = new ArrayList<>();
             Queue<File> queue = new LinkedList<File>();
             queue.add(_searchDir);
 
-            while (!queue.isEmpty() && !isCancelled()){
+
+            while (!queue.isEmpty() && !isCancelled() && !_isCanceled) {
+                _queueLength = queue.size();
+                publishProgress(_queueLength, _result.size(), _countCheckedFiles);
                 File currentDirectory = queue.remove();
 
-                ret.addAll(getFilesByEqualsFileNames(currentDirectory));
+                if(!currentDirectory.canRead() || currentDirectory.isFile()){
+                    continue;
+                }
+
+                getFilesByEqualsFileNames(currentDirectory);
 
                 if(_isSearchInFiles){
-                    ret.addAll(getFilesByContext(currentDirectory));
+                    getFilesByContext(currentDirectory);
                 }
 
                 try{
@@ -455,16 +488,36 @@ public class SearchOrCustomTextDialog {
                     for(int i = 0; i < files.length; i++){
                         File file = files[i];
 
-                        if(file.isDirectory()){
-                            queue.add(file);
+                        if(!file.canRead() || file.isFile()){
+                            continue;
                         }
+
+                        queue.add(file);
                     }
+
+                    _queueLength = queue.size();
+                    publishProgress(_queueLength, _result.size(), _countCheckedFiles);
                 } catch (Exception ex){
                     ;
                 }
             }
 
-            return ret;
+            if(_isCanceled && _result.size() == 0){
+                cancel(true);
+            }
+
+            return _result;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            Integer queueLength = values[0];
+            Integer filesFound = values[1];
+            Integer countCheckedFiles = values[2];
+            String snackBarText = _query + "...(" + filesFound + ") qu:" + queueLength + " c:" + countCheckedFiles;
+            _snackBar.setText( snackBarText);
         }
 
         @Override

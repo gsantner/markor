@@ -580,6 +580,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
+    public boolean isShowSearchResultOnCancel() {
+        return getBool(R.string.pref_key__is_show_search_result_on_cancel_enabled, true);
+    }
+
     public @IdRes
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);

@@ -111,6 +111,12 @@
                 android:key="@string/pref_key__is_search_in_files_enabled"
                 android:summary="@string/search_in_files_summary"
                 android:title="@string/search_in_files" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_search_black_24dp"
+                android:key="@string/pref_key__is_show_search_result_on_cancel_enabled"
+                android:summary="@string/show_search_result_on_cancel_summary"
+                android:title="@string/show_search_result_on_cancel" />
         </PreferenceCategory>
 
     </PreferenceScreen>

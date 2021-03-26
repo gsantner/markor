@@ -414,5 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="searchCategory">Search</string>
     <string name="search_in_files">Search in files</string>
-    <string name="search_in_files_summary">Search in files by context. </string>
+    <string name="search_in_files_summary">Search in files by context.</string>
+    <string name="show_search_result_on_cancel">Show result on cancel</string>
+    <string name="show_search_result_on_cancel_summary">If a result is not empty you can get the result if you press a cancel button.</string>
+
 </resources>
