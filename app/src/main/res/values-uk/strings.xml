@@ -395,4 +395,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Збіги</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
     <string name="newline_is_new_paragraph">Новий рядок = новий абзац</string>
+
+    <string name="searchCategory">Пошук</string>
+    <string name="search_in_files">Пошук у файлах</string>
+    <string name="search_in_files_summary">Дозволити шукати у файлах.</string>
 </resources>

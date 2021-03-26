@@ -269,6 +269,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jekyll_post" translatable="false">Jekyll Post</string>
     <string name="zim_wiki" translatable="false">Zim Wiki</string>
     <string name="pref_key__is_multi_window_enabled" translatable="false">pref_key__is_multi_window_enabled</string>
+    <string name="pref_key__is_search_in_files_enabled" translatable="false">pref_key__is_search_in_files_enabled</string>
     <string name="pref_key__is_enable_experimental_features" translatable="false">pref_key__is_enable_experimental_features</string>
     <string name="pref_key__app_start_tab_v2" translatable="false">pref_key__app_start_tab_v2</string>
     <string name="pref_key__app_start_folder" translatable="false">pref_key__app_start_folder</string>

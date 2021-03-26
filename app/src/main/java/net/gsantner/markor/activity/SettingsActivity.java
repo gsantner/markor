@@ -198,6 +198,7 @@ public class SettingsActivity extends AppActivityBase {
                 updateSummary(R.string.pref_key__file_description_format, _appSettings.getString(R.string.pref_key__file_description_format, ""));
             }
 
+            setPreferenceVisible(R.string.pref_key__is_search_in_files_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
             setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && _as.hasPasswordBeenSetOnce()) {

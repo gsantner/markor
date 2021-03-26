@@ -411,4 +411,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
+
+    <string name="searchCategory">Search</string>
+    <string name="search_in_files">Search in files</string>
+    <string name="search_in_files_summary">Search in files by context. </string>
 </resources>

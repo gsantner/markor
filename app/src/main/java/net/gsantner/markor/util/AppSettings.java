@@ -572,6 +572,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
+    public boolean isSearchInFilesEnabled() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return getBool(R.string.pref_key__is_search_in_files_enabled, true);
+        } else {
+            return false;
+        }
+    }
+
     public @IdRes
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);

@@ -121,8 +121,10 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        AppSettings appSettings = new AppSettings(activity);
+        boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
         baseConf(activity, dopt);
-        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
+        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, isSearchInFiles, (Callback.a1<List<String>>) searchResults -> {
             dopt.callback = callback;
             dopt.isSearchEnabled = true;
             dopt.data = searchResults;

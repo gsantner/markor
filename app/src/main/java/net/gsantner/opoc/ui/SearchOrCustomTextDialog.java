@@ -324,9 +324,9 @@ public class SearchOrCustomTextDialog {
     }
 
 
-    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback) {
+    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, boolean isSearchInFiles, Callback.a1<List<String>> callback) {
         query = query.replaceAll("(?<![.])[*]", ".*");
-        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"));
+        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"), isSearchInFiles);
         task.execute();
         return task;
     }
@@ -336,16 +336,18 @@ public class SearchOrCustomTextDialog {
         private final File _searchDir;
         private final String _query;
         private final boolean _isRegex;
+        private final boolean _isSearchInFiles;
         private final WeakReference<Activity> _activityRef;
 
         private final Pattern _regex;
         private Snackbar _snackBar;
 
-        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex) {
+        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex, boolean isSearchInFiles) {
             _searchDir = searchDir;
             _query = isRegex ? query : query.toLowerCase();
             _callback = callback;
             _isRegex = isRegex;
+            _isSearchInFiles = isSearchInFiles;
             _regex = isRegex ? Pattern.compile(_query) : null;
             _activityRef = new WeakReference<>(activity);
         }
@@ -418,7 +420,7 @@ public class SearchOrCustomTextDialog {
         private boolean isFileContainSearchQuery(File file){
             boolean ret = false;
 
-            if(file.isDirectory()){
+            if(file.isDirectory() || !file.exists()){
                 return ret;
             }
 
@@ -469,13 +471,12 @@ public class SearchOrCustomTextDialog {
             Queue<File> queue = new LinkedList<File>();
             queue.add(_searchDir);
 
-            boolean isSearchInFiles = true;
             while (!queue.isEmpty()){
                 File currentDirectory = queue.remove();
 
                 ret.addAll(getFilesByEqualsFileNames(currentDirectory));
 
-                if(isSearchInFiles){
+                if(_isSearchInFiles){
                     ret.addAll(getFilesByContext(currentDirectory));
                 }
 
