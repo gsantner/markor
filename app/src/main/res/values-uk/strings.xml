@@ -401,5 +401,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_files_summary">Дозволити шукати у файлах.</string>
     <string name="show_search_result_on_cancel">Залишити результат при скасувані</string>
     <string name="show_search_result_on_cancel_summary">Показує результат пошуку, якщо він не порожній, при натисненні на кнопку скасувати.</string>
+    <string name="max_search_depth">Глубина пошуку</string>
 
 </resources>

@@ -124,8 +124,9 @@ public class SearchOrCustomTextDialogCreator {
         AppSettings appSettings = new AppSettings(activity);
         final boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
         final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
+        final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
         baseConf(activity, dopt);
-        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, (Callback.a1<List<String>>) searchResults -> {
+        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth, (Callback.a1<List<String>>) searchResults -> {
             dopt.callback = callback;
             dopt.isSearchEnabled = true;
             dopt.data = searchResults;

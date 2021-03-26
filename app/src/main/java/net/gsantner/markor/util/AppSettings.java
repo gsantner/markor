@@ -584,6 +584,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_show_search_result_on_cancel_enabled, true);
     }
 
+    public Integer getSearchMaxDepth() {
+        Integer depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
+
+        if(depth == 0){
+            return Integer.MAX_VALUE;
+        }
+
+        return depth;
+    }
+
     public @IdRes
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);

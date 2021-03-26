@@ -320,9 +320,9 @@ public class SearchOrCustomTextDialog {
     }
 
 
-    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Callback.a1<List<String>> callback) {
+    public static SearchFilesTask recursiveFileSearch(Activity activity, File searchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Integer maxSearchDepth, Callback.a1<List<String>> callback) {
         query = query.replaceAll("(?<![.])[*]", ".*");
-        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"), isSearchInFiles, isShowResultOnCancel);
+        SearchFilesTask task = new SearchFilesTask(activity, searchDir, query, callback, query.startsWith("^") || query.contains("*"), isSearchInFiles, isShowResultOnCancel, maxSearchDepth);
         task.execute();
         return task;
     }
@@ -334,6 +334,7 @@ public class SearchOrCustomTextDialog {
         private final boolean _isRegex;
         private final boolean _isSearchInFiles;
         private final boolean _isShowResultOnCancel;
+        private final Integer _maxSearchDepth;
         private final WeakReference<Activity> _activityRef;
 
         private final Pattern _regex;
@@ -341,9 +342,10 @@ public class SearchOrCustomTextDialog {
         private Integer _countCheckedFiles;
         private Integer _queueLength;
         private boolean _isCanceled;
+        private Integer _searchDepth;
         private List<String> _result;
 
-        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex, boolean isSearchInFiles, boolean isShowResultOnCancel) {
+        public SearchFilesTask(Activity activity, File searchDir, String query, Callback.a1<List<String>> callback, boolean isRegex, boolean isSearchInFiles, boolean isShowResultOnCancel, Integer maxSearchDepth) {
             _searchDir = searchDir;
             _query = isRegex ? query : query.toLowerCase();
             _callback = callback;
@@ -355,6 +357,8 @@ public class SearchOrCustomTextDialog {
             _isShowResultOnCancel = isShowResultOnCancel;
             _isCanceled = false;
             _result = new ArrayList<>();
+            _searchDepth = 0;
+            _maxSearchDepth = maxSearchDepth;
         }
 
         @Override
@@ -397,7 +401,7 @@ public class SearchOrCustomTextDialog {
                     boolean isMatch = _isRegex ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_query);
 
                     if(isMatch){
-                        String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
+                        String path = file.getCanonicalPath().replace(_searchDir.getCanonicalPath() + "/", "");
                         _result.add(path);
                     };
                 }
@@ -447,13 +451,13 @@ public class SearchOrCustomTextDialog {
 
                     File file = files[i];
                     _countCheckedFiles++;
-                    publishProgress(_queueLength, _result.size(), _countCheckedFiles);
+                    publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
                     if(!file.canRead() || file.isDirectory()){
                         continue;
                     }
 
                     if(isFileContainSearchQuery(file)){
-                        String path = file.getAbsolutePath().replace(_searchDir.getAbsolutePath() + "/", "");
+                        String path = file.getCanonicalPath().replace(_searchDir.getCanonicalPath() + "/", "");
                         _result.add(path);
                     }
                 }
@@ -467,11 +471,12 @@ public class SearchOrCustomTextDialog {
             Queue<File> queue = new LinkedList<File>();
             queue.add(_searchDir);
 
-
-            while (!queue.isEmpty() && !isCancelled() && !_isCanceled) {
+            while (!queue.isEmpty() && !isCancelled() && !_isCanceled && _searchDepth <= _maxSearchDepth) {
+                _searchDepth++;
                 _queueLength = queue.size();
-                publishProgress(_queueLength, _result.size(), _countCheckedFiles);
+                publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
                 File currentDirectory = queue.remove();
+
 
                 if(!currentDirectory.canRead() || currentDirectory.isFile()){
                     continue;
@@ -492,11 +497,17 @@ public class SearchOrCustomTextDialog {
                             continue;
                         }
 
+                        // ignore symbolic links
+                        File parentFile =  file.getCanonicalFile().getParentFile();
+                        if(parentFile == null || !currentDirectory.getCanonicalPath().equals(parentFile.getCanonicalPath())){
+                            continue;
+                        }
+
                         queue.add(file);
                     }
 
                     _queueLength = queue.size();
-                    publishProgress(_queueLength, _result.size(), _countCheckedFiles);
+                    publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
                 } catch (Exception ex){
                     ;
                 }
@@ -514,10 +525,11 @@ public class SearchOrCustomTextDialog {
             super.onProgressUpdate(values);
 
             Integer queueLength = values[0];
-            Integer filesFound = values[1];
-            Integer countCheckedFiles = values[2];
-            String snackBarText = _query + "...(" + filesFound + ") qu:" + queueLength + " c:" + countCheckedFiles;
-            _snackBar.setText( snackBarText);
+            Integer queueDepth = values[1];
+            Integer filesFound = values[2];
+            Integer countCheckedFiles = values[3];
+            String snackBarText = _query + "...(" + filesFound + ") qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles;
+            _snackBar.setText(snackBarText);
         }
 
         @Override

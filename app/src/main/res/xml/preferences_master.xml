@@ -107,16 +107,25 @@
         <PreferenceCategory android:title="@string/searchCategory">
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_search_black_24dp"
+                android:icon="@drawable/ic_baseline_plagiarism_24"
                 android:key="@string/pref_key__is_search_in_files_enabled"
                 android:summary="@string/search_in_files_summary"
                 android:title="@string/search_in_files" />
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_search_black_24dp"
+                android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__is_show_search_result_on_cancel_enabled"
                 android:summary="@string/show_search_result_on_cancel_summary"
                 android:title="@string/show_search_result_on_cancel" />
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/max_search_depth"
+                android:entries="@array/pref_arrdisp__search_depth"
+                android:entryValues="@array/pref_arrkeys__search_depth"
+                android:icon="@drawable/ic_baseline_account_tree_24"
+                android:key="@string/pref_key__max_search_depth"
+                android:summary="%1$s"
+                android:title="@string/max_search_depth" />
         </PreferenceCategory>
 
     </PreferenceScreen>
