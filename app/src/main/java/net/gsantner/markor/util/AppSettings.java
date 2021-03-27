@@ -784,7 +784,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean isDefaultPasswordSet() {
-        final char[] key = new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password);
+        final char[] key = getDefaultPassword();
         return (key != null && key.length > 0);
     }
 
