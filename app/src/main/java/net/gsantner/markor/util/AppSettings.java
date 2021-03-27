@@ -31,14 +31,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
@@ -60,6 +59,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public static AppSettings get() {
         return new AppSettings(App.get());
     }
+
 
     public void setDarkThemeEnabled(boolean enabled) {
         setString(R.string.pref_key__app_theme, enabled ? "dark" : "light");
@@ -387,7 +387,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (!fexists(path)) {
             return _default;
         } else {
-            final Integer value = getInt(PREF_PREFIX_FILE_FORMAT + path, -1);
+            final int value = getInt(PREF_PREFIX_FILE_FORMAT + path, -1);
             // Get index in FORMATS
             if (value >= 0 && value < TextFormat.FORMATS.length) {
                 return TextFormat.FORMATS[value];
@@ -459,12 +459,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     private List<String> getPopularDocumentsSorted() {
         List<String> popular = getRecentDocuments();
-        Collections.sort(popular, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache));
-            }
-        });
+        Collections.sort(popular, (o1, o2) -> Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache)));
         return popular;
     }
 
@@ -783,9 +778,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public String getPassword() {
+    public String getDefaultPassword() {
         final char[] pass = new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password);
         return (pass == null) ? null : new String(pass);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setDefaultPassword(String password) {
+        new PasswordStore(getContext()).storeKey(password, R.string.pref_key__default_encryption_password);
     }
 
     public boolean getNewFileDialogLastUsedEncryption() {

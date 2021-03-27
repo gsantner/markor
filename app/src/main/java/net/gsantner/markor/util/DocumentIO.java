@@ -256,7 +256,7 @@ public class DocumentIO {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private static char[] getPasswordWithWarning(final Context context) {
-        final String pw = new AppSettings(context).getPassword();
+        final String pw = new AppSettings(context).getDefaultPassword();
         if (TextUtils.isEmpty(pw)) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
