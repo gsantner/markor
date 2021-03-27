@@ -594,6 +594,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return depth;
     }
 
+    public List<String> getIgnoredDirectoriesForSearch() {
+        List<String> ignoredDirs;
+        String pref = getString(R.string.pref_key__ignored_directories_for_search, "");
+        ignoredDirs = Arrays.asList(pref.split("\\|"));
+
+        return ignoredDirs;
+    }
+
+
     public @IdRes
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);

@@ -129,7 +129,8 @@ public class SearchOrCustomTextDialogCreator {
             final boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
-            SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth);
+            final List<String> ignoredDirs = appSettings.getIgnoredDirectoriesForSearch();
+            SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth, ignoredDirs);
 
             SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
                 dopt.callback = callback;
