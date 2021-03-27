@@ -40,8 +40,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import other.de.stanetz.jpencconverter.PasswordStore;
-
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
@@ -453,19 +451,19 @@ public class SearchOrCustomTextDialogCreator {
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
-            final boolean hasPassword = !TextUtils.isEmpty(as.getPassword());
+            final boolean hasPassword = as.isDefaultPasswordSet();
             dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
                 if (!TextUtils.isEmpty(password)) {
-                    final String key = activity.getString(R.string.pref_key__default_encryption_password);
-                    new PasswordStore(activity).storeKey(password, key, PasswordStore.SecurityMode.NONE);
+                    AppSettings.get().setDefaultPassword(password);
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }
             };
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         }
     }
+
 
     private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {
         Set<String> uniq = new HashSet<>(data);
