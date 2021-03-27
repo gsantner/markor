@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 
 
 public class SearchEngine {
+    public static boolean isExecuting = false;
+
     public static class Config {
         private final boolean _isRegexQuery;
         private final List<Pattern> _ignoredRegexDirs;
@@ -134,16 +136,6 @@ public class SearchEngine {
         }
 
 
-        private void preCancel(){
-            if(_config.IsShowResultOnCancel){
-                _isCanceled = true;
-                return;
-            }
-
-            cancel(true);
-        }
-
-
         @Override
         protected List<String> doInBackground(Void... voidp) {
             Queue<File> queue = new LinkedList<File>();
@@ -210,6 +202,13 @@ public class SearchEngine {
         }
 
 
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+
+            SearchEngine.isExecuting = false;
+        }
+
         private Integer GetDirectoryDepth(File parentDir, File childDir){
             String parentPath = parentDir.getAbsolutePath();
             String childPath = childDir.getAbsolutePath();
@@ -219,6 +218,16 @@ public class SearchEngine {
 
             String res = childPath.replace(parentPath, "");
             return res.split("/").length;
+        }
+
+
+        private void preCancel(){
+            if(_config.IsShowResultOnCancel){
+                _isCanceled = true;
+                return;
+            }
+
+            cancel(true);
         }
 
 
