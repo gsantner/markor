@@ -189,6 +189,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_search_in_content"
+        android:icon="@drawable/ic_baseline_plagiarism_24"
+        android:title="@string/search_in_content"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_import"
         android:icon="@drawable/ic_file_white_24dp"
         android:title="@string/import_from_device"

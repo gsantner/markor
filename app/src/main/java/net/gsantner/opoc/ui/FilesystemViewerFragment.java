@@ -402,15 +402,15 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
             case R.id.action_search: {
-                final File currentFolder = getCurrentFolder();
-                SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, relFilePath -> {
-                    File load = new File(currentFolder, relFilePath);
-                    if (load.isDirectory()) {
-                        _filesystemViewerAdapter.loadFolder(load);
-                    } else {
-                        onFsViewerSelected("", load);
-                    }
-                });
+                final boolean isSearchInContent = false;
+                executeSearchAction(isSearchInContent);
+
+                return true;
+            }
+            case R.id.action_search_in_content: {
+                final boolean isSearchInContent = true;
+                executeSearchAction(isSearchInContent);
+
                 return true;
             }
             case R.id.action_folder_first: {
@@ -508,6 +508,18 @@ public class FilesystemViewerFragment extends GsFragmentBase
         }
 
         return false;
+    }
+
+    private void executeSearchAction(boolean isSearchInContent){
+        final File currentFolder = getCurrentFolder();
+        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, isSearchInContent, relFilePath -> {
+            File load = new File(currentFolder, relFilePath);
+            if (load.isDirectory()) {
+                _filesystemViewerAdapter.loadFolder(load);
+            } else {
+                onFsViewerSelected("", load);
+            }
+        });
     }
 
     public static Comparator<File> sortFolder(List<File> filesToSort) {

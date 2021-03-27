@@ -120,7 +120,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, boolean isSearchInContent, Callback.a1<String> callback) {
         if(SearchEngine.isExecuting){
             return;
         }
@@ -131,12 +131,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.callback = query -> {
             SearchEngine.isExecuting = true;
             AppSettings appSettings = new AppSettings(activity);
-            final boolean isSearchInFiles = appSettings.isSearchInFilesEnabled();
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
-            SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInFiles, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles);
+            SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInContent, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles);
 
             SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
                 SearchEngine.isExecuting = false;
@@ -152,7 +151,7 @@ public class SearchOrCustomTextDialogCreator {
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
             });
         };
-        dopt.titleText = R.string.search;
+        dopt.titleText = isSearchInContent ? R.string.search_in_content : R.string.search;
         dopt.isSearchEnabled = true;
         dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
         dopt.searchHintText = R.string.search;

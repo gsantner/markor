@@ -75,12 +75,6 @@
 
 
         <PreferenceCategory android:title="@string/searchCategory">
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_baseline_plagiarism_24"
-                android:key="@string/pref_key__is_search_in_files_enabled"
-                android:summary="@string/search_in_files_summary"
-                android:title="@string/search_in_files" />
             <ListPreference
                 android:defaultValue="0"
                 android:dialogTitle="@string/max_search_depth"

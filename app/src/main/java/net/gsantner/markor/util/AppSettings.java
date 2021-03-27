@@ -572,14 +572,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public boolean isSearchInFilesEnabled() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return getBool(R.string.pref_key__is_search_in_files_enabled, true);
-        } else {
-            return false;
-        }
-    }
-
     public boolean isShowSearchResultOnCancel() {
         return getBool(R.string.pref_key__is_show_search_result_on_cancel_enabled, true);
     }
