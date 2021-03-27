@@ -451,7 +451,7 @@ public class SearchOrCustomTextDialogCreator {
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
-            final boolean hasPassword = !TextUtils.isEmpty(as.getDefaultPassword());
+            final boolean hasPassword = as.isDefaultPasswordSet();
             dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
