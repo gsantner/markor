@@ -418,8 +418,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_search_result_on_cancel">Show result on cancel</string>
     <string name="show_search_result_on_cancel_summary">If a result is not empty you can get the result if you press a cancel button.</string>
     <string name="max_search_depth">Search depth</string>
-    <string name="ignored_directories_for_search">Ignored directories</string>
-    <string name="ignored_directories_for_search_dialog">Ignore folder names for search.\nUse separator \'|\'.\nUse quotes for exact dir names: \"test\"|\"Test\".\nOr use Regex \'^[.].*\'\nExample: ^\\..*|\"test\"|\"Test\"|.*secret.*\n</string>
+    <string name="ignored_search_dir_names">Ignored directory names</string>
+    <string name="ignored_search_dir_names_dialog">Ignore folder names for search.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*</string>
+    <string name="ignored_search_file_names">Ignored file names</string>
+    <string name="ignored_search_file_names_dialog">Ignore file names for search.\nUse new line as separator.\nUse quotes for exact file names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
 
 
 </resources>

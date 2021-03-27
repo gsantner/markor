@@ -594,12 +594,20 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return depth;
     }
 
-    public List<String> getIgnoredDirectoriesForSearch() {
+    public List<String> getIgnoredSearchDirNames() {
         List<String> ignoredDirs;
-        String pref = getString(R.string.pref_key__ignored_directories_for_search, "");
-        ignoredDirs = Arrays.asList(pref.split("\\|"));
+        String pref = getString(R.string.pref_key__ignored_search_dir_names, "");
+        ignoredDirs =  Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
 
         return ignoredDirs;
+    }
+
+    public List<String> getIgnoredSearchFileNames() {
+        List<String> ignoredFiles;
+        String pref = getString(R.string.pref_key__ignored_search_file_names, "");
+        ignoredFiles = Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
+
+        return ignoredFiles;
     }
 
 

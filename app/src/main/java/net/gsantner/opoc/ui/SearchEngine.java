@@ -23,9 +23,11 @@ import java.util.regex.Pattern;
 
 public class SearchEngine {
     public static class Config {
-        private final boolean _isRegex;
+        private final boolean _isRegexQuery;
         private final List<Pattern> _ignoredRegexDirs;
         private final List<String> _ignoredExactDirs;
+        private final List<Pattern> _ignoredRegexFiles;
+        private final List<String> _ignoredExactFiles;
 
         public final Activity Activity;
         public final File RootSearchDir;
@@ -34,39 +36,50 @@ public class SearchEngine {
         public final boolean IsShowResultOnCancel;
         public final Integer MaxSearchDepth;
         public final List<String> IgnoredDirectories;
+        public final List<String> IgnoredFiles;
 
-        public Config(Activity activity, File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Integer maxSearchDepth, List<String> ignoredDirectories){
+        public Config(Activity activity, File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Integer maxSearchDepth, List<String> ignoredDirectories, List<String> ignoredFiles){
             Activity = activity;
             RootSearchDir = rootSearchDir;
             IsSearchInFiles = isSearchInFiles;
             IsShowResultOnCancel = isShowResultOnCancel;
             MaxSearchDepth = maxSearchDepth;
             IgnoredDirectories = ignoredDirectories;
+            IgnoredFiles = ignoredFiles;
 
             _ignoredExactDirs = new ArrayList<String>();
             _ignoredRegexDirs = new ArrayList<Pattern>();
-            for (Integer i = 0; i < IgnoredDirectories.size(); i++) {
-                String dir = IgnoredDirectories.get(i);
-                if(dir.isEmpty()){
+            splitRegexExactFiles(IgnoredFiles, _ignoredExactDirs, _ignoredRegexDirs);
+
+            _ignoredExactFiles = new ArrayList<String>();
+            _ignoredRegexFiles = new ArrayList<Pattern>();
+            splitRegexExactFiles(IgnoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
+
+
+            query = query.replaceAll("(?<![.])[*]", ".*");
+            _isRegexQuery = query.startsWith("^") || query.contains("*");
+            Query = _isRegexQuery ? query : query.toLowerCase();
+        }
+
+        private void splitRegexExactFiles(List<String> list, List<String> exactList, List<Pattern> regexList){
+            for (Integer i = 0; i < list.size(); i++) {
+                String pattern = list.get(i);
+                if(pattern.isEmpty()){
                     continue;
                 }
 
-                if(dir.startsWith("\"")){
-                    dir = dir.replace("\"", "");
-                    if(dir.isEmpty()){
+                if(pattern.startsWith("\"")){
+                    pattern = pattern.replace("\"", "");
+                    if(pattern.isEmpty()){
                         continue;
                     }
-                    _ignoredExactDirs.add(dir);
+                    exactList.add(pattern);
                 }
                 else{
-                    dir = dir.replaceAll("(?<![.])[*]", ".*");
-                    _ignoredRegexDirs.add(Pattern.compile(dir));
+                    pattern = pattern.replaceAll("(?<![.])[*]", ".*");
+                    regexList.add(Pattern.compile(pattern));
                 }
             }
-
-            query = query.replaceAll("(?<![.])[*]", ".*");
-            _isRegex = query.startsWith("^") || query.contains("*");
-            Query = _isRegex ? query : query.toLowerCase();
         }
     }
 
@@ -96,7 +109,7 @@ public class SearchEngine {
         public QueueSearchFilesTask(SearchEngine.Config config, Callback.a1<List<String>> callback) {
             _config = config;
             _callback = callback;
-            _regex = _config._isRegex ? Pattern.compile(_config.Query) : null;
+            _regex = _config._isRegexQuery ? Pattern.compile(_config.Query) : null;
             _activityRef = new WeakReference<>(_config.Activity);
 
             _countCheckedFiles = 0;
@@ -146,7 +159,7 @@ public class SearchEngine {
                 if(_searchDepth > _config.MaxSearchDepth){
                     break;
                 }
-                _queueLength = queue.size();
+                _queueLength = queue.size()+1;
                 publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
 
                 getFilesByEqualsFileNames(currentDirectory);
@@ -255,12 +268,19 @@ public class SearchEngine {
 
                     _countCheckedFiles++;
                     File file = files[i];
-                    if(file.isDirectory() && isFolderIgnored(file)){
-                        continue;
+                    if(file.isDirectory()){
+                        if(isFolderIgnored(file)){
+                            continue;
+                        }
+                    }
+                    else{
+                        if(isFileIgnored(file)){
+                            continue;
+                        }
                     }
 
                     String fileName = file.getName();
-                    boolean isMatch = _config._isRegex ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_config.Query);
+                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_config.Query);
 
                     if(isMatch){
                         String path = file.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
@@ -290,8 +310,7 @@ public class SearchEngine {
                     _countCheckedFiles++;
                     publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
 
-
-                    if(!file.canRead() || file.isDirectory()){
+                    if(!file.canRead() || file.isDirectory() || isFileIgnored(file)){
                         continue;
                     }
 
@@ -318,7 +337,7 @@ public class SearchEngine {
                     if(isCancelled() || _isCanceled){
                         break;
                     }
-                    boolean isMatch = _config._isRegex ? _regex.matcher(line).matches() : line.toLowerCase().contains(_config.Query);
+                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(line).matches() : line.toLowerCase().contains(_config.Query);
                     if(isMatch){
                         ret = true;
                         break;
@@ -337,7 +356,7 @@ public class SearchEngine {
             String dirName = directory.getName();
 
             for(Integer i = 0; i < _config._ignoredExactDirs.size(); i++){
-                String ignored = _config._ignoredExactDirs.get(0);
+                String ignored = _config._ignoredExactDirs.get(i);
 
                 if(dirName.equals(ignored)){
                     return true;
@@ -345,9 +364,32 @@ public class SearchEngine {
             }
 
             for(Integer i = 0; i < _config._ignoredRegexDirs.size(); i++){
-                Pattern ignored = _config._ignoredRegexDirs.get(0);
+                Pattern ignored = _config._ignoredRegexDirs.get(i);
 
                 if(ignored.matcher(dirName).matches()){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        private boolean isFileIgnored(File file){
+            String fileName = file.getName();
+
+            for(Integer i = 0; i < _config._ignoredExactFiles.size(); i++){
+                String ignored = _config._ignoredExactFiles.get(i);
+
+                if(fileName.equals(ignored)){
+                    return true;
+                }
+            }
+
+            for(Integer i = 0; i < _config._ignoredRegexFiles.size(); i++){
+                Pattern ignored = _config._ignoredRegexFiles.get(i);
+
+                if(ignored.matcher(fileName).matches()){
                     return true;
                 }
             }

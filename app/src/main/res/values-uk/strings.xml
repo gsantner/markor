@@ -402,7 +402,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_search_result_on_cancel">Залишити результат при скасувані</string>
     <string name="show_search_result_on_cancel_summary">Показує результат пошуку, якщо він не порожній, при натисненні на кнопку скасувати.</string>
     <string name="max_search_depth">Глубина пошуку</string>
-    <string name="ignored_directories_for_search">Інорувати директорії</string>
-    <string name="ignored_directories_for_search_dialog">Інорування каталогу з вказаними іменами. Використовуйте розділювач \'|\'. Використовуйте лапки для точного співпадіння: \"test\"|\"Test\". Або Regex:^\\..*|\"test\"|\"Test\"</string>
-
+    <string name="ignored_search_dir_names">Інорувати директорії</string>
+    <string name="ignored_search_dir_names_dialog">Інорування каталогу з вказаними іменами.\nВикористовуйте рядок як розділювач.\nВикористовуйте лапки для точного співпадіння: \"Test\".\nАбо Regex:^\\..*\n\"test\"\n\"Test\"</string>
+    <string name="ignored_search_file_names">Ігнорувати файли</string>
+    <string name="ignored_search_file_names_dialog">Інорування файлів з вказаними іменами.\nВикористовуйте рядок як розділювач.\nВикористовуйте лапки для точного співпадіння: \"test\".\nАбо Regex: \'^[.].*\'\nЗразок: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
 </resources>
