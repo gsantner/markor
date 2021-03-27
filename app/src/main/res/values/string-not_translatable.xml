@@ -322,6 +322,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_search_in_files_enabled" translatable="false">pref_key__is_search_in_files_enabled</string>
     <string name="pref_key__is_show_search_result_on_cancel_enabled" translatable="false">pref_key__is_show_search_result_on_cancel_enabled</string>
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
-    <string name="pref_key__ignored_search_dir_names" translatable="false">ignored_search_dir_names</string>
-    <string name="pref_key__ignored_search_file_names" translatable="false">ignored_search_file_names</string>
+    <string name="pref_key__ignored_search_dir_names" translatable="false">pref_key__ignored_search_dir_names</string>
+    <string name="pref_key__ignored_search_file_names" translatable="false">pref_key__ignored_search_file_names</string>
 </resources>
