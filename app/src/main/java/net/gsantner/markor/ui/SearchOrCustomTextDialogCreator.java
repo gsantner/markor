@@ -154,7 +154,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = isSearchInContent ? R.string.search_in_content : R.string.search;
         dopt.isSearchEnabled = true;
         dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
-        dopt.searchHintText = R.string.search;
+        dopt.searchHintText = isSearchInContent ? R.string.search_in_content : R.string.search;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

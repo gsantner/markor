@@ -588,7 +588,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public List<String> getIgnoredSearchDirNames() {
         List<String> ignoredDirs;
-        String pref = getString(R.string.pref_key__ignored_search_dir_names, "");
+        String defaultValue = "^\\.git$\n^\\.thumbnails$";
+        String pref = getString(R.string.pref_key__ignored_search_dir_names, defaultValue);
         ignoredDirs =  Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
 
         return ignoredDirs;
