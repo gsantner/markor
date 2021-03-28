@@ -23,6 +23,13 @@ import java.util.regex.Pattern;
 
 public class SearchEngine {
     public static boolean isExecuting = false;
+    public final static Pattern[] defaultIgnoredDirs = {
+            Pattern.compile("^\\.git$"),
+            Pattern.compile(".*[Tt]humb.*")
+    };
+    public final static Pattern[] defaultIgnoredFiles = {
+
+    };
 
     public static class Config {
         private final boolean _isRegexQuery;
@@ -154,15 +161,7 @@ public class SearchEngine {
                 _queueLength = queue.size()+1;
                 publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
 
-                getFilesByEqualsFileNames(currentDirectory);
-
-                if(_config.IsSearchInFiles){
-                    getFilesByContext(currentDirectory);
-                }
-
-                // next depth
-                queue.addAll(GetSubDirs(currentDirectory));
-
+                queue.addAll(currentDirectoryHandler(currentDirectory));
             }
 
             if(_isCanceled && _result.size() == 0){
@@ -170,6 +169,58 @@ public class SearchEngine {
             }
 
             return _result;
+        }
+
+
+        private  Queue<File> currentDirectoryHandler(File currentDir){
+            Queue<File> queue = new LinkedList<File>();
+
+            try{
+                if(!currentDir.canRead() || currentDir.isFile()){
+                    return queue;
+                }
+
+                File[] DirsOrFiles = currentDir.listFiles();
+                for(int i = 0; i < DirsOrFiles.length && !isCancelled() && !_isCanceled; i++) {
+                    _countCheckedFiles++;
+                    File dirOrFile = DirsOrFiles[i];
+
+                    if (!dirOrFile.canRead()) {
+                        continue;
+                    }
+
+                    if (dirOrFile.isDirectory()) {
+                        if (isFolderIgnored(dirOrFile)) {
+                            continue;
+                        }
+
+                        // ignore symbolic links
+                        File parentFile = dirOrFile.getCanonicalFile().getParentFile();
+                        if (parentFile == null || !currentDir.getCanonicalPath().equals(parentFile.getCanonicalPath())) {
+                            continue;
+                        }
+
+                        queue.add(dirOrFile);
+                        _queueLength = queue.size();
+                        publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
+                    } else {
+                        if (isFileIgnored(dirOrFile)) {
+                            continue;
+                        }
+
+                        if (_config.IsSearchInFiles && isFileContainSearchQuery(dirOrFile)) {
+                            String path = dirOrFile.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
+                            _result.add(path);
+                        }
+                    }
+
+                    getFileIfNameMatches(dirOrFile);
+                }
+            } catch (Exception ex){
+                ;
+            }
+
+            return queue;
         }
 
 
@@ -209,15 +260,39 @@ public class SearchEngine {
             SearchEngine.isExecuting = false;
         }
 
+
+        private void getFileIfNameMatches(File file){
+            try {
+                String fileName = file.getName();
+                boolean isMatch = _config._isRegexQuery ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_config.Query);
+
+                if (isMatch) {
+                    String path = file.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
+                    _result.add(path);
+                }
+            }
+            catch (Exception ex){
+                ;
+            }
+        }
+
+
         private Integer GetDirectoryDepth(File parentDir, File childDir){
-            String parentPath = parentDir.getAbsolutePath();
-            String childPath = childDir.getAbsolutePath();
-            if(!childPath.startsWith(parentPath)){
-                return -1;
+            try {
+                String parentPath = parentDir.getCanonicalPath();
+                String childPath = childDir.getCanonicalPath();
+                if (!childPath.startsWith(parentPath)) {
+                    return -1;
+                }
+
+                String res = childPath.replace(parentPath, "");
+                return res.split("/").length;
+            }
+            catch (Exception ex){
+                ;
             }
 
-            String res = childPath.replace(parentPath, "");
-            return res.split("/").length;
+            return -1;
         }
 
 
@@ -228,113 +303,6 @@ public class SearchEngine {
             }
 
             cancel(true);
-        }
-
-
-        private Queue<File> GetSubDirs(File currentDirectory){
-            Queue<File> queue = new LinkedList<File>();
-
-            try{
-                File[] files = currentDirectory.listFiles();
-                for(int i = 0; i < files.length; i++){
-                    File file = files[i];
-
-                    if(isCancelled() || _isCanceled){
-                        break;
-                    }
-
-                    if(!file.canRead() || file.isFile() || isFolderIgnored(file)){
-                        continue;
-                    }
-
-                    // ignore symbolic links
-                    File parentFile =  file.getCanonicalFile().getParentFile();
-                    if(parentFile == null || !currentDirectory.getCanonicalPath().equals(parentFile.getCanonicalPath())){
-                        continue;
-                    }
-
-                    queue.add(file);
-                }
-
-                _queueLength = queue.size();
-                publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
-            } catch (Exception ex){
-                ;
-            }
-
-            return queue;
-        }
-
-
-        private void getFilesByEqualsFileNames(File currentDir){
-            try {
-                if(!currentDir.canRead() || currentDir.isFile()){
-                    return;
-                }
-
-                File[] files = currentDir.listFiles();
-
-                for (int i = 0; i < files.length; i++) {
-                    if(isCancelled() || _isCanceled){
-                        break;
-                    }
-
-                    _countCheckedFiles++;
-                    File file = files[i];
-                    if(file.isDirectory()){
-                        if(isFolderIgnored(file)){
-                            continue;
-                        }
-                    }
-                    else{
-                        if(isFileIgnored(file)){
-                            continue;
-                        }
-                    }
-
-                    String fileName = file.getName();
-                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(fileName).matches() : fileName.toLowerCase().contains(_config.Query);
-
-                    if(isMatch){
-                        String path = file.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
-                        _result.add(path);
-                    };
-                }
-            } catch (Exception ex){
-                ;
-            }
-        }
-
-
-        private void getFilesByContext(File currentDir){
-            try{
-                if(!currentDir.canRead()){
-                    return;
-                }
-
-                File[] files = currentDir.listFiles();
-
-                for (int i = 0; i < files.length; i++) {
-                    if(isCancelled() || _isCanceled){
-                        break;
-                    }
-
-                    File file = files[i];
-                    _countCheckedFiles++;
-                    publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
-
-                    if(!file.canRead() || file.isDirectory() || isFileIgnored(file)){
-                        continue;
-                    }
-
-                    if(isFileContainSearchQuery(file)){
-                        String path = file.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
-                        _result.add(path);
-                    }
-                }
-            } catch (Exception ex){
-                ;
-            }
         }
 
 
@@ -368,18 +336,20 @@ public class SearchEngine {
         private boolean isFolderIgnored(File directory){
             String dirName = directory.getName();
 
-            for(Integer i = 0; i < _config._ignoredExactDirs.size(); i++){
-                String ignored = _config._ignoredExactDirs.get(i);
-
-                if(dirName.equals(ignored)){
+            for(Pattern pattern : SearchEngine.defaultIgnoredDirs){
+                if(pattern.matcher(dirName).matches()){
                     return true;
                 }
             }
 
-            for(Integer i = 0; i < _config._ignoredRegexDirs.size(); i++){
-                Pattern ignored = _config._ignoredRegexDirs.get(i);
+            for(String pattern : _config._ignoredExactDirs){
+                if(dirName.equals(pattern)){
+                    return true;
+                }
+            }
 
-                if(ignored.matcher(dirName).matches()){
+            for(Pattern pattern : _config._ignoredRegexDirs){
+                if(pattern.matcher(dirName).matches()){
                     return true;
                 }
             }
@@ -391,18 +361,20 @@ public class SearchEngine {
         private boolean isFileIgnored(File file){
             String fileName = file.getName();
 
-            for(Integer i = 0; i < _config._ignoredExactFiles.size(); i++){
-                String ignored = _config._ignoredExactFiles.get(i);
-
-                if(fileName.equals(ignored)){
+            for(Pattern pattern : SearchEngine.defaultIgnoredFiles){
+                if(pattern.matcher(fileName).matches()){
                     return true;
                 }
             }
 
-            for(Integer i = 0; i < _config._ignoredRegexFiles.size(); i++){
-                Pattern ignored = _config._ignoredRegexFiles.get(i);
+            for(String pattern : _config._ignoredExactFiles){
+                if(fileName.equals(pattern)){
+                    return true;
+                }
+            }
 
-                if(ignored.matcher(fileName).matches()){
+            for(Pattern pattern : _config._ignoredRegexFiles){
+                if(pattern.matcher(fileName).matches()){
                     return true;
                 }
             }

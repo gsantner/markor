@@ -66,7 +66,7 @@
                 android:summary="%1$s"
                 android:title="@string/app_start_folder" />
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/ignored_search_file_names_default_value"
+                android:defaultValue="@string/empty_string"
                 android:icon="@drawable/ic_lock_outline_black_24dp"
                 android:inputType="textVisiblePassword"
                 android:key="@string/pref_key__default_encryption_password"
@@ -91,7 +91,7 @@
                 android:summary="@string/show_search_result_on_cancel_summary"
                 android:title="@string/show_search_result_on_cancel" />
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/ignored_search_dir_names_default_value"
+                android:defaultValue=""
                 android:dialogMessage="@string/ignored_search_dir_names_dialog"
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__ignored_search_dir_names"
