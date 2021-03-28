@@ -124,7 +124,7 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
             dopt.callback = callback;
-            dopt.isSearchEnabled = true;
+            dopt.isSearchEnabled = !searchResults.isEmpty();
             dopt.data = searchResults;
             dopt.cancelButtonText = R.string.close;
             dopt.titleText = R.string.select;
