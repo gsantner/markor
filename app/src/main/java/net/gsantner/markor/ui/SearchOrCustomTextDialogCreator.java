@@ -140,7 +140,7 @@ public class SearchOrCustomTextDialogCreator {
             SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
                 SearchEngine.isSearchExecuting = false;
                 dopt.callback = callback;
-                dopt.isSearchEnabled = true;
+                dopt.isSearchEnabled = !searchResults.isEmpty();
                 dopt.data = searchResults;
                 dopt.cancelButtonText = R.string.close;
                 dopt.titleText = R.string.select;
