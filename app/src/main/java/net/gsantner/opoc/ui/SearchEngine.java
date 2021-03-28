@@ -51,7 +51,7 @@ public class SearchEngine {
 
             _ignoredExactDirs = new ArrayList<String>();
             _ignoredRegexDirs = new ArrayList<Pattern>();
-            splitRegexExactFiles(IgnoredFiles, _ignoredExactDirs, _ignoredRegexDirs);
+            splitRegexExactFiles(IgnoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
 
             _ignoredExactFiles = new ArrayList<String>();
             _ignoredRegexFiles = new ArrayList<Pattern>();
@@ -238,6 +238,10 @@ public class SearchEngine {
                 File[] files = currentDirectory.listFiles();
                 for(int i = 0; i < files.length; i++){
                     File file = files[i];
+
+                    if(isCancelled() || _isCanceled){
+                        break;
+                    }
 
                     if(!file.canRead() || file.isFile() || isFolderIgnored(file)){
                         continue;
