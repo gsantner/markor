@@ -91,7 +91,7 @@
                 android:summary="@string/show_search_result_on_cancel_summary"
                 android:title="@string/show_search_result_on_cancel" />
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/empty_string"
+                android:defaultValue="@string/ignored_search_dir_names_default_value"
                 android:dialogMessage="@string/ignored_search_dir_names_dialog"
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__ignored_search_dir_names"
