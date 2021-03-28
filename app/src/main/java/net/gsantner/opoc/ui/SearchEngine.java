@@ -145,11 +145,12 @@ public class SearchEngine {
 
         @Override
         protected List<String> doInBackground(Void... voidp) {
-            Queue<File> queue = new LinkedList<File>();
-            queue.add(_config.RootSearchDir);
+            Queue<File> mainQueue = new LinkedList<File>();
+            mainQueue.add(_config.RootSearchDir);
 
-            while (!queue.isEmpty() && !isCancelled() && !_isCanceled) {
-                File currentDirectory = queue.remove();
+            while (!mainQueue.isEmpty() && !isCancelled() && !_isCanceled) {
+                File currentDirectory = mainQueue.remove();
+
                 if(!currentDirectory.canRead() || currentDirectory.isFile()){
                     continue;
                 }
@@ -158,10 +159,10 @@ public class SearchEngine {
                 if(_searchDepth > _config.MaxSearchDepth){
                     break;
                 }
-                _queueLength = queue.size()+1;
+                _queueLength = mainQueue.size()+1;
                 publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
 
-                queue.addAll(currentDirectoryHandler(currentDirectory));
+                mainQueue.addAll(currentDirectoryHandler(currentDirectory));
             }
 
             if(_isCanceled && _result.size() == 0){
@@ -173,54 +174,48 @@ public class SearchEngine {
 
 
         private  Queue<File> currentDirectoryHandler(File currentDir){
-            Queue<File> queue = new LinkedList<File>();
+            Queue<File> subQueue = new LinkedList<File>();
 
             try{
                 if(!currentDir.canRead() || currentDir.isFile()){
-                    return queue;
+                    return subQueue;
                 }
 
-                File[] DirsOrFiles = currentDir.listFiles();
-                for(int i = 0; i < DirsOrFiles.length && !isCancelled() && !_isCanceled; i++) {
+                File[] subDirsOrFiles = currentDir.listFiles();
+                for(int i = 0; i < subDirsOrFiles.length && !isCancelled() && !_isCanceled; i++) {
                     _countCheckedFiles++;
-                    File dirOrFile = DirsOrFiles[i];
+                    File subDirOrFile = subDirsOrFiles[i];
 
-                    if (!dirOrFile.canRead()) {
+                    if (!subDirOrFile.canRead()) {
                         continue;
                     }
 
-                    if (dirOrFile.isDirectory()) {
-                        if (isFolderIgnored(dirOrFile)) {
+                    if (subDirOrFile.isDirectory()) {
+                        if (isFolderIgnored(subDirOrFile) || isFileContainSymbolicLinks(subDirOrFile, currentDir)) {
                             continue;
                         }
 
-                        // ignore symbolic links
-                        File parentFile = dirOrFile.getCanonicalFile().getParentFile();
-                        if (parentFile == null || !currentDir.getCanonicalPath().equals(parentFile.getCanonicalPath())) {
-                            continue;
-                        }
-
-                        queue.add(dirOrFile);
-                        _queueLength = queue.size();
-                        publishProgress(_queueLength, _searchDepth, _result.size(), _countCheckedFiles);
+                        subQueue.add(subDirOrFile);
                     } else {
-                        if (isFileIgnored(dirOrFile)) {
+                        if (isFileIgnored(subDirOrFile)) {
                             continue;
                         }
 
-                        if (_config.IsSearchInFiles && isFileContainSearchQuery(dirOrFile)) {
-                            String path = dirOrFile.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
+                        if (_config.IsSearchInFiles && isFileContainSearchQuery(subDirOrFile)) {
+                            String path = subDirOrFile.getCanonicalPath().replace(_config.RootSearchDir.getCanonicalPath() + "/", "");
                             _result.add(path);
                         }
                     }
 
-                    getFileIfNameMatches(dirOrFile);
+                    getFileIfNameMatches(subDirOrFile);
+
+                    publishProgress(_queueLength + subQueue.size(), _searchDepth, _result.size() , _countCheckedFiles);
                 }
             } catch (Exception ex){
                 ;
             }
 
-            return queue;
+            return subQueue;
         }
 
 
@@ -232,7 +227,7 @@ public class SearchEngine {
             Integer queueDepth = values[1];
             Integer filesFound = values[2];
             Integer countCheckedFiles = values[3];
-            String snackBarText = _config.Query + "...(" + filesFound + ") qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles;
+            String snackBarText = "f:" + filesFound + " qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles + "\n" + _config.Query;
             _snackBar.setText(snackBarText);
         }
 
@@ -258,6 +253,21 @@ public class SearchEngine {
             super.onCancelled();
 
             SearchEngine.isExecuting = false;
+        }
+
+
+        private boolean isFileContainSymbolicLinks(File file, File expectedParentDir){
+            try {
+                File realParentDir = file.getCanonicalFile().getParentFile();
+                if (realParentDir != null && expectedParentDir.getCanonicalPath().equals(realParentDir.getCanonicalPath())) {
+                    return false;
+                }
+            }
+            catch (Exception ex){
+                ;
+            }
+
+            return true;
         }
 
 
