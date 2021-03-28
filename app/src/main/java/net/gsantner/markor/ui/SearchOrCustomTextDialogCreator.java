@@ -121,7 +121,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, boolean isSearchInContent, Callback.a1<String> callback) {
-        if(SearchEngine.isExecuting){
+        if(SearchEngine.isSearchExecuting){
             return;
         }
 
@@ -129,7 +129,7 @@ public class SearchOrCustomTextDialogCreator {
 
         baseConf(activity, dopt);
         dopt.callback = query -> {
-            SearchEngine.isExecuting = true;
+            SearchEngine.isSearchExecuting = true;
             AppSettings appSettings = new AppSettings(activity);
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
@@ -138,7 +138,7 @@ public class SearchOrCustomTextDialogCreator {
             SearchEngine.Config config = new SearchEngine.Config(activity, searchDir, query, isSearchInContent, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles);
 
             SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
-                SearchEngine.isExecuting = false;
+                SearchEngine.isSearchExecuting = false;
                 dopt.callback = callback;
                 dopt.isSearchEnabled = true;
                 dopt.data = searchResults;

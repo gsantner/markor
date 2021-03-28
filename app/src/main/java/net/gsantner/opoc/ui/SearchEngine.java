@@ -3,6 +3,7 @@ package net.gsantner.opoc.ui;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.view.View;
 
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
@@ -12,9 +13,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.regex.Pattern;
 
@@ -22,7 +26,7 @@ import java.util.regex.Pattern;
 
 
 public class SearchEngine {
-    public static boolean isExecuting = false;
+    public static boolean isSearchExecuting = false;
     public final static Pattern[] defaultIgnoredDirs = {
             Pattern.compile("^\\.git$"),
             Pattern.compile(".*[Tt]humb.*")
@@ -47,7 +51,8 @@ public class SearchEngine {
         public final List<String> IgnoredDirectories;
         public final List<String> IgnoredFiles;
 
-        public Config(Activity activity, File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel, Integer maxSearchDepth, List<String> ignoredDirectories, List<String> ignoredFiles){
+        public Config(Activity activity, File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel,
+                      Integer maxSearchDepth, List<String> ignoredDirectories, List<String> ignoredFiles){
             Activity = activity;
             RootSearchDir = rootSearchDir;
             IsSearchInFiles = isSearchInFiles;
@@ -133,15 +138,33 @@ public class SearchEngine {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if (_activityRef.get() != null) {
-                _snackBar = Snackbar.make(_activityRef.get().findViewById(android.R.id.content), _config.Query + "...", Snackbar.LENGTH_INDEFINITE);
+            bindSnackBar(_config.Query);
+        }
+
+
+        public void bindSnackBar(String text) {
+            if(!SearchEngine.isSearchExecuting){
+                return;
+            }
+
+            try {
+                View view = getActivity().findViewById(android.R.id.content);
+                _snackBar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
+                        .addCallback(new Snackbar.Callback() {
+                            @Override public void onDismissed(Snackbar snackbar, int event) {
+                                bindSnackBar(text);
+                            }
+                        });
                 _snackBar.setAction(android.R.string.cancel, (v) -> {
                     _snackBar.dismiss();
                     preCancel();
-                }).show();
+                });
+                _snackBar.show();
+            }
+            catch (Exception ex){
+                ;
             }
         }
-
 
         @Override
         protected List<String> doInBackground(Void... voidp) {
@@ -228,7 +251,9 @@ public class SearchEngine {
             Integer filesFound = values[2];
             Integer countCheckedFiles = values[3];
             String snackBarText = "f:" + filesFound + " qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles + "\n" + _config.Query;
-            _snackBar.setText(snackBarText);
+            if(_snackBar != null) {
+                _snackBar.setText(snackBarText);
+            }
         }
 
 
@@ -252,7 +277,7 @@ public class SearchEngine {
         protected void onCancelled() {
             super.onCancelled();
 
-            SearchEngine.isExecuting = false;
+            SearchEngine.isSearchExecuting = false;
         }
 
 
@@ -390,6 +415,32 @@ public class SearchEngine {
             }
 
             return false;
+        }
+
+
+        private static Activity getActivity() throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
+            Class activityThreadClass = Class.forName("android.app.ActivityThread");
+            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
+            activitiesField.setAccessible(true);
+
+            Map<Object, Object> activities = (Map<Object, Object>) activitiesField.get(activityThread);
+            if (activities == null)
+                return null;
+
+            for (Object activityRecord : activities.values()) {
+                Class activityRecordClass = activityRecord.getClass();
+                Field pausedField = activityRecordClass.getDeclaredField("paused");
+                pausedField.setAccessible(true);
+                if (!pausedField.getBoolean(activityRecord)) {
+                    Field activityField = activityRecordClass.getDeclaredField("activity");
+                    activityField.setAccessible(true);
+                    Activity activity = (Activity) activityField.get(activityRecord);
+                    return activity;
+                }
+            }
+
+            return null;
         }
     }
 }
