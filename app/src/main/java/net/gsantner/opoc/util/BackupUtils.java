@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
@@ -174,6 +175,7 @@ public class BackupUtils {
      * @param context                  Android context
      * @param backupFileContainingJson A existing & accessible json file
      */
+    @SuppressLint("ApplySharedPref")
     public static void loadBackup(final Context context, final File backupFileContainingJson) {
         try {
             final JSONObject json = new JSONObject(FileUtils.readTextFileFast(backupFileContainingJson));
@@ -214,7 +216,7 @@ public class BackupUtils {
                 }
             }
             for (final SharedPreferences.Editor edit : editors) {
-                edit.apply();
+                edit.commit();
             }
             System.exit(0);
         } catch (Exception e) {
