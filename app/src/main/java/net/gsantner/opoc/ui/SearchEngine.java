@@ -5,14 +5,12 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ public class SearchEngine {
         private final List<Pattern> _ignoredRegexFiles;
         private final List<String> _ignoredExactFiles;
 
-        public final Activity Activity;
         public final File RootSearchDir;
         public final String Query;
         public final boolean IsSearchInFiles;
@@ -51,9 +48,8 @@ public class SearchEngine {
         public final List<String> IgnoredDirectories;
         public final List<String> IgnoredFiles;
 
-        public Config(Activity activity, File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel,
+        public Config(File rootSearchDir, String query, boolean isSearchInFiles, boolean isShowResultOnCancel,
                       Integer maxSearchDepth, List<String> ignoredDirectories, List<String> ignoredFiles){
-            Activity = activity;
             RootSearchDir = rootSearchDir;
             IsSearchInFiles = isSearchInFiles;
             IsShowResultOnCancel = isShowResultOnCancel;
@@ -110,7 +106,6 @@ public class SearchEngine {
     public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<String>> {
         private SearchEngine.Config _config;
         private final Callback.a1<List<String>> _callback;
-        private final WeakReference<Activity> _activityRef;
         private final Pattern _regex;
 
         private Snackbar _snackBar;
@@ -124,7 +119,6 @@ public class SearchEngine {
             _config = config;
             _callback = callback;
             _regex = _config._isRegexQuery ? Pattern.compile(_config.Query) : null;
-            _activityRef = new WeakReference<>(_config.Activity);
 
             _countCheckedFiles = 0;
             _isCanceled = false;
@@ -148,6 +142,7 @@ public class SearchEngine {
             }
 
             try {
+                // getActivity() + onDismissed = fix snackBar disappearing on screen rotation
                 View view = getActivity().findViewById(android.R.id.content);
                 _snackBar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
                         .addCallback(new Snackbar.Callback() {
@@ -269,7 +264,6 @@ public class SearchEngine {
                 } catch (Exception ignored) {
                 }
             }
-            new ActivityUtils(_activityRef.get()).hideSoftKeyboard().freeContextRef();
         }
 
 
