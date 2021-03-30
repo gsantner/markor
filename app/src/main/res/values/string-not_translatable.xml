@@ -257,6 +257,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_zimwiki_insert_link" translatable="false">tmaid_zimwiki_insert_link</string>
     <string name="tmaid_zimwiki_insert_image" translatable="false">tmaid_zimwiki_insert_image</string>
 
+
+    <string name="tmaid_txt2tags_h1" translatable="false">tmaid_txt2tags_h1</string>
+    <string name="tmaid_txt2tags_h2" translatable="false">tmaid_txt2tags_h2</string>
+    <string name="tmaid_txt2tags_h3" translatable="false">tmaid_txt2tags_h3</string>
+    <string name="tmaid_txt2tags_h4" translatable="false">tmaid_txt2tags_h4</string>
+    <string name="tmaid_txt2tags_h5" translatable="false">tmaid_txt2tags_h5</string>
+    <string name="tmaid_txt2tags_bold" translatable="false">tmaid_txt2tags_bold</string>
+    <string name="tmaid_txt2tags_italic" translatable="false">tmaid_txt2tags_italic</string>
+    <string name="tmaid_txt2tags_highlight" translatable="false">tmaid_txt2tags_highlight</string>
+    <string name="tmaid_txt2tags_strikeout" translatable="false">tmaid_txt2tags_strikeout</string>
+    <string name="tmaid_txt2tags_code_inline" translatable="false">tmaid_txt2tags_code_inline</string>
+    <string name="tmaid_txt2tags_insert_link" translatable="false">tmaid_txt2tags_insert_link</string>
+    <string name="tmaid_txt2tags_insert_image" translatable="false">tmaid_txt2tags_insert_image</string>
+    
+    
     <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
     <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
     <string name="tmaid_todotxt_add_project" translatable="false">tmaid_todotxt_add_project</string>
@@ -318,4 +333,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
+        <string name="pref_key__editor_txt2tags_bigger_headings" translatable="false">pref_key__editor_txt2tags_bigger_headings</string>
+    <string name="pref_key__txt2tags__reorder_actions" translatable="false">pref_key__txt2tags__reorder_actions</string>
+    <string name="pref_key__txt2tags__action_keys" translatable="false">pref_key__txt2tags__action_keys</string>
 </resources>

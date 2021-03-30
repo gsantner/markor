@@ -187,6 +187,7 @@
                 <data android:mimeType="text/plain+md" />
                 <data android:mimeType="text/markdown" />
                 <data android:mimeType="text/x-markdown" />
+                <data android:mimeType="text/txt2tags" />
                 <data android:mimeType="text/htm" />
                 <data android:mimeType="text/html" />
             </intent-filter>
@@ -209,6 +210,7 @@
                 <data android:mimeType="text/plain+md" />
                 <data android:mimeType="text/markdown" />
                 <data android:mimeType="text/x-markdown" />
+                <data android:mimeType="text/txt2tags" />
                 <data android:mimeType="application/octet-stream" />
 
                 <data android:host="*" />
@@ -539,6 +541,38 @@
                 <data
                     android:mimeType="*/*"
                     android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.txt" />
+                    
+                <!-- Handling of file extension ".t2t" -->
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\.t2t" />
+                <data
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\..*\..*\..*\..*\..*\..*\..*\..*\..*\.t2t" />
 
                 <!-- Handling of file extension ".taskpaper" -->
                 <data

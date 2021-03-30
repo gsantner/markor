@@ -526,6 +526,27 @@
                     android:title="@string/action_order" />
             </PreferenceCategory>
         </PreferenceScreen>
+        
+        <!-- Txt2tags screen -->
+        <PreferenceScreen
+            android:icon="@drawable/ic_text_fields_black_24dp"
+            android:title="@string/txt2tags">
+
+            <PreferenceCategory android:title="@string/syntax_highlighting">
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_format_size_black_24dp"
+                    android:key="@string/pref_key__editor_txt2tags_bigger_headings"
+                    android:summary="@string/increase_text_size_of_headings_according_to_level"
+                    android:title="@string/bigger_headings" />
+            </PreferenceCategory>
+            <PreferenceCategory android:title="@string/textactions">
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__txt2tags__reorder_actions"
+                    android:title="@string/action_order" />
+            </PreferenceCategory>
+        </PreferenceScreen>
 
         <!-- Plaintext Screen -->
         <PreferenceScreen

@@ -953,6 +953,9 @@ public class ContextUtils {
                     case "txt":
                         mimeType = "text/plain";
                         break;
+                    case "t2t":
+                        mimeType = "text/txt2tags";
+                        break;
                 }
             }
         }

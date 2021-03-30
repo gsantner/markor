@@ -426,6 +426,9 @@ public class FileUtils {
                     case "txt":
                         guess = "text/plain";
                         break;
+                    case "t2t":
+                        guess = "text/txt2tags";
+                        break;
                     case "webp":
                         guess = "image/webp";
                         break;

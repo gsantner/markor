@@ -741,6 +741,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isZimWikiBiggerHeadings() {
         return getBool(R.string.pref_key__editor_zimwiki_bigger_headings, false);
     }
+    
+    public boolean isTxt2tagsBiggerHeadings() {
+        return getBool(R.string.pref_key__editor_txt2tags_bigger_headings, false);
+    }
 
     public String getViewModeLinkColor() {
         return ContextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));

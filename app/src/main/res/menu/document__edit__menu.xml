@@ -150,6 +150,10 @@
                             android:id="@+id/action_format_zimwiki"
                             android:icon="@drawable/fountain_pen"
                             android:title="@string/zim_wiki" />
+                        <item
+                            android:id="@+id/action_format_txt2tags"
+                            android:icon="@drawable/ic_text_fields_black_24dp"
+                            android:title="@string/txt2tags" />
                     </group>
                 </menu>
             </item>

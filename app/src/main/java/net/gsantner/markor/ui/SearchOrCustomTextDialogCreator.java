@@ -26,6 +26,7 @@ import android.view.WindowManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
+import net.gsantner.markor.format.txt2tags.Txt2tagsHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -380,6 +381,10 @@ public class SearchOrCustomTextDialogCreator {
         showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), activity, fullText, userCallback);
     }
 
+    public static void showTxt2tagsHeadlineDialog(Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
+        showHeadlineDialog(Txt2tagsHighlighter.Patterns.HEADING.pattern.toString(), activity, fullText, userCallback);
+    }
+    
     private static void showHeadlineDialog(String headlineFilterPattern,
                                            Activity activity, String fullText, Callback.a2<String, Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
