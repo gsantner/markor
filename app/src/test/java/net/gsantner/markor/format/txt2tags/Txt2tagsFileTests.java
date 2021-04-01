@@ -22,11 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Txt2tagsFileTests {
 
-    public static class GeneratorTests {
-        @SuppressWarnings("SpellCheckingInspection")
-        
-    }
-
     public static class ZimFileHeaderTest {
 
         private Pattern pattern;
