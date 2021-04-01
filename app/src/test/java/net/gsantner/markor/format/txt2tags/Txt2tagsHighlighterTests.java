@@ -306,23 +306,23 @@ public class Txt2tagsHighlighterTests {
 
         @Test
         public void starItem() {
-            Matcher m = pattern.matcher("* Item");
+            Matcher m = pattern.matcher("- Item");
             assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("*");
+            assertThat(m.group()).isEqualTo("-");
         }
 
         @Test
         public void starItemMultipleSpacesShouldMatch() {
-            Matcher m = pattern.matcher("*    Item");
+            Matcher m = pattern.matcher("-    Item");
             assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("*");
+            assertThat(m.group()).isEqualTo("-");
         }
 
         @Test
         public void starItemIndentedShouldMatch() {
-            Matcher m = pattern.matcher("\t* Item");
+            Matcher m = pattern.matcher("\t- Item");
             assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("*");
+            assertThat(m.group()).isEqualTo("-");
         }
 
         @Test
@@ -333,7 +333,7 @@ public class Txt2tagsHighlighterTests {
 
         @Test
         public void starPeriodItemShouldNotMatch() {
-            Matcher m = pattern.matcher("*. Item");
+            Matcher m = pattern.matcher("-. Item");
             assertThat(m.find()).isFalse();
         }
 
