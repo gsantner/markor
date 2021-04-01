@@ -34,32 +34,22 @@ public class Txt2tagsReplacePatternGeneratorTests {
         @Test
         public void removeHeadingCharsForExactHeadingLevel() {
             setLevelFourHeadingAction();
-            assertCorrectReplacement("=== My Heading ===", "My Heading");
+            assertCorrectReplacement("==== My Heading ====", "My Heading");
         }
 
         @Test
         public void replaceDifferentLevelHeadings() {
             setLevelFourHeadingAction();
-            assertCorrectReplacement("==== My Heading ====", "=== My Heading ===");
+            assertCorrectReplacement("=== My Heading ===", "==== My Heading ====");
         }
 
-        @Test
-        public void createEmptyHeading() {
-            setLevelFourHeadingAction();
-            assertCorrectReplacement("", "===  ===");
-        }
 
         @Test
         public void addHeadingCharactersToText() {
             setLevelFourHeadingAction();
-            assertCorrectReplacement("My Heading", "=== My Heading ===");
+            assertCorrectReplacement("My Heading", "==== My Heading ====");
         }
 
-        @Test
-        public void addHeadingCharactersAroundMockHeading() {
-            setLevelFourHeadingAction();
-            assertCorrectReplacement("= My Heading =", "=== = My Heading = ===");
-        }
 
         private void setLevelFourHeadingAction() {
             int headingLevel = 4;

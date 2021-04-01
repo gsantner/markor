@@ -24,25 +24,7 @@ public class Txt2tagsFileTests {
 
     public static class GeneratorTests {
         @SuppressWarnings("SpellCheckingInspection")
-        @Test
-        public void createsCorrectContentsForNewTxt2tagsFiles() {
-            Locale.setDefault(Locale.ENGLISH);
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(2020, Calendar.DECEMBER, 24, 18, 0, 30);
-            calendar.setTimeZone(TimeZone.getTimeZone("GMT+01:00"));
-            Date date = calendar.getTime();
-            String expected = " \n" +
-                    " \n" +
-                    " \n" +
-                    "\n" +
-                    "== My new wiki page ==\n" +
-                    "\n";
-            // TODO: replace logic should not be necessary - find out why time and time zone is not created correctly in the test
-            String actual = Txt2tagsTextActions.createTxt2tagsHeaderAndTitleContents("My_new_wiki_page", date, "Created");
-            String actualReplaced = actual.replaceAll("(?m)T1[78]:00:30.+$", "");
-            String expectedReplaced = expected.replaceAll("(?m)T1[78]:00:30.+$", "");
-            assertThat(actualReplaced).isEqualTo(expectedReplaced);
-        }
+        
     }
 
     public static class ZimFileHeaderTest {

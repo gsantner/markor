@@ -28,30 +28,7 @@ public class Txt2tagsHighlighterTests {
             pattern = Txt2tagsHighlighter.Patterns.HEADING.pattern;
         }
 
-        @Test
-        public void biggestHeading() {
-            String heading = "====== this is the biggest heading ======";
-            findAndAssertEqualHeading(heading);
-        }
 
-        @Test
-        public void smallestHeading() {
-            String heading = "== this is the smallest heading ==";
-            findAndAssertEqualHeading(heading);
-        }
-
-        @Test
-        public void emptyHeading() {
-            String heading = "===  ===";
-            findAndAssertEqualHeading(heading);
-        }
-
-        @Test
-        public void invalidHeadingTooFewEqualSigns() {
-            String invalidHeading = "= this is not a valid heading =";
-            Matcher matcher = pattern.matcher(invalidHeading);
-            assertThat(matcher.find()).isFalse();
-        }
 
         @Test
         public void invalidHeadingUnequalCountOfEqualSigns() {
@@ -445,9 +422,9 @@ public class Txt2tagsHighlighterTests {
 
         @Test
         public void strikethroughWithSpaceAsLastCharacherShouldMatch() {
-            Matcher m = pattern.matcher("~~one ~~");
+            Matcher m = pattern.matcher("--one --");
             assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("~~one ~~");
+            assertThat(m.group()).isEqualTo("--one --");
         }
     }
 
@@ -489,9 +466,9 @@ public class Txt2tagsHighlighterTests {
         @Test
         public void preformattedWordInSentence() {
             pattern = Txt2tagsHighlighter.Patterns.PREFORMATTED_INLINE.pattern;
-            Matcher matcher = pattern.matcher("The following ''word'' is struck through.");
+            Matcher matcher = pattern.matcher("The following ``word`` is struck through.");
             assertThat(matcher.find()).isTrue();
-            assertThat(matcher.group()).isEqualTo("''word''");
+            assertThat(matcher.group()).isEqualTo("``word``");
         }
 
         @Test
@@ -523,7 +500,7 @@ public class Txt2tagsHighlighterTests {
         public void orderedListHighlightingsNumbers() {
             pattern = Txt2tagsHighlighter.Patterns.LIST_ORDERED.pattern;
             Matcher matcher = pattern.matcher("\n+ first item\n\t+ second item\n");
-            String[] expectedMatches = {"1.", "2."};
+            String[] expectedMatches = {"+", "+"};
             for (String expectedMatch : expectedMatches) {
                 assertThat(matcher.find());
                 assertThat(matcher.group()).isEqualTo(expectedMatch);
@@ -533,8 +510,8 @@ public class Txt2tagsHighlighterTests {
         @Test
         public void orderedListHighlightingsCharacters() {
             pattern = Txt2tagsHighlighter.Patterns.LIST_ORDERED.pattern;
-            Matcher matcher = pattern.matcher("\na. first item\nb. second item\n");
-            String[] expectedMatches = {"a.", "b."};
+            Matcher matcher = pattern.matcher("\n+ first item\n+ second item\n");
+            String[] expectedMatches = {"+", "+"};
             for (String expectedMatch : expectedMatches) {
                 assertThat(matcher.find());
                 assertThat(matcher.group()).isEqualTo(expectedMatch);
@@ -544,8 +521,8 @@ public class Txt2tagsHighlighterTests {
         @Test
         public void orderedListHighlightingsNumbersAndCharacters() {
             pattern = Txt2tagsHighlighter.Patterns.LIST_ORDERED.pattern;
-            Matcher matcher = pattern.matcher("\n1. first item\n2. second item\n\ta. item 2a\n\tb. item 2b\n");
-            String[] expectedMatches = {"1.", "2.", "a.", "b."};
+            Matcher matcher = pattern.matcher("\n+ first item\n+ second item\n\t+ item 2a\n\t+ item 2b\n");
+            String[] expectedMatches = {"+", "+", "+", "+"};
             for (String expectedMatch : expectedMatches) {
                 assertThat(matcher.find());
                 assertThat(matcher.group()).isEqualTo(expectedMatch);
@@ -555,17 +532,9 @@ public class Txt2tagsHighlighterTests {
         @Test
         public void webLinkInSentence() {
             pattern = Txt2tagsHighlighter.Patterns.LINK.pattern;
-            Matcher matcher = pattern.matcher("Visit [[https://github.com/gsantner/markor|Markor on Github]] now!");
+            Matcher matcher = pattern.matcher("Visit [Markor on Github https://github.com/gsantner/markor] now!");
             assertThat(matcher.find()).isTrue();
-            assertThat(matcher.group()).isEqualTo("[[https://github.com/gsantner/markor|Markor on Github]]");
-        }
-
-        @Test
-        public void crossWikiLink() {
-            pattern = Txt2tagsHighlighter.Patterns.LINK.pattern;
-            Matcher matcher = pattern.matcher("Go to another page [[Page Name]] in the same notebook.");
-            assertThat(matcher.find()).isTrue();
-            assertThat(matcher.group()).isEqualTo("[[Page Name]]");
+            assertThat(matcher.group()).isEqualTo("[Markor on Github https://github.com/gsantner/markor]");
         }
 
         @Test
