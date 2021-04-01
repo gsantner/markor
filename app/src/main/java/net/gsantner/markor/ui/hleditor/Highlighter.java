@@ -314,5 +314,5 @@ public abstract class Highlighter {
     protected static void createSubscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
         createSpanForMatches(spannable, pattern, (matcher, iM) -> new SubscriptSpan(), groupsToMatch);
     }
-
+    
 }

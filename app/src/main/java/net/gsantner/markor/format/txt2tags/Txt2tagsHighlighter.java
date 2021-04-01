@@ -48,6 +48,7 @@ public class Txt2tagsHighlighter extends Highlighter {
         CHECKLIST_ARROW(Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )")),
         SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
         SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
+        COMMENT(Pattern.compile("(\\n|^)%(.*?)(\\n|$)(\\n|$|\\s)")),
         ZIMHEADER_CONTENT_TYPE_ONLY(Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki")),
         ZIMHEADER(Pattern.compile("^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
                 "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
@@ -70,6 +71,7 @@ public class Txt2tagsHighlighter extends Highlighter {
         private static final int COLOR_BOLD = 0xff445675;
         private static final int COLOR_ITALIC = 0xff653A39;
         private static final int COLOR_STRIKE = 0xff644A9B;
+        private static final int COLOR_COMMENT = 0xff777777;
         private static final int HIGHLIGHT_BACKGROUND_COLOR = 0xffcaffd3;   // zim original color: 0xffffff00
         private static final int UNORDERED_LIST_BULLET_COLOR = 0xffE300EE;
         private static final int CHECKLIST_BASE_COLOR = UNORDERED_LIST_BULLET_COLOR;
@@ -148,6 +150,10 @@ public class Txt2tagsHighlighter extends Highlighter {
 
         _profiler.restart("Subscript");
         createSubscriptStyleSpanForMatches(spannable, Patterns.SUBSCRIPT.pattern);
+
+        _profiler.restart("Comment");
+        createStyleSpanForMatches(spannable, Patterns.COMMENT.pattern, Typeface.ITALIC);
+        createColorSpanForMatches(spannable, Patterns.COMMENT.pattern, Colors.COLOR_COMMENT);
 
         _profiler.restart("Checklist");
         createCheckboxSpansForAllCheckStates(spannable);

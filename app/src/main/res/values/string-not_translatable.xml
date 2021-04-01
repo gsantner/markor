@@ -307,6 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
+    <string name="file_template__t2t_txt2tags_reference" translatable="false">txt2tags-sample.t2t</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
     <string name="debug" translatable="false">Debug</string>
