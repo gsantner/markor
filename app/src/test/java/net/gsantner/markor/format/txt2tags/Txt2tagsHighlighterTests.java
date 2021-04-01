@@ -276,9 +276,9 @@ public class Txt2tagsHighlighterTests {
         }
 
         @Test
-        public void dashItemShouldNotMatch() {
+        public void dashItemShouldMatch() {
             Matcher m = pattern.matcher("- Item");
-            assertThat(m.find()).isFalse();
+            assertThat(m.find()).isTrue();
         }
 
         @Test
@@ -344,26 +344,6 @@ public class Txt2tagsHighlighterTests {
             pattern = Txt2tagsHighlighter.Patterns.LIST_ORDERED.pattern;
         }
 
-        @Test
-        public void numberItem() {
-            Matcher m = pattern.matcher("1. Item");
-            assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("1.");
-        }
-
-        @Test
-        public void letterItem() {
-            Matcher m = pattern.matcher("b. Item");
-            assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("b.");
-        }
-
-        @Test
-        public void capitalItem() {
-            Matcher m = pattern.matcher("C. Item");
-            assertThat(m.find()).isTrue();
-            assertThat(m.group()).isEqualTo("C.");
-        }
     }
 
 
@@ -471,29 +451,6 @@ public class Txt2tagsHighlighterTests {
             assertThat(matcher.group()).isEqualTo("``word``");
         }
 
-        @Test
-        public void preformattedTextBlock() {
-            pattern = Txt2tagsHighlighter.Patterns.PREFORMATTED_MULTILINE.pattern;
-            Matcher matcher = pattern.matcher("Some text before\n" +
-                    "'''\n" +
-                    "some\n" +
-                    "text\n" +
-                    "block\n" +
-                    "'''\n" +
-                    "Text after the block.");
-            assertThat(matcher.find()).isTrue();
-            assertThat(matcher.group()).isEqualTo("'''\nsome\ntext\nblock\n'''");
-        }
-
-        @Test
-        public void unorderedListHighlightings() {
-            pattern = Txt2tagsHighlighter.Patterns.LIST_UNORDERED.pattern;
-            Matcher matcher = pattern.matcher("some text...\n- first item\n\t- item 11\n- item 2");
-            for (int i = 0; i < 3; i++) {
-                assertThat(matcher.find());
-                assertThat(matcher.group()).isEqualTo("*");
-            }
-        }
 
 
         @Test

@@ -76,59 +76,8 @@ public class Txt2tagsReplacePatternGeneratorTests {
             }
         }
 
-        @Test
-        public void replaceNonChecklistPrefixesWithUncheckedBox() {
-            replacePatterns = Txt2tagsReplacePatternGenerator.replaceWithNextStateCheckbox();
-            String[] otherPrefixes = {"1.", "a.", "*"};
-            for (String otherPrefix : otherPrefixes) {
-                String itemWithOtherPrefix = otherPrefix + " some item";
-                assertCorrectReplacement(itemWithOtherPrefix, "[ ] some item");
-            }
-        }
 
-        @Test
-        public void keepWhitespaceWhenAddingCheckbox() {
-            replacePatterns = Txt2tagsReplacePatternGenerator.replaceWithNextStateCheckbox();
-            String original = " some item";
-            assertCorrectReplacement(original, " [ ] some item");
-        }
 
-        @Test
-        public void removeCheckboxForAllCheckStates() {
-            replacePatterns = Txt2tagsReplacePatternGenerator.removeCheckbox();
-            String[] originals = {"\t\t[x] bla", "\t\t[ ] bla", "\t\t[*] bla", "\t\t[>] bla"};
-            for (String original : originals) {
-                assertCorrectReplacement(original, "\t\tbla");
-            }
-            // if no checkbox is there, nothing should be replaced
-            assertCorrectReplacement("\t\tbla", null);
-        }
-
-        @Test
-        public void changePrefixToUnorderedListOrRemoveItAlreadyPresent() {
-            replacePatterns = Txt2tagsReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix();
-            String[] otherPrefixes = {"1.", "2.", "a.", "[ ]", "[x]"};
-            for (String otherPrefix : otherPrefixes) {
-                String originalLine = otherPrefix + " some item";
-                assertCorrectReplacement(originalLine, "* some item");
-            }
-            assertCorrectReplacement("* some item", "some item");
-        }
-
-        @Test
-        public void changePrefixToOrderedListOrRemoveItAlreadyPresent() {
-            replacePatterns = Txt2tagsReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
-            String[] otherPrefixes = {"[>]", "*", "[ ]"};
-            for (String otherPrefix : otherPrefixes) {
-                String originalLine = otherPrefix + " some item";
-                assertCorrectReplacement(originalLine, "1. some item");
-            }
-            String[] orderedListPrefixes = {"1.", "a.", "2."};
-            for (String orderedListPrefix : orderedListPrefixes) {
-                String originalLine = orderedListPrefix + " some item";
-                assertCorrectReplacement(originalLine, "some item");
-            }
-        }
 
         private void assertCorrectReplacement(String original, String expectedReplacement) {
             result = replaceWithFirstMatchingPattern(replacePatterns, original);
