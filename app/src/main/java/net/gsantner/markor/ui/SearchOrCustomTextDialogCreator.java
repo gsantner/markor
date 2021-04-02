@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.ui.FileSearchDialog;
 import net.gsantner.opoc.ui.SearchEngine;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -125,19 +126,24 @@ public class SearchOrCustomTextDialogCreator {
             return;
         }
 
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        AppSettings appSettings = new AppSettings(activity);
+        final boolean isDarkDialog = appSettings.isDarkThemeEnabled();
+        FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options(isDarkDialog);
+        dialogOptions.searchConfigOptions.isSearchInContent = isSearchInContent;
+        dialogOptions.searchConfigOptions.isCaseSensitiveQuery = appSettings.isSearchQueryCaseSensitive();
+        dialogOptions.searchConfigOptions.isRegexQuery = appSettings.isSearchQueryUseRegex();
 
-        baseConf(activity, dopt);
-        dopt.callback = query -> {
-            SearchEngine.isSearchExecuting = true;
-            AppSettings appSettings = new AppSettings(activity);
+        dialogOptions.callback = query -> {
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, query, isSearchInContent, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles);
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, dialogOptions.searchConfigOptions);
 
-            SearchEngine.QueueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
+            SearchEngine.queueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
+
+                SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+                baseConf(activity, dopt);
                 SearchEngine.isSearchExecuting = false;
                 dopt.callback = callback;
                 dopt.isSearchEnabled = !searchResults.isEmpty();
@@ -151,11 +157,11 @@ public class SearchOrCustomTextDialogCreator {
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
             });
         };
-        dopt.titleText = isSearchInContent ? R.string.search_in_content : R.string.search;
-        dopt.isSearchEnabled = true;
-        dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
-        dopt.searchHintText = isSearchInContent ? R.string.search_in_content : R.string.search;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        dialogOptions.titleText = isSearchInContent ? R.string.search_in_content : R.string.search;
+        //dialogOptions.messageText = activity.getString(R.string.recursive_search_in_current_directory);
+        dialogOptions.searchHintText = isSearchInContent ? R.string.search_in_content : R.string.search;
+
+        FileSearchDialog.showFileSearchDialog(activity, dialogOptions);
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {

@@ -60,7 +60,6 @@
     <color name="green_dark">#00ff00</color>
     <color name="green_light">#00bb00</color>
 
-
     <color name="sepia_fg_light__bg_dark">#282828</color>
     <color name="sepia_bg_light__fg_dark">#EBDBB2</color>
 
@@ -68,4 +67,7 @@
     <color name="nord_fg_dark">#ECEFF4</color>
     <color name="nord_bg_light">#ECEFF4</color>
     <color name="nord_fg_light">#2E3440</color>
+
+    <color name="active_icon">#FF00AAAA</color>
+    <color name="inactive_icon">#FFAAAAAA</color>
 </resources>

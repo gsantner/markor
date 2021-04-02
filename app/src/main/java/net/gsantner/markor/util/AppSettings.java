@@ -576,6 +576,26 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_show_search_result_on_cancel_enabled, true);
     }
 
+    public boolean isSearchQueryCaseSensitive() {
+        return getBool(R.string.pref_key__is_search_query_case_sensitive, false);
+    }
+
+    public void setSearchQueryCaseSensitivity(final boolean isQuerySensitive) {
+        if(isSearchQueryCaseSensitive() != isQuerySensitive) {
+            setBool(R.string.pref_key__is_search_query_case_sensitive, isQuerySensitive);
+        }
+    }
+
+    public boolean isSearchQueryUseRegex() {
+        return getBool(R.string.pref_key__is_search_query_use_regex, false);
+    }
+
+    public void setSearchQueryRegexUsing(final boolean isUseRegex) {
+        if(isSearchQueryUseRegex() != isUseRegex) {
+            setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
+        }
+    }
+
     public Integer getSearchMaxDepth() {
         Integer depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
 
