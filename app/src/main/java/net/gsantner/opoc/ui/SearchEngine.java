@@ -77,7 +77,7 @@ public class SearchEngine {
 
         public Config(final File rootSearchDir, final String query, final boolean isShowResultOnCancel,
                       final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles,
-                      final FileSearchDialog.Options.SearchConfigOptions configOptions){
+                      final FileSearchDialog.Options.SearchConfigOptions configOptions) {
 
             this(rootSearchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirectories, ignoredFiles,
                     configOptions.isRegexQuery, configOptions.isCaseSensitiveQuery, configOptions.isSearchInContent);

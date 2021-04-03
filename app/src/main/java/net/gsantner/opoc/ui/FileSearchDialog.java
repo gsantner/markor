@@ -71,7 +71,7 @@ public class FileSearchDialog {
             _activity = activity;
             _dialogOptions = dialogOptions;
 
-            Initializer.init(this, activity, dialogOptions);
+            Initializer.init(this);
         }
 
         private void showDialog() {
@@ -85,8 +85,12 @@ public class FileSearchDialog {
             }
         }
 
-        private static void init(final Initializer initializer, final Activity activity, final Options dialogOptions) {
+        private static void init(final Initializer initializer) {
             Components.initDialog(initializer);
+        }
+
+        private static Initializer init(final Activity activity, final Options dialogOptions) {
+            return new Initializer(activity, dialogOptions);
         }
 
 
@@ -309,6 +313,5 @@ public class FileSearchDialog {
                 }
             }
         }
-
     }
 }
