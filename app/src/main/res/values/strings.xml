@@ -411,8 +411,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
-    <string name="additional_categories_and_tags_title">Additional categories and tags</string>
     <string name="additional_projects_and_contexts_title">Additional projects and contexts</string>
     <string name="additional_projects_and_contexts_description">Enter space-separated projects and contexts. These will be available for insertion in todo.txt.</string>
-    <string name="additional_categories_and_tags_description">Enter space-separated categories and tags. These will be available for insertion in todo.txt.</string>
 </resources>
