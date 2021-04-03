@@ -32,6 +32,7 @@ import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -144,19 +145,19 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
-                    final SortedSet<String> all = new TreeSet<>();
+                    final List<String> all = new ArrayList<>();
                     all.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor))));
                     all.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getContexts()));
-                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, new ArrayList<>(all), (context) -> {
+                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, all, (context) -> {
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                     });
                     return;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    final SortedSet<String> all = new TreeSet<>();
+                    final List<String> all = new ArrayList<>();
                     all.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor))));
                     all.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getProjects()));
-                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, new ArrayList<>(all), (project) -> {
+                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, all, (project) -> {
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                     });
                     return;
