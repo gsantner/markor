@@ -32,14 +32,11 @@ import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
