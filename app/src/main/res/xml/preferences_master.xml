@@ -484,9 +484,8 @@
                 <android.support.v7.preference.EditTextPreference
                     android:icon="@drawable/ic_favorite_black_24dp"
                     android:key="@string/pref_key__todotxt__additional_projects_contexts"
-                    android:hint="+presentation +meeting +paper @pc @home @work"
-                    andrp
-
+                    android:defaultValue="+presentation @work +paper @pc @home +meeting @work @market +dinner"
+                    android:title="@string/additional_projects_and_contexts_title"
                     />
             </PreferenceCategory>
 
