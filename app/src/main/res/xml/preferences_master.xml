@@ -481,6 +481,11 @@
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__todotxt__reorder_actions"
                     android:title="@string/action_order" />
+                <android.support.v7.preference.EditTextPreference
+                    android:icon="@drawable/ic_favorite_black_24dp"
+                    android:key="@string/pref_key__todotxt__default_projects_contexts"
+                    android:hint="+presentation +meeting +paper @pc @home @work"
+                    />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="@string/syntax_highlighting">

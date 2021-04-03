@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -142,15 +144,19 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
-                    final List<String> allContexts = StringUtils.toArrayList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, allContexts, (context) -> {
+                    final SortedSet<String> all = new TreeSet<>();
+                    all.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor))));
+                    all.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getContexts()));
+                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, new ArrayList<>(all), (context) -> {
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                     });
                     return;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    final List<String> allProjects = StringUtils.toArrayList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, allProjects, (project) -> {
+                    final SortedSet<String> all = new TreeSet<>();
+                    all.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor))));
+                    all.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getProjects()));
+                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, new ArrayList<>(all), (project) -> {
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                     });
                     return;

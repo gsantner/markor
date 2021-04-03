@@ -192,6 +192,9 @@ public class SettingsActivity extends AppActivityBase {
             updateSummary(R.string.pref_key__exts_to_always_open_in_this_app, _appSettings.getString(R.string.pref_key__exts_to_always_open_in_this_app, ""));
             updateSummary(R.string.pref_key__todotxt__alternative_naming_context_project,
                     getString(R.string.category_to_context_project_to_tag, getString(R.string.context), getString(R.string.category), getString(R.string.project), getString(R.string.tag)));
+
+            setTodoTxtDefaultsTitle();
+
             if (_appSettings.getString(R.string.pref_key__file_description_format, "").equals("")) {
                 updateSummary(R.string.pref_key__file_description_format, getString(R.string.default_));
             } else {
@@ -382,6 +385,9 @@ public class SettingsActivity extends AppActivityBase {
                     startActivity(intent);
                     break;
                 }
+                case R.string.pref_key__todotxt__alternative_naming_context_project: {
+                    setTodoTxtDefaultsTitle();
+                }
             }
 
             if (key.startsWith("pref_key__editor_basic_color_scheme") && !key.contains("_fg_") && !key.contains("_bg_")) {
@@ -401,6 +407,16 @@ public class SettingsActivity extends AppActivityBase {
             super.onPause();
             // Reset Password to ensure it's not stored as plaintext.
             _as.getDefaultPreferencesEditor().remove(getContext().getString(R.string.pref_key__default_encryption_password)).commit();
+        }
+
+        void setTodoTxtDefaultsTitle() {
+            final String title;
+            if (_as.isTodoTxtAlternativeNaming()) {
+                title = getString(R.string.category)  + " + " + getString(R.string.tag);
+            } else {
+                title = getString(R.string.project)  + " + " + getString(R.string.context);
+            }
+            updatePreference(R.string.pref_key__todotxt__default_projects_contexts, null, title, null, true);
         }
     }
 }

@@ -811,4 +811,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return getBool(k, false);
     }
+
+    public String getDefaultProjectsContexts() {
+        return getString(R.string.pref_key__todotxt__default_projects_contexts, "");
+    }
 }
