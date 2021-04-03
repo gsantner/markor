@@ -813,6 +813,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getDefaultProjectsContexts() {
-        return getString(R.string.pref_key__todotxt__default_projects_contexts, "");
+        return getString(R.string.pref_key__todotxt__additional_projects_contexts, "");
+    }
+
+    // Not tied to an actual settings. Just moved here for clarity.
+    public int getDueDateOffset() {
+        return getInt(R.string.pref_key__todotxt__due_date_offset, 3);
     }
 }

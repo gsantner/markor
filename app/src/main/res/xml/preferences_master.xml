@@ -483,8 +483,10 @@
                     android:title="@string/action_order" />
                 <android.support.v7.preference.EditTextPreference
                     android:icon="@drawable/ic_favorite_black_24dp"
-                    android:key="@string/pref_key__todotxt__default_projects_contexts"
+                    android:key="@string/pref_key__todotxt__additional_projects_contexts"
                     android:hint="+presentation +meeting +paper @pc @home @work"
+                    andrp
+
                     />
             </PreferenceCategory>
 

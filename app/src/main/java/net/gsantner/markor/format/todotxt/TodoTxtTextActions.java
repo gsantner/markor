@@ -293,7 +293,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDueDate(3);
+                    setDueDate(_appSettings.getDueDateOffset());
                     return true;
                 }
             }

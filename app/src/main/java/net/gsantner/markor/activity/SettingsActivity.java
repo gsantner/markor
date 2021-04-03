@@ -411,12 +411,15 @@ public class SettingsActivity extends AppActivityBase {
 
         void setTodoTxtDefaultsTitle() {
             final String title;
+            final String summary;
             if (_as.isTodoTxtAlternativeNaming()) {
-                title = getString(R.string.category)  + " + " + getString(R.string.tag);
+                title = getString(R.string.additional_categories_and_tags_title);
+                summary = getString(R.string.additional_categories_and_tags_description);
             } else {
-                title = getString(R.string.project)  + " + " + getString(R.string.context);
+                title = getString(R.string.additional_projects_and_contexts_title);
+                summary = getString(R.string.additional_projects_and_contexts_description);
             }
-            updatePreference(R.string.pref_key__todotxt__default_projects_contexts, null, title, null, true);
+            updatePreference(R.string.pref_key__todotxt__additional_projects_contexts, null, title, summary, true);
         }
     }
 }
