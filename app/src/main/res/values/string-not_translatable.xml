@@ -319,5 +319,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
     <string name="pref_key__todotxt__additional_projects_contexts">"pref_key__todotxt__additional_projects_contexts"</string>
-    <string name="pref_key__todotxt__due_date_offset">pref_key__tototxt_due_date_offset</string>
+    <string name="pref_key__todotxt__due_date_offset">pref_key__todotxt_due_date_offset</string>
 </resources>
