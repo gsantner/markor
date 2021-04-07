@@ -411,7 +411,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Search or replace pattern error.</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
-
     <string name="searchCategory">Search</string>
     <string name="search_in_content">Search in content</string>
     <string name="show_search_result_on_cancel">Show result on cancel</string>
@@ -425,4 +424,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="regex_disabled">Regex disabled</string>
     <string name="case_sensitivity_enabled">Case sensitivity enabled</string>
     <string name="case_sensitivity_disabled">Case sensitivity disabled</string>
+    <string name="additional_contexts_and_projects">Additional contexts and projects</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
 </resources>
