@@ -81,7 +81,7 @@ public class DraggableScrollbarWebView extends WebView {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
         final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        _grabWidth = (int) (2.0 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
+        _grabWidth = (int) (1.5 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
     }
 
     public void setFastScrollEnabled(boolean fastScrollEnabled) {
