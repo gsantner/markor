@@ -811,4 +811,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
         return getBool(k, false);
     }
+
+    public String getTodotxtAdditionalContextsAndProjects() {
+        return getString(R.string.pref_key__todotxt__additional_projects_contexts, "+music +video @home @shop").replaceAll("\\s+", " ").trim();
+    }
+
+    // Not tied to an actual settings. Just moved here for clarity.
+    public int getDueDateOffset() {
+        return getInt(R.string.pref_key__todotxt__due_date_offset, 3);
+    }
 }
