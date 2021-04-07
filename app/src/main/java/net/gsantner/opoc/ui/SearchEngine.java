@@ -74,18 +74,13 @@ public class SearchEngine {
             this.query = this.isCaseSensitiveQuery ? query : query.toLowerCase();
         }
 
-
-        public Config(final File rootSearchDir, final String query, final boolean isShowResultOnCancel,
-                      final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles,
-                      final FileSearchDialog.Options.SearchConfigOptions configOptions) {
-
-            this(rootSearchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirectories, ignoredFiles,
-                    configOptions.isRegexQuery, configOptions.isCaseSensitiveQuery, configOptions.isSearchInContent);
+        public Config(final File rootSearchDir, final String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final FileSearchDialog.Options.SearchConfigOptions configOptions) {
+            this(rootSearchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirectories, ignoredFiles, configOptions.isRegexQuery, configOptions.isCaseSensitiveQuery, configOptions.isSearchInContent);
         }
 
 
         private void splitRegexExactFiles(List<String> list, List<String> exactList, List<Pattern> regexList) {
-            for (Integer i = 0; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 String pattern = list.get(i);
                 if (pattern.isEmpty()) {
                     continue;
@@ -169,8 +164,7 @@ public class SearchEngine {
                     preCancel();
                 });
                 _snackBar.show();
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
         }
 

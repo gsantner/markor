@@ -245,7 +245,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
             _fragmentMenu.findItem(R.id.action_search).setVisible(selFiles.isEmpty() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
-            _fragmentMenu.findItem(R.id.action_search_in_content).setVisible(selFiles.isEmpty() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
@@ -404,12 +403,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
             }
             case R.id.action_search: {
                 final boolean isSearchInContent = false;
-                executeSearchAction(isSearchInContent);
-
-                return true;
-            }
-            case R.id.action_search_in_content: {
-                final boolean isSearchInContent = true;
                 executeSearchAction(isSearchInContent);
 
                 return true;
