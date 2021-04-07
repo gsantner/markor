@@ -492,6 +492,12 @@
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__todotxt__reorder_actions"
                     android:title="@string/action_order" />
+                <android.support.v7.preference.EditTextPreference
+                    android:defaultValue="+music +video @home @shop"
+                    android:icon="@drawable/ic_favorite_black_24dp"
+                    android:key="@string/pref_key__todotxt__additional_projects_contexts"
+                    android:summary="@string/enter_space_seperated_contexts_and_projects_these_will"
+                    android:title="@string/additional_contexts_and_projects" />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="@string/syntax_highlighting">
