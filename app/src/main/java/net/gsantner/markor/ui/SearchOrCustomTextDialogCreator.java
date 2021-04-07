@@ -123,7 +123,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, boolean isSearchInContent, Callback.a1<String> callback) {
-        if(SearchEngine.isSearchExecuting){
+        if (SearchEngine.isSearchExecuting) {
             return;
         }
 

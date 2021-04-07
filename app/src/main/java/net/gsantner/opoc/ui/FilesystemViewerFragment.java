@@ -511,7 +511,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         return false;
     }
 
-    private void executeSearchAction(boolean isSearchInContent){
+    private void executeSearchAction(boolean isSearchInContent) {
         final File currentFolder = getCurrentFolder();
         SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, isSearchInContent, relFilePath -> {
             File load = new File(currentFolder, relFilePath);

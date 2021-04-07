@@ -581,7 +581,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setSearchQueryCaseSensitivity(final boolean isQuerySensitive) {
-        if(isSearchQueryCaseSensitive() != isQuerySensitive) {
+        if (isSearchQueryCaseSensitive() != isQuerySensitive) {
             setBool(R.string.pref_key__is_search_query_case_sensitive, isQuerySensitive);
         }
     }
@@ -591,7 +591,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setSearchQueryRegexUsing(final boolean isUseRegex) {
-        if(isSearchQueryUseRegex() != isUseRegex) {
+        if (isSearchQueryUseRegex() != isUseRegex) {
             setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
         }
     }
@@ -599,7 +599,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public Integer getSearchMaxDepth() {
         Integer depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
 
-        if(depth == 0){
+        if (depth == 0) {
             return Integer.MAX_VALUE;
         }
 
@@ -610,7 +610,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         List<String> ignoredDirs;
         String defaultValue = "^\\.git$\n^\\.thumbnails$";
         String pref = getString(R.string.pref_key__ignored_search_dir_names, defaultValue);
-        ignoredDirs =  Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
+        ignoredDirs = Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
 
         return ignoredDirs;
     }
