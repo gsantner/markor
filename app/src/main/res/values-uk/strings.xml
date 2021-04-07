@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Збіги</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
     <string name="newline_is_new_paragraph">Новий рядок = новий абзац</string>
+    <string name="additional_contexts_and_projects">Додаткові контексти та проекти</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Введіть розділені пробілами @contexts і +проекти. Вони завжди будуть видимі в todo.txt вставити діалогові вікна.</string>
 </resources>

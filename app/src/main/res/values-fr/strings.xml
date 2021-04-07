@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Matchs</string>
     <string name="search_replace_pattern_error_message">Erreur de recherche ou de remplacement.</string>
     <string name="newline_is_new_paragraph">Newline = nouveau paragraphe</string>
+    <string name="additional_contexts_and_projects">Contextes et projets supplémentaires</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Entrez les @contexts séparés par des espaces et +projets. Ils seront toujours visibles dans les boîtes de dialogue d\'insertion todo.txt.</string>
 </resources>

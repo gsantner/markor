@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Treff</string>
     <string name="search_replace_pattern_error_message">Søk eller erstatt mønsterfeil.</string>
     <string name="newline_is_new_paragraph">Ny = ny avsnitt</string>
+    <string name="additional_contexts_and_projects">Flere kontekster og prosjekter</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Angi områdedaterte @contexts og +projects. Disse vil alltid være synlige på todo.txt innfør dialoger.</string>
 </resources>
