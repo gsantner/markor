@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Meciuri</string>
     <string name="search_replace_pattern_error_message">Eroare de căutare sau înlocuire.</string>
     <string name="newline_is_new_paragraph">Noutăți = punct nou</string>
+    <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
 </resources>
