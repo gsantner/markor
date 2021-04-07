@@ -146,7 +146,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_add_context: {
                     final List<String> contexts = new ArrayList<>();
                     contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor))));
-                    contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getContexts()));
+                    contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts()));
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                     });
@@ -155,7 +155,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_add_project: {
                     final List<String> projects = new ArrayList<>();
                     projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor))));
-                    projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getDefaultProjectsContexts()).getProjects()));
+                    projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects()));
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                     });

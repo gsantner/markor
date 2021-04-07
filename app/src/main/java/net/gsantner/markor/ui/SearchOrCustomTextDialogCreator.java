@@ -262,7 +262,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.data = sortUniqNonEmpty(availableData, "home", "shop");
+        dopt.data = sortUniqNonEmpty(availableData);
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.search_or_custom;
@@ -334,7 +334,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.data = sortUniqNonEmpty(availableData, "music", "video");
+        dopt.data = sortUniqNonEmpty(availableData);
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
