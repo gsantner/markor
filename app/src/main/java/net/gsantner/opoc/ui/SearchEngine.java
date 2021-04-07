@@ -236,8 +236,7 @@ public class SearchEngine {
 
                     publishProgress(_currentQueueLength + subQueue.size(), _currentSearchDepth, _result.size(), _countCheckedFiles);
                 }
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
 
             return subQueue;
@@ -277,7 +276,6 @@ public class SearchEngine {
         @Override
         protected void onCancelled() {
             super.onCancelled();
-
             SearchEngine.isSearchExecuting = false;
         }
 
@@ -288,8 +286,7 @@ public class SearchEngine {
                 if (realParentDir != null && expectedParentDir.getCanonicalPath().equals(realParentDir.getCanonicalPath())) {
                     return false;
                 }
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
 
             return true;
@@ -305,8 +302,7 @@ public class SearchEngine {
                     String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
                     _result.add(path);
                 }
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
         }
 
@@ -321,8 +317,7 @@ public class SearchEngine {
 
                 String res = childPath.replace(parentPath, "");
                 return res.split("/").length;
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
 
             return -1;
@@ -359,8 +354,7 @@ public class SearchEngine {
                         break;
                     }
                 }
-            } catch (Exception ex) {
-                ;
+            } catch (Exception ignored) {
             }
 
             return ret;
@@ -415,8 +409,7 @@ public class SearchEngine {
 
             return false;
         }
-
-
+        
         private static Activity getActivity() throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
             Class activityThreadClass = Class.forName("android.app.ActivityThread");
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
