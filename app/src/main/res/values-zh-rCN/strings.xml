@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">比赛</string>
     <string name="search_replace_pattern_error_message">搜索或替换图案错误。</string>
     <string name="newline_is_new_paragraph">新行 = 新段</string>
+    <string name="additional_contexts_and_projects">其他背景和项目</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>
 </resources>
