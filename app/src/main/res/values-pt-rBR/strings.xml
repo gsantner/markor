@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Jogos</string>
     <string name="search_replace_pattern_error_message">Erro ao pesquisar ou substituir padrão.</string>
     <string name="newline_is_new_paragraph">Nova linha = novo parágrafo</string>
+    <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
 </resources>
