@@ -392,11 +392,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             if (value >= 0 && value < TextFormat.FORMATS.length) {
                 return TextFormat.FORMATS[value];
             } else {
-                // If the format has been stored directly, return that
-                for (final int format : TextFormat.FORMATS) {
-                    if (value == format) return format;
-                }
-                // Else return the default
                 return _default;
             }
         }

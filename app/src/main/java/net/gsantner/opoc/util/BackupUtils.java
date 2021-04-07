@@ -218,7 +218,7 @@ public class BackupUtils {
             for (final SharedPreferences.Editor edit : editors) {
                 edit.commit();
             }
-            // System.exit(0);
+            System.exit(0);
         } catch (Exception e) {
             final ContextUtils cu = new ContextUtils(context);
             Toast.makeText(context, cu.rstr("failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
