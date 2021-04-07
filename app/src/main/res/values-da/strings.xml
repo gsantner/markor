@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Kampe</string>
     <string name="search_replace_pattern_error_message">Søg eller erstat mønsterfejl.</string>
     <string name="newline_is_new_paragraph">Newline = nyt afsnit</string>
+    <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
 </resources>

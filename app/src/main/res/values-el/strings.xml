@@ -396,4 +396,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Αντιστοιχίσεις</string>
     <string name="search_replace_pattern_error_message">Αναζήτηση ή αντικατάσταση σφάλματος μοτίβου.</string>
     <string name="newline_is_new_paragraph">Newline = νέα παράγραφος</string>
+    <string name="additional_contexts_and_projects">Πρόσθετα πλαίσια και έργα</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Εισάγετε διαχωρισμένα με κενά διαστήματα @contexts και +projects. Αυτά θα είναι πάντα ορατά στους διαλόγους εισαγωγής todo.txt.</string>
 </resources>

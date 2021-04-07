@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -285,7 +286,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.data = sortUniqNonEmpty(availableData);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.search_or_custom;
@@ -357,7 +358,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.data = sortUniqNonEmpty(availableData);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
@@ -461,23 +462,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 475;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
-    private static void addNonEmpty(final Set<String> out, final List<String> in) {
-        for (final String value : in) {
-            if (!value.trim().isEmpty()) {
-                out.add(value);
-            }
-        }
-    }
-
-    private static List<String> sortUniqNonEmpty(final List<String> data, final String... plus) {
-        final Set<String> uniq = new HashSet<>();
-        addNonEmpty(uniq, Arrays.asList(plus));
-        addNonEmpty(uniq, data);
-        final List<String> out = new ArrayList<>(uniq);
-        Collections.sort(out);
-        return out;
     }
 
     public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {

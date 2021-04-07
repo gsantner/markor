@@ -865,7 +865,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getTodotxtAdditionalContextsAndProjects() {
-        return getString(R.string.pref_key__todotxt__additional_projects_contexts, "+music +video @home @shop").replaceAll("\\s+", " ").trim();
+        return getString(R.string.pref_key__todotxt__additional_projects_contexts, "+music +video @home @shop");
     }
 
     // Not tied to an actual settings. Just moved here for clarity.
