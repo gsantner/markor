@@ -44,8 +44,6 @@ public class FileSearchDialog {
 
         private Window _window;
         private AlertDialog _dialog;
-        private LinearLayout _dialogLayout;
-        private LinearLayout _menuLayout;
         private AppCompatEditText _searchEditText;
 
         private Initializer(final Activity activity, final Options dialogOptions) {
@@ -89,8 +87,8 @@ public class FileSearchDialog {
                 dialogBuilder.setMessage(R.string.recursive_search_in_current_directory);
                 dialogBuilder.setTitle(R.string.search);
 
-                initializer._dialogLayout = initDialogLayout(initializer);
-                dialogBuilder.setView(initializer._dialogLayout)
+                LinearLayout dialogContentView = initDialogLayout(initializer);
+                dialogBuilder.setView(dialogContentView)
                         .setOnCancelListener(null)
                         .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -107,25 +105,16 @@ public class FileSearchDialog {
 
             private static LinearLayout initDialogLayout(final Initializer initializer) {
                 final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
+                final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
+                final int textColor = ContextCompat.getColor(initializer._activity, initializer._dialogOptions._isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);
                 dialogLayout.setOrientation(LinearLayout.VERTICAL);
 
 
-                initializer._searchEditText = initSearchEditText(initializer, dialogLayout);
-
-                initializer._menuLayout = OptionsMenuLayout.init(initializer, dialogLayout);
-
-                return dialogLayout;
-            }
-
-
-            private static AppCompatEditText initSearchEditText(final Initializer initializer, final LinearLayout dialogLayout) {
+                // EdiText: Search query input
                 final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
-
                 searchEditText.setHint(R.string.search);
                 searchEditText.setSingleLine(true);
                 searchEditText.setMaxLines(1);
-
-                final int textColor = ContextCompat.getColor(initializer._activity, initializer._dialogOptions._isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);
                 searchEditText.setTextColor(textColor);
                 searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
                 searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -143,12 +132,13 @@ public class FileSearchDialog {
                 });
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                final int dp8px = (int) (new ContextUtils(searchEditText.getContext()).convertDpToPx(8));
-                lp.setMargins(dp8px, dp8px / 2, dp8px, dp8px / 2);
-
-
+                lp.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
                 dialogLayout.addView(searchEditText, lp);
-                return searchEditText;
+                initializer._searchEditText = searchEditText;
+
+                OptionsMenuLayout.init(initializer, dialogLayout);
+
+                return dialogLayout;
             }
 
 
