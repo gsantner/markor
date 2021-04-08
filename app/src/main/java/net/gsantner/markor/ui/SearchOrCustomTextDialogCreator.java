@@ -141,7 +141,7 @@ public class SearchOrCustomTextDialogCreator {
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
             SearchEngine.Config config = new SearchEngine.Config(searchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, dialogOptions.searchConfigOptions);
 
-            SearchEngine.queueFileSearch(config, (Callback.a1<List<String>>) searchResults -> {
+            SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<String>>) searchResults -> {
 
                 SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, dopt);

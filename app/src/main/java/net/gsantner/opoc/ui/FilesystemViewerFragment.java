@@ -136,6 +136,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
         });
 
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
+
+        if(SearchEngine.isSearchExecuting){
+            SearchEngine.activity = getActivity();
+        }
     }
 
 

@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 public class SearchEngine {
     public static boolean isSearchExecuting = false;
+    public static Activity activity;
     public final static Pattern[] defaultIgnoredDirs = {
             Pattern.compile("^\\.git$"),
             Pattern.compile(".*[Tt]humb.*")
@@ -101,8 +102,8 @@ public class SearchEngine {
     }
 
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(SearchEngine.Config config, Callback.a1<List<String>> callback) {
-
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<String>> callback) {
+        SearchEngine.activity = activity;
         SearchEngine.isSearchExecuting = true;
         SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
         task.execute();
@@ -150,8 +151,7 @@ public class SearchEngine {
             }
 
             try {
-                // getActivity() + onDismissed = fix snackBar disappearing on screen rotation
-                View view = getActivity().findViewById(android.R.id.content);
+                View view = SearchEngine.activity.findViewById(android.R.id.content);
                 _snackBar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
                         .addCallback(new Snackbar.Callback() {
                             @Override
@@ -412,30 +412,6 @@ public class SearchEngine {
             return false;
         }
 
-        private static Activity getActivity() throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
-            Class activityThreadClass = Class.forName("android.app.ActivityThread");
-            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
-            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
-            activitiesField.setAccessible(true);
-
-            Map<Object, Object> activities = (Map<Object, Object>) activitiesField.get(activityThread);
-            if (activities == null)
-                return null;
-
-            for (Object activityRecord : activities.values()) {
-                Class activityRecordClass = activityRecord.getClass();
-                Field pausedField = activityRecordClass.getDeclaredField("paused");
-                pausedField.setAccessible(true);
-                if (!pausedField.getBoolean(activityRecord)) {
-                    Field activityField = activityRecordClass.getDeclaredField("activity");
-                    activityField.setAccessible(true);
-                    Activity activity = (Activity) activityField.get(activityRecord);
-                    return activity;
-                }
-            }
-
-            return null;
-        }
     }
 
 
