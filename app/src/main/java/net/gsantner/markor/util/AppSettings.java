@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 
 import net.gsantner.markor.App;
@@ -37,11 +38,14 @@ import java.util.Random;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
+import static net.gsantner.markor.format.TextFormat.FORMAT_UNKNOWN;
+
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
     public static Boolean _isDeviceGoodHardware = null;
+    private final ContextUtils _contextUtils;
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
@@ -49,10 +53,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
+        _contextUtils = new ContextUtils(_context);
         if (_isDeviceGoodHardware == null) {
-            ContextUtils cu = new ContextUtils(_context);
-            _isDeviceGoodHardware = cu.isDeviceGoodHardware();
-            cu.freeContextRef();
+            _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware();
         }
     }
 
@@ -373,27 +376,20 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public void setDocumentFormat(final String path, final int format) {
-        if (fexists(path)) {
-            final String key = PREF_PREFIX_FILE_FORMAT + path;
-            // Store index in FORMATS. Store nothing if it is not a recognized format
-            for (int i = 0; i < TextFormat.FORMATS.length; i++) {
-                if (TextFormat.FORMATS[i] == format) setInt(key, i);
-            }
+    public void setDocumentFormat(final String path, @StringRes final int format) {
+        if (fexists(path) && format != TextFormat.FORMAT_UNKNOWN) {
+            setString(PREF_PREFIX_FILE_FORMAT + path, _context.getString(format));
         }
     }
 
-    public int getDocumentFormat(final String path, final int _default) {
+    public @StringRes int getDocumentFormat(final String path, final int _default) {
         if (!fexists(path)) {
             return _default;
         } else {
-            final int value = getInt(PREF_PREFIX_FILE_FORMAT + path, -1);
-            // Get index in FORMATS
-            if (value >= 0 && value < TextFormat.FORMATS.length) {
-                return TextFormat.FORMATS[value];
-            } else {
-                return _default;
-            }
+            final String value = getString(PREF_PREFIX_FILE_FORMAT + path, null);
+            final int sid = _contextUtils.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, value);
+            // Note TextFormat.FORMAT_UNKNOWN also == 0
+            return sid != 0 ? sid : _default;
         }
     }
 
@@ -630,8 +626,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public File getFolderToLoadByMenuId(int itemId) {
-        ContextUtils contextUtils = new ContextUtils(_context);
-        List<Pair<File, String>> appDataPublicDirs = contextUtils.getAppDataPublicDirs(false, true, false);
+        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
                 return getNotebookDirectory();
@@ -646,7 +641,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
             case R.id.action_go_to_appdata_private: {
-                return contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir();
             }
             case R.id.action_go_to_storage: {
                 return Environment.getExternalStorageDirectory();
@@ -664,11 +659,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return Environment.getExternalStorageDirectory();
             }
             case R.id.action_go_to_appdata_public: {
-                appDataPublicDirs = contextUtils.getAppDataPublicDirs(true, false, false);
+                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(true, false, false);
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;
                 }
-                return contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir();
             }
         }
         return getNotebookDirectory();

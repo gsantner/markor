@@ -324,4 +324,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hidden_password" translatable="false">****</string>
     <string name="pref_key__todotxt__additional_projects_contexts">"pref_key__todotxt__additional_projects_contexts"</string>
     <string name="pref_key__todotxt__due_date_offset">pref_key__todotxt_due_date_offset</string>
+    <string name="action_format_keyvalue">action_format_keyvalue</string>
+    <string name="action_format_plaintext">action_format_plaintext</string>
+    <string name="action_format_markdown">action_format_markdown</string>
+    <string name="action_format_todotxt">action_format_todotxt</string>
+    <string name="action_format_zimwiki">action_format_zimwiki</string>
 </resources>

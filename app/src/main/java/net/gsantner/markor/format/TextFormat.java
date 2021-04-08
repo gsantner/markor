@@ -36,28 +36,17 @@ import java.util.Locale;
 
 public class TextFormat {
     public static final int FORMAT_UNKNOWN = 0;
-    public static final int FORMAT_ZIMWIKI = R.id.action_format_zimwiki;
-    public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
-    public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
-    public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
-    public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
+    public static final int FORMAT_ZIMWIKI = R.string.action_format_zimwiki;
+    public static final int FORMAT_MARKDOWN = R.string.action_format_markdown;
+    public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
+    public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
+    public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
-
-    // Order here is used for **per-file settings** to store and retrieve format for AppSettings
-    // Do not change order, append new formats to the end
-    public static final int[] FORMATS = {
-            FORMAT_UNKNOWN,
-            FORMAT_ZIMWIKI,
-            FORMAT_MARKDOWN,
-            FORMAT_PLAIN,
-            FORMAT_TODOTXT,
-            FORMAT_KEYVALUE,
-    };
 
     // Order here is used to **determine** format by it's file extension and/or content heading
     private final static TextConverter[] CONVERTERS = new TextConverter[]{
