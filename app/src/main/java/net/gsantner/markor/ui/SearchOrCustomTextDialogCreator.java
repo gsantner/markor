@@ -122,7 +122,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, boolean isSearchInContent, Callback.a1<String> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
         if (SearchEngine.isSearchExecuting) {
             return;
         }
@@ -130,7 +130,7 @@ public class SearchOrCustomTextDialogCreator {
         AppSettings appSettings = new AppSettings(activity);
         final boolean isDarkDialog = appSettings.isDarkThemeEnabled();
         FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options(isDarkDialog);
-        dialogOptions.searchConfigOptions.isSearchInContent = isSearchInContent;
+        dialogOptions.searchConfigOptions.isSearchInContent = appSettings.isSearchInContent();
         dialogOptions.searchConfigOptions.isCaseSensitiveQuery = appSettings.isSearchQueryCaseSensitive();
         dialogOptions.searchConfigOptions.isRegexQuery = appSettings.isSearchQueryUseRegex();
 
@@ -158,9 +158,7 @@ public class SearchOrCustomTextDialogCreator {
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
             });
         };
-        dialogOptions.titleText = isSearchInContent ? R.string.search_in_content : R.string.search;
-        //dialogOptions.messageText = activity.getString(R.string.recursive_search_in_current_directory);
-        dialogOptions.searchHintText = isSearchInContent ? R.string.search_in_content : R.string.search;
+        dialogOptions.messageText = activity.getString(R.string.recursive_search_in_current_directory);
 
         FileSearchDialog.showFileSearchDialog(activity, dialogOptions);
     }

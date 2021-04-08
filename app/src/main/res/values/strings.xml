@@ -329,7 +329,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Reload</string>
     <string name="wrap_words">Wrap words</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
-    <string name="recursive_search_in_current_directory">Recursive search in current directory. When query contains a asterisk (*) regex search is used, otherwise check if the query is contained.</string>
+    <string name="recursive_search_in_current_directory">Recursive search in current directory.</string>
     <string name="always_open_with_this_app">Always open with this app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Always open files with this app when the list contains the file extension. Use \'None, .html, .css , .js\' for example if you want to edit web files and those without file extension.</string>
     <string name="template">Template</string>
@@ -420,10 +420,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ignored_search_dir_names_dialog">Ignore folder names for search.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*</string>
     <string name="ignored_search_file_names">Ignored file names</string>
     <string name="ignored_search_file_names_dialog">Ignore file names for search.\nUse new line as separator.\nUse quotes for exact file names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
-    <string name="regex_enabled">Regex enabled</string>
-    <string name="regex_disabled">Regex disabled</string>
-    <string name="case_sensitivity_enabled">Case sensitivity enabled</string>
-    <string name="case_sensitivity_disabled">Case sensitivity disabled</string>
+    <string name="regex_search">Regex search</string>
+    <string name="case_sensitive">Case sensitive</string>
     <string name="additional_contexts_and_projects">Additional contexts and projects</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
 </resources>

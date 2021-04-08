@@ -596,6 +596,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
+    public boolean isSearchInContent() {
+        return getBool(R.string.pref_key__is_search_in_content, false);
+    }
+
+    public void setSearchInContent(final boolean isSearchInContent) {
+        if (isSearchInContent() != isSearchInContent) {
+            setBool(R.string.pref_key__is_search_in_content, isSearchInContent);
+        }
+    }
+
     public Integer getSearchMaxDepth() {
         Integer depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
 

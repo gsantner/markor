@@ -5,14 +5,12 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.TooltipCompat;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import net.gsantner.markor.R;
@@ -45,9 +43,9 @@ public class FileSearchDialog {
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
-        public int titleText = 0;
+        public int titleText = R.string.search;
         @StringRes
-        public int searchHintText = android.R.string.search_go;
+        public int searchHintText = R.string.empty_string;
 
         public static class SearchConfigOptions {
             public boolean isRegexQuery;
@@ -111,15 +109,13 @@ public class FileSearchDialog {
                 if (!TextUtils.isEmpty(initializer._dialogOptions.messageText)) {
                     dialogBuilder.setMessage(initializer._dialogOptions.messageText);
                 }
+                dialogBuilder.setTitle(initializer._dialogOptions.titleText);
+                dialogBuilder.setIcon(R.drawable.ic_search_black_24dp);
 
                 initializer._dialogLayout = initDialogLayout(initializer);
                 dialogBuilder.setView(initializer._dialogLayout)
                         .setOnCancelListener(null)
                         .setNegativeButton(initializer._dialogOptions.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
-
-                if (initializer._dialogOptions.titleText != 0) {
-                    dialogBuilder.setTitle(initializer._dialogOptions.titleText);
-                }
 
                 dialogBuilder.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
@@ -136,9 +132,10 @@ public class FileSearchDialog {
                 final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
                 dialogLayout.setOrientation(LinearLayout.VERTICAL);
 
-                initializer._menuLayout = OptionsMenuLayout.init(initializer, dialogLayout);
 
                 initializer._searchEditText = initSearchEditText(initializer, dialogLayout);
+
+                initializer._menuLayout = OptionsMenuLayout.init(initializer, dialogLayout);
 
                 return dialogLayout;
             }
@@ -185,8 +182,7 @@ public class FileSearchDialog {
 
                 private static LinearLayout init(final Initializer initializer, final LinearLayout dialogLayout) {
                     final LinearLayout menuLayout = new LinearLayout(initializer._activity);
-                    menuLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    menuLayout.setGravity(Gravity.CENTER);
+                    menuLayout.setOrientation(LinearLayout.VERTICAL);
 
                     initMenuItems(initializer, menuLayout);
 
@@ -199,8 +195,8 @@ public class FileSearchDialog {
                 private static LinearLayout.LayoutParams getLayoutParams() {
                     final int leftMargin = 40;
                     final int rightMargin = 40;
-                    final int topMargin = 40;
-                    final int bottomMargin = 40;
+                    final int topMargin = 10;
+                    final int bottomMargin = 10;
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
 
@@ -211,105 +207,82 @@ public class FileSearchDialog {
                 private static void initMenuItems(final Initializer initializer, final LinearLayout menuLayout) {
                     LinearLayout.LayoutParams layoutParams = getLayoutParams();
 
-                    ImageView imgRegex = initRegexOption(initializer);
-                    ImageView imgCaseSensitive = initCaseSensitivityOption(initializer);
-                    ImageView imgSearchInContent = initSearchInContentOption(initializer);
+                    CheckBox regexCheckBox = initRegexOption(initializer);
+                    CheckBox caseSensitivityCheckBox = initCaseSensitivityOption(initializer);
+                    CheckBox searchInContentCheckBox = initSearchInContentOption(initializer);
 
-                    menuLayout.addView(imgRegex, layoutParams);
-                    menuLayout.addView(imgCaseSensitive, layoutParams);
-                    menuLayout.addView(imgSearchInContent, layoutParams);
+                    menuLayout.addView(caseSensitivityCheckBox, layoutParams);
+                    menuLayout.addView(searchInContentCheckBox, layoutParams);
+                    menuLayout.addView(regexCheckBox, layoutParams);
                 }
 
 
-                private static ImageView initRegexOption(final Initializer initializer) {
+                private static CheckBox initRegexOption(final Initializer initializer) {
                     final Options.SearchConfigOptions searchConfig = initializer._dialogOptions.searchConfigOptions;
 
-                    ImageView imgRegex = new ImageView(initializer._activity);
-                    imgRegex.setImageResource(R.drawable.ic_regex_black_24dp);
-                    updateRegexOption(imgRegex, searchConfig.isRegexQuery, initializer._activity);
+                    CheckBox regexCheckBox = new CheckBox(initializer._activity);
+                    regexCheckBox.setText(R.string.regex_search);
+                    regexCheckBox.setChecked(searchConfig.isRegexQuery);
 
-                    imgRegex.setOnClickListener(v -> {
-                        searchConfig.isRegexQuery = !searchConfig.isRegexQuery;
-                        updateRegexOption(imgRegex, searchConfig.isRegexQuery, initializer._activity);
+                    updateRegexOption(regexCheckBox, searchConfig.isRegexQuery, initializer._activity);
+
+                    regexCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        searchConfig.isRegexQuery = isChecked;
+                        updateRegexOption(regexCheckBox, isChecked, initializer._activity);
                     });
 
-                    return imgRegex;
+                    return regexCheckBox;
                 }
 
-                private static void updateRegexOption(final ImageView imgRegex, final boolean isEnabled, final Activity activity) {
-                    updateIconActivityColor(imgRegex, isEnabled, activity);
-
-                    final String hintTextID = activity.getString(isEnabled
-                            ? R.string.regex_enabled
-                            : R.string.regex_disabled);
-                    TooltipCompat.setTooltipText(imgRegex, hintTextID);
-
+                private static void updateRegexOption(final CheckBox regexCheckBox, final boolean isEnabled, final Activity activity) {
                     AppSettings appSettings = new AppSettings(activity);
                     appSettings.setSearchQueryRegexUsing(isEnabled);
                 }
 
 
-                private static ImageView initCaseSensitivityOption(final Initializer initializer) {
+                private static CheckBox initCaseSensitivityOption(final Initializer initializer) {
                     final Options.SearchConfigOptions searchConfig = initializer._dialogOptions.searchConfigOptions;
 
-                    ImageView imgCaseSensitivity = new ImageView(initializer._activity);
-                    imgCaseSensitivity.setImageResource(R.drawable.ic_format_size_black_24dp);
-                    updateCaseSensitivityOption(imgCaseSensitivity, searchConfig.isCaseSensitiveQuery, initializer._activity);
+                    CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
+                    caseSensitivityCheckBox.setText(R.string.case_sensitive);
+                    caseSensitivityCheckBox.setChecked(searchConfig.isCaseSensitiveQuery);
 
-                    imgCaseSensitivity.setOnClickListener(v -> {
-                        searchConfig.isCaseSensitiveQuery = !searchConfig.isCaseSensitiveQuery;
-                        updateCaseSensitivityOption(imgCaseSensitivity, searchConfig.isCaseSensitiveQuery, initializer._activity);
+                    updateCaseSensitivityOption(caseSensitivityCheckBox, searchConfig.isCaseSensitiveQuery, initializer._activity);
+
+                    caseSensitivityCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        searchConfig.isCaseSensitiveQuery = isChecked;
+                        updateCaseSensitivityOption(caseSensitivityCheckBox, isChecked, initializer._activity);
                     });
 
-                    return imgCaseSensitivity;
+                    return caseSensitivityCheckBox;
                 }
 
-                private static void updateCaseSensitivityOption(final ImageView imgCaseSensitivity, final boolean isEnabled, final Activity activity) {
-                    updateIconActivityColor(imgCaseSensitivity, isEnabled, activity);
-
-                    final String hintText = activity.getString(isEnabled
-                            ? R.string.case_sensitivity_enabled
-                            : R.string.case_sensitivity_disabled);
-                    TooltipCompat.setTooltipText(imgCaseSensitivity, hintText);
-
+                private static void updateCaseSensitivityOption(final CheckBox caseSensitivityCheckBox, final boolean isEnabled, final Activity activity) {
                     AppSettings appSettings = new AppSettings(activity);
                     appSettings.setSearchQueryCaseSensitivity(isEnabled);
                 }
 
 
-                private static ImageView initSearchInContentOption(final Initializer initializer) {
+                private static CheckBox initSearchInContentOption(final Initializer initializer) {
                     final Options.SearchConfigOptions searchConfig = initializer._dialogOptions.searchConfigOptions;
 
-                    ImageView imgSearchInContent = new ImageView(initializer._activity);
-                    imgSearchInContent.setImageResource(R.drawable.ic_baseline_plagiarism_24);
-                    updateSearchInContentOption(imgSearchInContent, searchConfig.isSearchInContent, initializer);
+                    CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
+                    searchInContentCheckBox.setText(R.string.search_in_content);
+                    searchInContentCheckBox.setChecked(searchConfig.isSearchInContent);
 
-                    imgSearchInContent.setOnClickListener(v -> {
-                        searchConfig.isSearchInContent = !searchConfig.isSearchInContent;
-                        updateSearchInContentOption(imgSearchInContent, searchConfig.isSearchInContent, initializer);
+                    updateSearchInContentOption(searchInContentCheckBox, searchConfig.isSearchInContent, initializer._activity);
+
+                    searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        searchConfig.isSearchInContent = isChecked;
+                        updateSearchInContentOption(searchInContentCheckBox, isChecked, initializer._activity);
                     });
 
-                    return imgSearchInContent;
+                    return searchInContentCheckBox;
                 }
 
-                private static void updateSearchInContentOption(final ImageView imgCaseSensitivity, final boolean isEnabled, final Initializer initializer) {
-                    updateIconActivityColor(imgCaseSensitivity, isEnabled, initializer._activity);
-
-                    final String hintText = initializer._activity.getString(isEnabled
-                            ? R.string.search_in_content
-                            : R.string.search);
-                    TooltipCompat.setTooltipText(imgCaseSensitivity, hintText);
-
-                    if (initializer._dialog != null) {
-                        initializer._dialog.setTitle(hintText);
-                        initializer._searchEditText.setHint(hintText);
-                    }
-                }
-
-
-                private static void updateIconActivityColor(final ImageView image, final boolean isEnabled, final Activity activity) {
-                    final int color = ContextCompat.getColor(activity, isEnabled ? R.color.active_icon : R.color.inactive_icon);
-                    image.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
+                private static void updateSearchInContentOption(final CheckBox searchInContentCheckBox, final boolean isEnabled, final Activity activity) {
+                    AppSettings appSettings = new AppSettings(activity);
+                    appSettings.setSearchInContent(isEnabled);
                 }
             }
         }

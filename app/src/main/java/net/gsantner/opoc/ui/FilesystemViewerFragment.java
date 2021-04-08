@@ -402,8 +402,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
             case R.id.action_search: {
-                final boolean isSearchInContent = false;
-                executeSearchAction(isSearchInContent);
+                executeSearchAction();
 
                 return true;
             }
@@ -504,9 +503,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
         return false;
     }
 
-    private void executeSearchAction(boolean isSearchInContent) {
+    private void executeSearchAction() {
         final File currentFolder = getCurrentFolder();
-        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, isSearchInContent, relFilePath -> {
+        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, relFilePath -> {
             File load = new File(currentFolder, relFilePath);
             if (load.isDirectory()) {
                 _filesystemViewerAdapter.loadFolder(load);
