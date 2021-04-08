@@ -127,7 +127,7 @@ public class SearchOrCustomTextDialogCreator {
 
         AppSettings appSettings = new AppSettings(activity);
         final boolean isDarkDialog = appSettings.isDarkThemeEnabled();
-        FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options(isDarkDialog);
+        FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options();
 
         dialogOptions.callback = (cb_query, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent) -> {
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();

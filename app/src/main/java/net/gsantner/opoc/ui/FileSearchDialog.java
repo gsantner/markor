@@ -19,40 +19,26 @@ import net.gsantner.opoc.util.ContextUtils;
 
 public class FileSearchDialog {
 
-    public static void showFileSearchDialog(final Activity activity, final Options dialogOptions) {
-        final Initializer initializer = new Initializer(activity, dialogOptions);
-
+    public static void showFileSearchDialog(final Activity activity, final Callback.a4<String, Boolean, Boolean, Boolean> callback) {
+        final Initializer initializer = new Initializer(activity, callback);
         initializer.showDialog();
-    }
-
-
-    public static class Options {
-        public Callback.a4<String, Boolean, Boolean, Boolean> callback;
-
-        public Options(final boolean isDarkDialog) {
-            _isDarkDialog = isDarkDialog;
-        }
-
-        public boolean _isDarkDialog;
     }
 
 
     private static class Initializer {
         final private Activity _activity;
-        final private Options _dialogOptions;
+        final private Callback.a4<String, Boolean, Boolean, Boolean> _callback;
 
-        private Window _window;
         private AlertDialog _dialog;
 
-        private Initializer(final Activity activity, final Options dialogOptions) {
+        private Initializer(final Activity activity, final Callback.a4<String, Boolean, Boolean, Boolean> callback) {
             _activity = activity;
-            _dialogOptions = dialogOptions;
-
+            _callback = callback;
             Initializer.init(this);
         }
 
         private void showDialog() {
-            _window = _dialog.getWindow();
+            Window _window = _dialog.getWindow();
             if (_window != null) {
                 _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
@@ -70,12 +56,13 @@ public class FileSearchDialog {
 
 
     private static AlertDialog.Builder buildDialog(final Initializer initializer) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, initializer._dialogOptions._isDarkDialog ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AppSettings appSettings = new AppSettings(initializer._activity);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(initializer._activity, initializer._dialogOptions._isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(initializer._activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
 
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
@@ -87,8 +74,8 @@ public class FileSearchDialog {
 
         final Callback.a0 startSearch = () -> {
             final String q = searchEditText.getText().toString();
-            if (initializer._dialogOptions.callback != null && !TextUtils.isEmpty(q)) {
-                initializer._dialogOptions.callback.callback(q, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked());
+            if (initializer._callback != null && !TextUtils.isEmpty(q)) {
+                initializer._callback.callback(q, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked());
             }
         };
 
