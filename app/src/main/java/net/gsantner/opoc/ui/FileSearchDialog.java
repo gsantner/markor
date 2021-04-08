@@ -19,25 +19,23 @@ import net.gsantner.opoc.util.ContextUtils;
 
 public class FileSearchDialog {
 
-    public static void showFileSearchDialog(final Activity activity, final Callback.a4<String, Boolean, Boolean, Boolean> callback) {
-        final Initializer initializer = new Initializer(activity, callback);
-        initializer.showDialog();
+    public static void showFileSearchDialog(final Activity activity, final Callback.a4<String, Boolean, Boolean, Boolean> dialogCallback) {
+        final Dialog dialog = new Dialog(activity);
+        dialog.showDialog(dialogCallback);
     }
 
 
-    private static class Initializer {
-        final private Activity _activity;
-        final private Callback.a4<String, Boolean, Boolean, Boolean> _callback;
-
+    private static class Dialog {
         private AlertDialog _dialog;
+        private final Activity _activity;
 
-        private Initializer(final Activity activity, final Callback.a4<String, Boolean, Boolean, Boolean> callback) {
+        private Dialog(final Activity activity) {
             _activity = activity;
-            _callback = callback;
-            Initializer.init(this);
         }
 
-        private void showDialog() {
+        private void showDialog(Callback.a4<String, Boolean, Boolean, Boolean> dialogCallback) {
+            AlertDialog.Builder dialogBuilder = buildDialog(this, dialogCallback);
+            _dialog = dialogBuilder.create();
             Window _window = _dialog.getWindow();
             if (_window != null) {
                 _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -47,15 +45,9 @@ public class FileSearchDialog {
                 _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
             }
         }
-
-        private static void init(final Initializer initializer) {
-            AlertDialog.Builder dialogBuilder = buildDialog(initializer);
-            initializer._dialog = dialogBuilder.create();
-        }
     }
 
-
-    private static AlertDialog.Builder buildDialog(final Initializer initializer) {
+    private static AlertDialog.Builder buildDialog(final Dialog initializer, final Callback.a4<String, Boolean, Boolean, Boolean> dialogCallback) {
         final AppSettings appSettings = new AppSettings(initializer._activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
@@ -72,10 +64,10 @@ public class FileSearchDialog {
         final CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
         final CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
 
-        final Callback.a0 startSearch = () -> {
+        final Callback.a0 submit = () -> {
             final String q = searchEditText.getText().toString();
-            if (initializer._callback != null && !TextUtils.isEmpty(q)) {
-                initializer._callback.callback(q, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked());
+            if (dialogCallback != null && !TextUtils.isEmpty(q)) {
+                dialogCallback.callback(q, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked());
             }
         };
 
@@ -91,7 +83,7 @@ public class FileSearchDialog {
                 if (initializer._dialog != null) {
                     initializer._dialog.dismiss();
                 }
-                startSearch.callback();
+                submit.callback();
                 return true;
             }
             return false;
@@ -123,7 +115,7 @@ public class FileSearchDialog {
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                    startSearch.callback();
+                    submit.callback();
                 });
 
         return dialogBuilder;

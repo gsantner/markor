@@ -126,10 +126,8 @@ public class SearchOrCustomTextDialogCreator {
         }
 
         AppSettings appSettings = new AppSettings(activity);
-        final boolean isDarkDialog = appSettings.isDarkThemeEnabled();
-        FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options();
 
-        dialogOptions.callback = (cb_query, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent) -> {
+        Callback.a4<String, Boolean, Boolean, Boolean> dialogCallback = (cb_query, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent) -> {
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
@@ -157,7 +155,7 @@ public class SearchOrCustomTextDialogCreator {
             });
         };
 
-        FileSearchDialog.showFileSearchDialog(activity, dialogOptions);
+        FileSearchDialog.showFileSearchDialog(activity, dialogCallback);
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
