@@ -156,7 +156,9 @@ public class SearchEngine {
                         .addCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
-                                bindSnackBar(text);
+                                if (SearchEngine.isSearchExecuting) {
+                                    bindSnackBar(text);
+                                }
                             }
                         });
                 _snackBar.setAction(android.R.string.cancel, (v) -> {
@@ -409,7 +411,7 @@ public class SearchEngine {
 
             return false;
         }
-        
+
         private static Activity getActivity() throws ClassNotFoundException, NoSuchMethodException, NoSuchFieldException, InvocationTargetException, IllegalAccessException {
             Class activityThreadClass = Class.forName("android.app.ActivityThread");
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
