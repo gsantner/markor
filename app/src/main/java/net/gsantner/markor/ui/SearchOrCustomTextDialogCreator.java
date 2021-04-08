@@ -36,9 +36,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
@@ -130,16 +128,13 @@ public class SearchOrCustomTextDialogCreator {
         AppSettings appSettings = new AppSettings(activity);
         final boolean isDarkDialog = appSettings.isDarkThemeEnabled();
         FileSearchDialog.Options dialogOptions = new FileSearchDialog.Options(isDarkDialog);
-        dialogOptions.searchConfigOptions.isSearchInContent = appSettings.isSearchInContent();
-        dialogOptions.searchConfigOptions.isCaseSensitiveQuery = appSettings.isSearchQueryCaseSensitive();
-        dialogOptions.searchConfigOptions.isRegexQuery = appSettings.isSearchQueryUseRegex();
 
-        dialogOptions.callback = query -> {
+        dialogOptions.callback = (cb_query, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent) -> {
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, dialogOptions.searchConfigOptions);
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent);
 
             SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<String>>) searchResults -> {
 
@@ -158,7 +153,6 @@ public class SearchOrCustomTextDialogCreator {
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
             });
         };
-        dialogOptions.messageText = activity.getString(R.string.recursive_search_in_current_directory);
 
         FileSearchDialog.showFileSearchDialog(activity, dialogOptions);
     }

@@ -46,10 +46,7 @@ public class SearchEngine {
         public final List<String> _ignoredDirectories;
         public final List<String> _ignoredFiles;
 
-        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel,
-                      final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles,
-                      final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent) {
-
+        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent) {
             _rootSearchDir = rootSearchDir;
             _isSearchInContent = isSearchInContent;
             _isShowResultOnCancel = isShowResultOnCancel;
@@ -70,10 +67,6 @@ public class SearchEngine {
 
             query = isRegexQuery ? query.replaceAll("(?<![.])[*]", ".*") : query;
             _query = _isCaseSensitiveQuery ? query : query.toLowerCase();
-        }
-
-        public Config(final File rootSearchDir, final String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final FileSearchDialog.Options.SearchConfigOptions configOptions) {
-            this(rootSearchDir, query, isShowResultOnCancel, maxSearchDepth, ignoredDirectories, ignoredFiles, configOptions.isRegexQuery, configOptions.isCaseSensitiveQuery, configOptions.isSearchInContent);
         }
 
 

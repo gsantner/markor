@@ -581,9 +581,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setSearchQueryCaseSensitivity(final boolean isQuerySensitive) {
-        if (isSearchQueryCaseSensitive() != isQuerySensitive) {
-            setBool(R.string.pref_key__is_search_query_case_sensitive, isQuerySensitive);
-        }
+        setBool(R.string.pref_key__is_search_query_case_sensitive, isQuerySensitive);
     }
 
     public boolean isSearchQueryUseRegex() {
@@ -591,9 +589,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setSearchQueryRegexUsing(final boolean isUseRegex) {
-        if (isSearchQueryUseRegex() != isUseRegex) {
-            setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
-        }
+        setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
     }
 
     public boolean isSearchInContent() {
@@ -601,9 +597,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setSearchInContent(final boolean isSearchInContent) {
-        if (isSearchInContent() != isSearchInContent) {
-            setBool(R.string.pref_key__is_search_in_content, isSearchInContent);
-        }
+        setBool(R.string.pref_key__is_search_in_content, isSearchInContent);
     }
 
     public Integer getSearchMaxDepth() {
