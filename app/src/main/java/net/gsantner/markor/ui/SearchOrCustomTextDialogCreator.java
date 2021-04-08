@@ -134,6 +134,9 @@ public class SearchOrCustomTextDialogCreator {
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
+            appSettings.setSearchQueryRegexUsing(cb_isRegexQuery);
+            appSettings.setSearchQueryCaseSensitivity(cb_isCaseSensitiveQuery);
+            appSettings.setSearchInContent(cb_isSearchInContent);
             SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent);
 
             SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<String>>) searchResults -> {
