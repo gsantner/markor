@@ -38,40 +38,40 @@ public class SearchEngine {
         private final List<Pattern> _ignoredRegexFiles;
         private final List<String> _ignoredExactFiles;
 
-        public final boolean isRegexQuery;
-        public final boolean isCaseSensitiveQuery;
-        public final String query;
-        public final File rootSearchDir;
-        public final boolean isSearchInContent;
-        public final boolean isShowResultOnCancel;
-        public final Integer maxSearchDepth;
-        public final List<String> ignoredDirectories;
-        public final List<String> ignoredFiles;
+        public final boolean _isRegexQuery;
+        public final boolean _isCaseSensitiveQuery;
+        public final String _query;
+        public final File _rootSearchDir;
+        public final boolean _isSearchInContent;
+        public final boolean _isShowResultOnCancel;
+        public final Integer _maxSearchDepth;
+        public final List<String> _ignoredDirectories;
+        public final List<String> _ignoredFiles;
 
         public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel,
                       final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles,
                       final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent) {
 
-            this.rootSearchDir = rootSearchDir;
-            this.isSearchInContent = isSearchInContent;
-            this.isShowResultOnCancel = isShowResultOnCancel;
-            this.maxSearchDepth = maxSearchDepth;
-            this.ignoredDirectories = ignoredDirectories;
-            this.ignoredFiles = ignoredFiles;
-            this.isRegexQuery = isRegexQuery;
-            this.isCaseSensitiveQuery = isCaseSensitiveQuery;
+            _rootSearchDir = rootSearchDir;
+            _isSearchInContent = isSearchInContent;
+            _isShowResultOnCancel = isShowResultOnCancel;
+            _maxSearchDepth = maxSearchDepth;
+            _ignoredDirectories = ignoredDirectories;
+            _ignoredFiles = ignoredFiles;
+            _isRegexQuery = isRegexQuery;
+            _isCaseSensitiveQuery = isCaseSensitiveQuery;
 
-            this._ignoredExactDirs = new ArrayList<String>();
-            this._ignoredRegexDirs = new ArrayList<Pattern>();
-            splitRegexExactFiles(this.ignoredDirectories, this._ignoredExactDirs, this._ignoredRegexDirs);
+            _ignoredExactDirs = new ArrayList<String>();
+            _ignoredRegexDirs = new ArrayList<Pattern>();
+            splitRegexExactFiles(_ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
 
-            this._ignoredExactFiles = new ArrayList<String>();
-            this._ignoredRegexFiles = new ArrayList<Pattern>();
-            splitRegexExactFiles(this.ignoredFiles, this._ignoredExactFiles, this._ignoredRegexFiles);
+            _ignoredExactFiles = new ArrayList<String>();
+            _ignoredRegexFiles = new ArrayList<Pattern>();
+            splitRegexExactFiles(_ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
 
 
             query = isRegexQuery ? query.replaceAll("(?<![.])[*]", ".*") : query;
-            this.query = this.isCaseSensitiveQuery ? query : query.toLowerCase();
+            _query = _isCaseSensitiveQuery ? query : query.toLowerCase();
         }
 
         public Config(final File rootSearchDir, final String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final FileSearchDialog.Options.SearchConfigOptions configOptions) {
@@ -126,7 +126,7 @@ public class SearchEngine {
         public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<String>> callback) {
             _config = config;
             _callback = callback;
-            _regex = _config.isRegexQuery ? Pattern.compile(_config.query) : null;
+            _regex = _config._isRegexQuery ? Pattern.compile(_config._query) : null;
 
             _countCheckedFiles = 0;
             _isCanceled = false;
@@ -140,7 +140,7 @@ public class SearchEngine {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            bindSnackBar(_config.query);
+            bindSnackBar(_config._query);
         }
 
 
@@ -171,7 +171,7 @@ public class SearchEngine {
         @Override
         protected List<String> doInBackground(Void... voidp) {
             Queue<File> mainQueue = new LinkedList<File>();
-            mainQueue.add(_config.rootSearchDir);
+            mainQueue.add(_config._rootSearchDir);
 
             while (!mainQueue.isEmpty() && !isCancelled() && !_isCanceled) {
                 File currentDirectory = mainQueue.remove();
@@ -180,8 +180,8 @@ public class SearchEngine {
                     continue;
                 }
 
-                _currentSearchDepth = getDirectoryDepth(_config.rootSearchDir, currentDirectory);
-                if (_currentSearchDepth > _config.maxSearchDepth) {
+                _currentSearchDepth = getDirectoryDepth(_config._rootSearchDir, currentDirectory);
+                if (_currentSearchDepth > _config._maxSearchDepth) {
                     break;
                 }
                 _currentQueueLength = mainQueue.size() + 1;
@@ -226,8 +226,8 @@ public class SearchEngine {
                             continue;
                         }
 
-                        if (_config.isSearchInContent && isFileContainSearchQuery(subDirOrFile)) {
-                            String path = subDirOrFile.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
+                        if (_config._isSearchInContent && isFileContainSearchQuery(subDirOrFile)) {
+                            String path = subDirOrFile.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
                             _result.add(path);
                         }
                     }
@@ -251,7 +251,7 @@ public class SearchEngine {
             Integer queueDepth = values[1];
             Integer filesFound = values[2];
             Integer countCheckedFiles = values[3];
-            String snackBarText = "f:" + filesFound + " qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles + "\n" + _config.query;
+            String snackBarText = "f:" + filesFound + " qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles + "\n" + _config._query;
             if (_snackBar != null) {
                 _snackBar.setText(snackBarText);
             }
@@ -295,11 +295,11 @@ public class SearchEngine {
 
         private void getFileIfNameMatches(File file) {
             try {
-                String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
-                boolean isMatch = _config.isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config.query);
+                String fileName = _config._isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
+                boolean isMatch = _config._isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config._query);
 
                 if (isMatch) {
-                    String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
+                    String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
                     _result.add(path);
                 }
             } catch (Exception ignored) {
@@ -325,7 +325,7 @@ public class SearchEngine {
 
 
         private void preCancel() {
-            if (_config.isShowResultOnCancel) {
+            if (_config._isShowResultOnCancel) {
                 _isCanceled = true;
                 return;
             }
@@ -347,8 +347,8 @@ public class SearchEngine {
                         break;
                     }
 
-                    line = _config.isCaseSensitiveQuery ? line : line.toLowerCase();
-                    boolean isMatch = _config.isRegexQuery ? _regex.matcher(line).matches() : line.contains(_config.query);
+                    line = _config._isCaseSensitiveQuery ? line : line.toLowerCase();
+                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(line).matches() : line.contains(_config._query);
                     if (isMatch) {
                         ret = true;
                         break;

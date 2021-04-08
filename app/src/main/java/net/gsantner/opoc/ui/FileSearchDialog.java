@@ -36,12 +36,12 @@ public class FileSearchDialog {
 
         public Options(final boolean isDarkDialog) {
             searchConfigOptions = new SearchConfigOptions();
-            this.isDarkDialog = isDarkDialog;
+            _isDarkDialog = isDarkDialog;
         }
 
         public String messageText = "";
         public String defaultText = "";
-        public boolean isDarkDialog;
+        public boolean _isDarkDialog;
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
@@ -103,7 +103,7 @@ public class FileSearchDialog {
 
 
             private static AlertDialog.Builder initDialogBuilder(final Initializer initializer) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, initializer._dialogOptions.isDarkDialog
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, initializer._dialogOptions._isDarkDialog
                         ? R.style.Theme_AppCompat_Dialog
                         : R.style.Theme_AppCompat_Light_Dialog
                 );
@@ -151,7 +151,7 @@ public class FileSearchDialog {
                 searchEditText.setSingleLine(true);
                 searchEditText.setMaxLines(1);
 
-                final int textColor = ContextCompat.getColor(initializer._activity, initializer._dialogOptions.isDarkDialog
+                final int textColor = ContextCompat.getColor(initializer._activity, initializer._dialogOptions._isDarkDialog
                         ? R.color.dark__primary_text
                         : R.color.light__primary_text);
                 searchEditText.setTextColor(textColor);
