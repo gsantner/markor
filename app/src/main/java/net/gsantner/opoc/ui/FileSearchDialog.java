@@ -143,8 +143,8 @@ public class FileSearchDialog {
                 });
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                int px = (int) (new ContextUtils(searchEditText.getContext()).convertDpToPx(8));
-                lp.setMargins(px, px / 2, px, px / 2);
+                final int dp8px = (int) (new ContextUtils(searchEditText.getContext()).convertDpToPx(8));
+                lp.setMargins(dp8px, dp8px / 2, dp8px, dp8px / 2);
 
 
                 dialogLayout.addView(searchEditText, lp);
@@ -165,33 +165,11 @@ public class FileSearchDialog {
                     return menuLayout;
                 }
 
-
-                private static LinearLayout.LayoutParams getLayoutParams() {
-                    final int leftMargin = 40;
-                    final int rightMargin = 40;
-                    final int topMargin = 10;
-                    final int bottomMargin = 10;
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-
-                    return layoutParams;
-                }
-
-
                 private static void initMenuItems(final Initializer initializer, final LinearLayout menuLayout) {
-                    LinearLayout.LayoutParams layoutParams = getLayoutParams();
+                    final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.setMargins(40, 10, 40, 10);
 
-                    CheckBox regexCheckBox = initRegexOption(initializer);
-                    CheckBox caseSensitivityCheckBox = initCaseSensitivityOption(initializer);
-                    CheckBox searchInContentCheckBox = initSearchInContentOption(initializer);
-
-                    menuLayout.addView(caseSensitivityCheckBox, layoutParams);
-                    menuLayout.addView(searchInContentCheckBox, layoutParams);
-                    menuLayout.addView(regexCheckBox, layoutParams);
-                }
-
-
-                private static CheckBox initRegexOption(final Initializer initializer) {
+                    // Checkbox: Regex search
                     CheckBox regexCheckBox = new CheckBox(initializer._activity);
                     regexCheckBox.setText(R.string.regex_search);
                     regexCheckBox.setChecked(AppSettings.get().isSearchQueryUseRegex());
@@ -199,36 +177,28 @@ public class FileSearchDialog {
                         AppSettings.get().setSearchQueryRegexUsing(isChecked);
                     });
 
-                    return regexCheckBox;
-                }
-
-                private static void updateRegexOption(final CheckBox regexCheckBox, final boolean isEnabled, final Activity activity) {
-                    AppSettings appSettings = new AppSettings(activity);
-                    appSettings.setSearchQueryRegexUsing(isEnabled);
-                }
-
-
-                private static CheckBox initCaseSensitivityOption(final Initializer initializer) {
-
+                    // Checkbox: Case sensitive
                     CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
                     caseSensitivityCheckBox.setText(R.string.case_sensitive);
                     caseSensitivityCheckBox.setChecked(AppSettings.get().isSearchQueryCaseSensitive());
                     caseSensitivityCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         AppSettings.get().setSearchQueryCaseSensitivity(isChecked);
                     });
-                    return caseSensitivityCheckBox;
-                }
 
-                private static CheckBox initSearchInContentOption(final Initializer initializer) {
+                    // Checkbox: Search in content
                     CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
                     searchInContentCheckBox.setText(R.string.search_in_content);
                     searchInContentCheckBox.setChecked(AppSettings.get().isSearchInContent());
-                    searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        AppSettings.get().setSearchInContent(isChecked);
+                    searchInContentCheckBox.setOnCheckedChangeListener((cb_buttonView, cb_isChecked) -> {
+                        AppSettings.get().setSearchInContent(cb_isChecked);
                     });
 
-                    return searchInContentCheckBox;
+                    // Add checkboxes to layout
+                    menuLayout.addView(caseSensitivityCheckBox, layoutParams);
+                    menuLayout.addView(searchInContentCheckBox, layoutParams);
+                    menuLayout.addView(regexCheckBox, layoutParams);
                 }
+
             }
         }
     }
