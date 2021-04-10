@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Pronađeno</string>
     <string name="search_replace_pattern_error_message">Greška u formi pretrage ili zamjene.</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
+    <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
 </resources>
