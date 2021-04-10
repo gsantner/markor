@@ -192,6 +192,13 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     @Override
+    public void onFsViewerSelected(String request, File file, final int lineNumber) {
+        if (_callback != null) {
+            _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
+        }
+    }
+
+    @Override
     public void onFsViewerMultiSelected(String request, File... files) {
         if (_callback != null) {
             _callback.onFsViewerMultiSelected(_dopt.requestId, files);
@@ -509,12 +516,12 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
     private void executeSearchAction() {
         final File currentFolder = getCurrentFolder();
-        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, relFilePath -> {
+        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
             File load = new File(currentFolder, relFilePath);
             if (load.isDirectory()) {
                 _filesystemViewerAdapter.loadFolder(load);
             } else {
-                onFsViewerSelected("", load);
+                onFsViewerSelected("", load, lineNumber);
             }
         });
     }

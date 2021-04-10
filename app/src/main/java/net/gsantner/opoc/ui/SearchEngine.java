@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -45,10 +46,14 @@ public class SearchEngine {
         public final Integer _maxSearchDepth;
         public final List<String> _ignoredDirectories;
         public final List<String> _ignoredFiles;
+        public final boolean _isOnlyFirstContentMatch;
+        public final boolean _isShowMatchPreview;
 
-        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent) {
+        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent, final boolean isOnlyFirstContentMatch, final boolean isShowMatchPreview) {
             _rootSearchDir = rootSearchDir;
             _isSearchInContent = isSearchInContent;
+            _isOnlyFirstContentMatch = isOnlyFirstContentMatch;
+            _isShowMatchPreview = isShowMatchPreview;
             _isShowResultOnCancel = isShowResultOnCancel;
             _maxSearchDepth = maxSearchDepth;
             _ignoredDirectories = ignoredDirectories;
@@ -92,7 +97,61 @@ public class SearchEngine {
     }
 
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<String>> callback) {
+    public static class FitFile {
+        private final String _path;
+        private final List<ContentMatchUnit> _contentMatches;
+
+        public FitFile(final String path) {
+            _path = path;
+            _contentMatches = new ArrayList<ContentMatchUnit>();
+        }
+
+        public FitFile(final String path, List<ContentMatchUnit> contentMatches) {
+            this(path);
+            addContentMatches(contentMatches);
+        }
+
+        private final void addContentMatch(final ContentMatchUnit lineNumber) {
+            _contentMatches.add(lineNumber);
+        }
+
+        private final void addContentMatches(final List<ContentMatchUnit> lineNumbers) {
+            _contentMatches.addAll(lineNumbers);
+        }
+
+        public final String getPath() {
+            return _path;
+        }
+
+        public final List<ContentMatchUnit> getContentMatches() {
+            return Collections.unmodifiableList(_contentMatches);
+        }
+
+        public static class ContentMatchUnit {
+            private final int _lineNumber;
+            private final String _previewMatch;
+
+            public ContentMatchUnit(final int lineNumber) {
+                this(lineNumber, "");
+            }
+
+            public ContentMatchUnit(final int lineNumber, final String previewMatch) {
+                _lineNumber = lineNumber;
+                _previewMatch = previewMatch;
+            }
+
+            public final int getLineNumber() {
+                return _lineNumber;
+            }
+
+            public final String getPreviewMatch() {
+                return _previewMatch;
+            }
+        }
+    }
+
+
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity = activity;
         SearchEngine.isSearchExecuting = true;
         SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
@@ -102,9 +161,9 @@ public class SearchEngine {
     }
 
 
-    public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<String>> {
+    public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<FitFile>> {
         private SearchEngine.Config _config;
-        private final Callback.a1<List<String>> _callback;
+        private final Callback.a1<List<FitFile>> _callback;
         private final Pattern _regex;
 
         private Snackbar _snackBar;
@@ -112,9 +171,9 @@ public class SearchEngine {
         private Integer _currentQueueLength;
         private boolean _isCanceled;
         private Integer _currentSearchDepth;
-        private List<String> _result;
+        private List<FitFile> _result;
 
-        public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<String>> callback) {
+        public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
             _regex = _config._isRegexQuery ? Pattern.compile(_config._query) : null;
@@ -161,7 +220,7 @@ public class SearchEngine {
         }
 
         @Override
-        protected List<String> doInBackground(Void... voidp) {
+        protected List<FitFile> doInBackground(Void... voidp) {
             Queue<File> mainQueue = new LinkedList<File>();
             mainQueue.add(_config._rootSearchDir);
 
@@ -218,9 +277,15 @@ public class SearchEngine {
                             continue;
                         }
 
-                        if (_config._isSearchInContent && isFileContainSearchQuery(subDirOrFile)) {
+                        if (_config._isSearchInContent) {
+                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(subDirOrFile, _config._isOnlyFirstContentMatch);
+
+                            if (contentMatches.size() == 0) {
+                                continue;
+                            }
+
                             String path = subDirOrFile.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
-                            _result.add(path);
+                            _result.add(new FitFile(path, contentMatches));
                         }
                     }
 
@@ -251,8 +316,9 @@ public class SearchEngine {
 
 
         @Override
-        protected void onPostExecute(List<String> ret) {
+        protected void onPostExecute(List<FitFile> ret) {
             super.onPostExecute(ret);
+            SearchEngine.isSearchExecuting = false;
             if (_snackBar != null) {
                 _snackBar.dismiss();
             }
@@ -292,7 +358,7 @@ public class SearchEngine {
 
                 if (isMatch) {
                     String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
-                    _result.add(path);
+                    _result.add(new FitFile(path));
                 }
             } catch (Exception ignored) {
             }
@@ -326,25 +392,32 @@ public class SearchEngine {
         }
 
 
-        private boolean isFileContainSearchQuery(File file) {
-            boolean ret = false;
+        private List<FitFile.ContentMatchUnit> getContentMatches(final File file, final boolean isFirstMatchOnly) {
+            List<FitFile.ContentMatchUnit> ret = new ArrayList<>();
 
             if (!file.canRead() || file.isDirectory()) {
                 return ret;
             }
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+                int lineNumber = 0;
                 for (String line; (line = br.readLine()) != null; ) {
                     if (isCancelled() || _isCanceled) {
                         break;
                     }
 
-                    line = _config._isCaseSensitiveQuery ? line : line.toLowerCase();
-                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(line).matches() : line.contains(_config._query);
+                    String preparedLine = _config._isCaseSensitiveQuery ? line : line.toLowerCase();
+                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(preparedLine).matches() : preparedLine.contains(_config._query);
+
                     if (isMatch) {
-                        ret = true;
-                        break;
+                        String matchPreview = _config._isShowMatchPreview ? line : "";
+                        ret.add(new FitFile.ContentMatchUnit(lineNumber, matchPreview));
+
+                        if (isFirstMatchOnly) {
+                            break;
+                        }
                     }
+                    lineNumber++;
                 }
             } catch (Exception ignored) {
             }

@@ -28,6 +28,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.FileSearchDialog;
+import net.gsantner.opoc.ui.FileSearchResultSelectorDialog;
 import net.gsantner.opoc.ui.SearchEngine;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -120,42 +121,32 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
         if (SearchEngine.isSearchExecuting) {
             return;
         }
 
         AppSettings appSettings = new AppSettings(activity);
 
-        Callback.a4<String, Boolean, Boolean, Boolean> dialogCallback = (cb_query, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent) -> {
+        Callback.a1<FileSearchDialog.CallBackOptions> fileSearchDialogCallback = (cb_options) -> {
+
             final boolean isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             final Integer maxSearchDepth = appSettings.getSearchMaxDepth();
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
-            appSettings.setSearchQueryRegexUsing(cb_isRegexQuery);
-            appSettings.setSearchQueryCaseSensitivity(cb_isCaseSensitiveQuery);
-            appSettings.setSearchInContent(cb_isSearchInContent);
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_isRegexQuery, cb_isCaseSensitiveQuery, cb_isSearchInContent);
+            final boolean isShowMatchPreview = appSettings.isShowMatchPreview();
+            appSettings.setSearchQueryRegexUsing(cb_options._isRegexQuery);
+            appSettings.setSearchQueryCaseSensitivity(cb_options._isCaseSensitiveQuery);
+            appSettings.setSearchInContent(cb_options._isSearchInContent);
+            appSettings.setOnlyFirstContentMatch(cb_options._isOnlyFirstContentMatch);
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_options._isRegexQuery, cb_options._isCaseSensitiveQuery, cb_options._isSearchInContent, cb_options._isOnlyFirstContentMatch, isShowMatchPreview);
 
-            SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<String>>) searchResults -> {
-
-                SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-                baseConf(activity, dopt);
-                SearchEngine.isSearchExecuting = false;
-                dopt.callback = callback;
-                dopt.isSearchEnabled = !searchResults.isEmpty();
-                dopt.data = searchResults;
-                dopt.cancelButtonText = R.string.close;
-                dopt.titleText = R.string.select;
-                dopt.messageText = null;
-                if (dopt.data.isEmpty()) {
-                    dopt.messageText = "     ¯\\_(ツ)_/¯     ";
-                }
-                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+            SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<SearchEngine.FitFile>>) searchResults -> {
+                FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
             });
         };
 
-        FileSearchDialog.showFileSearchDialog(activity, dialogCallback);
+        FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {

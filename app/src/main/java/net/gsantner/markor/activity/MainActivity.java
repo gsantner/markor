@@ -416,6 +416,15 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
                     }
                 }
+
+                @Override
+                public void onFsViewerSelected(String request, File file, int lineNumber) {
+                    if (TextFormat.isTextFile(file)) {
+                        DocumentActivity.launch(MainActivity.this, file, false, null, null, lineNumber);
+                    } else {
+                        DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
+                    }
+                }
             });
         }
         return _filesystemDialogOptions;

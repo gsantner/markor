@@ -26,6 +26,8 @@ public class FilesystemViewerData {
     public interface SelectionListener extends Serializable {
         void onFsViewerSelected(final String request, final File file);
 
+        void onFsViewerSelected(final String request, final File file, final int lineNumber);
+
         void onFsViewerMultiSelected(final String request, final File... files);
 
         void onFsViewerNothingSelected(final String request);
@@ -114,6 +116,10 @@ public class FilesystemViewerData {
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
         @Override
         public void onFsViewerSelected(String request, File file) {
+        }
+
+        @Override
+        public void onFsViewerSelected(String request, File file, int lineNumber) {
         }
 
         @Override

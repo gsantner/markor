@@ -43,6 +43,7 @@ public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
+    public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
 
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
     public static boolean SAVE_IGNORE_EMTPY_NEXT_TIME = false;
@@ -145,6 +146,12 @@ public class DocumentIO {
             String c = document.getContent();
             AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + "). Language >" + Locale.getDefault().toString() + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
+
+        if (arguments.containsKey(EXTRA_FILE_LINE_NUMBER)) {
+            final int lineNumber = arguments.getInt(EXTRA_FILE_LINE_NUMBER);
+            document.setInitialLineNumber(lineNumber);
+        }
+
         return document;
     }
 

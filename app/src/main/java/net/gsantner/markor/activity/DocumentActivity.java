@@ -67,11 +67,18 @@ public class DocumentActivity extends AppActivityBase {
     private static boolean nextLaunchTransparentBg = false;
 
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
+        launch(activity, path, isFolder, doPreview, intent, 0);
+    }
+
+    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final int lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
         if (path != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH, path);
+        }
+        if (lineNumber > 0) {
+            intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         if (isFolder != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, isFolder);
@@ -199,11 +206,15 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            final boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+            boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index.");
 
-            showTextEditor(null, file, fileIsFolder, preview);
+            final int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, 0);
+            if(lineNumber > 0){
+                preview = false;
+            }
+            showTextEditor(null, file, fileIsFolder, preview, lineNumber);
         }
     }
 
@@ -272,10 +283,14 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
-        showTextEditor(document, file, fileIsFolder, false);
+        showTextEditor(document, file, fileIsFolder, false, 0);
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
+        showTextEditor(document, file, fileIsFolder, preview, 0);
+    }
+
+    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int fileLineNumber) {
 
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
         File reqFile = (document != null) ? document.getFile() : file;
@@ -290,7 +305,7 @@ public class DocumentActivity extends AppActivityBase {
             if (document != null) {
                 showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
             } else {
-                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true).setPreviewFlag(preview));
+                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true, fileLineNumber).setPreviewFlag(preview));
             }
         }
     }

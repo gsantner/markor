@@ -422,6 +422,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ignored_search_file_names_dialog">Ignore file names for search.\nUse new line as separator.\nUse quotes for exact file names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
     <string name="regex_search">Regex search</string>
     <string name="case_sensitive">Case sensitive</string>
+    <string name="only_first_content_match">Get first content match</string>
+    <string name="show_match_preview">Show match preview</string>
+    <string name="show_match_preview_summary">Show match preview when using content search.</string>
     <string name="additional_contexts_and_projects">Additional contexts and projects</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
 </resources>

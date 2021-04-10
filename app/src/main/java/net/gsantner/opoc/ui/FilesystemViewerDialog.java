@@ -221,6 +221,14 @@ public class FilesystemViewerDialog extends DialogFragment
     }
 
     @Override
+    public void onFsViewerSelected(String request, File file, final int lineNumber) {
+        if (_callback != null) {
+            _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
+        }
+        dismiss();
+    }
+
+    @Override
     public void onFsViewerMultiSelected(String request, File... files) {
         if (_callback != null) {
             _callback.onFsViewerMultiSelected(_dopt.requestId, files);

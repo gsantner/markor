@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -62,6 +63,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -100,11 +102,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
+        return newInstance(path, pathIsFolder, allowRename, 0);
+    }
+
+    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putInt(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
+
         return f;
     }
 
@@ -187,6 +195,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(cursor);
             }
         }
+        int lineNumber = _document.getInitialLineNumber();
+        if (lineNumber > 0) {
+            moveCursorToLine(lineNumber);
+        }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         new ActivityUtils(getActivity()).hideSoftKeyboard();
@@ -211,6 +223,25 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
+    }
+
+    private void moveCursorToLine(final int lineNumber) {
+        _webView.postDelayed(new Runnable() {
+            public void run() {
+                if (!_hlEditor.hasFocus()) {
+                    _hlEditor.requestFocus();
+                }
+                String text = _hlEditor.getText().toString();
+                int index = StringUtils.getIndexByLineNumber(text, lineNumber);
+                if(index < 0){
+                    return;
+                }
+
+                ObjectAnimator anim = ObjectAnimator.ofInt(_hlEditor, "selection", 0, index);
+                anim.setDuration(400);
+                anim.start();
+            }
+        }, 1000);
     }
 
     @Override
