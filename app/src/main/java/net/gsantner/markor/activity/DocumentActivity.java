@@ -67,7 +67,7 @@ public class DocumentActivity extends AppActivityBase {
     private static boolean nextLaunchTransparentBg = false;
 
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
-        launch(activity, path, isFolder, doPreview, intent, 0);
+        launch(activity, path, isFolder, doPreview, intent, -1);
     }
 
     public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final int lineNumber) {
@@ -77,7 +77,7 @@ public class DocumentActivity extends AppActivityBase {
         if (path != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH, path);
         }
-        if (lineNumber > 0) {
+        if (lineNumber >= 0) {
             intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         if (isFolder != null) {
@@ -210,8 +210,8 @@ public class DocumentActivity extends AppActivityBase {
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index.");
 
-            final int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, 0);
-            if(lineNumber > 0){
+            final int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
+            if(lineNumber >= 0){
                 preview = false;
             }
             showTextEditor(null, file, fileIsFolder, preview, lineNumber);

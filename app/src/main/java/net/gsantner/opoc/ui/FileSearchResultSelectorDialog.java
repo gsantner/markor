@@ -114,7 +114,7 @@ public class FileSearchResultSelectorDialog {
                         initializer._dialog.dismiss();
                     }
 
-                    dialogCallback.callback(path, 0);
+                    dialogCallback.callback(path, -1);
                 }
 
                 return false;

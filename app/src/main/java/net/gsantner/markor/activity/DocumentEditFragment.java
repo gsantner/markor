@@ -102,7 +102,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
-        return newInstance(path, pathIsFolder, allowRename, 0);
+        return newInstance(path, pathIsFolder, allowRename, -1);
     }
 
     public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename, final int lineNumber) {
@@ -196,7 +196,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
         int lineNumber = _document.getInitialLineNumber();
-        if (lineNumber > 0) {
+        if (lineNumber >= 0) {
             moveCursorToLine(lineNumber);
         }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
