@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.format.todotxt;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -117,6 +118,7 @@ public class TodoTxtTextActions extends TextActions {
             _action = action;
         }
 
+        @SuppressLint("NonConstantResourceId")
         @SuppressWarnings("StatementWithEmptyBody")
         @Override
         public void onClick(View view) {
@@ -142,15 +144,19 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
-                    final List<String> allContexts = StringUtils.toArrayList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, allContexts, (context) -> {
+                    final List<String> contexts = new ArrayList<>();
+                    contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor))));
+                    contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts()));
+                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                     });
                     return;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    final List<String> allProjects = StringUtils.toArrayList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, allProjects, (project) -> {
+                    final List<String> projects = new ArrayList<>();
+                    projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor))));
+                    projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects()));
+                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                     });
                     return;
@@ -287,7 +293,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDueDate(3);
+                    setDueDate(_appSettings.getDueDateOffset());
                     return true;
                 }
             }

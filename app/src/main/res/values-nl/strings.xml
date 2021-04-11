@@ -369,7 +369,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="expand_collapse">Uitvouwen / samenvouwen</string>
     <string name="essential">Essentieel</string>
     <string name="append_human_readable_uuid_to_new_tasks">Mensen leesbare UUID toevoegen aan nieuwe taken</string>
-    <string name="action_order">Actie bestelling</string>
+    <string name="action_order">Actie volgorde</string>
     <string name="toggle_action_visibility">Actie zichtbaarheid in-/uitschakelen</string>
     <string name="load_default_settings">Laad standaardinstellingen</string>
     <string name="drag">Sleep</string>
@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Overeenkomsten</string>
     <string name="search_replace_pattern_error_message">Zoek of vervang patroon fout.</string>
     <string name="newline_is_new_paragraph">Nieuwregel = nieuwe alinea</string>
+    <string name="additional_contexts_and_projects">Aanvullende contexten en projecten</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Voer spatie gescheiden @contexts en + projecten in. Deze zijn altijd zichtbaar bij todo.txt invoegen dialogen.</string>
 </resources>

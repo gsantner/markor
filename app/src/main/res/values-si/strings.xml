@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">පින්තූරය</string>
     <string name="select">තෝරන්න</string>
     <string name="create">සාදන්න</string>
+    <string name="name">නම</string>
     <string name="contributors">සහදායකයින්</string>
     <string name="licenses">බලපත්‍ර</string>
     <string name="language">භාෂාව</string>
@@ -60,11 +61,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">විස්තර</string>
     <string name="calendar">දින දර්ශනය</string>
     <string name="color">වර්ණය</string>
+    <string name="background">පසුබිම</string>
     <string name="folder">බහාලුම</string>
+    <string name="font">මුද්‍රණ අකුර</string>
     <string name="close">වසන්න</string>
     <string name="cancel">අවලංගු</string>
     <string name="black">කළු</string>
     <string name="white">සුදු</string>
+    <string name="favourite">ප්‍රියතම</string>
     <string name="current">වර්තමාන</string>
     <string name="tools">මෙවලම්</string>
     <string name="table">වගුව</string>

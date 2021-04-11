@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -261,10 +262,9 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        sortUniqNonEmpty(availableData, "home", "shop");
         baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.data = availableData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
@@ -334,10 +334,9 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        sortUniqNonEmpty(availableData, "music", "video");
         baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.data = availableData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
@@ -463,22 +462,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
-    private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {
-        Set<String> uniq = new HashSet<>(data);
-        if (plus != null) {
-            uniq.addAll(Arrays.asList(plus));
-        }
-        data = new ArrayList<>(uniq);
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).trim().isEmpty()) {
-                data.remove(i);
-                i--;
-            }
-        }
-        Collections.sort(data);
-        return data;
     }
 
     public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {

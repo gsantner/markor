@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Mecze</string>
     <string name="search_replace_pattern_error_message">Błąd wyszukiwania lub zastępowania wzorca.</string>
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
+    <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
 </resources>
