@@ -96,10 +96,10 @@ public class FileSearchResultSelectorDialog {
             сhildDataList.add(сhildDataItemList);
         }
 
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(initializer._activity, groupDataList, android.R.layout.simple_expandable_list_item_1, groupFrom, groupTo, сhildDataList, android.R.layout.simple_list_item_1, childFrom, childTo);
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(initializer._activity, groupDataList, R.layout.expandable_list_group_item, groupFrom, groupTo, сhildDataList, android.R.layout.simple_list_item_1, childFrom, childTo);
+
 
         expandableListView.setAdapter(adapter);
-
 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
