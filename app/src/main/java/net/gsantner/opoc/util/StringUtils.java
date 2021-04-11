@@ -155,7 +155,7 @@ public final class StringUtils {
                     }
                 }
             }
-            if (i < s.length() - 1) {
+            if (i < s.length()) {
                 final int start = (l == 0) ? 0 : i + 1;
                 final int end = getLineEnd(s, start);
                 // Prevent selection from moving to previous line
