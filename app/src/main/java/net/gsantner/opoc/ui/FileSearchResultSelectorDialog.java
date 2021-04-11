@@ -1,7 +1,13 @@
 package net.gsantner.opoc.ui;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,6 +18,7 @@ import android.widget.SimpleExpandableListAdapter;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +61,7 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
+
     private static AlertDialog.Builder buildDialog(final Dialog initializer, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
         final AppSettings appSettings = new AppSettings(initializer._activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
@@ -61,42 +69,54 @@ public class FileSearchResultSelectorDialog {
         final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
 
+        final ExpandableListView expandableListView = new ExpandableListView(initializer._activity);
+        final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
+
+        final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
+        final int textColor = ContextCompat.getColor(initializer._activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
+
+        // EdiText: Search query input
+        searchEditText.setHint(R.string.search);
+        searchEditText.setSingleLine(true);
+        searchEditText.setMaxLines(1);
+        searchEditText.setTextColor(textColor);
+        searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
+        searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+
+        if (!searchResults.isEmpty()) {
+            dialogLayout.addView(searchEditText, margins);
+        }
+
 
         // Configure ExpandableListView
-        final ExpandableListView expandableListView = new ExpandableListView(initializer._activity);
-        ArrayList<Map<String, Object>> groupDataList = new ArrayList<>();
-        ArrayList<ArrayList<Map<String, Object>>> сhildDataList = new ArrayList<>();
         String[] groupFrom = new String[]{Dialog.DISPLAYED_GROUP_FIELD_NAME};
         String[] childFrom = new String[]{Dialog.DISPLAYED_CHILD_FIELD_NAME};
         int[] groupTo = new int[]{android.R.id.text1};
         int[] childTo = new int[]{android.R.id.text1};
 
         // List filling
-        for (int i = 0; i < searchResults.size(); i++) {
-            final SearchEngine.FitFile fitFile = searchResults.get(i);
-            final List<SearchEngine.FitFile.ContentMatchUnit> contentMatches = fitFile.getContentMatches();
+        Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, "");
 
-            Map<String, Object> groupMap = new HashMap<>();
-            String contentCountText = contentMatches.size() > 0 ? String.format("(%s) ", contentMatches.size()) : "";
-            String groupName = contentCountText + fitFile.getPath();
-            groupMap.put(Dialog.DISPLAYED_GROUP_FIELD_NAME, groupName);
-            groupMap.put(Dialog.PATH_FIELD_NAME, fitFile.getPath());
-            groupMap.put(Dialog.COUNT_FIELD_NAME, contentMatches.size());
-            groupDataList.add(groupMap);
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(initializer._activity, filteredGroups.first, R.layout.expandable_list_group_item, groupFrom, groupTo, filteredGroups.second, android.R.layout.simple_list_item_1, childFrom, childTo);
 
-            ArrayList<Map<String, Object>> сhildDataItemList = new ArrayList<>();
-            for (SearchEngine.FitFile.ContentMatchUnit contentMatch : contentMatches) {
-                Map<String, Object> map = new HashMap<>();
-                int lineNumber = contentMatch.getLineNumber();
-                String displayedText = "Line " + lineNumber + ": " + contentMatch.getPreviewMatch();
-                map.put(Dialog.DISPLAYED_CHILD_FIELD_NAME, displayedText);
-                map.put(Dialog.LINE_NUMBER_FIELD_NAME, lineNumber);
-                сhildDataItemList.add(map);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(final Editable arg0) {
+                Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, searchEditText.getText().toString());
+                SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(initializer._activity, filteredGroups.first, R.layout.expandable_list_group_item, groupFrom, groupTo, filteredGroups.second, android.R.layout.simple_list_item_1, childFrom, childTo);
+                expandableListView.setAdapter(adapter);
             }
-            сhildDataList.add(сhildDataItemList);
-        }
 
-        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(initializer._activity, groupDataList, R.layout.expandable_list_group_item, groupFrom, groupTo, сhildDataList, android.R.layout.simple_list_item_1, childFrom, childTo);
+            @Override
+            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
+            }
+
+            @Override
+            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
+            }
+        });
 
 
         expandableListView.setAdapter(adapter);
@@ -154,5 +174,51 @@ public class FileSearchResultSelectorDialog {
         }
 
         return dialogBuilder;
+    }
+
+
+    private static Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filter(final List<SearchEngine.FitFile> searchResults, String query) {
+        ArrayList<Map<String, Object>> groupDataList = new ArrayList<>();
+        ArrayList<ArrayList<Map<String, Object>>> сhildDataList = new ArrayList<>();
+
+        query = query.toLowerCase();
+
+        for (int i = 0; i < searchResults.size(); i++) {
+            final SearchEngine.FitFile fitFile = searchResults.get(i);
+            final List<SearchEngine.FitFile.ContentMatchUnit> contentMatches = fitFile.getContentMatches();
+
+
+            Map<String, Object> groupMap = new HashMap<>();
+            String contentCountText = contentMatches.size() > 0 ? String.format("(%s) ", contentMatches.size()) : "";
+            final String path = fitFile.getPath();
+            String groupName = contentCountText + path;
+            groupMap.put(Dialog.DISPLAYED_GROUP_FIELD_NAME, groupName);
+            groupMap.put(Dialog.PATH_FIELD_NAME, path);
+            groupMap.put(Dialog.COUNT_FIELD_NAME, contentMatches.size());
+
+            boolean isPathContainsQuery = query.isEmpty() || path.toLowerCase().contains(query);
+
+            ArrayList<Map<String, Object>> сhildDataItemList = new ArrayList<>();
+            for (SearchEngine.FitFile.ContentMatchUnit contentMatch : contentMatches) {
+                final String previewMatch = contentMatch.getPreviewMatch();
+
+                if (isPathContainsQuery || previewMatch.toLowerCase().contains(query)) {
+                    Map<String, Object> map = new HashMap<>();
+                    int lineNumber = contentMatch.getLineNumber();
+                    String displayedText = "Line " + lineNumber + ": " + previewMatch;
+                    map.put(Dialog.DISPLAYED_CHILD_FIELD_NAME, displayedText);
+                    map.put(Dialog.LINE_NUMBER_FIELD_NAME, lineNumber);
+
+                    сhildDataItemList.add(map);
+                }
+            }
+
+            if (isPathContainsQuery || сhildDataItemList.size() > 0) {
+                groupDataList.add(groupMap);
+                сhildDataList.add(сhildDataItemList);
+            }
+        }
+
+        return new Pair<>(groupDataList, сhildDataList);
     }
 }
