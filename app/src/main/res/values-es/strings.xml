@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Reemplazar todo</string>
     <string name="matches">Coincidencias</string>
     <string name="search_replace_pattern_error_message">Error de patrón de búsqueda o reemplazo.</string>
+    <string name="backup_settings">Ajustes de copia de seguridad</string>
+    <string name="restore_settings">Restaurar ajustes</string>
+    <string name="failed_to_create_backup">Error al crear copia de seguridad</string>
+    <string name="export_settings_to_json_file">Exportar ajustes a archivo json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importar ajustes del archivo json. Si tiene éxito, la aplicación se reinicia.</string>
+    <string name="failed_to_restore_settings_from_backup">Error al restaurar la configuración desde la copia de seguridad</string>
     <string name="newline_is_new_paragraph">Nueva línea = nuevo párrafo</string>
     <string name="additional_contexts_and_projects">Conjuntos y proyectos adicionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduzca @contexts y +projects separados por espacios. Estos siempre serán visibles en los diálogos de inserción de todo.txt.</string>
