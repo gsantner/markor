@@ -16,7 +16,7 @@ public class GashMap<K, V> {
     public GashMap<K, V> load(Object... keysAndValues2each) {
         _data.clear();
         if (keysAndValues2each != null && keysAndValues2each.length >= 2) {
-            for (int i = 0; i + 1 < keysAndValues2each.length; i++) {
+            for (int i = 0; i + 1 < keysAndValues2each.length; i += 2) {
                 _data.put((K) keysAndValues2each[i], (V) keysAndValues2each[i + 1]);
                 if (i == 0 && _defaultValue == null) {
                     _defaultValue = (V) keysAndValues2each[i + 1];

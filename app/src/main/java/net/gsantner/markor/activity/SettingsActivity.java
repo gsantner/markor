@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
@@ -30,8 +29,10 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -45,7 +46,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import other.de.stanetz.jpencconverter.PasswordStore;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends AppActivityBase {
@@ -199,10 +199,10 @@ public class SettingsActivity extends AppActivityBase {
             }
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-            setPreferenceVisible(R.string.pref_key__default_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && _as.hasPasswordBeenSetOnce()) {
-                updateSummary(R.string.pref_key__default_encryption_password, "****");
-                setDialogMessage(R.string.pref_key__default_encryption_password, getString(R.string.password_already_set_setting_a_new_password_will_overwrite));
+
+            setPreferenceVisible(R.string.pref_key__set_encryption_password, Build.VERSION.SDK_INT >= Build.VERSION_CODES.M);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && _as.isDefaultPasswordSet()) {
+                updateSummary(R.string.pref_key__set_encryption_password, getString(R.string.hidden_password));
             }
 
 
@@ -243,14 +243,6 @@ public class SettingsActivity extends AppActivityBase {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
                 ActivityUtils au = new ActivityUtils(getActivity());
                 au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
-            } else if (eq(key, R.string.pref_key__default_encryption_password) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !TextUtils.isEmpty(prefs.getString(key, null))) {
-                new PasswordStore(getActivity()).storeKey(prefs.getString(key, null), key, PasswordStore.SecurityMode.NONE);
-                // Never delete the password, otherwise you will remove the password in PasswordStore too!
-                // Never remove this line, otherwise the password will be stored unencrypted forever.
-                // Using commit and while to ensure that the asterisk-pw is definitely written.
-                prefs.edit().remove(key).commit();
-                ((EditTextPreference) findPreference(key)).setText("");
-                _as.setPasswordHasBeenSetOnce(true);
             } else if (eq(key, R.string.pref_key__file_description_format)) {
                 try {
                     new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());
@@ -377,9 +369,19 @@ public class SettingsActivity extends AppActivityBase {
                 case R.string.pref_key__markdown__reorder_actions:
                 case R.string.pref_key__zimwiki__reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {
-                    Intent intent = new Intent(getActivity(), ActionOrderActivity.class);
-                    intent.putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, (keyResId == R.string.pref_key__markdown__reorder_actions) ? R.id.action_format_markdown : (keyResId == R.string.pref_key__todotxt__reorder_actions ? R.id.action_format_todotxt : (keyResId == R.string.pref_key__zimwiki__reorder_actions ? R.id.action_format_zimwiki : R.id.action_format_plaintext)));
-                    startActivity(intent);
+                    startActivity(new Intent(getActivity(), ActionOrderActivity.class).putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, keyResId));
+                    break;
+                }
+                case R.string.pref_key__set_encryption_password: {
+                    SearchOrCustomTextDialogCreator.showSetPasswordDialog(getActivity());
+                    break;
+                }
+                case R.string.pref_key__backup_settings: {
+                    BackupUtils.showBackupWriteToDialog(getContext(), getFragmentManager());
+                    break;
+                }
+                case R.string.pref_key__restore_settings: {
+                    BackupUtils.showBackupSelectFromDialog(getContext(), getFragmentManager());
                     break;
                 }
             }
@@ -394,13 +396,6 @@ public class SettingsActivity extends AppActivityBase {
         @Override
         public boolean isDividerVisible() {
             return true;
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-            // Reset Password to ensure it's not stored as plaintext.
-            _as.getDefaultPreferencesEditor().remove(getContext().getString(R.string.pref_key__default_encryption_password)).commit();
         }
     }
 }
