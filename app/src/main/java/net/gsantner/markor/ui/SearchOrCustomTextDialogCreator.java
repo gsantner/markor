@@ -11,6 +11,7 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
@@ -35,9 +37,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.TreeSet;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -262,10 +263,9 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        sortUniqNonEmpty(availableData, "home", "shop");
         baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.data = availableData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.context));
@@ -335,10 +335,9 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        sortUniqNonEmpty(availableData, "music", "video");
         baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.data = availableData;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
         //dopt.messageText = activity.getString(R.string.add_x_or_browse_existing_ones_witharg, activity.getString(R.string.project));
@@ -447,20 +446,24 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static List<String> sortUniqNonEmpty(List<String> data, String... plus) {
-        Set<String> uniq = new HashSet<>(data);
-        if (plus != null) {
-            uniq.addAll(Arrays.asList(plus));
+    public static void showSetPasswordDialog(final Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final AppSettings as = new AppSettings(activity.getApplicationContext());
+            final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+            baseConf(activity, dopt);
+            dopt.isSearchEnabled = true;
+            dopt.titleText = R.string.file_encryption_password;
+            final boolean hasPassword = as.isDefaultPasswordSet();
+            dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
+            dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
+            dopt.callback = password -> {
+                if (!TextUtils.isEmpty(password)) {
+                    AppSettings.get().setDefaultPassword(password);
+                    Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
+                }
+            };
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         }
-        data = new ArrayList<>(uniq);
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).trim().isEmpty()) {
-                data.remove(i);
-                i--;
-            }
-        }
-        Collections.sort(data);
-        return data;
     }
 
     public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {

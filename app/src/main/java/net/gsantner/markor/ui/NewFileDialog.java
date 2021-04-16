@@ -45,7 +45,6 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
@@ -94,7 +93,7 @@ public class NewFileDialog extends DialogFragment {
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && appSettings.hasPasswordBeenSetOnce()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appSettings.isDefaultPasswordSet()) {
             encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
         } else {
             encryptCheckbox.setVisibility(View.GONE);
@@ -283,7 +282,8 @@ public class NewFileDialog extends DialogFragment {
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(t, new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password));
+            final char[] pass = new AppSettings(getContext()).getDefaultPassword();
+            bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(t, pass);
         } else {
             bytes = t.getBytes();
         }

@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Ottelut</string>
     <string name="search_replace_pattern_error_message">Etsi tai korvaa kuvion virhe.</string>
     <string name="newline_is_new_paragraph">Uusi kohta = uusi kohta</string>
+    <string name="additional_contexts_and_projects">Lisätaustat ja -hankkeet</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Syötä välilyönti erotettu @kontekstit ja +projektit. Nämä näkyvät aina osoitteessa: todo.txt insert dialogit.</string>
 </resources>

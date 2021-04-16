@@ -81,6 +81,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -145,11 +146,11 @@ public class ContextUtils {
     /**
      * Get String by given string ressource identifier (textual)
      */
-    public String rstr(final String strResKey) {
+    public String rstr(final String strResKey, Object... a0getResKeyAsFallback) {
         try {
             return rstr(getResId(ResType.STRING, strResKey));
         } catch (Resources.NotFoundException e) {
-            return null;
+            return a0getResKeyAsFallback != null && a0getResKeyAsFallback.length > 0 ? strResKey : null;
         }
     }
 
@@ -294,14 +295,27 @@ public class ContextUtils {
      * Falls back to applicationId of the app which may differ from manifest.
      */
     public Object getBuildConfigValue(final String fieldName) {
-        String pkg = getPackageIdManifest() + ".BuildConfig";
+        final String pkg = getPackageIdManifest() + ".BuildConfig";
         try {
             Class<?> c = Class.forName(pkg);
             return c.getField(fieldName).get(null);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
+    }
+
+    public List<String> getBuildConfigFields() {
+        final String pkg = getPackageIdManifest() + ".BuildConfig";
+        final List<String> fields = new ArrayList<>();
+        try {
+            for (Field f : Class.forName(pkg).getFields()) {
+                fields.add(f.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fields;
     }
 
     /**

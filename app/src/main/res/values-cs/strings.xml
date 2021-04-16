@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Zápasy</string>
     <string name="search_replace_pattern_error_message">Chyba při hledání nebo nahrazení vzoru.</string>
     <string name="newline_is_new_paragraph">Nový řádek = nový odstavec</string>
+    <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
 </resources>

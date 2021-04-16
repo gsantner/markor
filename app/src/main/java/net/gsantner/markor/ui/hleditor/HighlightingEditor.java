@@ -71,6 +71,10 @@ public class HighlightingEditor extends AppCompatEditText {
             highlightWithoutChange();
         };
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            setFallbackLineSpacing(false);
+        }
+
         addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable e) {

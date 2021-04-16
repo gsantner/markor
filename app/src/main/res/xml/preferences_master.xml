@@ -65,11 +65,9 @@
                 android:key="@string/pref_key__app_start_folder"
                 android:summary="%1$s"
                 android:title="@string/app_start_folder" />
-            <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/empty_string"
+            <Preference
                 android:icon="@drawable/ic_lock_outline_black_24dp"
-                android:inputType="textVisiblePassword"
-                android:key="@string/pref_key__default_encryption_password"
+                android:key="@string/pref_key__set_encryption_password"
                 android:title="@string/file_encryption_password" />
         </PreferenceCategory>
 
@@ -231,6 +229,19 @@
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:key="@string/pref_key__file_description_format"
                 android:title="@string/file_description_format" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="@string/backup">
+            <Preference
+                android:icon="@drawable/ic_save_black_24dp"
+                android:key="@string/pref_key__backup_settings"
+                android:title="@string/backup_settings"
+                android:summary="@string/export_settings_to_json_file" />
+            <Preference
+                android:icon="@drawable/ic_restore_black_24dp"
+                android:key="@string/pref_key__restore_settings"
+                android:title="@string/restore_settings"
+                android:summary="@string/import_settings_from_backup_json_file_on_success_the_app_is_restarted" />
         </PreferenceCategory>
 
     </PreferenceScreen>
@@ -481,6 +492,12 @@
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__todotxt__reorder_actions"
                     android:title="@string/action_order" />
+                <android.support.v7.preference.EditTextPreference
+                    android:defaultValue="+music +video @home @shop"
+                    android:icon="@drawable/ic_favorite_black_24dp"
+                    android:key="@string/pref_key__todotxt__additional_projects_contexts"
+                    android:summary="@string/enter_space_seperated_contexts_and_projects_these_will"
+                    android:title="@string/additional_contexts_and_projects" />
             </PreferenceCategory>
 
             <PreferenceCategory android:title="@string/syntax_highlighting">

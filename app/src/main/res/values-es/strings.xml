@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Coincidencias</string>
     <string name="search_replace_pattern_error_message">Error de patrón de búsqueda o reemplazo.</string>
     <string name="newline_is_new_paragraph">Nueva línea = nuevo párrafo</string>
+    <string name="additional_contexts_and_projects">Conjuntos y proyectos adicionales</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Introduzca @contexts y +projects separados por espacios. Estos siempre serán visibles en los diálogos de inserción de todo.txt.</string>
 </resources>

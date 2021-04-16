@@ -446,12 +446,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
                 return true;
             }
-            case R.id.action_format_zimwiki:
-            case R.id.action_format_txt2tags:
-            case R.id.action_format_keyvalue:
-            case R.id.action_format_todotxt:
-            case R.id.action_format_plaintext:
-            case R.id.action_format_markdown: {
+            case R.string.action_format_zimwiki:
+            case R.string.action_format_keyvalue:
+            case R.string.action_format_todotxt:
+            case R.string.action_format_plaintext:
+            case R.string.action_format_txt2tags:
+            case R.string.action_format_markdown: {
                 if (_document != null) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
