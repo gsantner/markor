@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Creați Folder</string>
     <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
+    <string name="copy">Copiază</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fișierul/directorul există deja! Te rugăm să folosești un nume diferit</string>
     <string name="import_from_device">Importă de pe dispozitiv</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Înlocuiește tot</string>
     <string name="matches">Meciuri</string>
     <string name="search_replace_pattern_error_message">Eroare de căutare sau înlocuire.</string>
+    <string name="backup_settings">Setări de rezervă</string>
+    <string name="restore_settings">Restabilire setări</string>
+    <string name="failed_to_create_backup">Crearea copiei de rezervă a eșuat</string>
+    <string name="export_settings_to_json_file">Exportă setările în fișier json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importă setări din fişierul json de rezervă. La succes, aplicația este repornită.</string>
+    <string name="failed_to_restore_settings_from_backup">Restaurarea setărilor din backup a eșuat</string>
     <string name="newline_is_new_paragraph">Noutăți = punct nou</string>
+    <string name="keep_both">Păstrați ambele</string>
+    <string name="skip">Omitere</string>
+    <string name="overwrite">Suprascrie</string>
+    <string name="keep_both_all">Păstraţi ambele (toate)</string>
+    <string name="skip_all">Omiteți (toate)</string>
+    <string name="overwrite_all">Suprascrie (toate)</string>
+    <string name="copy_move_conflict_message">\'%s\' există deja în %s</string>
     <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
 </resources>

@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">全部替换</string>
     <string name="matches">比赛</string>
     <string name="search_replace_pattern_error_message">搜索或替换图案错误。</string>
+    <string name="backup_settings">备份设置</string>
+    <string name="restore_settings">还原设置</string>
+    <string name="failed_to_create_backup">创建备份失败</string>
+    <string name="export_settings_to_json_file">导出设置到 json 文件</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份json文件导入设置。成功后，应用程序将重启。</string>
+    <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
     <string name="newline_is_new_paragraph">新行 = 新段</string>
     <string name="additional_contexts_and_projects">其他背景和项目</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>

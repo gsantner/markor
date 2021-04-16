@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crea una nuova cartella</string>
     <string name="create_new_document">Crea un nuovo documento</string>
     <string name="move">Sposta</string>
+    <string name="copy">Copia</string>
     <string name="info">Informazioni</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/cartella già esistente! Si prega di usare un nome diverso</string>
     <string name="import_from_device">Importa dal dispositivo</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Sostituisci tutto</string>
     <string name="matches">Corrispondenze</string>
     <string name="search_replace_pattern_error_message">Errore di ricerca o sostituzione.</string>
+    <string name="backup_settings">Impostazioni di backup</string>
+    <string name="restore_settings">Ripristina impostazioni</string>
+    <string name="failed_to_create_backup">Impossibile creare il backup</string>
+    <string name="export_settings_to_json_file">Esporta le impostazioni nel file json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa le impostazioni dal file json di backup. Al successo, l\'app viene riavviata.</string>
+    <string name="failed_to_restore_settings_from_backup">Impossibile ripristinare le impostazioni dal backup</string>
     <string name="newline_is_new_paragraph">Newline = nuovo paragrafo</string>
+    <string name="keep_both">Mantieni entrambi</string>
+    <string name="skip">Salta</string>
+    <string name="overwrite">Sovrascrivere</string>
+    <string name="keep_both_all">Mantieni entrambi (tutti)</string>
+    <string name="skip_all">Salta (Tutti)</string>
+    <string name="overwrite_all">Sovrascrivi (Tutti)</string>
+    <string name="copy_move_conflict_message">\'%s\' esiste già in %s</string>
     <string name="additional_contexts_and_projects">Contesti e progetti aggiuntivi</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserisci @contesti e +progetti separati da spazi. Essi saranno sempre visibili nelle finestre di inserimento per todo.txt.</string>
 </resources>

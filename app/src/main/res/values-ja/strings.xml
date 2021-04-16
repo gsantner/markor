@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">フォルダーを作成</string>
     <string name="create_new_document">新しいドキュメントを作成</string>
     <string name="move">移動</string>
+    <string name="copy">コピー</string>
     <string name="info">情報</string>
     <string name="file_folder_already_exists_please_use_a_different_name">ファイルまたはフォルダ名はすでに存在しています。別の名前を使用してください。</string>
     <string name="import_from_device">デバイスからインポート</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">すべて置換</string>
     <string name="matches">一致</string>
     <string name="search_replace_pattern_error_message">検索または置換パターンエラー。</string>
+    <string name="backup_settings">設定をバックアップ</string>
+    <string name="restore_settings">設定を復元</string>
+    <string name="failed_to_create_backup">バックアップの作成に失敗しました</string>
+    <string name="export_settings_to_json_file">json ファイルに設定をエクスポート</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">バックアップ json ファイルから設定をインポートします。アプリを再起動します。</string>
+    <string name="failed_to_restore_settings_from_backup">バックアップから設定を復元できませんでした</string>
     <string name="newline_is_new_paragraph">format@@0 = 新しい段落</string>
+    <string name="keep_both">両方を保持</string>
+    <string name="skip">スキップ</string>
+    <string name="overwrite">上書き</string>
+    <string name="keep_both_all">両方を保持 (すべて)</string>
+    <string name="skip_all">スキップ (all)</string>
+    <string name="overwrite_all">上書き (すべて)</string>
+    <string name="copy_move_conflict_message">\'%s\' はすでに %s に存在します</string>
     <string name="additional_contexts_and_projects">追加のコンテキストとプロジェクト</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">スペースで区切られた @contexts と +projects を入力してください。これらは常に todo.txt のダイアログで表示されます。</string>
 </resources>
