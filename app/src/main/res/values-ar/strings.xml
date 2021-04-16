@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">إنشاء مجلد</string>
     <string name="create_new_document">إنشاء ملف جديد</string>
     <string name="move">نقل</string>
+    <string name="copy">نسخ</string>
     <string name="info">معلومات</string>
     <string name="file_folder_already_exists_please_use_a_different_name">الملف/المجلد موجود مسبقاً! الرجاء استخدام اسم مختلف</string>
     <string name="import_from_device">استيراد من الجهاز</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">استيراد الإعدادات من ملف json الاحتياطي. عند النجاح، يتم إعادة تشغيل التطبيق.</string>
     <string name="failed_to_restore_settings_from_backup">فشل في استعادة الإعدادات من النسخة الاحتياطية</string>
     <string name="newline_is_new_paragraph">الخط الجديد = فقرة جديدة</string>
+    <string name="keep_both">الحفاظ على كليهما</string>
+    <string name="skip">تخطي</string>
+    <string name="overwrite">الكتابة</string>
+    <string name="keep_both_all">الحفاظ على كلا (الكل)</string>
+    <string name="skip_all">تخطي (الكل)</string>
+    <string name="overwrite_all">الكتابة فوق (الكل)</string>
+    <string name="copy_move_conflict_message">\'%s\' موجود بالفعل في %s</string>
     <string name="additional_contexts_and_projects">سياقات ومشاريع إضافية</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">أدخل @contexts و +مشاريع. ستكون هذه دائما مرئية في todo.txt إدخال الحوار.</string>
 </resources>
