@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Skapa mapp</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
+    <string name="copy">Kopiera</string>
     <string name="info">Information</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fil/mapp finns redan! Använd ett annat namn</string>
     <string name="import_from_device">Importera från enhet</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från backup-json-fil. Vid lyckat tillfälle startas appen om.</string>
     <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
     <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
+    <string name="keep_both">Behåll båda</string>
+    <string name="skip">Hoppa</string>
+    <string name="overwrite">Skriv över</string>
+    <string name="keep_both_all">Behåll båda (alla)</string>
+    <string name="skip_all">Hoppa över (alla)</string>
+    <string name="overwrite_all">Skriv över (alla)</string>
+    <string name="copy_move_conflict_message">\'%s\' finns redan i %s</string>
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
 </resources>
