@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crea una cartella</string>
     <string name="create_new_document">Crea unu documentu nou</string>
     <string name="move">Move</string>
+    <string name="copy">Còpia</string>
     <string name="info">Informatziones</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Su documentu/sa cartella esistit giai! Pro praghere imprea unu nùmene diferente</string>
     <string name="import_from_device">Importa dae su dispositivu</string>
@@ -397,7 +398,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup_settings">Impostatziones de sas còpias de seguresa</string>
     <string name="restore_settings">Riprìstina sas impostatziones</string>
     <string name="failed_to_create_backup">Creatzione de sa còpia de seguresa fallida</string>
+    <string name="export_settings_to_json_file">Esporta sas impostatziones in unu documentu json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa sas impostatziones dae una còpia de seguresa in unu documentu json. In casu de sutzessu s\'aplicatzione s\'at a torrare a allùghere.</string>
+    <string name="failed_to_restore_settings_from_backup">Riprìstinu de sas impostatziones dae sa còpia de seguresa fallidu</string>
     <string name="newline_is_new_paragraph">Lìnia noa = paràgrafu nou</string>
+    <string name="keep_both">Mantene·los ambos</string>
+    <string name="skip">Brinca</string>
+    <string name="overwrite">Subraiscrie</string>
+    <string name="keep_both_all">Mantene·los ambos (totus)</string>
+    <string name="skip_all">Brinca (totus)</string>
+    <string name="overwrite_all">Subraiscrie (totus)</string>
+    <string name="copy_move_conflict_message">\'%s\' esistit giai in %s</string>
     <string name="additional_contexts_and_projects">Cuntestos e progetos additzionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserta @cuntestos e +progetos iscrobados dae ispàtzios. Custos ant a èssere semper visìbiles in sas ventanas de diàlogu de insertadura de todo.txt.</string>
 </resources>
