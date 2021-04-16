@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Luo kansio</string>
     <string name="create_new_document">Luo uusi asiakirja</string>
     <string name="move">Siirrä</string>
+    <string name="copy">Kopioi</string>
     <string name="info">Tiedot</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Tiedosto / kansio on jo olemassa! Käytä toista nimeä</string>
     <string name="import_from_device">Tuo laitteelta</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Korvaa kaikki</string>
     <string name="matches">Ottelut</string>
     <string name="search_replace_pattern_error_message">Etsi tai korvaa kuvion virhe.</string>
+    <string name="backup_settings">Varmuuskopioi asetukset</string>
+    <string name="restore_settings">Palauta asetukset</string>
+    <string name="failed_to_create_backup">Varmuuskopion luonti epäonnistui</string>
+    <string name="export_settings_to_json_file">Vie asetukset json tiedostoon</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Tuo asetukset varmuuskopion json tiedostosta. Onnistui, sovellus käynnistetään uudelleen.</string>
+    <string name="failed_to_restore_settings_from_backup">Asetusten palautus varmuuskopiosta epäonnistui</string>
     <string name="newline_is_new_paragraph">Uusi kohta = uusi kohta</string>
+    <string name="keep_both">Pidä molemmat</string>
+    <string name="skip">Ohita</string>
+    <string name="overwrite">Korvaa</string>
+    <string name="keep_both_all">Säilytä molemmat (kaikki)</string>
+    <string name="skip_all">Ohita (kaikki)</string>
+    <string name="overwrite_all">Korvaa (kaikki)</string>
+    <string name="copy_move_conflict_message">\'%s\' on jo olemassa %s</string>
     <string name="additional_contexts_and_projects">Lisätaustat ja -hankkeet</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Syötä välilyönti erotettu @kontekstit ja +projektit. Nämä näkyvät aina osoitteessa: todo.txt insert dialogit.</string>
 </resources>

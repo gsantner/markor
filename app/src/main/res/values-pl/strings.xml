@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Utwórz folder</string>
     <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="move">Przenieś</string>
+    <string name="copy">Kopiuj</string>
     <string name="info">Informacje</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Plik/katalog już istnieje! Proszę użyć innej nazwy</string>
     <string name="import_from_device">Importuj z urządzenia</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Zastąp wszystkie</string>
     <string name="matches">Dopasowania</string>
     <string name="search_replace_pattern_error_message">Błąd wyszukiwania lub zastępowania wzorca.</string>
+    <string name="backup_settings">Ustawienia kopii zapasowej</string>
+    <string name="restore_settings">Przywróć ustawienia</string>
+    <string name="failed_to_create_backup">Nie udało się utworzyć kopii zapasowej</string>
+    <string name="export_settings_to_json_file">Eksportuj ustawienia do pliku json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importuj ustawienia z kopii zapasowej pliku json. Po pomyślnym uruchomieniu aplikacji.</string>
+    <string name="failed_to_restore_settings_from_backup">Nie udało się przywrócić ustawień z kopii zapasowej</string>
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
+    <string name="keep_both">Zachowaj oba</string>
+    <string name="skip">Pomiń</string>
+    <string name="overwrite">Nadpisz</string>
+    <string name="keep_both_all">Zachowaj oba (wszystkie)</string>
+    <string name="skip_all">Pomiń (wszystkie)</string>
+    <string name="overwrite_all">Nadpisz (wszystkie)</string>
+    <string name="copy_move_conflict_message">\'%s\' już istnieje w %s</string>
     <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
 </resources>

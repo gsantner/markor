@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Criar pasta</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
+    <string name="copy">copiar</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Ficheiro/pasta já existe! Utilize um nome diferente.</string>
     <string name="import_from_device">Importar do dispositivo</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Substituir tudo</string>
     <string name="matches">Ocorrências</string>
     <string name="search_replace_pattern_error_message">Erro ao pesquisar ou substituir.</string>
+    <string name="backup_settings">Configurações do backup</string>
+    <string name="restore_settings">Restaurar configurações</string>
+    <string name="failed_to_create_backup">Falha ao criar backup</string>
+    <string name="export_settings_to_json_file">Exportar configurações para arquivo json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importe as configurações do arquivo json de backup. Em caso de sucesso, o aplicativo é reiniciado.</string>
+    <string name="failed_to_restore_settings_from_backup">Falha ao restaurar as configurações do backup</string>
     <string name="newline_is_new_paragraph">Nova linha = novo parágrafo</string>
+    <string name="keep_both">Manter ambos</string>
+    <string name="skip">Ignorar</string>
+    <string name="overwrite">Substituir</string>
+    <string name="keep_both_all">Manter ambos (todos)</string>
+    <string name="skip_all">Pular (todos)</string>
+    <string name="overwrite_all">Sobrescrever (todos)</string>
+    <string name="copy_move_conflict_message">\'%s\' já existe em %s</string>
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
 </resources>

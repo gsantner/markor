@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Ersätt alla</string>
     <string name="matches">Träffar</string>
     <string name="search_replace_pattern_error_message">Sök eller ersätt mönsterfel.</string>
+    <string name="backup_settings">Säkerhetskopiera inställningar</string>
+    <string name="restore_settings">Återställ inställningar</string>
+    <string name="failed_to_create_backup">Kunde inte skapa säkerhetskopia</string>
+    <string name="export_settings_to_json_file">Exportera inställningar till json-fil</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från backup-json-fil. Vid lyckat tillfälle startas appen om.</string>
+    <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
     <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>

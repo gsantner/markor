@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Vervang alles</string>
     <string name="matches">Overeenkomsten</string>
     <string name="search_replace_pattern_error_message">Zoek of vervang patroon fout.</string>
+    <string name="backup_settings">Back-up instellingen</string>
+    <string name="restore_settings">Instellingen herstellen</string>
+    <string name="failed_to_create_backup">Back-up maken mislukt</string>
+    <string name="export_settings_to_json_file">Instellingen exporteren naar json bestand</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Import instellingen vanuit het backup json bestand. Bij succes wordt de app opnieuw gestart.</string>
+    <string name="failed_to_restore_settings_from_backup">Fout bij het herstellen van instellingen vanuit back-up</string>
     <string name="newline_is_new_paragraph">Nieuwregel = nieuwe alinea</string>
     <string name="additional_contexts_and_projects">Aanvullende contexten en projecten</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Voer spatie gescheiden @contexts en + projecten in. Deze zijn altijd zichtbaar bij todo.txt invoegen dialogen.</string>
