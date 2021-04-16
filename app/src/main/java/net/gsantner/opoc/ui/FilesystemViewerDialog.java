@@ -248,6 +248,9 @@ public class FilesystemViewerDialog extends DialogFragment
         if (_dopt.doSelectMultiple && _dopt.doSelectFile) {
             _buttonOk.setVisibility(adapter.areItemsSelected() ? View.VISIBLE : View.GONE);
         }
+        if (_callback != null) {
+            _callback.onFsViewerDoUiUpdate(adapter);
+        }
     }
 
     @Override

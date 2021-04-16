@@ -9,7 +9,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources>
-    <string name="app_name_real">Markor</string>
+    <string name="app_name_real" translatable="false">Markor</string>
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
@@ -24,7 +24,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false">@string/more_info_on_how_to_donate_or_otherwise_support_this_project_text</string>
     <string name="donate_" translatable="false">@string/donate</string>
     <string name="app_contact_email_reverse" translatable="false">gro.xobliam@kcabdeef+rentnasg</string>
-    <string name="huuid">hUUID</string>
+    <string name="huuid" translatable="false">hUUID</string>
 
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>
@@ -34,6 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_html__mime_html" translatable="false">HTML</string>
     <string name="pdf" translatable="false">PDF</string>
     <string name="markdown" translatable="false">Markdown</string>
+    <string name="backup" translatable="false">Backup</string>
 
     <string name="community" translatable="false">Community</string>
     <string name="default_font_family" translatable="false">sans-serif-regular</string>
@@ -307,8 +308,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="shrug" translatable="false">Shrug (¯\_(ツ)_/¯)</string>
     <string name="accordion" translatable="false">Accordion</string>
     <string name="pref_key__default_encryption_password" translatable="false">pref_key__default_encryption_password</string>
+    <string name="pref_key__set_encryption_password" translatable="false">pref_key__set_encryption_password</string>
     <string name="empty_string" translatable="false"/>
-    <string name="pref_key__default_encryption_password_set_once" translatable="false">pref_key__default_encryption_password_set_once</string>
     <string name="pref_key__new_file_dialog_lastused_encryption" translatable="false">pref_key__new_file_dialog_lastused_encryption</string>
     <string name="pref_key__new_file_dialog_lastused_extension" translatable="false">pref_key__new_file_dialog_lastused_extension</string>
     <string name="pref_key__new_file_dialog_lastused_type" translatable="false">pref_key__new_file_dialog_lastused_type</string>
@@ -318,6 +319,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
-    <string name="pref_key__todotxt__additional_projects_contexts">"pref_key__todotxt__additional_projects_contexts"</string>
-    <string name="pref_key__todotxt__due_date_offset">pref_key__todotxt_due_date_offset</string>
+    <string name="pref_key__restore_settings" translatable="false">pref_key__restore_settings</string>
+    <string name="pref_key__backup_settings" translatable="false">pref_key__backup_settings</string>
+    <string name="hidden_password" translatable="false">****</string>
+    <string name="pref_key__todotxt__additional_projects_contexts" translatable="false">"pref_key__todotxt__additional_projects_contexts"</string>
+    <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
+    <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
+    <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>
+    <string name="action_format_markdown" translatable="false">action_format_markdown</string>
+    <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
+    <string name="action_format_zimwiki" translatable="false">action_format_zimwiki</string>
 </resources>
