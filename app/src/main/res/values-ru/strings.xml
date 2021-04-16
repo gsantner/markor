@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Заменить все</string>
     <string name="matches">Совпадения</string>
     <string name="search_replace_pattern_error_message">Поиск или замена шаблона.</string>
+    <string name="backup_settings">Сохранить настройки</string>
+    <string name="restore_settings">Восстановить настройки</string>
+    <string name="failed_to_create_backup">Не удалось создать резервную копию</string>
+    <string name="export_settings_to_json_file">Экспорт настроек в json файл</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Импорт настроек из резервной копии json файла. При успешном завершении приложение перезапускается.</string>
+    <string name="failed_to_restore_settings_from_backup">Не удалось восстановить настройки из резервной копии</string>
     <string name="newline_is_new_paragraph">Newline = новый абзац</string>
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
