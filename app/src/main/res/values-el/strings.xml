@@ -395,6 +395,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Αντικατάσταση όλων</string>
     <string name="matches">Αντιστοιχίσεις</string>
     <string name="search_replace_pattern_error_message">Αναζήτηση ή αντικατάσταση σφάλματος μοτίβου.</string>
+    <string name="backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
+    <string name="restore_settings">Επαναφορά ρυθμίσεων</string>
+    <string name="failed_to_create_backup">Αποτυχία δημιουργίας αντιγράφου ασφαλείας</string>
+    <string name="export_settings_to_json_file">Εξαγωγή ρυθμίσεων σε αρχείο json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Εισαγωγή ρυθμίσεων από αντίγραφο ασφαλείας του αρχείου json. Με επιτυχία, η εφαρμογή επανεκκινείται.</string>
+    <string name="failed_to_restore_settings_from_backup">Αποτυχία επαναφοράς ρυθμίσεων από αντίγραφο ασφαλείας</string>
     <string name="newline_is_new_paragraph">Newline = νέα παράγραφος</string>
     <string name="additional_contexts_and_projects">Πρόσθετα πλαίσια και έργα</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Εισάγετε διαχωρισμένα με κενά διαστήματα @contexts και +projects. Αυτά θα είναι πάντα ορατά στους διαλόγους εισαγωγής todo.txt.</string>
