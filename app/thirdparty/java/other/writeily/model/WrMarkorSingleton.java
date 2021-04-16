@@ -9,10 +9,13 @@
 ###########################################################*/
 package other.writeily.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
+import android.widget.Toast;
 
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ShareUtil;
 
 import org.apache.commons.io.IOUtils;
@@ -26,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 @SuppressWarnings("all")
 public class WrMarkorSingleton {
@@ -49,70 +53,75 @@ public class WrMarkorSingleton {
         WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
-    public String copyDirectory(File dir, String destinationDir) {
-        String dirName = dir.getName();
-        File outputFile = new File(destinationDir + File.separator + dirName + File.separator);
-
-        if (!outputFile.exists()) {
-            outputFile.mkdir();
-        }
-
-        return outputFile.getAbsolutePath();
-    }
-
-    public void copyFile(File file, String destinationDir) {
-        FileInputStream input = null;
-        FileOutputStream output = null;
-        try {
-            input = new FileInputStream(file);
-            output = new FileOutputStream(new File(destinationDir, file.getName()));
-            IOUtils.copy(input, output);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.closeQuietly(input);
-            IOUtils.closeQuietly(output);
-        }
-    }
-
-
-    public void moveFile(File file, String destinationDir, final Context context) {
+    private boolean saneMoveOrCopy(final File file, final File dest) {
         /* Rules:
          * 1. Don't move a file to the same location, no point
          * 2. Don't move a folder to itself
          * 3. Don't move a folder into its children
          */
 
-        if (destinationDir != null &&
-                !destinationDir.equalsIgnoreCase(file.getParentFile().getAbsolutePath()) &&
-                !destinationDir.startsWith(file.getAbsolutePath())) {
-
-            if (file.isDirectory()) {
-                String newDestinationDir = copyDirectory(file, destinationDir);
-
-                for (File dirFile : file.listFiles()) {
-                    moveFile(dirFile, newDestinationDir, context);
-                }
-            } else {
-                copyFile(file, destinationDir);
-            }
-
-            // Delete the old file after copying it over
-            deleteFile(file, context);
-
-        }
+        return (file != null &&
+                dest != null &&
+                !file.equals(dest) &&
+                // dest is file's child
+                !dest.toPath().startsWith(file.toPath()));
     }
 
-    public boolean deleteFile(File file, Context context) {
+    public boolean moveFile(final File file, final File dest, final Context context) {
+        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
+            boolean renameSuccess;
+            try {
+                renameSuccess = file.renameTo(dest);
+            } catch (Exception e) {
+                renameSuccess = false;
+            }
+            return (renameSuccess || (copyFile(file, dest) && deleteFile(file, context)));
+        }
+        return false;
+    }
+
+
+    public boolean copyFile(final File file, final File dest) {
+        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
+            FileInputStream input = null;
+            FileOutputStream output = null;
+            try {
+                if (file.isDirectory()) {
+                    if (dest.mkdir()) {
+                        boolean success = true;
+                        for (final File dirFile : file.listFiles()) {
+                            // Merge not supported, dest here will always be available
+                            success &= copyFile(dirFile, new File(dest, dirFile.getName()));
+                        }
+                        return success;
+                    }
+                    return false;
+                } else {
+                    input = new FileInputStream(file);
+                    output = new FileOutputStream(dest);
+                    IOUtils.copy(input, output);
+                    return true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                IOUtils.closeQuietly(input);
+                IOUtils.closeQuietly(output);
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteFile(final File file, final Context context) {
         if (file.isDirectory()) {
-            for (File childFile : file.listFiles()) {
+            for (final File childFile : file.listFiles()) {
                 deleteFile(childFile, context);
             }
         }
 
-        ShareUtil shareUtil = new ShareUtil(context);
+        final ShareUtil shareUtil = new ShareUtil(context);
         if (context != null && shareUtil.isUnderStorageAccessFolder(file)) {
-            DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+            final DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
             shareUtil.freeContextRef();
             return dof == null ? false : (dof.delete() || !dof.exists());
         } else {
@@ -121,16 +130,97 @@ public class WrMarkorSingleton {
         }
     }
 
-    public void deleteSelectedItems(Collection<File> files, Context context) {
-        for (File file : files) {
+    public void deleteSelectedItems(final Collection<File> files, final Context context) {
+        for (final File file : files) {
             deleteFile(file, context);
         }
     }
 
-    public void moveSelectedNotes(List<File> files, String destination, final Context context) {
-        for (File file : files) {
-            moveFile(file, destination, context);
+    private enum ConflictResollution {
+        KEEP_BOTH,
+        OVERWRITE,
+        SKIP,
+        ASK
+    }
+
+    public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove) {
+        if (destDir.isDirectory()) {
+            boolean allSane = true;
+            for (final File f : files) {
+                allSane &= saneMoveOrCopy(f, new File(destDir, f.getName()));
+            }
+            if (allSane) {
+                final Stack<File> _files = new Stack<>();
+                _files.addAll(files);
+                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResollution.ASK, false);
+                return;
+            }
         }
+        // Toast.makeText(activity, "✗", Toast.LENGTH_SHORT).show();
+    }
+
+    private void _moveOrCopySelected(
+            final Stack<File> files,
+            final File destDir,
+            final Activity activity,
+            final boolean isMove,
+            ConflictResollution resolution,
+            boolean preserveResolution
+    ) {
+        while (!files.empty()) {
+            final File file = files.pop();
+            final File dest = new File(destDir, file.getName());
+            if (dest.exists()) {
+                if (resolution == ConflictResollution.KEEP_BOTH) {
+                    moveOrCopy(activity, file, findNonConflictingDest(file, destDir), isMove);
+                } else if (resolution == ConflictResollution.OVERWRITE) {
+                    if (deleteFile(dest, activity)) {
+                        moveOrCopy(activity, file, dest, isMove);
+                    }
+                } else if (resolution == ConflictResollution.ASK) {
+                    // Put the file back in
+                    files.push(file);
+                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
+                            activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
+                        ConflictResollution res = ConflictResollution.ASK;
+                        if (option == 0 || option == 3) {
+                            res = ConflictResollution.KEEP_BOTH;
+                        } else if (option == 1 || option == 4) {
+                            res = ConflictResollution.OVERWRITE;
+                        } else if (option == 2 || option == 5) {
+                            res = ConflictResollution.SKIP;
+                        }
+                        _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
+                    });
+                    return; // Process will be continued by callback
+                }
+                resolution = preserveResolution ? resolution : ConflictResollution.ASK;
+            } else {
+                moveOrCopy(activity, file, dest, isMove);
+            }
+        }
+    }
+
+    private void moveOrCopy(final Context context, final File src, final File dest, final boolean isMove) {
+        if (isMove) {
+            moveFile(src, dest, context);
+        } else {
+            copyFile(src, dest);
+        }
+    }
+
+    public File findNonConflictingDest(final File file, final File destDir) {
+        File dest = new File(destDir, file.getName());
+        final String[] splits = file.getName().split("\\.");
+        final String name = splits[0];
+        splits[0] = "";
+        final String extension = String.join(".", splits);
+        int i = 1;
+        while (dest.exists()) {
+            dest = new File(destDir, String.format("%s_%d%s", name, i, extension));
+            i++;
+        }
+        return dest;
     }
 
     public boolean isDirectoryEmpty(ArrayList<File> files) {
