@@ -38,8 +38,6 @@ import java.util.Random;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
-import static net.gsantner.markor.format.TextFormat.FORMAT_UNKNOWN;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
@@ -382,7 +380,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public @StringRes int getDocumentFormat(final String path, final int _default) {
+    @StringRes
+    public int getDocumentFormat(final String path, final int _default) {
         if (!fexists(path)) {
             return _default;
         } else {

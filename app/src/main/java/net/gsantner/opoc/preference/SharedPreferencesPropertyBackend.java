@@ -224,9 +224,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     private ArrayList<String> getStringListOne(String key, final SharedPreferences pref) {
         ArrayList<String> ret = new ArrayList<>();
-        String value =
-                getString(key, ARRAY_SEPARATOR)
-                .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
+        String value = getString(key, ARRAY_SEPARATOR).replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR) || TextUtils.isEmpty(value)) {
             return ret;
         }
