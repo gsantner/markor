@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crea una carpeta</string>
     <string name="create_new_document">Crea un nou document</string>
     <string name="move">Mou</string>
+    <string name="copy">Copia</string>
     <string name="info">Informació</string>
     <string name="file_folder_already_exists_please_use_a_different_name">El fitxer/carpeta ja existeix. Utilitzeu un nom diferent</string>
     <string name="import_from_device">Importa des d\'un dispositiu</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Reemplaça-ho tot</string>
     <string name="matches">Coincidències</string>
     <string name="search_replace_pattern_error_message">Error amb el patró de cerca o reemplaçament.</string>
+    <string name="backup_settings">Configuració de la còpia de seguretat</string>
+    <string name="restore_settings">Configuració de la restauració</string>
+    <string name="failed_to_create_backup">No s\'ha pogut crear la còpia de seguretat</string>
+    <string name="export_settings_to_json_file">Exporta la configuració a un fitxer json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa la configuració d\'un fitxer de còpia de seguretat json. Si tot és correcte, l\'aplicació es reiniciarà.</string>
+    <string name="failed_to_restore_settings_from_backup">No s\'ha pogut restaurar la configuració de la còpia de seguretat</string>
     <string name="newline_is_new_paragraph">Nova línia = paràgraf nou</string>
+    <string name="keep_both">Mantén els dos</string>
+    <string name="skip">Omet</string>
+    <string name="overwrite">Sobreescriu</string>
+    <string name="keep_both_all">Mantén els dos (tots)</string>
+    <string name="skip_all">Omet (tots)</string>
+    <string name="overwrite_all">Sobreescriu (tots)</string>
+    <string name="copy_move_conflict_message">«%s» ja existeix a %s</string>
     <string name="additional_contexts_and_projects">Contextos i projectes addicionals</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduïu @contextos i +projectes separats per espais. Aquests sempre seran visibles als quadres de diàleg d\'inserció del todo.txt.</string>
 </resources>
