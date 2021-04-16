@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crear carpeta</string>
     <string name="create_new_document">Crear nuevo documento</string>
     <string name="move">Mover</string>
+    <string name="copy">Copiar</string>
     <string name="info">Información</string>
     <string name="file_folder_already_exists_please_use_a_different_name">¡El archivo/carpeta ya existe! Por favor, usa un nombre diferente</string>
     <string name="import_from_device">Importar desde dispositivo</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importar ajustes del archivo json. Si tiene éxito, la aplicación se reinicia.</string>
     <string name="failed_to_restore_settings_from_backup">Error al restaurar la configuración desde la copia de seguridad</string>
     <string name="newline_is_new_paragraph">Nueva línea = nuevo párrafo</string>
+    <string name="keep_both">Mantener ambos</string>
+    <string name="skip">Saltar</string>
+    <string name="overwrite">Sobrescribir</string>
+    <string name="keep_both_all">Mantener ambos (todos)</string>
+    <string name="skip_all">Saltar (todo)</string>
+    <string name="overwrite_all">Sobrescribir (todo)</string>
+    <string name="copy_move_conflict_message">\'%s\' ya existe en %s</string>
     <string name="additional_contexts_and_projects">Conjuntos y proyectos adicionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduzca @contexts y +projects separados por espacios. Estos siempre serán visibles en los diálogos de inserción de todo.txt.</string>
 </resources>
