@@ -395,4 +395,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Currispondèntzias</string>
     <string name="search_replace_pattern_error_message">Faddina de chirca o de remplasamentu.</string>
     <string name="newline_is_new_paragraph">Lìnia noa = paràgrafu nou</string>
+    <string name="additional_contexts_and_projects">Cuntestos e progetos additzionales</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Inserta @cuntestos e +progetos iscrobados dae ispàtzios. Custos ant a èssere semper visìbiles in sas ventanas de diàlogu de insertadura de todo.txt.</string>
 </resources>
