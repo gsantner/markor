@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Nahradit vše</string>
     <string name="matches">Zápasy</string>
     <string name="search_replace_pattern_error_message">Chyba při hledání nebo nahrazení vzoru.</string>
+    <string name="backup_settings">Zálohování nastavení</string>
+    <string name="restore_settings">Obnovit nastavení</string>
+    <string name="failed_to_create_backup">Nepodařilo se vytvořit zálohu</string>
+    <string name="export_settings_to_json_file">Exportovat nastavení do souboru json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importovat nastavení ze záložního souboru json. Po úspěšnosti je aplikace restartována.</string>
+    <string name="failed_to_restore_settings_from_backup">Nepodařilo se obnovit nastavení ze zálohy</string>
     <string name="newline_is_new_paragraph">Nový řádek = nový odstavec</string>
     <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
