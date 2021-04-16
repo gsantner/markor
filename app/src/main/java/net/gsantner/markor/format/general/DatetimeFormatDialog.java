@@ -30,6 +30,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.Callback;
 
 import java.text.DateFormat;
@@ -47,10 +48,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DatetimeFormatDialog {
-
-    private static final String DATETIME_SETTINGS = "datetime_dialog_settings";
-    private static final String RECENT_FORMATS_STRING = "recent_formats_string";
-    private static final String RECENT_FORMATS_LENGTHS = "recent_formats_lengths";
+    private static final String RECENT_FORMATS_STRING = "datetimformat_dialog__recent_formats_string_history";
+    private static final String RECENT_FORMATS_LENGTHS = "datetimformat_dialog__recent_formats_lengths_history";
 
     private static final int MAX_RECENT_FORMATS = 5;
 
@@ -299,7 +298,7 @@ public class DatetimeFormatDialog {
      * @return List of Strings representing recently used formats
      */
     private static List<String> getRecentFormats(final Activity activity) {
-        final SharedPreferences settings = activity.getSharedPreferences(DATETIME_SETTINGS, Context.MODE_PRIVATE);
+        final SharedPreferences settings = activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         final String combined = settings.getString(RECENT_FORMATS_STRING, null);
         final String lengths = settings.getString(RECENT_FORMATS_LENGTHS, null);
 
@@ -346,7 +345,7 @@ public class DatetimeFormatDialog {
             lengths.add(Integer.toString(s.length()));
         }
 
-        final SharedPreferences.Editor edit = activity.getSharedPreferences(DATETIME_SETTINGS, Context.MODE_PRIVATE).edit();
+        final SharedPreferences.Editor edit = activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
         edit.putString(RECENT_FORMATS_STRING, TextUtils.join("", formatSet)).apply();
         edit.putString(RECENT_FORMATS_LENGTHS, TextUtils.join(",", lengths)).apply();
     }

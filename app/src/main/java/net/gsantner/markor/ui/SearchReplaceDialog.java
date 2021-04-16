@@ -26,6 +26,7 @@ import android.widget.ListPopupWindow;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.StringUtils;
 
 import org.json.JSONArray;
@@ -41,9 +42,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SearchReplaceDialog {
-
-    private static final String SEARCH_REPLACE_SETTINGS = "search_replace_dialog_settings";
-    private static final String RECENT_SEARCH_REPLACE_STRING = "recent_search_replace";
+    private static final String RECENT_SEARCH_REPLACE_STRING = "search_replace_dialog__recent_search_replace_history";
     private static final int MAX_RECENT_SEARCH_REPLACE = 10;
 
     private final EditText searchText;
@@ -289,7 +288,7 @@ public class SearchReplaceDialog {
         final List<ReplaceGroup> recents = new ArrayList<>();
 
         try {
-            final SharedPreferences settings = _activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE);
+            final SharedPreferences settings = _activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
             if (jsonString.length() > 0) {
                 final JSONArray array = new JSONArray(jsonString);
@@ -335,7 +334,7 @@ public class SearchReplaceDialog {
             array.put(rg.toJson());
         }
 
-        final SharedPreferences.Editor edit = _activity.getSharedPreferences(SEARCH_REPLACE_SETTINGS, Context.MODE_PRIVATE).edit();
+        final SharedPreferences.Editor edit = _activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
         edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 

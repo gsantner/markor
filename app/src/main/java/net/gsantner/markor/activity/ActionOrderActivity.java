@@ -146,20 +146,14 @@ public class ActionOrderActivity extends AppCompatActivity {
     private void extractActionData() {
         final int documentType = getIntent().getExtras().getInt(EXTRA_FORMAT_KEY);
 
-        switch (documentType) {
-            default:
-            case R.id.action_format_markdown:
-                _textActions = new MarkdownTextActions(this, null);
-                break;
-            case R.id.action_format_todotxt:
-                _textActions = new TodoTxtTextActions(this, null);
-                break;
-            case R.id.action_format_plaintext:
-                _textActions = new PlaintextTextActions(this, null);
-                break;
-            case R.id.action_format_zimwiki:
-                _textActions = new ZimWikiTextActions(this, null);
-                break;
+        if (documentType == R.string.pref_key__markdown__reorder_actions) {
+            _textActions = new MarkdownTextActions(this, null);
+        } else if (documentType == R.string.pref_key__todotxt__reorder_actions) {
+            _textActions = new TodoTxtTextActions(this, null);
+        } else if (documentType == R.string.pref_key__zimwiki__reorder_actions) {
+            _textActions = new ZimWikiTextActions(this, null);
+        } else { // Default to Plaintext
+            _textActions = new PlaintextTextActions(this, null);
         }
 
         final Map<String, TextActions.ActionItem> actionMap = _textActions.getActiveActionMap();
