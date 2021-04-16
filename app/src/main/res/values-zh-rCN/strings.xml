@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">新建文件夹</string>
     <string name="create_new_document">新建文档</string>
     <string name="move">移动</string>
+    <string name="copy">复制</string>
     <string name="info">信息</string>
     <string name="file_folder_already_exists_please_use_a_different_name">已存在同名文件/文件夹！请换一个名字试试。</string>
     <string name="import_from_device">从本设备导入</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份json文件导入设置。成功后，应用程序将重启。</string>
     <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
     <string name="newline_is_new_paragraph">新行 = 新段</string>
+    <string name="keep_both">两者都保留</string>
+    <string name="skip">跳过</string>
+    <string name="overwrite">覆盖</string>
+    <string name="keep_both_all">两者都保留 (全部)</string>
+    <string name="skip_all">跳过 (所有)</string>
+    <string name="overwrite_all">覆盖 (所有)</string>
+    <string name="copy_move_conflict_message">\'%s已存在于 %s</string>
     <string name="additional_contexts_and_projects">其他背景和项目</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>
 </resources>
