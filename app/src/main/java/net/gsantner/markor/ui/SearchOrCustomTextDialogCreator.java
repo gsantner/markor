@@ -450,6 +450,29 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a2<String, Integer> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.withPositionCallback = callback;
+        List<String> data = new ArrayList<>();
+        data.add(activity.getString(R.string.keep_both));
+        data.add(activity.getString(R.string.skip));
+        data.add(activity.getString(R.string.overwrite));
+        if (multiple) {
+            data.add(activity.getString(R.string.keep_both_all));
+            data.add(activity.getString(R.string.overwrite_all));
+            data.add(activity.getString(R.string.skip_all));
+        }
+        dopt.data = data;
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.messageText = activity.getString(R.string.copy_move_conflict_message, fileName, destName);
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void showSetPasswordDialog(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final AppSettings as = new AppSettings(activity.getApplicationContext());

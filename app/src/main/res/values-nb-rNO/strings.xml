@@ -394,6 +394,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Erstatt alle</string>
     <string name="matches">Treff</string>
     <string name="search_replace_pattern_error_message">Søk eller erstatt mønsterfeil.</string>
+    <string name="backup_settings">Innstillinger for sikkerhetskopiering</string>
+    <string name="restore_settings">Gjenopprett innstillinger</string>
+    <string name="failed_to_create_backup">Kunne ikke opprette sikkerhetskopi</string>
+    <string name="export_settings_to_json_file">Eksporter innstillinger til json-fil</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer innstillinger fra backup json-fil. Når appen er startet på nytt.</string>
+    <string name="failed_to_restore_settings_from_backup">Kunne ikke gjenopprette innstillingene fra sikkerhetskopien</string>
     <string name="newline_is_new_paragraph">Ny = ny avsnitt</string>
     <string name="additional_contexts_and_projects">Flere kontekster og prosjekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Angi områdedaterte @contexts og +projects. Disse vil alltid være synlige på todo.txt innfør dialoger.</string>

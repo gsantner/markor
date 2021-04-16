@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Создать папку</string>
     <string name="create_new_document">Создать документ</string>
     <string name="move">Переместить</string>
+    <string name="copy">Копировать</string>
     <string name="info">Инфо</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Файл или папка уже существует! Используйте другое имя</string>
     <string name="import_from_device">Импортировать с устройства</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Заменить все</string>
     <string name="matches">Совпадения</string>
     <string name="search_replace_pattern_error_message">Поиск или замена шаблона.</string>
+    <string name="backup_settings">Сохранить настройки</string>
+    <string name="restore_settings">Восстановить настройки</string>
+    <string name="failed_to_create_backup">Не удалось создать резервную копию</string>
+    <string name="export_settings_to_json_file">Экспорт настроек в json файл</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Импорт настроек из резервной копии json файла. При успешном завершении приложение перезапускается.</string>
+    <string name="failed_to_restore_settings_from_backup">Не удалось восстановить настройки из резервной копии</string>
     <string name="newline_is_new_paragraph">Newline = новый абзац</string>
+    <string name="keep_both">Оставить оба</string>
+    <string name="skip">Пропустить</string>
+    <string name="overwrite">Перезаписать</string>
+    <string name="keep_both_all">Оставить оба (все)</string>
+    <string name="skip_all">Пропустить (все)</string>
+    <string name="overwrite_all">Перезаписать (все)</string>
+    <string name="copy_move_conflict_message">\'%s\' уже существует в %s</string>
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
 </resources>

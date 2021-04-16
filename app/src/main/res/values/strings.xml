@@ -26,6 +26,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Create Folder</string>
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
+    <string name="copy">Copy</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder already exists! Please use a different name</string>
 
@@ -431,6 +432,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="only_first_content_match">Get first content match</string>
     <string name="show_match_preview">Show match preview</string>
     <string name="show_match_preview_summary">Show match preview when using content search.</string>
+    <string name="keep_both">Keep both</string>
+    <string name="skip">Skip</string>
+    <string name="overwrite">Overwrite</string>
+    <string name="keep_both_all">Keep both (all)</string>
+    <string name="skip_all">Skip (all)</string>
+    <string name="overwrite_all">Overwrite (all)</string>
+    <string name="copy_move_conflict_message">\'%s\' already exists in %s</string>
     <string name="additional_contexts_and_projects">Additional contexts and projects</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
 </resources>

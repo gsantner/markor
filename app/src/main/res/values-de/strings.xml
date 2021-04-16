@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Ordner erstellen</string>
     <string name="create_new_document">Neues Dokument erstellen</string>
     <string name="move">Verschieben</string>
+    <string name="copy">Kopieren</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Datei/Ordner existiert bereits! Verwende bitte einen anderen Namen</string>
     <string name="import_from_device">Von Gerät importieren</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Alle ersetzen</string>
     <string name="matches">Matches</string>
     <string name="search_replace_pattern_error_message">Fehler beim Suchen oder Ersetzen von Muster.</string>
+    <string name="backup_settings">Backup-Einstellungen</string>
+    <string name="restore_settings">Einstellungen wiederherstellen</string>
+    <string name="failed_to_create_backup">Fehler beim Erstellen der Sicherung</string>
+    <string name="export_settings_to_json_file">Einstellungen in json-Datei exportieren</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importiere Einstellungen aus json-Datei. Bei erfolgreichem Start wird die App neu gestartet.</string>
+    <string name="failed_to_restore_settings_from_backup">Fehler beim Wiederherstellen der Einstellungen aus der Sicherung</string>
     <string name="newline_is_new_paragraph">Newline = neuer Absatz</string>
+    <string name="keep_both">Beides behalten</string>
+    <string name="skip">Überspringen</string>
+    <string name="overwrite">Überschreiben</string>
+    <string name="keep_both_all">Beides behalten (alle)</string>
+    <string name="skip_all">Überspringen (alle)</string>
+    <string name="overwrite_all">Überschreiben (alle)</string>
+    <string name="copy_move_conflict_message">\'%s\' existiert bereits in %s</string>
     <string name="additional_contexts_and_projects">Zusätzliche Kontexte und Projekte</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Geben Sie einen durch Leerzeichen getrennten @contexts und +Projekte ein. Diese werden immer im todo.txt Einfügedialog sichtbar sein.</string>
 </resources>

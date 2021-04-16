@@ -19,6 +19,7 @@
  */
 package net.gsantner.opoc.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -260,6 +261,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
             _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
+            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder()));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
@@ -462,7 +464,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
             }
 
             case R.id.action_move_selected_items: {
-                askForMove();
+                askForMoveOrCopy(true);
+                return true;
+            }
+            case R.id.action_copy_selected_items: {
+                askForMoveOrCopy(false);
                 return true;
             }
 
@@ -586,22 +592,37 @@ public class FilesystemViewerFragment extends GsFragmentBase
         confirmDialog.show(getActivity().getSupportFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
-    private void askForMove() {
-        final ArrayList<File> filesToMove = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
+    private void askForMoveOrCopy(final boolean isMove) {
+        final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            private FilesystemViewerData.Options _doptMoC;
+
             @Override
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
-                WrMarkorSingleton.getInstance().moveSelectedNotes(filesToMove, file.getAbsolutePath(), getContext());
+                WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove);
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
             }
 
             @Override
             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
-                dopt.titleText = R.string.move;
-                dopt.rootFolder = _appSettings.getNotebookDirectory();
-                dopt.startFolder = getCurrentFolder();
+                _doptMoC = dopt;
+                _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
+                _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
+                _doptMoC.startFolder = getCurrentFolder();
+
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
+                if (_doptMoC.listener instanceof FilesystemViewerDialog) {
+                    final TextView titleView = ((FilesystemViewerDialog) _doptMoC.listener)._dialogTitle;
+                    if (titleView != null) {
+                        titleView.setText(String.format("%s → %s", titleView.getContext().getString(isMove ? R.string.move : R.string.copy), adapter.getCurrentFolder().getName()));
+                    }
+                }
             }
         }, getActivity().getSupportFragmentManager(), getActivity());
     }

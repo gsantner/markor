@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opret mappe</string>
     <string name="create_new_document">Opret nyt dokument</string>
     <string name="move">Flyt</string>
+    <string name="copy">Kopiér</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fil/mappe findes allerede! Brug venligst et andet navn</string>
     <string name="import_from_device">Importér fra enhed</string>
@@ -394,7 +395,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Erstat alle</string>
     <string name="matches">Kampe</string>
     <string name="search_replace_pattern_error_message">Søg eller erstat mønsterfejl.</string>
+    <string name="backup_settings">Sikkerhedskopiér indstillinger</string>
+    <string name="restore_settings">Gendan indstillinger</string>
+    <string name="failed_to_create_backup">Kunne ikke oprette sikkerhedskopi</string>
+    <string name="export_settings_to_json_file">Eksporter indstillinger til json- fil</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer indstillinger fra backup json fil. Efter succes genstartes appen.</string>
+    <string name="failed_to_restore_settings_from_backup">Kunne ikke gendanne indstillinger fra sikkerhedskopi</string>
     <string name="newline_is_new_paragraph">Newline = nyt afsnit</string>
+    <string name="keep_both">Behold begge</string>
+    <string name="skip">Overspring</string>
+    <string name="overwrite">Overskriv</string>
+    <string name="keep_both_all">Behold begge (alle)</string>
+    <string name="skip_all">Skip (alle)</string>
+    <string name="overwrite_all">Overskriv (alle)</string>
+    <string name="copy_move_conflict_message">\'%s\' findes allerede i %s</string>
     <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
 </resources>
