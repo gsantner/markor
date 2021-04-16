@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opprett mappe</string>
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="move">Flytt</string>
+    <string name="copy">Kopier</string>
     <string name="info">Informasjon</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Filen/mappen finnes allerede! Bruk et annet navn</string>
     <string name="import_from_device">Importer fra enhet</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer innstillinger fra backup json-fil. Når appen er startet på nytt.</string>
     <string name="failed_to_restore_settings_from_backup">Kunne ikke gjenopprette innstillingene fra sikkerhetskopien</string>
     <string name="newline_is_new_paragraph">Ny = ny avsnitt</string>
+    <string name="keep_both">Behold begge</string>
+    <string name="skip">Hopp</string>
+    <string name="overwrite">Overskriv</string>
+    <string name="keep_both_all">Behold begge (alle)</string>
+    <string name="skip_all">Hopp over (alle)</string>
+    <string name="overwrite_all">Overskriv (alle)</string>
+    <string name="copy_move_conflict_message">\'%s\' eksisterer allerede i %s</string>
     <string name="additional_contexts_and_projects">Flere kontekster og prosjekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Angi områdedaterte @contexts og +projects. Disse vil alltid være synlige på todo.txt innfør dialoger.</string>
 </resources>
