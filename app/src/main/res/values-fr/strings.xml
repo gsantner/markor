@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Nouveau dossier</string>
     <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
+    <string name="copy">Copie</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Le fichier/dossier existe déjà ! Veuillez utiliser un nom différent</string>
     <string name="import_from_device">Importer depuis cet appareil</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer les paramètres depuis le fichier json de sauvegarde. En cas de succès, l\'application est redémarrée.</string>
     <string name="failed_to_restore_settings_from_backup">Impossible de restaurer les paramètres de la sauvegarde</string>
     <string name="newline_is_new_paragraph">Newline = nouveau paragraphe</string>
+    <string name="keep_both">Garder les deux</string>
+    <string name="skip">Ignorer</string>
+    <string name="overwrite">Écraser</string>
+    <string name="keep_both_all">Garder les deux (tous)</string>
+    <string name="skip_all">Ignorer (tous)</string>
+    <string name="overwrite_all">Écraser (tous)</string>
+    <string name="copy_move_conflict_message">\'%s\' existe déjà dans %s</string>
     <string name="additional_contexts_and_projects">Contextes et projets supplémentaires</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Entrez les @contexts séparés par des espaces et +projets. Ils seront toujours visibles dans les boîtes de dialogue d\'insertion todo.txt.</string>
 </resources>
