@@ -202,11 +202,15 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     }
 
     public String getString(String key, String defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getString(key, defaultValue);
+        try {
+            return gp(pref).getString(key, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     public String getString(@StringRes int keyResourceId, String defaultValue, @StringRes int keyResourceIdDefaultValue, final SharedPreferences... pref) {
-        return gp(pref).getString(rstr(keyResourceId), rstr(keyResourceIdDefaultValue));
+        return getString(rstr(keyResourceId), rstr(keyResourceIdDefaultValue), pref);
     }
 
     private void setStringListOne(String key, List<String> values, final SharedPreferences pref) {
@@ -220,9 +224,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     private ArrayList<String> getStringListOne(String key, final SharedPreferences pref) {
         ArrayList<String> ret = new ArrayList<>();
-        String value = pref
-                .getString(key, ARRAY_SEPARATOR)
-                .replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
+        String value = getString(key, ARRAY_SEPARATOR).replace(ARRAY_SEPARATOR_SUBSTITUTE, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR) || TextUtils.isEmpty(value)) {
             return ret;
         }
@@ -278,11 +280,15 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     }
 
     public int getInt(@StringRes int keyResourceId, int defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getInt(rstr(keyResourceId), defaultValue);
+        return getInt(rstr(keyResourceId), defaultValue, pref);
     }
 
     public int getInt(String key, int defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getInt(key, defaultValue);
+        try {
+            return gp(pref).getInt(key, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     public int getIntOfStringPref(@StringRes int keyResId, int defaultValue, final SharedPreferences... pref) {
@@ -305,7 +311,7 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
 
     private ArrayList<Integer> getIntListOne(String key, final SharedPreferences pref) {
         ArrayList<Integer> ret = new ArrayList<>();
-        String value = pref.getString(key, ARRAY_SEPARATOR);
+        String value = getString(key, ARRAY_SEPARATOR);
         if (value.equals(ARRAY_SEPARATOR)) {
             return ret;
         }
@@ -362,11 +368,15 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     }
 
     public long getLong(@StringRes int keyResourceId, long defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getLong(rstr(keyResourceId), defaultValue);
+        return getLong(rstr(keyResourceId), defaultValue, pref);
     }
 
     public long getLong(String key, long defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getLong(key, defaultValue);
+        try {
+            return gp(pref).getLong(key, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     //
@@ -381,11 +391,15 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     }
 
     public float getFloat(@StringRes int keyResourceId, float defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getFloat(rstr(keyResourceId), defaultValue);
+        return getFloat(rstr(keyResourceId), defaultValue);
     }
 
     public float getFloat(String key, float defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getFloat(key, defaultValue);
+        try {
+            return gp(pref).getFloat(key, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     //
@@ -419,22 +433,26 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     }
 
     public boolean getBool(@StringRes int keyResourceId, boolean defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getBoolean(rstr(keyResourceId), defaultValue);
+        return getBool(rstr(keyResourceId), defaultValue);
     }
 
     public boolean getBool(String key, boolean defaultValue, final SharedPreferences... pref) {
-        return gp(pref).getBoolean(key, defaultValue);
+        try {
+            return gp(pref).getBoolean(key, defaultValue);
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
     }
 
     //
     // Getter & Setter for Color
     //
     public int getColor(String key, @ColorRes int defaultColor, final SharedPreferences... pref) {
-        return gp(pref).getInt(key, rcolor(defaultColor));
+        return getInt(key, rcolor(defaultColor));
     }
 
     public int getColor(@StringRes int keyResourceId, @ColorRes int defaultColor, final SharedPreferences... pref) {
-        return gp(pref).getInt(rstr(keyResourceId), rcolor(defaultColor));
+        return getColor(rstr(keyResourceId), defaultColor);
     }
 
     //

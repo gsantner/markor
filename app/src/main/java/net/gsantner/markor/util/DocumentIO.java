@@ -37,7 +37,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.de.stanetz.jpencconverter.PasswordStore;
 
 public class DocumentIO {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
@@ -90,11 +89,12 @@ public class DocumentIO {
             // Extract content and title
             document.setTitle(filePath.getName());
             String content;
-            if (isEncryptedFile(filePath) && getPassword(context) != null) {
+            final char[] pw;
+            if (isEncryptedFile(filePath) && (pw = getPasswordWithWarning(context)) != null) {
                 try {
                     final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(filePath), (int) filePath.length());
                     if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
-                        content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, getPassword(context));
+                        content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
                     } else {
                         content = new String(encryptedContext, StandardCharsets.UTF_8);
                     }
@@ -187,9 +187,10 @@ public class DocumentIO {
             document.getFile().getParentFile().mkdirs();
         }
         try {
+            final char[] pw;
             final byte[] contentAsBytes;
-            if (isEncryptedFile(document.getFile()) && getPassword(context) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), getPassword(context));
+            if (isEncryptedFile(document.getFile()) && (pw = getPasswordWithWarning(context)) != null) {
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(document.getContent(), pw);
             } else {
                 contentAsBytes = document.getContent().getBytes();
             }
@@ -261,9 +262,8 @@ public class DocumentIO {
     };
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private static char[] getPassword(Context context) {
-        final PasswordStore securityStore = new PasswordStore(context);
-        final char[] pw = securityStore.loadKey(R.string.pref_key__default_encryption_password);
+    private static char[] getPasswordWithWarning(final Context context) {
+        final char[] pw = new AppSettings(context).getDefaultPassword();
         if (pw == null || pw.length == 0) {
             final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
             Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();

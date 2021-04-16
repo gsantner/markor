@@ -59,7 +59,7 @@ public abstract class TextActions {
     private int _textActionSidePadding;
     protected int _indent;
 
-    private static final String ACTION_ORDER_PREF_NAME = "action_order";
+    public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 

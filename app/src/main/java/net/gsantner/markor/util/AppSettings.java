@@ -16,11 +16,14 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IdRes;
+import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
@@ -29,16 +32,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
+import other.de.stanetz.jpencconverter.PasswordStore;
+
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends SharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
     public static Boolean _isDeviceGoodHardware = null;
+    private final ContextUtils _contextUtils;
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
@@ -46,16 +51,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         super(_context);
         _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
+        _contextUtils = new ContextUtils(_context);
         if (_isDeviceGoodHardware == null) {
-            ContextUtils cu = new ContextUtils(_context);
-            _isDeviceGoodHardware = cu.isDeviceGoodHardware();
-            cu.freeContextRef();
+            _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware();
         }
     }
 
     public static AppSettings get() {
         return new AppSettings(App.get());
     }
+
 
     public void setDarkThemeEnabled(boolean enabled) {
         setString(R.string.pref_key__app_theme, enabled ? "dark" : "light");
@@ -369,17 +374,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public void setDocumentFormat(final String path, final int format) {
-        if (fexists(path)) {
-            setInt(PREF_PREFIX_FILE_FORMAT + path, format);
+    public void setDocumentFormat(final String path, @StringRes final int format) {
+        if (fexists(path) && format != TextFormat.FORMAT_UNKNOWN) {
+            setString(PREF_PREFIX_FILE_FORMAT + path, _context.getString(format));
         }
     }
 
+    @StringRes
     public int getDocumentFormat(final String path, final int _default) {
         if (!fexists(path)) {
             return _default;
         } else {
-            return getInt(PREF_PREFIX_FILE_FORMAT + path, _default);
+            final String value = getString(PREF_PREFIX_FILE_FORMAT + path, null);
+            final int sid = _contextUtils.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, value);
+            // Note TextFormat.FORMAT_UNKNOWN also == 0
+            return sid != 0 ? sid : _default;
         }
     }
 
@@ -440,12 +449,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     private List<String> getPopularDocumentsSorted() {
         List<String> popular = getRecentDocuments();
-        Collections.sort(popular, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache));
-            }
-        });
+        Collections.sort(popular, (o1, o2) -> Integer.compare(getInt(o1, 0, _prefCache), getInt(o2, 0, _prefCache)));
         return popular;
     }
 
@@ -689,8 +693,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public File getFolderToLoadByMenuId(int itemId) {
-        ContextUtils contextUtils = new ContextUtils(_context);
-        List<Pair<File, String>> appDataPublicDirs = contextUtils.getAppDataPublicDirs(false, true, false);
+        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
                 return getNotebookDirectory();
@@ -705,7 +708,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
             case R.id.action_go_to_appdata_private: {
-                return contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir();
             }
             case R.id.action_go_to_storage: {
                 return Environment.getExternalStorageDirectory();
@@ -723,11 +726,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return Environment.getExternalStorageDirectory();
             }
             case R.id.action_go_to_appdata_public: {
-                appDataPublicDirs = contextUtils.getAppDataPublicDirs(true, false, false);
+                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(true, false, false);
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;
                 }
-                return contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir();
             }
         }
         return getNotebookDirectory();
@@ -831,12 +834,20 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return deviceid;
     }
 
-    public boolean hasPasswordBeenSetOnce() {
-        return getBool(R.string.pref_key__default_encryption_password_set_once, false);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public char[] getDefaultPassword() {
+        return new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password);
     }
 
-    public void setPasswordHasBeenSetOnce(boolean b) {
-        setBool(R.string.pref_key__default_encryption_password_set_once, b);
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean isDefaultPasswordSet() {
+        final char[] key = getDefaultPassword();
+        return (key != null && key.length > 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setDefaultPassword(String password) {
+        new PasswordStore(getContext()).storeKey(password, R.string.pref_key__default_encryption_password);
     }
 
     public boolean getNewFileDialogLastUsedEncryption() {

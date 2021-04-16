@@ -36,18 +36,26 @@ import java.util.Locale;
 
 public class TextFormat {
     public static final int FORMAT_UNKNOWN = 0;
-    public static final int FORMAT_ZIMWIKI = R.id.action_format_zimwiki;
-    public static final int FORMAT_MARKDOWN = R.id.action_format_markdown;
-    public static final int FORMAT_PLAIN = R.id.action_format_plaintext;
-    public static final int FORMAT_TODOTXT = R.id.action_format_todotxt;
-    public static final int FORMAT_KEYVALUE = R.id.action_format_keyvalue;
+    public static final int FORMAT_ZIMWIKI = R.string.action_format_zimwiki;
+    public static final int FORMAT_MARKDOWN = R.string.action_format_markdown;
+    public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
+    public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
+    public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
-    private final static TextConverter[] CONVERTERS = new TextConverter[]{CONVERTER_MARKDOWN, CONVERTER_TODOTXT, CONVERTER_ZIMWIKI, CONVERTER_KEYVALUE, CONVERTER_PLAINTEXT};
+
+    // Order here is used to **determine** format by it's file extension and/or content heading
+    private final static TextConverter[] CONVERTERS = new TextConverter[]{
+            CONVERTER_MARKDOWN,
+            CONVERTER_TODOTXT,
+            CONVERTER_ZIMWIKI,
+            CONVERTER_KEYVALUE,
+            CONVERTER_PLAINTEXT,
+    };
 
     // Either pass file or null and absolutePath
     public static boolean isTextFile(File file, String... absolutePath) {
