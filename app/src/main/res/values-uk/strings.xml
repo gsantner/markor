@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Створити директорію</string>
     <string name="create_new_document">Створити документ</string>
     <string name="move">Перемістити</string>
+    <string name="copy">Копія</string>
     <string name="info">Інформація</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Файл або директорія з таким іменем вже існує! Будь ласка, оберіть інше</string>
     <string name="import_from_device">Імпортувати з пристрою</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Імпортувати налаштування з файлу json у успішному режимі. Додаток перезапущено.</string>
     <string name="failed_to_restore_settings_from_backup">Не вдалося відновити налаштування з резервної копії</string>
     <string name="newline_is_new_paragraph">Новий рядок = новий абзац</string>
+    <string name="keep_both">Залишити обидва</string>
+    <string name="skip">Пропустити</string>
+    <string name="overwrite">Перезаписати</string>
+    <string name="keep_both_all">Залишити обидва (все)</string>
+    <string name="skip_all">Пропустити (все)</string>
+    <string name="overwrite_all">Перезаписати (все)</string>
+    <string name="copy_move_conflict_message">\'%s\' вже існує в %s</string>
     <string name="additional_contexts_and_projects">Додаткові контексти та проекти</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введіть розділені пробілами @contexts і +проекти. Вони завжди будуть видимі в todo.txt вставити діалогові вікна.</string>
 </resources>

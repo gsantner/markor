@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Maak folder</string>
     <string name="create_new_document">Maak een nieuw document</string>
     <string name="move">Verplaatsen</string>
+    <string name="copy">Kopiëren</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Bestand/map bestaat al! Gebruik een andere naam</string>
     <string name="import_from_device">Importeer van apparaat</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Import instellingen vanuit het backup json bestand. Bij succes wordt de app opnieuw gestart.</string>
     <string name="failed_to_restore_settings_from_backup">Fout bij het herstellen van instellingen vanuit back-up</string>
     <string name="newline_is_new_paragraph">Nieuwregel = nieuwe alinea</string>
+    <string name="keep_both">Houd beide</string>
+    <string name="skip">Overslaan</string>
+    <string name="overwrite">Overschrijf</string>
+    <string name="keep_both_all">Bewaar beide (alles)</string>
+    <string name="skip_all">Overslaan (alles)</string>
+    <string name="overwrite_all">Overschrijf (alles)</string>
+    <string name="copy_move_conflict_message">\'%s\' bestaat al in %s</string>
     <string name="additional_contexts_and_projects">Aanvullende contexten en projecten</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Voer spatie gescheiden @contexts en + projecten in. Deze zijn altijd zichtbaar bij todo.txt invoegen dialogen.</string>
 </resources>
