@@ -394,6 +394,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Zamijeni sve</string>
     <string name="matches">Pronađeno</string>
     <string name="search_replace_pattern_error_message">Greška u formi pretrage ili zamjene.</string>
+    <string name="backup_settings">Podešavanja rezervne kopije</string>
+    <string name="restore_settings">Podešavanja vraćanja podataka</string>
+    <string name="failed_to_create_backup">Nije uspjelo kreiranje rezervne kopije</string>
+    <string name="export_settings_to_json_file">Pohrani podešavanja u json datoteku</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
