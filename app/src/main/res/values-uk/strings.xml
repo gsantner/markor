@@ -27,7 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Створити директорію</string>
     <string name="create_new_document">Створити документ</string>
     <string name="move">Перемістити</string>
-    <string name="copy">Копія</string>
+    <string name="copy">Копіювати</string>
     <string name="info">Інформація</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Файл або директорія з таким іменем вже існує! Будь ласка, оберіть інше</string>
     <string name="import_from_device">Імпортувати з пристрою</string>
