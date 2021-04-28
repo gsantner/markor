@@ -399,7 +399,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">Einstellungen wiederherstellen</string>
     <string name="failed_to_create_backup">Fehler beim Erstellen der Sicherung</string>
     <string name="export_settings_to_json_file">Einstellungen in json-Datei exportieren</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importiere Einstellungen aus json-Datei. Bei erfolgreichem Import wird die App neu gestartet.</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Einstellungen aus json-Datei importieren. Nach erfolgreichem Import wird die App neu gestartet.</string>
     <string name="failed_to_restore_settings_from_backup">Fehler beim Wiederherstellen der Einstellungen aus der Sicherung</string>
     <string name="newline_is_new_paragraph">Newline = neuer Absatz</string>
     <string name="keep_both">Beides behalten</string>
