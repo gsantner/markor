@@ -396,10 +396,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Збіги</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
     <string name="backup_settings">Параметри резервного копіювання</string>
-    <string name="restore_settings">Відновлення</string>
+    <string name="restore_settings">Параметри відновлення</string>
     <string name="failed_to_create_backup">Не вдалося створити резервну копію</string>
-    <string name="export_settings_to_json_file">Експорт налаштувань в json файл</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Імпортувати налаштування з файлу json у успішному режимі. Додаток перезапущено.</string>
+    <string name="export_settings_to_json_file">Експортування налаштувань до json-файлу</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Імпортувати налаштування з резервної копії json файлу. При успішному завершенні, програму буде перезапущено.</string>
     <string name="failed_to_restore_settings_from_backup">Не вдалося відновити налаштування з резервної копії</string>
     <string name="newline_is_new_paragraph">Новий рядок = новий абзац</string>
     <string name="keep_both">Залишити обидва</string>
@@ -409,6 +409,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="skip_all">Пропустити (все)</string>
     <string name="overwrite_all">Перезаписати (все)</string>
     <string name="copy_move_conflict_message">\'%s\' вже існує в %s</string>
-    <string name="additional_contexts_and_projects">Додаткові контексти та проекти</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">Введіть розділені пробілами @contexts і +проекти. Вони завжди будуть видимі в todo.txt вставити діалогові вікна.</string>
+    <string name="additional_contexts_and_projects">Додаткові контексти та проєкти</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Уведіть контексти, розділені пробілами і +проєкти. Вони завжди будуть видимі в todo.txt діалогах.</string>
 </resources>
