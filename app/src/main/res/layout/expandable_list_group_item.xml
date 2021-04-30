@@ -8,4 +8,4 @@
     android:gravity="center_vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft" />
+    android:paddingLeft="10dp" />
