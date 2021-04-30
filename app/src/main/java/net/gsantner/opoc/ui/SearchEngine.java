@@ -99,15 +99,17 @@ public class SearchEngine {
 
     public static class FitFile {
         private final String _path;
+        private boolean _isDirectory;
         private final List<ContentMatchUnit> _contentMatches;
 
-        public FitFile(final String path) {
+        public FitFile(final String path, final boolean isDirectory) {
             _path = path;
+            _isDirectory = isDirectory;
             _contentMatches = new ArrayList<ContentMatchUnit>();
         }
 
-        public FitFile(final String path, List<ContentMatchUnit> contentMatches) {
-            this(path);
+        public FitFile(final String path, final boolean isDirectory, List<ContentMatchUnit> contentMatches) {
+            this(path, isDirectory);
             addContentMatches(contentMatches);
         }
 
@@ -125,6 +127,10 @@ public class SearchEngine {
 
         public final List<ContentMatchUnit> getContentMatches() {
             return Collections.unmodifiableList(_contentMatches);
+        }
+
+        public final boolean isDirectory() {
+            return _isDirectory;
         }
 
         public static class ContentMatchUnit {
@@ -285,7 +291,7 @@ public class SearchEngine {
                             }
 
                             String path = subDirOrFile.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
-                            _result.add(new FitFile(path, contentMatches));
+                            _result.add(new FitFile(path, false, contentMatches));
                         }
                     }
 
@@ -358,7 +364,7 @@ public class SearchEngine {
 
                 if (isMatch) {
                     String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
-                    _result.add(new FitFile(path));
+                    _result.add(new FitFile(path, file.isDirectory()));
                 }
             } catch (Exception ignored) {
             }
