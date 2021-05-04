@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.Toast;
 
+import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
 
 import java.io.BufferedReader;
@@ -90,7 +92,12 @@ public class SearchEngine {
                     exactList.add(pattern);
                 } else {
                     pattern = pattern.replaceAll("(?<![.])[*]", ".*");
-                    regexList.add(Pattern.compile(pattern));
+                    try {
+                        regexList.add(Pattern.compile(pattern));
+                    } catch (Exception ex) {
+                        String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
+                        Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         }
@@ -182,7 +189,17 @@ public class SearchEngine {
         public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
-            _regex = _config._isRegexQuery ? Pattern.compile(_config._query) : null;
+
+            Pattern pattern = null;
+            if (_config._isRegexQuery) {
+                try {
+                    pattern = Pattern.compile(_config._query);
+                } catch (Exception ex) {
+                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), _config._query);
+                    Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
+                }
+            }
+            _regex = pattern;
 
             _countCheckedFiles = 0;
             _isCanceled = false;
@@ -196,6 +213,12 @@ public class SearchEngine {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
+            if (_config._isRegexQuery && _regex == null) {
+                cancel(true);
+                return;
+            }
+
             bindSnackBar(_config._query);
         }
 
