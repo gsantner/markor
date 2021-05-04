@@ -12,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
@@ -52,6 +54,7 @@ public class FileSearchDialog {
         final AppSettings appSettings = new AppSettings(initializer._activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
+        final ScrollView scrollView = new ScrollView(initializer._activity);
         final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
@@ -63,6 +66,7 @@ public class FileSearchDialog {
         final LinearLayout.LayoutParams subCheckBoxMargins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         subCheckBoxMargins.setMargins(dp4px * 5 * 2, dp4px, dp4px * 5, dp4px);
 
+        final TextView messageTextView = new TextView(initializer._activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
         final CheckBox regexCheckBox = new CheckBox(initializer._activity);
         final CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
@@ -76,6 +80,10 @@ public class FileSearchDialog {
                 dialogCallback.callback(callBackOptions);
             }
         };
+
+        // TextView
+        messageTextView.setText(R.string.recursive_search_in_current_directory);
+        dialogLayout.addView(messageTextView, margins);
 
         // EdiText: Search query input
         searchEditText.setHint(R.string.search);
@@ -110,10 +118,10 @@ public class FileSearchDialog {
         // Checkbox: Search in content
         searchInContentCheckBox.setText(R.string.search_in_content);
         searchInContentCheckBox.setChecked(AppSettings.get().isSearchInContent());
-        dialogLayout.addView(searchInContentCheckBox, margins);
         searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             onlyFirstContentMatchCheckBox.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
         });
+        dialogLayout.addView(searchInContentCheckBox, margins);
 
         // Checkbox: Only first content match
         onlyFirstContentMatchCheckBox.setText(R.string.only_first_content_match);
@@ -121,17 +129,19 @@ public class FileSearchDialog {
         onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
         dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
 
+        // ScrollView
+        scrollView.addView(dialogLayout);
+
 
         // Configure dialog
-        dialogBuilder.setView(dialogLayout)
-                .setMessage(R.string.recursive_search_in_current_directory)
-                .setTitle(R.string.search)
+        dialogBuilder.setTitle(R.string.search)
                 .setOnCancelListener(null)
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                     submit.callback();
-                });
+                })
+                .setView(scrollView);
 
         return dialogBuilder;
     }
