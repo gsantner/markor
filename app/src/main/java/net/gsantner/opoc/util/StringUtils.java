@@ -87,6 +87,21 @@ public final class StringUtils {
         return i;
     }
 
+    public static boolean isNullOrWhitespace(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!Character.isWhitespace(ch)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static int[] getSelection(final TextView text) {
 
         int selectionStart = text.getSelectionStart();

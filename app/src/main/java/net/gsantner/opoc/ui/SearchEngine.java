@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,6 +39,7 @@ public class SearchEngine {
         private final List<String> _ignoredExactDirs;
         private final List<Pattern> _ignoredRegexFiles;
         private final List<String> _ignoredExactFiles;
+        private final List<Pattern> _searchByContentExtensions;
 
         public final boolean _isRegexQuery;
         public final boolean _isCaseSensitiveQuery;
@@ -51,7 +53,7 @@ public class SearchEngine {
         public final boolean _isOnlyFirstContentMatch;
         public final boolean _isShowMatchPreview;
 
-        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent, final boolean isOnlyFirstContentMatch, final boolean isShowMatchPreview) {
+        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent, final boolean isOnlyFirstContentMatch, final boolean isShowMatchPreview, final List<String> searchByContentExtensions) {
             _rootSearchDir = rootSearchDir;
             _isSearchInContent = isSearchInContent;
             _isOnlyFirstContentMatch = isOnlyFirstContentMatch;
@@ -70,6 +72,9 @@ public class SearchEngine {
             _ignoredExactFiles = new ArrayList<String>();
             _ignoredRegexFiles = new ArrayList<Pattern>();
             splitRegexExactFiles(_ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
+
+            _searchByContentExtensions = new ArrayList<Pattern>();
+            splitExtensions(searchByContentExtensions, _searchByContentExtensions);
 
 
             query = isRegexQuery ? query.replaceAll("(?<![.])[*]", ".*") : query;
@@ -98,6 +103,26 @@ public class SearchEngine {
                         String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
                         Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
                     }
+                }
+            }
+        }
+
+        private void splitExtensions(List<String> list, List<Pattern> patterns) {
+            for (int i = 0; i < list.size(); i++) {
+                String line = list.get(i);
+                if (StringUtils.isNullOrWhitespace(line)) {
+                    continue;
+                }
+
+                line = line.replaceAll("(?<![.])[*]", ".*");
+                if (!line.contains("*") && !line.contains("$") && !line.contains("^") && !line.contains("?") && !line.contains("\\") && !line.contains("|")) {
+                    line = String.format(".*%s$", line);
+                }
+                try {
+                    patterns.add(Pattern.compile(line));
+                } catch (Exception ex) {
+                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), line);
+                    Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -296,29 +321,35 @@ public class SearchEngine {
                     }
 
                     if (subDirOrFile.isDirectory()) {
-                        if (isFolderIgnored(subDirOrFile) || isFileContainSymbolicLinks(subDirOrFile, currentDir)) {
+                        File directory = subDirOrFile;
+                        if (isFolderIgnored(directory) || isFileContainSymbolicLinks(directory, currentDir)) {
                             continue;
                         }
-
-                        subQueue.add(subDirOrFile);
+                        subQueue.add(directory);
                     } else {
-                        if (isFileIgnored(subDirOrFile)) {
+                        File file = subDirOrFile;
+                        if (isFileIgnored(file)) {
                             continue;
                         }
 
                         if (_config._isSearchInContent) {
-                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(subDirOrFile, _config._isOnlyFirstContentMatch);
+                            if (isSearchByContentIgnoredFor(file)) {
+                                continue;
+                            }
+                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(file, _config._isOnlyFirstContentMatch);
 
                             if (contentMatches.size() == 0) {
                                 continue;
                             }
 
-                            String path = subDirOrFile.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
+                            String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
                             _result.add(new FitFile(path, false, contentMatches));
                         }
                     }
 
-                    getFileIfNameMatches(subDirOrFile);
+                    if (!_config._isSearchInContent) {
+                        getFileIfNameMatches(subDirOrFile);
+                    }
 
                     publishProgress(_currentQueueLength + subQueue.size(), _currentSearchDepth, _result.size(), _countCheckedFiles);
                 }
@@ -502,6 +533,22 @@ public class SearchEngine {
             }
 
             return false;
+        }
+
+
+        private boolean isSearchByContentIgnoredFor(File file) {
+            if (_config._searchByContentExtensions.isEmpty()) {
+                return false;
+            }
+
+            String fileName = file.getName().toLowerCase();
+            for (Pattern pattern : _config._searchByContentExtensions) {
+                if (pattern.matcher(fileName).matches()) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
     }

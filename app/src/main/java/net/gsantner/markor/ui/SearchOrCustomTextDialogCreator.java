@@ -137,11 +137,12 @@ public class SearchOrCustomTextDialogCreator {
             final List<String> ignoredDirs = appSettings.getIgnoredSearchDirNames();
             final List<String> ignoredFiles = appSettings.getIgnoredSearchFileNames();
             final boolean isShowMatchPreview = appSettings.isShowMatchPreview();
+            final List<String> searchByContentExtensions = appSettings.getSearchByContentExtensions();
             appSettings.setSearchQueryRegexUsing(cb_options._isRegexQuery);
             appSettings.setSearchQueryCaseSensitivity(cb_options._isCaseSensitiveQuery);
             appSettings.setSearchInContent(cb_options._isSearchInContent);
             appSettings.setOnlyFirstContentMatch(cb_options._isOnlyFirstContentMatch);
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_options._isRegexQuery, cb_options._isCaseSensitiveQuery, cb_options._isSearchInContent, cb_options._isOnlyFirstContentMatch, isShowMatchPreview);
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_options._isRegexQuery, cb_options._isCaseSensitiveQuery, cb_options._isSearchInContent, cb_options._isOnlyFirstContentMatch, isShowMatchPreview, searchByContentExtensions);
 
             SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<SearchEngine.FitFile>>) searchResults -> {
                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);

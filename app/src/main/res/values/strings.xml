@@ -421,12 +421,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="searchCategory">Search</string>
     <string name="search_in_content">Search in content</string>
     <string name="show_search_result_on_cancel">Show result on cancel</string>
-    <string name="show_search_result_on_cancel_summary">If a result is not empty you can get the result if you press a cancel button.</string>
+    <string name="show_search_result_on_cancel_summary">When you press a cancel button, and search has matches then if the option is enabled will show you these matches.</string>
     <string name="max_search_depth">Search depth</string>
     <string name="ignored_search_dir_names">Ignored directory names</string>
     <string name="ignored_search_dir_names_dialog">Ignore folder names for search.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*</string>
     <string name="ignored_search_file_names">Ignored file names</string>
     <string name="ignored_search_file_names_dialog">Ignore file names for search.\nUse new line as separator.\nUse quotes for exact file names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
+    <string name="search_by_context_have_to_include">Filenames in search by context have to include</string>
+    <string name="search_by_context_have_to_include_dialog">Search by context only for filenames that contain Extension. Use new line as separator.\nExamples: .md\n.txt.</string>
     <string name="regex_search">Regex search</string>
     <string name="case_sensitive">Case sensitive</string>
     <string name="only_first_content_match">Get first content match</string>

@@ -83,7 +83,7 @@
                 android:summary="%1$s"
                 android:title="@string/max_search_depth" />
             <CheckBoxPreference
-                android:defaultValue="false"
+                android:defaultValue="true"
                 android:icon="@drawable/ic_baseline_speaker_notes_off_24"
                 android:key="@string/pref_key__is_show_search_result_on_cancel_enabled"
                 android:summary="@string/show_search_result_on_cancel_summary"
@@ -100,6 +100,12 @@
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__ignored_search_file_names"
                 android:title="@string/ignored_search_file_names" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/empty_string"
+                android:dialogMessage="@string/search_by_context_have_to_include_dialog"
+                android:icon="@drawable/ic_baseline_rule_folder_24"
+                android:key="@string/pref_key__search_by_context_have_to_include"
+                android:title="@string/search_by_context_have_to_include" />
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_baseline_speaker_notes_off_24"
