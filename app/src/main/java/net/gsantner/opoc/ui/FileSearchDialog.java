@@ -11,18 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+
 
 public class FileSearchDialog {
 
@@ -72,8 +75,7 @@ public class FileSearchDialog {
 
         final TextView messageTextView = new TextView(initializer._activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
-        final CheckBox queryHistoryCheckBox = new CheckBox(initializer._activity);
-        final ListView queryHistoryListView = new ListView(initializer._activity);
+        Spinner queryHistorySpinner = new Spinner(initializer._activity);
         final CheckBox regexCheckBox = new CheckBox(initializer._activity);
         final CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
         final CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
@@ -111,26 +113,26 @@ public class FileSearchDialog {
         dialogLayout.addView(searchEditText, margins);
 
 
+        // Spinner: History
         if (SearchEngine.queryHistory.size() > 0) {
-            // Checkbox: Search query history
-            queryHistoryCheckBox.setText(R.string.show_history);
-            queryHistoryCheckBox.setChecked(false);
-            queryHistoryCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                queryHistoryListView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            });
-            dialogLayout.addView(queryHistoryCheckBox, margins);
-
-            // ListView: Search query history list
             ArrayAdapter<String> adapter = new ArrayAdapter<>(initializer._activity, R.layout.list_group_history_item, SearchEngine.queryHistory);
-            queryHistoryListView.setOnItemClickListener((adapterView, view, i, id) -> {
-                String query = (String) adapterView.getItemAtPosition(i);
-                searchEditText.setText(query);
+            queryHistorySpinner.setAdapter(adapter);
+
+            queryHistorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String query = (String) parent.getItemAtPosition(position);
+                    searchEditText.setText(query);
+                    searchEditText.selectAll();
+                    searchEditText.requestFocus();
+                }
+
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
             });
-            queryHistoryListView.setVisibility(View.GONE);
-            queryHistoryListView.setAdapter(adapter);
-            final int maxDisplayedItems = 5;
-            setListViewHeightBasedOnItems(queryHistoryListView, maxDisplayedItems);
-            dialogLayout.addView(queryHistoryListView);
+
+            dialogLayout.addView(queryHistorySpinner);
         }
 
 
@@ -218,4 +220,5 @@ public class FileSearchDialog {
             _isOnlyFirstContentMatch = isOnlyFirstContentMatch;
         }
     }
+
 }

@@ -8,4 +8,5 @@
     android:gravity="center_vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    android:drawablePadding="5dp"
     android:paddingLeft="10dp" />

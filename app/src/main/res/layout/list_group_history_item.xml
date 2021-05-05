@@ -9,4 +9,5 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:drawableLeft="@drawable/ic_history_black_24dp"
+    android:drawablePadding="5dp"
     android:paddingLeft="10dp" />
