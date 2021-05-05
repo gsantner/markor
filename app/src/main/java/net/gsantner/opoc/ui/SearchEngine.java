@@ -34,6 +34,18 @@ public class SearchEngine {
 
     };
 
+    public static final int maxQueryHistoryCount = 20;
+    public static final LinkedList<String> queryHistory = new LinkedList<>();
+
+    public static void addToHistory(String query) {
+        queryHistory.remove(query);
+
+        if (queryHistory.size() == maxQueryHistoryCount) {
+            queryHistory.removeLast();
+        }
+        queryHistory.addFirst(query);
+    }
+
     public static class Config {
         private final List<Pattern> _ignoredRegexDirs;
         private final List<String> _ignoredExactDirs;
@@ -192,6 +204,7 @@ public class SearchEngine {
     public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity = activity;
         SearchEngine.isSearchExecuting = true;
+        SearchEngine.addToHistory(config._query);
         SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
         task.execute();
 

@@ -36,12 +36,12 @@ public class FileSearchResultSelectorDialog {
 
 
     private static class Dialog {
-        private static String DISPLAYED_GROUP_FIELD_NAME = "groupName";
-        private static String PATH_FIELD_NAME = "path";
-        private static String COUNT_FIELD_NAME = "count";
-        private static String DISPLAYED_CHILD_FIELD_NAME = "childName";
-        private static String LINE_NUMBER_FIELD_NAME = "lineNumber";
-        private static String IS_DIRECTORY_FIELD_NAME = "isDirectory";
+        private static final String DISPLAYED_GROUP_FIELD_NAME = "groupName";
+        private static final String PATH_FIELD_NAME = "path";
+        private static final String COUNT_FIELD_NAME = "count";
+        private static final String DISPLAYED_CHILD_FIELD_NAME = "childName";
+        private static final String LINE_NUMBER_FIELD_NAME = "lineNumber";
+        private static final String IS_DIRECTORY_FIELD_NAME = "isDirectory";
 
         private AlertDialog _dialog;
         private final Activity _activity;
@@ -107,7 +107,8 @@ public class FileSearchResultSelectorDialog {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
-                Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, searchEditText.getText().toString());
+                String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
+                Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, filterText);
                 CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, filteredGroups.first, R.layout.expandable_list_group_item, groupFrom, groupTo, filteredGroups.second, android.R.layout.simple_list_item_1, childFrom, childTo);
 
                 expandableListView.setAdapter(adapter);
@@ -125,43 +126,37 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setGroupIndicator(null);
         expandableListView.setAdapter(adapter);
 
-        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
 
-                Map<String, Object> map = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
-                String path = (String) map.get(Dialog.PATH_FIELD_NAME);
-                int count = (int) map.get(Dialog.COUNT_FIELD_NAME);
+            Map<String, Object> map = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
+            String path = (String) map.get(Dialog.PATH_FIELD_NAME);
+            int count = (int) map.get(Dialog.COUNT_FIELD_NAME);
 
-                if (count <= 0) {
-                    if (initializer._dialog != null) {
-                        initializer._dialog.dismiss();
-                    }
-
-                    dialogCallback.callback(path, -1);
+            if (count <= 0) {
+                if (initializer._dialog != null) {
+                    initializer._dialog.dismiss();
                 }
 
-                return false;
+                dialogCallback.callback(path, -1);
             }
+
+            return false;
         });
 
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Map<String, Object> groupMap = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
-                Map<String, Object> childMap = (Map<String, Object>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-                String path = (String) groupMap.get(Dialog.PATH_FIELD_NAME);
-                int lineNumber = (int) childMap.get(Dialog.LINE_NUMBER_FIELD_NAME);
-                if (lineNumber >= 0) {
-                    if (initializer._dialog != null) {
-                        initializer._dialog.dismiss();
-                    }
-
-                    dialogCallback.callback(path, lineNumber);
+        expandableListView.setOnChildClickListener((parent, view, groupPosition, childPosition, id) -> {
+            Map<String, Object> groupMap = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
+            Map<String, Object> childMap = (Map<String, Object>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+            String path = (String) groupMap.get(Dialog.PATH_FIELD_NAME);
+            int lineNumber = (int) childMap.get(Dialog.LINE_NUMBER_FIELD_NAME);
+            if (lineNumber >= 0) {
+                if (initializer._dialog != null) {
+                    initializer._dialog.dismiss();
                 }
 
-                return false;
+                dialogCallback.callback(path, lineNumber);
             }
+
+            return false;
         });
 
         dialogLayout.addView(expandableListView);
@@ -183,7 +178,7 @@ public class FileSearchResultSelectorDialog {
 
     private static Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filter(final List<SearchEngine.FitFile> searchResults, String query) {
         ArrayList<Map<String, Object>> groupDataList = new ArrayList<>();
-        ArrayList<ArrayList<Map<String, Object>>> сhildDataList = new ArrayList<>();
+        ArrayList<ArrayList<Map<String, Object>>> childDataList = new ArrayList<>();
 
         query = query.toLowerCase();
 
@@ -203,7 +198,7 @@ public class FileSearchResultSelectorDialog {
 
             boolean isPathContainsQuery = query.isEmpty() || path.toLowerCase().contains(query);
 
-            ArrayList<Map<String, Object>> сhildDataItemList = new ArrayList<>();
+            ArrayList<Map<String, Object>> childDataItemList = new ArrayList<>();
             for (SearchEngine.FitFile.ContentMatchUnit contentMatch : contentMatches) {
                 final String previewMatch = contentMatch.getPreviewMatch();
 
@@ -214,22 +209,22 @@ public class FileSearchResultSelectorDialog {
                     map.put(Dialog.DISPLAYED_CHILD_FIELD_NAME, displayedText);
                     map.put(Dialog.LINE_NUMBER_FIELD_NAME, lineNumber);
 
-                    сhildDataItemList.add(map);
+                    childDataItemList.add(map);
                 }
             }
 
-            if (isPathContainsQuery || сhildDataItemList.size() > 0) {
+            if (isPathContainsQuery || childDataItemList.size() > 0) {
                 groupDataList.add(groupMap);
-                сhildDataList.add(сhildDataItemList);
+                childDataList.add(childDataItemList);
             }
         }
 
-        return new Pair<>(groupDataList, сhildDataList);
+        return new Pair<>(groupDataList, childDataList);
     }
 
     private static class CustomExpandableListAdapter extends SimpleExpandableListAdapter {
 
-        public CustomExpandableListAdapter(Context context, List<? extends Map<String, ?>> groupData, int groupLayout, String[] groupFrom, int[] groupTo, List<? extends List<? extends Map<String, ?>>> childData, int childLayout, String[] childFrom, int[] childTo){
+        public CustomExpandableListAdapter(Context context, List<? extends Map<String, ?>> groupData, int groupLayout, String[] groupFrom, int[] groupTo, List<? extends List<? extends Map<String, ?>>> childData, int childLayout, String[] childFrom, int[] childTo) {
             super(context, groupData, groupLayout, groupFrom, groupTo, childData, childLayout, childFrom, childTo);
         }
 

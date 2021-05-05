@@ -8,10 +8,14 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -68,6 +72,8 @@ public class FileSearchDialog {
 
         final TextView messageTextView = new TextView(initializer._activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
+        final CheckBox queryHistoryCheckBox = new CheckBox(initializer._activity);
+        final ListView queryHistoryListView = new ListView(initializer._activity);
         final CheckBox regexCheckBox = new CheckBox(initializer._activity);
         final CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
         final CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
@@ -103,6 +109,29 @@ public class FileSearchDialog {
             return false;
         });
         dialogLayout.addView(searchEditText, margins);
+
+
+        if (SearchEngine.queryHistory.size() > 0) {
+            // Checkbox: Search query history
+            queryHistoryCheckBox.setText(R.string.show_history);
+            queryHistoryCheckBox.setChecked(false);
+            queryHistoryCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                queryHistoryListView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            });
+            dialogLayout.addView(queryHistoryCheckBox, margins);
+
+            // ListView: Search query history list
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(initializer._activity, R.layout.list_group_history_item, SearchEngine.queryHistory);
+            queryHistoryListView.setOnItemClickListener((adapterView, view, i, id) -> {
+                String query = (String) adapterView.getItemAtPosition(i);
+                searchEditText.setText(query);
+            });
+            queryHistoryListView.setVisibility(View.GONE);
+            queryHistoryListView.setAdapter(adapter);
+            final int maxDisplayedItems = 5;
+            setListViewHeightBasedOnItems(queryHistoryListView, maxDisplayedItems);
+            dialogLayout.addView(queryHistoryListView);
+        }
 
 
         // Checkbox: Regex search
@@ -144,6 +173,34 @@ public class FileSearchDialog {
                 .setView(scrollView);
 
         return dialogBuilder;
+    }
+
+    private static boolean setListViewHeightBasedOnItems(ListView listView, final int maxDisplayedItems) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return false;
+        }
+
+        int numberOfItems = listAdapter.getCount();
+        int totalItemsHeight = 0;
+        final int maxShowedItems = Math.min(numberOfItems, maxDisplayedItems);
+        // Get total height of items.
+        for (int itemPos = 0; itemPos < maxShowedItems; itemPos++) {
+            View item = listAdapter.getView(itemPos, null, listView);
+            item.measure(0, 0);
+            totalItemsHeight += item.getMeasuredHeight();
+        }
+
+        // Get total height of item dividers.
+        int totalDividersHeight = listView.getDividerHeight() * (maxShowedItems - 1);
+
+        // Set list height.
+        int height = totalItemsHeight + totalDividersHeight;
+        ViewGroup.LayoutParams params = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, height);
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+        return true;
     }
 
     public static class CallBackOptions {
