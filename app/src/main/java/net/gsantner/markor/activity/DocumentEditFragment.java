@@ -594,14 +594,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
-
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
