@@ -11,9 +11,11 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -27,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.SettingsActivity;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
@@ -404,6 +407,26 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.titleText = R.string.indent;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showFontSizeDialog(final Activity activity, final int currentSize, final Callback.a1<String> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = callback;
+        // TODO - get min and max from the preference
+        final int minFontSize = 1;
+        final int maxFontSize = 36;
+        final List<String> sizes = new ArrayList<>();
+        for (int i = minFontSize; i <= maxFontSize; i++) {
+            sizes.add(Integer.toString(i));
+        }
+        dopt.data = sizes;
+        dopt.highlightData = Arrays.asList(Integer.toString(currentSize));
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = 400;
+        dopt.titleText = R.string.font_size;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
