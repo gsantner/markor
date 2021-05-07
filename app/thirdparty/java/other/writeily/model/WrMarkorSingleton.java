@@ -16,12 +16,9 @@ import android.support.v4.provider.DocumentFile;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ShareUtil;
-
-import org.apache.commons.io.IOUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,33 +80,21 @@ public class WrMarkorSingleton {
         return false;
     }
 
-
     public boolean copyFile(final File file, final File dest) {
         if (saneMoveOrCopy(file, dest) && !dest.exists()) {
-            FileInputStream input = null;
-            FileOutputStream output = null;
-            try {
-                if (file.isDirectory()) {
-                    if (dest.mkdir()) {
-                        boolean success = true;
-                        for (final File dirFile : file.listFiles()) {
-                            // Merge not supported, dest here will always be available
-                            success &= copyFile(dirFile, new File(dest, dirFile.getName()));
-                        }
-                        return success;
+            if (file.isDirectory()) {
+                if (dest.mkdir()) {
+                    boolean success = true;
+                    for (final File dirFile : file.listFiles()) {
+                        // Merge not supported, dest here will always be available
+                        success &= this.copyFile(dirFile, new File(dest, dirFile.getName()));
                     }
-                    return false;
-                } else {
-                    input = new FileInputStream(file);
-                    output = new FileOutputStream(dest);
-                    IOUtils.copy(input, output);
-                    return true;
+                    return success;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                IOUtils.closeQuietly(input);
-                IOUtils.closeQuietly(output);
+                return false;
+            } else {
+                FileUtils.copyFile(file, dest);
+                return true;
             }
         }
         return false;
