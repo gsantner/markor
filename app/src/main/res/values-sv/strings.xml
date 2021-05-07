@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (som klartext)</string>
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
-    <string name="open_existing_files_in_view_mode">Öppna existerande fil i vyläge</string>
+    <string name="open_existing_files_in_view_mode">Öppna befintliga filer i visningsläge</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Fil</string>
@@ -314,8 +314,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
-    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell skrollning.</string>
-    <string name="recursive_search_in_current_directory">Sök rekursivt ned i katalogen när förfrågan innehåller regex med asteriks (*) används; stanna se om förfrågan är hållen i sammanhanget.</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell rullning.</string>
+    <string name="recursive_search_in_current_directory">Sök rekursivt i aktuell katalog. När sökfrågan innehåller en asteriks (*) används regex-sökning, letar annars efter sökfrågan.</string>
     <string name="always_open_with_this_app">Föredra att öppna med appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer av typen i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webfiler och filer utan filändelse.</string>
     <string name="template">Mall</string>

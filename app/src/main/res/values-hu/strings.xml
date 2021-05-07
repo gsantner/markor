@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Mappa létrehozása</string>
     <string name="create_new_document">Dokumentum létrehozása</string>
     <string name="move">Mozgatás</string>
+    <string name="copy">Másolás</string>
     <string name="info">Infó</string>
     <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet</string>
     <string name="import_from_device">Importálás az eszközről</string>
@@ -386,4 +387,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Összes cseréje</string>
     <string name="matches">Találatok</string>
     <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
+    <string name="export_settings_to_json_file">Beállítások exportálása json fájlba</string>
+    <string name="keep_both">Mindkettő megtartása</string>
 </resources>
