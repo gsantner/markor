@@ -52,6 +52,7 @@ import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.DocumentIO;
@@ -842,8 +843,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
-        if (!_isPreviewVisible) {
-            _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
+        if (!_isPreviewVisible && _textFormat != null) {
+            TextActions textActions = _textFormat.getTextActions();
+            textActions.runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }
 }
