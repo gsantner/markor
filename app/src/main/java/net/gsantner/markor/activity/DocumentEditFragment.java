@@ -842,7 +842,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
-        if (!_isPreviewVisible) {
+        if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }
