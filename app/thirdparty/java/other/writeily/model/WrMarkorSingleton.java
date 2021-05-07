@@ -12,7 +12,6 @@ package other.writeily.model;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
-import android.widget.Toast;
 
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -60,11 +59,15 @@ public class WrMarkorSingleton {
          * 3. Don't move a folder into its children
          */
 
-        return (file != null &&
-                dest != null &&
-                !file.equals(dest) &&
-                // dest is file's child
-                !dest.toPath().startsWith(file.toPath()));
+        try {
+            return (file != null &&
+                    dest != null &&
+                    !file.equals(dest) &&
+                    // dest is file's child
+                    !dest.getCanonicalPath().startsWith(file.getCanonicalPath()));
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public boolean moveFile(final File file, final File dest, final Context context) {
