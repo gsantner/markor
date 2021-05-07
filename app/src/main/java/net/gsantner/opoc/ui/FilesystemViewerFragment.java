@@ -138,7 +138,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
 
-        if(SearchEngine.isSearchExecuting){
+        if (SearchEngine.isSearchExecuting) {
             SearchEngine.activity = getActivity();
         }
     }
@@ -521,6 +521,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void executeSearchAction() {
+        PermissionChecker permc = new PermissionChecker(getActivity());
+        if (permc.doIfExtStoragePermissionGranted()) {
+            return;
+        }
+
         final File currentFolder = getCurrentFolder();
         SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
             File load = new File(currentFolder, relFilePath);
