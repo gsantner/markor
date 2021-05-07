@@ -536,9 +536,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 final int oldSize = (int) (_hlEditor.getTextSize() / displayMetrics.scaledDensity);
                 SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), oldSize, (v) -> {
                     final int newSize = Integer.parseInt(v);
-                    if (newSize != oldSize) {
-                        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
-                    }
+                    _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
                     _appSettings.setDocumentFontSize(getPath(), newSize);
                 });
             }
