@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Kreiraj direktorij</string>
     <string name="create_new_document">Kreiraj novi dokument</string>
     <string name="move">Premjesti</string>
+    <string name="copy">Kopiraj</string>
     <string name="info">Informacija</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Datoteka/direktorij već postoji! Molimo odaberite drugi naziv</string>
     <string name="import_from_device">Prenesi sa uređaja</string>
@@ -401,6 +402,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Unesi podešavanja iz rezervne kopije json datoteke. Po uspješnom završetku, aplikacija će se pokrenuti iznova.</string>
     <string name="failed_to_restore_settings_from_backup">Nije uspjelo obnavljanje podešavanja iz rezervne kopije</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
+    <string name="keep_both">Zadrži obje</string>
+    <string name="skip">Preskoči</string>
+    <string name="overwrite">Prepiši preko</string>
+    <string name="keep_both_all">Zadrži obje (sve)</string>
+    <string name="skip_all">Preskoči (sve)</string>
+    <string name="overwrite_all">Prepiši preko (sve)</string>
+    <string name="copy_move_conflict_message">\'%s\' već postoji u %s</string>
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
 </resources>
