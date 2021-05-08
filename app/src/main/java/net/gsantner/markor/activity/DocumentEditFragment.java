@@ -532,12 +532,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_set_font_size: {
-                final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-                final int oldSize = (int) (_hlEditor.getTextSize() / displayMetrics.scaledDensity);
-                SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), oldSize, (v) -> {
+                final String path = getPath();
+                SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), _appSettings.getDocumentFontSize(path), (v) -> {
                     final int newSize = Integer.parseInt(v);
                     _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
-                    _appSettings.setDocumentFontSize(getPath(), newSize);
+                    _appSettings.setDocumentFontSize(path, newSize);
                 });
             }
         }
