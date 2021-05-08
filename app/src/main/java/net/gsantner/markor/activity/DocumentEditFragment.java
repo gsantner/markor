@@ -51,6 +51,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -454,6 +455,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (_document != null) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
+                    _appSettings.setDocumentFormat(getPath(), _document.getFormat());
                 }
                 return true;
             }
@@ -509,6 +511,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
+                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 setHorizontalScrollMode(wrapText);
                 updateMenuToggleStates(0);
                 return true;
@@ -516,6 +519,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
+                _appSettings.setDocumentHighlightState(getPath(), highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -525,6 +529,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
                 return true;
+            }
+            case R.id.action_set_font_size: {
+                SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), _appSettings.getDocumentFontSize(getPath()), (newSize) -> {
+                    _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
+                    _appSettings.setDocumentFontSize(getPath(), newSize);
+                });
             }
         }
         return super.onOptionsItemSelected(item);
@@ -578,14 +588,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
-
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
@@ -677,11 +686,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             if (_document != null && _document.getFile() != null) {
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                final String path = getPath();
-                _appSettings.setDocumentWrapState(path, wrapTextSetting);
-                _appSettings.setDocumentHighlightState(path, highlightText);
-                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
-                _appSettings.setDocumentFormat(path, _document.getFormat());
+                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
         }
         return ret;
@@ -842,7 +847,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
-        if (!_isPreviewVisible) {
+        if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }
