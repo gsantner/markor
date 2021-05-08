@@ -283,11 +283,11 @@ public class DocumentActivity extends AppActivityBase {
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
-        showTextEditor(document, file, fileIsFolder, false, 0);
+        showTextEditor(document, file, fileIsFolder, false, -1);
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
-        showTextEditor(document, file, fileIsFolder, preview, 0);
+        showTextEditor(document, file, fileIsFolder, preview, -1);
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int fileLineNumber) {
