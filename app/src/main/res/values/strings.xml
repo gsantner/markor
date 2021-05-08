@@ -427,4 +427,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' already exists in %s</string>
     <string name="additional_contexts_and_projects">Additional contexts and projects</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
+    <string name="auto_scroll">Auto-scroll</string>
+    <string name="set_interval">Set interval</string>
+    <string name="set_step">Set step</string>
 </resources>

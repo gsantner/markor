@@ -128,7 +128,8 @@
                 android:title="@string/format"
                 app:showAsAction="never">
                 <menu>
-                    <group android:id="@+id/action_format_group"
+                    <group
+                        android:id="@+id/action_format_group"
                         android:checkableBehavior="single">
                         <item
                             android:id="@string/action_format_keyvalue"
@@ -226,12 +227,60 @@
                 android:title="@string/send_debug_log"
                 android:visible="false"
                 app:showAsAction="never" />
+            <item
+                android:id="@+id/submenu_item_auto_scroll"
+                android:icon="@drawable/ic_baseline_arrow_downward_24"
+                android:title="@string/auto_scroll"
+                app:showAsAction="never">
+                <menu>
+                    <item
+                        android:id="@+id/action_auto_scroll"
+                        android:icon="@drawable/ic_baseline_arrow_downward_24"
+                        android:title="@string/auto_scroll"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/submenu_item_preview_auto_scroll"
+                        android:icon="@drawable/ic_settings_black_24dp"
+                        android:title="@string/view_mode">
+                        <menu>
+                            <item
+                                android:id="@+id/action_preview_auto_scroll_interval"
+                                android:icon="@drawable/ic_access_time_black_24dp"
+                                android:title="@string/set_interval"
+                                app:showAsAction="never" />
+                            <item
+                                android:id="@+id/action_preview_auto_scroll_step"
+                                android:icon="@drawable/ic_baseline_speed_24"
+                                android:title="@string/set_step"
+                                app:showAsAction="never" />
+                        </menu>
+                    </item>
+                    <item
+                        android:id="@+id/submenu_editor_auto_scroll"
+                        android:icon="@drawable/ic_settings_black_24dp"
+                        android:title="@string/edit_mode"
+                        app:showAsAction="never">
+                        <menu>
+                            <item
+                                android:id="@+id/action_editor_auto_scroll_interval"
+                                android:icon="@drawable/ic_access_time_black_24dp"
+                                android:title="@string/set_interval"
+                                app:showAsAction="never" />
+                            <item
+                                android:id="@+id/action_editor_auto_scroll_step"
+                                android:icon="@drawable/ic_baseline_speed_24"
+                                android:title="@string/set_step"
+                                app:showAsAction="never" />
+                        </menu>
+                    </item>
+                </menu>
+            </item>
         </menu>
     </item>
     <item
         android:id="@+id/action_info"
-        android:title="@string/info"
         android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/info"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_reload"

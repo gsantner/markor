@@ -40,11 +40,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -428,5 +431,27 @@ public class SearchOrCustomTextDialog {
             }
             new ActivityUtils(_activityRef.get()).hideSoftKeyboard().freeContextRef();
         }
+    }
+
+
+    public static void showTextGetterDialog(final Activity activity, final String title, final String message, final String hint, final String defaultValue, Callback.a1<String> callback) {
+        final AppSettings appSettings = new AppSettings(activity);
+
+        final EditText editText = new EditText(activity);
+        editText.setText(defaultValue);
+        editText.setHint(hint);
+
+        new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog)
+                .setTitle(title)
+                .setMessage(message)
+                .setView(editText)
+                .setPositiveButton(activity.getString(android.R.string.ok), (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    if (callback != null && !TextUtils.isEmpty(editText.getText().toString())) {
+                        callback.callback(editText.getText().toString());
+                    }
+                })
+                .setNegativeButton(activity.getString(android.R.string.cancel), (dialogInterface, i) -> dialogInterface.dismiss())
+                .show();
     }
 }

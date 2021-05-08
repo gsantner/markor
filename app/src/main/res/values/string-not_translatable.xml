@@ -329,4 +329,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
     <string name="action_format_zimwiki" translatable="false">action_format_zimwiki</string>
+    <string name="pref_key__set_preview_auto_scroll_interval" translatable="false">pref_key__set_preview_auto_scroll_interval</string>
+    <string name="pref_key__set_preview_auto_scroll_step" translatable="false">pref_key__set_preview_auto_scroll_step</string>
+    <string name="pref_key__set_editor_auto_scroll_interval" translatable="false">pref_key__set_editor_auto_scroll_interval</string>
+    <string name="pref_key__set_editor_auto_scroll_step" translatable="false">pref_key__set_editor_auto_scroll_step</string>
 </resources>

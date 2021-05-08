@@ -10,15 +10,18 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,12 +31,167 @@ import com.github.mertakdut.Reader;
 import com.github.mertakdut.exception.OutOfPagesException;
 import com.github.mertakdut.exception.ReadingException;
 
+import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+
 import java.io.File;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 // Just some experimental code
 public class CoolExperimentalStuff {
+
+    public static class AutoScroll {
+        private static boolean _isEnabled = false;
+        private static WebViewAutoScrollAsync _webViewTask;
+        private static EditorAutoScrollAsync _editorTask;
+
+        public static boolean isEnabled() {
+            return _isEnabled;
+        }
+
+        public static void Start(final WebView webView, final int interval, final int step) {
+            Stop();
+            if (webView == null) {
+                return;
+            }
+
+            _isEnabled = true;
+            _webViewTask = new WebViewAutoScrollAsync(webView, interval, step);
+            _webViewTask.execute();
+        }
+
+        public static void Start(final HighlightingEditor highlightingEditor, final int interval, final int step) {
+            Stop();
+            if (highlightingEditor == null) {
+                return;
+            }
+
+            _isEnabled = true;
+            _editorTask = new EditorAutoScrollAsync(highlightingEditor, interval, step);
+            _editorTask.execute();
+        }
+
+        public static void Stop() {
+            _isEnabled = false;
+            cancelTask(_webViewTask);
+            cancelTask(_editorTask);
+        }
+
+        private static void cancelTask(AsyncTask<Integer, Integer, Boolean> task) {
+            if (task != null && !task.isCancelled()) {
+                task.cancel(true);
+            }
+        }
+
+        private static class WebViewAutoScrollAsync extends AsyncTask<Integer, Integer, Boolean> {
+            private static final int _minSleepDuration = 1;
+            private static final int _minStepAmount = 1;
+
+            private final WebView _webView;
+            private final int _sleepDuration;
+            private final int _stepAmount;
+
+            public WebViewAutoScrollAsync(final WebView webView, final int sleepDuration, final int stepAmount) {
+                _webView = webView;
+                _sleepDuration = Math.max(sleepDuration, _minSleepDuration);
+                _stepAmount = Math.max(stepAmount, _minStepAmount);
+            }
+
+            @Override
+            protected Boolean doInBackground(Integer... integers) {
+                while (_isEnabled) {
+                    publishProgress(_stepAmount);
+
+
+                    try {
+                        Thread.sleep(_sleepDuration);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... progress) {
+                if (progress.length > 0 && _webView != null) {
+                    int scrollFrom = _webView.getScrollY();
+                    int scrollTo = progress[0] + scrollFrom;
+
+                    if (_webView.canScrollVertically(scrollTo)) {
+                        ObjectAnimator anim = ObjectAnimator.ofInt(_webView, "scrollY", scrollFrom, scrollTo);
+                        anim.setDuration(_sleepDuration / 2);
+                        anim.start();
+                    }
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+            }
+        }
+
+        private static class EditorAutoScrollAsync extends AsyncTask<Integer, Integer, Boolean> {
+            private static final int _minSleepDuration = 1;
+            private static final int _minStepAmount = 1;
+
+            private final HighlightingEditor _highlightingEditor;
+            private final int _sleepDuration;
+            private final int _stepAmount;
+
+            public EditorAutoScrollAsync(final HighlightingEditor highlightingEditor, final int sleepDuration, final int stepAmount) {
+                _highlightingEditor = highlightingEditor;
+                _sleepDuration = Math.max(sleepDuration, _minSleepDuration);
+                _stepAmount = Math.max(stepAmount, _minStepAmount);
+
+                if (_highlightingEditor != null) {
+                    _highlightingEditor.setSelection(0);
+                }
+            }
+
+            @Override
+            protected Boolean doInBackground(Integer... integers) {
+                while (_isEnabled) {
+                    publishProgress(_stepAmount);
+
+                    try {
+                        Thread.sleep(_sleepDuration);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... progress) {
+                if (progress.length > 0 && _highlightingEditor != null) {
+                    if (!_highlightingEditor.hasFocus()) {
+                        _highlightingEditor.requestFocus();
+                    }
+                    String text = _highlightingEditor.getText().toString();
+
+                    int indexFrom = _highlightingEditor.getSelectionStart();
+                    int indexTo = indexFrom + progress[0];
+                    /*if (indexTo > text.) {
+                        return;
+                    }*/
+
+                    ObjectAnimator anim = ObjectAnimator.ofInt(_highlightingEditor, "selection", indexFrom, indexTo);
+                    anim.setDuration(_sleepDuration / 2);
+                    anim.start();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                super.onPostExecute(result);
+            }
+        }
+
+    }
+
 
     public static String convertEpubToText(final File filepath, final String translatedStringForPage) {
         //final String filepath = new File("/sdcard/epub.epub");

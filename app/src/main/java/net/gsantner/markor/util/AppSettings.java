@@ -66,6 +66,38 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__app_theme, enabled ? "dark" : "light");
     }
 
+    public void setPreviewAutoScrollInterval(int interval) {
+        setInt(R.string.pref_key__set_preview_auto_scroll_interval, interval);
+    }
+
+    public int getPreviewAutoScrollInterval() {
+        return getInt(R.string.pref_key__set_preview_auto_scroll_interval, 5000);
+    }
+
+    public void setPreviewAutoScrollStep(int step) {
+        setInt(R.string.pref_key__set_preview_auto_scroll_step, step);
+    }
+
+    public int getPreviewAutoScrollStep() {
+        return getInt(R.string.pref_key__set_preview_auto_scroll_step, 1000);
+    }
+
+    public void setEditorAutoScrollInterval(int interval) {
+        setInt(R.string.pref_key__set_editor_auto_scroll_interval, interval);
+    }
+
+    public int getEditorAutoScrollInterval() {
+        return getInt(R.string.pref_key__set_editor_auto_scroll_interval, 1000);
+    }
+
+    public void setEditorAutoScrollStep(int step) {
+        setInt(R.string.pref_key__set_editor_auto_scroll_step, step);
+    }
+
+    public int getEditorAutoScrollStep() {
+        return getInt(R.string.pref_key__set_editor_auto_scroll_step, 25);
+    }
+
     public boolean isDarkThemeEnabled() {
         switch (getString(R.string.pref_key__app_theme, "light")) {
             case "light": {

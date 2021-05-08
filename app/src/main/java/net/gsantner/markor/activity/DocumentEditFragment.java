@@ -60,7 +60,9 @@ import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
@@ -524,6 +526,88 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     saveDocument(); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
+                return true;
+            }
+            case R.id.action_auto_scroll: {
+                final Activity activity = getActivity();
+                if (CoolExperimentalStuff.AutoScroll.isEnabled()) {
+                    CoolExperimentalStuff.AutoScroll.Stop();
+                } else {
+                    final AppSettings appSettings = new AppSettings(activity);
+                    if (_isPreviewVisible) {
+                        final int interval = appSettings.getPreviewAutoScrollInterval();
+                        final int step = appSettings.getPreviewAutoScrollStep();
+                        CoolExperimentalStuff.AutoScroll.Start(_webView, interval, step);
+                    } else {
+                        final int interval = appSettings.getEditorAutoScrollInterval();
+                        final int step = appSettings.getEditorAutoScrollStep();
+                        CoolExperimentalStuff.AutoScroll.Start(_hlEditor, interval, step);
+                    }
+                }
+                final String autoScroll = activity.getString(R.string.auto_scroll);
+                final String message = String.format("%s %s", autoScroll, CoolExperimentalStuff.AutoScroll.isEnabled() ? "enabled" : "disabled");
+                Toast.makeText(activity,message, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.action_preview_auto_scroll_interval: {
+                final Activity activity = getActivity();
+                final AppSettings appSettings = new AppSettings(activity);
+                final int currentInterval = appSettings.getPreviewAutoScrollInterval();
+
+                Callback.a1<String> callback = strInterval -> {
+                    try {
+                        final int newInterval = Integer.parseInt(strInterval);
+                        appSettings.setPreviewAutoScrollInterval(newInterval);
+                    } catch (Exception ignored) { }
+                };
+
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_interval), "",currentInterval+"", callback);
+                return true;
+            }
+            case R.id.action_preview_auto_scroll_step: {
+                final Activity activity = getActivity();
+                final AppSettings appSettings = new AppSettings(activity);
+                final int currentStep = appSettings.getPreviewAutoScrollStep();
+
+                Callback.a1<String> callback = strStep -> {
+                    try {
+                        final int newStep = Integer.parseInt(strStep);
+                        appSettings.setPreviewAutoScrollStep(newStep);
+
+                    } catch (Exception ignored) { }
+                };
+
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_step), "",currentStep+"", callback);
+                return true;
+            }
+            case R.id.action_editor_auto_scroll_interval: {
+                final Activity activity = getActivity();
+                final AppSettings appSettings = new AppSettings(activity);
+                final int currentInterval = appSettings.getEditorAutoScrollInterval();
+
+                Callback.a1<String> callback = strInterval -> {
+                    try {
+                        final int newInterval = Integer.parseInt(strInterval);
+                        appSettings.setEditorAutoScrollInterval(newInterval);
+                    } catch (Exception ignored) { }
+                };
+
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_interval), "",currentInterval+"", callback);
+                return true;
+            }
+            case R.id.action_editor_auto_scroll_step: {
+                final Activity activity = getActivity();
+                final AppSettings appSettings = new AppSettings(activity);
+                final int currentStep = appSettings.getEditorAutoScrollStep();
+
+                Callback.a1<String> callback = strStep -> {
+                    try {
+                        final int newStep = Integer.parseInt(strStep);
+                        appSettings.setEditorAutoScrollStep(newStep);
+                    } catch (Exception ignored) { }
+                };
+
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_step), "",currentStep+"", callback);
                 return true;
             }
         }
