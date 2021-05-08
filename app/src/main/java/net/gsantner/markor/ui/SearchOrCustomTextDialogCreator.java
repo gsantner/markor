@@ -11,11 +11,9 @@ package net.gsantner.markor.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -29,7 +27,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.SettingsActivity;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
