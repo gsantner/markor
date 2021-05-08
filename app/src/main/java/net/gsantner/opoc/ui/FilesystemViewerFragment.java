@@ -521,20 +521,17 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void executeSearchAction() {
-        PermissionChecker permc = new PermissionChecker(getActivity());
-        if (permc.doIfExtStoragePermissionGranted()) {
-            return;
+        if (new PermissionChecker(getActivity()).doIfExtStoragePermissionGranted()) {
+            final File currentFolder = getCurrentFolder();
+            SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
+                File load = new File(currentFolder, relFilePath);
+                if (load.isDirectory()) {
+                    _filesystemViewerAdapter.loadFolder(load);
+                } else {
+                    onFsViewerSelected("", load, lineNumber);
+                }
+            });
         }
-
-        final File currentFolder = getCurrentFolder();
-        SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
-            File load = new File(currentFolder, relFilePath);
-            if (load.isDirectory()) {
-                _filesystemViewerAdapter.loadFolder(load);
-            } else {
-                onFsViewerSelected("", load, lineNumber);
-            }
-        });
     }
 
     public static Comparator<File> sortFolder(List<File> filesToSort) {
