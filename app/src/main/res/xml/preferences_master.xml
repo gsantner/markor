@@ -304,10 +304,10 @@
             android:defaultValue="15"
             android:icon="@drawable/ic_format_size_black_24dp"
             android:key="@string/pref_key__editor_font_size"
+            android:min="1"
             android:max="36"
             android:summary="@string/control_font_size_in_editor"
-            android:title="@string/font_size"
-            app:min="1" />
+            android:title="@string/font_size" />
 
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="1"

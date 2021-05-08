@@ -12,17 +12,13 @@ package other.writeily.model;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
-import android.widget.Toast;
 
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ShareUtil;
-
-import org.apache.commons.io.IOUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,11 +56,15 @@ public class WrMarkorSingleton {
          * 3. Don't move a folder into its children
          */
 
-        return (file != null &&
-                dest != null &&
-                !file.equals(dest) &&
-                // dest is file's child
-                !dest.toPath().startsWith(file.toPath()));
+        try {
+            return (file != null &&
+                    dest != null &&
+                    !file.equals(dest) &&
+                    // dest is file's child
+                    !dest.getCanonicalPath().startsWith(file.getCanonicalPath()));
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public boolean moveFile(final File file, final File dest, final Context context) {
@@ -80,33 +80,21 @@ public class WrMarkorSingleton {
         return false;
     }
 
-
     public boolean copyFile(final File file, final File dest) {
         if (saneMoveOrCopy(file, dest) && !dest.exists()) {
-            FileInputStream input = null;
-            FileOutputStream output = null;
-            try {
-                if (file.isDirectory()) {
-                    if (dest.mkdir()) {
-                        boolean success = true;
-                        for (final File dirFile : file.listFiles()) {
-                            // Merge not supported, dest here will always be available
-                            success &= copyFile(dirFile, new File(dest, dirFile.getName()));
-                        }
-                        return success;
+            if (file.isDirectory()) {
+                if (dest.mkdir()) {
+                    boolean success = true;
+                    for (final File dirFile : file.listFiles()) {
+                        // Merge not supported, dest here will always be available
+                        success &= this.copyFile(dirFile, new File(dest, dirFile.getName()));
                     }
-                    return false;
-                } else {
-                    input = new FileInputStream(file);
-                    output = new FileOutputStream(dest);
-                    IOUtils.copy(input, output);
-                    return true;
+                    return success;
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                IOUtils.closeQuietly(input);
-                IOUtils.closeQuietly(output);
+                return false;
+            } else {
+                FileUtils.copyFile(file, dest);
+                return true;
             }
         }
         return false;
@@ -182,16 +170,16 @@ public class WrMarkorSingleton {
                     files.push(file);
                     SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
                             activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
-                        ConflictResollution res = ConflictResollution.ASK;
-                        if (option == 0 || option == 3) {
-                            res = ConflictResollution.KEEP_BOTH;
-                        } else if (option == 1 || option == 4) {
-                            res = ConflictResollution.OVERWRITE;
-                        } else if (option == 2 || option == 5) {
-                            res = ConflictResollution.SKIP;
-                        }
-                        _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
-                    });
+                                ConflictResollution res = ConflictResollution.ASK;
+                                if (option == 0 || option == 3) {
+                                    res = ConflictResollution.KEEP_BOTH;
+                                } else if (option == 1 || option == 4) {
+                                    res = ConflictResollution.OVERWRITE;
+                                } else if (option == 2 || option == 5) {
+                                    res = ConflictResollution.SKIP;
+                                }
+                                _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
+                            });
                     return; // Process will be continued by callback
                 }
                 resolution = preserveResolution ? resolution : ConflictResollution.ASK;
