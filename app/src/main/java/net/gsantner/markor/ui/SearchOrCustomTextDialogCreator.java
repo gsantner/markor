@@ -407,6 +407,25 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    public static void showFontSizeDialog(final Activity activity, final int currentSize, final Callback.a1<Integer> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
+        final int minFontSize = 1;
+        final int maxFontSize = 36;
+        final List<String> sizes = new ArrayList<>();
+        for (int i = minFontSize; i <= maxFontSize; i++) {
+            sizes.add(Integer.toString(i));
+        }
+        dopt.data = sizes;
+        dopt.highlightData = Collections.singletonList(Integer.toString(currentSize));
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = 400;
+        dopt.titleText = R.string.font_size;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
