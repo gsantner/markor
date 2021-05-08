@@ -51,6 +51,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -456,6 +457,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (_document != null) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
+                    _appSettings.setDocumentFormat(getPath(), _document.getFormat());
                 }
                 return true;
             }
@@ -511,6 +513,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
+                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 setHorizontalScrollMode(wrapText);
                 updateMenuToggleStates(0);
                 return true;
@@ -518,6 +521,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
+                _appSettings.setDocumentHighlightState(getPath(), highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -546,7 +550,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 }
                 final String autoScroll = activity.getString(R.string.auto_scroll);
                 final String message = String.format("%s %s", autoScroll, CoolExperimentalStuff.AutoScroll.isEnabled() ? "enabled" : "disabled");
-                Toast.makeText(activity,message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                 return true;
             }
             case R.id.action_preview_auto_scroll_interval: {
@@ -558,10 +562,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     try {
                         final int newInterval = Integer.parseInt(strInterval);
                         appSettings.setPreviewAutoScrollInterval(newInterval);
-                    } catch (Exception ignored) { }
+                    } catch (Exception ignored) {
+                    }
                 };
 
-                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_interval), "",currentInterval+"", callback);
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_interval), "", currentInterval + "", callback);
                 return true;
             }
             case R.id.action_preview_auto_scroll_step: {
@@ -574,10 +579,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                         final int newStep = Integer.parseInt(strStep);
                         appSettings.setPreviewAutoScrollStep(newStep);
 
-                    } catch (Exception ignored) { }
+                    } catch (Exception ignored) {
+                    }
                 };
 
-                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_step), "",currentStep+"", callback);
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.view_mode), activity.getString(R.string.set_step), "", currentStep + "", callback);
                 return true;
             }
             case R.id.action_editor_auto_scroll_interval: {
@@ -589,10 +595,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     try {
                         final int newInterval = Integer.parseInt(strInterval);
                         appSettings.setEditorAutoScrollInterval(newInterval);
-                    } catch (Exception ignored) { }
+                    } catch (Exception ignored) {
+                    }
                 };
 
-                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_interval), "",currentInterval+"", callback);
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_interval), "", currentInterval + "", callback);
                 return true;
             }
             case R.id.action_editor_auto_scroll_step: {
@@ -604,11 +611,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     try {
                         final int newStep = Integer.parseInt(strStep);
                         appSettings.setEditorAutoScrollStep(newStep);
-                    } catch (Exception ignored) { }
+                    } catch (Exception ignored) {
+                    }
                 };
 
-                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_step), "",currentStep+"", callback);
+                SearchOrCustomTextDialog.showTextGetterDialog(getActivity(), activity.getString(R.string.edit_mode), activity.getString(R.string.set_step), "", currentStep + "", callback);
                 return true;
+            }
+            case R.id.action_set_font_size: {
+                SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), _appSettings.getDocumentFontSize(getPath()), (newSize) -> {
+                    _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
+                    _appSettings.setDocumentFontSize(getPath(), newSize);
+                });
             }
         }
         return super.onOptionsItemSelected(item);
@@ -662,14 +676,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
-
 
     private void initDocState() {
         final boolean inMainActivity = getActivity() instanceof MainActivity;
@@ -761,11 +774,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             if (_document != null && _document.getFile() != null) {
                 _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                final String path = getPath();
-                _appSettings.setDocumentWrapState(path, wrapTextSetting);
-                _appSettings.setDocumentHighlightState(path, highlightText);
-                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
-                _appSettings.setDocumentFormat(path, _document.getFormat());
+                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
         }
         return ret;

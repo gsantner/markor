@@ -121,6 +121,13 @@
                 android:title="@string/syntax_highlighting"
                 app:showAsAction="never" />
 
+            <item
+                android:id="@+id/action_set_font_size"
+                android:checkable="false"
+                android:icon="@drawable/ic_format_size_black_24dp"
+                android:title="@string/font_size"
+                app:showAsAction="never" />
+
             <!-- Format menu -->
             <item
                 android:id="@+id/submenu_format_selection"

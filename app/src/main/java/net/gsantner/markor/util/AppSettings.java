@@ -379,6 +379,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
+    private static final String PREF_PREFIX_FONT_SIZE = "PREF_PREFIX_FONT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
 
     public void setLastEditPosition(File file, int pos, int scrolloffset) {
@@ -421,6 +422,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             final int sid = _contextUtils.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, value);
             // Note TextFormat.FORMAT_UNKNOWN also == 0
             return sid != 0 ? sid : _default;
+        }
+    }
+
+    public void setDocumentFontSize(final String path, final int size) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_FONT_SIZE + path, size);
+        }
+    }
+
+    public int getDocumentFontSize(final String path) {
+        final int _default = getFontSize();
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getInt(PREF_PREFIX_FONT_SIZE + path, _default);
         }
     }
 
