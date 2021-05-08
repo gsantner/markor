@@ -234,7 +234,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 }
                 String text = _hlEditor.getText().toString();
                 int index = StringUtils.getIndexByLineNumber(text, lineNumber);
-                if(index < 0){
+                if (index < 0) {
                     return;
                 }
 

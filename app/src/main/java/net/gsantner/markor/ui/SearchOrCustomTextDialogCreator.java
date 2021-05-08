@@ -144,7 +144,7 @@ public class SearchOrCustomTextDialogCreator {
             appSettings.setOnlyFirstContentMatch(cb_options._isOnlyFirstContentMatch);
             SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, isShowResultOnCancel, maxSearchDepth, ignoredDirs, ignoredFiles, cb_options._isRegexQuery, cb_options._isCaseSensitiveQuery, cb_options._isSearchInContent, cb_options._isOnlyFirstContentMatch, isShowMatchPreview, searchByContentExtensions);
 
-            SearchEngine.queueFileSearch(activity, config, (Callback.a1<List<SearchEngine.FitFile>>) searchResults -> {
+            SearchEngine.queueFileSearch(activity, config, searchResults -> {
                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
             });
         };

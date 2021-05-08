@@ -211,7 +211,7 @@ public class DocumentActivity extends AppActivityBase {
                     || file.getName().startsWith("index.");
 
             final int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
-            if(lineNumber >= 0){
+            if (lineNumber >= 0) {
                 preview = false;
             }
             showTextEditor(null, file, fileIsFolder, preview, lineNumber);
