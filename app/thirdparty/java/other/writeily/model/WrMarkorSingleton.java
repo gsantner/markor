@@ -170,16 +170,16 @@ public class WrMarkorSingleton {
                     files.push(file);
                     SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
                             activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
-                        ConflictResollution res = ConflictResollution.ASK;
-                        if (option == 0 || option == 3) {
-                            res = ConflictResollution.KEEP_BOTH;
-                        } else if (option == 1 || option == 4) {
-                            res = ConflictResollution.OVERWRITE;
-                        } else if (option == 2 || option == 5) {
-                            res = ConflictResollution.SKIP;
-                        }
-                        _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
-                    });
+                                ConflictResollution res = ConflictResollution.ASK;
+                                if (option == 0 || option == 3) {
+                                    res = ConflictResollution.KEEP_BOTH;
+                                } else if (option == 1 || option == 4) {
+                                    res = ConflictResollution.OVERWRITE;
+                                } else if (option == 2 || option == 5) {
+                                    res = ConflictResollution.SKIP;
+                                }
+                                _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
+                            });
                     return; // Process will be continued by callback
                 }
                 resolution = preserveResolution ? resolution : ConflictResollution.ASK;
