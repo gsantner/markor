@@ -87,7 +87,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getEditorAutoScrollInterval() {
-        return getInt(R.string.pref_key__set_editor_auto_scroll_interval, 1000);
+        return getInt(R.string.pref_key__set_editor_auto_scroll_interval, 10000);
     }
 
     public void setEditorAutoScrollStep(int step) {
@@ -95,7 +95,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getEditorAutoScrollStep() {
-        return getInt(R.string.pref_key__set_editor_auto_scroll_step, 25);
+        return getInt(R.string.pref_key__set_editor_auto_scroll_step, 20);
     }
 
     public boolean isDarkThemeEnabled() {

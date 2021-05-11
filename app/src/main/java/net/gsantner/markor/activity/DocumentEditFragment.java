@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -17,6 +18,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -65,6 +67,7 @@ import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -213,6 +216,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
+
+        if (isAutoScrollEnabled()) {
+            stopAutoScroll();
         }
     }
 
@@ -533,24 +540,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_auto_scroll: {
-                final Activity activity = getActivity();
-                if (CoolExperimentalStuff.AutoScroll.isEnabled()) {
-                    CoolExperimentalStuff.AutoScroll.Stop();
+                if (isAutoScrollEnabled()) {
+                    stopAutoScroll();
                 } else {
-                    final AppSettings appSettings = new AppSettings(activity);
-                    if (_isPreviewVisible) {
-                        final int interval = appSettings.getPreviewAutoScrollInterval();
-                        final int step = appSettings.getPreviewAutoScrollStep();
-                        CoolExperimentalStuff.AutoScroll.Start(_webView, interval, step);
-                    } else {
-                        final int interval = appSettings.getEditorAutoScrollInterval();
-                        final int step = appSettings.getEditorAutoScrollStep();
-                        CoolExperimentalStuff.AutoScroll.Start(_hlEditor, interval, step);
-                    }
+                    startAutoScroll();
                 }
-                final String autoScroll = activity.getString(R.string.auto_scroll);
-                final String message = String.format("%s %s", autoScroll, CoolExperimentalStuff.AutoScroll.isEnabled() ? "enabled" : "disabled");
-                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+
                 return true;
             }
             case R.id.action_preview_auto_scroll_interval: {
@@ -885,6 +880,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _nextConvertToPrintMode = false;
         _webView.setAlpha(0);
         _webView.setVisibility(show ? View.VISIBLE : View.GONE);
+        _hlEditor.setVisibility(show ? View.GONE : View.VISIBLE);
         if (show) {
             _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
         }
@@ -938,5 +934,178 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
+    }
+
+
+    // Auto-Scroll feature
+    private static boolean _isAutoScrollEnabled = false;
+    private static WebViewAutoScrollAsync _previewAutoScrollTask;
+    private static EditorAutoScrollAsync _editorAutoScrollTask;
+
+    public static boolean isAutoScrollEnabled() {
+        return _isAutoScrollEnabled;
+    }
+
+    public void startAutoScroll() {
+        stopAutoScroll();
+        _isAutoScrollEnabled = true;
+
+        if (_isPreviewVisible) {
+            final int interval = _appSettings.getPreviewAutoScrollInterval();
+            final int step = _appSettings.getPreviewAutoScrollStep();
+            runPreviewAutoScrollTask(interval, step);
+        } else {
+            final int interval = _appSettings.getEditorAutoScrollInterval();
+            final int step = _appSettings.getEditorAutoScrollStep();
+            runEditorAutoScrollTask(interval, step);
+        }
+        showAutoScrollStatus();
+    }
+
+    public void stopAutoScroll() {
+        _isAutoScrollEnabled = false;
+        cancelAutoScrollTask(_previewAutoScrollTask);
+        cancelAutoScrollTask(_editorAutoScrollTask);
+    }
+
+    private void showAutoScrollStatus() {
+        final String autoScroll = getActivity().getString(R.string.auto_scroll);
+        final String message = String.format("%s %s", autoScroll, isAutoScrollEnabled() ? "enabled" : "disabled");
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void runPreviewAutoScrollTask(final int interval, final int step) {
+        _previewAutoScrollTask = new WebViewAutoScrollAsync(interval, step);
+        _previewAutoScrollTask.execute();
+    }
+
+    private void runEditorAutoScrollTask(final int interval, final int step) {
+        _hlEditor.postDelayed(() -> {
+            new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
+        }, 300);
+
+        _editorAutoScrollTask = new EditorAutoScrollAsync(interval, step);
+        _editorAutoScrollTask.execute();
+    }
+
+    private void cancelAutoScrollTask(AsyncTask<Integer, Integer, Boolean> autoScrollTask) {
+        if (autoScrollTask != null && !autoScrollTask.isCancelled()) {
+            autoScrollTask.cancel(true);
+            showAutoScrollStatus();
+        }
+    }
+
+    private class WebViewAutoScrollAsync extends AsyncTask<Integer, Integer, Boolean> {
+        private static final int _minSleepDuration = 1;
+        private static final int _minStepAmount = 1;
+
+        private final int _sleepDuration;
+        private final int _stepAmount;
+
+        public WebViewAutoScrollAsync(final int sleepDuration, final int stepAmount) {
+            _sleepDuration = Math.max(sleepDuration, _minSleepDuration);
+            _stepAmount = Math.max(stepAmount, _minStepAmount);
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+            while (_isAutoScrollEnabled) {
+                if (_webView == null || !_isPreviewVisible) {
+                    stopAutoScroll();
+                    break;
+                }
+
+                try {
+                    Thread.sleep(_sleepDuration);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                publishProgress(_stepAmount);
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            if (progress.length > 0 && _webView != null) {
+                final int scrollFrom = _webView.getScrollY();
+                final int scrollTo = progress[0] + scrollFrom;
+
+                if (_webView.canScrollVertically(scrollTo)) {
+                    ObjectAnimator anim = ObjectAnimator.ofInt(_webView, "scrollY", scrollFrom, scrollTo);
+                    anim.setDuration(_sleepDuration / 2);
+                    anim.start();
+                } else {
+                    stopAutoScroll();
+                }
+            }
+        }
+
+    }
+
+    private class EditorAutoScrollAsync extends AsyncTask<Integer, Integer, Boolean> {
+        private static final int _minSleepDuration = 1;
+        private static final int _minStepAmount = 1;
+
+        private final int _sleepDuration;
+        private final int _stepAmount;
+
+        private int _currentLineNumber;
+
+        public EditorAutoScrollAsync(final int sleepDuration, final int stepAmount) {
+            _sleepDuration = Math.max(sleepDuration, _minSleepDuration);
+            _stepAmount = Math.max(stepAmount, _minStepAmount);
+
+            if (_hlEditor != null) {
+                _hlEditor.setSelection(0);
+            }
+            _currentLineNumber = _stepAmount;
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+            while (_isAutoScrollEnabled) {
+                if (_hlEditor == null || _isPreviewVisible) {
+                    stopAutoScroll();
+                    break;
+                }
+
+                try {
+                    Thread.sleep(_sleepDuration);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                _currentLineNumber += _stepAmount;
+                publishProgress(_currentLineNumber);
+            }
+
+            return true;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            if (progress.length > 0 && _hlEditor != null) {
+                if (!_hlEditor.hasFocus()) {
+                    _hlEditor.requestFocus();
+                }
+                String text = _hlEditor.getText().toString();
+
+                int indexFrom = Math.max(0, _hlEditor.getSelectionStart());
+                int lineNumber = progress[0];
+                int indexTo = StringUtils.getIndexByLineNumber(text, lineNumber);
+                if (indexTo < 0 || indexFrom >= text.length()) {
+                    stopAutoScroll();
+                    return;
+                }
+
+                ObjectAnimator anim = ObjectAnimator.ofInt(_hlEditor, "selection", indexFrom, indexTo);
+                anim.setDuration(800);
+                anim.start();
+            }
+        }
+
     }
 }

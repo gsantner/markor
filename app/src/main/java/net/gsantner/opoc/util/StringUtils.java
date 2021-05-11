@@ -87,6 +87,25 @@ public final class StringUtils {
         return i;
     }
 
+    public static int getIndexByLineNumber(final String text, final int lineNumber) {
+        if (lineNumber <= 0) {
+            return 0;
+        }
+
+        int index = 0;
+        for (int currentLine = 1; currentLine <= lineNumber; currentLine++) {
+            index = text.indexOf('\n', index);
+
+            if (index < 0) {
+                return -1;
+            }
+
+            index++;
+        }
+
+        return index;
+    }
+
     public static int[] getSelection(final TextView text) {
 
         int selectionStart = text.getSelectionStart();
