@@ -52,7 +52,7 @@ public class WrMarkorSingleton {
     // Returns true if b is not a child of a. A file is not a child of itself
     private boolean notChild(final File a, final File b) {
         try {
-            return b.equals(a) || !b.getCanonicalPath().startsWith(a.getCanonicalPath());
+            return b.equals(a) || !b.getParentFile().getCanonicalPath().startsWith(a.getCanonicalPath());
         } catch(IOException e) {
             return false; // Not sure, return false for safety
         }
