@@ -18,6 +18,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
+import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
@@ -54,15 +55,7 @@ public class TodoTxtTextActions extends TextActions {
             final Editable edit = _hlEditor.getText();
 
             SearchOrCustomTextDialogCreator.showSearchDialog(_activity, edit, StringUtils.getSelection(_hlEditor),
-                    (spannable) -> {
-                        TodoTxtHighlighter.basicTodoTxtHighlights(
-                                spannable,
-                                true,
-                                new TodoTxtHighlighterColors(),
-                                _appSettings.isDarkThemeEnabled(),
-                                null
-                        );
-                    },
+                    this::doBasicHighlights,
                     (text, lineNr) -> {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
@@ -259,18 +252,16 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    final List<String> allContexts = StringUtils.toArrayList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, allContexts, origText, (callbackPayload) -> {
-                        int cursor = origText.indexOf(callbackPayload);
-                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    final List<String> allContexts = Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor)));
+                    SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, allContexts, origText, TodoTxtTextActions.this::doBasicHighlights, (callbackPayload) -> {
+                        _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), origText.indexOf(callbackPayload)));
                     });
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
                     final List<String> allProjects = Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttProjectListDialog(_activity, allProjects, origText, (callbackPayload) -> {
-                        int cursor = origText.indexOf(callbackPayload);
-                        _hlEditor.setSelection(Math.min(_hlEditor.length(), Math.max(0, cursor)));
+                    SearchOrCustomTextDialogCreator.showSttProjectListDialog(_activity, allProjects, origText, TodoTxtTextActions.this::doBasicHighlights, (callbackPayload) -> {
+                        _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), origText.indexOf(callbackPayload)));
                     });
                     return true;
                 }
@@ -496,5 +487,15 @@ public class TodoTxtTextActions extends TextActions {
 
             return dialog;
         }
+    }
+
+    private void doBasicHighlights(final Spannable spannable) {
+        TodoTxtHighlighter.basicTodoTxtHighlights(
+                spannable,
+                true,
+                new TodoTxtHighlighterColors(),
+                _appSettings.isDarkThemeEnabled(),
+                null
+        );
     }
 }
