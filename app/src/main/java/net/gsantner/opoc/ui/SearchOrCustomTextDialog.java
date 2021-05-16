@@ -30,7 +30,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,12 +37,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -63,8 +60,8 @@ public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
         public Callback.a1<String> callback = null;
-        public Callback.a2<String, Integer> withPositionCallback = null;
-        public Callback.a1<List<Pair<String, Integer>>> multiSelectCallback = null;
+        public Callback.a1<Integer> positionCallback = null;
+        public Callback.a1<List<Integer>> multiSelectCallback = null;
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
@@ -99,31 +96,33 @@ public class SearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
     }
 
-    private static class WithPositionAdapter extends ArrayAdapter<Pair<String, Integer>> {
+    private static class WithPositionAdapter extends ArrayAdapter<Integer> {
         @LayoutRes
         final int _layout;
         final LayoutInflater _inflater;
         final DialogOptions _dopt;
-        final List<Pair<String, Integer>> _filteredItems;
+        final List<Integer> _filteredItems;
         final Pattern _extraPattern;
         final Set<Integer> _selected;
 
-        WithPositionAdapter(Context c_context, @LayoutRes int c_layout, List<Pair<String, Integer>> c_filteredItems, DialogOptions c_dopt) {
-            super(c_context, c_layout, c_filteredItems);
-            _inflater = LayoutInflater.from(c_context);
-            _layout = c_layout;
-            _dopt = c_dopt;
-            _filteredItems = c_filteredItems;
-            _extraPattern = (c_dopt.extraFilter == null ? null : Pattern.compile(c_dopt.extraFilter));
-            _selected = new TreeSet<>(c_dopt.preSelected != null ? c_dopt.preSelected : Collections.emptyList());
+        public static WithPositionAdapter newInstance(Context context, DialogOptions dopt) {
+            return new WithPositionAdapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
+        }
+
+        private WithPositionAdapter(final Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
+            super(context, layout, filteredItems);
+            _inflater = LayoutInflater.from(context);
+            _layout = layout;
+            _dopt = dopt;
+            _filteredItems = filteredItems;
+            _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
+            _selected = new TreeSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
         }
 
         @NonNull
         @Override
         public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-            final Pair<String, Integer> item = getItem(pos);
-            final String text = item.first;
-            final int posInOriginalList = item.second;
+            final int posInOriginalList = getItem(pos);
 
             final TextView textView;
             if (convertView == null) {
@@ -144,6 +143,7 @@ public class SearchOrCustomTextDialog {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             }
 
+            final CharSequence text = _dopt.data.get(posInOriginalList).toString();
             if (_dopt.highlightData != null) {
                 final boolean hl = _dopt.highlightData.contains(text);
                 textView.setTextColor(hl ? _dopt.highlightColor : _dopt.textColor);
@@ -161,6 +161,7 @@ public class SearchOrCustomTextDialog {
             return textView;
         }
 
+        @NonNull
         @Override
         public Filter getFilter() {
             return new Filter() {
@@ -168,24 +169,25 @@ public class SearchOrCustomTextDialog {
                 @Override
                 protected void publishResults(final CharSequence constraint, final FilterResults results) {
                     _filteredItems.clear();
-                    _filteredItems.addAll((List<Pair<String, Integer>>) results.values);
+                    _filteredItems.addAll((List<Integer>) results.values);
                     notifyDataSetChanged();
                 }
 
                 @Override
                 protected FilterResults performFiltering(final CharSequence constraint) {
-                    final ArrayList<Pair<CharSequence, Integer>> resList = new ArrayList<>();
+                    final List<Integer> resList = new ArrayList<>();
 
                     if (_dopt.data != null) {
                         final String fil = constraint.toString();
                         final boolean emptySearch = fil.isEmpty();
                         for (int i = 0; i < _dopt.data.size(); i++) {
-                            final CharSequence str = _dopt.data.get(i);
+                            final String str = _dopt.data.get(i).toString();
                             final boolean matchExtra = (_extraPattern == null) || _extraPattern.matcher(str).find();
-                            final boolean matchNormal = str.toString().toLowerCase(Locale.getDefault()).contains(fil.toLowerCase(Locale.getDefault()));
-                            final boolean matchRegex = _dopt.searchIsRegex && (str.toString().matches(fil));
+                            final Locale locale = Locale.getDefault();
+                            final boolean matchNormal = str.toLowerCase(locale).contains(fil.toLowerCase(locale));
+                            final boolean matchRegex = _dopt.searchIsRegex && (str.matches(fil));
                             if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
-                                resList.add(new Pair<>(str, i));
+                                resList.add(i);
                             }
                         }
                     }
@@ -219,7 +221,7 @@ public class SearchOrCustomTextDialog {
      */
     private static void setDialogState(final AlertDialog dialog, final ListView listView, final WithPositionAdapter adapter) {
         final DialogOptions dopt = adapter._dopt;
-        final List<Pair<String, Integer>> filteredItems = adapter._filteredItems;
+        final List<Integer> filteredItems = adapter._filteredItems;
         final Set<Integer> selected = adapter._selected;
         final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
 
@@ -237,7 +239,7 @@ public class SearchOrCustomTextDialog {
 
             // Click listener set to select
             listView.setOnItemClickListener((parent, view, position, id) -> {
-                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position).second));
+                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position)));
                 setDialogState(dialog, listView, adapter);
             });
 
@@ -256,11 +258,10 @@ public class SearchOrCustomTextDialog {
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 dialog.dismiss();
                 if (dopt.callback != null) {
-                    dopt.callback.callback(filteredItems.get(position).first);
+                    dopt.callback.callback(dopt.data.get(filteredItems.get(position)).toString());
                 }
-                if (dopt.withPositionCallback != null) {
-                    final Pair<String, Integer> item = filteredItems.get(position);
-                    dopt.withPositionCallback.callback(item.first, item.second);
+                if (dopt.positionCallback != null) {
+                    dopt.positionCallback.callback(filteredItems.get(position));
                 }
             });
         }
@@ -268,7 +269,7 @@ public class SearchOrCustomTextDialog {
         // Long click always selects, if multi select is possible
         if (dopt.multiSelectCallback != null) {
             listView.setOnItemLongClickListener((parent, view, position, id) -> {
-                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position).second));
+                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position)));
                 setDialogState(dialog, listView, adapter);
                 return true;
             });
@@ -276,12 +277,11 @@ public class SearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final List<Pair<String, Integer>> filteredItems = new ArrayList<>();
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-        final WithPositionAdapter listAdapter = new WithPositionAdapter(activity, android.R.layout.simple_list_item_activated_1, filteredItems, dopt);
+        final WithPositionAdapter listAdapter = WithPositionAdapter.newInstance(activity, dopt);
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setText(dopt.defaultText);
@@ -335,17 +335,12 @@ public class SearchOrCustomTextDialog {
             dialogBuilder.setTitle(dopt.titleText);
         }
 
-        if (dopt.isSearchEnabled || dopt.multiSelectCallback != null) {
+        if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.multiSelectCallback != null)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-
                 // Prefer multiSelectCallback if present and one or more items are selected
                 if (dopt.multiSelectCallback != null && listAdapter._selected.size() > 0) {
-                    List<Pair<String, Integer>> res = new ArrayList<>();
-                    for (final int position : listAdapter._selected) {
-                        res.add(new Pair<>(dopt.data.get(position).toString(), position));
-                    }
-                    dopt.multiSelectCallback.callback(res);
+                    dopt.multiSelectCallback.callback(new ArrayList<>(listAdapter._selected));
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
                     dopt.callback.callback(searchText);
                 }

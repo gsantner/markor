@@ -170,12 +170,11 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), null, (text, lineNr) -> {
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), lineNr -> {
                     if (!_hlEditor.hasFocus()) {
                         _hlEditor.requestFocus();
                     }
-                    // Go to beginning of line #line
-                    _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, lineNr, 0)));
+                    _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                 });
                 return true;
             }
