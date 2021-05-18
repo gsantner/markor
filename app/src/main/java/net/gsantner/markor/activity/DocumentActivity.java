@@ -41,6 +41,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 
@@ -206,16 +207,22 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
+            int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
+            if(lineNumber < 0 && intentData != null){
+                lineNumber = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+            }
+
             boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index.");
 
-            final int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
+
             if (lineNumber >= 0) {
                 preview = false;
             }
             showTextEditor(null, file, fileIsFolder, preview, lineNumber);
         }
+
     }
 
     private void showNotSupportedMessage() {

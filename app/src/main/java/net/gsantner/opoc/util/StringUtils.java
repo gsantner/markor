@@ -309,4 +309,12 @@ public final class StringUtils {
 
         return index;
     }
+
+    public static int tryParseInt(final String value, int defaultValue) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 }
