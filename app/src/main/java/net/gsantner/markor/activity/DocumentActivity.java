@@ -208,7 +208,7 @@ public class DocumentActivity extends AppActivityBase {
 
         if (!intentIsSend && file != null) {
             int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
-            if(lineNumber < 0 && intentData != null){
+            if (lineNumber < 0 && intentData != null) {
                 lineNumber = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
