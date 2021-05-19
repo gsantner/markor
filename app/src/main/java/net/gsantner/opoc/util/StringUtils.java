@@ -87,6 +87,21 @@ public final class StringUtils {
         return i;
     }
 
+    public static boolean isNullOrWhitespace(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!Character.isWhitespace(ch)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static int[] getSelection(final TextView text) {
 
         int selectionStart = text.getSelectionStart();
@@ -273,6 +288,33 @@ public final class StringUtils {
             return new String(fromBase64(s.getBytes("UTF-8")), "UTF-8");
         } catch (Exception e) {
             return "";
+        }
+    }
+
+    public static int getIndexByLineNumber(final String text, final int lineNumber) {
+        if (lineNumber <= 0) {
+            return 0;
+        }
+
+        int index = 0;
+        for (int currentLine = 1; currentLine <= lineNumber; currentLine++) {
+            index = text.indexOf('\n', index);
+
+            if (index < 0) {
+                return -1;
+            }
+
+            index++;
+        }
+
+        return index;
+    }
+
+    public static int tryParseInt(final String value, int defaultValue) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
         }
     }
 }
