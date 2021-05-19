@@ -202,14 +202,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void smoothMoveCursorToLine(final int lineNumber) {
-        smoothMoveCursorToLine(lineNumber, 500, 400);
-    }
-
-    public void smoothMoveCursorToLine(final int lineNumber, int delay, final int duration) {
-        _hlEditor.smoothMoveCursorToLine(lineNumber, delay, duration);
-    }
-
     public void moveWebViewScrollTo(final int scrollX, final int scrollY) {
         moveWebViewScrollTo(scrollX, scrollY, 500, 400);
     }
@@ -725,8 +717,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return;
         }
         if (_document.getInitialLineNumber() >= 0) {
-            int initialLineNumber = _document.getInitialLineNumber();
-            smoothMoveCursorToLine(initialLineNumber);
+            _hlEditor.smoothMoveCursorToLine(_document.getInitialLineNumber());
             hideSoftKeyboard();
             _document.setInitialLineNumber(-1);
             return;

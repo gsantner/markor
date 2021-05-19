@@ -305,9 +305,9 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg1EndIndex__arg2Delay__arg3Duration) {
-        final int delay = Math.max(1, arg1EndIndex__arg2Delay__arg3Duration != null && arg1EndIndex__arg2Delay__arg3Duration.length > 0 ? arg1EndIndex__arg2Delay__arg3Duration[1] : 500);
-        final int duration = Math.max(1, arg1EndIndex__arg2Delay__arg3Duration != null && arg1EndIndex__arg2Delay__arg3Duration.length > 1 ? arg1EndIndex__arg2Delay__arg3Duration[2] : 400);
+    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg0Delay__arg1Duration) {
+        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[1] : 500);
+        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[2] : 400);
 
         postDelayed(() -> {
             if (!hasFocus()) {
@@ -320,14 +320,9 @@ public class HighlightingEditor extends AppCompatEditText {
         }, delay);
     }
 
-    public void smoothMoveCursorToLine(final int lineNumber) {
-        smoothMoveCursorToLine(lineNumber, 1000, 400);
-    }
-
-    public void smoothMoveCursorToLine(final int lineNumber, int delay, final int duration) {
-        if (delay < 1) {
-            delay = 1;
-        }
+    public void smoothMoveCursorToLine(final int lineNumber, int... arg0Delay__arg1Duration) {
+        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[1] : 500);
+        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[2] : 400);
 
         this.postDelayed(() -> {
             if (!hasFocus()) {
