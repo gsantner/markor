@@ -409,17 +409,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 }
 
                 @Override
-                public void onFsViewerSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file, final Integer... arg0lineNumber) {
                     if (TextFormat.isTextFile(file)) {
-                        DocumentActivity.launch(MainActivity.this, file, false, null, null);
-                    } else {
-                        DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
-                    }
-                }
-
-                @Override
-                public void onFsViewerSelected(String request, File file, int lineNumber) {
-                    if (TextFormat.isTextFile(file)) {
+                        final Integer lineNumber = (arg0lineNumber != null && arg0lineNumber.length > 0 ? arg0lineNumber[0] : null);
                         DocumentActivity.launch(MainActivity.this, file, false, null, null, lineNumber);
                     } else {
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);

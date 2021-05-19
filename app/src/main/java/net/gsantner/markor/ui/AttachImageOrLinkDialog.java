@@ -121,7 +121,7 @@ public class AttachImageOrLinkDialog {
         // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
         final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsViewerSelected(final String request, final File file) {
+            public void onFsViewerSelected(final String request, final File file, final Integer... lineNumber) {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);

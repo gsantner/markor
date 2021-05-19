@@ -482,7 +482,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_load_epub: {
                 FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                                                            @Override
-                                                           public void onFsViewerSelected(String request, File file) {
+                                                           public void onFsViewerSelected(String request, File file, final Integer... lineNumber) {
                                                                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
                                                            }
 
