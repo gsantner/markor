@@ -207,20 +207,13 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            int lineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, -1);
-            if (lineNumber < 0 && intentData != null) {
-                lineNumber = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
-            }
-
-            boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+            final int paramLineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER,
+                    (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1)
+            );
+            final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
-                    || file.getName().startsWith("index.");
-
-
-            if (lineNumber >= 0) {
-                preview = false;
-            }
-            showTextEditor(null, file, fileIsFolder, preview, lineNumber);
+                    || file.getName().startsWith("index."));
+            showTextEditor(null, file, fileIsFolder, paramPreview, paramLineNumber);
         }
 
     }
