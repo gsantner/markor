@@ -296,7 +296,7 @@ public class DocumentActivity extends AppActivityBase {
             if (document != null) {
                 showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
             } else {
-                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true, fileLineNumber).setPreviewFlag(preview));
+                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, fileLineNumber).setPreviewFlag(preview));
             }
         }
     }

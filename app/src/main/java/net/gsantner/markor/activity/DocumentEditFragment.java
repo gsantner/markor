@@ -99,18 +99,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
-        return newInstance(path, pathIsFolder, allowRename, -1);
-    }
-
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename, final int lineNumber) {
+    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
         args.putInt(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
-
         return f;
     }
 

@@ -452,10 +452,10 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     return FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
                 }
                 case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, false);
+                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, -1);
                 }
                 case R.id.nav_todo: {
-                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
+                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, -1);
                 }
                 case R.id.nav_more: {
                     return MoreFragment.newInstance();
