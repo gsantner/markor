@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -50,6 +49,7 @@ import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
+import net.gsantner.markor.ui.DraggableScrollbarWebView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -120,7 +120,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     TextView _textSdWarning;
 
     @BindView(R.id.document__fragment_view_webview)
-    WebView _webView;
+    DraggableScrollbarWebView _webView;
 
     @BindView(R.id.document__fragment__edit__content_editor__scrolling_parent)
     DraggableScrollbarScrollView _primaryScrollView;
@@ -200,22 +200,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-    }
-
-    public void moveWebViewScrollTo(final int scrollX, final int scrollY) {
-        moveWebViewScrollTo(scrollX, scrollY, 500, 400);
-    }
-
-    public void moveWebViewScrollTo(final int scrollX, final int scrollY, final int delay, final int duration) {
-        _webView.postDelayed(() -> {
-            ObjectAnimator anim = ObjectAnimator.ofInt(_webView, "scrollY", 0, scrollY);
-            anim.setDuration(duration);
-            anim.start();
-
-            ObjectAnimator anim2 = ObjectAnimator.ofInt(_webView, "scrollX", 0, scrollX);
-            anim2.setDuration(duration);
-            anim2.start();
-        }, delay);
     }
 
     @Override
@@ -724,9 +708,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         if (_isPreviewVisible) {
-            final int viewScrollX = _appSettings.getLastViewPositionX(_document.getFile());
-            final int viewScrollY = _appSettings.getLastViewPositionY(_document.getFile());
-            moveWebViewScrollTo(viewScrollX, viewScrollY);
+            _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
         } else {
             int lastPos = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile());
             if (lastPos > 0) {
