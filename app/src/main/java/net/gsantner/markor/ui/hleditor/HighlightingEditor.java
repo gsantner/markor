@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -302,6 +303,49 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
+    }
+
+    public void smoothMoveCursor(final int startIndex, final int endIndex, int delay, int duration) {
+        if (delay < 1) {
+            delay = 1;
+        }
+        if (duration < 1) {
+            duration = 1;
+        }
+        final int _duration = duration;
+
+        this.postDelayed(() -> {
+            if (!hasFocus()) {
+                requestFocus();
+            }
+
+            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
+            anim.setDuration(_duration);
+            anim.start();
+        }, delay);
+    }
+
+    public void smoothMoveCursorToLine(final int lineNumber) {
+        smoothMoveCursorToLine(lineNumber, 1000, 400);
+    }
+
+    public void smoothMoveCursorToLine(final int lineNumber, int delay, final int duration) {
+        if (delay < 1) {
+            delay = 1;
+        }
+
+        this.postDelayed(() -> {
+            if (!hasFocus()) {
+                requestFocus();
+            }
+            String text = getText().toString();
+            int index = StringUtils.getIndexByLineNumber(text, lineNumber);
+            if (index < 0) {
+                return;
+            }
+
+            smoothMoveCursor(0, index, 1, duration);
+        }, delay);
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

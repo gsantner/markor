@@ -68,6 +68,7 @@ import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -79,8 +80,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
-    private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
-    private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
     private AppSettings _appSettings;
     private HorizontalScrollView hsView;
@@ -190,30 +189,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _document = loadDocument();
         loadDocumentIntoUi();
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()) {
-                _hlEditor.setSelection(cursor);
-            }
-        }
-        int lineNumber = _document.getInitialLineNumber();
-        if (lineNumber >= 0) {
-            moveCursorToLine(lineNumber);
-        }
-        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
-        new ActivityUtils(getActivity()).hideSoftKeyboard();
-        _hlEditor.clearFocus();
+        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
         setupAppearancePreferences(view);
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
-            _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
-        }
-        if (_isPreviewVisible) {
-            setDocumentViewVisibility(true);
-        }
+
+        setDocumentViewVisibility(_isPreviewVisible);
 
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
@@ -226,23 +209,36 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    private void moveCursorToLine(final int lineNumber) {
-        _webView.postDelayed(new Runnable() {
-            public void run() {
-                if (!_hlEditor.hasFocus()) {
-                    _hlEditor.requestFocus();
-                }
-                String text = _hlEditor.getText().toString();
-                int index = StringUtils.getIndexByLineNumber(text, lineNumber);
-                if (index < 0) {
-                    return;
-                }
+    public void smoothMoveCursorToIndex(final int startIndex, final int endIndex, int delay, int duration) {
+        _hlEditor.smoothMoveCursor(startIndex, endIndex, delay, duration);
+    }
 
-                ObjectAnimator anim = ObjectAnimator.ofInt(_hlEditor, "selection", 0, index);
-                anim.setDuration(400);
-                anim.start();
-            }
-        }, 1000);
+    public void smoothMoveCursorToIndex(final int indexTo) {
+        smoothMoveCursorToIndex(0, indexTo, 500, 400);
+    }
+
+    public void smoothMoveCursorToLine(final int lineNumber) {
+        smoothMoveCursorToLine(lineNumber, 500, 400);
+    }
+
+    public void smoothMoveCursorToLine(final int lineNumber, int delay, final int duration) {
+        _hlEditor.smoothMoveCursorToLine(lineNumber, delay, duration);
+    }
+
+    public void moveWebViewScrollTo(final int scrollX, final int scrollY) {
+        moveWebViewScrollTo(scrollX, scrollY, 500, 400);
+    }
+
+    public void moveWebViewScrollTo(final int scrollX, final int scrollY, final int delay, final int duration) {
+        _webView.postDelayed(() -> {
+            ObjectAnimator anim = ObjectAnimator.ofInt(_webView, "scrollY", 0, scrollY);
+            anim.setDuration(duration);
+            anim.start();
+
+            ObjectAnimator anim2 = ObjectAnimator.ofInt(_webView, "scrollX", 0, scrollX);
+            anim2.setDuration(duration);
+            anim2.start();
+        }, delay);
     }
 
     @Override
@@ -366,7 +362,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions().setDocument(_document);
 
         if (_isPreviewVisible) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
             setDocumentViewVisibility(_isPreviewVisible);
         }
     }
@@ -408,14 +403,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_preview: {
+                saveDocumentPositions();
                 setDocumentViewVisibility(true);
                 return true;
             }
             case R.id.action_edit: {
+                saveDocumentPositions();
                 setDocumentViewVisibility(false);
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
+                saveDocumentPositions();
                 setDocumentViewVisibility(!_isPreviewVisible);
                 return true;
             }
@@ -711,16 +709,63 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean ret = false;
-        if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
+        if (isAdded() && _document != null && _hlEditor != null && _hlEditor.getText() != null) {
             ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil, getContext());
             updateLauncherWidgets();
 
-            if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
-            }
+            _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
+            saveDocumentPositions();
         }
         return ret;
+    }
+
+    public void saveDocumentPositions() {
+        if (_document.getFile() == null) {
+            return;
+        }
+
+        if (!_isPreviewVisible && _hlEditor != null) {
+            final int editorSelection = _hlEditor.getSelectionStart();
+            _appSettings.setLastEditPosition(_document.getFile(), editorSelection);
+        } else if (_isPreviewVisible && _webView != null) {
+            final int webScrollX = _webView.getScrollX();
+            final int webScrollY = _webView.getScrollY();
+            _appSettings.setLastViewPosition(_document.getFile(), webScrollX, webScrollY);
+        }
+    }
+
+    public void restoreDocumentPositions() {
+        if (_document == null || _hlEditor == null || isTodoOrQuickNote()) {
+            return;
+        }
+        if (_document.getInitialLineNumber() >= 0) {
+            int initialLineNumber = _document.getInitialLineNumber();
+            smoothMoveCursorToLine(initialLineNumber);
+            hideSoftKeyboard();
+            _document.setInitialLineNumber(-1);
+            return;
+        }
+
+        if (_isPreviewVisible) {
+            final int viewScrollX = _appSettings.getLastViewPositionX(_document.getFile());
+            final int viewScrollY = _appSettings.getLastViewPositionY(_document.getFile());
+            moveWebViewScrollTo(viewScrollX, viewScrollY);
+        } else {
+            int lastPos = _appSettings.isEditorStartOnBotttom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile());
+            if (lastPos > 0) {
+                smoothMoveCursorToIndex(lastPos);
+            }
+        }
+        hideSoftKeyboard();
+    }
+
+    private boolean isTodoOrQuickNote() {
+        return getActivity() instanceof MainActivity;
+    }
+
+    private void hideSoftKeyboard() {
+        new ActivityUtils(getActivity()).hideSoftKeyboard();
+        _hlEditor.clearFocus();
     }
 
     @Override
@@ -733,10 +778,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             getArguments().putSerializable(DocumentIO.EXTRA_PATH, _document.getFile());
             getArguments().putSerializable(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
         }
-        if (_hlEditor != null) {
-            outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
-        }
-        outState.putBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
 
         /*SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
         _editTextUndoRedoHelper.storePersistentState(sp.edit(), _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
@@ -763,9 +804,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Activity a = getActivity();
-        if (isVisibleToUser && a != null && a instanceof MainActivity) {
+        if (isVisibleToUser && isTodoOrQuickNote()) {
             checkReloadDisk(false);
+            if (_hlEditor != null) {
+                smoothMoveCursorToIndex(_hlEditor.length());
+            }
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
         }
@@ -796,33 +839,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onFragmentFirstTimeVisible() {
-        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
-        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
-            int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
-            } else if (_appSettings.isEditorStartOnBotttom()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(_hlEditor.length());
-            }
-        }
     }
 
     public void setDocumentViewVisibility(boolean show) {
-        if (!show) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
-        }
         if (show) {
             _document.setContent(_hlEditor.getText().toString());
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView, _nextConvertToPrintMode, _document.getFile());
-            new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
-            _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         }
         _nextConvertToPrintMode = false;
@@ -833,6 +855,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _isPreviewVisible = show;
         ((AppCompatActivity) getActivity()).supportInvalidateOptionsMenu();
+        restoreDocumentPositions();
     }
 
     final View.OnLongClickListener _longClickToTopOrBottom = new View.OnLongClickListener() {
