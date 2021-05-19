@@ -305,22 +305,17 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int startIndex, final int endIndex, int delay, int duration) {
-        if (delay < 1) {
-            delay = 1;
-        }
-        if (duration < 1) {
-            duration = 1;
-        }
-        final int _duration = duration;
+    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg1EndIndex__arg2Delay__arg3Duration) {
+        final int delay = Math.max(1, arg1EndIndex__arg2Delay__arg3Duration != null && arg1EndIndex__arg2Delay__arg3Duration.length > 0 ? arg1EndIndex__arg2Delay__arg3Duration[1] : 500);
+        final int duration = Math.max(1, arg1EndIndex__arg2Delay__arg3Duration != null && arg1EndIndex__arg2Delay__arg3Duration.length > 1 ? arg1EndIndex__arg2Delay__arg3Duration[2] : 400);
 
-        this.postDelayed(() -> {
+        postDelayed(() -> {
             if (!hasFocus()) {
                 requestFocus();
             }
 
             ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
-            anim.setDuration(_duration);
+            anim.setDuration(duration);
             anim.start();
         }, delay);
     }

@@ -290,8 +290,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__todotxt__last_used_archive_filename, "todo.archive.txt");
     }
 
-    public boolean isEditorStartOnBotttom() {
-        return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
+    public boolean isEditorStartOnBottom() {
+        return getBool(R.string.pref_key__editor_start_editing_on_bottom_v2, false);
     }
 
     public boolean isEditorStartEditingInCenter() {

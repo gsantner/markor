@@ -202,14 +202,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void smoothMoveCursorToIndex(final int startIndex, final int endIndex, int delay, int duration) {
-        _hlEditor.smoothMoveCursor(startIndex, endIndex, delay, duration);
-    }
-
-    public void smoothMoveCursorToIndex(final int indexTo) {
-        smoothMoveCursorToIndex(0, indexTo, 500, 400);
-    }
-
     public void smoothMoveCursorToLine(final int lineNumber) {
         smoothMoveCursorToLine(lineNumber, 500, 400);
     }
@@ -717,6 +709,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return;
         }
 
+        String filee = _document.getFile().getAbsolutePath();
         if (!_isPreviewVisible && _hlEditor != null) {
             final int editorSelection = _hlEditor.getSelectionStart();
             _appSettings.setLastEditPosition(_document.getFile(), editorSelection);
@@ -744,9 +737,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             final int viewScrollY = _appSettings.getLastViewPositionY(_document.getFile());
             moveWebViewScrollTo(viewScrollX, viewScrollY);
         } else {
-            int lastPos = _appSettings.isEditorStartOnBotttom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile());
+            int lastPos = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile());
             if (lastPos > 0) {
-                smoothMoveCursorToIndex(lastPos);
+                _hlEditor.smoothMoveCursor(0, lastPos);
             }
         }
         hideSoftKeyboard();
@@ -800,7 +793,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (isVisibleToUser && isTodoOrQuickNote()) {
             checkReloadDisk(false);
             if (_hlEditor != null) {
-                smoothMoveCursorToIndex(_hlEditor.length());
+                _hlEditor.smoothMoveCursor(0, _hlEditor.length());
             }
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
