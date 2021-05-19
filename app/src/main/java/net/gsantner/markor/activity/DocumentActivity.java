@@ -67,19 +67,16 @@ public class DocumentActivity extends AppActivityBase {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
-        launch(activity, path, isFolder, doPreview, intent, -1);
-    }
 
-    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final int lineNumber) {
+    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final int... arg0lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
         if (path != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH, path);
         }
-        if (lineNumber >= 0) {
-            intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
+        if (arg0lineNumber != null && arg0lineNumber.length > 0 && arg0lineNumber[0] >= 0) {
+            intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, arg0lineNumber[0]);
         }
         if (isFolder != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, isFolder);
@@ -281,10 +278,10 @@ public class DocumentActivity extends AppActivityBase {
         }
     }
 
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int fileLineNumber) {
-
+    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int... arg0fileLineNumber) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
         File reqFile = (document != null) ? document.getFile() : file;
+        final int fileLineNumber = arg0fileLineNumber != null && arg0fileLineNumber.length > 0 ? arg0fileLineNumber[0] : -1;
 
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
