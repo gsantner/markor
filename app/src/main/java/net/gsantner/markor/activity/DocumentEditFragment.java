@@ -788,10 +788,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @Override
-    public void onFragmentFirstTimeVisible() {
-    }
-
     public void setDocumentViewVisibility(boolean show) {
         if (show) {
             _document.setContent(_hlEditor.getText().toString());
