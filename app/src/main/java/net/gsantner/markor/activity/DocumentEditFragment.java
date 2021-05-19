@@ -67,6 +67,7 @@ import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -681,41 +682,32 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void saveDocumentPositions() {
-        if (_document.getFile() == null) {
-            return;
-        }
-
-        String filee = _document.getFile().getAbsolutePath();
-        if (!_isPreviewVisible && _hlEditor != null) {
-            final int editorSelection = _hlEditor.getSelectionStart();
-            _appSettings.setLastEditPosition(_document.getFile(), editorSelection);
-        } else if (_isPreviewVisible && _webView != null) {
-            final int webScrollX = _webView.getScrollX();
-            final int webScrollY = _webView.getScrollY();
-            _appSettings.setLastViewPosition(_document.getFile(), webScrollX, webScrollY);
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+            if (_isPreviewVisible) {
+                _appSettings.setLastViewPosition(_document.getFile(), _webView.getScrollX(), _webView.getScrollY());
+            } else {
+                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
+            }
         }
     }
 
     public void restoreDocumentPositions() {
-        if (_document == null || _hlEditor == null || isTodoOrQuickNote()) {
-            return;
-        }
-        if (_document.getInitialLineNumber() >= 0) {
-            _hlEditor.smoothMoveCursorToLine(_document.getInitialLineNumber());
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTodoOrQuickNote()) {
+            int v;
+            if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
+                _hlEditor.smoothMoveCursorToLine(v);
+            } else { // otherwise take settings
+                if (_isPreviewVisible) {
+                    _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
+                } else {
+                    if ((v = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) > 0) {
+                        _hlEditor.smoothMoveCursor(0, v);
+                    }
+                }
+            }
             hideSoftKeyboard();
             _document.setInitialLineNumber(-1);
-            return;
         }
-
-        if (_isPreviewVisible) {
-            _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
-        } else {
-            int lastPos = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile());
-            if (lastPos > 0) {
-                _hlEditor.smoothMoveCursor(0, lastPos);
-            }
-        }
-        hideSoftKeyboard();
     }
 
     private boolean isTodoOrQuickNote() {
