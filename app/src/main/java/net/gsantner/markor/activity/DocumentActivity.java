@@ -215,7 +215,6 @@ public class DocumentActivity extends AppActivityBase {
                     || file.getName().startsWith("index."));
             showTextEditor(null, file, fileIsFolder, paramPreview, paramLineNumber);
         }
-
     }
 
     private void showNotSupportedMessage() {
@@ -280,14 +279,6 @@ public class DocumentActivity extends AppActivityBase {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
-    }
-
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
-        showTextEditor(document, file, fileIsFolder, false, -1);
-    }
-
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
-        showTextEditor(document, file, fileIsFolder, preview, -1);
     }
 
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int fileLineNumber) {
