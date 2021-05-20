@@ -27,7 +27,7 @@ public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
                         }
 
                         @Override
-                        public void onFsViewerSelected(String request, File file, final Integer... lineNumber) {
+                        public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                             loadBackup(context, file);
                         }
                     }, manager, activity,
@@ -49,7 +49,7 @@ public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
                         }
 
                         @Override
-                        public void onFsViewerSelected(String request, File dir, final Integer... lineNumber) {
+                        public void onFsViewerSelected(String request, File dir, final Integer lineNumber) {
                             makeBackup(context, getPrefNamesToBackup(), generateBackupFilepath(context, dir));
                         }
                     }, manager, activity

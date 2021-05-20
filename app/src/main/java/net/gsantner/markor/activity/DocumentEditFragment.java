@@ -189,9 +189,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         setupAppearancePreferences(view);
 
-
-        setDocumentViewVisibility(_isPreviewVisible);
-
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
@@ -323,9 +320,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
-        if (_isPreviewVisible) {
-            setDocumentViewVisibility(_isPreviewVisible);
-        }
+        setDocumentViewVisibility(_isPreviewVisible);
     }
 
     @Override
@@ -482,7 +477,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_load_epub: {
                 FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                                                            @Override
-                                                           public void onFsViewerSelected(String request, File file, final Integer... lineNumber) {
+                                                           public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                                                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
                                                            }
 
@@ -682,7 +677,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void saveDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile(), _primaryScrollView).contains(null)) {
             if (_isPreviewVisible) {
                 _appSettings.setLastViewPosition(_document.getFile(), _webView.getScrollX(), _webView.getScrollY());
             } else {
@@ -692,7 +687,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTodoOrQuickNote()) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile(), _primaryScrollView).contains(null) && !isTodoOrQuickNote()) {
             int v;
             if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
                 _hlEditor.smoothMoveCursorToLine(v);

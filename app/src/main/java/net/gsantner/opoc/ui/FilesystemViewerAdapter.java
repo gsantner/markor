@@ -334,7 +334,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         if (file.isDirectory()) {
                             loadFolder(file);
                         } else if (file.isFile()) {
-                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file);
+                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
                         } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
                             loadFolder(file);
                         }
@@ -352,7 +352,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                     _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
                 } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR) || _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE))) {
-                    _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder);
+                    _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }
                 return;
             }

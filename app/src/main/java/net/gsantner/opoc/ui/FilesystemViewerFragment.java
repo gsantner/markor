@@ -187,7 +187,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
 
     @Override
-    public void onFsViewerSelected(String request, File file, final Integer... lineNumber) {
+    public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
         if (_callback != null) {
             _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }
@@ -594,8 +594,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
             private FilesystemViewerData.Options _doptMoC;
 
             @Override
-            public void onFsViewerSelected(String request, File file, Integer... lineNumber) {
-                super.onFsViewerSelected(request, file);
+            public void onFsViewerSelected(String request, File file, Integer lineNumber) {
+                super.onFsViewerSelected(request, file, null);
                 WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove);
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
@@ -626,7 +626,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void showImportDialog() {
         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsViewerSelected(String request, File file, final Integer... lineNumber) {
+            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                 importFile(file);
                 reloadCurrentFolder();
             }
