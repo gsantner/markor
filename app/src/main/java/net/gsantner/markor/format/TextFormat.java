@@ -77,10 +77,10 @@ public class TextFormat {
                 return true;
             }
         }
-        return isTextFileByContent(file);
+        return false;
     }
 
-    private static boolean isTextFileByContent(final File file) {
+    public static boolean isTextFileByContent(final File file) {
         try {
             if (!file.exists()) {
                 return false;

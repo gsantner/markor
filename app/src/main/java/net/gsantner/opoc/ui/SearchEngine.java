@@ -558,7 +558,7 @@ public class SearchEngine {
                 }
             }
 
-            return !TextFormat.isTextFile(file);
+            return !(TextFormat.isTextFile(file) || TextFormat.isTextFileByContent(file));
         }
 
     }
