@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 

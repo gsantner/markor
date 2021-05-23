@@ -11,6 +11,8 @@ package net.gsantner.markor.format;
 
 import android.app.Activity;
 import android.os.Build;
+import android.text.TextUtils;
+import android.view.TextureView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
@@ -82,15 +84,15 @@ public class TextFormat {
 
     public static boolean isTextFileByContent(final File file) {
         try {
-            if (!file.exists()) {
-                return false;
+            String mime = URLConnection.guessContentTypeFromName(file.getName());
+            if (TextUtils.isEmpty(mime) && file.exists()) {
+                mime = URLConnection.guessContentTypeFromStream(new FileInputStream(file));
+                if (TextUtils.isEmpty(mime) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    mime = Files.probeContentType(file.toPath());
+                }
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return Files.probeContentType(file.toPath()).startsWith("text");
-            } else {
-                return URLConnection.guessContentTypeFromStream(new FileInputStream(file)).startsWith("text");
-            }
-        } catch (IOException e) {
+            return !TextUtils.isEmpty(mime) && mime.startsWith("text"); // Unknown == not text
+        } catch (Exception ignored) {
             return false;
         }
     }
