@@ -278,10 +278,10 @@ public class DocumentActivity extends AppActivityBase {
         }
     }
 
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final int... arg0fileLineNumber) {
+    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final Integer lineNumber) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
         File reqFile = (document != null) ? document.getFile() : file;
-        final int fileLineNumber = arg0fileLineNumber != null && arg0fileLineNumber.length > 0 ? arg0fileLineNumber[0] : -1;
+        final int fileLineNumber = lineNumber != null && lineNumber >= 0 ? lineNumber : -1;
 
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
