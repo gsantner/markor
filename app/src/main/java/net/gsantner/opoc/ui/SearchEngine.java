@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -340,7 +341,7 @@ public class SearchEngine {
                         }
                         subQueue.add(directory);
                     } else {
-                        File file = subDirOrFile;
+                        final File file = subDirOrFile;
                         if (isFileIgnored(file)) {
                             continue;
                         }
@@ -524,8 +525,8 @@ public class SearchEngine {
         }
 
 
-        private boolean isFileIgnored(File file) {
-            String fileName = file.getName();
+        private boolean isFileIgnored(final File file) {
+            final String fileName = file.getName();
 
             for (Pattern pattern : SearchEngine.defaultIgnoredFiles) {
                 if (pattern.matcher(fileName).matches()) {
@@ -549,19 +550,15 @@ public class SearchEngine {
         }
 
 
-        private boolean isSearchByContentIgnoredFor(File file) {
-            if (_config._searchByContentExtensions.isEmpty()) {
-                return false;
-            }
-
-            String fileName = file.getName().toLowerCase();
+        private boolean isSearchByContentIgnoredFor(final File file) {
+            final String fileName = file.getName().toLowerCase();
             for (Pattern pattern : _config._searchByContentExtensions) {
                 if (pattern.matcher(fileName).matches()) {
                     return false;
                 }
             }
 
-            return true;
+            return !(TextFormat.isTextFile(file) || TextFormat.isTextFileByContent(file));
         }
 
     }
