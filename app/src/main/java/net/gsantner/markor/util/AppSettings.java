@@ -649,8 +649,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_show_match_preview, true);
     }
 
-    public Integer getSearchMaxDepth() {
-        Integer depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
+    public int getSearchMaxDepth() {
+        int depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
 
         if (depth == 0) {
             return Integer.MAX_VALUE;

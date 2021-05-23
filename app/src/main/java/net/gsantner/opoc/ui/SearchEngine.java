@@ -48,50 +48,43 @@ public class SearchEngine {
     }
 
     public static class Config {
+        private final File _rootSearchDir;
+        private String _query;
+
         private final List<Pattern> _ignoredRegexDirs;
         private final List<String> _ignoredExactDirs;
         private final List<Pattern> _ignoredRegexFiles;
         private final List<String> _ignoredExactFiles;
         private final List<Pattern> _searchByContentExtensions;
 
-        public final boolean _isRegexQuery;
-        public final boolean _isCaseSensitiveQuery;
-        public final String _query;
-        public final File _rootSearchDir;
-        public final boolean _isSearchInContent;
-        public final boolean _isShowResultOnCancel;
-        public final Integer _maxSearchDepth;
-        public final List<String> _ignoredDirectories;
-        public final List<String> _ignoredFiles;
-        public final boolean _isOnlyFirstContentMatch;
-        public final boolean _isShowMatchPreview;
+        public boolean isRegexQuery;
+        public boolean isCaseSensitiveQuery;
+        public boolean isShowResultOnCancel;
+        public int maxSearchDepth;
+        public boolean isOnlyFirstContentMatch;
+        public boolean isShowMatchPreview;
+        public boolean isSearchInContent;
 
-        public Config(final File rootSearchDir, String query, final boolean isShowResultOnCancel, final Integer maxSearchDepth, final List<String> ignoredDirectories, final List<String> ignoredFiles, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent, final boolean isOnlyFirstContentMatch, final boolean isShowMatchPreview, final List<String> searchByContentExtensions) {
+        public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles, final List<String> searchByContentExtensions) {
             _rootSearchDir = rootSearchDir;
-            _isSearchInContent = isSearchInContent;
-            _isOnlyFirstContentMatch = isOnlyFirstContentMatch;
-            _isShowMatchPreview = isShowMatchPreview;
-            _isShowResultOnCancel = isShowResultOnCancel;
-            _maxSearchDepth = maxSearchDepth;
-            _ignoredDirectories = ignoredDirectories;
-            _ignoredFiles = ignoredFiles;
-            _isRegexQuery = isRegexQuery;
-            _isCaseSensitiveQuery = isCaseSensitiveQuery;
+            _query = query;
 
-            _ignoredExactDirs = new ArrayList<String>();
-            _ignoredRegexDirs = new ArrayList<Pattern>();
-            splitRegexExactFiles(_ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
+            _ignoredExactDirs = new ArrayList<>();
+            _ignoredRegexDirs = new ArrayList<>();
+            if (ignoredDirectories != null) {
+                splitRegexExactFiles(ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
+            }
 
-            _ignoredExactFiles = new ArrayList<String>();
-            _ignoredRegexFiles = new ArrayList<Pattern>();
-            splitRegexExactFiles(_ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
+            _ignoredExactFiles = new ArrayList<>();
+            _ignoredRegexFiles = new ArrayList<>();
+            if (ignoredFiles != null) {
+                splitRegexExactFiles(ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
+            }
 
-            _searchByContentExtensions = new ArrayList<Pattern>();
-            splitExtensions(searchByContentExtensions, _searchByContentExtensions);
-
-
-            query = isRegexQuery ? query.replaceAll("(?<![.])[*]", ".*") : query;
-            _query = _isCaseSensitiveQuery ? query : query.toLowerCase();
+            _searchByContentExtensions = new ArrayList<>();
+            if (searchByContentExtensions != null) {
+                splitExtensions(searchByContentExtensions, _searchByContentExtensions);
+            }
         }
 
 
@@ -144,13 +137,13 @@ public class SearchEngine {
 
     public static class FitFile {
         private final String _path;
-        private boolean _isDirectory;
+        private final boolean _isDirectory;
         private final List<ContentMatchUnit> _contentMatches;
 
         public FitFile(final String path, final boolean isDirectory) {
             _path = path;
             _isDirectory = isDirectory;
-            _contentMatches = new ArrayList<ContentMatchUnit>();
+            _contentMatches = new ArrayList<>();
         }
 
         public FitFile(final String path, final boolean isDirectory, List<ContentMatchUnit> contentMatches) {
@@ -158,11 +151,11 @@ public class SearchEngine {
             addContentMatches(contentMatches);
         }
 
-        private final void addContentMatch(final ContentMatchUnit lineNumber) {
+        private void addContentMatch(final ContentMatchUnit lineNumber) {
             _contentMatches.add(lineNumber);
         }
 
-        private final void addContentMatches(final List<ContentMatchUnit> lineNumbers) {
+        private void addContentMatches(final List<ContentMatchUnit> lineNumbers) {
             _contentMatches.addAll(lineNumbers);
         }
 
@@ -214,7 +207,7 @@ public class SearchEngine {
 
 
     public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<FitFile>> {
-        private SearchEngine.Config _config;
+        private final SearchEngine.Config _config;
         private final Callback.a1<List<FitFile>> _callback;
         private final Pattern _regex;
 
@@ -223,15 +216,20 @@ public class SearchEngine {
         private Integer _currentQueueLength;
         private boolean _isCanceled;
         private Integer _currentSearchDepth;
-        private List<FitFile> _result;
+        private final List<FitFile> _result;
 
         public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
 
+            if (_config.isCaseSensitiveQuery) {
+                _config._query = _config._query.toLowerCase();
+            }
+
             Pattern pattern = null;
-            if (_config._isRegexQuery) {
+            if (_config.isRegexQuery) {
                 try {
+                    _config._query = _config._query.replaceAll("(?<![.])[*]", ".*");
                     pattern = Pattern.compile(_config._query);
                 } catch (Exception ex) {
                     String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), _config._query);
@@ -253,7 +251,7 @@ public class SearchEngine {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            if (_config._isRegexQuery && _regex == null) {
+            if (_config.isRegexQuery && _regex == null) {
                 cancel(true);
                 return;
             }
@@ -289,7 +287,7 @@ public class SearchEngine {
 
         @Override
         protected List<FitFile> doInBackground(Void... voidp) {
-            Queue<File> mainQueue = new LinkedList<File>();
+            Queue<File> mainQueue = new LinkedList<>();
             mainQueue.add(_config._rootSearchDir);
 
             while (!mainQueue.isEmpty() && !isCancelled() && !_isCanceled) {
@@ -300,7 +298,7 @@ public class SearchEngine {
                 }
 
                 _currentSearchDepth = getDirectoryDepth(_config._rootSearchDir, currentDirectory);
-                if (_currentSearchDepth > _config._maxSearchDepth) {
+                if (_currentSearchDepth > _config.maxSearchDepth) {
                     break;
                 }
                 _currentQueueLength = mainQueue.size() + 1;
@@ -318,7 +316,7 @@ public class SearchEngine {
 
 
         private Queue<File> currentDirectoryHandler(File currentDir) {
-            Queue<File> subQueue = new LinkedList<File>();
+            Queue<File> subQueue = new LinkedList<>();
 
             try {
                 if (!currentDir.canRead() || currentDir.isFile()) {
@@ -346,11 +344,11 @@ public class SearchEngine {
                             continue;
                         }
 
-                        if (_config._isSearchInContent) {
+                        if (_config.isSearchInContent) {
                             if (isSearchByContentIgnoredFor(file)) {
                                 continue;
                             }
-                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(file, _config._isOnlyFirstContentMatch);
+                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(file, _config.isOnlyFirstContentMatch);
 
                             if (contentMatches.size() == 0) {
                                 continue;
@@ -361,7 +359,7 @@ public class SearchEngine {
                         }
                     }
 
-                    if (!_config._isSearchInContent) {
+                    if (!_config.isSearchInContent) {
                         getFileIfNameMatches(subDirOrFile);
                     }
 
@@ -427,8 +425,8 @@ public class SearchEngine {
 
         private void getFileIfNameMatches(File file) {
             try {
-                String fileName = _config._isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
-                boolean isMatch = _config._isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config._query);
+                String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
+                boolean isMatch = _config.isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config._query);
 
                 if (isMatch) {
                     String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
@@ -439,7 +437,7 @@ public class SearchEngine {
         }
 
 
-        private Integer getDirectoryDepth(File parentDir, File childDir) {
+        private int getDirectoryDepth(File parentDir, File childDir) {
             try {
                 String parentPath = parentDir.getCanonicalPath();
                 String childPath = childDir.getCanonicalPath();
@@ -457,7 +455,7 @@ public class SearchEngine {
 
 
         private void preCancel() {
-            if (_config._isShowResultOnCancel) {
+            if (_config.isShowResultOnCancel) {
                 _isCanceled = true;
                 return;
             }
@@ -480,11 +478,11 @@ public class SearchEngine {
                         break;
                     }
 
-                    String preparedLine = _config._isCaseSensitiveQuery ? line : line.toLowerCase();
-                    boolean isMatch = _config._isRegexQuery ? _regex.matcher(preparedLine).matches() : preparedLine.contains(_config._query);
+                    String preparedLine = _config.isCaseSensitiveQuery ? line : line.toLowerCase();
+                    boolean isMatch = _config.isRegexQuery ? _regex.matcher(preparedLine).matches() : preparedLine.contains(_config._query);
 
                     if (isMatch) {
-                        String matchPreview = _config._isShowMatchPreview ? line : "";
+                        String matchPreview = _config.isShowMatchPreview ? line : "";
                         ret.add(new FitFile.ContentMatchUnit(lineNumber, matchPreview));
 
                         if (isFirstMatchOnly) {

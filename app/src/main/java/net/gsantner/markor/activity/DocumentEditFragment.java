@@ -677,7 +677,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void saveDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile(), _primaryScrollView).contains(null)) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
             if (_isPreviewVisible) {
                 _appSettings.setLastViewPosition(_document.getFile(), _webView.getScrollX(), _webView.getScrollY());
             } else {
@@ -687,7 +687,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile(), _primaryScrollView).contains(null) && !isTodoOrQuickNote()) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTodoOrQuickNote()) {
             int v;
             if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
                 _hlEditor.smoothMoveCursorToLine(v);
