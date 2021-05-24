@@ -438,7 +438,12 @@ public class FileUtils {
                         break;
                 }
             }
+
+            if (TextUtils.isEmpty(guess)) {
+                guess = URLConnection.guessContentTypeFromName(filename);
+            }
         }
+
         return TextUtils.isEmpty(guess) ? "*/*" : guess;
     }
 
