@@ -10,9 +10,6 @@
 package net.gsantner.markor.format;
 
 import android.app.Activity;
-import android.os.Build;
-import android.text.TextUtils;
-import android.view.TextureView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
@@ -33,13 +30,9 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.opoc.util.FileUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URLConnection;
-import java.nio.file.Files;
 import java.util.Locale;
 
 public class TextFormat {
@@ -79,22 +72,8 @@ public class TextFormat {
                 return true;
             }
         }
-        return false;
-    }
 
-    public static boolean isTextFileByContent(final File file) {
-        try {
-            String mime = URLConnection.guessContentTypeFromName(file.getName());
-            if (TextUtils.isEmpty(mime) && file.exists()) {
-                mime = URLConnection.guessContentTypeFromStream(new FileInputStream(file));
-                if (TextUtils.isEmpty(mime) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    mime = Files.probeContentType(file.toPath());
-                }
-            }
-            return !TextUtils.isEmpty(mime) && mime.startsWith("text"); // Unknown == not text
-        } catch (Exception ignored) {
-            return false;
-        }
+        return FileUtils.isTextFile(file);
     }
 
     public interface TextFormatApplier {
