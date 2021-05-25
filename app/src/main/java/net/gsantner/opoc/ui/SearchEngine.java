@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
@@ -35,6 +36,7 @@ public class SearchEngine {
 
     };
 
+    public static final int maxPreviewLength = 100;
     public static final int maxQueryHistoryCount = 20;
     public static final LinkedList<String> queryHistory = new LinkedList<>();
 
@@ -96,8 +98,7 @@ public class SearchEngine {
                 }
 
                 if (pattern.startsWith("\"")) {
-                    pattern = pattern.replace("\"", "");
-                    if (pattern.isEmpty()) {
+                    pattern = pattern.replace("\"", "");if (pattern.isEmpty()) {
                         continue;
                     }
                     exactList.add(pattern);
@@ -463,6 +464,40 @@ public class SearchEngine {
             cancel(true);
         }
 
+        // Match line and return preview string. Preview will be null if no match found
+        private String matchLine(final String line) {
+            final String preparedLine = _config.isCaseSensitiveQuery ? line : line.toLowerCase();
+
+            int start = -1, end = -1;
+            if (_config.isRegexQuery) {
+                final Matcher match = _regex.matcher(preparedLine);
+                if (match.find()) {
+                    start = match.start();
+                    end = match.end();
+                }
+            } else {
+                start = preparedLine.indexOf(_config._query);
+                if (start >= 0) {
+                    end = start + _config._query.length();
+                }
+            }
+
+            // Preview is based on original line
+            if (start >= 0 && end <= line.length()) {
+                if (!_config.isShowMatchPreview) {
+                    return "";
+                }
+                if (line.length() < maxPreviewLength) {
+                    return line;
+                } else {
+                    int offset = (maxPreviewLength - (end - start)) / 2;
+                    int subStart = Math.max(start - offset, 0);
+                    int subEnd = Math.min(end + offset, line.length());
+                    return String.format("… %s …", line.substring(subStart, subEnd));
+                }
+            }
+            return null;
+        }
 
         private List<FitFile.ContentMatchUnit> getContentMatches(final File file, final boolean isFirstMatchOnly) {
             List<FitFile.ContentMatchUnit> ret = new ArrayList<>();
@@ -478,12 +513,9 @@ public class SearchEngine {
                         break;
                     }
 
-                    String preparedLine = _config.isCaseSensitiveQuery ? line : line.toLowerCase();
-                    boolean isMatch = _config.isRegexQuery ? _regex.matcher(preparedLine).matches() : preparedLine.contains(_config._query);
-
-                    if (isMatch) {
-                        String matchPreview = _config.isShowMatchPreview ? line : "";
-                        ret.add(new FitFile.ContentMatchUnit(lineNumber, matchPreview));
+                    final String preview = matchLine(line);
+                    if (preview != null) {
+                        ret.add(new FitFile.ContentMatchUnit(lineNumber, preview));
 
                         if (isFirstMatchOnly) {
                             break;
