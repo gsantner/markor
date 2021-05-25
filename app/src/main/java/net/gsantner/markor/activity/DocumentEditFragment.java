@@ -694,13 +694,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             } else { // otherwise take settings
                 if (_isPreviewVisible) {
                     _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
+                    hideSoftKeyboard();
                 } else {
                     if ((v = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) > 0) {
                         _hlEditor.smoothMoveCursor(0, v);
                     }
                 }
             }
-            hideSoftKeyboard();
             _document.setInitialLineNumber(-1);
         }
     }
