@@ -698,6 +698,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 } else {
                     if ((v = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) > 0) {
                         _hlEditor.smoothMoveCursor(0, v);
+                        showSoftKeyboard();
                     }
                 }
             }
@@ -710,8 +711,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void hideSoftKeyboard() {
-        new ActivityUtils(getActivity()).hideSoftKeyboard();
+        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         _hlEditor.clearFocus();
+    }
+
+    private void showSoftKeyboard() {
+        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef(), 300);
     }
 
     @Override
@@ -752,8 +757,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isTodoOrQuickNote()) {
             checkReloadDisk(false);
-            if (_hlEditor != null) {
+            if (_hlEditor != null && !_isPreviewVisible) {
                 _hlEditor.smoothMoveCursor(0, _hlEditor.length());
+                showSoftKeyboard();
             }
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
@@ -787,7 +793,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (show) {
             _document.setContent(_hlEditor.getText().toString());
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _webView, _nextConvertToPrintMode, _document.getFile());
-            _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
         }
         _nextConvertToPrintMode = false;
         _webView.setAlpha(0);
