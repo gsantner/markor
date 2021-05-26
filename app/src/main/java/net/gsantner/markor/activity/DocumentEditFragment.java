@@ -716,7 +716,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void showSoftKeyboard() {
-        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef(), 300);
+        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef(), 1000);
     }
 
     @Override
