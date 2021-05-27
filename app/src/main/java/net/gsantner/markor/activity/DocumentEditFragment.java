@@ -183,9 +183,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         _document = loadDocument();
         loadDocumentIntoUi();
-
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
+        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
 
         setupAppearancePreferences(view);
 
@@ -204,10 +204,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onResume() {
         super.onResume();
         checkReloadDisk(false);
-        int cursor = _hlEditor.getSelectionStart();
-        cursor = Math.max(0, cursor);
-        cursor = Math.min(_hlEditor.length(), cursor);
-        _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         if (_document != null && _document.getFile() != null) {
@@ -409,6 +405,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
+                hideSoftKeyboard();
                 if ((saveDocument() || (_hlEditor.length() < 10 && TextUtils.getTrimmedLength(_hlEditor.getEditableText()) == 0)) && activity != null) {
                     activity.onBackPressed();
                 }
@@ -687,7 +684,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTodoOrQuickNote()) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTabTodoOrQuickNote()) {
             int v;
             if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
                 _hlEditor.smoothMoveCursorToLine(v);
@@ -696,9 +693,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
                     hideSoftKeyboard();
                 } else {
-                    if ((v = _appSettings.isEditorStartOnBottom() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) > 0) {
-                        _hlEditor.smoothMoveCursor(0, v);
-                        showSoftKeyboard();
+                    if ((v = _appSettings.isEditorStartOnBottom() || isDocTodoOrQuickNote() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) >= 0) {
+                        final int selPosition = v;
+                        _hlEditor.postDelayed(() -> {
+                            if (!_hlEditor.hasFocus()) {
+                                _hlEditor.requestFocus();
+                            }
+                            _hlEditor.setSelection(selPosition);
+                            new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef();
+                        }, 300);
+
                     }
                 }
             }
@@ -706,17 +710,26 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    private boolean isTodoOrQuickNote() {
+    private boolean isTabTodoOrQuickNote() {
         return getActivity() instanceof MainActivity;
     }
 
-    private void hideSoftKeyboard() {
-        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef(), 300);
-        _hlEditor.clearFocus();
+    private boolean isDocTodoOrQuickNote() {
+        if (_document == null) {
+            return false;
+        }
+
+        final boolean isTodoFile = _document.getFile().getPath().equals(_appSettings.getTodoFile().getPath());
+        final boolean isQuickNoteFile = _document.getFile().getPath().equals(_appSettings.getQuickNoteFile().getPath());
+        return isTodoFile || isQuickNoteFile;
     }
 
-    private void showSoftKeyboard() {
-        _hlEditor.postDelayed(() -> new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef(), 1000);
+    private void hideSoftKeyboard() {
+        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
+        _hlEditor.postDelayed(() -> {
+            _hlEditor.clearFocus();
+            new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
+        }, 300);
     }
 
     @Override
@@ -755,14 +768,20 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isTodoOrQuickNote()) {
+        if (isVisibleToUser && isTabTodoOrQuickNote()) {
             checkReloadDisk(false);
             if (_hlEditor != null && !_isPreviewVisible) {
-                _hlEditor.smoothMoveCursor(0, _hlEditor.length());
-                showSoftKeyboard();
+                _hlEditor.postDelayed(() -> {
+                    if (!_hlEditor.hasFocus()) {
+                        _hlEditor.requestFocus();
+                    }
+                    _hlEditor.setSelection(_hlEditor.length());
+                    new ActivityUtils(getActivity()).showSoftKeyboard().freeContextRef();
+                }, 300);
             }
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
+            hideSoftKeyboard();
         }
 
         final Toolbar toolbar = getToolbar();
