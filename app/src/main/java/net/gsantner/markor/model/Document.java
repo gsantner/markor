@@ -31,6 +31,7 @@ public class Document implements Serializable {
     private long _lastChanged = 0;
     private long _modTime = 0;
     private boolean _forceNoHistory = false;
+    private int _initialLineNumber = -1;
 
     public Document() {
     }
@@ -244,4 +245,13 @@ public class Document implements Serializable {
     public void setModTime(long modTime) {
         _modTime = modTime;
     }
+
+    public void setInitialLineNumber(final int lineNumber) {
+        _initialLineNumber = lineNumber;
+    }
+
+    public int getInitialLineNumber() {
+        return _initialLineNumber;
+    }
+
 }
