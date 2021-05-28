@@ -2,20 +2,21 @@ package net.gsantner.opoc.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
@@ -24,9 +25,7 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FileSearchResultSelectorDialog {
     public static void showDialog(final Activity activity, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
@@ -36,13 +35,6 @@ public class FileSearchResultSelectorDialog {
 
 
     private static class Dialog {
-        private static final String DISPLAYED_GROUP_FIELD_NAME = "groupName";
-        private static final String PATH_FIELD_NAME = "path";
-        private static final String COUNT_FIELD_NAME = "count";
-        private static final String DISPLAYED_CHILD_FIELD_NAME = "childName";
-        private static final String LINE_NUMBER_FIELD_NAME = "lineNumber";
-        private static final String IS_DIRECTORY_FIELD_NAME = "isDirectory";
-
         private AlertDialog _dialog;
         private final Activity _activity;
 
@@ -93,24 +85,15 @@ public class FileSearchResultSelectorDialog {
             dialogLayout.addView(searchEditText, margins);
         }
 
-
-        // Configure ExpandableListView
-        String[] groupFrom = new String[]{Dialog.DISPLAYED_GROUP_FIELD_NAME};
-        String[] childFrom = new String[]{Dialog.DISPLAYED_CHILD_FIELD_NAME};
-        int[] groupTo = new int[]{android.R.id.text1};
-        int[] childTo = new int[]{android.R.id.text1};
-
         // List filling
-        Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, "");
-
-        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, filteredGroups.first, R.layout.expandable_list_group_item, groupFrom, groupTo, filteredGroups.second, android.R.layout.simple_list_item_1, childFrom, childTo);
+        ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
+        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, groupItemsData);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
-                Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filteredGroups = filter(searchResults, filterText);
-                CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, filteredGroups.first, R.layout.expandable_list_group_item, groupFrom, groupTo, filteredGroups.second, android.R.layout.simple_list_item_1, childFrom, childTo);
-
+                ArrayList<GroupItemsInfo> filteredGroups = filter(searchResults, filterText);
+                CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
 
@@ -127,33 +110,28 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setAdapter(adapter);
 
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
+            GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
 
-            Map<String, Object> map = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
-            String path = (String) map.get(Dialog.PATH_FIELD_NAME);
-            int count = (int) map.get(Dialog.COUNT_FIELD_NAME);
-
-            if (count <= 0) {
+            if (groupItem.getCountMatches() <= 0) {
                 if (initializer._dialog != null) {
                     initializer._dialog.dismiss();
                 }
 
-                dialogCallback.callback(path, -1);
+                dialogCallback.callback(groupItem.getPath(), -1);
             }
 
             return false;
         });
 
-        expandableListView.setOnChildClickListener((parent, view, groupPosition, childPosition, id) -> {
-            Map<String, Object> groupMap = (Map<String, Object>) parent.getExpandableListAdapter().getGroup(groupPosition);
-            Map<String, Object> childMap = (Map<String, Object>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            String path = (String) groupMap.get(Dialog.PATH_FIELD_NAME);
-            int lineNumber = (int) childMap.get(Dialog.LINE_NUMBER_FIELD_NAME);
-            if (lineNumber >= 0) {
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
+            ChildItemsInfo childItem = (ChildItemsInfo) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+            if (childItem.getLineNumber() >= 0) {
                 if (initializer._dialog != null) {
                     initializer._dialog.dismiss();
                 }
 
-                dialogCallback.callback(path, lineNumber);
+                dialogCallback.callback(groupItem.getPath(), childItem.getLineNumber());
             }
 
             return false;
@@ -176,72 +154,224 @@ public class FileSearchResultSelectorDialog {
     }
 
 
-    private static Pair<ArrayList<Map<String, Object>>, ArrayList<ArrayList<Map<String, Object>>>> filter(final List<SearchEngine.FitFile> searchResults, String query) {
-        ArrayList<Map<String, Object>> groupDataList = new ArrayList<>();
-        ArrayList<ArrayList<Map<String, Object>>> childDataList = new ArrayList<>();
-
+    private static ArrayList<GroupItemsInfo> filter(final List<SearchEngine.FitFile> searchResults, String query) {
+        ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
 
         for (int i = 0; i < searchResults.size(); i++) {
-            final SearchEngine.FitFile fitFile = searchResults.get(i);
-            final List<SearchEngine.FitFile.ContentMatchUnit> contentMatches = fitFile.getContentMatches();
+            SearchEngine.FitFile fitFile = searchResults.get(i);
 
+            GroupItemsInfo groupItem = new GroupItemsInfo();
+            groupItem.setPath(fitFile.getPath());
+            groupItem.setIsDirectory(fitFile.isDirectory());
 
-            Map<String, Object> groupMap = new HashMap<>();
-            String contentCountText = contentMatches.size() > 0 ? String.format("(%s) ", contentMatches.size()) : "";
-            final String path = fitFile.getPath();
-            String groupName = contentCountText + path;
-            groupMap.put(Dialog.DISPLAYED_GROUP_FIELD_NAME, groupName);
-            groupMap.put(Dialog.PATH_FIELD_NAME, path);
-            groupMap.put(Dialog.IS_DIRECTORY_FIELD_NAME, fitFile.isDirectory());
-            groupMap.put(Dialog.COUNT_FIELD_NAME, contentMatches.size());
+            boolean isPathContainsQuery = query.isEmpty() || fitFile.getPath().toLowerCase().contains(query);
+            ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
 
-            boolean isPathContainsQuery = query.isEmpty() || path.toLowerCase().contains(query);
-
-            ArrayList<Map<String, Object>> childDataItemList = new ArrayList<>();
-            for (SearchEngine.FitFile.ContentMatchUnit contentMatch : contentMatches) {
+            for (SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
                 final String previewMatch = contentMatch.getPreviewMatch();
 
                 if (isPathContainsQuery || previewMatch.toLowerCase().contains(query)) {
-                    Map<String, Object> map = new HashMap<>();
+                    ChildItemsInfo childItem = new ChildItemsInfo();
                     int lineNumber = contentMatch.getLineNumber();
-                    String displayedText = "Line " + lineNumber + ": " + previewMatch;
-                    map.put(Dialog.DISPLAYED_CHILD_FIELD_NAME, displayedText);
-                    map.put(Dialog.LINE_NUMBER_FIELD_NAME, lineNumber);
-
-                    childDataItemList.add(map);
+                    childItem.setLineNumber(contentMatch.getLineNumber());
+                    childItem.setDisplayedText("Line " + lineNumber + ": " + previewMatch);
+                    groupChildItems.add(childItem);
                 }
             }
 
-            if (isPathContainsQuery || childDataItemList.size() > 0) {
-                groupDataList.add(groupMap);
-                childDataList.add(childDataItemList);
+            if (isPathContainsQuery || groupChildItems.size() > 0) {
+                groupItem.setChildItems(groupChildItems);
             }
+
+            groupItemsData.add(groupItem);
         }
 
-        return new Pair<>(groupDataList, childDataList);
+        return groupItemsData;
     }
 
-    private static class CustomExpandableListAdapter extends SimpleExpandableListAdapter {
+    private static class CustomExpandableListAdapter implements ExpandableListAdapter {
+        private final Context _context;
+        private final List<GroupItemsInfo> _groupItems;
 
-        public CustomExpandableListAdapter(Context context, List<? extends Map<String, ?>> groupData, int groupLayout, String[] groupFrom, int[] groupTo, List<? extends List<? extends Map<String, ?>>> childData, int childLayout, String[] childFrom, int[] childTo) {
-            super(context, groupData, groupLayout, groupFrom, groupTo, childData, childLayout, childFrom, childTo);
+        public CustomExpandableListAdapter(Context context, List<GroupItemsInfo> groupItems) {
+            _context = context;
+            _groupItems = groupItems;
+        }
+
+        @Override
+        public int getGroupCount() {
+            return _groupItems.size();
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return _groupItems.get(groupPosition).getChildItems().size();
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return _groupItems.get(groupPosition);
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosition) {
+            return _groupItems.get(groupPosition).getChildItems().get(childPosition);
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
         }
 
         @Override
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            Map<String, Object> groupMap = (Map<String, Object>) getGroup(groupPosition);
-            boolean isDirectory = (boolean) groupMap.get(FileSearchResultSelectorDialog.Dialog.IS_DIRECTORY_FIELD_NAME);
-            int countMatches = (int) groupMap.get(FileSearchResultSelectorDialog.Dialog.COUNT_FIELD_NAME);
+            GroupItemsInfo groupInfo = (GroupItemsInfo) getGroup(groupPosition);
+            TextView textView = (TextView) convertView;
+            if (convertView == null) {
+                LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                textView = (TextView) mInflater.inflate(R.layout.expandable_list_group_item, null);
+                textView.setText(groupInfo.getGroupText());
+                textView.setClickable(false);
+            }
 
-
-            TextView view = (TextView) super.getGroupView(groupPosition, isExpanded, convertView, parent);
-            int icon = isDirectory || countMatches == 0 ? 0 : isExpanded
+            int icon = groupInfo.isDirectory() || groupInfo.getCountMatches() == 0 ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
                     : R.drawable.ic_baseline_keyboard_arrow_down_24;
-            view.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
 
-            return view;
+            return textView;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+            ChildItemsInfo childInfo = (ChildItemsInfo) getChild(groupPosition, childPosition);
+            TextView textView = (TextView) convertView;
+            if (convertView == null) {
+                LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                textView = (TextView) mInflater.inflate(android.R.layout.simple_list_item_1, null);
+                textView.setClickable(false);
+            }
+            textView.setText(childInfo.getDisplayedText());
+
+            return textView;
+        }
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public void onGroupExpanded(int groupPosition) {
+
+        }
+
+        @Override
+        public void onGroupCollapsed(int groupPosition) {
+
+        }
+
+        @Override
+        public long getCombinedChildId(long groupPosition, long childPosition) {
+            return 0;
+        }
+
+        @Override
+        public long getCombinedGroupId(long groupPosition) {
+            return 0;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public void registerDataSetObserver(DataSetObserver dataSetObserver) {
+
+        }
+
+        @Override
+        public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
+
+        }
+    }
+
+
+    public static class GroupItemsInfo {
+        private String _path;
+        private boolean _isDirectory;
+        private ArrayList<ChildItemsInfo> _childItems = new ArrayList<>();
+
+        public String getGroupText() {
+            String contentCountText = _childItems.size() > 0 ? String.format("(%s) ", _childItems.size()) : "";
+            return contentCountText + _path;
+        }
+
+        public String getPath() {
+            return _path;
+        }
+
+        public void setPath(String path) {
+            _path = path;
+        }
+
+        public boolean isDirectory() {
+            return _isDirectory;
+        }
+
+        public int getCountMatches() {
+            return _childItems.size();
+        }
+
+        public void setIsDirectory(boolean isDirectory) {
+            _isDirectory = isDirectory;
+        }
+
+        public ArrayList<ChildItemsInfo> getChildItems() {
+            return _childItems;
+        }
+
+        public void setChildItems(ArrayList<ChildItemsInfo> childItems) {
+            _childItems = childItems;
+        }
+    }
+
+
+    public static class ChildItemsInfo {
+        private int _lineNumber;
+        private String _displayedText;
+
+        public int getLineNumber() {
+            return _lineNumber;
+        }
+
+        public void setLineNumber(int lineNumber) {
+            _lineNumber = lineNumber;
+        }
+
+        public String getDisplayedText() {
+            return _displayedText;
+        }
+
+        public void setDisplayedText(String displayedText) {
+            _displayedText = displayedText;
         }
     }
 }
