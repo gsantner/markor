@@ -634,7 +634,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isOnlyFirstContentMatch() {
-        return getBool(R.string.pref_key__is_only_first_content_match, true);
+        return getBool(R.string.pref_key__is_only_first_content_match, false);
     }
 
     public void setOnlyFirstContentMatch(final boolean isOnlyFirstContentMatch) {
