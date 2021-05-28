@@ -140,7 +140,6 @@ public class SearchOrCustomTextDialogCreator {
             SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames(), appSettings.getSearchByContentExtensions());
             config.isCaseSensitiveQuery = cb_options._isCaseSensitiveQuery;
             config.isRegexQuery = cb_options._isRegexQuery;
-            config.isShowResultOnCancel = appSettings.isShowSearchResultOnCancel();
             config.maxSearchDepth = appSettings.getSearchMaxDepth();
             config.isShowMatchPreview = appSettings.isShowMatchPreview();
             config.isSearchInContent = cb_options._isSearchInContent;

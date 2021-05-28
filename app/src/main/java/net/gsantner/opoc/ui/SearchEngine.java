@@ -70,6 +70,7 @@ public class SearchEngine {
         public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles, final List<String> searchByContentExtensions) {
             _rootSearchDir = rootSearchDir;
             _query = query;
+            isShowResultOnCancel = true;
 
             _ignoredExactDirs = new ArrayList<>();
             _ignoredRegexDirs = new ArrayList<>();

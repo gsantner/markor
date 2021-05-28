@@ -420,8 +420,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
     <string name="searchCategory">Search</string>
     <string name="search_in_content">Search in content</string>
-    <string name="show_search_result_on_cancel">Show result on cancel</string>
-    <string name="show_search_result_on_cancel_summary">When you press a cancel button, and search has matches then if the option is enabled will show you these matches.</string>
     <string name="max_search_depth">Search depth</string>
     <string name="show_history">Show history</string>
     <string name="ignored_search_dir_names">Ignored directory names</string>

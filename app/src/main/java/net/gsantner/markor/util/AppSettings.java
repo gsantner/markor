@@ -609,10 +609,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }
     }
 
-    public boolean isShowSearchResultOnCancel() {
-        return getBool(R.string.pref_key__is_show_search_result_on_cancel_enabled, true);
-    }
-
     public boolean isSearchQueryCaseSensitive() {
         return getBool(R.string.pref_key__is_search_query_case_sensitive, false);
     }

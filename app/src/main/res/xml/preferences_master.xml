@@ -82,12 +82,6 @@
                 android:key="@string/pref_key__max_search_depth"
                 android:summary="%1$s"
                 android:title="@string/max_search_depth" />
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_baseline_speaker_notes_off_24"
-                android:key="@string/pref_key__is_show_search_result_on_cancel_enabled"
-                android:summary="@string/show_search_result_on_cancel_summary"
-                android:title="@string/show_search_result_on_cancel" />
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue=""
                 android:dialogMessage="@string/ignored_search_dir_names_dialog"
