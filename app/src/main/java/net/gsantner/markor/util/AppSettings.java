@@ -291,7 +291,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isEditorStartOnBottom() {
-        return getBool(R.string.pref_key__editor_start_editing_on_bottom_v2, false);
+        return getBool(R.string.pref_key__editor_start_editing_on_bottom, true);
     }
 
     public boolean isEditorStartEditingInCenter() {

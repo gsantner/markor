@@ -159,7 +159,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
     <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>
     <string name="pref_key__editor_line_spacing" translatable="false">pref_key__editor_line_spacing</string>
-    <string name="pref_key__editor_start_editing_on_bottom_v2" translatable="false">pref_key__editor_start_editing_on_bottom_v2</string>
+    <string name="pref_key__editor_start_editing_on_bottom" translatable="false">pref_key__editor_start_editing_on_bottom</string>
     <string name="pref_key__editor_start_editing_in_center" translatable="false">pref_key__editor_start_editing_in_center</string>
     <string name="pref_key__share_into__quicknote" translatable="false">pref_key__share_into__quicknote</string>
     <string name="pref_key__share_into__todo" translatable="false">pref_key__share_into__todo</string>
