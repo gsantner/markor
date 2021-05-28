@@ -578,14 +578,14 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void askForMoveOrCopy(final boolean isMove) {
-        final List<File> selectedFiles = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
+        final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             private FilesystemViewerData.Options _doptMoC;
 
             @Override
             public void onFsViewerSelected(String request, File file) {
                 super.onFsViewerSelected(request, file);
-                WrMarkorSingleton.getInstance().moveOrCopySelected(selectedFiles, file, getActivity(), isMove);
+                WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove);
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
             }
@@ -598,7 +598,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 _doptMoC.startFolder = getCurrentFolder();
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();
-                for (final File f : selectedFiles) {
+                for (final File f : files) {
                     selSet.add(f.getAbsolutePath());
                 }
                 _doptMoC.fileOverallFilter = (test) -> !selSet.contains(test.getAbsolutePath());
