@@ -351,7 +351,7 @@
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
-                android:key="@string/pref_key__editor_start_editing_on_bottom_v2"
+                android:key="@string/pref_key__editor_start_editing_on_bottom"
                 android:summary="@string/start_on_bottom_when_loading_document"
                 android:title="@string/start_on_bottom" />
             <ListPreference
