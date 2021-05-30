@@ -265,12 +265,14 @@ public class SearchOrCustomTextDialog {
             });
         }
 
-        // Long click always selects
-        listView.setOnItemLongClickListener((parent, view, position, id) -> {
-            ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position).second));
-            setDialogState(dialog, listView, adapter);
-            return true;
-        });
+        // Long click always selects, if multi select is possible
+        if (dopt.multiSelectCallback != null) {
+            listView.setOnItemLongClickListener((parent, view, position, id) -> {
+                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position).second));
+                setDialogState(dialog, listView, adapter);
+                return true;
+            });
+        }
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
