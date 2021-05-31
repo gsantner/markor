@@ -26,50 +26,36 @@ import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchResultSelectorDialog {
     public static void showDialog(final Activity activity, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.showDialog(searchResults, dialogCallback);
-    }
-
-
-    private static class Dialog {
-        private AlertDialog _dialog;
-        private final Activity _activity;
-
-
-        private Dialog(final Activity activity) {
-            _activity = activity;
+        final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
+        AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, searchResults, dialogCallback);
+        dialog.set(dialogBuilder.create());
+        Window _window = dialog.get().getWindow();
+        if (_window != null) {
+            _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-
-        private void showDialog(final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
-            AlertDialog.Builder dialogBuilder = buildDialog(this, searchResults, dialogCallback);
-            _dialog = dialogBuilder.create();
-            Window _window = _dialog.getWindow();
-            if (_window != null) {
-                _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            }
-            _dialog.show();
-            if (_window != null) {
-                _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            }
+        dialog.get().show();
+        if (_window != null) {
+            _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
     }
 
 
-    private static AlertDialog.Builder buildDialog(final Dialog initializer, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
-        final AppSettings appSettings = new AppSettings(initializer._activity);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
+        final AppSettings appSettings = new AppSettings(activity);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
-        final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
+        final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
 
-        final ExpandableListView expandableListView = new ExpandableListView(initializer._activity);
-        final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
+        final ExpandableListView expandableListView = new ExpandableListView(activity);
+        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
 
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(initializer._activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
 
@@ -87,13 +73,13 @@ public class FileSearchResultSelectorDialog {
 
         // List filling
         ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
-        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, groupItemsData);
+        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, groupItemsData);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
                 ArrayList<GroupItemsInfo> filteredGroups = filter(searchResults, filterText);
-                CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(initializer._activity, filteredGroups);
+                CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
 
@@ -113,13 +99,11 @@ public class FileSearchResultSelectorDialog {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
 
             if (groupItem.getCountMatches() <= 0) {
-                if (initializer._dialog != null) {
-                    initializer._dialog.dismiss();
+                if (dialog != null && dialog.get() != null) {
+                    dialog.get().dismiss();
                 }
-
                 dialogCallback.callback(groupItem.path, -1);
             }
-
             return false;
         });
 
@@ -127,13 +111,11 @@ public class FileSearchResultSelectorDialog {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
             ChildItemsInfo childItem = (ChildItemsInfo) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
             if (childItem.lineNumber >= 0) {
-                if (initializer._dialog != null) {
-                    initializer._dialog.dismiss();
+                if (dialog != null && dialog.get() != null) {
+                    dialog.get().dismiss();
                 }
-
                 dialogCallback.callback(groupItem.path, childItem.lineNumber);
             }
-
             return false;
         });
 
