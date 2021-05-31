@@ -26,6 +26,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 
 public class FileSearchDialog {
 
@@ -46,40 +48,28 @@ public class FileSearchDialog {
     }
 
     public static void showDialog(final Activity activity, final Callback.a1<Options> dialogCallback) {
-        new Dialog(activity).showDialog(dialogCallback);
-    }
-
-    private static class Dialog {
-        private AlertDialog _dialog;
-        private final Activity _activity;
-
-        private Dialog(final Activity activity) {
-            _activity = activity;
+        final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
+        final AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, dialogCallback);
+        dialog.set(dialogBuilder.create());
+        Window _window = dialog.get().getWindow();
+        if (_window != null) {
+            _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-
-        private void showDialog(Callback.a1<Options> dialogCallback) {
-            AlertDialog.Builder dialogBuilder = buildDialog(this, dialogCallback);
-            _dialog = dialogBuilder.create();
-            Window _window = _dialog.getWindow();
-            if (_window != null) {
-                _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            }
-            _dialog.show();
-            if (_window != null) {
-                _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            }
+        dialog.get().show();
+        if (_window != null) {
+            _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Dialog initializer, final Callback.a1<Options> dialogCallback) {
-        final AppSettings appSettings = new AppSettings(initializer._activity);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<Options> dialogCallback) {
+        final AppSettings appSettings = new AppSettings(activity);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
-        final ScrollView scrollView = new ScrollView(initializer._activity);
-        final LinearLayout dialogLayout = new LinearLayout(initializer._activity);
+        final ScrollView scrollView = new ScrollView(activity);
+        final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(initializer._activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
 
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
@@ -87,13 +77,13 @@ public class FileSearchDialog {
         final LinearLayout.LayoutParams subCheckBoxMargins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         subCheckBoxMargins.setMargins(dp4px * 5 * 2, dp4px, dp4px * 5, dp4px);
 
-        final TextView messageTextView = new TextView(initializer._activity);
-        final AppCompatEditText searchEditText = new AppCompatEditText(initializer._activity);
-        Spinner queryHistorySpinner = new Spinner(initializer._activity);
-        final CheckBox regexCheckBox = new CheckBox(initializer._activity);
-        final CheckBox caseSensitivityCheckBox = new CheckBox(initializer._activity);
-        final CheckBox searchInContentCheckBox = new CheckBox(initializer._activity);
-        final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(initializer._activity);
+        final TextView messageTextView = new TextView(activity);
+        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
+        Spinner queryHistorySpinner = new Spinner(activity);
+        final CheckBox regexCheckBox = new CheckBox(activity);
+        final CheckBox caseSensitivityCheckBox = new CheckBox(activity);
+        final CheckBox searchInContentCheckBox = new CheckBox(activity);
+        final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
@@ -115,8 +105,8 @@ public class FileSearchDialog {
         searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                if (initializer._dialog != null) {
-                    initializer._dialog.dismiss();
+                if (dialog != null && dialog.get() != null) {
+                    dialog.get().dismiss();
                 }
                 submit.callback();
                 return true;
@@ -127,7 +117,7 @@ public class FileSearchDialog {
 
         // Spinner: History
         if (SearchEngine.queryHistory.size() > 0) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(initializer._activity, R.layout.list_group_history_item, SearchEngine.queryHistory);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.list_group_history_item, SearchEngine.queryHistory);
             queryHistorySpinner.setAdapter(adapter);
 
             queryHistorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
