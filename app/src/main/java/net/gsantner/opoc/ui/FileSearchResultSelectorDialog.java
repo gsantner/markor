@@ -117,7 +117,7 @@ public class FileSearchResultSelectorDialog {
                     initializer._dialog.dismiss();
                 }
 
-                dialogCallback.callback(groupItem.getPath(), -1);
+                dialogCallback.callback(groupItem.path, -1);
             }
 
             return false;
@@ -131,7 +131,7 @@ public class FileSearchResultSelectorDialog {
                     initializer._dialog.dismiss();
                 }
 
-                dialogCallback.callback(groupItem.getPath(), childItem.getLineNumber());
+                dialogCallback.callback(groupItem.path, childItem.getLineNumber());
             }
 
             return false;
@@ -153,18 +153,12 @@ public class FileSearchResultSelectorDialog {
         return dialogBuilder;
     }
 
-
     private static ArrayList<GroupItemsInfo> filter(final List<SearchEngine.FitFile> searchResults, String query) {
         ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchEngine.FitFile fitFile = searchResults.get(i);
-
-            GroupItemsInfo groupItem = new GroupItemsInfo();
-            groupItem.setPath(fitFile.getPath());
-            groupItem.setIsDirectory(fitFile.isDirectory());
-
             boolean isPathContainsQuery = query.isEmpty() || fitFile.getPath().toLowerCase().contains(query);
             ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
 
@@ -180,11 +174,7 @@ public class FileSearchResultSelectorDialog {
                 }
             }
 
-            if (isPathContainsQuery || groupChildItems.size() > 0) {
-                groupItem.setChildItems(groupChildItems);
-            }
-
-            groupItemsData.add(groupItem);
+            groupItemsData.add(new GroupItemsInfo(fitFile.getPath(), fitFile.isDirectory(), (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
         }
 
         return groupItemsData;
@@ -206,7 +196,7 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return _groupItems.get(groupPosition).getChildItems().size();
+            return _groupItems.get(groupPosition).children.size();
         }
 
         @Override
@@ -216,7 +206,7 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public Object getChild(int groupPosition, int childPosition) {
-            return _groupItems.get(groupPosition).getChildItems().get(childPosition);
+            return _groupItems.get(groupPosition).children.get(childPosition);
         }
 
         @Override
@@ -236,11 +226,11 @@ public class FileSearchResultSelectorDialog {
             if (convertView == null) {
                 LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 textView = (TextView) mInflater.inflate(R.layout.expandable_list_group_item, null);
-                textView.setText(groupInfo.getGroupText());
+                textView.setText(groupInfo.toString());
                 textView.setClickable(false);
             }
 
-            int icon = groupInfo.isDirectory() || groupInfo.getCountMatches() == 0 ? 0 : isExpanded
+            int icon = groupInfo.isDirectory || groupInfo.getCountMatches() == 0 ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
                     : R.drawable.ic_baseline_keyboard_arrow_down_24;
             textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
@@ -313,43 +303,25 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
-
     public static class GroupItemsInfo {
-        private String _path;
-        private boolean _isDirectory;
-        private ArrayList<ChildItemsInfo> _childItems = new ArrayList<>();
+        public final String path;
+        public final boolean isDirectory;
+        public final ArrayList<ChildItemsInfo> children;
 
-        public String getGroupText() {
-            String contentCountText = _childItems.size() > 0 ? String.format("(%s) ", _childItems.size()) : "";
-            return contentCountText + _path;
-        }
-
-        public String getPath() {
-            return _path;
-        }
-
-        public void setPath(String path) {
-            _path = path;
-        }
-
-        public boolean isDirectory() {
-            return _isDirectory;
+        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<ChildItemsInfo> a_children) {
+            path = a_path;
+            isDirectory = a_isDirectory;
+            children = a_children != null ? a_children : new ArrayList<>();
         }
 
         public int getCountMatches() {
-            return _childItems.size();
+            return children.size();
         }
 
-        public void setIsDirectory(boolean isDirectory) {
-            _isDirectory = isDirectory;
-        }
-
-        public ArrayList<ChildItemsInfo> getChildItems() {
-            return _childItems;
-        }
-
-        public void setChildItems(ArrayList<ChildItemsInfo> childItems) {
-            _childItems = childItems;
+        @Override
+        public String toString() {
+            String contentCountText = children.size() > 0 ? String.format("(%s) ", children.size()) : "";
+            return contentCountText + path;
         }
     }
 
