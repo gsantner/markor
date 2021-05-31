@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class MapPropertyBackend<TKEY> implements PropertyBackend<TKEY, MapPropertyBackend> {
+public class MapPropertyBackend<TKEY> implements PropertyBackend<TKEY, MapPropertyBackend<TKEY>> {
     private final Map<TKEY, List<String>> _pStringList = new HashMap<>();
     private final Map<TKEY, List<Integer>> _pIntList = new HashMap<>();
     private final Map<TKEY, Boolean> _pBoolean = new HashMap<>();
@@ -71,49 +71,49 @@ public class MapPropertyBackend<TKEY> implements PropertyBackend<TKEY, MapProper
     }
 
     @Override
-    public MapPropertyBackend setString(TKEY key, String value) {
+    public MapPropertyBackend<TKEY> setString(TKEY key, String value) {
         _pString.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setInt(TKEY key, int value) {
+    public MapPropertyBackend<TKEY> setInt(TKEY key, int value) {
         _pInt.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setLong(TKEY key, long value) {
+    public MapPropertyBackend<TKEY> setLong(TKEY key, long value) {
         _pLong.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setBool(TKEY key, boolean value) {
+    public MapPropertyBackend<TKEY> setBool(TKEY key, boolean value) {
         _pBoolean.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setFloat(TKEY key, float value) {
+    public MapPropertyBackend<TKEY> setFloat(TKEY key, float value) {
         _pFloat.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setDouble(TKEY key, double value) {
+    public MapPropertyBackend<TKEY> setDouble(TKEY key, double value) {
         _pDouble.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setIntList(TKEY key, List<Integer> value) {
+    public MapPropertyBackend<TKEY> setIntList(TKEY key, List<Integer> value) {
         _pIntList.put(key, value);
         return this;
     }
 
     @Override
-    public MapPropertyBackend setStringList(TKEY key, List<String> value) {
+    public MapPropertyBackend<TKEY> setStringList(TKEY key, List<String> value) {
         _pStringList.put(key, value);
         return this;
     }
