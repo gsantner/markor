@@ -35,7 +35,7 @@
     </string-array>
 
     <string-array name="pref_arrdisp__search_depth" translatable="false">
-        <item translatable="false">Any</item>
+        <item translatable="false">@string/infinite</item>
         <item translatable="false">1</item>
         <item translatable="false">2</item>
         <item translatable="false">3</item>

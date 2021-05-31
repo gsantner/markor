@@ -72,7 +72,7 @@
         </PreferenceCategory>
 
 
-        <PreferenceCategory android:title="@string/searchCategory">
+        <PreferenceCategory android:title="@string/search">
             <ListPreference
                 android:defaultValue="0"
                 android:dialogTitle="@string/max_search_depth"
@@ -84,28 +84,34 @@
                 android:title="@string/max_search_depth" />
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue=""
-                android:dialogMessage="@string/ignored_search_dir_names_dialog"
+                android:dialogMessage="@string/specify_directories_that_should_not_be_searched"
                 android:icon="@drawable/ic_baseline_rule_folder_24"
-                android:key="@string/pref_key__ignored_search_dir_names"
-                android:title="@string/ignored_search_dir_names" />
+                android:key="@string/pref_key__ignored_directories"
+                android:title="@string/ignored_directories" />
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:dialogMessage="@string/ignored_search_file_names_dialog"
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__ignored_search_file_names"
                 android:title="@string/ignored_search_file_names" />
+<!--
+           <string name="search_by_context_have_to_include_dialog">Search by context only for filenames that contain Extension. Use new line as separator.\nExamples: .md\n.txt.</string>
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="@string/empty_string"
                 android:dialogMessage="@string/search_by_context_have_to_include_dialog"
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__search_by_context_have_to_include"
                 android:title="@string/search_by_context_have_to_include" />
+
+            <string name="show_match_preview">Show match preview</string>
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_baseline_speaker_notes_off_24"
                 android:key="@string/pref_key__is_show_match_preview"
                 android:summary="@string/show_match_preview_summary"
                 android:title="@string/show_match_preview" />
+-->
+
         </PreferenceCategory>
 
 
