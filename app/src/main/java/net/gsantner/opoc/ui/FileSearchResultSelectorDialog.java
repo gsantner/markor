@@ -126,12 +126,12 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
             ChildItemsInfo childItem = (ChildItemsInfo) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            if (childItem.getLineNumber() >= 0) {
+            if (childItem.lineNumber >= 0) {
                 if (initializer._dialog != null) {
                     initializer._dialog.dismiss();
                 }
 
-                dialogCallback.callback(groupItem.path, childItem.getLineNumber());
+                dialogCallback.callback(groupItem.path, childItem.lineNumber);
             }
 
             return false;
@@ -168,8 +168,8 @@ public class FileSearchResultSelectorDialog {
                 if (isPathContainsQuery || previewMatch.toLowerCase().contains(query)) {
                     ChildItemsInfo childItem = new ChildItemsInfo();
                     int lineNumber = contentMatch.getLineNumber();
-                    childItem.setLineNumber(contentMatch.getLineNumber());
-                    childItem.setDisplayedText("Line " + lineNumber + ": " + previewMatch);
+                    childItem.lineNumber = (contentMatch.getLineNumber());
+                    childItem.displayedText = ("Line " + lineNumber + ": " + previewMatch);
                     groupChildItems.add(childItem);
                 }
             }
@@ -247,7 +247,7 @@ public class FileSearchResultSelectorDialog {
                 textView = (TextView) mInflater.inflate(android.R.layout.simple_list_item_1, null);
                 textView.setClickable(false);
             }
-            textView.setText(childInfo.getDisplayedText());
+            textView.setText(childInfo.displayedText);
 
             return textView;
         }
@@ -321,25 +321,8 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
-
     public static class ChildItemsInfo {
-        private int _lineNumber;
-        private String _displayedText;
-
-        public int getLineNumber() {
-            return _lineNumber;
-        }
-
-        public void setLineNumber(int lineNumber) {
-            _lineNumber = lineNumber;
-        }
-
-        public String getDisplayedText() {
-            return _displayedText;
-        }
-
-        public void setDisplayedText(String displayedText) {
-            _displayedText = displayedText;
-        }
+        public int lineNumber;
+        public String displayedText;
     }
 }
