@@ -129,7 +129,7 @@ public class TodoTxtTextActions extends TextActions {
                 }
                 case R.string.tmaid_todotxt_add_context: {
                     final List<String> contexts = new ArrayList<>();
-                    contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor))));
+                    contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
                     contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts()));
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, context ->
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context));
@@ -137,7 +137,7 @@ public class TodoTxtTextActions extends TextActions {
                 }
                 case R.string.tmaid_todotxt_add_project: {
                     final List<String> projects = new ArrayList<>();
-                    projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor))));
+                    projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
                     projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects()));
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, project ->
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project));
@@ -167,7 +167,7 @@ public class TodoTxtTextActions extends TextActions {
                         // Don't do parse tasks in this case, performance wise
                         final ArrayList<TodoTxtTask> keep = new ArrayList<>();
                         final ArrayList<TodoTxtTask> move = new ArrayList<>();
-                        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor);
+                        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
 
                         final int[] sel = StringUtils.getSelection(_hlEditor);
                         final CharSequence text = _hlEditor.getText();
@@ -213,7 +213,7 @@ public class TodoTxtTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
                         @Override
                         public void run() {
-                            List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor));
+                            List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
                             TodoTxtTask.sortTasks(tasks, orderBy, descending);
                             setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                             new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
@@ -238,20 +238,15 @@ public class TodoTxtTextActions extends TextActions {
         public boolean onLongClick(View v) {
             String origText = _hlEditor.getText().toString();
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
+            final TodoTxtTextActions t_this = TodoTxtTextActions.this;
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    final List<String> allContexts = Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttContextListDialog(_activity, allContexts, origText, TodoTxtTextActions.this::doBasicHighlights, (callbackPayload) -> {
-                        _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), origText.indexOf(callbackPayload)));
-                    });
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, false, t_this::selectTaskByPositions);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    final List<String> allProjects = Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor)));
-                    SearchOrCustomTextDialogCreator.showSttProjectListDialog(_activity, allProjects, origText, TodoTxtTextActions.this::doBasicHighlights, (callbackPayload) -> {
-                        _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), origText.indexOf(callbackPayload)));
-                    });
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, true, t_this::selectTaskByPositions);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
@@ -266,7 +261,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_sort_todo: {
                     final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
                     if (last != null && last.size() == 2) {
-                        List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor));
+                        List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
                         TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
                         setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                     }
@@ -498,13 +493,13 @@ public class TodoTxtTextActions extends TextActions {
         } else if (positions.size() > 1){
             final List<TodoTxtTask> selTasks = new ArrayList<>();
             final List<TodoTxtTask> unselTasks = new ArrayList<>();
-            final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor);
+            final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
             for (int i = 0; i < allTasks.length; i++) {
                 (positions.contains(i) ? selTasks : unselTasks).add(allTasks[i]);
             }
             selTasks.addAll(unselTasks);
             _hlEditor.setText(TodoTxtTask.tasksToString(selTasks));
-            _hlEditor.setSelection(0, StringUtils.getIndexFromLineOffset(text, positions.size(), 0));
+            _hlEditor.setSelection(0, StringUtils.getIndexFromLineOffset(text, positions.size() - 1, 0));
         }
     }
 }

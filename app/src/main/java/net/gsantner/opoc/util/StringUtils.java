@@ -10,11 +10,14 @@
 package net.gsantner.opoc.util;
 
 import android.util.Base64;
+import android.util.Pair;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class StringUtils {
@@ -297,5 +300,44 @@ public final class StringUtils {
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    }
+
+    public static <S, T> List<S> map(final Iterable<T> input, final Callback.g1<S, T> transform) {
+        List<S> result = new ArrayList<>();
+        for (final T in : input) {
+            result.add(transform.callback(in));
+        }
+        return result;
+    }
+
+    public static <T> Pair<List<Integer>, List<T>> filter(final Iterable<T> input, final Callback.b1<T> condition) {
+        List<T> data = new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();
+        int i = 0;
+        for (final T in : input) {
+            if (condition.callback(in)) {
+                data.add(in);
+                indices.add(i);
+            }
+            i++;
+        }
+        return Pair.create(indices, data);
+    }
+
+    public static <T> boolean containsAny(final Collection<T> set, final Iterable<T> tests) {
+        for (final T t : tests) {
+            if (set.contains(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> List<T> slice(final List<T> input, final List<Integer> indices) {
+        final List<T> result = new ArrayList<>();
+        for (final int i : indices) {
+            result.add(input.get(i));
+        }
+        return result;
     }
 }
