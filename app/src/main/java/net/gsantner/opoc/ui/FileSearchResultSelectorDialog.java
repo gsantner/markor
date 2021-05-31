@@ -269,12 +269,10 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public void onGroupExpanded(int groupPosition) {
-
         }
 
         @Override
         public void onGroupCollapsed(int groupPosition) {
-
         }
 
         @Override
@@ -294,12 +292,10 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
         }
 
         @Override
         public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
         }
     }
 

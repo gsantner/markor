@@ -29,11 +29,26 @@ import net.gsantner.opoc.util.ContextUtils;
 
 public class FileSearchDialog {
 
-    public static void showDialog(final Activity activity, final Callback.a1<CallBackOptions> dialogCallback) {
+    public static class Options {
+        public String query;
+        public boolean isRegexQuery;
+        public boolean isCaseSensitiveQuery;
+        public boolean isSearchInContent;
+        public boolean isOnlyFirstContentMatch;
+
+        public Options(final String a_query, final boolean a_isRegexQuery, final boolean a_isCaseSensitiveQuery, final boolean a_isSearchInContent, final boolean a_isOnlyFirstContentMatch) {
+            query = a_query;
+            isRegexQuery = a_isRegexQuery;
+            isCaseSensitiveQuery = a_isCaseSensitiveQuery;
+            isSearchInContent = a_isSearchInContent;
+            isOnlyFirstContentMatch = a_isOnlyFirstContentMatch;
+        }
+    }
+
+    public static void showDialog(final Activity activity, final Callback.a1<Options> dialogCallback) {
         final Dialog dialog = new Dialog(activity);
         dialog.showDialog(dialogCallback);
     }
-
 
     private static class Dialog {
         private AlertDialog _dialog;
@@ -43,7 +58,7 @@ public class FileSearchDialog {
             _activity = activity;
         }
 
-        private void showDialog(Callback.a1<CallBackOptions> dialogCallback) {
+        private void showDialog(Callback.a1<Options> dialogCallback) {
             AlertDialog.Builder dialogBuilder = buildDialog(this, dialogCallback);
             _dialog = dialogBuilder.create();
             Window _window = _dialog.getWindow();
@@ -57,7 +72,7 @@ public class FileSearchDialog {
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Dialog initializer, final Callback.a1<CallBackOptions> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(final Dialog initializer, final Callback.a1<Options> dialogCallback) {
         final AppSettings appSettings = new AppSettings(initializer._activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(initializer._activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
@@ -84,8 +99,7 @@ public class FileSearchDialog {
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {
-                CallBackOptions callBackOptions = new CallBackOptions(query, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked(), onlyFirstContentMatchCheckBox.isChecked());
-                dialogCallback.callback(callBackOptions);
+                dialogCallback.callback(new FileSearchDialog.Options(query, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked(), onlyFirstContentMatchCheckBox.isChecked()));
             }
         };
 
@@ -112,7 +126,6 @@ public class FileSearchDialog {
         });
         dialogLayout.addView(searchEditText, margins);
 
-
         // Spinner: History
         if (SearchEngine.queryHistory.size() > 0) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(initializer._activity, R.layout.list_group_history_item, SearchEngine.queryHistory);
@@ -128,7 +141,6 @@ public class FileSearchDialog {
                 }
 
                 public void onNothingSelected(AdapterView<?> parent) {
-
                 }
             });
 
@@ -162,7 +174,6 @@ public class FileSearchDialog {
 
         // ScrollView
         scrollView.addView(dialogLayout);
-
 
         // Configure dialog
         dialogBuilder.setTitle(R.string.search)
@@ -204,21 +215,4 @@ public class FileSearchDialog {
 
         return true;
     }
-
-    public static class CallBackOptions {
-        public String _query;
-        public boolean _isRegexQuery;
-        public boolean _isCaseSensitiveQuery;
-        public boolean _isSearchInContent;
-        public boolean _isOnlyFirstContentMatch;
-
-        public CallBackOptions(final String query, final boolean isRegexQuery, final boolean isCaseSensitiveQuery, final boolean isSearchInContent, final boolean isOnlyFirstContentMatch) {
-            _query = query;
-            _isRegexQuery = isRegexQuery;
-            _isCaseSensitiveQuery = isCaseSensitiveQuery;
-            _isSearchInContent = isSearchInContent;
-            _isOnlyFirstContentMatch = isOnlyFirstContentMatch;
-        }
-    }
-
 }

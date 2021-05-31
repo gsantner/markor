@@ -130,20 +130,20 @@ public class SearchOrCustomTextDialogCreator {
 
         AppSettings appSettings = new AppSettings(activity);
 
-        Callback.a1<FileSearchDialog.CallBackOptions> fileSearchDialogCallback = (cb_options) -> {
+        Callback.a1<FileSearchDialog.Options> fileSearchDialogCallback = (cb_options) -> {
 
-            appSettings.setSearchQueryRegexUsing(cb_options._isRegexQuery);
-            appSettings.setSearchQueryCaseSensitivity(cb_options._isCaseSensitiveQuery);
-            appSettings.setSearchInContent(cb_options._isSearchInContent);
-            appSettings.setOnlyFirstContentMatch(cb_options._isOnlyFirstContentMatch);
+            appSettings.setSearchQueryRegexUsing(cb_options.isRegexQuery);
+            appSettings.setSearchQueryCaseSensitivity(cb_options.isCaseSensitiveQuery);
+            appSettings.setSearchInContent(cb_options.isSearchInContent);
+            appSettings.setOnlyFirstContentMatch(cb_options.isOnlyFirstContentMatch);
 
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options._query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames(), appSettings.getSearchByContentExtensions());
-            config.isCaseSensitiveQuery = cb_options._isCaseSensitiveQuery;
-            config.isRegexQuery = cb_options._isRegexQuery;
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options.query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames(), appSettings.getSearchByContentExtensions());
+            config.isCaseSensitiveQuery = cb_options.isCaseSensitiveQuery;
+            config.isRegexQuery = cb_options.isRegexQuery;
             config.maxSearchDepth = appSettings.getSearchMaxDepth();
             config.isShowMatchPreview = appSettings.isShowMatchPreview();
-            config.isSearchInContent = cb_options._isSearchInContent;
-            config.isOnlyFirstContentMatch = cb_options._isOnlyFirstContentMatch;
+            config.isSearchInContent = cb_options.isSearchInContent;
+            config.isOnlyFirstContentMatch = cb_options.isOnlyFirstContentMatch;
 
             SearchEngine.queueFileSearch(activity, config, searchResults -> {
                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
