@@ -46,8 +46,7 @@ public class FileSearchDialog {
     }
 
     public static void showDialog(final Activity activity, final Callback.a1<Options> dialogCallback) {
-        final Dialog dialog = new Dialog(activity);
-        dialog.showDialog(dialogCallback);
+        new Dialog(activity).showDialog(dialogCallback);
     }
 
     private static class Dialog {
