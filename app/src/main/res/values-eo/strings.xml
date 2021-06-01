@@ -29,7 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Postaldoni al %s</string>
     <string name="select_folder">Elekti dosierujon</string>
     <string name="edit">Redakti</string>
-    <string name="search_documents">Serĉi dokumentojn</string>
+    <string name="search_in_document">Serĉi dokumentojn</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Konigi al&#8230;</string>
     <string name="share">Konigi</string>
     <string name="search">Serĉi</string>

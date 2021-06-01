@@ -43,7 +43,7 @@ public class FilesystemViewerCreator {
         opts.doSelectFolder = doSelectFolder;
         opts.doSelectFile = !doSelectFolder;
 
-        opts.searchHint = R.string.search_documents;
+        opts.searchHint = R.string.search_in_document;
         opts.searchButtonImage = R.drawable.ic_search_black_24dp;
         opts.homeButtonImage = R.drawable.ic_home_black_24dp;
         opts.selectedItemImage = R.drawable.ic_check_black_24dp;

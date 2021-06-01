@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Adaugă la %s</string>
     <string name="select_folder">Selectează folder</string>
     <string name="edit">Editare</string>
-    <string name="search_documents">Căutare documente</string>
+    <string name="search_in_document">Căutare documente</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Distribuie către&#8230;</string>
     <string name="share">Distribuire</string>
     <string name="search">Căutare</string>

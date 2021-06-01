@@ -127,6 +127,11 @@ public final class StringUtils {
         };
     }
 
+    public static String getSelectedLines(final TextView text) {
+        final int[] sel = getLineSelection(text);
+        return text.getText().subSequence(sel[0], sel[1]).toString();
+    }
+
     public static String repeatChars(char character, int count) {
         char[] stringChars = new char[count];
         Arrays.fill(stringChars, character);
@@ -331,7 +336,7 @@ public final class StringUtils {
         return false;
     }
 
-    public static <T> List<T> slice(final List<T> input, final List<Integer> indices) {
+    public static <T> List<T> slice(final List<T> input, final Iterable<Integer> indices) {
         final List<T> result = new ArrayList<>();
         for (final int i : indices) {
             result.add(input.get(i));

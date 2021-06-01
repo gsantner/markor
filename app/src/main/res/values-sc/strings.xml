@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Annanghe a %s</string>
     <string name="select_folder">Ischerta una cartella</string>
     <string name="edit">Èdita</string>
-    <string name="search_documents">Chirca documentos</string>
+    <string name="search_in_document">Chirca documentos</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Cumpartzi cun…</string>
     <string name="share">Cumpartzi</string>
     <string name="search">Chirca</string>

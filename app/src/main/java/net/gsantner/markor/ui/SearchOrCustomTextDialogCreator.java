@@ -22,7 +22,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -301,7 +300,6 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.titleText = dopt.titleText;
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
-            dopt2.iconsForData = Collections.nCopies(dopt2.data.size(), R.drawable.ic_search_black_24dp);
             dopt2.multiSelectCallback = posns -> userCallback.callback(StringUtils.slice(filteredIndices, posns));
             dopt2.positionCallback = posn -> dopt2.multiSelectCallback.callback(Collections.singletonList(posn));
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
@@ -359,7 +357,7 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt2);
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
-        dopt2.titleText = R.string.search_documents;
+        dopt2.titleText = R.string.search_in_document;
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, edit, sel);
         dopt2.neutralButtonText = R.string.search_and_replace;

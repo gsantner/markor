@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Anhängen an %s</string>
     <string name="select_folder">Ordner auswählen</string>
     <string name="edit">Bearbeiten</string>
-    <string name="search_documents">Notizen suchen</string>
+    <string name="search_in_document">Notizen suchen</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Teilen zu…</string>
     <string name="share">Teilen</string>
     <string name="search">Suchen</string>

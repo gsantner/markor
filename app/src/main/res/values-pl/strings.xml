@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Dołącz do %s</string>
     <string name="select_folder">Wybierz folder</string>
     <string name="edit">Edytuj</string>
-    <string name="search_documents">Szukaj notatek</string>
+    <string name="search_in_document">Szukaj notatek</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Udostępnij do&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>

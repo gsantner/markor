@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Προσάρτηση σε %s</string>
     <string name="select_folder">Επιλογή φακέλου</string>
     <string name="edit">Επεξεργασία</string>
-    <string name="search_documents">Αναζήτηση εγγράφου(ων)</string>
+    <string name="search_in_document">Αναζήτηση εγγράφου(ων)</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Κοινή χρήση σε&#8230;</string>
     <string name="share">Κοινοποίηση</string>
     <string name="search">Αναζήτηση</string>

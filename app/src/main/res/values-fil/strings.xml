@@ -34,7 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Idagdag sa %s</string>
     <string name="select_folder">Pumili ng Folder</string>
     <string name="edit">Baguhin</string>
-    <string name="search_documents">Maghanap sa mga dokumento</string>
+    <string name="search_in_document">Maghanap sa mga dokumento</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Ibahagi sa&#8230;</string>
     <string name="share">Ibahagi</string>
     <string name="search">Hanapin</string>

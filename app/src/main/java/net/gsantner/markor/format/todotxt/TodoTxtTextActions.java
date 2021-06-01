@@ -19,6 +19,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
@@ -280,25 +281,19 @@ public class TodoTxtTextActions extends TextActions {
 
     private void insertUniqueItem(String item) {
         item = item.trim().replace(" ", "_");
-        if (!selectionIsSingleTask() || _appSettings.isTodoAppendProConOnEndEnabled()) {
+        final String pattern = String.format("\\s\\Q%s\\E(:?\\s|$)", item);
+        final String lines = StringUtils.getSelectedLines(_hlEditor);
+        // Multiline or setting
+        if (lines.contains("\n") || _appSettings.isTodoAppendProConOnEndEnabled()) {
             runRegexReplaceAction(
                     // Replace existing item with itself. i.e. do nothing
-                    new ReplacePattern(String.format("\\s\\Q%s\\E(:?\\s|$)", item), "$0"),
+                    new ReplacePattern(pattern, "$0"),
                     // Append to end
                     new ReplacePattern("\\s*$", " " + item)
             );
-        } else {
+        } else if (!lines.matches(pattern)) {
             insertInline(item);
         }
-    }
-
-    private boolean selectionIsSingleTask() {
-        final int[] sel = StringUtils.getSelection(_hlEditor);
-        if (sel[0] != sel[1]) {
-            final CharSequence text = _hlEditor.getText();
-            return StringUtils.getLineStart(text, sel[0]) == StringUtils.getLineStart(text, sel[1]);
-        }
-        return true;
     }
 
     private void trimLeadingWhiteSpace() {
@@ -483,45 +478,5 @@ public class TodoTxtTextActions extends TextActions {
                 _appSettings.isDarkThemeEnabled(),
                 null
         );
-    }
-
-    /**
-     * Select the given indices.
-     * Case 1: Only one index -> Put cursor on that line
-     * Case 2: Contiguous indices -> Select tasks
-     * Case 3: Non-contiguous indices -> Move all selected tasks to the top and select them
-     * @param positions: Line indices to select
-     */
-    private void selectLines(final List<Integer> positions) {
-        if (!_hlEditor.hasFocus()) {
-            _hlEditor.requestFocus();
-        }
-        final CharSequence text = _hlEditor.getText();
-        if (positions.size() == 1) {
-            _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(text, positions.get(0), 0));
-        } else if (positions.size() > 1) {
-            final TreeSet<Integer> sup = new TreeSet<>(positions);
-            final int selStart, selEnd;
-            final int minLine = Collections.min(sup), maxLine = Collections.max(sup);
-            if (maxLine - minLine == sup.size() - 1) {
-                // Contiguous
-                selStart = StringUtils.getLineStart(text, StringUtils.getIndexFromLineOffset(text, minLine, 0));
-                selEnd = StringUtils.getIndexFromLineOffset(text, maxLine, 0);
-            } else {
-                // Non-Contiguous
-                final List<TodoTxtTask> selTasks = new ArrayList<>();
-                final List<TodoTxtTask> unselTasks = new ArrayList<>();
-                final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-                for (int i = 0; i < allTasks.length; i++) {
-                    (positions.contains(i) ? selTasks : unselTasks).add(allTasks[i]);
-                }
-                selTasks.addAll(unselTasks);
-                final String newText = TodoTxtTask.tasksToString(selTasks);
-                _hlEditor.setText(newText);
-                selStart = 0;
-                selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
-            }
-            _hlEditor.setSelection(selStart, selEnd);
-        }
     }
 }

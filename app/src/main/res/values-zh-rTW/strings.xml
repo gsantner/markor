@@ -34,7 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">增補到 %s</string>
     <string name="select_folder">選擇資料夾</string>
     <string name="edit">編輯</string>
-    <string name="search_documents">搜尋文件</string>
+    <string name="search_in_document">搜尋文件</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享到…</string>
     <string name="share">分享</string>
     <string name="search">搜尋</string>

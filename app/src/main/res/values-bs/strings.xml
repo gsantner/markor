@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Dodaj %s</string>
     <string name="select_folder">Označi direktorij</string>
     <string name="edit">Uredi</string>
-    <string name="search_documents">Traži dokumente</string>
+    <string name="search_in_document">Traži dokumente</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Podijeli sa ...</string>
     <string name="share">Podijeli</string>
     <string name="search">Traži</string>
