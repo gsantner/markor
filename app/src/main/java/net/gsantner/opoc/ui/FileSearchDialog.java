@@ -176,32 +176,4 @@ public class FileSearchDialog {
 
         return dialogBuilder;
     }
-
-    private static boolean setListViewHeightBasedOnItems(ListView listView, final int maxDisplayedItems) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return false;
-        }
-
-        int numberOfItems = listAdapter.getCount();
-        int totalItemsHeight = 0;
-        final int maxShowedItems = Math.min(numberOfItems, maxDisplayedItems);
-        // Get total height of items.
-        for (int itemPos = 0; itemPos < maxShowedItems; itemPos++) {
-            View item = listAdapter.getView(itemPos, null, listView);
-            item.measure(0, 0);
-            totalItemsHeight += item.getMeasuredHeight();
-        }
-
-        // Get total height of item dividers.
-        int totalDividersHeight = listView.getDividerHeight() * (maxShowedItems - 1);
-
-        // Set list height.
-        int height = totalItemsHeight + totalDividersHeight;
-        ViewGroup.LayoutParams params = new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, height);
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-
-        return true;
-    }
 }
