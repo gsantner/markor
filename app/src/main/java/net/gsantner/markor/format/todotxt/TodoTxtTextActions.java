@@ -38,7 +38,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -54,7 +56,7 @@ public class TodoTxtTextActions extends TextActions {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
             final Editable edit = _hlEditor.getText();
             final int[] sel = StringUtils.getSelection(_hlEditor);
-            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, edit, sel, this::doBasicHighlights, this::selectTaskByPositions);
+            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, edit, sel, this::doBasicHighlights, this::selectLines);
             return true;
         }
         return runCommonTextAction(action);
@@ -242,11 +244,11 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, false, t_this::selectTaskByPositions);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, false, t_this::selectLines);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, true, t_this::selectTaskByPositions);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, true, t_this::selectLines);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
@@ -483,23 +485,43 @@ public class TodoTxtTextActions extends TextActions {
         );
     }
 
-    private void selectTaskByPositions(final List<Integer> positions) {
+    /**
+     * Select the given indices.
+     * Case 1: Only one index -> Put cursor on that line
+     * Case 2: Contiguous indices -> Select tasks
+     * Case 3: Non-contiguous indices -> Move all selected tasks to the top and select them
+     * @param positions: Line indices to select
+     */
+    private void selectLines(final List<Integer> positions) {
         if (!_hlEditor.hasFocus()) {
             _hlEditor.requestFocus();
         }
         final CharSequence text = _hlEditor.getText();
         if (positions.size() == 1) {
             _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(text, positions.get(0), 0));
-        } else if (positions.size() > 1){
-            final List<TodoTxtTask> selTasks = new ArrayList<>();
-            final List<TodoTxtTask> unselTasks = new ArrayList<>();
-            final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-            for (int i = 0; i < allTasks.length; i++) {
-                (positions.contains(i) ? selTasks : unselTasks).add(allTasks[i]);
+        } else if (positions.size() > 1) {
+            final TreeSet<Integer> sup = new TreeSet<>(positions);
+            final int selStart, selEnd;
+            final int minLine = Collections.min(sup), maxLine = Collections.max(sup);
+            if (maxLine - minLine == sup.size() - 1) {
+                // Contiguous
+                selStart = StringUtils.getLineStart(text, StringUtils.getIndexFromLineOffset(text, minLine, 0));
+                selEnd = StringUtils.getIndexFromLineOffset(text, maxLine, 0);
+            } else {
+                // Non-Contiguous
+                final List<TodoTxtTask> selTasks = new ArrayList<>();
+                final List<TodoTxtTask> unselTasks = new ArrayList<>();
+                final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                for (int i = 0; i < allTasks.length; i++) {
+                    (positions.contains(i) ? selTasks : unselTasks).add(allTasks[i]);
+                }
+                selTasks.addAll(unselTasks);
+                final String newText = TodoTxtTask.tasksToString(selTasks);
+                _hlEditor.setText(newText);
+                selStart = 0;
+                selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
-            selTasks.addAll(unselTasks);
-            _hlEditor.setText(TodoTxtTask.tasksToString(selTasks));
-            _hlEditor.setSelection(0, StringUtils.getIndexFromLineOffset(text, positions.size() - 1, 0));
+            _hlEditor.setSelection(selStart, selEnd);
         }
     }
 }

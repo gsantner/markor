@@ -264,7 +264,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
-        dopt.titleIcon = R.drawable.gs_email_sign_black_24dp;
         dopt.multiSelectCallback = (result) -> {
             for (final Integer pi : result) {
                 callback.callback(dopt.data.get(pi).toString());
@@ -285,27 +284,29 @@ public class SearchOrCustomTextDialogCreator {
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
         dopt.data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
         if (isTodoTxtAlternativeNaming(activity)) {
-            dopt.titleText =  isProjects ? R.string.tag : R.string.category;
+            dopt.titleText = isProjects ? R.string.tag : R.string.category;
         } else {
             dopt.titleText = isProjects ? R.string.project : R.string.context;
         }
-        dopt.titleIcon = R.drawable.ic_search_black_24dp;
         dopt.searchHintText = R.string.search_or_custom;
+        dopt.iconsForData = Collections.nCopies(dopt.data.size(), R.drawable.ic_search_black_24dp);
+
         dopt.multiSelectCallback = keyIndices -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
             final Set<String> searchKeys = new HashSet<>(StringUtils.slice((List<String>) dopt.data, keyIndices));
-            final Pair<List<Integer>, List<TodoTxtTask>> filteredTasks = StringUtils.filter(Arrays.asList(allTasks), task ->
+            final List<Integer> filteredIndices = StringUtils.filterIndices(Arrays.asList(allTasks), task ->
                     StringUtils.containsAny(searchKeys, Arrays.asList(isProjects ? task.getProjects() : task.getContexts())));
-            dopt2.data = StringUtils.map(filteredTasks.second, TodoTxtTask::getLine);
+            dopt2.data = StringUtils.map(StringUtils.slice(Arrays.asList(allTasks), filteredIndices), TodoTxtTask::getLine);
             dopt2.titleText = dopt.titleText;
-            dopt2.titleIcon = dopt.titleIcon;
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
-            dopt2.multiSelectCallback = posns -> userCallback.callback(StringUtils.slice(filteredTasks.first, posns));
+            dopt2.iconsForData = Collections.nCopies(dopt2.data.size(), R.drawable.ic_search_black_24dp);
+            dopt2.multiSelectCallback = posns -> userCallback.callback(StringUtils.slice(filteredIndices, posns));
             dopt2.positionCallback = posn -> dopt2.multiSelectCallback.callback(Collections.singletonList(posn));
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
+
         dopt.positionCallback = index -> dopt.multiSelectCallback.callback(Collections.singletonList(index));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -344,7 +345,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
-        dopt.titleIcon = isTodoTxtAlternativeNaming(activity) ? R.drawable.ic_local_offer_black_24dp : R.drawable.ic_baseline_add_24;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.multiSelectCallback = (result) -> {
             for (final Integer pi : result) {
@@ -360,7 +360,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt2.titleText = R.string.search_documents;
-        dopt2.titleIcon = R.drawable.ic_search_black_24dp;
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, edit, sel);
         dopt2.neutralButtonText = R.string.search_and_replace;

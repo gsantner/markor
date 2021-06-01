@@ -302,7 +302,7 @@ public final class StringUtils {
         }
     }
 
-    public static <S, T> List<S> map(final Iterable<T> input, final Callback.g1<S, T> transform) {
+    public static <S, T> List<S> map(final Iterable<T> input, final Callback.r1<S, T> transform) {
         List<S> result = new ArrayList<>();
         for (final T in : input) {
             result.add(transform.callback(in));
@@ -310,18 +310,16 @@ public final class StringUtils {
         return result;
     }
 
-    public static <T> Pair<List<Integer>, List<T>> filter(final Iterable<T> input, final Callback.b1<T> condition) {
-        List<T> data = new ArrayList<>();
+    public static <T> List<Integer> filterIndices(final Iterable<T> input, final Callback.b1<T> condition) {
         List<Integer> indices = new ArrayList<>();
         int i = 0;
         for (final T in : input) {
             if (condition.callback(in)) {
-                data.add(in);
                 indices.add(i);
             }
             i++;
         }
-        return Pair.create(indices, data);
+        return indices;
     }
 
     public static <T> boolean containsAny(final Collection<T> set, final Iterable<T> tests) {

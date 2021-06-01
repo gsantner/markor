@@ -167,7 +167,7 @@ public class TodoTxtTask {
             if (ret.length() == 1) {
                 priority = ret.charAt(0);
             } else {
-                priority = 0;
+                priority = '~'; // No priority == lowest priority
             }
         }
         return priority;
@@ -328,8 +328,8 @@ public class TodoTxtTask {
         }
 
         private int compareNull(final String x, final String y) {
-            final int xi = (x == null || x == "") ? 1 : 0;
-            final int yi = (y == null || y == "") ? 1 : 0;
+            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
+            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 
