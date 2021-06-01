@@ -164,9 +164,9 @@ public final class StringUtils {
                 for (; i < s.length(); i++) {
                     if (s.charAt(i) == '\n') {
                         count++;
-                    }
-                    if (count == l) {
-                        break;
+                        if (count == l) {
+                            break;
+                        }
                     }
                 }
             }
