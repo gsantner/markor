@@ -208,9 +208,9 @@ public class FileSearchResultSelectorDialog {
             if (convertView == null) {
                 LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 textView = (TextView) mInflater.inflate(R.layout.expandable_list_group_item, null);
-                textView.setText(groupInfo.toString());
                 textView.setClickable(false);
             }
+            textView.setText(groupInfo.toString());
 
             int icon = groupInfo.isDirectory || groupInfo.getCountMatches() == 0 ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
