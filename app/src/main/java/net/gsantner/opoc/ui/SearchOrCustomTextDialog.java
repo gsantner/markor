@@ -112,7 +112,7 @@ public class SearchOrCustomTextDialog {
             return new Adapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
         }
 
-        private Adapter(final Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
+        private Adapter(Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
             super(context, layout, filteredItems);
             _inflater = LayoutInflater.from(context);
             _layout = layout;
@@ -215,11 +215,11 @@ public class SearchOrCustomTextDialog {
 
     /**
      * Set dialog state between multi-select and normal mode.
-     *
+     * <p>
      * Multi-select (if available) is activated when one or more items are selected.
      * It is deactivated when no items are selected. Items can be selected by long
      * press (in all modes) and by short press when multi-select is active.
-     *
+     * <p>
      * In multi-select more the 'neutral button' is changed to 'Unselect all'
      */
     private static void setDialogState(final AlertDialog dialog, final ListView listView, final Adapter adapter) {
@@ -252,7 +252,10 @@ public class SearchOrCustomTextDialog {
             if (adapter._dopt.neutralButtonCallback != null && adapter._dopt.neutralButtonText != 0) {
                 neutralButton.setVisibility(Button.VISIBLE);
                 neutralButton.setText(adapter._dopt.neutralButtonText);
-                neutralButton.setOnClickListener((v) -> adapter._dopt.neutralButtonCallback.callback());
+                neutralButton.setOnClickListener((v) -> {
+                    dialog.dismiss();
+                    adapter._dopt.neutralButtonCallback.callback();
+                });
             } else {
                 neutralButton.setVisibility(Button.INVISIBLE);
             }
@@ -307,7 +310,7 @@ public class SearchOrCustomTextDialog {
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         LinearLayout.LayoutParams lp;
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1);
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
         lp.gravity = Gravity.START | Gravity.BOTTOM;
         searchLayout.addView(searchEditText, lp);
 
@@ -318,7 +321,7 @@ public class SearchOrCustomTextDialog {
         clearButton.setColorFilter(ContextCompat.getColor(activity, dopt.isDarkDialog ? android.R.color.white : R.color.grey));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin , 0, margin, 0);
+        lp.setMargins(margin, 0, margin, 0);
         searchLayout.addView(clearButton, lp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
