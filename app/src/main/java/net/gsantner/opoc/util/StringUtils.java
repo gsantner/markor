@@ -9,9 +9,13 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Pair;
 import android.widget.TextView;
+
+import com.vladsch.flexmark.ast.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -346,5 +350,23 @@ public final class StringUtils {
             result.add(input.get(i));
         }
         return result;
+    }
+
+    // So One doesn't have to define all three always
+    public static class SimpleTextWatcher implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // Does nothing
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Does nothing
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // Does nothing
+        }
     }
 }

@@ -31,7 +31,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -50,6 +49,7 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +79,7 @@ public class SearchOrCustomTextDialog {
         public boolean searchIsRegex = false;
         public Callback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
-        public List<Integer> preSelected = Collections.emptyList();
+        public List<Integer> preSelected = null;
 
         public Callback.a0 neutralButtonCallback = null;
 
@@ -99,7 +99,7 @@ public class SearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
     }
 
-    private static class WithPositionAdapter extends ArrayAdapter<Integer> {
+    private static class Adapter extends ArrayAdapter<Integer> {
         @LayoutRes
         final int _layout;
         final LayoutInflater _inflater;
@@ -108,11 +108,11 @@ public class SearchOrCustomTextDialog {
         final Pattern _extraPattern;
         final Set<Integer> _selected;
 
-        public static WithPositionAdapter newInstance(Context context, DialogOptions dopt) {
-            return new WithPositionAdapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
+        public static Adapter newInstance(Context context, DialogOptions dopt) {
+            return new Adapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
         }
 
-        private WithPositionAdapter(final Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
+        private Adapter(final Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
             super(context, layout, filteredItems);
             _inflater = LayoutInflater.from(context);
             _layout = layout;
@@ -125,7 +125,7 @@ public class SearchOrCustomTextDialog {
         @NonNull
         @Override
         public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-            final int posInOriginalList = getItem(pos);
+            final int posInList = getItem(pos);
 
             final TextView textView;
             if (convertView == null) {
@@ -134,10 +134,10 @@ public class SearchOrCustomTextDialog {
                 textView = (TextView) convertView;
             }
 
-            textView.setActivated(_selected.contains(posInOriginalList));
+            textView.setActivated(_selected.contains(posInList));
 
-            if (posInOriginalList >= 0 && _dopt.iconsForData != null && posInOriginalList < _dopt.iconsForData.size() && _dopt.iconsForData.get(posInOriginalList) != 0) {
-                textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(posInOriginalList), 0, 0, 0);
+            if (posInList >= 0 && _dopt.iconsForData != null && posInList < _dopt.iconsForData.size() && _dopt.iconsForData.get(posInList) != 0) {
+                textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(posInList), 0, 0, 0);
                 textView.setCompoundDrawablePadding(32);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     textView.setCompoundDrawableTintList(ColorStateList.valueOf(_dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
@@ -146,7 +146,7 @@ public class SearchOrCustomTextDialog {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             }
 
-            final CharSequence text = _dopt.data.get(posInOriginalList).toString();
+            final CharSequence text = _dopt.data.get(posInList).toString();
             if (_dopt.highlightData != null) {
                 final boolean hl = _dopt.highlightData.contains(text);
                 textView.setTextColor(hl ? _dopt.highlightColor : _dopt.textColor);
@@ -222,7 +222,7 @@ public class SearchOrCustomTextDialog {
      *
      * In multi-select more the 'neutral button' is changed to 'Unselect all'
      */
-    private static void setDialogState(final AlertDialog dialog, final ListView listView, final WithPositionAdapter adapter) {
+    private static void setDialogState(final AlertDialog dialog, final ListView listView, final Adapter adapter) {
         final DialogOptions dopt = adapter._dopt;
         final List<Integer> filteredItems = adapter._filteredItems;
         final Set<Integer> selected = adapter._selected;
@@ -284,7 +284,7 @@ public class SearchOrCustomTextDialog {
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-        final WithPositionAdapter listAdapter = WithPositionAdapter.newInstance(activity, dopt);
+        final Adapter listAdapter = Adapter.newInstance(activity, dopt);
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setText(dopt.defaultText);
@@ -294,19 +294,10 @@ public class SearchOrCustomTextDialog {
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
-
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        searchEditText.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
             @Override
-            public void afterTextChanged(final Editable arg0) {
+            public void afterTextChanged(Editable s) {
                 listAdapter.getFilter().filter(searchEditText.getText());
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
-
-            @Override
-            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
             }
         });
 

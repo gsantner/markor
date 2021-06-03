@@ -156,17 +156,7 @@ public class SearchReplaceDialog {
         popupWindow.setModal(true);
         viewRoot.findViewById(R.id.recent_show_spinner).setOnClickListener(v -> popupWindow.show());
 
-        final TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do nothing
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Do nothing
-            }
-
+        final TextWatcher textWatcher = new StringUtils.SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 updateUI();
