@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Engadir a %s</string>
     <string name="select_folder">Seleccionar cartafol</string>
     <string name="edit">Editar</string>
-    <string name="search_in_document">Buscar documentos</string>
+    <string name="search_documents">Buscar documentos</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Compartir &#8230;</string>
     <string name="share">Compartir</string>
     <string name="search">Buscar</string>

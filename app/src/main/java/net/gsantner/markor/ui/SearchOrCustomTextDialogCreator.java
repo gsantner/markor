@@ -357,7 +357,7 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt2);
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
-        dopt2.titleText = R.string.search_in_document;
+        dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, edit, sel);
         dopt2.neutralButtonText = R.string.search_and_replace;

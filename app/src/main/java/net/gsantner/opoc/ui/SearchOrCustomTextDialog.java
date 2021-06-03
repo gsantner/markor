@@ -35,7 +35,6 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -215,13 +214,13 @@ public class SearchOrCustomTextDialog {
     }
 
     /**
-     * Acts as a state machine setting the dialog state beween multi-select and normal mode.
+     * Set dialog state between multi-select and normal mode.
      *
      * Multi-select (if available) is activated when one or more items are selected.
      * It is deactivated when no items are selected. Items can be selected by long
      * press (in all modes) and by short press when multi-select is active.
      *
-     * In multi-select more the 'neutral button' is changed to clear
+     * In multi-select more the 'neutral button' is changed to 'Unselect all'
      */
     private static void setDialogState(final AlertDialog dialog, final ListView listView, final WithPositionAdapter adapter) {
         final DialogOptions dopt = adapter._dopt;
@@ -311,28 +310,25 @@ public class SearchOrCustomTextDialog {
             }
         });
 
-        // Convenience
-        final int MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT;
-        final int WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT;
         final int margin = (int) (new ContextUtils(activity).convertDpToPx(8));
 
         final LinearLayout searchLayout = new LinearLayout(activity);
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout.LayoutParams slp;
-        slp = new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT, 1);
-        slp.gravity = Gravity.START | Gravity.BOTTOM;
-        searchLayout.addView(searchEditText, slp);
+        LinearLayout.LayoutParams lp;
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT,1);
+        lp.gravity = Gravity.START | Gravity.BOTTOM;
+        searchLayout.addView(searchEditText, lp);
 
+        // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
-        clearButton.setImageResource(R.drawable.ic_crop_black_24dp);
+        clearButton.setImageResource(R.drawable.ic_baseline_clear_24);
         TooltipCompat.setTooltipText(clearButton, activity.getString(R.string.clear));
         clearButton.setColorFilter(ContextCompat.getColor(activity, dopt.isDarkDialog ? android.R.color.white : R.color.grey));
-
-        slp = new LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT, 0);
-        slp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        slp.setMargins(margin / 2, 0, 0, 0);
-        searchLayout.addView(clearButton, slp);
+        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        lp.setMargins(margin , 0, margin, 0);
+        searchLayout.addView(clearButton, lp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
         final ListView listView = new ListView(activity);
@@ -342,12 +338,12 @@ public class SearchOrCustomTextDialog {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         if (dopt.isSearchEnabled) {
-            final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             lp.setMargins(margin, margin / 2, margin, margin / 2);
             linearLayout.addView(searchLayout, lp);
         }
 
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(MATCH_PARENT, 0);
+        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
         linearLayout.addView(listView, layoutParams);
         if (!TextUtils.isEmpty(dopt.messageText)) {

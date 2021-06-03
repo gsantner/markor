@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Lägg till %s</string>
     <string name="select_folder">Välj map</string>
     <string name="edit">Redigera</string>
-    <string name="search_in_document">Sök dokument</string>
+    <string name="search_documents">Sök dokument</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Dela till&#8230;</string>
     <string name="share">Dela</string>
     <string name="search">Söc</string>

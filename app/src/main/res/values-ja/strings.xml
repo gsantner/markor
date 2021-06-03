@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">%s に追記</string>
     <string name="select_folder">フォルダーの選択</string>
     <string name="edit">編集</string>
-    <string name="search_in_document">ドキュメントを検索</string>
+    <string name="search_documents">ドキュメントを検索</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">共有&#8230;</string>
     <string name="share">共有</string>
     <string name="search">検索</string>

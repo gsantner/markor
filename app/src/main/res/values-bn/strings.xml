@@ -34,7 +34,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">যুক্ত করো %s</string>
     <string name="select_folder">ফোল্ডার নির্বাচন করো</string>
     <string name="edit">সম্পাদনা</string>
-    <string name="search_in_document">নথি খোঁজো</string>
+    <string name="search_documents">নথি খোঁজো</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">&#8230; এর সাথে শেয়ার করো</string>
     <string name="share">শেয়ার</string>
     <string name="search">অনুসন্ধান</string>

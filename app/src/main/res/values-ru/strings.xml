@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Добавить к %s</string>
     <string name="select_folder">Выбрать папку</string>
     <string name="edit">Редактировать</string>
-    <string name="search_in_document">Искать документы</string>
+    <string name="search_documents">Искать документы</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Поделиться с…</string>
     <string name="share">Поделиться</string>
     <string name="search">Поиск</string>

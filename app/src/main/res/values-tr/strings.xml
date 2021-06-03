@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">%s içine ekle</string>
     <string name="select_folder">Klasör seç</string>
     <string name="edit">Düzenle</string>
-    <string name="search_in_document">Belgeleri ara</string>
+    <string name="search_documents">Belgeleri ara</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
     <string name="search">Ara</string>

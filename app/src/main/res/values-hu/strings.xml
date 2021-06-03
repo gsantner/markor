@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Hozáfűz ehhez: %s</string>
     <string name="select_folder">Mappa választása</string>
     <string name="edit">Szerkesztés</string>
-    <string name="search_in_document">Dokumentumok keresése</string>
+    <string name="search_documents">Dokumentumok keresése</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Megoszás ide: &#8230;</string>
     <string name="share">Megosztás</string>
     <string name="search">Keresés</string>

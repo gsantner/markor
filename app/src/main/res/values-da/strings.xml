@@ -35,7 +35,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="append_to_witharg">Tilføj til %s</string>
     <string name="select_folder">Vælg mappe</string>
     <string name="edit">Redigér</string>
-    <string name="search_in_document">Søg dokumenter</string>
+    <string name="search_documents">Søg dokumenter</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Del til...</string>
     <string name="share">Del</string>
     <string name="search">Søg</string>

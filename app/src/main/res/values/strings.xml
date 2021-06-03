@@ -36,7 +36,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_folder">Select folder</string>
     <string name="edit">Edit</string>
 
-    <string name="search_in_document">Search in document</string>
+    <string name="search_documents">Search documents</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Share to&#8230;</string>
     <string name="share">Share</string>
     <string name="search">Search</string>

@@ -307,6 +307,7 @@ public final class StringUtils {
         }
     }
 
+    // Transform each element of input
     public static <S, T> List<S> map(final Iterable<T> input, final Callback.r1<S, T> transform) {
         List<S> result = new ArrayList<>();
         for (final T in : input) {
@@ -315,6 +316,7 @@ public final class StringUtils {
         return result;
     }
 
+    // Get indices of iterable for which condition returns true
     public static <T> List<Integer> filterIndices(final Iterable<T> input, final Callback.b1<T> condition) {
         List<Integer> indices = new ArrayList<>();
         int i = 0;
@@ -327,6 +329,7 @@ public final class StringUtils {
         return indices;
     }
 
+    // Check if set contains any items in tests
     public static <T> boolean containsAny(final Collection<T> set, final Iterable<T> tests) {
         for (final T t : tests) {
             if (set.contains(t)) {
@@ -336,6 +339,7 @@ public final class StringUtils {
         return false;
     }
 
+    // Select indices from input
     public static <T> List<T> slice(final List<T> input, final Iterable<Integer> indices) {
         final List<T> result = new ArrayList<>();
         for (final int i : indices) {
