@@ -31,8 +31,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.BackgroundColorSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,7 +46,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -159,11 +156,6 @@ public class SearchOrCustomTextDialog {
             if (_dopt.highlighter != null) {
                 Spannable s = new SpannableString(text);
                 _dopt.highlighter.callback(s);
-                // Remove color when highlighted - can make the text hard to see
-                if (textView.isActivated()) {
-                    Highlighter.clearCharacterSpanType(s, ForegroundColorSpan.class);
-                    Highlighter.clearCharacterSpanType(s, BackgroundColorSpan.class);
-                }
                 textView.setText(s);
             } else {
                 textView.setText(text);
@@ -250,8 +242,7 @@ public class SearchOrCustomTextDialog {
 
             // Click listener set to select
             listView.setOnItemClickListener((parent, view, position, id) -> {
-                toggleSet(selected, filteredItems.get(position));
-                adapter.notifyDataSetChanged();
+                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position)));
                 setDialogState(dialog, listView, adapter);
             });
 
@@ -284,8 +275,7 @@ public class SearchOrCustomTextDialog {
         // Long click always selects, if multi select is possible
         if (dopt.multiSelectCallback != null) {
             listView.setOnItemLongClickListener((parent, view, position, id) -> {
-                toggleSet(selected, filteredItems.get(position));
-                adapter.notifyDataSetChanged();
+                ((TextView) view).setActivated(toggleSet(selected, filteredItems.get(position)));
                 setDialogState(dialog, listView, adapter);
                 return true;
             });
