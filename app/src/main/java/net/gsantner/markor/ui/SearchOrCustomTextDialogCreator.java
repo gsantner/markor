@@ -281,7 +281,8 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
-        dopt.data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
+        final List<String> data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
+        dopt.data = data;
         if (isTodoTxtAlternativeNaming(activity)) {
             dopt.titleText = isProjects ? R.string.tag : R.string.category;
         } else {
@@ -293,7 +294,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.multiSelectCallback = keyIndices -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
-            final Set<String> searchKeys = new HashSet<>(StringUtils.slice((List<String>) dopt.data, keyIndices));
+            final Set<String> searchKeys = new HashSet<>(StringUtils.slice(data, keyIndices));
             final List<Integer> filteredIndices = StringUtils.filterIndices(Arrays.asList(allTasks), task ->
                     StringUtils.containsAny(searchKeys, Arrays.asList(isProjects ? task.getProjects() : task.getContexts())));
             dopt2.data = StringUtils.map(StringUtils.slice(Arrays.asList(allTasks), filteredIndices), TodoTxtTask::getLine);

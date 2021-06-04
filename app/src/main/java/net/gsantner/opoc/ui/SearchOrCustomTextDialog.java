@@ -25,6 +25,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -130,6 +131,10 @@ public class SearchOrCustomTextDialog {
             final TextView textView;
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
+                textView.setShadowLayer(1, 1, 1, _dopt.isDarkDialog ? Color.BLACK : Color.WHITE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textView.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+                }
             } else {
                 textView = (TextView) convertView;
             }
