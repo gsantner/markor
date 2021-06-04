@@ -147,7 +147,7 @@ public abstract class Highlighter {
         clearParagraphSpanType(spannable, LineHeightSpan.class);
     }
 
-    private static <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
+    public static <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
         CharacterStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
@@ -155,7 +155,7 @@ public abstract class Highlighter {
         }
     }
 
-    private static <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
+    public static <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
         ParagraphStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
 
         for (int n = spans.length; n-- > 0; ) {
