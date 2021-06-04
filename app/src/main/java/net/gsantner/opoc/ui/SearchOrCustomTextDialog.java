@@ -133,7 +133,7 @@ public class SearchOrCustomTextDialog {
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
                 if (_dopt.multiSelectCallback != null) {
-                    textView.setShadowLayer(1, 1, 1, _dopt.isDarkDialog ? Color.BLACK : Color.WHITE);
+                    textView.setShadowLayer(1, 0, 0, _dopt.isDarkDialog ? Color.BLACK : Color.WHITE);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         textView.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
                     } else {
