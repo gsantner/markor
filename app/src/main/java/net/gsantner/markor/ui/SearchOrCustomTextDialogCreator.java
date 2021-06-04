@@ -35,7 +35,6 @@ import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -281,8 +280,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
-        final List<String> data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
-        dopt.data = data;
+        dopt.data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
         if (isTodoTxtAlternativeNaming(activity)) {
             dopt.titleText = isProjects ? R.string.tag : R.string.category;
         } else {
@@ -294,14 +292,38 @@ public class SearchOrCustomTextDialogCreator {
         dopt.multiSelectCallback = keyIndices -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
-            final Set<String> searchKeys = new HashSet<>(StringUtils.slice(data, keyIndices));
-            final List<Integer> filteredIndices = StringUtils.filterIndices(Arrays.asList(allTasks), task ->
-                    StringUtils.containsAny(searchKeys, Arrays.asList(isProjects ? task.getProjects() : task.getContexts())));
-            dopt2.data = StringUtils.map(StringUtils.slice(Arrays.asList(allTasks), filteredIndices), TodoTxtTask::getLine);
+
+            // Filter tasks with selected projects / contexts
+            final Set<String> searchKeys = new HashSet<>();
+            for (final int i : keyIndices) {
+                searchKeys.add(dopt.data.get(i).toString());
+            };
+
+            final List<Integer> filteredIndices = new ArrayList<>();
+            final List<String> taskLines = new ArrayList<>();
+            for (int i = 0; i < allTasks.length; i++) {
+                final TodoTxtTask task = allTasks[i];
+                final String[] lineKeys = isProjects ? task.getProjects() : task.getContexts();
+                for (final String key : lineKeys) {
+                    if (searchKeys.contains(key)) {
+                        filteredIndices.add(i);
+                        taskLines.add(task.getLine());
+                        break;
+                    }
+                }
+            }
+
+            dopt2.data = taskLines;
             dopt2.titleText = dopt.titleText;
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
-            dopt2.multiSelectCallback = posns -> userCallback.callback(StringUtils.slice(filteredIndices, posns));
+            dopt2.multiSelectCallback = posns -> {
+                final List<Integer> lineIndices = new ArrayList<>();
+                for (final int p : posns) {
+                    lineIndices.add(filteredIndices.get(p));
+                }
+                userCallback.callback(lineIndices);
+            };
             dopt2.positionCallback = posn -> dopt2.multiSelectCallback.callback(Collections.singletonList(posn));
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };

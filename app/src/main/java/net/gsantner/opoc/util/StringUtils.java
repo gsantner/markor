@@ -12,16 +12,11 @@ package net.gsantner.opoc.util;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Pair;
 import android.widget.TextView;
-
-import com.vladsch.flexmark.ast.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class StringUtils {
@@ -311,48 +306,7 @@ public final class StringUtils {
         }
     }
 
-    // Transform each element of input
-    public static <S, T> List<S> map(final Iterable<T> input, final Callback.r1<S, T> transform) {
-        List<S> result = new ArrayList<>();
-        for (final T in : input) {
-            result.add(transform.callback(in));
-        }
-        return result;
-    }
-
-    // Get indices of iterable for which condition returns true
-    public static <T> List<Integer> filterIndices(final Iterable<T> input, final Callback.b1<T> condition) {
-        List<Integer> indices = new ArrayList<>();
-        int i = 0;
-        for (final T in : input) {
-            if (condition.callback(in)) {
-                indices.add(i);
-            }
-            i++;
-        }
-        return indices;
-    }
-
-    // Check if set contains any items in tests
-    public static <T> boolean containsAny(final Collection<T> set, final Iterable<T> tests) {
-        for (final T t : tests) {
-            if (set.contains(t)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Select indices from input
-    public static <T> List<T> slice(final List<T> input, final Iterable<Integer> indices) {
-        final List<T> result = new ArrayList<>();
-        for (final int i : indices) {
-            result.add(input.get(i));
-        }
-        return result;
-    }
-
-    // So One doesn't have to define all three always
+    // So one doesn't have to define all three always
     public static class SimpleTextWatcher implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

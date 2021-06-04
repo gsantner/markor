@@ -19,7 +19,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.Spannable;
-import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
@@ -39,9 +38,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-import java.util.TreeSet;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
