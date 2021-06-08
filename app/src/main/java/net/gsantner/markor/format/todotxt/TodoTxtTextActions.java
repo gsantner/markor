@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Pattern;
 
 //TODO
 public class TodoTxtTextActions extends TextActions {
@@ -278,7 +279,7 @@ public class TodoTxtTextActions extends TextActions {
 
     private void insertUniqueItem(String item) {
         item = item.trim().replace(" ", "_");
-        final String pattern = String.format("\\s\\Q%s\\E(:?\\s|$)", item);
+        final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));
         final String lines = StringUtils.getSelectedLines(_hlEditor);
         // Multiline or setting
         if (lines.contains("\n") || _appSettings.isTodoAppendProConOnEndEnabled()) {
@@ -288,7 +289,7 @@ public class TodoTxtTextActions extends TextActions {
                     // Append to end
                     new ReplacePattern("\\s*$", " " + item)
             );
-        } else if (!lines.matches(pattern)) {
+        } else if (!pattern.matcher(lines).find()) {
             insertInline(item);
         }
     }
