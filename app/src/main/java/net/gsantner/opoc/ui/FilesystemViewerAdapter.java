@@ -578,7 +578,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     @Override
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
-        final boolean filterYes = _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
+        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
         final boolean dotYes =  _dopt.showDotFiles || !filename.startsWith(".");
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;
