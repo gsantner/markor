@@ -227,18 +227,22 @@ public class SearchOrCustomTextDialog {
         final Set<Integer> selected = adapter._selected;
         final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
 
-        final Callback.a0 setNeutralButtonUnselect = () -> {
+        final Callback.a0 setNeutralButtonToClear = () -> {
             final String unsel = dialog.getContext().getString(R.string.clear);
             neutralButton.setText(String.format("%s (%d)", unsel, selected.size()));
         };
 
         final Callback.a2<Integer, View> toggleSelection = (position, view) -> {
             final boolean startEmpty = selected.isEmpty();
-            if (!selected.remove(position)) {
-                selected.add(position);
+            final int index = filteredItems.get(position);
+            if (selected.contains(index)) {
+                selected.remove(index);
+                ((TextView) view).setActivated(false);
+            } else {
+                selected.add(index);
+                ((TextView) view).setActivated(true);
             }
-            ((TextView) view).setActivated(selected.contains(position));
-            setNeutralButtonUnselect.callback();
+            setNeutralButtonToClear.callback();
             // Update the dialog state if selected transitions from empty <-> not empty
             if (startEmpty ^ selected.isEmpty()) {
                 setDialogState(dialog, listView, adapter);
@@ -250,7 +254,7 @@ public class SearchOrCustomTextDialog {
 
             // Set neutral button to clear
             neutralButton.setVisibility(Button.VISIBLE);
-            setNeutralButtonUnselect.callback();
+            setNeutralButtonToClear.callback();
             neutralButton.setOnClickListener((v) -> {
                 selected.clear();
                 adapter.notifyDataSetChanged();
