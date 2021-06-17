@@ -152,11 +152,11 @@ public class SearchEngine {
         private final Pattern _regex;
 
         private Snackbar _snackBar;
-        private Integer _countCheckedFiles;
-        private Integer _currentQueueLength;
-        private boolean _isCanceled;
-        private Integer _currentSearchDepth;
-        private final List<FitFile> _result;
+        private Integer _countCheckedFiles = 0;
+        private Integer _currentQueueLength = 1;
+        private boolean _isCanceled = false;
+        private Integer _currentSearchDepth = 0;
+        private final List<FitFile> _result = new ArrayList<>();
 
         public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
@@ -177,25 +177,16 @@ public class SearchEngine {
                 }
             }
             _regex = pattern;
-
-            _countCheckedFiles = 0;
-            _isCanceled = false;
-            _currentSearchDepth = 0;
-            _currentQueueLength = 1;
-
-            _result = new ArrayList<>();
         }
 
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             if (_config.isRegexQuery && _regex == null) {
                 cancel(true);
                 return;
             }
-
             bindSnackBar(_config._query);
         }
 
