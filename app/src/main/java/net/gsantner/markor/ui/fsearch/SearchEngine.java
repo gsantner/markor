@@ -221,43 +221,41 @@ public class SearchEngine {
                 }
 
                 File[] subDirsOrFiles = currentDir.listFiles();
-                for (int i = 0; i < subDirsOrFiles.length && !isCancelled() && !_isCanceled; i++) {
-                    _countCheckedFiles++;
-                    File subDirOrFile = subDirsOrFiles[i];
-
-                    if (!subDirOrFile.canRead()) {
-                        continue;
+                for (final File f : subDirsOrFiles) {
+                    if (isCancelled() || _isCanceled) {
+                        break;
                     }
+                    _countCheckedFiles++;
 
-                    if (subDirOrFile.isDirectory()) {
-                        File directory = subDirOrFile;
-                        if (isIgnored(directory) || isFileContainSymbolicLinks(directory, currentDir)) {
+                    if (!f.canRead()) {
+                        continue;
+                    } else if (f.isDirectory()) { // Handling for directory
+                        if (isIgnored(f) || isFileContainSymbolicLinks(f, currentDir)) {
                             continue;
                         }
-                        subQueue.add(directory);
-                    } else {
-                        final File file = subDirOrFile;
-                        if (isIgnored(file)) {
+                        subQueue.add(f);
+                    } else { // Handling for file
+                        if (isIgnored(f)) {
                             continue;
                         }
 
                         if (_config.isSearchInContent) {
-                            if (!TextFormat.isTextFile(file.getName())) {
+                            if (!TextFormat.isTextFile(f.getName())) {
                                 continue;
                             }
-                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(file, _config.isOnlyFirstContentMatch);
+                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(f, _config.isOnlyFirstContentMatch);
 
                             if (contentMatches.isEmpty()) {
                                 continue;
                             }
 
-                            String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
+                            String path = f.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
                             _result.add(new FitFile(path, false, contentMatches));
                         }
                     }
 
                     if (!_config.isSearchInContent) {
-                        getFileIfNameMatches(subDirOrFile);
+                        getFileIfNameMatches(f);
                     }
 
                     publishProgress(_currentQueueLength + subQueue.size(), _currentSearchDepth, _result.size(), _countCheckedFiles);
