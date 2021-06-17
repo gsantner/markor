@@ -111,35 +111,23 @@ public class SearchEngine {
 
 
     public static class FitFile {
-        private final String _path;
-        private final boolean _isDirectory;
-        private final List<ContentMatchUnit> _contentMatches;
+        public final String path;
+        public final boolean isDirectory;
+        private final List<ContentMatchUnit> _contentMatches = new ArrayList<>();
 
-        public FitFile(final String path, final boolean isDirectory) {
-            _path = path;
-            _isDirectory = isDirectory;
-            _contentMatches = new ArrayList<>();
-        }
-
-        public FitFile(final String path, final boolean isDirectory, List<ContentMatchUnit> contentMatches) {
-            this(path, isDirectory);
+        public FitFile(final String a_path, final boolean a_isDirectory, List<ContentMatchUnit> contentMatches) {
+            path = a_path;
+            isDirectory = a_isDirectory;
             addContentMatches(contentMatches);
         }
 
-        private void addContentMatches(final List<ContentMatchUnit> lineNumbers) {
-            _contentMatches.addAll(lineNumbers);
-        }
-
-        public final String getPath() {
-            return _path;
+        private FitFile addContentMatches(final List<ContentMatchUnit> lineNumbers) {
+            _contentMatches.addAll(lineNumbers != null ? lineNumbers : new ArrayList<>());
+            return this;
         }
 
         public final List<ContentMatchUnit> getContentMatches() {
             return Collections.unmodifiableList(_contentMatches);
-        }
-
-        public final boolean isDirectory() {
-            return _isDirectory;
         }
 
         public static class ContentMatchUnit {
@@ -389,7 +377,7 @@ public class SearchEngine {
 
                 if (isMatch) {
                     String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
-                    _result.add(new FitFile(path, file.isDirectory()));
+                    _result.add(new FitFile(path, file.isDirectory(), null));
                 }
             } catch (Exception ignored) {
             }

@@ -141,7 +141,7 @@ public class FileSearchResultSelectorDialog {
 
         for (int i = 0; i < searchResults.size(); i++) {
             SearchEngine.FitFile fitFile = searchResults.get(i);
-            boolean isPathContainsQuery = query.isEmpty() || fitFile.getPath().toLowerCase().contains(query);
+            boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
             ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
 
             for (SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
@@ -155,7 +155,7 @@ public class FileSearchResultSelectorDialog {
                 }
             }
 
-            groupItemsData.add(new GroupItemsInfo(fitFile.getPath(), fitFile.isDirectory(), (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
+            groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
         }
 
         return groupItemsData;
