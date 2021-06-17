@@ -27,24 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 
 public class FileSearchDialog {
-
-    public static class DialogOptions {
-        public final String query;
-        public final boolean isRegexQuery;
-        public final boolean isCaseSensitiveQuery;
-        public final boolean isSearchInContent;
-        public final boolean isOnlyFirstContentMatch;
-
-        public DialogOptions(final String a_query, final boolean a_isRegexQuery, final boolean a_isCaseSensitiveQuery, final boolean a_isSearchInContent, final boolean a_isOnlyFirstContentMatch) {
-            query = a_query;
-            isRegexQuery = a_isRegexQuery;
-            isCaseSensitiveQuery = a_isCaseSensitiveQuery;
-            isSearchInContent = a_isSearchInContent;
-            isOnlyFirstContentMatch = a_isOnlyFirstContentMatch;
-        }
-    }
-
-    public static void showDialog(final Activity activity, final Callback.a1<DialogOptions> dialogCallback) {
+    public static void showDialog(final Activity activity, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         final AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, dialogCallback);
         dialog.set(dialogBuilder.create());
@@ -58,7 +41,7 @@ public class FileSearchDialog {
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<DialogOptions> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
@@ -85,7 +68,15 @@ public class FileSearchDialog {
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {
-                dialogCallback.callback(new DialogOptions(query, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked(), onlyFirstContentMatchCheckBox.isChecked()));
+                SearchEngine.SearchOptions opt = new SearchEngine.SearchOptions();
+                opt.query = query;
+                opt.isRegexQuery = regexCheckBox.isChecked();
+                opt.isCaseSensitiveQuery = caseSensitivityCheckBox.isChecked();
+                opt.isSearchInContent = searchInContentCheckBox.isChecked();
+                opt.isOnlyFirstContentMatch = onlyFirstContentMatchCheckBox.isChecked();
+                opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
+                opt.maxSearchDepth = appSettings.getSearchMaxDepth();
+                dialogCallback.callback(opt);
             }
         };
 
@@ -136,17 +127,17 @@ public class FileSearchDialog {
 
         // Checkbox: Regex search
         regexCheckBox.setText(R.string.regex_search);
-        regexCheckBox.setChecked(AppSettings.get().isSearchQueryUseRegex());
+        regexCheckBox.setChecked(appSettings.isSearchQueryUseRegex());
         dialogLayout.addView(regexCheckBox, margins);
 
         // Checkbox: Case sensitive
         caseSensitivityCheckBox.setText(R.string.case_sensitive);
-        caseSensitivityCheckBox.setChecked(AppSettings.get().isSearchQueryCaseSensitive());
+        caseSensitivityCheckBox.setChecked(appSettings.isSearchQueryCaseSensitive());
         dialogLayout.addView(caseSensitivityCheckBox, margins);
 
         // Checkbox: Search in content
         searchInContentCheckBox.setText(R.string.search_in_content);
-        searchInContentCheckBox.setChecked(AppSettings.get().isSearchInContent());
+        searchInContentCheckBox.setChecked(appSettings.isSearchInContent());
         searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             onlyFirstContentMatchCheckBox.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
         });
@@ -154,7 +145,7 @@ public class FileSearchDialog {
 
         // Checkbox: Only first content match
         onlyFirstContentMatchCheckBox.setText(R.string.only_first_content_match);
-        onlyFirstContentMatchCheckBox.setChecked(AppSettings.get().isOnlyFirstContentMatch());
+        onlyFirstContentMatchCheckBox.setChecked(appSettings.isOnlyFirstContentMatch());
         onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
         dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
 

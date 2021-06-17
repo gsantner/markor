@@ -43,24 +43,19 @@ public class SearchEngine {
         queryHistory.addFirst(query);
     }
 
-    public static class Config {
-        private final File rootSearchDir;
-        private String query;
+    public static class SearchOptions {
+        public File rootSearchDir;
+        public String query;
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
-        public boolean isShowResultOnCancel = true;
-        public int maxSearchDepth;
-        public boolean isOnlyFirstContentMatch;
-        public boolean isShowMatchPreview = true;
         public boolean isSearchInContent;
-        public final List<String> ignoredDirectories;
+        public boolean isOnlyFirstContentMatch;
 
-        public Config(final File a_rootSearchDir, String a_query, final List<String> a_ignoredDirectories) {
-            rootSearchDir = a_rootSearchDir;
-            query = a_query;
-            ignoredDirectories = a_ignoredDirectories;
-        }
+        public int maxSearchDepth;
+        public List<String> ignoredDirectories;
+        public boolean isShowMatchPreview = true;
+        public boolean isShowResultOnCancel = true;
     }
 
 
@@ -96,7 +91,7 @@ public class SearchEngine {
     }
 
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<FitFile>> callback) {
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity = activity;
         SearchEngine.isSearchExecuting = true;
         SearchEngine.addToHistory(config.query);
@@ -108,7 +103,7 @@ public class SearchEngine {
 
 
     public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<FitFile>> {
-        private final SearchEngine.Config _config;
+        private final SearchOptions _config;
         private final Callback.a1<List<FitFile>> _callback;
         private final Pattern _regex;
 
@@ -121,7 +116,7 @@ public class SearchEngine {
         private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
         private final List<String> _ignoredExactDirs = new ArrayList<>();
 
-        public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
+        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
 

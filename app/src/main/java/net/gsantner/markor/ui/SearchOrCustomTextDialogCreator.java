@@ -130,21 +130,14 @@ public class SearchOrCustomTextDialogCreator {
 
         AppSettings appSettings = new AppSettings(activity);
 
-        Callback.a1<FileSearchDialog.DialogOptions> fileSearchDialogCallback = (fileSearchOptions) -> {
+        Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+            appSettings.setSearchQueryRegexUsing(searchOptions.isRegexQuery);
+            appSettings.setSearchQueryCaseSensitivity(searchOptions.isCaseSensitiveQuery);
+            appSettings.setSearchInContent(searchOptions.isSearchInContent);
+            appSettings.setOnlyFirstContentMatch(searchOptions.isOnlyFirstContentMatch);
 
-            appSettings.setSearchQueryRegexUsing(fileSearchOptions.isRegexQuery);
-            appSettings.setSearchQueryCaseSensitivity(fileSearchOptions.isCaseSensitiveQuery);
-            appSettings.setSearchInContent(fileSearchOptions.isSearchInContent);
-            appSettings.setOnlyFirstContentMatch(fileSearchOptions.isOnlyFirstContentMatch);
-
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, fileSearchOptions.query, appSettings.getFileSearchIgnorelist());
-            config.isCaseSensitiveQuery = fileSearchOptions.isCaseSensitiveQuery;
-            config.isRegexQuery = fileSearchOptions.isRegexQuery;
-            config.maxSearchDepth = appSettings.getSearchMaxDepth();
-            config.isSearchInContent = fileSearchOptions.isSearchInContent;
-            config.isOnlyFirstContentMatch = fileSearchOptions.isOnlyFirstContentMatch;
-
-            SearchEngine.queueFileSearch(activity, config, searchResults -> {
+            searchOptions.rootSearchDir = searchDir;
+            SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
             });
         };
