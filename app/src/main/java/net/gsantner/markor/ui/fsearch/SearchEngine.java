@@ -220,7 +220,7 @@ public class SearchEngine {
                 }
 
                 File[] subDirsOrFiles = currentDir.listFiles();
-                for (final File f : subDirsOrFiles) {
+                for (final File f : (subDirsOrFiles != null ? subDirsOrFiles : new File[0])) {
                     if (isCancelled() || _isCanceled) {
                         break;
                     }
