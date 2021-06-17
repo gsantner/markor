@@ -52,10 +52,10 @@ public class SearchEngine {
         private final File _rootSearchDir;
         private String _query;
 
-        private final List<Pattern> _ignoredRegexDirs;
-        private final List<String> _ignoredExactDirs;
-        private final List<Pattern> _ignoredRegexFiles;
-        private final List<String> _ignoredExactFiles;
+        private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
+        private final List<String> _ignoredExactDirs = new ArrayList<>();
+        private final List<Pattern> _ignoredRegexFiles = new ArrayList<>();
+        private final List<String> _ignoredExactFiles = new ArrayList<>();
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
@@ -68,15 +68,9 @@ public class SearchEngine {
         public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles) {
             _rootSearchDir = rootSearchDir;
             _query = query;
-
-            _ignoredExactDirs = new ArrayList<>();
-            _ignoredRegexDirs = new ArrayList<>();
             if (ignoredDirectories != null) {
                 splitRegexExactFiles(ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
             }
-
-            _ignoredExactFiles = new ArrayList<>();
-            _ignoredRegexFiles = new ArrayList<>();
             if (ignoredFiles != null) {
                 splitRegexExactFiles(ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
             }
