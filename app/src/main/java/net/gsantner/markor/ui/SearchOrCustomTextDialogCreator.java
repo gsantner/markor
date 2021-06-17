@@ -28,10 +28,10 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
+import net.gsantner.markor.ui.fsearch.FileSearchDialog;
+import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
+import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.ui.FileSearchDialog;
-import net.gsantner.opoc.ui.FileSearchResultSelectorDialog;
-import net.gsantner.opoc.ui.SearchEngine;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 

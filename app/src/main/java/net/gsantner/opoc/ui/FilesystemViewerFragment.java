@@ -43,6 +43,7 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
