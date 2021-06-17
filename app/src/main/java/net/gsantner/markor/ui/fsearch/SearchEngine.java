@@ -61,7 +61,6 @@ public class SearchEngine {
         public boolean isShowResultOnCancel = true;
     }
 
-
     public static class FitFile {
         public final String path;
         public final boolean isDirectory;
@@ -93,7 +92,6 @@ public class SearchEngine {
         }
     }
 
-
     public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity.set(new WeakReference<>(activity));
         SearchEngine.isSearchExecuting = true;
@@ -103,7 +101,6 @@ public class SearchEngine {
 
         return task;
     }
-
 
     public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<FitFile>> {
         private final SearchOptions _config;
@@ -143,7 +140,6 @@ public class SearchEngine {
             _regex = pattern;
         }
 
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -153,7 +149,6 @@ public class SearchEngine {
             }
             bindSnackBar(_config.query);
         }
-
 
         @SuppressLint("ShowToast")
         public void bindSnackBar(String text) {
@@ -209,7 +204,6 @@ public class SearchEngine {
 
             return _result;
         }
-
 
         private Queue<File> currentDirectoryHandler(File currentDir) {
             Queue<File> subQueue = new LinkedList<>();
@@ -337,7 +331,6 @@ public class SearchEngine {
             return true;
         }
 
-
         private void getFileIfNameMatches(File file) {
             try {
                 String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
@@ -350,7 +343,6 @@ public class SearchEngine {
             } catch (Exception ignored) {
             }
         }
-
 
         private int getDirectoryDepth(File parentDir, File childDir) {
             try {
@@ -367,7 +359,6 @@ public class SearchEngine {
 
             return -1;
         }
-
 
         private void preCancel() {
             if (_config.isShowResultOnCancel) {
@@ -442,7 +433,6 @@ public class SearchEngine {
 
             return ret;
         }
-
 
         private boolean isIgnored(File directory) {
             final String dirName = _config.isCaseSensitiveQuery ? directory.getName() : directory.getName().toLowerCase();

@@ -43,7 +43,6 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
-
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
@@ -120,7 +119,6 @@ public class FileSearchResultSelectorDialog {
         });
 
         dialogLayout.addView(expandableListView);
-
 
         // Configure dialog
         dialogBuilder.setView(dialogLayout)

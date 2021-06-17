@@ -25,7 +25,6 @@ import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-
 public class FileSearchDialog {
     public static void showDialog(final Activity activity, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
@@ -123,7 +122,6 @@ public class FileSearchDialog {
 
             dialogLayout.addView(queryHistorySpinner);
         }
-
 
         // Checkbox: Regex search
         regexCheckBox.setText(R.string.regex_search);
