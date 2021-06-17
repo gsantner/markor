@@ -123,12 +123,9 @@ public class SearchEngine {
             _config = config;
             _callback = callback;
 
+            _config.query = _config.isCaseSensitiveQuery ? _config.query : _config.query.toLowerCase();
             splitRegexExactFiles(config.ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
             splitRegexExactFiles(SearchEngine.defaultIgnoredDirs, _ignoredExactDirs, _ignoredRegexDirs);
-
-            if (_config.isCaseSensitiveQuery) {
-                _config.query = _config.query.toLowerCase();
-            }
 
             Pattern pattern = null;
             if (_config.isRegexQuery) {
