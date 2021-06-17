@@ -682,7 +682,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument() {
         boolean ret = false;
-        if (isAdded() && !Arrays.asList(_document, _hlEditor, _hlEditor.getText()).contains(null)) {
+        if (isAdded() && _document != null && _hlEditor != null && _hlEditor.getText() != null) {
             ret = DocumentIO.saveDocument(_document, _hlEditor.getText().toString(), _shareUtil, getContext());
             updateLauncherWidgets();
 
