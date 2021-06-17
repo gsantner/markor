@@ -764,25 +764,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @Override
-    public void onFragmentFirstTimeVisible() {
-        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
-        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
-            int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(lastPos);
-            } else if (_appSettings.isEditorStartOnBottom()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(_hlEditor.length());
-            }
-        }
-    }
-
     private void checkReloadDisk(boolean forceReload) {
         if (_firstFileLoad) {
             _firstFileLoad = false;
@@ -794,6 +775,25 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _document = cmp;
             loadDocument();
             loadDocumentIntoUi();
+        }
+    }
+
+    @Override
+    public void onFragmentFirstTimeVisible() {
+        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
+        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
+            int lastPos;
+            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
+                if (!initPreview) {
+                    _hlEditor.requestFocus();
+                }
+                _hlEditor.setSelection(lastPos);
+            } else if (_appSettings.isEditorStartOnBotttom()) {
+                if (!initPreview) {
+                    _hlEditor.requestFocus();
+                }
+                _hlEditor.setSelection(_hlEditor.length());
+            }
         }
     }
 
