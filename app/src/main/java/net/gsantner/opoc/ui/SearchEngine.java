@@ -9,7 +9,6 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -57,7 +56,6 @@ public class SearchEngine {
         private final List<String> _ignoredExactDirs;
         private final List<Pattern> _ignoredRegexFiles;
         private final List<String> _ignoredExactFiles;
-        private final List<Pattern> _searchByContentExtensions;
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
@@ -67,7 +65,7 @@ public class SearchEngine {
         public boolean isShowMatchPreview;
         public boolean isSearchInContent;
 
-        public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles, final List<String> searchByContentExtensions) {
+        public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles) {
             _rootSearchDir = rootSearchDir;
             _query = query;
             isShowResultOnCancel = true;
@@ -83,11 +81,6 @@ public class SearchEngine {
             if (ignoredFiles != null) {
                 splitRegexExactFiles(ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
             }
-
-            _searchByContentExtensions = new ArrayList<>();
-            if (searchByContentExtensions != null) {
-                splitExtensions(searchByContentExtensions, _searchByContentExtensions);
-            }
         }
 
 
@@ -99,7 +92,8 @@ public class SearchEngine {
                 }
 
                 if (pattern.startsWith("\"")) {
-                    pattern = pattern.replace("\"", "");if (pattern.isEmpty()) {
+                    pattern = pattern.replace("\"", "");
+                    if (pattern.isEmpty()) {
                         continue;
                     }
                     exactList.add(pattern);
@@ -111,26 +105,6 @@ public class SearchEngine {
                         String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
                         Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
                     }
-                }
-            }
-        }
-
-        private void splitExtensions(List<String> list, List<Pattern> patterns) {
-            for (int i = 0; i < list.size(); i++) {
-                String line = list.get(i);
-                if (StringUtils.isNullOrWhitespace(line)) {
-                    continue;
-                }
-
-                line = line.replaceAll("(?<![.])[*]", ".*");
-                if (!line.contains("*") && !line.contains("$") && !line.contains("^") && !line.contains("?") && !line.contains("\\") && !line.contains("|")) {
-                    line = String.format(".*%s$", line);
-                }
-                try {
-                    patterns.add(Pattern.compile(line));
-                } catch (Exception ex) {
-                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), line);
-                    Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -580,16 +554,8 @@ public class SearchEngine {
             return false;
         }
 
-
         private boolean isSearchByContentIgnoredFor(final File file) {
-            final String fileName = file.getName().toLowerCase();
-            for (Pattern pattern : _config._searchByContentExtensions) {
-                if (pattern.matcher(fileName).matches()) {
-                    return false;
-                }
-            }
-
-            return !TextFormat.isTextFile(file);
+            return !TextFormat.isTextFile(file.getName().toLowerCase());
         }
 
     }

@@ -322,7 +322,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
     <string name="pref_key__ignored_directories" translatable="false">pref_key__ignored_directories</string>
     <string name="pref_key__ignored_search_file_names" translatable="false">pref_key__ignored_search_file_names</string>
-    <string name="pref_key__search_by_context_have_to_include" translatable="false">pref_key__search_by_context_have_to_include</string>
     <string name="pref_key__is_search_query_case_sensitive" translatable="false">pref_key__is_search_query_case_sensitive</string>
     <string name="pref_key__is_search_query_use_regex" translatable="false">pref_key__is_search_query_use_regex</string>
     <string name="pref_key__is_search_in_content" translatable="false">pref_key__is_search_in_content</string>

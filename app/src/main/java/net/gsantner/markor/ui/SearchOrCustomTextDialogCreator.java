@@ -137,7 +137,7 @@ public class SearchOrCustomTextDialogCreator {
             appSettings.setSearchInContent(cb_options.isSearchInContent);
             appSettings.setOnlyFirstContentMatch(cb_options.isOnlyFirstContentMatch);
 
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options.query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames(), appSettings.getSearchByContentExtensions());
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options.query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames());
             config.isCaseSensitiveQuery = cb_options.isCaseSensitiveQuery;
             config.isRegexQuery = cb_options.isRegexQuery;
             config.maxSearchDepth = appSettings.getSearchMaxDepth();

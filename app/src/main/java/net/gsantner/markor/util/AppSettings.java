@@ -672,15 +672,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return ignoredFiles;
     }
 
-    public List<String> getSearchByContentExtensions() {
-        List<String> extensions;
-        String pref = getString(R.string.pref_key__search_by_context_have_to_include, "");
-        extensions = Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
-
-        return extensions;
-    }
-
-
     public @IdRes
     int getAppStartupTab() {
         int i = getIntOfStringPref(R.string.pref_key__app_start_tab_v2, R.id.nav_notebook);

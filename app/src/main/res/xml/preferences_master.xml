@@ -95,14 +95,6 @@
                 android:key="@string/pref_key__ignored_search_file_names"
                 android:title="@string/ignored_search_file_names" />
 <!--
-           <string name="search_by_context_have_to_include_dialog">Search by context only for filenames that contain Extension. Use new line as separator.\nExamples: .md\n.txt.</string>
-            <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/empty_string"
-                android:dialogMessage="@string/search_by_context_have_to_include_dialog"
-                android:icon="@drawable/ic_baseline_rule_folder_24"
-                android:key="@string/pref_key__search_by_context_have_to_include"
-                android:title="@string/search_by_context_have_to_include" />
-
             <string name="show_match_preview">Show match preview</string>
             <CheckBoxPreference
                 android:defaultValue="true"
