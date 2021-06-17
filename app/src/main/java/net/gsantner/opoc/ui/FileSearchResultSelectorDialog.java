@@ -145,13 +145,12 @@ public class FileSearchResultSelectorDialog {
             ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
 
             for (SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
-                final String previewMatch = contentMatch.getPreviewMatch();
+                final String previewMatch = contentMatch.previewMatch;
 
                 if (isPathContainsQuery || previewMatch.toLowerCase().contains(query)) {
                     ChildItemsInfo childItem = new ChildItemsInfo();
-                    int lineNumber = contentMatch.getLineNumber();
-                    childItem.lineNumber = (contentMatch.getLineNumber());
-                    childItem.displayedText = ("Line " + lineNumber + ": " + previewMatch);
+                    childItem.lineNumber = contentMatch.lineNumber;
+                    childItem.displayedText = ("Line " + childItem.lineNumber + ": " + previewMatch);
                     groupChildItems.add(childItem);
                 }
             }

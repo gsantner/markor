@@ -143,20 +143,12 @@ public class SearchEngine {
         }
 
         public static class ContentMatchUnit {
-            private final int _lineNumber;
-            private final String _previewMatch;
+            public final int lineNumber;
+            public final String previewMatch;
 
-            public ContentMatchUnit(final int lineNumber, final String previewMatch) {
-                _lineNumber = lineNumber;
-                _previewMatch = previewMatch;
-            }
-
-            public final int getLineNumber() {
-                return _lineNumber;
-            }
-
-            public final String getPreviewMatch() {
-                return _previewMatch;
+            public ContentMatchUnit(final int a_lineNumber, final String a_previewMatch) {
+                lineNumber = a_lineNumber;
+                previewMatch = a_previewMatch;
             }
         }
     }
