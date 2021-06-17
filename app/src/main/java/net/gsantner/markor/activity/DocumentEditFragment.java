@@ -599,10 +599,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void initDocState() {
-        final boolean inMainActivity = getActivity() instanceof MainActivity;
         final String path = getPath();
         wrapTextSetting = _appSettings.getDocumentWrapState(path);
-        wrapText = inMainActivity || wrapTextSetting;
+        wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         updateMenuToggleStates(0);
@@ -695,7 +694,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isTabTodoOrQuickNote()) {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isDisplayedAtMainActivity()) {
             int v;
             if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
                 _hlEditor.smoothMoveCursorToLine(v);
@@ -704,7 +703,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    private boolean isTabTodoOrQuickNote() {
+    private boolean isDisplayedAtMainActivity() {
         return getActivity() instanceof MainActivity;
     }
 
@@ -748,7 +747,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isTabTodoOrQuickNote()) {
+        if (isVisibleToUser && isDisplayedAtMainActivity()) {
             checkReloadDisk(false);
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
