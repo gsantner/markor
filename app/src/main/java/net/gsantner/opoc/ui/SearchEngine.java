@@ -59,16 +59,15 @@ public class SearchEngine {
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
-        public boolean isShowResultOnCancel;
+        public boolean isShowResultOnCancel = true;
         public int maxSearchDepth;
         public boolean isOnlyFirstContentMatch;
-        public boolean isShowMatchPreview;
+        public boolean isShowMatchPreview = true;
         public boolean isSearchInContent;
 
         public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles) {
             _rootSearchDir = rootSearchDir;
             _query = query;
-            isShowResultOnCancel = true;
 
             _ignoredExactDirs = new ArrayList<>();
             _ignoredRegexDirs = new ArrayList<>();
@@ -127,10 +126,6 @@ public class SearchEngine {
             addContentMatches(contentMatches);
         }
 
-        private void addContentMatch(final ContentMatchUnit lineNumber) {
-            _contentMatches.add(lineNumber);
-        }
-
         private void addContentMatches(final List<ContentMatchUnit> lineNumbers) {
             _contentMatches.addAll(lineNumbers);
         }
@@ -150,10 +145,6 @@ public class SearchEngine {
         public static class ContentMatchUnit {
             private final int _lineNumber;
             private final String _previewMatch;
-
-            public ContentMatchUnit(final int lineNumber) {
-                this(lineNumber, "");
-            }
 
             public ContentMatchUnit(final int lineNumber, final String previewMatch) {
                 _lineNumber = lineNumber;

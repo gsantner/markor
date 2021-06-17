@@ -94,16 +94,6 @@
                 android:icon="@drawable/ic_baseline_rule_folder_24"
                 android:key="@string/pref_key__ignored_search_file_names"
                 android:title="@string/ignored_search_file_names" />
-<!--
-            <string name="show_match_preview">Show match preview</string>
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:icon="@drawable/ic_baseline_speaker_notes_off_24"
-                android:key="@string/pref_key__is_show_match_preview"
-                android:summary="@string/show_match_preview_summary"
-                android:title="@string/show_match_preview" />
--->
-
         </PreferenceCategory>
 
 

@@ -430,7 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="case_sensitive">Case sensitive</string>
     <string name="only_first_content_match">Get first content match</string>
     <string name="regex_can_not_compile">Regex: can not compile \'%s\'</string>
-    <string name="show_match_preview_summary">Show match preview when using content search.</string>
     <string name="keep_both">Keep both</string>
     <string name="skip">Skip</string>
     <string name="overwrite">Overwrite</string>

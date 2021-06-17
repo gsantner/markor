@@ -141,7 +141,6 @@ public class SearchOrCustomTextDialogCreator {
             config.isCaseSensitiveQuery = cb_options.isCaseSensitiveQuery;
             config.isRegexQuery = cb_options.isRegexQuery;
             config.maxSearchDepth = appSettings.getSearchMaxDepth();
-            config.isShowMatchPreview = appSettings.isShowMatchPreview();
             config.isSearchInContent = cb_options.isSearchInContent;
             config.isOnlyFirstContentMatch = cb_options.isOnlyFirstContentMatch;
 
