@@ -329,7 +329,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 requestFocus();
             }
             String text = getText().toString();
-            int index = StringUtils.getIndexByLineNumber(text, lineNumber);
+            int index = StringUtils.getIndexFromLineOffset(text, lineNumber, 0);
             if (index < 0) {
                 return;
             }
