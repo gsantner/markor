@@ -76,7 +76,6 @@ public class SearchEngine {
             }
         }
 
-
         private void splitRegexExactFiles(List<String> list, List<String> exactList, List<Pattern> regexList) {
             for (int i = 0; i < list.size(); i++) {
                 String pattern = list.get(i);
