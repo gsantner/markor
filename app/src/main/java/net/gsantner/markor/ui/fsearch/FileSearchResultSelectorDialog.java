@@ -137,25 +137,20 @@ public class FileSearchResultSelectorDialog {
         ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
 
-        for (int i = 0; i < searchResults.size(); i++) {
-            SearchEngine.FitFile fitFile = searchResults.get(i);
+        for (final SearchEngine.FitFile fitFile : searchResults) {
             boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
             ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
 
-            for (SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
-                final String previewMatch = contentMatch.previewMatch;
-
-                if (isPathContainsQuery || previewMatch.toLowerCase().contains(query)) {
+            for (final SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
+                if (isPathContainsQuery || contentMatch.previewMatch.toLowerCase().contains(query)) {
                     ChildItemsInfo childItem = new ChildItemsInfo();
                     childItem.lineNumber = contentMatch.lineNumber;
-                    childItem.displayedText = ("Line " + childItem.lineNumber + ": " + previewMatch);
+                    childItem.displayedText = ("Line " + childItem.lineNumber + ": " + contentMatch.previewMatch);
                     groupChildItems.add(childItem);
                 }
             }
-
             groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
         }
-
         return groupItemsData;
     }
 
