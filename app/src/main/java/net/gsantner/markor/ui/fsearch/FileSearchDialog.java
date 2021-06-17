@@ -28,14 +28,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchDialog {
 
-    public static class Options {
-        public String query;
-        public boolean isRegexQuery;
-        public boolean isCaseSensitiveQuery;
-        public boolean isSearchInContent;
-        public boolean isOnlyFirstContentMatch;
+    public static class DialogOptions {
+        public final String query;
+        public final boolean isRegexQuery;
+        public final boolean isCaseSensitiveQuery;
+        public final boolean isSearchInContent;
+        public final boolean isOnlyFirstContentMatch;
 
-        public Options(final String a_query, final boolean a_isRegexQuery, final boolean a_isCaseSensitiveQuery, final boolean a_isSearchInContent, final boolean a_isOnlyFirstContentMatch) {
+        public DialogOptions(final String a_query, final boolean a_isRegexQuery, final boolean a_isCaseSensitiveQuery, final boolean a_isSearchInContent, final boolean a_isOnlyFirstContentMatch) {
             query = a_query;
             isRegexQuery = a_isRegexQuery;
             isCaseSensitiveQuery = a_isCaseSensitiveQuery;
@@ -44,21 +44,21 @@ public class FileSearchDialog {
         }
     }
 
-    public static void showDialog(final Activity activity, final Callback.a1<Options> dialogCallback) {
+    public static void showDialog(final Activity activity, final Callback.a1<DialogOptions> dialogCallback) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         final AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, dialogCallback);
         dialog.set(dialogBuilder.create());
-        Window _window = dialog.get().getWindow();
-        if (_window != null) {
-            _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        Window window = dialog.get().getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         dialog.get().show();
-        if (_window != null) {
-            _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        if (window != null) {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<Options> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<DialogOptions> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
@@ -85,7 +85,7 @@ public class FileSearchDialog {
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {
-                dialogCallback.callback(new FileSearchDialog.Options(query, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked(), onlyFirstContentMatchCheckBox.isChecked()));
+                dialogCallback.callback(new DialogOptions(query, regexCheckBox.isChecked(), caseSensitivityCheckBox.isChecked(), searchInContentCheckBox.isChecked(), onlyFirstContentMatchCheckBox.isChecked()));
             }
         };
 

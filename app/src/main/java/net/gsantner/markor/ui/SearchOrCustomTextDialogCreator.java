@@ -130,19 +130,19 @@ public class SearchOrCustomTextDialogCreator {
 
         AppSettings appSettings = new AppSettings(activity);
 
-        Callback.a1<FileSearchDialog.Options> fileSearchDialogCallback = (cb_options) -> {
+        Callback.a1<FileSearchDialog.DialogOptions> fileSearchDialogCallback = (fileSearchOptions) -> {
 
-            appSettings.setSearchQueryRegexUsing(cb_options.isRegexQuery);
-            appSettings.setSearchQueryCaseSensitivity(cb_options.isCaseSensitiveQuery);
-            appSettings.setSearchInContent(cb_options.isSearchInContent);
-            appSettings.setOnlyFirstContentMatch(cb_options.isOnlyFirstContentMatch);
+            appSettings.setSearchQueryRegexUsing(fileSearchOptions.isRegexQuery);
+            appSettings.setSearchQueryCaseSensitivity(fileSearchOptions.isCaseSensitiveQuery);
+            appSettings.setSearchInContent(fileSearchOptions.isSearchInContent);
+            appSettings.setOnlyFirstContentMatch(fileSearchOptions.isOnlyFirstContentMatch);
 
-            SearchEngine.Config config = new SearchEngine.Config(searchDir, cb_options.query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames());
-            config.isCaseSensitiveQuery = cb_options.isCaseSensitiveQuery;
-            config.isRegexQuery = cb_options.isRegexQuery;
+            SearchEngine.Config config = new SearchEngine.Config(searchDir, fileSearchOptions.query, appSettings.getIgnoredSearchDirNames(), appSettings.getIgnoredSearchFileNames());
+            config.isCaseSensitiveQuery = fileSearchOptions.isCaseSensitiveQuery;
+            config.isRegexQuery = fileSearchOptions.isRegexQuery;
             config.maxSearchDepth = appSettings.getSearchMaxDepth();
-            config.isSearchInContent = cb_options.isSearchInContent;
-            config.isOnlyFirstContentMatch = cb_options.isOnlyFirstContentMatch;
+            config.isSearchInContent = fileSearchOptions.isSearchInContent;
+            config.isOnlyFirstContentMatch = fileSearchOptions.isOnlyFirstContentMatch;
 
             SearchEngine.queueFileSearch(activity, config, searchResults -> {
                 FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
