@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,13 +28,7 @@ import java.util.regex.Pattern;
 public class SearchEngine {
     public static boolean isSearchExecuting = false;
     public static Activity activity;
-    public final static Pattern[] defaultIgnoredDirs = {
-            Pattern.compile("^\\.git$"),
-            Pattern.compile(".*[Tt]humb.*")
-    };
-    public final static Pattern[] defaultIgnoredFiles = {
-
-    };
+    public final static List<String> defaultIgnoredDirs = new ArrayList<>(Arrays.asList("^\\.git$", ".*[Tt]humb.*"));
 
     public static final int maxPreviewLength = 100;
     public static final int maxQueryHistoryCount = 20;
@@ -49,13 +44,8 @@ public class SearchEngine {
     }
 
     public static class Config {
-        private final File _rootSearchDir;
-        private String _query;
-
-        private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
-        private final List<String> _ignoredExactDirs = new ArrayList<>();
-        private final List<Pattern> _ignoredRegexFiles = new ArrayList<>();
-        private final List<String> _ignoredExactFiles = new ArrayList<>();
+        private final File rootSearchDir;
+        private String query;
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
@@ -64,41 +54,12 @@ public class SearchEngine {
         public boolean isOnlyFirstContentMatch;
         public boolean isShowMatchPreview = true;
         public boolean isSearchInContent;
+        public final List<String> ignoredDirectories;
 
-        public Config(final File rootSearchDir, String query, final List<String> ignoredDirectories, final List<String> ignoredFiles) {
-            _rootSearchDir = rootSearchDir;
-            _query = query;
-            if (ignoredDirectories != null) {
-                splitRegexExactFiles(ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
-            }
-            if (ignoredFiles != null) {
-                splitRegexExactFiles(ignoredFiles, _ignoredExactFiles, _ignoredRegexFiles);
-            }
-        }
-
-        private void splitRegexExactFiles(List<String> list, List<String> exactList, List<Pattern> regexList) {
-            for (int i = 0; i < list.size(); i++) {
-                String pattern = list.get(i);
-                if (pattern.isEmpty()) {
-                    continue;
-                }
-
-                if (pattern.startsWith("\"")) {
-                    pattern = pattern.replace("\"", "");
-                    if (pattern.isEmpty()) {
-                        continue;
-                    }
-                    exactList.add(pattern);
-                } else {
-                    pattern = pattern.replaceAll("(?<![.])[*]", ".*");
-                    try {
-                        regexList.add(Pattern.compile(pattern));
-                    } catch (Exception ex) {
-                        String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
-                        Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
+        public Config(final File a_rootSearchDir, String a_query, final List<String> a_ignoredDirectories) {
+            rootSearchDir = a_rootSearchDir;
+            query = a_query;
+            ignoredDirectories = a_ignoredDirectories;
         }
     }
 
@@ -138,7 +99,7 @@ public class SearchEngine {
     public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchEngine.Config config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity = activity;
         SearchEngine.isSearchExecuting = true;
-        SearchEngine.addToHistory(config._query);
+        SearchEngine.addToHistory(config.query);
         SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
         task.execute();
 
@@ -157,22 +118,27 @@ public class SearchEngine {
         private boolean _isCanceled = false;
         private Integer _currentSearchDepth = 0;
         private final List<FitFile> _result = new ArrayList<>();
+        private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
+        private final List<String> _ignoredExactDirs = new ArrayList<>();
 
         public QueueSearchFilesTask(final SearchEngine.Config config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
 
+            splitRegexExactFiles(config.ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
+            splitRegexExactFiles(SearchEngine.defaultIgnoredDirs, _ignoredExactDirs, _ignoredRegexDirs);
+
             if (_config.isCaseSensitiveQuery) {
-                _config._query = _config._query.toLowerCase();
+                _config.query = _config.query.toLowerCase();
             }
 
             Pattern pattern = null;
             if (_config.isRegexQuery) {
                 try {
-                    _config._query = _config._query.replaceAll("(?<![.])[*]", ".*");
-                    pattern = Pattern.compile(_config._query);
+                    _config.query = _config.query.replaceAll("(?<![.])[*]", ".*");
+                    pattern = Pattern.compile(_config.query);
                 } catch (Exception ex) {
-                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), _config._query);
+                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), _config.query);
                     Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
                 }
             }
@@ -187,7 +153,7 @@ public class SearchEngine {
                 cancel(true);
                 return;
             }
-            bindSnackBar(_config._query);
+            bindSnackBar(_config.query);
         }
 
 
@@ -219,7 +185,7 @@ public class SearchEngine {
         @Override
         protected List<FitFile> doInBackground(Void... voidp) {
             Queue<File> mainQueue = new LinkedList<>();
-            mainQueue.add(_config._rootSearchDir);
+            mainQueue.add(_config.rootSearchDir);
 
             while (!mainQueue.isEmpty() && !isCancelled() && !_isCanceled) {
                 File currentDirectory = mainQueue.remove();
@@ -228,7 +194,7 @@ public class SearchEngine {
                     continue;
                 }
 
-                _currentSearchDepth = getDirectoryDepth(_config._rootSearchDir, currentDirectory);
+                _currentSearchDepth = getDirectoryDepth(_config.rootSearchDir, currentDirectory);
                 if (_currentSearchDepth > _config.maxSearchDepth) {
                     break;
                 }
@@ -265,27 +231,27 @@ public class SearchEngine {
 
                     if (subDirOrFile.isDirectory()) {
                         File directory = subDirOrFile;
-                        if (isFolderIgnored(directory) || isFileContainSymbolicLinks(directory, currentDir)) {
+                        if (isIgnored(directory) || isFileContainSymbolicLinks(directory, currentDir)) {
                             continue;
                         }
                         subQueue.add(directory);
                     } else {
                         final File file = subDirOrFile;
-                        if (isFileIgnored(file)) {
+                        if (isIgnored(file)) {
                             continue;
                         }
 
                         if (_config.isSearchInContent) {
-                            if (isSearchByContentIgnoredFor(file)) {
+                            if (!TextFormat.isTextFile(file.getName())) {
                                 continue;
                             }
                             List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(file, _config.isOnlyFirstContentMatch);
 
-                            if (contentMatches.size() == 0) {
+                            if (contentMatches.isEmpty()) {
                                 continue;
                             }
 
-                            String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
+                            String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
                             _result.add(new FitFile(path, false, contentMatches));
                         }
                     }
@@ -302,21 +268,13 @@ public class SearchEngine {
             return subQueue;
         }
 
-
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-
-            Integer queueLength = values[0];
-            Integer queueDepth = values[1];
-            Integer filesFound = values[2];
-            Integer countCheckedFiles = values[3];
-            String snackBarText = "f:" + filesFound + " qu:" + queueLength + "|" + queueDepth + " c:" + countCheckedFiles + "\n" + _config._query;
             if (_snackBar != null) {
-                _snackBar.setText(snackBarText);
+                _snackBar.setText("f:" + values[2] + " qu:" + values[0] + "|" + values[1] + " c:" + values[3] + "\n" + _config.query);
             }
         }
-
 
         @Override
         protected void onPostExecute(List<FitFile> ret) {
@@ -333,13 +291,38 @@ public class SearchEngine {
             }
         }
 
-
         @Override
         protected void onCancelled() {
             super.onCancelled();
             SearchEngine.isSearchExecuting = false;
         }
 
+        public void splitRegexExactFiles(List<String> list, List<String> exactList, List<Pattern> regexList) {
+            for (String pattern : (list != null ? list : new ArrayList<String>())) {
+                if (pattern.isEmpty()) {
+                    continue;
+                }
+                if (!_config.isCaseSensitiveQuery) {
+                    pattern = pattern.toLowerCase();
+                }
+
+                if (pattern.startsWith("\"")) {
+                    pattern = pattern.replace("\"", "");
+                    if (pattern.isEmpty()) {
+                        continue;
+                    }
+                    exactList.add(pattern);
+                } else {
+                    pattern = pattern.replaceAll("(?<![.])[*]", ".*");
+                    try {
+                        regexList.add(Pattern.compile(pattern));
+                    } catch (Exception ex) {
+                        String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
+                        Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
 
         private boolean isFileContainSymbolicLinks(File file, File expectedParentDir) {
             try {
@@ -357,10 +340,10 @@ public class SearchEngine {
         private void getFileIfNameMatches(File file) {
             try {
                 String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
-                boolean isMatch = _config.isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config._query);
+                boolean isMatch = _config.isRegexQuery ? _regex.matcher(fileName).matches() : fileName.contains(_config.query);
 
                 if (isMatch) {
-                    String path = file.getCanonicalPath().replace(_config._rootSearchDir.getCanonicalPath() + "/", "");
+                    String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
                     _result.add(new FitFile(path, file.isDirectory(), null));
                 }
             } catch (Exception ignored) {
@@ -406,9 +389,9 @@ public class SearchEngine {
                     end = match.end();
                 }
             } else {
-                start = preparedLine.indexOf(_config._query);
+                start = preparedLine.indexOf(_config.query);
                 if (start >= 0) {
-                    end = start + _config._query.length();
+                    end = start + _config.query.length();
                 }
             }
 
@@ -460,58 +443,20 @@ public class SearchEngine {
         }
 
 
-        private boolean isFolderIgnored(File directory) {
-            String dirName = directory.getName();
-
-            for (Pattern pattern : SearchEngine.defaultIgnoredDirs) {
-                if (pattern.matcher(dirName).matches()) {
-                    return true;
-                }
-            }
-
-            for (String pattern : _config._ignoredExactDirs) {
+        private boolean isIgnored(File directory) {
+            final String dirName = _config.isCaseSensitiveQuery ? directory.getName() : directory.getName().toLowerCase();
+            for (final String pattern : _ignoredExactDirs) {
                 if (dirName.equals(pattern)) {
                     return true;
                 }
             }
 
-            for (Pattern pattern : _config._ignoredRegexDirs) {
+            for (final Pattern pattern : _ignoredRegexDirs) {
                 if (pattern.matcher(dirName).matches()) {
                     return true;
                 }
             }
-
             return false;
         }
-
-
-        private boolean isFileIgnored(final File file) {
-            final String fileName = file.getName();
-
-            for (Pattern pattern : SearchEngine.defaultIgnoredFiles) {
-                if (pattern.matcher(fileName).matches()) {
-                    return true;
-                }
-            }
-
-            for (String pattern : _config._ignoredExactFiles) {
-                if (fileName.equals(pattern)) {
-                    return true;
-                }
-            }
-
-            for (Pattern pattern : _config._ignoredRegexFiles) {
-                if (pattern.matcher(fileName).matches()) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private boolean isSearchByContentIgnoredFor(final File file) {
-            return !TextFormat.isTextFile(file.getName().toLowerCase());
-        }
-
     }
 }

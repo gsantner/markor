@@ -651,21 +651,9 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return depth;
     }
 
-    public List<String> getIgnoredSearchDirNames() {
-        List<String> ignoredDirs;
-        String defaultValue = "^\\.git$\n^\\.thumbnails$";
-        String pref = getString(R.string.pref_key__ignored_directories, defaultValue);
-        ignoredDirs = Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
-
-        return ignoredDirs;
-    }
-
-    public List<String> getIgnoredSearchFileNames() {
-        List<String> ignoredFiles;
-        String pref = getString(R.string.pref_key__ignored_search_file_names, "");
-        ignoredFiles = Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
-
-        return ignoredFiles;
+    public List<String> getFileSearchIgnorelist() {
+        String pref = getString(R.string.pref_key__filesearch_ignorelist, "");
+        return Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
     }
 
     public @IdRes

@@ -421,11 +421,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">Search in content</string>
     <string name="max_search_depth">Search depth</string>
     <string name="show_history">Show history</string>
-    <string name="ignored_directories">Ignored directories</string>
-    <string name="specify_directories_that_should_not_be_searched">Specify directories that should not be searched.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*</string>
-    <string name="ignored_search_file_names">Ignored file names</string>
-    <string name="ignored_search_file_names_dialog">Ignore file names for search.\nUse new line as separator.\nUse quotes for exact file names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^[.].*\n\"Test\"\n.*[.][mM][pP][34]$\n.*secret.*</string>
-    <string name="search_by_context_have_to_include">Filenames in search by context have to include</string>
+    <string name="ignore_list">Ignore list</string>
+    <string name="do_not_search_specified_files_and_folders">Do not search specified files and folders.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex search</string>
     <string name="case_sensitive">Case sensitive</string>
     <string name="only_first_content_match">Get first content match</string>

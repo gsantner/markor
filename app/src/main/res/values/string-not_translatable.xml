@@ -320,8 +320,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
-    <string name="pref_key__ignored_directories" translatable="false">pref_key__ignored_directories</string>
-    <string name="pref_key__ignored_search_file_names" translatable="false">pref_key__ignored_search_file_names</string>
+    <string name="pref_key__filesearch_ignorelist" translatable="false">pref_key__filesearch_ignorelist</string>
     <string name="pref_key__is_search_query_case_sensitive" translatable="false">pref_key__is_search_query_case_sensitive</string>
     <string name="pref_key__is_search_query_use_regex" translatable="false">pref_key__is_search_query_use_regex</string>
     <string name="pref_key__is_search_in_content" translatable="false">pref_key__is_search_in_content</string>
