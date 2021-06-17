@@ -497,7 +497,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             case R.id.action_fs_copy_to_clipboard: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    if (TextFormat.isTextFile(file, file.getAbsolutePath())) {
+                    if (TextFormat.isTextFile(file)) {
                         _shareUtil.setClipboard(FileUtils.readTextFileFast(file));
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
