@@ -128,7 +128,7 @@ public class SearchOrCustomTextDialogCreator {
             return;
         }
 
-        AppSettings appSettings = new AppSettings(activity);
+        AppSettings appSettings = new AppSettings(activity.getApplicationContext());
 
         Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
             appSettings.setSearchQueryRegexUsing(searchOptions.isRegexQuery);

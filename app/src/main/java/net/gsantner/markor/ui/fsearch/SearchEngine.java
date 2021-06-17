@@ -1,5 +1,6 @@
 package net.gsantner.markor.ui.fsearch;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
@@ -14,12 +15,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +30,7 @@ import java.util.regex.Pattern;
 
 public class SearchEngine {
     public static boolean isSearchExecuting = false;
-    public static Activity activity;
+    public static AtomicReference<WeakReference<Activity>> activity = new AtomicReference<>();
     public final static List<String> defaultIgnoredDirs = new ArrayList<>(Arrays.asList("^\\.git$", ".*[Tt]humb.*"));
 
     public static final int maxPreviewLength = 100;
@@ -92,7 +95,7 @@ public class SearchEngine {
 
 
     public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
-        SearchEngine.activity = activity;
+        SearchEngine.activity.set(new WeakReference<>(activity));
         SearchEngine.isSearchExecuting = true;
         SearchEngine.addToHistory(config.query);
         SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
@@ -133,8 +136,11 @@ public class SearchEngine {
                     _config.query = _config.query.replaceAll("(?<![.])[*]", ".*");
                     pattern = Pattern.compile(_config.query);
                 } catch (Exception ex) {
-                    String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), _config.query);
-                    Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
+                    Activity a;
+                    if (SearchEngine.activity.get() != null && (a = SearchEngine.activity.get().get()) != null) {
+                        String errorMessage = String.format(a.getString(R.string.regex_can_not_compile), _config.query);
+                        Toast.makeText(a, errorMessage, Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             _regex = pattern;
@@ -152,13 +158,14 @@ public class SearchEngine {
         }
 
 
+        @SuppressLint("ShowToast")
         public void bindSnackBar(String text) {
             if (!SearchEngine.isSearchExecuting) {
                 return;
             }
 
             try {
-                View view = SearchEngine.activity.findViewById(android.R.id.content);
+                View view = SearchEngine.activity.get().get().findViewById(android.R.id.content);
                 _snackBar = Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
                         .addCallback(new Snackbar.Callback() {
                             @Override
@@ -310,8 +317,12 @@ public class SearchEngine {
                     try {
                         regexList.add(Pattern.compile(pattern));
                     } catch (Exception ex) {
-                        String errorMessage = String.format(SearchEngine.activity.getString(R.string.regex_can_not_compile), pattern);
-                        Toast.makeText(SearchEngine.activity, errorMessage, Toast.LENGTH_LONG).show();
+
+                        Activity a;
+                        if (SearchEngine.activity.get() != null && (a = SearchEngine.activity.get().get()) != null) {
+                            String errorMessage = String.format(a.getString(R.string.regex_can_not_compile), pattern);
+                            Toast.makeText(a, errorMessage, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }

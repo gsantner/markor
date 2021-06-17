@@ -52,6 +52,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -140,7 +141,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
 
         if (SearchEngine.isSearchExecuting) {
-            SearchEngine.activity = getActivity();
+            SearchEngine.activity.set(new WeakReference<>(getActivity()));
         }
     }
 
