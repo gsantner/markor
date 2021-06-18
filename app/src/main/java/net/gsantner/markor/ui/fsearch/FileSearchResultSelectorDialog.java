@@ -145,7 +145,7 @@ public class FileSearchResultSelectorDialog {
                 if (isPathContainsQuery || contentMatch.previewMatch.toLowerCase().contains(query)) {
                     ChildItemsInfo childItem = new ChildItemsInfo();
                     childItem.lineNumber = contentMatch.lineNumber;
-                    childItem.displayedText = ("Line " + childItem.lineNumber + ": " + contentMatch.previewMatch);
+                    childItem.displayedText = ("+" + childItem.lineNumber + ": " + contentMatch.previewMatch);
                     groupChildItems.add(childItem);
                 }
             }
