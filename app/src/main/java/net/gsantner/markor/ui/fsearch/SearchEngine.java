@@ -66,15 +66,10 @@ public class SearchEngine {
         public final boolean isDirectory;
         private final List<ContentMatchUnit> _contentMatches = new ArrayList<>();
 
-        public FitFile(final String a_path, final boolean a_isDirectory, List<ContentMatchUnit> contentMatches) {
+        public FitFile(final String a_path, final boolean a_isDirectory, List<ContentMatchUnit> lineNumbers) {
             path = a_path;
             isDirectory = a_isDirectory;
-            addContentMatches(contentMatches);
-        }
-
-        private FitFile addContentMatches(final List<ContentMatchUnit> lineNumbers) {
             _contentMatches.addAll(lineNumbers != null ? lineNumbers : new ArrayList<>());
-            return this;
         }
 
         public final List<ContentMatchUnit> getContentMatches() {
