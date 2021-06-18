@@ -83,11 +83,11 @@ public class SearchEngine {
 
         public static class ContentMatchUnit {
             public final int lineNumber;
-            public final String previewMatch;
+            public final String displayText;
 
             public ContentMatchUnit(final int a_lineNumber, final String a_previewMatch) {
                 lineNumber = a_lineNumber;
-                previewMatch = a_previewMatch;
+                displayText = a_previewMatch;
             }
         }
     }

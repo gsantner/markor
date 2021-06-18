@@ -1,5 +1,6 @@
 package net.gsantner.markor.ui.fsearch;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -108,7 +109,7 @@ public class FileSearchResultSelectorDialog {
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
-            ChildItemsInfo childItem = (ChildItemsInfo) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+            SearchEngine.FitFile.ContentMatchUnit childItem = (SearchEngine.FitFile.ContentMatchUnit) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
             if (childItem.lineNumber >= 0) {
                 if (dialog != null && dialog.get() != null) {
                     dialog.get().dismiss();
@@ -139,14 +140,11 @@ public class FileSearchResultSelectorDialog {
 
         for (final SearchEngine.FitFile fitFile : searchResults) {
             boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
-            ArrayList<ChildItemsInfo> groupChildItems = new ArrayList<>();
+            ArrayList<SearchEngine.FitFile.ContentMatchUnit> groupChildItems = new ArrayList<>();
 
             for (final SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
-                if (isPathContainsQuery || contentMatch.previewMatch.toLowerCase().contains(query)) {
-                    ChildItemsInfo childItem = new ChildItemsInfo();
-                    childItem.lineNumber = contentMatch.lineNumber;
-                    childItem.displayedText = ("+" + childItem.lineNumber + ": " + contentMatch.previewMatch);
-                    groupChildItems.add(childItem);
+                if (isPathContainsQuery || contentMatch.displayText.toLowerCase().contains(query)) {
+                    groupChildItems.add(contentMatch);
                 }
             }
             groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
@@ -212,16 +210,17 @@ public class FileSearchResultSelectorDialog {
             return textView;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            ChildItemsInfo childInfo = (ChildItemsInfo) getChild(groupPosition, childPosition);
+            SearchEngine.FitFile.ContentMatchUnit childInfo = (SearchEngine.FitFile.ContentMatchUnit) getChild(groupPosition, childPosition);
             TextView textView = (TextView) convertView;
             if (convertView == null) {
                 LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 textView = (TextView) mInflater.inflate(android.R.layout.simple_list_item_1, null);
                 textView.setClickable(false);
             }
-            textView.setText(childInfo.displayedText);
+            textView.setText("+" + childInfo.lineNumber + ": " + childInfo.displayText);
 
             return textView;
         }
@@ -276,9 +275,9 @@ public class FileSearchResultSelectorDialog {
     public static class GroupItemsInfo {
         public final String path;
         public final boolean isDirectory;
-        public final ArrayList<ChildItemsInfo> children;
+        public final ArrayList<SearchEngine.FitFile.ContentMatchUnit> children;
 
-        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<ChildItemsInfo> a_children) {
+        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<SearchEngine.FitFile.ContentMatchUnit> a_children) {
             path = a_path;
             isDirectory = a_isDirectory;
             children = a_children != null ? a_children : new ArrayList<>();
@@ -293,10 +292,5 @@ public class FileSearchResultSelectorDialog {
             String contentCountText = children.size() > 0 ? String.format("(%s) ", children.size()) : "";
             return contentCountText + path;
         }
-    }
-
-    public static class ChildItemsInfo {
-        public int lineNumber;
-        public String displayedText;
     }
 }
