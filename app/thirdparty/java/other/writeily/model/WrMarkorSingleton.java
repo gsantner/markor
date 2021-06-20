@@ -49,26 +49,25 @@ public class WrMarkorSingleton {
         WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
-    private boolean saneMoveOrCopy(final File file, final File dest) {
-        /* Rules:
-         * 1. Don't move a file to the same location, no point
-         * 2. Don't move a folder to itself
-         * 3. Don't move a folder into its children
-         */
-
+    // Returns true if b is not a child of a. A file is not a child of itself
+    private boolean notChild(final File a, final File b) {
         try {
-            return (file != null &&
-                    dest != null &&
-                    !file.equals(dest) &&
-                    // dest is file's child
-                    !dest.getCanonicalPath().startsWith(file.getCanonicalPath()));
-        } catch (IOException e) {
-            return false;
+            return b.equals(a) || !b.getParentFile().getCanonicalPath().startsWith(a.getCanonicalPath());
+        } catch(IOException e) {
+            return false; // Not sure, return false for safety
         }
     }
 
+    private boolean saneCopy(final File file, final File dest) {
+        return file != null && dest != null && file.exists() && notChild(file, dest);
+    }
+
+    private boolean saneMove(final File file, final File dest) {
+        return saneCopy(file, dest) && !file.equals(dest);
+    }
+
     public boolean moveFile(final File file, final File dest, final Context context) {
-        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
+        if (saneMove(file, dest) && !dest.exists()) {
             boolean renameSuccess;
             try {
                 renameSuccess = file.renameTo(dest);
@@ -81,7 +80,7 @@ public class WrMarkorSingleton {
     }
 
     public boolean copyFile(final File file, final File dest) {
-        if (saneMoveOrCopy(file, dest) && !dest.exists()) {
+        if (saneCopy(file, dest) && !dest.exists()) {
             if (file.isDirectory()) {
                 if (dest.mkdir()) {
                     boolean success = true;
@@ -124,7 +123,7 @@ public class WrMarkorSingleton {
         }
     }
 
-    private enum ConflictResollution {
+    private enum ConflictResolution {
         KEEP_BOTH,
         OVERWRITE,
         SKIP,
@@ -134,17 +133,17 @@ public class WrMarkorSingleton {
     public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove) {
         if (destDir.isDirectory()) {
             boolean allSane = true;
-            for (final File f : files) {
-                allSane &= saneMoveOrCopy(f, new File(destDir, f.getName()));
+            for (final File file : files) {
+                final File dest =  new File(destDir, file.getName());
+                allSane &= isMove ? saneMove(file, dest) : saneCopy(file, dest);
             }
             if (allSane) {
                 final Stack<File> _files = new Stack<>();
                 _files.addAll(files);
-                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResollution.ASK, false);
+                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResolution.ASK, false);
                 return;
             }
         }
-        // Toast.makeText(activity, "✗", Toast.LENGTH_SHORT).show();
     }
 
     private void _moveOrCopySelected(
@@ -152,37 +151,38 @@ public class WrMarkorSingleton {
             final File destDir,
             final Activity activity,
             final boolean isMove,
-            ConflictResollution resolution,
+            ConflictResolution resolution,
             boolean preserveResolution
     ) {
         while (!files.empty()) {
             final File file = files.pop();
             final File dest = new File(destDir, file.getName());
             if (dest.exists()) {
-                if (resolution == ConflictResollution.KEEP_BOTH) {
+                // Special case - duplicate the file with new name if copying to same directory
+                if (resolution == ConflictResolution.KEEP_BOTH || (!isMove && file.equals(dest))) {
                     moveOrCopy(activity, file, findNonConflictingDest(file, destDir), isMove);
-                } else if (resolution == ConflictResollution.OVERWRITE) {
+                } else if (resolution == ConflictResolution.OVERWRITE) {
                     if (deleteFile(dest, activity)) {
                         moveOrCopy(activity, file, dest, isMove);
                     }
-                } else if (resolution == ConflictResollution.ASK) {
+                } else if (resolution == ConflictResolution.ASK) {
                     // Put the file back in
                     files.push(file);
                     SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
                             activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
-                                ConflictResollution res = ConflictResollution.ASK;
+                                ConflictResolution res = ConflictResolution.ASK;
                                 if (option == 0 || option == 3) {
-                                    res = ConflictResollution.KEEP_BOTH;
+                                    res = ConflictResolution.KEEP_BOTH;
                                 } else if (option == 1 || option == 4) {
-                                    res = ConflictResollution.OVERWRITE;
+                                    res = ConflictResolution.OVERWRITE;
                                 } else if (option == 2 || option == 5) {
-                                    res = ConflictResollution.SKIP;
+                                    res = ConflictResolution.SKIP;
                                 }
                                 _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
                             });
                     return; // Process will be continued by callback
                 }
-                resolution = preserveResolution ? resolution : ConflictResollution.ASK;
+                resolution = preserveResolution ? resolution : ConflictResolution.ASK;
             } else {
                 moveOrCopy(activity, file, dest, isMove);
             }

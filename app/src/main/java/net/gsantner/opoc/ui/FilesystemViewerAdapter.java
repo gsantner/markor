@@ -577,13 +577,11 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     // listFiles(FilenameFilter)
     @Override
     public boolean accept(File dir, String filename) {
-        File f = new File(dir, filename);
-        Boolean yes = _dopt.fileOverallFilter == null ? null : _dopt.fileOverallFilter.apply(f);
-        yes = yes == null || yes;
-        if (!_dopt.showDotFiles && filename.startsWith(".")) {
-            return false;
-        }
-        return f.isDirectory() || (!f.isDirectory() && _dopt.doSelectFile && yes);
+        final File f = new File(dir, filename);
+        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
+        final boolean dotYes =  _dopt.showDotFiles || !filename.startsWith(".");
+        final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
+        return filterYes && dotYes && selFileYes;
     }
 
     public FilesystemViewerData.Options getFsOptions() {
