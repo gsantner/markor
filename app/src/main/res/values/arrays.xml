@@ -34,6 +34,15 @@
         <item translatable="false">@string/quicknote</item>
     </string-array>
 
+    <string-array name="pref_arrdisp__search_depth" translatable="false">
+        <item translatable="false">@string/infinite</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+        <item translatable="false">5</item>
+        <item translatable="false">10</item>
+    </string-array>
+
     <string-array name="textactions_press_key__text" translatable="false">
         <item translatable="false">@string/key_page_up</item>
         <item translatable="false">@string/key_page_down</item>

@@ -342,21 +342,31 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
-    private static final String PREF_PREFIX_EDIT_POS_SCROLL = "PREF_PREFIX_EDIT_POS_SCROLL";
     private static final String PREF_PREFIX_WRAP_STATE = "PREF_PREFIX_WRAP_STATE";
     private static final String PREF_PREFIX_HIGHLIGHT_STATE = "PREF_PREFIX_HIGHLIGHT_STATE";
     private static final String PREF_PREFIX_PREVIEW_STATE = "PREF_PREFIX_PREVIEW_STATE";
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
     private static final String PREF_PREFIX_FONT_SIZE = "PREF_PREFIX_FONT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
+    private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
+    private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
 
-    public void setLastEditPosition(File file, int pos, int scrolloffset) {
+    public void setLastEditPosition(File file, int pos) {
         if (file == null || !file.exists()) {
             return;
         }
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
-            setInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), scrolloffset, _prefCache);
+        }
+    }
+
+    public void setLastViewPosition(File file, int scrollX, int scrollY) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
+            setInt(PREF_PREFIX_VIEW_SCROLL_X + file.getAbsolutePath(), scrollX, _prefCache);
+            setInt(PREF_PREFIX_VIEW_SCROLL_Y + file.getAbsolutePath(), scrollY, _prefCache);
         }
     }
 
@@ -456,11 +466,18 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
     }
 
-    public int getLastEditPositionScroll(File file) {
+    public int getLastViewPositionX(File file) {
         if (file == null || !file.exists()) {
-            return 0;
+            return -1;
         }
-        return getInt(PREF_PREFIX_EDIT_POS_SCROLL + file.getAbsolutePath(), 0, _prefCache);
+        return getInt(PREF_PREFIX_VIEW_SCROLL_X + file.getAbsolutePath(), -3, _prefCache);
+    }
+
+    public int getLastViewPositionY(File file) {
+        if (file == null || !file.exists()) {
+            return -1;
+        }
+        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + file.getAbsolutePath(), -3, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {
@@ -590,6 +607,53 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         } else {
             return false;
         }
+    }
+
+    public boolean isSearchQueryCaseSensitive() {
+        return getBool(R.string.pref_key__is_search_query_case_sensitive, false);
+    }
+
+    public void setSearchQueryCaseSensitivity(final boolean isQuerySensitive) {
+        setBool(R.string.pref_key__is_search_query_case_sensitive, isQuerySensitive);
+    }
+
+    public boolean isSearchQueryUseRegex() {
+        return getBool(R.string.pref_key__is_search_query_use_regex, false);
+    }
+
+    public void setSearchQueryRegexUsing(final boolean isUseRegex) {
+        setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
+    }
+
+    public boolean isSearchInContent() {
+        return getBool(R.string.pref_key__is_search_in_content, false);
+    }
+
+    public void setSearchInContent(final boolean isSearchInContent) {
+        setBool(R.string.pref_key__is_search_in_content, isSearchInContent);
+    }
+
+    public boolean isOnlyFirstContentMatch() {
+        return getBool(R.string.pref_key__is_only_first_content_match, false);
+    }
+
+    public void setOnlyFirstContentMatch(final boolean isOnlyFirstContentMatch) {
+        setBool(R.string.pref_key__is_only_first_content_match, isOnlyFirstContentMatch);
+    }
+
+    public int getSearchMaxDepth() {
+        int depth = getIntOfStringPref(R.string.pref_key__max_search_depth, Integer.MAX_VALUE);
+
+        if (depth == 0) {
+            return Integer.MAX_VALUE;
+        }
+
+        return depth;
+    }
+
+    public List<String> getFileSearchIgnorelist() {
+        String pref = getString(R.string.pref_key__filesearch_ignorelist, "");
+        return Arrays.asList(pref.replace("\r", "").replace("\n\n", "\n").split("\n"));
     }
 
     public @IdRes

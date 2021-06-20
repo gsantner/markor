@@ -66,6 +66,7 @@ import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -100,11 +101,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
+    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putInt(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
         return f;
     }
@@ -189,8 +191,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-
-        new ActivityUtils(getActivity()).hideSoftKeyboard();
+        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
@@ -212,6 +213,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
+        restoreDocumentPositions();
     }
 
     @Override
@@ -491,7 +493,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_load_epub: {
                 FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                                                            @Override
-                                                           public void onFsViewerSelected(String request, File file) {
+                                                           public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                                                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
                                                            }
 
@@ -597,10 +599,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void initDocState() {
-        final boolean inMainActivity = getActivity() instanceof MainActivity;
         final String path = getPath();
         wrapTextSetting = _appSettings.getDocumentWrapState(path);
-        wrapText = inMainActivity || wrapTextSetting;
+        wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         updateMenuToggleStates(0);
@@ -685,11 +686,25 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
+                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
                 _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
         }
         return ret;
+    }
+
+    public void restoreDocumentPositions() {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isDisplayedAtMainActivity()) {
+            int v;
+            if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
+                _hlEditor.smoothMoveCursorToLine(v);
+            }
+            _document.setInitialLineNumber(-1);
+        }
+    }
+
+    private boolean isDisplayedAtMainActivity() {
+        return getActivity() instanceof MainActivity;
     }
 
     @Override
@@ -732,8 +747,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Activity a = getActivity();
-        if (isVisibleToUser && a != null && a instanceof MainActivity) {
+        if (isVisibleToUser && isDisplayedAtMainActivity()) {
             checkReloadDisk(false);
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
@@ -773,7 +787,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();

@@ -245,7 +245,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
 
                 @Override
-                public void onFsViewerSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     appendToExistingDocument(file, getSeparator(_sharedText), true);
                 }
 
@@ -261,7 +261,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
 
                 @Override
-                public void onFsViewerSelected(String request, File dir) {
+                public void onFsViewerSelected(String request, File dir, final Integer lineNumber) {
                     NewFileDialog dialog = NewFileDialog.newInstance(dir, false, (ok, f) -> {
                         if (ok && f.isFile()) {
                             appendToExistingDocument(f, "", true);
@@ -276,7 +276,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
                 a.setDocument(document);
-                a.showTextEditor(document, null, false, _appSettings.getDocumentPreviewState(Document.getPath(document)));
+                a.showTextEditor(document, null, false, _appSettings.getDocumentPreviewState(Document.getPath(document)), null);
             }
         }
 

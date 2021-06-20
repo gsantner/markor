@@ -43,6 +43,7 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
@@ -51,6 +52,7 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -137,6 +139,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
         });
 
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
+
+        if (SearchEngine.isSearchExecuting) {
+            SearchEngine.activity.set(new WeakReference<>(getActivity()));
+        }
     }
 
 
@@ -181,10 +187,11 @@ public class FilesystemViewerFragment extends GsFragmentBase
         }
     }
 
+
     @Override
-    public void onFsViewerSelected(String request, File file) {
+    public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
         if (_callback != null) {
-            _callback.onFsViewerSelected(_dopt.requestId, file);
+            _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }
     }
 
@@ -404,15 +411,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
             case R.id.action_search: {
-                final File currentFolder = getCurrentFolder();
-                SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, relFilePath -> {
-                    File load = new File(currentFolder, relFilePath);
-                    if (load.isDirectory()) {
-                        _filesystemViewerAdapter.loadFolder(load);
-                    } else {
-                        onFsViewerSelected("", load);
-                    }
-                });
+                executeSearchAction();
+
                 return true;
             }
             case R.id.action_folder_first: {
@@ -516,6 +516,20 @@ public class FilesystemViewerFragment extends GsFragmentBase
         return false;
     }
 
+    private void executeSearchAction() {
+        if (new PermissionChecker(getActivity()).doIfExtStoragePermissionGranted()) {
+            final File currentFolder = getCurrentFolder();
+            SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
+                File load = new File(currentFolder, relFilePath);
+                if (load.isDirectory()) {
+                    _filesystemViewerAdapter.loadFolder(load);
+                } else {
+                    onFsViewerSelected("", load, lineNumber);
+                }
+            });
+        }
+    }
+
     public static Comparator<File> sortFolder(List<File> filesToSort) {
         final int sortMethod = AppSettings.get().getSortMethod();
         final boolean sortReverse = AppSettings.get().isSortReverse();
@@ -582,8 +596,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
             private FilesystemViewerData.Options _doptMoC;
 
             @Override
-            public void onFsViewerSelected(String request, File file) {
-                super.onFsViewerSelected(request, file);
+            public void onFsViewerSelected(String request, File file, Integer lineNumber) {
+                super.onFsViewerSelected(request, file, null);
                 WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove);
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
@@ -614,7 +628,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     private void showImportDialog() {
         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsViewerSelected(String request, File file) {
+            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                 importFile(file);
                 reloadCurrentFolder();
             }

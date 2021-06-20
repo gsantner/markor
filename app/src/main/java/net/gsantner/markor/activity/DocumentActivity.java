@@ -41,6 +41,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 
@@ -66,12 +67,16 @@ public class DocumentActivity extends AppActivityBase {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent) {
+
+    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final Integer lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
         if (path != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH, path);
+        }
+        if (lineNumber != null && lineNumber >= 0) {
+            intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         if (isFolder != null) {
             intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, isFolder);
@@ -110,7 +115,7 @@ public class DocumentActivity extends AppActivityBase {
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, false, null, null);
+                DocumentActivity.launch(activity, file, false, null, null, null);
             } else {
                 new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
             }
@@ -199,11 +204,11 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            final boolean preview = intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+            final int paramLineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
+            final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
-                    || file.getName().startsWith("index.");
-
-            showTextEditor(null, file, fileIsFolder, preview);
+                    || file.getName().startsWith("index."));
+            showTextEditor(null, file, fileIsFolder, paramPreview, paramLineNumber);
         }
     }
 
@@ -271,14 +276,10 @@ public class DocumentActivity extends AppActivityBase {
         }
     }
 
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder) {
-        showTextEditor(document, file, fileIsFolder, false);
-    }
-
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview) {
-
+    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final Integer lineNumber) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
         File reqFile = (document != null) ? document.getFile() : file;
+        final int fileLineNumber = lineNumber != null && lineNumber >= 0 ? lineNumber : -1;
 
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
@@ -290,7 +291,7 @@ public class DocumentActivity extends AppActivityBase {
             if (document != null) {
                 showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
             } else {
-                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, true).setPreviewFlag(preview));
+                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, fileLineNumber).setPreviewFlag(preview));
             }
         }
     }

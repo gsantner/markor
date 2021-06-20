@@ -71,6 +71,26 @@
                 android:title="@string/file_encryption_password" />
         </PreferenceCategory>
 
+
+        <PreferenceCategory android:title="@string/search">
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/max_search_depth"
+                android:entries="@array/pref_arrdisp__search_depth"
+                android:entryValues="@array/pref_arrkeys__search_depth"
+                android:icon="@drawable/ic_baseline_account_tree_24"
+                android:key="@string/pref_key__max_search_depth"
+                android:summary="%1$s"
+                android:title="@string/max_search_depth" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue=""
+                android:dialogMessage="@string/do_not_search_specified_files_and_folders"
+                android:icon="@drawable/ic_baseline_rule_folder_24"
+                android:key="@string/pref_key__filesearch_ignorelist"
+                android:title="@string/ignore_list" />
+        </PreferenceCategory>
+
+
         <PreferenceCategory android:title="@string/features">
             <CheckBoxPreference
                 android:defaultValue="true"
@@ -311,7 +331,7 @@
                 android:summary="@string/edit_text_in_center_of_screen"
                 android:title="@string/center_text" />
             <CheckBoxPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
                 android:key="@string/pref_key__editor_start_editing_on_bottom"
                 android:summary="@string/start_on_bottom_when_loading_document"
