@@ -114,7 +114,7 @@ public class SearchEngine {
                 } catch (Exception ex) {
                     Activity a;
                     if (SearchEngine.activity.get() != null && (a = SearchEngine.activity.get().get()) != null) {
-                        String errorMessage = String.format(a.getString(R.string.regex_can_not_compile), _config.query);
+                        String errorMessage = a.getString(R.string.regex_can_not_be_compiled) + ": " + _config.query;
                         Toast.makeText(a, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }
@@ -295,7 +295,7 @@ public class SearchEngine {
 
                         Activity a;
                         if (SearchEngine.activity.get() != null && (a = SearchEngine.activity.get().get()) != null) {
-                            String errorMessage = String.format(a.getString(R.string.regex_can_not_compile), pattern);
+                            String errorMessage = a.getString(R.string.regex_can_not_be_compiled) + ": " + pattern;
                             Toast.makeText(a, errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }

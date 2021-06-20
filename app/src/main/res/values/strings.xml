@@ -420,13 +420,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
     <string name="search_in_content">Search in content</string>
     <string name="max_search_depth">Search depth</string>
-    <string name="show_history">Show history</string>
     <string name="ignore_list">Ignore list</string>
     <string name="do_not_search_specified_files_and_folders">Do not search specified files and folders.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex search</string>
     <string name="case_sensitive">Case sensitive</string>
     <string name="only_first_content_match">Get first content match</string>
-    <string name="regex_can_not_compile">Regex: can not compile \'%s\'</string>
+    <string name="regex_can_not_be_compiled">Regex can not be compiled</string>
     <string name="keep_both">Keep both</string>
     <string name="skip">Skip</string>
     <string name="overwrite">Overwrite</string>
