@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class SearchEngine {
     public static boolean isSearchExecuting = false;
     public static AtomicReference<WeakReference<Activity>> activity = new AtomicReference<>();
-    public final static List<String> defaultIgnoredDirs = new ArrayList<>(Arrays.asList("^\\.git$", ".*[Tt]humb.*"));
+    public final static List<String> defaultIgnoredDirs = new ArrayList<>(Arrays.asList("^\\.git$", "^\\.tmp$", ".*[Tt]humb.*"));
 
     public static final int maxPreviewLength = 100;
     public static final int maxQueryHistoryCount = 20;
