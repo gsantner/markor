@@ -75,6 +75,11 @@ public class FileSearchDialog {
                 opt.isOnlyFirstContentMatch = onlyFirstContentMatchCheckBox.isChecked();
                 opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
                 opt.maxSearchDepth = appSettings.getSearchMaxDepth();
+
+                appSettings.setSearchQueryRegexUsing(opt.isRegexQuery);
+                appSettings.setSearchQueryCaseSensitivity(opt.isCaseSensitiveQuery);
+                appSettings.setSearchInContent(opt.isSearchInContent);
+                appSettings.setOnlyFirstContentMatch(opt.isOnlyFirstContentMatch);
                 dialogCallback.callback(opt);
             }
         };

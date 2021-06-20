@@ -124,25 +124,15 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
-        if (SearchEngine.isSearchExecuting) {
-            return;
+        if (!SearchEngine.isSearchExecuting) {
+            Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+                searchOptions.rootSearchDir = searchDir;
+                SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
+                    FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
+                });
+            };
+            FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
         }
-
-        AppSettings appSettings = new AppSettings(activity.getApplicationContext());
-
-        Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
-            appSettings.setSearchQueryRegexUsing(searchOptions.isRegexQuery);
-            appSettings.setSearchQueryCaseSensitivity(searchOptions.isCaseSensitiveQuery);
-            appSettings.setSearchInContent(searchOptions.isSearchInContent);
-            appSettings.setOnlyFirstContentMatch(searchOptions.isOnlyFirstContentMatch);
-
-            searchOptions.rootSearchDir = searchDir;
-            SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
-                FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
-            });
-        };
-
-        FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
