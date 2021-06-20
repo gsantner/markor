@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 
@@ -64,26 +65,12 @@ public class SearchEngine {
     public static class FitFile {
         public final String path;
         public final boolean isDirectory;
-        private final List<ContentMatchUnit> _contentMatches = new ArrayList<>();
+        public final List<Pair<String, Integer>> matchesWithLineNumberAndLineText;
 
-        public FitFile(final String a_path, final boolean a_isDirectory, List<ContentMatchUnit> lineNumbers) {
+        public FitFile(final String a_path, final boolean a_isDirectory, List<Pair<String, Integer>> lineNumbers) {
             path = a_path;
             isDirectory = a_isDirectory;
-            _contentMatches.addAll(lineNumbers != null ? lineNumbers : new ArrayList<>());
-        }
-
-        public final List<ContentMatchUnit> getContentMatches() {
-            return Collections.unmodifiableList(_contentMatches);
-        }
-
-        public static class ContentMatchUnit {
-            public final int lineNumber;
-            public final String displayText;
-
-            public ContentMatchUnit(final int a_lineNumber, final String a_previewMatch) {
-                lineNumber = a_lineNumber;
-                displayText = a_previewMatch;
-            }
+            matchesWithLineNumberAndLineText = Collections.unmodifiableList(lineNumbers);
         }
     }
 
@@ -134,6 +121,8 @@ public class SearchEngine {
             }
             _regex = pattern;
         }
+
+
 
         @Override
         protected void onPreExecute() {
@@ -231,7 +220,7 @@ public class SearchEngine {
                             if (!TextFormat.isTextFile(f.getName())) {
                                 continue;
                             }
-                            List<FitFile.ContentMatchUnit> contentMatches = getContentMatches(f, _config.isOnlyFirstContentMatch);
+                            List<Pair<String, Integer>> contentMatches = getContentMatches(f, _config.isOnlyFirstContentMatch);
 
                             if (contentMatches.isEmpty()) {
                                 continue;
@@ -399,24 +388,22 @@ public class SearchEngine {
             return null;
         }
 
-        private List<FitFile.ContentMatchUnit> getContentMatches(final File file, final boolean isFirstMatchOnly) {
-            List<FitFile.ContentMatchUnit> ret = new ArrayList<>();
+        private List<Pair<String, Integer>> getContentMatches(final File file, final boolean isFirstMatchOnly) {
+            List<Pair<String, Integer>> ret = new ArrayList<>();
 
             if (!file.canRead() || file.isDirectory()) {
                 return ret;
             }
 
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            try (final BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
                 int lineNumber = 0;
                 for (String line; (line = br.readLine()) != null; ) {
                     if (isCancelled() || _isCanceled) {
                         break;
                     }
-
-                    final String preview = matchLine(line);
-                    if (preview != null) {
-                        ret.add(new FitFile.ContentMatchUnit(lineNumber, preview));
-
+                    line = matchLine(line);
+                    if (line != null) {
+                        ret.add(new Pair<>(line, lineNumber));
                         if (isFirstMatchOnly) {
                             break;
                         }

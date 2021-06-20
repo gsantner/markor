@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -109,12 +110,12 @@ public class FileSearchResultSelectorDialog {
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
-            SearchEngine.FitFile.ContentMatchUnit childItem = (SearchEngine.FitFile.ContentMatchUnit) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            if (childItem.lineNumber >= 0) {
+            Pair<String, Integer> childItem = (Pair<String, Integer>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
+            if (childItem.second >= 0) {
                 if (dialog != null && dialog.get() != null) {
                     dialog.get().dismiss();
                 }
-                dialogCallback.callback(groupItem.path, childItem.lineNumber);
+                dialogCallback.callback(groupItem.path, childItem.second);
             }
             return false;
         });
@@ -140,10 +141,10 @@ public class FileSearchResultSelectorDialog {
 
         for (final SearchEngine.FitFile fitFile : searchResults) {
             boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
-            ArrayList<SearchEngine.FitFile.ContentMatchUnit> groupChildItems = new ArrayList<>();
+            ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
 
-            for (final SearchEngine.FitFile.ContentMatchUnit contentMatch : fitFile.getContentMatches()) {
-                if (isPathContainsQuery || contentMatch.displayText.toLowerCase().contains(query)) {
+            for (final Pair<String, Integer> contentMatch : fitFile.matchesWithLineNumberAndLineText) {
+                if (isPathContainsQuery || contentMatch.first.toLowerCase().contains(query)) {
                     groupChildItems.add(contentMatch);
                 }
             }
@@ -213,14 +214,14 @@ public class FileSearchResultSelectorDialog {
         @SuppressLint("SetTextI18n")
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            SearchEngine.FitFile.ContentMatchUnit childInfo = (SearchEngine.FitFile.ContentMatchUnit) getChild(groupPosition, childPosition);
+            Pair<String, Integer> childInfo = (Pair<String, Integer>) getChild(groupPosition, childPosition);
             TextView textView = (TextView) convertView;
             if (convertView == null) {
                 LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 textView = (TextView) mInflater.inflate(android.R.layout.simple_list_item_1, null);
                 textView.setClickable(false);
             }
-            textView.setText("+" + childInfo.lineNumber + ": " + childInfo.displayText);
+            textView.setText("+" + childInfo.second + ": " + childInfo.first);
 
             return textView;
         }
@@ -275,9 +276,9 @@ public class FileSearchResultSelectorDialog {
     public static class GroupItemsInfo {
         public final String path;
         public final boolean isDirectory;
-        public final ArrayList<SearchEngine.FitFile.ContentMatchUnit> children;
+        public final ArrayList<Pair<String, Integer>> children;
 
-        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<SearchEngine.FitFile.ContentMatchUnit> a_children) {
+        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<Pair<String, Integer>> a_children) {
             path = a_path;
             isDirectory = a_isDirectory;
             children = a_children != null ? a_children : new ArrayList<>();
