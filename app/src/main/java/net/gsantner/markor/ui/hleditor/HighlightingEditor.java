@@ -325,11 +325,8 @@ public class HighlightingEditor extends AppCompatEditText {
         final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
 
         this.postDelayed(() -> {
-            if (!hasFocus()) {
-                requestFocus();
-            }
             String text = getText().toString();
-            int index = StringUtils.getIndexByLineNumber(text, lineNumber);
+            int index = StringUtils.getIndexFromLineOffset(text, lineNumber, 0);
             if (index < 0) {
                 return;
             }

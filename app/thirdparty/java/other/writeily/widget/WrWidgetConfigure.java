@@ -46,7 +46,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
             FragmentManager fragManager = getSupportFragmentManager();
             FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     complete(file.getAbsolutePath());
                 }
 

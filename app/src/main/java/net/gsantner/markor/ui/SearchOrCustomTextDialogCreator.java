@@ -28,6 +28,9 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
+import net.gsantner.markor.ui.fsearch.FileSearchDialog;
+import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
+import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -120,26 +123,16 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
-            dopt.callback = callback;
-            dopt.isSearchEnabled = !searchResults.isEmpty();
-            dopt.data = searchResults;
-            dopt.cancelButtonText = R.string.close;
-            dopt.titleText = R.string.select;
-            dopt.messageText = null;
-            if (dopt.data.isEmpty()) {
-                dopt.messageText = "     ¯\\_(ツ)_/¯     ";
-            }
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-        });
-        dopt.titleText = R.string.search;
-        dopt.isSearchEnabled = true;
-        dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
-        dopt.searchHintText = R.string.search;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
+        if (!SearchEngine.isSearchExecuting) {
+            Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+                searchOptions.rootSearchDir = searchDir;
+                SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
+                    FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
+                });
+            };
+            FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
+        }
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {

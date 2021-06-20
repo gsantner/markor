@@ -264,7 +264,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
@@ -287,7 +287,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setQuickNoteFile(file);
                                 as.setRecreateMainRequired(true);
@@ -308,7 +308,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setTodoFile(file);
                                 as.setRecreateMainRequired(true);
