@@ -33,21 +33,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class FileSearchResultSelectorDialog {
     public static void showDialog(final Activity activity, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
-        AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, searchResults, dialogCallback);
-        dialog.set(dialogBuilder.create());
-        Window _window = dialog.get().getWindow();
-        if (_window != null) {
-            _window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.set(buildDialog(activity, dialog, searchResults, dialogCallback).create());
+        if (dialog.get().getWindow() != null) {
+            dialog.get().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         dialog.get().show();
-        if (_window != null) {
-            _window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        if (dialog.get().getWindow() != null) {
+            dialog.get().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
     }
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
@@ -73,8 +71,8 @@ public class FileSearchResultSelectorDialog {
         }
 
         // List filling
-        ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
-        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, groupItemsData);
+        final ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
+        final CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, groupItemsData);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
@@ -126,22 +124,18 @@ public class FileSearchResultSelectorDialog {
         dialogBuilder.setView(dialogLayout)
                 .setTitle(R.string.select)
                 .setOnCancelListener(null)
+                .setMessage(searchResults.isEmpty() ? "     ¯\\_(ツ)_/¯     " : null)
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-
-        if (searchResults.isEmpty()) {
-            dialogBuilder.setMessage("     ¯\\_(ツ)_/¯     ");
-        }
-
         return dialogBuilder;
     }
 
     private static ArrayList<GroupItemsInfo> filter(final List<SearchEngine.FitFile> searchResults, String query) {
-        ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
+        final ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
 
         for (final SearchEngine.FitFile fitFile : searchResults) {
             boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
-            ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
+            final ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
 
             for (final Pair<String, Integer> contentMatch : fitFile.matchesWithLineNumberAndLineText) {
                 if (isPathContainsQuery || contentMatch.first.toLowerCase().contains(query)) {
