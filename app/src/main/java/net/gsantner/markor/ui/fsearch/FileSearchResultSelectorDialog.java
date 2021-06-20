@@ -14,7 +14,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -27,6 +26,7 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -72,13 +72,13 @@ public class FileSearchResultSelectorDialog {
 
         // List filling
         final ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
-        final CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, groupItemsData);
+        final ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, groupItemsData);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
                 ArrayList<GroupItemsInfo> filteredGroups = filter(searchResults, filterText);
-                CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(activity, filteredGroups);
+                ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
 
@@ -97,7 +97,7 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
 
-            if (groupItem.getCountMatches() <= 0) {
+            if (groupItem.children.isEmpty()) {
                 if (dialog != null && dialog.get() != null) {
                     dialog.get().dismiss();
                 }
@@ -134,7 +134,7 @@ public class FileSearchResultSelectorDialog {
         query = query.toLowerCase();
 
         for (final SearchEngine.FitFile fitFile : searchResults) {
-            boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
+            final boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
             final ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
 
             for (final Pair<String, Integer> contentMatch : fitFile.matchesWithLineNumberAndLineText) {
@@ -147,33 +147,33 @@ public class FileSearchResultSelectorDialog {
         return groupItemsData;
     }
 
-    private static class CustomExpandableListAdapter implements ExpandableListAdapter {
+    private static class ExpandableSearchResultsListAdapter implements ExpandableListAdapter {
+        public final List<GroupItemsInfo> data;
         private final Context _context;
-        private final List<GroupItemsInfo> _groupItems;
 
-        public CustomExpandableListAdapter(Context context, List<GroupItemsInfo> groupItems) {
+        public ExpandableSearchResultsListAdapter(Context context, List<GroupItemsInfo> groupItems) {
             _context = context;
-            _groupItems = groupItems;
+            data = Collections.unmodifiableList(groupItems);
         }
 
         @Override
         public int getGroupCount() {
-            return _groupItems.size();
+            return data.size();
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return _groupItems.get(groupPosition).children.size();
+            return data.get(groupPosition).children.size();
         }
 
         @Override
         public Object getGroup(int groupPosition) {
-            return _groupItems.get(groupPosition);
+            return data.get(groupPosition);
         }
 
         @Override
         public Object getChild(int groupPosition, int childPosition) {
-            return _groupItems.get(groupPosition).children.get(childPosition);
+            return data.get(groupPosition).children.get(childPosition);
         }
 
         @Override
@@ -187,27 +187,28 @@ public class FileSearchResultSelectorDialog {
         }
 
         @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        public View getGroupView(final int groupPosition, final boolean isExpanded, final View convertView, final ViewGroup parent) {
             GroupItemsInfo groupInfo = (GroupItemsInfo) getGroup(groupPosition);
             TextView textView = (TextView) convertView;
             if (convertView == null) {
-                LayoutInflater mInflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                textView = (TextView) mInflater.inflate(R.layout.expandable_list_group_item, null);
+                final LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                textView = (TextView) inflater.inflate(R.layout.expandable_list_group_item, null);
                 textView.setClickable(false);
             }
             textView.setText(groupInfo.toString());
 
-            int icon = groupInfo.isDirectory || groupInfo.getCountMatches() == 0 ? 0 : isExpanded
+            final int iconResId = groupInfo.isDirectory || groupInfo.children.isEmpty() ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
                     : R.drawable.ic_baseline_keyboard_arrow_down_24;
-            textView.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+            textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
 
             return textView;
         }
 
+        @SuppressWarnings("unchecked")
         @SuppressLint("SetTextI18n")
         @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        public View getChildView(final int groupPosition, final int childPosition, final boolean isLastChild, final View convertView, final ViewGroup parent) {
             Pair<String, Integer> childInfo = (Pair<String, Integer>) getChild(groupPosition, childPosition);
             TextView textView = (TextView) convertView;
             if (convertView == null) {
@@ -278,14 +279,9 @@ public class FileSearchResultSelectorDialog {
             children = a_children != null ? a_children : new ArrayList<>();
         }
 
-        public int getCountMatches() {
-            return children.size();
-        }
-
         @Override
         public String toString() {
-            String contentCountText = children.size() > 0 ? String.format("(%s) ", children.size()) : "";
-            return contentCountText + path;
+            return (children.size() > 0 ? String.format("(%s) ", children.size()) : "") + path;
         }
     }
 }
