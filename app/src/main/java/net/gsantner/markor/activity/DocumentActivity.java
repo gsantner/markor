@@ -204,9 +204,7 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            final int paramLineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER,
-                    (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1)
-            );
+            final int paramLineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
             final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index."));

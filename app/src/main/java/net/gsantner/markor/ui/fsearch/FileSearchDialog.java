@@ -8,7 +8,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,22 +26,20 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchDialog {
     public static void showDialog(final Activity activity, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
-        final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
-        final AlertDialog.Builder dialogBuilder = buildDialog(activity, dialog, dialogCallback);
-        dialog.set(dialogBuilder.create());
-        Window window = dialog.get().getWindow();
-        if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        final AtomicReference<AlertDialog> dialogRef = new AtomicReference<>();
+        dialogRef.set(buildDialog(activity, dialogRef, dialogCallback).create());
+        if (dialogRef.get().getWindow() != null) {
+            dialogRef.get().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-        dialog.get().show();
-        if (window != null) {
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialogRef.get().show();
+        if (dialogRef.get().getWindow() != null) {
+            dialogRef.get().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         }
     }
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
@@ -58,7 +55,7 @@ public class FileSearchDialog {
 
         final TextView messageTextView = new TextView(activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
-        Spinner queryHistorySpinner = new Spinner(activity);
+        final Spinner queryHistorySpinner = new Spinner(activity);
         final CheckBox regexCheckBox = new CheckBox(activity);
         final CheckBox caseSensitivityCheckBox = new CheckBox(activity);
         final CheckBox searchInContentCheckBox = new CheckBox(activity);
