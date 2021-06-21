@@ -315,7 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
-    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущей директории. Если в запросе есть звёздочка (*), используется поиск по регулярному выражению.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущем каталоге.</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения.</string>
     <string name="template">Шаблон</string>
@@ -402,6 +402,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Импорт настроек из резервной копии json файла. При успешном завершении приложение перезапускается.</string>
     <string name="failed_to_restore_settings_from_backup">Не удалось восстановить настройки из резервной копии</string>
     <string name="newline_is_new_paragraph">Newline = новый абзац</string>
+    <string name="search_in_content">Поиск по содержимому</string>
+    <string name="max_search_depth">Глубина поиска</string>
+    <string name="ignore_list">Игнорировать</string>
+    <string name="do_not_search_specified_files_and_folders">Не искать указанные файлы и папки.\nИспользуйте новую строку в качестве разделителя.\nИспользуйте кавычки для точных имен каталога: \"Тест\".\nИли используйте Regex \'^[.].*\'\nпримеры: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Поиск по выражениям</string>
+    <string name="case_sensitive">Учитывать регистр</string>
+    <string name="stop_search_after_first_match">Остановить поиск после первого матча</string>
+    <string name="regex_can_not_be_compiled">Не удалось скомпилировать Regex</string>
     <string name="keep_both">Оставить оба</string>
     <string name="skip">Пропустить</string>
     <string name="overwrite">Перезаписать</string>
@@ -411,4 +419,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' уже существует в %s</string>
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
+    <string name="infinite">Бесконечный</string>
 </resources>
