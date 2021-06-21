@@ -144,7 +144,7 @@ public class FileSearchDialog {
         dialogLayout.addView(searchInContentCheckBox, margins);
 
         // Checkbox: Only first content match
-        onlyFirstContentMatchCheckBox.setText(R.string.only_first_content_match);
+        onlyFirstContentMatchCheckBox.setText(R.string.stop_search_after_first_match);
         onlyFirstContentMatchCheckBox.setChecked(appSettings.isOnlyFirstContentMatch());
         onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
         dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
