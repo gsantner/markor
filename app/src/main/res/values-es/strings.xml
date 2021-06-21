@@ -408,6 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">No busque archivos y carpetas especificados.\nUtilice una nueva línea como separador.\nUtilice comillas para nombres de directorio exactos: \"Test\".\nO usar Regex \'^[.].*\'\nEjemplos: ^\\..*\n\"test\"\n\"Test\"\n.*secreto.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Búsqueda Regex</string>
     <string name="case_sensitive">Distingue mayúsculas</string>
+    <string name="stop_search_after_first_match">Detener búsqueda después de la primera coincidencia</string>
     <string name="regex_can_not_be_compiled">Regex no puede ser compilado</string>
     <string name="keep_both">Mantener ambos</string>
     <string name="skip">Saltar</string>
