@@ -469,12 +469,6 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     private void doBasicHighlights(final Spannable spannable) {
-        TodoTxtHighlighter.basicTodoTxtHighlights(
-                spannable,
-                true,
-                new TodoTxtHighlighterColors(),
-                _appSettings.isDarkThemeEnabled(),
-                null
-        );
+        TodoTxtHighlighter.basicTodoTxtHighlights(spannable, true, new TodoTxtHighlighterColors(), _appSettings.isDarkThemeEnabled(), null);
     }
 }

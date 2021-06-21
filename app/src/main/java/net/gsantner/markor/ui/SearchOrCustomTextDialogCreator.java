@@ -270,13 +270,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttKeySearchDialog(
-            final Activity activity,
-            final CharSequence fullText,
-            final Callback.a1<Spannable> highlighter,
-            final boolean isProjects,
-            final Callback.a1<List<Integer>> userCallback)
-    {
+    public static void showSttKeySearchDialog(final Activity activity, final CharSequence fullText, final Callback.a1<Spannable> highlighter, final boolean isProjects, final Callback.a1<List<Integer>> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
@@ -297,7 +291,7 @@ public class SearchOrCustomTextDialogCreator {
             final Set<String> searchKeys = new HashSet<>();
             for (final int i : keyIndices) {
                 searchKeys.add(dopt.data.get(i).toString());
-            };
+            }
 
             final List<Integer> filteredIndices = new ArrayList<>();
             final List<String> taskLines = new ArrayList<>();
