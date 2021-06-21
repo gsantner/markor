@@ -70,7 +70,7 @@ public class SearchEngine {
         public FitFile(final String a_path, final boolean a_isDirectory, List<Pair<String, Integer>> lineNumbers) {
             path = a_path;
             isDirectory = a_isDirectory;
-            matchesWithLineNumberAndLineText = Collections.unmodifiableList(lineNumbers);
+            matchesWithLineNumberAndLineText = Collections.unmodifiableList(lineNumbers != null ? lineNumbers : new ArrayList<>());
         }
     }
 
@@ -121,8 +121,6 @@ public class SearchEngine {
             }
             _regex = pattern;
         }
-
-
 
         @Override
         protected void onPreExecute() {
