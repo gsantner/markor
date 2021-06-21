@@ -315,7 +315,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Torra a carrigare</string>
     <string name="wrap_words">Acontzu de sas lìnias</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
-    <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale. Cando sa chirca cuntenet un\'asteriscu (*) benit impreada sa chirca de espressiones regulares (regex), si nono verìfica si sa chirca est cuntenuda.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
     <string name="template">Modellu</string>

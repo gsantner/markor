@@ -119,8 +119,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_source_licenses">खुला स्रोत लाइसेंस</string>
     <string name="rate_this_app">इस ऐप्लिकेशन को रेट करे</string>
     <string name="translate">अनुवाद करें</string>
+    <string name="more_info_and_help">अधिक जानकारी और सहायता</string>
     <string name="report_bugs">रिपोर्ट बग</string>
+    <string name="join_community">समुदाय में शामिल हो जाइए</string>
+    <string name="bug_reports_suggest_improvements">फ़ीडबैक दें, बग की रिपोर्ट करें या सुधार सुझाएं</string>
+    <string name="help_translating_this_app">इस ऐप का अन्य भाषाओं में अनुवाद करें</string>
     <string name="source_code">सोर्स कोड</string>
+    <string name="project_license">परियोजना लाइसेंस</string>
+    <string name="project_contribution_info">परियोजना योगदान जानकारी</string>
+    <string name="more_info_on_how_to_contribute_to_this_project">इस परियोजना में योगदान करने के तरीके के बारे में अधिक जानकारी</string>
     <string name="location">स्थान</string>
     <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
     <string name="description">विवरण</string>
