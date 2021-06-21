@@ -142,7 +142,9 @@ public class FileSearchResultSelectorDialog {
                     groupChildItems.add(contentMatch);
                 }
             }
-            groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, (isPathContainsQuery || groupChildItems.size() > 0) ? groupChildItems : null));
+            if (isPathContainsQuery || groupChildItems.size() > 0) {
+                groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, groupChildItems));
+            }
         }
         return groupItemsData;
     }
