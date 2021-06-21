@@ -315,7 +315,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Recarrega</string>
     <string name="wrap_words">Ajusta les paraules</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
-    <string name="recursive_search_in_current_directory">Cerca recursiva en el directori actual. Quan la consulta conté un asterisc (*) s\'utilitza la recerca d\'expressions regulars, en cas contrari, comproveu si la consulta està continguda.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
     <string name="template">Plantilla</string>
