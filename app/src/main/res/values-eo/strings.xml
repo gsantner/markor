@@ -57,12 +57,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="licenses">Permesiloj</string>
     <string name="changelog">Ŝanĝoprotokolo</string>
     <string name="more_info">Pli da informo</string>
+    <string name="show_license_of_the_app">Montri permesilon de la apo</string>
     <string name="language">Lingvo</string>
     <string name="open_with">Malfermi per</string>
     <string name="sort">Ordigi laŭ</string>
     <string name="date">Dato</string>
     <string name="deleteme____1">Dosiernomo</string>
-    <string name="size">Grando</string>
+    <string name="size">Grandeco</string>
+    <string name="contribute">Kontribui</string>
     <string name="exit">Eliri</string>
     <string name="undo">Malfari</string>
     <string name="redo">Refari</string>
@@ -91,7 +93,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Krei Noton</string>
     <string name="app_settings" needed="false">Aplikaĵaj Agordoj</string>
     <string name="editor_settings" needed="false">Redaktilaj Agordoj</string>
-    <string name="main_view">Ĉefa Vido</string>
+    <string name="main_view">Ĉefa vido</string>
     <string name="format">Formato</string>
     <string name="contexts">Kuntekstoj</string>
     <string name="project">Projekto</string>
@@ -102,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">Malplena dosiero</string>
     <string name="underline">Substreki</string>
     <string name="tasks_with_todays_date">Taskoj kun hodiaŭa dato</string>
+    <string name="general">Ĝeneralaj</string>
     <string name="key_ctrl_a">Elekti ĉiujn (Ctrl+A)</string>
     <string name="key_tab">Tabo</string>
     <string name="start_on_bottom">Komenci malsupren</string>
@@ -109,13 +112,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Steleto (*)</string>
     <string name="unordered_list_char_plus">Pluso (+)</string>
     <string name="clipboard">Tondujo</string>
+    <string name="open_source_licenses">Malfermitkodaj permesiloj</string>
+    <string name="rate_this_app">Taksi ĉi tiun apon</string>
     <string name="translate">Traduku</string>
+    <string name="more_info_and_help">Pli da informo kaj helpo</string>
+    <string name="join_community">Aliĝi la komunumon</string>
+    <string name="help_translating_this_app">Traduku ĉi tiun apon al aliaj lingvoj</string>
     <string name="source_code">Fontkodo</string>
+    <string name="project_license">Projekta permesilo</string>
+    <string name="project_team">Projekta teamo</string>
     <string name="directory">Dosierujo</string>
     <string name="details">Detaloj</string>
     <string name="calendar">Kalendaro</string>
     <string name="description">Priskribo</string>
     <string name="edit_picture">Redakti bildon</string>
+    <string name="miscellaneous">Aliaĵoj</string>
     <string name="color">Koloro</string>
     <string name="foreground">Malfono</string>
     <string name="background">Fono</string>
