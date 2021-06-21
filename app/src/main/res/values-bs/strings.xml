@@ -315,7 +315,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Učitaj ponovo</string>
     <string name="wrap_words">Prijelom redova</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Kad tekst prelazi širinu ekrana, koristiti blagi prijelom. Ako ne, tad aktivirati vodoravno pomjeranje.</string>
-    <string name="recursive_search_in_current_directory">Rekurzivno pretraživanje u trenutnom direktoriju. Kad upit sadržava zvjezdicu (*) koriste se regularni izrazi.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
     <string name="template">Šablon</string>
