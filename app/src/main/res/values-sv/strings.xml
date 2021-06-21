@@ -408,6 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Sök inte efter angivna filer och mappar.\nAnvänd ny rad som separator.\nAnvänd citat för exakta dir namn: \"Test\".\nEller använd Regex \'^[.].*\'\nExempel: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex sökning</string>
     <string name="case_sensitive">Ärende känslig</string>
+    <string name="stop_search_after_first_match">Stoppa sökning efter första matchningen</string>
     <string name="regex_can_not_be_compiled">Regex kan inte kompileras</string>
     <string name="keep_both">Behåll båda</string>
     <string name="skip">Hoppa</string>
