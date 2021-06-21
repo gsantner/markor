@@ -263,8 +263,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
         dopt.multiSelectCallback = (result) -> {
-            for (final Integer pi : result) {
-                callback.callback(dopt.data.get(pi).toString());
+            for (final Integer i : result) {
+                callback.callback(dopt.data.get(i).toString());
             }
         };
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
