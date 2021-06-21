@@ -408,6 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Não procure por arquivos e pastas especificadas.\nUse nova linha como separador.\nUse aspas para nomes exatamente diretórios: \"Testar\".\nOu use Regex \'^[.].*\'\nExemplos: ├..*\n\"teste\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Busca por Regex</string>
     <string name="case_sensitive">Sensível ao caso</string>
+    <string name="stop_search_after_first_match">Parar pesquisa após primeira correspondência</string>
     <string name="regex_can_not_be_compiled">Regex não pode ser compilado</string>
     <string name="keep_both">Manter ambos</string>
     <string name="skip">Ignorar</string>
