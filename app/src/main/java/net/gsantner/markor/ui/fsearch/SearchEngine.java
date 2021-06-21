@@ -68,6 +68,7 @@ public class SearchEngine {
         public final List<Pair<String, Integer>> matchesWithLineNumberAndLineText;
 
         public FitFile(final String a_path, final boolean a_isDirectory, List<Pair<String, Integer>> lineNumbers) {
+            lineNumbers = lineNumbers == null ? new ArrayList<>() : lineNumbers;
             path = a_path;
             isDirectory = a_isDirectory;
             matchesWithLineNumberAndLineText = Collections.unmodifiableList(lineNumbers);
