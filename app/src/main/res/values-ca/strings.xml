@@ -315,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Recarrega</string>
     <string name="wrap_words">Ajusta les paraules</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
+    <string name="recursive_search_in_current_directory">Cerca recursiva al directori actual.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
     <string name="template">Plantilla</string>
@@ -401,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa la configuració d\'un fitxer de còpia de seguretat json. Si tot és correcte, l\'aplicació es reiniciarà.</string>
     <string name="failed_to_restore_settings_from_backup">No s\'ha pogut restaurar la configuració de la còpia de seguretat</string>
     <string name="newline_is_new_paragraph">Nova línia = paràgraf nou</string>
+    <string name="search_in_content">Cerca al contingut</string>
     <string name="keep_both">Mantén els dos</string>
     <string name="skip">Omet</string>
     <string name="overwrite">Sobreescriu</string>
