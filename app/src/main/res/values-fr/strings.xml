@@ -408,7 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Ne pas rechercher les fichiers et dossiers spécifiés.\n Séparez chaque élément en les entrant sur une nouvelle ligne.\nUtilisez des guillemets pour les noms de répertoire exacts : \"Test\".\nOu utilisez Regex \'^[.].*\'\nExemples : ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Recherche Regex</string>
     <string name="case_sensitive">Sensible à la casse</string>
-    <string name="stop_search_after_first_match">Arrêter la recherche après le premier match</string>
+    <string name="stop_search_after_first_match">Arrêter la recherche après le premier élément</string>
     <string name="regex_can_not_be_compiled">Regex ne peut pas être compilé</string>
     <string name="keep_both">Garder les deux</string>
     <string name="skip">Ignorer</string>
