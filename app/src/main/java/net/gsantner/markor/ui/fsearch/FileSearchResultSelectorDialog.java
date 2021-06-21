@@ -129,6 +129,7 @@ public class FileSearchResultSelectorDialog {
         return dialogBuilder;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static ArrayList<GroupItemsInfo> filter(final List<SearchEngine.FitFile> searchResults, String query) {
         final ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
@@ -142,7 +143,7 @@ public class FileSearchResultSelectorDialog {
                     groupChildItems.add(contentMatch);
                 }
             }
-            if (isPathContainsQuery || groupChildItems.size() > 0) {
+            if (isPathContainsQuery || !groupChildItems.isEmpty()) {
                 groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, groupChildItems));
             }
         }
