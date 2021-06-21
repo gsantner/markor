@@ -315,7 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Herladen</string>
     <string name="wrap_words">Woorden weghalen</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break als tekst niet past bij schermbreedte. Schakel horizontaal scrollen in.</string>
-    <string name="recursive_search_in_current_directory">Terugkerend zoeken in de huidige map. Wanneer query een asterisk (*) regex zoekopdracht bevat, wordt gebruikt, anders controleer of de query is ingeperkt.</string>
+    <string name="recursive_search_in_current_directory">Recursieve zoekopdracht in de huidige map.</string>
     <string name="always_open_with_this_app">Altijd open met deze app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
     <string name="template">Sjabloon</string>
@@ -402,6 +402,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Import instellingen vanuit het backup json bestand. Bij succes wordt de app opnieuw gestart.</string>
     <string name="failed_to_restore_settings_from_backup">Fout bij het herstellen van instellingen vanuit back-up</string>
     <string name="newline_is_new_paragraph">Nieuwregel = nieuwe alinea</string>
+    <string name="search_in_content">Zoeken in inhoud</string>
+    <string name="max_search_depth">Zoek diepte</string>
+    <string name="ignore_list">Negeer lijst</string>
+    <string name="do_not_search_specified_files_and_folders">Niet zoeken in opgegeven bestanden en mappen.\nGebruik nieuwe regel als scheidingsteken.\nGebruik aanhalingstekens voor exacte namen van de dir: \"Test\".\nOf gebruik Regex \'^[.].*\'\nVoorbeelden: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Regex zoeken</string>
+    <string name="case_sensitive">Hoofdletter gevoelig</string>
+    <string name="stop_search_after_first_match">Stop zoeken na eerste wedstrijd</string>
+    <string name="regex_can_not_be_compiled">Regex kan niet gecompileerd worden</string>
     <string name="keep_both">Houd beide</string>
     <string name="skip">Overslaan</string>
     <string name="overwrite">Overschrijf</string>
@@ -411,4 +419,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' bestaat al in %s</string>
     <string name="additional_contexts_and_projects">Aanvullende contexten en projecten</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Voer spatie gescheiden @contexts en + projecten in. Deze zijn altijd zichtbaar bij todo.txt invoegen dialogen.</string>
+    <string name="infinite">Oneindig</string>
 </resources>
