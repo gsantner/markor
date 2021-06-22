@@ -403,6 +403,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="failed_to_restore_settings_from_backup">Nije uspjelo obnavljanje podešavanja iz rezervne kopije</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
     <string name="search_in_content">Pretraga sadržaja</string>
+    <string name="max_search_depth">Dubina pretrage</string>
+    <string name="ignore_list">Popis izostavljenih</string>
+    <string name="do_not_search_specified_files_and_folders">Ne pretražuj ovdje precizirane datoteke i direktorije.\nKoristi novi red kao razdjelnicu.\nKoristi navodnike za traženje tačnih naziva: \"Test\".\nIli koristi Regex \'^[.].*\'\nPrimjeri: ^\\..*\n\"test\"\n\"Test\"\n.*tajni.*\n.*REZERVNA.*\n.*.ini</string>
+    <string name="regex_search">Regex pretraga</string>
+    <string name="case_sensitive">Pazi na velika i mala slova</string>
+    <string name="regex_can_not_be_compiled">Regex nije sprovodiv</string>
     <string name="keep_both">Zadrži obje</string>
     <string name="skip">Preskoči</string>
     <string name="overwrite">Prepiši preko</string>
@@ -412,4 +418,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' već postoji u %s</string>
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
+    <string name="infinite">Beskrajno</string>
 </resources>
