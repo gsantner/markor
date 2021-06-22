@@ -315,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Učitaj ponovo</string>
     <string name="wrap_words">Prijelom redova</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Kad tekst prelazi širinu ekrana, koristiti blagi prijelom. Ako ne, tad aktivirati vodoravno pomjeranje.</string>
+    <string name="recursive_search_in_current_directory">Rekurzivna pretraga u trenutnom direktoriju.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
     <string name="template">Šablon</string>
@@ -401,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Unesi podešavanja iz rezervne kopije json datoteke. Po uspješnom završetku, aplikacija će se pokrenuti iznova.</string>
     <string name="failed_to_restore_settings_from_backup">Nije uspjelo obnavljanje podešavanja iz rezervne kopije</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
+    <string name="search_in_content">Pretraga sadržaja</string>
     <string name="keep_both">Zadrži obje</string>
     <string name="skip">Preskoči</string>
     <string name="overwrite">Prepiši preko</string>
