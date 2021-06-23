@@ -401,6 +401,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa sas impostatziones dae una còpia de seguresa in unu documentu json. In casu de sutzessu s\'aplicatzione s\'at a torrare a allùghere.</string>
     <string name="failed_to_restore_settings_from_backup">Riprìstinu de sas impostatziones dae sa còpia de seguresa fallidu</string>
     <string name="newline_is_new_paragraph">Lìnia noa = paràgrafu nou</string>
+    <string name="stop_search_after_first_match">Acabba sa chirca a pustis de sa prima currispondèntzia</string>
     <string name="keep_both">Mantene·los ambos</string>
     <string name="skip">Brinca</string>
     <string name="overwrite">Subraiscrie</string>
