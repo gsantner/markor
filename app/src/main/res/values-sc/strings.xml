@@ -315,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Torra a carrigare</string>
     <string name="wrap_words">Acontzu de sas lìnias</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
+    <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
     <string name="template">Modellu</string>
@@ -401,6 +402,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa sas impostatziones dae una còpia de seguresa in unu documentu json. In casu de sutzessu s\'aplicatzione s\'at a torrare a allùghere.</string>
     <string name="failed_to_restore_settings_from_backup">Riprìstinu de sas impostatziones dae sa còpia de seguresa fallidu</string>
     <string name="newline_is_new_paragraph">Lìnia noa = paràgrafu nou</string>
+    <string name="search_in_content">Chirca in su cuntenutu</string>
+    <string name="max_search_depth">Profundidade de chirca</string>
+    <string name="ignore_list">Lista de ignorados</string>
     <string name="stop_search_after_first_match">Acabba sa chirca a pustis de sa prima currispondèntzia</string>
     <string name="keep_both">Mantene·los ambos</string>
     <string name="skip">Brinca</string>
