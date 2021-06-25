@@ -408,7 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Не шукайте вказані файли і папки.\nВикористовувати новий рядок як роздільник вузлів.\nВикористовуйте лапки для точних імен dir: \"Test\".\nАбо використайте Regex \'^[.].*\'\nПриклади: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Метод регулярних виразів</string>
     <string name="case_sensitive">З урахуванням регістру</string>
-    <string name="stop_search_after_first_match">Зупинити пошук після першого матчу</string>
+    <string name="stop_search_after_first_match">Зупинити пошук після першого збігу</string>
     <string name="regex_can_not_be_compiled">Неможливо скомпілювати Regex</string>
     <string name="keep_both">Залишити обидва</string>
     <string name="skip">Пропустити</string>

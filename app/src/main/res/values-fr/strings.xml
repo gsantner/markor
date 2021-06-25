@@ -357,7 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">Barré</string>
     <string name="inline_code">Code en ligne</string>
     <string name="horizontal_line">Ligne horizontale</string>
-    <string name="toggle_done">Clicker terminé</string>
+    <string name="toggle_done">Marquer comme terminé</string>
     <string name="link_color">Couleur du lien</string>
     <string name="add_context">Ajouter un contexte</string>
     <string name="add_project">Ajouter un projet</string>
@@ -393,7 +393,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Remplacer par</string>
     <string name="replace_once">Remplacer (1)</string>
     <string name="replace_all">Remplacer tout</string>
-    <string name="matches">Matchs</string>
+    <string name="matches">Match</string>
     <string name="search_replace_pattern_error_message">Erreur de recherche ou de remplacement.</string>
     <string name="backup_settings">Sauvegarder les paramètres</string>
     <string name="restore_settings">Restaurer les paramètres</string>
@@ -405,10 +405,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">Rechercher dans le contenu</string>
     <string name="max_search_depth">Profondeur de recherche</string>
     <string name="ignore_list">Ignorer la liste</string>
-    <string name="do_not_search_specified_files_and_folders">Ne pas rechercher les fichiers et dossiers spécifiés.\nUtilisez une nouvelle ligne comme séparateur.\nUtilisez des guillemets pour les noms de répertoire exacts : \"Test\".\nOu utilisez Regex \'^[.].*\'\nExemples : ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">Ne pas rechercher les fichiers et dossiers spécifiés.\n Séparez chaque élément en les entrant sur une nouvelle ligne.\nUtilisez des guillemets pour les noms de répertoire exacts : \"Test\".\nOu utilisez Regex \'^[.].*\'\nExemples : ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Recherche Regex</string>
     <string name="case_sensitive">Sensible à la casse</string>
-    <string name="stop_search_after_first_match">Arrêter la recherche après le premier match</string>
+    <string name="stop_search_after_first_match">Arrêter la recherche après le premier élément</string>
     <string name="regex_can_not_be_compiled">Regex ne peut pas être compilé</string>
     <string name="keep_both">Garder les deux</string>
     <string name="skip">Ignorer</string>
