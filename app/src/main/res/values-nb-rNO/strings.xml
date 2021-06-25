@@ -315,7 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Reload</string>
     <string name="wrap_words">Bryt ord</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Myk pause hvis tekst ikke passer til skjermens bredde. Elsk aktiver horisontal scrolling.</string>
-    <string name="recursive_search_in_current_directory">Gjentatt søk i gjeldende mappe. Når spørringen inneholder et stjerne (*) regex-søk blir brukt, hvis ikke sjekk om spørringen inneholder.</string>
+    <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
     <string name="template">Mal</string>
@@ -402,6 +402,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer innstillinger fra backup json-fil. Når appen er startet på nytt.</string>
     <string name="failed_to_restore_settings_from_backup">Kunne ikke gjenopprette innstillingene fra sikkerhetskopien</string>
     <string name="newline_is_new_paragraph">Ny = ny avsnitt</string>
+    <string name="search_in_content">Søk i innhold</string>
+    <string name="max_search_depth">Søk på dybde</string>
+    <string name="ignore_list">Ignorer liste</string>
+    <string name="do_not_search_specified_files_and_folders">Ikke søk spesifikke filer og mapper.\nBruk ny linje som skilletegn.\nBruk sitater for nøyaktige dir navn: \"Test\".\nEller bruk Regex \'^[.].*\'\nEksempler: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Regex søk</string>
+    <string name="case_sensitive">Kassen er følsom</string>
+    <string name="stop_search_after_first_match">Stopp søk etter første treff</string>
+    <string name="regex_can_not_be_compiled">Regex kan ikke kompileres</string>
     <string name="keep_both">Behold begge</string>
     <string name="skip">Hopp</string>
     <string name="overwrite">Overskriv</string>
@@ -411,4 +419,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' eksisterer allerede i %s</string>
     <string name="additional_contexts_and_projects">Flere kontekster og prosjekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Angi områdedaterte @contexts og +projects. Disse vil alltid være synlige på todo.txt innfør dialoger.</string>
+    <string name="infinite">Uendelig</string>
 </resources>

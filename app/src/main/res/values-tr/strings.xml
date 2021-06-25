@@ -315,7 +315,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
-    <string name="recursive_search_in_current_directory">Geçerli dizinde özyinelemeli arama. Sorgu yıldız (*) içeriyorsa, regex search kullanılır, aksi halde sorgunun içerip içermediğini kontrol edin.</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
     <string name="template">Şablon</string>
