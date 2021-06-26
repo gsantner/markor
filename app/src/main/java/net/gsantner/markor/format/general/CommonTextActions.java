@@ -165,7 +165,7 @@ public class CommonTextActions {
                     int insertPos = text.indexOf('\n', start);
                     insertPos = insertPos < 1 ? text.length() : insertPos;
                     _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
-                    _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
+                    _hlEditor.setSelection((Math.min((insertPos + 3), _hlEditor.length())));
                 }
                 return true;
             }
