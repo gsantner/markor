@@ -289,7 +289,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">I-reload</string>
     <string name="wrap_words">I-wrap ang mga salita</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">I-soft break kung hindi kakasya sa lapad ng screen ang teksto. Kung ayaw, i-enable ang pag-i-scroll na pahiga.</string>
-    <string name="recursive_search_in_current_directory">Pabalik-balik na paghahanap sa direktorya ngayon. Kapag ang hinahanap ay may asteris (*), gagamitin ang regex na paghahanap, kung hindi, suriin kung nahanap ang hinahanap.</string>
     <string name="always_open_with_this_app">Palaging buksan sa app na ito</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Palaging buksan ang mga file sa app na ito kung ang listahan ay mayroon mga file extension. Gamitin ang \'Wala, .html, .css, .js\' bilang halimbawa kung gusto mong baguhin ang mga web file at yung mga walang file extension.</string>
     <string name="template">Template</string>
