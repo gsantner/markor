@@ -170,12 +170,13 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), lineNr -> {
-                    if (!_hlEditor.hasFocus()) {
-                        _hlEditor.requestFocus();
-                    }
-                    _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
-                });
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor),
+                        (lineNr) -> {
+                            if (!_hlEditor.hasFocus()) {
+                                _hlEditor.requestFocus();
+                            }
+                            _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
+                        });
                 return true;
             }
             case ACTION_JUMP_BOTTOM_TOP: {

@@ -132,16 +132,16 @@ public class TodoTxtTextActions extends TextActions {
                     final List<String> contexts = new ArrayList<>();
                     contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
                     contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts()));
-                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, context ->
-                        insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context));
+                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts,
+                            (context) -> insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context));
                     return;
                 }
                 case R.string.tmaid_todotxt_add_project: {
                     final List<String> projects = new ArrayList<>();
                     projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
                     projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects()));
-                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, project ->
-                        insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project));
+                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects,
+                            (project) -> insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project));
                     return;
                 }
                 case R.string.tmaid_todotxt_priority: {
@@ -211,15 +211,16 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_sort_todo: {
-                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
-                        @Override
-                        public void run() {
-                            List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
-                            TodoTxtTask.sortTasks(tasks, orderBy, descending);
-                            setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
-                            new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
-                        }
-                    }.start());
+                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity,
+                            (orderBy, descending) -> new Thread() {
+                                @Override
+                                public void run() {
+                                    final List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
+                                    TodoTxtTask.sortTasks(tasks, orderBy, descending);
+                                    setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                                    new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
+                                }
+                            }.start());
                     break;
                 }
                 case R.string.tmaid_common_open_link_browser: {
@@ -262,7 +263,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_sort_todo: {
                     final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
                     if (last != null && last.size() == 2) {
-                        List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
+                        final List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
                         TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
                         setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                     }
