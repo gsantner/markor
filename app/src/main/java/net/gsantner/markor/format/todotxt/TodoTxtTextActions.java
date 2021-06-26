@@ -279,6 +279,8 @@ public class TodoTxtTextActions extends TextActions {
 
     private void insertUniqueItem(String item) {
         item = item.trim().replace(" ", "_");
+        // Pattern to match <space><literal string><space OR end of line>
+        // i.e. to check if a word is present in the line
         final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));
         final String lines = StringUtils.getSelectedLines(_hlEditor);
         // Multiline or setting

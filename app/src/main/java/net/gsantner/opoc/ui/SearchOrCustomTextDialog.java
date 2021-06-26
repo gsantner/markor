@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -32,6 +31,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,15 +48,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -314,10 +311,18 @@ public class SearchOrCustomTextDialog {
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
-        searchEditText.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(final Editable arg0) {
                 listAdapter.getFilter().filter(searchEditText.getText());
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
+            }
+
+            @Override
+            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
             }
         });
 

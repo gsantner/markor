@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Base64;
 import android.widget.TextView;
 
@@ -303,24 +301,6 @@ public final class StringUtils {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
             return defaultValue;
-        }
-    }
-
-    // So one doesn't have to define all three always
-    public static class SimpleTextWatcher implements TextWatcher {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Does nothing
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Does nothing
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // Does nothing
         }
     }
 }
