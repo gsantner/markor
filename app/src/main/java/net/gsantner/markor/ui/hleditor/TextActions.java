@@ -644,6 +644,7 @@ public abstract class TextActions {
      * Case 1: Only one index -> Put cursor on that line
      * Case 2: Contiguous indices -> Select lines
      * Case 3: Non-contiguous indices -> Move all selected lines to the top and select them
+     *
      * @param positions: Line indices to select
      */
     public void selectLines(final List<Integer> positions) {
