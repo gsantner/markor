@@ -254,8 +254,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(_hlEditor.length());
                 new ActivityUtils(getActivity()).showSoftKeyboard(_hlEditor).freeContextRef();
             }
-        }
-        else {
+        } else {
             restoreDocumentPositions();
         }
     }
@@ -431,7 +430,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
-                hideSoftKeyboard();
+                new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
                 if ((saveDocument() || (_hlEditor.length() < 10 && TextUtils.getTrimmedLength(_hlEditor.getEditableText()) == 0)) && activity != null) {
                     activity.onBackPressed();
                 }
@@ -718,7 +717,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             } else { // otherwise take settings
                 if (_isPreviewVisible) {
                     _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
-                    hideSoftKeyboard();
+                    new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
                 } else {
                     if ((v = _appSettings.isEditorStartOnBottom() || isTodoDoc() || isQuickNoteDoc() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) >= 0) {
                         if (!_hlEditor.hasFocus()) {
@@ -799,7 +798,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
-            hideSoftKeyboard();
+            new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         }
         super.setUserVisibleHint(isVisibleToUser);
     }
@@ -887,12 +886,5 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private boolean isQuickNoteDoc() {
         return _document != null && _document.getFile().getPath().equals(_appSettings.getQuickNoteFile().getPath());
-    }
-
-    private void hideSoftKeyboard() {
-        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
-        if (_hlEditor != null) {
-            _hlEditor.clearFocus();
-        }
     }
 }
