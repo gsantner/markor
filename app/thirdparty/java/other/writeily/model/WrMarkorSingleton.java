@@ -169,8 +169,7 @@ public class WrMarkorSingleton {
                     // Put the file back in
                     files.push(file);
                     SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
-                            activity, file.getName(), destDir.getName(), files.size() > 1,
-                            (option) -> {
+                            activity, file.getName(), destDir.getName(), files.size() > 1, (option) -> {
                                 ConflictResolution res = ConflictResolution.ASK;
                                 if (option == 0 || option == 3) {
                                     res = ConflictResolution.KEEP_BOTH;
