@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Avaa aina tiedostoja tällä sovelluksella, kun lista sisältää tiedostopäätteen. Käytä \'Ei mitään, .html, . ss , .js esimerkiksi jos haluat muokata web-tiedostoja ja niitä ilman tiedostopäätettä.</string>
     <string name="template">Malli</string>
     <string name="send_debug_log">Lähetä Vianetsintäloki</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Auta lähettämällä vianetsintätietoja kehittäjille tai kehittäjille. Tiedot lähetetään sähköpostitse sähköpostin kautta ja näet kaikki lähetetyt tiedot ennen lähettämistä. Löydät ylimääräisen \"Lähetä debug loki\" -vaihtoehdon ylävalikosta, kun se on käytössä. Se luo sähköpostin luonnoksen.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Suurempi otsikko</string>
     <string name="increase_text_size_of_headings_according_to_level">Lisää otsikoiden tekstikokoa tason mukaan (# h1, ## h2. ### h3…)</string>

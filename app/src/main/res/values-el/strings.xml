@@ -321,7 +321,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Πάντα να ανοίγετε αρχεία με αυτήν την εφαρμογή, όταν η λίστα περιέχει την επέκταση αρχείου. Χρησιμοποιήστε \'Κανένα, .html, . ss , .js\' για παράδειγμα, αν θέλετε να επεξεργαστείτε τα αρχεία web και αυτά χωρίς επέκταση αρχείου.</string>
     <string name="template">Πρότυπο</string>
     <string name="send_debug_log">Αποστολή Καταγραφής Αποσφαλμάτωσης</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Βοήθεια με την αποστολή πληροφοριών αποσφαλμάτωσης στους προγραμματιστές. Τα δεδομένα αποστέλλονται μέσω email μέσω της εφαρμογής email σας και μπορείτε να δείτε όλα τα απεσταλμένα δεδομένα πριν από την αποστολή. Θα βρείτε μια πρόσθετη επιλογή \"Αποστολή αρχείου καταγραφής σφαλμάτων\" στο επάνω μενού όταν ενεργοποιηθεί. Δημιουργεί πρόχειρο μήνυμα ηλεκτρονικού ταχυδρομείου.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Μεγαλύτερες επικεφαλίδες</string>
     <string name="increase_text_size_of_headings_according_to_level">Αύξηση του μεγέθους κειμένου των κεφαλίδων ανάλογα με το επίπεδο (# h1, ## h2. ## h3…)</string>

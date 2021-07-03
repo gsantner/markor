@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
     <string name="template">Sjabloon</string>
     <string name="send_debug_log">Stuur debug log</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Help door debug informatie te verzenden naar ontwikkelaar(s). Gegevens worden per e-mail verzonden via uw e-mail app en u kunt alle verzonden gegevens zien voordat u het versturen. U vindt een extra optie \"Stuur debug log\" in het bovenste menu wanneer dit is ingeschakeld. Het maakt het e-mailconcept.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Grotere rubrieken</string>
     <string name="increase_text_size_of_headings_according_to_level">Verhoog tekstgrootte van headers volgens niveau (# h1, ## h2. ### h3…)</string>

@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="template">Template</string>
     <string name="send_debug_log">Invia log di debug</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Aiutaci inviando informazioni di debug agli sviluppatori. I dati vengono spediti tramite la tua app e-mail e puoi controllare tutti i dati inviati prima di spedire. Se abilitata, nel menù in alto troverai un\'opzione aggiuntiva \"Invia log di debug\", che crea la bozza di email.</string>
     <string name="print_pdf">Stampa / PDF</string>
     <string name="bigger_headings">Intestazioni più grandi</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumenta la dimensione del testo delle intestazioni in base al livello (# h1, ## h2. ### h3…)</string>

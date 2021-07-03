@@ -112,12 +112,6 @@
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_bug_report_black_24dp"
-                android:key="@string/pref_key__is_debug_log_enabled"
-                android:summary="@string/help_by_sending_debug_information_to_the_developer"
-                android:title="@string/debug" />
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_bug_report_black_24dp"
                 android:key="@string/pref_key__is_enable_experimental_features"
                 android:title="@string/experimental_features" />
         </PreferenceCategory>

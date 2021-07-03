@@ -335,7 +335,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Always open files with this app when the list contains the file extension. Use \'None, .html, .css , .js\' for example if you want to edit web files and those without file extension.</string>
     <string name="template">Template</string>
     <string name="send_debug_log">Send Debug Log</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Help by sending debug information to developer(s). Data is sent by email via your email app and you can see all sent data prior to sending. You will find an additional \"Send debug log\" option in top menu when enabled. It creates the email draft.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Bigger headings</string>
     <string name="increase_text_size_of_headings_according_to_level">Increase text size of headers according to level (# h1, ## h2. ### h3…)</string>

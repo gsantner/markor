@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer av typen i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webfiler och filer utan filändelse.</string>
     <string name="template">Mall</string>
     <string name="send_debug_log">Skicka felsökningslogg</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjälp genom att skicka felsökningsinformation till utvecklare. Data skickas via e-post via din e-postapp och du kan se alla skickade data innan du skickar. Du hittar ytterligare ett alternativ för \"Skicka felsökningslogg\" i toppmenyn när det är aktiverat. Det skapar ett e-postutkast.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Större rubriker</string>
     <string name="increase_text_size_of_headings_according_to_level">Öka textstorleken på rubriker enligt nivå (# h1, ## h2. ### h3…)</string>

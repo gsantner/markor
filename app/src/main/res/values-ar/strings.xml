@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">فتح الملفات دائما مع هذا التطبيق عندما تحتوي القائمة على امتداد الملف. استخدم \'لا شيء، .html. .js\' على سبيل المثال إذا كنت ترغب في تحرير ملفات الويب وتلك التي ليس لها امتداد للملف.</string>
     <string name="template">النموذج</string>
     <string name="send_debug_log">إرسال سِجل للأخطاء</string>
-    <string name="help_by_sending_debug_information_to_the_developer">المساعدة عن طريق إرسال معلومات التصحيح إلى المطورين. يتم إرسال البيانات عن طريق البريد الإلكتروني عبر تطبيق البريد الإلكتروني الخاص بك ويمكنك رؤية جميع البيانات المرسلة قبل الإرسال. سوف تجد خيار \"إرسال سجل التصحيح\" إضافي في القائمة العليا عند التمكين. يقوم بإنشاء مسودة البريد الإلكتروني.</string>
     <string name="print_pdf">طباعة/PDF</string>
     <string name="bigger_headings">عناوين أكبر</string>
     <string name="increase_text_size_of_headings_according_to_level">زيادة حجم النص للرؤوس وفقا للمستوى (# h1, ## h2. ### h3…)</string>

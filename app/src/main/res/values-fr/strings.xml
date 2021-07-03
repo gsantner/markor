@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Toujours ouvrir avec cette application les fichiers dont l\'extension est contenue dans la liste. Utilisez \'None\', \'.html\', \'.css\', \'.js\' par exemple si vous voulez éditer des fichiers web ainsi que les fichiers sans extension.</string>
     <string name="template">Modèle</string>
     <string name="send_debug_log">Envoyer un journal de débogage</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Aide en envoyant des informations de débogage aux développeurs. Les données sont envoyées par email par l\'intermédiaire de votre application e-mail et vous pouvez voir toutes les données envoyées avant l\'envoi. Vous trouverez une option supplémentaire \"Envoyer un journal de débogage\" dans le menu supérieur lorsque activé. Elle crée le brouillon d\'email.</string>
     <string name="print_pdf">Imprimer / PDF</string>
     <string name="bigger_headings">Titres plus grands</string>
     <string name="increase_text_size_of_headings_according_to_level">Augmenter la taille du texte des en-têtes selon le niveau (# h1, ## h2. ## h3…)</string>
