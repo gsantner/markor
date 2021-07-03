@@ -316,7 +316,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">இந்த பட்டியலில் உள்ள கோப்பு வகை நீட்சிகள் கொண்ட ஆவணங்களை இந்த செயலியை கொண்டே திறக்கவும். உதாரணமாக நீங்கள் வலை ஆவணங்களையும் மற்றும் எந்த நீட்சிகள் அற்ற ஆவணங்களையும் திருத்த விரும்பினால் \'None, .html, .css , .js\' ஆகியவற்றை பயன்படுத்துங்கள்.</string>
     <string name="template">வார்ப்புரு</string>
     <string name="send_debug_log">Debug பதிவை அனுப்பவும்</string>
-    <string name="help_by_sending_debug_information_to_the_developer">debug தகவலை இந்த செயலியின் நிரலை எழுதுபவர்களுக்கு அனுப்புவதன் மூலம் உதவுங்கள். உங்கள் மின்னஞ்சல் செயலியின் வழியாக தரவானது மின்னஞ்சலாக அனுப்பப்படும் மற்றும் அனுப்புவதற்கு முன்னதாக நீங்கள் அனுப்பப்போகிற தரவை காணலாம். இதை இயக்குவதன் மூலம் மேலே உள்ள பட்டியில் கூடுதலாக \"debug பதிவை அனுப்பவும்\" தேர்வை காணலாம். இது ஒரு மின்னஞ்சல் வரைவை உருவாக்கும்.</string>
     <string name="print_pdf">அச்சிடு / PDF ஆக மாற்று</string>
     <string name="bigger_headings">பெரிய தலைப்புகள்</string>
     <string name="increase_text_size_of_headings_according_to_level">தலைப்புகளின் உரையின் அளவை அது இருக்கும் நிலையின் படி அதிகரிக்கவும் (# h1, ## h2. ### h3…)</string>

@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
     <string name="template">Šablon</string>
     <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomozite razvojnom timu šaljući informacije o greškama. Podaci se šalju putem Vaše email aplikacije i možete ih pregledati prije slanja. U gornjem ćete meniju pronaći \"Pošalji izvještaj za ispravljanje grešaka\" opciju kad je aktivna. Ona će kreirati novi email.</string>
     <string name="print_pdf">Štampaj / PDF</string>
     <string name="bigger_headings">Veći naslovi</string>
     <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>

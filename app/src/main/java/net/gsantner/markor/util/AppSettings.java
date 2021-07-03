@@ -809,10 +809,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return extSettingCache.contains(ext) || extSettingCache.contains(".*");
     }
 
-    public boolean isDebugLogEnabled() {
-        return getBool(R.string.pref_key__is_debug_log_enabled, BuildConfig.IS_TEST_BUILD);
-    }
-
     public boolean isExperimentalFeaturesEnabled() {
         return getBool(R.string.pref_key__is_enable_experimental_features, BuildConfig.IS_TEST_BUILD);
     }

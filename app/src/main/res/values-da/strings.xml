@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
     <string name="template">Skabelon</string>
     <string name="send_debug_log">Send Fejlsøgningslog</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjælp ved at sende debug information til udvikler(er). Data sendes via e-mail via din e-mail-app, og du kan se alle sendte data, før du sender. Du vil finde en ekstra \"Send debug log\" indstilling i top menuen, når aktiveret. Det opretter e-mail-kladden.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Større overskrifter</string>
     <string name="increase_text_size_of_headings_according_to_level">Forøg tekststørrelsen for overskrifter efter niveau (# h1, ## h2. ### h3…)</string>
