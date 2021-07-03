@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
     <string name="source_code">Código fuente</string>
     <string name="project_license">Licencia del proyecto</string>
-    <string name="project_contribution_info">Información de colaboraciones al proyecto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Más sobre cómo participar en este proyecto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Colabora con el proyecto. Cualquiera puede hacerlo, incluso los que usan la aplicación desde hace poco</string>
     <string name="project_team">El equipo tras el proyecto</string>
     <string name="contributors_public_add_yourself_description">Muestra información pública sobre los colaboradores. Estos pueden decidir si su información debe ser incluida con sus colaboraciones</string>
