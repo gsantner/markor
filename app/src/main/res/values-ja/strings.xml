@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">リストにファイル拡張子が含まれている場合は、常にこのアプリでファイルを開きます。 たとえば、Webファイルやファイル拡張子のないファイルを編集したい場合は、 \'なし, .html, .css , .js\' を使用してください。</string>
     <string name="template">テンプレート</string>
     <string name="send_debug_log">デバッグログを送信</string>
-    <string name="help_by_sending_debug_information_to_the_developer">開発者にデバッグ情報を送信して支援してください。 データはメールアプリを使用してメールで送信され、送信前にすべての送信データを確認できます。 有効にすると、トップメニューに \"デバッグログを送信\" オプションが追加されます。 メールの下書きを作成します。</string>
     <string name="print_pdf">印刷 / PDF</string>
     <string name="bigger_headings">見出しを大きくする</string>
     <string name="increase_text_size_of_headings_according_to_level">レベルに応じて見出しのテキストサイズを大きくします (# h1, ## h2. ### h3…)</string>

@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Envia registre de depuració</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ajudeu-nos enviant informació de depuració als desenvolupadors. Les dades s\'envien per correu a través de l\'aplicació de correu i podeu veure totes les dades que s\'enviaran abans d\'enviar-les. Trobareu una opció addicional «Envia registre de depuració» al menú superior quan estigui activada. Crea l\'esborrany de correu.</string>
     <string name="print_pdf">Imprimeix / PDF</string>
     <string name="bigger_headings">Capçaleres més grans</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa la mida de les capçaleres segons el nivell (# h1, ## h2. ### h3…)</string>

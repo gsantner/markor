@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia de fișiere. Folosiți \'Niciunul, .html, . ss , .js de exemplu dacă doriţi să editaţi fişiere web şi cele fără extensia fişierului.</string>
     <string name="template">Șablon</string>
     <string name="send_debug_log">Trimite jurnalul de depanare</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ajutor prin trimiterea de informații de depanare către dezvoltator(i). Datele sunt trimise prin e-mail prin intermediul aplicației dvs. de e-mail și puteți vedea toate datele trimise înainte de a le trimite. Veţi găsi o opţiune suplimentară de \"Trimite jurnalul de depanare\" în meniul de sus când este activată. Aceasta creează schiţa de e-mail.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Titluri mai mari</string>
     <string name="increase_text_size_of_headings_according_to_level">Crește dimensiunea textului în funcție de nivel (# h1, ## h2. ### h3…)</string>

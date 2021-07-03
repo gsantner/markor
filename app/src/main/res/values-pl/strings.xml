@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki z tą aplikacją, gdy lista zawiera rozszerzenie pliku. Użyj \'Brak, .html, . ss , .js, na przykład, jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomóż wysyłając informacje debugowania do programisty. Dane są wysyłane pocztą elektroniczną za pośrednictwem aplikacji e-mail i można zobaczyć wszystkie wysłane dane przed wysłaniem. Po włączeniu w górnym menu znajdziesz dodatkową opcję \"Wyślij dziennik debugowania\". Tworzy to szkic e-mail.</string>
     <string name="print_pdf">Drukuj PDF</string>
     <string name="bigger_headings">Większe nagłówki</string>
     <string name="increase_text_size_of_headings_according_to_level">Zwiększ rozmiar tekstu nagłówków zgodnie z poziomem (# h1, ## h2. ### h3…)</string>

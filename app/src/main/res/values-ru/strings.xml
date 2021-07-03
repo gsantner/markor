@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Всегда открывать файлы этим приложением, если расширение есть в списке. Используйте \'None, .html, .css , .js\', например, если вы хотите редактировать веб-файлы и файлы без расширения.</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить журнал отладки</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Помогите разработчикам, отправляя отладочную информацию. Данные отправляются по электронной почте вашим приложением электронной почты, и вы можете просмотреть перед отправкой все отправляемые данные. Вы найдете дополнительный пункт \"Отправить журнал отладки\" в верхнем меню, когда включено. Он создает черновик письма.</string>
     <string name="print_pdf">Печать / PDF</string>
     <string name="bigger_headings">Увеличивать заголовки</string>
     <string name="increase_text_size_of_headings_according_to_level">Увеличивать размер текста заголовков в соответствии с уровнем (# h1, ## h2, ### h3…)</string>

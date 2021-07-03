@@ -72,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
-        ### Copyright © 2017-2019
+        ### Copyright © 2017-2021
         **Gregor Santner**
         \n**Official project sources:**
         [Website](https://gsantner.net/index.html?source=inapp_license_official_project_source) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
@@ -279,7 +279,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__tab_width_v2" translatable="false">pref_key__tab_width_v2</string>
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
-    <string name="pref_key__is_debug_log_enabled" translatable="false">pref_key__is_debug_log_enabled</string>
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>
     <string name="pref_key__todotxt__start_new_tasks_with_huuid_v3" translatable="false">pref_key__todotxt__start_new_tasks_with_huuid_v3</string>

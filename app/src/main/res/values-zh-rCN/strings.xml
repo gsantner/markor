@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
-    <string name="help_by_sending_debug_information_to_the_developer">向开发者发送调试信息以提供帮助。数据将通过电子邮件应用发送，您可以在发送前查看所有数据。如果启用此选项，您将在顶部菜单中找到额外的“发送调试日志”选项。它将创建一个草稿邮件。</string>
     <string name="print_pdf">打印/PDF</string>
     <string name="bigger_headings">大标题</string>
     <string name="increase_text_size_of_headings_according_to_level">根据标题级别(# h1, ## h2, ### h3…) 增加标题文字大小</string>
