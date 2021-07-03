@@ -107,8 +107,7 @@ public class SearchOrCustomTextDialog {
         final List<Integer> _filteredItems;
         final Pattern _extraPattern;
         final Set<Integer> _selected;
-
-        private final int paddingPx;
+        final int _dp4px;
 
         public static Adapter newInstance(Context context, DialogOptions dopt) {
             return new Adapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
@@ -122,7 +121,9 @@ public class SearchOrCustomTextDialog {
             _filteredItems = filteredItems;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
             _selected = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            paddingPx = (int) Math.ceil(context.getResources().getDimension(R.dimen.search_select_stroke));
+            final ContextUtils cu = new ContextUtils(context);
+            _dp4px = (int) Math.ceil(cu.convertDpToPx(4));
+            cu.freeContextRef();
         }
 
         @NonNull
@@ -134,7 +135,7 @@ public class SearchOrCustomTextDialog {
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
                 textView.setBackgroundResource(R.drawable.search_dialog_selection);
-                textView.setPadding(textView.getPaddingLeft(), paddingPx, textView.getPaddingRight(), paddingPx);
+                textView.setPadding(textView.getPaddingLeft(), _dp4px, textView.getPaddingRight(), _dp4px);
             } else {
                 textView = (TextView) convertView;
             }
@@ -326,7 +327,7 @@ public class SearchOrCustomTextDialog {
             }
         });
 
-        final int margin = (int) (new ContextUtils(activity).convertDpToPx(8));
+        final int margin = 2 * listAdapter._dp4px;
 
         final LinearLayout searchLayout = new LinearLayout(activity);
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
