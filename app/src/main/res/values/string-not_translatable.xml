@@ -72,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
-        ### Copyright © 2017-2019
+        ### Copyright © 2017-2021
         **Gregor Santner**
         \n**Official project sources:**
         [Website](https://gsantner.net/index.html?source=inapp_license_official_project_source) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
