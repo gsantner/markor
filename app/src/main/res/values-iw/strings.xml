@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">תרגם ישום זה לשפות אחרות</string>
     <string name="source_code">קוד מקור</string>
     <string name="project_license">רישיון הפרויקט</string>
-    <string name="project_contribution_info">מידע על תרומה לפרויקט</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">מידע נוסף על איך לתרום לפרוייקט זה</string>
     <string name="contribute_code_to_this_project_anybody_welcome">לתרום קוד לפרוייקט. כולם מוזמנים לעשות כן, לרבות מתחילים</string>
     <string name="project_team">צוות הפרויקט</string>
     <string name="contributors_public_add_yourself_description">הצג פרטי המתנדב. הבא זאת להצגה כאן על בסיס הסכמה מראש לאחר תרומה</string>
