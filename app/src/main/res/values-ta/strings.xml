@@ -218,8 +218,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">மற்ற மொழிகளில் இந்த செயலியை மொழிபெயர்க்கவும்</string>
     <string name="source_code">மூல நிரல்</string>
     <string name="project_license">இந்த திட்டத்தின் உரிமம்</string>
-    <string name="project_contribution_info">திட்டத்திற்கு பங்களிப்பது தொடர்பான தகவல்</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">இந்த திட்டத்திற்கு எப்படி பங்களிப்பது குறித்து மேலும் தகவல்களுக்கு</string>
     <string name="contribute_code_to_this_project_anybody_welcome">இந்த திட்டத்திற்கு நிரல் எழுதும் பணிக்கு பங்களியுங்கள். அனைவரும் இதற்காக வரவேற்கப்படுகின்றனர், புதுமுகங்கள் உட்பட</string>
     <string name="project_team">திட்டக்குழு</string>
     <string name="contributors_public_add_yourself_description">பங்களிப்பாளரின் விவரத்தை காண்பிக்கவும். தன்னுடைய பங்களிப்பை வழங்கிய பிறகு அந்த நபரின் விருப்பத்தின் படியே இங்கே அவரின் விவரங்கள் காண்பிக்கப்படவேண்டும்</string>
