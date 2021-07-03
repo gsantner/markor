@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">ساهم في ترجمة هذا التطبيق إلى لغات أخرى</string>
     <string name="source_code">الشفرة المصدرية</string>
     <string name="project_license">رخصة المشروع</string>
-    <string name="project_contribution_info">معلومات عن المساهمة في المشروع</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">مزيد من المعلومات حول كيفية المساهمة في هذا المشروع</string>
     <string name="contribute_code_to_this_project_anybody_welcome">ساهم في برمجة المشروع. الجميع مرحب به، وحتى المبتدأين</string>
     <string name="project_team">فريق المشروع</string>
     <string name="contributors_public_add_yourself_description">إظهار معلومات المساهمين. قم بتوفيرها لعرضها هنا على أساس الاختيار الصريح بعد المساهمة</string>
