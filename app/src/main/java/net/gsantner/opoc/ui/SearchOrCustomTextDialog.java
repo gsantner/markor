@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -97,6 +98,8 @@ public class SearchOrCustomTextDialog {
         public int titleText = 0;
         @StringRes
         public int searchHintText = android.R.string.search_go;
+        @DrawableRes
+        public int clearInputIcon = android.R.drawable.ic_input_delete;
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
@@ -339,7 +342,7 @@ public class SearchOrCustomTextDialog {
 
         // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
-        clearButton.setImageResource(R.drawable.ic_baseline_clear_24);
+        clearButton.setImageResource(dopt.clearInputIcon);
         TooltipCompat.setTooltipText(clearButton, activity.getString(R.string.clear));
         clearButton.setColorFilter(ContextCompat.getColor(activity, dopt.isDarkDialog ? android.R.color.white : R.color.grey));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
