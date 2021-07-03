@@ -215,8 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">이 앱을 다른 언어로 번역하기</string>
     <string name="source_code">소스 코드</string>
     <string name="project_license">프로젝트 저작권</string>
-    <string name="project_contribution_info">프로젝트 기여 정보</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">프로젝트 기여를 위한 자세한 정보</string>
     <string name="contribute_code_to_this_project_anybody_welcome">코드에 기여하세요. 누구나 환영합니다. 신참도 포함해서요!</string>
     <string name="project_team">프로젝트 팀</string>
     <string name="contributors_public_add_yourself_description">기여자 정보를 표시합니다. 기여 후에 옵트-인 방식으로 이 곳에 표시됩니다.</string>
