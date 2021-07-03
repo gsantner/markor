@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Vertaal deze app in andere talen</string>
     <string name="source_code">Broncode</string>
     <string name="project_license">Project Licentie</string>
-    <string name="project_contribution_info">Project bijdrage info</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Meer info over hoe je kan bijdragen aan dit project</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Draag bij aan de code van het project. Iedereen is welkom ook beginners</string>
     <string name="project_team">Projectteam</string>
     <string name="contributors_public_add_yourself_description">Toon bijdrager info. Geef het hier weer op een opt-in basis na bijdragen</string>

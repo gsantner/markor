@@ -61,12 +61,6 @@
             android:summary="@string/help_translating_this_app"
             android:title="@string/translate" />
 
-        <Preference
-            android:icon="@drawable/ic_info_black_24dp"
-            android:key="@string/pref_key__more_info__project_contribution_info"
-            android:summary="@string/more_info_on_how_to_contribute_to_this_project"
-            android:title="@string/project_contribution_info" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Μετάφραση αυτής της εφαρμογής σε άλλες γλώσσες</string>
     <string name="source_code">Πηγαίος Κωδικός</string>
     <string name="project_license">Άδεια Έργου</string>
-    <string name="project_contribution_info">Πληροφορίες συνεισφοράς έργου</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Περισσότερες πληροφορίες για το πώς να συνεισφέρετε σε αυτό το έργο</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Συνεισφέρετε κώδικα στο έργο. Όλοι είναι ευπρόσδεκτοι να το κάνουν, συμπεριλαμβανομένων των νεοεισερχόμενων</string>
     <string name="project_team">Ομάδα Έργου</string>
     <string name="contributors_public_add_yourself_description">Εμφάνιση πληροφοριών συνεισφέροντος. Δώστε το να εμφανίζεται εδώ σε βάση opt-in μετά τη συμβολή</string>

@@ -13,17 +13,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
-    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
     <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
 
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
-    <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/issues/197</string>
+    <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/page/supportme.html?project=markor&source=inapp_supdon]]></string>
-    <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false">@string/more_info_on_how_to_donate_or_otherwise_support_this_project_text</string>
     <string name="donate_" translatable="false">@string/donate</string>
-    <string name="app_contact_email_reverse" translatable="false">gro.xobliam@kcabdeef+rentnasg</string>
     <string name="huuid" translatable="false">hUUID</string>
 
 
@@ -180,7 +178,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="pref_key__more_info__app" translatable="false">pref_key__more_info__app</string>
     <string name="pref_key__more_info__donate" translatable="false">pref_key__more_info__donate</string>
-    <string name="pref_key__more_info__project_contribution_info" translatable="false">pref_key__more_info__project_contribution_info</string>
     <string name="pref_key__more_info__project_community" translatable="false">pref_key__more_info__project_community</string>
     <string name="pref_key__more_info__project_team" translatable="false">pref_key__more_info__project_team</string>
     <string name="pref_key__more_info__contributors_public_info" translatable="false">pref_key__more_info__contributors_public_info</string>

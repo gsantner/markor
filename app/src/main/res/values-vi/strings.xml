@@ -110,8 +110,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Dịch ứng dụng này ra các ngôn ngữ khác</string>
     <string name="source_code">Mã nguồn</string>
     <string name="project_license">Giấy phép dự án</string>
-    <string name="project_contribution_info">Thông tin về việc đóng góp vào dự án</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Nhiều thông tin hơn về cách đóng góp vào dự án này</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Đóng góp mã vào dự án. Mọi người đều được làm vậy, kể cả những người mới vào</string>
     <string name="project_team">Nhóm dự án</string>
     <string name="contributors_public_add_yourself_description">Hiển thị thông tin người đóng góp. Hãy chủ động cung cấp thông tin để được hiện ở đây sau khi đóng góp</string>

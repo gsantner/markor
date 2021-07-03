@@ -468,7 +468,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_send_debug_log: {
                 final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
-                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, new StringBuilder(getString(R.string.app_contact_email_reverse)).reverse().toString());
+                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
 
