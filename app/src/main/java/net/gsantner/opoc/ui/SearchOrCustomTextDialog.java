@@ -63,11 +63,14 @@ import java.util.regex.Pattern;
 public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
-        // Callback with search text or text of single item
+
+        // Callback for search text or text of single item
         @Nullable public Callback.a1<String> callback = null;
-        // Callback with indices of selected items.
+
+        // Callback for indices of selected items.
         // List will contain single item if isMultiSelectEnabled == false;
         @Nullable public Callback.a1<List<Integer>> positionCallback = null;
+
         public boolean isMultiSelectEnabled = false;
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
