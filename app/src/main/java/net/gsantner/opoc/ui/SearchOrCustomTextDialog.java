@@ -63,9 +63,12 @@ import java.util.regex.Pattern;
 public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
-        public Callback.a1<String> callback = null;
-        public Callback.a1<Integer> positionCallback = null;
-        public Callback.a1<List<Integer>> multiSelectCallback = null;
+        // Callback with search text or text of single item
+        @Nullable public Callback.a1<String> callback = null;
+        // Callback with indices of selected items.
+        // List will contain single item if isMultiSelectEnabled == false;
+        @Nullable public Callback.a1<List<Integer>> positionCallback = null;
+        public boolean isMultiSelectEnabled = false;
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
@@ -251,7 +254,7 @@ public class SearchOrCustomTextDialog {
         };
 
         // If in multi-select mode
-        if (dopt.multiSelectCallback != null && !selected.isEmpty()) {
+        if (dopt.isMultiSelectEnabled && !selected.isEmpty()) {
 
             // Set neutral button to clear
             neutralButton.setVisibility(Button.VISIBLE);
@@ -286,13 +289,13 @@ public class SearchOrCustomTextDialog {
                     dopt.callback.callback(dopt.data.get(filteredItems.get(position)).toString());
                 }
                 if (dopt.positionCallback != null) {
-                    dopt.positionCallback.callback(filteredItems.get(position));
+                    dopt.positionCallback.callback(Collections.singletonList(filteredItems.get(position)));
                 }
             });
         }
 
         // Long click always selects, if multi select is possible
-        if (dopt.multiSelectCallback != null) {
+        if (dopt.isMultiSelectEnabled) {
             listView.setOnItemLongClickListener((parent, view, pos, id) -> {
                 toggleSelection.callback(pos, view);
                 return true;
@@ -378,14 +381,13 @@ public class SearchOrCustomTextDialog {
             dialogBuilder.setTitle(dopt.titleText);
         }
 
-        if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.multiSelectCallback != null)) {
+        if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                // Prefer multiSelectCallback if present and one or more items are selected
-                if (dopt.multiSelectCallback != null && !listAdapter._selected.isEmpty()) {
+                if (dopt.positionCallback != null && !listAdapter._selected.isEmpty()) {
                     final List<Integer> sel = new ArrayList<>(listAdapter._selected);
                     Collections.sort(sel);
-                    dopt.multiSelectCallback.callback(sel);
+                    dopt.positionCallback.callback(sel);
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
                     dopt.callback.callback(searchText);
                 }

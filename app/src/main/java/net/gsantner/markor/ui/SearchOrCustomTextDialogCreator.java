@@ -262,7 +262,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
-        dopt.multiSelectCallback = (result) -> {
+        dopt.isMultiSelectEnabled = true;
+        dopt.positionCallback = (result) -> {
             for (final Integer i : result) {
                 callback.callback(dopt.data.get(i).toString());
             }
@@ -283,7 +284,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.search_or_custom;
         dopt.iconsForData = Collections.nCopies(dopt.data.size(), R.drawable.ic_search_black_24dp);
 
-        dopt.multiSelectCallback = keyIndices -> {
+        dopt.isMultiSelectEnabled = true;
+        dopt.positionCallback = (keyIndices) -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
 
@@ -311,18 +313,17 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.titleText = dopt.titleText;
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
-            dopt2.multiSelectCallback = posns -> {
+            dopt2.isMultiSelectEnabled = true;
+            dopt2.positionCallback = (posns) -> {
                 final List<Integer> lineIndices = new ArrayList<>();
                 for (final int p : posns) {
                     lineIndices.add(filteredIndices.get(p));
                 }
                 userCallback.callback(lineIndices);
             };
-            dopt2.positionCallback = posn -> dopt2.multiSelectCallback.callback(Collections.singletonList(posn));
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
 
-        dopt.positionCallback = index -> dopt.multiSelectCallback.callback(Collections.singletonList(index));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -361,7 +362,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.callback = callback;
         dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
         dopt.searchHintText = R.string.search_or_custom;
-        dopt.multiSelectCallback = (result) -> {
+        dopt.isMultiSelectEnabled = true;
+        dopt.positionCallback = (result) -> {
             for (final Integer pi : result) {
                 callback.callback(dopt.data.get(pi).toString());
             }
@@ -383,14 +385,14 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = basicSearchDialogopts(activity, edit, sel);
-        dopt2.positionCallback = userCallback;
+        dopt2.positionCallback = (result) -> userCallback.callback(result.get(0));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showTodoSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Spannable> highlighter, Callback.a1<List<Integer>> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = basicSearchDialogopts(activity, edit, sel);
-        dopt2.positionCallback = posn -> userCallback.callback(Collections.singletonList(posn));
-        dopt2.multiSelectCallback = userCallback;
+        dopt2.isMultiSelectEnabled = true;
+        dopt2.positionCallback = userCallback;
         dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
@@ -406,7 +408,7 @@ public class SearchOrCustomTextDialogCreator {
     private static void showHeadlineDialog(String headlineFilterPattern, Activity activity, String fullText, Callback.a1<Integer> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.positionCallback = userCallback;
+        dopt2.positionCallback = (result) -> userCallback.callback(result.get(0));
         dopt2.data = Arrays.asList(fullText.split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
@@ -486,7 +488,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a1<Integer> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.positionCallback = callback;
+        dopt.positionCallback = (result) -> callback.callback(result.get(0));
         List<String> data = new ArrayList<>();
         data.add(activity.getString(R.string.keep_both));
         data.add(activity.getString(R.string.skip));
