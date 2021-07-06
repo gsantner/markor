@@ -71,6 +71,26 @@
                 android:title="@string/file_encryption_password" />
         </PreferenceCategory>
 
+
+        <PreferenceCategory android:title="@string/search">
+            <ListPreference
+                android:defaultValue="0"
+                android:dialogTitle="@string/max_search_depth"
+                android:entries="@array/pref_arrdisp__search_depth"
+                android:entryValues="@array/pref_arrkeys__search_depth"
+                android:icon="@drawable/ic_baseline_account_tree_24"
+                android:key="@string/pref_key__max_search_depth"
+                android:summary="%1$s"
+                android:title="@string/max_search_depth" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue=""
+                android:dialogMessage="@string/do_not_search_specified_files_and_folders"
+                android:icon="@drawable/ic_baseline_rule_folder_24"
+                android:key="@string/pref_key__filesearch_ignorelist"
+                android:title="@string/ignore_list" />
+        </PreferenceCategory>
+
+
         <PreferenceCategory android:title="@string/features">
             <CheckBoxPreference
                 android:defaultValue="true"
@@ -89,12 +109,6 @@
                 android:key="@string/pref_key__is_multi_window_enabled"
                 android:summary="@string/open_new_documents_always_in_new_window"
                 android:title="@string/multiple_windows" />
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_bug_report_black_24dp"
-                android:key="@string/pref_key__is_debug_log_enabled"
-                android:summary="@string/help_by_sending_debug_information_to_the_developer"
-                android:title="@string/debug" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_bug_report_black_24dp"
@@ -260,10 +274,10 @@
             android:defaultValue="15"
             android:icon="@drawable/ic_format_size_black_24dp"
             android:key="@string/pref_key__editor_font_size"
+            android:min="1"
             android:max="36"
             android:summary="@string/control_font_size_in_editor"
-            android:title="@string/font_size"
-            app:min="1" />
+            android:title="@string/font_size" />
 
         <android.support.v7.preference.SeekBarPreference
             android:defaultValue="1"
@@ -311,7 +325,7 @@
                 android:summary="@string/edit_text_in_center_of_screen"
                 android:title="@string/center_text" />
             <CheckBoxPreference
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:icon="@drawable/ic_vertical_align_bottom_black_24dp"
                 android:key="@string/pref_key__editor_start_editing_on_bottom"
                 android:summary="@string/start_on_bottom_when_loading_document"

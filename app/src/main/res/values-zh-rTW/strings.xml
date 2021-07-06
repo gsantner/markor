@@ -218,8 +218,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
     <string name="source_code">原始碼</string>
     <string name="project_license">專案許可證</string>
-    <string name="project_contribution_info">專案貢獻資訊</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">更多如何貢獻給這個專案的訊息</string>
     <string name="contribute_code_to_this_project_anybody_welcome">歡迎每個人都來提供程式碼</string>
     <string name="project_team">專案團隊</string>
     <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>

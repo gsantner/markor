@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Klasör Oluştur</string>
     <string name="create_new_document">Yeni belge oluştur</string>
     <string name="move">Taşı</string>
+    <string name="copy">Kopyala</string>
     <string name="info">Bilgi</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Dosya/dizin zaten var! Lütfen farklı bir ad kullanın</string>
     <string name="import_from_device">Cihazdan içe aktar</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Bu uygulamayı diğer dillere çevirin</string>
     <string name="source_code">Kaynak Kodu</string>
     <string name="project_license">Proje Lisansı</string>
-    <string name="project_contribution_info">Proje katkıda bulunma rehberi</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Bu projeye nasıl katkıda bulunacağınıza dair daha fazla bilgi alın</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
     <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
@@ -314,12 +313,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
-    <string name="recursive_search_in_current_directory">Geçerli dizinde özyinelemeli arama. Sorgu yıldız (*) içeriyorsa, regex search kullanılır, aksi halde sorgunun içerip içermediğini kontrol edin.</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
     <string name="template">Şablon</string>
     <string name="send_debug_log">Hata Ayıklama Günlüğü Gönder</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Geliştiricilere hata ayıklama bilgisi göndererek yardım edin. Veri, e-posta uygulamanız aracılığıyla e-posta ile gönderilir ve gönderilmeden önce tüm gönderilen verileri görebilirsiniz. Etkinleştirildiğinde, üst menüde ek bir \"Hata ayıklama günlüğü gönder\" seçeneğini bulabilirsiniz. E-posta taslağını oluşturur.</string>
     <string name="print_pdf">Yazdır / PDF</string>
     <string name="bigger_headings">Daha büyük başlıklar</string>
     <string name="increase_text_size_of_headings_according_to_level">Başlıkların metin boyutunu seviyeye göre artırın (# h1, ## h2. ### h3…)</string>
@@ -394,6 +391,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Tümünü değiştir</string>
     <string name="matches">Eşleşmeler</string>
     <string name="search_replace_pattern_error_message">Desen hatasını arayın veya değiştirin.</string>
+    <string name="backup_settings">Ayarları yedekle</string>
+    <string name="restore_settings">Ayarları geri yükle</string>
+    <string name="failed_to_create_backup">Yedek oluşturma başarısız oldu</string>
+    <string name="export_settings_to_json_file">Ayarları json dosyasına aktar</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Yedek json dosyasından ayarları içe aktarın. Başarılı olursa, uygulama yeniden başlatılır.</string>
+    <string name="failed_to_restore_settings_from_backup">Yedeklemeden ayarlar geri yüklenemedi</string>
     <string name="newline_is_new_paragraph">Yenisatır = yeni paragraf</string>
+    <string name="keep_both">Her ikisini de koru</string>
+    <string name="skip">Atla</string>
+    <string name="overwrite">Üzerine yaz</string>
+    <string name="keep_both_all">İkisini de (tümünü) tut</string>
+    <string name="skip_all">Atla (tümünü)</string>
+    <string name="overwrite_all">Üzerine yaz (tümünün)</string>
+    <string name="copy_move_conflict_message">\'%s\' zaten %s içinde var</string>
     <string name="additional_contexts_and_projects">Ek bağlamlar ve projeler</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Boşlukla ayrılmış @bağlamları ve +projeleri girin. Bunlar her zaman todo.txt ekleme diyaloglarında görünecektir.</string>
 </resources>

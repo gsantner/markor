@@ -334,7 +334,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         if (file.isDirectory()) {
                             loadFolder(file);
                         } else if (file.isFile()) {
-                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file);
+                            _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
                         } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
                             loadFolder(file);
                         }
@@ -352,7 +352,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                     _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
                 } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR) || _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE))) {
-                    _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder);
+                    _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }
                 return;
             }
@@ -577,13 +577,11 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     // listFiles(FilenameFilter)
     @Override
     public boolean accept(File dir, String filename) {
-        File f = new File(dir, filename);
-        Boolean yes = _dopt.fileOverallFilter == null ? null : _dopt.fileOverallFilter.apply(f);
-        yes = yes == null || yes;
-        if (!_dopt.showDotFiles && filename.startsWith(".")) {
-            return false;
-        }
-        return f.isDirectory() || (!f.isDirectory() && _dopt.doSelectFile && yes);
+        final File f = new File(dir, filename);
+        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
+        final boolean dotYes =  _dopt.showDotFiles || !filename.startsWith(".");
+        final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
+        return filterYes && dotYes && selFileYes;
     }
 
     public FilesystemViewerData.Options getFsOptions() {

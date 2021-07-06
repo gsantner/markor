@@ -131,7 +131,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
-            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), false, true, null);
+            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), false, true, null, null);
         }
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
@@ -165,7 +165,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
         switch (item.getItemId()) {
             case R.id.action_preview: {
                 File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
-                DocumentActivity.launch(MainActivity.this, f, false, true, null);
+                DocumentActivity.launch(MainActivity.this, f, false, true, null, null);
                 return true;
             }
             case R.id.action_settings: {
@@ -192,7 +192,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
     protected void onResume() {
         //new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
-        IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD || _appSettings.isDebugLogEnabled();
+        IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD;
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
             Intent intent = getIntent();
@@ -273,7 +273,7 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
-                                DocumentActivity.launch(MainActivity.this, f, false, false, null);
+                                DocumentActivity.launch(MainActivity.this, f, false, false, null, null);
                             } else if (f.isDirectory()) {
                                 FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
                                 if (wrFragment != null) {
@@ -409,9 +409,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 }
 
                 @Override
-                public void onFsViewerSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     if (TextFormat.isTextFile(file)) {
-                        DocumentActivity.launch(MainActivity.this, file, false, null, null);
+                        DocumentActivity.launch(MainActivity.this, file, false, null, null, lineNumber);
                     } else {
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
                     }
@@ -443,10 +443,10 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     return FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
                 }
                 case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, false);
+                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, -1);
                 }
                 case R.id.nav_todo: {
-                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, false);
+                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, -1);
                 }
                 case R.id.nav_more: {
                     return MoreFragment.newInstance();

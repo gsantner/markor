@@ -13,17 +13,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
-    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
     <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
 
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
-    <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/issues/197</string>
+    <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
     <string name="app_source_code_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/page/supportme.html?project=markor&source=inapp_supdon]]></string>
-    <string name="app_contribution_info_url" translatable="false">https://github.com/gsantner/markor/blob/master/README.md#contributions</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false">@string/more_info_on_how_to_donate_or_otherwise_support_this_project_text</string>
     <string name="donate_" translatable="false">@string/donate</string>
-    <string name="app_contact_email_reverse" translatable="false">gro.xobliam@kcabdeef+rentnasg</string>
     <string name="huuid" translatable="false">hUUID</string>
 
 
@@ -72,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
-        ### Copyright © 2017-2019
+        ### Copyright © 2017-2021
         **Gregor Santner**
         \n**Official project sources:**
         [Website](https://gsantner.net/index.html?source=inapp_license_official_project_source) | [Source code](https://github.com/gsantner/markor) | [F-Droid](https://f-droid.org/repository/browse/?fdid=net.gsantner.markor) | [Google Play](https://play.google.com/store/apps/details?id=net.gsantner.markor)
@@ -180,7 +178,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="pref_key__more_info__app" translatable="false">pref_key__more_info__app</string>
     <string name="pref_key__more_info__donate" translatable="false">pref_key__more_info__donate</string>
-    <string name="pref_key__more_info__project_contribution_info" translatable="false">pref_key__more_info__project_contribution_info</string>
     <string name="pref_key__more_info__project_community" translatable="false">pref_key__more_info__project_community</string>
     <string name="pref_key__more_info__project_team" translatable="false">pref_key__more_info__project_team</string>
     <string name="pref_key__more_info__contributors_public_info" translatable="false">pref_key__more_info__contributors_public_info</string>
@@ -294,7 +291,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__tab_width_v2" translatable="false">pref_key__tab_width_v2</string>
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
-    <string name="pref_key__is_debug_log_enabled" translatable="false">pref_key__is_debug_log_enabled</string>
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>
     <string name="pref_key__todotxt__start_new_tasks_with_huuid_v3" translatable="false">pref_key__todotxt__start_new_tasks_with_huuid_v3</string>
@@ -338,6 +334,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_txt2tags_bigger_headings" translatable="false">pref_key__editor_txt2tags_bigger_headings</string>
     <string name="pref_key__txt2tags__reorder_actions" translatable="false">pref_key__txt2tags__reorder_actions</string>
     <string name="pref_key__txt2tags__action_keys" translatable="false">pref_key__txt2tags__action_keys</string>
+    <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
+    <string name="pref_key__filesearch_ignorelist" translatable="false">pref_key__filesearch_ignorelist</string>
+    <string name="pref_key__is_search_query_case_sensitive" translatable="false">pref_key__is_search_query_case_sensitive</string>
+    <string name="pref_key__is_search_query_use_regex" translatable="false">pref_key__is_search_query_use_regex</string>
+    <string name="pref_key__is_search_in_content" translatable="false">pref_key__is_search_in_content</string>
+    <string name="pref_key__is_only_first_content_match" translatable="false">pref_key__is_only_first_content_match</string>
     <string name="pref_key__restore_settings" translatable="false">pref_key__restore_settings</string>
     <string name="pref_key__backup_settings" translatable="false">pref_key__backup_settings</string>
     <string name="hidden_password" translatable="false">****</string>

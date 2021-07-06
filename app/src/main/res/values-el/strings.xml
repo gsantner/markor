@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Μετάφραση αυτής της εφαρμογής σε άλλες γλώσσες</string>
     <string name="source_code">Πηγαίος Κωδικός</string>
     <string name="project_license">Άδεια Έργου</string>
-    <string name="project_contribution_info">Πληροφορίες συνεισφοράς έργου</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Περισσότερες πληροφορίες για το πώς να συνεισφέρετε σε αυτό το έργο</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Συνεισφέρετε κώδικα στο έργο. Όλοι είναι ευπρόσδεκτοι να το κάνουν, συμπεριλαμβανομένων των νεοεισερχόμενων</string>
     <string name="project_team">Ομάδα Έργου</string>
     <string name="contributors_public_add_yourself_description">Εμφάνιση πληροφοριών συνεισφέροντος. Δώστε το να εμφανίζεται εδώ σε βάση opt-in μετά τη συμβολή</string>
@@ -316,12 +314,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Επαναφόρτωση</string>
     <string name="wrap_words">Αναδίπλωση λέξεων</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
-    <string name="recursive_search_in_current_directory">Αναδρομική αναζήτηση στον τρέχοντα κατάλογο. Όταν το ερώτημα περιέχει έναν αστερίσκο (*) χρησιμοποιείται η αναζήτηση regex, αλλιώς ελέγξτε αν το ερώτημα περιέχεται.</string>
+    <string name="recursive_search_in_current_directory">Αναδρομική αναζήτηση στον τρέχοντα κατάλογο.</string>
     <string name="always_open_with_this_app">Πάντα άνοιγμα με αυτήν την εφαρμογή</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Πάντα να ανοίγετε αρχεία με αυτήν την εφαρμογή, όταν η λίστα περιέχει την επέκταση αρχείου. Χρησιμοποιήστε \'Κανένα, .html, . ss , .js\' για παράδειγμα, αν θέλετε να επεξεργαστείτε τα αρχεία web και αυτά χωρίς επέκταση αρχείου.</string>
     <string name="template">Πρότυπο</string>
     <string name="send_debug_log">Αποστολή Καταγραφής Αποσφαλμάτωσης</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Βοήθεια με την αποστολή πληροφοριών αποσφαλμάτωσης στους προγραμματιστές. Τα δεδομένα αποστέλλονται μέσω email μέσω της εφαρμογής email σας και μπορείτε να δείτε όλα τα απεσταλμένα δεδομένα πριν από την αποστολή. Θα βρείτε μια πρόσθετη επιλογή \"Αποστολή αρχείου καταγραφής σφαλμάτων\" στο επάνω μενού όταν ενεργοποιηθεί. Δημιουργεί πρόχειρο μήνυμα ηλεκτρονικού ταχυδρομείου.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Μεγαλύτερες επικεφαλίδες</string>
     <string name="increase_text_size_of_headings_according_to_level">Αύξηση του μεγέθους κειμένου των κεφαλίδων ανάλογα με το επίπεδο (# h1, ## h2. ## h3…)</string>
@@ -403,6 +400,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Εισαγωγή ρυθμίσεων από αντίγραφο ασφαλείας του αρχείου json. Με επιτυχία, η εφαρμογή επανεκκινείται.</string>
     <string name="failed_to_restore_settings_from_backup">Αποτυχία επαναφοράς ρυθμίσεων από αντίγραφο ασφαλείας</string>
     <string name="newline_is_new_paragraph">Newline = νέα παράγραφος</string>
+    <string name="search_in_content">Αναζήτηση στο περιεχόμενο</string>
+    <string name="max_search_depth">Βάθος αναζήτησης</string>
+    <string name="ignore_list">Αγνόηση λίστας</string>
+    <string name="do_not_search_specified_files_and_folders">Να μην γίνεται αναζήτηση σε συγκεκριμένα αρχεία και φακέλους.\nΧρησιμοποιήστε τη νέα γραμμή ως διαχωριστικό.\nΧρησιμοποιήστε εισαγωγικά για ακριβή ονόματα dir: \"Test\".\nΉ χρησιμοποιήστε Regex \'↑[.].*\'\nΠαραδείγματα: ^\\..*\n\"δοκιμή\"\n\"Δοκιμή\"\n.*μυστικό.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Αναζήτηση Regex</string>
+    <string name="case_sensitive">Διάκριση πεζών/ κεφαλαίων</string>
+    <string name="stop_search_after_first_match">Διακοπή αναζήτησης μετά την πρώτη αντιστοίχιση</string>
+    <string name="regex_can_not_be_compiled">Regex δεν μπορεί να μεταγλωττιστεί</string>
     <string name="keep_both">Κρατήστε και τα δύο</string>
     <string name="skip">Παράλειψη</string>
     <string name="overwrite">Αντικατάσταση</string>
@@ -412,4 +417,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' υπάρχει ήδη στο %s</string>
     <string name="additional_contexts_and_projects">Πρόσθετα πλαίσια και έργα</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Εισάγετε διαχωρισμένα με κενά διαστήματα @contexts και +projects. Αυτά θα είναι πάντα ορατά στους διαλόγους εισαγωγής todo.txt.</string>
+    <string name="infinite">Απεριόριστο</string>
 </resources>

@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Chọn mục</string>
     <string name="one_item_selected">Một khoản mục được chọn</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d khoản mục được chọn</string>
+    <string name="hide_statusbar">Ẩn thanh trạng thái</string>
     <string name="name">Tên</string>
     <string name="url_or_path">URL / đường dẫn</string>
     <string name="insert_link">Chèn liên kết</string>
@@ -68,7 +69,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Lưu vị trí</string>
     <string name="select_storage_folder">Chọn thư mục lưu trữ</string>
     <string name="licenses">Giấy phép</string>
+    <string name="changelog">Nhật ký thay đổi</string>
+    <string name="show_license_of_the_app">Hiển thị giấy phép của ứng dụng</string>
+    <string name="show_third_party_licenses">Hiển thị giấy phép của bên thứ ba</string>
+    <string name="language_change_restart_description">Thay đổi ngôn ngữ của ứng dụng. Khởi động lại ứng dụng để các thay đổi có hiệu lực</string>
+    <string name="language">Ngôn ngữ</string>
     <string name="deleteme____1">Tên</string>
+    <string name="size">Kích cỡ</string>
+    <string name="contribute">Đóng góp</string>
+    <string name="donate">Quyên góp</string>
+    <string name="exit">Thoát</string>
+    <string name="more">Thêm</string>
+    <string name="help">Trợ giúp</string>
     <string name="add_task">Thêm tác vụ</string>
     <string name="add_x_witharg">Thêm %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Tài liệu được tải và lưu dưới dạng \"%s\"</string>
@@ -83,6 +95,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back_to_previous_folder" needed="false">Quay lại mục trước</string>
     <string name="app_settings" needed="false">Cài đặt App</string>
     <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
+    <string name="main_view">Mục hiển thị chính</string>
+    <string name="other">Khác</string>
+    <string name="general">Cài đặt chung</string>
     <string name="line_spacing">Line Spacing</string>
     <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
+    <string name="open_source_licenses">Giấy phép mã nguồn mở</string>
+    <string name="rate_this_app">Đánh giá ứng dụng này</string>
+    <string name="translate">Dịch</string>
+    <string name="more_info_and_help">Nhiều thông tin hơn và trợ giúp</string>
+    <string name="report_bugs">Báo cáo lỗi</string>
+    <string name="join_community">Tham gia cộng đồng</string>
+    <string name="bug_reports_suggest_improvements">Phản hồi, báo cáo lỗi hoặc đề xuất sự cải thiện</string>
+    <string name="help_translating_this_app">Dịch ứng dụng này ra các ngôn ngữ khác</string>
+    <string name="source_code">Mã nguồn</string>
+    <string name="project_license">Giấy phép dự án</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Đóng góp mã vào dự án. Mọi người đều được làm vậy, kể cả những người mới vào</string>
+    <string name="project_team">Nhóm dự án</string>
+    <string name="contributors_public_add_yourself_description">Hiển thị thông tin người đóng góp. Hãy chủ động cung cấp thông tin để được hiện ở đây sau khi đóng góp</string>
+    <string name="error_picture_selection">Không có ảnh nào được chọn, chụp hoặc lưu.</string>
+    <string name="edit_picture">Chỉnh sửa ảnh</string>
+    <string name="miscellaneous">Khác</string>
+    <string name="background">Nền</string>
+    <string name="font">Phông chữ</string>
+    <string name="close">Đóng</string>
+    <string name="favourite">Yêu thích</string>
 </resources>

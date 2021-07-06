@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
     <string name="source_code">Código fuente</string>
     <string name="project_license">Licencia del proyecto</string>
-    <string name="project_contribution_info">Información de colaboraciones al proyecto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Más sobre cómo participar en este proyecto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Colabora con el proyecto. Cualquiera puede hacerlo, incluso los que usan la aplicación desde hace poco</string>
     <string name="project_team">El equipo tras el proyecto</string>
     <string name="contributors_public_add_yourself_description">Muestra información pública sobre los colaboradores. Estos pueden decidir si su información debe ser incluida con sus colaboraciones</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Refrescar</string>
     <string name="wrap_words">Cambio de línea</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. De lo contrario, activa el desplazamiento horizontal.</string>
-    <string name="recursive_search_in_current_directory">Búsqueda recursiva en el directorio actual. Cuando la consulta contiene un asterisco (*) se utiliza la búsqueda de expresiones regulares, de lo contrario, compruebe si la consulta está contenida.</string>
+    <string name="recursive_search_in_current_directory">Búsqueda recursiva en el directorio actual.</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Enviar registro de depuración</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(es). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
     <string name="print_pdf">Imprimir / PDF</string>
     <string name="bigger_headings">Encabezados mayores</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa el tamaño de texto de las cabeceras según el nivel (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importar ajustes del archivo json. Si tiene éxito, la aplicación se reinicia.</string>
     <string name="failed_to_restore_settings_from_backup">Error al restaurar la configuración desde la copia de seguridad</string>
     <string name="newline_is_new_paragraph">Nueva línea = nuevo párrafo</string>
+    <string name="search_in_content">Buscar en contenido</string>
+    <string name="max_search_depth">Profundidad de búsqueda</string>
+    <string name="ignore_list">Ignorar lista</string>
+    <string name="do_not_search_specified_files_and_folders">No busque archivos y carpetas especificados.\nUtilice una nueva línea como separador.\nUtilice comillas para nombres de directorio exactos: \"Test\".\nO usar Regex \'^[.].*\'\nEjemplos: ^\\..*\n\"test\"\n\"Test\"\n.*secreto.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Búsqueda Regex</string>
+    <string name="case_sensitive">Distingue mayúsculas</string>
+    <string name="stop_search_after_first_match">Detener la búsqueda después de la primera coincidencia</string>
+    <string name="regex_can_not_be_compiled">Regex no puede ser compilado</string>
     <string name="keep_both">Mantener ambos</string>
     <string name="skip">Saltar</string>
     <string name="overwrite">Sobrescribir</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' ya existe en %s</string>
     <string name="additional_contexts_and_projects">Conjuntos y proyectos adicionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduzca @contexts y +projects separados por espacios. Estos siempre serán visibles en los diálogos de inserción de todo.txt.</string>
+    <string name="infinite">Infinito</string>
 </resources>

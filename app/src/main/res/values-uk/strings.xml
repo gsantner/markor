@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Створити директорію</string>
     <string name="create_new_document">Створити документ</string>
     <string name="move">Перемістити</string>
+    <string name="copy">Копіювати</string>
     <string name="info">Інформація</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Файл або директорія з таким іменем вже існує! Будь ласка, оберіть інше</string>
     <string name="import_from_device">Імпортувати з пристрою</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
     <string name="source_code">Вихідний код</string>
     <string name="project_license">Ліцензія проєкту</string>
-    <string name="project_contribution_info">Як зробити внесок у проєкт</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Докладніше про можливості зробити внесок у проєкт</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проєкту. Запрошуются всі охочі, разом із новачками</string>
     <string name="project_team">Команда проєкту</string>
     <string name="contributors_public_add_yourself_description">Показати інформацію про учасників. Ви можете додати сюди інформацію про себе, якщо зробили внесок до проєкту</string>
@@ -314,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Перезавантажити</string>
     <string name="wrap_words">Перенесення рядків</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Додавати м\'які переноси замість відображення смуги горизонтальної прокрутки, коли текст не вміщається у ширину екрану.</string>
-    <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточній директорії. Якщо запит містить зірочку (*), застосовується пошук за регулярним виразом, інакше перевіряє наявність запиту в директорії.</string>
+    <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточному каталозі.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Надсилати Debug-журнал</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Допоможіть розробникам, надсилаючи зневаджувальну інформацію. Дані надсилаються по e-mail за допомогою вашого додатку електронної пошти і ви можете переглянути ці дані перед надсиланням. Коли це налаштування увімкнено, у верхньому меню з\'явиться додатковий пункт \"Надіслати журнал зневадження\", який створює чернетку листа.</string>
     <string name="print_pdf">Друк / PDF</string>
     <string name="bigger_headings">Збільшити заголовки</string>
     <string name="increase_text_size_of_headings_according_to_level">Збільшувати розмір тексту заголовків відповідно до рівня (# h1, ## h2, ### h3…)</string>
@@ -395,12 +393,28 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Збіги</string>
     <string name="search_replace_pattern_error_message">Пошук або заміна графічного ключа помилки.</string>
     <string name="backup_settings">Параметри резервного копіювання</string>
-    <string name="restore_settings">Відновлення</string>
+    <string name="restore_settings">Параметри відновлення</string>
     <string name="failed_to_create_backup">Не вдалося створити резервну копію</string>
-    <string name="export_settings_to_json_file">Експорт налаштувань в json файл</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Імпортувати налаштування з файлу json у успішному режимі. Додаток перезапущено.</string>
+    <string name="export_settings_to_json_file">Експортування налаштувань до json-файлу</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Імпортувати налаштування з резервної копії json файлу. При успішному завершенні, програму буде перезапущено.</string>
     <string name="failed_to_restore_settings_from_backup">Не вдалося відновити налаштування з резервної копії</string>
     <string name="newline_is_new_paragraph">Новий рядок = новий абзац</string>
-    <string name="additional_contexts_and_projects">Додаткові контексти та проекти</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">Введіть розділені пробілами @contexts і +проекти. Вони завжди будуть видимі в todo.txt вставити діалогові вікна.</string>
+    <string name="search_in_content">Пошук у змісті</string>
+    <string name="max_search_depth">Глибина пошуку</string>
+    <string name="ignore_list">Чорний список</string>
+    <string name="do_not_search_specified_files_and_folders">Не шукайте вказані файли і папки.\nВикористовувати новий рядок як роздільник вузлів.\nВикористовуйте лапки для точних імен dir: \"Test\".\nАбо використайте Regex \'^[.].*\'\nПриклади: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Метод регулярних виразів</string>
+    <string name="case_sensitive">З урахуванням регістру</string>
+    <string name="stop_search_after_first_match">Зупинити пошук після першого збігу</string>
+    <string name="regex_can_not_be_compiled">Неможливо скомпілювати Regex</string>
+    <string name="keep_both">Залишити обидва</string>
+    <string name="skip">Пропустити</string>
+    <string name="overwrite">Перезаписати</string>
+    <string name="keep_both_all">Залишити обидва (все)</string>
+    <string name="skip_all">Пропустити (все)</string>
+    <string name="overwrite_all">Перезаписати (все)</string>
+    <string name="copy_move_conflict_message">\'%s\' вже існує в %s</string>
+    <string name="additional_contexts_and_projects">Додаткові контексти та проєкти</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Уведіть контексти, розділені пробілами і +проєкти. Вони завжди будуть видимі в todo.txt діалогах.</string>
+    <string name="infinite">Нескінченно</string>
 </resources>

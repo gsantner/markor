@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">ساهم في ترجمة هذا التطبيق إلى لغات أخرى</string>
     <string name="source_code">الشفرة المصدرية</string>
     <string name="project_license">رخصة المشروع</string>
-    <string name="project_contribution_info">معلومات عن المساهمة في المشروع</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">مزيد من المعلومات حول كيفية المساهمة في هذا المشروع</string>
     <string name="contribute_code_to_this_project_anybody_welcome">ساهم في برمجة المشروع. الجميع مرحب به، وحتى المبتدأين</string>
     <string name="project_team">فريق المشروع</string>
     <string name="contributors_public_add_yourself_description">إظهار معلومات المساهمين. قم بتوفيرها لعرضها هنا على أساس الاختيار الصريح بعد المساهمة</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">إنعاش</string>
     <string name="wrap_words">كلمات مخفية</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">استراحة ناعمة إذا كان النص غير مناسب لعرض الشاشة. وإلا تمكين التمرير الأفقي.</string>
-    <string name="recursive_search_in_current_directory">البحث المتكرر في الدليل الحالي. عندما يحتوي الاستعلام على علامة النجمة (*) يتم استخدام بحث regex ، وإلا تحقق من وجود الاستعلام.</string>
+    <string name="recursive_search_in_current_directory">البحث المتكرر في الدليل الحالي.</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">فتح الملفات دائما مع هذا التطبيق عندما تحتوي القائمة على امتداد الملف. استخدم \'لا شيء، .html. .js\' على سبيل المثال إذا كنت ترغب في تحرير ملفات الويب وتلك التي ليس لها امتداد للملف.</string>
     <string name="template">النموذج</string>
     <string name="send_debug_log">إرسال سِجل للأخطاء</string>
-    <string name="help_by_sending_debug_information_to_the_developer">المساعدة عن طريق إرسال معلومات التصحيح إلى المطورين. يتم إرسال البيانات عن طريق البريد الإلكتروني عبر تطبيق البريد الإلكتروني الخاص بك ويمكنك رؤية جميع البيانات المرسلة قبل الإرسال. سوف تجد خيار \"إرسال سجل التصحيح\" إضافي في القائمة العليا عند التمكين. يقوم بإنشاء مسودة البريد الإلكتروني.</string>
     <string name="print_pdf">طباعة/PDF</string>
     <string name="bigger_headings">عناوين أكبر</string>
     <string name="increase_text_size_of_headings_according_to_level">زيادة حجم النص للرؤوس وفقا للمستوى (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">استيراد الإعدادات من ملف json الاحتياطي. عند النجاح، يتم إعادة تشغيل التطبيق.</string>
     <string name="failed_to_restore_settings_from_backup">فشل في استعادة الإعدادات من النسخة الاحتياطية</string>
     <string name="newline_is_new_paragraph">الخط الجديد = فقرة جديدة</string>
+    <string name="search_in_content">البحث في المحتوى</string>
+    <string name="max_search_depth">عمق البحث</string>
+    <string name="ignore_list">قائمة التجاهل</string>
+    <string name="do_not_search_specified_files_and_folders">لا تقم بالبحث عن الملفات والمجلدات المحددة.\nاستخدم سطر جديد كفاصل.\nاستخدم علامات الاقتباس للإسم الدقيق: \"اختبار\".\nأو استخدم Regex \'^[.]*\'\nأمثلة: ^\..*\n\"اختبار\"\n\"اختبار\"\n*سري.*\n*BACKUP.*\n*.ini</string>
+    <string name="regex_search">بحث Regex</string>
+    <string name="case_sensitive">حساسية الحالة</string>
+    <string name="stop_search_after_first_match">إيقاف البحث بعد المباراة الأولى</string>
+    <string name="regex_can_not_be_compiled">لا يمكن تجميع Regex</string>
     <string name="keep_both">الحفاظ على كليهما</string>
     <string name="skip">تخطي</string>
     <string name="overwrite">الكتابة</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' موجود بالفعل في %s</string>
     <string name="additional_contexts_and_projects">سياقات ومشاريع إضافية</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">أدخل @contexts و +مشاريع. ستكون هذه دائما مرئية في todo.txt إدخال الحوار.</string>
+    <string name="infinite">لانهائي</string>
 </resources>

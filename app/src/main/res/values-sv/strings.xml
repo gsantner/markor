@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Skapa mapp</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
+    <string name="copy">Kopiera</string>
     <string name="info">Information</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fil/mapp finns redan! Använd ett annat namn</string>
     <string name="import_from_device">Importera från enhet</string>
@@ -47,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (som klartext)</string>
     <string name="document_editor_font">Redigerartypsnitt</string>
     <string name="theme">Tema</string>
-    <string name="open_existing_files_in_view_mode">Öppna existerande fil i vyläge</string>
+    <string name="open_existing_files_in_view_mode">Öppna befintliga filer i visningsläge</string>
     <string name="about">Om</string>
     <string name="plaintext">Klartext</string>
     <string name="file">Fil</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Översätt appen till fler språk</string>
     <string name="source_code">Källkod</string>
     <string name="project_license">Projektets licens</string>
-    <string name="project_contribution_info">Projektbidragsinformation</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mer information om hur du birdar till det här projektet</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag med kod till projektet. Alla är välkommna, även nybörjare</string>
     <string name="project_team">Projektlag</string>
     <string name="contributors_public_add_yourself_description">Visa bidragsinformation. Lämna information för att synas här, om du vill, efter bidragande</string>
@@ -313,13 +312,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
-    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell skrollning.</string>
-    <string name="recursive_search_in_current_directory">Sök rekursivt ned i katalogen när förfrågan innehåller regex med asteriks (*) används; stanna se om förfrågan är hållen i sammanhanget.</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Annars, sätt på horisontell rullning.</string>
+    <string name="recursive_search_in_current_directory">Rekursiv sökning i aktuell katalog.</string>
     <string name="always_open_with_this_app">Föredra att öppna med appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer av typen i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webfiler och filer utan filändelse.</string>
     <string name="template">Mall</string>
     <string name="send_debug_log">Skicka felsökningslogg</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjälp genom att skicka felsökningsinformation till utvecklare. Data skickas via e-post via din e-postapp och du kan se alla skickade data innan du skickar. Du hittar ytterligare ett alternativ för \"Skicka felsökningslogg\" i toppmenyn när det är aktiverat. Det skapar ett e-postutkast.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Större rubriker</string>
     <string name="increase_text_size_of_headings_according_to_level">Öka textstorleken på rubriker enligt nivå (# h1, ## h2. ### h3…)</string>
@@ -401,6 +399,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från backup-json-fil. Vid lyckat tillfälle startas appen om.</string>
     <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
     <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
+    <string name="search_in_content">Sök i innehåll</string>
+    <string name="max_search_depth">Sök djup</string>
+    <string name="ignore_list">Ignorera listan</string>
+    <string name="do_not_search_specified_files_and_folders">Sök inte efter angivna filer och mappar.\nAnvänd ny rad som separator.\nAnvänd citat för exakta dir namn: \"Test\".\nEller använd Regex \'^[.].*\'\nExempel: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Regex sökning</string>
+    <string name="case_sensitive">Ärende känslig</string>
+    <string name="stop_search_after_first_match">Stoppa sökning efter första matchningen</string>
+    <string name="regex_can_not_be_compiled">Regex kan inte kompileras</string>
+    <string name="keep_both">Behåll båda</string>
+    <string name="skip">Hoppa</string>
+    <string name="overwrite">Skriv över</string>
+    <string name="keep_both_all">Behåll båda (alla)</string>
+    <string name="skip_all">Hoppa över (alla)</string>
+    <string name="overwrite_all">Skriv över (alla)</string>
+    <string name="copy_move_conflict_message">\'%s\' finns redan i %s</string>
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
+    <string name="infinite">Oändlig</string>
 </resources>

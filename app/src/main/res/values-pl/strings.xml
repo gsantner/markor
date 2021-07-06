@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
     <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
-    <string name="project_contribution_info">Informacje o współtworzeniu projektu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Więcej informacji o tym, jak współtworzyć ten projekt</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
     <string name="contributors_public_add_yourself_description">Pokaż informacje o współtwórcy. Podaj je tutaj, korzystając z opcji \"opt-in\" po dołączeniu</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Przeładuj</string>
     <string name="wrap_words">Zawijanie słów</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Miękka przerwa, jeśli tekst nie pasuje do szerokości ekranu. W przeciwnym razie włącz przewijanie poziome.</string>
-    <string name="recursive_search_in_current_directory">Rekurencyjne wyszukiwanie w bieżącym katalogu. Kiedy zapytanie zawiera gwiazdkę (*) wyszukiwanie regex, w przeciwnym razie sprawdź czy zapytanie jest zawierane.</string>
+    <string name="recursive_search_in_current_directory">Wyszukiwanie rekursywne w bieżącym katalogu.</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki z tą aplikacją, gdy lista zawiera rozszerzenie pliku. Użyj \'Brak, .html, . ss , .js, na przykład, jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomóż wysyłając informacje debugowania do programisty. Dane są wysyłane pocztą elektroniczną za pośrednictwem aplikacji e-mail i można zobaczyć wszystkie wysłane dane przed wysłaniem. Po włączeniu w górnym menu znajdziesz dodatkową opcję \"Wyślij dziennik debugowania\". Tworzy to szkic e-mail.</string>
     <string name="print_pdf">Drukuj PDF</string>
     <string name="bigger_headings">Większe nagłówki</string>
     <string name="increase_text_size_of_headings_according_to_level">Zwiększ rozmiar tekstu nagłówków zgodnie z poziomem (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importuj ustawienia z kopii zapasowej pliku json. Po pomyślnym uruchomieniu aplikacji.</string>
     <string name="failed_to_restore_settings_from_backup">Nie udało się przywrócić ustawień z kopii zapasowej</string>
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
+    <string name="search_in_content">Szukaj w treści</string>
+    <string name="max_search_depth">Głębokość wyszukiwania</string>
+    <string name="ignore_list">Ignoruj listę</string>
+    <string name="do_not_search_specified_files_and_folders">Nie szukaj określonych plików i folderów.\nUżyj nowej linii jako separatora.\nUżyj cytatów dla dokładnych nazw dirów: \"Test\".\nlub użyj Regex \'^[.].*\'\nPrzykłady: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Wyszukiwanie Regex</string>
+    <string name="case_sensitive">Rozróżniana przez litery</string>
+    <string name="stop_search_after_first_match">Zatrzymaj wyszukiwanie po pierwszym meczu</string>
+    <string name="regex_can_not_be_compiled">Regex nie może być skompilowany</string>
     <string name="keep_both">Zachowaj oba</string>
     <string name="skip">Pomiń</string>
     <string name="overwrite">Nadpisz</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' już istnieje w %s</string>
     <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
+    <string name="infinite">Nieskończone</string>
 </resources>

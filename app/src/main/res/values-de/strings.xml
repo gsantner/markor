@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
     <string name="source_code">Quellcode</string>
     <string name="project_license">Projektlizenz</string>
-    <string name="project_contribution_info">Projekt-Unterstützungs-Info</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Weitere Informationen dazu, wie dieses Projekt unterstützt werden kann</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Weicher Zeilenumbruch falls der Text nicht auf den Bildschirm passt. Andernfalls wird horizontales Scrollen aktiviert.</string>
-    <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis. Wenn Suchbegriff einen Stern (*) enthält wird Regex-Suche verwendet, andernfalls wird überprüft ob der Suchbegriff vorhanden ist.</string>
+    <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis.</string>
     <string name="always_open_with_this_app">Immer mit dieser App öffnen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
     <string name="template">Vorlage</string>
     <string name="send_debug_log">Debug-Log senden</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hilf indem du Debug-Informationen an Entwickler sendest. Daten werden per E-Mail mit deiner E-Mail App gesendet und es können alle Daten vor Versand betrachtet werden. Eine zusätzliche Option \"Debug-Log senden\" im oberen Menü wird hinzugefügt wenn diese Option aktiviert ist. Sie erstellt den E-Mail-Entwurf.</string>
     <string name="print_pdf">Drucken / PDF</string>
     <string name="bigger_headings">Größere Überschriften</string>
     <string name="increase_text_size_of_headings_according_to_level">Erhöhe die Textgröße der Header nach Level (# h1, ## h2. ## h3…)</string>
@@ -399,9 +396,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">Einstellungen wiederherstellen</string>
     <string name="failed_to_create_backup">Fehler beim Erstellen der Sicherung</string>
     <string name="export_settings_to_json_file">Einstellungen in json-Datei exportieren</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importiere Einstellungen aus json-Datei. Bei erfolgreichem Start wird die App neu gestartet.</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Einstellungen aus json-Datei importieren. Nach erfolgreichem Import wird die App neu gestartet.</string>
     <string name="failed_to_restore_settings_from_backup">Fehler beim Wiederherstellen der Einstellungen aus der Sicherung</string>
     <string name="newline_is_new_paragraph">Newline = neuer Absatz</string>
+    <string name="search_in_content">Inhalte durchsuchen</string>
+    <string name="max_search_depth">Suchtiefe</string>
+    <string name="ignore_list">Liste ignorieren</string>
+    <string name="do_not_search_specified_files_and_folders">Angegebene Dateien und Ordner nicht durchsuchen.\nNeue Zeile als Trennzeichen verwenden.\nVerwenden Sie Anführungszeichen für exakte Verzeichnisnamen: \"Test\".\nOder verwenden Sie Regex \'^[.].*\'\nBeispiele: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.*.ini</string>
+    <string name="regex_search">Regex-Suche</string>
+    <string name="case_sensitive">Groß-/Kleinschreibung</string>
+    <string name="stop_search_after_first_match">Suche nach dem ersten Treffer stoppen</string>
+    <string name="regex_can_not_be_compiled">Regex kann nicht aufgelöst werden</string>
     <string name="keep_both">Beides behalten</string>
     <string name="skip">Überspringen</string>
     <string name="overwrite">Überschreiben</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' existiert bereits in %s</string>
     <string name="additional_contexts_and_projects">Zusätzliche Kontexte und Projekte</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Geben Sie einen durch Leerzeichen getrennten @contexts und +Projekte ein. Diese werden immer im todo.txt Einfügedialog sichtbar sein.</string>
+    <string name="infinite">Endlos</string>
 </resources>

@@ -25,7 +25,7 @@ public class DocumentRelayActivity extends Activity {
     private void launchDocumentActivityAndFinish(Intent intent) {
         Intent newIntent = new Intent(intent);
         newIntent.setClass(this, DocumentActivity.class);
-        DocumentActivity.launch(this, null, null, null, newIntent);
+        DocumentActivity.launch(this, null, null, null, newIntent, null);
         finish();
     }
 }

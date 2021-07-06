@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduzir esta aplicação</string>
     <string name="source_code">Código fonte</string>
     <string name="project_license">Licença</string>
-    <string name="project_contribution_info">Informações sobre o projeto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como participar</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua com código. Todos os contributos serão bem-vindos.</string>
     <string name="project_team">Equipa do projeto</string>
     <string name="contributors_public_add_yourself_description">Mostrar informação sobre os colaboradores. Apenas serão visíveis se autorizadas pelos próprios.</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Recarregar</string>
     <string name="wrap_words">Moldar texto</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
-    <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual. Se a consulta possuir um asterisco (*), é utilizada a expressão regular para a pesquisa, caso contrário verifique se a consulta está contida.</string>
+    <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual.</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esta aplicação se a wextensão do ficheiro estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar ficheiros web ou ficheiros que não tenham extensão.</string>
     <string name="template">Modelo</string>
     <string name="send_debug_log">Enviar registos de debug</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ajude-nos enviando as informações de depuração para o programador(es). Os dados são enviados por e-mail e você pode ver todos os dados que serão submetidos antes de os enviar. Se a opção estiver ativa, encontrará a opção \"Enviar registo de debug\" no menu superior. Será criado um e-mail de rascunho.</string>
     <string name="print_pdf">Imprimir/PDF</string>
     <string name="bigger_headings">Cabeçalho grande</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumentar tamanho do texto dos cabeçalhos, de acordo com o nível (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importe as configurações do arquivo json de backup. Em caso de sucesso, o aplicativo é reiniciado.</string>
     <string name="failed_to_restore_settings_from_backup">Falha ao restaurar as configurações do backup</string>
     <string name="newline_is_new_paragraph">Nova linha = novo parágrafo</string>
+    <string name="search_in_content">Pesquisar no conteúdo</string>
+    <string name="max_search_depth">Profundidade da busca</string>
+    <string name="ignore_list">Lista de Ignorados</string>
+    <string name="do_not_search_specified_files_and_folders">Não procure por arquivos e pastas especificadas.\nUse nova linha como separador.\nUse aspas para nomes exatamente diretórios: \"Testar\".\nOu use Regex \'^[.].*\'\nExemplos: ├..*\n\"teste\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Busca por Regex</string>
+    <string name="case_sensitive">Sensível ao caso</string>
+    <string name="stop_search_after_first_match">Parar pesquisa após primeira correspondência</string>
+    <string name="regex_can_not_be_compiled">Regex não pode ser compilado</string>
     <string name="keep_both">Manter ambos</string>
     <string name="skip">Ignorar</string>
     <string name="overwrite">Substituir</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' já existe em %s</string>
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
+    <string name="infinite">Infinito</string>
 </resources>

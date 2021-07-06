@@ -51,6 +51,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
@@ -65,6 +66,7 @@ import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -99,11 +101,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, boolean allowRename) {
+    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(DocumentIO.EXTRA_PATH, path);
         args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, pathIsFolder);
+        args.putInt(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
         return f;
     }
@@ -188,8 +191,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-
-        new ActivityUtils(getActivity()).hideSoftKeyboard();
+        new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
@@ -211,6 +213,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
+        restoreDocumentPositions();
     }
 
     @Override
@@ -455,6 +458,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (_document != null) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
+                    _appSettings.setDocumentFormat(getPath(), _document.getFormat());
                 }
                 return true;
             }
@@ -464,9 +468,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_send_debug_log: {
-                String text = "Hello!\nThanks for developing this app.\nI'm sending this debug log to you to improve the app. The debug log is below.\nI also looked at the FAQ \nhttps://gsantner.net/project/" + getString(R.string.app_name_real).toLowerCase() + ".html\nand checked if it resolves my issue. This debug log allows to analyze and improve performance, but it doesn't give information about crashes! If the app crashes, I will add all steps to reproduce the issue. \n\n\n\n------------------------\n\n\n\n";
-                text += AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
-                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, new StringBuilder(getString(R.string.app_contact_email_reverse)).reverse().toString());
+                final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + DocumentIO.getMaskedContent(_document);
+                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
 
@@ -490,7 +493,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_load_epub: {
                 FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                                                            @Override
-                                                           public void onFsViewerSelected(String request, File file) {
+                                                           public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                                                _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(file, getString(R.string.page)));
                                                            }
 
@@ -510,6 +513,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
+                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
                 setHorizontalScrollMode(wrapText);
                 updateMenuToggleStates(0);
                 return true;
@@ -517,6 +521,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
+                _appSettings.setDocumentHighlightState(getPath(), highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -526,6 +531,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
                 return true;
+            }
+            case R.id.action_set_font_size: {
+                SearchOrCustomTextDialogCreator.showFontSizeDialog(getActivity(), _appSettings.getDocumentFontSize(getPath()), (newSize) -> {
+                    _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
+                    _appSettings.setDocumentFontSize(getPath(), newSize);
+                });
             }
         }
         return super.onOptionsItemSelected(item);
@@ -579,7 +590,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
@@ -587,12 +598,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
 
-
     private void initDocState() {
-        final boolean inMainActivity = getActivity() instanceof MainActivity;
         final String path = getPath();
         wrapTextSetting = _appSettings.getDocumentWrapState(path);
-        wrapText = inMainActivity || wrapTextSetting;
+        wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
         updateMenuToggleStates(0);
@@ -677,15 +686,25 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             updateLauncherWidgets();
 
             if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart(), _hlEditor.getTop());
-                final String path = getPath();
-                _appSettings.setDocumentWrapState(path, wrapTextSetting);
-                _appSettings.setDocumentHighlightState(path, highlightText);
-                _appSettings.setDocumentPreviewState(path, _isPreviewVisible);
-                _appSettings.setDocumentFormat(path, _document.getFormat());
+                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
+                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
         }
         return ret;
+    }
+
+    public void restoreDocumentPositions() {
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isDisplayedAtMainActivity()) {
+            int v;
+            if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
+                _hlEditor.smoothMoveCursorToLine(v);
+            }
+            _document.setInitialLineNumber(-1);
+        }
+    }
+
+    private boolean isDisplayedAtMainActivity() {
+        return getActivity() instanceof MainActivity;
     }
 
     @Override
@@ -728,8 +747,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Activity a = getActivity();
-        if (isVisibleToUser && a != null && a instanceof MainActivity) {
+        if (isVisibleToUser && isDisplayedAtMainActivity()) {
             checkReloadDisk(false);
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
@@ -769,7 +787,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _hlEditor.requestFocus();
                 }
                 _hlEditor.setSelection(lastPos);
-                _hlEditor.scrollTo(0, _appSettings.getLastEditPositionScroll(_document.getFile()));
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();
@@ -843,7 +860,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
-        if (!_isPreviewVisible) {
+        if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
         }
     }

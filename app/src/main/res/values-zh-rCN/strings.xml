@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">新建文件夹</string>
     <string name="create_new_document">新建文档</string>
     <string name="move">移动</string>
+    <string name="copy">复制</string>
     <string name="info">信息</string>
     <string name="file_folder_already_exists_please_use_a_different_name">已存在同名文件/文件夹！请换一个名字试试。</string>
     <string name="import_from_device">从本设备导入</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">翻译本应用</string>
     <string name="source_code">源代码</string>
     <string name="project_license">项目开源协议</string>
-    <string name="project_contribution_info">项目贡献信息</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">更多有关如何对本项目作出贡献的信息</string>
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
     <string name="project_team">项目团队</string>
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
@@ -314,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">刷新</string>
     <string name="wrap_words">折行</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
-    <string name="recursive_search_in_current_directory">在当前目录中递归搜索。当查询包含星号 (*) 时使用正则表达式搜索，否则检查是否包含查询。</string>
+    <string name="recursive_search_in_current_directory">在当前目录中进行递归搜索。</string>
     <string name="always_open_with_this_app">总是使用此应用打开</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
-    <string name="help_by_sending_debug_information_to_the_developer">向开发者发送调试信息以提供帮助。数据将通过电子邮件应用发送，您可以在发送前查看所有数据。如果启用此选项，您将在顶部菜单中找到额外的“发送调试日志”选项。它将创建一个草稿邮件。</string>
     <string name="print_pdf">打印/PDF</string>
     <string name="bigger_headings">大标题</string>
     <string name="increase_text_size_of_headings_according_to_level">根据标题级别(# h1, ## h2, ### h3…) 增加标题文字大小</string>
@@ -401,6 +399,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份json文件导入设置。成功后，应用程序将重启。</string>
     <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
     <string name="newline_is_new_paragraph">新行 = 新段</string>
+    <string name="search_in_content">搜索内容</string>
+    <string name="max_search_depth">搜索深度</string>
+    <string name="ignore_list">忽略列表</string>
+    <string name="do_not_search_specified_files_and_folders">不要搜索指定的文件和文件夹。\n使用新行作为分隔符。\n使用报价确切的目录名：“测试”。\n或使用Regex \'^[.].*\'\n示例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">正则表达式搜索</string>
+    <string name="case_sensitive">区分大小写</string>
+    <string name="stop_search_after_first_match">首次匹配后停止搜索</string>
+    <string name="regex_can_not_be_compiled">无法编译正则表达式</string>
+    <string name="keep_both">两者都保留</string>
+    <string name="skip">跳过</string>
+    <string name="overwrite">覆盖</string>
+    <string name="keep_both_all">两者都保留 (全部)</string>
+    <string name="skip_all">跳过 (所有)</string>
+    <string name="overwrite_all">覆盖 (所有)</string>
+    <string name="copy_move_conflict_message">\'%s已存在于 %s</string>
     <string name="additional_contexts_and_projects">其他背景和项目</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>
+    <string name="infinite">无限的</string>
 </resources>

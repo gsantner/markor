@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Přeložte tuto aplikaci do jiných jazyků</string>
     <string name="source_code">Zdrojový kód</string>
     <string name="project_license">Licence projektu</string>
-    <string name="project_contribution_info">Informace o přispění projektu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Více informací o tom, jak přispět k tomuto projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Přispět k projektu kódem. Je vítán kdokoliv, včetně nováčků</string>
     <string name="project_team">Tým projektu</string>
     <string name="contributors_public_add_yourself_description">Zobrazit informace o přispěvatelích. Po přispění mohou přispěvatelé poskytnout informace, které se zde zobrazí na základě opt-in</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Obnovit</string>
     <string name="wrap_words">Zalamování slov</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
-    <string name="recursive_search_in_current_directory">V aktuální složce se používá rekursivní vyhledávání. Pokud dotaz obsahuje hvězdičku (*), použije se regex. Jinak se kontroluje výskyt hledaného výrazu.</string>
+    <string name="recursive_search_in_current_directory">Rekurentní vyhledávání v aktuální složce.</string>
     <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
     <string name="template">Šablona</string>
     <string name="send_debug_log">Odeslat protokol ladění</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomoc odesláním informací o ladění aplikace vývojářům. Data jsou odesílána e-mailem přes vaši e-mailovou aplikaci a před odesláním si můžete prohlédnout všechna odeslaná data. Další možnost \"Odeslat ladící protokol\" najdete v horní nabídce, pokud je povoleno. Vytváří koncept e-mailu.</string>
     <string name="print_pdf">Tisk / PDF</string>
     <string name="bigger_headings">Větší nadpisy</string>
     <string name="increase_text_size_of_headings_according_to_level">Zvětšit velikost nadpisů podle úrovně (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importovat nastavení ze záložního souboru json. Po úspěšnosti je aplikace restartována.</string>
     <string name="failed_to_restore_settings_from_backup">Nepodařilo se obnovit nastavení ze zálohy</string>
     <string name="newline_is_new_paragraph">Nový řádek = nový odstavec</string>
+    <string name="search_in_content">Hledat v obsahu</string>
+    <string name="max_search_depth">Hloubka hledání</string>
+    <string name="ignore_list">Ignorovat seznam</string>
+    <string name="do_not_search_specified_files_and_folders">Nevyhledávat zadané soubory a složky.\nPoužijte nový řádek jako oddělovač.\nPoužijte uvozovky pro přesné názvy adresáře: \"Test\".\nNebo použijte Regex \'^[.].*\'\nPříklady: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Regex vyhledávání</string>
+    <string name="case_sensitive">Rozlišovat velikost písmen</string>
+    <string name="stop_search_after_first_match">Zastavit hledání po první hodině</string>
+    <string name="regex_can_not_be_compiled">Regex nelze kompilovat</string>
     <string name="keep_both">Zachovat obojí</string>
     <string name="skip">Přeskočit</string>
     <string name="overwrite">Přepsat</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' již existuje v %s</string>
     <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
+    <string name="infinite">Nekonečný</string>
 </resources>

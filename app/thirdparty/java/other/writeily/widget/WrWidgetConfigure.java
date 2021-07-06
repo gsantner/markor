@@ -1,7 +1,7 @@
 /*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2019 Gregor Santner
+ * Copyright (c) 2017-2021 Gregor Santner
  *
  * Licensed under the MIT license.
  * You can get a copy of the license text here:
@@ -46,7 +46,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
             FragmentManager fragManager = getSupportFragmentManager();
             FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerSelected(String request, File file) {
+                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     complete(file.getAbsolutePath());
                 }
 

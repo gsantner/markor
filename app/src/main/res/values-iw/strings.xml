@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">צור תיקייה</string>
     <string name="create_new_document">צור מסמך חדש</string>
     <string name="move">הזז</string>
+    <string name="copy">להעתיק</string>
     <string name="info">מידע</string>
     <string name="file_folder_already_exists_please_use_a_different_name">הקובץ/תיקיה כבר קיים! נא לבחור שם אחר</string>
     <string name="import_from_device">ייבא מהמכשיר</string>
@@ -62,6 +63,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">בחר רשומות</string>
     <string name="one_item_selected">פריט אחד נבחר</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d פריטים נבחרו</string>
+    <string name="hide_statusbar_at_this_view">הסתר את סרגל המצב בתצוגה זו</string>
+    <string name="hide_statusbar">הסתר את סרגל המצב</string>
     <string name="name">שם</string>
     <string name="url_or_path">קישור לרשת / נתיב קובץ</string>
     <string name="insert_link">הכנס קישור</string>
@@ -115,9 +118,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">צור קיצור דרך</string>
     <string name="tried_to_create_shortcut_for_this_notice">ניסיתי ליצור קיצור דרך למסך הבית. שים לב כי קיימים לאנצ\'רים שלא תומכים בזה.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">הקובץ הנבחר לא נמצא בתיקיית המחברות של האפליקציה. האם תרצה להעתיק אותו לתיקיה הנוכחית? זה יקרוס כל קובץ קיים עם שם זהה.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">הקובץ לא נמצא בתיקיה הנוכחית. האם ברצונך להעתיק אותו לתיקיה הנוכחית? פעולה זו תחליף כל קובץ קיים עם אותו שם.</string>
     <string name="files_and_folders">קבצים ותיקיות</string>
     <string name="document_browser">דפדפן מסמכים</string>
     <string name="file_browser">מנהל קבצים</string>
+    <string name="set_due_date">הגדר תאריך יעד</string>
+    <string name="insert_replace_date">הוסף תאריך</string>
     <string name="create_note" needed="false">צור פתק</string>
     <string name="special_documents" needed="false">מסמכים מיוחדים</string>
     <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
@@ -135,6 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">השהיה במילי-שניות עבור רענון הדגשה. ערך נמוך יתחיל את ההדגשה מוקדם יותר, אבל יגרום לצריכה מוגברת של הסוללה ועלול להאט את האפליקציה במכשירים ישנים.</string>
     <string name="highlighting_enabled_or_not__appspecific">שלוט האם הטקסט המוכנס צריך להיות מודגש או לא</string>
     <string name="control_font_size_in_editor">שלוט בגודל הגופן בו משתמש העורך</string>
+    <string name="textactions_show_useful_actions_description__appspecific">הצג סרגל עם לחצנים שימושיים בתחתית. פעולות טקסט אלה משנות את הטקסט או מפעילות בהתבסס על הטקסט.</string>
     <string name="load_last_opened_folder_at_startup">טען את התיקיה באחרונה בעת אתחול</string>
     <string name="format">פורמט</string>
     <string name="contexts">הקשרים</string>
@@ -197,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">תרגם ישום זה לשפות אחרות</string>
     <string name="source_code">קוד מקור</string>
     <string name="project_license">רישיון הפרויקט</string>
-    <string name="project_contribution_info">מידע על תרומה לפרויקט</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">מידע נוסף על איך לתרום לפרוייקט זה</string>
     <string name="contribute_code_to_this_project_anybody_welcome">לתרום קוד לפרוייקט. כולם מוזמנים לעשות כן, לרבות מתחילים</string>
     <string name="project_team">צוות הפרויקט</string>
     <string name="contributors_public_add_yourself_description">הצג פרטי המתנדב. הבא זאת להצגה כאן על בסיס הסכמה מראש לאחר תרומה</string>

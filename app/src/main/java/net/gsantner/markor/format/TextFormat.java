@@ -33,6 +33,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.util.Locale;
@@ -63,21 +64,22 @@ public class TextFormat {
             CONVERTER_PLAINTEXT,
     };
 
-    // Either pass file or null and absolutePath
-    public static boolean isTextFile(File file, String... absolutePath) {
-        if (file == null && (absolutePath == null || absolutePath.length < 1)) {
+    public static boolean isTextFile(final String absolutePath) {
+        return isTextFile(new File(absolutePath));
+    }
+
+    public static boolean isTextFile(final File file) {
+        if (file == null) {
             return false;
         }
-
-        String path = (absolutePath != null && absolutePath.length > 0) ? absolutePath[0] : file.getAbsolutePath();
-        path = path.toLowerCase(Locale.ROOT);
-
+        final String path = file.getAbsolutePath().toLowerCase(Locale.ROOT);
         for (TextConverter converter : CONVERTERS) {
             if (converter.isFileOutOfThisFormat(path)) {
                 return true;
             }
         }
-        return false;
+
+        return FileUtils.isTextFile(file);
     }
 
     public interface TextFormatApplier {

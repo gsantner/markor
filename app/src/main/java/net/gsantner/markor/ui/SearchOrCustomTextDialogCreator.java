@@ -29,6 +29,9 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.format.txt2tags.Txt2tagsHighlighter;
+import net.gsantner.markor.ui.fsearch.FileSearchDialog;
+import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
+import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -121,26 +124,16 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = query -> SearchOrCustomTextDialog.recursiveFileSearch(activity, searchDir, query, (Callback.a1<List<String>>) searchResults -> {
-            dopt.callback = callback;
-            dopt.isSearchEnabled = !searchResults.isEmpty();
-            dopt.data = searchResults;
-            dopt.cancelButtonText = R.string.close;
-            dopt.titleText = R.string.select;
-            dopt.messageText = null;
-            if (dopt.data.isEmpty()) {
-                dopt.messageText = "     ¯\\_(ツ)_/¯     ";
-            }
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-        });
-        dopt.titleText = R.string.search;
-        dopt.isSearchEnabled = true;
-        dopt.messageText = activity.getString(R.string.recursive_search_in_current_directory);
-        dopt.searchHintText = R.string.search;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
+        if (!SearchEngine.isSearchExecuting) {
+            Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+                searchOptions.rootSearchDir = searchDir;
+                SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
+                    FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
+                });
+            };
+            FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
+        }
     }
 
     public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
@@ -409,6 +402,25 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.titleText = R.string.indent;
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    public static void showFontSizeDialog(final Activity activity, final int currentSize, final Callback.a1<Integer> callback) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
+        final int minFontSize = 1;
+        final int maxFontSize = 36;
+        final List<String> sizes = new ArrayList<>();
+        for (int i = minFontSize; i <= maxFontSize; i++) {
+            sizes.add(Integer.toString(i));
+        }
+        dopt.data = sizes;
+        dopt.highlightData = Collections.singletonList(Integer.toString(currentSize));
+        dopt.isSearchEnabled = false;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
+        dopt.dialogHeightDp = 400;
+        dopt.titleText = R.string.font_size;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

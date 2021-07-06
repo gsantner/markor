@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Overset dette program til andre sprog</string>
     <string name="source_code">Kildekode</string>
     <string name="project_license">Projektlicens</string>
-    <string name="project_contribution_info">Projektbidragsinformation</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mere info om hvordan du bidrager til dette projekt</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag kode til projektet. Alle er velkomne, også nybegyndere</string>
     <string name="project_team">Projekthold</string>
     <string name="contributors_public_add_yourself_description">Vis info på folk der bidrager. Opgiv, frivilligt, detaljer for at blive vist her</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Genindlæs</string>
     <string name="wrap_words">Ombryd ord</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Blød pause, hvis teksten ikke passer til skærmbredden. Else aktivere vandret rulning.</string>
-    <string name="recursive_search_in_current_directory">Rekursiv søgning i nuværende mappe. Når forespørgslen indeholder en asterisk (*) regex søgning, bruges ellers tjek om forespørgslen er indeholdt.</string>
+    <string name="recursive_search_in_current_directory">Rekursiv søgning i den aktuelle mappe.</string>
     <string name="always_open_with_this_app">Åbn altid med denne app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
     <string name="template">Skabelon</string>
     <string name="send_debug_log">Send Fejlsøgningslog</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjælp ved at sende debug information til udvikler(er). Data sendes via e-mail via din e-mail-app, og du kan se alle sendte data, før du sender. Du vil finde en ekstra \"Send debug log\" indstilling i top menuen, når aktiveret. Det opretter e-mail-kladden.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Større overskrifter</string>
     <string name="increase_text_size_of_headings_according_to_level">Forøg tekststørrelsen for overskrifter efter niveau (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importer indstillinger fra backup json fil. Efter succes genstartes appen.</string>
     <string name="failed_to_restore_settings_from_backup">Kunne ikke gendanne indstillinger fra sikkerhedskopi</string>
     <string name="newline_is_new_paragraph">Newline = nyt afsnit</string>
+    <string name="search_in_content">Søg i indhold</string>
+    <string name="max_search_depth">Søg dybde</string>
+    <string name="ignore_list">Ignorer liste</string>
+    <string name="do_not_search_specified_files_and_folders">Søg ikke angivne filer og mapper.\nBrug ny linje som separator.\nBrug citater til nøjagtige dir navne: \"Test\".\nEller brug Regex \'^[.].*\'\nEksempler: ^\\..*\n\"test\"\n\"Test\"\n.*sekret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Regex søgning</string>
+    <string name="case_sensitive">Versalfølsom sag</string>
+    <string name="stop_search_after_first_match">Stop søgning efter første match</string>
+    <string name="regex_can_not_be_compiled">Regex kan ikke kompileres</string>
     <string name="keep_both">Behold begge</string>
     <string name="skip">Overspring</string>
     <string name="overwrite">Overskriv</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' findes allerede i %s</string>
     <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
+    <string name="infinite">Uendelig</string>
 </resources>

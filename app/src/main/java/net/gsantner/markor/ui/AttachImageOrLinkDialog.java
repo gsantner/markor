@@ -121,7 +121,7 @@ public class AttachImageOrLinkDialog {
         // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
         final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
             @Override
-            public void onFsViewerSelected(final String request, final File file) {
+            public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
                 String text = null;
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
@@ -136,7 +136,7 @@ public class AttachImageOrLinkDialog {
                         filename = AudioRecordOmDialog.generateFilename(file).getName();
                     }
                     File targetCopy = new File(currentWorkingFile.getParentFile(), filename);
-                    showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile));
+                    showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile, null));
                 }
                 if (text == null) {
                     text = file.getAbsolutePath();
@@ -170,7 +170,7 @@ public class AttachImageOrLinkDialog {
         // Request camera / gallery picture button handling
         final ShareUtil shu = new ShareUtil(activity);
         final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
-                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)));
+                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)), null);
                 },
                 false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
         final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
@@ -186,7 +186,7 @@ public class AttachImageOrLinkDialog {
         });
 
         // Audio Record -> fs listener with arg file,"audio_record"
-        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath)));
+        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath, null)));
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");

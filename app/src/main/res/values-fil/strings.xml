@@ -199,8 +199,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Isalin itong app sa ibang mga wika</string>
     <string name="source_code">Source Code</string>
     <string name="project_license">Lisensiya ng Proyekto</string>
-    <string name="project_contribution_info">Impormasyon sa ambagan ng proyekto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Karagdagang impormasyon kung paano mag-ambag sa proyektong ito</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Mag-ambag ng code sa proyekto. Maaring gawin ito ng kahit sinuman, pati na ang mga bagong-pasok</string>
     <string name="project_team">Project Team</string>
     <string name="contributors_public_add_yourself_description">Ipakita ang impormasyon ng mga nag-ambag. Nasa opt-in basis ang pagpapakita dito matapos mag-ambag</string>
@@ -289,7 +287,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">I-reload</string>
     <string name="wrap_words">I-wrap ang mga salita</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">I-soft break kung hindi kakasya sa lapad ng screen ang teksto. Kung ayaw, i-enable ang pag-i-scroll na pahiga.</string>
-    <string name="recursive_search_in_current_directory">Pabalik-balik na paghahanap sa direktorya ngayon. Kapag ang hinahanap ay may asteris (*), gagamitin ang regex na paghahanap, kung hindi, suriin kung nahanap ang hinahanap.</string>
     <string name="always_open_with_this_app">Palaging buksan sa app na ito</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Palaging buksan ang mga file sa app na ito kung ang listahan ay mayroon mga file extension. Gamitin ang \'Wala, .html, .css, .js\' bilang halimbawa kung gusto mong baguhin ang mga web file at yung mga walang file extension.</string>
     <string name="template">Template</string>

@@ -441,7 +441,12 @@ public class FileUtils {
                         break;
                 }
             }
+
+            if (TextUtils.isEmpty(guess)) {
+                guess = URLConnection.guessContentTypeFromName(filename);
+            }
         }
+
         return TextUtils.isEmpty(guess) ? "*/*" : guess;
     }
 
@@ -509,9 +514,11 @@ public class FileUtils {
         } else if (bytes < 1000000) {
             return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000f), "KB");
         } else if (bytes < 1000000000) {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000f), "GB");
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000f), "MB");
+        } else if (bytes < 1000000000000L) {
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000f), "GB");
         } else {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000f), "TB");
+            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000000f), "TB");
         }
     }
 

@@ -95,10 +95,6 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                     _cu.openWebpageInExternalBrowser(getString(R.string.app_translate_url));
                     return true;
                 }
-                case R.string.pref_key__more_info__project_contribution_info: {
-                    _cu.openWebpageInExternalBrowser(getString(R.string.app_contribution_info_url));
-                    return true;
-                }
                 case R.string.pref_key__more_info__source_code: {
                     _cu.openWebpageInExternalBrowser(getString(R.string.app_source_code_url));
                     return true;

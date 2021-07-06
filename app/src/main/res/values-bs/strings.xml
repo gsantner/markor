@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Kreiraj direktorij</string>
     <string name="create_new_document">Kreiraj novi dokument</string>
     <string name="move">Premjesti</string>
+    <string name="copy">Kopiraj</string>
     <string name="info">Informacija</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Datoteka/direktorij već postoji! Molimo odaberite drugi naziv</string>
     <string name="import_from_device">Prenesi sa uređaja</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Prevedite ovaj program na druge jezike</string>
     <string name="source_code">Izvorni kōd</string>
     <string name="project_license">Licenca projekta</string>
-    <string name="project_contribution_info">Informacije o sudjelovanju u projektu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Više informacija o sudjelovanju u ovom projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Doprinesite projektu vlastitim kōdom. Svačiji je doprinos dobrodošao.</string>
     <string name="project_team">Tim</string>
     <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
@@ -314,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Učitaj ponovo</string>
     <string name="wrap_words">Prijelom redova</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Kad tekst prelazi širinu ekrana, koristiti blagi prijelom. Ako ne, tad aktivirati vodoravno pomjeranje.</string>
-    <string name="recursive_search_in_current_directory">Rekurzivno pretraživanje u trenutnom direktoriju. Kad upit sadržava zvjezdicu (*) koriste se regularni izrazi.</string>
+    <string name="recursive_search_in_current_directory">Rekurzivna pretraga u trenutnom direktoriju.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
     <string name="template">Šablon</string>
     <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomozite razvojnom timu šaljući informacije o greškama. Podaci se šalju putem Vaše email aplikacije i možete ih pregledati prije slanja. U gornjem ćete meniju pronaći \"Pošalji izvještaj za ispravljanje grešaka\" opciju kad je aktivna. Ona će kreirati novi email.</string>
     <string name="print_pdf">Štampaj / PDF</string>
     <string name="bigger_headings">Veći naslovi</string>
     <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>
@@ -394,7 +392,28 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Zamijeni sve</string>
     <string name="matches">Pronađeno</string>
     <string name="search_replace_pattern_error_message">Greška u formi pretrage ili zamjene.</string>
+    <string name="backup_settings">Podešavanja rezervne kopije</string>
+    <string name="restore_settings">Podešavanja vraćanja podataka</string>
+    <string name="failed_to_create_backup">Nije uspjelo kreiranje rezervne kopije</string>
+    <string name="export_settings_to_json_file">Pohrani podešavanja u json datoteku</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Unesi podešavanja iz rezervne kopije json datoteke. Po uspješnom završetku, aplikacija će se pokrenuti iznova.</string>
+    <string name="failed_to_restore_settings_from_backup">Nije uspjelo obnavljanje podešavanja iz rezervne kopije</string>
     <string name="newline_is_new_paragraph">Novi red = novi paragraf</string>
+    <string name="search_in_content">Pretraga sadržaja</string>
+    <string name="max_search_depth">Dubina pretrage</string>
+    <string name="ignore_list">Popis izostavljenih</string>
+    <string name="do_not_search_specified_files_and_folders">Ne pretražuj ovdje precizirane datoteke i direktorije.\nKoristi novi red kao razdjelnicu.\nKoristi navodnike za traženje tačnih naziva: \"Test\".\nIli koristi Regex \'^[.].*\'\nPrimjeri: ^\\..*\n\"test\"\n\"Test\"\n.*tajni.*\n.*REZERVNA.*\n.*.ini</string>
+    <string name="regex_search">Regex pretraga</string>
+    <string name="case_sensitive">Pazi na velika i mala slova</string>
+    <string name="regex_can_not_be_compiled">Regex nije sprovodiv</string>
+    <string name="keep_both">Zadrži obje</string>
+    <string name="skip">Preskoči</string>
+    <string name="overwrite">Prepiši preko</string>
+    <string name="keep_both_all">Zadrži obje (sve)</string>
+    <string name="skip_all">Preskoči (sve)</string>
+    <string name="overwrite_all">Prepiši preko (sve)</string>
+    <string name="copy_move_conflict_message">\'%s\' već postoji u %s</string>
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
+    <string name="infinite">Beskrajno</string>
 </resources>

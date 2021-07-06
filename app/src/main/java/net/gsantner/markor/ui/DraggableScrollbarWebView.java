@@ -1,5 +1,6 @@
 package net.gsantner.markor.ui;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -90,5 +91,19 @@ public class DraggableScrollbarWebView extends WebView {
 
     public boolean isFastScrollEnabled() {
         return _fastScrollEnabled;
+    }
+
+    ////////
+    // Feature Animated Scrolling
+    public void scrollAnimatedToXY(final int scrollX, final int scrollY, int... arg0Delay__arg1Duration) {
+        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
+        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
+
+        postDelayed(() -> {
+            for (final ObjectAnimator anim : new ObjectAnimator[]{ObjectAnimator.ofInt(DraggableScrollbarWebView.this, "scrollY", 0, scrollY), ObjectAnimator.ofInt(DraggableScrollbarWebView.this, "scrollX", 0, scrollX)}) {
+                anim.setDuration(duration);
+                anim.start();
+            }
+        }, delay);
     }
 }

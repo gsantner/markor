@@ -1,5 +1,28 @@
 ### Recent changes
-- Markdown: Suport superscript^2^ syntax, #1268 by @gsantner
+
+### v2.7 [Blog Post](https://gsantner.net/blog/2021/06/26/markor-v2.7-search-in-content-backup-restore.html?source=changelog)
+- Recursive file search with in-content search, #1337 by @adelobosko @harshad1 @gsantner
+- Backup and restore settings, Format selection with radio buttons, #1244 by @harshad1 @gsantner
+- Per-file font size, #1332 by @harshad1
+- Markdown: Support superscript^2^ syntax, #1268 by @gsantner
+- View mode: Image/PDF export whole page, add seperate screenshot option, by @gsantner
+- todo.txt: Fix trailing space resulting in contexts/projects/due-dates to be entered twice, #1282 by @harshad1
+- Markdown: Enable GitLab extension, display video links as html5-video, #1280 by @gsantner
+- Markdown: Enable typographic transformation, #1277 by @gsantner
+- todo.txt: Fix tags dialog not shows up onLongClick, #1292 by @gsantner
+- Editor: Allow top-menu back button also when the file is empty, #1290 by @harshad1
+- ShareInto: Improve automatic link reformatting, #1275 by @harshad1
+- Search dialogs: Hide search input field when if there is no data, #1298 by @harshad1
+- Decrease scrollbar width for better usability, #1306 by @harshad1
+- todo.txt: Settings option for always-visible @contexts & +projects, #1305 by @harshad1 @gsantner
+- TextActions: Improve cursor placement at Regex replace, #1310 by @harshad1
+- File manager: Move/Copy file improvements, add Yes/No/All overwrite options, #1281 by @harshad1
+- Fix App might crash on toolbar-click for TOC, #1336 by @adelobosko
+- Fix Android 4.4 crash on file move/copy, #1333 by @harshad1
+- Fix Android 4.4 crash when opening .txt file due to ZimWiki format detection, #1341 by @fredericjacob
+- Markdown: Don't match extra spaces at ordered-list regex, #1367 by @harshad1
+- File Manager: Fix MB being displayed as GB at description (SI 1000 unit), #1352 by @gsantner
+- File Manager: Duplicate file / allow copy into same folder, #1345 by @harshad1- Filemanager formatter: fix MB being displayed as GB (SI 1000 unit), #1352 by @gsantner
 
 ### v2.6 [Blog Post](https://gsantner.net/blog/2021/02/28/markor-v2.6-per-file-settings-zim-wiki-markdown-newline-paragraph.html?source=changelog)
 - Markdown: Add settings option for newlines to start new paragraphs, #1260 by @gsantner

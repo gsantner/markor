@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crea una cartella</string>
     <string name="create_new_document">Crea unu documentu nou</string>
     <string name="move">Move</string>
+    <string name="copy">Còpia</string>
     <string name="info">Informatziones</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Su documentu/sa cartella esistit giai! Pro praghere imprea unu nùmene diferente</string>
     <string name="import_from_device">Importa dae su dispositivu</string>
@@ -220,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Borta custa aplicatzione in àteras limbas</string>
     <string name="source_code">Còdighe mitza</string>
     <string name="project_license">Litzèntzia de su progetu</string>
-    <string name="project_contribution_info">Informatziones de contributzione a su progetu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Àteras informatziones a pitzu de comente contribuire a custu progetu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribui cun còdighe a su progetu. Totus sunt invitados a lu fàghere, fintzas sos ùrtimos arribbados</string>
     <string name="project_team">Iscuadra de su progetu</string>
     <string name="contributors_public_add_yourself_description">Ammustra informatziones a pitzu de sos contribuidores. Fruni·las pro las fàghere ammustrare inoghe si l\'ant isseberadu a pustis de sa contributzione</string>
@@ -314,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Torra a carrigare</string>
     <string name="wrap_words">Acontzu de sas lìnias</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
-    <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale. Cando sa chirca cuntenet un\'asteriscu (*) benit impreada sa chirca de espressiones regulares (regex), si nono verìfica si sa chirca est cuntenuda.</string>
+    <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
     <string name="template">Modellu</string>
     <string name="send_debug_log">Imbia unu registru de depuratzione (debug)</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Agiuda·nos imbiende informatziones a pitzu de sa depuratzione (debug) a sos isvilupadores. Sos datos benint imbiados pro mèdiu de s\'aplicatzione de pòsta eletrònica tua e podes pompiare totu sos datos imbiados in antis de s\'imbiu. As a agatare un\'optzione agiuntiva \"Imbia unu registru de depuratzione (debug)\" in su menù in artu, cando est abilitadu. At a creare sa botza de sa lìtera de imbiare.</string>
     <string name="print_pdf">Imprenta / PDF</string>
     <string name="bigger_headings">Intestatziones prus mannas</string>
     <string name="increase_text_size_of_headings_according_to_level">Ismànnia su testu de sas intestatziones in base a su livellu (# h1, ## h2. ### h3…)</string>
@@ -397,7 +395,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup_settings">Impostatziones de sas còpias de seguresa</string>
     <string name="restore_settings">Riprìstina sas impostatziones</string>
     <string name="failed_to_create_backup">Creatzione de sa còpia de seguresa fallida</string>
+    <string name="export_settings_to_json_file">Esporta sas impostatziones in unu documentu json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importa sas impostatziones dae una còpia de seguresa in unu documentu json. In casu de sutzessu s\'aplicatzione s\'at a torrare a allùghere.</string>
+    <string name="failed_to_restore_settings_from_backup">Riprìstinu de sas impostatziones dae sa còpia de seguresa fallidu</string>
     <string name="newline_is_new_paragraph">Lìnia noa = paràgrafu nou</string>
+    <string name="search_in_content">Chirca in su cuntenutu</string>
+    <string name="max_search_depth">Profundidade de chirca</string>
+    <string name="ignore_list">Lista de ignorados</string>
+    <string name="do_not_search_specified_files_and_folders">Non chirches sos documentos e sas cartellas dislindados.\nImprea una lìnia noa comente separadore.\nImprea sas virguleddas pro sos nùmenes esatos de sas cartellas: \"Proa\".\nO imprea Regex \'^[.].*\'\nEsèmpios: ^\\..*\n\"proa\"\n\"Proa\"\n.*segretu.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">Chirca Regex</string>
+    <string name="case_sensitive">Distinghe sas maiùscolas</string>
+    <string name="stop_search_after_first_match">Acabba sa chirca a pustis de sa prima currispondèntzia</string>
+    <string name="regex_can_not_be_compiled">Sa regex non si podet compilare</string>
+    <string name="keep_both">Mantene·los ambos</string>
+    <string name="skip">Brinca</string>
+    <string name="overwrite">Subraiscrie</string>
+    <string name="keep_both_all">Mantene·los ambos (totus)</string>
+    <string name="skip_all">Brinca (totus)</string>
+    <string name="overwrite_all">Subraiscrie (totus)</string>
+    <string name="copy_move_conflict_message">\'%s\' esistit giai in %s</string>
     <string name="additional_contexts_and_projects">Cuntestos e progetos additzionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserta @cuntestos e +progetos iscrobados dae ispàtzios. Custos ant a èssere semper visìbiles in sas ventanas de diàlogu de insertadura de todo.txt.</string>
+    <string name="infinite">Infinitu</string>
 </resources>

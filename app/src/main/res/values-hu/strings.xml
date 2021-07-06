@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Mappa létrehozása</string>
     <string name="create_new_document">Dokumentum létrehozása</string>
     <string name="move">Mozgatás</string>
+    <string name="copy">Másolás</string>
     <string name="info">Infó</string>
     <string name="file_folder_already_exists_please_use_a_different_name">A fájl már létezik! Változtasd meg a nevet</string>
     <string name="import_from_device">Importálás az eszközről</string>
@@ -219,8 +220,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Fordítsd le az alkalmazást más nyelvekre</string>
     <string name="source_code">Forráskód</string>
     <string name="project_license">Projekt licensz</string>
-    <string name="project_contribution_info">Projekt közreműködési információ</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Több információ arról, hogyan járulhatsz hozzá a projekthez</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Járulj hozzá kóddal a projekthez! Mindenkit szívesen látunk, az újonnan jövőket is.</string>
     <string name="project_team">Projekt csapat</string>
     <string name="contributors_public_add_yourself_description">A közreműködő információk megjelenítése. Add meg, hogy megjelenjen a közreműködés után, egy beleegyezés alapú módon.</string>
@@ -309,12 +308,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Újratölt</string>
     <string name="wrap_words">Sortörés</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Sorok törése, ha a szöveg szélesebb a képernyőnél. Egyébként vízszintes görgetés bekapcsolása.</string>
-    <string name="recursive_search_in_current_directory">Keresés az almappákban is. Ha a kulcsszó tartalmaz csillagot (*), reguláris kifejezésnek veszi a kulcsszót.</string>
     <string name="always_open_with_this_app">Mindig ezzel az alkalmazással nyissa meg</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Mindig ezzel az alkalmazással nyissa meg a fájlt, ha a kiterjesztése szerepel a listában. Például ha webfájlokat és kiterjesztés nélkülieket szeretnél szerkeszteni: \'None, .html, .css , .js\'</string>
     <string name="template">Sablon</string>
     <string name="send_debug_log">Debug információ küldése</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Segíts a fejlesztőknek debug információ küldésével! Az adatok az email alkalmazáson keresztül kerülnek elküldésre, és mindent látsz küldés előtt. Egy \'Debug információ küldése\' menüpont fog megjelenni a felső menüben, az készíti el az emailt.</string>
     <string name="print_pdf">Nyomtatás / PDF</string>
     <string name="bigger_headings">Nagyobb címsorok</string>
     <string name="increase_text_size_of_headings_according_to_level">Betűméret növelése a címsor száma szerint (# h1, ## h2. ### h3…)</string>
@@ -386,4 +383,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Összes cseréje</string>
     <string name="matches">Találatok</string>
     <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
+    <string name="export_settings_to_json_file">Beállítások exportálása json fájlba</string>
+    <string name="keep_both">Mindkettő megtartása</string>
 </resources>

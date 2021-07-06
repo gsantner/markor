@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">このアプリを他の言語に翻訳してください</string>
     <string name="source_code">ソースコード</string>
     <string name="project_license">プロジェクトライセンス</string>
-    <string name="project_contribution_info">プロジェクト貢献情報</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">このプロジェクトに貢献する方法についての詳細情報</string>
     <string name="contribute_code_to_this_project_anybody_welcome">プロジェクトにコードを貢献してください。新規参画者を含めて誰でも歓迎します</string>
     <string name="project_team">プロジェクトチーム</string>
     <string name="contributors_public_add_yourself_description">貢献者の情報を表示します。貢献後にオプトインした方法でここに表示されます</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">再読み込み</string>
     <string name="wrap_words">単語の折り返し</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
-    <string name="recursive_search_in_current_directory">現在のディレクトリでの再帰検索。 クエリにアスタリスク (*) が含まれる場合は正規表現検索が使用されます。それ以外の場合、クエリが含まれるかどうかを確認してください。</string>
+    <string name="recursive_search_in_current_directory">現在のディレクトリの再帰的な検索。</string>
     <string name="always_open_with_this_app">いつもこのアプリで開く</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">リストにファイル拡張子が含まれている場合は、常にこのアプリでファイルを開きます。 たとえば、Webファイルやファイル拡張子のないファイルを編集したい場合は、 \'なし, .html, .css , .js\' を使用してください。</string>
     <string name="template">テンプレート</string>
     <string name="send_debug_log">デバッグログを送信</string>
-    <string name="help_by_sending_debug_information_to_the_developer">開発者にデバッグ情報を送信して支援してください。 データはメールアプリを使用してメールで送信され、送信前にすべての送信データを確認できます。 有効にすると、トップメニューに \"デバッグログを送信\" オプションが追加されます。 メールの下書きを作成します。</string>
     <string name="print_pdf">印刷 / PDF</string>
     <string name="bigger_headings">見出しを大きくする</string>
     <string name="increase_text_size_of_headings_according_to_level">レベルに応じて見出しのテキストサイズを大きくします (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">バックアップ json ファイルから設定をインポートします。アプリを再起動します。</string>
     <string name="failed_to_restore_settings_from_backup">バックアップから設定を復元できませんでした</string>
     <string name="newline_is_new_paragraph">format@@0 = 新しい段落</string>
+    <string name="search_in_content">内容を検索</string>
+    <string name="max_search_depth">検索の深さ</string>
+    <string name="ignore_list">無視リスト</string>
+    <string name="regex_search">正規表現検索</string>
+    <string name="case_sensitive">大文字と小文字を区別する</string>
+    <string name="stop_search_after_first_match">最初の一致後に検索を停止</string>
+    <string name="regex_can_not_be_compiled">正規表現をコンパイルできません</string>
     <string name="keep_both">両方を保持</string>
     <string name="skip">スキップ</string>
     <string name="overwrite">上書き</string>
@@ -411,4 +415,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' はすでに %s に存在します</string>
     <string name="additional_contexts_and_projects">追加のコンテキストとプロジェクト</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">スペースで区切られた @contexts と +projects を入力してください。これらは常に todo.txt のダイアログで表示されます。</string>
+    <string name="infinite">Infinite</string>
 </resources>

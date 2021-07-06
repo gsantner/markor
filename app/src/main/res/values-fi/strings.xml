@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Käännä tämä sovellus muille kielille</string>
     <string name="source_code">Lähdekoodi</string>
     <string name="project_license">Projektin lisenssi</string>
-    <string name="project_contribution_info">Projektin lisätiedot</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Lisätietoja hankkeeseen osallistumisesta</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Osallistu projektin koodaamiseen. Kaikki ovat tervetulleita mukaan, myös uudet tulokkaat</string>
     <string name="project_team">Projektiryhmä</string>
     <string name="contributors_public_add_yourself_description">Näytä osallistujatiedot. Lähetä halutessasi tiedot näkyäksesi täällä osallistumisen jälkeen</string>
@@ -315,12 +313,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Reload</string>
     <string name="wrap_words">Rivitä sanat</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pehmeä tauko, jos teksti ei sovi näytön leveyteen.</string>
-    <string name="recursive_search_in_current_directory">Rekursiivinen haku nykyiseen hakemistoon. Kun kysely sisältää asteriskin (*) regex-haun käytetään, muuten tarkista, onko kysely sisältää.</string>
+    <string name="recursive_search_in_current_directory">Rekursiivinen haku nykyisessä hakemistossa.</string>
     <string name="always_open_with_this_app">Avaa aina tällä sovelluksella</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Avaa aina tiedostoja tällä sovelluksella, kun lista sisältää tiedostopäätteen. Käytä \'Ei mitään, .html, . ss , .js esimerkiksi jos haluat muokata web-tiedostoja ja niitä ilman tiedostopäätettä.</string>
     <string name="template">Malli</string>
     <string name="send_debug_log">Lähetä Vianetsintäloki</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Auta lähettämällä vianetsintätietoja kehittäjille tai kehittäjille. Tiedot lähetetään sähköpostitse sähköpostin kautta ja näet kaikki lähetetyt tiedot ennen lähettämistä. Löydät ylimääräisen \"Lähetä debug loki\" -vaihtoehdon ylävalikosta, kun se on käytössä. Se luo sähköpostin luonnoksen.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Suurempi otsikko</string>
     <string name="increase_text_size_of_headings_according_to_level">Lisää otsikoiden tekstikokoa tason mukaan (# h1, ## h2. ### h3…)</string>
@@ -402,6 +399,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Tuo asetukset varmuuskopion json tiedostosta. Onnistui, sovellus käynnistetään uudelleen.</string>
     <string name="failed_to_restore_settings_from_backup">Asetusten palautus varmuuskopiosta epäonnistui</string>
     <string name="newline_is_new_paragraph">Uusi kohta = uusi kohta</string>
+    <string name="search_in_content">Etsi sisällöstä</string>
+    <string name="max_search_depth">Etsi syvyys</string>
+    <string name="ignore_list">Ohita lista</string>
+    <string name="do_not_search_specified_files_and_folders">Älä hae määriteltyjä tiedostoja ja kansioita.\nKäytä uutta riviä erottimena.\nKäytä tarkkoja dir nimiä: \"Test\".\nTai käytä Regex \'^[.].*\'\nEsimerkkejä: ^\\\..*\n\"testi\"\n\"Test\"\n.*salaisuus*\n.*BACKUP*\n.*.ini</string>
+    <string name="regex_search">Regex haku</string>
+    <string name="case_sensitive">Huomioi kirjainkoko</string>
+    <string name="stop_search_after_first_match">Lopeta haku ensimmäisen ottelun jälkeen</string>
+    <string name="regex_can_not_be_compiled">Regexiä ei voi kääntää</string>
     <string name="keep_both">Pidä molemmat</string>
     <string name="skip">Ohita</string>
     <string name="overwrite">Korvaa</string>
@@ -411,4 +416,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' on jo olemassa %s</string>
     <string name="additional_contexts_and_projects">Lisätaustat ja -hankkeet</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Syötä välilyönti erotettu @kontekstit ja +projektit. Nämä näkyvät aina osoitteessa: todo.txt insert dialogit.</string>
+    <string name="infinite">Loputon</string>
 </resources>

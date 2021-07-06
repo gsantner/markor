@@ -214,7 +214,6 @@ public class SettingsActivity extends AppActivityBase {
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
                     R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3,
-                    R.string.pref_key__is_debug_log_enabled,
             };
             for (final int keyId : experimentalKeys) {
                 setPreferenceVisible(keyId, _as.isExperimentalFeaturesEnabled());
@@ -264,7 +263,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setSaveDirectory(file.getAbsolutePath());
                                 as.setRecreateMainRequired(true);
@@ -287,7 +286,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setQuickNoteFile(file);
                                 as.setRecreateMainRequired(true);
@@ -308,7 +307,7 @@ public class SettingsActivity extends AppActivityBase {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
-                            public void onFsViewerSelected(String request, File file) {
+                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 AppSettings as = AppSettings.get();
                                 as.setTodoFile(file);
                                 as.setRecreateMainRequired(true);
