@@ -21,9 +21,10 @@ import other.writeily.format.WrProportionalHeaderSpanCreator;
 
 public class WrTxt2tagsHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
     private static final Character EQUAL_SIGN = '=';
-    private static final float STANDARD_PROPORTION_MAX = 1.60f;
-    private static final float STANDARD_PROPORTION_MIN = 1.00f;
-    private static final float SIZE_STEP = (STANDARD_PROPORTION_MAX - STANDARD_PROPORTION_MIN) / 5f;
+    private static final float STANDARD_PROPORTION_MAX = 1.70f;
+    private static final float STANDARD_PROPORTION_MIN = 1.10f;
+    //private static final float SIZE_STEP = (STANDARD_PROPORTION_MAX - STANDARD_PROPORTION_MIN) / 5f;
+    private static final float SIZE_STEP = 0.20f;
 
     protected Txt2tagsHighlighter _highlighter;
     private final Spannable _spannable;
@@ -46,11 +47,11 @@ public class WrTxt2tagsHeaderSpanCreator implements SpanCreator.ParcelableSpanCr
     }
 
     private float calculateProportionBasedOnEqualSignCount(final char[] headingSequence) {
-        float proportion = STANDARD_PROPORTION_MIN;
-        int i = 1;  // start with second char (H5 level)
-        // one level bigger for each '='
-        while (EQUAL_SIGN.equals(headingSequence[i]) && proportion < STANDARD_PROPORTION_MAX) {
-            proportion += SIZE_STEP;
+        float proportion = STANDARD_PROPORTION_MAX;
+        int i = 1;  // start with H1 level
+        // one level smaller for each '='
+        while (EQUAL_SIGN.equals(headingSequence[i]) && proportion >= STANDARD_PROPORTION_MIN) {
+            proportion -= SIZE_STEP;
             i++;
         }
         return proportion;
