@@ -26,7 +26,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Make use of MarkdownConverter by converting Zim syntax to Markdown
+ * Make use of MarkdownConverter by converting txt2tags syntax to Markdown.
+ * Used for preview.
  */
 @SuppressWarnings("WeakerAccess")
 public class Txt2tagsTextConverter extends TextConverter {
@@ -147,28 +148,28 @@ public class Txt2tagsTextConverter extends TextConverter {
                 .split("\\|");
 
         StringBuilder fullPath = new StringBuilder();
-        if (pair[0].charAt(0) == '+') {
-            fullPath.append("file://");
-            fullPath.append(context.getFilesDir().getAbsolutePath());
-            fullPath.append(File.separator);
-            fullPath.append(pair[0].substring(1));
-            fullPath.append(".txt");
-        } else if (pair[0].matches("^[a-z]+://.+$")) {
-            fullPath.append(pair[0]);
-        } else {
-            fullPath.append("file://");
-            if (pair[0].charAt(0) == ':')
-                fullPath.append(context.getFilesDir().getAbsolutePath());
-            else
-                fullPath.append(file.getParentFile().getAbsolutePath());
-            for (String token : pair[0].split(":")) {
-                fullPath.append(File.separator);
-                fullPath.append(token);
-            }
-            fullPath.append(".txt");
-        }
-        // TODO proper URL encoding
-        return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
+//        if (pair[0].charAt(0) == '+') {
+////            fullPath.append("file://");
+////            fullPath.append(context.getFilesDir().getAbsolutePath());
+////            fullPath.append(File.separator);
+////            fullPath.append(pair[0].substring(1));
+////            fullPath.append(".txt");
+//        } else if (pair[0].matches("^[a-z]+://.+$")) {
+//         //   fullPath.append(pair[0]);
+//        } else {
+////            fullPath.append("file://");
+////            if (pair[0].charAt(0) == ':')
+////                fullPath.append(context.getFilesDir().getAbsolutePath());
+////            else
+////                fullPath.append(file.getParentFile().getAbsolutePath());
+////            for (String token : pair[0].split(":")) {
+////                fullPath.append(File.separator);
+////                fullPath.append(token);
+////            }
+////            fullPath.append(".txt");
+//        }
+
+        return String.format("[%s]", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
     }
 
     private String convertImage(File file, String fullMatch) {
