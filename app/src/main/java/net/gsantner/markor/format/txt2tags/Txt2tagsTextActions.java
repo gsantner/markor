@@ -224,13 +224,13 @@ public class Txt2tagsTextActions extends net.gsantner.markor.ui.hleditor.TextAct
                 }
                 case R.string.tmaid_txt2tags_insert_link: {
                     int pos = _hlEditor.getSelectionStart();
-                    _hlEditor.getText().insert(pos, "[[]]");
+                    _hlEditor.getText().insert(pos, "[]");
                     _hlEditor.setSelection(pos + 2);
                     return true;
                 }
                 case R.string.tmaid_txt2tags_insert_image: {
                     int pos = _hlEditor.getSelectionStart();
-                    _hlEditor.getText().insert(pos, "{{}}");
+                    _hlEditor.getText().insert(pos, "[]");
                     _hlEditor.setSelection(pos + 2);
                     return true;
                 }
