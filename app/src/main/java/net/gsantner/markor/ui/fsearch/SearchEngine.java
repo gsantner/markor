@@ -3,6 +3,7 @@ package net.gsantner.markor.ui.fsearch;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -11,10 +12,14 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -26,6 +31,10 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+
+import static other.de.stanetz.jpencconverter.JavaPasswordbasedCryption.getVersion;
 
 @SuppressWarnings("WeakerAccess")
 
@@ -74,11 +83,11 @@ public class SearchEngine {
         }
     }
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback, char[] password) {
         SearchEngine.activity.set(new WeakReference<>(activity));
         SearchEngine.isSearchExecuting = true;
         SearchEngine.addToHistory(config.query);
-        SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
+        SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback, password);
         task.execute();
 
         return task;
@@ -97,10 +106,12 @@ public class SearchEngine {
         private final List<FitFile> _result = new ArrayList<>();
         private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
         private final List<String> _ignoredExactDirs = new ArrayList<>();
+        private final char[] password;
 
-        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback) {
+        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback, final char[] password) {
             _config = config;
             _callback = callback;
+            this.password = password;
 
             _config.query = _config.isCaseSensitiveQuery ? _config.query : _config.query.toLowerCase();
             splitRegexExactFiles(config.ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
@@ -393,7 +404,7 @@ public class SearchEngine {
                 return ret;
             }
 
-            try (final BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            try (final BufferedReader br = new BufferedReader(new InputStreamReader(getInputStream(file)))) {
                 int lineNumber = 0;
                 for (String line; (line = br.readLine()) != null; ) {
                     if (isCancelled() || _isCanceled) {
@@ -429,5 +440,24 @@ public class SearchEngine {
             }
             return false;
         }
+
+        private InputStream getInputStream(File file) throws FileNotFoundException {
+            if (isEncryptedFile(file)) {
+                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
+                if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH && password.length > 0) {
+                    final byte[] decrypt = new JavaPasswordbasedCryption(getVersion(encryptedContext), null).decryptBytes(encryptedContext, password.clone());
+                    return new ByteArrayInputStream(decrypt);
+                } else {
+                    return new ByteArrayInputStream(encryptedContext);
+                }
+            } else {
+                return new FileInputStream(file);
+            }
+        }
+    }
+
+
+    private static boolean isEncryptedFile(File file) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 }
