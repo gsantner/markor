@@ -133,9 +133,10 @@ public class SearchOrCustomTextDialogCreator {
             }
             Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
+                searchOptions.password = password;
                 SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
                     FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
-                }, password);
+                });
             };
             FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
         }

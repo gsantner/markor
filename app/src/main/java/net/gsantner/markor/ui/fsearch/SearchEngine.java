@@ -69,6 +69,7 @@ public class SearchEngine {
         public List<String> ignoredDirectories;
         public boolean isShowMatchPreview = true;
         public boolean isShowResultOnCancel = true;
+        public char[] password = new char[0];
     }
 
     public static class FitFile {
@@ -83,11 +84,11 @@ public class SearchEngine {
         }
     }
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback, char[] password) {
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
         SearchEngine.activity.set(new WeakReference<>(activity));
         SearchEngine.isSearchExecuting = true;
         SearchEngine.addToHistory(config.query);
-        SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback, password);
+        SearchEngine.QueueSearchFilesTask task = new SearchEngine.QueueSearchFilesTask(config, callback);
         task.execute();
 
         return task;
@@ -106,12 +107,10 @@ public class SearchEngine {
         private final List<FitFile> _result = new ArrayList<>();
         private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
         private final List<String> _ignoredExactDirs = new ArrayList<>();
-        private final char[] password;
 
-        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback, final char[] password) {
+        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
-            this.password = password;
 
             _config.query = _config.isCaseSensitiveQuery ? _config.query : _config.query.toLowerCase();
             splitRegexExactFiles(config.ignoredDirectories, _ignoredExactDirs, _ignoredRegexDirs);
@@ -444,8 +443,8 @@ public class SearchEngine {
         private InputStream getInputStream(File file) throws FileNotFoundException {
             if (isEncryptedFile(file)) {
                 final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
-                if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH && password.length > 0) {
-                    final byte[] decrypt = new JavaPasswordbasedCryption(getVersion(encryptedContext), null).decryptBytes(encryptedContext, password.clone());
+                if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH && _config.password.length > 0) {
+                    final byte[] decrypt = new JavaPasswordbasedCryption(getVersion(encryptedContext), null).decryptBytes(encryptedContext, _config.password.clone());
                     return new ByteArrayInputStream(decrypt);
                 } else {
                     return new ByteArrayInputStream(encryptedContext);
