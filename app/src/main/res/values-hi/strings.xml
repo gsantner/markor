@@ -20,12 +20,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_you_really_want_to_delete_this_witharg">क्या आप वास्तव में %s हटाना चाहते हैं?</string>
     <string name="confirm_overwrite">ओवरराइट की पुष्टि करें</string>
     <string name="file_already_exists_overwerite">फ़ाइल पहले से मौजूद है, अधिलेखित?</string>
+    <string name="browse_filesystem">फाइल सिस्टम खोजे</string>
     <string name="title">शीर्षक</string>
     <string name="empty_directory">यह फ़ोल्डर खाली है</string>
     <string name="enter_name_of_folder">अपने फ़ोल्डर का नाम दर्ज करें</string>
     <string name="create_folder">फोल्डर बनाएं</string>
     <string name="create_new_document">नया दस्तावेज़ बनाएं</string>
     <string name="move">स्थान-परिवर्तन</string>
+    <string name="copy">कॉपी करें</string>
+    <string name="info">जानकारी</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">फाइल या फोल्डर पहले से उप्ल्व्द उप्ल्व्द है! दूसरा नाम सोचे</string>
     <string name="import_from_device">डिवाइस से आयात करें</string>
     <string name="import_">आयात</string>
     <string name="append_to_witharg">%s में सम्मिलित करें</string>
@@ -35,6 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">साझा करें &#8230;</string>
     <string name="share">बांटे</string>
     <string name="search">खोजें</string>
+    <string name="display_converted_markup">परिवर्तित मार्कअप दिखाए</string>
     <string name="editor">संपादक</string>
     <string name="folders">फ़ोल्डर</string>
     <string name="files">फ़ाइलें</string>
