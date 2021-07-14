@@ -282,7 +282,6 @@ public class SearchOrCustomTextDialogCreator {
             dopt.titleText = isProjects ? R.string.project : R.string.context;
         }
         dopt.searchHintText = R.string.search_or_custom;
-        dopt.iconsForData = Collections.nCopies(dopt.data.size(), R.drawable.ic_search_black_24dp);
 
         dopt.isMultiSelectEnabled = true;
         dopt.positionCallback = (keyIndices) -> {
