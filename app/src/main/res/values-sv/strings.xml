@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Översätt appen till fler språk</string>
     <string name="source_code">Källkod</string>
     <string name="project_license">Projektets licens</string>
-    <string name="project_contribution_info">Projektbidragsinformation</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mer information om hur du birdar till det här projektet</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag med kod till projektet. Alla är välkommna, även nybörjare</string>
     <string name="project_team">Projektlag</string>
     <string name="contributors_public_add_yourself_description">Visa bidragsinformation. Lämna information för att synas här, om du vill, efter bidragande</string>
