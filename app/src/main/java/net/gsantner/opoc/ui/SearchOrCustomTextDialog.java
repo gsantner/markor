@@ -414,9 +414,7 @@ public class SearchOrCustomTextDialog {
         if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-
         dialog.show();
-
         if ((w = dialog.getWindow()) != null) {
             int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
             int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
@@ -432,11 +430,9 @@ public class SearchOrCustomTextDialog {
         if (dopt.isSearchEnabled) {
             searchEditText.requestFocus();
         }
-
         if (dopt.defaultText != null) {
             listAdapter.getFilter().filter(searchEditText.getText());
         }
-
         setDialogState(dialog, listView, listAdapter);
     }
 }
