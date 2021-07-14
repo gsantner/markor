@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,8 +34,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-
-import static other.de.stanetz.jpencconverter.JavaPasswordbasedCryption.getVersion;
 
 @SuppressWarnings("WeakerAccess")
 
@@ -443,12 +442,7 @@ public class SearchEngine {
         private InputStream getInputStream(File file) throws FileNotFoundException {
             if (isEncryptedFile(file)) {
                 final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
-                if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH && _config.password.length > 0) {
-                    final byte[] decrypt = new JavaPasswordbasedCryption(getVersion(encryptedContext), null).decryptBytes(encryptedContext, _config.password.clone());
-                    return new ByteArrayInputStream(decrypt);
-                } else {
-                    return new ByteArrayInputStream(encryptedContext);
-                }
+                return new ByteArrayInputStream(JavaPasswordbasedCryption.getDecryptedText(encryptedContext, _config.password.clone()).getBytes(StandardCharsets.UTF_8));
             } else {
                 return new FileInputStream(file);
             }

@@ -128,15 +128,8 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
         if (!SearchEngine.isSearchExecuting) {
-            final char[] password;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                password = new AppSettings(activity).getDefaultPassword();
-            } else {
-                password = new char[0];
-            }
             Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
-                searchOptions.password = password;
                 SearchEngine.queueFileSearch(activity, searchOptions, searchResults -> {
                     FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback);
                 });
