@@ -44,6 +44,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -635,6 +636,44 @@ public abstract class TextActions {
             keyId = data[0];
             iconId = data[1];
             stringId = data[2];
+        }
+    }
+
+    /**
+     * Select the given indices.
+     * Case 1: Only one index -> Put cursor on that line
+     * Case 2: Contiguous indices -> Select lines
+     * Case 3: Non-contiguous indices -> Move all selected lines to the top and select them
+     *
+     * @param positions: Line indices to select
+     */
+    public void selectLines(final List<Integer> positions) {
+        if (!_hlEditor.hasFocus()) {
+            _hlEditor.requestFocus();
+        }
+        final CharSequence text = _hlEditor.getText();
+        if (positions.size() == 1) { // Case 1 index
+            _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(text, positions.get(0), 0));
+        } else if (positions.size() > 1) {
+            final TreeSet<Integer> pSet = new TreeSet<>(positions);
+            final int selStart, selEnd;
+            final int minLine = Collections.min(pSet), maxLine = Collections.max(pSet);
+            if (maxLine - minLine == pSet.size() - 1) { // Case contiguous indices
+                selStart = StringUtils.getLineStart(text, StringUtils.getIndexFromLineOffset(text, minLine, 0));
+                selEnd = StringUtils.getIndexFromLineOffset(text, maxLine, 0);
+            } else { // Case non-contiguous indices
+                final String[] lines = text.toString().split("\n");
+                final List<String> sel = new ArrayList<>(), unsel = new ArrayList<>();
+                for (int i = 0; i < lines.length; i++) {
+                    (pSet.contains(i) ? sel : unsel).add(lines[i]);
+                }
+                sel.addAll(unsel);
+                final String newText = TextUtils.join("\n", sel);
+                _hlEditor.setText(newText);
+                selStart = 0;
+                selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
+            }
+            _hlEditor.setSelection(selStart, selEnd);
         }
     }
 }

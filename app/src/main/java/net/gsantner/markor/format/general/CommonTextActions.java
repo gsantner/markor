@@ -165,17 +165,16 @@ public class CommonTextActions {
                     int insertPos = text.indexOf('\n', start);
                     insertPos = insertPos < 1 ? text.length() : insertPos;
                     _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
-                    _hlEditor.setSelection(((insertPos + 3) > _hlEditor.length() ? _hlEditor.length() : (insertPos + 3)));
+                    _hlEditor.setSelection((Math.min((insertPos + 3), _hlEditor.length())));
                 }
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), null, (text, lineNr) -> {
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), (lineNr) -> {
                     if (!_hlEditor.hasFocus()) {
                         _hlEditor.requestFocus();
                     }
-                    // Go to beginning of line #line
-                    _hlEditor.setSelection(StringUtils.getLineStart(origText, StringUtils.getIndexFromLineOffset(origText, lineNr, 0)));
+                    _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
                 });
                 return true;
             }
