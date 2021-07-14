@@ -23,7 +23,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.TooltipCompat;
@@ -48,7 +47,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -65,11 +63,13 @@ public class SearchOrCustomTextDialog {
     public static class DialogOptions {
 
         // Callback for search text or text of single item
-        @Nullable public Callback.a1<String> callback = null;
+        @Nullable
+        public Callback.a1<String> callback = null;
 
         // Callback for indices of selected items.
         // List will contain single item if isMultiSelectEnabled == false;
-        @Nullable public Callback.a1<List<Integer>> positionCallback = null;
+        @Nullable
+        public Callback.a1<List<Integer>> positionCallback = null;
 
         public boolean isMultiSelectEnabled = false;
         public List<? extends CharSequence> data = null;
@@ -143,12 +143,10 @@ public class SearchOrCustomTextDialog {
             final TextView textView;
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
-                textView.setBackgroundResource(R.drawable.search_dialog_selection);
                 textView.setPadding(textView.getPaddingLeft(), _dp4px, textView.getPaddingRight(), _dp4px);
             } else {
                 textView = (TextView) convertView;
             }
-
             textView.setActivated(_selected.contains(index));
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
@@ -235,7 +233,7 @@ public class SearchOrCustomTextDialog {
         final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
 
         final Callback.a0 setNeutralButtonToClear = () -> {
-            final String unsel = dialog.getContext().getString(R.string.clear);
+            final String unsel = dialog.getContext().getString(android.R.string.cancel);
             neutralButton.setText(String.format("%s (%d)", unsel, selected.size()));
         };
 
@@ -349,8 +347,8 @@ public class SearchOrCustomTextDialog {
         // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
         clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, activity.getString(R.string.clear));
-        clearButton.setColorFilter(ContextCompat.getColor(activity, dopt.isDarkDialog ? android.R.color.white : R.color.grey));
+        TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
+        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
         lp.setMargins(margin, 0, margin, 0);
