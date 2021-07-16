@@ -80,13 +80,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
-    public static DocDisplayType _docInitType;
-
-    private enum DocDisplayType {
-        FILE_MANAGER,
-        TODO,
-        QUICK_NOTE
-    }
 
     private AppSettings _appSettings;
     private HorizontalScrollView hsView;
@@ -247,7 +240,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         initDocState();
 
         if (isDisplayedAtMainActivity()) {
-            if (isTodoDoc() && _docInitType == DocDisplayType.TODO || isQuickNoteDoc() && _docInitType == DocDisplayType.QUICK_NOTE) {
+            if (isQuickNoteOrTodoDocument()) {
                 if (!_hlEditor.hasFocus()) {
                     _hlEditor.requestFocus();
                 }
@@ -719,7 +712,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _webView.scrollAnimatedToXY(_appSettings.getLastViewPositionX(_document.getFile()), _appSettings.getLastViewPositionY(_document.getFile()));
                     new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
                 } else {
-                    if ((v = _appSettings.isEditorStartOnBottom() || isTodoDoc() || isQuickNoteDoc() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) >= 0) {
+                    if ((v = _appSettings.isEditorStartOnBottom() || isQuickNoteOrTodoDocument() ? _hlEditor.length() : _appSettings.getLastEditPositionChar(_document.getFile())) >= 0) {
                         if (!_hlEditor.hasFocus()) {
                             _hlEditor.requestFocus();
                         }
@@ -760,13 +753,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_document != null && _document.getFile() != null) {
             _appSettings.addRecentDocument(_document.getFile());
         }
-
-        if (_hlEditor.isVisible()) {
-            _docInitType = isDisplayedAtMainActivity() ?
-                    isTodoDoc() ? DocDisplayType.TODO : DocDisplayType.QUICK_NOTE
-                    : DocDisplayType.FILE_MANAGER;
-        }
-
     }
 
     private void updateLauncherWidgets() {
@@ -787,7 +773,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             initDocState();
         }
 
-        if (isVisibleToUser && (isDisplayedAtMainActivity() || isQuickNoteDoc() || isTodoDoc())) {
+        if (isVisibleToUser && (isDisplayedAtMainActivity() || isQuickNoteOrTodoDocument())) {
             checkReloadDisk(false);
             if (_hlEditor != null) {
                 if (!_hlEditor.hasFocus()) {
@@ -880,11 +866,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    private boolean isTodoDoc() {
-        return _document != null && _document.getFile().getPath().equals(_appSettings.getTodoFile().getPath());
-    }
-
-    private boolean isQuickNoteDoc() {
-        return _document != null && _document.getFile().getPath().equals(_appSettings.getQuickNoteFile().getPath());
+    private boolean isQuickNoteOrTodoDocument() {
+        return _document != null && (_document.getFile().getPath().equals(_appSettings.getTodoFile().getPath()) || _document.getFile().getPath().equals(_appSettings.getQuickNoteFile().getPath()));
     }
 }
