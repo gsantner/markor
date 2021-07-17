@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -144,12 +145,14 @@ public class SearchOrCustomTextDialog {
             final TextView textView;
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
-                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                final ViewGroup.LayoutParams params = textView.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                textView.setLayoutParams(params);
             } else {
                 textView = (TextView) convertView;
             }
 
-            if (_layout == multiSelectLayout) {
+            if (_layout == multiSelectLayout && textView instanceof CheckedTextView) {
                 ((CheckedTextView) textView).setChecked(_selected.contains(index));
             }
 
