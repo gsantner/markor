@@ -119,7 +119,7 @@ public class SearchOrCustomTextDialog {
         private final Pattern _extraPattern;
         final Set<Integer> selected;
 
-        private static final int multiSelectLayout = android.R.layout.simple_list_item_multiple_choice;
+        private static final int multiSelectLayout = R.layout.search_dialog_multi_select_item;
         private static final int regularLayout = android.R.layout.simple_list_item_1;
 
         public Adapter(final Context context, final DialogOptions dopt) {
@@ -144,9 +144,6 @@ public class SearchOrCustomTextDialog {
             final TextView textView;
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
-                final ViewGroup.LayoutParams params = textView.getLayoutParams();
-                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                textView.setLayoutParams(params);
             } else {
                 textView = (TextView) convertView;
             }
