@@ -14,4 +14,4 @@ Vertion of simple_list_item_multiple_choice with better layout_height and minHei
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
     android:paddingRight="?android:attr/listPreferredItemPaddingRight"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    android:minHeight="32dp" />
