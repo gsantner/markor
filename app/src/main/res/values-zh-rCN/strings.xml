@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">翻译本应用</string>
     <string name="source_code">源代码</string>
     <string name="project_license">项目开源协议</string>
-    <string name="project_contribution_info">项目贡献信息</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">更多有关如何对本项目作出贡献的信息</string>
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
     <string name="project_team">项目团队</string>
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
-    <string name="help_by_sending_debug_information_to_the_developer">向开发者发送调试信息以提供帮助。数据将通过电子邮件应用发送，您可以在发送前查看所有数据。如果启用此选项，您将在顶部菜单中找到额外的“发送调试日志”选项。它将创建一个草稿邮件。</string>
     <string name="print_pdf">打印/PDF</string>
     <string name="bigger_headings">大标题</string>
     <string name="increase_text_size_of_headings_according_to_level">根据标题级别(# h1, ## h2, ### h3…) 增加标题文字大小</string>

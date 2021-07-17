@@ -215,8 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">이 앱을 다른 언어로 번역하기</string>
     <string name="source_code">소스 코드</string>
     <string name="project_license">프로젝트 저작권</string>
-    <string name="project_contribution_info">프로젝트 기여 정보</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">프로젝트 기여를 위한 자세한 정보</string>
     <string name="contribute_code_to_this_project_anybody_welcome">코드에 기여하세요. 누구나 환영합니다. 신참도 포함해서요!</string>
     <string name="project_team">프로젝트 팀</string>
     <string name="contributors_public_add_yourself_description">기여자 정보를 표시합니다. 기여 후에 옵트-인 방식으로 이 곳에 표시됩니다.</string>
@@ -313,7 +311,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">목록이 파일 확장자를 포함할 경우 항상 이 앱으로 파일을 열게 됩니다. 웹 파일 또는 확장자가 없는 파일을 편집하고자 할 때는 \'None, .html, .css, .js\'와 같은 예시를 사용하세요.</string>
     <string name="template">템플릿</string>
     <string name="send_debug_log">디버그 기록을 전송</string>
-    <string name="help_by_sending_debug_information_to_the_developer">디버그 정보를 개발자에게 보내 앱 개발에 기여하세요. 디버그 정보는 현재 사용중인 이메일 앱을 통해서 이메일 형태로 전송되며, 해당 정보의 상세 내역은 전송되기 전에 직접 확인하실 수 있습니다. 활성화되면 추가적인 \'디버그 기록 전송\' 옵션이 상단 메뉴에 표시됩니다. 이 옵션으로 디버그 정보 이메일 초안이 생성됩니다.</string>
     <string name="print_pdf">인쇄 / PDF</string>
     <string name="bigger_headings">더 큰 제목(머리말)</string>
     <string name="increase_text_size_of_headings_according_to_level">제목(머리말)의 단계에 맞춰 글자 크기를 키웁니다 (# h1, ## h2. ### h3…)</string>

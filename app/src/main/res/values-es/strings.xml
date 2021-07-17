@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
     <string name="source_code">Código fuente</string>
     <string name="project_license">Licencia del proyecto</string>
-    <string name="project_contribution_info">Información de colaboraciones al proyecto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Más sobre cómo participar en este proyecto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Colabora con el proyecto. Cualquiera puede hacerlo, incluso los que usan la aplicación desde hace poco</string>
     <string name="project_team">El equipo tras el proyecto</string>
     <string name="contributors_public_add_yourself_description">Muestra información pública sobre los colaboradores. Estos pueden decidir si su información debe ser incluida con sus colaboraciones</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Enviar registro de depuración</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ayuda enviando información de depuración a desarrollador(es). Los datos se envían por correo electrónico a través de tu aplicación de correo electrónico y puedes ver todos los datos enviados antes de enviar. Encontrarás una opción adicional de \"Enviar registro de depuración\" en el menú superior cuando esté activado. Crea el borrador de correo electrónico.</string>
     <string name="print_pdf">Imprimir / PDF</string>
     <string name="bigger_headings">Encabezados mayores</string>
     <string name="increase_text_size_of_headings_according_to_level">Incrementa el tamaño de texto de las cabeceras según el nivel (# h1, ## h2. ### h3…)</string>

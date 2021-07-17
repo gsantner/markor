@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduzir este aplicativo para outros idiomas</string>
     <string name="source_code">Código Fonte</string>
     <string name="project_license">Licença do Projeto</string>
-    <string name="project_contribution_info">Informações sobre contribuições no projeto</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mais informações sobre como contribuir para este projeto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribua programando para o projeto. Todos são bem-vindos, incluindo os novatos.</string>
     <string name="project_team">Equipe do Projeto</string>
     <string name="contributors_public_add_yourself_description">Mostrar informações sobre colaboradores. Os colaboradores podem fornecer informação a ser mostrada aqui (opt-in) após a contribuição.</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esse aplicativo se a extensão do arquivo estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar arquivos web ou arquivos que não tenham extensão.</string>
     <string name="template">Modelo</string>
     <string name="send_debug_log">Enviar informações de depuração</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Ajude-nos enviando as informações de depuração para o programador(es). Os dados são enviados por e-mail e você pode ver todos os dados que serão submetidos antes de os enviar. Se a opção estiver ativa, encontrará a opção \"Enviar registo de debug\" no menu superior. Será criado um e-mail de rascunho.</string>
     <string name="print_pdf">Imprimir/PDF</string>
     <string name="bigger_headings">Cabeçalhos maiores</string>
     <string name="increase_text_size_of_headings_according_to_level">Aumentar o tamanho dos cabeçalhos de acordo com o nível (# h1, ## h2. ### h3…)</string>

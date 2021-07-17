@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
     <string name="source_code">Quellcode</string>
     <string name="project_license">Projektlizenz</string>
-    <string name="project_contribution_info">Projekt-Unterstützungs-Info</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Weitere Informationen dazu, wie dieses Projekt unterstützt werden kann</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
     <string name="template">Vorlage</string>
     <string name="send_debug_log">Debug-Log senden</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hilf indem du Debug-Informationen an Entwickler sendest. Daten werden per E-Mail mit deiner E-Mail App gesendet und es können alle Daten vor Versand betrachtet werden. Eine zusätzliche Option \"Debug-Log senden\" im oberen Menü wird hinzugefügt wenn diese Option aktiviert ist. Sie erstellt den E-Mail-Entwurf.</string>
     <string name="print_pdf">Drucken / PDF</string>
     <string name="bigger_headings">Größere Überschriften</string>
     <string name="increase_text_size_of_headings_according_to_level">Erhöhe die Textgröße der Header nach Level (# h1, ## h2. ## h3…)</string>

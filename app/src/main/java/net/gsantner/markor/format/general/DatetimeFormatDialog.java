@@ -128,7 +128,7 @@ public class DatetimeFormatDialog {
 
         // monitor format input at combobox and update resulting value
         formatEditText.addTextChangedListener(new TextWatcher() {
-            private final int DELAY = 100;
+            private final static int DELAY = 100;
             private long editTime = 0;
 
             @Override

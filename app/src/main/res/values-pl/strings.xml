@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
     <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
-    <string name="project_contribution_info">Informacje o współtworzeniu projektu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Więcej informacji o tym, jak współtworzyć ten projekt</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
     <string name="contributors_public_add_yourself_description">Pokaż informacje o współtwórcy. Podaj je tutaj, korzystając z opcji \"opt-in\" po dołączeniu</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki z tą aplikacją, gdy lista zawiera rozszerzenie pliku. Użyj \'Brak, .html, . ss , .js, na przykład, jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomóż wysyłając informacje debugowania do programisty. Dane są wysyłane pocztą elektroniczną za pośrednictwem aplikacji e-mail i można zobaczyć wszystkie wysłane dane przed wysłaniem. Po włączeniu w górnym menu znajdziesz dodatkową opcję \"Wyślij dziennik debugowania\". Tworzy to szkic e-mail.</string>
     <string name="print_pdf">Drukuj PDF</string>
     <string name="bigger_headings">Większe nagłówki</string>
     <string name="increase_text_size_of_headings_according_to_level">Zwiększ rozmiar tekstu nagłówków zgodnie z poziomem (# h1, ## h2. ### h3…)</string>

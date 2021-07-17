@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Borta custa aplicatzione in àteras limbas</string>
     <string name="source_code">Còdighe mitza</string>
     <string name="project_license">Litzèntzia de su progetu</string>
-    <string name="project_contribution_info">Informatziones de contributzione a su progetu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Àteras informatziones a pitzu de comente contribuire a custu progetu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribui cun còdighe a su progetu. Totus sunt invitados a lu fàghere, fintzas sos ùrtimos arribbados</string>
     <string name="project_team">Iscuadra de su progetu</string>
     <string name="contributors_public_add_yourself_description">Ammustra informatziones a pitzu de sos contribuidores. Fruni·las pro las fàghere ammustrare inoghe si l\'ant isseberadu a pustis de sa contributzione</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
     <string name="template">Modellu</string>
     <string name="send_debug_log">Imbia unu registru de depuratzione (debug)</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Agiuda·nos imbiende informatziones a pitzu de sa depuratzione (debug) a sos isvilupadores. Sos datos benint imbiados pro mèdiu de s\'aplicatzione de pòsta eletrònica tua e podes pompiare totu sos datos imbiados in antis de s\'imbiu. As a agatare un\'optzione agiuntiva \"Imbia unu registru de depuratzione (debug)\" in su menù in artu, cando est abilitadu. At a creare sa botza de sa lìtera de imbiare.</string>
     <string name="print_pdf">Imprenta / PDF</string>
     <string name="bigger_headings">Intestatziones prus mannas</string>
     <string name="increase_text_size_of_headings_according_to_level">Ismànnia su testu de sas intestatziones in base a su livellu (# h1, ## h2. ### h3…)</string>

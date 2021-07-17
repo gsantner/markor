@@ -1,7 +1,7 @@
 /*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2019 Gregor Santner
+ * Copyright (c) 2017-2021 Gregor Santner
  *
  * Licensed under the MIT license.
  * You can get a copy of the license text here:
@@ -169,7 +169,7 @@ public class WrMarkorSingleton {
                     // Put the file back in
                     files.push(file);
                     SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
-                            activity, file.getName(), destDir.getName(), files.size() > 1, (name, option) -> {
+                            activity, file.getName(), destDir.getName(), files.size() > 1, (option) -> {
                                 ConflictResolution res = ConflictResolution.ASK;
                                 if (option == 0 || option == 3) {
                                     res = ConflictResolution.KEEP_BOTH;

@@ -220,8 +220,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Fordítsd le az alkalmazást más nyelvekre</string>
     <string name="source_code">Forráskód</string>
     <string name="project_license">Projekt licensz</string>
-    <string name="project_contribution_info">Projekt közreműködési információ</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Több információ arról, hogyan járulhatsz hozzá a projekthez</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Járulj hozzá kóddal a projekthez! Mindenkit szívesen látunk, az újonnan jövőket is.</string>
     <string name="project_team">Projekt csapat</string>
     <string name="contributors_public_add_yourself_description">A közreműködő információk megjelenítése. Add meg, hogy megjelenjen a közreműködés után, egy beleegyezés alapú módon.</string>
@@ -314,7 +312,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Mindig ezzel az alkalmazással nyissa meg a fájlt, ha a kiterjesztése szerepel a listában. Például ha webfájlokat és kiterjesztés nélkülieket szeretnél szerkeszteni: \'None, .html, .css , .js\'</string>
     <string name="template">Sablon</string>
     <string name="send_debug_log">Debug információ küldése</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Segíts a fejlesztőknek debug információ küldésével! Az adatok az email alkalmazáson keresztül kerülnek elküldésre, és mindent látsz küldés előtt. Egy \'Debug információ küldése\' menüpont fog megjelenni a felső menüben, az készíti el az emailt.</string>
     <string name="print_pdf">Nyomtatás / PDF</string>
     <string name="bigger_headings">Nagyobb címsorok</string>
     <string name="increase_text_size_of_headings_according_to_level">Betűméret növelése a címsor száma szerint (# h1, ## h2. ### h3…)</string>

@@ -21,10 +21,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,8 +62,7 @@ public class TodoTxtTask {
         return filepath != null && TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text"));
     }
 
-    public static TodoTxtTask[] getTasks(final TextView view, final int selStart, final int selEnd) {
-        final CharSequence text = view.getText();
+    public static TodoTxtTask[] getTasks(final CharSequence text, final int selStart, final int selEnd) {
         final String[] lines = text.subSequence(
                 StringUtils.getLineStart(text, selStart),
                 StringUtils.getLineEnd(text, selEnd)
@@ -79,16 +77,15 @@ public class TodoTxtTask {
 
     public static TodoTxtTask[] getSelectedTasks(final TextView view) {
         final int[] sel = StringUtils.getSelection(view);
-        return getTasks(view, sel[0], sel[1]);
+        return getTasks(view.getText(), sel[0], sel[1]);
     }
 
-    public static TodoTxtTask[] getAllTasks(final TextView view) {
-        final int[] sel = StringUtils.getSelection(view);
-        return getTasks(view, 0, view.length());
+    public static TodoTxtTask[] getAllTasks(final CharSequence text) {
+        return getTasks(text, 0, text.length());
     }
 
     public static String[] getProjects(final TodoTxtTask[] tasks) {
-        final Set<String> set = new HashSet<>();
+        final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
             final String[] projects = task.getProjects();
             Collections.addAll(set, projects);
@@ -97,7 +94,7 @@ public class TodoTxtTask {
     }
 
     public static String[] getContexts(final TodoTxtTask[] tasks) {
-        final Set<String> set = new HashSet<>();
+        final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
             final String[] projects = task.getContexts();
             Collections.addAll(set, projects);
@@ -170,7 +167,7 @@ public class TodoTxtTask {
             if (ret.length() == 1) {
                 priority = ret.charAt(0);
             } else {
-                priority = 0;
+                priority = '~'; // No priority == lowest priority
             }
         }
         return priority;
@@ -331,8 +328,8 @@ public class TodoTxtTask {
         }
 
         private int compareNull(final String x, final String y) {
-            final int xi = (x == null || x == "") ? 1 : 0;
-            final int yi = (y == null || y == "") ? 1 : 0;
+            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
+            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 

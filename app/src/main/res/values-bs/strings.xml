@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Prevedite ovaj program na druge jezike</string>
     <string name="source_code">Izvorni kōd</string>
     <string name="project_license">Licenca projekta</string>
-    <string name="project_contribution_info">Informacije o sudjelovanju u projektu</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Više informacija o sudjelovanju u ovom projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Doprinesite projektu vlastitim kōdom. Svačiji je doprinos dobrodošao.</string>
     <string name="project_team">Tim</string>
     <string name="contributors_public_add_yourself_description">Prikaži informacije o saradnicima. Priložite informacije o sebi ako želite da budu prikazane ovdje nakon Vašeg doprinosa</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
     <string name="template">Šablon</string>
     <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Pomozite razvojnom timu šaljući informacije o greškama. Podaci se šalju putem Vaše email aplikacije i možete ih pregledati prije slanja. U gornjem ćete meniju pronaći \"Pošalji izvještaj za ispravljanje grešaka\" opciju kad je aktivna. Ona će kreirati novi email.</string>
     <string name="print_pdf">Štampaj / PDF</string>
     <string name="bigger_headings">Veći naslovi</string>
     <string name="increase_text_size_of_headings_according_to_level">Povećaj veličinu slova u naslovima, prema nivou (# h1, ## h2, ### h3…)</string>

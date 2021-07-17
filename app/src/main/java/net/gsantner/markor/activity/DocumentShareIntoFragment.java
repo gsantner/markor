@@ -440,7 +440,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 length = match.group(1).length();
             }
         }
-        return (length > 400) ? "\n----\n" : "\n";
+        return (length > 50) ? "\n----\n" : "\n";
     }
 
 }

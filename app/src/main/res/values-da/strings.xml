@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Overset dette program til andre sprog</string>
     <string name="source_code">Kildekode</string>
     <string name="project_license">Projektlicens</string>
-    <string name="project_contribution_info">Projektbidragsinformation</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Mere info om hvordan du bidrager til dette projekt</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Bidrag kode til projektet. Alle er velkomne, også nybegyndere</string>
     <string name="project_team">Projekthold</string>
     <string name="contributors_public_add_yourself_description">Vis info på folk der bidrager. Opgiv, frivilligt, detaljer for at blive vist her</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
     <string name="template">Skabelon</string>
     <string name="send_debug_log">Send Fejlsøgningslog</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Hjælp ved at sende debug information til udvikler(er). Data sendes via e-mail via din e-mail-app, og du kan se alle sendte data, før du sender. Du vil finde en ekstra \"Send debug log\" indstilling i top menuen, når aktiveret. Det opretter e-mail-kladden.</string>
     <string name="print_pdf">Print / PDF</string>
     <string name="bigger_headings">Større overskrifter</string>
     <string name="increase_text_size_of_headings_according_to_level">Forøg tekststørrelsen for overskrifter efter niveau (# h1, ## h2. ### h3…)</string>

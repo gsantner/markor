@@ -221,8 +221,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Traduire cette application</string>
     <string name="source_code">Code source</string>
     <string name="project_license">Licence du projet</string>
-    <string name="project_contribution_info">Informations sur la contribution au projet</string>
-    <string name="more_info_on_how_to_contribute_to_this_project">Plus d\'informations sur les façons de contribuer à ce projet</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuer au code. Tout le monde est le bienvenu, même les débutants</string>
     <string name="project_team">Équipe</string>
     <string name="contributors_public_add_yourself_description">Informations sur les contributeurs. Les contributeurs peuvent fournir des informations qui s\'afficheront ici (option) après contribution</string>
@@ -320,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Toujours ouvrir avec cette application les fichiers dont l\'extension est contenue dans la liste. Utilisez \'None\', \'.html\', \'.css\', \'.js\' par exemple si vous voulez éditer des fichiers web ainsi que les fichiers sans extension.</string>
     <string name="template">Modèle</string>
     <string name="send_debug_log">Envoyer un journal de débogage</string>
-    <string name="help_by_sending_debug_information_to_the_developer">Aide en envoyant des informations de débogage aux développeurs. Les données sont envoyées par email par l\'intermédiaire de votre application e-mail et vous pouvez voir toutes les données envoyées avant l\'envoi. Vous trouverez une option supplémentaire \"Envoyer un journal de débogage\" dans le menu supérieur lorsque activé. Elle crée le brouillon d\'email.</string>
     <string name="print_pdf">Imprimer / PDF</string>
     <string name="bigger_headings">Titres plus grands</string>
     <string name="increase_text_size_of_headings_according_to_level">Augmenter la taille du texte des en-têtes selon le niveau (# h1, ## h2. ## h3…)</string>
