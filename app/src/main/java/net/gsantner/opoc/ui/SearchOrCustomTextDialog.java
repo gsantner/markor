@@ -10,7 +10,6 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -113,12 +112,12 @@ public class SearchOrCustomTextDialog {
 
     private static class Adapter extends ArrayAdapter<Integer> {
         @LayoutRes
-        final int _layout;
-        final LayoutInflater _inflater;
-        final DialogOptions _dopt;
-        final List<Integer> _filteredItems;
-        final Pattern _extraPattern;
-        final Set<Integer> _selected;
+        private final int _layout;
+        private final LayoutInflater _inflater;
+        private final DialogOptions _dopt;
+        private final List<Integer> _filteredItems;
+        private final Pattern _extraPattern;
+        final Set<Integer> selected;
 
         private static final int multiSelectLayout = android.R.layout.simple_list_item_multiple_choice;
         private static final int regularLayout = android.R.layout.simple_list_item_1;
@@ -134,7 +133,7 @@ public class SearchOrCustomTextDialog {
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
-            _selected = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+            selected = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
         }
 
         @NonNull
@@ -153,7 +152,7 @@ public class SearchOrCustomTextDialog {
             }
 
             if (_layout == multiSelectLayout && textView instanceof CheckedTextView) {
-                ((CheckedTextView) textView).setChecked(_selected.contains(index));
+                ((CheckedTextView) textView).setChecked(selected.contains(index));
             }
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
@@ -307,8 +306,8 @@ public class SearchOrCustomTextDialog {
         if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                if (dopt.positionCallback != null && !listAdapter._selected.isEmpty()) {
-                    final List<Integer> sel = new ArrayList<>(listAdapter._selected);
+                if (dopt.positionCallback != null && !listAdapter.selected.isEmpty()) {
+                    final List<Integer> sel = new ArrayList<>(listAdapter.selected);
                     Collections.sort(sel);
                     dopt.positionCallback.callback(sel);
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
@@ -374,9 +373,9 @@ public class SearchOrCustomTextDialog {
         final Callback.a0 setNeutralButtonClear = () -> {
             neutralButton.setVisibility(Button.VISIBLE);
             final String unsel = dialog.getContext().getString(R.string.clear_selected);
-            neutralButton.setText(String.format("%s (%d)", unsel, listAdapter._selected.size()));
+            neutralButton.setText(String.format("%s (%d)", unsel, listAdapter.selected.size()));
             neutralButton.setOnClickListener((v) -> {
-                listAdapter._selected.clear();
+                listAdapter.selected.clear();
                 listAdapter.notifyDataSetChanged();
                 setNeutralButtonDefault.callback();
             });
@@ -384,7 +383,7 @@ public class SearchOrCustomTextDialog {
 
         // Toggle neutral button between default action and clear
         final Callback.a0 setNeutralButtonState = () -> {
-            if (listAdapter._selected.isEmpty()) {
+            if (listAdapter.selected.isEmpty()) {
                 setNeutralButtonDefault.callback();
             } else {
                 setNeutralButtonClear.callback();
@@ -408,13 +407,13 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemClickListener((parent, view, pos, id) -> {
             if (dopt.isMultiSelectEnabled) {
                 final int index = listAdapter._filteredItems.get(pos);
-                if (listAdapter._selected.contains(index)) {
-                    listAdapter._selected.remove(index);
+                if (listAdapter.selected.contains(index)) {
+                    listAdapter.selected.remove(index);
                 } else {
-                    listAdapter._selected.add(index);
+                    listAdapter.selected.add(index);
                 }
                 if (view instanceof CheckedTextView) {
-                    ((CheckedTextView) view).setChecked(listAdapter._selected.contains(index));
+                    ((CheckedTextView) view).setChecked(listAdapter.selected.contains(index));
                 }
                 setNeutralButtonState.callback();
             } else {
