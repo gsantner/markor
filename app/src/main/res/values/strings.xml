@@ -441,5 +441,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_context">Insert contexts</string>
     <string name="insert_category">Insert categories</string>
     <string name="insert_tag">Insert tags</string>
-    <string name="clear_selected">Clear selected</string>
+    <string name="clear_selection">Clear selection</string>
 </resources>

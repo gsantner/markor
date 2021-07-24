@@ -369,7 +369,7 @@ public class SearchOrCustomTextDialog {
         // Neutral button to clear selection
         final Callback.a0 setNeutralButtonClear = () -> {
             neutralButton.setVisibility(Button.VISIBLE);
-            final String unsel = dialog.getContext().getString(R.string.clear_selected);
+            final String unsel = dialog.getContext().getString(R.string.clear_selection);
             neutralButton.setText(String.format("%s (%d)", unsel, listAdapter.selected.size()));
             neutralButton.setOnClickListener((v) -> {
                 listAdapter.selected.clear();
