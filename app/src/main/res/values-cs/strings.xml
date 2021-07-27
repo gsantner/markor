@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
     <string name="infinite">Nekonečný</string>
+    <string name="search_project">Hledat projekty</string>
+    <string name="search_context">Hledat kontexty</string>
+    <string name="insert_project">Vložit projekty</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Zrušit výběr</string>
 </resources>
