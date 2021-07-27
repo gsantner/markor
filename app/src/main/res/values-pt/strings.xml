@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ajuda</string>
     <string name="todo_list">Lista de afazeres</string>
     <string name="task">Tarefa</string>
-    <string name="category">Categoria</string>
     <string name="context">Contexto</string>
     <string name="list">Lista</string>
     <string name="priority">Prioridade</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contextos</string>
     <string name="project">Projeto</string>
     <string name="projects">Projetos</string>
-    <string name="categories">Categorias</string>
     <string name="none">Nenhum</string>
     <string name="other">Outro</string>
-    <string name="alternative_naming">Nomes alternativos</string>
     <string name="empty_file">Ficheiro vazio</string>
     <string name="break_page_pdf_print">Quebra de página (PDF/Impressão)</string>
     <string name="underline">Sublinhado</string>
@@ -417,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
     <string name="infinite">Infinito</string>
+    <string name="search_project">Pesquisar projetos</string>
+    <string name="search_context">Contextos de pesquisa</string>
+    <string name="insert_project">Inserir projetos</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Desselecionar</string>
 </resources>

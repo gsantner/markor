@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Pomoc</string>
     <string name="todo_list">Lista rzeczy do zrobienia</string>
     <string name="task">Zadanie</string>
-    <string name="category">Kategoria</string>
     <string name="context">Kontekst</string>
     <string name="list">Lista</string>
     <string name="priority">Priorytet</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Konteksty</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekty</string>
-    <string name="categories">Kategorie</string>
     <string name="none">Nic</string>
     <string name="other">Inne</string>
-    <string name="alternative_naming">Alternatywne nazwy</string>
     <string name="empty_file">Pusty plik</string>
     <string name="break_page_pdf_print">Strona przerwania (PDF/Drukuj)</string>
     <string name="underline">Podkreślenie</string>
@@ -417,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
     <string name="infinite">Nieskończone</string>
+    <string name="search_project">Szukaj projektów</string>
+    <string name="search_context">Szukaj kontekstów</string>
+    <string name="insert_project">Wstaw projekty</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Odznacz</string>
 </resources>

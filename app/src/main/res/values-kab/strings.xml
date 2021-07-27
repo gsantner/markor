@@ -91,7 +91,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Aide</string>
     <string name="todo_list">Tabdart ara yettwagen</string>
     <string name="task">Tawuri</string>
-    <string name="category">Taggayt</string>
     <string name="context">Asatal</string>
     <string name="list">Tabdart</string>
     <string name="priority">Tazwart</string>
@@ -130,10 +129,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="format">Amasal</string>
     <string name="project">Asenfaṛ</string>
     <string name="projects">Isenfaṛen</string>
-    <string name="categories">Taggayin</string>
     <string name="none">Ula yiwen</string>
     <string name="other">Wayeḍ</string>
-    <string name="alternative_naming">Ismawen imlellayen</string>
     <string name="insert_current_date_when_starting_new_task">Ger azemz amiran ticki ara tsekkred tawuri tamaynutt</string>
     <string name="tasks_with_todays_date">Tiwuriwin n wassa</string>
     <string name="rtl_rendering">Tira seg uyefus ɣer uzelmaḍ</string>

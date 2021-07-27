@@ -73,7 +73,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Helpo</string>
     <string name="todo_list">Listo de taskoj</string>
     <string name="task">Tasko</string>
-    <string name="category">Kategorio</string>
     <string name="context">Kunteksto</string>
     <string name="list">Listo</string>
     <string name="priority">Prioritato</string>
@@ -98,7 +97,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kuntekstoj</string>
     <string name="project">Projekto</string>
     <string name="projects">Projektoj</string>
-    <string name="categories">Kategorioj</string>
     <string name="none">Nenia</string>
     <string name="other">Aliaj</string>
     <string name="empty_file">Malplena dosiero</string>

@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">幫助</string>
     <string name="todo_list">待辦清單</string>
     <string name="task">工作</string>
-    <string name="category">類別</string>
     <string name="context">內文</string>
     <string name="list">清單</string>
     <string name="priority">優先</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">全文</string>
     <string name="project">專案</string>
     <string name="projects">專案</string>
-    <string name="categories">分類項目</string>
     <string name="none">全無</string>
     <string name="other">其他</string>
-    <string name="alternative_naming">别名</string>
     <string name="empty_file">空白檔案</string>
     <string name="break_page_pdf_print">分頁(PDF/列印)</string>
     <string name="underline">底線</string>

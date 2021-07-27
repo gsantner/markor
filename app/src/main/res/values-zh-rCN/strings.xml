@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">帮助</string>
     <string name="todo_list">待办清单</string>
     <string name="task">任务</string>
-    <string name="category">分类</string>
     <string name="context">情境</string>
     <string name="list">列表</string>
     <string name="priority">优先级</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">全文</string>
     <string name="project">项目</string>
     <string name="projects">项目</string>
-    <string name="categories">分类</string>
     <string name="none">无</string>
     <string name="other">其它</string>
-    <string name="alternative_naming">别名</string>
     <string name="empty_file">空文件</string>
     <string name="break_page_pdf_print">分页 (PDF/打印)</string>
     <string name="underline">下划线</string>
@@ -417,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">其他背景和项目</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>
     <string name="infinite">无限的</string>
+    <string name="search_project">搜索项目</string>
+    <string name="search_context">搜索环境</string>
+    <string name="insert_project">插入项目</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">取消选择</string>
 </resources>

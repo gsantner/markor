@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">עזרה</string>
     <string name="todo_list">רשימת מטלות לביצוע</string>
     <string name="task">מטלה</string>
-    <string name="category">קטגוריה</string>
     <string name="context">הקשר</string>
     <string name="list">רשימה</string>
     <string name="priority">עדפויות</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">הקשרים</string>
     <string name="project">פרוייקט</string>
     <string name="projects">פרוייקטים</string>
-    <string name="categories">קטגוריות</string>
     <string name="none">אף אחד</string>
     <string name="other">אחר</string>
-    <string name="alternative_naming">שם חלופי</string>
     <string name="empty_file">קובץ ריק</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>

@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">المساعدة</string>
     <string name="todo_list">قائمة المهام</string>
     <string name="task">مُهمَّة</string>
-    <string name="category">الفئة</string>
     <string name="context">السياق</string>
     <string name="list">القائمة</string>
     <string name="priority">الأولوية</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">السياقات</string>
     <string name="project">المشروع</string>
     <string name="projects">المشاريع</string>
-    <string name="categories">الفئات</string>
     <string name="none">بدون</string>
     <string name="other">أخرى</string>
-    <string name="alternative_naming">التسمية البديلة</string>
     <string name="empty_file">ملف فارغ</string>
     <string name="break_page_pdf_print">الصفحة الفاصلة (PDF/طباعة)</string>
     <string name="underline">أسفل</string>
@@ -417,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">سياقات ومشاريع إضافية</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">أدخل @contexts و +مشاريع. ستكون هذه دائما مرئية في todo.txt إدخال الحوار.</string>
     <string name="infinite">لانهائي</string>
+    <string name="search_project">البحث عن المشاريع</string>
+    <string name="search_context">ابحث في السياقات</string>
+    <string name="insert_project">إدراج مشاريع</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">إلغاء التحديد</string>
 </resources>

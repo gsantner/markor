@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Agiudu</string>
     <string name="todo_list">Lista de cosas de fàghere</string>
     <string name="task">Faina</string>
-    <string name="category">Categoria</string>
     <string name="context">Cuntestu</string>
     <string name="list">Lista</string>
     <string name="priority">Prioridade</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Cuntestos</string>
     <string name="project">Progetu</string>
     <string name="projects">Progetos</string>
-    <string name="categories">Categorias</string>
     <string name="none">Peruna</string>
     <string name="other">Àteru</string>
-    <string name="alternative_naming">Nùmenes alternativos</string>
     <string name="empty_file">Documentu bòidu</string>
     <string name="break_page_pdf_print">Interrutzione de pàgina (PDF/Imprenta)</string>
     <string name="underline">Suta-lìnia</string>

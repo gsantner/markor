@@ -95,7 +95,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="notebook">Тетратка</string>
     <string name="help">Помош</string>
     <string name="task">Задача</string>
-    <string name="category">Категорија</string>
     <string name="context">Контекст</string>
     <string name="list">Листа</string>
     <string name="priority">Приоритет</string>
@@ -127,7 +126,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Контексти</string>
     <string name="project">Проект</string>
     <string name="projects">Проекти</string>
-    <string name="categories">Категории</string>
     <string name="none">Ниедно</string>
     <string name="other">Друго</string>
     <string name="empty_file">Празен фајл</string>

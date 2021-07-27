@@ -524,17 +524,6 @@
                     android:title="@string/highlighting_delay"
                     app:min="50" />
             </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/other">
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:icon="@drawable/gs_email_sign_black_24dp"
-                    android:key="@string/pref_key__todotxt__alternative_naming_context_project"
-                    android:summary="@string/category_to_context_project_to_tag"
-                    android:title="@string/alternative_naming" />
-            </PreferenceCategory>
-
         </PreferenceScreen>
 
         <!-- ZimWiki screen -->
