@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
     <string name="infinite">Infinit</string>
+    <string name="search_project">Căutare proiecte</string>
+    <string name="search_context">Caută contexte</string>
+    <string name="insert_project">Inserare proiecte</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Deselectează</string>
 </resources>
