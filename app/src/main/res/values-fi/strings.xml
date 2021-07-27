@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Lisätaustat ja -hankkeet</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Syötä välilyönti erotettu @kontekstit ja +projektit. Nämä näkyvät aina osoitteessa: todo.txt insert dialogit.</string>
     <string name="infinite">Loputon</string>
+    <string name="search_project">Etsi projekteja</string>
+    <string name="search_context">Etsi konteksteja</string>
+    <string name="insert_project">Lisää projekteja</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Poista Valinta</string>
 </resources>
