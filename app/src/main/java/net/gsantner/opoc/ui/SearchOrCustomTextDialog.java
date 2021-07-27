@@ -48,7 +48,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -265,7 +264,7 @@ public class SearchOrCustomTextDialog {
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin, 0, (int) (margin*1.5), 0);
+        lp.setMargins(margin, 0, (int) (margin * 1.5), 0);
         searchLayout.addView(clearButton, lp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
@@ -349,7 +348,7 @@ public class SearchOrCustomTextDialog {
         final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
 
         // Specified neutral button action
-        final Callback.a0 setNeutralButtonDefault = () -> {
+        final Callback.a0 neutralButtonUserImpl = () -> {
             if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
                 neutralButton.setPadding(0, 0, 0, 0);
                 neutralButton.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
@@ -365,23 +364,23 @@ public class SearchOrCustomTextDialog {
         };
 
         // Neutral button to clear selection
-        final Callback.a0 setNeutralButtonClear = () -> {
+        final Callback.a0 neutralButtonClearImpl = () -> {
             neutralButton.setVisibility(Button.VISIBLE);
-            neutralButton.setText(R.string.deselect);
+            neutralButton.setText(listAdapter._dopt.neutralButtonText != 0 ? listAdapter._dopt.neutralButtonText : android.R.string.cut);
             neutralButton.setText(neutralButton.getText() + " (" + listAdapter._selectedItems.size() + ")");
             neutralButton.setOnClickListener((v) -> {
                 listAdapter._selectedItems.clear();
                 listAdapter.notifyDataSetChanged();
-                setNeutralButtonDefault.callback();
+                neutralButtonUserImpl.callback();
             });
         };
 
         // Toggle neutral button between default action and clear
-        final Callback.a0 setNeutralButtonState = () -> {
+        final Callback.a0 neutralAction = () -> {
             if (listAdapter._selectedItems.isEmpty()) {
-                setNeutralButtonDefault.callback();
+                neutralButtonUserImpl.callback();
             } else {
-                setNeutralButtonClear.callback();
+                neutralButtonClearImpl.callback();
             }
         };
 
@@ -410,7 +409,7 @@ public class SearchOrCustomTextDialog {
                 if (textView instanceof Checkable) {
                     ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
                 }
-                setNeutralButtonState.callback();
+                neutralAction.callback();
             } else {
                 directActivate.callback(pos);
             }
@@ -420,6 +419,6 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
 
         // Initialize neutral button state
-        setNeutralButtonState.callback();
+        neutralAction.callback();
     }
 }
