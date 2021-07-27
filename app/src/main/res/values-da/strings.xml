@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
     <string name="infinite">Uendelig</string>
+    <string name="search_project">Søg i projekter</string>
+    <string name="search_context">Søg i kontekster</string>
+    <string name="insert_project">Indsæt projekter</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Fravælg</string>
 </resources>
