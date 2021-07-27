@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
     <string name="infinite">Бесконечный</string>
+    <string name="search_project">Поиск проектов</string>
+    <string name="search_context">Поисковые контексты</string>
+    <string name="insert_project">Вставить проекты</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Отменить выбор</string>
 </resources>
