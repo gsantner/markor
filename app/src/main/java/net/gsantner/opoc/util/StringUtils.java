@@ -124,6 +124,11 @@ public final class StringUtils {
         };
     }
 
+    public static String getSelectedLines(final TextView text) {
+        final int[] sel = getLineSelection(text);
+        return text.getText().subSequence(sel[0], sel[1]).toString();
+    }
+
     public static String repeatChars(char character, int count) {
         char[] stringChars = new char[count];
         Arrays.fill(stringChars, character);
