@@ -41,7 +41,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
+import android.widget.Checkable;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -123,7 +123,7 @@ public class SearchOrCustomTextDialog {
         private static final int regularLayout = android.R.layout.simple_list_item_1;
 
         public Adapter(final Context context, final DialogOptions dopt) {
-            this(context, dopt.isMultiSelectEnabled ?  multiSelectLayout : regularLayout, dopt, new ArrayList<>());
+            this(context, dopt.isMultiSelectEnabled ? multiSelectLayout : regularLayout, dopt, new ArrayList<>());
         }
 
         private Adapter(final Context context, final @LayoutRes int layout, final DialogOptions dopt, final List<Integer> filteredItems) {
@@ -148,8 +148,8 @@ public class SearchOrCustomTextDialog {
                 textView = (TextView) convertView;
             }
 
-            if (_layout == multiSelectLayout && textView instanceof CheckedTextView) {
-                ((CheckedTextView) textView).setChecked(selected.contains(index));
+            if (textView instanceof Checkable) {
+                ((Checkable) textView).setChecked(selected.contains(index));
             }
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
@@ -401,7 +401,7 @@ public class SearchOrCustomTextDialog {
         };
 
         // Click listener set to select or activate as appropriate
-        listView.setOnItemClickListener((parent, view, pos, id) -> {
+        listView.setOnItemClickListener((parent, textView, pos, id) -> {
             if (dopt.isMultiSelectEnabled) {
                 final int index = listAdapter._filteredItems.get(pos);
                 if (listAdapter.selected.contains(index)) {
@@ -409,8 +409,8 @@ public class SearchOrCustomTextDialog {
                 } else {
                     listAdapter.selected.add(index);
                 }
-                if (view instanceof CheckedTextView) {
-                    ((CheckedTextView) view).setChecked(listAdapter.selected.contains(index));
+                if (textView instanceof Checkable) {
+                    ((Checkable) textView).setChecked(listAdapter.selected.contains(index));
                 }
                 setNeutralButtonState.callback();
             } else {
