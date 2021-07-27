@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +20,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -60,6 +60,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+@SuppressLint("SetTextI18n")
 public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
@@ -108,29 +109,21 @@ public class SearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
         @DrawableRes
         public int clearInputIcon = android.R.drawable.ic_input_delete;
-        @LayoutRes
-        public int listItemLayout = android.R.layout.simple_list_item_1;
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
-        @LayoutRes
-        private final int _layout;
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
         private final List<Integer> _filteredItems;
         private final Set<Integer> _selectedItems;
         private final Pattern _extraPattern;
 
-        private static final int multiSelectLayout = R.layout.opoc_list_item_checkable;
-        private static final int regularLayout = android.R.layout.simple_list_item_1;
-
-        public Adapter(final Context context, final DialogOptions dopt) {
-            this(context, dopt.isMultiSelectEnabled ? multiSelectLayout : regularLayout, dopt, new ArrayList<>());
+        public static Adapter create(final Context context, final DialogOptions dopt) {
+            return new Adapter(context, dopt, new ArrayList<>());
         }
 
-        private Adapter(final Context context, final @LayoutRes int layout, final DialogOptions dopt, final List<Integer> filteredItems) {
-            super(context, layout, new ArrayList<>());
-            _layout = layout;
+        private Adapter(final Context context, final DialogOptions dopt, final List<Integer> filteredItems) {
+            super(context, dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, filteredItems);
             _filteredItems = filteredItems;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
@@ -145,7 +138,7 @@ public class SearchOrCustomTextDialog {
 
             final TextView textView;
             if (convertView == null) {
-                textView = (TextView) _inflater.inflate(_layout, parent, false);
+                textView = (TextView) _inflater.inflate(_dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, parent, false);
             } else {
                 textView = (TextView) convertView;
             }
@@ -153,6 +146,7 @@ public class SearchOrCustomTextDialog {
             if (textView instanceof Checkable) {
                 ((Checkable) textView).setChecked(_selectedItems.contains(index));
             }
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
@@ -227,7 +221,7 @@ public class SearchOrCustomTextDialog {
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-        final Adapter listAdapter = new Adapter(activity, dopt);
+        final Adapter listAdapter = Adapter.create(activity, dopt);
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setText(dopt.defaultText);
@@ -357,6 +351,8 @@ public class SearchOrCustomTextDialog {
         // Specified neutral button action
         final Callback.a0 setNeutralButtonDefault = () -> {
             if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
+                neutralButton.setPadding(0, 0, 0, 0);
+                neutralButton.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
                 neutralButton.setVisibility(Button.VISIBLE);
                 neutralButton.setText(listAdapter._dopt.neutralButtonText);
                 neutralButton.setOnClickListener((v) -> {
@@ -371,8 +367,8 @@ public class SearchOrCustomTextDialog {
         // Neutral button to clear selection
         final Callback.a0 setNeutralButtonClear = () -> {
             neutralButton.setVisibility(Button.VISIBLE);
-            final String unsel = dialog.getContext().getString(R.string.clear_selection);
-            neutralButton.setText(String.format("%s (%d)", unsel, listAdapter._selectedItems.size()));
+            neutralButton.setText(R.string.deselect);
+            neutralButton.setText(neutralButton.getText() + " (" + listAdapter._selectedItems.size() + ")");
             neutralButton.setOnClickListener((v) -> {
                 listAdapter._selectedItems.clear();
                 listAdapter.notifyDataSetChanged();
