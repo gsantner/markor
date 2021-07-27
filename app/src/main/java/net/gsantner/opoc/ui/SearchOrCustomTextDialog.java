@@ -265,7 +265,7 @@ public class SearchOrCustomTextDialog {
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin, 0, margin, 0);
+        lp.setMargins(margin, 0, (int) (margin*1.5), 0);
         searchLayout.addView(clearButton, lp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
