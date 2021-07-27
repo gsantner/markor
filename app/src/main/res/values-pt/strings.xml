@@ -414,4 +414,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
     <string name="infinite">Infinito</string>
+    <string name="search_project">Pesquisar projetos</string>
+    <string name="search_context">Contextos de pesquisa</string>
+    <string name="insert_project">Inserir projetos</string>
+    <string name="insert_context">Insert contexts</string>
+    <string name="deselect">Desselecionar</string>
 </resources>
