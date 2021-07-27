@@ -91,10 +91,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contextos</string>
     <string name="project">Proxecto</string>
     <string name="projects">Proxectos</string>
-    <string name="categories">Categorías</string>
     <string name="none">Nada</string>
     <string name="other">Outro</string>
-    <string name="alternative_naming">Nome alternativo</string>
     <string name="empty_file">Arquivo baleiro</string>
     <string name="break_page_pdf_print">Salto de páxina (PDF/Impresión)</string>
     <string name="underline_hex_color_codes">Subliñar códigos de color hexadecimal</string>

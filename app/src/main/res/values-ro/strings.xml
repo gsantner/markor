@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ajutor</string>
     <string name="todo_list">Listă de sarcini</string>
     <string name="task">Sarcină</string>
-    <string name="category">Categorie</string>
     <string name="context">Context</string>
     <string name="list">Listă</string>
     <string name="priority">Prioritate</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contexte</string>
     <string name="project">Proiect</string>
     <string name="projects">Proiecte</string>
-    <string name="categories">Categorii</string>
     <string name="none">Nici unul</string>
     <string name="other">Altele</string>
-    <string name="alternative_naming">Denumire alternativă</string>
     <string name="empty_file">Fișier gol</string>
     <string name="break_page_pdf_print">Întrerupere pagină (PDF/Tipărire)</string>
     <string name="underline">Subliniere</string>

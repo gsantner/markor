@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Βοήθεια</string>
     <string name="todo_list">Λίστα Προς υλοποίηση</string>
     <string name="task">Εργασία</string>
-    <string name="category">Κατηγορία</string>
     <string name="context">Πλαίσιο</string>
     <string name="list">Λίστα</string>
     <string name="priority">Προτεραιότητα</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Συγκείμενο</string>
     <string name="project">Έργο</string>
     <string name="projects">Έργα</string>
-    <string name="categories">Κατηγορίες</string>
     <string name="none">Κανένα</string>
     <string name="other">Άλλο</string>
-    <string name="alternative_naming">Εναλλακτική ονομασία</string>
     <string name="empty_file">Κενό αρχείο</string>
     <string name="break_page_pdf_print">Σελίδα διακοπής (PDF/Εκτύπωση)</string>
     <string name="underline">Με υπογράμμιση</string>

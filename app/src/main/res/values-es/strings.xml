@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ayuda</string>
     <string name="todo_list">Lista «pendientes»</string>
     <string name="task">Tarea</string>
-    <string name="category">Categoría</string>
     <string name="context">Contexto</string>
     <string name="list">Lista</string>
     <string name="priority">Prioridad</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contextos</string>
     <string name="project">Proyecto</string>
     <string name="projects">Proyectos</string>
-    <string name="categories">Categorías</string>
     <string name="none">Nada</string>
     <string name="other">Otros</string>
-    <string name="alternative_naming">Nombres alternativos</string>
     <string name="empty_file">Archivo vacío</string>
     <string name="break_page_pdf_print">Página de interrupción (PDF/impresión)</string>
     <string name="underline">Subrayado</string>

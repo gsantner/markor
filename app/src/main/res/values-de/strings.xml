@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Hilfe</string>
     <string name="todo_list">To-Do-Liste</string>
     <string name="task">Aufgabe</string>
-    <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
     <string name="list">Liste</string>
     <string name="priority">Priorität</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontexte</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekte</string>
-    <string name="categories">Kategorien</string>
     <string name="none">Nichts</string>
     <string name="other">Anderes</string>
-    <string name="alternative_naming">Alternative Benennung</string>
     <string name="empty_file">Leere Datei</string>
     <string name="break_page_pdf_print">Seite umbrechen (PDF/Drucken)</string>
     <string name="underline">Unterstreichen</string>

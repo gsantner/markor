@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Допомога</string>
     <string name="todo_list">Список завдань</string>
     <string name="task">Завдання</string>
-    <string name="category">Категорія</string>
     <string name="context">Контекст</string>
     <string name="list">Список</string>
     <string name="priority">Пріоритет</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Контексти</string>
     <string name="project">Проєкт</string>
     <string name="projects">Проєкти</string>
-    <string name="categories">Категорії</string>
     <string name="none">Немає</string>
     <string name="other">Інше</string>
-    <string name="alternative_naming">Альтернативне іменування</string>
     <string name="empty_file">Порожній файл</string>
     <string name="break_page_pdf_print">Розрив сторінки (PDF/Друк)</string>
     <string name="underline">Підкреслити</string>

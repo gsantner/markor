@@ -104,7 +104,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Help</string>
     <string name="todo_list">To-Do List</string>
     <string name="task">Task</string>
-    <string name="category">Category</string>
     <string name="context">Context</string>
     <string name="list">List</string>
     <string name="priority">Priority</string>
@@ -155,10 +154,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contexts</string>
     <string name="project">Project</string>
     <string name="projects">Projects</string>
-    <string name="categories">Categories</string>
     <string name="none">None</string>
     <string name="other">Other</string>
-    <string name="alternative_naming">Alternative naming</string>
     <string name="empty_file">Empty file</string>
     <string name="break_page_pdf_print">Break page (PDF/Printing)</string>
     <string name="underline">Underline</string>
@@ -435,11 +432,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="infinite">Infinite</string>
     <string name="search_project">Search projects</string>
     <string name="search_context">Search contexts</string>
-    <string name="search_category">Search categories</string>
-    <string name="search_tag">Search tags</string>
     <string name="insert_project">Insert projects</string>
     <string name="insert_context">Insert contexts</string>
-    <string name="insert_category">Insert categories</string>
-    <string name="insert_tag">Insert tags</string>
     <string name="deselect">Deselect</string>
 </resources>

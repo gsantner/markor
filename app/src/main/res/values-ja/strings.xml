@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">ヘルプ</string>
     <string name="todo_list">To-Do リスト</string>
     <string name="task">タスク</string>
-    <string name="category">カテゴリー</string>
     <string name="context">コンテキスト</string>
     <string name="list">リスト</string>
     <string name="priority">優先度</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">コンテキスト</string>
     <string name="project">プロジェクト</string>
     <string name="projects">プロジェクト</string>
-    <string name="categories">カテゴリー</string>
     <string name="none">なし</string>
     <string name="other">その他</string>
-    <string name="alternative_naming">別名</string>
     <string name="empty_file">空のファイル</string>
     <string name="break_page_pdf_print">改ページ (PDF/印刷)</string>
     <string name="underline">下線</string>

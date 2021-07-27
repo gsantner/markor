@@ -97,7 +97,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Bantuan</string>
     <string name="todo_list">Daftar kehendak</string>
     <string name="task">Tugas</string>
-    <string name="category">Kategori</string>
     <string name="context">Konteks</string>
     <string name="list">Daftar</string>
     <string name="priority">Prioritas</string>
@@ -130,10 +129,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Konteks</string>
     <string name="project">Proyek</string>
     <string name="projects">Proyek</string>
-    <string name="categories">Kategori</string>
     <string name="none">Kosong</string>
     <string name="other">Lainnya</string>
-    <string name="alternative_naming">Penamaan alternatif</string>
     <string name="empty_file">Berkas kosong</string>
     <string name="break_page_pdf_print">Ganti halaman (PDF/Cetak)</string>
     <string name="underline">Garis bawah</string>

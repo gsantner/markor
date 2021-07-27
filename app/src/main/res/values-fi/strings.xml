@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ohje</string>
     <string name="todo_list">Tehtävälista</string>
     <string name="task">Tehtävä</string>
-    <string name="category">Luokka</string>
     <string name="context">Asiayhteys</string>
     <string name="list">Lista</string>
     <string name="priority">Tärkeys</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Asiayhteydet</string>
     <string name="project">Projekti</string>
     <string name="projects">Projektit</string>
-    <string name="categories">Luokat</string>
     <string name="none">Ei mitään</string>
     <string name="other">Muu</string>
-    <string name="alternative_naming">Vaihtoehtoinen nimeäminen</string>
     <string name="empty_file">Tyhjä tiedosto</string>
     <string name="break_page_pdf_print">Katkaise sivu (PDF / tulostus)</string>
     <string name="underline">Alleviivaus</string>

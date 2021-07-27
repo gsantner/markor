@@ -14,7 +14,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="about">O aplikacii</string>
     <string name="add_task">Pridaj ulohu</string>
     <string name="add_x_witharg">Pridaj %s</string>
-    <string name="alternative_naming">Alternativne pomenovanie</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
     <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>
     <string name="always_open_with_this_app">Vzdycky otvaraj touto aplikaciou</string>

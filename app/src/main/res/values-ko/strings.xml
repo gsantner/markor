@@ -97,7 +97,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">도움말</string>
     <string name="todo_list">할 일 목록</string>
     <string name="task">할 일</string>
-    <string name="category">카테고리</string>
     <string name="context">문맥</string>
     <string name="list">목록</string>
     <string name="priority">우선순위</string>
@@ -144,10 +143,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">문맥</string>
     <string name="project">프로젝트</string>
     <string name="projects">프로젝트</string>
-    <string name="categories">카테고리</string>
     <string name="none">없음</string>
     <string name="other">기타</string>
-    <string name="alternative_naming">대체할 이름</string>
     <string name="empty_file">빈 파일</string>
     <string name="break_page_pdf_print">페이지 나누기 (PDF/인쇄)</string>
     <string name="underline">밑줄</string>

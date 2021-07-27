@@ -97,7 +97,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">உதவி</string>
     <string name="todo_list">செய்ய-வேண்டிய பட்டியல்</string>
     <string name="task">செயல்</string>
-    <string name="category">வகை</string>
     <string name="context">சூழ் அமைவு</string>
     <string name="list">பட்டியல்</string>
     <string name="priority">முன்னுரிமை</string>
@@ -146,10 +145,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">சூழமைவு</string>
     <string name="project">திட்டம்</string>
     <string name="projects">திட்டங்கள்</string>
-    <string name="categories">வகைகள்</string>
     <string name="none">ஏதுமில்லை</string>
     <string name="other">மற்றவை</string>
-    <string name="alternative_naming">மாற்று வழி பெயரிடல்</string>
     <string name="empty_file">வெற்று ஆவணம்</string>
     <string name="break_page_pdf_print">பக்கங்களை பிரித்தெடு (PDF/அச்சடித்தல்)</string>
     <string name="underline">அடிக்கோடு</string>

@@ -95,7 +95,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Tulong</string>
     <string name="todo_list">To-Do List</string>
     <string name="task">Gawain</string>
-    <string name="category">Kategorya</string>
     <string name="context">Konteksto</string>
     <string name="list">Listahan</string>
     <string name="priority">Prayoridad</string>
@@ -140,10 +139,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Mga Konteksto</string>
     <string name="project">Proyekto</string>
     <string name="projects">Mga Proyekto</string>
-    <string name="categories">Mga Kategorya</string>
     <string name="none">Wala</string>
     <string name="other">Iba pa</string>
-    <string name="alternative_naming">Alternatibong pagpapangalan</string>
     <string name="empty_file">Bakanteng file</string>
     <string name="break_page_pdf_print">I-break ang pahina (PDF/Pagpi-print)</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kung sasalungguhitan ba ang mga hex color code ayon sa kulay</string>
