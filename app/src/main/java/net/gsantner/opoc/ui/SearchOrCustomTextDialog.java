@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +20,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -41,6 +41,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,6 +59,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+@SuppressLint("SetTextI18n")
 public class SearchOrCustomTextDialog {
 
     public static class DialogOptions {
@@ -109,30 +111,23 @@ public class SearchOrCustomTextDialog {
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
-        @LayoutRes
-        final int _layout;
-        final LayoutInflater _inflater;
-        final DialogOptions _dopt;
-        final List<Integer> _filteredItems;
-        final Pattern _extraPattern;
-        final Set<Integer> _selected;
-        final int _dp4px;
+        private final LayoutInflater _inflater;
+        private final DialogOptions _dopt;
+        private final List<Integer> _filteredItems;
+        private final Set<Integer> _selectedItems;
+        private final Pattern _extraPattern;
 
-        public static Adapter newInstance(Context context, DialogOptions dopt) {
-            return new Adapter(context, android.R.layout.simple_list_item_activated_1, new ArrayList<>(), dopt);
+        public static Adapter create(final Context context, final DialogOptions dopt) {
+            return new Adapter(context, dopt, new ArrayList<>());
         }
 
-        private Adapter(Context context, @LayoutRes int layout, List<Integer> filteredItems, DialogOptions dopt) {
-            super(context, layout, filteredItems);
-            _inflater = LayoutInflater.from(context);
-            _layout = layout;
-            _dopt = dopt;
+        private Adapter(final Context context, final DialogOptions dopt, final List<Integer> filteredItems) {
+            super(context, dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, filteredItems);
             _filteredItems = filteredItems;
+            _inflater = LayoutInflater.from(context);
+            _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
-            _selected = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            final ContextUtils cu = new ContextUtils(context);
-            _dp4px = (int) Math.ceil(cu.convertDpToPx(4));
-            cu.freeContextRef();
+            _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
         }
 
         @NonNull
@@ -142,12 +137,15 @@ public class SearchOrCustomTextDialog {
 
             final TextView textView;
             if (convertView == null) {
-                textView = (TextView) _inflater.inflate(_layout, parent, false);
-                textView.setPadding(textView.getPaddingLeft(), _dp4px, textView.getPaddingRight(), _dp4px);
+                textView = (TextView) _inflater.inflate(_dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, parent, false);
             } else {
                 textView = (TextView) convertView;
             }
-            textView.setActivated(_selected.contains(index));
+
+            if (textView instanceof Checkable) {
+                ((Checkable) textView).setChecked(_selectedItems.contains(index));
+            }
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
@@ -217,99 +215,12 @@ public class SearchOrCustomTextDialog {
         }
     }
 
-    /**
-     * Set dialog state between multi-select and normal mode.
-     * <p>
-     * Multi-select (if available) is activated when one or more items are selected.
-     * It is deactivated when no items are selected. Items can be selected by long
-     * press (in all modes) and by short press when multi-select is active.
-     * <p>
-     * In multi-select more the 'neutral button' is changed to 'Unselect all'
-     */
-    private static void setDialogState(final AlertDialog dialog, final ListView listView, final Adapter adapter) {
-        final DialogOptions dopt = adapter._dopt;
-        final List<Integer> filteredItems = adapter._filteredItems;
-        final Set<Integer> selected = adapter._selected;
-        final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
-
-        final Callback.a0 setNeutralButtonToClear = () -> {
-            final String unsel = dialog.getContext().getString(android.R.string.cancel);
-            neutralButton.setText(String.format("%s (%d)", unsel, selected.size()));
-        };
-
-        final Callback.a2<Integer, View> toggleSelection = (position, view) -> {
-            final boolean startEmpty = selected.isEmpty();
-            final int index = filteredItems.get(position);
-            if (selected.contains(index)) {
-                selected.remove(index);
-                ((TextView) view).setActivated(false);
-            } else {
-                selected.add(index);
-                ((TextView) view).setActivated(true);
-            }
-            setNeutralButtonToClear.callback();
-            // Update the dialog state if selected transitions from empty <-> not empty
-            if (startEmpty ^ selected.isEmpty()) {
-                setDialogState(dialog, listView, adapter);
-            }
-        };
-
-        // If in multi-select mode
-        if (dopt.isMultiSelectEnabled && !selected.isEmpty()) {
-
-            // Set neutral button to clear
-            neutralButton.setVisibility(Button.VISIBLE);
-            setNeutralButtonToClear.callback();
-            neutralButton.setOnClickListener((v) -> {
-                selected.clear();
-                adapter.notifyDataSetChanged();
-                setDialogState(dialog, listView, adapter);
-            });
-
-            // Click listener set to select
-            listView.setOnItemClickListener((parent, view, pos, id) -> toggleSelection.callback(pos, view));
-
-        } else {
-
-            // Specified neutral button action
-            if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
-                neutralButton.setVisibility(Button.VISIBLE);
-                neutralButton.setText(adapter._dopt.neutralButtonText);
-                neutralButton.setOnClickListener((v) -> {
-                    dialog.dismiss();
-                    adapter._dopt.neutralButtonCallback.callback();
-                });
-            } else {
-                neutralButton.setVisibility(Button.INVISIBLE);
-            }
-
-            // Click listener set to activate
-            listView.setOnItemClickListener((parent, view, position, id) -> {
-                dialog.dismiss();
-                if (dopt.callback != null) {
-                    dopt.callback.callback(dopt.data.get(filteredItems.get(position)).toString());
-                }
-                if (dopt.positionCallback != null) {
-                    dopt.positionCallback.callback(Collections.singletonList(filteredItems.get(position)));
-                }
-            });
-        }
-
-        // Long click always selects, if multi select is possible
-        if (dopt.isMultiSelectEnabled) {
-            listView.setOnItemLongClickListener((parent, view, pos, id) -> {
-                toggleSelection.callback(pos, view);
-                return true;
-            });
-        }
-    }
-
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-        final Adapter listAdapter = Adapter.newInstance(activity, dopt);
+        final Adapter listAdapter = Adapter.create(activity, dopt);
 
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
         searchEditText.setText(dopt.defaultText);
@@ -334,7 +245,9 @@ public class SearchOrCustomTextDialog {
             }
         });
 
-        final int margin = 2 * listAdapter._dp4px;
+        final ContextUtils cu = new ContextUtils(activity);
+        final int margin = (int) cu.convertDpToPx(8);
+        cu.freeContextRef();
 
         final LinearLayout searchLayout = new LinearLayout(activity);
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -351,7 +264,7 @@ public class SearchOrCustomTextDialog {
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin, 0, margin, 0);
+        lp.setMargins(margin, 0, (int) (margin * 1.5), 0);
         searchLayout.addView(clearButton, lp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
@@ -385,8 +298,8 @@ public class SearchOrCustomTextDialog {
         if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                if (dopt.positionCallback != null && !listAdapter._selected.isEmpty()) {
-                    final List<Integer> sel = new ArrayList<>(listAdapter._selected);
+                if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
+                    final List<Integer> sel = new ArrayList<>(listAdapter._selectedItems);
                     Collections.sort(sel);
                     dopt.positionCallback.callback(sel);
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
@@ -431,6 +344,81 @@ public class SearchOrCustomTextDialog {
         if (dopt.defaultText != null) {
             listAdapter.getFilter().filter(searchEditText.getText());
         }
-        setDialogState(dialog, listView, listAdapter);
+
+        final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
+
+        // Specified neutral button action
+        final Callback.a0 neutralButtonUserImpl = () -> {
+            if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
+                neutralButton.setPadding(0, 0, 0, 0);
+                neutralButton.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                neutralButton.setVisibility(Button.VISIBLE);
+                neutralButton.setText(listAdapter._dopt.neutralButtonText);
+                neutralButton.setOnClickListener((v) -> {
+                    dialog.dismiss();
+                    listAdapter._dopt.neutralButtonCallback.callback();
+                });
+            } else {
+                neutralButton.setVisibility(Button.INVISIBLE);
+            }
+        };
+
+        // Neutral button to clear selection
+        final Callback.a0 neutralButtonClearImpl = () -> {
+            neutralButton.setVisibility(Button.VISIBLE);
+            neutralButton.setText(listAdapter._dopt.neutralButtonText != 0 ? listAdapter._dopt.neutralButtonText : android.R.string.cut);
+            neutralButton.setText(neutralButton.getText() + " (" + listAdapter._selectedItems.size() + ")");
+            neutralButton.setOnClickListener((v) -> {
+                listAdapter._selectedItems.clear();
+                listAdapter.notifyDataSetChanged();
+                neutralButtonUserImpl.callback();
+            });
+        };
+
+        // Toggle neutral button between default action and clear
+        final Callback.a0 neutralAction = () -> {
+            if (listAdapter._selectedItems.isEmpty()) {
+                neutralButtonUserImpl.callback();
+            } else {
+                neutralButtonClearImpl.callback();
+            }
+        };
+
+        // Callback to trigger with single item
+        final Callback.b1<Integer> directActivate = (position) -> {
+            final int index = listAdapter._filteredItems.get(position);
+            dialog.dismiss();
+            if (dopt.callback != null) {
+                dopt.callback.callback(dopt.data.get(index).toString());
+            }
+            if (dopt.positionCallback != null) {
+                dopt.positionCallback.callback(Collections.singletonList(index));
+            }
+            return true;
+        };
+
+        // Click listener set to select or activate as appropriate
+        listView.setOnItemClickListener((parent, textView, pos, id) -> {
+            if (dopt.isMultiSelectEnabled) {
+                final int index = listAdapter._filteredItems.get(pos);
+                if (listAdapter._selectedItems.contains(index)) {
+                    listAdapter._selectedItems.remove(index);
+                } else {
+                    listAdapter._selectedItems.add(index);
+                }
+                if (textView instanceof Checkable) {
+                    ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
+                }
+                neutralAction.callback();
+            } else {
+                directActivate.callback(pos);
+            }
+        });
+
+        // long click always activates
+        listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+
+        // Initialize neutral button state
+        neutralAction.callback();
     }
 }

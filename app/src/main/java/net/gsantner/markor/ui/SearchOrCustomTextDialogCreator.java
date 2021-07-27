@@ -261,8 +261,9 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.category : R.string.context;
+        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.insert_category : R.string.insert_context;
         dopt.isMultiSelectEnabled = true;
+        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer i : result) {
                 callback.callback(dopt.data.get(i).toString());
@@ -277,13 +278,14 @@ public class SearchOrCustomTextDialogCreator {
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
         dopt.data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
         if (isTodoTxtAlternativeNaming(activity)) {
-            dopt.titleText = isProjects ? R.string.tag : R.string.category;
+            dopt.titleText = isProjects ? R.string.search_tag : R.string.search_category;
         } else {
-            dopt.titleText = isProjects ? R.string.project : R.string.context;
+            dopt.titleText = isProjects ? R.string.search_project : R.string.search_context;
         }
         dopt.searchHintText = R.string.search_or_custom;
 
         dopt.isMultiSelectEnabled = true;
+        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (keyIndices) -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
@@ -313,6 +315,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
             dopt2.isMultiSelectEnabled = true;
+            dopt2.neutralButtonText = R.string.deselect;
             dopt2.positionCallback = (posns) -> {
                 final List<Integer> lineIndices = new ArrayList<>();
                 for (final int p : posns) {
@@ -359,9 +362,10 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.tag : R.string.project;
+        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.insert_tag : R.string.insert_project;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
+        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer pi : result) {
                 callback.callback(dopt.data.get(pi).toString());
@@ -391,6 +395,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showTodoSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Spannable> highlighter, Callback.a1<List<Integer>> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = basicSearchDialogopts(activity, edit, sel);
         dopt2.isMultiSelectEnabled = true;
+        dopt2.neutralButtonText = R.string.deselect;
         dopt2.positionCallback = userCallback;
         dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
