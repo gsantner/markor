@@ -108,6 +108,8 @@ public class SearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
         @DrawableRes
         public int clearInputIcon = android.R.drawable.ic_input_delete;
+        @LayoutRes
+        public int listItemLayout = android.R.layout.simple_list_item_1;
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
@@ -116,10 +118,10 @@ public class SearchOrCustomTextDialog {
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
         private final List<Integer> _filteredItems;
+        private final Set<Integer> _selectedItems;
         private final Pattern _extraPattern;
-        final Set<Integer> selected;
 
-        private static final int multiSelectLayout = R.layout.search_dialog_multi_select_item;
+        private static final int multiSelectLayout = R.layout.opoc_list_item_checkable;
         private static final int regularLayout = android.R.layout.simple_list_item_1;
 
         public Adapter(final Context context, final DialogOptions dopt) {
@@ -127,13 +129,13 @@ public class SearchOrCustomTextDialog {
         }
 
         private Adapter(final Context context, final @LayoutRes int layout, final DialogOptions dopt, final List<Integer> filteredItems) {
-            super(context, layout, filteredItems);
+            super(context, layout, new ArrayList<>());
             _layout = layout;
             _filteredItems = filteredItems;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
-            selected = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+            _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
         }
 
         @NonNull
@@ -149,7 +151,7 @@ public class SearchOrCustomTextDialog {
             }
 
             if (textView instanceof Checkable) {
-                ((Checkable) textView).setChecked(selected.contains(index));
+                ((Checkable) textView).setChecked(_selectedItems.contains(index));
             }
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
@@ -303,8 +305,8 @@ public class SearchOrCustomTextDialog {
         if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                if (dopt.positionCallback != null && !listAdapter.selected.isEmpty()) {
-                    final List<Integer> sel = new ArrayList<>(listAdapter.selected);
+                if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
+                    final List<Integer> sel = new ArrayList<>(listAdapter._selectedItems);
                     Collections.sort(sel);
                     dopt.positionCallback.callback(sel);
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
@@ -370,9 +372,9 @@ public class SearchOrCustomTextDialog {
         final Callback.a0 setNeutralButtonClear = () -> {
             neutralButton.setVisibility(Button.VISIBLE);
             final String unsel = dialog.getContext().getString(R.string.clear_selection);
-            neutralButton.setText(String.format("%s (%d)", unsel, listAdapter.selected.size()));
+            neutralButton.setText(String.format("%s (%d)", unsel, listAdapter._selectedItems.size()));
             neutralButton.setOnClickListener((v) -> {
-                listAdapter.selected.clear();
+                listAdapter._selectedItems.clear();
                 listAdapter.notifyDataSetChanged();
                 setNeutralButtonDefault.callback();
             });
@@ -380,7 +382,7 @@ public class SearchOrCustomTextDialog {
 
         // Toggle neutral button between default action and clear
         final Callback.a0 setNeutralButtonState = () -> {
-            if (listAdapter.selected.isEmpty()) {
+            if (listAdapter._selectedItems.isEmpty()) {
                 setNeutralButtonDefault.callback();
             } else {
                 setNeutralButtonClear.callback();
@@ -404,13 +406,13 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemClickListener((parent, textView, pos, id) -> {
             if (dopt.isMultiSelectEnabled) {
                 final int index = listAdapter._filteredItems.get(pos);
-                if (listAdapter.selected.contains(index)) {
-                    listAdapter.selected.remove(index);
+                if (listAdapter._selectedItems.contains(index)) {
+                    listAdapter._selectedItems.remove(index);
                 } else {
-                    listAdapter.selected.add(index);
+                    listAdapter._selectedItems.add(index);
                 }
                 if (textView instanceof Checkable) {
-                    ((Checkable) textView).setChecked(listAdapter.selected.contains(index));
+                    ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
                 }
                 setNeutralButtonState.callback();
             } else {
