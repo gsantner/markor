@@ -31,7 +31,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,6 +47,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -393,19 +393,11 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
 
         // Update search
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        searchEditText.addTextChangedListener(new TextWatcherDummy() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 listAdapter.getFilter().filter(searchEditText.getText());
                 setOkButtonState.callback();
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
-
-            @Override
-            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
             }
         });
     }
