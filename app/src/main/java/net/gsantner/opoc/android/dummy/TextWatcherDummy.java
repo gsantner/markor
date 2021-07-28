@@ -17,7 +17,9 @@ package net.gsantner.opoc.android.dummy;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-@SuppressWarnings({"unused"})
+import net.gsantner.opoc.util.Callback;
+
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public class TextWatcherDummy implements TextWatcher {
     @Override
     public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
@@ -29,5 +31,29 @@ public class TextWatcherDummy implements TextWatcher {
 
     @Override
     public void afterTextChanged(final Editable s) {
+    }
+
+    public static TextWatcher before(final Callback.a4<CharSequence, Integer, Integer, Integer> impl) {
+        return new TextWatcherDummy() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                impl.callback(s, start, count, after);
+            }
+        };
+    }
+
+    public static TextWatcher on(final Callback.a4<CharSequence, Integer, Integer, Integer> impl) {
+        return new TextWatcherDummy() {
+            public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+                impl.callback(s, start, before, count);
+            }
+        };
+    }
+
+    public static TextWatcher after(final Callback.a1<Editable> impl) {
+        return new TextWatcherDummy() {
+            public void afterTextChanged(final Editable s) {
+                impl.callback(s);
+            }
+        };
     }
 }

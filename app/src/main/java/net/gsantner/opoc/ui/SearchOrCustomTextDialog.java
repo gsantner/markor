@@ -26,7 +26,6 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.TooltipCompat;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -393,12 +392,9 @@ public class SearchOrCustomTextDialog {
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
 
         // Update search
-        searchEditText.addTextChangedListener(new TextWatcherDummy() {
-            @Override
-            public void afterTextChanged(final Editable arg0) {
-                listAdapter.getFilter().filter(searchEditText.getText());
-                setOkButtonState.callback();
-            }
-        });
+        searchEditText.addTextChangedListener(TextWatcherDummy.after(cbEditable -> {
+            listAdapter.getFilter().filter(searchEditText.getText());
+            setOkButtonState.callback();
+        }));
     }
 }
