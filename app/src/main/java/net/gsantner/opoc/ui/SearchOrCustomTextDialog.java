@@ -351,20 +351,11 @@ public class SearchOrCustomTextDialog {
             return true;
         };
 
-        // Helper function to set ok button enabled and count
+        // Helper function to append selection count to OK button
         final Button okButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
-        final String okWithCount = activity.getString(dopt.okButtonText) + " (%d)";
+        final String okText = activity.getString(dopt.okButtonText) + (dopt.isMultiSelectEnabled ? " (%d)" : "");
         final Callback.a0 setOkButtonState = () -> {
-            final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-            final boolean positionCallbackPossible = dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty();
-            final boolean textCallbackPossible = dopt.callback != null && !TextUtils.isEmpty(searchText);
-            okButton.setEnabled(positionCallbackPossible || textCallbackPossible);
-
-            if (listAdapter._selectedItems.isEmpty()) {
-                okButton.setText(dopt.okButtonText);
-            } else {
-                okButton.setText(String.format(okWithCount, listAdapter._selectedItems.size()));
-            }
+            okButton.setText(okText.replace("%d", Integer.toString(listAdapter._selectedItems.size())));
         };
 
         // Set ok button text initially
