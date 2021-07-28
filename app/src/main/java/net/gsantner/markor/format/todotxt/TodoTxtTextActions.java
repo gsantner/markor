@@ -68,7 +68,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public List<ActionItem> getActiveActionList() {
 
-        final int projectIcon = R.drawable.ic_local_offer_black_24dp;
+        final int projectIcon = R.drawable.ic_add_white_24dp;
 
         final ActionItem[] TMA_ACTIONS = {
                 new ActionItem(R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp, R.string.toggle_done),
