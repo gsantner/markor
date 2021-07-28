@@ -229,6 +229,7 @@ public class SearchOrCustomTextDialog {
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
+        searchEditText.addTextChangedListener(TextWatcherDummy.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
 
         final ContextUtils cu = new ContextUtils(activity);
         final int margin = (int) cu.convertDpToPx(8);
@@ -381,11 +382,5 @@ public class SearchOrCustomTextDialog {
 
         // long click always activates
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
-
-        // Update search
-        searchEditText.addTextChangedListener(TextWatcherDummy.after(cbEditable -> {
-            listAdapter.getFilter().filter(searchEditText.getText());
-            setOkButtonState.callback();
-        }));
     }
 }
