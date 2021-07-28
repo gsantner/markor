@@ -417,5 +417,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_context">検索コンテキスト</string>
     <string name="insert_project">プロジェクトを挿入</string>
     <string name="insert_context">Insert contexts</string>
-    <string name="deselect">選択を解除</string>
 </resources>
