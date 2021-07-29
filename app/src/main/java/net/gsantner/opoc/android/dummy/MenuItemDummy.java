@@ -1,14 +1,17 @@
-/*#######################################################
+/*
+ * Copyright (c) 2021 Gregor Santner <https://gsantner.net>
+ * License: Creative Commons Zero (CC0 1.0) / Public Domain
+ *  http://creativecommons.org/publicdomain/zero/1.0/
  *
- *   Maintained by Gregor Santner, 2020-
- *   https://gsantner.net/
+ * You can do whatever you want with this. If we meet some day, and you think it is worth it,
+ * you can buy me a drink in return. Provided as is without any kind of warranty. Do not blame
+ * or ask for support if something goes wrong.  - Gregor Santner
  *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
-#########################################################*/
-package net.gsantner.opoc.ui;
+ */
+package net.gsantner.opoc.android.dummy;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -20,10 +23,10 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
-public class MenuItemIdDummy implements MenuItem {
+public class MenuItemDummy implements MenuItem {
     private final int _itemId;
 
-    public MenuItemIdDummy(final int itemId) {
+    public MenuItemDummy(final int itemId) {
         _itemId = itemId;
     }
 
@@ -179,7 +182,6 @@ public class MenuItemIdDummy implements MenuItem {
 
     @Override
     public void setShowAsAction(int actionEnum) {
-
     }
 
     @Override
@@ -246,7 +248,7 @@ public class MenuItemIdDummy implements MenuItem {
 
         @Override
         public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
-            return new MenuItemIdDummy(itemId);
+            return new MenuItemDummy(itemId);
         }
 
         @Override
@@ -281,32 +283,26 @@ public class MenuItemIdDummy implements MenuItem {
 
         @Override
         public void removeItem(int id) {
-
         }
 
         @Override
         public void removeGroup(int groupId) {
-
         }
 
         @Override
         public void clear() {
-
         }
 
         @Override
         public void setGroupCheckable(int group, boolean checkable, boolean exclusive) {
-
         }
 
         @Override
         public void setGroupVisible(int group, boolean visible) {
-
         }
 
         @Override
         public void setGroupEnabled(int group, boolean enabled) {
-
         }
 
         @Override
@@ -331,7 +327,6 @@ public class MenuItemIdDummy implements MenuItem {
 
         @Override
         public void close() {
-
         }
 
         @Override
@@ -351,7 +346,6 @@ public class MenuItemIdDummy implements MenuItem {
 
         @Override
         public void setQwertyMode(boolean isQwerty) {
-
         }
     }
 }
