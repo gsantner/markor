@@ -231,7 +231,7 @@ public class SearchOrCustomTextDialogCreator {
             availableDataToIconMap.add(iconRes);
         };
         addToList.callback(o_prio, R.drawable.ic_star_border_black_24dp);
-        addToList.callback(o_project, R.drawable.ic_local_offer_black_24dp);
+        addToList.callback(o_project, R.drawable.ic_new_label_black_24dp);
         addToList.callback(o_context, R.drawable.gs_email_sign_black_24dp);
         addToList.callback(o_date, R.drawable.ic_date_range_black_24dp);
         addToList.callback(o_duedate, R.drawable.ic_date_range_black_24dp);
@@ -259,7 +259,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.callback = callback;
         dopt.titleText = R.string.insert_context;
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer i : result) {
                 callback.callback(dopt.data.get(i).toString());
@@ -277,7 +276,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.search_or_custom;
 
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (keyIndices) -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
@@ -307,7 +305,6 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
             dopt2.isMultiSelectEnabled = true;
-            dopt2.neutralButtonText = R.string.deselect;
             dopt2.positionCallback = (posns) -> {
                 final List<Integer> lineIndices = new ArrayList<>();
                 for (final int p : posns) {
@@ -357,7 +354,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = R.string.insert_project;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer pi : result) {
                 callback.callback(dopt.data.get(pi).toString());
@@ -387,7 +383,6 @@ public class SearchOrCustomTextDialogCreator {
     public static void showTodoSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Spannable> highlighter, Callback.a1<List<Integer>> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = basicSearchDialogopts(activity, edit, sel);
         dopt2.isMultiSelectEnabled = true;
-        dopt2.neutralButtonText = R.string.deselect;
         dopt2.positionCallback = userCallback;
         dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);

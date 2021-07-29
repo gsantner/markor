@@ -418,5 +418,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_context">Etsi konteksteja</string>
     <string name="insert_project">Lisää projekteja</string>
     <string name="insert_context">Insert contexts</string>
-    <string name="deselect">Poista Valinta</string>
 </resources>

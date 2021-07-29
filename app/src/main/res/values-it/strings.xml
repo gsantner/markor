@@ -418,5 +418,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_context">Cerca nei contesti</string>
     <string name="insert_project">Inserisci progetti</string>
     <string name="insert_context">Inserisci contesti</string>
-    <string name="deselect">Deseleziona</string>
 </resources>
