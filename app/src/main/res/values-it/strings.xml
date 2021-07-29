@@ -414,9 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contesti e progetti aggiuntivi</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserisci @contesti e +progetti separati da spazi. Essi saranno sempre visibili nelle finestre di inserimento per todo.txt.</string>
     <string name="infinite">Infinito</string>
-    <string name="search_project">Cerca progetti</string>
-    <string name="search_context">Cerca contesti</string>
+    <string name="search_project">Cerca nei progetti</string>
+    <string name="search_context">Cerca nei contesti</string>
     <string name="insert_project">Inserisci progetti</string>
-    <string name="insert_context">Insert contexts</string>
-    <string name="deselect">Deseleziona</string>
+    <string name="insert_context">Inserisci contesti</string>
 </resources>

@@ -418,5 +418,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_context">Kontexte suchen</string>
     <string name="insert_project">Projekte einfügen</string>
     <string name="insert_context">Kontexte einfügen</string>
-    <string name="deselect">Abwählen</string>
 </resources>
