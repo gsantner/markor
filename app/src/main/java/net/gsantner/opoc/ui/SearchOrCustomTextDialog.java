@@ -145,8 +145,7 @@ public class SearchOrCustomTextDialog {
             final TextView textView;
             if (convertView == null) {
                 textView = (TextView) _inflater.inflate(_layout, parent, false);
-                ViewGroup.LayoutParams params = textView.getLayoutParams();
-                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 textView.setMinHeight(_layoutHeight);
             } else {
                 textView = (TextView) convertView;
