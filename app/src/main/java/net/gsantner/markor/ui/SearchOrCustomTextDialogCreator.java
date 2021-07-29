@@ -231,7 +231,7 @@ public class SearchOrCustomTextDialogCreator {
             availableDataToIconMap.add(iconRes);
         };
         addToList.callback(o_prio, R.drawable.ic_star_border_black_24dp);
-        addToList.callback(o_project, R.drawable.ic_local_offer_black_24dp);
+        addToList.callback(o_project, R.drawable.ic_new_label_black_24dp);
         addToList.callback(o_context, R.drawable.gs_email_sign_black_24dp);
         addToList.callback(o_date, R.drawable.ic_date_range_black_24dp);
         addToList.callback(o_duedate, R.drawable.ic_date_range_black_24dp);
