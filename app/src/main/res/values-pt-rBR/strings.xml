@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ajuda</string>
     <string name="todo_list">Lista de Tarefas</string>
     <string name="task">Tarefa</string>
-    <string name="category">Categoria</string>
     <string name="context">Contexto</string>
     <string name="list">Lista</string>
     <string name="priority">Prioridade</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contextos</string>
     <string name="project">Projeto</string>
     <string name="projects">Projetos</string>
-    <string name="categories">Categorias</string>
     <string name="none">Nenhum</string>
     <string name="other">Outros</string>
-    <string name="alternative_naming">Nomes alternativos</string>
     <string name="empty_file">Arquivo vazio</string>
     <string name="break_page_pdf_print">Quebrar página (PDF/Impressão)</string>
     <string name="underline">Sublinhado</string>
@@ -191,7 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_character">Caracter de lista não ordenado</string>
     <string name="character_to_start_items_of_unordered_list_with">Qual personagem usar para denotar listas não ordenadas</string>
     <string name="unordered_list_char_dash">Traço (-)</string>
-    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais e off-line, não há suporte para gerenciadores de arquivos que não disponibilizem o caminho completo do arquivo.</string>
     <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
     <string name="infinite">Infinito</string>
+    <string name="search_project">Pesquisar projetos</string>
+    <string name="search_context">Contextos de pesquisa</string>
+    <string name="insert_project">Inserir projetos</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

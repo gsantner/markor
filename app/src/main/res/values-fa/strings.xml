@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">راهنما</string>
     <string name="todo_list">لیست کارها</string>
     <string name="task">کار</string>
-    <string name="category">دسته</string>
     <string name="context">متن</string>
     <string name="list">لیست</string>
     <string name="priority">اولویت</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">متن ها</string>
     <string name="project">پروژه</string>
     <string name="projects">پروژه‌ها</string>
-    <string name="categories">دسته‌ها</string>
     <string name="none">هیچ</string>
     <string name="other">سایر موارد</string>
-    <string name="alternative_naming">نامگذاری جایگزین</string>
     <string name="empty_file">Prazna datoteka</string>
     <string name="break_page_pdf_print">Prekid stranice (PDF/printanje)</string>
     <string name="underline">خط زیر</string>

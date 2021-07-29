@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ajuda</string>
     <string name="todo_list">Llista de tasques pendents</string>
     <string name="task">Tasca</string>
-    <string name="category">Categoria</string>
     <string name="context">Context</string>
     <string name="list">Llista</string>
     <string name="priority">Prioritat</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contextos</string>
     <string name="project">Projecte</string>
     <string name="projects">Projectes</string>
-    <string name="categories">Categories</string>
     <string name="none">Cap</string>
     <string name="other">Altres</string>
-    <string name="alternative_naming">Noms alternatius</string>
     <string name="empty_file">Fitxer buit</string>
     <string name="break_page_pdf_print">Salt de pàgina (PDF/Impressió)</string>
     <string name="underline">Subratlla</string>

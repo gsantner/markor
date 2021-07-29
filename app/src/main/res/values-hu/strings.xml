@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Segítség</string>
     <string name="todo_list">Teendő lista</string>
     <string name="task">Teendő</string>
-    <string name="category">Kategória</string>
     <string name="context">Kontextus</string>
     <string name="list">Lista</string>
     <string name="priority">Prioritás</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontextusok</string>
     <string name="project">Projekt</string>
     <string name="projects">Projektek</string>
-    <string name="categories">Kategóriák</string>
     <string name="none">Semmi</string>
     <string name="other">Egyebek</string>
-    <string name="alternative_naming">Alternatív elnevezések</string>
     <string name="empty_file">Üres fájl</string>
     <string name="break_page_pdf_print">Oldaltörés (PDF/Nyomtatás)</string>
     <string name="underline">Aláhúzott</string>

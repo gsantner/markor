@@ -254,7 +254,8 @@ public class SearchEngine {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             if (_snackBar != null) {
-                _snackBar.setText("f:" + values[2] + " qu:" + values[0] + "|" + values[1] + " c:" + values[3] + "\n" + _config.query);
+                // _currentQueueLength, _currentSearchDepth, _result.size(), _countCheckedFiles
+                _snackBar.setText("⭕" + values[2] + " || \uD83D\uDD0D" + values[0] + " || ⬇️ " + values[1] + " || \uD83D\uDC41️" + values[3] + "\n" + _config.query);
             }
         }
 

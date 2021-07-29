@@ -54,10 +54,6 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
 
 public class SearchOrCustomTextDialogCreator {
-    private static boolean isTodoTxtAlternativeNaming(Context context) {
-        return new AppSettings(context).isTodoTxtAlternativeNaming();
-    }
-
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -203,8 +199,8 @@ public class SearchOrCustomTextDialogCreator {
         final List<Integer> availableDataToIconMap = new ArrayList<>();
 
         AppSettings appSettings = new AppSettings(activity.getApplicationContext());
-        String o_context = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.category : R.string.context);
-        String o_project = activity.getString(appSettings.isTodoTxtAlternativeNaming() ? R.string.tag : R.string.project);
+        String o_context = activity.getString(R.string.context);
+        String o_project = activity.getString(R.string.project);
         String o_prio = activity.getString(R.string.priority);
         String o_date = activity.getString(R.string.date);
         String o_textline = activity.getString(R.string.text_lines);
@@ -235,7 +231,7 @@ public class SearchOrCustomTextDialogCreator {
             availableDataToIconMap.add(iconRes);
         };
         addToList.callback(o_prio, R.drawable.ic_star_border_black_24dp);
-        addToList.callback(o_project, R.drawable.ic_local_offer_black_24dp);
+        addToList.callback(o_project, R.drawable.ic_new_label_black_24dp);
         addToList.callback(o_context, R.drawable.gs_email_sign_black_24dp);
         addToList.callback(o_date, R.drawable.ic_date_range_black_24dp);
         addToList.callback(o_duedate, R.drawable.ic_date_range_black_24dp);
@@ -261,9 +257,8 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.insert_category : R.string.insert_context;
+        dopt.titleText = R.string.insert_context;
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer i : result) {
                 callback.callback(dopt.data.get(i).toString());
@@ -277,15 +272,10 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(fullText);
         dopt.data = Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks));
-        if (isTodoTxtAlternativeNaming(activity)) {
-            dopt.titleText = isProjects ? R.string.search_tag : R.string.search_category;
-        } else {
-            dopt.titleText = isProjects ? R.string.search_project : R.string.search_context;
-        }
+        dopt.titleText = isProjects ? R.string.search_project : R.string.search_context;
         dopt.searchHintText = R.string.search_or_custom;
 
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (keyIndices) -> {
             SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt2);
@@ -315,7 +305,6 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.searchHintText = R.string.search;
             dopt2.highlighter = highlighter;
             dopt2.isMultiSelectEnabled = true;
-            dopt2.neutralButtonText = R.string.deselect;
             dopt2.positionCallback = (posns) -> {
                 final List<Integer> lineIndices = new ArrayList<>();
                 for (final int p : posns) {
@@ -362,10 +351,9 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
-        dopt.titleText = isTodoTxtAlternativeNaming(activity) ? R.string.insert_tag : R.string.insert_project;
+        dopt.titleText = R.string.insert_project;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
-        dopt.neutralButtonText = R.string.deselect;
         dopt.positionCallback = (result) -> {
             for (final Integer pi : result) {
                 callback.callback(dopt.data.get(pi).toString());
@@ -395,7 +383,6 @@ public class SearchOrCustomTextDialogCreator {
     public static void showTodoSearchDialog(Activity activity, Editable edit, int[] sel, Callback.a1<Spannable> highlighter, Callback.a1<List<Integer>> userCallback) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = basicSearchDialogopts(activity, edit, sel);
         dopt2.isMultiSelectEnabled = true;
-        dopt2.neutralButtonText = R.string.deselect;
         dopt2.positionCallback = userCallback;
         dopt2.highlighter = highlighter;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);

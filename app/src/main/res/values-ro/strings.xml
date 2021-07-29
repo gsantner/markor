@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Ajutor</string>
     <string name="todo_list">Listă de sarcini</string>
     <string name="task">Sarcină</string>
-    <string name="category">Categorie</string>
     <string name="context">Context</string>
     <string name="list">Listă</string>
     <string name="priority">Prioritate</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Contexte</string>
     <string name="project">Proiect</string>
     <string name="projects">Proiecte</string>
-    <string name="categories">Categorii</string>
     <string name="none">Nici unul</string>
     <string name="other">Altele</string>
-    <string name="alternative_naming">Denumire alternativă</string>
     <string name="empty_file">Fișier gol</string>
     <string name="break_page_pdf_print">Întrerupere pagină (PDF/Tipărire)</string>
     <string name="underline">Subliniere</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
     <string name="infinite">Infinit</string>
+    <string name="search_project">Căutare proiecte</string>
+    <string name="search_context">Caută contexte</string>
+    <string name="insert_project">Inserare proiecte</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

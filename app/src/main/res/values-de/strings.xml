@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Hilfe</string>
     <string name="todo_list">To-Do-Liste</string>
     <string name="task">Aufgabe</string>
-    <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
     <string name="list">Liste</string>
     <string name="priority">Priorität</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontexte</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekte</string>
-    <string name="categories">Kategorien</string>
     <string name="none">Nichts</string>
     <string name="other">Anderes</string>
-    <string name="alternative_naming">Alternative Benennung</string>
     <string name="empty_file">Leere Datei</string>
     <string name="break_page_pdf_print">Seite umbrechen (PDF/Drucken)</string>
     <string name="underline">Unterstreichen</string>
@@ -390,23 +387,23 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Ersetzen durch</string>
     <string name="replace_once">Ersetzen (1)</string>
     <string name="replace_all">Alle ersetzen</string>
-    <string name="matches">Matches</string>
-    <string name="search_replace_pattern_error_message">Fehler beim Suchen oder Ersetzen von Muster.</string>
-    <string name="backup_settings">Backup-Einstellungen</string>
+    <string name="matches">Treffer</string>
+    <string name="search_replace_pattern_error_message">Fehler beim Regex Muster.</string>
+    <string name="backup_settings">Einstellungen sichern</string>
     <string name="restore_settings">Einstellungen wiederherstellen</string>
-    <string name="failed_to_create_backup">Fehler beim Erstellen der Sicherung</string>
+    <string name="failed_to_create_backup">Fehler beim Erstellen des Backups</string>
     <string name="export_settings_to_json_file">Einstellungen in json-Datei exportieren</string>
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Einstellungen aus json-Datei importieren. Nach erfolgreichem Import wird die App neu gestartet.</string>
-    <string name="failed_to_restore_settings_from_backup">Fehler beim Wiederherstellen der Einstellungen aus der Sicherung</string>
+    <string name="failed_to_restore_settings_from_backup">Fehler beim Wiederherstellen der Einstellungen aus dem Backup</string>
     <string name="newline_is_new_paragraph">Newline = neuer Absatz</string>
     <string name="search_in_content">Inhalte durchsuchen</string>
     <string name="max_search_depth">Suchtiefe</string>
-    <string name="ignore_list">Liste ignorieren</string>
+    <string name="ignore_list">Ignorierliste</string>
     <string name="do_not_search_specified_files_and_folders">Angegebene Dateien und Ordner nicht durchsuchen.\nNeue Zeile als Trennzeichen verwenden.\nVerwenden Sie Anführungszeichen für exakte Verzeichnisnamen: \"Test\".\nOder verwenden Sie Regex \'^[.].*\'\nBeispiele: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.*.ini</string>
     <string name="regex_search">Regex-Suche</string>
     <string name="case_sensitive">Groß-/Kleinschreibung</string>
     <string name="stop_search_after_first_match">Suche nach dem ersten Treffer stoppen</string>
-    <string name="regex_can_not_be_compiled">Regex kann nicht aufgelöst werden</string>
+    <string name="regex_can_not_be_compiled">Ungültiges Regex Pattern</string>
     <string name="keep_both">Beides behalten</string>
     <string name="skip">Überspringen</string>
     <string name="overwrite">Überschreiben</string>
@@ -415,6 +412,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overwrite_all">Überschreiben (alle)</string>
     <string name="copy_move_conflict_message">\'%s\' existiert bereits in %s</string>
     <string name="additional_contexts_and_projects">Zusätzliche Kontexte und Projekte</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">Geben Sie einen durch Leerzeichen getrennten @contexts und +Projekte ein. Diese werden immer im todo.txt Einfügedialog sichtbar sein.</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Geben Sie durch Leerzeichen getrennte @contexts und +Projekte ein. Diese werden in den Dialogen bei allen todo.txt Dateien sichtbar sein.</string>
     <string name="infinite">Endlos</string>
+    <string name="search_project">Projekte suchen</string>
+    <string name="search_context">Kontexte suchen</string>
+    <string name="insert_project">Projekte einfügen</string>
+    <string name="insert_context">Kontexte einfügen</string>
 </resources>

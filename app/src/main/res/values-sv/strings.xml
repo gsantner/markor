@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Hjälp</string>
     <string name="todo_list">Att göra-lista</string>
     <string name="task">Uppgift</string>
-    <string name="category">Kategori</string>
     <string name="context">Kontext</string>
     <string name="list">Lista</string>
     <string name="priority">Prioritet</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontexter</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekt</string>
-    <string name="categories">Kategorier</string>
     <string name="none">Ingen</string>
     <string name="other">Andra</string>
-    <string name="alternative_naming">Alternativ namngivning</string>
     <string name="empty_file">Tom fil</string>
     <string name="break_page_pdf_print">Bryt sida (pdf/utskrift)</string>
     <string name="underline">Understruken</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
     <string name="infinite">Oändlig</string>
+    <string name="search_project">Sök projekt</string>
+    <string name="search_context">Sök kontexter</string>
+    <string name="insert_project">Infoga projekt</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Pomoć</string>
     <string name="todo_list">Popis zadataka</string>
     <string name="task">Zadatak</string>
-    <string name="category">Kategorija</string>
     <string name="context">Kontekst</string>
     <string name="list">Popis</string>
     <string name="priority">Prioritet</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Konteksti</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekti</string>
-    <string name="categories">Kategorije</string>
     <string name="none">Nema</string>
     <string name="other">Ostalo</string>
-    <string name="alternative_naming">Alternativni nazivi</string>
     <string name="empty_file">Prazna datoteka</string>
     <string name="break_page_pdf_print">Prekid stranice (PDF/printanje)</string>
     <string name="underline">Podvuci</string>

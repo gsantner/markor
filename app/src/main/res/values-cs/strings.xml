@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Nápověda</string>
     <string name="todo_list">Seznam úkolů</string>
     <string name="task">Úkol</string>
-    <string name="category">Kategorie</string>
     <string name="context">Kontext</string>
     <string name="list">Seznam</string>
     <string name="priority">Priorita</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontext</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekty</string>
-    <string name="categories">Kategorie</string>
     <string name="none">Nic</string>
     <string name="other">Ostatní</string>
-    <string name="alternative_naming">Alternativní pojmenování</string>
     <string name="empty_file">Prázdný soubor</string>
     <string name="break_page_pdf_print">Zalomení stránky (PDF/tisk)</string>
     <string name="underline">Podtržení</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
     <string name="infinite">Nekonečný</string>
+    <string name="search_project">Hledat projekty</string>
+    <string name="search_context">Hledat kontexty</string>
+    <string name="insert_project">Vložit projekty</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Помощь</string>
     <string name="todo_list">Список дел</string>
     <string name="task">Задача</string>
-    <string name="category">Категория</string>
     <string name="context">Контекст</string>
     <string name="list">Список</string>
     <string name="priority">Важность</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Контекст</string>
     <string name="project">Проект</string>
     <string name="projects">Проекты</string>
-    <string name="categories">Категории</string>
     <string name="none">Нет</string>
     <string name="other">Другие</string>
-    <string name="alternative_naming">Альтернативное именование</string>
     <string name="empty_file">Пустой файл</string>
     <string name="break_page_pdf_print">Новая страница (PDF/печать)</string>
     <string name="underline">Подчёркивание</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
     <string name="infinite">Бесконечный</string>
+    <string name="search_project">Поиск проектов</string>
+    <string name="search_context">Поисковые контексты</string>
+    <string name="insert_project">Вставить проекты</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

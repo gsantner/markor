@@ -44,7 +44,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="web_browser" translatable="false">Web browser</string>
     <string name="app_drawer_launcher_special_files_description" translatable="false">App drawer launchers - To-Do, QuickNote</string>
 
-    <string name="category_to_context_project_to_tag" translatable="false">%1$s -> %2$s, %3$s -> %4$s</string>
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>
     <string name="app_theme_light" translatable="false">light</string>
     <string name="app_theme_dark" translatable="false">dark</string>
@@ -138,7 +137,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__start_new_tasks_with_todays_date" translatable="false">pref_key__todotxt__start_new_tasks_with_todays_date</string>
     <string name="pref_key__todotxt__append_contexts_and_projects_on_end_of_task" translatable="false">pref_key__todotxt__append_contexts_and_projects_on_end_of_task</string>
     <string name="pref_key__todotxt__last_used_archive_filename" translatable="false">pref_key__todotxt__last_used_archive_filename</string>
-    <string name="pref_key__todotxt__alternative_naming_context_project" translatable="false">pref_key__todotxt__alternative_naming_context_project</string>
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>

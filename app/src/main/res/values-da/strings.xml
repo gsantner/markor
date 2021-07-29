@@ -98,7 +98,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Hjælp</string>
     <string name="todo_list">To-Do liste</string>
     <string name="task">Opgave</string>
-    <string name="category">Kategori</string>
     <string name="context">Kontekst</string>
     <string name="list">Liste</string>
     <string name="priority">Prioritet</string>
@@ -147,10 +146,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Kontekster</string>
     <string name="project">Projekt</string>
     <string name="projects">Projekter</string>
-    <string name="categories">Kategorier</string>
     <string name="none">Ingen</string>
     <string name="other">Andet</string>
-    <string name="alternative_naming">Alternativ navngivning</string>
     <string name="empty_file">Tom fil</string>
     <string name="break_page_pdf_print">Bryd side (PDF/Udskrivning)</string>
     <string name="underline">Understreget</string>
@@ -417,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
     <string name="infinite">Uendelig</string>
+    <string name="search_project">Søg i projekter</string>
+    <string name="search_context">Søg i kontekster</string>
+    <string name="insert_project">Indsæt projekter</string>
+    <string name="insert_context">Insert contexts</string>
 </resources>

@@ -26,12 +26,10 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.TooltipCompat;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,6 +46,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -230,20 +229,7 @@ public class SearchOrCustomTextDialog {
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);
         searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
-        searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(final Editable arg0) {
-                listAdapter.getFilter().filter(searchEditText.getText());
-            }
-
-            @Override
-            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
-
-            @Override
-            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
-        });
+        searchEditText.addTextChangedListener(TextWatcherDummy.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
 
         final ContextUtils cu = new ContextUtils(activity);
         final int margin = (int) cu.convertDpToPx(8);
@@ -295,6 +281,7 @@ public class SearchOrCustomTextDialog {
             dialogBuilder.setTitle(dopt.titleText);
         }
 
+        // Ok button action
         if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
@@ -305,6 +292,13 @@ public class SearchOrCustomTextDialog {
                 } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
                     dopt.callback.callback(searchText);
                 }
+            });
+        }
+
+        // Setup neutralbutton
+        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
+            dialogBuilder.setNeutralButton(dopt.neutralButtonText, (dialogInterface, i) -> {
+                dopt.neutralButtonCallback.callback();
             });
         }
 
@@ -345,46 +339,7 @@ public class SearchOrCustomTextDialog {
             listAdapter.getFilter().filter(searchEditText.getText());
         }
 
-        final Button neutralButton = dialog.getButton(Dialog.BUTTON_NEUTRAL);
-
-        // Specified neutral button action
-        final Callback.a0 neutralButtonUserImpl = () -> {
-            if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
-                neutralButton.setPadding(0, 0, 0, 0);
-                neutralButton.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                neutralButton.setVisibility(Button.VISIBLE);
-                neutralButton.setText(listAdapter._dopt.neutralButtonText);
-                neutralButton.setOnClickListener((v) -> {
-                    dialog.dismiss();
-                    listAdapter._dopt.neutralButtonCallback.callback();
-                });
-            } else {
-                neutralButton.setVisibility(Button.INVISIBLE);
-            }
-        };
-
-        // Neutral button to clear selection
-        final Callback.a0 neutralButtonClearImpl = () -> {
-            neutralButton.setVisibility(Button.VISIBLE);
-            neutralButton.setText(listAdapter._dopt.neutralButtonText != 0 ? listAdapter._dopt.neutralButtonText : android.R.string.cut);
-            neutralButton.setText(neutralButton.getText() + " (" + listAdapter._selectedItems.size() + ")");
-            neutralButton.setOnClickListener((v) -> {
-                listAdapter._selectedItems.clear();
-                listAdapter.notifyDataSetChanged();
-                neutralButtonUserImpl.callback();
-            });
-        };
-
-        // Toggle neutral button between default action and clear
-        final Callback.a0 neutralAction = () -> {
-            if (listAdapter._selectedItems.isEmpty()) {
-                neutralButtonUserImpl.callback();
-            } else {
-                neutralButtonClearImpl.callback();
-            }
-        };
-
-        // Callback to trigger with single item
+        // Helper function to trigger callback with single item
         final Callback.b1<Integer> directActivate = (position) -> {
             final int index = listAdapter._filteredItems.get(position);
             dialog.dismiss();
@@ -397,7 +352,17 @@ public class SearchOrCustomTextDialog {
             return true;
         };
 
-        // Click listener set to select or activate as appropriate
+        // Helper function to append selection count to OK button
+        final Button okButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
+        final String okText = activity.getString(dopt.okButtonText) + (dopt.isMultiSelectEnabled ? " (%d)" : "");
+        final Callback.a0 setOkButtonState = () -> {
+            okButton.setText(okText.replace("%d", Integer.toString(listAdapter._selectedItems.size())));
+        };
+
+        // Set ok button text initially
+        setOkButtonState.callback();
+
+        // Item click action
         listView.setOnItemClickListener((parent, textView, pos, id) -> {
             if (dopt.isMultiSelectEnabled) {
                 final int index = listAdapter._filteredItems.get(pos);
@@ -409,7 +374,7 @@ public class SearchOrCustomTextDialog {
                 if (textView instanceof Checkable) {
                     ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
                 }
-                neutralAction.callback();
+                setOkButtonState.callback();
             } else {
                 directActivate.callback(pos);
             }
@@ -417,8 +382,5 @@ public class SearchOrCustomTextDialog {
 
         // long click always activates
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
-
-        // Initialize neutral button state
-        neutralAction.callback();
     }
 }
