@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -110,6 +111,9 @@ public class SearchOrCustomTextDialog {
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
+        @LayoutRes
+        private final int _layout;
+        private final int _layoutHeight;
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
         private final List<Integer> _filteredItems;
@@ -117,16 +121,20 @@ public class SearchOrCustomTextDialog {
         private final Pattern _extraPattern;
 
         public static Adapter create(final Context context, final DialogOptions dopt) {
-            return new Adapter(context, dopt, new ArrayList<>());
+            return new Adapter(context, dopt, dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, new ArrayList<>());
         }
 
-        private Adapter(final Context context, final DialogOptions dopt, final List<Integer> filteredItems) {
-            super(context, dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, filteredItems);
+        private Adapter(final Context context, final DialogOptions dopt, final int layout, final List<Integer> filteredItems) {
+            super(context, layout, filteredItems);
+            _layout = layout;
             _filteredItems = filteredItems;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+            ContextUtils cu = new ContextUtils(context);
+            _layoutHeight = (int) cu.convertDpToPx(36);
+            cu.freeContextRef();
         }
 
         @NonNull
@@ -136,7 +144,9 @@ public class SearchOrCustomTextDialog {
 
             final TextView textView;
             if (convertView == null) {
-                textView = (TextView) _inflater.inflate(_dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, parent, false);
+                textView = (TextView) _inflater.inflate(_layout, parent, false);
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                textView.setMinHeight(_layoutHeight);
             } else {
                 textView = (TextView) convertView;
             }
@@ -144,7 +154,6 @@ public class SearchOrCustomTextDialog {
             if (textView instanceof Checkable) {
                 ((Checkable) textView).setChecked(_selectedItems.contains(index));
             }
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
             if (index >= 0 && _dopt.iconsForData != null && index < _dopt.iconsForData.size() && _dopt.iconsForData.get(index) != 0) {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
