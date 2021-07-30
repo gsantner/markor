@@ -54,6 +54,8 @@ public class TodoTxtTask {
     public static final Pattern PATTERN_COMPLETION_DATE = Pattern.compile("(?:^|\\n)(?:[Xx] )(" + PT_DATE + ")?");
     public static final Pattern PATTERN_CREATION_DATE = Pattern.compile("(?:^|\\n)(?:\\([A-Za-z]\\)\\s)?(?:[Xx] " + PT_DATE + " )?(" + PT_DATE + ")");
 
+    public static final char NULL_PRIORITY = '~';
+
     public static String getToday() {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
@@ -167,7 +169,7 @@ public class TodoTxtTask {
             if (ret.length() == 1) {
                 priority = ret.charAt(0);
             } else {
-                priority = '~'; // No priority == lowest priority
+                priority = NULL_PRIORITY; // No priority == lowest priority
             }
         }
         return priority;

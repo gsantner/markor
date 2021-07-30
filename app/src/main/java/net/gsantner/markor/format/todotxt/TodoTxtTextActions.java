@@ -53,8 +53,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            final Editable edit = _hlEditor.getText();
-            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, edit, StringUtils.getSelection(_hlEditor), this::doBasicHighlights, this::selectLines);
+            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, _hlEditor);
             return true;
         }
         return runCommonTextAction(action);
@@ -238,17 +237,15 @@ public class TodoTxtTextActions extends TextActions {
 
         @Override
         public boolean onLongClick(View v) {
-            String origText = _hlEditor.getText().toString();
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-            final TodoTxtTextActions t_this = TodoTxtTextActions.this;
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, false, t_this::selectLines);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, false);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, true, t_this::selectLines);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, true);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {

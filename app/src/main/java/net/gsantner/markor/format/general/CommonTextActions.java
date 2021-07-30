@@ -29,6 +29,8 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
+import java.util.Collections;
+
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
@@ -170,12 +172,7 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), (lineNr) -> {
-                    if (!_hlEditor.hasFocus()) {
-                        _hlEditor.requestFocus();
-                    }
-                    _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
-                });
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor);
                 return true;
             }
             case ACTION_JUMP_BOTTOM_TOP: {
