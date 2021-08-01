@@ -53,7 +53,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, _hlEditor);
+            SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
             return true;
         }
         return runCommonTextAction(action);

@@ -435,4 +435,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_project">Insert projects</string>
     <string name="insert_context">Insert contexts</string>
     <string name="filter_tasks">Filter tasks</string>
+    <string name="search_priority">Search priority</string>
+    <string name="due_overdue">Overdue</string>
+    <string name="due_today">Due today</string>
+    <string name="due_future">Not due</string>
+    <string name="completed">Completed</string>
 </resources>
