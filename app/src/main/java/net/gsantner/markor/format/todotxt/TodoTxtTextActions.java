@@ -240,19 +240,10 @@ public class TodoTxtTextActions extends TextActions {
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             switch (_action) {
-                case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, false);
-                    return true;
-                }
-                case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, true);
-                    return true;
-                }
                 case R.string.tmaid_common_special_key: {
                     commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
-
                 case R.string.tmaid_common_open_link_browser: {
                     commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
