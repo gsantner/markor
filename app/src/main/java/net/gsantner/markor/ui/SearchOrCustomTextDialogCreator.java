@@ -23,6 +23,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -47,8 +48,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
+
+import javax.security.auth.callback.CallbackHandler;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -277,28 +282,31 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
 
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final TreeSet<String> availablePriorities = new TreeSet<>();
+        final TreeSet<String> cases = new TreeSet<>();
         for (final TodoTxtTask task : allTasks) {
             if (!task.isDone()) {
-                availablePriorities.add(Character.toString(task.getPriority()).toUpperCase());
+                cases.add(Character.toString(task.getPriority()));
             }
         }
-        final List<String> data = new ArrayList<>();
-        if (availablePriorities.remove(Character.toString(TodoTxtTask.NULL_PRIORITY))) {
-            final String noneString = activity.getString(R.string.none);
-            data.add(noneString);
-            dopt.highlightData = Collections.singletonList(noneString);
+
+        final List<String> data = new ArrayList<>(cases);
+
+        // Pull out the None case
+        final boolean hasNone = data.remove(Character.toString(TodoTxtTask.NULL_PRIORITY));
+        if (hasNone) {
+            data.add(0, activity.getString(R.string.none));
+            dopt.highlightData = Collections.singletonList(data.get(0));
         }
-        data.addAll(availablePriorities);
+
+        dopt.data = data;
         dopt.positionCallback = (posns) -> {
             final Set<Character> selPris = new HashSet<>();
             for (final int p : posns) {
-                selPris.add(p == 0 ? TodoTxtTask.NULL_PRIORITY : data.get(p).charAt(0));
+                selPris.add((p == 0 && hasNone) ? TodoTxtTask.NULL_PRIORITY : dopt.data.get(p).charAt(0));
             }
-            showSttLineSelectionDialog(activity, text, (i, task) -> !task.isDone() && selPris.contains(task.getPriority()));
+            showSttLineSelectionDialog(activity, text, task -> !task.isDone() && selPris.contains(task.getPriority()));
         };
 
-        dopt.data = data;
         dopt.titleText = R.string.search_priority;
         dopt.isMultiSelectEnabled = true;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -308,39 +316,39 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
-        // Values must match indices
-        final int[] titles = {R.string.due_overdue, R.string.due_today, R.string.due_future, R.string.none};
-        final int OVERDUE = 0, TODAY = 1, FUTURE = 2, NONE = 3;
-
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final String now = TodoTxtTask.getToday();
-        final List<Integer> cases = new ArrayList<>();
-
-        for (final TodoTxtTask allTask : allTasks) {
-            final String due = allTask.getDueDate();
-            if (TextUtils.isEmpty(due)) {
-                cases.add(NONE);
-            } else {
-                final int compare = due.compareTo(now);
-                cases.add((compare < 0) ? OVERDUE : (compare == 0) ? TODAY : FUTURE);
+        final Set<TodoTxtTask.DUE_STATUS> cases = new HashSet<>();
+        for (final TodoTxtTask task : allTasks) {
+            if (!task.isDone()) {
+                cases.add(task.getDueStatus());
             }
         }
 
-        final List<String> options = new ArrayList<>();
-        final List<Integer> presentCases = new ArrayList<>(new TreeSet<>(cases));
-        for (int i : presentCases) {
-            options.add(activity.getString(titles[i]));
+        // Matching order
+        final int[] titles = {R.string.none, R.string.due_overdue, R.string.due_today, R.string.due_future};
+        final TodoTxtTask.DUE_STATUS[] order = {
+                TodoTxtTask.DUE_STATUS.NONE, TodoTxtTask.DUE_STATUS.OVERDUE, TodoTxtTask.DUE_STATUS.TODAY, TodoTxtTask.DUE_STATUS.FUTURE };
+
+        final List<String> data = new ArrayList<>();
+        final List<TodoTxtTask.DUE_STATUS> present = new ArrayList<>();
+        for (int i = 0; i < titles.length; i++) {
+            if (cases.contains(order[i])) {
+                data.add(activity.getString(titles[i]));
+                present.add(order[i]);
+            }
         }
-        dopt.data = options;
+
+        dopt.data = data;
+        dopt.highlightData = Collections.singletonList(activity.getString(R.string.none));
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.due_date;
         dopt.isMultiSelectEnabled = true;
         dopt.positionCallback = (posns) -> {
-            final Set<Integer> selectedCases = new HashSet<>();
-            for (int p : posns) {
-                selectedCases.add(presentCases.get(p));
+            final Set<TodoTxtTask.DUE_STATUS> selected = new HashSet<>();
+            for (final int p : posns) {
+                selected.add(present.get(p));
             }
-            showSttLineSelectionDialog(activity, text, (i, task)->selectedCases.contains(cases.get(i)));
+            showSttLineSelectionDialog(activity, text, (task)-> !task.isDone() && selected.contains(task.getDueStatus()));
         };
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -356,7 +364,12 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.search));
         icons.add(R.drawable.ic_search_black_24dp);
-        callbacks.add(() -> showSttLineSelectionDialog(activity, text, (i, t) -> true));
+        callbacks.add(() -> showSttLineSelectionDialog(activity, text, t -> true));
+
+        // TODO - icon
+        options.add(activity.getString(R.string.search_and_replace));
+        icons.add(R.drawable.ic_search_black_24dp);
+        callbacks.add(() -> SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text)));
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
@@ -376,7 +389,7 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
-        callbacks.add(() -> showSttLineSelectionDialog(activity, text, (i, task) -> task.isDone()));
+        callbacks.add(() -> showSttLineSelectionDialog(activity, text, TodoTxtTask::isDone));
 
         dopt.data = options;
         dopt.iconsForData = icons;
@@ -387,14 +400,14 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b2<Integer, TodoTxtTask> filter) {
+    public static void showSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
         final List<Integer> lineIndices = new ArrayList<>();
         for (int i = 0; i < allTasks.length; i++)  {
-            if (filter.callback(i, allTasks[i])) {
+            if (filter.callback(allTasks[i])) {
                 lines.add(allTasks[i].getLine());
                 lineIndices.add(i);
             }
@@ -437,7 +450,7 @@ public class SearchOrCustomTextDialogCreator {
                 searchKeys.add(keys.get(i));
             }
 
-            showSttLineSelectionDialog(activity, text, (i, task) -> {
+            showSttLineSelectionDialog(activity, text, (task) -> {
                 final List<String> taskKeys = Arrays.asList(isProjects ? task.getProjects() : task.getContexts());
                 return (taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchKeys, taskKeys));
             });

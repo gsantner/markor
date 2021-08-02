@@ -167,7 +167,7 @@ public class TodoTxtTask {
         if (priority == null) {
             final String ret = parseOneValueOrDefault(line, PATTERN_PRIORITY_ANY, "");
             if (ret.length() == 1) {
-                priority = ret.charAt(0);
+                priority = Character.toUpperCase(ret.charAt(0));
             } else {
                 priority = NULL_PRIORITY; // No priority == lowest priority
             }
@@ -209,6 +209,20 @@ public class TodoTxtTask {
             dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, 3, defaultValue);
         }
         return dueDate;
+    }
+
+    public enum DUE_STATUS {
+        NONE, OVERDUE, TODAY, FUTURE
+    }
+
+    public DUE_STATUS getDueStatus() {
+        final String date = getDueDate();
+        if (TextUtils.isEmpty(date)) {
+            return DUE_STATUS.NONE;
+        } else {
+            final int comp = date.compareTo(getToday());
+            return (comp > 0) ? DUE_STATUS.FUTURE : (comp < 0) ? DUE_STATUS.OVERDUE : DUE_STATUS.TODAY;
+        }
     }
 
     public String getCompletionDate() {
