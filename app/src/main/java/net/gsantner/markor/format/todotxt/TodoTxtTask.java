@@ -54,7 +54,11 @@ public class TodoTxtTask {
     public static final Pattern PATTERN_COMPLETION_DATE = Pattern.compile("(?:^|\\n)(?:[Xx] )(" + PT_DATE + ")?");
     public static final Pattern PATTERN_CREATION_DATE = Pattern.compile("(?:^|\\n)(?:\\([A-Za-z]\\)\\s)?(?:[Xx] " + PT_DATE + " )?(" + PT_DATE + ")");
 
-    public static final char NULL_PRIORITY = '~';
+    public static final char PRIORITY_NONE = '~';
+
+    public enum DUE_STATUS {
+        NONE, OVERDUE, TODAY, FUTURE
+    }
 
     public static String getToday() {
         return DATEF_YYYY_MM_DD.format(new Date());
@@ -133,6 +137,7 @@ public class TodoTxtTask {
     private String completionDate = null;
     private String dueDate = null;
     private String description = null;
+    private DUE_STATUS dueStatus = null;
 
     public TodoTxtTask(final String line) {
         this.line = line;
@@ -169,7 +174,7 @@ public class TodoTxtTask {
             if (ret.length() == 1) {
                 priority = Character.toUpperCase(ret.charAt(0));
             } else {
-                priority = NULL_PRIORITY; // No priority == lowest priority
+                priority = PRIORITY_NONE; // No priority == lowest priority
             }
         }
         return priority;
@@ -211,18 +216,17 @@ public class TodoTxtTask {
         return dueDate;
     }
 
-    public enum DUE_STATUS {
-        NONE, OVERDUE, TODAY, FUTURE
-    }
-
     public DUE_STATUS getDueStatus() {
-        final String date = getDueDate();
-        if (TextUtils.isEmpty(date)) {
-            return DUE_STATUS.NONE;
-        } else {
-            final int comp = date.compareTo(getToday());
-            return (comp > 0) ? DUE_STATUS.FUTURE : (comp < 0) ? DUE_STATUS.OVERDUE : DUE_STATUS.TODAY;
+        if (dueStatus == null) {
+            final String date = getDueDate();
+            if (TextUtils.isEmpty(date)) {
+                dueStatus = DUE_STATUS.NONE;
+            } else {
+                final int comp = date.compareTo(getToday());
+                dueStatus = (comp > 0) ? DUE_STATUS.FUTURE : (comp < 0) ? DUE_STATUS.OVERDUE : DUE_STATUS.TODAY;
+            }
         }
+        return dueStatus;
     }
 
     public String getCompletionDate() {

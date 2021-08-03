@@ -12,16 +12,11 @@ package net.gsantner.markor.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -58,7 +53,6 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
-// import static net.gsantner.markor.format.todotxt.TodoTxtTask.DUE_STATUS;
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
@@ -138,38 +132,6 @@ public class SearchOrCustomTextDialogCreator {
             };
             FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
         }
-    }
-
-    public static void showRecentDocumentsDialog(Activity activity, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = callback;
-
-        final StyleSpan boldSpan = new StyleSpan(android.graphics.Typeface.BOLD);
-        final RelativeSizeSpan sizeSpan = new RelativeSizeSpan(0.75f);
-        ArrayList<Spannable> spannables = new ArrayList<>();
-
-        AppSettings appSettings = new AppSettings(activity.getApplicationContext());
-        String tmps;
-        for (String document : appSettings.getRecentDocuments()) {
-            final SpannableStringBuilder sb = new SpannableStringBuilder(document);
-            try {
-                sb.setSpan(boldSpan, document.lastIndexOf("/"), document.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                if (document.startsWith((tmps = appSettings.getNotebookDirectoryAsStr()))) {
-                    sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                } else if (document.startsWith((tmps = Environment.getExternalStorageDirectory().toString()))) {
-                    sb.setSpan(sizeSpan, 0, tmps.length() + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-                }
-            } catch (Exception ignored) {
-                // setSpan may throw error
-            }
-            spannables.add(sb);
-        }
-        dopt.data = spannables;
-
-        dopt.titleText = R.string.recently_viewed_documents;
-        dopt.isSearchEnabled = false;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showSttArchiveDialog(Activity activity, Callback.a1<String> callback) {
@@ -300,7 +262,7 @@ public class SearchOrCustomTextDialogCreator {
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
         callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.search_priority, task ->
-            task.getPriority() == TodoTxtTask.NULL_PRIORITY ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
+            task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
 
         options.add(activity.getString(R.string.due_date));
         icons.add(R.drawable.ic_date_range_black_24dp);
@@ -319,7 +281,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.iconsForData = icons;
         dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
         dopt.isSearchEnabled = false;
-        dopt.titleText = R.string.filter_tasks;
+        dopt.titleText = R.string.filter_todo;
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -359,21 +321,35 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
 
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final TreeSet<String> keys = new TreeSet<>();
-        boolean hasNone = false;
+
+        final List<String> keys = new ArrayList<>();
+        final int[] noneCount = {0}; // Using an array as we need a final var
         for (final TodoTxtTask task : allTasks) {
-            final List<String> taskKeys = getKeys.callback(task);
-            hasNone |= taskKeys.size() == 0;
-            keys.addAll(taskKeys);
+            if (!task.isDone()) {
+                final List<String> taskKeys = getKeys.callback(task);
+                noneCount[0] += (taskKeys.size() == 0) ? 1 : 0;
+                keys.addAll(taskKeys);
+            }
         }
-        final List<String> data = new ArrayList<>();
-        if (hasNone) {
-            final String noneString = activity.getString(R.string.none);
-            data.add(noneString);
+
+        final List<String> options = new ArrayList<>(), data = new ArrayList<>();
+        final boolean includeCounts = new AppSettings(activity).getIncludeTodoFilterCounts();
+        final Callback.s2<String, Integer> getOptionString = (s, c) -> includeCounts ? String.format("%s (%d)", s, c) : s;
+
+        // Add none case
+        if (noneCount[0] > 0) {
+            final String noneString = getOptionString.callback(activity.getString(R.string.none), noneCount[0]);
+            options.add(noneString);
+            data.add(""); // Dummy to make options match data
             dopt.highlightData = Collections.singletonList(noneString);
         }
-        data.addAll(keys);
-        dopt.data = data;
+
+        // Add other cases
+        for (final String k : new TreeSet<>(keys)) {
+            options.add(getOptionString.callback(k, Collections.frequency(keys, k)));
+            data.add(k);
+        }
+        dopt.data = options;
 
         dopt.neutralButtonText = R.string.back_to_filter;
         dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
@@ -381,21 +357,20 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
 
-        boolean finalHasNone = hasNone;
         dopt.positionCallback = (keyIndices) -> {
 
             // Filter tasks with selected projects / contexts
             final Set<String> searchKeys = new HashSet<>();
-            final boolean noneIncluded = finalHasNone && keyIndices.contains(0);
+            final boolean noneIncluded =  (noneCount[0] > 0) && keyIndices.contains(0);
             for (final int i : keyIndices) {
-                if (!((i == 0) && finalHasNone)) {
+                if ((i != 0) || !noneIncluded) {
                     searchKeys.add(data.get(i));
                 }
             }
 
             showSttLineSelectionDialog(activity, text, (task) -> {
                 final List<String> taskKeys = getKeys.callback(task);
-                return (taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchKeys, taskKeys));
+                return !task.isDone() && ((taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchKeys, taskKeys)));
             });
         };
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -531,7 +506,7 @@ public class SearchOrCustomTextDialogCreator {
             availableData.add(Character.toString((char) i));
         }
         highlightedData.add(none);
-        if (selectedPriority != TodoTxtTask.NULL_PRIORITY) {
+        if (selectedPriority != TodoTxtTask.PRIORITY_NONE) {
             highlightedData.add(Character.toString(selectedPriority));
         }
 
