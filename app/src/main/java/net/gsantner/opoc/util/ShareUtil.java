@@ -94,9 +94,9 @@ public class ShareUtil {
     public final static int MIN_OVERWRITE_LENGTH = 5;
 
     protected static String _lastCameraPictureFilepath;
+    protected static String _fileProviderAuthority;
 
     protected Context _context;
-    protected String _fileProviderAuthority;
     protected String _chooserTitle;
 
     public ShareUtil(final Context context) {
@@ -119,9 +119,8 @@ public class ShareUtil {
         return _fileProviderAuthority;
     }
 
-    public ShareUtil setFileProviderAuthority(final String fileProviderAuthority) {
+    public static void setFileProviderAuthority(final String fileProviderAuthority) {
         _fileProviderAuthority = fileProviderAuthority;
-        return this;
     }
 
 
@@ -231,9 +230,9 @@ public class ShareUtil {
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             showChooser(intent, null);
             return true;
-        } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument
-            return false;
+        } catch (Exception ignored) { // FileUriExposed(API24) / IllegalArgument
         }
+        return false;
     }
 
     /**
