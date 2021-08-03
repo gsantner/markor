@@ -14,7 +14,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.telecom.Call;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -23,7 +22,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -48,12 +46,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-
-import javax.security.auth.callback.CallbackHandler;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -62,6 +56,7 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.DUE_STATUS;
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
@@ -307,6 +302,8 @@ public class SearchOrCustomTextDialogCreator {
             showSttLineSelectionDialog(activity, text, task -> !task.isDone() && selPris.contains(task.getPriority()));
         };
 
+        dopt.neutralButtonText = R.string.back_to_filter;
+        dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
         dopt.titleText = R.string.search_priority;
         dopt.isMultiSelectEnabled = true;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -317,7 +314,7 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
 
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final Set<TodoTxtTask.DUE_STATUS> cases = new HashSet<>();
+        final Set<DUE_STATUS> cases = new HashSet<>();
         for (final TodoTxtTask task : allTasks) {
             if (!task.isDone()) {
                 cases.add(task.getDueStatus());
@@ -326,8 +323,7 @@ public class SearchOrCustomTextDialogCreator {
 
         // Matching order
         final int[] titles = {R.string.none, R.string.due_overdue, R.string.due_today, R.string.due_future};
-        final TodoTxtTask.DUE_STATUS[] order = {
-                TodoTxtTask.DUE_STATUS.NONE, TodoTxtTask.DUE_STATUS.OVERDUE, TodoTxtTask.DUE_STATUS.TODAY, TodoTxtTask.DUE_STATUS.FUTURE };
+        final DUE_STATUS[] order = { DUE_STATUS.NONE, DUE_STATUS.OVERDUE, DUE_STATUS.TODAY, DUE_STATUS.FUTURE };
 
         final List<String> data = new ArrayList<>();
         final List<TodoTxtTask.DUE_STATUS> present = new ArrayList<>();
@@ -338,6 +334,8 @@ public class SearchOrCustomTextDialogCreator {
             }
         }
 
+        dopt.neutralButtonText = R.string.back_to_filter;
+        dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
         dopt.data = data;
         dopt.highlightData = Collections.singletonList(activity.getString(R.string.none));
         dopt.isSearchEnabled = false;
@@ -366,9 +364,8 @@ public class SearchOrCustomTextDialogCreator {
         icons.add(R.drawable.ic_search_black_24dp);
         callbacks.add(() -> showSttLineSelectionDialog(activity, text, t -> true));
 
-        // TODO - icon
         options.add(activity.getString(R.string.search_and_replace));
-        icons.add(R.drawable.ic_search_black_24dp);
+        icons.add(R.drawable.ic_baseline_find_replace_24);
         callbacks.add(() -> SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text)));
 
         options.add(activity.getString(R.string.project));
@@ -418,6 +415,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.highlighter = getSttHighlighter(activity);
         dopt.searchHintText = R.string.search;
         dopt.titleText = R.string.search;
+        dopt.neutralButtonText = R.string.back_to_filter;
+        dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
         dopt.positionCallback = (posns) -> {
             final List<Integer> selIndices = new ArrayList<>();
             for (final Integer p : posns) {
@@ -438,6 +437,8 @@ public class SearchOrCustomTextDialogCreator {
         keys.addAll(Arrays.asList(isProjects ? TodoTxtTask.getProjects(allTasks) : TodoTxtTask.getContexts(allTasks)));
         dopt.data = keys;
         dopt.highlightData = Collections.singletonList(noneString);
+        dopt.neutralButtonText = R.string.back_to_filter;
+        dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
         dopt.titleText = isProjects ? R.string.search_project : R.string.search_context;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
