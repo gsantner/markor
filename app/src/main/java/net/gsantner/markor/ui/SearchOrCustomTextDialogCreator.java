@@ -44,8 +44,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -56,7 +58,7 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.DUE_STATUS;
+// import static net.gsantner.markor.format.todotxt.TodoTxtTask.DUE_STATUS;
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
@@ -271,49 +273,6 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttDueDateSearchDialog(final Activity activity, final EditText text) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-
-        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
-        final Set<DUE_STATUS> cases = new HashSet<>();
-        for (final TodoTxtTask task : allTasks) {
-            if (!task.isDone()) {
-                cases.add(task.getDueStatus());
-            }
-        }
-
-        // Matching order
-        final int[] titles = {R.string.none, R.string.due_overdue, R.string.due_today, R.string.due_future};
-        final DUE_STATUS[] order = { DUE_STATUS.NONE, DUE_STATUS.OVERDUE, DUE_STATUS.TODAY, DUE_STATUS.FUTURE };
-
-        final List<String> data = new ArrayList<>();
-        final List<TodoTxtTask.DUE_STATUS> present = new ArrayList<>();
-        for (int i = 0; i < titles.length; i++) {
-            if (cases.contains(order[i])) {
-                data.add(activity.getString(titles[i]));
-                present.add(order[i]);
-            }
-        }
-
-        dopt.neutralButtonText = R.string.back_to_filter;
-        dopt.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
-        dopt.data = data;
-        dopt.highlightData = Collections.singletonList(activity.getString(R.string.none));
-        dopt.isSearchEnabled = false;
-        dopt.titleText = R.string.due_date;
-        dopt.isMultiSelectEnabled = true;
-        dopt.positionCallback = (posns) -> {
-            final Set<TodoTxtTask.DUE_STATUS> selected = new HashSet<>();
-            for (final int p : posns) {
-                selected.add(present.get(p));
-            }
-            showSttLineSelectionDialog(activity, text, (task)-> !task.isDone() && selected.contains(task.getDueStatus()));
-        };
-
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -341,12 +300,16 @@ public class SearchOrCustomTextDialogCreator {
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
         callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.search_priority, task ->
-            task.getPriority() == TodoTxtTask.NULL_PRIORITY ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))
-        ));
+            task.getPriority() == TodoTxtTask.NULL_PRIORITY ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
 
         options.add(activity.getString(R.string.due_date));
         icons.add(R.drawable.ic_date_range_black_24dp);
-        callbacks.add(() -> showSttDueDateSearchDialog(activity, text));
+        final Map<TodoTxtTask.DUE_STATUS, String> statusMap = new HashMap<>();
+        statusMap.put(TodoTxtTask.DUE_STATUS.TODAY, activity.getString(R.string.due_today));
+        statusMap.put(TodoTxtTask.DUE_STATUS.OVERDUE, activity.getString(R.string.due_overdue));
+        statusMap.put(TodoTxtTask.DUE_STATUS.FUTURE, activity.getString(R.string.due_future));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.due_date, task ->
+                task.getDueStatus() == TodoTxtTask.DUE_STATUS.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);

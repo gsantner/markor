@@ -438,7 +438,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_priority">Search priority</string>
     <string name="due_overdue">Overdue</string>
     <string name="due_today">Due today</string>
-    <string name="due_future">Not due</string>
+    <string name="due_future">Not due yet</string>
     <string name="completed">Completed</string>
     <string name="back_to_filter">Back to filter tasks</string>
 </resources>
