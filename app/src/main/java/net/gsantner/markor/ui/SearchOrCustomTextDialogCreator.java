@@ -253,15 +253,15 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.search_project, true, task -> Arrays.asList(task.getProjects())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_project, true, task -> Arrays.asList(task.getProjects())));
 
         options.add(activity.getString(R.string.context));
         icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.search_context, true, task -> Arrays.asList(task.getContexts())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_context, true, task -> Arrays.asList(task.getContexts())));
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.search_priority, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_priority, false, task ->
             task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
 
         options.add(activity.getString(R.string.due_date));
@@ -270,7 +270,7 @@ public class SearchOrCustomTextDialogCreator {
         statusMap.put(TodoTxtTask.DUE_STATUS.TODAY, activity.getString(R.string.due_today));
         statusMap.put(TodoTxtTask.DUE_STATUS.OVERDUE, activity.getString(R.string.due_overdue));
         statusMap.put(TodoTxtTask.DUE_STATUS.FUTURE, activity.getString(R.string.due_future));
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.due_date, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_due_date, false, task ->
                 task.getDueStatus() == TodoTxtTask.DUE_STATUS.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
 
         options.add(activity.getString(R.string.completed));
