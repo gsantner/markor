@@ -156,7 +156,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.searchHintText = R.string.search_or_custom;
-        dopt.messageText = activity.getString(R.string.archive_does_move_done_todo);
+        dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -213,7 +213,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogHeightDp = 530;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
 
-        dopt.titleText = R.string.sort_todos_by_selected_order;
+        dopt.titleText = R.string.sort_tasks_by_selected_order;
         dopt.messageText = "";
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isSearchEnabled = false;
@@ -281,7 +281,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.iconsForData = icons;
         dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
         dopt.isSearchEnabled = false;
-        dopt.titleText = R.string.filter_todos;
+        dopt.titleText = R.string.filter_todo;
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
