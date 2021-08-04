@@ -103,6 +103,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="update">হালনাগাদ</string>
     <string name="clear">পরিষ্কার করুন</string>
     <string name="current_date">বর্তমান তারিখ</string>
-    <string name="add_todo">কার্য সংযোজন করুন</string>
+    <string name="add_task">কার্য সংযোজন করুন</string>
     <string name="add_x_witharg">%s সংযোজন করুন</string>
 </resources>

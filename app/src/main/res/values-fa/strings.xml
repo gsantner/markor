@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">تاریخ سررسید</string>
     <string name="current_date">تاریخ اکنون</string>
     <string name="archive">بایگانی</string>
-    <string name="add_todo">افزودن کار</string>
+    <string name="add_task">افزودن کار</string>
     <string name="add_x_witharg">افزودن %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">این پرونده بارگزاری و ذخیره شد با نام \"%s\"</string>
     <string name="refresh">تازه کردن</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">خط زیر</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">کد های رنگی بر اساس رنگشان زیرخط‌ دار بشوند یا نه</string>
     <string name="underline_hex_color_codes">زیر خط دار کردن کد های رنگی</string>
-    <string name="insert_current_date_when_starting_new_todo">هنگامی که کار جدید ثبت می‌کنم تاریخ امروز را وارد کن</string>
-    <string name="todos_with_todays_date">کارها با تاریخ امروز</string>
+    <string name="insert_current_date_when_starting_new_task">هنگامی که کار جدید ثبت می‌کنم تاریخ امروز را وارد کن</string>
+    <string name="tasks_with_todays_date">کارها با تاریخ امروز</string>
     <string name="append_contexts_and_projects">بعد از اینکه پرونده بارگزاری شد، موقعیت مکان‌نما در انتهای پرونده قرار بگیرد</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">پیوست متن‌ها و پروژه‌ها در پایان کار، هنگامی که از میان‌بر متنی مناسب استفاده می‌کنید</string>
+    <string name="append_contexts_and_projects_on_end_of_task">پیوست متن‌ها و پروژه‌ها در پایان کار، هنگامی که از میان‌بر متنی مناسب استفاده می‌کنید</string>
     <string name="rtl_rendering">رندر راست به چپ</string>
     <string name="highlight_line_ending">رنگی کردن پایان خطوط</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">فاصله‌های پایان خطوط را رنگی می‌کند</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">منابع</string>
     <string name="space_between_lines_in_percent">فاصله خطوط به درصد</string>
     <string name="line_spacing">فاصله خطوط</string>
-    <string name="archive_does_move_done_todo">کارهای انجام شده را به فایلی در یک پوشه انتقال دهید</string>
-    <string name="sort_todos_by_selected_order">مرتب سازی لیست کار ها بر اساس گزینه انتخاب شده</string>
+    <string name="archive_does_move_done_tasks">کارهای انجام شده را به فایلی در یک پوشه انتقال دهید</string>
+    <string name="sort_tasks_by_selected_order">مرتب سازی لیست کار ها بر اساس گزینه انتخاب شده</string>
     <string name="special_key">کلید ویژه</string>
     <string name="key_page_up">بالا بردن صفحه (Page Up)</string>
     <string name="key_page_down">پایین بردن صفحه (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Link color</string>
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
-    <string name="archive_completed_todos">Archive completed tasks</string>
+    <string name="archive_completed_tasks">Archive completed tasks</string>
     <string name="sort_alphabetically">Sort alphabetically</string>
     <string name="search_in_content">انتخاب محتوا</string>
     <string name="max_search_depth">Search depth</string>

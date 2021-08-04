@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Срок</string>
     <string name="current_date">Текущая дата</string>
     <string name="archive">Архивировать</string>
-    <string name="add_todo">Добавить задачу</string>
+    <string name="add_task">Добавить задачу</string>
     <string name="add_x_witharg">Добавить %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Документ будет загружен и сохранён как \"%s\"</string>
     <string name="refresh">Обновить</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Подчёркивание</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Подчёркивать цветовые HEX-коды в соответствии с цветом</string>
     <string name="underline_hex_color_codes">Подчеркивать цветовые HEX-коды</string>
-    <string name="insert_current_date_when_starting_new_todo">Вставлять текущую дату при добавлении задачи</string>
-    <string name="todos_with_todays_date">Задачи с сегодняшней датой</string>
+    <string name="insert_current_date_when_starting_new_task">Вставлять текущую дату при добавлении задачи</string>
+    <string name="tasks_with_todays_date">Задачи с сегодняшней датой</string>
     <string name="append_contexts_and_projects">Добавить контекст и проекты</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Добавлять контекст и проекты в конце задачи при использовании соответствующего текстового действия</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Добавлять контекст и проекты в конце задачи при использовании соответствующего текстового действия</string>
     <string name="rtl_rendering">Письмо слева направо</string>
     <string name="highlight_line_ending">Подсвечивать конец строки</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк с двумя и более пробелами</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ресурсы</string>
     <string name="space_between_lines_in_percent">Междустрочный пробел в процентах</string>
     <string name="line_spacing">Интерлиньяж</string>
-    <string name="archive_does_move_done_todo">Перемещать выполненные задачи в указанный файл в той же папке</string>
-    <string name="sort_todos_by_selected_order">Сортировать задачи в выбранном порядке</string>
+    <string name="archive_does_move_done_tasks">Перемещать выполненные задачи в указанный файл в той же папке</string>
+    <string name="sort_tasks_by_selected_order">Сортировать задачи в выбранном порядке</string>
     <string name="special_key">Специальная клавиша</string>
     <string name="key_page_up">Листать вверх (Page Up)</string>
     <string name="key_page_down">Листать вниз (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Цвет ссылок</string>
     <string name="add_context">Добавить контекст</string>
     <string name="add_project">Добавить проект</string>
-    <string name="archive_completed_todos">Архивировать завершенные задачи</string>
+    <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
     <string name="sort_alphabetically">Сортировать по алфавиту</string>
     <string name="create_new_file_or_folder">Создать новый файл или папку</string>
     <string name="choose_format">Выберите формат</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Назад</string>
     <string name="expand_collapse">Развернуть / Свернуть</string>
     <string name="essential">Основное</string>
-    <string name="append_human_readable_uuid_to_new_todos">Добавить пользовательский UUID к новым задачам</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Добавить пользовательский UUID к новым задачам</string>
     <string name="action_order">Порядок действий</string>
     <string name="toggle_action_visibility">Вкл/выкл видимость действия</string>
     <string name="load_default_settings">Загрузить настройки по умолчанию</string>

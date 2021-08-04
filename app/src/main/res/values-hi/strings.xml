@@ -107,7 +107,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">नियत तारीख</string>
     <string name="current_date">आज की तारीख</string>
     <string name="archive">संग्रह</string>
-    <string name="add_todo">कार्य जोड़ें</string>
+    <string name="add_task">कार्य जोड़ें</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">दस्तावेज़ को \"%s\" के रूप में लोड और सहेजा जाना चाहिए</string>
     <string name="create_note" needed="false">नोट बनाएं</string>
     <string name="special_documents" needed="false">विशेष दस्तावेज</string>

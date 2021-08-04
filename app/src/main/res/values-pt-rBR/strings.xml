@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Data de vencimento</string>
     <string name="current_date">Data atual</string>
     <string name="archive">Arquivo</string>
-    <string name="add_todo">Adicionar tarefa</string>
+    <string name="add_task">Adicionar tarefa</string>
     <string name="add_x_witharg">Adicionar %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">O documento a ser carregado e guardado como \"%s\"</string>
     <string name="refresh">Atualizar</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Sublinhado</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sublinhar ou não respectivos códigos de cores HEX</string>
     <string name="underline_hex_color_codes">Sublinhar códigos HEX de cor</string>
-    <string name="insert_current_date_when_starting_new_todo">Inserir a data atual ao iniciar uma nova tarefa</string>
-    <string name="todos_with_todays_date">Tarefas para hoje</string>
+    <string name="insert_current_date_when_starting_new_task">Inserir a data atual ao iniciar uma nova tarefa</string>
+    <string name="tasks_with_todays_date">Tarefas para hoje</string>
     <string name="append_contexts_and_projects">Inserir contextos e projetos</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Acrescentar contextos e projetos no final de uma tarefa quando estiver usando uma ação de texto apropriado</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Acrescentar contextos e projetos no final de uma tarefa quando estiver usando uma ação de texto apropriado</string>
     <string name="rtl_rendering">Renderização de RTL</string>
     <string name="highlight_line_ending">Realçar o fim da linha</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Recursos</string>
     <string name="space_between_lines_in_percent">Espaço entre linhas em porcentagem</string>
     <string name="line_spacing">Espaçamento de linha</string>
-    <string name="archive_does_move_done_todo">Mover tarefas feitas para o arquivo especificado na mesma pasta</string>
-    <string name="sort_todos_by_selected_order">Organizar tarefas pela ordem selecionada</string>
+    <string name="archive_does_move_done_tasks">Mover tarefas feitas para o arquivo especificado na mesma pasta</string>
+    <string name="sort_tasks_by_selected_order">Organizar tarefas pela ordem selecionada</string>
     <string name="special_key">Tecla Especial</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Página seguinte (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Cor do link</string>
     <string name="add_context">Adicionar contexto</string>
     <string name="add_project">Adicionar projeto</string>
-    <string name="archive_completed_todos">Arquivar tarefas concluídas</string>
+    <string name="archive_completed_tasks">Arquivar tarefas concluídas</string>
     <string name="sort_alphabetically">Ordenar alfabeticamente</string>
     <string name="create_new_file_or_folder">Criar um novo arquivo ou pasta</string>
     <string name="choose_format">Escolha o formato</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Voltar</string>
     <string name="expand_collapse">Expandir / Recolher</string>
     <string name="essential">Essencial</string>
-    <string name="append_human_readable_uuid_to_new_todos">Acrescentar UUID humano legível a novas tarefas</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Acrescentar UUID humano legível a novas tarefas</string>
     <string name="action_order">Ação pedido</string>
     <string name="toggle_action_visibility">Alternar visibilidade da ação</string>
     <string name="load_default_settings">Carregar configurações padrão</string>

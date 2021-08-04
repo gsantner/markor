@@ -102,6 +102,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more">More</string>
     <string name="notebook">Notebook</string>
     <string name="help">Help</string>
+    <string name="todo_list">To-Do List</string>
     <string name="task">Task</string>
     <string name="context">Context</string>
     <string name="list">List</string>
@@ -115,7 +116,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Due date</string>
     <string name="current_date">Current date</string>
     <string name="archive">Archive</string>
-    <string name="add_todo">Add todo</string>
+    <string name="add_task">Add task</string>
     <string name="add_x_witharg">Add %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Document to be loaded and saved as "%s"</string>
     <string name="refresh">Refresh</string>
@@ -162,10 +163,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Whether to underline hex color codes according to color</string>
     <string name="underline_hex_color_codes">Underline Hex Color Codes</string>
-    <string name="insert_current_date_when_starting_new_todo">Insert the current date when starting a new todo</string>
-    <string name="todos_with_todays_date">Todos with today\'s date</string>
+    <string name="insert_current_date_when_starting_new_task">Insert the current date when starting a new task</string>
+    <string name="tasks_with_todays_date">Tasks with today\'s date</string>
     <string name="append_contexts_and_projects">Append contexts and projects</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Append contexts and projects at the end of a todo when using the appropriate text action</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Append contexts and projects at the end of a task when using the appropriate text action</string>
     <string name="rtl_rendering">RTL rendering</string>
     <string name="highlight_line_ending">Highlight line ending</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Highlight spaces at the end of lines containing two or more spaces</string>
@@ -178,8 +179,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Resources</string>
     <string name="space_between_lines_in_percent">Space between lines in percent</string>
     <string name="line_spacing">Line Spacing</string>
-    <string name="archive_does_move_done_todo">Move done todos to specified file in same folder</string>
-    <string name="sort_todos_by_selected_order">Sort todos by selected order</string>
+    <string name="archive_does_move_done_tasks">Move done tasks to specified file in same folder</string>
+    <string name="sort_tasks_by_selected_order">Sort tasks by selected order</string>
     <string name="special_key">Special Key</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
@@ -369,7 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Link color</string>
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
-    <string name="archive_completed_todos">Archive completed todos</string>
+    <string name="archive_completed_tasks">Archive completed tasks</string>
     <string name="sort_alphabetically">Sort alphabetically</string>
     <string name="create_new_file_or_folder">Create a new file or folder</string>
     <string name="choose_format">Choose format</string>
@@ -377,7 +378,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Back</string>
     <string name="expand_collapse">Expand / Collapse</string>
     <string name="essential">Essential</string>
-    <string name="append_human_readable_uuid_to_new_todos">Append human readable UUID to new todos</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Append human readable UUID to new tasks</string>
     <string name="action_order">Action order</string>
     <string name="toggle_action_visibility">Toggle action visibility</string>
     <string name="load_default_settings">Load default settings</string>
@@ -433,11 +434,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_context">Search contexts</string>
     <string name="insert_project">Insert projects</string>
     <string name="insert_context">Insert contexts</string>
-    <string name="filter_todos">Filter todos</string>
+    <string name="filter_todo">Filter todo</string>
     <string name="search_priority">Search priority</string>
     <string name="due_overdue">Overdue</string>
     <string name="due_today">Due today</string>
-    <string name="due_future">Not due yet</string>
+    <string name="due_future">Due in future</string>
     <string name="completed">Completed</string>
     <string name="back_to_filter">Back to filter</string>
 </resources>

@@ -109,7 +109,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">கெடு நாள்</string>
     <string name="current_date">நடப்பு தேதி</string>
     <string name="archive">காப்பகம்</string>
-    <string name="add_todo">செயலை சேர்க்கவும்</string>
+    <string name="add_task">செயலை சேர்க்கவும்</string>
     <string name="add_x_witharg">%s ஐச் சேர்</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">ஏற்றப்பட போகிற ஆவணம் மற்றும் \"%s\" வாக சேமிக்கப்பட்டது</string>
     <string name="refresh">புதுப்பி</string>
@@ -152,10 +152,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">அடிக்கோடு</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">நிறங்களுக்கு ஏற்ப Hex வண்ண குறியீடுகளை அடிக்கோடிட்டு காட்டவா</string>
     <string name="underline_hex_color_codes">Hex வண்ண குறியீடுகளை அடிக்கோடிடு</string>
-    <string name="insert_current_date_when_starting_new_todo">ஒரு புதிய செயலை தொடங்கும் போது தற்போதைய தேதியை சேர்க்கவும்</string>
-    <string name="todos_with_todays_date">இன்றைய தேதியை கொண்டிருக்கும் செயல்கள்</string>
+    <string name="insert_current_date_when_starting_new_task">ஒரு புதிய செயலை தொடங்கும் போது தற்போதைய தேதியை சேர்க்கவும்</string>
+    <string name="tasks_with_todays_date">இன்றைய தேதியை கொண்டிருக்கும் செயல்கள்</string>
     <string name="append_contexts_and_projects">சூழல்கள் மற்றும் திட்டங்களையும் சேர்க்கவும்</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">உரை நடவடிக்கைகளுக்கு ஏற்ப ஒரு செயலின் முடிவில் சூழல்களையும் மற்றும் திட்டங்களையும் சேர்க்கவும்</string>
+    <string name="append_contexts_and_projects_on_end_of_task">உரை நடவடிக்கைகளுக்கு ஏற்ப ஒரு செயலின் முடிவில் சூழல்களையும் மற்றும் திட்டங்களையும் சேர்க்கவும்</string>
     <string name="rtl_rendering">RTL(வலமிருந்து இடம்) ஒழுங்கமைவு</string>
     <string name="highlight_line_ending">வரி முடிவை தனிப்படுத்தி காட்டு</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">வரி முடிவில் உள்ள இரண்டு அல்லது மூன்று இடைவேளிகளை முன்னிலைப்படுத்து</string>
@@ -166,8 +166,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">வளங்கள்</string>
     <string name="space_between_lines_in_percent">வரிகளுக்கு இடையேயான இடைவெளி சதவீதம்</string>
     <string name="line_spacing">வரி இடைவெளி</string>
-    <string name="archive_does_move_done_todo">முடிக்கப்பட்ட செயல்களை அதே கோப்புறையில் உள்ள குறிப்பிட்ட ஆவணத்திற்கு நகர்த்தவும்</string>
-    <string name="sort_todos_by_selected_order">தேர்ந்தெடுக்கப்பட்ட ஒழுங்கின் படி செயல்களை வரிசைப்படுத்து</string>
+    <string name="archive_does_move_done_tasks">முடிக்கப்பட்ட செயல்களை அதே கோப்புறையில் உள்ள குறிப்பிட்ட ஆவணத்திற்கு நகர்த்தவும்</string>
+    <string name="sort_tasks_by_selected_order">தேர்ந்தெடுக்கப்பட்ட ஒழுங்கின் படி செயல்களை வரிசைப்படுத்து</string>
     <string name="special_key">சிறப்பு விசை</string>
     <string name="key_page_up">பக்கம்  மேலே (மேல்நோக்கி நகர்த்து)</string>
     <string name="key_page_down">பக்கம் கீழ் (கீழ்நோக்கி நகர்த்து)</string>
@@ -349,7 +349,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">இணைப்பின் நிறம்</string>
     <string name="add_context">சூழலை சேர்க்கவும்</string>
     <string name="add_project">திட்டத்தை சேர்க்கவும்</string>
-    <string name="archive_completed_todos">முடிக்கப்பட்ட செயல்களை காப்பகத்தில் சேர்க்கவும்</string>
+    <string name="archive_completed_tasks">முடிக்கப்பட்ட செயல்களை காப்பகத்தில் சேர்க்கவும்</string>
     <string name="sort_alphabetically">அகர வரிசைப்படி வரிசைப்படுத்து</string>
     <string name="create_new_file_or_folder">புதிய ஆவணம் அல்லது கோப்புறையை உருவாக்கவும்</string>
     <string name="choose_format">வடிவமைப்பை தேர்ந்தெடு</string>
@@ -357,7 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">பின்னால்</string>
     <string name="expand_collapse">விரிவாக்கு / சுருக்கு</string>
     <string name="essential">அத்தியாவசியமானவை</string>
-    <string name="append_human_readable_uuid_to_new_todos">மனிதர்கள் படிக்கக்கூடிய UUID ஐ புதிய செயல்களுடன் சேர்க்கவும்</string>
+    <string name="append_human_readable_uuid_to_new_tasks">மனிதர்கள் படிக்கக்கூடிய UUID ஐ புதிய செயல்களுடன் சேர்க்கவும்</string>
     <string name="action_order">நடவடிக்கைகளின் வரிசை</string>
     <string name="load_default_settings">இயல்புநிலை அமைப்புகளை ஏற்றுக</string>
     <string name="drag">இழுக்கவும்</string>

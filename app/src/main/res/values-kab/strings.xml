@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Azemz n tagara</string>
     <string name="current_date">Azemz amiran</string>
     <string name="archive">Aɣbaṛ</string>
-    <string name="add_todo">Rnu tawuri</string>
+    <string name="add_task">Rnu tawuri</string>
     <string name="add_x_witharg">Rnu %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Arrat ara d-yalin neɣ ara yettwaskelsen am \"%s\"</string>
     <string name="refresh">Sismeḍ</string>
@@ -131,8 +131,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="projects">Isenfaṛen</string>
     <string name="none">Ula yiwen</string>
     <string name="other">Wayeḍ</string>
-    <string name="insert_current_date_when_starting_new_todo">Ger azemz amiran ticki ara tsekkred tawuri tamaynutt</string>
-    <string name="todos_with_todays_date">Tiwuriwin n wassa</string>
+    <string name="insert_current_date_when_starting_new_task">Ger azemz amiran ticki ara tsekkred tawuri tamaynutt</string>
+    <string name="tasks_with_todays_date">Tiwuriwin n wassa</string>
     <string name="rtl_rendering">Tira seg uyefus ɣer uzelmaḍ</string>
     <string name="general">Amatu</string>
     <string name="resources">Tiɣbula</string>

@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Határidő</string>
     <string name="current_date">Mai dátum</string>
     <string name="archive">Archivál</string>
-    <string name="add_todo">Teendő hozzáadása</string>
+    <string name="add_task">Teendő hozzáadása</string>
     <string name="add_x_witharg">%s hozzáadása</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">A dokumentum \"%s\" néven lesz megnyitva és mentve</string>
     <string name="refresh">Frissítés</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Aláhúzott</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Alá legyenek-e húzva szín szerint a hexa színkódok</string>
     <string name="underline_hex_color_codes">Hexa színkódok aláhúzása</string>
-    <string name="insert_current_date_when_starting_new_todo">Új feladat felvételekor a mai dátum beszúrása</string>
-    <string name="todos_with_todays_date">Feladatok a mai dátummal</string>
+    <string name="insert_current_date_when_starting_new_task">Új feladat felvételekor a mai dátum beszúrása</string>
+    <string name="tasks_with_todays_date">Feladatok a mai dátummal</string>
     <string name="append_contexts_and_projects">Kontextusok és projektek hozzáadása</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Kontextusok és projektek hozzáadása a feladathoz a megfelelő műveleti gomb használatával</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Kontextusok és projektek hozzáadása a feladathoz a megfelelő műveleti gomb használatával</string>
     <string name="rtl_rendering">Jobbra igazítás</string>
     <string name="highlight_line_ending">Sorvég kiemelése</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Sorvégi szóközök kiemelése, ha legalább kettő van</string>
@@ -168,8 +168,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="general">Általános</string>
     <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
     <string name="line_spacing">Sorköz</string>
-    <string name="archive_does_move_done_todo">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
-    <string name="sort_todos_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
+    <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
+    <string name="sort_tasks_by_selected_order">Feladatok sorba rendezése a kiválasztott opció szerint</string>
     <string name="special_key">Speciális billentyű</string>
     <string name="key_page_up">Feljebb (Page Up)</string>
     <string name="key_page_down">Lejjebb (Page Down)</string>
@@ -347,7 +347,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Hivatkozás színe</string>
     <string name="add_context">Kontextus hozzáadása</string>
     <string name="add_project">Projekt hozzáadása</string>
-    <string name="archive_completed_todos">Befejezett feladatok archiválása</string>
+    <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
     <string name="sort_alphabetically">Ábécé szerinti sorbarendezés</string>
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
     <string name="choose_format">Formátum kiválasztása</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Vissza</string>
     <string name="expand_collapse">Kibontás / Összecsukás</string>
     <string name="essential">Alapvető</string>
-    <string name="append_human_readable_uuid_to_new_todos">Ember által olvasható UUID hozzárendelése új feladatokhoz</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Ember által olvasható UUID hozzárendelése új feladatokhoz</string>
     <string name="action_order">Műveletek sorrendje</string>
     <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>

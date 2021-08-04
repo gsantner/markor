@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">期限</string>
     <string name="current_date">現在の日付</string>
     <string name="archive">アーカイブ</string>
-    <string name="add_todo">タスクを追加</string>
+    <string name="add_task">タスクを追加</string>
     <string name="add_x_witharg">%s を追加</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">ドキュメントを読み込んで、\"%s\"として保存します。</string>
     <string name="refresh">更新</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">下線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">16 進コードの色による下線を引くかどうか</string>
     <string name="underline_hex_color_codes">下線の 16 進色コード</string>
-    <string name="insert_current_date_when_starting_new_todo">新しいタスクを開始するとき、現在の日付を挿入します</string>
-    <string name="todos_with_todays_date">今日の日付のタスク</string>
+    <string name="insert_current_date_when_starting_new_task">新しいタスクを開始するとき、現在の日付を挿入します</string>
+    <string name="tasks_with_todays_date">今日の日付のタスク</string>
     <string name="append_contexts_and_projects">コンテキストとプロジェクトを追加</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">適切なテキスト操作を使用したとき、タスクの終了時にコンテキストとプロジェクトを追加します</string>
+    <string name="append_contexts_and_projects_on_end_of_task">適切なテキスト操作を使用したとき、タスクの終了時にコンテキストとプロジェクトを追加します</string>
     <string name="rtl_rendering">RTL レンダリング</string>
     <string name="highlight_line_ending">行の終わりを強調表示</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">2 つ以上のスペースを含む行の末尾にスペースを強調表示します</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">リソース</string>
     <string name="space_between_lines_in_percent">行間のスペース (%)</string>
     <string name="line_spacing">行間</string>
-    <string name="archive_does_move_done_todo">完了したタスクを同じフォルダーの指定したファイルに移動します</string>
-    <string name="sort_todos_by_selected_order">選択した順序でタスクをソートします</string>
+    <string name="archive_does_move_done_tasks">完了したタスクを同じフォルダーの指定したファイルに移動します</string>
+    <string name="sort_tasks_by_selected_order">選択した順序でタスクをソートします</string>
     <string name="special_key">特殊キー</string>
     <string name="key_page_up">ページ上移動 (Page Up)</string>
     <string name="key_page_down">ページ下移動 (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">リンクの色</string>
     <string name="add_context">コンテキストを追加</string>
     <string name="add_project">プロジェクトを追加</string>
-    <string name="archive_completed_todos">完了したタスクをアーカイブ</string>
+    <string name="archive_completed_tasks">完了したタスクをアーカイブ</string>
     <string name="sort_alphabetically">アルファベット順に並べ替え</string>
     <string name="create_new_file_or_folder">新しいファイルまたはフォルダーを作成</string>
     <string name="choose_format">書式の選択</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">戻る</string>
     <string name="expand_collapse">展開 / 折りたたみ</string>
     <string name="essential">必須</string>
-    <string name="append_human_readable_uuid_to_new_todos">人間が読めるUUIDを新しいタスクに追加</string>
+    <string name="append_human_readable_uuid_to_new_tasks">人間が読めるUUIDを新しいタスクに追加</string>
     <string name="action_order">操作の順序</string>
     <string name="toggle_action_visibility">アクションの表示を切り替える</string>
     <string name="load_default_settings">デフォルトの設定を読み込む</string>

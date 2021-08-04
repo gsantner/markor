@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Термін</string>
     <string name="current_date">Поточна дата</string>
     <string name="archive">Архів</string>
-    <string name="add_todo">Додати завдання</string>
+    <string name="add_task">Додати завдання</string>
     <string name="add_x_witharg">Додати %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Документ, що буде використаний як \"%s\"</string>
     <string name="refresh">Оновити</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Підкреслити</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Підкреслювати шістнадцяткові коди кольору відповідним кольором</string>
     <string name="underline_hex_color_codes">Підкреслювати коди кольору</string>
-    <string name="insert_current_date_when_starting_new_todo">Вставити поточну дату при створенні нової задачі</string>
-    <string name="todos_with_todays_date">Задачі із сьогоднішньою датою</string>
+    <string name="insert_current_date_when_starting_new_task">Вставити поточну дату при створенні нової задачі</string>
+    <string name="tasks_with_todays_date">Задачі із сьогоднішньою датою</string>
     <string name="append_contexts_and_projects">Додати контексти та проєкти</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Додати контексти та проєкти в кінець задачі з використанням відповідної команди тексту</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Додати контексти та проєкти в кінець задачі з використанням відповідної команди тексту</string>
     <string name="rtl_rendering">Відображення зправа-наліво</string>
     <string name="highlight_line_ending">Підсвічувати кінець рядка</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Підсвічувати пробіли в кінці рядків, що містять щонайменше два пробіли</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ресурси</string>
     <string name="space_between_lines_in_percent">Інтервал між рядками у процентах</string>
     <string name="line_spacing">Міжрядковий інтервал</string>
-    <string name="archive_does_move_done_todo">Перемістити виконані задачі до заданого файлу в тій же директорії</string>
-    <string name="sort_todos_by_selected_order">Сортування завдань за обраним порядком</string>
+    <string name="archive_does_move_done_tasks">Перемістити виконані задачі до заданого файлу в тій же директорії</string>
+    <string name="sort_tasks_by_selected_order">Сортування завдань за обраним порядком</string>
     <string name="special_key">Спеціальна клавіша</string>
     <string name="key_page_up">До сторінки вище (Page Up)</string>
     <string name="key_page_down">До сторінки нижче (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Колір посилання</string>
     <string name="add_context">Додати контекст</string>
     <string name="add_project">Додати проєкт</string>
-    <string name="archive_completed_todos">Архівувати завершені завдання</string>
+    <string name="archive_completed_tasks">Архівувати завершені завдання</string>
     <string name="sort_alphabetically">Сортувати за алфавітом</string>
     <string name="create_new_file_or_folder">Створити новий файл чи директорію</string>
     <string name="choose_format">Оберіть формат</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Назад</string>
     <string name="expand_collapse">Розгорнути / Згорнути</string>
     <string name="essential">Основні</string>
-    <string name="append_human_readable_uuid_to_new_todos">Додати зручний UUID до нових завдань</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Додати зручний UUID до нових завдань</string>
     <string name="action_order">Впорядкувати команди</string>
     <string name="toggle_action_visibility">Перемкнути видимість дії</string>
     <string name="load_default_settings">Встановити типові параметри</string>

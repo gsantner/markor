@@ -109,7 +109,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Batas waktu</string>
     <string name="current_date">Tanggal Saat ini</string>
     <string name="archive">Arsip</string>
-    <string name="add_todo">Tambahkan tugas</string>
+    <string name="add_task">Tambahkan tugas</string>
     <string name="add_x_witharg">Tambahkan %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumen akan dimuat dan disimpan sebagai \"%s\"</string>
     <string name="refresh">Segarkan</string>
@@ -136,10 +136,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Garis bawah</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Apakah untuk garis bawah menggunakan kode warna hexa</string>
     <string name="underline_hex_color_codes">Kode Warna Hexa Garis Bawah</string>
-    <string name="insert_current_date_when_starting_new_todo">Masukkan tanggal sekarang saat mulai task baru</string>
-    <string name="todos_with_todays_date">Task dengan tanggal sekarang</string>
+    <string name="insert_current_date_when_starting_new_task">Masukkan tanggal sekarang saat mulai task baru</string>
+    <string name="tasks_with_todays_date">Task dengan tanggal sekarang</string>
     <string name="append_contexts_and_projects">Tambahkan konteks dan proyek</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Tambahkan konteks dan proyek di akhir task saat menggunakan aksi teks sesuai</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Tambahkan konteks dan proyek di akhir task saat menggunakan aksi teks sesuai</string>
     <string name="rtl_rendering">Renderan RTL</string>
     <string name="highlight_line_ending">Tandai akhir baris</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Tandai spasi di akhir baris berisi dua atau lebih spasi</string>

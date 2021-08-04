@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Afleveringsdato</string>
     <string name="current_date">Dags dato</string>
     <string name="archive">Arkivér</string>
-    <string name="add_todo">Tilføj opgave</string>
+    <string name="add_task">Tilføj opgave</string>
     <string name="add_x_witharg">Tilføj %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet bliver hentet og gemt som \"%s\"</string>
     <string name="refresh">Genopfrisk</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Understreget</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Bestemmer om linie under hexadecimale farvekoder skal fremhæves ved farve</string>
     <string name="underline_hex_color_codes">Linie under hexadecimale farvekoder</string>
-    <string name="insert_current_date_when_starting_new_todo">Indsæt aktuelle dato når en ny opgave startes</string>
-    <string name="todos_with_todays_date">Opgaver med dato i dag</string>
+    <string name="insert_current_date_when_starting_new_task">Indsæt aktuelle dato når en ny opgave startes</string>
+    <string name="tasks_with_todays_date">Opgaver med dato i dag</string>
     <string name="append_contexts_and_projects">Tilføj kontekster og projekter</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Tilføj kontekster og projekter i slutningen af en opgave når du bruger den relevante tekst handling</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Tilføj kontekster og projekter i slutningen af en opgave når du bruger den relevante tekst handling</string>
     <string name="rtl_rendering">Højre-mod-venstre visning</string>
     <string name="highlight_line_ending">Fremhæv linie slutningen</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Fremhæv mellemrum ved linieendelser der har mere end to mellemrum</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ressourcer</string>
     <string name="space_between_lines_in_percent">Mellemrum mellem linier i procent</string>
     <string name="line_spacing">Linieafstand</string>
-    <string name="archive_does_move_done_todo">Flyt færdige opgaver til denne fil i samme mappe</string>
-    <string name="sort_todos_by_selected_order">Sorter opgaver efter valgt ordre</string>
+    <string name="archive_does_move_done_tasks">Flyt færdige opgaver til denne fil i samme mappe</string>
+    <string name="sort_tasks_by_selected_order">Sorter opgaver efter valgt ordre</string>
     <string name="special_key">Specialtast</string>
     <string name="key_page_up">Side op (Page Up)</string>
     <string name="key_page_down">Side ned (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Link farve</string>
     <string name="add_context">Tilføj kontekst</string>
     <string name="add_project">Tilføj projekt</string>
-    <string name="archive_completed_todos">Arkiv fuldførte opgaver</string>
+    <string name="archive_completed_tasks">Arkiv fuldførte opgaver</string>
     <string name="sort_alphabetically">Sortér alfabetisk</string>
     <string name="create_new_file_or_folder">Opret en ny fil eller mappe</string>
     <string name="choose_format">Vælg format</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Tilbage</string>
     <string name="expand_collapse">Udvid / Kollaps</string>
     <string name="essential">Væsentlig</string>
-    <string name="append_human_readable_uuid_to_new_todos">Tilføj læsbar UUUID til nye opgaver</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Tilføj læsbar UUUID til nye opgaver</string>
     <string name="action_order">Handlings rækkefølge</string>
     <string name="toggle_action_visibility">Slå synlighed for handling til</string>
     <string name="load_default_settings">Indlæs standardindstillinger</string>

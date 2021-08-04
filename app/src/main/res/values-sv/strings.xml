@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Förfallodatum</string>
     <string name="current_date">Nuvarande datum</string>
     <string name="archive">Arkiv</string>
-    <string name="add_todo">Lägg till uppgift</string>
+    <string name="add_task">Lägg till uppgift</string>
     <string name="add_x_witharg">Lägg till %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Välj vilket dokument du vill använda som \"%s\"</string>
     <string name="refresh">Uppdatera</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Understruken</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ge färger skrivna som hexkod ett understreck i aktuell färg</string>
     <string name="underline_hex_color_codes">Färgmarkera hexkoder</string>
-    <string name="insert_current_date_when_starting_new_todo">Infoga aktuellt datum när du skapar en ny uppgift</string>
-    <string name="todos_with_todays_date">Uppgifter med dagens datum</string>
+    <string name="insert_current_date_when_starting_new_task">Infoga aktuellt datum när du skapar en ny uppgift</string>
+    <string name="tasks_with_todays_date">Uppgifter med dagens datum</string>
     <string name="append_contexts_and_projects">Bifoga kontexter och projekt</string>
-    <string name="append_contexts_and_projects_on_end_of_todo">Bifoga kontexter och projekt i slutet av en uppgift när du använder lämplig textåtgärd</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Bifoga kontexter och projekt i slutet av en uppgift när du använder lämplig textåtgärd</string>
     <string name="rtl_rendering">VTH-visning</string>
     <string name="highlight_line_ending">Markera radslut</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markera mellanslag i slutet av rader som innehåller två eller flera mellanslag</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Resurser</string>
     <string name="space_between_lines_in_percent">Avståndet mellan raderna i procent</string>
     <string name="line_spacing">Radavstånd</string>
-    <string name="archive_does_move_done_todo">Flytta klara uppgifter till angiven fil i samma mapp</string>
-    <string name="sort_todos_by_selected_order">Sortera uppgifter efter vald ordning</string>
+    <string name="archive_does_move_done_tasks">Flytta klara uppgifter till angiven fil i samma mapp</string>
+    <string name="sort_tasks_by_selected_order">Sortera uppgifter efter vald ordning</string>
     <string name="special_key">Specialnyckel</string>
     <string name="key_page_up">Sida upp (Page up)</string>
     <string name="key_page_down">Sida ned (Page down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Länk färg</string>
     <string name="add_context">Lägg till kontext</string>
     <string name="add_project">Lägg till projekt</string>
-    <string name="archive_completed_todos">Arkivera slutförda uppgifter</string>
+    <string name="archive_completed_tasks">Arkivera slutförda uppgifter</string>
     <string name="sort_alphabetically">Sortera alfabetiskt</string>
     <string name="create_new_file_or_folder">Skapa en ny fil eller mapp</string>
     <string name="choose_format">Välj format</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Tillbaka</string>
     <string name="expand_collapse">Expandera / Komprimera</string>
     <string name="essential">Viktig</string>
-    <string name="append_human_readable_uuid_to_new_todos">Lägg till läsbar UUID för nya uppgifter</string>
+    <string name="append_human_readable_uuid_to_new_tasks">Lägg till läsbar UUID för nya uppgifter</string>
     <string name="action_order">Åtgärd order</string>
     <string name="toggle_action_visibility">Växla åtgärdens synlighet</string>
     <string name="load_default_settings">Ladda standardinställningar</string>
