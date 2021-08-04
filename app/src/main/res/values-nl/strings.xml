@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Vervaldatum</string>
     <string name="current_date">Huidige datum</string>
     <string name="archive">Archief</string>
-    <string name="add_task">Taak toevoegen</string>
+    <string name="add_todo">Taak toevoegen</string>
     <string name="add_x_witharg">Toevoegen %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Document dat moet worden geladen en opgeslagen als \"%s\"</string>
     <string name="refresh">Verversen</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Onderstrepen</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Of om hex kleurcodes te onderstrepen naar kleur</string>
     <string name="underline_hex_color_codes">Onderstreep Hex Kleurcodes</string>
-    <string name="insert_current_date_when_starting_new_task">Voer de huidige datum in bij het starten van een nieuwe taak</string>
-    <string name="tasks_with_todays_date">Taken met de datum van vandaag</string>
+    <string name="insert_current_date_when_starting_new_todo">Voer de huidige datum in bij het starten van een nieuwe taak</string>
+    <string name="todos_with_todays_date">Taken met de datum van vandaag</string>
     <string name="append_contexts_and_projects">Context en projecten toevoegen</string>
-    <string name="append_contexts_and_projects_on_end_of_task">contexten en projecten aan het einde van een taak toevoegen wanneer de juiste tekst actie wordt gebruikt</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">contexten en projecten aan het einde van een taak toevoegen wanneer de juiste tekst actie wordt gebruikt</string>
     <string name="rtl_rendering">Rechts-naar-links</string>
     <string name="highlight_line_ending">Markeer einde van de regel</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markeer spaties aan het einde van de regel met meer dan twee spaties</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Bronnen</string>
     <string name="space_between_lines_in_percent">Ruimte tussen regels in procenten</string>
     <string name="line_spacing">Regelafstand</string>
-    <string name="archive_does_move_done_tasks">Verplaats voltooide taken naar opgegeven bestand in dezelfde map</string>
-    <string name="sort_tasks_by_selected_order">Sorteer taken op geselecteerde volgorde</string>
+    <string name="archive_does_move_done_todo">Verplaats voltooide taken naar opgegeven bestand in dezelfde map</string>
+    <string name="sort_todos_by_selected_order">Sorteer taken op geselecteerde volgorde</string>
     <string name="special_key">Speciale toets</string>
     <string name="key_page_up">Vorige pagina</string>
     <string name="key_page_down">Volgende pagina</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Linkkleur</string>
     <string name="add_context">Context toevoegen</string>
     <string name="add_project">Voeg project toe</string>
-    <string name="archive_completed_tasks">Voltooide taken archiveren</string>
+    <string name="archive_completed_todos">Voltooide taken archiveren</string>
     <string name="sort_alphabetically">Alfabetisch sorteren</string>
     <string name="create_new_file_or_folder">Maak een nieuw bestand of map aan</string>
     <string name="choose_format">Kies formaat</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Terug</string>
     <string name="expand_collapse">Uitvouwen / samenvouwen</string>
     <string name="essential">Essentieel</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Mensen leesbare UUID toevoegen aan nieuwe taken</string>
+    <string name="append_human_readable_uuid_to_new_todos">Mensen leesbare UUID toevoegen aan nieuwe taken</string>
     <string name="action_order">Actie volgorde</string>
     <string name="toggle_action_visibility">Actie zichtbaarheid in-/uitschakelen</string>
     <string name="load_default_settings">Laad standaardinstellingen</string>

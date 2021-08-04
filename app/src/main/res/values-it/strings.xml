@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Scadenza</string>
     <string name="current_date">Data attuale</string>
     <string name="archive">Archivia</string>
-    <string name="add_task">Aggiungi attività</string>
+    <string name="add_todo">Aggiungi attività</string>
     <string name="add_x_witharg">Aggiungi %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Documento da caricare e salvare come \"%s\"</string>
     <string name="refresh">Ricarica</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Sottolinea</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sottolinea o meno i codici dei colori in esadecimale corrispondenti al colore</string>
     <string name="underline_hex_color_codes">Sottolinea i codici dei colori in esa</string>
-    <string name="insert_current_date_when_starting_new_task">Inserisci la data corrente quando si inizia un nuova attività</string>
-    <string name="tasks_with_todays_date">Attività con la data di oggi</string>
+    <string name="insert_current_date_when_starting_new_todo">Inserisci la data corrente quando si inizia un nuova attività</string>
+    <string name="todos_with_todays_date">Attività con la data di oggi</string>
     <string name="append_contexts_and_projects">Aggiungi contesti e progetti</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Aggiungi contesti e progetti alla fine di un task quando si utilizza l\'azione di testo appropriata</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Aggiungi contesti e progetti alla fine di un task quando si utilizza l\'azione di testo appropriata</string>
     <string name="rtl_rendering">Render da destra a sinistra</string>
     <string name="highlight_line_ending">Evidenzia la fine della linea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidenzia gli spazi alla fine della linea se quest\'ultime contengono due o più spazi</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Risorse</string>
     <string name="space_between_lines_in_percent">Spazio fra le linee in percentuale</string>
     <string name="line_spacing">Spaziatura delle linee</string>
-    <string name="archive_does_move_done_tasks">Muovi le attività terminate nel file specificato nella stessa cartella</string>
-    <string name="sort_tasks_by_selected_order">Ordina i task secondo l\'ordine selezionato</string>
+    <string name="archive_does_move_done_todo">Muovi le attività terminate nel file specificato nella stessa cartella</string>
+    <string name="sort_todos_by_selected_order">Ordina i task secondo l\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Colore link</string>
     <string name="add_context">Aggiungi contesto</string>
     <string name="add_project">Aggiungi progetto</string>
-    <string name="archive_completed_tasks">Archivia attività completate</string>
+    <string name="archive_completed_todos">Archivia attività completate</string>
     <string name="sort_alphabetically">Ordina alfabeticamente</string>
     <string name="create_new_file_or_folder">Crea un nuovo file o cartella</string>
     <string name="choose_format">Scegli il formato</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Indietro</string>
     <string name="expand_collapse">Espandi / Comprimi</string>
     <string name="essential">Essenziale</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Aggiungi un UUID leggibile alle nuove attività</string>
+    <string name="append_human_readable_uuid_to_new_todos">Aggiungi un UUID leggibile alle nuove attività</string>
     <string name="action_order">Ordine delle azioni</string>
     <string name="toggle_action_visibility">Attiva/Disattiva visibilità azione</string>
     <string name="load_default_settings">Carica impostazioni predefinite</string>

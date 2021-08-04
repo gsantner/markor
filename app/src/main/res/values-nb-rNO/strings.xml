@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Tidsfrist</string>
     <string name="current_date">Nåværende dato</string>
     <string name="archive">Arkiv</string>
-    <string name="add_task">Legg til gjøremål</string>
+    <string name="add_todo">Legg til gjøremål</string>
     <string name="add_x_witharg">Legg til %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumentet vil bli lastet og lagret som \"%s\"</string>
     <string name="refresh">Gjenoppfrisk</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Understrek</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hvorvidt heksadesimale fargekoder skal understrekes i henhold til farge</string>
     <string name="underline_hex_color_codes">Understrek heksadesimale fargekoder</string>
-    <string name="insert_current_date_when_starting_new_task">Sett inn nåværende dato når nytt gjøremål startes</string>
-    <string name="tasks_with_todays_date">Gjøremål med dagens dato</string>
+    <string name="insert_current_date_when_starting_new_todo">Sett inn nåværende dato når nytt gjøremål startes</string>
+    <string name="todos_with_todays_date">Gjøremål med dagens dato</string>
     <string name="append_contexts_and_projects">Tilføy kontekster og prosjekter</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Tilføy kontekster og prosjekter på slutten av et gjøremål, ved bruk av dertil egnet teksthandling</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Tilføy kontekster og prosjekter på slutten av et gjøremål, ved bruk av dertil egnet teksthandling</string>
     <string name="rtl_rendering">HTV-opptegning</string>
     <string name="highlight_line_ending">Framhev linjeendelser</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Framhev mellomrom ved linjeslutt for linjer som inneholder to eller flere mellomrom</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ressurser</string>
     <string name="space_between_lines_in_percent">Mellomrom mellom linjer i prosent</string>
     <string name="line_spacing">Linjeavstand</string>
-    <string name="archive_does_move_done_tasks">Flytt fullførte gjøremål til angitt fil i samme mappe</string>
-    <string name="sort_tasks_by_selected_order">Sorter gjøremålene etter valgt rekkefølge</string>
+    <string name="archive_does_move_done_todo">Flytt fullførte gjøremål til angitt fil i samme mappe</string>
+    <string name="sort_todos_by_selected_order">Sorter gjøremålene etter valgt rekkefølge</string>
     <string name="special_key">Spesialtast</string>
     <string name="key_page_up">Side opp (Page Up)</string>
     <string name="key_page_down">Side ned (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Farge på lenker</string>
     <string name="add_context">Legg til kontekst</string>
     <string name="add_project">Legg til prosjekt</string>
-    <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
+    <string name="archive_completed_todos">Arkiver fullførte oppgaver</string>
     <string name="sort_alphabetically">Sorter alfabetisk</string>
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Tilbake</string>
     <string name="expand_collapse">Utvid / Kollaps</string>
     <string name="essential">Nødvendig</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Legg til menneskelig lesbar UUID til nye oppgaver</string>
+    <string name="append_human_readable_uuid_to_new_todos">Legg til menneskelig lesbar UUID til nye oppgaver</string>
     <string name="action_order">Handlingen rekkefølge</string>
     <string name="toggle_action_visibility">Vis/skjul handlingen</string>
     <string name="load_default_settings">Last inn standardinnstillinger</string>

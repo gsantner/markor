@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">到期日</string>
     <string name="current_date">現在日期</string>
     <string name="archive">歸檔</string>
-    <string name="add_task">新增工作</string>
+    <string name="add_todo">新增工作</string>
     <string name="add_x_witharg">新增 %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">這個文件將被輸出並儲存為 \'%s\'</string>
     <string name="refresh">更新</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
-    <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
-    <string name="tasks_with_todays_date">有今天日期的工作</string>
+    <string name="insert_current_date_when_starting_new_todo">當開始一項新工作時插入當今日期</string>
+    <string name="todos_with_todays_date">有今天日期的工作</string>
     <string name="append_contexts_and_projects">增補內文與專案等</string>
-    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字動作時在工作的結尾增加內文或專案。</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">使用適當的文字動作時在工作的結尾增加內文或專案。</string>
     <string name="rtl_rendering">RTL 顯現</string>
     <string name="highlight_line_ending">標記行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">來源</string>
     <string name="space_between_lines_in_percent">行距以百分比表示</string>
     <string name="line_spacing">行距</string>
-    <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
-    <string name="sort_tasks_by_selected_order">依所選的順序排列</string>
+    <string name="archive_does_move_done_todo">移動完成的工作到相同資料夾的指定文件上。</string>
+    <string name="sort_todos_by_selected_order">依所選的順序排列</string>
     <string name="special_key">特殊鍵</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>

@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Dan dospijeća</string>
     <string name="current_date">Trenutni datum</string>
     <string name="archive">Arhiviraj</string>
-    <string name="add_task">Novi zadatak</string>
+    <string name="add_todo">Novi zadatak</string>
     <string name="add_x_witharg">Dodaj %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokument koji treba učitati i pohraniti kao \"%s\"</string>
     <string name="refresh">Osvježi</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Podvuci</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Da li podvući hex kōdove boje prema boji</string>
     <string name="underline_hex_color_codes">Podvući Hex kōdove boje</string>
-    <string name="insert_current_date_when_starting_new_task">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
-    <string name="tasks_with_todays_date">Zadatak s današnjim datumom</string>
+    <string name="insert_current_date_when_starting_new_todo">Unesi trenutni datum prilikom kreiranja novog zadatka</string>
+    <string name="todos_with_todays_date">Zadatak s današnjim datumom</string>
     <string name="append_contexts_and_projects">Dodaj kontekste i projekte</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Dodaj kontekste i projekte na kraj zadatka ako je korištena odgovarajuća tekstualna akcija</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Dodaj kontekste i projekte na kraj zadatka ako je korištena odgovarajuća tekstualna akcija</string>
     <string name="rtl_rendering">RTL prikaz</string>
     <string name="highlight_line_ending">Markiraj završetak reda</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Markiraj bjeline na kraju redova u kojima se nalaze dvije ili više bjelina</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Resursi</string>
     <string name="space_between_lines_in_percent">Prored u procentima</string>
     <string name="line_spacing">Prored</string>
-    <string name="archive_does_move_done_tasks">Premjesti obavljene zadatke u zadatu datoteku u istom direktoriju</string>
-    <string name="sort_tasks_by_selected_order">Sortiraj zadatke po odabranom redoslijedu</string>
+    <string name="archive_does_move_done_todo">Premjesti obavljene zadatke u zadatu datoteku u istom direktoriju</string>
+    <string name="sort_todos_by_selected_order">Sortiraj zadatke po odabranom redoslijedu</string>
     <string name="special_key">Specijalni ključ</string>
     <string name="key_page_up">Prethodna stranica (Page Up)</string>
     <string name="key_page_down">Sljedeća stranica (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Boja linka</string>
     <string name="add_context">Dodaj kontekst</string>
     <string name="add_project">Dodaj projekat</string>
-    <string name="archive_completed_tasks">Arhiviraj obavljene zadatke</string>
+    <string name="archive_completed_todos">Arhiviraj obavljene zadatke</string>
     <string name="sort_alphabetically">Sortiraj po abecedi</string>
     <string name="create_new_file_or_folder">Kreiraj novu datoteku ili omotnicu</string>
     <string name="choose_format">Izaberi format</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Nazad</string>
     <string name="expand_collapse">Prikaži / Sakrij</string>
     <string name="essential">Neophodno</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Dodaj čitljiv UUID u novim zadacima</string>
+    <string name="append_human_readable_uuid_to_new_todos">Dodaj čitljiv UUID u novim zadacima</string>
     <string name="action_order">Poredak radnji</string>
     <string name="toggle_action_visibility">Promijeni vidljivost akcije</string>
     <string name="load_default_settings">Učitaj prvobitne postavke</string>

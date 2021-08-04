@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Échéance</string>
     <string name="current_date">Date courante</string>
     <string name="archive">Archive</string>
-    <string name="add_task">Ajouter une tâche</string>
+    <string name="add_todo">Ajouter une tâche</string>
     <string name="add_x_witharg">Ajouter %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Le document à charger et à enregistrer comme \"%s\"</string>
     <string name="refresh">Rafraîchir</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Souligné</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Surligne les codes couleurs hexadécimaux de la couleur correspondante</string>
     <string name="underline_hex_color_codes">Surligner les codes couleurs</string>
-    <string name="insert_current_date_when_starting_new_task">Insérer la date courante à la création d\'une nouvelle tâche</string>
-    <string name="tasks_with_todays_date">Tâches d\'aujourd\'hui</string>
+    <string name="insert_current_date_when_starting_new_todo">Insérer la date courante à la création d\'une nouvelle tâche</string>
+    <string name="todos_with_todays_date">Tâches d\'aujourd\'hui</string>
     <string name="append_contexts_and_projects">Ajout des contextes et projets</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Ajouter des contextes et des projets à la fin d\'une tâche lorsque vous utilisez l\'action de texte appropriée</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Ajouter des contextes et des projets à la fin d\'une tâche lorsque vous utilisez l\'action de texte appropriée</string>
     <string name="rtl_rendering">Écriture de droite à gauche</string>
     <string name="highlight_line_ending">Afficher les fins de ligne</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Mettre en valeur les espaces en fin de ligne, à partir de deux espaces</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Ressources</string>
     <string name="space_between_lines_in_percent">Espacement de lignes (%)</string>
     <string name="line_spacing">Espacement de lignes</string>
-    <string name="archive_does_move_done_tasks">Déplacer vers un fichier du dossier</string>
-    <string name="sort_tasks_by_selected_order">Ordonnez les tâches selon l\'ordre sélectionné</string>
+    <string name="archive_does_move_done_todo">Déplacer vers un fichier du dossier</string>
+    <string name="sort_todos_by_selected_order">Ordonnez les tâches selon l\'ordre sélectionné</string>
     <string name="special_key">Touches spéciales</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Couleur du lien</string>
     <string name="add_context">Ajouter un contexte</string>
     <string name="add_project">Ajouter un projet</string>
-    <string name="archive_completed_tasks">Archiver les tâches terminées</string>
+    <string name="archive_completed_todos">Archiver les tâches terminées</string>
     <string name="sort_alphabetically">Trier par ordre alphabétique</string>
     <string name="create_new_file_or_folder">Créer un nouveau fichier ou dossier</string>
     <string name="choose_format">Choisir le format</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Retour</string>
     <string name="expand_collapse">Développer / Réduire</string>
     <string name="essential">Essentiel</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Ajouter un UUID intelligible aux nouvelles tâches</string>
+    <string name="append_human_readable_uuid_to_new_todos">Ajouter un UUID intelligible aux nouvelles tâches</string>
     <string name="action_order">Ordre des actions</string>
     <string name="toggle_action_visibility">Activer/désactiver la visibilité de l\'action</string>
     <string name="load_default_settings">Charger les paramètres par défaut</string>

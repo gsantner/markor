@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Ημερομηνία λήξης</string>
     <string name="current_date">Τρέχουσα ημερομηνία</string>
     <string name="archive">Αρχειοθέτηση</string>
-    <string name="add_task">Προσθήκη εργασίας</string>
+    <string name="add_todo">Προσθήκη εργασίας</string>
     <string name="add_x_witharg">Προσθήκη %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Έγγραφο που θα φορτωθεί και θα αποθηκευτεί ως \"%s\"</string>
     <string name="refresh">Ανανέωση</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Με υπογράμμιση</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Αν θα υπογραμμιστεί ο δεκαεξαδικός κωδικός χρώματος σύμφωνα με το χρώμα</string>
     <string name="underline_hex_color_codes">Υπογράμμιση Δεκαεξαδικούς Κωδικούς Χρωμάτων</string>
-    <string name="insert_current_date_when_starting_new_task">Εισάγετε την τρέχουσα ημερομηνία κατά την έναρξη μιας νέας εργασίας</string>
-    <string name="tasks_with_todays_date">Εργασίες με τη σημερινή ημερομηνία</string>
+    <string name="insert_current_date_when_starting_new_todo">Εισάγετε την τρέχουσα ημερομηνία κατά την έναρξη μιας νέας εργασίας</string>
+    <string name="todos_with_todays_date">Εργασίες με τη σημερινή ημερομηνία</string>
     <string name="append_contexts_and_projects">Προσάρτηση συγκειμένων και έργων</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Προσάρτηση συγκειμένων και έργων στο τέλος μιας εργασίας κατά τη χρήση της κατάλληλης ενέργειας κειμένου</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Προσάρτηση συγκειμένων και έργων στο τέλος μιας εργασίας κατά τη χρήση της κατάλληλης ενέργειας κειμένου</string>
     <string name="rtl_rendering">Δεξιά-προς-αριστερή προβολή</string>
     <string name="highlight_line_ending">Υπογράμμιση τέλους γραμμής</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Επισήμανση κενών στο τέλος γραμμών που περιέχουν δύο ή περισσότερα κενά</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Πόροι</string>
     <string name="space_between_lines_in_percent">Διάστημα μεταξύ των γραμμών σε ποσοστό</string>
     <string name="line_spacing">Απόσταση Γραμμών</string>
-    <string name="archive_does_move_done_tasks">Μετακίνηση εργασιών σε καθορισμένο αρχείο στον ίδιο φάκελο</string>
-    <string name="sort_tasks_by_selected_order">Ταξινόμηση εργασιών με βάση την επιλεγμένη σειρά</string>
+    <string name="archive_does_move_done_todo">Μετακίνηση εργασιών σε καθορισμένο αρχείο στον ίδιο φάκελο</string>
+    <string name="sort_todos_by_selected_order">Ταξινόμηση εργασιών με βάση την επιλεγμένη σειρά</string>
     <string name="special_key">Ειδικό πλήκτρο</string>
     <string name="key_page_up">Σελίδα Επάνω (Page Up)</string>
     <string name="key_page_down">Σελίδα Κάτω (Page Down)</string>
@@ -356,7 +356,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Χρώμα συνδέσμου</string>
     <string name="add_context">Προσθήκη συγκειμένου</string>
     <string name="add_project">Προσθήκη έργου</string>
-    <string name="archive_completed_tasks">Αρχειοθέτηση ολοκληρωμένων εργασιών</string>
+    <string name="archive_completed_todos">Αρχειοθέτηση ολοκληρωμένων εργασιών</string>
     <string name="sort_alphabetically">Ταξινόμηση αλφαβητικά</string>
     <string name="create_new_file_or_folder">Δημιουργία νέου αρχείου ή φακέλου</string>
     <string name="choose_format">Επιλογή μορφής</string>
@@ -364,7 +364,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Πίσω</string>
     <string name="expand_collapse">Ανάπτυξη / Σύμπτυξη</string>
     <string name="essential">Ουσιαστικό</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Προσάρτηση αναγνώσιμου από άνθρωπο UUID σε νέες εργασίες</string>
+    <string name="append_human_readable_uuid_to_new_todos">Προσάρτηση αναγνώσιμου από άνθρωπο UUID σε νέες εργασίες</string>
     <string name="action_order">Σειρά ενεργειών</string>
     <string name="toggle_action_visibility">Εναλλαγή ορατότητας ενέργειας</string>
     <string name="load_default_settings">Φόρτωση προεπιλεγμένων ρυθμίσεων</string>

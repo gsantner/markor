@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Termín dokončení</string>
     <string name="current_date">Aktuální datum</string>
     <string name="archive">Archivovat</string>
-    <string name="add_task">Přidat úkol</string>
+    <string name="add_todo">Přidat úkol</string>
     <string name="add_x_witharg">Přidat %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokument, který má být nahrán a uložen jako \"%s\"</string>
     <string name="refresh">Obnovit</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Podtržení</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Podtrhovat hex kódy barev odpovídající barvou</string>
     <string name="underline_hex_color_codes">Podtrhnout Hex barevné kódy</string>
-    <string name="insert_current_date_when_starting_new_task">Vložit aktuální datum při zahájení nového úkolu</string>
-    <string name="tasks_with_todays_date">Úkoly s dnešním datem</string>
+    <string name="insert_current_date_when_starting_new_todo">Vložit aktuální datum při zahájení nového úkolu</string>
+    <string name="todos_with_todays_date">Úkoly s dnešním datem</string>
     <string name="append_contexts_and_projects">Připojit kontexty a projekty</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Použití příslušného textového modulu přidá na konec úkolu kontexty a projekty</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Použití příslušného textového modulu přidá na konec úkolu kontexty a projekty</string>
     <string name="rtl_rendering">vykreslování RTL</string>
     <string name="highlight_line_ending">Zvýraznit konec řádku</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Zvýraznit řádky, které končí dvěma nebo více mezerami</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Zdroje</string>
     <string name="space_between_lines_in_percent">Mezery mezi řádky v procentech</string>
     <string name="line_spacing">Řádkování</string>
-    <string name="archive_does_move_done_tasks">Přesun hotových úloh do zadaného souboru ve stejné složce</string>
-    <string name="sort_tasks_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
+    <string name="archive_does_move_done_todo">Přesun hotových úloh do zadaného souboru ve stejné složce</string>
+    <string name="sort_todos_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
     <string name="special_key">Speciální klíč</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Barva odkazu</string>
     <string name="add_context">Přidat kontext</string>
     <string name="add_project">Přidat projekt</string>
-    <string name="archive_completed_tasks">Archivovat dokončené úkoly</string>
+    <string name="archive_completed_todos">Archivovat dokončené úkoly</string>
     <string name="sort_alphabetically">Seřadit abecedně</string>
     <string name="create_new_file_or_folder">Vytvořit nový soubor nebo složku</string>
     <string name="choose_format">Zvolte formát</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Zpět</string>
     <string name="expand_collapse">Rozbalit / Sbalit</string>
     <string name="essential">Základní</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Připojit okem čitelné UUID k novým úkolům</string>
+    <string name="append_human_readable_uuid_to_new_todos">Připojit okem čitelné UUID k novým úkolům</string>
     <string name="action_order">Pořadí tlačítek</string>
     <string name="toggle_action_visibility">Přepnout viditelnost akce</string>
     <string name="load_default_settings">Načíst výchozí nastavení</string>

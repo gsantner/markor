@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Fecha de vencimiento</string>
     <string name="current_date">Fecha actual</string>
     <string name="archive">Archivar</string>
-    <string name="add_task">Agregar tarea</string>
+    <string name="add_todo">Agregar tarea</string>
     <string name="add_x_witharg">Añadir %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">El documento se cargará y guardará como \"%s\"</string>
     <string name="refresh">Actualizar</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Subrayado</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Especifica si subrayar los códigos de color hexadecimal de acuerdo a su color o no</string>
     <string name="underline_hex_color_codes">Subrayar códigos de color hexadecimal</string>
-    <string name="insert_current_date_when_starting_new_task">Inserta la fecha actual al iniciar una tarea nueva</string>
-    <string name="tasks_with_todays_date">Tareas con fecha de hoy</string>
+    <string name="insert_current_date_when_starting_new_todo">Inserta la fecha actual al iniciar una tarea nueva</string>
+    <string name="todos_with_todays_date">Tareas con fecha de hoy</string>
     <string name="append_contexts_and_projects">Añadir contextos y proyectos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Añadir contextos y proyectos al final de una tarea cuando se utiliza la acción de texto apropiada</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Añadir contextos y proyectos al final de una tarea cuando se utiliza la acción de texto apropiada</string>
     <string name="rtl_rendering">Representación RTL</string>
     <string name="highlight_line_ending">Colorear el final de la línea</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Resaltar los espacios al final de las líneas si estas terminan en dos o más espacios</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Recursos</string>
     <string name="space_between_lines_in_percent">Porcentaje de espaciado entre líneas</string>
     <string name="line_spacing">Espaciado entre líneas</string>
-    <string name="archive_does_move_done_tasks">Mueve las tareas completadas al archivo especificado en la misma carpeta</string>
-    <string name="sort_tasks_by_selected_order">Ordenar tareas por orden seleccionado</string>
+    <string name="archive_does_move_done_todo">Mueve las tareas completadas al archivo especificado en la misma carpeta</string>
+    <string name="sort_todos_by_selected_order">Ordenar tareas por orden seleccionado</string>
     <string name="special_key">Tecla especial</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Siguiente página (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Color de enlace</string>
     <string name="add_context">Añadir contexto</string>
     <string name="add_project">Añadir proyecto</string>
-    <string name="archive_completed_tasks">Archivar tareas completadas</string>
+    <string name="archive_completed_todos">Archivar tareas completadas</string>
     <string name="sort_alphabetically">Ordenar alfabéticamente</string>
     <string name="create_new_file_or_folder">Crear un nuevo archivo o carpeta</string>
     <string name="choose_format">Elegir formato</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Atrás</string>
     <string name="expand_collapse">Expandir / Contraer</string>
     <string name="essential">Esencial</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Añadir UUID legible por humanos a nuevas tareas</string>
+    <string name="append_human_readable_uuid_to_new_todos">Añadir UUID legible por humanos a nuevas tareas</string>
     <string name="action_order">Orden de acción</string>
     <string name="toggle_action_visibility">Alternar visibilidad de acción</string>
     <string name="load_default_settings">Cargar ajustes por defecto</string>

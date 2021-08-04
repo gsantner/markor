@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">截止日期</string>
     <string name="current_date">当前日期</string>
     <string name="archive">归档</string>
-    <string name="add_task">添加任务</string>
+    <string name="add_todo">添加任务</string>
     <string name="add_x_witharg">添加 %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">该文件将被保存为 \"%s\"</string>
     <string name="refresh">刷新</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">下划线</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">为十六进制颜色代码按照颜色添加下划线</string>
     <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
-    <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
-    <string name="tasks_with_todays_date">为任务附上今天的日期</string>
+    <string name="insert_current_date_when_starting_new_todo">在开始一项新任务时自动插入当前日期</string>
+    <string name="todos_with_todays_date">为任务附上今天的日期</string>
     <string name="append_contexts_and_projects">附加内容与项目</string>
-    <string name="append_contexts_and_projects_on_end_of_task">当使用适当的文本动作时，在任务结束时附加背景和项目</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">当使用适当的文本动作时，在任务结束时附加背景和项目</string>
     <string name="rtl_rendering">从右向左渲染</string>
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">资源</string>
     <string name="space_between_lines_in_percent">单位为百分比</string>
     <string name="line_spacing">行距</string>
-    <string name="archive_does_move_done_tasks">将完成的任务移动至同目录下的指定文件</string>
-    <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
+    <string name="archive_does_move_done_todo">将完成的任务移动至同目录下的指定文件</string>
+    <string name="sort_todos_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">链接颜色</string>
     <string name="add_context">添加内容</string>
     <string name="add_project">添加项目</string>
-    <string name="archive_completed_tasks">存档已完成的任务</string>
+    <string name="archive_completed_todos">存档已完成的任务</string>
     <string name="sort_alphabetically">按字母顺序排序</string>
     <string name="create_new_file_or_folder">创建一个新的文件或文件夹</string>
     <string name="choose_format">选择格式</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>
     <string name="essential">基本的</string>
-    <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
+    <string name="append_human_readable_uuid_to_new_todos">将人类可读的 UUID 附加到新任务</string>
     <string name="action_order">动作顺序</string>
     <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>

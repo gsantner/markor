@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">تاريخ الاستحقاق</string>
     <string name="current_date">التاريخ الحالي</string>
     <string name="archive">أرشفة</string>
-    <string name="add_task">إضافة مهمة</string>
+    <string name="add_todo">إضافة مهمة</string>
     <string name="add_x_witharg">إضافة %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">تحميل وحفظ المستند كـ \"%s\"</string>
     <string name="refresh">تحديث</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">أسفل</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">وضع خط تحت رموز الألوان ام لا</string>
     <string name="underline_hex_color_codes">وضع خط تحت رموز الألوان</string>
-    <string name="insert_current_date_when_starting_new_task">كتابة التاريخ عند كتابة مهمة جديدة</string>
-    <string name="tasks_with_todays_date">المهام بتاريخ اليوم</string>
+    <string name="insert_current_date_when_starting_new_todo">كتابة التاريخ عند كتابة مهمة جديدة</string>
+    <string name="todos_with_todays_date">المهام بتاريخ اليوم</string>
     <string name="append_contexts_and_projects">إلحاق السياقات والمشاريع</string>
-    <string name="append_contexts_and_projects_on_end_of_task">إلحاق السياقات والمشاريع في نهاية المهمة عند استخدام إجراء النص المناسب</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">إلحاق السياقات والمشاريع في نهاية المهمة عند استخدام إجراء النص المناسب</string>
     <string name="rtl_rendering">عرض من اليمين لليسار</string>
     <string name="highlight_line_ending">تظليل نهاية السطر</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">تظليل مسافاتين او اكثر في نهاية السطر</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">الموارد</string>
     <string name="space_between_lines_in_percent">المسافة بين الأسطر بالمئة</string>
     <string name="line_spacing">تباعد الأسطر</string>
-    <string name="archive_does_move_done_tasks">نقل المهام المنفذة إلى ملف معين في نفس المجلد</string>
-    <string name="sort_tasks_by_selected_order">فرز المهام حسب نظام معين</string>
+    <string name="archive_does_move_done_todo">نقل المهام المنفذة إلى ملف معين في نفس المجلد</string>
+    <string name="sort_todos_by_selected_order">فرز المهام حسب نظام معين</string>
     <string name="special_key">مفتاح خاص</string>
     <string name="key_page_up">صفحة لأعلى</string>
     <string name="key_page_down">صفحة لأسفل</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">لون الرابط</string>
     <string name="add_context">إضافة سياق</string>
     <string name="add_project">إضافة مشروع</string>
-    <string name="archive_completed_tasks">أرشيف المهام المكتملة</string>
+    <string name="archive_completed_todos">أرشيف المهام المكتملة</string>
     <string name="sort_alphabetically">فرز أبجدياً</string>
     <string name="create_new_file_or_folder">إنشاء ملف أو مجلد جديد</string>
     <string name="choose_format">اختيار التنسيق</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">الرجوع</string>
     <string name="expand_collapse">توسيع / إغلاق</string>
     <string name="essential">جوهري</string>
-    <string name="append_human_readable_uuid_to_new_tasks">إلحاق UUID مقروء بشر إلى مهام جديدة</string>
+    <string name="append_human_readable_uuid_to_new_todos">إلحاق UUID مقروء بشر إلى مهام جديدة</string>
     <string name="action_order">أمر العمل</string>
     <string name="toggle_action_visibility">تبديل رؤية الإجراء</string>
     <string name="load_default_settings">تحميل الإعدادات الافتراضية</string>

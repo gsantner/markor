@@ -96,8 +96,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">Arquivo baleiro</string>
     <string name="break_page_pdf_print">Salto de páxina (PDF/Impresión)</string>
     <string name="underline_hex_color_codes">Subliñar códigos de color hexadecimal</string>
-    <string name="insert_current_date_when_starting_new_task">Inserir data actual ao iniciar unha nova tarefa</string>
-    <string name="tasks_with_todays_date">Tarefas con data de hoxe</string>
+    <string name="insert_current_date_when_starting_new_todo">Inserir data actual ao iniciar unha nova tarefa</string>
+    <string name="todos_with_todays_date">Tarefas con data de hoxe</string>
     <string name="append_contexts_and_projects">Engadir contextos e proxectos</string>
     <string name="general">Xeral</string>
     <string name="default_">Por omisión</string>

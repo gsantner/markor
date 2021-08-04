@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">תאריך סיום</string>
     <string name="current_date">התאריך הנוכחי</string>
     <string name="archive">ארכיון</string>
-    <string name="add_task">הוסף מטלה</string>
+    <string name="add_todo">הוסף מטלה</string>
     <string name="add_x_witharg">הוסף %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">המסמך יטען יישמר כ- \"%s\"</string>
     <string name="refresh">רענן</string>
@@ -151,8 +151,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">קובץ ריק</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
-    <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
-    <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
+    <string name="insert_current_date_when_starting_new_todo">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
+    <string name="todos_with_todays_date">מטלות עם התאריך של היום</string>
     <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
     <string name="rtl_rendering">תצוגת ימין-לשמאל</string>
     <string name="highlight_line_ending">הדגש סיום שורה</string>
@@ -163,8 +163,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">מקורות</string>
     <string name="space_between_lines_in_percent">המרווח בין שורות באחוזים</string>
     <string name="line_spacing">מרווח בין שורות</string>
-    <string name="archive_does_move_done_tasks">הזז מטלות שבוצעו לקובץ שצויין באותה תיקיה</string>
-    <string name="sort_tasks_by_selected_order">מיין את המטלות לפי הסדר שנבחר</string>
+    <string name="archive_does_move_done_todo">הזז מטלות שבוצעו לקובץ שצויין באותה תיקיה</string>
+    <string name="sort_todos_by_selected_order">מיין את המטלות לפי הסדר שנבחר</string>
     <string name="special_key">כפתור מיוחד</string>
     <string name="key_page_up">דף מעלה (דף מעלה)</string>
     <string name="key_page_down">דף מטה (דף מטה)</string>

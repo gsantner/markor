@@ -33,7 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_from_device">Importovať zo zariadenia</string>
     <string name="import_">Importovať</string>
     <string name="about">O aplikacii</string>
-    <string name="add_task">Pridaj ulohu</string>
+    <string name="add_todo">Pridaj ulohu</string>
     <string name="add_x_witharg">Pridaj %s</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
     <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>

@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Iscadèntzia</string>
     <string name="current_date">Data currente</string>
     <string name="archive">Archìvia</string>
-    <string name="add_task">Annanghe una faina</string>
+    <string name="add_todo">Annanghe una faina</string>
     <string name="add_x_witharg">Annanghe %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Documentu de carrigare e sarvare comente \"%s\"</string>
     <string name="refresh">Agiorna</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Suta-lìnia</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Sutalìnia o nono sos còdighes esadetzimales de sos colores a segunda de sos colores</string>
     <string name="underline_hex_color_codes">Sutalìnia sos còdighes esadetzimales de sos colores</string>
-    <string name="insert_current_date_when_starting_new_task">Inserta sa data currente cando incumentzas una faina noa</string>
-    <string name="tasks_with_todays_date">Fainas cun data de oe</string>
+    <string name="insert_current_date_when_starting_new_todo">Inserta sa data currente cando incumentzas una faina noa</string>
+    <string name="todos_with_todays_date">Fainas cun data de oe</string>
     <string name="append_contexts_and_projects">Annanghe cuntestos e progetos</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Annanghe cuntestos e progetos a s\'acabu de una faina cando ses impreende s\'atzione pro su testu apropriada</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Annanghe cuntestos e progetos a s\'acabu de una faina cando ses impreende s\'atzione pro su testu apropriada</string>
     <string name="rtl_rendering">Renderizatzione dae destra a manca</string>
     <string name="highlight_line_ending">Evidèntzia s\'acabu de sa lìnia</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidèntzia sos ispatzios a s\'acabu de sas lìnias chi cuntenint duos o prus ispàtzios</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Risursas</string>
     <string name="space_between_lines_in_percent">Ispàtziu intre sas lìnias in pertzentuale</string>
     <string name="line_spacing">Ispatziadura de sas lìnias</string>
-    <string name="archive_does_move_done_tasks">Moe sas fainas acabadas in su documentu dislindadu in sa matessi cartella</string>
-    <string name="sort_tasks_by_selected_order">Òrdina sas fainas sighende s\'òrdine ischertadu</string>
+    <string name="archive_does_move_done_todo">Moe sas fainas acabadas in su documentu dislindadu in sa matessi cartella</string>
+    <string name="sort_todos_by_selected_order">Òrdina sas fainas sighende s\'òrdine ischertadu</string>
     <string name="special_key">Tecla ispetziale</string>
     <string name="key_page_up">Pàgina in subra (Page Up)</string>
     <string name="key_page_down">Pàgina in suta (Page Down)</string>
@@ -355,7 +355,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Colore de su ligàmene</string>
     <string name="add_context">Annanghe cuntestu</string>
     <string name="add_project">Annanghe unu progetu</string>
-    <string name="archive_completed_tasks">Archìvia sas fainas acabadas</string>
+    <string name="archive_completed_todos">Archìvia sas fainas acabadas</string>
     <string name="sort_alphabetically">Òrdina alfabeticamente</string>
     <string name="create_new_file_or_folder">Crea unu documentu o una cartella noa</string>
     <string name="choose_format">Issèbera su formadu</string>
@@ -363,7 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">In palas</string>
     <string name="expand_collapse">Ismànnia / Mìnima</string>
     <string name="essential">Essentziale</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Annanghe un\'UUID chi podet èssere lèghidu a sas fainas noas</string>
+    <string name="append_human_readable_uuid_to_new_todos">Annanghe un\'UUID chi podet èssere lèghidu a sas fainas noas</string>
     <string name="action_order">Òrdine de atzione</string>
     <string name="toggle_action_visibility">Allughe/istuda sa visibilidade de s\'atzione</string>
     <string name="load_default_settings">Càrriga sas impostatziones predefinidas</string>

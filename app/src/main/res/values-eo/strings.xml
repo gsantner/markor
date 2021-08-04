@@ -83,7 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Limdato</string>
     <string name="current_date">Aktuala dato</string>
     <string name="archive">Arkivo</string>
-    <string name="add_task">Aldoni taskon</string>
+    <string name="add_todo">Aldoni taskon</string>
     <string name="add_x_witharg">Aldoni %s</string>
     <string name="files_and_folders">Dosieroj kaj dosierujoj</string>
     <string name="document_browser">Dokumenta foliumilo</string>
@@ -101,7 +101,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Aliaj</string>
     <string name="empty_file">Malplena dosiero</string>
     <string name="underline">Substreki</string>
-    <string name="tasks_with_todays_date">Taskoj kun hodiaŭa dato</string>
+    <string name="todos_with_todays_date">Taskoj kun hodiaŭa dato</string>
     <string name="general">Ĝeneralaj</string>
     <string name="key_ctrl_a">Elekti ĉiujn (Ctrl+A)</string>
     <string name="key_tab">Tabo</string>

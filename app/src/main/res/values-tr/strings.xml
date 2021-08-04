@@ -110,7 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_date">Bitiş tarihi</string>
     <string name="current_date">Geçerli tarih</string>
     <string name="archive">Arşiv</string>
-    <string name="add_task">Görev ekle</string>
+    <string name="add_todo">Görev ekle</string>
     <string name="add_x_witharg">%s Ekle</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">\"%s\" olarak yüklenip kaydedilecek belgeyi seç</string>
     <string name="refresh">Yenile</string>
@@ -153,10 +153,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="underline">Alt çizgi</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Hex Renk Kodlarının renklerine göre altını çiz</string>
     <string name="underline_hex_color_codes">Hex Renk Kodlarının Altını Çiz</string>
-    <string name="insert_current_date_when_starting_new_task">Yeni görev başlatırken geçerli tarihi ekle</string>
-    <string name="tasks_with_todays_date">Bugünün tarihi ile görevler</string>
+    <string name="insert_current_date_when_starting_new_todo">Yeni görev başlatırken geçerli tarihi ekle</string>
+    <string name="todos_with_todays_date">Bugünün tarihi ile görevler</string>
     <string name="append_contexts_and_projects">Bağlamları ve projeleri ekle</string>
-    <string name="append_contexts_and_projects_on_end_of_task">Uygun metin eylemini kullanırken görevin sonuna bağlamlar ve projeler ekle</string>
+    <string name="append_contexts_and_projects_on_end_of_todo">Uygun metin eylemini kullanırken görevin sonuna bağlamlar ve projeler ekle</string>
     <string name="rtl_rendering">Sağdan sola metin yönü</string>
     <string name="highlight_line_ending">Satır sonunu vurgula</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">İki veya daha fazla boşluk içeren satırların sonundaki boşlukları vurgula</string>
@@ -169,8 +169,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">Kaynaklar</string>
     <string name="space_between_lines_in_percent">Satırlar arasındaki boşlukların yüzdesi</string>
     <string name="line_spacing">Satır Aralığı</string>
-    <string name="archive_does_move_done_tasks">Bitirilen görevleri aynı klasöre belirtilen dosyaya taşı</string>
-    <string name="sort_tasks_by_selected_order">Görevleri seçilen düzene göre sırala</string>
+    <string name="archive_does_move_done_todo">Bitirilen görevleri aynı klasöre belirtilen dosyaya taşı</string>
+    <string name="sort_todos_by_selected_order">Görevleri seçilen düzene göre sırala</string>
     <string name="special_key">Özel Tuş</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
@@ -354,7 +354,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Bağlantı rengi</string>
     <string name="add_context">Bağlam ekle</string>
     <string name="add_project">Proje ekle</string>
-    <string name="archive_completed_tasks">Tamamlanan görevleri arşivle</string>
+    <string name="archive_completed_todos">Tamamlanan görevleri arşivle</string>
     <string name="sort_alphabetically">Alfabetik olarak sırala</string>
     <string name="create_new_file_or_folder">Yeni dosya ya da klasör oluştur</string>
     <string name="choose_format">Biçim seç</string>
@@ -362,7 +362,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">Geri</string>
     <string name="expand_collapse">Genişlet / Daralt</string>
     <string name="essential">Gerekli</string>
-    <string name="append_human_readable_uuid_to_new_tasks">Yeni görevlere insan tarafından okunabilen UUID ekle</string>
+    <string name="append_human_readable_uuid_to_new_todos">Yeni görevlere insan tarafından okunabilen UUID ekle</string>
     <string name="action_order">Eylem sırası</string>
     <string name="toggle_action_visibility">Eylem görünürlüğünü değiştir</string>
     <string name="load_default_settings">Varsayılan ayarları yükle</string>
