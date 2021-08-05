@@ -56,7 +56,7 @@ public class TodoTxtTask {
 
     public static final char PRIORITY_NONE = '~';
 
-    public enum DUE_STATUS {
+    public enum TodoDueState {
         NONE, OVERDUE, TODAY, FUTURE
     }
 
@@ -137,7 +137,7 @@ public class TodoTxtTask {
     private String completionDate = null;
     private String dueDate = null;
     private String description = null;
-    private DUE_STATUS dueStatus = null;
+    private TodoDueState dueStatus = null;
 
     public TodoTxtTask(final String line) {
         this.line = line;
@@ -171,11 +171,7 @@ public class TodoTxtTask {
     public char getPriority() {
         if (priority == null) {
             final String ret = parseOneValueOrDefault(line, PATTERN_PRIORITY_ANY, "");
-            if (ret.length() == 1) {
-                priority = Character.toUpperCase(ret.charAt(0));
-            } else {
-                priority = PRIORITY_NONE; // No priority == lowest priority
-            }
+            priority = ret.isEmpty() ? PRIORITY_NONE : Character.toUpperCase(ret.charAt(0));
         }
         return priority;
     }
@@ -216,14 +212,14 @@ public class TodoTxtTask {
         return dueDate;
     }
 
-    public DUE_STATUS getDueStatus() {
+    public TodoDueState getDueStatus() {
         if (dueStatus == null) {
             final String date = getDueDate();
             if (TextUtils.isEmpty(date)) {
-                dueStatus = DUE_STATUS.NONE;
+                dueStatus = TodoDueState.NONE;
             } else {
                 final int comp = date.compareTo(getToday());
-                dueStatus = (comp > 0) ? DUE_STATUS.FUTURE : (comp < 0) ? DUE_STATUS.OVERDUE : DUE_STATUS.TODAY;
+                dueStatus = (comp > 0) ? TodoDueState.FUTURE : (comp < 0) ? TodoDueState.OVERDUE : TodoDueState.TODAY;
             }
         }
         return dueStatus;

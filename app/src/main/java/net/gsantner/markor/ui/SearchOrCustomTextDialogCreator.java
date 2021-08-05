@@ -266,12 +266,12 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.due_date));
         icons.add(R.drawable.ic_date_range_black_24dp);
-        final Map<TodoTxtTask.DUE_STATUS, String> statusMap = new HashMap<>();
-        statusMap.put(TodoTxtTask.DUE_STATUS.TODAY, activity.getString(R.string.due_today));
-        statusMap.put(TodoTxtTask.DUE_STATUS.OVERDUE, activity.getString(R.string.due_overdue));
-        statusMap.put(TodoTxtTask.DUE_STATUS.FUTURE, activity.getString(R.string.due_future));
+        final Map<TodoTxtTask.TodoDueState, String> statusMap = new HashMap<>();
+        statusMap.put(TodoTxtTask.TodoDueState.TODAY, activity.getString(R.string.due_today));
+        statusMap.put(TodoTxtTask.TodoDueState.OVERDUE, activity.getString(R.string.due_overdue));
+        statusMap.put(TodoTxtTask.TodoDueState.FUTURE, activity.getString(R.string.due_future));
         callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_due_date, false, task ->
-                task.getDueStatus() == TodoTxtTask.DUE_STATUS.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
+                task.getDueStatus() == TodoTxtTask.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
@@ -333,12 +333,11 @@ public class SearchOrCustomTextDialogCreator {
         }
 
         final List<String> options = new ArrayList<>(), data = new ArrayList<>();
-        final boolean includeCounts = new AppSettings(activity).getIncludeTodoFilterCounts();
-        final Callback.s2<String, Integer> getOptionString = (s, c) -> includeCounts ? String.format("%s (%d)", s, c) : s;
+        final String countFormat = "%s (%d)";
 
         // Add none case
         if (noneCount[0] > 0) {
-            final String noneString = getOptionString.callback(activity.getString(R.string.none), noneCount[0]);
+            final String noneString = String.format(countFormat, activity.getString(R.string.none), noneCount[0]);
             options.add(noneString);
             data.add(""); // Dummy to make options match data
             dopt.highlightData = Collections.singletonList(noneString);
@@ -346,7 +345,7 @@ public class SearchOrCustomTextDialogCreator {
 
         // Add other cases
         for (final String k : new TreeSet<>(keys)) {
-            options.add(getOptionString.callback(k, Collections.frequency(keys, k)));
+            options.add(String.format(countFormat, k, Collections.frequency(keys, k)));
             data.add(k);
         }
         dopt.data = options;

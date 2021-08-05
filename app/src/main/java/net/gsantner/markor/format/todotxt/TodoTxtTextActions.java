@@ -240,6 +240,14 @@ public class TodoTxtTextActions extends TextActions {
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
 
             switch (_action) {
+                case R.string.tmaid_todotxt_add_context: {
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_context, true, task -> Arrays.asList(task.getContexts()));
+                    return true;
+                }
+                case R.string.tmaid_todotxt_add_project: {
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_project, true, task -> Arrays.asList(task.getProjects()));
+                    return true;
+                }
                 case R.string.tmaid_common_special_key: {
                     commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;

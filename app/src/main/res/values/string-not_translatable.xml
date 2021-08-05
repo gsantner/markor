@@ -323,7 +323,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__backup_settings" translatable="false">pref_key__backup_settings</string>
     <string name="hidden_password" translatable="false">****</string>
     <string name="pref_key__todotxt__additional_projects_contexts" translatable="false">"pref_key__todotxt__additional_projects_contexts"</string>
-    <string name="pref_key__todotxt__include_filter_counts" translatable="false">"pref_key__todotxt__include_filter_counts"</string>
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
     <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
     <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>

@@ -894,10 +894,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(k, false);
     }
 
-    public boolean getIncludeTodoFilterCounts() {
-        return getBool(R.string.pref_key__todotxt__include_filter_counts, true);
-    }
-
     public String getTodotxtAdditionalContextsAndProjects() {
         return getString(R.string.pref_key__todotxt__additional_projects_contexts, "+music +video @home @shop");
     }
