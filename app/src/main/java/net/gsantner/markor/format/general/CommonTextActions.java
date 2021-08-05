@@ -29,8 +29,6 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
-import java.util.Collections;
-
 @SuppressWarnings("WeakerAccess")
 public class CommonTextActions {
     public static final int ACTION_SPECIAL_KEY__ICON = R.drawable.ic_keyboard_black_24dp;
