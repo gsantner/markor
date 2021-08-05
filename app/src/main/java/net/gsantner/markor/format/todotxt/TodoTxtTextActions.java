@@ -160,7 +160,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDate();
+                    setDueDate(_appSettings.getDueDateOffset());
                     return;
                 }
                 case R.string.tmaid_todotxt_archive_done_tasks: {
@@ -266,7 +266,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDueDate(_appSettings.getDueDateOffset());
+                    setDate();
                     return true;
                 }
             }
