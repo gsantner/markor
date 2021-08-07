@@ -271,6 +271,7 @@ public class SearchOrCustomTextDialogCreator {
             final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
             dopt2.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
             dopt2.neutralButtonText = R.string.back_to_filter;
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
 
         dopt.data = options;
@@ -382,6 +383,7 @@ public class SearchOrCustomTextDialogCreator {
 
             dopt2.neutralButtonText = R.string.back_to_filter;
             dopt2.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
