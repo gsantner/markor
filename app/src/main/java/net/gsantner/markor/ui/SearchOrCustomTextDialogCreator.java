@@ -283,7 +283,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static SearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
+    public static SearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
@@ -385,14 +385,6 @@ public class SearchOrCustomTextDialogCreator {
             dopt2.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
-    public static void showSttSearchDialog(final Activity activity, final EditText text) {
-        SearchOrCustomTextDialog.DialogOptions dopt = makeSttLineSelectionDialog(activity, text, task -> true);
-        // Default neutral callback is search / replace
-        dopt.neutralButtonText = R.string.search_and_replace;
-        dopt.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

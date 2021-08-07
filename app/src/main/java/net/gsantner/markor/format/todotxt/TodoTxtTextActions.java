@@ -21,11 +21,13 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.EditText;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
@@ -54,7 +56,11 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
+            // Select any task
+            SearchOrCustomTextDialog.DialogOptions dopt = SearchOrCustomTextDialogCreator.makeSttLineSelectionDialog(_activity, _hlEditor, task -> true);
+            dopt.neutralButtonText = R.string.search_and_replace;
+            dopt.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor));
+            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(_activity, dopt);
             return true;
         } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
