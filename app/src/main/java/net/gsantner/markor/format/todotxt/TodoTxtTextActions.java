@@ -30,6 +30,7 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -53,6 +54,9 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
+            SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
+            return true;
+        } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
             return true;
         }
