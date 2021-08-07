@@ -171,10 +171,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
-                    final String origText = _hlEditor.getText().toString();
-                    SearchOrCustomTextDialogCreator.showZimWikiHeadlineDialog(_activity, origText, (lineNr) -> {
-                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
-                    });
+                    SearchOrCustomTextDialogCreator.showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), _activity, _hlEditor);
                     return true;
                 }
                 case R.string.tmaid_common_indent:

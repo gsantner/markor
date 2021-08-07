@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -451,19 +452,11 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
-    public static void showMarkdownHeadlineDialog(Activity activity, String fullText, Callback.a1<Integer> userCallback) {
-        showHeadlineDialog("^\\s{0,2}#{1,6}", activity, fullText, userCallback);
-    }
-
-    public static void showZimWikiHeadlineDialog(Activity activity, String fullText, Callback.a1<Integer> userCallback) {
-        showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), activity, fullText, userCallback);
-    }
-
-    private static void showHeadlineDialog(String headlineFilterPattern, Activity activity, String fullText, Callback.a1<Integer> userCallback) {
+    public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.positionCallback = (result) -> userCallback.callback(result.get(0));
-        dopt2.data = Arrays.asList(fullText.split("\n", -1));
+        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
+        dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
         dopt2.extraFilter = headlineFilterPattern;

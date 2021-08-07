@@ -164,10 +164,7 @@ public class MarkdownTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
-                    final String origText = _hlEditor.getText().toString();
-                    SearchOrCustomTextDialogCreator.showMarkdownHeadlineDialog(_activity, origText, (lineNr) -> {
-                        _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
-                    });
+                    SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
                     return true;
                 }
                 case R.string.tmaid_common_move_text_one_line_up:
