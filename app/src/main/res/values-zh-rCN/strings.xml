@@ -395,14 +395,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="export_settings_to_json_file">导出设置到 JSON 文件</string>
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份 JSON 文件导入设置。成功后，应用将重启。</string>
     <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
-    <string name="newline_is_new_paragraph">新行 = 新段</string>
+    <string name="newline_is_new_paragraph">新增行 = 新建段落</string>
     <string name="search_in_content">搜索内容</string>
     <string name="max_search_depth">搜索深度</string>
     <string name="ignore_list">忽略列表</string>
-    <string name="do_not_search_specified_files_and_folders">不要搜索指定的文件和文件夹。\n使用新行作为分隔符。\n使用报价确切的目录名：“测试”。\n或使用Regex \'^[.].*\'\n示例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">不搜索指定的文件和文件夹。\n使用新增行作为分隔符。\n对于确切的目录名请使用引号：“Test”。\n或使用正则表达 \'^[.].*\'\n示例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">正则表达式搜索</string>
     <string name="case_sensitive">区分大小写</string>
-    <string name="stop_search_after_first_match">首次匹配后停止搜索</string>
+    <string name="stop_search_after_first_match">匹配到第一次后停止搜索</string>
     <string name="regex_can_not_be_compiled">无法编译正则表达式</string>
     <string name="keep_both">两者都保留</string>
     <string name="skip">跳过</string>
