@@ -379,21 +379,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">添加完成日期</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">当待办事项标记为已完成时添加完成日期</string>
     <string name="file_description_format">文件描述格式</string>
-    <string name="file_description_format_dialog">文件浏览器中每个文件下的描述格式。关注Android的SimpleDateFormat 规则，并添加用于显示文件大小的 FS 留空以使用您的本地化默认格式。\n\n示例输入：\nFS yyyy MMM dd hh:mm:ss aa\n输出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="file_description_format_dialog">文件浏览器中每个文件下的描述格式。 遵循 Android 的 SimpleDateFormat 规则，添加 FS 用于显示文件大小。 留空以使用您的语言环境的默认格式。\n\n示例输入：\nFS yyyy MMM dd hh:mm:ss aa\n输出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">加载默认值</string>
     <string name="file_settings">文件设置</string>
     <string name="search_and_replace">搜索/替换</string>
     <string name="search_for">搜索</string>
     <string name="replace_with">替换为</string>
-    <string name="replace_once">替换(1)</string>
+    <string name="replace_once">替换 (1)</string>
     <string name="replace_all">全部替换</string>
-    <string name="matches">比赛</string>
-    <string name="search_replace_pattern_error_message">搜索或替换图案错误。</string>
+    <string name="matches">匹配</string>
+    <string name="search_replace_pattern_error_message">搜索或替换模式错误。</string>
     <string name="backup_settings">备份设置</string>
     <string name="restore_settings">还原设置</string>
     <string name="failed_to_create_backup">创建备份失败</string>
-    <string name="export_settings_to_json_file">导出设置到 json 文件</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份json文件导入设置。成功后，应用程序将重启。</string>
+    <string name="export_settings_to_json_file">导出设置到 JSON 文件</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份 JSON 文件导入设置。成功后，应用将重启。</string>
     <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
     <string name="newline_is_new_paragraph">新行 = 新段</string>
     <string name="search_in_content">搜索内容</string>
