@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_page_down">下一页 (Page Down)</string>
     <string name="move_text_one_line_up">上移一行</string>
     <string name="move_text_one_line_down">下移一行</string>
-    <string name="start_new_line_below">在下方开始新行</string>
+    <string name="start_new_line_below">在下方新建行</string>
     <string name="key_pos_1">行首 (Home 键)</string>
     <string name="key_pos_end">行末 (End 键)</string>
     <string name="key_pos_1_document">文首</string>
@@ -185,7 +185,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">制表符</string>
     <string name="start_on_bottom">从文末开始</string>
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
-    <string name="unordered_list_character">无序列表字符</string>
+    <string name="unordered_list_character">无序列表标示字符</string>
     <string name="character_to_start_items_of_unordered_list_with">用于表示无序列表的字符</string>
     <string name="unordered_list_char_dash">连词符 (-)</string>
     <string name="unordered_list_char_asterisk">星号 (*)</string>
@@ -305,7 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">应用起始文件夹</string>
     <string name="tab_width">制表符宽度</string>
     <string name="amount_of_space_for_tab">制表符显示的空格数</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个纯文本文件。 您要在编辑器中打开它吗？\n\n请勿尝试打开二进制文件。 如果您不确定，请使用其他应用打开。</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">选中的文件可能是一个纯文本文件。 您要在编辑器中打开，或在其他应用中打开它吗？\n\n请勿尝试打开二进制文件。 如果不确定，请使用其他应用打开。</string>
     <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
     <string name="wrap_words">折行</string>
@@ -328,7 +328,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">阅读</string>
     <string name="read">只读</string>
     <string name="table">表格</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">多少列？长按桌面按钮来开始一个表 (插入头部)，按短按以添加一行。</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格（插入表头），短按以添加一行。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
     <string name="delete_lines">删除行</string>
     <string name="unordered_list">无序列表</string>
@@ -343,8 +343,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">标题 1</string>
     <string name="heading_2">标题 2</string>
     <string name="heading_3">标题 3</string>
-    <string name="heading_4">标题 4</string>
-    <string name="heading_5">标题 5</string>
+    <string name="heading_4">4 级标题</string>
+    <string name="heading_5">5 级标题</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
     <string name="highlighted">高亮</string>
@@ -363,14 +363,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>
     <string name="essential">基本的</string>
-    <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
-    <string name="action_order">动作顺序</string>
+    <string name="append_human_readable_uuid_to_new_tasks">附加人类可读的 UUID 到新任务</string>
+    <string name="action_order">操作顺序</string>
     <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
     <string name="drag">拖动</string>
     <string name="created">已创建</string>
     <string name="file_encryption_password">文件加密密码</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n前往设置 -&gt; 普通-&gt; 密码来设置密码。</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n请前往设置 -&gt; 常规 -&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">无法加密文件内容。文件未保存。</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。您使用了错误的密码吗？该文件真的是加密的 Markors AES 吗？</string>
