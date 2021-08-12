@@ -379,8 +379,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">添加完成日期</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">当待办事项标记为已完成时添加完成日期</string>
     <string name="file_description_format">文件描述格式</string>
-    <string name="file_description_format_dialog">文件浏览器中每个文件下的描述格式。 遵循 Android 的 SimpleDateFormat 规则，添加 FS 用于显示文件大小。 留空以使用您的语言环境的默认格式。\n\n示例输入：\nFS yyyy MMM dd hh:mm:ss aa\n输出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
-    <string name="loading_default_value">加载默认值</string>
+    <string name="file_description_format_dialog">文件浏览器中每个文件下的描述格式。 遵循 Android 的 SimpleDateFormat 规则，添加 FS 用于显示文件大小。 留空以使用您的语言环境的默认格式。\n\n输入示例：\nFS yyyy MMM dd hh:mm:ss aa\n输出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="loading_default_value">正在加载默认值</string>
     <string name="file_settings">文件设置</string>
     <string name="search_and_replace">搜索/替换</string>
     <string name="search_for">搜索</string>
