@@ -362,8 +362,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">已选择</string>
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>
-    <string name="essential">基本的</string>
-    <string name="append_human_readable_uuid_to_new_tasks">附加人类可读的 UUID 到新任务</string>
+    <string name="essential">基础设置</string>
+    <string name="append_human_readable_uuid_to_new_tasks">将人类可读的 UUID 附加到新任务</string>
     <string name="action_order">操作顺序</string>
     <string name="toggle_action_visibility">切换操作可见性</string>
     <string name="load_default_settings">加载默认设置</string>
@@ -407,15 +407,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_both">两者都保留</string>
     <string name="skip">跳过</string>
     <string name="overwrite">覆盖</string>
-    <string name="keep_both_all">两者都保留 (全部)</string>
-    <string name="skip_all">跳过 (所有)</string>
-    <string name="overwrite_all">覆盖 (所有)</string>
-    <string name="copy_move_conflict_message">\'%s已存在于 %s</string>
-    <string name="additional_contexts_and_projects">其他背景和项目</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">输入space-separated @context和 +project。这些都将在 todo.txt 插入对话框时显示。</string>
+    <string name="keep_both_all">两者都保留（全部）</string>
+    <string name="skip_all">跳过（全部）</string>
+    <string name="overwrite_all">覆盖（全部）</string>
+    <string name="copy_move_conflict_message">\'%s\' 已存在于 %s</string>
+    <string name="additional_contexts_and_projects">其他情景和项目</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @contexts 和 +projects。 您可以始终在 todo.txt 插入对话框中看见这些选项。</string>
     <string name="infinite">无限的</string>
     <string name="search_project">搜索项目</string>
-    <string name="search_context">搜索环境</string>
+    <string name="search_context">搜索情景</string>
     <string name="insert_project">插入项目</string>
-    <string name="insert_context">Insert contexts</string>
+    <string name="insert_context">插入情景</string>
 </resources>
