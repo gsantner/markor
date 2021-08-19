@@ -82,7 +82,6 @@ import static android.app.Activity.RESULT_OK;
 public class ShareUtil {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
-    public final static SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyMMdd-HHmmss", Locale.getDefault());
     public final static SimpleDateFormat SDF_IMAGES = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
@@ -94,7 +93,6 @@ public class ShareUtil {
     public final static int MIN_OVERWRITE_LENGTH = 5;
 
     protected static String _lastCameraPictureFilepath;
-    protected static String _fileProviderAuthority;
 
     protected Context _context;
     protected String _chooserTitle;
@@ -113,14 +111,13 @@ public class ShareUtil {
     }
 
     public String getFileProviderAuthority() {
-        if (TextUtils.isEmpty(_fileProviderAuthority)) {
+        ContextUtils cu = new ContextUtils(_context);
+        final String provider = cu.getFileProvider();
+        cu.freeContextRef();
+        if (TextUtils.isEmpty(provider)) {
             throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(): No FileProvider authority provided");
         }
-        return _fileProviderAuthority;
-    }
-
-    public static void setFileProviderAuthority(final String fileProviderAuthority) {
-        _fileProviderAuthority = fileProviderAuthority;
+        return provider;
     }
 
 

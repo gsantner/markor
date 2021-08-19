@@ -30,7 +30,6 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
 
     public ShareUtil(Context context) {
         super(context);
-        setFileProviderAuthority(FILE_PROVIDER_AUTHORITY);
         setChooserTitle(_context.getString(R.string.share_to_arrow));
     }
 

@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -1032,6 +1033,26 @@ public class ContextUtils {
     public boolean isDeviceOrientationPortrait() {
         final int rotation = ((WindowManager) _context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
         return (rotation == Surface.ROTATION_0) || (rotation == Surface.ROTATION_180);
+    }
+
+    // Get all of providers of the current app
+    public List<ProviderInfo> getProvidersInfos() {
+        final List<ProviderInfo> providers = new ArrayList<>();
+        for (final ProviderInfo info : _context.getPackageManager().queryContentProviders(null, 0, 0)) {
+            if (info.applicationInfo.uid == _context.getApplicationInfo().uid) {
+                providers.add(info);
+            }
+        }
+        return providers;
+    }
+
+    public String getFileProvider() {
+        for (final ProviderInfo info : getProvidersInfos()) {
+            if (info.name.toLowerCase().contains("fileprovider")) {
+                return info.authority;
+            }
+        }
+        return null;
     }
 }
 
