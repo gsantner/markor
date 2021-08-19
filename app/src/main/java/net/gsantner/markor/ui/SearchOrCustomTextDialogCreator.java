@@ -22,11 +22,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
-import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.ui.fsearch.FileSearchDialog;
 import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.ui.fsearch.SearchEngine;
@@ -41,11 +41,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Pattern;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -299,7 +299,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = lines;
         dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.isMultiSelectEnabled = true;
-        dopt.highlighter = getSttHighlighter(activity);
+        dopt.highlighter = new AppSettings(activity).isHighlightingEnabled() ? getSttHighlighter(activity) : null;
         dopt.searchHintText = R.string.search;
         dopt.titleText = R.string.search;
         dopt.positionCallback = (posns) -> {
@@ -345,11 +345,10 @@ public class SearchOrCustomTextDialogCreator {
         final String countFormat = "%s (%d)";
 
         // Add none case
+        final String noneString = "—";
         if (noneCount[0] > 0) {
-            final String noneString = String.format(countFormat, activity.getString(R.string.none), noneCount[0]);
-            options.add(noneString);
+            options.add(String.format(countFormat, noneString, noneCount[0]));
             data.add(""); // Dummy to make options match data
-            dopt.highlightData = Collections.singletonList(noneString);
         }
 
         // Add other cases
@@ -368,20 +367,24 @@ public class SearchOrCustomTextDialogCreator {
 
         dopt.positionCallback = (keyIndices) -> {
 
-            // Filter tasks with selected projects / contexts
-            final Set<String> searchKeys = new HashSet<>();
-            final boolean noneIncluded =  (noneCount[0] > 0) && keyIndices.contains(0);
-            for (final int i : keyIndices) {
-                if ((i != 0) || !noneIncluded) {
-                    searchKeys.add(data.get(i));
-                }
+            final boolean noneIncluded = (noneCount[0] > 0) && keyIndices.size() > 0 && keyIndices.get(0) == 0;
+            final Set<String> searchSet = new LinkedHashSet<>(); // LinkedHashSet to preserve order
+            for (int i = noneIncluded ? 1 : 0; i < keyIndices.size(); i++) {
+                searchSet.add(data.get(keyIndices.get(i)));
             }
 
             SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, (task) -> {
                 final List<String> taskKeys = getKeys.callback(task);
-                return !task.isDone() && ((taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchKeys, taskKeys)));
+                return !task.isDone() && ((taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchSet, taskKeys)));
             });
 
+            // Build the message:
+            final String delimiter = " | ";
+            final StringBuilder message = new StringBuilder();
+            message.append(activity.getString(title) + "\n");
+            message.append(noneIncluded ? (noneString + (searchSet.isEmpty() ? "" : delimiter)) : "");
+            message.append(TextUtils.join(delimiter, searchSet));
+            dopt2.messageText = message.toString();
             dopt2.neutralButtonText = R.string.back_to_filter;
             dopt2.neutralButtonCallback = () -> showSttFilteringDialog(activity, text);
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
