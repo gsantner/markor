@@ -402,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="do_not_search_specified_files_and_folders">Ne pretražuj ovdje precizirane datoteke i direktorije.\nKoristi novi red kao razdjelnicu.\nKoristi navodnike za traženje tačnih naziva: \"Test\".\nIli koristi Regex \'^[.].*\'\nPrimjeri: ^\\..*\n\"test\"\n\"Test\"\n.*tajni.*\n.*REZERVNA.*\n.*.ini</string>
     <string name="regex_search">Regex pretraga</string>
     <string name="case_sensitive">Pazi na velika i mala slova</string>
+    <string name="stop_search_after_first_match">Prekini pretragu nakon prvog pronađenog rezultata</string>
     <string name="regex_can_not_be_compiled">Regex nije sprovodiv</string>
     <string name="keep_both">Zadrži obje</string>
     <string name="skip">Preskoči</string>
@@ -413,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
     <string name="infinite">Beskrajno</string>
+    <string name="search_project">Pretraži projekte</string>
+    <string name="search_context">Pretraži kontekste</string>
+    <string name="insert_project">Unesi projekte</string>
+    <string name="insert_context">Unesi kontekste</string>
 </resources>
