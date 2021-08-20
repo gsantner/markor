@@ -188,4 +188,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Anstataŭi per</string>
     <string name="replace_once">Anstataŭi (1)</string>
     <string name="replace_all">Anstataŭi ĉiujn</string>
+    <string name="copy_move_conflict_message">\'%s\' jam ekzistas en %s</string>
+    <string name="infinite">Infinita</string>
+    <string name="search_project">Serĉi projektojn</string>
+    <string name="search_context">Serĉi kontekstojn</string>
+    <string name="insert_project">Enmeti projektojn</string>
+    <string name="insert_context">Enmeti kontekstojn</string>
 </resources>
