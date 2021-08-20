@@ -188,7 +188,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Anstataŭi per</string>
     <string name="replace_once">Anstataŭi (1)</string>
     <string name="replace_all">Anstataŭi ĉiujn</string>
+    <string name="skip_all">Preterpasi (ĉion)</string>
+    <string name="overwrite_all">Superskribi (ĉion)</string>
     <string name="copy_move_conflict_message">\'%s\' jam ekzistas en %s</string>
+    <string name="additional_contexts_and_projects">Aldonaj kontekstoj kaj projektoj</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enskribi @kontekstojn kaj +projektojn apartigitaj per spacetoj. Ĉi tiuj videblos ĉiufoje ĉe todo.txt enmetaj dialogoj.</string>
     <string name="infinite">Infinita</string>
     <string name="search_project">Serĉi projektojn</string>
