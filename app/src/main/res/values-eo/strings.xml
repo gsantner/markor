@@ -188,8 +188,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Anstataŭi per</string>
     <string name="replace_once">Anstataŭi (1)</string>
     <string name="replace_all">Anstataŭi ĉiujn</string>
-    <string name="skip_all">Preterpasi (ĉion)</string>
-    <string name="overwrite_all">Superskribi (ĉion)</string>
+    <string name="newline_is_new_paragraph">Nova lineo = nova paragrafo</string>
+    <string name="regex_can_not_be_compiled">La regula esprimo ne povas esti kompilata</string>
+    <string name="keep_both">Konservi ambaŭ</string>
+    <string name="skip">Preterpasi</string>
+    <string name="overwrite">Superskribi</string>
+    <string name="keep_both_all">Konservi ambaŭ (tutoj)</string>
+    <string name="skip_all">Preterpasi (tutoj)</string>
+    <string name="overwrite_all">Superskribi (tutoj)</string>
     <string name="copy_move_conflict_message">\'%s\' jam ekzistas en %s</string>
     <string name="additional_contexts_and_projects">Aldonaj kontekstoj kaj projektoj</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enskribi @kontekstojn kaj +projektojn apartigitaj per spacetoj. Ĉi tiuj videblos ĉiufoje ĉe todo.txt enmetaj dialogoj.</string>
