@@ -189,6 +189,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_once">Anstataŭi (1)</string>
     <string name="replace_all">Anstataŭi ĉiujn</string>
     <string name="newline_is_new_paragraph">Nova lineo = nova paragrafo</string>
+    <string name="stop_search_after_first_match">Haltigi la serĉon post la unua kongruo</string>
     <string name="regex_can_not_be_compiled">La regula esprimo ne povas esti kompilata</string>
     <string name="keep_both">Konservi ambaŭ</string>
     <string name="skip">Preterpasi</string>
