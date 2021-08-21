@@ -237,7 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">没有选择、拍摄或保存图片。</string>
     <string name="gallery_picture">从相册选取</string>
     <string name="camera_picture">相机</string>
-    <string name="enable_undo_and_redo_be_patient">启用撤消和重做操作。只适合高级使用, 保持耐心不要删除重要的东西。关闭并打开编辑器以清除历史记录。</string>
+    <string name="enable_undo_and_redo_be_patient">启用撤消和重做操作。 只适合高级使用，请耐心、不要删除重要的东西。 关闭并打开编辑器以清除历史记录。</string>
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
