@@ -18,11 +18,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">重命名</string>
     <string name="confirm_delete">确认删除</string>
     <string name="do_you_really_want_to_delete_this_witharg">您确定要删除 %s 吗？</string>
-    <string name="confirm_overwrite">确认替换</string>
-    <string name="file_already_exists_overwerite">文件已存在，是否替换？</string>
+    <string name="confirm_overwrite">确认覆盖</string>
+    <string name="file_already_exists_overwerite">文件已存在，是否覆盖？</string>
     <string name="browse_filesystem">浏览文件系统</string>
     <string name="title">标题</string>
-    <string name="empty_directory">目录为空目录</string>
+    <string name="empty_directory">空目录</string>
     <string name="enter_name_of_folder">输入文件夹名</string>
     <string name="create_folder">新建文件夹</string>
     <string name="create_new_document">新建文档</string>
@@ -32,11 +32,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">已存在同名文件/文件夹！请换一个名字试试。</string>
     <string name="import_from_device">从本设备导入</string>
     <string name="import_">导入</string>
-    <string name="append_to_witharg">附加至 %s</string>
-    <string name="select_folder">选择目录</string>
+    <string name="append_to_witharg">附加到 %s</string>
+    <string name="select_folder">选择文件夹</string>
     <string name="edit">编辑</string>
     <string name="search_documents">搜索文档</string>
-    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享至…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享到&#8230;</string>
     <string name="share">分享</string>
     <string name="search">搜索</string>
     <string name="display_converted_markup">显示转换后的 markup</string>
@@ -407,15 +407,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_both">两者都保留</string>
     <string name="skip">跳过</string>
     <string name="overwrite">覆盖</string>
-    <string name="keep_both_all">两者都保留（全部）</string>
-    <string name="skip_all">跳过（全部）</string>
-    <string name="overwrite_all">覆盖（全部）</string>
+    <string name="keep_both_all">两者都保留 (全部)</string>
+    <string name="skip_all">跳过 (全部)</string>
+    <string name="overwrite_all">覆盖 (全部)</string>
     <string name="copy_move_conflict_message">\'%s\' 已存在于 %s</string>
-    <string name="additional_contexts_and_projects">其他情景和项目</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @contexts 和 +projects。 您可以始终在 todo.txt 插入对话框中看见这些选项。</string>
-    <string name="infinite">无限的</string>
+    <string name="additional_contexts_and_projects">其他情境和项目</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @情境 和 +项目 标签 。 您可以始终在 todo.txt 的插入对话框中看见这些选项。</string>
+    <string name="infinite">不限</string>
     <string name="search_project">搜索项目</string>
-    <string name="search_context">搜索情景</string>
+    <string name="search_context">搜索情境</string>
     <string name="insert_project">插入项目</string>
-    <string name="insert_context">插入情景</string>
+    <string name="insert_context">插入情境</string>
 </resources>
