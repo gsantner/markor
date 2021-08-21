@@ -39,13 +39,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享到&#8230;</string>
     <string name="share">分享</string>
     <string name="search">搜索</string>
-    <string name="display_converted_markup">显示转换后的 markup</string>
+    <string name="display_converted_markup">显示转换后的标记</string>
     <string name="editor">编辑器</string>
     <string name="folders">文件夹</string>
     <string name="files">文件</string>
     <string name="document">文档</string>
     <string name="documents">文档</string>
-    <string name="html_as_plaintext">HTML （显示为纯文本）</string>
+    <string name="html_as_plaintext">HTML (显示为纯文本)</string>
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
     <string name="open_existing_files_in_view_mode">在查看模式中打开现有文件</string>
@@ -54,15 +54,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">文件</string>
     <string name="image">图片</string>
     <string name="font_size">字号</string>
-    <string name="render_rtl_language">为从右向左书写的文字所设的渲染方式</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">错误：无法建立笔记本目录</string>
-    <string name="last_modified_witharg">上次编辑：%s</string>
-    <string name="select_this_folder">选择这个目录</string>
+    <string name="render_rtl_language">渲染从右往左读的语言</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
+    <string name="last_modified_witharg">上次修改：%s</string>
+    <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
     <string name="select_entries">选择 输入文字</string>
     <string name="one_item_selected">已选中一项</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已选择%d个项目</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已选择 %d 个项目</string>
     <string name="hide_statusbar_at_this_view">在此视图中隐藏状态栏</string>
     <string name="hide_statusbar">隐藏状态栏</string>
     <string name="name">名称</string>
@@ -71,16 +71,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
-    <string name="select_storage_folder">选择存储目录</string>
-    <string name="licenses">开源协议</string>
+    <string name="select_storage_folder">选择存储文件夹</string>
+    <string name="licenses">许可协议</string>
     <string name="changelog">更新日志</string>
     <string name="more_info">更多信息</string>
-    <string name="show_license_of_the_app">显示应用的许可证</string>
-    <string name="show_third_party_licenses">显示第三方许可证</string>
-    <string name="language_change_restart_description">更改语言（重启应用后生效）</string>
+    <string name="show_license_of_the_app">显示应用的开源许可协议</string>
+    <string name="show_third_party_licenses">显示第三方许可协议</string>
+    <string name="language_change_restart_description">更改语言 (重启应用后生效)</string>
     <string name="language">语言</string>
-    <string name="error_need_storage_permission_to_save_documents">需要存储权限以便保存文件</string>
-    <string name="open_with">使用…打开</string>
+    <string name="error_need_storage_permission_to_save_documents">需要存储权限才能保存文档</string>
+    <string name="open_with">打开方式</string>
     <string name="sort">排序方式</string>
     <string name="date">日期</string>
     <string name="deleteme____1">名称</string>
@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">撤销</string>
     <string name="redo">重做</string>
     <string name="more">更多</string>
-    <string name="notebook">笔记</string>
+    <string name="notebook">笔记本</string>
     <string name="help">帮助</string>
     <string name="todo_list">待办清单</string>
     <string name="task">任务</string>
@@ -114,9 +114,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">添加 %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">该文件将被保存为 \"%s\"</string>
     <string name="refresh">刷新</string>
-    <string name="create_shortcut">在桌面上创建快捷方式</string>
-    <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加编辑此文件的图标。部分启动器可能不支持此操作。</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在此应用的笔记本目录中。是否要将其复制到当前文件夹？这将覆盖任何具有相同名称的现有文件。</string>
+    <string name="create_shortcut">创建快捷方式</string>
+    <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加快捷方式。请注意部分启动器可能不支持此操作。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在本应用的笔记本目录中。要将其复制到当前文件夹吗？这会覆盖任何具有相同名称的现有文件。</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖已有文件。</string>
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
