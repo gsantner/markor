@@ -117,16 +117,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">创建快捷方式</string>
     <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加快捷方式。请注意部分启动器可能不支持此操作。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在本应用的笔记本目录中。要将其复制到当前文件夹吗？这会覆盖任何具有相同名称的现有文件。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖已有文件。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。要将其复制到当前文件夹吗？这会覆盖任何具有相同名称的现有文件。</string>
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
     <string name="file_browser">文件浏览器</string>
     <string name="set_due_date">设置截止日期</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">插入日期</string>
     <string name="create_note" needed="false">新建笔记</string>
-    <string name="special_documents" needed="false">指定文档</string>
+    <string name="special_documents" needed="false">特殊文件</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>
-    <string name="back_to_previous_folder" needed="false">上一级</string>
+    <string name="back_to_previous_folder" needed="false">返回上一个文件夹</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
     <string name="remember_last_folder_location_on_startup" needed="false">记住上次退出的位置</string>
@@ -137,9 +137,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">语法高亮刷新延迟 (以毫秒为单位)。较低的值将更早开始高亮，但它会耗尽您的电池，并可能会降低旧设备上的应用性能。</string>
-    <string name="highlighting_enabled_or_not__appspecific">控制输入的文本是否应显示语法高亮</string>
-    <string name="control_font_size_in_editor">调整编辑器中文字的字号</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
+    <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
+    <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
     <string name="format">格式</string>
