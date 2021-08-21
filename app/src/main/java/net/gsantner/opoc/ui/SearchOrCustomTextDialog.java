@@ -45,11 +45,14 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -247,20 +250,19 @@ public class SearchOrCustomTextDialog {
         final LinearLayout searchLayout = new LinearLayout(activity);
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout.LayoutParams lp;
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        lp.gravity = Gravity.START | Gravity.BOTTOM;
-        searchLayout.addView(searchEditText, lp);
+        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        editLp.gravity = Gravity.START | Gravity.BOTTOM;
+        searchLayout.addView(searchEditText, editLp);
 
         // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
         clearButton.setImageResource(dopt.clearInputIcon);
         TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin, 0, (int) (margin * 1.5), 0);
-        searchLayout.addView(clearButton, lp);
+        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
+        searchLayout.addView(clearButton, clearLp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
         final ListView listView = new ListView(activity);
@@ -270,9 +272,9 @@ public class SearchOrCustomTextDialog {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         if (dopt.isSearchEnabled) {
-            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(margin, margin / 2, margin, margin / 2);
-            linearLayout.addView(searchLayout, lp);
+            final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            searchLp.setMargins(margin, margin / 2, margin, margin / 2);
+            linearLayout.addView(searchLayout, searchLp);
         }
 
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);

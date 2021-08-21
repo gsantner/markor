@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
@@ -42,13 +41,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
@@ -404,12 +401,15 @@ public class SearchOrCustomTextDialogCreator {
                 }
             });
 
+            // Disabled
+            // 1. The message format was not very clear
+            // 2. The alert dialog message padding was ugly and I couldn't change it
             // Build the message showing the current filter:
-            dopt2.messageText = activity.getString(title) + "\n" +
-                    (noneIncluded ? (noneString + (searchSet.isEmpty() ? "" : " | ")) : "") +
-                    (noneIncluded & useAnd[0] ? "(" : "") +
-                    TextUtils.join(useAnd[0] ? " & " : " | ", searchSet) +
-                    (noneIncluded & useAnd[0] ? ")" : "");
+            // dopt2.messageText = activity.getString(title) + ": " +
+            //         (noneIncluded ? (noneString + (searchSet.isEmpty() ? "" : " | ")) : "") +
+            //         (noneIncluded & useAnd[0] ? "(" : "") +
+            //         TextUtils.join(useAnd[0] ? " & " : " | ", searchSet) +
+            //         (noneIncluded & useAnd[0] ? ")" : "");
             dopt2.neutralButtonText = R.string.back_to_filter;
             dopt2.neutralButtonCallback = (d) -> showSttFilteringDialog(activity, text);
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
