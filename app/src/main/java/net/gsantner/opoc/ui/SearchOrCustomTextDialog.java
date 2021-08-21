@@ -90,7 +90,7 @@ public class SearchOrCustomTextDialog {
         public String extraFilter = null;
         public List<Integer> preSelected = null;
 
-        public Callback.a0 neutralButtonCallback = null;
+        public Callback.a1<AlertDialog> neutralButtonCallback = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -304,13 +304,6 @@ public class SearchOrCustomTextDialog {
             });
         }
 
-        // Setup neutralbutton
-        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
-            dialogBuilder.setNeutralButton(dopt.neutralButtonText, (dialogInterface, i) -> {
-                dopt.neutralButtonCallback.callback();
-            });
-        }
-
         final AlertDialog dialog = dialogBuilder.create();
 
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
@@ -328,7 +321,16 @@ public class SearchOrCustomTextDialog {
         if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+
         dialog.show();
+
+        final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
+            neutralButton.setVisibility(Button.VISIBLE);
+            neutralButton.setText(dopt.neutralButtonText);
+            neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+        }
+
         if ((w = dialog.getWindow()) != null) {
             int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
             int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));

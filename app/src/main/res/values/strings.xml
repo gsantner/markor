@@ -442,4 +442,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_future">Due in future</string>
     <string name="completed">Completed</string>
     <string name="back_to_filter">Back to filter</string>
+    <string name="match_any">Match Any</string>
+    <string name="match_all">Match All</string>
 </resources>

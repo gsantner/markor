@@ -59,7 +59,7 @@ public class TodoTxtTextActions extends TextActions {
             // Select any task
             SearchOrCustomTextDialog.DialogOptions dopt = SearchOrCustomTextDialogCreator.makeSttLineSelectionDialog(_activity, _hlEditor, task -> true);
             dopt.neutralButtonText = R.string.search_and_replace;
-            dopt.neutralButtonCallback = () -> SearchReplaceDialog.showSearchReplaceDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor));
+            dopt.neutralButtonCallback = (d) -> SearchReplaceDialog.showSearchReplaceDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor));
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(_activity, dopt);
             return true;
         } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
@@ -251,11 +251,11 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_context, true, task -> Arrays.asList(task.getContexts()));
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_context, true, true, task -> Arrays.asList(task.getContexts()));
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_project, true, task -> Arrays.asList(task.getProjects()));
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.filter_by_project, true, true, task -> Arrays.asList(task.getProjects()));
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
