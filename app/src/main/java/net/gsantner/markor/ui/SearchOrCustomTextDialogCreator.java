@@ -268,12 +268,7 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
-        callbacks.add(() -> {
-            final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
-            dopt2.neutralButtonCallback = (d) -> showSttFilteringDialog(activity, text);
-            dopt2.neutralButtonText = R.string.back_to_filter;
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
-        });
+        callbacks.add(() -> showSttLineSelectionDialog(activity, text, 0, false, TodoTxtTask::isDone));
 
         dopt.data = options;
         dopt.iconsForData = icons;
@@ -284,7 +279,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static SearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
+    public static void showSttLineSelectionDialog(final Activity activity, final EditText text, final int title, final boolean showReplace, final Callback.b1<TodoTxtTask> filter) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
@@ -300,8 +295,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.isMultiSelectEnabled = true;
         dopt.highlighter = new AppSettings(activity).isHighlightingEnabled() ? getSttHighlighter(activity) : null;
-        dopt.searchHintText = R.string.search;
-        dopt.titleText = R.string.search;
+        dopt.titleText = title > 0 ? title : R.string.search;
         dopt.positionCallback = (posns) -> {
             final List<Integer> selIndices = new ArrayList<>();
             for (final Integer p : posns) {
@@ -310,23 +304,30 @@ public class SearchOrCustomTextDialogCreator {
             StringUtils.selectLines(text, selIndices);
         };
 
-        return dopt;
+        if (showReplace) {
+            dopt.neutralButtonText = R.string.search_and_replace;
+            dopt.neutralButtonCallback = (dialog) -> {
+                dialog.dismiss();
+                SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text));
+            };
+        }
+
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
 
     /**
-     *
      * Filter todos with specified keys.
      *
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity
-     * @param text
-     * @param title
-     * @param enableSearch
-     * @param enableAndToggle
-     * @param getKeys
+     * @param activity          Context activity
+     * @param text              Edit Text with todos
+     * @param title             Dialog title
+     * @param enableSearch      Whether to enable search in the list of keys
+     * @param enableAndToggle   Whether to make the nutral button an AND / OR toggle
+     * @param getKeys           Callback which should return a list of string keys for each task. Empty list -> task has no keys
      */
     public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAndToggle, final Callback.r1<List<String>, TodoTxtTask> getKeys) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
@@ -364,10 +365,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = options;
 
         final boolean[] useAnd = {false};
-        if (!enableAndToggle) {
-            dopt.neutralButtonText = R.string.back_to_filter;
-            dopt.neutralButtonCallback = (d) -> showSttFilteringDialog(activity, text);
-        } else {
+        if (enableAndToggle) {
             dopt.neutralButtonText = R.string.match_any;
             dopt.neutralButtonCallback = (dialog) -> {
                 Button neutralButton;
@@ -390,7 +388,7 @@ public class SearchOrCustomTextDialogCreator {
                 searchSet.add(data.get(keyIndices.get(i)));
             }
 
-            SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, (task) -> {
+            showSttLineSelectionDialog(activity, text, 0, false, (task) -> {
                 final List<String> taskKeys = getKeys.callback(task);
                 if (task.isDone()) {
                     return false;
@@ -410,9 +408,6 @@ public class SearchOrCustomTextDialogCreator {
             //         (noneIncluded & useAnd[0] ? "(" : "") +
             //         TextUtils.join(useAnd[0] ? " & " : " | ", searchSet) +
             //         (noneIncluded & useAnd[0] ? ")" : "");
-            dopt2.neutralButtonText = R.string.back_to_filter;
-            dopt2.neutralButtonCallback = (d) -> showSttFilteringDialog(activity, text);
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -474,7 +469,10 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt2.titleText = R.string.search_documents;
         dopt2.searchHintText = R.string.search;
-        dopt2.neutralButtonCallback = (d) -> SearchReplaceDialog.showSearchReplaceDialog(activity, edit, StringUtils.getSelection(text));
+        dopt2.neutralButtonCallback = (dialog) -> {
+            dialog.dismiss();
+            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, StringUtils.getSelection(text));
+        };
         dopt2.neutralButtonText = R.string.search_and_replace;
         dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);

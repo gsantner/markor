@@ -56,11 +56,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            // Select any task
-            SearchOrCustomTextDialog.DialogOptions dopt = SearchOrCustomTextDialogCreator.makeSttLineSelectionDialog(_activity, _hlEditor, task -> true);
-            dopt.neutralButtonText = R.string.search_and_replace;
-            dopt.neutralButtonCallback = (d) -> SearchReplaceDialog.showSearchReplaceDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor));
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(_activity, dopt);
+            SearchOrCustomTextDialogCreator.showSttLineSelectionDialog(_activity, _hlEditor, R.string.search_documents, true, task -> true);
             return true;
         } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
