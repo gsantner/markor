@@ -112,17 +112,21 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_toggle_done: {
-                    String replaceDone = "x ";
-                    if (AppSettings.get().isTodoAddCompletionDateEnabled()) {
-                        replaceDone += TodoTxtTask.getToday() + " ";
-                    }
+                    final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
+                    final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
+                    final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + ")?)";
+                    final String startingPriority = "^\\(([A-Z])\\)\\s";
                     runRegexReplaceAction(
-                            // If task starts with a priority, replace priority with 'x ...'
-                            new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, replaceDone),
-                            // else if task stars with 'x + (completion date)?' replace with "" (i.e. remove done)
-                            new ReplacePattern(TodoTxtTask.PATTERN_COMPLETION_DATE, ""),
+                            // If task not done and starts with a priority and contains a pri tag
+                            new ReplacePattern( startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
+                            // else if task not done and starts with a priority and does not contain a pri tag
+                            new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
+                            // else if task is done and contains a pri tag
+                            new ReplacePattern(doneWithDate + bodyWithPri, "($4) $2$5"),
+                            // else if task is done and does not contain a pri tag
+                            new ReplacePattern(doneWithDate, ""),
                             // else replace task start with 'x ...'
-                            new ReplacePattern("^", replaceDone)
+                            new ReplacePattern("^", doneMark)
                     );
                     trimLeadingWhiteSpace();
                     return;
@@ -317,6 +321,10 @@ public class TodoTxtTextActions extends TextActions {
             }
         }
         _hlEditor.insertOrReplaceTextOnCursor(thing);
+    }
+
+    private void toggleDone() {
+
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
