@@ -18,11 +18,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">重命名</string>
     <string name="confirm_delete">确认删除</string>
     <string name="do_you_really_want_to_delete_this_witharg">您确定要删除 %s 吗？</string>
-    <string name="confirm_overwrite">确认替换</string>
-    <string name="file_already_exists_overwerite">文件已存在，是否替换？</string>
+    <string name="confirm_overwrite">确认覆盖</string>
+    <string name="file_already_exists_overwerite">文件已存在，是否覆盖？</string>
     <string name="browse_filesystem">浏览文件系统</string>
     <string name="title">标题</string>
-    <string name="empty_directory">目录为空目录</string>
+    <string name="empty_directory">空目录</string>
     <string name="enter_name_of_folder">输入文件夹名</string>
     <string name="create_folder">新建文件夹</string>
     <string name="create_new_document">新建文档</string>
@@ -32,20 +32,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">已存在同名文件/文件夹！请换一个名字试试。</string>
     <string name="import_from_device">从本设备导入</string>
     <string name="import_">导入</string>
-    <string name="append_to_witharg">附加至 %s</string>
-    <string name="select_folder">选择目录</string>
+    <string name="append_to_witharg">附加到 %s</string>
+    <string name="select_folder">选择文件夹</string>
     <string name="edit">编辑</string>
     <string name="search_documents">搜索文档</string>
-    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享至…</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">分享到&#8230;</string>
     <string name="share">分享</string>
     <string name="search">搜索</string>
-    <string name="display_converted_markup">显示转换后的 markup</string>
+    <string name="display_converted_markup">显示转换后的标记</string>
     <string name="editor">编辑器</string>
     <string name="folders">文件夹</string>
     <string name="files">文件</string>
     <string name="document">文档</string>
     <string name="documents">文档</string>
-    <string name="html_as_plaintext">HTML （显示为纯文本）</string>
+    <string name="html_as_plaintext">HTML (显示为纯文本)</string>
     <string name="document_editor_font">文档编辑器字体</string>
     <string name="theme">主题</string>
     <string name="open_existing_files_in_view_mode">在查看模式中打开现有文件</string>
@@ -54,15 +54,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">文件</string>
     <string name="image">图片</string>
     <string name="font_size">字号</string>
-    <string name="render_rtl_language">为从右向左书写的文字所设的渲染方式</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">错误：无法建立笔记本目录</string>
-    <string name="last_modified_witharg">上次编辑：%s</string>
-    <string name="select_this_folder">选择这个目录</string>
+    <string name="render_rtl_language">渲染从右往左读的语言</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
+    <string name="last_modified_witharg">上次修改：%s</string>
+    <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
     <string name="select_entries">选择 输入文字</string>
     <string name="one_item_selected">已选中一项</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已选择%d个项目</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已选择 %d 个项目</string>
     <string name="hide_statusbar_at_this_view">在此视图中隐藏状态栏</string>
     <string name="hide_statusbar">隐藏状态栏</string>
     <string name="name">名称</string>
@@ -71,16 +71,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
-    <string name="select_storage_folder">选择存储目录</string>
-    <string name="licenses">开源协议</string>
+    <string name="select_storage_folder">选择存储文件夹</string>
+    <string name="licenses">许可协议</string>
     <string name="changelog">更新日志</string>
     <string name="more_info">更多信息</string>
-    <string name="show_license_of_the_app">显示应用的许可证</string>
-    <string name="show_third_party_licenses">显示第三方许可证</string>
-    <string name="language_change_restart_description">更改语言（重启应用后生效）</string>
+    <string name="show_license_of_the_app">显示应用的开源许可协议</string>
+    <string name="show_third_party_licenses">显示第三方许可协议</string>
+    <string name="language_change_restart_description">更改语言 (重启应用后生效)</string>
     <string name="language">语言</string>
-    <string name="error_need_storage_permission_to_save_documents">需要存储权限以便保存文件</string>
-    <string name="open_with">使用…打开</string>
+    <string name="error_need_storage_permission_to_save_documents">需要存储权限才能保存文档</string>
+    <string name="open_with">打开方式</string>
     <string name="sort">排序方式</string>
     <string name="date">日期</string>
     <string name="deleteme____1">名称</string>
@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">撤销</string>
     <string name="redo">重做</string>
     <string name="more">更多</string>
-    <string name="notebook">笔记</string>
+    <string name="notebook">笔记本</string>
     <string name="help">帮助</string>
     <string name="todo_list">待办清单</string>
     <string name="task">任务</string>
@@ -114,19 +114,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_x_witharg">添加 %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">该文件将被保存为 \"%s\"</string>
     <string name="refresh">刷新</string>
-    <string name="create_shortcut">在桌面上创建快捷方式</string>
-    <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加编辑此文件的图标。部分启动器可能不支持此操作。</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在此应用的笔记本目录中。是否要将其复制到当前文件夹？这将覆盖任何具有相同名称的现有文件。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。您想将其复制到当前文件夹吗？这将覆盖已有文件。</string>
+    <string name="create_shortcut">创建快捷方式</string>
+    <string name="tried_to_create_shortcut_for_this_notice">已尝试向您的主屏幕添加快捷方式。请注意部分启动器可能不支持此操作。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">所选文件不在本应用的笔记本目录中。要将其复制到当前文件夹吗？这会覆盖任何具有相同名称的现有文件。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">文件不在当前文件夹中。要将其复制到当前文件夹吗？这会覆盖任何具有相同名称的现有文件。</string>
     <string name="files_and_folders">文件与文件夹</string>
     <string name="document_browser">文档浏览器</string>
     <string name="file_browser">文件浏览器</string>
     <string name="set_due_date">设置截止日期</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">插入日期</string>
     <string name="create_note" needed="false">新建笔记</string>
-    <string name="special_documents" needed="false">指定文档</string>
+    <string name="special_documents" needed="false">特殊文件</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>
-    <string name="back_to_previous_folder" needed="false">上一级</string>
+    <string name="back_to_previous_folder" needed="false">返回上一个文件夹</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
     <string name="remember_last_folder_location_on_startup" needed="false">记住上次退出的位置</string>
@@ -137,13 +137,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">语法高亮刷新延迟 (以毫秒为单位)。较低的值将更早开始高亮，但它会耗尽您的电池，并可能会降低旧设备上的应用性能。</string>
-    <string name="highlighting_enabled_or_not__appspecific">控制输入的文本是否应显示语法高亮</string>
-    <string name="control_font_size_in_editor">调整编辑器中文字的字号</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
+    <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
+    <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
     <string name="format">格式</string>
-    <string name="contexts">全文</string>
+    <string name="contexts">情境</string>
     <string name="project">项目</string>
     <string name="projects">项目</string>
     <string name="none">无</string>
@@ -151,24 +151,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">空文件</string>
     <string name="break_page_pdf_print">分页 (PDF/打印)</string>
     <string name="underline">下划线</string>
-    <string name="underline_hex_color_wether_or_not_to_description__appspecific">为十六进制颜色代码按照颜色添加下划线</string>
-    <string name="underline_hex_color_codes">为十六进制颜色代码添加下划线</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">是否根据颜色在十六进制颜色代码下划线</string>
+    <string name="underline_hex_color_codes">下划线十六进制颜色代码</string>
     <string name="insert_current_date_when_starting_new_task">在开始一项新任务时自动插入当前日期</string>
-    <string name="tasks_with_todays_date">为任务附上今天的日期</string>
-    <string name="append_contexts_and_projects">附加内容与项目</string>
-    <string name="append_contexts_and_projects_on_end_of_task">使用对应的文本操作时，在任务末尾附加完成的情境和项目</string>
+    <string name="tasks_with_todays_date">带有今天日期的任务</string>
+    <string name="append_contexts_and_projects">附加情境与项目</string>
+    <string name="append_contexts_and_projects_on_end_of_task">使用对应的文本操作时，在任务末尾附加情境和项目</string>
     <string name="rtl_rendering">从右向左渲染</string>
     <string name="highlight_line_ending">高亮行末</string>
-    <string name="highlight_line_ending_if_two_or_more_spaces">高亮显示两个及以上的行末空格</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">突出显示包含两个或多个空格的行末尾的空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
-    <string name="disable_code_block_highlight">禁用代码高亮</string>
-    <string name="auto_renumber_ordered_list">自动重新编号有序列表</string>
+    <string name="disable_code_block_highlight">禁用代码块高亮</string>
+    <string name="auto_renumber_ordered_list">自动重新编号的有序列表</string>
     <string name="auto_renumber_ordered_list_slowdown">此选项可能会影响应用性能。</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
     <string name="general">通用</string>
     <string name="resources">资源</string>
-    <string name="space_between_lines_in_percent">单位为百分比</string>
-    <string name="line_spacing">行距</string>
+    <string name="space_between_lines_in_percent">行间距百分比</string>
+    <string name="line_spacing">行间距</string>
     <string name="archive_does_move_done_tasks">将完成的任务移动至同目录下的指定文件</string>
     <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
@@ -187,13 +187,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">载入文件时将光标置于文件末尾处</string>
     <string name="unordered_list_character">无序列表标示字符</string>
     <string name="character_to_start_items_of_unordered_list_with">用于表示无序列表的字符</string>
-    <string name="unordered_list_char_dash">连词符 (-)</string>
+    <string name="unordered_list_char_dash">短破折号 (-)</string>
     <string name="unordered_list_char_asterisk">星号 (*)</string>
     <string name="unordered_list_char_plus">加号 (+)</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、脱机可用的文档，不支持不提供完整文件路径的文件管理器。</string>
-    <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
-    <string name="configure_in_the_apps_settings">在应用设置中设定</string>
-    <string name="vertical_alignment">纵向对齐</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、离线可用的文档，且不支持不提供完整文件路径的文件管理器。</string>
+    <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，请相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
+    <string name="configure_in_the_apps_settings">在应用设置中配置</string>
+    <string name="vertical_alignment">垂直对齐</string>
     <string name="horizontal_alignment">水平对齐</string>
     <string name="default_">默认</string>
     <string name="left">左端</string>
@@ -207,17 +207,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
     <string name="select_existing_document">选择已有文档</string>
-    <string name="open_source_licenses">开源协议</string>
+    <string name="open_source_licenses">开源许可协议</string>
     <string name="rate_this_app">评价本应用</string>
     <string name="translate">翻译</string>
     <string name="more_info_and_help">更多信息与帮助</string>
     <string name="report_bugs">报告错误</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">有关向开发人员捐款或为此项目贡献的更多信息。</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">查看有关捐赠给开发人员或为此项目做出贡献的更多信息。</string>
     <string name="join_community">加入社区</string>
-    <string name="bug_reports_suggest_improvements">给出反馈，报告问题，或提出改进建议</string>
-    <string name="help_translating_this_app">翻译本应用</string>
+    <string name="bug_reports_suggest_improvements">反馈、报告问题或提出改进建议</string>
+    <string name="help_translating_this_app">将此应用翻译成其他语言</string>
     <string name="source_code">源代码</string>
-    <string name="project_license">项目开源协议</string>
+    <string name="project_license">项目许可协议</string>
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
     <string name="project_team">项目团队</string>
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
@@ -228,16 +228,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">位置</string>
     <string name="text_lines">文本行数</string>
     <string name="text_characters">文字符号</string>
-    <string name="text_words">文字</string>
+    <string name="text_words">文字词</string>
     <string name="directory">目录</string>
     <string name="recently_viewed_documents">最近文档</string>
     <string name="details">细节</string>
     <string name="calendar">日历</string>
-    <string name="warning_disallowed_sd_access">警告！Markor 没有保存此文件的权限, 此处的所有更改都将丢失。Markor 并不能解决这个问题， 请检查 Android 对 Markor 的权限设置。</string>
-    <string name="error_picture_selection">没有选取照片</string>
+    <string name="warning_disallowed_sd_access">警告！ 应用没有保存此文件的权限，所有更改都将丢失。 无法解决问题或确认某些内容，Android 拒绝此处的任何访问。</string>
+    <string name="error_picture_selection">没有选择、拍摄或保存图片。</string>
     <string name="gallery_picture">从相册选取</string>
     <string name="camera_picture">相机</string>
-    <string name="enable_undo_and_redo_be_patient">启用撤消和重做操作。只适合高级使用, 保持耐心不要删除重要的东西。关闭并打开编辑器以清除历史记录。</string>
+    <string name="enable_undo_and_redo_be_patient">启用撤消和重做操作。 只适合高级使用，请耐心、不要删除重要的东西。 关闭并打开编辑器以清除历史记录。</string>
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
@@ -328,7 +328,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">阅读</string>
     <string name="read">只读</string>
     <string name="table">表格</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格（插入表头），短按以添加一行。</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格 (插入表头) ，短按以添加一行。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
     <string name="delete_lines">删除行</string>
     <string name="unordered_list">无序列表</string>
@@ -373,7 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n请前往设置 -&gt; 常规 -&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">无法加密文件内容。文件未保存。</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。您使用了错误的密码吗？该文件真的是加密的 Markors AES 吗？</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。 您是否使用了错误的密码？ 文件是否真的使用 Markors AES 加密方式进行加密？</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">密码已设置。 设置新密码将覆盖现有密码，如果您忘记密码，您可能无法再访问文件。</string>
     <string name="code_block">代码块</string>
     <string name="add_completion_date">添加完成日期</string>
@@ -396,26 +396,26 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">从备份 JSON 文件导入设置。成功后，应用将重启。</string>
     <string name="failed_to_restore_settings_from_backup">从备份恢复设置失败</string>
     <string name="newline_is_new_paragraph">新增行 = 新建段落</string>
-    <string name="search_in_content">搜索内容</string>
+    <string name="search_in_content">在内容中搜索</string>
     <string name="max_search_depth">搜索深度</string>
-    <string name="ignore_list">忽略列表</string>
-    <string name="do_not_search_specified_files_and_folders">不搜索指定的文件和文件夹。\n使用新增行作为分隔符。\n对于确切的目录名请使用引号：“Test”。\n或使用正则表达 \'^[.].*\'\n示例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="ignore_list">忽略名单</string>
+    <string name="do_not_search_specified_files_and_folders">不搜索指定的文件和文件夹。\n使用换行作为分隔符。\n对于确切的目录名请使用引号：\"Test\"。\n或使用正则表达 \'^[.].*\'\n示例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">正则表达式搜索</string>
     <string name="case_sensitive">区分大小写</string>
-    <string name="stop_search_after_first_match">匹配到第一次后停止搜索</string>
+    <string name="stop_search_after_first_match">第一次匹配后停止搜索</string>
     <string name="regex_can_not_be_compiled">无法编译正则表达式</string>
     <string name="keep_both">两者都保留</string>
     <string name="skip">跳过</string>
     <string name="overwrite">覆盖</string>
-    <string name="keep_both_all">两者都保留（全部）</string>
-    <string name="skip_all">跳过（全部）</string>
-    <string name="overwrite_all">覆盖（全部）</string>
+    <string name="keep_both_all">两者都保留 (全部)</string>
+    <string name="skip_all">跳过 (全部)</string>
+    <string name="overwrite_all">覆盖 (全部)</string>
     <string name="copy_move_conflict_message">\'%s\' 已存在于 %s</string>
-    <string name="additional_contexts_and_projects">其他情景和项目</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @contexts 和 +projects。 您可以始终在 todo.txt 插入对话框中看见这些选项。</string>
-    <string name="infinite">无限的</string>
+    <string name="additional_contexts_and_projects">其他情境和项目</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @情境 和 +项目 标签 。 您可以始终在 todo.txt 的插入对话框中看见这些选项。</string>
+    <string name="infinite">不限</string>
     <string name="search_project">搜索项目</string>
-    <string name="search_context">搜索情景</string>
+    <string name="search_context">搜索情境</string>
     <string name="insert_project">插入项目</string>
-    <string name="insert_context">插入情景</string>
+    <string name="insert_context">插入情境</string>
 </resources>
