@@ -114,7 +114,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_toggle_done: {
                     final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
                     final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
-                    final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + ")?)";
+                    final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
                     final String startingPriority = "^\\(([A-Z])\\)\\s";
                     runRegexReplaceAction(
                             // If task not done and starts with a priority and contains a pri tag
@@ -128,7 +128,6 @@ public class TodoTxtTextActions extends TextActions {
                             // else replace task start with 'x ...'
                             new ReplacePattern("^", doneMark)
                     );
-                    trimLeadingWhiteSpace();
                     return;
                 }
                 case R.string.tmaid_todotxt_add_context: {
