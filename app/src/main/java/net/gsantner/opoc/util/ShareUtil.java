@@ -317,6 +317,39 @@ public class ShareUtil {
         return false;
     }
 
+
+    /**
+     * Request installation of APK specified by file
+     * Permission required:
+     * <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+     *
+     * @param file The apk file to install
+     */
+    public boolean requestApkInstallation(final File file) {
+        if (file == null || !file.getName().toLowerCase().endsWith(".apk")) {
+            return false;
+        }
+
+        Uri fileUri = null;
+        try {
+            fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+        } catch (Exception ignored) {
+            try {
+                fileUri = Uri.fromFile(file);
+            } catch (Exception ignored2) {
+            }
+        }
+
+        if (fileUri != null) {
+            final Intent intent = new Intent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.ACTION_INSTALL_PACKAGE : Intent.ACTION_VIEW)
+                    .setFlags(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.FLAG_GRANT_READ_URI_PERMISSION : Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .setDataAndType(fileUri, "application/vnd.android.package-archive");
+            _context.startActivity(intent);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Share the given bitmap with given format
      *

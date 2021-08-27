@@ -412,6 +412,8 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     if (TextFormat.isTextFile(file)) {
                         DocumentActivity.launch(MainActivity.this, file, false, null, null, lineNumber);
+                    } else if (file.getName().toLowerCase().endsWith(".apk")) {
+                        _shareUtil.requestApkInstallation(file);
                     } else {
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
                     }
