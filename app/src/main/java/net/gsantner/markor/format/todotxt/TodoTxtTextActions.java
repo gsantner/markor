@@ -322,10 +322,6 @@ public class TodoTxtTextActions extends TextActions {
         _hlEditor.insertOrReplaceTextOnCursor(thing);
     }
 
-    private void toggleDone() {
-
-    }
-
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
         if (dateString == null || dateString.length() != TodoTxtTask.DATEF_YYYY_MM_DD_LEN) {
             return fallback;
