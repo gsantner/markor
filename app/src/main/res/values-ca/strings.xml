@@ -414,4 +414,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos i projectes addicionals</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduïu @contextos i +projectes separats per espais. Aquests sempre seran visibles als quadres de diàleg d\'inserció del todo.txt.</string>
     <string name="infinite">Infinit</string>
+    <string name="search_project">Cerca projectes</string>
+    <string name="search_context">Cerca contextos</string>
+    <string name="insert_project">Insereix projectes</string>
+    <string name="insert_context">Insereix contextos</string>
 </resources>

@@ -20,14 +20,11 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentRelayActivity;
 import net.gsantner.markor.model.Document;
 
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
-    public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
-
     public ShareUtil(Context context) {
         super(context);
         setChooserTitle(_context.getString(R.string.share_to_arrow));

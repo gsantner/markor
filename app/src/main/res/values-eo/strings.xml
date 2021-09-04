@@ -16,6 +16,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete">Forigi</string>
     <string name="appearance">Aspekto</string>
     <string name="rename">Alinomi</string>
+    <string name="confirm_delete">Konfirmi forigon</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Ĉu vi vere volas forigi ĉi tiun %sn?</string>
     <string name="title">Titolo</string>
     <string name="empty_directory">Malplena dosierujo</string>
     <string name="enter_name_of_folder">Entajpu la nomon de via dosierujo</string>
@@ -122,8 +124,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="directory">Dosierujo</string>
     <string name="details">Detaloj</string>
     <string name="calendar">Kalendaro</string>
+    <string name="enable_undo_and_redo_be_patient">Ebligi malfari kaj refari agojn. Nur taŭgaj por sperta uzado, paciencu por ne forigi gravan ion. Fermu kaj malfermu la redaktilon por viŝi la historion.</string>
     <string name="description">Priskribo</string>
     <string name="edit_picture">Redakti bildon</string>
+    <string name="math">Matematiko</string>
+    <string name="table_of_contents">Enhavtabelo</string>
     <string name="miscellaneous">Aliaĵoj</string>
     <string name="color">Koloro</string>
     <string name="foreground">Malfono</string>
@@ -140,6 +145,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Fermi</string>
     <string name="cancel">Rezigni</string>
     <string name="go_to">Iri al</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">Quicknote estas la plej rapida elekto por skribi notojn. Ĝi estas dosiero en la Markdown dosierformo kun la defaŭlta situo &gt;Notebook/QuickNote.md&lt;, vi povas agordi propran dosiersituon per la agordoj.</string>
     <string name="black">Nigra</string>
     <string name="white">Blanka</string>
     <string name="view">Vido</string>
@@ -156,6 +162,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">Paĝo</string>
     <string name="tools">Iloj</string>
     <string name="read">Legi</string>
+    <string name="delete_lines">Forigi lineojn</string>
     <string name="unordered_list">Neordigita listo</string>
     <string name="ordered_list">Ordigita listo</string>
     <string name="open_link">Malfermi ligilon</string>
@@ -181,4 +188,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">Anstataŭi per</string>
     <string name="replace_once">Anstataŭi (1)</string>
     <string name="replace_all">Anstataŭi ĉiujn</string>
+    <string name="newline_is_new_paragraph">Nova lineo = nova paragrafo</string>
+    <string name="stop_search_after_first_match">Haltigi la serĉon post la unua kongruo</string>
+    <string name="regex_can_not_be_compiled">La regula esprimo ne povas esti kompilata</string>
+    <string name="keep_both">Konservi ambaŭ</string>
+    <string name="skip">Preterpasi</string>
+    <string name="overwrite">Superskribi</string>
+    <string name="keep_both_all">Konservi ambaŭ (tutoj)</string>
+    <string name="skip_all">Preterpasi (tutoj)</string>
+    <string name="overwrite_all">Superskribi (tutoj)</string>
+    <string name="copy_move_conflict_message">\'%s\' jam ekzistas en %s</string>
+    <string name="additional_contexts_and_projects">Aldonaj kontekstoj kaj projektoj</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Enskribi @kontekstojn kaj +projektojn apartigitaj per spacetoj. Ĉi tiuj videblos ĉiufoje ĉe todo.txt enmetaj dialogoj.</string>
+    <string name="infinite">Infinita</string>
+    <string name="search_project">Serĉi projektojn</string>
+    <string name="search_context">Serĉi kontekstojn</string>
+    <string name="insert_project">Enmeti projektojn</string>
+    <string name="insert_context">Enmeti kontekstojn</string>
 </resources>

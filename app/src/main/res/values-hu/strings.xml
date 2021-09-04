@@ -381,5 +381,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="matches">Találatok</string>
     <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
     <string name="export_settings_to_json_file">Beállítások exportálása json fájlba</string>
+    <string name="search_in_content">Keresés a tartalomban</string>
     <string name="keep_both">Mindkettő megtartása</string>
+    <string name="skip">Kihagyás</string>
+    <string name="overwrite">Felülírás</string>
+    <string name="keep_both_all">Mindkettő megtartása az összesnél</string>
+    <string name="skip_all">Összes kihagyása</string>
+    <string name="overwrite_all">Az összes felülírása</string>
 </resources>

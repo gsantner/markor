@@ -59,6 +59,8 @@ public class MarkorWebViewClient extends WebViewClient {
                     newPreview.putExtra(DocumentIO.EXTRA_PATH, file);
                     newPreview.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
                     _activity.startActivity(newPreview);
+                } else if (file.getName().toLowerCase().endsWith(".apk")) {
+                    su.requestApkInstallation(file);
                 } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
                     su.viewFileInOtherApp(file, mimetype);
                 } else {
