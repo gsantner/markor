@@ -257,6 +257,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_picture">Edit picture</string>
     <string name="math">Math</string>
     <string name="table_of_contents">Table of contents</string>
+    <string name="no_toc">No table of contents</string>
+    <string name="simple_toc">Simple table of contents (up to H3)</string>
+    <string name="extended_toc">Extended table of contents (up to H6)</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="textaction">Text action</string>
     <string name="textactions">Text actions</string>
