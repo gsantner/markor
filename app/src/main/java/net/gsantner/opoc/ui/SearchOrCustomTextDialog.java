@@ -90,7 +90,7 @@ public class SearchOrCustomTextDialog {
         public String extraFilter = null;
         public List<Integer> preSelected = null;
 
-        public Callback.a0 neutralButtonCallback = null;
+        public Callback.a1<AlertDialog> neutralButtonCallback = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -247,20 +247,19 @@ public class SearchOrCustomTextDialog {
         final LinearLayout searchLayout = new LinearLayout(activity);
         searchLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        LinearLayout.LayoutParams lp;
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        lp.gravity = Gravity.START | Gravity.BOTTOM;
-        searchLayout.addView(searchEditText, lp);
+        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        editLp.gravity = Gravity.START | Gravity.BOTTOM;
+        searchLayout.addView(searchEditText, editLp);
 
         // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
         clearButton.setImageResource(dopt.clearInputIcon);
         TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
-        lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        lp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        lp.setMargins(margin, 0, (int) (margin * 1.5), 0);
-        searchLayout.addView(clearButton, lp);
+        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
+        searchLayout.addView(clearButton, clearLp);
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
         final ListView listView = new ListView(activity);
@@ -270,9 +269,9 @@ public class SearchOrCustomTextDialog {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         if (dopt.isSearchEnabled) {
-            lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(margin, margin / 2, margin, margin / 2);
-            linearLayout.addView(searchLayout, lp);
+            final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            searchLp.setMargins(margin, margin / 2, margin, margin / 2);
+            linearLayout.addView(searchLayout, searchLp);
         }
 
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
@@ -304,13 +303,6 @@ public class SearchOrCustomTextDialog {
             });
         }
 
-        // Setup neutralbutton
-        if (dopt.neutralButtonCallback != null && dopt.neutralButtonText != 0) {
-            dialogBuilder.setNeutralButton(dopt.neutralButtonText, (dialogInterface, i) -> {
-                dopt.neutralButtonCallback.callback();
-            });
-        }
-
         final AlertDialog dialog = dialogBuilder.create();
 
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
@@ -328,7 +320,16 @@ public class SearchOrCustomTextDialog {
         if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
             w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+
         dialog.show();
+
+        final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
+            neutralButton.setVisibility(Button.VISIBLE);
+            neutralButton.setText(dopt.neutralButtonText);
+            neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
+        }
+
         if ((w = dialog.getWindow()) != null) {
             int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
             int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));

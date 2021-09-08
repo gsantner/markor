@@ -53,8 +53,10 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            final Editable edit = _hlEditor.getText();
-            SearchOrCustomTextDialogCreator.showTodoSearchDialog(_activity, edit, StringUtils.getSelection(_hlEditor), this::doBasicHighlights, this::selectLines);
+            SearchOrCustomTextDialogCreator.showSttLineSelectionDialog(_activity, _hlEditor, R.string.search_documents, true, task -> true);
+            return true;
+        } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
+            SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
             return true;
         }
         return runCommonTextAction(action);
@@ -118,7 +120,7 @@ public class TodoTxtTextActions extends TextActions {
                     final String startingPriority = "^\\(([A-Z])\\)\\s";
                     runRegexReplaceAction(
                             // If task not done and starts with a priority and contains a pri tag
-                            new ReplacePattern( startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
+                            new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
                             // else if task not done and starts with a priority and does not contain a pri tag
                             new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
                             // else if task is done and contains a pri tag
@@ -164,7 +166,7 @@ public class TodoTxtTextActions extends TextActions {
                     return;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDate();
+                    setDueDate(_appSettings.getDueDateOffset());
                     return;
                 }
                 case R.string.tmaid_todotxt_archive_done_tasks: {
@@ -241,24 +243,21 @@ public class TodoTxtTextActions extends TextActions {
 
         @Override
         public boolean onLongClick(View v) {
-            String origText = _hlEditor.getText().toString();
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-            final TodoTxtTextActions t_this = TodoTxtTextActions.this;
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, false, t_this::selectLines);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, task -> Arrays.asList(task.getContexts()));
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, origText, t_this::doBasicHighlights, true, t_this::selectLines);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, task -> Arrays.asList(task.getProjects()));
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
                     commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
                     return true;
                 }
-
                 case R.string.tmaid_common_open_link_browser: {
                     commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
                     return true;
@@ -273,7 +272,7 @@ public class TodoTxtTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_todotxt_current_date: {
-                    setDueDate(_appSettings.getDueDateOffset());
+                    setDate();
                     return true;
                 }
             }

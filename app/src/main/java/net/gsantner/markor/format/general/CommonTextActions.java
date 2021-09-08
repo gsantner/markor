@@ -49,6 +49,8 @@ public class CommonTextActions {
     public static final int ACTION_SEARCH_ICON = R.drawable.ic_search_black_24dp;
     public static final String ACTION_SEARCH = "tmaid_common_search_in_content_of_current_file";
 
+    public static final String ACTION_TITLE = "tmaid_common_toolbar_title_clicked_edit_action";
+
     public static final int ACTION_JUMP_BOTTOM_TOP_ICON = R.drawable.ic_vertical_align_center_black_24dp;
     public static final String ACTION_JUMP_BOTTOM_TOP = "tmaid_common_jump_to_bottom";
 
@@ -170,12 +172,7 @@ public class CommonTextActions {
                 return true;
             }
             case ACTION_SEARCH: {
-                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor.getText(), StringUtils.getSelection(_hlEditor), (lineNr) -> {
-                    if (!_hlEditor.hasFocus()) {
-                        _hlEditor.requestFocus();
-                    }
-                    _hlEditor.setSelection(StringUtils.getIndexFromLineOffset(origText, lineNr, 0));
-                });
+                SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor);
                 return true;
             }
             case ACTION_JUMP_BOTTOM_TOP: {

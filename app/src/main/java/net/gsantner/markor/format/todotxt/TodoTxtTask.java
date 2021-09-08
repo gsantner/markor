@@ -54,6 +54,12 @@ public class TodoTxtTask {
     public static final Pattern PATTERN_COMPLETION_DATE = Pattern.compile("(?:^|\\n)(?:[Xx] )(" + PT_DATE + ")?");
     public static final Pattern PATTERN_CREATION_DATE = Pattern.compile("(?:^|\\n)(?:\\([A-Za-z]\\)\\s)?(?:[Xx] " + PT_DATE + " )?(" + PT_DATE + ")");
 
+    public static final char PRIORITY_NONE = '~';
+
+    public enum TodoDueState {
+        NONE, OVERDUE, TODAY, FUTURE
+    }
+
     public static String getToday() {
         return DATEF_YYYY_MM_DD.format(new Date());
     }
@@ -131,6 +137,7 @@ public class TodoTxtTask {
     private String completionDate = null;
     private String dueDate = null;
     private String description = null;
+    private TodoDueState dueStatus = null;
 
     public TodoTxtTask(final String line) {
         this.line = line;
@@ -164,11 +171,7 @@ public class TodoTxtTask {
     public char getPriority() {
         if (priority == null) {
             final String ret = parseOneValueOrDefault(line, PATTERN_PRIORITY_ANY, "");
-            if (ret.length() == 1) {
-                priority = ret.charAt(0);
-            } else {
-                priority = '~'; // No priority == lowest priority
-            }
+            priority = ret.isEmpty() ? PRIORITY_NONE : Character.toUpperCase(ret.charAt(0));
         }
         return priority;
     }
@@ -207,6 +210,19 @@ public class TodoTxtTask {
             dueDate = parseOneValueOrDefault(line, PATTERN_DUE_DATE, 3, defaultValue);
         }
         return dueDate;
+    }
+
+    public TodoDueState getDueStatus() {
+        if (dueStatus == null) {
+            final String date = getDueDate();
+            if (TextUtils.isEmpty(date)) {
+                dueStatus = TodoDueState.NONE;
+            } else {
+                final int comp = date.compareTo(getToday());
+                dueStatus = (comp > 0) ? TodoDueState.FUTURE : (comp < 0) ? TodoDueState.OVERDUE : TodoDueState.TODAY;
+            }
+        }
+        return dueStatus;
     }
 
     public String getCompletionDate() {

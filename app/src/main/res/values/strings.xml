@@ -430,8 +430,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Additional contexts and projects</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enter space-separated @contexts and +projects. These will always be visible at todo.txt insert dialogs.</string>
     <string name="infinite">Infinite</string>
-    <string name="search_project">Search projects</string>
-    <string name="search_context">Search contexts</string>
+    <string name="browse_by_project">Browse by project</string>
+    <string name="browse_by_context">Browse by context</string>
     <string name="insert_project">Insert projects</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Browse todo</string>
+    <string name="browse_by_priority">Browse by priority</string>
+    <string name="browse_by_due_date">Browse by due date</string>
+    <string name="due_overdue">Overdue</string>
+    <string name="due_today">Due today</string>
+    <string name="due_future">Due in future</string>
+    <string name="completed">Completed</string>
+    <string name="match_any">Match Any</string>
+    <string name="match_all">Match All</string>
 </resources>

@@ -439,6 +439,11 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
 
         @Override
         public Fragment getItem(int pos) {
+            final Fragment existing = _fragCache.get(pos);
+            if (existing != null) {
+                return existing;
+            }
+
             switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
                 default:
                 case R.id.nav_notebook: {
