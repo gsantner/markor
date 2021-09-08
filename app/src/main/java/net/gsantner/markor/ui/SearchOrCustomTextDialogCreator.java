@@ -246,7 +246,7 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_priority, false, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, task ->
                 task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
 
         options.add(activity.getString(R.string.due_date));
@@ -255,16 +255,16 @@ public class SearchOrCustomTextDialogCreator {
         statusMap.put(TodoTxtTask.TodoDueState.TODAY, activity.getString(R.string.due_today));
         statusMap.put(TodoTxtTask.TodoDueState.OVERDUE, activity.getString(R.string.due_overdue));
         statusMap.put(TodoTxtTask.TodoDueState.FUTURE, activity.getString(R.string.due_future));
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_due_date, false, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, task ->
                 task.getDueStatus() == TodoTxtTask.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_project, true, true, task -> Arrays.asList(task.getProjects())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, task -> Arrays.asList(task.getProjects())));
 
         options.add(activity.getString(R.string.context));
         icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.filter_by_context, true, true, task -> Arrays.asList(task.getContexts())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, task -> Arrays.asList(task.getContexts())));
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
@@ -274,7 +274,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.iconsForData = icons;
         dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
         dopt.isSearchEnabled = false;
-        dopt.titleText = R.string.filter_todo;
+        dopt.titleText = R.string.browse_todo;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
