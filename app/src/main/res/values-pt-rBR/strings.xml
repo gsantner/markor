@@ -414,6 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos e projetos adicionais</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Insira um espaço separado por @contextos e +projetos. Estes sempre estarão visíveis em todo.txt inserindo diálogos.</string>
     <string name="infinite">Infinito</string>
+    <string name="browse_by_project">Navegar por projeto</string>
+    <string name="browse_by_context">Procurar por contexto</string>
     <string name="insert_project">Inserir projetos</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Procurar tarefa</string>
+    <string name="browse_by_priority">Navegar por prioridade</string>
+    <string name="browse_by_due_date">Procurar por data de vencimento</string>
+    <string name="due_overdue">Atrasado</string>
+    <string name="due_today">Vence hoje</string>
+    <string name="due_future">Vencimento no futuro</string>
+    <string name="completed">Concluído</string>
+    <string name="match_any">Corresponder Qualquer Um</string>
+    <string name="match_all">Combinar todos</string>
 </resources>
