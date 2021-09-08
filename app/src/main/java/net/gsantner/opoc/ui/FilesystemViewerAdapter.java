@@ -595,7 +595,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             return 0;
         }
         if (o1.isDirectory() && _dopt.folderFirst)
-            return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
+            return o2.isDirectory() ? o1.getName().compareToIgnoreCase(o2.getName()) : -1;
         else if (!canWrite(o2))
             return -1;
         else if (o2.isDirectory() && _dopt.folderFirst)
@@ -606,7 +606,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                 return v;
             }
         }
-        return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
+        return o1.getName().compareToIgnoreCase(o2.getName());
     }
 
     public boolean isCurrentFolderHome() {

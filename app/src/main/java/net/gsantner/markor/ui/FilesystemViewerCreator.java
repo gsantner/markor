@@ -54,19 +54,6 @@ public class FilesystemViewerCreator {
         opts.contentDescriptionSelected = R.string.selected;
         opts.contentDescriptionFile = R.string.file;
 
-        opts.fileComparable = (o1, o2) -> {
-            String m1 = ContextUtils.get().getMimeType(o1);
-            String m2 = ContextUtils.get().getMimeType(o2);
-            if (m1.startsWith("text/") || m2.startsWith("text")) {
-                if (m1.startsWith("text/") && !m2.startsWith("text/")) {
-                    return -1;
-                } else if (m2.startsWith("text/") && !m1.startsWith("text/")) {
-                    return 1;
-                }
-            }
-            return 0;
-        };
-
         opts.accentColor = R.color.accent;
         opts.primaryColor = R.color.primary;
         opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
