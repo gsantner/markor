@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatečné kontexty a projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Zadejte @contexty oddělené mezerou a +projects. Ty budou vždy viditelné při vkládání dialogových oken.</string>
     <string name="infinite">Nekonečný</string>
-    <string name="search_project">Hledat projekty</string>
-    <string name="search_context">Hledat kontexty</string>
+    <string name="browse_by_project">Procházet podle projektu</string>
+    <string name="browse_by_context">Procházet podle kontextu</string>
     <string name="insert_project">Vložit projekty</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Procházet úkol</string>
+    <string name="browse_by_priority">Procházet podle priority</string>
+    <string name="browse_by_due_date">Procházet podle termínu dokončení</string>
+    <string name="due_overdue">Po termínu</string>
+    <string name="due_today">Termín dnes</string>
+    <string name="due_future">Termín v budoucnu</string>
+    <string name="completed">Dokončeno</string>
+    <string name="match_any">Odpovídat libovolné</string>
+    <string name="match_all">Odpovídat vše</string>
 </resources>
