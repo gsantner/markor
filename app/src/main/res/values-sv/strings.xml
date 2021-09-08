@@ -414,8 +414,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
     <string name="infinite">Oändlig</string>
-    <string name="search_project">Sök projekt</string>
-    <string name="search_context">Sök kontexter</string>
     <string name="insert_project">Infoga projekt</string>
     <string name="insert_context">Insert contexts</string>
 </resources>
