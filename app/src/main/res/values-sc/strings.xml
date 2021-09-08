@@ -414,8 +414,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Cuntestos e progetos additzionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserta @cuntestos e +progetos iscrobados dae ispàtzios. Custos ant a èssere semper visìbiles in sas ventanas de diàlogu de insertadura de todo.txt.</string>
     <string name="infinite">Infinitu</string>
-    <string name="search_project">Chirca progetos</string>
-    <string name="search_context">Chirca cuntestos</string>
     <string name="insert_project">Inserta progetos</string>
     <string name="insert_context">Inserta cuntestos</string>
 </resources>
