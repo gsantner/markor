@@ -21,18 +21,15 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
-import android.widget.EditText;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.markor.ui.SearchReplaceDialog;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -123,7 +120,7 @@ public class TodoTxtTextActions extends TextActions {
                     final String startingPriority = "^\\(([A-Z])\\)\\s";
                     runRegexReplaceAction(
                             // If task not done and starts with a priority and contains a pri tag
-                            new ReplacePattern( startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
+                            new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
                             // else if task not done and starts with a priority and does not contain a pri tag
                             new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
                             // else if task is done and contains a pri tag

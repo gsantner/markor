@@ -286,7 +286,7 @@ public class SearchOrCustomTextDialogCreator {
         final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
         final List<Integer> lineIndices = new ArrayList<>();
-        for (int i = 0; i < allTasks.length; i++)  {
+        for (int i = 0; i < allTasks.length; i++) {
             if (filter.callback(allTasks[i])) {
                 lines.add(allTasks[i].getLine());
                 lineIndices.add(i);
@@ -319,16 +319,16 @@ public class SearchOrCustomTextDialogCreator {
 
     /**
      * Filter todos with specified keys.
-     *
+     * <p>
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity          Context activity
-     * @param text              Edit Text with todos
-     * @param title             Dialog title
-     * @param enableSearch      Whether to enable search in the list of keys
-     * @param enableAndToggle   Whether to make the nutral button an AND / OR toggle
-     * @param getKeys           Callback which should return a list of string keys for each task. Empty list -> task has no keys
+     * @param activity        Context activity
+     * @param text            Edit Text with todos
+     * @param title           Dialog title
+     * @param enableSearch    Whether to enable search in the list of keys
+     * @param enableAndToggle Whether to make the nutral button an AND / OR toggle
+     * @param getKeys         Callback which should return a list of string keys for each task. Empty list -> task has no keys
      */
     public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAndToggle, final Callback.r1<List<String>, TodoTxtTask> getKeys) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
