@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">سياقات ومشاريع إضافية</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">أدخل @contexts و +مشاريع. ستكون هذه دائما مرئية في todo.txt إدخال الحوار.</string>
     <string name="infinite">لانهائي</string>
-    <string name="search_project">البحث عن المشاريع</string>
-    <string name="search_context">ابحث في السياقات</string>
+    <string name="browse_by_project">تصفح حسب المشروع</string>
+    <string name="browse_by_context">تصفح حسب السياق</string>
     <string name="insert_project">إدراج مشاريع</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">تصفح المهمة</string>
+    <string name="browse_by_priority">تصفح حسب الأولوية</string>
+    <string name="browse_by_due_date">تصفح حسب تاريخ الاستحقاق</string>
+    <string name="due_overdue">متأخرة</string>
+    <string name="due_today">الواجب اليوم</string>
+    <string name="due_future">مستحق في المستقبل</string>
+    <string name="completed">مكتمل</string>
+    <string name="match_any">مطابقة أي</string>
+    <string name="match_all">مطابقة الكل</string>
 </resources>
