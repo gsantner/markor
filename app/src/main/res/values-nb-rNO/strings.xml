@@ -414,8 +414,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Flere kontekster og prosjekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Angi områdedaterte @contexts og +projects. Disse vil alltid være synlige på todo.txt innfør dialoger.</string>
     <string name="infinite">Uendelig</string>
-    <string name="search_project">Søk i prosjekter</string>
-    <string name="search_context">Søk i kontekster</string>
     <string name="insert_project">Sett inn prosjekter</string>
     <string name="insert_context">Insert contexts</string>
 </resources>
