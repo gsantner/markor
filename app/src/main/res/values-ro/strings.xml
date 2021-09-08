@@ -414,6 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">contexte și proiecte suplimentare</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introdu @contexte și +proiecte separate de spațiu. Acestea vor fi întotdeauna vizibile în dialogurile de inserare todo.txt.</string>
     <string name="infinite">Infinit</string>
+    <string name="browse_by_project">Navigare după proiect</string>
+    <string name="browse_by_context">Răsfoiește după context</string>
     <string name="insert_project">Inserare proiecte</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Răsfoiește todo</string>
+    <string name="browse_by_priority">Navigare după prioritate</string>
+    <string name="browse_by_due_date">Navigare după data scadentă</string>
+    <string name="due_overdue">Depășit</string>
+    <string name="due_today">De finalizat astăzi</string>
+    <string name="due_future">De finalizat în viitor</string>
+    <string name="completed">Completat</string>
+    <string name="match_any">Se potrivește orice</string>
+    <string name="match_all">Potrivește tot</string>
 </resources>
