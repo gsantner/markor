@@ -414,6 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
     <string name="infinite">Oändlig</string>
+    <string name="browse_by_project">Bläddra efter projekt</string>
+    <string name="browse_by_context">Bläddra efter sammanhang</string>
     <string name="insert_project">Infoga projekt</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Bläddra todo</string>
+    <string name="browse_by_priority">Bläddra efter prioritet</string>
+    <string name="browse_by_due_date">Bläddra efter förfallodatum</string>
+    <string name="due_overdue">Förfallen</string>
+    <string name="due_today">Klar idag</string>
+    <string name="due_future">Förfaller i framtiden</string>
+    <string name="completed">Slutförd</string>
+    <string name="match_any">Matcha alla</string>
+    <string name="match_all">Matcha alla</string>
 </resources>
