@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Lisätaustat ja -hankkeet</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Syötä välilyönti erotettu @kontekstit ja +projektit. Nämä näkyvät aina osoitteessa: todo.txt insert dialogit.</string>
     <string name="infinite">Loputon</string>
-    <string name="search_project">Etsi projekteja</string>
-    <string name="search_context">Etsi konteksteja</string>
+    <string name="browse_by_project">Selaa projektissa</string>
+    <string name="browse_by_context">Selaa kontekstin mukaan</string>
     <string name="insert_project">Lisää projekteja</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Selaa todoa</string>
+    <string name="browse_by_priority">Selaa prioriteetin mukaan</string>
+    <string name="browse_by_due_date">Selaa eräpäivän mukaan</string>
+    <string name="due_overdue">Myöhässä</string>
+    <string name="due_today">Erääntyy tänään</string>
+    <string name="due_future">Tulevaisuudessa erääntyvät</string>
+    <string name="completed">Valmis</string>
+    <string name="match_any">Täsmää Mikä Tahansa</string>
+    <string name="match_all">Täsmää Kaikki</string>
 </resources>
