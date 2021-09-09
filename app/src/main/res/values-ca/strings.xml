@@ -414,6 +414,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextos i projectes addicionals</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Introduïu @contextos i +projectes separats per espais. Aquests sempre seran visibles als quadres de diàleg d\'inserció del todo.txt.</string>
     <string name="infinite">Infinit</string>
+    <string name="browse_by_project">Navega per projecte</string>
+    <string name="browse_by_context">Navega per context</string>
     <string name="insert_project">Insereix projectes</string>
     <string name="insert_context">Insereix contextos</string>
+    <string name="browse_todo">Navega per tot</string>
+    <string name="browse_by_priority">Navega per prioritat</string>
+    <string name="browse_by_due_date">Navega per data de venciment</string>
+    <string name="due_overdue">Vençut</string>
+    <string name="due_today">Venç avui</string>
+    <string name="due_future">Venciment en el futur</string>
+    <string name="completed">Completat</string>
+    <string name="match_any">Coincideix amb qualsevol</string>
 </resources>
