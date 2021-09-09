@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Titre 3</string>
     <string name="heading_4">Titre 4</string>
     <string name="heading_5">Titre 5</string>
+    <string name="heading_6">Titre 6</string>
     <string name="bold">Gras</string>
     <string name="italic">Italique</string>
     <string name="highlighted">Surligné</string>
