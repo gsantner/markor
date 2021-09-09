@@ -36,6 +36,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.FileWithCachedData;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -468,6 +469,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             @Override
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
+                    ArrayList<File> oldAdapterData = new ArrayList<>();
+                    Collections.copy(_adapterData, oldAdapterData);
                     _currentFolder = folder;
                     _adapterData.clear();
                     _virtualMapping.clear();
@@ -544,6 +547,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                                 }
                             }
                         }
+                    }
+
+                    // Optimization - convert found File's to FileWithCachedData
+                    // Sorting invokes a lot of filesystem i/o calls which do consume much time
+                    // Changing sort order: Reuse information if available
+                    for (int i = 0; i < _adapterData.size(); i++) {
+                        final File o = _adapterData.remove(i);
+                        final int at = oldAdapterData.indexOf(o);
+                        _adapterData.add(i, at >= 0 ? oldAdapterData.get(at) : new FileWithCachedData(o));
                     }
 
                     try {
