@@ -425,6 +425,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Heute fällig</string>
     <string name="due_future">Künftig fällig</string>
     <string name="completed">Abgeschlossen</string>
-    <string name="match_any">Jegliche Treffer</string>
-    <string name="match_all">Alle Match</string>
+    <string name="match_any">Jegliche Übereinstimmung</string>
+    <string name="match_all">Vollständige Übereinstimmung</string>
 </resources>
