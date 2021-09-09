@@ -329,10 +329,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
     <string name="action_format_zimwiki" translatable="false">action_format_zimwiki</string>
-    <string name="h1">H1</string>
-    <string name="h2">H2</string>
-    <string name="h3">H3</string>
-    <string name="h4">H4</string>
-    <string name="h5">H5</string>
-    <string name="h6">H6</string>
 </resources>
