@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Zusätzliche Kontexte und Projekte</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Geben Sie durch Leerzeichen getrennte @contexts und +Projekte ein. Diese werden in den Dialogen bei allen todo.txt Dateien sichtbar sein.</string>
     <string name="infinite">Endlos</string>
-    <string name="search_project">Projekte suchen</string>
-    <string name="search_context">Kontexte suchen</string>
+    <string name="browse_by_project">Nach Projekt suchen</string>
+    <string name="browse_by_context">Nach Kontext suchen</string>
     <string name="insert_project">Projekte einfügen</string>
     <string name="insert_context">Kontexte einfügen</string>
+    <string name="browse_todo">To-Do durchsuchen</string>
+    <string name="browse_by_priority">Nach Priorität suchen</string>
+    <string name="browse_by_due_date">Nach Fälligkeitsdatum suchen</string>
+    <string name="due_overdue">Überfällig</string>
+    <string name="due_today">Heute fällig</string>
+    <string name="due_future">Künftig fällig</string>
+    <string name="completed">Abgeschlossen</string>
+    <string name="match_any">Jegliche Übereinstimmung</string>
+    <string name="match_all">Vollständige Übereinstimmung</string>
 </resources>

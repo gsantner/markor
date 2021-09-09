@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
     <string name="infinite">Nieskończone</string>
-    <string name="search_project">Szukaj projektów</string>
-    <string name="search_context">Szukaj kontekstów</string>
+    <string name="browse_by_project">Przeglądaj według projektu</string>
+    <string name="browse_by_context">Przeglądaj według kontekstu</string>
     <string name="insert_project">Wstaw projekty</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Przeglądaj zadanie</string>
+    <string name="browse_by_priority">Przeglądaj według priorytetu</string>
+    <string name="browse_by_due_date">Przeglądaj według terminu</string>
+    <string name="due_overdue">Zaległe</string>
+    <string name="due_today">Termin na dziś</string>
+    <string name="due_future">Termin w przyszłości</string>
+    <string name="completed">Zakończone</string>
+    <string name="match_any">Dopasuj dowolne</string>
+    <string name="match_all">Dopasuj wszystkie</string>
 </resources>

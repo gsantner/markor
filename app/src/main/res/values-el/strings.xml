@@ -415,8 +415,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Πρόσθετα πλαίσια και έργα</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Εισάγετε διαχωρισμένα με κενά διαστήματα @contexts και +projects. Αυτά θα είναι πάντα ορατά στους διαλόγους εισαγωγής todo.txt.</string>
     <string name="infinite">Απεριόριστο</string>
-    <string name="search_project">Αναζήτηση έργων</string>
-    <string name="search_context">Αναζήτηση περιεχομένων</string>
+    <string name="browse_by_project">Αναζήτηση ανά έργο</string>
+    <string name="browse_by_context">Περιήγηση ανά περιβάλλον</string>
     <string name="insert_project">Εισαγωγή έργων</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Περιήγηση todo</string>
+    <string name="browse_by_priority">Αναζήτηση κατά προτεραιότητα</string>
+    <string name="browse_by_due_date">Περιήγηση κατά ημερομηνία λήξης</string>
+    <string name="due_overdue">Εκπρόθεσμο</string>
+    <string name="due_today">Λήξη σήμερα</string>
+    <string name="due_future">Εξόφληση στο μέλλον</string>
+    <string name="completed">Ολοκληρώθηκε</string>
+    <string name="match_any">Ταίριασμα Οποιοδήποτε</string>
+    <string name="match_all">Ταίριασμα Όλων</string>
 </resources>

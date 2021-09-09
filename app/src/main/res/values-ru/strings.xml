@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Дополнительные контексты и проекты</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Введите контексты, разделенные пробелами, и +проекты. Они всегда будут видны в todo.txt диалогах.</string>
     <string name="infinite">Бесконечный</string>
-    <string name="search_project">Поиск проектов</string>
-    <string name="search_context">Поисковые контексты</string>
+    <string name="browse_by_project">Просмотр по проектам</string>
+    <string name="browse_by_context">Просмотр по контексту</string>
     <string name="insert_project">Вставить проекты</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Обзор задачи</string>
+    <string name="browse_by_priority">Просмотр по приоритету</string>
+    <string name="browse_by_due_date">Просмотр по дате выполнения</string>
+    <string name="due_overdue">Просрочено</string>
+    <string name="due_today">Срок сдачи сегодня</string>
+    <string name="due_future">Выполнить в будущем</string>
+    <string name="completed">Выполнено</string>
+    <string name="match_any">Совпадение любой</string>
+    <string name="match_all">Совпадение всех</string>
 </resources>

@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Aanvullende contexten en projecten</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Voer spatie gescheiden @contexts en + projecten in. Deze zijn altijd zichtbaar bij todo.txt invoegen dialogen.</string>
     <string name="infinite">Oneindig</string>
-    <string name="search_project">Zoek projecten</string>
-    <string name="search_context">contexten zoeken</string>
+    <string name="browse_by_project">Op project zoeken</string>
+    <string name="browse_by_context">Bladeren op context</string>
     <string name="insert_project">Projecten toevoegen</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Todo doorbladeren</string>
+    <string name="browse_by_priority">Bladeren op prioriteit</string>
+    <string name="browse_by_due_date">Bladeren op vervaldatum</string>
+    <string name="due_overdue">Achterstallig</string>
+    <string name="due_today">Vervalt vandaag</string>
+    <string name="due_future">Vervalt in de toekomst</string>
+    <string name="completed">Voltooid</string>
+    <string name="match_any">Overeenkomen met elke</string>
+    <string name="match_all">Alles overeenkomen</string>
 </resources>

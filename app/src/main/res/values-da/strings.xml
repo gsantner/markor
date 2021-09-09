@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Yderligere sammenhænge og projekter</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Indtast mellemrumsadskilte @contexts og +projects. Disse vil altid være synlige på todo.txt indsætte dialoger.</string>
     <string name="infinite">Uendelig</string>
-    <string name="search_project">Søg i projekter</string>
-    <string name="search_context">Søg i kontekster</string>
+    <string name="browse_by_project">Gennemse efter projekt</string>
+    <string name="browse_by_context">Gennemse efter kontekst</string>
     <string name="insert_project">Indsæt projekter</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Gennemse todo</string>
+    <string name="browse_by_priority">Gennemse efter prioritet</string>
+    <string name="browse_by_due_date">Gennemse efter forfaldsdato</string>
+    <string name="due_overdue">Forsinket</string>
+    <string name="due_today">Forfalder i dag</string>
+    <string name="due_future">Forfalder i fremtiden</string>
+    <string name="completed">Afsluttet</string>
+    <string name="match_any">Match Enhver</string>
+    <string name="match_all">Match Alle</string>
 </resources>

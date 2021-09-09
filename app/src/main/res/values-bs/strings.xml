@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Dodatni konteksti i projekti</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Unesite @kontekste i +projekte odvojene razmacima. Oni će biti uvijek vidljivi u todo.txt okvirima za unos.</string>
     <string name="infinite">Beskrajno</string>
-    <string name="search_project">Pretraži projekte</string>
-    <string name="search_context">Pretraži kontekste</string>
+    <string name="browse_by_project">Pregledaj prema projektu</string>
+    <string name="browse_by_context">Pregledaj prema kontekstu</string>
     <string name="insert_project">Unesi projekte</string>
     <string name="insert_context">Unesi kontekste</string>
+    <string name="browse_todo">Pregledaj zadatke</string>
+    <string name="browse_by_priority">Pregledaj prema prioritetu</string>
+    <string name="browse_by_due_date">Pregledaj prema danu dospjeća</string>
+    <string name="due_overdue">Već dospio</string>
+    <string name="due_today">Dospijeva danas</string>
+    <string name="due_future">Dospijeva u budućnosti</string>
+    <string name="completed">Završeno</string>
+    <string name="match_any">Potrefi bilo koji</string>
+    <string name="match_all">Potrefi sve</string>
 </resources>

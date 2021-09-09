@@ -414,8 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Contextes et projets supplémentaires</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Entrez les @contexts séparés par des espaces et +projets. Ils seront toujours visibles dans les boîtes de dialogue d\'insertion todo.txt.</string>
     <string name="infinite">Infini</string>
-    <string name="search_project">Rechercher des projets</string>
-    <string name="search_context">Rechercher des contextes</string>
+    <string name="browse_by_project">Parcourir par projet</string>
+    <string name="browse_by_context">Naviguer par contexte</string>
     <string name="insert_project">Insérer des projets</string>
     <string name="insert_context">Insert contexts</string>
+    <string name="browse_todo">Parcourir la todo</string>
+    <string name="browse_by_priority">Parcourir par priorité</string>
+    <string name="browse_by_due_date">Parcourir par date d\'échéance</string>
+    <string name="due_overdue">En retard</string>
+    <string name="due_today">À faire aujourd\'hui</string>
+    <string name="due_future">Échéance dans le futur</string>
+    <string name="completed">Terminé</string>
+    <string name="match_any">Correspondre à n\'importe quel</string>
+    <string name="match_all">Tout faire correspondre</string>
 </resources>
