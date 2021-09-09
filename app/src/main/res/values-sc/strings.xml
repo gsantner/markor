@@ -414,6 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Cuntestos e progetos additzionales</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Inserta @cuntestos e +progetos iscrobados dae ispàtzios. Custos ant a èssere semper visìbiles in sas ventanas de diàlogu de insertadura de todo.txt.</string>
     <string name="infinite">Infinitu</string>
+    <string name="browse_by_project">Esplora pro progetu</string>
+    <string name="browse_by_context">Esplora pro cuntestu</string>
     <string name="insert_project">Inserta progetos</string>
     <string name="insert_context">Inserta cuntestos</string>
+    <string name="browse_todo">Esplora \'todo\'</string>
+    <string name="browse_by_priority">Esplora pro prioridade</string>
+    <string name="browse_by_due_date">Esplora pro data de iscadèntzia</string>
+    <string name="due_overdue">Iscadidu</string>
+    <string name="due_today">Iscadit oe</string>
+    <string name="due_future">Iscadèntzia in su tempus benidore</string>
+    <string name="completed">Cumpridu</string>
+    <string name="match_any">Currispondet a cale si siat</string>
+    <string name="match_all">Currispondet totu</string>
 </resources>
