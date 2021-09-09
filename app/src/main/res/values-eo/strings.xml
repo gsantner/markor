@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Titolo 3</string>
     <string name="heading_4">Titolo 4</string>
     <string name="heading_5">Titolo 5</string>
+    <string name="heading_6">Titolo 6</string>
     <string name="bold">Dikigi</string>
     <string name="italic">Kursivigi</string>
     <string name="create_new_file_or_folder">Krei novan dosieron aŭ dosierujon</string>
