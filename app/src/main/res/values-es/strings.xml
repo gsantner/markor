@@ -418,7 +418,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_context">Navegar por contexto</string>
     <string name="insert_project">Insertar proyectos</string>
     <string name="insert_context">Insert contexts</string>
-    <string name="browse_todo">Ver tarea</string>
+    <string name="browse_todo">Ver tarea pendiente</string>
     <string name="browse_by_priority">Navegar por prioridad</string>
     <string name="browse_by_due_date">Navegar por fecha límite</string>
     <string name="due_overdue">Atrasado</string>
