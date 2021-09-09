@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Títol 3</string>
     <string name="heading_4">Títol 4</string>
     <string name="heading_5">Títol 5</string>
+    <string name="heading_6">Títol 6</string>
     <string name="bold">Negreta</string>
     <string name="italic">Cursiva</string>
     <string name="highlighted">Destacat</string>
