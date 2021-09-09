@@ -464,7 +464,7 @@
                     android:entryValues="@array/arr_one_to_six"
                     android:defaultValue="@array/arr_one_to_three"
                     android:icon="@drawable/ic_list_black_24dp"
-                    android:key="@string/pref_key__markdown_table_of_contents" />
+                    android:key="@string/pref_key__markdown_table_of_contents_enabled_levels" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">
                 <Preference

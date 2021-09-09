@@ -32,11 +32,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.Set;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -203,14 +201,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int[] getMarkdownTableOfContentLevels() {
-        Set<String> selection = getDefaultPreferences().getStringSet(
-                rstr(R.string.pref_key__markdown_table_of_contents), Collections.emptySet());
-        int[] levels = new int[selection.size()];
-        Iterator<String> it = selection.iterator();
-        for (int i=0; i<selection.size(); i++) {
-            levels[i] = Integer.parseInt(it.next());
+        final List<String> v = getStringSet(R.string.pref_key__markdown_table_of_contents_enabled_levels, Collections.emptyList());
+        int[] ret = new int[v.size()];
+        for (int i = 0; i < v.size(); i++) {
+            ret[i] = Integer.parseInt(v.get(i));
         }
-        return levels;
+        return ret;
     }
 
     public boolean isEditorStatusBarHidden() {
