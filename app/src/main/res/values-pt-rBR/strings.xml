@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Cabeçalho 3</string>
     <string name="heading_4">Cabeçalho 4</string>
     <string name="heading_5">Cabeçalho 5</string>
+    <string name="heading_6">Cabeçalho 6</string>
     <string name="bold">Negrito</string>
     <string name="italic">Itálico</string>
     <string name="highlighted">Destacado</string>
