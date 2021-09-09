@@ -544,14 +544,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
             switch (sortMethod) {
                 case SORT_BY_NAME:
-                    return new File(current.getAbsolutePath().toLowerCase()).compareTo(
-                            new File(other.getAbsolutePath().toLowerCase()));
+                    return current.getName().compareToIgnoreCase(other.getName());
                 case SORT_BY_DATE:
                     return Long.compare(other.lastModified(), current.lastModified());
                 case SORT_BY_FILESIZE:
-                    if (current.isDirectory() && other.isDirectory()) {
-                        return other.list().length - current.list().length;
-                    }
                     return Long.compare(other.length(), current.length());
             }
             return current.compareTo(other);

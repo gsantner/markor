@@ -36,6 +36,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.FileWithCachedData;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -468,6 +469,8 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             @Override
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
+                    ArrayList<File> oldAdapterData = new ArrayList<>();
+                    Collections.copy(_adapterData, oldAdapterData);
                     _currentFolder = folder;
                     _adapterData.clear();
                     _virtualMapping.clear();
@@ -546,6 +549,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         }
                     }
 
+                    // Optimization - convert found File's to FileWithCachedData
+                    // Sorting invokes a lot of filesystem i/o calls which do consume much time
+                    // Changing sort order: Reuse information if available
+                    for (int i = 0; i < _adapterData.size(); i++) {
+                        final File o = _adapterData.remove(i);
+                        final int at = oldAdapterData.indexOf(o);
+                        _adapterData.add(i, at >= 0 ? oldAdapterData.get(at) : new FileWithCachedData(o));
+                    }
+
                     try {
                         Collections.sort(_adapterData, FilesystemViewerAdapter.this);
                     } catch (IllegalArgumentException ignored) {
@@ -595,7 +607,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             return 0;
         }
         if (o1.isDirectory() && _dopt.folderFirst)
-            return o2.isDirectory() ? o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault())) : -1;
+            return o2.isDirectory() ? o1.getName().compareToIgnoreCase(o2.getName()) : -1;
         else if (!canWrite(o2))
             return -1;
         else if (o2.isDirectory() && _dopt.folderFirst)
@@ -606,7 +618,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                 return v;
             }
         }
-        return o1.getName().toLowerCase(Locale.getDefault()).compareTo(o2.getName().toLowerCase(Locale.getDefault()));
+        return o1.getName().compareToIgnoreCase(o2.getName());
     }
 
     public boolean isCurrentFolderHome() {
