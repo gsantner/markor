@@ -321,6 +321,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">標題大小3</string>
     <string name="heading_4">標題大小4</string>
     <string name="heading_5">標題大小5</string>
+    <string name="heading_6">標題大小6</string>
     <string name="bold">粗體</string>
     <string name="italic">斜體</string>
     <string name="highlighted">突出顯示</string>
