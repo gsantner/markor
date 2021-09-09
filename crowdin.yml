@@ -6,6 +6,9 @@ files:
     translation: /app/src/main/res/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
+        az: az    # Azerbaijani
+        ckb: ckb  # Sorani (Kurdish)
+        kmr: kmr  # Kurmanji (Kurdish)
         gl: gl  	# Galician
         sc: sc  	# Sardinian
         kab: kab        # Kabyle
