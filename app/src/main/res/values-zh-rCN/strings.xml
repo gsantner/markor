@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">标题 3</string>
     <string name="heading_4">4 级标题</string>
     <string name="heading_5">5 级标题</string>
+    <string name="heading_6">标题 6</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
     <string name="highlighted">高亮</string>
