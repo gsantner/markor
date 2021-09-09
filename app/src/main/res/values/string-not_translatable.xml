@@ -192,7 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
     <string name="pref_key__markdown_render_math" translatable="false">pref_key__markdown_render_math</string>
     <string name="pref_key__markdown_newline_newparagraph" translatable="false">pref_key__markdown_newline_newparagraph</string>
-    <string name="pref_key__markdown_show_toc" translatable="false">pref_key__markdown_show_toc</string>
+    <string name="pref_key__markdown_table_of_contents_enabled_levels" translatable="false">pref_key__markdown_table_of_contents_enabled_levels</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
     <string name="pref_key__editor_basic_color_scheme__bg_light" translatable="false">pref_key__editor_basic_color_scheme__bg_light</string>
     <string name="pref_key__editor_basic_color_scheme__fg_light" translatable="false">pref_key__editor_basic_color_scheme__fg_light</string>

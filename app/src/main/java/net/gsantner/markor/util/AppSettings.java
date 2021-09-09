@@ -197,7 +197,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isMarkdownTableOfContentsEnabled() {
-        return getBool(R.string.pref_key__markdown_show_toc, false);
+        return getMarkdownTableOfContentLevels().length > 0;
+    }
+
+    public int[] getMarkdownTableOfContentLevels() {
+        final List<String> v = getStringSet(R.string.pref_key__markdown_table_of_contents_enabled_levels, Collections.emptyList());
+        int[] ret = new int[v.size()];
+        for (int i = 0; i < v.size(); i++) {
+            ret[i] = Integer.parseInt(v.get(i));
+        }
+        return ret;
     }
 
     public boolean isEditorStatusBarHidden() {

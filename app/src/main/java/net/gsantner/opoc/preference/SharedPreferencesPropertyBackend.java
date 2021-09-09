@@ -48,6 +48,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -444,6 +445,18 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
         }
     }
 
+    public List<String> getStringSet(@StringRes int keyResourceId, List<String> defaultValue, final SharedPreferences... pref) {
+        return getStringSet(rstr(keyResourceId), defaultValue);
+    }
+
+    public List<String> getStringSet(String key, List<String> defaultValue, final SharedPreferences... pref) {
+        try {
+            return new ArrayList<>(gp(pref).getStringSet(key, new HashSet<>(defaultValue)));
+        } catch (ClassCastException e) {
+            return defaultValue;
+        }
+    }
+
     //
     // Getter & Setter for Color
     //
@@ -476,6 +489,10 @@ public class SharedPreferencesPropertyBackend implements PropertyBackend<String,
     @Override
     public boolean getBool(String key, boolean defaultValue) {
         return getBool(key, defaultValue, _prefApp);
+    }
+
+    public List<String> getStringSet(String key, List<String> defaultValue) {
+        return getStringSet(key, defaultValue, _prefApp);
     }
 
     @Override

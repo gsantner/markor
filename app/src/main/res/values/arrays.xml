@@ -124,4 +124,21 @@
         <item translatable="false">*</item>
         <item translatable="false">+</item>
     </string-array>
+
+    <string-array name="pref_arrdisp__markdown_toc" translatable="false">
+        <item translatable="false">@string/heading_1</item>
+        <item translatable="false">@string/heading_2</item>
+        <item translatable="false">@string/heading_3</item>
+        <item translatable="false">@string/heading_4</item>
+        <item translatable="false">@string/heading_5</item>
+        <item translatable="false">@string/heading_6</item>
+    </string-array>
+    <string-array name="arr_one_to_six" translatable="false">
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+        <item translatable="false">4</item>
+        <item translatable="false">5</item>
+        <item translatable="false">6</item>
+    </string-array>
 </resources>
