@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Rubrik 3</string>
     <string name="heading_4">Rubrik 4</string>
     <string name="heading_5">Rubrik 5</string>
+    <string name="heading_6">Rubrik 6</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Markerad</string>
