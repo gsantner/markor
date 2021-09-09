@@ -180,8 +180,7 @@ public class MarkdownTextConverter extends TextConverter {
             }
 
             head += CSS_TOC_STYLE;
-            final int levels = appSettings.isMarkdownSimpleTableOfContentsSelected() ?
-                    TocOptions.getLevels(1, 2, 3) : TocOptions.getLevels(1, 2, 3, 4, 5, 6);
+            final int levels = TocOptions.getLevels(appSettings.getMarkdownTableOfContentLevels());
             options.set(TocExtension.LEVELS, levels)
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.DIV_CLASS, "markor-table-of-contents")

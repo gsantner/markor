@@ -32,9 +32,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -197,17 +199,18 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean isMarkdownTableOfContentsEnabled() {
-        return isMarkdownSimpleTableOfContentsSelected() || isMarkdownExtendedTableOfContentsSelected();
+        return getMarkdownTableOfContentLevels().length > 0;
     }
 
-    public boolean isMarkdownSimpleTableOfContentsSelected() {
-        String selection = getString(R.string.pref_key__markdown_table_of_contents, "");
-        return selection.equals("simple");
-    }
-
-    public boolean isMarkdownExtendedTableOfContentsSelected() {
-        String selection = getString(R.string.pref_key__markdown_table_of_contents, "");
-        return selection.equals("extended");
+    public int[] getMarkdownTableOfContentLevels() {
+        Set<String> selection = getDefaultPreferences().getStringSet(
+                rstr(R.string.pref_key__markdown_table_of_contents), Collections.emptySet());
+        int[] levels = new int[selection.size()];
+        Iterator<String> it = selection.iterator();
+        for (int i=0; i<selection.size(); i++) {
+            levels[i] = Integer.parseInt(it.next());
+        }
+        return levels;
     }
 
     public boolean isEditorStatusBarHidden() {

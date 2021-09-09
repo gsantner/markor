@@ -126,14 +126,25 @@
     </string-array>
 
     <string-array name="pref_arrdisp__markdown_toc" translatable="false">
-        <item translatable="false">@string/no_toc</item>
-        <item translatable="false">@string/simple_toc</item>
-        <item translatable="false">@string/extended_toc</item>
+        <item translatable="false">@string/h1</item>
+        <item translatable="false">@string/h2</item>
+        <item translatable="false">@string/h3</item>
+        <item translatable="false">@string/h4</item>
+        <item translatable="false">@string/h5</item>
+        <item translatable="false">@string/h6</item>
     </string-array>
     <string-array name="pref_arrkeys__markdown_toc" translatable="false">
-        <item translatable="false">none</item>
-        <item translatable="false">simple</item>
-        <item translatable="false">extended</item>
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
+        <item translatable="false">4</item>
+        <item translatable="false">5</item>
+        <item translatable="false">6</item>
+    </string-array>
+    <string-array name="pref_arrdefault__markdown_toc" translatable="false">
+        <item translatable="false">1</item>
+        <item translatable="false">2</item>
+        <item translatable="false">3</item>
     </string-array>
 
 </resources>
