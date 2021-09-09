@@ -141,10 +141,4 @@
         <item translatable="false">5</item>
         <item translatable="false">6</item>
     </string-array>
-    <string-array name="arr_one_to_three" translatable="false">
-        <item translatable="false">1</item>
-        <item translatable="false">2</item>
-        <item translatable="false">3</item>
-    </string-array>
-
 </resources>

@@ -462,7 +462,6 @@
                     android:dialogTitle="@string/table_of_contents"
                     android:entries="@array/pref_arrdisp__markdown_toc"
                     android:entryValues="@array/arr_one_to_six"
-                    android:defaultValue="@array/arr_one_to_three"
                     android:icon="@drawable/ic_list_black_24dp"
                     android:key="@string/pref_key__markdown_table_of_contents_enabled_levels" />
             </PreferenceCategory>
