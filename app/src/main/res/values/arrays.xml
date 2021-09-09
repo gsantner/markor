@@ -133,7 +133,7 @@
         <item translatable="false">@string/h5</item>
         <item translatable="false">@string/h6</item>
     </string-array>
-    <string-array name="pref_arrkeys__markdown_toc" translatable="false">
+    <string-array name="arr_one_to_six" translatable="false">
         <item translatable="false">1</item>
         <item translatable="false">2</item>
         <item translatable="false">3</item>
@@ -141,7 +141,7 @@
         <item translatable="false">5</item>
         <item translatable="false">6</item>
     </string-array>
-    <string-array name="pref_arrdefault__markdown_toc" translatable="false">
+    <string-array name="arr_one_to_three" translatable="false">
         <item translatable="false">1</item>
         <item translatable="false">2</item>
         <item translatable="false">3</item>
