@@ -425,6 +425,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Scade oggi</string>
     <string name="due_future">Scadenza in futuro</string>
     <string name="completed">Completato</string>
-    <string name="match_any">Corrispondenza Qualsiasi</string>
-    <string name="match_all">Abbina Tutto</string>
+    <string name="match_any">Corrisponde a qualsiasi</string>
+    <string name="match_all">Corrisponde tutto</string>
 </resources>
