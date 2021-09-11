@@ -276,7 +276,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
-    <string name="app_start_tab">App startflik</string>
+    <string name="app_start_tab">Appens startflik</string>
     <string name="tab_to_select_at_start">Välj uppstartsflik</string>
     <string name="swipe_to_change_mode">Svep för att ändra läge</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Svep för att byta läge till ändrings- eller vyäge (omvänt till nuvarande läge)</string>
@@ -289,7 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">Du kan öppna dokumentet från huvudvyns nederkant, filhanteraren eller din programkörare. Det är möjligt att lägga till text delad till Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Anteckningsboken är katalogen Markor hämtar filhanteraren när programmet startas. Det är dina filers hemkatalaog.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">SnabbAnteckning är det snabbaste sättet att göra anteckningar. Det är en fil i Markdown-format som ligger i &gt;Notebook/QuickNote.md&lt;, du kan ändra vart filen sparas i inställningarna.</string>
-    <string name="todo_is_the_easiest_way_">Hantera dina göromål med ToDo. Det är en fil med filformatet .txt och är i &gt;Notebook/todo.txt&lt;, du kan ändra vart filen sparas i inställningarna.</string>
+    <string name="todo_is_the_easiest_way_">Hantera dina uppgifter med ToDo. Det är en fil i todo.txt format med standardplats &gt;Notebook/todo.txt&lt; Du kan ställa in en anpassad sökväg i inställningarna.</string>
     <string name="navigationbar_color">Färg på navigeringsfältet</string>
     <string name="black">Svart</string>
     <string name="white">Vit</string>
@@ -398,8 +398,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
     <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
     <string name="search_in_content">Sök i innehåll</string>
-    <string name="max_search_depth">Sök djup</string>
-    <string name="ignore_list">Ignorera listan</string>
+    <string name="max_search_depth">Sökdjup</string>
+    <string name="ignore_list">Ignorera-lista</string>
     <string name="do_not_search_specified_files_and_folders">Sök inte efter angivna filer och mappar.\nAnvänd ny rad som separator.\nAnvänd citat för exakta dir namn: \"Test\".\nEller använd Regex \'^[.].*\'\nExempel: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex sökning</string>
     <string name="case_sensitive">Ärende känslig</string>
@@ -413,7 +413,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overwrite_all">Skriv över (alla)</string>
     <string name="copy_move_conflict_message">\'%s\' finns redan i %s</string>
     <string name="additional_contexts_and_projects">Ytterligare kontexter och projekt</string>
-    <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Skriv @kontexter och +projekt separerade av mellanslag. Dessa kommer alltid att synas på todo.txt infoga-dialogrutor.</string>
     <string name="infinite">Oändlig</string>
     <string name="browse_by_project">Bläddra efter projekt</string>
     <string name="browse_by_context">Bläddra efter kontext</string>
