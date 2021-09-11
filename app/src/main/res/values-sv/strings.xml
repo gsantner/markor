@@ -39,7 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Dela till&#8230;</string>
     <string name="share">Dela</string>
     <string name="search">Sök</string>
-    <string name="display_converted_markup">Visa konverterad märkspråk</string>
+    <string name="display_converted_markup">Visa konverterad markup</string>
     <string name="editor">Redaktör</string>
     <string name="folders">Mappar</string>
     <string name="files">Filer</string>
@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="syntax_highlighting">Syntaxfärgning</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
-    <string name="highlighting_enabled_or_not__appspecific">Kontrollera huruvida den angivna texten borde markeras eller inte</string>
+    <string name="highlighting_enabled_or_not__appspecific">Kontrollera om inmatad text ska markeras eller inte</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visa en stapel med praktiska knappar längst ned. De här textåtgärderna ändrar texten eller kör en åtgärd som baseras på texten.</string>
     <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
@@ -394,13 +394,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">Återställ inställningar</string>
     <string name="failed_to_create_backup">Kunde inte skapa säkerhetskopia</string>
     <string name="export_settings_to_json_file">Exportera inställningar till json-fil</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från backup-json-fil. Vid lyckat tillfälle startas appen om.</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från json backup-fil. Appen startas om när den är klar.</string>
     <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
     <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
     <string name="search_in_content">Sök i innehåll</string>
     <string name="max_search_depth">Sökdjup</string>
     <string name="ignore_list">Ignorera-lista</string>
-    <string name="do_not_search_specified_files_and_folders">Sök inte efter angivna filer och mappar.\nAnvänd ny rad som separator.\nAnvänd citat för exakta dir namn: \"Test\".\nEller använd Regex \'^[.].*\'\nExempel: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">Sök inte efter angivna filer och mappar.\nAnvänd ny rad som avskiljare.\nAnvänd citat för exakta mappnamn: \"Test\".\nEller använd Regex \'^[.].*\'\nExempel: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Regex sökning</string>
     <string name="case_sensitive">Ärende känslig</string>
     <string name="stop_search_after_first_match">Stoppa sökning efter första matchningen</string>
