@@ -329,13 +329,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="read">Läsa</string>
     <string name="table">Tabell</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hur många kolumner? Tryck på tabellknappen för att starta en tabell (infoga sidhuvud), tryck kort för att lägga till en rad.</string>
-    <string name="example_of_a_markdown_table">Exempel på en markdown tabell</string>
+    <string name="example_of_a_markdown_table">Exempel på en markdown-tabell</string>
     <string name="delete_lines">Radera rader</string>
     <string name="unordered_list">Punktlista</string>
     <string name="ordered_list">Numrerad lista</string>
     <string name="check_list">Checklista</string>
     <string name="open_link">Öppna länk</string>
-    <string name="common_color_picker">Färg väljare</string>
+    <string name="common_color_picker">Färgväljare</string>
     <string name="date_and_time">Datum och tid</string>
     <string name="jump_to_bottom">Hoppa till botten</string>
     <string name="quote">Citat</string>
@@ -352,7 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="strikeout">Genomstruken</string>
     <string name="inline_code">Infogad kod</string>
     <string name="horizontal_line">Horisontell linje</string>
-    <string name="toggle_done">Växla klar</string>
+    <string name="toggle_done">Växla utförd</string>
     <string name="link_color">Länk färg</string>
     <string name="add_context">Lägg till kontext</string>
     <string name="add_project">Lägg till projekt</string>
@@ -371,7 +371,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="drag">Dra</string>
     <string name="created">Skapad</string>
     <string name="file_encryption_password">Lösenord för filkryptering</string>
-    <string name="no_password_set_cannot_encrypt_decrypt">Inget lösenord satt, kan inte kryptera eller dekryptera.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">Kan inte kryptera eller dekryptera eftersom lösenord saknas.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
     <string name="encrypt_file_content">Kryptera filens innehåll</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunde inte kryptera filinnehåll. Filen sparades inte.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunde inte dekryptera filens innehåll. Har du använt ett fel lösenord? Är filen verkligen krypterad med Markors AES-kryptering?</string>
@@ -396,7 +396,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="export_settings_to_json_file">Exportera inställningar till json-fil</string>
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importera inställningar från json backup-fil. Appen startas om när den är klar.</string>
     <string name="failed_to_restore_settings_from_backup">Det gick inte att återställa inställningarna från säkerhetskopia</string>
-    <string name="newline_is_new_paragraph">Newline = nytt stycke</string>
+    <string name="newline_is_new_paragraph">Ny rad = nytt stycke</string>
     <string name="search_in_content">Sök i innehåll</string>
     <string name="max_search_depth">Sökdjup</string>
     <string name="ignore_list">Ignorera-lista</string>
