@@ -350,10 +350,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="italic">Kursiv stil</string>
     <string name="highlighted">Markerad</string>
     <string name="strikeout">Genomstruken</string>
-    <string name="inline_code">Infogad kod</string>
+    <string name="inline_code">Inline-kod</string>
     <string name="horizontal_line">Horisontell linje</string>
     <string name="toggle_done">Växla utförd</string>
-    <string name="link_color">Länk färg</string>
+    <string name="link_color">Länkfärg</string>
     <string name="add_context">Lägg till kontext</string>
     <string name="add_project">Lägg till projekt</string>
     <string name="archive_completed_tasks">Arkivera slutförda uppgifter</string>
@@ -373,10 +373,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Lösenord för filkryptering</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Kan inte kryptera eller dekryptera eftersom lösenord saknas.\nGå till Inställningar -&gt; Allmänt -&gt; Lösenord för att ange ett lösenord.</string>
     <string name="encrypt_file_content">Kryptera filens innehåll</string>
-    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunde inte kryptera filinnehåll. Filen sparades inte.</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunde inte kryptera filens innehåll. Filen sparades inte.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunde inte dekryptera filens innehåll. Har du använt ett fel lösenord? Är filen verkligen krypterad med Markors AES-kryptering?</string>
-    <string name="password_already_set_setting_a_new_password_will_overwrite">Lösenord har redan angetts Att sätta ett nytt lösenord kommer att skriva över det befintliga lösenordet och du kanske inte kommer åt filer längre om du glömmer lösenordet.</string>
-    <string name="code_block">Kod block</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">Lösenord har redan angetts. Ett nytt lösenord kommer att skriva över det befintliga lösenordet och du kanske inte kommer åt filerna längre om du glömmer lösenordet.</string>
+    <string name="code_block">Kodblock</string>
     <string name="add_completion_date">Lägg till slutdatum</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för uppgifter när de markeras som utförda</string>
     <string name="file_description_format">Filens beskrivningsformat</string>
