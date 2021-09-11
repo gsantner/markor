@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Mer information</string>
     <string name="show_license_of_the_app">Visa licens för appen</string>
     <string name="show_third_party_licenses">Tredjepartsbibliotek</string>
-    <string name="language_change_restart_description">Byt språk för appen. Starta om för att fastställa ändringar</string>
+    <string name="language_change_restart_description">Byt språk för appen. Starta om appen för att ändringarna ska träda i kraft</string>
     <string name="language">Språk</string>
     <string name="error_need_storage_permission_to_save_documents">Behöver åtkomst till lagringsmedia för att spara dokument</string>
     <string name="open_with">Öppna med</string>
@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Prioritet</string>
     <string name="history">Historik</string>
     <string name="sync">Synka</string>
-    <string name="search_or_custom">Sök / Lägg till</string>
+    <string name="search_or_custom">Sök / Anpassad</string>
     <string name="save">Spara</string>
     <string name="update">Uppdatera</string>
     <string name="clear">Rensa</string>
@@ -122,7 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">Dokumentbläddrare</string>
     <string name="file_browser">Filhanterare</string>
     <string name="set_due_date">Ange förfallodatum</string>
-    <string name="insert_replace_date">Insert date</string>
+    <string name="insert_replace_date">Infoga datum</string>
     <string name="create_note" needed="false">Skapa anteckning</string>
     <string name="special_documents" needed="false">Specialdokument</string>
     <string name="keep_screen_on" needed="false">Håll skärmen påslagen</string>
@@ -140,7 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollera om inmatad text ska markeras eller inte</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Visa en stapel med praktiska knappar längst ned. De här textåtgärderna ändrar texten eller kör en åtgärd som baseras på texten.</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Visa en meny med praktiska knappar längst ned. Dessa textåtgärder modifierar texten eller kör en handling som baseras på texten.</string>
     <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
     <string name="format">Format</string>
     <string name="contexts">Kontexter</string>
