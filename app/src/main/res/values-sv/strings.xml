@@ -330,7 +330,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">Tabell</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hur många kolumner? Tryck på tabellknappen för att starta en tabell (infoga sidhuvud), tryck kort för att lägga till en rad.</string>
     <string name="example_of_a_markdown_table">Exempel på en markdown tabell</string>
-    <string name="delete_lines">Ta bort rader</string>
+    <string name="delete_lines">Radera rader</string>
     <string name="unordered_list">Osorterad lista</string>
     <string name="ordered_list">Sorterad lista</string>
     <string name="check_list">Kontrollera lista</string>
