@@ -118,7 +118,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tried_to_create_shortcut_for_this_notice">Försökte lägga till en genväg till startskärmen för att redigera det här dokumentet. Notera att detta inte stöds av alla hemskärmsappar.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Filen du har valt ligger inte i appens anteckningsmapp. Vill du kopiera den till aktuell mapp? Om filen existerar skrivs den över.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Filen finns inte i den aktuella mappen. Vill du kopiera den till den aktuella mappen? Detta kommer att skriva över alla befintliga filer med samma namn.</string>
-    <string name="files_and_folders">Filar och mappar</string>
+    <string name="files_and_folders">Filer och mappar</string>
     <string name="document_browser">Dokumentbläddrare</string>
     <string name="file_browser">Filhanterare</string>
     <string name="set_due_date">Ange förfallodatum</string>
@@ -202,7 +202,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Längst ner</string>
     <string name="center">Mitten</string>
     <string name="textaction_spacing">Textmodulsavstånd</string>
-    <string name="horizontal_space_between_textactions">Horisontell utrymme mellan textåtgärdsknappar</string>
+    <string name="horizontal_space_between_textactions">Horisontellt utrymme mellan textåtgärdsknappar</string>
     <string name="center_text">Centrera text</string>
     <string name="edit_text_in_center_of_screen">Editera text i mitten av skärmen</string>
     <string name="clipboard">Klippbord</string>
@@ -380,7 +380,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">Lägg till slutdatum</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för todos när de markeras som gjort</string>
     <string name="file_description_format">Filens beskrivningsformat</string>
-    <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filwebbläsaren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din lokal.\n\nExempel input:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdataformat:\n30KB 2020 Mar 20 11:24:52</string>
+    <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filbläddraren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din plats.\n\nExempel på inmatning:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdata:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Laddar standardvärde</string>
     <string name="file_settings">Fil inställningar</string>
     <string name="search_and_replace">Sök / Ersätt</string>
