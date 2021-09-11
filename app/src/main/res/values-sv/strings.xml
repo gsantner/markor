@@ -171,7 +171,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_spacing">Radavstånd</string>
     <string name="archive_does_move_done_tasks">Flytta klara uppgifter till angiven fil i samma mapp</string>
     <string name="sort_tasks_by_selected_order">Sortera uppgifter efter vald ordning</string>
-    <string name="special_key">Specialnyckel</string>
+    <string name="special_key">Specialtangenter</string>
     <string name="key_page_up">Sida upp (Page up)</string>
     <string name="key_page_down">Sida ned (Page down)</string>
     <string name="move_text_one_line_up">Flytta text en rad upp</string>
@@ -210,7 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_source_licenses">Licenser för Öppen Källkod</string>
     <string name="rate_this_app">Betygsätt den här appen</string>
     <string name="translate">Översätt</string>
-    <string name="more_info_and_help">Mer info och hjälp</string>
+    <string name="more_info_and_help">Mer information och hjälp</string>
     <string name="report_bugs">Rapportera buggar</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer information om att donera till utvecklaren eller bidra till detta projekt.</string>
     <string name="join_community">Delta i gemenskapen</string>
@@ -218,7 +218,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">Översätt appen till fler språk</string>
     <string name="source_code">Källkod</string>
     <string name="project_license">Projektets licens</string>
-    <string name="contribute_code_to_this_project_anybody_welcome">Bidrag med kod till projektet. Alla är välkommna, även nybörjare</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Bidra med kod till projektet. Alla är välkomna, även nybörjare</string>
     <string name="project_team">Projektlag</string>
     <string name="contributors_public_add_yourself_description">Visa bidragsinformation. Lämna information för att synas här, om du vill, efter bidragande</string>
     <string name="descending">fallande ordning</string>
