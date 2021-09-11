@@ -539,6 +539,17 @@
                     android:key="@string/pref_key__editor_zimwiki_bigger_headings"
                     android:summary="@string/increase_text_size_of_headings_according_to_level"
                     android:title="@string/bigger_headings" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_code_black_24dp"
+                    android:key="@string/pref_key__zimwiki__monospace_some_parts"
+                    android:summary="@string/use_different_fonttype_slow_down"
+                    android:title="@string/use_monospace_for_code" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_code_black_24dp"
+                    android:key="@string/pref_key__zimwiki__disable_code_block_highlight"
+                    android:title="@string/disable_code_block_highlight" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">
                 <Preference

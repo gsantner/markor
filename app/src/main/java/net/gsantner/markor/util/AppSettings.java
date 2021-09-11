@@ -171,8 +171,16 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown__monospace_some_parts, false);
     }
 
+    public boolean isZimWikiHighlightCodeFontMonospaceAllowed() {
+        return getBool(R.string.pref_key__zimwiki__monospace_some_parts, false);
+    }
+
     public boolean isMarkdownDisableCodeBlockHighlight() {
         return getBool(R.string.pref_key__markdown__disable_code_block_highlight, false);
+    }
+
+    public boolean isZimWikiDisableCodeBlockHighlight() {
+        return getBool(R.string.pref_key__zimwiki__disable_code_block_highlight, false);
     }
 
     public boolean isMarkdownAutoUpdateList() {

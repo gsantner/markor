@@ -74,6 +74,7 @@ public class ZimWikiHighlighter extends Highlighter {
         private static final int CHECKLIST_CHECKED_COLOR = 0xff54a309;
         private static final int CHECKLIST_CROSSED_COLOR = 0xffa90000;
         private static final int ZIMHEADER_COLOR = 0xff808080;
+        private static final int CODEBLOCK_COLOR = 0xff8c8c8c;
     }
 
 
@@ -120,10 +121,21 @@ public class ZimWikiHighlighter extends Highlighter {
         createSpanWithStrikeThroughForMatches(spannable, Patterns.STRIKETHROUGH.pattern);
 
         _profiler.restart("Preformatted (monospaced) inline");
-        createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_INLINE.pattern);
+        if (_appSettings.isZimWikiHighlightCodeFontMonospaceAllowed()) {
+            createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_INLINE.pattern);
+        }
+        if (!_appSettings.isZimWikiDisableCodeBlockHighlight()) {
+            createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_INLINE.pattern, Colors.CODEBLOCK_COLOR);
+        }
 
         _profiler.restart("Preformatted (monospaced) multiline");
-        createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_MULTILINE.pattern); // TODO: also indent a bit
+        // TODO: also indent a bit
+        if (_appSettings.isZimWikiHighlightCodeFontMonospaceAllowed()) {
+            createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_MULTILINE.pattern);
+        }
+        if (!_appSettings.isZimWikiDisableCodeBlockHighlight()) {
+            createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_MULTILINE.pattern, Colors.CODEBLOCK_COLOR);
+        }
 
         _profiler.restart("Unordered list");
         createColorSpanForMatches(spannable, Patterns.LIST_UNORDERED.pattern, Colors.UNORDERED_LIST_BULLET_COLOR);
