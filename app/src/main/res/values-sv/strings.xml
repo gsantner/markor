@@ -305,7 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Programmets startmapp</string>
     <string name="tab_width">Tabbredd</string>
     <string name="amount_of_space_for_tab">Antal blanksteg att visa i tab</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valda filen kan vara en klartext fil. Vill du öppna den i redigeraren, eller i en annan app?\n\nFörsök inte att öppna binära filer. Om du inte är säker, öppna med andra appar.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valda filen kan vara en klartext-fil. Vill du öppna den i redigeraren, eller i en annan app?\n\nFörsök inte att öppna binärfiler. Öppna med en annan app om du är osäker.</string>
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
