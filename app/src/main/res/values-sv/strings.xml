@@ -378,7 +378,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="password_already_set_setting_a_new_password_will_overwrite">Lösenord har redan angetts Att sätta ett nytt lösenord kommer att skriva över det befintliga lösenordet och du kanske inte kommer åt filer längre om du glömmer lösenordet.</string>
     <string name="code_block">Kod block</string>
     <string name="add_completion_date">Lägg till slutdatum</string>
-    <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för todos när de markeras som gjort</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för uppgifter när de markeras som utförda</string>
     <string name="file_description_format">Filens beskrivningsformat</string>
     <string name="file_description_format_dialog">Formatering av beskrivningen under varje fil i filbläddraren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din plats.\n\nExempel på indata:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdata:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Laddar standardvärde</string>
@@ -412,14 +412,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="skip_all">Hoppa över (alla)</string>
     <string name="overwrite_all">Skriv över (alla)</string>
     <string name="copy_move_conflict_message">\'%s\' finns redan i %s</string>
-    <string name="additional_contexts_and_projects">Ytterligare sammanhang och projekt</string>
+    <string name="additional_contexts_and_projects">Ytterligare kontexter och projekt</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Ange mellanslagsseparerade @kontexter och +projekt. Dessa kommer alltid att synas på todo.txt infoga dialogrutor.</string>
     <string name="infinite">Oändlig</string>
     <string name="browse_by_project">Bläddra efter projekt</string>
-    <string name="browse_by_context">Bläddra efter sammanhang</string>
+    <string name="browse_by_context">Bläddra efter kontext</string>
     <string name="insert_project">Infoga projekt</string>
-    <string name="insert_context">Insert contexts</string>
-    <string name="browse_todo">Bläddra todo</string>
+    <string name="insert_context">Infoga kontexter</string>
+    <string name="browse_todo">Bläddra i uppgift</string>
     <string name="browse_by_priority">Bläddra efter prioritet</string>
     <string name="browse_by_due_date">Bläddra efter förfallodatum</string>
     <string name="due_overdue">Förfallen</string>
