@@ -10,7 +10,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Inställning</string>
+    <string name="settings">Inställningar</string>
     <string name="light">Ljust</string>
     <string name="dark">Mörkt</string>
     <string name="delete">Radera</string>
@@ -380,7 +380,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">Lägg till slutdatum</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Lägg till slutdatum för todos när de markeras som gjort</string>
     <string name="file_description_format">Filens beskrivningsformat</string>
-    <string name="file_description_format_dialog">Format för beskrivningen under varje fil i filbläddraren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din plats.\n\nExempel på inmatning:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdata:\n30KB 2020 Mar 20 11:24:52</string>
+    <string name="file_description_format_dialog">Formatering av beskrivningen under varje fil i filbläddraren. Följer Android SimpleDateFormat regler, med tillägg av FS för att visa filstorlek. Lämna tomt för att använda standardformatet för din plats.\n\nExempel på indata:\nFS yyyyy MMM dd hh:mm:ss aa\nUtdata:\n30KB 2020 Mar 20 11:24:52</string>
     <string name="loading_default_value">Laddar standardvärde</string>
     <string name="file_settings">Fil inställningar</string>
     <string name="search_and_replace">Sök / Ersätt</string>
@@ -423,7 +423,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_priority">Bläddra efter prioritet</string>
     <string name="browse_by_due_date">Bläddra efter förfallodatum</string>
     <string name="due_overdue">Förfallen</string>
-    <string name="due_today">Klar idag</string>
+    <string name="due_today">Förfaller idag</string>
     <string name="due_future">Förfaller i framtiden</string>
     <string name="completed">Slutförd</string>
     <string name="match_any">Matcha alla</string>
