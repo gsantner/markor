@@ -122,8 +122,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown__hl_delay_v2" translatable="false">pref_key__markdown__hl_delay_v2</string>
     <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
-    <string name="pref_key__markdown__monospace_some_parts" translatable="false">pref_key__markdown__monospace_some_parts</string>
-    <string name="pref_key__markdown__disable_code_block_highlight" translatable="false">pref_key__markdown__disable_code_block_highlight</string>
     <string name="pref_key__markdown__auto_renumber_ordered_list" translatable="false">pref_key__markdown__auto_renumber_ordered_list</string>
     <string name="pref_key__markdown__reorder_actions" translatable="false">pref_key__markdown__reorder_actions</string>
     <string name="pref_key__todotxt__reorder_actions" translatable="false">pref_key__todotxt__reorder_actions</string>
@@ -182,6 +180,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__more_info__copy_build_information" translatable="false">pref_key__more_info__copy_build_information</string>
     <string name="pref_key__editor_textaction_bar_item_padding" translatable="false">pref_key__editor_textaction_bar_item_padding</string>
     <string name="pref_key__editor_disable_spelling_red_underline" translatable="false">pref_key__editor_disable_spelling_red_underline</string>
+    <string name="pref_key__monospace_some_parts" translatable="false">pref_key__monospace_some_parts</string>
+    <string name="pref_key__disable_code_block_highlight" translatable="false">pref_key__disable_code_block_highlight</string>
     <string name="pref_key__editor_markdown_bigger_headings_2" translatable="false">pref_key__editor_markdown_bigger_headings_2</string>
     <string name="pref_key__editor_unordered_list_character" translatable="false">pref_key__editor_unordered_list_character</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
@@ -311,8 +311,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
     <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
-    <string name="pref_key__zimwiki__monospace_some_parts" translatable="false">pref_key__zimwiki__monospace_some_parts</string>
-    <string name="pref_key__zimwiki__disable_code_block_highlight" translatable="false">pref_key__zimwiki__disable_code_block_highlight</string>
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>

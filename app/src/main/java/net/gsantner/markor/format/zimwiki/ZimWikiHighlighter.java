@@ -121,19 +121,19 @@ public class ZimWikiHighlighter extends Highlighter {
         createSpanWithStrikeThroughForMatches(spannable, Patterns.STRIKETHROUGH.pattern);
 
         _profiler.restart("Preformatted (monospaced) inline");
-        if (_appSettings.isZimWikiHighlightCodeFontMonospaceAllowed()) {
+        if (_appSettings.isHighlightCodeFontMonospaceAllowed()) {
             createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_INLINE.pattern);
         }
-        if (!_appSettings.isZimWikiDisableCodeBlockHighlight()) {
+        if (!_appSettings.isDisableCodeBlockHighlight()) {
             createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_INLINE.pattern, Colors.CODEBLOCK_COLOR);
         }
 
         _profiler.restart("Preformatted (monospaced) multiline");
         // TODO: also indent a bit
-        if (_appSettings.isZimWikiHighlightCodeFontMonospaceAllowed()) {
+        if (_appSettings.isHighlightCodeFontMonospaceAllowed()) {
             createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_MULTILINE.pattern);
         }
-        if (!_appSettings.isZimWikiDisableCodeBlockHighlight()) {
+        if (!_appSettings.isDisableCodeBlockHighlight()) {
             createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_MULTILINE.pattern, Colors.CODEBLOCK_COLOR);
         }
 

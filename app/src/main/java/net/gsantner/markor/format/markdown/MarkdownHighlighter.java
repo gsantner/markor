@@ -38,9 +38,9 @@ public class MarkdownHighlighter extends Highlighter {
         super(hlEditor, document);
         _highlightLinks = false;
         _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
-        _highlightCodeChangeFont = _appSettings.isMarkdownHighlightCodeFontMonospaceAllowed();
+        _highlightCodeChangeFont = _appSettings.isHighlightCodeFontMonospaceAllowed();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
-        _highlightDisableCodeBlock = _appSettings.isMarkdownDisableCodeBlockHighlight();
+        _highlightDisableCodeBlock = _appSettings.isDisableCodeBlockHighlight();
         setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList(), MarkdownAutoFormat.getPrefixPatterns()));
     }
 

@@ -167,22 +167,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
     }
 
-    public boolean isMarkdownHighlightCodeFontMonospaceAllowed() {
-        return getBool(R.string.pref_key__markdown__monospace_some_parts, false);
-    }
-
-    public boolean isZimWikiHighlightCodeFontMonospaceAllowed() {
-        return getBool(R.string.pref_key__zimwiki__monospace_some_parts, false);
-    }
-
-    public boolean isMarkdownDisableCodeBlockHighlight() {
-        return getBool(R.string.pref_key__markdown__disable_code_block_highlight, false);
-    }
-
-    public boolean isZimWikiDisableCodeBlockHighlight() {
-        return getBool(R.string.pref_key__zimwiki__disable_code_block_highlight, false);
-    }
-
     public boolean isMarkdownAutoUpdateList() {
         return true;
         // return getBool(R.string.pref_key__markdown__auto_renumber_ordered_list, false);
@@ -321,6 +305,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isDisableSpellingRedUnderline() {
         return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
+    }
+
+    public boolean isHighlightCodeFontMonospaceAllowed() {
+        return getBool(R.string.pref_key__monospace_some_parts, false);
+    }
+
+    public boolean isDisableCodeBlockHighlight() {
+        return getBool(R.string.pref_key__disable_code_block_highlight, false);
     }
 
     public void addRecentDocument(File file) {
