@@ -28,7 +28,6 @@ public class NanoProfiler {
 
     public NanoProfiler setEnabled(boolean enabled) {
         _profilerEnabled = enabled;
-        _profilerEnabled = true;
         return this;
     }
 
@@ -39,7 +38,6 @@ public class NanoProfiler {
     }
 
     public void start(boolean increaseGroupCounter, String... optionalText) {
-        _profilerEnabled = true;
         if (_profilerEnabled) {
             if (increaseGroupCounter) {
                 _groupCount++;
