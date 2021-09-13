@@ -304,13 +304,13 @@
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_code_black_24dp"
-                android:key="@string/pref_key__monospace_some_parts"
+                android:key="@string/pref_key__highlight_code_monospace_font"
                 android:summary="@string/use_different_fonttype_slow_down"
                 android:title="@string/use_monospace_for_code" />
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_code_black_24dp"
-                android:key="@string/pref_key__disable_code_block_highlight"
+                android:key="@string/pref_key__hightlight_code_block_disabled"
                 android:title="@string/disable_code_block_highlight" />
         </PreferenceCategory>
 

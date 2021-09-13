@@ -167,6 +167,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
     }
 
+    public boolean isHighlightCodeMonospaceFont() {
+        return getBool(R.string.pref_key__highlight_code_monospace_font, false);
+    }
+
+    public boolean isHighlightCodeBlock() {
+        return !getBool(R.string.pref_key__hightlight_code_block_disabled, false);
+    }
+
     public boolean isMarkdownAutoUpdateList() {
         return true;
         // return getBool(R.string.pref_key__markdown__auto_renumber_ordered_list, false);
@@ -305,14 +313,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isDisableSpellingRedUnderline() {
         return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
-    }
-
-    public boolean isHighlightCodeFontMonospaceAllowed() {
-        return getBool(R.string.pref_key__monospace_some_parts, false);
-    }
-
-    public boolean isDisableCodeBlockHighlight() {
-        return getBool(R.string.pref_key__disable_code_block_highlight, false);
     }
 
     public void addRecentDocument(File file) {
