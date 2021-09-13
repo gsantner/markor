@@ -23,6 +23,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="info">Agahî</string>
     <string name="import_">Têxistin</string>
     <string name="select_folder">Peldankê hilbijêre</string>
+    <string name="editor">Edîtor</string>
     <string name="folders">Peldankan</string>
     <string name="theme">Rûkar</string>
     <string name="about">Debar</string>
@@ -62,5 +63,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="right">Rast</string>
     <string name="top">Lûtik</string>
     <string name="bottom">Jêr</string>
+    <string name="join_community">Tevlî komê bibe</string>
     <string name="source_code">Koda çavkanî</string>
+    <string name="location">Cî</string>
+    <string name="details">Hûrî</string>
+    <string name="calendar">Salname</string>
+    <string name="description">Terîf</string>
+    <string name="table_of_contents">Tabloya naverokan</string>
+    <string name="miscellaneous">Dîtir</string>
+    <string name="close">Girtin</string>
+    <string name="cancel">Bişûndekirin</string>
+    <string name="internal_storage">Depokirina navxweyî</string>
 </resources>
