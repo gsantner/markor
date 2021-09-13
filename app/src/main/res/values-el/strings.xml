@@ -346,6 +346,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Επικεφαλίδα 3</string>
     <string name="heading_4">Επικεφαλίδα 4</string>
     <string name="heading_5">Επικεφαλίδα 5</string>
+    <string name="heading_6">Επικεφαλίδα 6</string>
     <string name="bold">Έντονα</string>
     <string name="italic">Πλάγια</string>
     <string name="highlighted">Επισημασμένα</string>

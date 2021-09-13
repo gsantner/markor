@@ -337,6 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Címsor 3</string>
     <string name="heading_4">Címsor 4</string>
     <string name="heading_5">Címsor 5</string>
+    <string name="heading_6">Címsor 6</string>
     <string name="bold">Félkövér</string>
     <string name="italic">Dőlt</string>
     <string name="highlighted">Kiemelt</string>

@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Заголовок 3</string>
     <string name="heading_4">Заголовок 4</string>
     <string name="heading_5">Заголовок 5</string>
+    <string name="heading_6">Заголовок 6</string>
     <string name="bold">Жирный</string>
     <string name="italic">Курсив</string>
     <string name="highlighted">Выделено</string>

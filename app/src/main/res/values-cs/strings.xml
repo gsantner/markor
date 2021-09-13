@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Nadpis 3</string>
     <string name="heading_4">Nadpis 4</string>
     <string name="heading_5">Nadpis 5</string>
+    <string name="heading_6">Nadpis 6</string>
     <string name="bold">Tučné</string>
     <string name="italic">Kurzíva</string>
     <string name="highlighted">Zvýrazněné</string>

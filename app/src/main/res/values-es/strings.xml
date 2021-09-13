@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Título 3</string>
     <string name="heading_4">Título 4</string>
     <string name="heading_5">Título 5</string>
+    <string name="heading_6">Encabezamiento 6</string>
     <string name="bold">Negrita</string>
     <string name="italic">Cursiva</string>
     <string name="highlighted">Resaltado</string>

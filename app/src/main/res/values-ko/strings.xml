@@ -337,6 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">제목(머리말) 3단계</string>
     <string name="heading_4">제목(머리말) 4단계</string>
     <string name="heading_5">제목(머리말) 5단계</string>
+    <string name="heading_6">제목(머리말) 6단계</string>
     <string name="bold">굵게</string>
     <string name="italic">기울임체</string>
     <string name="strikeout">취소선</string>

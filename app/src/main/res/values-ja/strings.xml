@@ -345,6 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">見出し 3</string>
     <string name="heading_4">見出し 4</string>
     <string name="heading_5">見出し 5</string>
+    <string name="heading_6">見出し 6</string>
     <string name="bold">太字</string>
     <string name="italic">斜体</string>
     <string name="highlighted">強調表示</string>
