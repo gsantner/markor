@@ -9,4 +9,48 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">ڕێکخستنەکان</string>
+    <string name="light">ڕووناک</string>
+    <string name="dark">تاریک</string>
+    <string name="delete">سڕینەوە</string>
+    <string name="appearance">ڕووکار</string>
+    <string name="rename">ناونانەوە</string>
+    <string name="confirm_delete">دڵنیاکردنەوە</string>
+    <string name="do_you_really_want_to_delete_this_witharg">ئایا دڵنیایت لە سڕینەوەی %s؟</string>
+    <string name="confirm_overwrite">دڵنیاکردنەوە</string>
+    <string name="file_already_exists_overwerite">فایل بوونی هەیە، جێگۆڕینی ئەکەی ؟</string>
+    <string name="browse_filesystem">کردنەوەی فایلی سیستەم</string>
+    <string name="title">ناونیشان</string>
+    <string name="empty_directory">فۆڵدەری بەتاڵ</string>
+    <string name="move">گواستنەوە</string>
+    <string name="copy">لەبەرگرتنەوە</string>
+    <string name="info">زانیاری</string>
+    <string name="import_">هێنان</string>
+    <string name="select_folder">فۆڵدەر دیاریبکە</string>
+    <string name="edit">دەستکاریکردن</string>
+    <string name="share">ناردن</string>
+    <string name="search">گەڕان</string>
+    <string name="editor">دەستکاریکەر</string>
+    <string name="folders">فۆڵدەرەکان</string>
+    <string name="files">فایلەکان</string>
+    <string name="document">بەڵگەنامە</string>
+    <string name="documents">بەڵگەنامە</string>
+    <string name="theme">ڕووکار</string>
+    <string name="about">دەربارە</string>
+    <string name="file">فایل</string>
+    <string name="image">وێنە</string>
+    <string name="font_size">قەبارەی نووسین</string>
+    <string name="select">دیاریبکە</string>
+    <string name="create">دروستکردن</string>
+    <string name="more">زیاتر</string>
+    <string name="help">یارمەتی</string>
+    <string name="save">پاراستن</string>
+    <string name="update">نوێکردنەوە</string>
+    <string name="clear">سڕینەوە</string>
+    <string name="refresh">تازەکردنەوە</string>
+    <string name="format">شێواز</string>
+    <string name="underline">هێڵ بە ژێردا هاتوو</string>
+    <string name="rtl_rendering">پشتگیری ڕاست بۆ چەپ</string>
+    <string name="general">گشتی</string>
+</resources>
