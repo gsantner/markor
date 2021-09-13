@@ -167,12 +167,12 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
     }
 
-    public boolean isMarkdownHighlightCodeFontMonospaceAllowed() {
-        return getBool(R.string.pref_key__markdown__monospace_some_parts, false);
+    public boolean isHighlightCodeMonospaceFont() {
+        return getBool(R.string.pref_key__highlight_code_monospace_font, false);
     }
 
-    public boolean isMarkdownDisableCodeBlockHighlight() {
-        return getBool(R.string.pref_key__markdown__disable_code_block_highlight, false);
+    public boolean isHighlightCodeBlock() {
+        return !getBool(R.string.pref_key__hightlight_code_block_disabled, false);
     }
 
     public boolean isMarkdownAutoUpdateList() {
