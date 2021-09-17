@@ -23,11 +23,8 @@ public class ZimWikiLinkResolverTests {
         try {
             tempFolder = Files.createTempDirectory("markorTemp");
             notebookRoot = Files.createDirectory(tempFolder.resolve("notebookRoot"));
-
-            System.out.println("Created: "+ notebookRoot);
-
             createTestNotebookStructure();
-
+            System.out.println("Created test notebook in: "+ tempFolder);
         } catch (IOException e) {
             e.printStackTrace();
             fail("Could not create the test directory");
@@ -41,7 +38,8 @@ public class ZimWikiLinkResolverTests {
      *   |                   |___ Yet another page ___ Interesting page
      *   |                                      |___ Strange page
      *   |___ Your page ___ Another page
-     *                |___ The coolest page
+     *   |            |___ The coolest page
+     *   |___ Another page
      */
     private void createTestNotebookStructure() throws IOException {
 
@@ -61,12 +59,14 @@ public class ZimWikiLinkResolverTests {
         Files.createFile(notebookRoot.resolve("Your_page.txt"));
         Files.createFile(notebookRoot.resolve("Your_page/Another_page.txt"));
         Files.createFile(notebookRoot.resolve("Your_page/The_coolest_page.txt"));
+
+        Files.createFile(notebookRoot.resolve("Another_page.txt"));
     }
 
     @After
     public void after() {
         FileUtils.deleteRecursive(tempFolder.toFile());
-        System.out.println("Deleted.");
+        System.out.println("Deleted: "+tempFolder);
     }
 
     @Test
@@ -93,7 +93,36 @@ public class ZimWikiLinkResolverTests {
                 "[[:My page:Yet another page:Interesting page|Some description]]", "My_page.txt");
     }
 
-    // TODO: links which are resolved within root to current page
+    @Test
+    public void resolvesRelativeLinkFromParent() {
+        assertResolvedLinkAndDescription("My_page/Yet_another_page/Interesting_page.txt", "This is a relative link.",
+                "[[Yet another page:Interesting page|This is a relative link.]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void resolvesRelativeLinkIncludingCurrentPage() {
+        assertResolvedLinkAndDescription("My_page/Another_page/Very_cool_subpage.txt", null,
+                "[[My page:Another page:Very cool subpage]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void resolvesRelativeLinkFromRootSibling() {
+        assertResolvedLinkAndDescription("Your_page/Another_page.txt", "This link starts at a root page.",
+                "[[Your page:Another page|This link starts at a root page.]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void resolvesRelativeLinkToNearestReachablePage() {
+        // make sure that the current page is returned and not the likewise-named root page
+        assertResolvedLinkAndDescription("My_page/Another_page.txt", null,
+                "[[Another page]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void returnsNullIfRelativePageCannotBeFound() {
+        assertResolvedLinkAndDescription(null, null,
+                "[[Non_existing_page.txt]]", "My_page/Another_page.txt");
+    }
 
     @Test
     public void resolvesWebLinkWithDescription() {

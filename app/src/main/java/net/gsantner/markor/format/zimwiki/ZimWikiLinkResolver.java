@@ -1,11 +1,18 @@
 package net.gsantner.markor.format.zimwiki;
 
+import net.gsantner.opoc.util.FileUtils;
+
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Resolves zim links and converts them to file paths if necessary.
+ * The logic follows the specification of zim links as stated here: https://zim-wiki.org/manual/Help/Links.html
+ * If the link contains an additional description, it is parsed as well.
+ */
 public class ZimWikiLinkResolver {
     private File _notebookRootDir;
     private File _currentPage;
@@ -18,8 +25,8 @@ public class ZimWikiLinkResolver {
         LINK(Pattern.compile("\\[\\[(?!\\[)((.+?)(\\|(.+?))?\\]*)]\\]")),
 
         SUBPAGE_PATH(Pattern.compile("\\+(.*)")),
-        TOPLEVEL_PATH(Pattern.compile(":(.*)"));
-        // TODO: link within path from root to current page
+        TOPLEVEL_PATH(Pattern.compile(":(.*)")),
+        RELATIVE_PATH(Pattern.compile("[^/]+")); // do not match weblinks
         // TODO: external file links
         // TODO: interwiki links
 
@@ -44,8 +51,8 @@ public class ZimWikiLinkResolver {
         if (m.matches()) {
             zimPath = m.group(2);
             linkDescription = m.group(4);
+            resolvedLink = resolveZimPath(zimPath);
         }
-        resolvedLink = resolveZimPath(zimPath);
         return this;
     }
 
@@ -63,7 +70,28 @@ public class ZimWikiLinkResolver {
             return FilenameUtils.concat(_notebookRootDir.getPath(), zimPagePathToRelativeFilePath(zimPagePath));
         }
 
+        Matcher relativeMatcher = Patterns.RELATIVE_PATH.pattern.matcher(zimPath);
+        if (relativeMatcher.matches()) {
+            String relativeZimPagePath = relativeMatcher.group();
+            String relativeLinkToCheck = zimPagePathToRelativeFilePath(relativeZimPagePath);
+            return findFirstPageTraversingUpToRoot(_currentPage, relativeLinkToCheck);
+        }
+
         return zimPath; // just return the original path in case the link cannot be resolved (might be a URL)
+    }
+
+    private String findFirstPageTraversingUpToRoot(File currentPage, String relativeLinkToCheck) {
+        if (currentPage.equals(_notebookRootDir)) {
+            return null;
+        }
+
+        File parentFolder = currentPage.getParentFile();
+        File candidateFile = FileUtils.join(parentFolder, relativeLinkToCheck);
+        if (candidateFile.exists()) {
+            return candidateFile.toString();
+        } else {
+            return findFirstPageTraversingUpToRoot(parentFolder, relativeLinkToCheck);
+        }
     }
 
     /**
