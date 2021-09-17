@@ -37,7 +37,7 @@ public class ZimWikiHighlighter extends Highlighter {
         PREFORMATTED_MULTILINE(Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])")),
         LIST_UNORDERED(Pattern.compile("(?<=((\\n|^)\\s{0,10}))\\*(?= )")),
         LIST_ORDERED(Pattern.compile("(?<=((\\n|^)(\\s{0,10})))(\\d+|[a-zA-Z])(\\.)(?= )")),
-        LINK(Pattern.compile("(\\[\\[(?!\\[)(.+?\\]*)]\\])")),
+        LINK(ZimWikiLinkResolver.Patterns.LINK.pattern),
         IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
         CHECKLIST(Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*>])(])(?= )")),
         CHECKLIST_UNCHECKED(Pattern.compile("(?<=(\\n|^))\t*(\\[)( )(])(?= )")),

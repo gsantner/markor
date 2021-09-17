@@ -139,14 +139,19 @@ public class ZimWikiTextConverter extends TextConverter {
         StringBuilder fullPath = new StringBuilder();
         if (pair[0].charAt(0) == '+') {
             fullPath.append("file://");
+            // TODO: use ZimWikiLinkResolver:
             fullPath.append(context.getFilesDir().getAbsolutePath());
             fullPath.append(File.separator);
             fullPath.append(pair[0].substring(1));
             fullPath.append(".txt");
+            //
         } else if (pair[0].matches("^[a-z]+://.+$")) {
+            // TODO: use ZimWikiLinkResolver:
             fullPath.append(pair[0]);
+            //
         } else {
             fullPath.append("file://");
+            // TODO: use ZimWikiLinkResolver:
             if (pair[0].charAt(0) == ':')
                 fullPath.append(context.getFilesDir().getAbsolutePath());
             else
@@ -156,6 +161,7 @@ public class ZimWikiTextConverter extends TextConverter {
                 fullPath.append(token);
             }
             fullPath.append(".txt");
+            //
         }
         // TODO proper URL encoding
         return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
