@@ -11,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 public class ZimWikiLinkResolverTests {
@@ -72,34 +71,26 @@ public class ZimWikiLinkResolverTests {
 
     @Test
     public void resolvesSubPageLinkDirectSubpage() {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[+Another page]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile());
-        String expectedLink = notebookRoot.resolve("My_page/Another_page.txt").toString();
-        assertEquals(expectedLink, resolver.getResolvedLink());
-        assertNull(resolver.getLinkDescription());
+        assertResolvedLinkAndDescription("My_page/Another_page.txt", null,
+                "[[+Another page]]", "My_page.txt");
     }
 
     @Test
     public void resolvesSubPageLinkSubpageWithDescription() {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[+Yet another page:Strange page|This link leads to a strange page]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile());
-        String expectedLink = notebookRoot.resolve("My_page/Yet_another_page/Strange_page.txt").toString();
-        assertEquals(expectedLink, resolver.getResolvedLink());
-        assertEquals("This link leads to a strange page", resolver.getLinkDescription());
+        assertResolvedLinkAndDescription("My_page/Yet_another_page/Strange_page.txt", "This link leads to a strange page",
+                "[[+Yet another page:Strange page|This link leads to a strange page]]", "My_page.txt");
     }
 
     @Test
     public void resolvesTopLevelLink() {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[:Your page:The coolest page]]", notebookRoot.toFile(), notebookRoot.resolve("My_page/Yet_another_page.txt").toFile());
-        String expectedLink = notebookRoot.resolve("Your_page/The_coolest_page.txt").toString();
-        assertEquals(expectedLink, resolver.getResolvedLink());
-        assertNull(resolver.getLinkDescription());
+        assertResolvedLinkAndDescription("Your_page/The_coolest_page.txt", null,
+                "[[:Your page:The coolest page]]", "My_page/Yet_another_page.txt");
     }
 
     @Test
     public void resolvesTopLevelLinkWithDescription() {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[:My page:Yet another page:Interesting page|Some description]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile());
-        String expectedLink = notebookRoot.resolve("My_page/Yet_another_page/Interesting_page.txt").toString();
-        assertEquals(expectedLink, resolver.getResolvedLink());
-        assertEquals("Some description", resolver.getLinkDescription());
+        assertResolvedLinkAndDescription("My_page/Yet_another_page/Interesting_page.txt", "Some description",
+                "[[:My page:Yet another page:Interesting page|Some description]]", "My_page.txt");
     }
 
     // TODO: links which are resolved within root to current page
@@ -111,5 +102,10 @@ public class ZimWikiLinkResolverTests {
         assertEquals("Example website", resolver.getLinkDescription());
     }
 
-    // TODO: handle whitespaces before or after path/description?
+    private void assertResolvedLinkAndDescription(String expectedLinkRelativeToRoot, String expectedDescription, String zimLink, String currentPageRelativeToRoot) {
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(zimLink, notebookRoot.toFile(), notebookRoot.resolve(currentPageRelativeToRoot).toFile());
+        String expectedLink = expectedLinkRelativeToRoot!=null ? notebookRoot.resolve(expectedLinkRelativeToRoot).toString() : null;
+        assertEquals(expectedLink, resolver.getResolvedLink());
+        assertEquals(expectedDescription, resolver.getLinkDescription());
+    }
 }
