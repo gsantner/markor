@@ -32,6 +32,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_folder_already_exists_please_use_a_different_name">فایل/فۆڵدەر بوونی هەیە! تکایە ناوێکی جیاواز بەکاربێنە</string>
     <string name="import_from_device">هێنان لە ئامێرەوە</string>
     <string name="import_">هێنان</string>
+    <string name="append_to_witharg">پاشکۆی %s</string>
     <string name="select_folder">فۆڵدەر دیاریبکە</string>
     <string name="edit">دەستکاریکردن</string>
     <string name="search_documents">گەڕان بۆ بەڵگەنامە</string>
@@ -43,6 +44,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files">فایلەکان</string>
     <string name="document">بەڵگەنامە</string>
     <string name="documents">بەڵگەنامە</string>
+    <string name="html_as_plaintext">HTML (دەقی ئاسایی)</string>
     <string name="theme">ڕووکار</string>
     <string name="about">دەربارە</string>
     <string name="plaintext">دەقی سادە</string>
