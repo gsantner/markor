@@ -85,6 +85,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">هەنگاوێک دواتر</string>
     <string name="redo">هەنگاوێک پێشتر</string>
     <string name="more">زیاتر</string>
+    <string name="notebook">تێبینی</string>
     <string name="help">یارمەتی</string>
     <string name="task">فرمان</string>
     <string name="context">دەق</string>
