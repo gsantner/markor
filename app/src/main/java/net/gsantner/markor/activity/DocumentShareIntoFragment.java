@@ -105,10 +105,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         _hlEditor.setTextColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
-
-        if (sharedText.trim().isEmpty()) {
-            _hlEditor.requestFocus();
-        }
+        if (sharedText.trim().isEmpty()) _hlEditor.requestFocus();
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)

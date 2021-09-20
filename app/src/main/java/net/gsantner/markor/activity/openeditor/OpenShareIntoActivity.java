@@ -17,11 +17,7 @@ import net.gsantner.markor.activity.DocumentRelayActivity;
 import net.gsantner.markor.util.DocumentIO;
 
 public class OpenShareIntoActivity extends OpenEditorActivity {
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    @Override protected void onCreate(@Nullable Bundle savedInstanceState) { super.onCreate(savedInstanceState);
         Intent openShare = new Intent(this, DocumentRelayActivity.class)
                 .setAction(Intent.ACTION_SEND)
                 .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true)

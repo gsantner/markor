@@ -35,7 +35,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup" translatable="false">Backup</string>
 
     <string name="community" translatable="false">Community</string>
-    <string name="default_font_family" translatable="false">sans-serif-regular</string>
+    <string name="default_font_family" translatable="false">u5cdot</string>
+<!--    <string name="default_font_family" translatable="false">sans-serif-regular</string>-->
     <string name="quicknote" translatable="false">QuickNote</string>
     <string name="todo" translatable="false">To-Do</string>
     <string name="todo_txt" translatable="false">todo.txt</string>

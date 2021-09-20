@@ -141,28 +141,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
-    public String getFontFamily() {
-        return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
-    }
-
-    public int getFontSize() {
-        return getInt(R.string.pref_key__editor_font_size, 15);
-    }
-
-    public int getViewFontSize() {
-        int size = getInt(R.string.pref_key__view_font_size, -1);
-        return size < 2 ? getFontSize() : size;
-    }
-
-    public boolean isHighlightingEnabled() {
-        return getBool(R.string.pref_key__is_highlighting_activated, true);
-    }
-
-    public int getMarkdownHighlightingDelay() {
-        return getInt(R.string.pref_key__markdown__hl_delay_v2, 650);
-    }
-
-
+    public String getFontFamily() { return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family)); }
+    public int getFontSize() { return getInt(R.string.pref_key__editor_font_size, 15); }
+    public int getViewFontSize() { int size = getInt(R.string.pref_key__view_font_size, -1);return size < 2 ? getFontSize() : size; }
+    public boolean isHighlightingEnabled() { return getBool(R.string.pref_key__is_highlighting_activated, true); }
+    public int getMarkdownHighlightingDelay() { return getInt(R.string.pref_key__markdown__hl_delay_v2, 650); }
     public boolean isMarkdownHighlightLineEnding() {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
     }

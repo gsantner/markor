@@ -261,21 +261,14 @@
     </PreferenceScreen>
 
     <!-- Editor screen -->
-    <PreferenceScreen
-        android:icon="@drawable/ic_edit_black_24dp"
-        android:summary="@string/editor_settings"
-        android:title="@string/edit_mode">
+    <PreferenceScreen android:icon="@drawable/ic_edit_black_24dp" android:summary="@string/editor_settings" android:title="@string/edit_mode">
         <net.gsantner.opoc.preference.FontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
             android:key="@string/pref_key__font_family"
             android:title="@string/font" />
-        <android.support.v7.preference.SeekBarPreference
-            android:defaultValue="15"
-            android:icon="@drawable/ic_format_size_black_24dp"
-            android:key="@string/pref_key__editor_font_size"
-            android:min="1"
-            android:max="36"
+        <android.support.v7.preference.SeekBarPreference android:defaultValue="15" android:icon="@drawable/ic_format_size_black_24dp"
+            android:key="@string/pref_key__editor_font_size" android:min="1" android:max="36"
             android:summary="@string/control_font_size_in_editor"
             android:title="@string/font_size" />
 

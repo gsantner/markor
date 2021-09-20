@@ -135,8 +135,8 @@ public abstract class TextConverter {
         // Add custom font css if font is a filepath, swap path with new font-family
         String font = appSettings.getFontFamily();
         if (font.startsWith("/")) {
-            html += CSS_S + "@font-face { font-family: customfont; src: url('file://" + font + "'); }" + CSS_E;
-            font = "customfont";
+            html += CSS_S + "@font-face { font-family: u5cdot; src: url('file://" + font + "'); }" + CSS_E;
+            font = "u5cdot";
         }
 
         // Remove duplicate style blocks
