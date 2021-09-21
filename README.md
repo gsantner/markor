@@ -1,3 +1,5 @@
+ye markor app [zava8 fonts](http://github.com/zava8/font) ke saTh hAe. isme only fonts chanze kiye gye h.
+isko [daunlod Aur Android mobile](./daunlod) folder se **.apk** file Android mobile me duanlod krke install kr skTe h.
 [![GitHub releases](https://img.shields.io/github/tag/gsantner/markor.svg)](https://github.com/gsantner/markor/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/gsantner/markor/total.svg?logo=github&logoColor=lime)](https://github.com/gsantner/markor/releases)
 [![Translate on Crowdin](https://img.shields.io/badge/translate-crowdin-green.svg)](https://crowdin.com/project/markor/invite)
