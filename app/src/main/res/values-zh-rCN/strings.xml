@@ -325,7 +325,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">页面</string>
     <string name="experimental_features">实验功能</string>
     <string name="tools">工具</string>
-    <string name="reading">阅读</string>
+    <string name="reading">正在读取</string>
     <string name="read">只读</string>
     <string name="table">表格</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格 (插入表头) ，短按以添加一行。</string>
