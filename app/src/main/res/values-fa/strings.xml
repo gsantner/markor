@@ -340,11 +340,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jump_to_bottom">پرش به ماه</string>
     <string name="quote">نقل قول</string>
     <string name="heading">عنوان</string>
-    <string name="heading_1">سرشناسهٔ ۱</string>
-    <string name="heading_2">سرشناسهٔ ۲</string>
-    <string name="heading_3">تیتر ۳</string>
-    <string name="heading_4">تیتر ۴</string>
-    <string name="heading_5">سرشناسهٔ ۵</string>
+    <string name="heading_1">عنوان ۱</string>
+    <string name="heading_2">عنوان ۲</string>
+    <string name="heading_3">عنوان ۳</string>
+    <string name="heading_4">عنوان ۴</string>
+    <string name="heading_5">عنوان ۵</string>
+    <string name="heading_6">عنوان ۶</string>
     <string name="bold">ضخیم</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Highlighted</string>
