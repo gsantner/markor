@@ -127,7 +127,7 @@ public class ContextUtils {
      */
     public int getResId(final ResType resType, final String name) {
         try {
-            return _context.getResources().getIdentifier(name, resType.name().toLowerCase(), _context.getPackageName());
+            return _context.getResources().getIdentifier(name, resType.name().toLowerCase(Locale.ENGLISH), _context.getPackageName());
         } catch (Exception e) {
             return 0;
         }
@@ -231,7 +231,7 @@ public class ContextUtils {
         }
         if (src == null || src.trim().isEmpty()) {
             return "Sideloaded";
-        } else if (src.toLowerCase().contains(".amazon.")) {
+        } else if (src.toLowerCase(Locale.ENGLISH).contains(".amazon.")) {
             return "Amazon Appstore";
         }
         switch (src) {
@@ -1048,7 +1048,7 @@ public class ContextUtils {
 
     public String getFileProvider() {
         for (final ProviderInfo info : getProvidersInfos()) {
-            if (info.name.toLowerCase().contains("fileprovider")) {
+            if (info.name.toLowerCase(Locale.ENGLISH).contains("fileprovider")) {
                 return info.authority;
             }
         }
