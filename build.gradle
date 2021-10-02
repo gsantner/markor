@@ -86,15 +86,15 @@ static String findUsedAndroidLocales() {
     Set<String> langs = new HashSet<>()
     new File('.').eachFileRecurse(groovy.io.FileType.DIRECTORIES) {
         final foldername = it.name
-        if (foldername.startsWith('values-') && !it.canonicalPath.contains("build" + File.separator + "intermediates") && !it.canonicalPath.contains("gradle" + File.separator + "daemon")) {
+        if (foldername.contains('values-') && !it.absolutePath.contains("build" + File.separator + "intermediates") && !foldername.matches(".*values-((.*[0-9])|(land)|(port)).*")) {
             new File(it.toString()).eachFileRecurse(groovy.io.FileType.FILES) {
-                if (it.name.toLowerCase().endsWith(".xml") && it.getCanonicalFile().getText('UTF-8').contains("<string")) {
+                if (it.exists() && it.name.toLowerCase().endsWith(".xml") && it.getText('UTF-8').contains("<string")) {
                     langs.add(foldername.replace("values-", ""))
                 }
             }
         }
     }
-    return '{' + langs.collect { "\"${it}\"" }.join(",") + '}'
+    return '{' + langs.sort().collect { "\"${it}\"" }.join(",") + '}'
 }
 
 ext.getGitHash = { ->

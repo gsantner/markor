@@ -79,8 +79,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                 }
                 case R.string.pref_key__more_info__help: {
                     _cu.openWebpageInExternalBrowser(
-                            String.format("https://gsantner.net/project/%s.html?source=inapp_more_help_faq",
-                                    getString(R.string.app_name_real).toLowerCase()));
+                            String.format("https://gsantner.net/project/%s.html?source=inapp_more_help_faq", getString(R.string.app_name_real).toLowerCase()));
                     return true;
                 }
                 case R.string.pref_key__more_info__donate: {
