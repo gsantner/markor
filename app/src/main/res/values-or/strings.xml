@@ -81,7 +81,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">ପୁନଃଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="template">ଟେମ୍ପଲେଟ୍</string>
     <string name="print_pdf">ମୁଦ୍ରଣ / PDF</string>
+    <string name="record_audio">ଅଡ଼ିଓ ରେକର୍ଡ କରନ୍ତୁ</string>
     <string name="attach">ସଂଲଗ୍ନ କରନ୍ତୁ</string>
     <string name="copy_file">ଫାଇଲ୍ କପି କରନ୍ତୁ</string>
     <string name="page">ପୃଷ୍ଠା</string>
+    <string name="experimental_features">ପରୀକ୍ଷାମୂଳକ ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକ</string>
+    <string name="date_and_time">ତାରିଖ ଏବଂ ସମୟ</string>
+    <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
 </resources>
