@@ -94,8 +94,7 @@ static String findUsedAndroidLocales() {
             }
         }
     }
-    langs = langs.sort()
-    return '{' + langs.collect { "\"${it}\"" }.join(",") + '}'
+    return '{' + langs.sort().collect { "\"${it}\"" }.join(",") + '}'
 }
 
 ext.getGitHash = { ->
