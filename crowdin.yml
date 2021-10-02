@@ -62,4 +62,5 @@ files:
         mk: mk # Macedonian
         si-LK: si # Sinhala (Sri Lanka)
         eo: eo # Esperanto
+        or: or # Odia/Oriya (India)
     translate_attributes: 0
