@@ -9,4 +9,13 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">ସେଟିଂସମୂହ</string>
+    <string name="light">ହାଲୁକା</string>
+    <string name="dark">ଗାଢ଼</string>
+    <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
+    <string name="appearance">ରୂପ</string>
+    <string name="rename">ପୁନଃନାମ</string>
+    <string name="theme">ଥିମ୍</string>
+    <string name="font_size">ଫଣ୍ଟ ଆକାର</string>
+</resources>
