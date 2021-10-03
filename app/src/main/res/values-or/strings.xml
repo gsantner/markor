@@ -77,8 +77,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
     <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
     <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
+    <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
+    <string name="format">ଫର୍ମାଟ୍</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
@@ -90,9 +92,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">ନିମ୍ନ</string>
     <string name="center">କେନ୍ଦ୍ର</string>
     <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
+    <string name="rate_this_app">ଏହି ଆପକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ</string>
+    <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
+    <string name="more_info_and_help">ଅଧିକ ସୂଚନା ଏବଂ ସହାୟତା</string>
+    <string name="report_bugs">ବଗ୍‌ ରିପୋର୍ଟ୍‌ କରନ୍ତୁ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
+    <string name="description">ବର୍ଣ୍ଣନା</string>
     <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
     <string name="math">ଗଣିତ</string>
     <string name="table_of_contents">ସୂଚୀପତ୍ର</string>
@@ -122,4 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
     <string name="restore_settings">ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ</string>
     <string name="export_settings_to_json_file">json ଫାଇଲକୁ ସେଟିଂସ୍ ରପ୍ତାନି କରନ୍ତୁ</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ବ୍ୟାକଅପ୍ json ଫାଇଲରୁ ସେଟିଂସ୍ ଆମଦାନୀ କରନ୍ତୁ। ସଫଳ ହେଲେ, ଆପ୍ ପୁନଃଆରମ୍ଭ ହୁଏ।</string>
+    <string name="failed_to_restore_settings_from_backup">ବ୍ୟାକଅପ୍ ରୁ ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରିବାରେ ବିଫଳ ହୋଇଛି</string>
 </resources>
