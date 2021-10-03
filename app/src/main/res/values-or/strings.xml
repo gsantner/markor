@@ -25,6 +25,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
     <string name="editor">ସମ୍ପାଦକ</string>
+    <string name="document_editor_font">ଡକ୍ୟୁମେଣ୍ଟ୍ ସମ୍ପାଦକ ଫଣ୍ଟ</string>
     <string name="theme">ଥିମ୍</string>
     <string name="about">ବିଷୟରେ</string>
     <string name="file">ଫାଇଲ୍</string>
@@ -66,6 +67,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">ଶୀର୍ଷ</string>
     <string name="bottom">ନିମ୍ନ</string>
     <string name="center">କେନ୍ଦ୍ର</string>
+    <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
@@ -79,8 +81,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font">ଫଣ୍ଟ</string>
     <string name="close">ବନ୍ଦ କରନ୍ତୁ</string>
     <string name="cancel">ବାତିଲ୍‌ କରନ୍ତୁ</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
     <string name="black">କଳା</string>
     <string name="white">ଧଳା</string>
+    <string name="edit_mode">ସମ୍ପାଦନ ମୋଡ୍‍</string>
     <string name="please_wait">ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
     <string name="reload">ପୁନଃଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="template">ଟେମ୍ପଲେଟ୍</string>
