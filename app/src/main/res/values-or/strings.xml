@@ -121,4 +121,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
     <string name="restore_settings">ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ</string>
+    <string name="export_settings_to_json_file">json ଫାଇଲକୁ ସେଟିଂସ୍ ରପ୍ତାନି କରନ୍ତୁ</string>
 </resources>
