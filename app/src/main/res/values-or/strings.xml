@@ -20,6 +20,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">ଘୁଞ୍ଚାନ୍ତୁ</string>
     <string name="copy">କପି କରନ୍ତୁ</string>
     <string name="info">ସୂଚନା</string>
+    <string name="import_">ଆମଦାନୀ କରନ୍ତୁ</string>
+    <string name="edit">ସମ୍ପାଦନା</string>
     <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
     <string name="editor">ସମ୍ପାଦକ</string>
@@ -53,7 +55,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
+    <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
+    <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="default_">ଡିଫଲ୍ଟ</string>
