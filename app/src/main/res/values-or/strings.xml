@@ -32,6 +32,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit">ସମ୍ପାଦନା</string>
     <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
+    <string name="display_converted_markup">ରୂପାନ୍ତରିତ ମାର୍କଅପ୍ ପ୍ରଦର୍ଶନ କରନ୍ତୁ</string>
     <string name="editor">ସମ୍ପାଦକ</string>
     <string name="folders">ଫୋଲ୍ଡରଗୁଡ଼ିକ</string>
     <string name="files">ଫାଇଲଗୁଡ଼ିକ</string>
@@ -54,6 +55,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
     <string name="language">ଭାଷା</string>
     <string name="size">ଆକାର</string>
+    <string name="contribute">ଯୋଗଦାନ କରନ୍ତୁ</string>
+    <string name="donate">ଦାନ କରନ୍ତୁ</string>
     <string name="press_back_again_to_exit">ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ ପୁଣି \'ବ୍ୟାକ୍\' ଦବାନ୍ତୁ</string>
     <string name="exit">ପ୍ରସ୍ଥାନ</string>
     <string name="undo">ପୂର୍ବବତ୍</string>
@@ -68,6 +71,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">ଇତିବୃତ୍ତି</string>
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="create_shortcut">ସର୍ଟକଟ୍‌ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="tried_to_create_shortcut_for_this_notice">ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚେଷ୍ଟା କରିଛି। ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ କିଛି ଉନ୍ମୋଚକ ଏହାକୁ ସମର୍ଥନ କରିନପାରେ।</string>
+    <string name="insert_replace_date">ତାରିଖ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
     <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
