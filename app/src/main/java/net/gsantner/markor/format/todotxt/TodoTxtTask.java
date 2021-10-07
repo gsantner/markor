@@ -68,48 +68,60 @@ public class TodoTxtTask {
         return filepath != null && TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text"));
     }
 
-    public static TodoTxtTask[] getTasks(final CharSequence text, final int selStart, final int selEnd) {
+    public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
         final String[] lines = text.subSequence(
                 StringUtils.getLineStart(text, selStart),
                 StringUtils.getLineEnd(text, selEnd)
         ).toString().split("\n");
 
-        final TodoTxtTask[] tasks = new TodoTxtTask[lines.length];
-        for (int i = 0; i < lines.length; i++) {
-            tasks[i] = new TodoTxtTask(lines[i]);
+        final List<TodoTxtTask> tasks = new ArrayList<>();
+        for (final String line : lines) {
+             new TodoTxtTask(line);
         }
         return tasks;
     }
 
-    public static TodoTxtTask[] getSelectedTasks(final TextView view) {
+    public static List<TodoTxtTask> getSelectedTasks(final TextView view) {
         final int[] sel = StringUtils.getSelection(view);
         return getTasks(view.getText(), sel[0], sel[1]);
     }
 
-    public static TodoTxtTask[] getAllTasks(final CharSequence text) {
+    public static List<TodoTxtTask> getAllTasks(final CharSequence text) {
         return getTasks(text, 0, text.length());
     }
 
-    public static String[] getProjects(final TodoTxtTask[] tasks) {
+    public static List<String> getProjects(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
-            final String[] projects = task.getProjects();
-            Collections.addAll(set, projects);
+            final List<String> keys = task.getProjects();
+            set.addAll(keys.isEmpty() ? Collections.singletonList(null) : keys);
         }
-        return set.toArray(new String[0]);
+        return new ArrayList<>(set);
     }
 
-    public static String[] getContexts(final TodoTxtTask[] tasks) {
+    public static List<String> getContexts(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
-            final String[] projects = task.getContexts();
-            Collections.addAll(set, projects);
+            final List<String> keys = task.getContexts();
+            set.addAll(keys.isEmpty() ? Collections.singletonList(null) : keys);
         }
-        return set.toArray(new String[0]);
+        return new ArrayList<>(set);
     }
 
-    public static String tasksToString(final TodoTxtTask[] tasks) {
-        return tasksToString(Arrays.asList(tasks));
+    public static List<Character> getPriorities(final List<TodoTxtTask> tasks) {
+        final TreeSet<Character> set = new TreeSet<>();
+        for (final TodoTxtTask task : tasks) {
+            set.add(task.getPriority());
+        }
+        return new ArrayList<>(set);
+    }
+
+    public static List<TodoDueState> getDueStates(final List<TodoTxtTask> tasks) {
+        final TreeSet<TodoDueState> set = new TreeSet<>();
+        for (final TodoTxtTask task : tasks) {
+            set.add(task.getDueStatus());
+        }
+        return new ArrayList<>(set);
     }
 
     public static String tasksToString(final List<TodoTxtTask> tasks) {
@@ -129,8 +141,8 @@ public class TodoTxtTask {
     //
 
     private final String line;
-    private String[] contexts = null;
-    private String[] projects = null;
+    private List<String> contexts = null;
+    private List<String> projects = null;
     private Character priority = null;
     private Boolean done = null;
     private String creationDate = null;
@@ -176,14 +188,14 @@ public class TodoTxtTask {
         return priority;
     }
 
-    public String[] getContexts() {
+    public List<String> getContexts() {
         if (contexts == null) {
             contexts = parseAllMatches(line, PATTERN_CONTEXTS);
         }
         return contexts;
     }
 
-    public String[] getProjects() {
+    public List<String> getProjects() {
         if (projects == null) {
             projects = parseAllMatches(line, PATTERN_PROJECTS);
         }
@@ -237,14 +249,14 @@ public class TodoTxtTask {
     }
 
     // Only captures the first group of each match
-    private static String[] parseAllMatches(final String text, final Pattern pattern) {
+    private static List<String> parseAllMatches(final String text, final Pattern pattern) {
         List<String> ret = new ArrayList<>();
         for (Matcher m = pattern.matcher(text); m.find(); ) {
             if (m.groupCount() > 0) {
                 ret.add(m.group(1));
             }
         }
-        return ret.toArray(new String[0]);
+        return ret;
     }
 
     private static String parseOneValueOrDefault(final String text, final Pattern pattern, final String defaultValue) {

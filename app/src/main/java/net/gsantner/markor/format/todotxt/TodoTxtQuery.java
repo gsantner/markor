@@ -1,202 +1,155 @@
 package net.gsantner.markor.format.todotxt;
 
-import android.util.JsonReader;
+import android.text.TextUtils;
+
+import net.gsantner.opoc.util.Callback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class TodoTxtQuery {
 
-    private static final String AND = "and";
-    private static final String OR = "or";
-    private static final String NOT = "not";
-    private static final String PROJECT = "project";
-    private static final String CONTEXT = "context";
-    private static final String PRIORITY = "pri";
-    private static final String DUE = "due";
-    private static final String DONE = "done";
+    public static final String PROJECT = "project";
+    public static final String CONTEXT = "context";
+    public static final String PRIORITY = "priority";
+    public static final String DUE = "due_date";
+
+    private static final String IS_AND = "is_and";
+    private static final String KEYS = "keys";
+    private static final String TYPE = "type";
     private static final String DUE_TODAY = "today";
     private static final String DUE_OVERDUE = "overdue";
     private static final String DUE_FUTURE = "future";
 
-    private interface Query {
-        boolean apply(final TodoTxtTask task);
-    }
-
-    private static class Group implements Query {
-
-        final public boolean _isAnd;
-
-        private final ArrayList<Query> _ops;
-
-        Group(final boolean isAnd) {
-            _isAnd = isAnd;
-            _ops = new ArrayList<>();
-        }
-
-        public boolean apply(final TodoTxtTask task) {
-            boolean result = true;
-            for (final Query o : _ops) {
-                final boolean opRes = o.apply(task);
-                if (_isAnd) {
-                    result &= opRes;
-                } else {
-                    result |= opRes;
-                }
-            }
-            return result;
-        }
-
-        public Group add(final List<Query> ops) {
-            for (Query op : ops) {
-                if (op != null) {
-                    _ops.add(op);
-                }
-            }
-            return this;
-        }
-
-        public Group add(final Query op) {
-            return add(Collections.singletonList(op));
-        }
-
-        public Group add(final Group other) {
-            return add(other._ops);
-        }
-    }
-
-    public static Query parseProject(final Object obj) {
-        if (obj == null) {
-            return t -> t.getProjects().length == 0;
-        } else if (obj instanceof String) {
-            return t -> Arrays.asList(t.getProjects()).contains(obj);
-        } else {
-            return null;
-        }
-    }
-
-    public static Query parseContext(final Object obj) {
-        if (obj == null) {
-            return t -> t.getContexts().length == 0;
-        } else if (obj instanceof String) {
-            return t -> Arrays.asList(t.getContexts()).contains(obj);
-        } else {
-            return null;
-        }
-    }
-
-    public static Query parsePriority(final Object obj) {
-        if (obj == null) {
-            return t -> t.getPriority() == TodoTxtTask.PRIORITY_NONE;
-        } else if (obj instanceof String && ((String) obj).matches("^[A-Z]$")) {
-            return t -> t.getPriority() == ((String) obj).charAt(0);
-        } else {
-            return null;
-        }
-    }
-
-    public static Query parseDue(final Object obj) {
-        if (obj == null) {
-            return t -> t.getDueStatus() == TodoTxtTask.TodoDueState.NONE;
-        } else if (obj instanceof String) {
-            switch ((String) obj) {
-                case DUE_FUTURE:
-                    return t -> t.getDueStatus() == TodoTxtTask.TodoDueState.FUTURE;
-                case DUE_TODAY:
-                    return t -> t.getDueStatus() == TodoTxtTask.TodoDueState.TODAY;
-                case DUE_OVERDUE:
-                    return t -> t.getDueStatus() == TodoTxtTask.TodoDueState.OVERDUE;
-                default:
-                    return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public static Query parseDone(final Object obj) {
-        if (obj instanceof Boolean) {
-            return t -> t.isDone() == (Boolean) obj;
-        } else {
-            return null;
-        }
-    }
-
-    private static Object getValue(final Object obj, final String key) {
-        if (key != null && obj instanceof JSONObject) {
-            try {
-                return ((JSONObject) obj).get(key);
-            } catch (JSONException e) {
-                return null;
-            }
-        }
-        return null;
-    }
-
-    private static Query parseOp(final String op, final Object obj){
-
-        // checking things and calling appropriate code
-        switch (op) {
-            case OR:
-            case AND:
-                if (!(obj instanceof JSONObject)) return null;
-
-                final Group group = new Group(op.equals(AND));
-                for (Iterator<String> it = ((JSONObject) obj).keys(); it.hasNext(); ) {
-                    final String k = it.next();
-                    group.add(parseOp(k, getValue(obj, k)));
-                }
-                return group;
-
-            case NOT:
-
-                // Must me object with length == 1
-                if (!(obj instanceof JSONObject) || !(((JSONObject) obj).length() == 1)) {
-                    return null;
-                }
-
-                final String k = ((JSONObject) obj).keys().next();
-                final Query sub = parseOp(k, getValue(obj, k));
-                if (sub == null) {
-                    return null;
-                } else {
-                    return t -> !sub.apply(t);
-                }
-
-            case PROJECT:
-                return parseProject(obj);
-            case CONTEXT:
-                return parseContext(obj);
-            case PRIORITY:
-                return parsePriority(obj);
-            case DUE:
-                return parseDue(obj);
-            case DONE:
-                return parseDone(obj);
-        }
-        return null;
-    }
-
-    public static Query parse (final String string) {
+    public static String buildJsonQuery(final String type, final List<Object> keys, boolean isAnd) {
         try {
-            final JSONObject top = new JSONObject(string.trim());
-            if (top.length() != 1) {
-                return null;
-            } else {
+            final JSONObject stage = new JSONObject();
+            stage.put(TYPE, type);
+            stage.put(IS_AND, isAnd);
 
+            final JSONArray jsonKeys = new JSONArray();
+            for (final Object key : keys) {
+                jsonKeys.put(translate(type, key));
             }
 
-            return parseOp()
+            stage.put(KEYS, jsonKeys);
+
+            final JSONArray wrapper = new JSONArray();
+            wrapper.put(stage);
+
+            return wrapper.toString();
         } catch (JSONException e) {
+            e.printStackTrace();
             return null;
         }
+    }
 
+    // Parse query into string
+    public static Callback.b1<TodoTxtTask> parseJsonQuery(final String query) {
+
+        try {
+            // Top level must be an array
+            final JSONArray top = new JSONArray(query.trim());
+            final List<Callback.b1<TodoTxtTask>> stages = new ArrayList<>();
+            for (int i = 0; i < top.length(); i++) {
+                stages.add(parseStage(top.getJSONObject(i)));
+            }
+
+            return t -> {
+                if (t.isDone()) {
+                    return false;
+                }
+
+                for (final Callback.b1<TodoTxtTask> stage : stages) {
+                    if (!stage.callback(t)) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String translate(final String type, final Object value) {
+        if ((type.equals(PROJECT) || type.equals(CONTEXT)) && value instanceof String) {
+            return TextUtils.isEmpty((String) value) ? null : (String) value;
+        } else if (type.equals(DUE) && value instanceof TodoTxtTask.TodoDueState) {
+            final TodoTxtTask.TodoDueState state = (TodoTxtTask.TodoDueState) value;
+            switch (state) {
+                case NONE:
+                    return null;
+                case TODAY:
+                    return DUE_TODAY;
+                case FUTURE:
+                    return DUE_FUTURE;
+                case OVERDUE:
+                    return DUE_OVERDUE;
+            }
+        } else if (type instanceof)
+
+        }
+    }
+
+
+    private static Callback.b1<TodoTxtTask> parseStage(final JSONObject stage) throws JSONException {
+        final String type = stage.getString(TYPE);
+        final boolean isAnd = stage.optBoolean(IS_AND, false);
+
+        final JSONArray jsonKeys = stage.getJSONArray(KEYS);
+        final List<String> keys = new ArrayList<>();
+        for (int i = 0; i < jsonKeys.length(); i++) {
+            keys.add(jsonKeys.getString(i));
+        }
+
+        switch (type) {
+            case PROJECT:
+                return parseListType(keys, isAnd, TodoTxtTask::getProjects);
+            case CONTEXT:
+                return parseListType(keys, isAnd, TodoTxtTask::getContexts);
+            case PRIORITY:
+                return t -> (t.getPriority() == TodoTxtTask.PRIORITY_NONE && keys.contains(null)) || keys.contains(Character.toString(t.getPriority()));
+            case DUE:
+                return parseDue(keys);
+        }
+        return null;
+    }
+
+    private static Callback.b1<TodoTxtTask> parseListType(final List<String> keys, final boolean isAnd, final Callback.r1<List<String>, TodoTxtTask> getter) {
+        return task -> {
+            final List<String> items = getter.callback(task);
+            if (isAnd) {
+                if (keys.size() == 1 && keys.contains(null)) {
+                    return items.isEmpty();
+                } else {
+                    return false; // Cant contain none and other
+                }
+            } else {
+                return !Collections.disjoint(items, keys) || items.isEmpty() && keys.contains(null);
+            }
+        };
+    }
+
+    private static Callback.b1<TodoTxtTask> parseDue(final List<String> keys) {
+        final List<TodoTxtTask.TodoDueState> req = new ArrayList<>();
+        for (final String k : keys) {
+            if (k == null) {
+                req.add(TodoTxtTask.TodoDueState.NONE);
+            } else if (k.equals(DUE_TODAY)) {
+                req.add(TodoTxtTask.TodoDueState.TODAY);
+            } else if (k.equals(DUE_OVERDUE)) {
+                req.add(TodoTxtTask.TodoDueState.OVERDUE);
+            } else if (k.equals(DUE_FUTURE)) {
+                req.add(TodoTxtTask.TodoDueState.FUTURE);
+            }
+        }
+        return t -> req.contains(t.getDueStatus());
     }
 }

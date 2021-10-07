@@ -27,6 +27,7 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
+import net.gsantner.markor.format.todotxt.TodoTxtQuery;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.ui.fsearch.FileSearchDialog;
 import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
@@ -246,7 +247,7 @@ public class SearchOrCustomTextDialogCreator {
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, TodoTxtQuery.PRIORITY, task ->
                 task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()))));
 
         options.add(activity.getString(R.string.due_date));
@@ -255,16 +256,16 @@ public class SearchOrCustomTextDialogCreator {
         statusMap.put(TodoTxtTask.TodoDueState.TODAY, activity.getString(R.string.due_today));
         statusMap.put(TodoTxtTask.TodoDueState.OVERDUE, activity.getString(R.string.due_overdue));
         statusMap.put(TodoTxtTask.TodoDueState.FUTURE, activity.getString(R.string.due_future));
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, task ->
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, TodoTxtQuery.DUE, task ->
                 task.getDueStatus() == TodoTxtTask.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()))));
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, task -> Arrays.asList(task.getProjects())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, TodoTxtQuery.PROJECT, TodoTxtTask::getProjects));
 
         options.add(activity.getString(R.string.context));
         icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, task -> Arrays.asList(task.getContexts())));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, TodoTxtQuery.CONTEXT, TodoTxtTask::getContexts));
 
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
@@ -283,12 +284,12 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSttLineSelectionDialog(final Activity activity, final EditText text, final int title, final boolean showReplace, final Callback.b1<TodoTxtTask> filter) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
+        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
         final List<Integer> lineIndices = new ArrayList<>();
-        for (int i = 0; i < allTasks.length; i++) {
-            if (filter.callback(allTasks[i])) {
-                lines.add(allTasks[i].getLine());
+        for (int i = 0; i < allTasks.size(); i++) {
+            if (filter.callback(allTasks.get(i))) {
+                lines.add(allTasks.get(i).getLine());
                 lineIndices.add(i);
             }
         }
@@ -323,18 +324,27 @@ public class SearchOrCustomTextDialogCreator {
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity        Context activity
-     * @param text            Edit Text with todos
-     * @param title           Dialog title
-     * @param enableSearch    Whether to enable search in the list of keys
-     * @param enableAndToggle Whether to make the nutral button an AND / OR toggle
-     * @param getKeys         Callback which should return a list of string keys for each task. Empty list -> task has no keys
+     * @param activity      Context activity
+     * @param text          Edit Text with todos
+     * @param title         Dialog title
+     * @param enableSearch  Whether to enable search in the list of keys
+     * @param enableAnd     Whether to make the nutral button an AND / OR toggle
+     * @param queryType     Key used with TodoTxtQeuery
+     * @param getKeys       Callback which should return a list of string keys for each task. Empty list -> task has no keys
      */
-    public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAndToggle, final Callback.r1<List<String>, TodoTxtTask> getKeys) {
+    public static void showSttKeySearchDialog(
+            final Activity activity,
+            final EditText text,
+            final int title,
+            final boolean enableSearch,
+            final boolean enableAnd,
+            final String queryType,
+            final Callback.r1<List<String>, TodoTxtTask> getKeys)
+    {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
-        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(text.getText());
+        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
 
         final List<String> keys = new ArrayList<>();
         final int[] noneCount = {0}; // Using an array as we need a final var
@@ -366,7 +376,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = options;
 
         final boolean[] useAnd = {false};
-        if (enableAndToggle) {
+        if (enableAnd) {
             dopt.neutralButtonText = R.string.match_any;
             dopt.neutralButtonCallback = (dialog) -> {
                 Button neutralButton;
@@ -384,31 +394,15 @@ public class SearchOrCustomTextDialogCreator {
         dopt.positionCallback = (keyIndices) -> {
 
             final boolean noneIncluded = (noneCount[0] > 0) && keyIndices.size() > 0 && keyIndices.get(0) == 0;
-            final Set<String> searchSet = new LinkedHashSet<>();
+            final List<String> queryKeys = new ArrayList<>();
             for (int i = noneIncluded ? 1 : 0; i < keyIndices.size(); i++) {
-                searchSet.add(data.get(keyIndices.get(i)));
+                queryKeys.add(data.get(keyIndices.get(i)));
             }
 
-            showSttLineSelectionDialog(activity, text, 0, false, (task) -> {
-                final List<String> taskKeys = getKeys.callback(task);
-                if (task.isDone()) {
-                    return false;
-                } else if (useAnd[0]) {
-                    return (taskKeys.isEmpty() && noneIncluded) || taskKeys.containsAll(searchSet);
-                } else {
-                    return (taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchSet, taskKeys));
-                }
-            });
+            final String queryString = TodoTxtQuery.buildJsonQuery(queryType, queryKeys, useAnd[0]);
+            final Callback.b1<TodoTxtTask> func = TodoTxtQuery.parseJsonQuery(queryString);
 
-            // Disabled
-            // 1. The message format was not very clear
-            // 2. The alert dialog message padding was ugly and I couldn't change it
-            // Build the message showing the current filter:
-            // dopt2.messageText = activity.getString(title) + ": " +
-            //         (noneIncluded ? (noneString + (searchSet.isEmpty() ? "" : " | ")) : "") +
-            //         (noneIncluded & useAnd[0] ? "(" : "") +
-            //         TextUtils.join(useAnd[0] ? " & " : " | ", searchSet) +
-            //         (noneIncluded & useAnd[0] ? ")" : "");
+            showSttLineSelectionDialog(activity, text, 0, false, func);
         };
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
