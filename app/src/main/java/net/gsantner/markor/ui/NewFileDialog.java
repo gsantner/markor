@@ -183,7 +183,7 @@ public class NewFileDialog extends DialogFragment {
                     if (ez(fileNameEdit)) {
                         return;
                     }
-                    final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
+                    final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
                     File f = new File(basedir, usedFoldername);
                     if (shareUtil.isUnderStorageAccessFolder(f)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
@@ -202,7 +202,7 @@ public class NewFileDialog extends DialogFragment {
     }
 
     private boolean ez(EditText et) {
-        return et.getText().toString().isEmpty();
+        return et.getText().toString().trim().isEmpty();
     }
 
     private String getFileNameWithoutExtension(String typedFilename, int selectedTemplatePos) {
@@ -210,7 +210,7 @@ public class NewFileDialog extends DialogFragment {
             // zim wiki files always use underscores instead of spaces
             return typedFilename.trim().replace(' ', '_');
         }
-        return typedFilename;
+        return typedFilename.trim();
     }
 
     private void callback(boolean ok, File file) {
