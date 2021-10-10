@@ -162,6 +162,10 @@ public class LanguagePreferenceCompat extends ListPreference {
             ret = ret.substring(0, ret.indexOf(" ") + 1) + "Cyrillic" + ret.substring(ret.indexOf(" "));
         } else if (localeAndroidCode.equals("fil")) {
             ret = ret.substring(0, ret.indexOf("(") + 1) + "Philippines)";
+        } else if (localeAndroidCode.equals("kmr")) {
+            ret = "Kurdish Kurmanji (کورمانجی)";
+        } else if (localeAndroidCode.equals("ckb")) {
+            ret = "Kurdish Sorani (" + ret.split("\\(")[1];
         }
 
         return ret;

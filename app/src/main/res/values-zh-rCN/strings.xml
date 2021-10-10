@@ -325,7 +325,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">页面</string>
     <string name="experimental_features">实验功能</string>
     <string name="tools">工具</string>
-    <string name="reading">阅读</string>
+    <string name="reading">正在读取</string>
     <string name="read">只读</string>
     <string name="table">表格</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格 (插入表头) ，短按以添加一行。</string>
@@ -345,7 +345,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">标题 3</string>
     <string name="heading_4">4 级标题</string>
     <string name="heading_5">5 级标题</string>
-    <string name="heading_6">标题 6</string>
+    <string name="heading_6">六级标题</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
     <string name="highlighted">高亮</string>
@@ -419,7 +419,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_context">按上下文浏览</string>
     <string name="insert_project">插入项目</string>
     <string name="insert_context">插入情境</string>
-    <string name="browse_todo">浏览土豆</string>
+    <string name="browse_todo">浏览 todo</string>
     <string name="browse_by_priority">按优先级浏览</string>
     <string name="browse_by_due_date">按到期日浏览</string>
     <string name="due_overdue">过期时间</string>

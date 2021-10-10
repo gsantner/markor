@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+A project by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">ସେଟିଂସମୂହ</string>
+    <string name="light">ହାଲୁକା</string>
+    <string name="dark">ଗାଢ଼</string>
+    <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
+    <string name="appearance">ରୂପ</string>
+    <string name="rename">ପୁନଃନାମ</string>
+    <string name="confirm_delete">ବିଲୋପ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="browse_filesystem">ଫାଇଲ୍ ସିଷ୍ଟମ୍ ବ୍ରାଉଜ୍ କରନ୍ତୁ</string>
+    <string name="title">ଆଖ୍ୟା</string>
+    <string name="enter_name_of_folder">ଆପଣଙ୍କ ଫୋଲ୍ଡରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ</string>
+    <string name="create_folder">ଫୋଲ୍ଡର୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="create_new_document">ନୂତନ ଡକ୍ୟୁମେଣ୍ଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="move">ଘୁଞ୍ଚାନ୍ତୁ</string>
+    <string name="copy">କପି କରନ୍ତୁ</string>
+    <string name="info">ସୂଚନା</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">ଫାଇଲ୍/ଫୋଲ୍ଡର୍ ପୂର୍ବରୁ ବିଦ୍ୟମାନ ଅଛି! ଦୟାକରି ଏକ ଭିନ୍ନ ନାମ ବ୍ୟବହାର କରନ୍ତୁ</string>
+    <string name="import_from_device">ଡିଭାଇସରୁ ଆମଦାନୀ କରନ୍ତୁ</string>
+    <string name="import_">ଆମଦାନୀ କରନ୍ତୁ</string>
+    <string name="select_folder">ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
+    <string name="edit">ସମ୍ପାଦନା</string>
+    <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ</string>
+    <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
+    <string name="display_converted_markup">ରୂପାନ୍ତରିତ ମାର୍କଅପ୍ ପ୍ରଦର୍ଶନ କରନ୍ତୁ</string>
+    <string name="editor">ସମ୍ପାଦକ</string>
+    <string name="folders">ଫୋଲ୍ଡରଗୁଡ଼ିକ</string>
+    <string name="files">ଫାଇଲଗୁଡ଼ିକ</string>
+    <string name="document">ଡକ୍ୟୁମେଣ୍ଟ୍</string>
+    <string name="documents">ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
+    <string name="document_editor_font">ଡକ୍ୟୁମେଣ୍ଟ୍ ସମ୍ପାଦକ ଫଣ୍ଟ</string>
+    <string name="theme">ଥିମ୍</string>
+    <string name="about">ବିଷୟରେ</string>
+    <string name="file">ଫାଇଲ୍</string>
+    <string name="image">ପ୍ରତିଛବି</string>
+    <string name="font_size">ଫଣ୍ଟ ଆକାର</string>
+    <string name="select">ଚୟନ କରନ୍ତୁ</string>
+    <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
+    <string name="name">ନାମ</string>
+    <string name="url_or_path">URL / ପଥ</string>
+    <string name="insert_link">ଲିଙ୍କ୍ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
+    <string name="insert_image">ପ୍ରତିଛବି ସନ୍ନିବେଶ କରନ୍ତୁ</string>
+    <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
+    <string name="more_info">ଅଧିକ ସୂଚନା</string>
+    <string name="language">ଭାଷା</string>
+    <string name="size">ଆକାର</string>
+    <string name="contribute">ଯୋଗଦାନ କରନ୍ତୁ</string>
+    <string name="donate">ଦାନ କରନ୍ତୁ</string>
+    <string name="press_back_again_to_exit">ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ ପୁଣି \'ବ୍ୟାକ୍\' ଦବାନ୍ତୁ</string>
+    <string name="exit">ପ୍ରସ୍ଥାନ</string>
+    <string name="undo">ପୂର୍ବବତ୍</string>
+    <string name="redo">ପୁନଃକରଣ</string>
+    <string name="more">ଅଧିକ</string>
+    <string name="notebook">ନୋଟବୁକ୍</string>
+    <string name="help">ସହାୟତା</string>
+    <string name="task">ଟାସ୍କ</string>
+    <string name="context">ପ୍ରସଙ୍ଗ</string>
+    <string name="list">ତାଲିକା</string>
+    <string name="priority">ପ୍ରାଥମିକତା</string>
+    <string name="history">ଇତିବୃତ୍ତି</string>
+    <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
+    <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="create_shortcut">ସର୍ଟକଟ୍‌ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="tried_to_create_shortcut_for_this_notice">ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚେଷ୍ଟା କରିଛି। ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ କିଛି ଉନ୍ମୋଚକ ଏହାକୁ ସମର୍ଥନ କରିନପାରେ।</string>
+    <string name="insert_replace_date">ତାରିଖ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
+    <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
+    <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
+    <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
+    <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
+    <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
+    <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
+    <string name="format">ଫର୍ମାଟ୍</string>
+    <string name="general">ସାଧାରଣ</string>
+    <string name="resources">ସମ୍ବଳ</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
+    <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
+    <string name="default_">ଡିଫଲ୍ଟ</string>
+    <string name="left">ବାମ</string>
+    <string name="right">ଡାହାଣ</string>
+    <string name="top">ଶୀର୍ଷ</string>
+    <string name="bottom">ନିମ୍ନ</string>
+    <string name="center">କେନ୍ଦ୍ର</string>
+    <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
+    <string name="rate_this_app">ଏହି ଆପକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ</string>
+    <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
+    <string name="more_info_and_help">ଅଧିକ ସୂଚନା ଏବଂ ସହାୟତା</string>
+    <string name="report_bugs">ବଗ୍‌ ରିପୋର୍ଟ୍‌ କରନ୍ତୁ</string>
+    <string name="location">ଅବସ୍ଥାନ</string>
+    <string name="details">ବିବରଣୀ</string>
+    <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
+    <string name="description">ବର୍ଣ୍ଣନା</string>
+    <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
+    <string name="math">ଗଣିତ</string>
+    <string name="table_of_contents">ସୂଚୀପତ୍ର</string>
+    <string name="miscellaneous">ବିବିଧ</string>
+    <string name="color">ରଙ୍ଗ</string>
+    <string name="type">ପ୍ରକାର</string>
+    <string name="folder">ଫୋଲ୍ଡର୍</string>
+    <string name="font">ଫଣ୍ଟ</string>
+    <string name="close">ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="cancel">ବାତିଲ୍‌ କରନ୍ତୁ</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
+    <string name="black">କଳା</string>
+    <string name="white">ଧଳା</string>
+    <string name="edit_mode">ସମ୍ପାଦନ ମୋଡ୍‍</string>
+    <string name="please_wait">ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
+    <string name="reload">ପୁନଃଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="template">ଟେମ୍ପଲେଟ୍</string>
+    <string name="print_pdf">ମୁଦ୍ରଣ / PDF</string>
+    <string name="record_audio">ଅଡ଼ିଓ ରେକର୍ଡ କରନ୍ତୁ</string>
+    <string name="attach">ସଂଲଗ୍ନ କରନ୍ତୁ</string>
+    <string name="copy_file">ଫାଇଲ୍ କପି କରନ୍ତୁ</string>
+    <string name="page">ପୃଷ୍ଠା</string>
+    <string name="experimental_features">ପରୀକ୍ଷାମୂଳକ ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକ</string>
+    <string name="date_and_time">ତାରିଖ ଏବଂ ସମୟ</string>
+    <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
+    <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
+    <string name="restore_settings">ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ</string>
+    <string name="export_settings_to_json_file">json ଫାଇଲକୁ ସେଟିଂସ୍ ରପ୍ତାନି କରନ୍ତୁ</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ବ୍ୟାକଅପ୍ json ଫାଇଲରୁ ସେଟିଂସ୍ ଆମଦାନୀ କରନ୍ତୁ। ସଫଳ ହେଲେ, ଆପ୍ ପୁନଃଆରମ୍ଭ ହୁଏ।</string>
+    <string name="failed_to_restore_settings_from_backup">ବ୍ୟାକଅପ୍ ରୁ ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରିବାରେ ବିଫଳ ହୋଇଛି</string>
+    <string name="regex_search">RegEx ସନ୍ଧାନ</string>
+</resources>
