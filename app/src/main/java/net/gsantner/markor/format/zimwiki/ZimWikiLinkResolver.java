@@ -17,9 +17,9 @@ public class ZimWikiLinkResolver {
     private File _notebookRootDir;
     private File _currentPage;
 
-    private String zimPath;
-    private String resolvedLink;
-    private String linkDescription;
+    private String _zimPath;
+    private String _resolvedLink;
+    private String _linkDescription;
 
     public enum Patterns {
         LINK(Pattern.compile("\\[\\[(?!\\[)((.+?)(\\|(.+?))?\\]*)]\\]")),
@@ -49,9 +49,9 @@ public class ZimWikiLinkResolver {
     private ZimWikiLinkResolver resolve(String zimLink) {
         Matcher m = Patterns.LINK.pattern.matcher(zimLink);
         if (m.matches()) {
-            zimPath = m.group(2);
-            linkDescription = m.group(4);
-            resolvedLink = resolveZimPath(zimPath);
+            _zimPath = m.group(2);
+            _linkDescription = m.group(4);
+            _resolvedLink = resolveZimPath(_zimPath);
         }
         return this;
     }
@@ -106,10 +106,10 @@ public class ZimWikiLinkResolver {
     }
 
     public String getResolvedLink() {
-        return resolvedLink;
+        return _resolvedLink;
     }
 
     public String getLinkDescription() {
-        return linkDescription;
+        return _linkDescription;
     }
 }
