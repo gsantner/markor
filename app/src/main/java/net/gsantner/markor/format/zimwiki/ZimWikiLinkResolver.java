@@ -18,15 +18,18 @@ public class ZimWikiLinkResolver {
     private File _currentPage;
 
     private String _zimPath;
+
     private String _resolvedLink;
     private String _linkDescription;
+    private boolean _isWebLink;
 
     public enum Patterns {
         LINK(Pattern.compile("\\[\\[(?!\\[)((.+?)(\\|(.+?))?\\]*)]\\]")),
 
         SUBPAGE_PATH(Pattern.compile("\\+(.*)")),
         TOPLEVEL_PATH(Pattern.compile(":(.*)")),
-        RELATIVE_PATH(Pattern.compile("[^/]+")); // do not match weblinks
+        RELATIVE_PATH(Pattern.compile("[^/]+")), // do not match weblinks
+        WEBLINK(Pattern.compile("^[a-z]+://.+"));
         // TODO: external file links
         // TODO: interwiki links
 
@@ -57,6 +60,14 @@ public class ZimWikiLinkResolver {
     }
 
     private String resolveZimPath(String zimPath) {
+        Matcher webLinkMatcher = Patterns.WEBLINK.pattern.matcher(zimPath);
+        if (webLinkMatcher.matches()) {
+            _isWebLink = true;
+            return zimPath;
+        } else {
+            _isWebLink = false;
+        }
+
         Matcher subpageMatcher = Patterns.SUBPAGE_PATH.pattern.matcher(zimPath);
         if (subpageMatcher.matches()) {
             String folderForSubpagesOfCurrentPage = _currentPage.getPath().replace(".txt", "");
@@ -105,11 +116,19 @@ public class ZimWikiLinkResolver {
         return result;
     }
 
+    public String getZimPath() {
+        return _zimPath;
+    }
+
     public String getResolvedLink() {
         return _resolvedLink;
     }
 
     public String getLinkDescription() {
         return _linkDescription;
+    }
+
+    public boolean isWebLink() {
+        return _isWebLink;
     }
 }

@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ZimWikiLinkResolverTests {
@@ -129,6 +131,7 @@ public class ZimWikiLinkResolverTests {
         ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[http://www.example.com|Example website]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile());
         assertEquals("http://www.example.com", resolver.getResolvedLink());
         assertEquals("Example website", resolver.getLinkDescription());
+        assertTrue(resolver.isWebLink());
     }
 
     private void assertResolvedLinkAndDescription(String expectedLinkRelativeToRoot, String expectedDescription, String zimLink, String currentPageRelativeToRoot) {
@@ -136,5 +139,6 @@ public class ZimWikiLinkResolverTests {
         String expectedLink = expectedLinkRelativeToRoot!=null ? notebookRoot.resolve(expectedLinkRelativeToRoot).toString() : null;
         assertEquals(expectedLink, resolver.getResolvedLink());
         assertEquals(expectedDescription, resolver.getLinkDescription());
+        assertFalse(resolver.isWebLink());
     }
 }
