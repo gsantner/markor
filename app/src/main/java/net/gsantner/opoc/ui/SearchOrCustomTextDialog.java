@@ -47,6 +47,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import net.gsantner.markor.R;
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -106,8 +107,6 @@ public class SearchOrCustomTextDialog {
         public int titleText = 0;
         @StringRes
         public int searchHintText = android.R.string.search_go;
-        @DrawableRes
-        public int clearInputIcon = android.R.drawable.ic_input_delete;
     }
 
     private static class Adapter extends ArrayAdapter<Integer> {
@@ -253,7 +252,7 @@ public class SearchOrCustomTextDialog {
 
         // 'Button to clear the search box'
         final ImageView clearButton = new ImageView(activity);
-        clearButton.setImageResource(dopt.clearInputIcon);
+        clearButton.setImageResource(R.drawable.ic_baseline_clear_24);
         TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);

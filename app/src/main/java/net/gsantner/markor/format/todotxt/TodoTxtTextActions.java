@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.telecom.Call;
 import android.text.Editable;
 import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
@@ -30,6 +31,7 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -38,7 +40,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 //TODO
@@ -53,7 +59,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            SearchOrCustomTextDialogCreator.showSttLineSelectionDialog(_activity, _hlEditor, R.string.search_documents, true, task -> true);
+            SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
             return true;
         } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
@@ -247,11 +253,11 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtQuery.CONTEXT, TodoTxtTask::getContexts);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtView.CONTEXT);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtQuery.PROJECT, TodoTxtTask::getProjects);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtView.PROJECT);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
@@ -471,9 +477,5 @@ public class TodoTxtTextActions extends TextActions {
 
             return dialog;
         }
-    }
-
-    private void doBasicHighlights(final Spannable spannable) {
-        TodoTxtHighlighter.basicTodoTxtHighlights(spannable, true, new TodoTxtHighlighterColors(), _appSettings.isDarkThemeEnabled(), null);
     }
 }

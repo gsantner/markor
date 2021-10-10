@@ -76,7 +76,7 @@ public class TodoTxtTask {
 
         final List<TodoTxtTask> tasks = new ArrayList<>();
         for (final String line : lines) {
-             new TodoTxtTask(line);
+             tasks.add(new TodoTxtTask(line));
         }
         return tasks;
     }
@@ -93,8 +93,7 @@ public class TodoTxtTask {
     public static List<String> getProjects(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
-            final List<String> keys = task.getProjects();
-            set.addAll(keys.isEmpty() ? Collections.singletonList(null) : keys);
+            set.addAll(task.getProjects());
         }
         return new ArrayList<>(set);
     }
@@ -102,8 +101,7 @@ public class TodoTxtTask {
     public static List<String> getContexts(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
         for (final TodoTxtTask task : tasks) {
-            final List<String> keys = task.getContexts();
-            set.addAll(keys.isEmpty() ? Collections.singletonList(null) : keys);
+            set.addAll(task.getContexts());
         }
         return new ArrayList<>(set);
     }
