@@ -34,7 +34,6 @@ import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
-import net.gsantner.opoc.ui.SearchOrCustomTextDialog.DialogOptions;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -57,7 +56,7 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
@@ -85,7 +84,7 @@ public class SearchOrCustomTextDialogCreator {
         addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
         addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
 
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
         dopt.data = availableData;
@@ -98,7 +97,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, Callback.a2<Integer, Boolean> callback) {
-        final DialogOptions dopt = new DialogOptions();
+        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         final AppSettings as = new AppSettings(activity.getApplicationContext());
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
         final int lastUsedTableSize = as.getInt(PREF_LAST_USED_TABLE_SIZE, 3);
@@ -136,7 +135,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttArchiveDialog(Activity activity, Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         List<String> highlightedData = new ArrayList<>();
@@ -162,7 +161,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
@@ -222,7 +221,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -237,7 +236,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
         final List<String> options = new ArrayList<>();
@@ -263,7 +262,7 @@ public class SearchOrCustomTextDialogCreator {
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
         callbacks.add(() -> {
-            final DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
+            final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
             dopt2.titleText = R.string.completed;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
@@ -274,7 +273,7 @@ public class SearchOrCustomTextDialogCreator {
             options.add(gp.title);
             icons.add(R.drawable.ic_save_black_24dp);
             callbacks.add(() -> {
-                final DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtView.taskSelector(gp.keys, TodoTxtView.keyGetter(activity, gp.queryType), gp.isAnd));
+                final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtView.taskSelector(gp.keys, TodoTxtView.keyGetter(activity, gp.queryType), gp.isAnd));
                 dopt2.titleText = R.string.search;
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
             });
@@ -303,7 +302,7 @@ public class SearchOrCustomTextDialogCreator {
      */
     public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAnd, final String queryType) {
 
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
         final Callback.r1<List<String>, TodoTxtTask> getKeys = TodoTxtView.keyGetter(activity, queryType);
@@ -364,13 +363,13 @@ public class SearchOrCustomTextDialogCreator {
             }
             selKeys.addAll(noneIncluded ? Collections.singletonList(null) : Collections.emptyList());
 
-            final DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtView.taskSelector(selKeys, getKeys, useAnd[0]));
+            final SearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtView.taskSelector(selKeys, getKeys, useAnd[0]));
 
             // Callback to save view
             doptSel.neutralButtonText = R.string.save;
             doptSel.neutralButtonCallback = (dialog) -> {
                 // Get title
-                final DialogOptions doptSave = new DialogOptions();
+                final SearchOrCustomTextDialog.DialogOptions doptSave = new SearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, doptSave);
                 doptSave.titleText = R.string.name;
                 doptSave.callback = saveTitle -> TodoTxtView.saveView(activity, saveTitle, queryType, selKeys, useAnd[0]);
@@ -383,8 +382,8 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
-        DialogOptions dopt = new DialogOptions();
+    public static SearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
@@ -412,7 +411,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
-        final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
+        final SearchOrCustomTextDialog.DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.neutralButtonCallback = (dialog) -> {
@@ -428,7 +427,7 @@ public class SearchOrCustomTextDialogCreator {
      * Allow to choose between Hexcolor / foreground / background color, pass back stringid
      */
     public static void showColorSelectionModeDialog(Activity activity, Callback.a1<Integer> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
 
         final String hexcode = activity.getString(R.string.hexcode);
         final String fg = activity.getString(R.string.foreground);
@@ -453,7 +452,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -474,7 +473,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {
-        DialogOptions dopt2 = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         final Editable edit = text.getText();
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
@@ -491,7 +490,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
-        DialogOptions dopt2 = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
         dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
@@ -505,7 +504,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showIndentSizeDialog(final Activity activity, final int indent, final Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = Arrays.asList("1", "2", "4", "8");
@@ -518,7 +517,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showFontSizeDialog(final Activity activity, final int currentSize, final Callback.a1<Integer> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
         final int minFontSize = 1;
@@ -537,7 +536,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
 
@@ -571,7 +570,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a1<Integer> callback) {
-        DialogOptions dopt = new DialogOptions();
+        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.positionCallback = (result) -> callback.callback(result.get(0));
         List<String> data = new ArrayList<>();
@@ -596,7 +595,7 @@ public class SearchOrCustomTextDialogCreator {
     public static void showSetPasswordDialog(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final AppSettings as = new AppSettings(activity.getApplicationContext());
-            final DialogOptions dopt = new DialogOptions();
+            final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
@@ -613,7 +612,7 @@ public class SearchOrCustomTextDialogCreator {
         }
     }
 
-    public static void baseConf(Activity activity, DialogOptions dopt) {
+    public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
         AppSettings as = new AppSettings(activity);
         dopt.isDarkDialog = as.isDarkThemeEnabled();
         dopt.textColor = ContextCompat.getColor(activity, dopt.isDarkDialog ? R.color.dark__primary_text : R.color.light__primary_text);

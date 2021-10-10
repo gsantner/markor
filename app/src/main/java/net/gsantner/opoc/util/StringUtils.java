@@ -212,16 +212,6 @@ public final class StringUtils {
         return count;
     }
 
-    public static List<Integer> searchChar(final CharSequence s, final char c) {
-        final List<Integer> locs = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == c) {
-                locs.add(i);
-            }
-        }
-        return locs;
-    }
-
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
     }
