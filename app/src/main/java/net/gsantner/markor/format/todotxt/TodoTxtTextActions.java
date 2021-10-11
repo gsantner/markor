@@ -17,9 +17,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.telecom.Call;
 import android.text.Editable;
-import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
@@ -31,7 +29,6 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -40,11 +37,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 //TODO
@@ -253,11 +246,11 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtView.CONTEXT);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtView.PROJECT);
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {

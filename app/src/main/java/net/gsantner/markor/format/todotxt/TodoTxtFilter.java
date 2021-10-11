@@ -21,11 +21,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class TodoTxtView {
+public class TodoTxtFilter {
 
     public static final String SAVED_TODO_VIEWS = "todo_txt__saved_todo_views";
     public static final int MAX_RECENT_VIEWS = 5;
 
+    // Used as enum for type
     public static final String PROJECT = "todo_txt__view_type_project";
     public static final String CONTEXT = "todo_txt__view_type_context";
     public static final String PRIORITY = "todo_txt__view_type_priority";
@@ -36,6 +37,7 @@ public class TodoTxtView {
     private static final String KEYS = "keys";
     private static final String TYPE = "type";
 
+    // For any type, return a function which maps a task -> a list of string keys
     public static Callback.r1<List<String>, TodoTxtTask> keyGetter(final Context context, final String type) {
         switch (type) {
             case PROJECT:
@@ -55,6 +57,7 @@ public class TodoTxtView {
         return null;
     }
 
+    // For a list of keys and a task -> key mapping, return a function which selects tasks
     public static Callback.b1<TodoTxtTask> taskSelector(final Collection<String> keys, final Callback.r1<List<String>, TodoTxtTask> keyGetter, final boolean isAnd) {
 
         final boolean noneIncluded = keys.remove(null);
@@ -77,9 +80,31 @@ public class TodoTxtView {
         public String queryType;
         public List<String> keys;
         public boolean isAnd;
-    }
+    };
 
-    public static void saveView(final Context context, final String saveTitle, final String queryType, final Collection<String> selKeys, final boolean isAnd) {
+    /**
+     * Save a 'filter view'
+     *
+     * Filters are saved as a json string in SAVED_TODO_VIEWS as array of objects:
+     * [
+     *     {
+     *         TITLE: (string) tile string,
+     *         TYPE: (string) query type,
+     *         IS_AND: (boolean) if query is AND or ANY
+     *         KEYS: [ key1, key2, key3 ... ]
+     *     },
+     *     {
+     *         ...
+     *     }
+     * ]
+     *
+     * @param context    context
+     * @param saveTitle  title
+     * @param queryType  query type (one of PRIORITY, CONTEXT, PRIORITY or DUE)
+     * @param selKeys    List of keys
+     * @param isAnd      Whether task should have ALL the keys or ANY
+     */
+    public static void saveFilter(final Context context, final String saveTitle, final String queryType, final Collection<String> selKeys, final boolean isAnd) {
         try {
             // Create the view dict
             final JSONObject obj = new JSONObject();
@@ -113,7 +138,11 @@ public class TodoTxtView {
         Toast.makeText(context, String.format("✔, %s️", saveTitle), Toast.LENGTH_SHORT).show();
     }
 
-    public static List<Group> loadViews(final Context context) {
+    public static void saveFilter(final Context context, final Group gp) {
+        saveFilter(context, gp.title, gp.queryType, gp.keys, gp.isAnd);
+    }
+
+    public static List<Group> loadSavedFilters(final Context context) {
         final List<Group> loadedViews = new ArrayList<>();
         try {
             final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
