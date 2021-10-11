@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -271,11 +272,12 @@ public class SearchOrCustomTextDialogCreator {
         final List<TodoTxtView.Group> savedViews = TodoTxtView.loadViews(activity);
         for (final TodoTxtView.Group gp : savedViews) {
             options.add(gp.title);
-            icons.add(R.drawable.ic_save_black_24dp);
+            // icons.add(R.drawable.ic_save_black_24dp); No icon for the saved searches
             callbacks.add(() -> {
-                final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtView.taskSelector(gp.keys, TodoTxtView.keyGetter(activity, gp.queryType), gp.isAnd));
-                dopt2.titleText = R.string.search;
-                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+                final SearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
+                        activity, text, TodoTxtView.taskSelector(gp.keys, TodoTxtView.keyGetter(activity, gp.queryType), gp.isAnd));
+                doptView.titleText = R.string.search;
+                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
             });
         }
 
@@ -372,7 +374,11 @@ public class SearchOrCustomTextDialogCreator {
                 final SearchOrCustomTextDialog.DialogOptions doptSave = new SearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, doptSave);
                 doptSave.titleText = R.string.name;
-                doptSave.callback = saveTitle -> TodoTxtView.saveView(activity, saveTitle, queryType, selKeys, useAnd[0]);
+                doptSave.callback = saveTitle -> {
+                    if (!TextUtils.isEmpty(saveTitle)) {
+                        TodoTxtView.saveView(activity, saveTitle, queryType, selKeys, useAnd[0]);
+                    }
+                };
                 // Note that we do not dismiss the existing view
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSave);
             };
@@ -569,6 +575,7 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    @SuppressLint("StringFormatMatches")
     public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a1<Integer> callback) {
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);

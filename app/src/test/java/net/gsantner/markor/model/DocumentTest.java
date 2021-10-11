@@ -9,11 +9,11 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import net.gsantner.markor.util.DocumentIO;
 
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class DocumentTest {
 
