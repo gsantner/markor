@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">突出显示包含两个或多个空格的行末尾的空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
-    <string name="disable_code_block_highlight">禁用代码块高亮</string>
+    <string name="disable_code_block_highlight">停用代码块高亮</string>
     <string name="auto_renumber_ordered_list">自动重新编号的有序列表</string>
     <string name="auto_renumber_ordered_list_slowdown">此选项可能会影响应用性能。</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
@@ -223,7 +223,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
     <string name="descending">降序排序</string>
     <string name="ascending">升序排序</string>
-    <string name="disable_spelling_underline">禁用语法检查</string>
+    <string name="disable_spelling_underline">停用语法检查</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">保留输入法建议的同时，移除自动纠错的下划线</string>
     <string name="location">位置</string>
     <string name="text_lines">文本行数</string>
