@@ -374,6 +374,7 @@ public class SearchOrCustomTextDialogCreator {
                 final SearchOrCustomTextDialog.DialogOptions doptSave = new SearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, doptSave);
                 doptSave.titleText = R.string.name;
+                doptSave.searchHintText = R.string.empty_string;
                 doptSave.callback = saveTitle -> {
                     if (!TextUtils.isEmpty(saveTitle)) {
                         TodoTxtFilter.saveFilter(activity, saveTitle, queryType, selKeys, useAnd[0]);

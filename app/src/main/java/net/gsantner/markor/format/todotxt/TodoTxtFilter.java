@@ -131,11 +131,12 @@ public class TodoTxtFilter {
 
             // Save
             pref.edit().putString(SAVED_TODO_VIEWS, newArray.toString()).apply();
+
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(context, "𐄂", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(context, String.format("✔, %s️", saveTitle), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, String.format("✔ %s️", saveTitle), Toast.LENGTH_SHORT).show();
     }
 
     public static void saveFilter(final Context context, final Group gp) {
@@ -143,8 +144,8 @@ public class TodoTxtFilter {
     }
 
     public static List<Group> loadSavedFilters(final Context context) {
-        final List<Group> loadedViews = new ArrayList<>();
         try {
+            final List<Group> loadedViews = new ArrayList<>();
             final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = pref.getString(SAVED_TODO_VIEWS, "[]");
             final JSONArray array = new JSONArray(jsonString);
@@ -156,7 +157,7 @@ public class TodoTxtFilter {
                 gp.queryType = obj.getString(TYPE);
                 gp.keys = new ArrayList<>();
                 final JSONArray keysArray = obj.getJSONArray(KEYS);
-                for (int j = 0; i < keysArray.length(); i++) {
+                for (int j = 0; j < keysArray.length(); j++) {
                     gp.keys.add(keysArray.getString(j));
                 }
                 loadedViews.add(gp);
@@ -165,6 +166,6 @@ public class TodoTxtFilter {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return loadedViews;
+        return Collections.emptyList();
     }
 }
