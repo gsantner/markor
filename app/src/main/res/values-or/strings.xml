@@ -116,9 +116,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="type">ପ୍ରକାର</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="font">ଫଣ୍ଟ</string>
+    <string name="pick_date">ତାରିଖ ବାଛନ୍ତୁ</string>
+    <string name="pick_time">ସମୟ ବାଛନ୍ତୁ</string>
+    <string name="my_note">ମୋ_ନୋଟ୍</string>
     <string name="close">ବନ୍ଦ କରନ୍ତୁ</string>
     <string name="cancel">ବାତିଲ୍‌ କରନ୍ତୁ</string>
     <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
+    <string name="internal_storage">ଅନ୍ତର୍ନିହିତ ଷ୍ଟୋରେଜ୍‌</string>
     <string name="black">କଳା</string>
     <string name="white">ଧଳା</string>
     <string name="edit_mode">ସମ୍ପାଦନ ମୋଡ୍‍</string>
