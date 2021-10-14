@@ -152,7 +152,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="failed_to_restore_settings_from_backup">ବ୍ୟାକଅପ୍ ରୁ ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରିବାରେ ବିଫଳ ହୋଇଛି</string>
     <string name="regex_search">RegEx ସନ୍ଧାନ</string>
     <string name="keep_both">ଉଭୟ ରଖନ୍ତୁ</string>
-    <string name="skip">ବାଦ ଦିଅ</string>
+    <string name="skip">ବାଦ୍ ଦିଅ</string>
     <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
-    <string name="skip_all">ବାଦ ଦିଅ (ସମସ୍ତ)</string>
+    <string name="skip_all">ବାଦ୍ ଦିଅ (ସମସ୍ତ)</string>
 </resources>
