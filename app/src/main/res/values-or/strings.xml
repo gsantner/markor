@@ -136,6 +136,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">ପୃଷ୍ଠା</string>
     <string name="experimental_features">ପରୀକ୍ଷାମୂଳକ ବୈଶିଷ୍ଟ୍ୟଗୁଡ଼ିକ</string>
     <string name="date_and_time">ତାରିଖ ଏବଂ ସମୟ</string>
+    <string name="heading_1">ଶିରୋନାମା ୧</string>
+    <string name="heading_2">ଶିରୋନାମା ୨</string>
+    <string name="heading_3">ଶିରୋନାମା ୩</string>
+    <string name="heading_4">ଶିରୋନାମା ୪</string>
+    <string name="heading_5">ଶିରୋନାମା ୫</string>
+    <string name="heading_6">ଶିରୋନାମା ୬</string>
+    <string name="choose_format">ଫର୍ମାଟ୍ ବାଛନ୍ତୁ</string>
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
