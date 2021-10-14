@@ -44,6 +44,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file">ଫାଇଲ୍</string>
     <string name="image">ପ୍ରତିଛବି</string>
     <string name="font_size">ଫଣ୍ଟ ଆକାର</string>
+    <string name="last_modified_witharg">ଶେଷ ସଂଶୋଧିତ: %s</string>
+    <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
@@ -57,7 +59,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">ଭାଷା</string>
     <string name="open_with">ଏହା ସହ ଖୋଲନ୍ତୁ</string>
     <string name="sort">ଏହା ଅନୁଯାୟୀ ସଜାନ୍ତୁ</string>
+    <string name="date">ତାରିଖ</string>
+    <string name="deleteme____1">ନାମ</string>
     <string name="size">ଆକାର</string>
+    <string name="reverse_order">ଓଲଟା କ୍ରମ</string>
     <string name="contribute">ଯୋଗଦାନ କରନ୍ତୁ</string>
     <string name="donate">ଦାନ କରନ୍ତୁ</string>
     <string name="press_back_again_to_exit">ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ ପୁଣି \'ବ୍ୟାକ୍\' ଦବାନ୍ତୁ</string>
