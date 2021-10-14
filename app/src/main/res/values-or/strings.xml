@@ -151,4 +151,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ବ୍ୟାକଅପ୍ json ଫାଇଲରୁ ସେଟିଂସ୍ ଆମଦାନୀ କରନ୍ତୁ। ସଫଳ ହେଲେ, ଆପ୍ ପୁନଃଆରମ୍ଭ ହୁଏ।</string>
     <string name="failed_to_restore_settings_from_backup">ବ୍ୟାକଅପ୍ ରୁ ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରିବାରେ ବିଫଳ ହୋଇଛି</string>
     <string name="regex_search">RegEx ସନ୍ଧାନ</string>
+    <string name="keep_both">ଉଭୟ ରଖନ୍ତୁ</string>
+    <string name="skip">ବାଦ ଦିଅ</string>
+    <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
+    <string name="skip_all">ବାଦ ଦିଅ (ସମସ୍ତ)</string>
 </resources>
