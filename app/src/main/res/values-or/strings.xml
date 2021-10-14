@@ -51,9 +51,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL / ପଥ</string>
     <string name="insert_link">ଲିଙ୍କ୍ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="insert_image">ପ୍ରତିଛବି ସନ୍ନିବେଶ କରନ୍ତୁ</string>
+    <string name="contributors">ଯୋଗଦାନକାରୀ</string>
     <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
     <string name="language">ଭାଷା</string>
+    <string name="open_with">ଏହା ସହ ଖୋଲନ୍ତୁ</string>
+    <string name="sort">ଏହା ଅନୁଯାୟୀ ସଜାନ୍ତୁ</string>
     <string name="size">ଆକାର</string>
     <string name="contribute">ଯୋଗଦାନ କରନ୍ତୁ</string>
     <string name="donate">ଦାନ କରନ୍ତୁ</string>
