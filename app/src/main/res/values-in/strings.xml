@@ -162,11 +162,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Tandai spasi di akhir baris berisi dua atau lebih spasi</string>
     <string name="use_monospace_for_code">Gunakan huruf monospace untuk kode</string>
     <string name="disable_code_block_highlight">Matikan penandaan untuk blok kode</string>
+    <string name="auto_renumber_ordered_list">Menghitung ulang otomatis daftar</string>
+    <string name="auto_renumber_ordered_list_slowdown">Opsi ini dapat mempengaruhi kinerja aplikasi.</string>
     <string name="use_different_fonttype_slow_down">Gunakan tipe huruf berbeda. Mengubah ini secara dinamis mempengaruhi performa aplikasi.</string>
     <string name="general">Umum</string>
     <string name="resources">Sumber Daya</string>
     <string name="space_between_lines_in_percent">Jarak antar baris dalam persen</string>
     <string name="line_spacing">Jarak Baris</string>
+    <string name="archive_does_move_done_tasks">Memindahkan tugas yang sudah selesai ke file yang ditentukan dalam folder yang sama</string>
     <string name="unordered_list_char_dash">Garis hubung (-)</string>
     <string name="unordered_list_char_asterisk">Bintang (*)</string>
     <string name="unordered_list_char_plus">Tambah (+)</string>
