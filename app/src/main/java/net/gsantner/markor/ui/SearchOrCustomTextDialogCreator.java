@@ -270,13 +270,31 @@ public class SearchOrCustomTextDialogCreator {
 
         // Add saved views
         final List<TodoTxtFilter.Group> savedViews = TodoTxtFilter.loadSavedFilters(activity);
-        for (final TodoTxtFilter.Group gp : savedViews) {
+        for (int i = 0; i < savedViews.size(); i++) {
+            final int finalI = i; // Final so we can use it in callback
+            final TodoTxtFilter.Group gp = savedViews.get(i);
+            // No icon for the saved searches
             options.add(gp.title);
-            // icons.add(R.drawable.ic_save_black_24dp); No icon for the saved searches
             callbacks.add(() -> {
                 final SearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
                         activity, text, TodoTxtFilter.taskSelector(gp.keys, TodoTxtFilter.keyGetter(activity, gp.queryType), gp.isAnd));
                 doptView.titleText = R.string.search;
+                doptView.messageText = gp.title;
+
+                // Delete view
+                doptView.neutralButtonText = R.string.delete;
+                doptView.neutralButtonCallback = viewDialog -> {
+                    final SearchOrCustomTextDialog.DialogOptions confirmDopt = new SearchOrCustomTextDialog.DialogOptions();
+                    confirmDopt.titleText = R.string.confirm_delete;
+                    confirmDopt.messageText = gp.title;
+                    confirmDopt.isSearchEnabled = false;
+                    confirmDopt.callback = (s) -> {
+                        viewDialog.dismiss();
+                        TodoTxtFilter.deleteFilterIndex(activity, finalI);
+                    };
+                    SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, confirmDopt);
+                };
+
                 SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
             });
         }

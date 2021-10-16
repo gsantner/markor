@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -31,6 +32,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -41,10 +43,13 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Checkable;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
@@ -132,9 +137,13 @@ public class SearchOrCustomTextDialog {
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+
             ContextUtils cu = new ContextUtils(context);
             _layoutHeight = (int) cu.convertDpToPx(36);
             cu.freeContextRef();
+
+            // Initialize with empty
+            getFilter().filter("");
         }
 
         @NonNull
@@ -228,76 +237,45 @@ public class SearchOrCustomTextDialog {
                 ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
                 : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
         );
-        final Adapter listAdapter = Adapter.create(activity, dopt);
-
-        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
-        searchEditText.setText(dopt.defaultText);
-        searchEditText.setSingleLine(true);
-        searchEditText.setMaxLines(1);
-        searchEditText.setTextColor(dopt.textColor);
-        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
-        searchEditText.setHint(dopt.searchHintText);
-        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
-        searchEditText.addTextChangedListener(TextWatcherDummy.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
-
-        final ContextUtils cu = new ContextUtils(activity);
-        final int margin = (int) cu.convertDpToPx(8);
-        cu.freeContextRef();
-
-        final LinearLayout searchLayout = new LinearLayout(activity);
-        searchLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        editLp.gravity = Gravity.START | Gravity.BOTTOM;
-        searchLayout.addView(searchEditText, editLp);
-
-        // 'Button to clear the search box'
-        final ImageView clearButton = new ImageView(activity);
-        clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
-        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
-        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
-        searchLayout.addView(clearButton, clearLp);
-        clearButton.setOnClickListener((v) -> searchEditText.setText(""));
-
-        final ListView listView = new ListView(activity);
-        final LinearLayout linearLayout = new LinearLayout(activity);
-        listView.setAdapter(listAdapter);
-        listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        if (dopt.isSearchEnabled) {
-            final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            searchLp.setMargins(margin, margin / 2, margin, margin / 2);
-            linearLayout.addView(searchLayout, searchLp);
-        }
-
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        layoutParams.weight = 1;
-        linearLayout.addView(listView, layoutParams);
-        if (!TextUtils.isEmpty(dopt.messageText)) {
-            dialogBuilder.setMessage(dopt.messageText);
-        }
-
-        dialogBuilder.setView(linearLayout)
-                .setOnCancelListener(null)
-                .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
         if (dopt.titleText != 0) {
             dialogBuilder.setTitle(dopt.titleText);
         }
 
+        final Adapter listAdapter = Adapter.create(activity, dopt);
+
+        final LinearLayout mainLayout = new LinearLayout(activity);
+        mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+        if (!TextUtils.isEmpty(dopt.messageText)) {
+            final TextView messageView = new TextView(activity);
+            messageView.setText(dopt.messageText);
+            final LinearLayout.LayoutParams msgLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+            mainLayout.addView(messageView, msgLp);
+        }
+
+        final EditText searchEditText = makeSearchLayout(activity, mainLayout, dopt, listAdapter);
+
+        final ListView listView = new ListView(activity);
+        listView.setAdapter(listAdapter);
+        listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
+        final LinearLayout.LayoutParams listLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        listLp.weight = 1;
+        mainLayout.addView(listView, listLp);
+
+        dialogBuilder.setView(mainLayout)
+                .setOnCancelListener(null)
+                .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
+
         // Ok button action
-        if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
+        if (dopt.callback != null || (dopt.isMultiSelectEnabled && dopt.positionCallback != null)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
                     final List<Integer> sel = new ArrayList<>(listAdapter._selectedItems);
                     Collections.sort(sel);
                     dopt.positionCallback.callback(sel);
-                } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
+                } else if (dopt.callback != null && (!TextUtils.isEmpty(searchText) || !dopt.isSearchEnabled)) {
                     dopt.callback.callback(searchText);
                 }
             });
@@ -305,23 +283,39 @@ public class SearchOrCustomTextDialog {
 
         final AlertDialog dialog = dialogBuilder.create();
 
-        searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
-            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                dialog.dismiss();
-                if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
-                    dopt.callback.callback(searchEditText.getText().toString());
+        if (searchEditText != null && dopt.callback != null) {
+            searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    dialog.dismiss();
+                    final String searchText = searchEditText.getText().toString();
+                    if (!TextUtils.isEmpty(searchText)) {
+                        dopt.callback.callback(searchText);
+                    }
+                    return true;
                 }
-                return true;
-            }
-            return false;
-        });
-
-        Window w;
-        if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
-            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                return false;
+            });
         }
 
         dialog.show();
+
+        final Window win = dialog.getWindow();
+        if (win != null) {
+            if (dopt.isSearchEnabled) {
+                win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
+
+            final float density = activity.getResources().getDisplayMetrics().density;
+            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * density));
+            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * density));
+            win.setLayout(ds_w, ds_h);
+
+            if (dopt.gravity != Gravity.NO_GRAVITY) {
+                WindowManager.LayoutParams wlp = win.getAttributes();
+                wlp.gravity = dopt.gravity;
+                win.setAttributes(wlp);
+            }
+        }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
@@ -330,23 +324,8 @@ public class SearchOrCustomTextDialog {
             neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
         }
 
-        if ((w = dialog.getWindow()) != null) {
-            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
-            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
-            w.setLayout(ds_w, ds_h);
-        }
-
-        if ((w = dialog.getWindow()) != null && dopt.gravity != Gravity.NO_GRAVITY) {
-            WindowManager.LayoutParams wlp = w.getAttributes();
-            wlp.gravity = dopt.gravity;
-            w.setAttributes(wlp);
-        }
-
-        if (dopt.isSearchEnabled) {
+        if (searchEditText != null) {
             searchEditText.requestFocus();
-        }
-        if (dopt.defaultText != null) {
-            listAdapter.getFilter().filter(searchEditText.getText());
         }
 
         // Helper function to trigger callback with single item
@@ -392,5 +371,103 @@ public class SearchOrCustomTextDialog {
 
         // long click always activates
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+
+        /*
+        // Attempt to set message spacing
+        if (!TextUtils.isEmpty(dopt.messageText)) {
+            try {
+                TextView msg = dialog.findViewById(android.R.id.message);
+                ViewGroup parent = (ViewGroup) msg.getParent();
+                int i = 0, count = parent.getChildCount();
+                while (i++ < count && parent.getChildAt(i) != msg) ;
+                View spaceAfter = parent.getChildAt(i + 1);
+                if (spaceAfter instanceof Space) {
+                    spaceAfter.getLayoutParams().height = 0;
+                    spaceAfter.requestLayout();
+                }
+                View spaceBefore = parent.getChildAt(i - 1);
+                if (spaceBefore instanceof Space) {
+                    spaceBefore.getLayoutParams().height = 0;
+                    spaceBefore.requestLayout();
+                }
+                Log.d("foo", getViewHierarchy((ViewGroup) msg.getParent().getParent().getParent()));
+            } catch (NullPointerException | ClassCastException e) {
+                e.printStackTrace();
+            }
+        }
+        */
+
     }
+
+    private static EditText makeSearchLayout(final Activity activity, final LinearLayout mainLayout, final DialogOptions dopt, final Adapter listAdapter) {
+
+        if (!dopt.isSearchEnabled) return null;
+
+        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
+
+        searchEditText.setSingleLine(true);
+        searchEditText.setMaxLines(1);
+        searchEditText.setTextColor(dopt.textColor);
+        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
+        searchEditText.setHint(dopt.searchHintText);
+        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
+        searchEditText.addTextChangedListener(TextWatcherDummy.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
+        searchEditText.setText(dopt.defaultText);
+
+        final ContextUtils cu = new ContextUtils(activity);
+        final int margin = (int) cu.convertDpToPx(8);
+        cu.freeContextRef();
+
+        final LinearLayout searchLayout = new LinearLayout(activity);
+        searchLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        editLp.gravity = Gravity.START | Gravity.BOTTOM;
+        searchLayout.addView(searchEditText, editLp);
+
+        // 'Button to clear the search box'
+        final ImageView clearButton = new ImageView(activity);
+        clearButton.setImageResource(dopt.clearInputIcon);
+        TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
+        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
+        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
+        searchLayout.addView(clearButton, clearLp);
+        clearButton.setOnClickListener((v) -> searchEditText.setText(""));
+
+        final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        searchLp.setMargins(margin, margin / 2, margin, margin / 2);
+        mainLayout.addView(searchLayout, searchLp);
+
+        return searchEditText;
+    }
+    /*
+    public static String getViewHierarchy(@NonNull View v) {
+        StringBuilder desc = new StringBuilder();
+        getViewHierarchy(v, desc, 0);
+        return desc.toString();
+    }
+
+    private static void getViewHierarchy(View v, StringBuilder desc, int margin) {
+        desc.append(getViewMessage(v, margin));
+        if (v instanceof ViewGroup) {
+            margin++;
+            ViewGroup vg = (ViewGroup) v;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                getViewHierarchy(vg.getChildAt(i), desc, margin);
+            }
+        }
+    }
+
+    private static String getViewMessage(View v, int marginOffset) {
+        String repeated = new String(new char[marginOffset]).replace("\0", "  ");
+        try {
+            String resourceId = v.getResources() != null ? (v.getId() > 0 ? v.getResources().getResourceName(v.getId()) : "no_id") : "no_resources";
+            return repeated + "[" + v.getClass().getSimpleName() + "] " + resourceId + "\n";
+        } catch (Resources.NotFoundException e) {
+            return repeated + "[" + v.getClass().getSimpleName() + "] name_not_found\n";
+        }
+    }
+    */
 }

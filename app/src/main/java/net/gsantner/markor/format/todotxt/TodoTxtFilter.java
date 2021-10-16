@@ -143,6 +143,32 @@ public class TodoTxtFilter {
         saveFilter(context, gp.title, gp.queryType, gp.keys, gp.isAnd);
     }
 
+    public static boolean deleteFilterIndex(final Context context, int index) {
+        try {
+            final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+            // Load the existing list of views
+
+            final JSONArray oldArray = new JSONArray(pref.getString(SAVED_TODO_VIEWS, "[]"));
+            if (index < 0 || index >= oldArray.length()) {
+                return false;
+            }
+
+            final JSONArray newArray = new JSONArray();
+            for (int i = 0; i < oldArray.length(); i++) {
+                if (i != index) {
+                    newArray.put(oldArray.get(i));
+                }
+            }
+
+            pref.edit().putString(SAVED_TODO_VIEWS, newArray.toString()).apply();
+
+            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static List<Group> loadSavedFilters(final Context context) {
         try {
             final List<Group> loadedViews = new ArrayList<>();
