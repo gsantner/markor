@@ -122,6 +122,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">ବନ୍ଦ କରନ୍ତୁ</string>
     <string name="cancel">ବାତିଲ୍‌ କରନ୍ତୁ</string>
     <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
+    <string name="folder_first">ପ୍ରଥମେ ଫୋଲ୍ଡର୍</string>
     <string name="internal_storage">ଅନ୍ତର୍ନିହିତ ଷ୍ଟୋରେଜ୍‌</string>
     <string name="black">କଳା</string>
     <string name="white">ଧଳା</string>
@@ -132,6 +133,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">ପୁନଃଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="template">ଟେମ୍ପଲେଟ୍</string>
     <string name="print_pdf">ମୁଦ୍ରଣ / PDF</string>
+    <string name="increase_text_size_of_headings_according_to_level">ସ୍ତର ଅନୁଯାୟୀ ଶୀର୍ଷଲେଖ ର ପାଠ୍ୟ ଆକାର ବୃଦ୍ଧି କରନ୍ତୁ (# h1, ## h2. ### h3…)</string>
     <string name="current">ସମ୍ପ୍ରତି</string>
     <string name="record_audio">ଅଡ଼ିଓ ରେକର୍ଡ କରନ୍ତୁ</string>
     <string name="attach">ସଂଲଗ୍ନ କରନ୍ତୁ</string>
@@ -142,6 +144,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">ପଢ଼ୁଛନ୍ତି</string>
     <string name="read">ପଢ଼ନ୍ତୁ</string>
     <string name="table">ସାରଣୀ</string>
+    <string name="example_of_a_markdown_table">ଏକ Markdown ଟେବଲ୍ ର ଉଦାହରଣ</string>
     <string name="date_and_time">ତାରିଖ ଏବଂ ସମୟ</string>
     <string name="heading_1">ଶିରୋନାମା ୧</string>
     <string name="heading_2">ଶିରୋନାମା ୨</string>
