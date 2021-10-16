@@ -132,6 +132,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_folder_location_on_startup" needed="false">Ingatkan lokasi folder terakhir di startup</string>
     <string name="number_of_files_witharg" needed="false">Jumlah berkas: %d</string>
     <string name="app_wide">Lebar-aplikasi</string>
+    <string name="main_view">Tampilan awal</string>
+    <string name="overall_theme_used_in_app">Tema keseluruhan yang digunakan di dalam aplikasi</string>
+    <string name="remember_last_directory">Ingatkan direktori terakhir</string>
+    <string name="syntax_highlighting">Penyorotan sintaksis</string>
+    <string name="highlighting_delay">Menyoroti penundaan</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Keterlambatan dalam milidetik untuk menyegarkan kembali penyorotan. Nilai yang lebih rendah akan mulai disorot lebih awal, tetapi akan menguras baterai Anda dan dapat memperlambat aplikasi pada perangkat yang lebih lama.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Mengontrol apakah teks yang dimasukkan harus disorot atau tidak</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Tampilkan bilah dengan tombol praktis di bawah. Aksi teks ini mengubah teks atau menjalankan aksi berdasar teks.</string>
     <string name="load_last_opened_folder_at_startup">Muat folder yang dibuka terakhir</string>
