@@ -170,6 +170,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Jarak antar baris dalam persen</string>
     <string name="line_spacing">Jarak Baris</string>
     <string name="archive_does_move_done_tasks">Memindahkan tugas yang sudah selesai ke file yang ditentukan dalam folder yang sama</string>
+    <string name="sort_tasks_by_selected_order">Urutkan tugas dari daftar yang dipilih</string>
+    <string name="special_key">Kunci spesial</string>
+    <string name="key_page_up">Halaman atas (Halaman atas)</string>
+    <string name="key_page_down">Halaman bawah (Halaman bawah)</string>
+    <string name="move_text_one_line_up">Pindah teks satu baris atas</string>
+    <string name="move_text_one_line_down">Pindah teks satu baris bawah</string>
+    <string name="start_new_line_below">Mulai baris baru dibawah</string>
+    <string name="key_pos_1">Baris memulai (Pos beranda)</string>
+    <string name="key_pos_end">Baris akhir (Pos akhir)</string>
     <string name="unordered_list_char_dash">Garis hubung (-)</string>
     <string name="unordered_list_char_asterisk">Bintang (*)</string>
     <string name="unordered_list_char_plus">Tambah (+)</string>
