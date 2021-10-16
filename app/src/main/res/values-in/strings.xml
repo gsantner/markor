@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Buat Folder</string>
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="move">Pindahkan</string>
+    <string name="copy">Salin</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder sudah ada! Silahkan menggunakan nama lain</string>
     <string name="import_from_device">Import dari perangkat</string>
@@ -122,6 +123,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_browser">Penjelajah berkas</string>
     <string name="set_due_date">Atur batas waktu</string>
     <string name="insert_replace_date">Sisipkan tanggal</string>
+    <string name="create_note" needed="false">Membuat catatan</string>
+    <string name="special_documents" needed="false">Dokumen spesial</string>
+    <string name="keep_screen_on" needed="false">Biarkan layar tetap menyala</string>
+    <string name="back_to_previous_folder" needed="false">Kembali ke folder sebelumnya</string>
+    <string name="app_settings" needed="false">Pengaturan aplikasi</string>
+    <string name="editor_settings" needed="false">Pengaturan editor</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Ingatkan lokasi folder terakhir di startup</string>
+    <string name="number_of_files_witharg" needed="false">Jumlah berkas: %d</string>
+    <string name="app_wide">Lebar-aplikasi</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Tampilkan bilah dengan tombol praktis di bawah. Aksi teks ini mengubah teks atau menjalankan aksi berdasar teks.</string>
     <string name="load_last_opened_folder_at_startup">Muat folder yang dibuka terakhir</string>
