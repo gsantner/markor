@@ -247,30 +247,8 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
-        /*
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("foo");
-        builder.setMessage("bar");
-        EditText edit = new EditText(activity);
-        builder.setView(edit);
-        builder.setNeutralButton("foo", (di, i) -> Log.d("foo", SearchOrCustomTextDialog.getViewHierarchy(edit.getRootView())));
-        final AlertDialog dialog = builder.create();
-        dialog.show();
-        final Button b = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-        b.setVisibility(Button.VISIBLE);
-        b.setText("print layout");
-        b.setOnClickListener((button) -> Log.d("foo", SearchOrCustomTextDialog.getViewHierarchy(button.getRootView())));
-
-        FrameLayout frame = (FrameLayout) dialog.findViewById(android.R.id.message).getParent().getParent().getParent();
-        frame.setPadding(0, 0, 0, 0);
-        frame = (FrameLayout) edit.getParent().getParent();
-        frame.setPadding(0, 0, 0, 0);
-        */
-
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-
-        dopt.messageText = "foo";
 
         final List<String> options = new ArrayList<>();
         final List<Integer> icons = new ArrayList<>();
@@ -311,7 +289,6 @@ public class SearchOrCustomTextDialogCreator {
                 final SearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
                         activity, text, TodoTxtFilter.taskSelector(gp.keys, TodoTxtFilter.keyGetter(activity, gp.queryType), gp.isAnd));
                 doptView.titleText = R.string.search;
-                doptView.messageText = gp.title;
 
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
