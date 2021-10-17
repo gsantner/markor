@@ -129,13 +129,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back_to_previous_folder" needed="false">Kembali ke folder sebelumnya</string>
     <string name="app_settings" needed="false">Pengaturan aplikasi</string>
     <string name="editor_settings" needed="false">Pengaturan editor</string>
-    <string name="remember_last_folder_location_on_startup" needed="false">Ingatkan lokasi folder terakhir di startup</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Ingatkan lokasi folder terakhir</string>
     <string name="number_of_files_witharg" needed="false">Jumlah berkas: %d</string>
-    <string name="app_wide">Lebar-aplikasi</string>
+    <string name="app_wide">App-wide</string>
     <string name="main_view">Tampilan awal</string>
     <string name="overall_theme_used_in_app">Tema keseluruhan yang digunakan di dalam aplikasi</string>
     <string name="remember_last_directory">Ingatkan direktori terakhir</string>
-    <string name="syntax_highlighting">Penyorotan sintaksis</string>
+    <string name="syntax_highlighting">Penyorotan sintaks</string>
     <string name="highlighting_delay">Menyoroti penundaan</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Keterlambatan dalam milidetik untuk menyegarkan kembali penyorotan. Nilai yang lebih rendah akan mulai disorot lebih awal, tetapi akan menguras baterai Anda dan dapat memperlambat aplikasi pada perangkat yang lebih lama.</string>
     <string name="highlighting_enabled_or_not__appspecific">Mengontrol apakah teks yang dimasukkan harus disorot atau tidak</string>
@@ -146,15 +146,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contexts">Konteks</string>
     <string name="project">Proyek</string>
     <string name="projects">Proyek</string>
-    <string name="none">Kosong</string>
+    <string name="none">Tidak ada</string>
     <string name="other">Lainnya</string>
     <string name="empty_file">Berkas kosong</string>
     <string name="break_page_pdf_print">Ganti halaman (PDF/Cetak)</string>
     <string name="underline">Garis bawah</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Apakah untuk garis bawah menggunakan kode warna hexa</string>
     <string name="underline_hex_color_codes">Kode Warna Hexa Garis Bawah</string>
-    <string name="insert_current_date_when_starting_new_task">Masukkan tanggal sekarang saat mulai task baru</string>
-    <string name="tasks_with_todays_date">Task dengan tanggal sekarang</string>
+    <string name="insert_current_date_when_starting_new_task">Masukkan tanggal sekarang saat mulai tugas baru</string>
+    <string name="tasks_with_todays_date">Tugas dengan tanggal sekarang</string>
     <string name="append_contexts_and_projects">Tambahkan konteks dan proyek</string>
     <string name="append_contexts_and_projects_on_end_of_task">Tambahkan konteks dan proyek di akhir task saat menggunakan aksi teks sesuai</string>
     <string name="rtl_rendering">Renderan RTL</string>
@@ -162,16 +162,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Tandai spasi di akhir baris berisi dua atau lebih spasi</string>
     <string name="use_monospace_for_code">Gunakan huruf monospace untuk kode</string>
     <string name="disable_code_block_highlight">Matikan penandaan untuk blok kode</string>
-    <string name="auto_renumber_ordered_list">Menghitung ulang otomatis daftar</string>
+    <string name="auto_renumber_ordered_list">Menghitung ulang otomatis daftar yang berurutan</string>
     <string name="auto_renumber_ordered_list_slowdown">Opsi ini dapat mempengaruhi kinerja aplikasi.</string>
-    <string name="use_different_fonttype_slow_down">Gunakan tipe huruf berbeda. Mengubah ini secara dinamis mempengaruhi performa aplikasi.</string>
+    <string name="use_different_fonttype_slow_down">Gunakan tipe huruf berbeda. Mengubah ini secara dinamis memengaruhi kinerja aplikasi.</string>
     <string name="general">Umum</string>
     <string name="resources">Sumber Daya</string>
     <string name="space_between_lines_in_percent">Jarak antar baris dalam persen</string>
     <string name="line_spacing">Jarak Baris</string>
     <string name="archive_does_move_done_tasks">Memindahkan tugas yang sudah selesai ke file yang ditentukan dalam folder yang sama</string>
     <string name="sort_tasks_by_selected_order">Urutkan tugas dari daftar yang dipilih</string>
-    <string name="special_key">Kunci spesial</string>
+    <string name="special_key">Kunci Spesial</string>
     <string name="key_page_up">Halaman atas (Halaman atas)</string>
     <string name="key_page_down">Halaman bawah (Halaman bawah)</string>
     <string name="move_text_one_line_up">Pindah teks satu baris atas</string>
