@@ -132,8 +132,9 @@ public class ZimWikiTextConverter extends TextConverter {
     }
 
     private String convertLink(String group, Context context, File file) {
-        File notebookDir = new AppSettings(context).getNotebookDirectory();
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(group, notebookDir, file);
+        AppSettings settings = new AppSettings(context);
+        File notebookDir = settings.getNotebookDirectory();
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(group, notebookDir, file, settings.isZimWikiDynamicNotebookRootEnabled());
 
         String markdownLink;
         if (resolver.isWebLink()) {

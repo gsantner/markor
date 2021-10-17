@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 public class ZimWikiLinkResolver {
     private File _notebookRootDir;
     private File _currentPage;
+    private boolean _shouldDynamicallyDetermineRoot;
 
     private String _zimPath;
 
@@ -40,16 +41,18 @@ public class ZimWikiLinkResolver {
         }
     }
 
-    private ZimWikiLinkResolver(File notebookRootDir, File currentPage) {
+    private ZimWikiLinkResolver(File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
         _notebookRootDir = notebookRootDir;
         _currentPage = currentPage;
+        _shouldDynamicallyDetermineRoot = shouldDynamicallyDetermineRoot;
     }
 
-    public static ZimWikiLinkResolver resolve(String zimLink, File notebookRootDir, File currentPage) {
-        return new ZimWikiLinkResolver(notebookRootDir, currentPage).resolve(zimLink);
+    public static ZimWikiLinkResolver resolve(String zimLink, File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
+        return new ZimWikiLinkResolver(notebookRootDir, currentPage, shouldDynamicallyDetermineRoot).resolve(zimLink);
     }
 
     private ZimWikiLinkResolver resolve(String zimLink) {
+
         Matcher m = Patterns.LINK.pattern.matcher(zimLink);
         if (m.matches()) {
             _zimPath = m.group(2);
@@ -75,6 +78,14 @@ public class ZimWikiLinkResolver {
             return FilenameUtils.concat(folderForSubpagesOfCurrentPage, zimPagePathToRelativeFilePath(zimPagePath));
         }
 
+        // the link types below need knowledge of the notebook root dir
+        if (_shouldDynamicallyDetermineRoot) {
+            _notebookRootDir = findNotebookRootDir(_currentPage);
+            if (_notebookRootDir==null) {
+                return null;
+            }
+        }
+
         Matcher toplevelMatcher = Patterns.TOPLEVEL_PATH.pattern.matcher(zimPath);
         if (toplevelMatcher.matches()) {
             String zimPagePath = toplevelMatcher.group(1);
@@ -89,6 +100,17 @@ public class ZimWikiLinkResolver {
         }
 
         return zimPath; // just return the original path in case the link cannot be resolved (might be a URL)
+    }
+
+    private File findNotebookRootDir(File currentPage) {
+        if (currentPage!= null && currentPage.exists()) {
+            if (FileUtils.join(currentPage, "notebook.zim").exists()) {
+                return currentPage;
+            } else {
+                return findNotebookRootDir(currentPage.getParentFile());
+            }
+        }
+        return null;
     }
 
     private String findFirstPageTraversingUpToRoot(File currentPage, String relativeLinkToCheck) {
@@ -130,5 +152,9 @@ public class ZimWikiLinkResolver {
 
     public boolean isWebLink() {
         return _isWebLink;
+    }
+
+    public File getNotebookRootDir() {
+        return _notebookRootDir;
     }
 }

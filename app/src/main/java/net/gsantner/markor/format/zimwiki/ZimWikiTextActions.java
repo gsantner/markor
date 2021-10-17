@@ -203,7 +203,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 return;
             }
 
-            ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(fullZimLink, _appSettings.getNotebookDirectory(), _document.getFile());
+            ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(fullZimLink, _appSettings.getNotebookDirectory(), _document.getFile(), _appSettings.isZimWikiDynamicNotebookRootEnabled());
             String resolvedLink = resolver.getResolvedLink();
             if (resolvedLink==null) {
                 return;

@@ -911,4 +911,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public int getDueDateOffset() {
         return getInt(R.string.pref_key__todotxt__due_date_offset, 3);
     }
+
+    public boolean isZimWikiDynamicNotebookRootEnabled() {
+        return getBool(R.string.pref_key__zimwiki__dynamic_notebook_root, false);
+    }
 }

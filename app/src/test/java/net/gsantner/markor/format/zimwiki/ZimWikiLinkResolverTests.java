@@ -12,6 +12,7 @@ import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -44,8 +45,6 @@ public class ZimWikiLinkResolverTests {
      *   |___ Another page
      */
     private void createTestNotebookStructure() throws IOException {
-
-        Files.createFile(notebookRoot.resolve("notebook.zim"));
 
         Files.createDirectories(notebookRoot.resolve("My_page/Another_page"));
         Files.createFile(notebookRoot.resolve("My_page.txt"));
@@ -128,14 +127,30 @@ public class ZimWikiLinkResolverTests {
 
     @Test
     public void resolvesWebLinkWithDescription() {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[http://www.example.com|Example website]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile());
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[http://www.example.com|Example website]]", notebookRoot.toFile(), notebookRoot.resolve("My_page.txt").toFile(), false);
         assertEquals("http://www.example.com", resolver.getResolvedLink());
         assertEquals("Example website", resolver.getLinkDescription());
         assertTrue(resolver.isWebLink());
     }
 
+    @Test
+    public void resolvesTopLevelLinkWithDynamicallyDeterminedRoot() throws IOException {
+        Files.createFile(notebookRoot.resolve("notebook.zim"));
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[:Your page:The coolest page]]", null, notebookRoot.resolve("My_page/Yet_another_page.txt").toFile(), true);
+        assertEquals(notebookRoot.toFile(), resolver.getNotebookRootDir());
+        String expectedLink = notebookRoot.resolve("Your_page/The_coolest_page.txt").toString();
+        assertEquals(expectedLink, resolver.getResolvedLink());
+    }
+
+    @Test
+    public void doesNotResolveTopLevelLinkIfRootCannotBeDetermined() {
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve("[[:Your page:The coolest page]]", null, notebookRoot.resolve("My_page/Yet_another_page.txt").toFile(), true);
+        assertNull(resolver.getNotebookRootDir());
+        assertNull(resolver.getResolvedLink());
+    }
+
     private void assertResolvedLinkAndDescription(String expectedLinkRelativeToRoot, String expectedDescription, String zimLink, String currentPageRelativeToRoot) {
-        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(zimLink, notebookRoot.toFile(), notebookRoot.resolve(currentPageRelativeToRoot).toFile());
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(zimLink, notebookRoot.toFile(), notebookRoot.resolve(currentPageRelativeToRoot).toFile(), false);
         String expectedLink = expectedLinkRelativeToRoot!=null ? notebookRoot.resolve(expectedLinkRelativeToRoot).toString() : null;
         assertEquals(expectedLink, resolver.getResolvedLink());
         assertEquals(expectedDescription, resolver.getLinkDescription());
