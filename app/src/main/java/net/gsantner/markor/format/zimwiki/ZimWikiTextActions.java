@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
@@ -24,6 +25,7 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -182,10 +184,53 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     runRenumberOrderedListIfRequired();
                     return true;
                 }
+                case R.string.tmaid_common_open_link_browser: {
+                    openLink();
+                    return true;
+                }
                 default: {
                     return runCommonTextAction(_context.getString(_action));
                 }
             }
+        }
+
+        private void openLink() {
+            String fullZimLink = tryExtractZimLink();
+            
+            if (fullZimLink==null) {
+                // the link under the cursor is not a zim link, probably just a plain url
+                runCommonTextAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
+                return;
+            }
+
+            ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(fullZimLink, _appSettings.getNotebookDirectory(), _document.getFile());
+            String resolvedLink = resolver.getResolvedLink();
+            if (resolvedLink==null) {
+                return;
+            }
+
+            if (resolver.isWebLink()) {
+                new ContextUtils(_activity).openWebpageInExternalBrowser(resolvedLink);
+            } else {
+                DocumentActivity.launch(_activity, new File(resolvedLink), false, false, null, null);
+            }
+        }
+
+        private String tryExtractZimLink() {
+            int cursorPos = StringUtils.getSelection(_hlEditor)[0];
+            CharSequence text = _hlEditor.getText();
+            int lineStart = StringUtils.getLineStart(text, cursorPos);
+            int lineEnd = StringUtils.getLineEnd(text, cursorPos);
+            CharSequence line = text.subSequence(lineStart, lineEnd);
+            int cursorPosInLine = cursorPos-lineStart;
+
+            Matcher m = ZimWikiHighlighter.Patterns.LINK.pattern.matcher(line);
+            while (m.find()) {
+                if (m.start()<cursorPosInLine && m.end()>cursorPosInLine) {
+                    return m.group();
+                }
+            }
+            return null;
         }
 
         private void toggleHeading(int headingLevel) {
