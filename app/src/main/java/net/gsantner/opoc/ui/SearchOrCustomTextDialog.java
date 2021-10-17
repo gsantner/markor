@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -31,6 +32,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,6 +47,7 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
@@ -263,25 +266,26 @@ public class SearchOrCustomTextDialog {
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
 
         final ListView listView = new ListView(activity);
-        final LinearLayout linearLayout = new LinearLayout(activity);
         listView.setAdapter(listAdapter);
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        final LinearLayout mainLayout = new LinearLayout(activity);
+        mainLayout.setOrientation(LinearLayout.VERTICAL);
 
         if (dopt.isSearchEnabled) {
             final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             searchLp.setMargins(margin, margin / 2, margin, margin / 2);
-            linearLayout.addView(searchLayout, searchLp);
+            mainLayout.addView(searchLayout, searchLp);
         }
 
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
-        linearLayout.addView(listView, layoutParams);
+        mainLayout.addView(listView, layoutParams);
         if (!TextUtils.isEmpty(dopt.messageText)) {
             dialogBuilder.setMessage(dopt.messageText);
         }
 
-        dialogBuilder.setView(linearLayout)
+        dialogBuilder.setView(mainLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -392,5 +396,67 @@ public class SearchOrCustomTextDialog {
 
         // long click always activates
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+
+        // Attempt to set message spacing
+        if (!TextUtils.isEmpty(dopt.messageText)) {
+            // try {
+                // TextView msg = dialog.findViewById(android.R.id.message);
+                // msg.setPaddingRelative(0, 0, 0, -30);
+                ViewGroup parent = (ViewGroup) mainLayout.getParent();
+                parent.setPadding(parent.getPaddingLeft(), 0, parent.getPaddingRight(), parent.getPaddingBottom());
+                ViewGroup parent2 = (ViewGroup) parent.getParent();
+                // int i = 0, count = parent.getChildCount();
+                // while (i++ < count && parent.getChildAt(i) != msg) ;
+                // final View spaceAfter = parent.getChildAt(i + 1);
+                // if (spaceAfter instanceof Space) {
+                //     spaceAfter.setVisibility(View.GONE);
+                //     // ViewGroup.LayoutParams params = spaceAfter.getLayoutParams();
+                //     // params.height = 0;
+                //     // spaceAfter.setMinimumHeight(0);
+                //     // spaceAfter.setLayoutParams(params);
+                //     parent.requestLayout();
+                // }
+                // View spaceBefore = parent.getChildAt(i - 1);
+                // if (spaceBefore instanceof Space) {
+                //     ViewGroup.LayoutParams params = spaceBefore.getLayoutParams();
+                //     params.height = 0;
+                //     spaceBefore.setMinimumHeight(0);
+                //     spaceBefore.setLayoutParams(params);
+                // }
+            // } catch (NullPointerException | ClassCastException e) {
+            //     e.printStackTrace();
+            // }
+        }
+    }
+
+    public static String getViewHierarchy(@NonNull View v) {
+        StringBuilder desc = new StringBuilder();
+        getViewHierarchy(v, desc, 0);
+        return desc.toString();
+    }
+
+    private static void getViewHierarchy(View v, StringBuilder desc, int margin) {
+        desc.append(getViewMessage(v, margin));
+        if (v instanceof ViewGroup) {
+            margin++;
+            ViewGroup vg = (ViewGroup) v;
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                getViewHierarchy(vg.getChildAt(i), desc, margin);
+            }
+        }
+    }
+
+    private static String getViewMessage(View v, int marginOffset) {
+        String repeated = new String(new char[marginOffset]).replace("\0", "  ");
+        final int height = v.getHeight();
+        final int paddingTop = v.getPaddingTop();
+        final int paddingBottom = v.getPaddingBottom();
+        String stuff = String.format("; height = %d, top = %d, bottom = %d ", height, paddingTop, paddingBottom);
+        try {
+            String resourceId = v.getResources() != null ? (v.getId() > 0 ? v.getResources().getResourceName(v.getId()) : "no_id") : "no_resources";
+            return repeated + "[" + v.getClass().getSimpleName() + stuff + "] " + resourceId + "\n";
+        } catch (Resources.NotFoundException e) {
+            return repeated + "[" + v.getClass().getSimpleName() + stuff + "] name_not_found\n";
+        }
     }
 }

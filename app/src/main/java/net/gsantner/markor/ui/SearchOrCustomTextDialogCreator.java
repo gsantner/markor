@@ -12,17 +12,27 @@ package net.gsantner.markor.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AlertDialogLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -237,8 +247,30 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
+        /*
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("foo");
+        builder.setMessage("bar");
+        EditText edit = new EditText(activity);
+        builder.setView(edit);
+        builder.setNeutralButton("foo", (di, i) -> Log.d("foo", SearchOrCustomTextDialog.getViewHierarchy(edit.getRootView())));
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        final Button b = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        b.setVisibility(Button.VISIBLE);
+        b.setText("print layout");
+        b.setOnClickListener((button) -> Log.d("foo", SearchOrCustomTextDialog.getViewHierarchy(button.getRootView())));
+
+        FrameLayout frame = (FrameLayout) dialog.findViewById(android.R.id.message).getParent().getParent().getParent();
+        frame.setPadding(0, 0, 0, 0);
+        frame = (FrameLayout) edit.getParent().getParent();
+        frame.setPadding(0, 0, 0, 0);
+        */
+
         SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
+
+        dopt.messageText = "foo";
 
         final List<String> options = new ArrayList<>();
         final List<Integer> icons = new ArrayList<>();
