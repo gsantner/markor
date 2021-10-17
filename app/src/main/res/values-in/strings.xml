@@ -10,7 +10,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Preferensi</string>
+    <string name="settings">Setelan</string>
     <string name="light">Terang</string>
     <string name="dark">Gelap</string>
     <string name="delete">Hapus</string>
@@ -28,10 +28,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="move">Pindahkan</string>
     <string name="copy">Salin</string>
-    <string name="info">Info</string>
+    <string name="info">Informasi</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder sudah ada! Silahkan menggunakan nama lain</string>
-    <string name="import_from_device">Import dari perangkat</string>
-    <string name="import_">Import</string>
+    <string name="import_from_device">Impor dari perangkat</string>
+    <string name="import_">Impor</string>
     <string name="append_to_witharg">Tambahkan ke %s</string>
     <string name="select_folder">Pilih folder</string>
     <string name="edit">Ubah</string>
@@ -40,7 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">Bagikan</string>
     <string name="search">Cari</string>
     <string name="display_converted_markup">Tampilkan markup terkonversi</string>
-    <string name="editor">Laman Pengubahan</string>
+    <string name="editor">Editor</string>
     <string name="folders">Folder</string>
     <string name="files">File</string>
     <string name="document">Dokumen</string>
@@ -60,7 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">Pilih folder ini</string>
     <string name="select">Pilih</string>
     <string name="create">Buat Baru</string>
-    <string name="select_entries">Pilih entri</string>
+    <string name="select_entries">Pilih catatan</string>
     <string name="one_item_selected">Satu item terpilih</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d item dipilih</string>
     <string name="hide_statusbar_at_this_view">Sembunyikan kolom status pada tampilan ini</string>
@@ -68,14 +68,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">Nama</string>
     <string name="url_or_path">URL / Folder</string>
     <string name="insert_link">Masukkan Link</string>
-    <string name="insert_image">Masukkan Gambar</string>
+    <string name="insert_image">Masukkan Gambar/Foto</string>
     <string name="contributors">Kontributor</string>
-    <string name="save_location">Lokasi Penyimpanan</string>
+    <string name="save_location">Lokasi penyimpanan</string>
     <string name="select_storage_folder">Pilih folder penyimpanan</string>
     <string name="licenses">Lisensi</string>
     <string name="changelog">Catatan Perubahan</string>
-    <string name="more_info">Info lainnya</string>
-    <string name="show_license_of_the_app">Tampilkan lisensi GNU GPLv3</string>
+    <string name="more_info">Info selengkapnya</string>
+    <string name="show_license_of_the_app">Tampilkan lisensi dari aplikasi</string>
     <string name="show_third_party_licenses">Tampilkan lisensi pihak ketiga</string>
     <string name="language_change_restart_description">Mengubah bahasa aplikasi. Buka ulang aplikasi setelah mengubah preferensi bahasa</string>
     <string name="language">Bahasa</string>
@@ -313,4 +313,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="code_block">Blok kode</string>
     <string name="copy_move_conflict_message">\'%s\' sudah ada di %s</string>
     <string name="additional_contexts_and_projects">Konteks dan proyek tambahan</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Masukkan @contexts dan +proyek yang terpisah dari ruang. Ini akan selalu terlihat di todo.txt untuk menyisipkan dialog.</string>
+    <string name="infinite">Tidak terbatas</string>
+    <string name="browse_by_project">Menelusuri menurut proyek</string>
+    <string name="browse_by_context">Menelusuri menurut konteks</string>
+    <string name="insert_project">Menyisipkan proyek</string>
+    <string name="insert_context">Menyisipkan konteks</string>
+    <string name="browse_todo">Telusuri todo</string>
+    <string name="browse_by_priority">Menelusuri menurut prioritas</string>
+    <string name="browse_by_due_date">Menelusuri berdasarkan tanggal jatuh tempo</string>
+    <string name="due_overdue">Lewat jatuh tempo</string>
+    <string name="due_today">Jatuh tempo hari ini</string>
+    <string name="due_future">Jatuh tempo mendatang</string>
+    <string name="completed">Diselesaikan</string>
+    <string name="match_any">Cocokkan apa saja</string>
+    <string name="match_all">Cocokkan semua</string>
 </resources>
