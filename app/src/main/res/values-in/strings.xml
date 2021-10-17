@@ -85,15 +85,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="date">Tanggal</string>
     <string name="deleteme____1">Nama</string>
     <string name="size">Ukuran</string>
-    <string name="reverse_order">Urut terbalik</string>
-    <string name="contribute">Ikut serta</string>
+    <string name="reverse_order">Urutan terbalik</string>
+    <string name="contribute">Berkontribusi</string>
     <string name="donate">Donasi</string>
-    <string name="project_page">Laman proyek</string>
+    <string name="project_page">Halaman proyek</string>
     <string name="press_back_again_to_exit">Tekan \'kembali\' lagi untuk keluar</string>
     <string name="exit">Keluar</string>
-    <string name="undo">Batal</string>
-    <string name="redo">Kembalikan</string>
-    <string name="more">Selengkapnya</string>
+    <string name="undo">Urungkan</string>
+    <string name="redo">Ulangi</string>
+    <string name="more">Lainnya</string>
     <string name="notebook">Catatan</string>
     <string name="help">Bantuan</string>
     <string name="todo_list">Daftar kehendak</string>
@@ -102,28 +102,28 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list">Daftar</string>
     <string name="priority">Prioritas</string>
     <string name="history">Riwayat</string>
-    <string name="sync">Selaraskan</string>
-    <string name="search_or_custom">Cari atau sesuaikan</string>
+    <string name="sync">Sinkronisasi</string>
+    <string name="search_or_custom">Cari / kustom</string>
     <string name="save">Simpan</string>
-    <string name="update">Perbarui</string>
-    <string name="clear">Hapus</string>
-    <string name="due_date">Batas waktu</string>
-    <string name="current_date">Tanggal Saat ini</string>
+    <string name="update">Pembaruan</string>
+    <string name="clear">Bersihkan</string>
+    <string name="due_date">Tenggat waktu</string>
+    <string name="current_date">Tanggal saat ini</string>
     <string name="archive">Arsip</string>
     <string name="add_task">Tambahkan tugas</string>
     <string name="add_x_witharg">Tambahkan %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Dokumen akan dimuat dan disimpan sebagai \"%s\"</string>
-    <string name="refresh">Segarkan</string>
+    <string name="refresh">Menyegarkan</string>
     <string name="create_shortcut">Buat pintasan</string>
     <string name="tried_to_create_shortcut_for_this_notice">Mencoba membuat pintasan ke layar beranda Anda. Beberapa peluncur mungkin tidak mendukung fitur ini.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">File yang dipilih tidak terletak di direktori catatan aplikasi. Apakah Anda ingin menyalinnya ke folder saat ini? Tindakan ini akan menimpa file yang ada dengan nama yang sama.</string>
     <string name="file_not_in_current_folder_do_copy__appspecific">Berkas tidak terletak di folder saat ini. Apakah Anda ingin menyalinnya ke folder saat ini? Ini akan menimpa berkas yang ada dengan nama yang sama.</string>
-    <string name="files_and_folders">Berkas dan direktori</string>
+    <string name="files_and_folders">Berkas dan folder</string>
     <string name="document_browser">Penjelajah dokumen</string>
     <string name="file_browser">Penjelajah berkas</string>
     <string name="set_due_date">Atur batas waktu</string>
     <string name="insert_replace_date">Sisipkan tanggal</string>
-    <string name="create_note" needed="false">Membuat catatan</string>
+    <string name="create_note" needed="false">Buat catatan</string>
     <string name="special_documents" needed="false">Dokumen spesial</string>
     <string name="keep_screen_on" needed="false">Biarkan layar tetap menyala</string>
     <string name="back_to_previous_folder" needed="false">Kembali ke folder sebelumnya</string>
