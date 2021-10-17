@@ -9,9 +9,9 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("ALL")
 public class TestPlayground {

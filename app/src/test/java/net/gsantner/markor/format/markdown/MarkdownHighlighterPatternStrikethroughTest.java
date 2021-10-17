@@ -9,13 +9,13 @@
 #########################################################*/
 package net.gsantner.markor.format.markdown;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MarkdownHighlighterPatternStrikethroughTest {
 

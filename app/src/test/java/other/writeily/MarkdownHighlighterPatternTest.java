@@ -9,8 +9,6 @@
 ###########################################################*/
 package other.writeily;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 
 import org.junit.Test;
@@ -21,6 +19,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Parameterized.class)
 public class MarkdownHighlighterPatternTest {
