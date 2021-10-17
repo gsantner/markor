@@ -400,7 +400,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">Cari berdasarkan konten</string>
     <string name="max_search_depth">Pencarian mendalam</string>
     <string name="ignore_list">Abaikan daftar</string>
-    <string name="do_not_search_specified_files_and_folders">Jangan mencari file dan folder yang ditentukan.\nMenggunakan baris baru sebagai pemisah.\nGunakan kutipan untuk nama dir yang tepat: \"Test\".\nAtau gunakan Regex \'^[.]. *\'nContoh: ^.. *\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">Jangan mencari file dan folder yang ditentukan.\nMenggunakan baris baru sebagai pemisah.\nGunakan kutipan untuk nama dir yang tepat: \"Test\".\nAtau gunakan Regex \'^[.]. *\'\nContoh: ^.. *\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Cari Regex</string>
     <string name="case_sensitive">Memperhatikan besar/kecil huruf</string>
     <string name="stop_search_after_first_match">Hentikan pencarian setelah pertama cocok</string>
