@@ -410,6 +410,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overwrite">Timpa</string>
     <string name="keep_both_all">Simpan keduanya (semua)</string>
     <string name="skip_all">Lewati (semua)</string>
+    <string name="overwrite_all">Timpa (semua)</string>
     <string name="copy_move_conflict_message">\'%s\' sudah ada di %s</string>
     <string name="additional_contexts_and_projects">Konteks dan proyek tambahan</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Masukkan @contexts dan +proyek yang terpisah dari ruang. Ini akan selalu terlihat di todo.txt untuk menyisipkan dialog.</string>
