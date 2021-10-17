@@ -15,7 +15,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -32,7 +31,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,7 +45,6 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Space;
 import android.widget.TextView;
 
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
@@ -269,23 +266,23 @@ public class SearchOrCustomTextDialog {
         listView.setAdapter(listAdapter);
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
 
-        final LinearLayout mainLayout = new LinearLayout(activity);
-        mainLayout.setOrientation(LinearLayout.VERTICAL);
+        final LinearLayout linearLayout = new LinearLayout(activity);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         if (dopt.isSearchEnabled) {
             final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             searchLp.setMargins(margin, margin / 2, margin, margin / 2);
-            mainLayout.addView(searchLayout, searchLp);
+            linearLayout.addView(searchLayout, searchLp);
         }
 
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
-        mainLayout.addView(listView, layoutParams);
+        linearLayout.addView(listView, layoutParams);
         if (!TextUtils.isEmpty(dopt.messageText)) {
             dialogBuilder.setMessage(dopt.messageText);
         }
 
-        dialogBuilder.setView(mainLayout)
+        dialogBuilder.setView(linearLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
