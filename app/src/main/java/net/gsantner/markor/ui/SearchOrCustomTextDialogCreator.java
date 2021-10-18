@@ -384,11 +384,12 @@ public class SearchOrCustomTextDialogCreator {
             selKeys.addAll(noneIncluded ? Collections.singletonList(null) : Collections.emptyList());
 
             final SearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
+            doptSel.subtitle = activity.getString(title);
 
             // Callback to save view
             doptSel.neutralButtonText = R.string.save;
             doptSel.neutralButtonCallback = (dialog) -> {
-                // Get title
+                // Get save name
                 final SearchOrCustomTextDialog.DialogOptions doptSave = new SearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, doptSave);
                 doptSave.titleText = R.string.name;
