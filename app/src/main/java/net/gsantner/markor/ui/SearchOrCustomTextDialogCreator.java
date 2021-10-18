@@ -279,6 +279,7 @@ public class SearchOrCustomTextDialogCreator {
                 final SearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
                         activity, text, TodoTxtFilter.taskSelector(gp.keys, TodoTxtFilter.keyGetter(activity, gp.queryType), gp.isAnd));
                 doptView.titleText = R.string.search;
+                doptView.subtitle = gp.title;
 
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
