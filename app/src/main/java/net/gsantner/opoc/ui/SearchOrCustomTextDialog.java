@@ -90,7 +90,6 @@ public class SearchOrCustomTextDialog {
         public Callback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
         public List<Integer> preSelected = null;
-        public String subtitle = null;
 
         public Callback.a1<AlertDialog> neutralButtonCallback = null;
 
@@ -234,13 +233,13 @@ public class SearchOrCustomTextDialog {
 
         // Constructing the dialog
         // =========================================================================================
-        if (dopt.titleText != 0) {
-            // Using a custom title to enable adding a subtitle
+        if (dopt.titleText != 0 || !TextUtils.isEmpty(dopt.messageText)) {
+            // Using a custom view for title and message.
+            // This is needed because:
+            // 1. https://stackoverflow.com/questions/61339887/alertdialog-doesnt-fit-long-list-view-buttons-if-used-together
+            // 2. In order to control spacing
+            // And is much less hacky than the other approaches
             dialogBuilder.setCustomTitle(makeTitleView(activity, dopt));
-        }
-
-        if (!TextUtils.isEmpty(dopt.messageText)) {
-            dialogBuilder.setMessage(dopt.messageText);
         }
 
         final LinearLayout mainLayout = new LinearLayout(activity);
@@ -386,17 +385,19 @@ public class SearchOrCustomTextDialog {
         titleLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
         titleLayout.setPadding(paddingSide, paddingSide, paddingSide, paddingBetween);
 
-        final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
-        title.setSingleLine();
-        title.setEllipsize(TextUtils.TruncateAt.END);
-        titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        title.setText(dopt.titleText);
+        if (dopt.titleText != 0) {
+            final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
+            title.setSingleLine();
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            title.setText(dopt.titleText);
+            titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
 
-        if (!TextUtils.isEmpty(dopt.subtitle)) {
+        if (!TextUtils.isEmpty(dopt.messageText)) {
             final TextView subTitle = new TextView(context, null, android.R.attr.subtitleTextStyle);
             subTitle.setPadding(0, paddingBetween, 0, 0);
+            subTitle.setText(dopt.messageText);
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            subTitle.setText(dopt.subtitle);
         }
 
         return titleLayout;
