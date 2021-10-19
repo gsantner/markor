@@ -394,7 +394,7 @@ public class SearchOrCustomTextDialog {
         }
 
         if (!TextUtils.isEmpty(dopt.messageText)) {
-            final TextView subTitle = new TextView(context, null, android.R.attr.subtitleTextStyle);
+            final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
             subTitle.setPadding(0, paddingBetween, 0, 0);
             subTitle.setText(dopt.messageText);
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
