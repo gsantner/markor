@@ -419,7 +419,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_context">按情境浏览</string>
     <string name="insert_project">插入项目</string>
     <string name="insert_context">插入情境</string>
-    <string name="browse_todo">浏览 todo</string>
+    <string name="browse_todo">浏览待办事项</string>
     <string name="browse_by_priority">按优先级浏览</string>
     <string name="browse_by_due_date">按到期日浏览</string>
     <string name="due_overdue">过期时间</string>
