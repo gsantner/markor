@@ -199,6 +199,7 @@ public class DocumentIO {
                 shareUtil.writeFile(document.getFile(), false, (fileOpened, fos) -> {
                     try {
                         fos.write(contentAsBytes);
+                        fos.flush();
                     } catch (Exception ignored) {
                     }
                 });
