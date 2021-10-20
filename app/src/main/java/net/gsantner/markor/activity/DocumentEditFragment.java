@@ -662,7 +662,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 getActivity().getIntent().getBooleanExtra(DocumentActivity.EXTRA_DO_PREVIEW, false)
                         || _appSettings.getDocumentPreviewState(getPath())
                         || _document.getFile().getName().startsWith("index."));
-        saveDocument();
         if (_isPreviewVisible && !preview) {
             setDocumentViewVisibility(false);
             return true;
@@ -708,7 +707,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        saveDocument();
         if ((_hlEditor.length() * _document.getHistory().size() * 1.05) < 9200 && false) {
             outState.putSerializable(SAVESTATE_DOCUMENT, _document);
         }
