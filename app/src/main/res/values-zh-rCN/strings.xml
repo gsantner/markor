@@ -11,8 +11,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">设置</string>
-    <string name="light">亮色主题</string>
-    <string name="dark">暗色主题</string>
+    <string name="light">浅色</string>
+    <string name="dark">深色</string>
     <string name="delete">删除</string>
     <string name="appearance">外观样式</string>
     <string name="rename">重命名</string>
