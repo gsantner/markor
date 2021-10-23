@@ -564,16 +564,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
     private Document loadDocument() {
-        Document document = DocumentIO.loadDocument(getActivity(), getArguments(), _document);
-        if (document != null) {
-            document.setDoHistory(_appSettings.isEditorHistoryEnabled());
-        }
-        if (document.getHistory().isEmpty()) {
-            document.forceAddNextChangeToHistory();
-            document.addToHistory();
-        }
-
-        return document;
+        return DocumentIO.loadDocument(getActivity(), getArguments());
     }
 
     public void applyTextFormat(final int textFormatId) {
@@ -707,9 +698,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if ((_hlEditor.length() * _document.getHistory().size() * 1.05) < 9200 && false) {
-            outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-        }
         if (getArguments() != null && _document.getFile() != null) {
             getArguments().putSerializable(DocumentIO.EXTRA_PATH, _document.getFile());
             getArguments().putSerializable(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
@@ -765,7 +753,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _firstFileLoad = false;
             return;
         }
-        Document cmp = DocumentIO.loadDocument(getActivity(), getArguments(), null);
+
+        Document cmp = DocumentIO.loadDocument(getActivity(), getArguments());
         if (forceReload || (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent()))) {
             _editTextUndoRedoHelper.clearHistory();
             _document = cmp;

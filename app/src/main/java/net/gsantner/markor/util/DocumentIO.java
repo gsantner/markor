@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -47,10 +46,7 @@ public class DocumentIO {
     public static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
     public static boolean SAVE_IGNORE_EMTPY_NEXT_TIME = false;
 
-    public static Document loadDocument(Context context, Intent arguments, @Nullable Document existingDocument) {
-        if (existingDocument != null) {
-            return existingDocument;
-        }
+    public static Document loadDocument(Context context, Intent arguments) {
 
         Bundle bundle = new Bundle();
         if (arguments.hasExtra(EXTRA_DOCUMENT)) {
@@ -59,22 +55,18 @@ public class DocumentIO {
             bundle.putSerializable(EXTRA_PATH, arguments.getSerializableExtra(EXTRA_PATH));
             bundle.putBoolean(EXTRA_PATH_IS_FOLDER, arguments.getBooleanExtra(EXTRA_PATH_IS_FOLDER, false));
         }
-        return loadDocument(context, bundle, existingDocument);
+        return loadDocument(context, bundle);
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored"})
-    public static synchronized Document loadDocument(Context context, Bundle arguments, @Nullable Document existingDocument) {
-        if (existingDocument != null) {
-            return existingDocument;
-        }
+    public static synchronized Document loadDocument(Context context, Bundle arguments) {
 
-        // When called directly from a filepath
+        // When called directly with a document
         if (arguments.containsKey(EXTRA_DOCUMENT)) {
             return (Document) arguments.getSerializable(EXTRA_DOCUMENT);
         }
 
         Document document = new Document();
-        document.setDoHistory(false);
         File extraPath = (File) arguments.getSerializable(EXTRA_PATH);
         File filePath = extraPath;
 
@@ -141,7 +133,6 @@ public class DocumentIO {
             document.setTitle(title.substring(0, lastIndexOfDot));
         }
 
-        document.setDoHistory(true);
         if (MainActivity.IS_DEBUG_ENABLED) {
             String c = document.getContent();
             AppSettings.appendDebugLog("\n\n\n--------------\nLoaded document, filepattern " + document.getFile().getName().replaceAll(".*\\.", "-") + ", chars: " + c.length() + " bytes:" + c.getBytes().length + "(" + FileUtils.getReadableFileSize(c.getBytes().length, true) + "). Language >" + Locale.getDefault().toString() + "<, Language override >" + AppSettings.get().getLanguage() + "<");
@@ -161,14 +152,9 @@ public class DocumentIO {
         }
         boolean ret;
         String filename = DocumentIO.normalizeTitleForFilename(document, text) + document.getFileExtension();
-        document.setDoHistory(true);
         document.setFile(new File(document.getFile().getParentFile(), filename));
 
-        Document documentInitial = document.getInitialVersion();
-
-        document.setFile(documentInitial.getFile());
-
-        if (!text.equals(documentInitial.getContent())) {
+        if (!text.equals(document.getContent())) {
             ret = writeContent(document, text, shareUtil, context);
         } else {
             ret = true;
@@ -178,7 +164,6 @@ public class DocumentIO {
 
     private static boolean writeContent(Document document, String text, ShareUtil shareUtil, Context context) {
         boolean ret;
-        document.forceAddNextChangeToHistory();
         document.setContent(text + (!TextUtils.isEmpty(text) && !text.endsWith("\n") ? "\n" : ""));
 
         // Create parent (=folder of file) if not exists
@@ -186,6 +171,7 @@ public class DocumentIO {
             //noinspection ResultOfMethodCallIgnored
             document.getFile().getParentFile().mkdirs();
         }
+
         try {
             final char[] pw;
             final byte[] contentAsBytes;

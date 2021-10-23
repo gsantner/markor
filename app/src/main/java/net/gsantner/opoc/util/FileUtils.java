@@ -14,9 +14,7 @@ package net.gsantner.opoc.util;
 import android.text.TextUtils;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -24,11 +22,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -45,10 +41,17 @@ public class FileUtils {
     private static final int BUFFER_SIZE = 4096;
 
     public static String readTextFileFast(final File file) {
-        try {
-            return new String(readCloseStreamWithSize(new FileInputStream(file), (int) file.length()));
+        try (final FileInputStream inputStream = new FileInputStream(file)) {
+            final ByteArrayOutputStream result = new ByteArrayOutputStream();
+            final byte[] buffer = new byte[1024];
+            for (int length; (length = inputStream.read(buffer)) != -1; ) {
+                result.write(buffer, 0, length);
+            }
+            return result.toString("UTF-8");
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return "";
     }
@@ -171,45 +174,18 @@ public class FileUtils {
     }
 
     public static boolean writeFile(final File file, byte[] data) {
-        try {
-            OutputStream output = null;
-            try {
-                output = new BufferedOutputStream(new FileOutputStream(file));
-                output.write(data);
-                output.flush();
-                return true;
-            } finally {
-                if (output != null) {
-                    output.close();
-                }
-            }
+        try (final FileOutputStream output = new FileOutputStream(file)) {
+            output.write(data);
+            output.flush();
+            return true;
         } catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
     public static boolean writeFile(final File file, final String content) {
-        BufferedWriter writer = null;
-        try {
-            if (!file.getParentFile().isDirectory() && !file.getParentFile().mkdirs())
-                return false;
-
-            writer = new BufferedWriter(new FileWriter(file));
-            writer.write(content);
-            writer.flush();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        return writeFile(file, content.getBytes());
     }
 
     public static boolean copyFile(final File src, final File dst) {
