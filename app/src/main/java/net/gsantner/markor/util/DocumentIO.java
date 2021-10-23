@@ -59,7 +59,7 @@ public class DocumentIO {
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored"})
-    public static synchronized Document loadDocument(Context context, Bundle arguments) {
+    public static Document loadDocument(Context context, Bundle arguments) {
 
         // When called directly with a document
         if (arguments.containsKey(EXTRA_DOCUMENT)) {
@@ -146,7 +146,7 @@ public class DocumentIO {
         return document;
     }
 
-    public static synchronized boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil, Context context) {
+    public static boolean saveDocument(final Document document, final String text, final ShareUtil shareUtil, Context context) {
         if (text == null || (!SAVE_IGNORE_EMTPY_NEXT_TIME && text.trim().isEmpty() && text.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
             return false;
         }

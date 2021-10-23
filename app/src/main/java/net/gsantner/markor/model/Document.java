@@ -44,15 +44,15 @@ public class Document implements Serializable {
         return null;
     }
 
-    public synchronized Document cloneDocument() {
+    public Document cloneDocument() {
         return fromDocumentToDocument(this, new Document());
     }
 
-    public synchronized Document loadFromDocument(Document source) {
+    public Document loadFromDocument(Document source) {
         return fromDocumentToDocument(source, this);
     }
 
-    public synchronized static Document fromDocumentToDocument(Document source, Document target) {
+    public static Document fromDocumentToDocument(Document source, Document target) {
         target.setFile(source.getFile());
         target.setTitle(source.getTitle());
         target.setContent(source.getContent());
@@ -61,31 +61,31 @@ public class Document implements Serializable {
         return target;
     }
 
-    public synchronized File getFile() {
+    public File getFile() {
         return _file;
     }
 
-    public synchronized void setFile(File file) {
+    public void setFile(File file) {
         if (!equalsc(getFile(), file)) {
             _file = file;
         }
     }
 
-    public synchronized String getTitle() {
+    public String getTitle() {
         return _title;
     }
 
-    public synchronized void setTitle(String title) {
+    public void setTitle(String title) {
         if (!equalsc(getTitle(), title)) {
             _title = title;
         }
     }
 
-    public synchronized String getContent() {
+    public String getContent() {
         return _content;
     }
 
-    public synchronized void setContent(String content) {
+    public void setContent(String content) {
         if (!equalsc(getContent(), content)) {
             _content = content;
         }

@@ -182,8 +182,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         }
-        _document = loadDocument();
+
+        _document = DocumentIO.loadDocument(getActivity(), getArguments());
         loadDocumentIntoUi();
+
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
             int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
             if (cursor >= 0 && cursor < _hlEditor.length()) {
@@ -537,8 +539,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _appSettings.setDocumentFontSize(getPath(), newSize);
                 });
             }
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private long _lastChangedThreadStart = 0;
@@ -560,11 +563,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
         }
 
-    }
-
-    @SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
-    private Document loadDocument() {
-        return DocumentIO.loadDocument(getActivity(), getArguments());
     }
 
     public void applyTextFormat(final int textFormatId) {
@@ -715,11 +713,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onPause() {
-        super.onPause();
         saveDocument();
         if (_document != null && _document.getFile() != null) {
             _appSettings.addRecentDocument(_document.getFile());
         }
+        super.onPause();
     }
 
     private void updateLauncherWidgets() {
@@ -758,7 +756,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (forceReload || (_document != null && cmp != null && cmp.getContent() != null && !cmp.getContent().equals(_document.getContent()))) {
             _editTextUndoRedoHelper.clearHistory();
             _document = cmp;
-            loadDocument();
             loadDocumentIntoUi();
         }
     }

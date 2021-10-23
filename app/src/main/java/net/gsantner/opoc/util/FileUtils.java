@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -173,10 +174,9 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, byte[] data) {
+    public static boolean writeFile(final File file, final byte[] data) {
         try (final FileOutputStream output = new FileOutputStream(file)) {
             output.write(data);
-            output.flush();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -184,8 +184,17 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String content) {
-        return writeFile(file, content.getBytes());
+    public static boolean writeFile(final File file, final String data) {
+        try {
+            final FileWriter output = new FileWriter(file);
+            output.write(data);
+            output.flush();
+            output.close();
+            return true;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean copyFile(final File src, final File dst) {
