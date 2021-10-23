@@ -254,6 +254,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">預設</string>
     <string name="foreground">前景色</string>
     <string name="background">背景</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
     <string name="type">檔案類型</string>
     <string name="folder">資料夾</string>
     <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
