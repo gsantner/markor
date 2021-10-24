@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,7 +29,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -193,7 +193,7 @@ public class TodoTxtTextActions extends TextActions {
                         if (!move.isEmpty()) {
                             File todoFile = _document.getFile();
                             if (todoFile != null && (todoFile.getParentFile().exists() || todoFile.getParentFile().mkdirs())) {
-                                File doneFile = new File(todoFile.getParentFile(), callbackPayload);
+                                File doneFile = new File(todoFile.getParentFile(), Document.normalizeFilename(callbackPayload));
                                 String doneFileContents = "";
                                 if (doneFile.exists() && doneFile.canRead()) {
                                     doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
@@ -201,7 +201,7 @@ public class TodoTxtTextActions extends TextActions {
                                 doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
                                 // Write to do done file
-                                if (new Document(doneFile).save(doneFileContents, getContext())) {
+                                if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
                                     final String tasksString = TodoTxtTask.tasksToString(keep);
                                     _hlEditor.setText(tasksString);
                                     _hlEditor.setSelection(
@@ -454,6 +454,7 @@ public class TodoTxtTextActions extends TextActions {
             return this;
         }
 
+        @NonNull
         @Override
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
@@ -470,9 +471,5 @@ public class TodoTxtTextActions extends TextActions {
 
             return dialog;
         }
-    }
-
-    private void doBasicHighlights(final Spannable spannable) {
-        TodoTxtHighlighter.basicTodoTxtHighlights(spannable, true, new TodoTxtHighlighterColors(), _appSettings.isDarkThemeEnabled(), null);
     }
 }

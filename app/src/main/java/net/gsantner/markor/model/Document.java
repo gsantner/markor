@@ -10,12 +10,14 @@
 package net.gsantner.markor.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -54,13 +56,20 @@ public class Document implements Serializable {
     private long _modTime = 0;                        // Modtime of last loaded content
     private int _initialLineNumber = -1;
 
-    public Document(@NonNull File file) {
+    public Document(File file) {
         _file = file;
 
         _modTime = file.lastModified();
 
         final String name = _file.getName();
-        _fileExtension = (name.contains(".") ? name.substring(name.lastIndexOf(".")) : "").toLowerCase();
+        final int doti = name.lastIndexOf(".");
+        if (doti < 0) {
+            _fileExtension = "";
+            _title = name;
+        } else {
+            _fileExtension = name.substring(doti).toLowerCase();
+            _title = name.substring(0, doti);
+        }
 
         // Set initial format
         final String fnlower = getFile().getName().toLowerCase();
@@ -74,12 +83,6 @@ public class Document implements Serializable {
             setFormat(TextFormat.FORMAT_ZIMWIKI);
         } else {
             setFormat(TextFormat.FORMAT_PLAIN);
-        }
-
-        // Set initial title
-        if (name.contains(".")) {
-            int lastIndexOfDot = name.lastIndexOf(".");
-            setTitle(name.substring(0, lastIndexOfDot));
         }
     }
 
@@ -95,6 +98,15 @@ public class Document implements Serializable {
             }
         }
         return null;
+    }
+
+    public boolean makePath() {
+        try {
+            final File parent = _file.getParentFile();
+            parent.mkdirs();
+            return parent.exists();
+        } catch (NullPointerException | SecurityException ignored){};
+        return false;
     }
 
     public File getFile() {
@@ -113,8 +125,8 @@ public class Document implements Serializable {
         return _hash;
     }
 
-    public boolean contentMatches(final CharSequence data) {
-        return _hash == data.hashCode();
+    public boolean contentChanged(final CharSequence data) {
+        return (data != null) && _hash != data.hashCode();
     }
 
     public String getName() {
@@ -180,13 +192,22 @@ public class Document implements Serializable {
     private static File getValidFile(Context context, Bundle arguments) {
         File file = (File) arguments.getSerializable(EXTRA_PATH);
 
-        if (file == null) file = new AppSettings(context).getNotebookDirectory();
+        // Don't modify a valid file
+        if (file != null && file.isFile() && file.exists()) {
+            return file;
+        }
 
-        if (file.isDirectory() || arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false)) {
-            file.mkdirs();
+        // Default to notebook if null
+        file = (file == null) ? new AppSettings(context).getNotebookDirectory() : file;
+
+        // Get a file in the directory if directory is specified
+        if (arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false) || file.isDirectory()) {
+            file.mkdirs(); // Make folder exist
+            final String content = arguments.getString(Intent.EXTRA_TEXT);
             File temp;
             do {
-                temp = new File(file, String.format("%s-%s%s", context.getString(R.string.document), UUID.randomUUID().toString(), MarkdownTextConverter.EXT_MARKDOWN__MD));
+                // filenameFromContent will fallback to uuid
+                temp = new File(file, String.format(filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__MD));
             } while (temp.exists());
             file = temp;
         }
@@ -211,7 +232,7 @@ public class Document implements Serializable {
         return document;
     }
 
-    public String read(final Context context) {
+    public synchronized String loadContent(final Context context) {
 
         String content;
         final char[] pw;
@@ -263,11 +284,11 @@ public class Document implements Serializable {
         return pw;
     }
 
-    public boolean save(final String content, final Context context) {
-        return save(content, context, null, false);
+    public boolean saveContent(final Context context, final String content) {
+        return saveContent(context, content, null, false);
     }
 
-    public boolean save(final String content, final Context context, ShareUtil shareUtil, final boolean ignoreEmpty) {
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, final boolean ignoreEmpty) {
         if (content == null || (!ignoreEmpty && content.trim().isEmpty() && content.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
             return false;
         }
@@ -320,23 +341,23 @@ public class Document implements Serializable {
     }
 
     public static String normalizeFilename(final String name) {
-        return normalizeFilename(name, "");
-    }
-
-    public static String normalizeFilename(final String name, final String content) {
         if (TextUtils.isEmpty(name.trim())) {
-            if (!TextUtils.isEmpty(content)) {
-                final String contentL1 = content.split("\n")[0];
-                if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
-                    return contentL1;
-                } else {
-                    return contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
-                }
-            } else {
-                return "Note " + UUID.randomUUID().toString();
-            }
+            return "Note " + UUID.randomUUID().toString();
         } else {
             return name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
+        }
+    }
+
+    public static String filenameFromContent(final String content) {
+        if (!TextUtils.isEmpty(content)) {
+            final String contentL1 = content.split("\n")[0];
+            if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
+                return contentL1;
+            } else {
+                return contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
+            }
+        } else {
+            return "Note " + UUID.randomUUID().toString();
         }
     }
 }

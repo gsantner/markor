@@ -206,9 +206,12 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, false);
             final Context context = getContext();
             final Document document = Document.fromArguments(context, args);
-            String trimmedContent = document.read(context).trim();
+            String trimmedContent = document.loadContent(context).trim();
             String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            document.save(currentContent + separator + _sharedText, context);
+            String toWrite = currentContent + separator + _sharedText;
+            if (document.contentChanged(toWrite)) {
+                document.saveContent(context, toWrite);
+            }
             if (showEditor) {
                 showInDocumentActivity(document);
             }

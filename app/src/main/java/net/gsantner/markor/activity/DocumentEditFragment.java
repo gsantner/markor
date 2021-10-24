@@ -134,7 +134,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
-    private boolean _firstFileLoad = true;
 
     public DocumentEditFragment() {
         super();
@@ -180,10 +179,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        } else {
+            _document = Document.fromArguments(getActivity(), getArguments());
         }
 
-        _document = Document.fromArguments(getActivity(), getArguments());
-        loadDocumentIntoUi();
+        loadDocument();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
             int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
@@ -220,18 +220,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onResume() {
         super.onResume();
-        checkReloadDisk(false);
+
+        loadDocument();
+
         int cursor = _hlEditor.getSelectionStart();
         cursor = Math.max(0, cursor);
         cursor = Math.min(_hlEditor.length(), cursor);
         _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+
         if (_document != null && _document.getFile() != null) {
-            if (!_document.getFile().getParentFile().exists()) {
-                //noinspection ResultOfMethodCallIgnored
-                _document.getFile().getParentFile().mkdirs();
-            }
+            _document.makePath();
             boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
@@ -242,13 +242,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
-
-        /*if (_savedInstanceState != null && _savedInstanceState.containsKey("undoredopref")) {
-            _hlEditor.postDelayed(() -> {
-                SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
-                _editTextUndoRedoHelper.restorePersistentState(sp, _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
-            }, 100);
-        }*/
 
         if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
@@ -320,18 +313,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         updateMenuToggleStates(_document.getFormat());
     }
 
-    public void loadDocumentIntoUi() {
+    public void loadDocument() {
         int editorpos = _hlEditor.getSelectionStart();
-        _hlEditor.setText(_document.read(getContext()));
+        _hlEditor.setText(_document.loadContent(getContext()));
+
         editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
         _hlEditor.setSelection(Math.max(editorpos, 0));
         Activity activity = getActivity();
+
         if (activity instanceof DocumentActivity) {
             DocumentActivity da = ((DocumentActivity) activity);
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-        // At this stage the document format has been determined from extension etc
+
+        // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
         _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
@@ -374,7 +370,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_reload: {
-                checkReloadDisk(true);
+                loadDocument();
                 return true;
             }
             case R.id.action_preview: {
@@ -679,7 +675,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             updateLauncherWidgets();
 
-            return _document.save(_hlEditor.getText().toString(), getContext(), _shareUtil, ignoreEmpty);
+            final String content = _hlEditor.getText().toString();
+            if (_document.contentChanged(content)) {
+                return _document.saveContent(getContext(), content, _shareUtil, ignoreEmpty);
+            }
         }
         return false;
     }
@@ -700,18 +699,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if (getArguments() != null && _document.getFile() != null) {
-            getArguments().putSerializable(Document.EXTRA_PATH, _document.getFile());
-            getArguments().putSerializable(Document.EXTRA_PATH_IS_FOLDER, false);
-        }
+        saveDocument();
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
+        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
         outState.putBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
 
-        /*SharedPreferences sp = getContext().getSharedPreferences("unforedopref", 0);
-        _editTextUndoRedoHelper.storePersistentState(sp.edit(), _editTextUndoRedoHelper.undoRedoPrefKeyForFile(_document.getFile()));
-        outState.putString("undoredopref", "put");*/
         super.onSaveInstanceState(outState);
     }
 
@@ -735,7 +729,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isDisplayedAtMainActivity()) {
-            checkReloadDisk(false);
+            loadDocument();
         } else if (!isVisibleToUser && _document != null) {
             saveDocument();
         }
@@ -747,17 +741,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (isVisibleToUser) {
             initDocState();
-        }
-    }
-
-    private void checkReloadDisk(boolean forceReload) {
-        if (_firstFileLoad) {
-            _firstFileLoad = false;
-            return;
-        }
-
-        if (forceReload || !_document.contentMatches(_hlEditor.getText().toString())) {
-            loadDocumentIntoUi();
         }
     }
 
