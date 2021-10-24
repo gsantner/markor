@@ -74,11 +74,11 @@ public abstract class TextConverter {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, WebView webView, boolean isExportInLightMode, File file) {
+    public String convertMarkupShowInWebView(Document document, String content, WebView webView, boolean isExportInLightMode) {
         Context context = webView.getContext();
         String html;
         try {
-            html = convertMarkup(document.getContent(), context, isExportInLightMode, file);
+            html = convertMarkup(content, context, isExportInLightMode, document.getFile());
         } catch (Exception e) {
             html = "Please report at project issue tracker: " + e.toString();
         }

@@ -185,16 +185,7 @@ public class FileUtils {
     }
 
     public static boolean writeFile(final File file, final String data) {
-        try {
-            final FileWriter output = new FileWriter(file);
-            output.write(data);
-            output.flush();
-            output.close();
-            return true;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return false;
-        }
+        return writeFile(file, data.getBytes());
     }
 
     public static boolean copyFile(final File src, final File dst) {

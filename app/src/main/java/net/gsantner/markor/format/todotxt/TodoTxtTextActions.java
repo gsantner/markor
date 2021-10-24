@@ -28,7 +28,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
@@ -202,7 +201,7 @@ public class TodoTxtTextActions extends TextActions {
                                 doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
                                 // Write to do done file
-                                if (DocumentIO.saveDocument(new Document(doneFile), doneFileContents, new ShareUtil(_activity), getContext())) {
+                                if (new Document(doneFile).save(doneFileContents, getContext())) {
                                     final String tasksString = TodoTxtTask.tasksToString(keep);
                                     _hlEditor.setText(tasksString);
                                     _hlEditor.setSelection(
