@@ -251,6 +251,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="color">顏色</string>
     <string name="zero_width_space">零寬度空格</string>
     <string name="basic_color_scheme">基本顏色主題</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
     <string name="preset">預設</string>
     <string name="foreground">前景色</string>
     <string name="background">背景</string>
