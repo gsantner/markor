@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import static java.lang.System.currentTimeMillis;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -33,6 +35,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Locale;
 import java.util.UUID;
@@ -42,6 +46,7 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
+    private static final long MINIMUM_WAIT_TIME = 5000; // 5 seconds
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
@@ -52,9 +57,10 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
-    private int _hash = 0;                            // Hash of last processed content
     private long _modTime = 0;                        // Modtime of last loaded content
     private int _initialLineNumber = -1;
+    private String _lastHash = null;
+    private long _lastWriteTime = 0;
 
     public Document(File file) {
         _file = file;
@@ -100,15 +106,6 @@ public class Document implements Serializable {
         return null;
     }
 
-    public boolean makePath() {
-        try {
-            final File parent = _file.getParentFile();
-            parent.mkdirs();
-            return parent.exists();
-        } catch (NullPointerException | SecurityException ignored){};
-        return false;
-    }
-
     public File getFile() {
         return _file;
     }
@@ -119,14 +116,6 @@ public class Document implements Serializable {
 
     public void setTitle(String title) {
         _title = title == null ? "" : title;
-    }
-
-    public int getLastHash() {
-        return _hash;
-    }
-
-    public boolean contentChanged(final CharSequence data) {
-        return (data != null) && _hash != data.hashCode();
     }
 
     public String getName() {
@@ -147,8 +136,7 @@ public class Document implements Serializable {
             Document other = ((Document) obj);
             return equalsc(getFile(), other.getFile())
                     && equalsc(getTitle(), other.getTitle())
-                    && (getFormat() == other.getFormat())
-                    && (getLastHash() == other.getLastHash());
+                    && (getFormat() == other.getFormat());
         }
         return super.equals(obj);
     }
@@ -156,10 +144,6 @@ public class Document implements Serializable {
     private static boolean equalsc(Object o1, Object o2) {
         return (o1 == null && o2 == null) || o1 != null && o1.equals(o2);
     }
-
-    //
-    //
-    //
 
     public String getFileExtension() {
         return _fileExtension;
@@ -181,6 +165,15 @@ public class Document implements Serializable {
         _modTime = modTime;
     }
 
+
+    private static String sha512(final String content) {
+        try {
+            return new String(MessageDigest.getInstance("SHA-512").digest(content.getBytes()));
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
     public static boolean isEncrypted(File file) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
@@ -189,27 +182,30 @@ public class Document implements Serializable {
         return isEncrypted(getFile());
     }
 
+    // Try several fallbacks to get a valid file
     private static File getValidFile(Context context, Bundle arguments) {
         File file = (File) arguments.getSerializable(EXTRA_PATH);
 
-        // Don't modify a valid file
-        if (file != null && file.isFile() && file.exists()) {
-            return file;
-        }
+        final File notebook = new AppSettings(context).getNotebookDirectory();
 
         // Default to notebook if null
-        file = (file == null) ? new AppSettings(context).getNotebookDirectory() : file;
+        file = (file == null) ?  notebook : file;
 
-        // Get a file in the directory if directory is specified
-        if (arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false) || file.isDirectory()) {
-            file.mkdirs(); // Make folder exist
+        // Default to notebook if IS_FOLDER conflicts
+        final boolean isFolder = arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false);
+        file = (isFolder && file.exists() && !file.isDirectory()) ? notebook : file;
+
+        // Default to notebook if could not create directory
+        file = ((isFolder || file.isDirectory()) && !file.exists() && !file.mkdirs()) ? notebook : file;
+
+        // Try to
+        if (file.isDirectory()) {
             final String content = arguments.getString(Intent.EXTRA_TEXT);
-            File temp;
-            do {
-                // filenameFromContent will fallback to uuid
-                temp = new File(file, String.format(filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__MD));
-            } while (temp.exists());
-            file = temp;
+            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__MD);
+            while (temp.exists()) {
+                temp = new File(file, "Note_" + UUID.randomUUID().toString() + MarkdownTextConverter.EXT_MARKDOWN__MD);
+            }
+            return temp;
         }
 
         return file;
@@ -266,7 +262,6 @@ public class Document implements Serializable {
                             + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
 
-        _hash = content.hashCode();
         _modTime = _file.lastModified();
 
         return content;
@@ -284,23 +279,38 @@ public class Document implements Serializable {
         return pw;
     }
 
-    public boolean saveContent(final Context context, final String content) {
-        return saveContent(context, content, null, false);
+    public boolean testCreateParent() {
+        return testCreateParent(_file);
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, final boolean ignoreEmpty) {
-        if (content == null || (!ignoreEmpty && content.trim().isEmpty() && content.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
+    public static boolean testCreateParent(final File file) {
+        try {
+            final File parent = file.getParentFile();
+            return parent != null && (parent.exists() || parent.mkdirs());
+        } catch (NullPointerException e) {
             return false;
         }
+    }
+
+    public boolean saveContent(final Context context, final String content) {
+        return saveContent(context, content, null);
+    }
+
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil) {
+
+        if (!testCreateParent()) return false;
 
         if (shareUtil == null) shareUtil = new ShareUtil(context);
 
-        // Create parent (=folder of file) if not exists
-        if (!_file.getParentFile().exists()) {
-            _file.getParentFile().mkdirs();
+        final String newHash = sha512(content);
+        final long curTime = currentTimeMillis();
+
+        // Don't write the same content in a short duration
+        if (newHash != null && newHash.equals(_lastHash) && (curTime - _lastWriteTime) < MINIMUM_WAIT_TIME) {
+            return true;
         }
 
-        boolean ret;
+        boolean success;
         try {
             final char[] pw;
             final byte[] contentAsBytes;
@@ -318,17 +328,22 @@ public class Document implements Serializable {
                     } catch (Exception ignored) {
                     }
                 });
-                ret = true;
+                success = true;
             } else {
-                ret = FileUtils.writeFile(getFile(), contentAsBytes);
+                success = FileUtils.writeFile(getFile(), contentAsBytes);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
-            ret = false;
+            success = false;
         }
 
-        return ret;
+        if (success) {
+            _lastHash = newHash;
+            _lastWriteTime = curTime;
+        }
+
+        return success;
     }
 
     public static String getMaskedContent(final String text) {

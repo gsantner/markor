@@ -231,7 +231,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
         if (_document != null && _document.getFile() != null) {
-            _document.makePath();
+            _document.testCreateParent();
             boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
                 permok = true;
@@ -366,7 +366,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_save: {
-                saveDocument(true);
+                saveDocument();
                 return true;
             }
             case R.id.action_reload: {
@@ -422,7 +422,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
-                if ((saveDocument(false) || (_hlEditor.length() < 10 && TextUtils.getTrimmedLength(_hlEditor.getEditableText()) == 0)) && activity != null) {
+                if (activity != null && saveDocument()) {
                     activity.onBackPressed();
                 }
                 return true;
@@ -523,7 +523,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_info: {
                 if (_document != null && _document.getFile() != null) {
-                    saveDocument(false); // In order to have the correct info displayed
+                    saveDocument(); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
                 return true;
@@ -659,13 +659,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
 
-    public boolean saveDocument() {
-        return saveDocument(false);
-    }
-
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument(final boolean ignoreEmpty) {
+    public boolean saveDocument() {
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
 
             if (_document != null && _document.getFile() != null) {
@@ -676,9 +672,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             updateLauncherWidgets();
 
             final String content = _hlEditor.getText().toString();
-            if (_document.contentChanged(content)) {
-                return _document.saveContent(getContext(), content, _shareUtil, ignoreEmpty);
-            }
+            return _document.saveContent(getContext(), content, _shareUtil);
         }
         return false;
     }
