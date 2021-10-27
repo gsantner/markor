@@ -406,7 +406,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (saveDocument()) {
                     final String content = _hlEditor.getText().toString();
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
-                    _shareUtil.shareText(converter.convertMarkup(content, _hlEditor.getContext(), false, _document.getFile()),
+                    _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
