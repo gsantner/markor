@@ -532,8 +532,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _appSettings.setDocumentFontSize(getPath(), newSize);
                 });
             }
-            default:
+            default: {
                 return super.onOptionsItemSelected(item);
+            }
         }
     }
 
