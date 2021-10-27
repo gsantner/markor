@@ -412,8 +412,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument()) {
-                    final String content = _hlEditor.getText().toString();
-                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), content, null)) {
+                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _hlEditor.getText().toString(), null)) {
                         Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
