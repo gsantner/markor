@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,8 +34,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Locale;
 
@@ -63,9 +60,6 @@ public class Document implements Serializable {
 
     public Document(File file) {
         _file = file;
-
-        _modTime = file.lastModified();
-
         final String name = _file.getName();
         final int doti = name.lastIndexOf(".");
         if (doti < 0) {
@@ -164,19 +158,14 @@ public class Document implements Serializable {
         _modTime = modTime;
     }
 
-
-    private static String sha512(final String content) {
-        try {
-            return new String(MessageDigest.getInstance("SHA-512").digest(content.getBytes()));
-        } catch (NoSuchAlgorithmException e) {
-            return null;
-        }
+    public boolean hasNewerModTime() {
+        return _file.lastModified() > _modTime;
     }
 
     public static boolean isEncrypted(File file) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
-    
+
     public boolean isEncrypted() {
         return isEncrypted(getFile());
     }
@@ -188,7 +177,7 @@ public class Document implements Serializable {
         final File notebook = new AppSettings(context).getNotebookDirectory();
 
         // Default to notebook if null
-        file = (file == null) ?  notebook : file;
+        file = (file == null) ? notebook : file;
 
         // Default to notebook if IS_FOLDER conflicts
         final boolean isFolder = arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false);
@@ -282,6 +271,10 @@ public class Document implements Serializable {
         return testCreateParent(_file);
     }
 
+    public boolean saveContent(final Context context, final String content) {
+        return saveContent(context, content, null);
+    }
+
     public static boolean testCreateParent(final File file) {
         try {
             final File parent = file.getParentFile();
@@ -291,21 +284,17 @@ public class Document implements Serializable {
         }
     }
 
-    public boolean saveContent(final Context context, final String content) {
-        return saveContent(context, content, null);
-    }
-
     public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil) {
+        if (!testCreateParent()) {
+            return false;
+        }
+        shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
-        if (!testCreateParent()) return false;
-
-        if (shareUtil == null) shareUtil = new ShareUtil(context);
-
-        final String newHash = sha512(content);
+        final String newHash = FileUtils.sha512sum(content.getBytes());
         final long curTime = currentTimeMillis();
 
         // Don't write the same content in a short duration
-        if (newHash != null && newHash.equals(_lastHash) && (curTime - _lastWriteTime) < MINIMUM_WAIT_TIME) {
+        if ((newHash != null && newHash.equals(_lastHash)) || (curTime - _lastWriteTime) < MINIMUM_WAIT_TIME) {
             return true;
         }
 

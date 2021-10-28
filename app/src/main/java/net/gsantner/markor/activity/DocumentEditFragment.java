@@ -315,7 +315,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void loadDocument() {
         int editorpos = _hlEditor.getSelectionStart();
-        _hlEditor.setText(_document.loadContent(getContext()));
+        if (_document.hasNewerModTime()) {
+            _hlEditor.setText(_document.loadContent(getContext()));
+        }
 
         editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
         _hlEditor.setSelection(Math.max(editorpos, 0));
@@ -669,9 +671,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-
-            final String content = _hlEditor.getText().toString();
-            return _document.saveContent(getContext(), content, _shareUtil);
+            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil);
         }
         return false;
     }

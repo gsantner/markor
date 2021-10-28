@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLConnection;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -500,5 +502,17 @@ public class FileUtils {
             file = new File(file, s);
         }
         return file;
+    }
+
+    public static String sha512sum(final byte[] bytes) {
+        try {
+            final StringBuilder sb = new StringBuilder();
+            for (final byte b : MessageDigest.getInstance("SHA-512").digest(bytes)) {
+                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
     }
 }
