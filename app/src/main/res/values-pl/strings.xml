@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Zakończone</string>
     <string name="match_any">Dopasuj dowolne</string>
     <string name="match_all">Dopasuj wszystkie</string>
+    <string name="dynamic_notebook_root_links">Dynamiczne wyszukiwanie roota notatnika</string>
+    <string name="search_dynamically_for_notebook_root">Aby śledzić linki wiki, dynamicznie szukaj plik notebook.zim w celu identyfikacji katalogu głównego dla bieżącego notatnika. Zaznacz to, jeśli używasz wielu notatników zim lub katalog notatnika ustawiony w aplikacji nie odpowiada notatnikowi zim.</string>
 </resources>
