@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Выполнено</string>
     <string name="match_any">Совпадение любой</string>
     <string name="match_all">Совпадение всех</string>
+    <string name="dynamic_notebook_root_links">Динамический поиск корня блокнота</string>
+    <string name="search_dynamically_for_notebook_root">Чтобы перейти по вики-ссылкам, необходимо динамически искать файл notebook.zim для определения корневого каталога текущей записной книжки. Установите флажок, если вы используете несколько цим-блокнотов или установленный в приложении каталог блокнота не соответствует вашему блокноту zim.</string>
 </resources>
