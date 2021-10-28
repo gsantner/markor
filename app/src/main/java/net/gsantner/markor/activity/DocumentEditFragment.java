@@ -404,17 +404,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument()) {
-                    final String content = _hlEditor.getText().toString();
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
-                    _shareUtil.shareText(converter.convertMarkup(content, _hlEditor.getContext(), false, _document.getFile()),
+                    _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument()) {
-                    final String content = _hlEditor.getText().toString();
-                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), content, null)) {
+                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _hlEditor.getText().toString(), null)) {
                         Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -534,8 +532,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _appSettings.setDocumentFontSize(getPath(), newSize);
                 });
             }
-            default:
+            default: {
                 return super.onOptionsItemSelected(item);
+            }
         }
     }
 
