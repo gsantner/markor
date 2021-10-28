@@ -14,6 +14,7 @@ import android.content.Context;
 
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.StringUtils;
 
 import org.apache.commons.io.FilenameUtils;
@@ -131,34 +132,21 @@ public class ZimWikiTextConverter extends TextConverter {
     }
 
     private String convertLink(String group, Context context, File file) {
-        String[] pair = group //
-                .replaceAll("^\\[+", "") //
-                .replaceAll("]+$", "") //
-                .split("\\|");
+        AppSettings settings = new AppSettings(context);
+        File notebookDir = settings.getNotebookDirectory();
+        ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(group, notebookDir, file, settings.isZimWikiDynamicNotebookRootEnabled());
 
-        StringBuilder fullPath = new StringBuilder();
-        if (pair[0].charAt(0) == '+') {
-            fullPath.append("file://");
-            fullPath.append(context.getFilesDir().getAbsolutePath());
-            fullPath.append(File.separator);
-            fullPath.append(pair[0].substring(1));
-            fullPath.append(".txt");
-        } else if (pair[0].matches("^[a-z]+://.+$")) {
-            fullPath.append(pair[0]);
+        String markdownLink;
+        if (resolver.isWebLink()) {
+            markdownLink = resolver.getResolvedLink().replaceAll(" ", "%20");
         } else {
-            fullPath.append("file://");
-            if (pair[0].charAt(0) == ':')
-                fullPath.append(context.getFilesDir().getAbsolutePath());
-            else
-                fullPath.append(file.getParentFile().getAbsolutePath());
-            for (String token : pair[0].split(":")) {
-                fullPath.append(File.separator);
-                fullPath.append(token);
-            }
-            fullPath.append(".txt");
+            markdownLink = "file://"+resolver.getResolvedLink();
         }
-        // TODO proper URL encoding
-        return String.format("[%s](%s)", pair[pair.length - 1], fullPath.toString().replaceAll(" ", "%20"));
+
+        String linkDescription = resolver.getLinkDescription() != null ? resolver.getLinkDescription() : resolver.getZimPath();
+        linkDescription = linkDescription.replaceAll("\\+", "&#43;");
+
+        return String.format("[%s](%s)", linkDescription, markdownLink);
     }
 
     private String convertImage(File file, String fullMatch) {

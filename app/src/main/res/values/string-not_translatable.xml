@@ -313,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
+    <string name="pref_key__zimwiki__dynamic_notebook_root" translatable="false">pref_key__zimwiki__dynamic_notebook_root</string>
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
     <string name="pref_key__filesearch_ignorelist" translatable="false">pref_key__filesearch_ignorelist</string>
     <string name="pref_key__is_search_query_case_sensitive" translatable="false">pref_key__is_search_query_case_sensitive</string>
