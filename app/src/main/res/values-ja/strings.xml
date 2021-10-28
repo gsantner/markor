@@ -427,4 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">完了</string>
     <string name="match_any">どれにでも一致</string>
     <string name="match_all">すべて一致</string>
+    <string name="dynamic_notebook_root_links">ノートブックのルートを動的に検索</string>
+    <string name="search_dynamically_for_notebook_root">wiki のリンクをたどるために、notebook.zim ファイルを動的に検索して、現在のノートブックのルートディレクトリを特定します。 複数のzimノートブックを使用している場合や、アプリ内で設定されているノートブックディレクトリがzimノートブックに対応していない場合は、これを確認してください。</string>
 </resources>

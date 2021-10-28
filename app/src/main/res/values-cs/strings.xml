@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Dokončeno</string>
     <string name="match_any">Odpovídat libovolné</string>
     <string name="match_all">Odpovídat vše</string>
+    <string name="dynamic_notebook_root_links">Dynamické hledání kořene sešitu</string>
+    <string name="search_dynamically_for_notebook_root">Chcete-li sledovat wiki odkazy, dynamicky vyhledat notebook.zim soubor pro identifikaci kořenového adresáře pro aktuální notebook. Zaškrtněte, pokud používáte více sešitů zim nebo nastavený adresář sešitu v aplikaci, neodpovídá Vašemu sešitu zim.</string>
 </resources>

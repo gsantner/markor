@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Completado</string>
     <string name="match_any">Coincidir Cualquier</string>
     <string name="match_all">Coincidir todos</string>
+    <string name="dynamic_notebook_root_links">Búsqueda dinámica para la raíz del cuaderno</string>
+    <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
 </resources>

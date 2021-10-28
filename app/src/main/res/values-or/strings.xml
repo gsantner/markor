@@ -30,7 +30,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_">ଆମଦାନୀ କରନ୍ତୁ</string>
     <string name="select_folder">ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="edit">ସମ୍ପାଦନା</string>
-    <string name="share">ଅଂଶୀଦାର କରନ୍ତୁ</string>
+    <string name="share">ଅଂଶୀଦାର</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
     <string name="display_converted_markup">ରୂପାନ୍ତରିତ ମାର୍କଅପ୍ ପ୍ରଦର୍ଶନ କରନ୍ତୁ</string>
     <string name="editor">ସମ୍ପାଦକ</string>
@@ -89,6 +89,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
+    <string name="other">ଅନ୍ୟ</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
@@ -100,10 +101,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">ନିମ୍ନ</string>
     <string name="center">କେନ୍ଦ୍ର</string>
     <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
+    <string name="open_source_licenses">ଖୋଲା ଉତ୍ସ ଲାଇସେନ୍ସଗୁଡ଼ିକ</string>
     <string name="rate_this_app">ଏହି ଆପକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ</string>
     <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
     <string name="more_info_and_help">ଅଧିକ ସୂଚନା ଏବଂ ସହାୟତା</string>
     <string name="report_bugs">ବଗ୍‌ ରିପୋର୍ଟ୍‌ କରନ୍ତୁ</string>
+    <string name="join_community">ସମ୍ପ୍ରଦାୟରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
+    <string name="bug_reports_suggest_improvements">ମତାମତ ଦିଅନ୍ତୁ, ବଗ୍ ରିପୋର୍ଟ୍ କରନ୍ତୁ କିମ୍ୱା ଉନ୍ନତି ପରାମର୍ଶ ଦିଅନ୍ତୁ</string>
+    <string name="help_translating_this_app">ଏହି ଆପକୁ ଅନ୍ୟ ଭାଷାରେ ଅନୁବାଦ କରନ୍ତୁ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>

@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Завершені</string>
     <string name="match_any">Збігів</string>
     <string name="match_all">Відповідає всім</string>
+    <string name="dynamic_notebook_root_links">Динамічний пошук кореневого блокноту</string>
+    <string name="search_dynamically_for_notebook_root">Для того, щоб перейти за посиланнями в вікі, динамічно шукати файл notebook.zim для визначення кореневої директорії для поточного записника. Поставте галочку, якщо ви використовуєте декілька самоблокнотів чи папку з нотатником у програмі не відповідає вашому зошит зошиту.</string>
 </resources>
