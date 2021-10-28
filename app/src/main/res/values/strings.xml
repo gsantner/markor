@@ -444,4 +444,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Completed</string>
     <string name="match_any">Match Any</string>
     <string name="match_all">Match All</string>
+    <string name="dynamic_notebook_root_links">Dynamic search for notebook root</string>
+    <string name="search_dynamically_for_notebook_root">In order to follow wiki links, dynamically search for the notebook.zim file to identify the root directory for the current notebook. Check this if you use multiple zim notebooks or the notebook directory set in the app does not correspond to your zim notebook.</string>
 </resources>
