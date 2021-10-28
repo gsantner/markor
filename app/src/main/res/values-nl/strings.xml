@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Voltooid</string>
     <string name="match_any">Overeenkomen met elke</string>
     <string name="match_all">Alles overeenkomen</string>
+    <string name="dynamic_notebook_root_links">Dynamisch zoeken naar notitieboekroot</string>
+    <string name="search_dynamically_for_notebook_root">Om wiki-links te volgen, zoek je dynamisch naar het notebook.zim-bestand om de hoofdmap te identificeren voor het huidige notitieboek. Vink dit aan als je meerdere zim-notitieboekjes of de schrijffolder in de app niet overeenkomt met je zim-notitieboekje.</string>
 </resources>
