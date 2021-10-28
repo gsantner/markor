@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Concluído</string>
     <string name="match_any">Corresponder Qualquer Um</string>
     <string name="match_all">Combinar todos</string>
+    <string name="dynamic_notebook_root_links">Busca dinâmica pela raiz de notebook</string>
+    <string name="search_dynamically_for_notebook_root">Para seguir os links da wiki, procure dinamicamente o arquivo notebook.zim para identificar o diretório raiz do caderno atual. Verifique se você utiliza vários blocos de anotações zím ou o diretório de anotações definido no app não corresponde ao seu caderno zim.</string>
 </resources>
