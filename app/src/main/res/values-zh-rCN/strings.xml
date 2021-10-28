@@ -11,8 +11,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">设置</string>
-    <string name="light">亮色主题</string>
-    <string name="dark">暗色主题</string>
+    <string name="light">浅色</string>
+    <string name="dark">深色</string>
     <string name="delete">删除</string>
     <string name="appearance">外观样式</string>
     <string name="rename">重命名</string>
@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending">高亮行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">突出显示包含两个或多个空格的行末尾的空格</string>
     <string name="use_monospace_for_code">为代码使用等宽字体</string>
-    <string name="disable_code_block_highlight">禁用代码块高亮</string>
+    <string name="disable_code_block_highlight">停用代码块高亮</string>
     <string name="auto_renumber_ordered_list">自动重新编号的有序列表</string>
     <string name="auto_renumber_ordered_list_slowdown">此选项可能会影响应用性能。</string>
     <string name="use_different_fonttype_slow_down">用不同的字体显示代码。启用后可能会大幅影响性能。</string>
@@ -223,7 +223,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">显示贡献者信息。贡献者可自行选择是否被添加到这里。</string>
     <string name="descending">降序排序</string>
     <string name="ascending">升序排序</string>
-    <string name="disable_spelling_underline">禁用语法检查</string>
+    <string name="disable_spelling_underline">停用语法检查</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">保留输入法建议的同时，移除自动纠错的下划线</string>
     <string name="location">位置</string>
     <string name="text_lines">文本行数</string>
@@ -289,7 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">您可以从底部主视图、文件浏览器或启动器打开文档。还有一个选项可以附加分享到 Markor 的文本。</string>
     <string name="notebook_is_the_home_of_your_files">笔记本是程序启动时 Markor 在文件浏览器中加载的文件夹。它是你的文件的主文件夹。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote 是写下笔记最快选择。它是一个默认位置为 &gt;Notebook/QuickNote.md&lt; 的 Markdown 格式的文件，您可以在设置中设置一个自定义文件路径。</string>
-    <string name="todo_is_the_easiest_way_">使用 ToDo 管理您的任务。它是一个包含默认位置的 todo.txt 格式的文件，&gt;Notebook/todo.txt&lt;，您可以在设置中设置一个自定义文件路径。</string>
+    <string name="todo_is_the_easiest_way_">使用 ToDo 来管理您的任务。它是一个 todo.txt 格式的文件，默认位置为 &gt;Notebook/todo.txt&lt;，您可以在设置中自定义文件路径。</string>
     <string name="navigationbar_color">导航栏颜色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
@@ -340,12 +340,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="jump_to_bottom">跳转到底部</string>
     <string name="quote">引用</string>
     <string name="heading">标题</string>
-    <string name="heading_1">标题 1</string>
-    <string name="heading_2">标题 2</string>
-    <string name="heading_3">标题 3</string>
+    <string name="heading_1">1 级标题</string>
+    <string name="heading_2">2 级标题</string>
+    <string name="heading_3">3 级标题</string>
     <string name="heading_4">4 级标题</string>
     <string name="heading_5">5 级标题</string>
-    <string name="heading_6">六级标题</string>
+    <string name="heading_6">6 级标题</string>
     <string name="bold">粗体</string>
     <string name="italic">斜体</string>
     <string name="highlighted">高亮</string>
@@ -354,7 +354,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="horizontal_line">水平线</string>
     <string name="toggle_done">切换完成</string>
     <string name="link_color">链接颜色</string>
-    <string name="add_context">添加内容</string>
+    <string name="add_context">添加情境</string>
     <string name="add_project">添加项目</string>
     <string name="archive_completed_tasks">存档已完成的任务</string>
     <string name="sort_alphabetically">按字母顺序排序</string>
@@ -416,10 +416,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_space_seperated_contexts_and_projects_these_will">输入以空格分隔的 @情境 和 +项目 标签 。 您可以始终在 todo.txt 的插入对话框中看见这些选项。</string>
     <string name="infinite">不限</string>
     <string name="browse_by_project">按项目浏览</string>
-    <string name="browse_by_context">按上下文浏览</string>
+    <string name="browse_by_context">按情境浏览</string>
     <string name="insert_project">插入项目</string>
     <string name="insert_context">插入情境</string>
-    <string name="browse_todo">浏览 todo</string>
+    <string name="browse_todo">浏览待办事项</string>
     <string name="browse_by_priority">按优先级浏览</string>
     <string name="browse_by_due_date">按到期日浏览</string>
     <string name="due_overdue">过期时间</string>
@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">已完成</string>
     <string name="match_any">任何匹配</string>
     <string name="match_all">匹配全部</string>
+    <string name="dynamic_notebook_root_links">动态搜索笔记本根目录</string>
+    <string name="search_dynamically_for_notebook_root">为了跟随wiki链接，动态地搜索notbook.zim文件来识别当前笔记本的根目录。 如果您使用多个zim笔记本或者应用程序中的笔记本目录与您的zim笔记本不对应，请选中此项。</string>
 </resources>

@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Valmis</string>
     <string name="match_any">Täsmää Mikä Tahansa</string>
     <string name="match_all">Täsmää Kaikki</string>
+    <string name="dynamic_notebook_root_links">Dynaaminen haku muistikirjan juurille</string>
+    <string name="search_dynamically_for_notebook_root">Seuratakseen wiki linkkejä, etsi dynaamisesti notebook.zim-tiedostoa, joka tunnistaa nykyisen muistikirjan juurihakemiston. Valitse tämä, jos käytät useita zim-muistikirjoja tai sovelluksessa asetettu notebook-hakemisto ei vastaa zim-muistikirjaasi.</string>
 </resources>

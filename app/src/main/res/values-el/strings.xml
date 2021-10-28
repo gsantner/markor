@@ -429,4 +429,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="match_any">Ταίριασμα Οποιοδήποτε</string>
     <string name="match_all">Ταίριασμα Όλων</string>
+    <string name="dynamic_notebook_root_links">Δυναμική αναζήτηση ρίζας σημειωματάριου</string>
+    <string name="search_dynamically_for_notebook_root">Για να ακολουθήσετε τους συνδέσμους wiki, αναζητήστε δυναμικά το αρχείο notebook.zim για να εντοπίσετε τον κατάλογο ρίζας για τον τρέχοντα σημειωματάριο. Ενεργοποιήστε αυτή την επιλογή αν χρησιμοποιείτε πολλά σημειωματάρια, ή τον κατάλογο σημειωματάριο που έχει οριστεί στην εφαρμογή δεν αντιστοιχεί στο zim σημειωματάριο σας.</string>
 </resources>
