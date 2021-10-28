@@ -545,6 +545,12 @@
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__zimwiki__reorder_actions"
                     android:title="@string/action_order" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_link_black_24dp"
+                    android:key="@string/pref_key__zimwiki__dynamic_notebook_root"
+                    android:summary="@string/search_dynamically_for_notebook_root"
+                    android:title="@string/dynamic_notebook_root_links" />
             </PreferenceCategory>
         </PreferenceScreen>
 

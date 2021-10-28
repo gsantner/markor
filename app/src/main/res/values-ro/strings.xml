@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Completat</string>
     <string name="match_any">Se potrivește orice</string>
     <string name="match_all">Potrivește tot</string>
+    <string name="dynamic_notebook_root_links">Căutare dinamică după rădăcina de caiet</string>
+    <string name="search_dynamically_for_notebook_root">Pentru a urmări link-urile wiki, căutaţi dinamic fişierul notebook.zim pentru a identifica directorul rădăcină pentru caietul de sarcini curent. Bifați acest lucru dacă utilizați mai multe notebooks zim sau directorul notebook din aplicație nu corespunde cu notebook-ul dvs. zim.</string>
 </resources>

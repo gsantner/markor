@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Fullført</string>
     <string name="match_any">Samsvar med alle</string>
     <string name="match_all">Samsvarer med alle</string>
+    <string name="dynamic_notebook_root_links">Dynamisk søk etter bærerrot for notatblokk</string>
+    <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
 </resources>
