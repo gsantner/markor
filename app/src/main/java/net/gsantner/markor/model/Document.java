@@ -13,13 +13,13 @@ import static java.lang.System.currentTimeMillis;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -39,7 +39,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Locale;
-import java.util.UUID;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
@@ -201,9 +200,9 @@ public class Document implements Serializable {
         // Try to
         if (file.isDirectory()) {
             final String content = arguments.getString(Intent.EXTRA_TEXT);
-            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__MD);
+            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__TXT);
             while (temp.exists()) {
-                temp = new File(file, "Note_" + UUID.randomUUID().toString() + MarkdownTextConverter.EXT_MARKDOWN__MD);
+                temp = new File(file, getFileNameWithTimestamp(true));
             }
             return temp;
         }
@@ -357,7 +356,7 @@ public class Document implements Serializable {
 
     public static String normalizeFilename(final String name) {
         if (TextUtils.isEmpty(name.trim())) {
-            return "Note " + UUID.randomUUID().toString();
+            return getFileNameWithTimestamp(false);
         } else {
             return name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
         }
@@ -372,7 +371,14 @@ public class Document implements Serializable {
                 return contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
             }
         } else {
-            return "Note " + UUID.randomUUID().toString();
+            return getFileNameWithTimestamp(false);
         }
+    }
+
+    // Convenient wrapper
+    private static String getFileNameWithTimestamp(boolean includeExt) {
+        final String prefix = Resources.getSystem().getString(R.string.document);
+        final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
+        return ShareUtil.getFilenameWithTimestamp(prefix, null, ext);
     }
 }
