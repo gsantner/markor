@@ -429,5 +429,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_any">Jegliche Übereinstimmung</string>
     <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch Root</string>
-    <string name="search_dynamically_for_notebook_root">Um Wiki-Links folgen zu können, dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu identifizieren. Aktivieren Sie dies, wenn Sie mehrere zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem zim-Notebook entspricht.</string>
+    <string name="search_dynamically_for_notebook_root">Um Wiki-Links zu folgen, dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu identifizieren. Aktivieren Sie dies, wenn Sie mehrere zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem zim-Notebook entspricht.</string>
 </resources>
