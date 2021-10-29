@@ -363,8 +363,7 @@ public class Document implements Serializable {
 
     // Convenient wrapper
     private static String getFileNameWithTimestamp(boolean includeExt) {
-        final String prefix = Resources.getSystem().getString(R.string.document);
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
-        return ShareUtil.getFilenameWithTimestamp(prefix, null, ext);
+        return ShareUtil.getFilenameWithTimestamp("", "", ext);
     }
 }

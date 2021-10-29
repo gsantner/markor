@@ -285,6 +285,7 @@ public class SearchOrCustomTextDialogCreator {
                 doptView.neutralButtonText = R.string.delete;
                 doptView.neutralButtonCallback = viewDialog -> {
                     final SearchOrCustomTextDialog.DialogOptions confirmDopt = new SearchOrCustomTextDialog.DialogOptions();
+                    baseConf(activity, confirmDopt);
                     confirmDopt.titleText = R.string.confirm_delete;
                     confirmDopt.messageText = gp.title;
                     confirmDopt.isSearchEnabled = false;
