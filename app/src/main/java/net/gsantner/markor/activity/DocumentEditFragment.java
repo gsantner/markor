@@ -179,6 +179,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+            _document.resetModTime(); // Ensure document is loaded on restore state
         } else {
             _document = Document.fromArguments(getActivity(), getArguments());
         }
@@ -315,6 +316,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void loadDocument() {
         int editorpos = _hlEditor.getSelectionStart();
+
+        // Load document if mod time newer than that recorded on last load
         if (_document.hasNewerModTime()) {
             _hlEditor.setText(_document.loadContent(getContext()));
         }

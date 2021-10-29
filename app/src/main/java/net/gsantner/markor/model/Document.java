@@ -42,7 +42,6 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
-    private static final long MINIMUM_WAIT_TIME = 5000; // 5 seconds
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
@@ -53,10 +52,9 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
-    private long _modTime = 0;                        // Modtime of last loaded content
+    private long _modTime = 0;  // Modtime as of when the file was last loaded / written
     private int _initialLineNumber = -1;
     private String _lastHash = null;
-    private long _lastWriteTime = 0;
 
     public Document(File file) {
         _file = file;
@@ -150,12 +148,12 @@ public class Document implements Serializable {
         _format = format;
     }
 
-    public long getModTime() {
-        return _modTime;
+    public void resetModTime() {
+        _modTime = 0;
     }
 
-    public void setModTime(long modTime) {
-        _modTime = modTime;
+    public long getModTime() {
+        return _modTime;
     }
 
     public boolean hasNewerModTime() {
@@ -291,10 +289,9 @@ public class Document implements Serializable {
         shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
         final String newHash = FileUtils.sha512sum(content.getBytes());
-        final long curTime = currentTimeMillis();
 
-        // Don't write the same content in a short duration
-        if ((newHash != null && newHash.equals(_lastHash)) || (curTime - _lastWriteTime) < MINIMUM_WAIT_TIME) {
+        // Don't write if content same and file hasn't changed
+        if (newHash != null && newHash.equals(_lastHash) && !hasNewerModTime()) {
             return true;
         }
 
@@ -328,7 +325,7 @@ public class Document implements Serializable {
 
         if (success) {
             _lastHash = newHash;
-            _lastWriteTime = curTime;
+            _modTime = _file.lastModified(); // Should be == now
         }
 
         return success;
