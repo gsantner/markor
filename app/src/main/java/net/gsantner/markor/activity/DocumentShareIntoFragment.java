@@ -32,7 +32,6 @@ import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
@@ -59,8 +58,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
-        Object intentFile = intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
-        if (intentFile != null && intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false)) {
+        Object intentFile = intent.getSerializableExtra(Document.EXTRA_PATH);
+        if (intentFile != null && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
             f.workingDir = (File) intentFile;
         }
 
@@ -203,12 +202,14 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             Bundle args = new Bundle();
-            args.putSerializable(DocumentIO.EXTRA_PATH, file);
-            args.putBoolean(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
-            Document document = DocumentIO.loadDocument(getContext(), args, null);
-            String trimmedContent = document.getContent().trim();
+            args.putSerializable(Document.EXTRA_PATH, file);
+            args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, false);
+            final Context context = getContext();
+            final Document document = Document.fromArguments(context, args);
+            String trimmedContent = document.loadContent(context).trim();
             String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            DocumentIO.saveDocument(document, currentContent + separator + _sharedText, new ShareUtil(getContext()), getContext());
+            document.saveContent(context, currentContent + separator + _sharedText);
+
             if (showEditor) {
                 showInDocumentActivity(document);
             }

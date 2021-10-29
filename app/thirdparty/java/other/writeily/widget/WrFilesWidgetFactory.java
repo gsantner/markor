@@ -18,9 +18,9 @@ import android.widget.RemoteViewsService;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerFragment;
 
@@ -38,7 +38,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     public WrFilesWidgetFactory(Context context, Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        _dir = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
+        _dir = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.light__primary_text));
         if (position < _widgetFilesList.length) {
             File file = _widgetFilesList[position];
-            Intent fillInIntent = new Intent().putExtra(DocumentIO.EXTRA_PATH, file).putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, file.isDirectory());
+            Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file).putExtra(Document.EXTRA_PATH_IS_FOLDER, file.isDirectory());
             rowView.setTextViewText(R.id.widget_note_title, MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         }

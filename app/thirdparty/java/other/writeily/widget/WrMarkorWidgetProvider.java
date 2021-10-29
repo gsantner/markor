@@ -22,8 +22,8 @@ import android.widget.RemoteViews;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentRelayActivity;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 
 import java.io.File;
 
@@ -74,8 +74,8 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             Intent openShare = new Intent(context, DocumentRelayActivity.class)
                     .setAction(Intent.ACTION_SEND)
-                    .putExtra(DocumentIO.EXTRA_PATH, directoryF)
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true)
+                    .putExtra(Document.EXTRA_PATH, directoryF)
+                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, 0));
 
@@ -86,15 +86,15 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Open To-do
             Intent openTodo = new Intent(context, DocumentRelayActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getTodoFile())
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                    .putExtra(Document.EXTRA_PATH, appSettings.getTodoFile())
+                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, 0));
 
             // Open QuickNote
             Intent openQuickNote = new Intent(context, DocumentRelayActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(DocumentIO.EXTRA_PATH, appSettings.getQuickNoteFile())
-                    .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                    .putExtra(Document.EXTRA_PATH, appSettings.getQuickNoteFile())
+                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, 0));
 
             // Open Favourites
@@ -104,8 +104,8 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // ListView
             Intent notesListIntent = new Intent(context, WrFilesWidgetService.class);
             notesListIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            notesListIntent.putExtra(DocumentIO.EXTRA_PATH, directoryF);
-            notesListIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, true);
+            notesListIntent.putExtra(Document.EXTRA_PATH, directoryF);
+            notesListIntent.putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);

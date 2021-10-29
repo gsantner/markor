@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,8 +28,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
-import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
@@ -170,7 +169,8 @@ public class TodoTxtTextActions extends TextActions {
                 }
                 case R.string.tmaid_todotxt_archive_done_tasks: {
                     SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
-                        // Don't do parse tasks in this case, performance wise
+                        callbackPayload = Document.normalizeFilename(callbackPayload);
+
                         final ArrayList<TodoTxtTask> keep = new ArrayList<>();
                         final ArrayList<TodoTxtTask> move = new ArrayList<>();
                         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
@@ -190,25 +190,22 @@ public class TodoTxtTextActions extends TextActions {
                                 keep.add(task);
                             }
                         }
-                        if (!move.isEmpty()) {
-                            File todoFile = _document.getFile();
-                            if (todoFile != null && (todoFile.getParentFile().exists() || todoFile.getParentFile().mkdirs())) {
-                                File doneFile = new File(todoFile.getParentFile(), callbackPayload);
-                                String doneFileContents = "";
-                                if (doneFile.exists() && doneFile.canRead()) {
-                                    doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
-                                }
-                                doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
+                        if (!move.isEmpty() && _document.testCreateParent()) {
+                            File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
+                            String doneFileContents = "";
+                            if (doneFile.exists() && doneFile.canRead()) {
+                                doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
+                            }
+                            doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
-                                // Write to do done file
-                                if (DocumentIO.saveDocument(new Document(doneFile), doneFileContents, new ShareUtil(_activity), getContext())) {
-                                    final String tasksString = TodoTxtTask.tasksToString(keep);
-                                    _hlEditor.setText(tasksString);
-                                    _hlEditor.setSelection(
-                                            StringUtils.getIndexFromLineOffset(tasksString, selStart),
-                                            StringUtils.getIndexFromLineOffset(tasksString, selEnd)
-                                    );
-                                }
+                            // Write to done file
+                            if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
+                                final String tasksString = TodoTxtTask.tasksToString(keep);
+                                _hlEditor.setText(tasksString);
+                                _hlEditor.setSelection(
+                                        StringUtils.getIndexFromLineOffset(tasksString, selStart),
+                                        StringUtils.getIndexFromLineOffset(tasksString, selEnd)
+                                );
                             }
                         }
                         new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);
@@ -454,6 +451,7 @@ public class TodoTxtTextActions extends TextActions {
             return this;
         }
 
+        @NonNull
         @Override
         public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);

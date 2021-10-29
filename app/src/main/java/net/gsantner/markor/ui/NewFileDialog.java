@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
@@ -166,7 +167,7 @@ public class NewFileDialog extends DialogFragment {
 
                     appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
                     final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
-                    final File f = new File(basedir, usedFilename.trim() + fileExtEdit.getText().toString().trim());
+                    final File f = new File(basedir, Document.normalizeFilename(usedFilename.trim()) + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
