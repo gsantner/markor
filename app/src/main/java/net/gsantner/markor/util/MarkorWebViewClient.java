@@ -20,6 +20,7 @@ import android.webkit.WebViewClient;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.model.Document;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -56,7 +57,7 @@ public class MarkorWebViewClient extends WebViewClient {
                 }
                 if (TextFormat.isTextFile(file)) {
                     Intent newPreview = new Intent(_activity, DocumentActivity.class);
-                    newPreview.putExtra(DocumentIO.EXTRA_PATH, file);
+                    newPreview.putExtra(Document.EXTRA_PATH, file);
                     newPreview.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
                     _activity.startActivity(newPreview);
                 } else if (file.getName().toLowerCase().endsWith(".apk")) {

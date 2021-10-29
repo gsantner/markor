@@ -36,7 +36,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
@@ -73,13 +72,13 @@ public class DocumentActivity extends AppActivityBase {
             intent = new Intent(activity, DocumentActivity.class);
         }
         if (path != null) {
-            intent.putExtra(DocumentIO.EXTRA_PATH, path);
+            intent.putExtra(Document.EXTRA_PATH, path);
         }
         if (lineNumber != null && lineNumber >= 0) {
-            intent.putExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, lineNumber);
+            intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         if (isFolder != null) {
-            intent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, isFolder);
+            intent.putExtra(Document.EXTRA_PATH_IS_FOLDER, isFolder);
         }
         if (doPreview != null) {
             intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
@@ -186,8 +185,8 @@ public class DocumentActivity extends AppActivityBase {
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
-        File file = (File) intent.getSerializableExtra(DocumentIO.EXTRA_PATH);
-        boolean fileIsFolder = intent.getBooleanExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+        File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        boolean fileIsFolder = intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false);
 
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
@@ -204,7 +203,7 @@ public class DocumentActivity extends AppActivityBase {
         }
 
         if (!intentIsSend && file != null) {
-            final int paramLineNumber = intent.getIntExtra(DocumentIO.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
+            final int paramLineNumber = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
             final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
                     || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
                     || file.getName().startsWith("index."));

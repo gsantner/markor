@@ -9,167 +9,116 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import static java.lang.System.currentTimeMillis;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import java.util.Locale;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
-    private final static int MIN_HISTORY_DELAY = 1500; // [ms]
-    private final static int MAX_HISTORY_SIZE = 5;
+    private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
+    public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
+    public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
+    public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
+    public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
+
+    private final File _file;
+    private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
-    private ArrayList<Document> _history = new ArrayList<>();
-    private File _file = null; // Full filepath (path + filename + extension)
-    private String _title = "";  // The title of the document. May lead to a rename at save
-    private String _fileExtension = ""; // Not versioned. folder(path) /  title + ext
-    private String _content = "";
-    private boolean _doHistory = true;
-    private int _historyPosition = 0;
-    private long _lastChanged = 0;
-    private long _modTime = 0;
-    private boolean _forceNoHistory = false;
+    private String _title = "";
+    private long _modTime = 0;  // Modtime as of when the file was last loaded / written
     private int _initialLineNumber = -1;
-
-    public Document() {
-    }
+    private String _lastHash = null;
 
     public Document(File file) {
         _file = file;
+        final String name = _file.getName();
+        final int doti = name.lastIndexOf(".");
+        if (doti < 0) {
+            _fileExtension = "";
+            _title = name;
+        } else {
+            _fileExtension = name.substring(doti).toLowerCase();
+            _title = name.substring(0, doti);
+        }
+
+        // Set initial format
+        final String fnlower = getFile().getName().toLowerCase();
+        if (TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(fnlower)) {
+            setFormat(TextFormat.FORMAT_TODOTXT);
+        } else if (TextFormat.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
+            setFormat(TextFormat.FORMAT_KEYVALUE);
+        } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
+            setFormat(TextFormat.FORMAT_MARKDOWN);
+        } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(getPath())) {
+            setFormat(TextFormat.FORMAT_ZIMWIKI);
+        } else {
+            setFormat(TextFormat.FORMAT_PLAIN);
+        }
+    }
+
+    public String getPath() {
+        return getPath(this);
     }
 
     public static String getPath(final Document document) {
         if (document != null) {
             final File file = document.getFile();
             if (file != null) {
-                return file.getPath();
+                return file.getAbsolutePath();
             }
         }
         return null;
     }
 
-    public synchronized Document cloneDocument() {
-        return fromDocumentToDocument(this, new Document());
-    }
-
-    public synchronized Document loadFromDocument(Document source) {
-        return fromDocumentToDocument(source, this);
-    }
-
-    public synchronized static Document fromDocumentToDocument(Document source, Document target) {
-        target.setDoHistory(false);
-        target.setFile(source.getFile());
-        target.setTitle(source.getTitle());
-        target.setContent(source.getContent());
-        target.setFormat(source.getFormat());
-        target.setModTime(source.getModTime());
-        target.setDoHistory(true);
-        return target;
-    }
-
-    public synchronized boolean canGoToEarlierVersion() {
-        // Position 5, History is 5 big, yes
-        // Position 3, History is 5 big, yes
-        // Position 0, History is 5 big, no
-        // Position 0, History is 0 big, no
-        return _historyPosition > 0 && _history.size() > 0;
-    }
-
-    public synchronized boolean canGoToNewerVersion() {
-        // Position 5, History is 5 big, no
-        // Position 3, History is 5 big, yes
-        // Position 0, History is 5 big, yes
-        // Position 0, History is 0 big, no
-        return _historyPosition < _history.size() - 1;
-    }
-
-    public synchronized void goToEarlierVersion() {
-        if (canGoToEarlierVersion()) {
-            // If we are at the current state, but this was not saved yet -> save current state
-            if (hasChangesNotInHistory()) {
-                forceAddNextChangeToHistory();
-                addToHistory();
-                _historyPosition--;
-            }
-
-            _historyPosition--;
-            if (_historyPosition >= 0 && _historyPosition < _history.size()) {
-                loadFromDocument(_history.get(_historyPosition));
-            }
-        }
-    }
-
-    public boolean hasChangesNotInHistory() {
-        return _historyPosition == _history.size() && (_history.size() == 0 || !_history.get(_history.size() - 1).equals(this));
-    }
-
-    public synchronized void goToNewerVersion() {
-        if (canGoToNewerVersion()) {
-            _historyPosition++;
-            loadFromDocument(_history.get(_historyPosition));
-        }
-    }
-
-    public synchronized void addToHistory() {
-        if (isDoHistory() && (((_lastChanged + MIN_HISTORY_DELAY) < System.currentTimeMillis()))) {
-            while (_historyPosition != _history.size() && _history.size() != 0) {
-                _history.remove(_history.size() - 1);
-            }
-            if (_history.size() >= MAX_HISTORY_SIZE) {
-                _history.remove(2);
-                _historyPosition--;
-            }
-            if (_history.isEmpty() || (!_history.isEmpty() && !_history.get(_history.size() - 1).equals(this))) {
-                _history.add(cloneDocument());
-                _historyPosition++;
-                _lastChanged = System.currentTimeMillis();
-            }
-        }
-    }
-
-    public synchronized File getFile() {
+    public File getFile() {
         return _file;
     }
 
-    public synchronized void setFile(File file) {
-        if (!equalsc(getFile(), file)) {
-            addToHistory();
-            _file = file;
-        }
-    }
-
-    public synchronized String getTitle() {
+    public String getTitle() {
         return _title;
     }
 
-    public synchronized void setTitle(String title) {
-        if (!equalsc(getTitle(), title)) {
-            addToHistory();
-            _title = title;
-        }
+    public void setTitle(String title) {
+        _title = title == null ? "" : title;
     }
 
-    public synchronized String getContent() {
-        return _content;
+    public String getName() {
+        return getFile().getName();
     }
 
-    public synchronized void setContent(String content) {
-        if (!equalsc(getContent(), content)) {
-            addToHistory();
-            _content = content;
-        }
+    public void setInitialLineNumber(int num) {
+        _initialLineNumber = num;
     }
 
-    public synchronized Document getInitialVersion() {
-        if (hasChangesNotInHistory()) {
-            boolean history = isDoHistory();
-            setDoHistory(true);
-            addToHistory();
-            setDoHistory(history);
-        }
-        return _history.size() == 0 ? this : _history.get(0);
+    public int getInitialLineNumber() {
+        return _initialLineNumber;
     }
 
     @Override
@@ -178,7 +127,7 @@ public class Document implements Serializable {
             Document other = ((Document) obj);
             return equalsc(getFile(), other.getFile())
                     && equalsc(getTitle(), other.getTitle())
-                    && equalsc(getContent(), other.getContent());
+                    && (getFormat() == other.getFormat());
         }
         return super.equals(obj);
     }
@@ -187,47 +136,8 @@ public class Document implements Serializable {
         return (o1 == null && o2 == null) || o1 != null && o1.equals(o2);
     }
 
-    //
-    //
-    //
-
-    public boolean isDoHistory() {
-        return _doHistory && !_forceNoHistory;
-    }
-
-    public void setDoHistory(boolean doHistory) {
-        _doHistory = doHistory;
-    }
-
-    public ArrayList<Document> getHistory() {
-        return _history;
-    }
-
-    public void setHistory(ArrayList<Document> history) {
-        _history = history;
-    }
-
-    public int getHistoryPosition() {
-        return _historyPosition;
-    }
-
-    public void setHistoryPosition(int historyPosition) {
-        _historyPosition = historyPosition;
-    }
-
-    public void forceAddNextChangeToHistory() {
-        _lastChanged = 0;
-    }
-
     public String getFileExtension() {
-        if (_fileExtension == null && _file != null) {
-            _fileExtension = (_file.getName().contains(".") ? _file.getName().substring(_file.getName().lastIndexOf(".")) : "").toLowerCase();
-        }
         return _fileExtension;
-    }
-
-    public long getLastChanged() {
-        return _lastChanged;
     }
 
     public int getFormat() {
@@ -238,20 +148,223 @@ public class Document implements Serializable {
         _format = format;
     }
 
+    public void resetModTime() {
+        _modTime = 0;
+    }
+
     public long getModTime() {
         return _modTime;
     }
 
-    public void setModTime(long modTime) {
-        _modTime = modTime;
+    public boolean hasNewerModTime() {
+        return _file.lastModified() > _modTime;
     }
 
-    public void setInitialLineNumber(final int lineNumber) {
-        _initialLineNumber = lineNumber;
+    public static boolean isEncrypted(File file) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
-    public int getInitialLineNumber() {
-        return _initialLineNumber;
+    public boolean isEncrypted() {
+        return isEncrypted(getFile());
     }
 
+    // Try several fallbacks to get a valid file
+    private static File getValidFile(Context context, Bundle arguments) {
+        File file = (File) arguments.getSerializable(EXTRA_PATH);
+
+        final File notebook = new AppSettings(context).getNotebookDirectory();
+
+        // Default to notebook if null
+        file = (file == null) ? notebook : file;
+
+        // Default to notebook if IS_FOLDER conflicts
+        final boolean isFolder = arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false);
+        file = (isFolder && file.exists() && !file.isDirectory()) ? notebook : file;
+
+        // Default to notebook if could not create directory
+        file = ((isFolder || file.isDirectory()) && !file.exists() && !file.mkdirs()) ? notebook : file;
+
+        // Try to
+        if (file.isDirectory()) {
+            final String content = arguments.getString(Intent.EXTRA_TEXT);
+            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__TXT);
+            while (temp.exists()) {
+                temp = new File(file, getFileNameWithTimestamp(true));
+            }
+            return temp;
+        }
+
+        return file;
+    }
+
+    public static Document fromArguments(Context context, Bundle arguments) {
+
+        // When called directly with a document
+        if (arguments.containsKey(EXTRA_DOCUMENT)) {
+            return (Document) arguments.getSerializable(EXTRA_DOCUMENT);
+        }
+
+        Document document = new Document(getValidFile(context, arguments));
+
+        if (arguments.containsKey(EXTRA_FILE_LINE_NUMBER)) {
+            final int lineNumber = arguments.getInt(EXTRA_FILE_LINE_NUMBER);
+            document.setInitialLineNumber(lineNumber);
+        }
+
+        return document;
+    }
+
+    public synchronized String loadContent(final Context context) {
+
+        String content;
+        final char[] pw;
+        if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
+            try {
+                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(getFile()), (int) getFile().length());
+                if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
+                    content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
+                } else {
+                    content = new String(encryptedContext, StandardCharsets.UTF_8);
+                }
+            } catch (FileNotFoundException e) {
+                Log.e(Document.class.getName(), "loadDocument:  File " + getFile() + " not found.");
+                content = "";
+            } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
+                Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
+                Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + getFile() + ". " + e.getMessage(), e);
+                content = "";
+            }
+        } else {
+            content = FileUtils.readTextFileFast(getFile());
+        }
+
+        if (MainActivity.IS_DEBUG_ENABLED) {
+            AppSettings.appendDebugLog(
+                    "\n\n\n--------------\nLoaded document, filepattern "
+                            + getName().replaceAll(".*\\.", "-")
+                            + ", chars: " + content.length() + " bytes:" + content.getBytes().length
+                            + "(" + FileUtils.getReadableFileSize(content.getBytes().length, true) +
+                            "). Language >" + Locale.getDefault().toString()
+                            + "<, Language override >" + AppSettings.get().getLanguage() + "<");
+        }
+
+        _modTime = _file.lastModified();
+
+        return content;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private static char[] getPasswordWithWarning(final Context context) {
+        final char[] pw = new AppSettings(context).getDefaultPassword();
+        if (pw == null || pw.length == 0) {
+            final String warningText = context.getString(R.string.no_password_set_cannot_encrypt_decrypt);
+            Toast.makeText(context, warningText, Toast.LENGTH_LONG).show();
+            Log.w(Document.class.getName(), warningText);
+            return null;
+        }
+        return pw;
+    }
+
+    public boolean testCreateParent() {
+        return testCreateParent(_file);
+    }
+
+    public boolean saveContent(final Context context, final String content) {
+        return saveContent(context, content, null);
+    }
+
+    public static boolean testCreateParent(final File file) {
+        try {
+            final File parent = file.getParentFile();
+            return parent != null && (parent.exists() || parent.mkdirs());
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil) {
+        if (!testCreateParent()) {
+            return false;
+        }
+        shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
+
+        final String newHash = FileUtils.sha512sum(content.getBytes());
+
+        // Don't write if content same and file hasn't changed
+        if (newHash != null && newHash.equals(_lastHash) && !hasNewerModTime()) {
+            return true;
+        }
+
+        boolean success;
+        try {
+            final char[] pw;
+            final byte[] contentAsBytes;
+            if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(content, pw);
+            } else {
+                contentAsBytes = content.getBytes();
+            }
+
+            if (shareUtil.isUnderStorageAccessFolder(_file)) {
+                shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
+                    try {
+                        fos.write(contentAsBytes);
+                        fos.flush();
+                    } catch (Exception ignored) {
+                    }
+                });
+                success = true;
+            } else {
+                success = FileUtils.writeFile(getFile(), contentAsBytes);
+            }
+        } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
+            Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
+            Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
+            success = false;
+        }
+
+        if (success) {
+            _lastHash = newHash;
+            _modTime = _file.lastModified(); // Should be == now
+        }
+
+        return success;
+    }
+
+    public static String getMaskedContent(final String text) {
+        final String httpToken = "§$§$§$§$";
+        return text
+                .replace("http://", httpToken)
+                .replace("https://", httpToken)
+                .replaceAll("\\w", "a")
+                .replace(httpToken, "https://");
+    }
+
+    public static String normalizeFilename(final String name) {
+        if (TextUtils.isEmpty(name.trim())) {
+            return getFileNameWithTimestamp(false);
+        } else {
+            return name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
+        }
+    }
+
+    public static String filenameFromContent(final String content) {
+        if (!TextUtils.isEmpty(content)) {
+            final String contentL1 = content.split("\n")[0];
+            if (contentL1.length() < MAX_TITLE_EXTRACTION_LENGTH) {
+                return contentL1;
+            } else {
+                return contentL1.substring(0, MAX_TITLE_EXTRACTION_LENGTH);
+            }
+        } else {
+            return getFileNameWithTimestamp(false);
+        }
+    }
+
+    // Convenient wrapper
+    private static String getFileNameWithTimestamp(boolean includeExt) {
+        final String prefix = Resources.getSystem().getString(R.string.document);
+        final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
+        return ShareUtil.getFilenameWithTimestamp(prefix, null, ext);
+    }
 }

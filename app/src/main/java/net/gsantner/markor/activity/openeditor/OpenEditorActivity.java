@@ -14,8 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.DocumentIO;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.PermissionChecker;
@@ -26,8 +26,8 @@ public class OpenEditorActivity extends AppCompatActivity {
     protected void openEditorForFile(File file) {
         Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
                 .setAction(Intent.ACTION_CALL_BUTTON)
-                .putExtra(DocumentIO.EXTRA_PATH, file)
-                .putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, false);
+                .putExtra(Document.EXTRA_PATH, file)
+                .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
         openActivityAndClose(openIntent, file);
     }
 
@@ -43,8 +43,8 @@ public class OpenEditorActivity extends AppCompatActivity {
                 if (!file.exists() && !file.isDirectory()) {
                     FileUtils.writeFile(file, "");
                 }
-                openIntent.putExtra(DocumentIO.EXTRA_PATH, openIntent.hasExtra(DocumentIO.EXTRA_PATH) ? openIntent.getSerializableExtra(DocumentIO.EXTRA_PATH) : file);
-                openIntent.putExtra(DocumentIO.EXTRA_PATH_IS_FOLDER, openIntent.hasExtra(DocumentIO.EXTRA_PATH_IS_FOLDER) ? openIntent.getSerializableExtra(DocumentIO.EXTRA_PATH_IS_FOLDER) : file.isDirectory());
+                openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
+                openIntent.putExtra(Document.EXTRA_PATH_IS_FOLDER, openIntent.hasExtra(Document.EXTRA_PATH_IS_FOLDER) ? openIntent.getSerializableExtra(Document.EXTRA_PATH_IS_FOLDER) : file.isDirectory());
                 ActivityUtils au = new ActivityUtils(this);
                 au.animateToActivity(openIntent, true, 1);
             }
