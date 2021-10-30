@@ -49,6 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="hide_statusbar_at_this_view">ଏହି ଦର୍ଶନରେ ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାନ୍ତୁ</string>
     <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
     <string name="name">ନାମ</string>
     <string name="url_or_path">URL / ପଥ</string>
@@ -80,6 +81,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">ଇତିବୃତ୍ତି</string>
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="due_date">ଧାର୍ଯ୍ୟ ତାରିଖ</string>
+    <string name="add_task">ଟାସ୍କ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="add_x_witharg">%s ଯୋଡ଼ନ୍ତୁ</string>
     <string name="refresh">ସତେଜ କରନ୍ତୁ</string>
     <string name="create_shortcut">ସର୍ଟକଟ୍‌ ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="tried_to_create_shortcut_for_this_notice">ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚେଷ୍ଟା କରିଛି। ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ କିଛି ଉନ୍ମୋଚକ ଏହାକୁ ସମର୍ଥନ କରିନପାରେ।</string>
@@ -93,6 +97,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
     <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
     <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
+    <string name="app_wide">ଆପ୍-ସାରା</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
