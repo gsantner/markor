@@ -79,8 +79,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">ଇତିବୃତ୍ତି</string>
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="refresh">ସତେଜ କରନ୍ତୁ</string>
     <string name="create_shortcut">ସର୍ଟକଟ୍‌ ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="tried_to_create_shortcut_for_this_notice">ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚେଷ୍ଟା କରିଛି। ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ କିଛି ଉନ୍ମୋଚକ ଏହାକୁ ସମର୍ଥନ କରିନପାରେ।</string>
+    <string name="file_browser">ଫାଇଲ୍ ବ୍ରାଉଜର୍</string>
     <string name="insert_replace_date">ତାରିଖ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
     <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
