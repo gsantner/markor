@@ -176,4 +176,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="skip">ବାଦ୍ ଦିଅ</string>
     <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
     <string name="skip_all">ବାଦ୍ ଦିଅ (ସମସ୍ତ)</string>
+    <string name="dynamic_notebook_root_links">ନୋଟବୁକ୍ ମୂଳ ପାଇଁ ଡାଇନାମିକ୍ ସନ୍ଧାନ</string>
 </resources>
