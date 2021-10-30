@@ -106,6 +106,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="resources">ସମ୍ବଳ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
     <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
+    <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
+    <string name="horizontal_alignment">ଭୂସମାନ୍ତର ଶ୍ରେଣୀବଦ୍ଧତା</string>
     <string name="default_">ଡିଫଲ୍ଟ</string>
     <string name="left">ବାମ</string>
     <string name="right">ଡାହାଣ</string>
@@ -124,6 +126,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="location">ଅବସ୍ଥାନ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
+    <string name="gallery_picture">ଗ୍ୟାଲେରୀ ଛବି</string>
+    <string name="camera_picture">କ୍ୟାମେରା ଛବି</string>
     <string name="description">ବର୍ଣ୍ଣନା</string>
     <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
     <string name="math">ଗଣିତ</string>
