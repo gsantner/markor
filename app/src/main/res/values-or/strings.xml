@@ -181,6 +181,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="created">ତିଆରି କରାଗଲା</string>
     <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">କୌଣସି ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ ହୋଇନାହିଁ, ଏନକ୍ରିପ୍ଟ କିମ୍ୱା ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିବ ନାହିଁ।\nଏକ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବାକୁ ସେଟିଂସମୂହ -&gt; ସାଧାରଣ -&gt; ପାସ୍‍ୱାର୍ଡ଼ କୁ ଯାଆନ୍ତୁ।</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ଫାଇଲ୍ ବିଷୟବସ୍ତୁ ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିଲା ନାହିଁ। ଆପଣ ଏକ ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼ ବ୍ୟବହାର କରିଛନ୍ତି କି? ଫାଇଲ୍ ପ୍ରକୃତରେ Markor ର AES ଏନକ୍ରିପସନ୍ ସହିତ ହି ଏନକ୍ରିପ୍ଟ ହୋଇଛି ତ?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">ପାସ୍‍ୱାର୍ଡ଼ ପୂର୍ବରୁ ସେଟ୍ ହୋଇଛି। ଏକ ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବା ଦ୍ୱାରା ବିଦ୍ୟମାନ ପାସ୍‍ୱାର୍ଡ଼ ନବଲିଖନ ହେବ ଏବଂ ଯଦି ଆପଣ ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଆନ୍ତି ତେବେ ଆପଣ ଆଉ ଫାଇଲ୍ ଆକସେସ୍ କରିବାକୁ ସମର୍ଥ ହୋଇନପାରନ୍ତି।</string>
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
