@@ -180,6 +180,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">ଫର୍ମାଟ୍ ବାଛନ୍ତୁ</string>
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="created">ତିଆରି କରାଗଲା</string>
+    <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
     <string name="restore_settings">ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ</string>
