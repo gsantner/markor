@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Završeno</string>
     <string name="match_any">Potrefi bilo koji</string>
     <string name="match_all">Potrefi sve</string>
+    <string name="dynamic_notebook_root_links">Dinamička potraga za izvorom bilježnice</string>
+    <string name="search_dynamically_for_notebook_root">Da bi se pratili wiki-linkovi, dinamički pretraži bilježnica.zim datoteku kako bi se utvrdio temeljni direktorij za trenutnu bilježnicu. Aktivirajte ovo ukoliko koristite više zim bilježnica ili ako je u aplikaciji podešeno da se direktorij u kojem se bilježnica nalazi ne veže za Vašu zim-bilježnicu.</string>
 </resources>
