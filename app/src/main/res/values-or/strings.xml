@@ -152,7 +152,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">ଗଣିତ</string>
     <string name="table_of_contents">ସୂଚୀପତ୍ର</string>
     <string name="miscellaneous">ବିବିଧ</string>
+    <string name="no_calendar_app_is_installed">କୌଣସି କ୍ୟାଲେଣ୍ଡର୍ ଆପ୍ ସଂସ୍ଥାପିତ ହୋଇନାହିଁ!</string>
+    <string name="popular_documents">ଲୋକପ୍ରିୟ ଡକ୍ୟୁମେଣ୍ଟ୍</string>
     <string name="color">ରଙ୍ଗ</string>
+    <string name="basic_color_scheme">ମୌଳିକ ରଙ୍ଗ ଯୋଜନା</string>
     <string name="type">ପ୍ରକାର</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="font">ଫଣ୍ଟ</string>
