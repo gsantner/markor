@@ -117,6 +117,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="empty_file">ଖାଲି ଫାଇଲ୍</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
+    <string name="key_pos_1">ଲାଇନ୍ ଆରମ୍ଭ (Pos Home)</string>
+    <string name="key_pos_end">ଲାଇନ୍ ଶେଷ (Pos End)</string>
+    <string name="key_ctrl_a">ସବୁ ଚୟନ କରନ୍ତୁ (Ctrl+A)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
     <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
     <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
@@ -136,6 +139,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">ସମ୍ପ୍ରଦାୟରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
     <string name="bug_reports_suggest_improvements">ମତାମତ ଦିଅନ୍ତୁ, ବଗ୍ ରିପୋର୍ଟ୍ କରନ୍ତୁ କିମ୍ୱା ଉନ୍ନତି ପରାମର୍ଶ ଦିଅନ୍ତୁ</string>
     <string name="help_translating_this_app">ଏହି ଆପକୁ ଅନ୍ୟ ଭାଷାରେ ଅନୁବାଦ କରନ୍ତୁ</string>
+    <string name="ascending">ଆରୋହଣ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
