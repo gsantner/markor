@@ -428,4 +428,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Completat</string>
     <string name="match_any">Coincideix amb qualsevol</string>
     <string name="match_all">Coincideix amb tots</string>
+    <string name="dynamic_notebook_root_links">Cerca dinàmica de l\'arrel del quadern</string>
+    <string name="search_dynamically_for_notebook_root">Per seguir els enllaços wiki, cerqueu dinàmicament el fitxer notebook.zim per identificar el directori arrel del quadern actual. Marqueu-ho si feu servir diversos quaderns zim o el directori de quaderns establert a l\'aplicació no es correspon amb el vostre quadern zim.</string>
 </resources>

@@ -17,6 +17,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">ରୂପ</string>
     <string name="rename">ନାମ ବଦଳାନ୍ତୁ</string>
     <string name="confirm_delete">ବିଲୋପ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="do_you_really_want_to_delete_this_witharg">ଆପଣ ପ୍ରକୃତରେ ଏହି %s ବିଲୋପ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?</string>
+    <string name="confirm_overwrite">ନବଲିଖନ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="file_already_exists_overwerite">ଫାଇଲ୍ ଆଗରୁ ବିଦ୍ୟମାନ ଅଛି, ନବଲିଖନ କରିବେ କି?</string>
     <string name="browse_filesystem">ଫାଇଲ୍ ସିଷ୍ଟମ୍ ବ୍ରାଉଜ୍ କରନ୍ତୁ</string>
     <string name="title">ଆଖ୍ୟା</string>
     <string name="enter_name_of_folder">ଆପଣଙ୍କ ଫୋଲ୍ଡରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ</string>
@@ -30,6 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_">ଆମଦାନୀ କରନ୍ତୁ</string>
     <string name="select_folder">ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="edit">ସମ୍ପାଦନା</string>
+    <string name="search_documents">ଡକ୍ୟୁମେଣ୍ଟ୍ ସନ୍ଧାନ</string>
     <string name="share">ଅଂଶୀଦାର</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
     <string name="display_converted_markup">ରୂପାନ୍ତରିତ ମାର୍କଅପ୍ ପ୍ରଦର୍ଶନ କରନ୍ତୁ</string>
@@ -48,15 +52,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="hide_statusbar_at_this_view">ଏହି ଦର୍ଶନରେ ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାନ୍ତୁ</string>
     <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
     <string name="name">ନାମ</string>
     <string name="url_or_path">URL / ପଥ</string>
     <string name="insert_link">ଲିଙ୍କ୍ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="insert_image">ପ୍ରତିଛବି ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="contributors">ଯୋଗଦାନକାରୀ</string>
+    <string name="select_storage_folder">ଷ୍ଟୋରେଜ୍ ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
+    <string name="show_license_of_the_app">ଆପ୍ ର ଲାଇସେନ୍ସ ଦେଖାନ୍ତୁ</string>
+    <string name="language_change_restart_description">ଏହି ଆପ୍ ର ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ। ପରିବର୍ତ୍ତନଗୁଡ଼ିକ କାର୍ଯ୍ୟକାରୀ ହେବା ପାଇଁ ଆପ୍ ପୁନଃଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="language">ଭାଷା</string>
+    <string name="error_need_storage_permission_to_save_documents">ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ ସଞ୍ଚୟ କରିବା ପାଇଁ ଷ୍ଟୋରେଜ୍ ଅନୁମତି ଆବଶ୍ୟକ</string>
     <string name="open_with">ଏହା ସହ ଖୋଲନ୍ତୁ</string>
     <string name="sort">ଏହା ଅନୁଯାୟୀ ସଜାନ୍ତୁ</string>
     <string name="date">ତାରିଖ</string>
@@ -78,22 +87,43 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">ପ୍ରାଥମିକତା</string>
     <string name="history">ଇତିବୃତ୍ତି</string>
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
+    <string name="search_or_custom">ସନ୍ଧାନ / କଷ୍ଟମ୍</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="clear">ଖାଲି କରନ୍ତୁ</string>
+    <string name="due_date">ଧାର୍ଯ୍ୟ ତାରିଖ</string>
+    <string name="current_date">ସମ୍ପ୍ରତି ତାରିଖ</string>
+    <string name="add_task">ଟାସ୍କ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="add_x_witharg">%s ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="refresh">ସତେଜ କରନ୍ତୁ</string>
     <string name="create_shortcut">ସର୍ଟକଟ୍‌ ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="tried_to_create_shortcut_for_this_notice">ଆପଣଙ୍କ ହୋମ୍ ସ୍କ୍ରିନରେ ଏକ ସର୍ଟକଟ୍ ସୃଷ୍ଟି କରିବାକୁ ଚେଷ୍ଟା କରିଛି। ଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ କିଛି ଉନ୍ମୋଚକ ଏହାକୁ ସମର୍ଥନ କରିନପାରେ।</string>
+    <string name="files_and_folders">ଫାଇଲ୍ ଓ ଫୋଲ୍ଡର୍</string>
+    <string name="document_browser">ଡକ୍ୟୁମେଣ୍ଟ୍ ବ୍ରାଉଜର୍</string>
+    <string name="file_browser">ଫାଇଲ୍ ବ୍ରାଉଜର୍</string>
+    <string name="set_due_date">ଧାର୍ଯ୍ୟ ତାରିଖ ସେଟ୍ କରନ୍ତୁ</string>
     <string name="insert_replace_date">ତାରିଖ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
+    <string name="create_note" needed="false">ନୋଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="special_documents" needed="false">ବିଶେଷ ଡକ୍ୟୁମେଣ୍ଟ୍</string>
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
+    <string name="back_to_previous_folder" needed="false">ପୂର୍ବ ଫୋଲ୍ଡରକୁ ଫେରନ୍ତୁ</string>
     <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
     <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>
     <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
+    <string name="app_wide">ଆପ୍-ସାରା</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
     <string name="other">ଅନ୍ୟ</string>
+    <string name="empty_file">ଖାଲି ଫାଇଲ୍</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
+    <string name="key_pos_1">ଲାଇନ୍ ଆରମ୍ଭ (Pos Home)</string>
+    <string name="key_pos_end">ଲାଇନ୍ ଶେଷ (Pos End)</string>
+    <string name="key_ctrl_a">ସବୁ ଚୟନ କରନ୍ତୁ (Ctrl+A)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
     <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
+    <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
+    <string name="horizontal_alignment">ଭୂସମାନ୍ତର ଶ୍ରେଣୀବଦ୍ଧତା</string>
     <string name="default_">ଡିଫଲ୍ଟ</string>
     <string name="left">ବାମ</string>
     <string name="right">ଡାହାଣ</string>
@@ -106,18 +136,29 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
     <string name="more_info_and_help">ଅଧିକ ସୂଚନା ଏବଂ ସହାୟତା</string>
     <string name="report_bugs">ବଗ୍‌ ରିପୋର୍ଟ୍‌ କରନ୍ତୁ</string>
+    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">ବିକାଶକାରୀଙ୍କୁ ଦାନ କରିବା, କିମ୍ୱା ଏହି ପ୍ରକଳ୍ପରେ ଯୋଗଦାନ କରିବା ବିଷୟରେ ଅଧିକ ସୂଚନା।</string>
     <string name="join_community">ସମ୍ପ୍ରଦାୟରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
     <string name="bug_reports_suggest_improvements">ମତାମତ ଦିଅନ୍ତୁ, ବଗ୍ ରିପୋର୍ଟ୍ କରନ୍ତୁ କିମ୍ୱା ଉନ୍ନତି ପରାମର୍ଶ ଦିଅନ୍ତୁ</string>
     <string name="help_translating_this_app">ଏହି ଆପକୁ ଅନ୍ୟ ଭାଷାରେ ଅନୁବାଦ କରନ୍ତୁ</string>
+    <string name="descending">ଅବରୋହଣ</string>
+    <string name="ascending">ଆରୋହଣ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
+    <string name="recently_viewed_documents">ନିକଟରେ ଦେଖାଯାଇଥିବା ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
+    <string name="error_picture_selection">କୌଣସି ଛବି ଚୟନ ହୋଇନି, ଉଠାଯାଇନି କି ସଞ୍ଚିତ ହୋଇନାହିଁ।</string>
+    <string name="gallery_picture">ଗ୍ୟାଲେରୀ ଛବି</string>
+    <string name="camera_picture">କ୍ୟାମେରା ଛବି</string>
+    <string name="enable_undo_and_redo_be_patient">ପୂର୍ବବତ୍ ଏବଂ ପୁନଃକରଣ ସକ୍ଷମ କରନ୍ତୁ। କେବଳ ଉନ୍ନତ ବ୍ୟବହାର ପାଇଁ ଉପଯୁକ୍ତ। କିଛି ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ବିଲୋପ ନକରିବା ପାଇଁ ସଚେତନ ରୁହନ୍ତୁ। ଇତିବୃତ୍ତି ସଫା କରିବାକୁ ସମ୍ପାଦକ ବନ୍ଦ କରି ଖୋଲନ୍ତୁ।</string>
     <string name="description">ବର୍ଣ୍ଣନା</string>
     <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
     <string name="math">ଗଣିତ</string>
     <string name="table_of_contents">ସୂଚୀପତ୍ର</string>
     <string name="miscellaneous">ବିବିଧ</string>
+    <string name="no_calendar_app_is_installed">କୌଣସି କ୍ୟାଲେଣ୍ଡର୍ ଆପ୍ ସଂସ୍ଥାପିତ ହୋଇନାହିଁ!</string>
+    <string name="popular_documents">ଲୋକପ୍ରିୟ ଡକ୍ୟୁମେଣ୍ଟ୍</string>
     <string name="color">ରଙ୍ଗ</string>
+    <string name="basic_color_scheme">ମୌଳିକ ରଙ୍ଗ ଯୋଜନା</string>
     <string name="type">ପ୍ରକାର</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="font">ଫଣ୍ଟ</string>
@@ -128,7 +169,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_used">ଶେଷ ବ୍ୟବହୃତ</string>
     <string name="my_note">ମୋ_ନୋଟ୍</string>
     <string name="close">ବନ୍ଦ କରନ୍ତୁ</string>
-    <string name="cancel">ବାତିଲ୍‌ କରନ୍ତୁ</string>
+    <string name="cancel">ବାତିଲ୍ କର</string>
     <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
     <string name="folder_first">ପ୍ରଥମେ ଫୋଲ୍ଡର୍</string>
     <string name="internal_storage">ଅନ୍ତର୍ନିହିତ ଷ୍ଟୋରେଜ୍‌</string>
@@ -164,6 +205,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="choose_format">ଫର୍ମାଟ୍ ବାଛନ୍ତୁ</string>
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="created">ତିଆରି କରାଗଲା</string>
+    <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">କୌଣସି ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ ହୋଇନାହିଁ, ଏନକ୍ରିପ୍ଟ କିମ୍ୱା ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିବ ନାହିଁ।\nଏକ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବାକୁ ସେଟିଂସମୂହ -&gt; ସାଧାରଣ -&gt; ପାସ୍‍ୱାର୍ଡ଼ କୁ ଯାଆନ୍ତୁ।</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ଫାଇଲ୍ ବିଷୟବସ୍ତୁ ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିଲା ନାହିଁ। ଆପଣ ଏକ ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼ ବ୍ୟବହାର କରିଛନ୍ତି କି? ଫାଇଲ୍ ପ୍ରକୃତରେ Markor ର AES ଏନକ୍ରିପସନ୍ ସହିତ ହି ଏନକ୍ରିପ୍ଟ ହୋଇଛି ତ?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">ପାସ୍‍ୱାର୍ଡ଼ ପୂର୍ବରୁ ସେଟ୍ ହୋଇଛି। ଏକ ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବା ଦ୍ୱାରା ବିଦ୍ୟମାନ ପାସ୍‍ୱାର୍ଡ଼ ନବଲିଖନ ହେବ ଏବଂ ଯଦି ଆପଣ ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଆନ୍ତି ତେବେ ଆପଣ ଆଉ ଫାଇଲ୍ ଆକସେସ୍ କରିବାକୁ ସମର୍ଥ ହୋଇନପାରନ୍ତି।</string>
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>
     <string name="backup_settings">ସେଟିଂସ୍ ବ୍ୟାକ୍‌ଅପ୍‌ ନିଅନ୍ତୁ</string>
     <string name="restore_settings">ସେଟିଂସ୍ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ</string>
@@ -176,4 +221,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="skip">ବାଦ୍ ଦିଅ</string>
     <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
     <string name="skip_all">ବାଦ୍ ଦିଅ (ସମସ୍ତ)</string>
+    <string name="dynamic_notebook_root_links">ନୋଟବୁକ୍ ମୂଳ ପାଇଁ ଡାଇନାମିକ୍ ସନ୍ଧାନ</string>
 </resources>
