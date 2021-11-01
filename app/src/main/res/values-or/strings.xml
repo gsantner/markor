@@ -149,6 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_picture_selection">କୌଣସି ଛବି ଚୟନ ହୋଇନି, ଉଠାଯାଇନି କି ସଞ୍ଚିତ ହୋଇନାହିଁ।</string>
     <string name="gallery_picture">ଗ୍ୟାଲେରୀ ଛବି</string>
     <string name="camera_picture">କ୍ୟାମେରା ଛବି</string>
+    <string name="enable_undo_and_redo_be_patient">ପୂର୍ବବତ୍ ଏବଂ ପୁନଃକରଣ ସକ୍ଷମ କରନ୍ତୁ। କେବଳ ଉନ୍ନତ ବ୍ୟବହାର ପାଇଁ ଉପଯୁକ୍ତ। କିଛି ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ବିଲୋପ ନକରିବା ପାଇଁ ସଚେତନ ରୁହନ୍ତୁ। ଇତିବୃତ୍ତି ସଫା କରିବାକୁ ସମ୍ପାଦକ ବନ୍ଦ କରି ଖୋଲନ୍ତୁ।</string>
     <string name="description">ବର୍ଣ୍ଣନା</string>
     <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
     <string name="math">ଗଣିତ</string>
