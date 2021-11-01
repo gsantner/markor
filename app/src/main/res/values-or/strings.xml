@@ -146,6 +146,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">ନିକଟରେ ଦେଖାଯାଇଥିବା ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
+    <string name="error_picture_selection">କୌଣସି ଛବି ଚୟନ ହୋଇନି, ଉଠାଯାଇନି କି ସଞ୍ଚିତ ହୋଇନାହିଁ।</string>
     <string name="gallery_picture">ଗ୍ୟାଲେରୀ ଛବି</string>
     <string name="camera_picture">କ୍ୟାମେରା ଛବି</string>
     <string name="description">ବର୍ଣ୍ଣନା</string>
