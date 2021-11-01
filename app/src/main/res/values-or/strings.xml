@@ -18,6 +18,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">ନାମ ବଦଳାନ୍ତୁ</string>
     <string name="confirm_delete">ବିଲୋପ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
     <string name="do_you_really_want_to_delete_this_witharg">ଆପଣ ପ୍ରକୃତରେ ଏହି %s ବିଲୋପ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?</string>
+    <string name="confirm_overwrite">ନବଲିଖନ ନିଶ୍ଚିତ କରନ୍ତୁ</string>
+    <string name="file_already_exists_overwerite">ଫାଇଲ୍ ଆଗରୁ ବିଦ୍ୟମାନ ଅଛି, ନବଲିଖନ କରିବେ କି?</string>
     <string name="browse_filesystem">ଫାଇଲ୍ ସିଷ୍ଟମ୍ ବ୍ରାଉଜ୍ କରନ୍ତୁ</string>
     <string name="title">ଆଖ୍ୟା</string>
     <string name="enter_name_of_folder">ଆପଣଙ୍କ ଫୋଲ୍ଡରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ</string>
@@ -31,6 +33,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_">ଆମଦାନୀ କରନ୍ତୁ</string>
     <string name="select_folder">ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="edit">ସମ୍ପାଦନା</string>
+    <string name="search_documents">ଡକ୍ୟୁମେଣ୍ଟ୍ ସନ୍ଧାନ</string>
     <string name="share">ଅଂଶୀଦାର</string>
     <string name="search">ସନ୍ଧାନ କରନ୍ତୁ</string>
     <string name="display_converted_markup">ରୂପାନ୍ତରିତ ମାର୍କଅପ୍ ପ୍ରଦର୍ଶନ କରନ୍ତୁ</string>
@@ -56,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">ଲିଙ୍କ୍ ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="insert_image">ପ୍ରତିଛବି ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="contributors">ଯୋଗଦାନକାରୀ</string>
+    <string name="select_storage_folder">ଷ୍ଟୋରେଜ୍ ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
     <string name="language">ଭାଷା</string>
@@ -81,7 +85,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">ଇତିବୃତ୍ତି</string>
     <string name="sync">ସିଙ୍କ୍ କରନ୍ତୁ</string>
     <string name="save">ସଞ୍ଚୟ କରନ୍ତୁ</string>
+    <string name="clear">ଖାଲି କରନ୍ତୁ</string>
     <string name="due_date">ଧାର୍ଯ୍ୟ ତାରିଖ</string>
+    <string name="current_date">ସମ୍ପ୍ରତି ତାରିଖ</string>
     <string name="add_task">ଟାସ୍କ ଯୋଡ଼ନ୍ତୁ</string>
     <string name="add_x_witharg">%s ଯୋଡ଼ନ୍ତୁ</string>
     <string name="refresh">ସତେଜ କରନ୍ତୁ</string>
@@ -102,6 +108,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
     <string name="other">ଅନ୍ୟ</string>
+    <string name="empty_file">ଖାଲି ଫାଇଲ୍</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
