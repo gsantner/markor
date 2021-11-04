@@ -211,11 +211,11 @@ public class ContextUtils {
     public String getAppVersionName() {
         PackageManager manager = _context.getPackageManager();
         try {
-            PackageInfo info = manager.getPackageInfo(getPackageIdManifest(), 0);
+            PackageInfo info = manager.getPackageInfo(getPackageIdReal(), 0);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             try {
-                PackageInfo info = manager.getPackageInfo(getPackageIdReal(), 0);
+                PackageInfo info = manager.getPackageInfo(getPackageIdManifest(), 0);
                 return info.versionName;
             } catch (PackageManager.NameNotFoundException ignored) {
             }
@@ -226,8 +226,12 @@ public class ContextUtils {
     public String getAppInstallationSource() {
         String src = null;
         try {
-            src = _context.getPackageManager().getInstallerPackageName(getPackageIdManifest());
+            src = _context.getPackageManager().getInstallerPackageName(getPackageIdReal());
         } catch (Exception ignored) {
+            try {
+                src = _context.getPackageManager().getInstallerPackageName(getPackageIdManifest());
+            } catch (Exception ignored2) {
+            }
         }
         if (src == null || src.trim().isEmpty()) {
             return "Sideloaded";
