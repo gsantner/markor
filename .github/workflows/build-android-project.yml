@@ -24,7 +24,6 @@ jobs:
     - name: "Checkout: Code"
       uses: actions/checkout@v2
 
-
     - name: "Checkout: Code (PR)"
       uses: actions/checkout@v2
       if: "contains(github.event_name, 'pull_request')"
@@ -36,6 +35,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+
+    - name: "Setup: Install additional dependencies"
+      run: sudo apt-get install -y ispell
 
     - name: "Cache: Gradle"
       uses: actions/cache@v2
