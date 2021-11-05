@@ -39,6 +39,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -207,12 +208,16 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             final Context context = getContext();
             final Document document = Document.fromArguments(context, args);
             String content = document.loadContent(context);
+
             if (content != null) { // Don't do anything if could not load file
                 content = content.trim();
-                document.saveContent(context, content + (content.isEmpty() ? "" : "\n") + separator + _sharedText);
+                content += (content.isEmpty() ? "" : "\n") + separator + _sharedText;
+                document.saveContent(context, content);
                 document.resetModTime(); // Force load of content in document
 
                 if (showEditor) {
+                    // Open at line
+                    document.setInitialLineNumber(StringUtils.getLineOffsetFromIndex(content, content.length() - 1)[0]);
                     showInDocumentActivity(document);
                 }
 
