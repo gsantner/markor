@@ -201,22 +201,24 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
-            Bundle args = new Bundle();
+            final Bundle args = new Bundle();
             args.putSerializable(Document.EXTRA_PATH, file);
             args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, false);
             final Context context = getContext();
             final Document document = Document.fromArguments(context, args);
-            String trimmedContent = document.loadContent(context).trim();
-            String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            document.saveContent(context, currentContent + separator + _sharedText);
-            document.resetModTime();
+            String content = document.loadContent(context);
+            if (content != null) { // Don't do anything if could not load file
+                content = content.trim();
+                document.saveContent(context, content + (content.isEmpty() ? "" : "\n") + separator + _sharedText);
+                document.resetModTime(); // Force load of content in document
 
-            if (showEditor) {
-                showInDocumentActivity(document);
-            }
+                if (showEditor) {
+                    showInDocumentActivity(document);
+                }
 
-            if (file != null) {
-                _appSettings.addRecentDocument(file);
+                if (file != null) {
+                    _appSettings.addRecentDocument(file);
+                }
             }
         }
 
