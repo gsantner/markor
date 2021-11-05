@@ -55,7 +55,8 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+
+        return null;
     }
 
     public static byte[] readCloseStreamWithSize(final InputStream stream, int size) {

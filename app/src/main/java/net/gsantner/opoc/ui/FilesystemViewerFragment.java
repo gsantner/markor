@@ -52,7 +52,6 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -500,9 +499,12 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     if (TextFormat.isTextFile(file)) {
-                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file));
-                        Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
-                        _filesystemViewerAdapter.unselectAll();
+                        final String content = FileUtils.readTextFileFast(file);
+                        if (content != null) {
+                            _shareUtil.setClipboard(content);
+                            Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
+                            _filesystemViewerAdapter.unselectAll();
+                        }
                     }
                 }
                 return true;

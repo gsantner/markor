@@ -12,6 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -192,21 +193,20 @@ public class TodoTxtTextActions extends TextActions {
                             }
                         }
                         if (!move.isEmpty() && _document.testCreateParent()) {
-                            File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
-                            String doneFileContents = "";
-                            if (doneFile.exists() && doneFile.canRead()) {
-                                doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
-                            }
-                            doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
-
-                            // Write to done file
-                            if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
-                                final String tasksString = TodoTxtTask.tasksToString(keep);
-                                _hlEditor.setText(tasksString);
-                                _hlEditor.setSelection(
-                                        StringUtils.getIndexFromLineOffset(tasksString, selStart),
-                                        StringUtils.getIndexFromLineOffset(tasksString, selEnd)
-                                );
+                            final Document doneDoc = new Document(new File(_document.getFile().getParentFile(), callbackPayload));
+                            final Context context = getContext();
+                            String doneStr = doneDoc.loadContent(context);
+                            if (doneStr != null) {
+                                doneStr = doneStr.trim().isEmpty() ? "" : doneStr + "\n";
+                                // Write to done file
+                                if (doneDoc.saveContent(getContext(), doneStr + TodoTxtTask.tasksToString(move))) {
+                                    final String tasksString = TodoTxtTask.tasksToString(keep);
+                                    _hlEditor.setText(tasksString);
+                                    _hlEditor.setSelection(
+                                            StringUtils.getIndexFromLineOffset(tasksString, selStart),
+                                            StringUtils.getIndexFromLineOffset(tasksString, selEnd)
+                                    );
+                                }
                             }
                         }
                         new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);

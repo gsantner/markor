@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
-import static java.lang.System.currentTimeMillis;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -32,7 +30,6 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
@@ -234,11 +231,11 @@ public class Document implements Serializable {
                 }
             } catch (FileNotFoundException e) {
                 Log.e(Document.class.getName(), "loadDocument:  File " + file + " not found.");
-                content = "";
+                content = null;
             } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
                 Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
                 Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + file + ". " + e.getMessage(), e);
-                content = "";
+                content = null;
             }
         } else {
             content = FileUtils.readTextFileFast(file);
