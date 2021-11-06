@@ -373,16 +373,6 @@ public class DocumentActivity extends AppActivityBase {
         _toolbarTitleText.setText(_document.getTitle());
     }
 
-    private boolean saveDocument() {
-        boolean ret = false;
-        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
-            DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
-            ret = def.saveDocument();
-            setDocument(def.getDocument()); // Apply title again. Document is modified in edit activity
-        }
-        return ret;
-    }
-
     private void onToolbarTitleClicked(View v) {
         if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
             DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));

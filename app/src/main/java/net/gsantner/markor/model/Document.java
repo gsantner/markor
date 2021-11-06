@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
-import static java.lang.System.currentTimeMillis;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -270,7 +268,7 @@ public class Document implements Serializable {
     }
 
     public boolean saveContent(final Context context, final String content) {
-        return saveContent(context, content, null);
+        return saveContent(context, content, null, false);
     }
 
     public static boolean testCreateParent(final File file) {
@@ -282,7 +280,11 @@ public class Document implements Serializable {
         }
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil) {
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean ignoreEmpty) {
+        if (!ignoreEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+            return false;
+        }
+
         if (!testCreateParent()) {
             return false;
         }

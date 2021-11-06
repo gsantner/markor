@@ -318,7 +318,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         int editorpos = _hlEditor.getSelectionStart();
 
         // Load document if mod time newer than that recorded on last load
-        if (_document.hasNewerModTime()) {
+        if (_document.hasNewerModTime() || _hlEditor.getText().length() == 0) {
             _hlEditor.setText(_document.loadContent(getContext()));
         }
 
@@ -371,7 +371,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_save: {
-                saveDocument();
+                saveDocument(false);
                 return true;
             }
             case R.id.action_reload: {
@@ -662,10 +662,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return false;
     }
 
+    public boolean saveDocument() {
+        return saveDocument(false);
+    }
+
 
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument() {
+    public boolean saveDocument(boolean ignoreEmpty) {
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
 
             if (_document != null && _document.getFile() != null) {
@@ -674,7 +678,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil);
+            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, ignoreEmpty);
         }
         return false;
     }
