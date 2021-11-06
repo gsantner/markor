@@ -288,7 +288,6 @@ public class DocumentActivity extends AppActivityBase {
 
         if (!sameDocumentRequested) {
             if (document != null) {
-                document.resetModTime();
                 showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
             } else {
                 showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, fileLineNumber).setPreviewFlag(preview));

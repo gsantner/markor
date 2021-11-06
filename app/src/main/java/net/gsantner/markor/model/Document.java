@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import static java.lang.System.currentTimeMillis;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -40,6 +42,7 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
+    private static final long MIN_SAVE_WAIT_MILLIS = 2000;
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
@@ -50,7 +53,7 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
-    private long _modTime = 0;  // Modtime as of when the file was last loaded / written
+    private long _lastSaveTime = -1;
     private int _initialLineNumber = -1;
     private String _lastHash = null;
 
@@ -146,18 +149,6 @@ public class Document implements Serializable {
         _format = format;
     }
 
-    public void resetModTime() {
-        _modTime = 0;
-    }
-
-    public long getModTime() {
-        return _modTime;
-    }
-
-    public boolean hasNewerModTime() {
-        return _file.lastModified() > _modTime;
-    }
-
     public static boolean isEncrypted(File file) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
@@ -246,8 +237,6 @@ public class Document implements Serializable {
                             + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
 
-        _modTime = _file.lastModified();
-
         return content;
     }
 
@@ -292,8 +281,9 @@ public class Document implements Serializable {
 
         final String newHash = FileUtils.sha512sum(content.getBytes());
 
-        // Don't write if content same and file hasn't changed
-        if (newHash != null && newHash.equals(_lastHash) && !hasNewerModTime()) {
+        // Don't write same content within a short time
+        final long currentTime = currentTimeMillis();
+        if (newHash != null && newHash.equals(_lastHash) && (currentTime - _lastSaveTime) < MIN_SAVE_WAIT_MILLIS) {
             return true;
         }
 
@@ -327,7 +317,7 @@ public class Document implements Serializable {
 
         if (success) {
             _lastHash = newHash;
-            _modTime = _file.lastModified(); // Should be == now
+            _lastSaveTime = currentTime;
         }
 
         return success;

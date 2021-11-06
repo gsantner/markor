@@ -157,7 +157,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //applyTextFormat(TextFormat.FORMAT_PLAIN);
         _shareUtil = new ShareUtil(view.getContext());
 
         _webViewClient = new MarkorWebViewClient(getActivity());
@@ -179,7 +178,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-            _document.resetModTime(); // Ensure document is loaded on restore state
         } else {
             _document = Document.fromArguments(getActivity(), getArguments());
         }
@@ -318,8 +316,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         int editorpos = _hlEditor.getSelectionStart();
 
         // Load document if mod time newer than that recorded on last load
-        if (_document.hasNewerModTime() || _hlEditor.getText().length() == 0) {
-            _hlEditor.setText(_document.loadContent(getContext()));
+        final String content = _document.loadContent(getContext());
+        final CharSequence text = _hlEditor.getText();
+        if (text == null || !content.contentEquals(text)) {
+            _hlEditor.setText(content);
         }
 
         editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
