@@ -10,7 +10,7 @@ env-%:
 DIST_DIR = dist
 MOVE = mv
 
-all: $(DIST_DIR) lint test build aapt_dump_badging
+all: $(DIST_DIR) spellcheck lint test build aapt_dump_badging
 
 ####################################################################################
 
@@ -18,6 +18,7 @@ $(DIST_DIR):
 	mkdir -p ${DIST_DIR}
 
 ANDROID_BUILD_TOOLS := $(shell test -n "$ANDROID_SDK_ROOT" && find "${ANDROID_SDK_ROOT}/build-tools" -iname "aapt" | sort -r | head -n1 | xargs dirname)
+TOOL_SPELLCHECKING_ISPELL := $(shell command -v ispell 2> /dev/null)
 
 .NOTPARALLEL: gradle gradle-analyze-log
 gradle: env-ANDROID_SDK_ROOT
@@ -62,6 +63,7 @@ clean:
 	rm -Rf $(DIST_DIR) app/build app/flavor* .idea dist
 	find . -type f -iname "*.iml" -delete
 	$(MAKE) $(DIST_DIR)
+	@echo "-----------------------------------------------------------------------------------"
 
 install:
 	$(MAKE) A="install -r $(DIST_DIR)/*.apk" L="install" adb
@@ -69,3 +71,20 @@ install:
 aapt_dump_badging:
 	$(MAKE) A="dump badging $(DIST_DIR)/*.apk" aapt
 	@echo "-----------------------------------------------------------------------------------"
+
+spellcheck:
+	mkdir -p "$(DIST_DIR)/lint/"
+ifndef TOOL_SPELLCHECKING_ISPELL
+	@echo "Tool ispell (spellcheck) not found in PATH. Spellcheck skipped." > "$(DIST_DIR)/lint/stringsxml-spellcheck.txt"
+else
+	@echo "Use ispell for spellchecking the original values/strings.xml"
+	find . -iname "strings.xml" -path "*/main*/values/*" | head -n1 | xargs cat \
+	   | grep "<string name=" | sed 's@.*">@@' | sed 's@</string>@@' | sed 's@\\n@  @g' | sed 's@\\@@g'  \
+	   | ispell -W3 -a | grep ^\& | sed 's@[0-9]@@g' | sort | uniq | cut -d, -f1-4 \
+	   | sed 's@^..@- @' | column -t -s: \
+	   > "$(DIST_DIR)/lint/stringsxml-spellcheck.txt"
+	@echo "\nPotential words with bad spelling:"
+endif
+	@cat "$(DIST_DIR)/lint/stringsxml-spellcheck.txt"
+	@echo "-----------------------------------------------------------------------------------"
+

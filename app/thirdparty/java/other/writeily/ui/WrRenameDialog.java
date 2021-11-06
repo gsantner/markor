@@ -74,7 +74,7 @@ public class WrRenameDialog extends DialogFragment {
             boolean renamed = false;
             boolean filenameChanged = !file.getName().equals(newFileName);
             if (filenameChanged) {
-                _filenameClash = checkFilenameClash(file, newFileName);
+                _filenameClash = optShowFilenameClashDialog(file, newFileName);
             }
             if (shareUtil.isUnderStorageAccessFolder(file)) {
                 DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
@@ -148,13 +148,13 @@ public class WrRenameDialog extends DialogFragment {
         });
     }
 
-    private boolean checkFilenameClash(File originalFile, String newName) {
-        File newFile = new File(originalFile.getParent(), newName);
-        if (newFile.exists()) {
+    // Return true in case of filename clash
+    private boolean optShowFilenameClashDialog(File originalFile, String newName) {
+        final boolean clash = FileUtils.fileExists(new File(originalFile.getParent(), newName));
+        if (clash) {
             ((TextView) _dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
             _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-            return true;
         }
-        return false;
+        return clash;
     }
 }

@@ -22,7 +22,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -514,5 +513,19 @@ public class FileUtils {
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+    }
+
+    // Return true if the target file exists, false if there is an issue with the file or it's parent directories
+    public static boolean fileExists(final File checkFile) {
+        File[] files;
+        if (checkFile != null && checkFile.getParentFile() != null && (files = checkFile.getParentFile().listFiles()) != null) {
+            final String checkFilename = checkFile.getName();
+            for (final File f : files) {
+                if (f.getName().equals(checkFilename)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

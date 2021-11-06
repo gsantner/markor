@@ -393,6 +393,10 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                     dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
                     dopt.showDotFiles = _appSettings.isShowDotFiles();
                     dopt.fileComparable = FilesystemViewerFragment.sortFolder(null);
+
+                    dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    dopt.recentFiles = _appSettings.getAsFileList(_appSettings.getRecentDocuments());
+                    dopt.popularFiles = _appSettings.getAsFileList(_appSettings.getPopularDocuments());
                 }
 
                 @Override
@@ -401,10 +405,6 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         _toolbar.setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
                         invalidateOptionsMenu();
-
-                        if (adapter.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
-                            adapter.getFsOptions().favouriteFiles = _appSettings.getFavouriteFiles();
-                        }
                     }
                 }
 

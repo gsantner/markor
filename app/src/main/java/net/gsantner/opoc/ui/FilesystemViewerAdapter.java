@@ -233,13 +233,16 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
             s = f.getAbsolutePath();
 
-            boolean ok = f.isDirectory()
-                    || _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
+            final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
                     || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(s)
                     || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(s)
                     || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(s)
                     || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(s);
-            if (ok) {
+
+            if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
+                _dopt.listener.onFsViewerConfig(_dopt);
+            }
+            if (f.isDirectory() || isVirtualDirectory) {
                 loadFolder(f);
             }
         }
