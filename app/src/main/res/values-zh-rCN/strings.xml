@@ -215,7 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">查看有关捐赠给开发人员或为此项目做出贡献的更多信息。</string>
     <string name="join_community">加入社区</string>
     <string name="bug_reports_suggest_improvements">反馈、报告问题或提出改进建议</string>
-    <string name="help_translating_this_app">将此应用翻译成其他语言</string>
+    <string name="help_translating_this_app">将本应用翻译成其他语言</string>
     <string name="source_code">源代码</string>
     <string name="project_license">项目许可协议</string>
     <string name="contribute_code_to_this_project_anybody_welcome">为本项目贡献代码。我们欢迎所有人参与进来，包括新手</string>
@@ -311,8 +311,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">折行</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
     <string name="recursive_search_in_current_directory">在当前目录中进行递归搜索。</string>
-    <string name="always_open_with_this_app">总是使用此应用打开</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\' 。</string>
+    <string name="always_open_with_this_app">总是使用本应用打开</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\'。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
     <string name="print_pdf">打印/PDF</string>
