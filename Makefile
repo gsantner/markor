@@ -20,6 +20,8 @@ $(DIST_DIR):
 ANDROID_BUILD_TOOLS := $(shell test -n "$ANDROID_SDK_ROOT" && find "${ANDROID_SDK_ROOT}/build-tools" -iname "aapt" | sort -r | head -n1 | xargs dirname)
 TOOL_SPELLCHECKING_ISPELL := $(shell command -v ispell 2> /dev/null)
 
+FLAVOR := $(or ${FLAVOR},${FLAVOR},Atest)
+
 .NOTPARALLEL: gradle gradle-analyze-log
 gradle: env-ANDROID_SDK_ROOT
 	mkdir -p $(DIST_DIR)/log/
@@ -39,7 +41,7 @@ aapt: env-ANDROID_SDK_ROOT
 
 build:
 	rm -f $(DIST_DIR)/*.apk
-	$(MAKE) A="clean assembleFlavorAtest -x lint" gradle
+	$(MAKE) A="clean assembleFlavor$(FLAVOR) -x lint" gradle
 	find app -type f -newermt '-100 seconds' -iname '*.apk' -not -iname '*unsigned.apk' | xargs cp -R -t $(DIST_DIR)/
 	$(MAKE) A="-build" gradle-analyze-log
 
