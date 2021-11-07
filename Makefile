@@ -20,6 +20,8 @@ $(DIST_DIR):
 ANDROID_BUILD_TOOLS := $(shell test -n "$ANDROID_SDK_ROOT" && find "${ANDROID_SDK_ROOT}/build-tools" -iname "aapt" | sort -r | head -n1 | xargs dirname)
 TOOL_SPELLCHECKING_ISPELL := $(shell command -v ispell 2> /dev/null)
 
+FLAVOR := $(or ${FLAVOR},${FLAVOR},Atest)
+
 .NOTPARALLEL: gradle gradle-analyze-log
 gradle: env-ANDROID_SDK_ROOT
 	mkdir -p $(DIST_DIR)/log/
@@ -32,14 +34,14 @@ gradle-analyze-log:
 	cat "$(DIST_DIR)/log/gradle$A.log" | grep "BUILD " | tail -n1 | grep -q "BUILD SUCCESSFUL in"
 
 adb: env-ANDROID_SDK_ROOT
-	"${ANDROID_SDK_ROOT}/platform-tools/adb" $A 2>&1 | tee "$(DIST_DIR)/log/adb$L.log"
+	"${ANDROID_SDK_ROOT}/platform-tools/adb" $A 2>&1 | tee "$(DIST_DIR)/log/adb-$L.log"
 
 aapt: env-ANDROID_SDK_ROOT
 	"${ANDROID_BUILD_TOOLS}/aapt" $A 2>&1 | grep -v 'application-label-' | tee "$(DIST_DIR)/log/aapt$L.log"
 
 build:
 	rm -f $(DIST_DIR)/*.apk
-	$(MAKE) A="clean assembleFlavorAtest -x lint" gradle
+	$(MAKE) A="clean assembleFlavor$(FLAVOR) -x lint" gradle
 	find app -type f -newermt '-100 seconds' -iname '*.apk' -not -iname '*unsigned.apk' | xargs cp -R -t $(DIST_DIR)/
 	$(MAKE) A="-build" gradle-analyze-log
 
@@ -67,6 +69,9 @@ clean:
 
 install:
 	$(MAKE) A="install -r $(DIST_DIR)/*.apk" L="install" adb
+
+run:
+	$(MAKE) A="shell monkey -p $$(aapt dump badging $(DIST_DIR)/*.apk | grep package: | sed 's@.* name=@@' | sed 's@ .*@@' | xargs | head -n1) -c android.intent.category.LAUNCHER 1" L="run" adb
 
 aapt_dump_badging:
 	$(MAKE) A="dump badging $(DIST_DIR)/*.apk" aapt
