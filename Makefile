@@ -32,7 +32,7 @@ gradle-analyze-log:
 	cat "$(DIST_DIR)/log/gradle$A.log" | grep "BUILD " | tail -n1 | grep -q "BUILD SUCCESSFUL in"
 
 adb: env-ANDROID_SDK_ROOT
-	"${ANDROID_SDK_ROOT}/platform-tools/adb" $A 2>&1 | tee "$(DIST_DIR)/log/adb$L.log"
+	"${ANDROID_SDK_ROOT}/platform-tools/adb" $A 2>&1 | tee "$(DIST_DIR)/log/adb-$L.log"
 
 aapt: env-ANDROID_SDK_ROOT
 	"${ANDROID_BUILD_TOOLS}/aapt" $A 2>&1 | grep -v 'application-label-' | tee "$(DIST_DIR)/log/aapt$L.log"
@@ -67,6 +67,9 @@ clean:
 
 install:
 	$(MAKE) A="install -r $(DIST_DIR)/*.apk" L="install" adb
+
+run:
+	$(MAKE) A="shell monkey -p $$(aapt dump badging $(DIST_DIR)/*.apk | grep package: | sed 's@.* name=@@' | sed 's@ .*@@' | xargs | head -n1) -c android.intent.category.LAUNCHER 1" L="run" adb
 
 aapt_dump_badging:
 	$(MAKE) A="dump badging $(DIST_DIR)/*.apk" aapt
