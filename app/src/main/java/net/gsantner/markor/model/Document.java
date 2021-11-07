@@ -13,7 +13,6 @@ import static java.lang.System.currentTimeMillis;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -53,7 +52,7 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
-    private long _lastSaveTime = -1;
+    private long _lastSaveTime = 0;
     private int _initialLineNumber = -1;
     private String _lastHash = null;
 
@@ -269,8 +268,8 @@ public class Document implements Serializable {
         }
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean dontIgnoreEmpty) {
-        if (!dontIgnoreEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean forceSaveEmpty) {
+        if (!forceSaveEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 
@@ -355,8 +354,7 @@ public class Document implements Serializable {
 
     // Convenient wrapper
     private static String getFileNameWithTimestamp(boolean includeExt) {
-        final String prefix = Resources.getSystem().getString(R.string.document);
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
-        return ShareUtil.getFilenameWithTimestamp(prefix, null, ext);
+        return ShareUtil.getFilenameWithTimestamp("", "", ext);
     }
 }

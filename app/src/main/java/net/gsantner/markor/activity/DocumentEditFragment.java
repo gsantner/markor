@@ -133,6 +133,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
+    private boolean _loadedInViewCreated = false;
 
     public DocumentEditFragment() {
         super();
@@ -182,6 +183,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         loadDocument();
+        _loadedInViewCreated = true;
 
         Activity activity = getActivity();
         if (activity instanceof DocumentActivity) {
@@ -202,6 +204,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(cursor);
             }
         }
+
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         _hlEditor.clearFocus();
@@ -232,7 +235,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onResume() {
         super.onResume();
 
-        loadDocument();
+        if (!_loadedInViewCreated) {
+            loadDocument();
+        }
+        _loadedInViewCreated = false;
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
@@ -387,20 +393,20 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_share_text: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _shareUtil.shareText(_hlEditor.getText().toString(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_file: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _shareUtil.shareStream(_document.getFile(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
                     _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
@@ -408,7 +414,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_share_calendar_event: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _hlEditor.getText().toString(), null)) {
                         Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
@@ -417,7 +423,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
-                if (activity != null && saveDocument()) {
+                if (activity != null && saveDocument(false)) {
                     activity.onBackPressed();
                 }
                 return true;
@@ -426,7 +432,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_image:
             case R.id.action_share_pdf: {
                 _appSettings.getSetWebViewFulldrawing(true);
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _nextConvertToPrintMode = true;
                     setDocumentViewVisibility(true);
                     Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
@@ -518,7 +524,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_info: {
                 if (_document != null && _document.getFile() != null) {
-                    saveDocument(); // In order to have the correct info displayed
+                    saveDocument(false); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
                 return true;
@@ -654,13 +660,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return false;
     }
 
-    public boolean saveDocument() {
-        return saveDocument(false);
-    }
-
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument(boolean dontIgnoreEmpty) {
+    public boolean saveDocument(boolean forceSaveEmpty) {
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
 
             if (_document != null && _document.getFile() != null) {
@@ -669,7 +671,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, dontIgnoreEmpty);
+            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty);
         }
         return false;
     }
@@ -701,7 +703,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onPause() {
-        saveDocument();
+        saveDocument(false);
         if (_document != null && _document.getFile() != null) {
             _appSettings.addRecentDocument(_document.getFile());
         }
@@ -721,7 +723,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (isVisibleToUser && isDisplayedAtMainActivity()) {
             loadDocument();
         } else if (!isVisibleToUser && _document != null) {
-            saveDocument();
+            saveDocument(false);
         }
 
         final Toolbar toolbar = getToolbar();
