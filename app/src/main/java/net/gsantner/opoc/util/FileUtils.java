@@ -178,6 +178,7 @@ public class FileUtils {
     public static boolean writeFile(final File file, final byte[] data) {
         try (final FileOutputStream output = new FileOutputStream(file)) {
             output.write(data);
+            output.flush();
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();

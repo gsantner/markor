@@ -41,11 +41,11 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
-    private static final long MIN_SAVE_WAIT_MILLIS = 2000;
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
+
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
 
     private final File _file;
@@ -280,9 +280,8 @@ public class Document implements Serializable {
 
         final String newHash = FileUtils.sha512sum(content.getBytes());
 
-        // Don't write same content within a short time
-        final long currentTime = currentTimeMillis();
-        if (newHash != null && newHash.equals(_lastHash) && (currentTime - _lastSaveTime) < MIN_SAVE_WAIT_MILLIS) {
+        // Don't write same content if base file not changed
+        if (newHash != null && newHash.equals(_lastHash) && _lastSaveTime >= _file.lastModified()) {
             return true;
         }
 
@@ -316,7 +315,7 @@ public class Document implements Serializable {
 
         if (success) {
             _lastHash = newHash;
-            _lastSaveTime = currentTime;
+            _lastSaveTime = _file.lastModified();
         }
 
         return success;
