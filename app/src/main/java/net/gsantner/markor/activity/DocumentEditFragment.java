@@ -71,7 +71,7 @@ import butterknife.BindView;
 import butterknife.OnTextChanged;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-@SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
+@SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
@@ -109,7 +109,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         f.setArguments(args);
         return f;
     }
-
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
@@ -184,6 +183,19 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         loadDocument();
 
+        Activity activity = getActivity();
+        if (activity instanceof DocumentActivity) {
+            DocumentActivity da = ((DocumentActivity) activity);
+            da.setDocumentTitle(_document.getTitle());
+            da.setDocument(_document);
+        }
+
+        // Upon construction, the document format has been determined from extension etc
+        // Here we replace it with the last saved format.
+        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
+        applyTextFormat(_document.getFormat());
+        _textFormat.getTextActions().setDocument(_document);
+
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
             int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
             if (cursor >= 0 && cursor < _hlEditor.length()) {
@@ -221,11 +233,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
 
         loadDocument();
-
-        int cursor = _hlEditor.getSelectionStart();
-        cursor = Math.max(0, cursor);
-        cursor = Math.min(_hlEditor.length(), cursor);
-        _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
@@ -315,28 +322,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void loadDocument() {
         int editorpos = _hlEditor.getSelectionStart();
 
-        // Load document if mod time newer than that recorded on last load
         final String content = _document.loadContent(getContext());
         final CharSequence text = _hlEditor.getText();
         if (text == null || !content.contentEquals(text)) {
             _hlEditor.setText(content);
         }
 
-        editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
-        _hlEditor.setSelection(Math.max(editorpos, 0));
-        Activity activity = getActivity();
-
-        if (activity instanceof DocumentActivity) {
-            DocumentActivity da = ((DocumentActivity) activity);
-            da.setDocumentTitle(_document.getTitle());
-            da.setDocument(_document);
-        }
-
-        // Upon construction, the document format has been determined from extension etc
-        // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
-        applyTextFormat(_document.getFormat());
-        _textFormat.getTextActions().setDocument(_document);
+        _hlEditor.setSelection(Math.min(Math.max(editorpos, 0), _hlEditor.length() - 1));
 
         if (_isPreviewVisible) {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
@@ -699,7 +691,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        saveDocument();
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
