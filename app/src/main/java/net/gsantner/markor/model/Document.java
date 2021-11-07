@@ -269,8 +269,8 @@ public class Document implements Serializable {
         }
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean ignoreEmpty) {
-        if (!ignoreEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean dontIgnoreEmpty) {
+        if (!dontIgnoreEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 

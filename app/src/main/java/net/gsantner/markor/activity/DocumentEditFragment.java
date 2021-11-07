@@ -363,7 +363,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_save: {
-                saveDocument(false);
+                saveDocument(true);
                 return true;
             }
             case R.id.action_reload: {
@@ -658,10 +658,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return saveDocument(false);
     }
 
-
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument(boolean ignoreEmpty) {
+    public boolean saveDocument(boolean dontIgnoreEmpty) {
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
 
             if (_document != null && _document.getFile() != null) {
@@ -670,7 +669,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, ignoreEmpty);
+            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, dontIgnoreEmpty);
         }
         return false;
     }
