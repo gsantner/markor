@@ -255,10 +255,6 @@ public class Document implements Serializable {
         return testCreateParent(_file);
     }
 
-    public boolean saveContent(final Context context, final String content) {
-        return saveContent(context, content, null, false);
-    }
-
     public static boolean testCreateParent(final File file) {
         try {
             final File parent = file.getParentFile();
@@ -268,8 +264,12 @@ public class Document implements Serializable {
         }
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean forceSaveEmpty) {
-        if (!forceSaveEmpty && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+    public boolean saveContent(final Context context, final String content) {
+        return saveContent(context, content, null, false);
+    }
+
+    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean isManualSave) {
+        if (!isManualSave && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 
