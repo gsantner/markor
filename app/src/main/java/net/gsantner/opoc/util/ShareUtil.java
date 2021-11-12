@@ -47,6 +47,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.support.v4.graphics.drawable.IconCompat;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -1242,5 +1243,37 @@ public class ShareUtil {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
             activity.startActivity(intent);
         }
+    }
+
+    /**
+     * @param locale    {@link Locale} locale
+     * @param format    {@link String} text which 'll be used as format for {@link SimpleDateFormat}
+     * @param datetime  {@link Long}   requested time miliseconds
+     * @param def       {@link String} default fallback value. If the format is incorrect and a default is not provided, an exception will be raised
+     * @return formatted string
+     */
+    public static String formatDateTime(final Locale locale, final String format, final Long datetime, final String def) {
+        try {
+            return new SimpleDateFormat(StringUtils.unescapeString(format), locale).format(datetime);
+        } catch (Exception err) {
+            if (def != null) {
+                return def;
+            } else {
+                throw err;
+            }
+        }
+    }
+
+    public static String formatDateTime(final Locale locale, final String format, final Long datetime) {
+        return formatDateTime(locale, format, datetime, "");
+    }
+
+    public static String formatDateTime(final Context context, final String format, final Long datetime, final String def) {
+        final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
+        return formatDateTime(locale, format, datetime, def);
+    }
+
+    public static String formatDateTime(final Context context, final String format, final Long datetime) {
+        return formatDateTime(context, format, datetime, "");
     }
 }

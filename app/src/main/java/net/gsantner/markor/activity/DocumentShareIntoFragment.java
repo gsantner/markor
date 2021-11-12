@@ -39,6 +39,7 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -84,11 +85,14 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppSettings as = new AppSettings(view.getContext());
-        ContextUtils cu = new ContextUtils(view.getContext());
+        final Context context = view.getContext();
+        AppSettings as = new AppSettings(context);
+        ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
-        String sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
-        sharedText = sharedText.trim();
+
+        final String format = AppSettings.get().getShareIntoPrefix();
+        final String prefix = ShareUtil.formatDateTime(context, format, System.currentTimeMillis());
+        final String sharedText = prefix + (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
@@ -100,12 +104,12 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
         _hlEditor.setText(sharedText);
-        _hlEditor.setBackgroundColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
-        _hlEditor.setTextColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
+        _hlEditor.setBackgroundColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
+        _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        if (sharedText.trim().isEmpty()) {
+        if (sharedText.isEmpty() || sharedText.equals(prefix)) {
             _hlEditor.requestFocus();
         }
     }

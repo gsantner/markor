@@ -140,6 +140,13 @@
                 android:icon="@drawable/ic_screen_lock_portrait_black_24dp"
                 android:key="@string/pref_key__is_keep_screen_on"
                 android:title="@string/keep_screen_on" />
+
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="----\\n"
+                android:dialogMessage="@string/share_into_prefix_format_dialog"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:key="@string/pref_key__share_into_prefix"
+                android:title="@string/share_into_prefix" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/main_view">
