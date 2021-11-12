@@ -236,6 +236,9 @@ public class Document implements Serializable {
                             + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
 
+        // Also set hash on load - should prevent unnecessary saves
+        _lastHash = FileUtils.sha512sum(content.getBytes());
+
         return content;
     }
 
