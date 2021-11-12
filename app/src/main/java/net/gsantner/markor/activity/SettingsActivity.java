@@ -224,8 +224,10 @@ public class SettingsActivity extends AppActivityBase {
 
         @SuppressLint("ApplySharedPref")
         @Override
-        protected void onPreferenceChanged(SharedPreferences prefs, String key) {
+        protected void onPreferenceChanged(final SharedPreferences prefs, final String key) {
             super.onPreferenceChanged(prefs, key);
+            final Context context = getContext();
+
             if (eq(key, R.string.pref_key__language)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
@@ -233,8 +235,8 @@ public class SettingsActivity extends AppActivityBase {
                 // Handling widget color scheme
                 WrMarkorWidgetProvider.handleWidgetScheme(
                         getContext(),
-                        new RemoteViews(getContext().getPackageName(), R.layout.widget_layout),
-                        new AppSettings(getContext()).isDarkThemeEnabled());
+                        new RemoteViews(context.getPackageName(), R.layout.widget_layout),
+                        new AppSettings(context).isDarkThemeEnabled());
                 _as.setRecreateMainRequired(true);
                 getActivity().finish();
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
@@ -253,9 +255,9 @@ public class SettingsActivity extends AppActivityBase {
                 }
             } else if (eq(key, R.string.pref_key__share_into_prefix)) {
                 try {
-                    Toast.makeText(getContext(), ShareUtil.formatDateTime(getActivity(), key, System.currentTimeMillis(), null), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "✓" + ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis(), null), Toast.LENGTH_SHORT).show();
                 } catch (IllegalArgumentException e) {
-                    Toast.makeText(getContext(), e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
             }
         }
