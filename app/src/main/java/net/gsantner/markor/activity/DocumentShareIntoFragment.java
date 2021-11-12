@@ -252,7 +252,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    appendToExistingDocument(file, _sharedText, true);
+                    appendToExistingDocument(file, "", true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -318,7 +318,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), _sharedText, false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "", false);
                         close = true;
                     }
                     break;
@@ -362,7 +362,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), _sharedText, true);
+                    appendToExistingDocument(new File(preference.getKey()), "", true);
                     close = false;
                 }
             }
