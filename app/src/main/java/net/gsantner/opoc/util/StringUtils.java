@@ -9,19 +9,15 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import android.content.Context;
-import android.support.v4.os.ConfigurationCompat;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
