@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -62,6 +61,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -176,10 +176,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
+        int intentLineNumber = -1;
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         } else {
             _document = Document.fromArguments(getActivity(), getArguments());
+            intentLineNumber = _document.getIntentLineNumber();
         }
 
         loadDocument();
@@ -197,13 +199,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()) {
-                _hlEditor.setSelection(cursor);
-            }
-        }
 
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
@@ -228,7 +223,32 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-        restoreDocumentPositions();
+
+        // Set the correct position after everything else done
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+            if (isDisplayedAtMainActivity()) {
+
+                // Scroll to the bottom
+                _primaryScrollView.post(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN));
+
+            } else {
+
+                // Scroll to position
+                // If Intent contains line number, jump to it
+                // intentLineNumber only created with document reconstructed from intent
+                if (intentLineNumber >= 0) {
+                    _hlEditor.smoothMoveCursorToLine(intentLineNumber);
+                }
+
+                // Set cursor if saved cursor state present
+                final int pos = savedInstanceState != null ? savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1) : -1;
+                final CharSequence text = _hlEditor.getText();
+                if (_hlEditor.indexesValid(pos) && text != null) {
+                    _hlEditor.smoothMoveCursorToLine(StringUtils.getLineOffsetFromIndex(text, pos)[0]);
+                    _hlEditor.setSelection(pos);
+                }
+            }
+        }
     }
 
     @Override
@@ -674,16 +694,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty);
         }
         return false;
-    }
-
-    public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isDisplayedAtMainActivity()) {
-            int v;
-            if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
-                _hlEditor.smoothMoveCursorToLine(v);
-            }
-            _document.setInitialLineNumber(-1);
-        }
     }
 
     private boolean isDisplayedAtMainActivity() {

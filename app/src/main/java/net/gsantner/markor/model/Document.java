@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
-import static java.lang.System.currentTimeMillis;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -52,8 +50,8 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
-    private long _lastSaveTime = 0;
-    private int _initialLineNumber = -1;
+    private long _modTime = 0;
+    private int _intentLineNumber = -1;
     private String _lastHash = null;
 
     public Document(File file) {
@@ -113,12 +111,8 @@ public class Document implements Serializable {
         return getFile().getName();
     }
 
-    public void setInitialLineNumber(int num) {
-        _initialLineNumber = num;
-    }
-
-    public int getInitialLineNumber() {
-        return _initialLineNumber;
+    public int getIntentLineNumber() {
+        return _intentLineNumber;
     }
 
     @Override
@@ -193,11 +187,7 @@ public class Document implements Serializable {
         }
 
         Document document = new Document(getValidFile(context, arguments));
-
-        if (arguments.containsKey(EXTRA_FILE_LINE_NUMBER)) {
-            final int lineNumber = arguments.getInt(EXTRA_FILE_LINE_NUMBER);
-            document.setInitialLineNumber(lineNumber);
-        }
+        document._intentLineNumber = arguments.getInt(EXTRA_FILE_LINE_NUMBER, -1);
 
         return document;
     }
@@ -236,8 +226,9 @@ public class Document implements Serializable {
                             + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
 
-        // Also set hash on load - should prevent unnecessary saves
+        // Also set hash and time on load - should prevent unnecessary saves
         _lastHash = FileUtils.sha512sum(content.getBytes());
+        _modTime = _file.lastModified();
 
         return content;
     }
@@ -284,7 +275,7 @@ public class Document implements Serializable {
         final String newHash = FileUtils.sha512sum(content.getBytes());
 
         // Don't write same content if base file not changed
-        if (newHash != null && newHash.equals(_lastHash) && _lastSaveTime >= _file.lastModified()) {
+        if (newHash != null && newHash.equals(_lastHash) && _modTime >= _file.lastModified()) {
             return true;
         }
 
@@ -318,7 +309,7 @@ public class Document implements Serializable {
 
         if (success) {
             _lastHash = newHash;
-            _lastSaveTime = _file.lastModified();
+            _modTime = _file.lastModified();
         }
 
         return success;
