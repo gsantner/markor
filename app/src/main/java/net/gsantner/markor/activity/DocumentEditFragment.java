@@ -12,6 +12,7 @@ package net.gsantner.markor.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.arch.lifecycle.Lifecycle;
 import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
@@ -133,7 +134,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
-    private boolean _loadedInViewCreated = false;
+    private long _loadModTime = 0;
 
     public DocumentEditFragment() {
         super();
@@ -185,7 +186,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         loadDocument();
-        _loadedInViewCreated = true;
 
         Activity activity = getActivity();
         if (activity instanceof DocumentActivity) {
@@ -255,10 +255,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onResume() {
         super.onResume();
 
-        if (!_loadedInViewCreated) {
-            loadDocument();
-        }
-        _loadedInViewCreated = false;
+        loadDocument();
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
@@ -346,19 +343,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void loadDocument() {
-        int editorpos = _hlEditor.getSelectionStart();
+        final long modTime = _document.getFile().lastModified();
+        //Only trigger the load process if constructing or file updated
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
-        final String content = _document.loadContent(getContext());
-        final CharSequence text = _hlEditor.getText();
-        if (text == null || !content.contentEquals(text)) {
-            _hlEditor.setText(content);
-        }
+            final int editorpos = _hlEditor.getSelectionStart();
 
-        _hlEditor.setSelection(Math.min(Math.max(editorpos, 0), _hlEditor.length() - 1));
+            final String content = _document.loadContent(getContext());
+            _loadModTime = modTime;
 
-        if (_isPreviewVisible) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            setDocumentViewVisibility(_isPreviewVisible);
+            final CharSequence text = _hlEditor.getText();
+            if (text == null || !content.contentEquals(text)) {
+                _hlEditor.setText(content);
+            }
+
+            if (_hlEditor.indexesValid(editorpos) && _hlEditor.getText().length() > 0) {
+                _hlEditor.setSelection(Math.min(Math.max(editorpos, 0), _hlEditor.length() - 1));
+            }
+
+            if (_isPreviewVisible) {
+                _webViewClient.setRestoreScrollY(_webView.getScrollY());
+                setDocumentViewVisibility(_isPreviewVisible);
+            }
         }
     }
 
