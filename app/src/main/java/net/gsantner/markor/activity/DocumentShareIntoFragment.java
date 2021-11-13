@@ -92,13 +92,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         final String prefix = ShareUtil.formatDateTime(context, AppSettings.get().getShareIntoPrefix(), System.currentTimeMillis());
         final String extra = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
-
-        String sharedText;
-        try {
-            sharedText = String.format(prefix, extra);
-        } catch (IllegalFormatException e) {
-            sharedText = prefix + " " + extra;
-        }
+        final String sharedText = formatOrPrefix(prefix, extra);
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
@@ -119,6 +113,16 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         if (sharedText.isEmpty() || sharedText.equals(prefix)) {
             _hlEditor.requestFocus();
         }
+    }
+
+    private static String formatOrPrefix(final String format, final String value) {
+        try {
+            final String result  = String.format(format, value);
+            if (!result.equals(format) && !TextUtils.isEmpty(value)) {
+                return result;
+            }
+        } catch (IllegalFormatException ignored) { }
+        return format + " " + value;
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
