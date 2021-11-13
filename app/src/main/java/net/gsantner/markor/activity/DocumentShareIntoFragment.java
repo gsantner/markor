@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -39,11 +40,10 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
+import java.util.IllegalFormatException;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -83,16 +83,22 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Context context = view.getContext();
-        AppSettings as = new AppSettings(context);
-        ContextUtils cu = new ContextUtils(context);
+        final AppSettings as = new AppSettings(context);
+        final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
 
-        final String format = AppSettings.get().getShareIntoPrefix();
-        final String prefix = ShareUtil.formatDateTime(context, format, System.currentTimeMillis());
-        final String sharedText = prefix + (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
+        final String prefix = ShareUtil.formatDateTime(context, AppSettings.get().getShareIntoPrefix(), System.currentTimeMillis());
+        final String extra = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
+
+        String sharedText;
+        try {
+            sharedText = String.format(prefix, extra);
+        } catch (IllegalFormatException e) {
+            sharedText = prefix + " " + extra;
+        }
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
@@ -103,6 +109,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
+
         _hlEditor.setText(sharedText);
         _hlEditor.setBackgroundColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
         _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
@@ -287,7 +294,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         @Override
-        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+        @SuppressLint("NonConstantResourceId")
+        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
             PermissionChecker permc = new PermissionChecker(getActivity());
