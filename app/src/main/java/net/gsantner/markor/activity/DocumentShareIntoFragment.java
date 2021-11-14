@@ -122,7 +122,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 return result;
             }
         } catch (IllegalFormatException ignored) { }
-        return format + " " + value;
+        return format + (format.length() > 0 ? " " : "") + value;
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
