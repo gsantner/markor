@@ -185,6 +185,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             intentLineNumber = _document.getIntentLineNumber();
         }
 
+        // Upon construction, the document format has been determined from extension etc
+        // Here we replace it with the last saved format.
+        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
+        applyTextFormat(_document.getFormat());
+        _textFormat.getTextActions().setDocument(_document);
+
         loadDocument();
 
         Activity activity = getActivity();
@@ -193,12 +199,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             da.setDocumentTitle(_document.getTitle());
             da.setDocument(_document);
         }
-
-        // Upon construction, the document format has been determined from extension etc
-        // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
-        applyTextFormat(_document.getFormat());
-        _textFormat.getTextActions().setDocument(_document);
 
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
