@@ -116,13 +116,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
     private static String formatOrPrefix(final String format, final String value) {
-        try {
-            final String result  = String.format(format, value);
-            if (!result.equals(format) && !TextUtils.isEmpty(value)) {
-                return result;
-            }
-        } catch (IllegalFormatException ignored) { }
-        return format + (format.length() > 0 ? " " : "") + value;
+        return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
