@@ -24,6 +24,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Krei Dosierujon</string>
     <string name="create_new_document">Krei novan dokumenton</string>
     <string name="move">Movi</string>
+    <string name="copy">Kopii</string>
     <string name="info">Informo</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Dosiero/dosierujo jam ekzistas! Bonvolu uzi malsaman nomon</string>
     <string name="import_from_device">Enporti el aparato</string>
@@ -67,6 +68,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="deleteme____1">Dosiernomo</string>
     <string name="size">Grandeco</string>
     <string name="contribute">Kontribui</string>
+    <string name="donate">Donacu</string>
     <string name="exit">Eliri</string>
     <string name="undo">Malfari</string>
     <string name="redo">Refari</string>
@@ -103,7 +105,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Aliaj</string>
     <string name="empty_file">Malplena dosiero</string>
     <string name="underline">Substreki</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Ĉu substreki la heksajn kolorkodojn laŭ koloro</string>
+    <string name="underline_hex_color_codes">Substreki Heksajn Kolorkodojn</string>
     <string name="tasks_with_todays_date">Taskoj kun hodiaŭa dato</string>
+    <string name="use_monospace_for_code">Uzu egalinterspacan litertipon por kodo</string>
     <string name="general">Ĝeneralaj</string>
     <string name="key_ctrl_a">Elekti ĉiujn (Ctrl+A)</string>
     <string name="key_tab">Tabo</string>
@@ -111,6 +116,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_dash">Streketo (-)</string>
     <string name="unordered_list_char_asterisk">Steleto (*)</string>
     <string name="unordered_list_char_plus">Pluso (+)</string>
+    <string name="left">Maldekstro</string>
+    <string name="right">Dekstro</string>
+    <string name="top">Supro</string>
+    <string name="bottom">Malsupro</string>
+    <string name="center">Centro</string>
     <string name="clipboard">Tondujo</string>
     <string name="open_source_licenses">Malfermitkodaj permesiloj</string>
     <string name="rate_this_app">Taksi ĉi tiun apon</string>
@@ -153,6 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mia_noto</string>
     <string name="close">Fermi</string>
     <string name="cancel">Rezigni</string>
+    <string name="folder_first">Dosierujo unue</string>
     <string name="go_to">Iri al</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">Quicknote estas la plej rapida elekto por skribi notojn. Ĝi estas dosiero en la Markdown dosierformo kun la defaŭlta situo &gt;Notebook/QuickNote.md&lt;, vi povas agordi propran dosiersituon per la agordoj.</string>
     <string name="black">Nigra</string>
@@ -188,10 +199,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_6">Titolo 6</string>
     <string name="bold">Dikigi</string>
     <string name="italic">Kursivigi</string>
+    <string name="inline_code">Enteksta kodo</string>
+    <string name="link_color">Koloro de ligilo</string>
     <string name="create_new_file_or_folder">Krei novan dosieron aŭ dosierujon</string>
     <string name="choose_format">Ekejtu formaton</string>
     <string name="selected">Elektita</string>
+    <string name="drag">Haŭli</string>
     <string name="created">Kreita</string>
+    <string name="code_block">Kodbloko</string>
     <string name="file_settings">Dosieraj agordoj</string>
     <string name="search_and_replace">Serĉi / Anstataŭi</string>
     <string name="search_for">Serĉi por</string>
@@ -213,6 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="infinite">Infinita</string>
     <string name="insert_project">Enmeti projektojn</string>
     <string name="insert_context">Enmeti kontekstojn</string>
+    <string name="due_overdue">Tarda</string>
     <string name="due_today">Ŝuldata hodiaŭ</string>
     <string name="due_future">Ŝuldata estonce</string>
     <string name="completed">Finita</string>
