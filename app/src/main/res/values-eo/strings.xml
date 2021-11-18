@@ -204,4 +204,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="infinite">Infinita</string>
     <string name="insert_project">Enmeti projektojn</string>
     <string name="insert_context">Enmeti kontekstojn</string>
+    <string name="completed">Finita</string>
 </resources>
