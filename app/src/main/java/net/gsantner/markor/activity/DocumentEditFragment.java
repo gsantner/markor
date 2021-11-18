@@ -347,18 +347,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         //Only trigger the load process if constructing or file updated
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
-            final int editorpos = _hlEditor.getSelectionStart();
-
             final String content = _document.loadContent(getContext());
             _loadModTime = modTime;
 
+            // Only setText if content changed
             final CharSequence text = _hlEditor.getText();
             if (text == null || !content.contentEquals(text)) {
                 _hlEditor.setText(content);
-            }
-
-            if (_hlEditor.indexesValid(editorpos) && _hlEditor.getText().length() > 0) {
-                _hlEditor.setSelection(Math.min(Math.max(editorpos, 0), _hlEditor.length() - 1));
             }
 
             if (_isPreviewVisible) {
