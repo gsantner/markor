@@ -121,15 +121,24 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="source_code">Fontkodo</string>
     <string name="project_license">Projekta permesilo</string>
     <string name="project_team">Projekta teamo</string>
+    <string name="ascending">ascenda</string>
+    <string name="location">Loko</string>
+    <string name="text_lines">Tekstaj Linioj</string>
+    <string name="text_characters">Tekstaj Signoj</string>
+    <string name="text_words">Tekstaj Vortoj</string>
     <string name="directory">Dosierujo</string>
     <string name="details">Detaloj</string>
     <string name="calendar">Kalendaro</string>
+    <string name="gallery_picture">Galeria bildo</string>
+    <string name="camera_picture">Fotila bildo</string>
     <string name="enable_undo_and_redo_be_patient">Ebligi malfari kaj refari agojn. Nur taŭgaj por sperta uzado, paciencu por ne forigi gravan ion. Fermu kaj malfermu la redaktilon por viŝi la historion.</string>
     <string name="description">Priskribo</string>
     <string name="edit_picture">Redakti bildon</string>
     <string name="math">Matematiko</string>
     <string name="table_of_contents">Enhavtabelo</string>
     <string name="miscellaneous">Aliaĵoj</string>
+    <string name="textaction">Teksta ago</string>
+    <string name="textactions">Tekstaj agoj</string>
     <string name="color">Koloro</string>
     <string name="foreground">Malfono</string>
     <string name="background">Fono</string>
@@ -204,5 +213,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="infinite">Infinita</string>
     <string name="insert_project">Enmeti projektojn</string>
     <string name="insert_context">Enmeti kontekstojn</string>
+    <string name="due_today">Ŝuldata hodiaŭ</string>
+    <string name="due_future">Ŝuldata estonce</string>
     <string name="completed">Finita</string>
 </resources>
