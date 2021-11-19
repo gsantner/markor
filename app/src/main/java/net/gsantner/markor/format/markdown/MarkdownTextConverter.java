@@ -44,6 +44,7 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
@@ -121,6 +122,7 @@ public class MarkdownTextConverter extends TextConverter {
     );
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
+    private static final Pattern imagePattern = Pattern.compile("(!\\[.*\\])\\((.*)\\)");
 
     //########################
     //## Methods
@@ -207,6 +209,15 @@ public class MarkdownTextConverter extends TextConverter {
 
         if (appSettings.isMarkdownNewlineNewparagraphEnabled()) {
             markup = markup.replace("\n", "  \n");
+        }
+
+        // Replace space in image url with %20
+        final Matcher imageMatcher = imagePattern.matcher(markup);
+        while (imageMatcher.find()) {
+            String escapedUrl = imageMatcher.group(2).replace(" ", "%20");
+            markup = markup.substring(0, imageMatcher.start())
+                    + String.format("%s(%s)", imageMatcher.group(1), escapedUrl)
+                    + markup.substring(imageMatcher.end());
         }
 
         ////////////
