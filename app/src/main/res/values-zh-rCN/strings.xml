@@ -431,4 +431,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="dynamic_notebook_root_links">动态搜索笔记本根目录</string>
     <string name="search_dynamically_for_notebook_root">为了跟随wiki链接，动态地搜索notbook.zim文件来识别当前笔记本的根目录。 如果您使用多个zim笔记本或者应用程序中的笔记本目录与您的zim笔记本不对应，请选中此项。</string>
     <string name="share_into_format_prefix_for_text_shared">共享到 Markor的文本格式/前缀。关注Android的 SimpleDateFormat 规则。\n\n使用占位符\'%s\' (周围为单引号) 来定位共享文本。 如果未指定，共享文本将附加，并使用格式作为前缀。</string>
+    <string name="share_into_format">分享到 - 格式</string>
 </resources>
