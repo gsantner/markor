@@ -40,7 +40,6 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

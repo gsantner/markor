@@ -1246,10 +1246,10 @@ public class ShareUtil {
     }
 
     /**
-     * @param locale    {@link Locale} locale
-     * @param format    {@link String} text which 'll be used as format for {@link SimpleDateFormat}
-     * @param datetime  {@link Long}   requested time miliseconds
-     * @param def       {@link String} default fallback value. If the format is incorrect and a default is not provided, an exception will be raised
+     * @param locale   {@link Locale} locale
+     * @param format   {@link String} text which 'll be used as format for {@link SimpleDateFormat}
+     * @param datetime {@link Long}   requested time miliseconds
+     * @param def      {@link String} default fallback value. If the format is incorrect and a default is not provided, an exception will be raised
      * @return formatted string
      */
     public static String formatDateTime(final Locale locale, final String format, final Long datetime, final String def) {

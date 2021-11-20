@@ -42,7 +42,6 @@ import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
-import java.util.IllegalFormatException;
 import java.util.regex.Matcher;
 
 import butterknife.BindView;

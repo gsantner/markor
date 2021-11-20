@@ -33,7 +33,6 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
