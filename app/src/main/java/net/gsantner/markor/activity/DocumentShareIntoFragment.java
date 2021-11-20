@@ -89,9 +89,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
 
-        final String prefix = ShareUtil.formatDateTime(context, AppSettings.get().getShareIntoPrefix(), System.currentTimeMillis());
+        final String prefix = ShareUtil.formatDateTime(context, as.getShareIntoPrefix(), System.currentTimeMillis());
         final String extra = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
-        final String sharedText = formatOrPrefix(prefix, extra);
+        final String sharedText = formatOrPrefixSharedText(prefix, extra);
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
@@ -114,7 +114,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
     }
 
-    private static String formatOrPrefix(final String format, final String value) {
+    private static String formatOrPrefixSharedText(final String format, final String value) {
         return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
     }
 
