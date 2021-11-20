@@ -12,6 +12,7 @@ package net.gsantner.markor.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.arch.lifecycle.Lifecycle;
 import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
@@ -23,7 +24,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -62,6 +62,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -71,7 +72,7 @@ import butterknife.BindView;
 import butterknife.OnTextChanged;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-@SuppressWarnings({"UnusedReturnValue", "RedundantCast"})
+@SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final int HISTORY_DELTA = 5000;
@@ -110,7 +111,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return f;
     }
 
-
     @BindView(R.id.document__fragment__edit__highlighting_editor)
     HighlightingEditor _hlEditor;
 
@@ -134,6 +134,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
+    private long _loadModTime = 0;
 
     public DocumentEditFragment() {
         super();
@@ -157,7 +158,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //applyTextFormat(TextFormat.FORMAT_PLAIN);
         _shareUtil = new ShareUtil(view.getContext());
 
         _webViewClient = new MarkorWebViewClient(getActivity());
@@ -177,21 +177,29 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
+        int intentLineNumber = -1;
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-            _document.resetModTime(); // Ensure document is loaded on restore state
         } else {
             _document = Document.fromArguments(getActivity(), getArguments());
+            intentLineNumber = _document.getIntentLineNumber();
         }
+
+        // Upon construction, the document format has been determined from extension etc
+        // Here we replace it with the last saved format.
+        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
+        applyTextFormat(_document.getFormat());
+        _textFormat.getTextActions().setDocument(_document);
 
         loadDocument();
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_CURSOR_POS)) {
-            int cursor = savedInstanceState.getInt(SAVESTATE_CURSOR_POS);
-            if (cursor >= 0 && cursor < _hlEditor.length()) {
-                _hlEditor.setSelection(cursor);
-            }
+        Activity activity = getActivity();
+        if (activity instanceof DocumentActivity) {
+            DocumentActivity da = ((DocumentActivity) activity);
+            da.setDocumentTitle(_document.getTitle());
+            da.setDocument(_document);
         }
+
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         _hlEditor.clearFocus();
@@ -215,7 +223,32 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-        restoreDocumentPositions();
+
+        // Set the correct position after everything else done
+        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+            if (isDisplayedAtMainActivity()) {
+
+                // Scroll to the bottom
+                _primaryScrollView.post(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN));
+
+            } else {
+
+                // Scroll to position
+                // If Intent contains line number, jump to it
+                // intentLineNumber only created with document reconstructed from intent
+                if (intentLineNumber >= 0) {
+                    _hlEditor.smoothMoveCursorToLine(intentLineNumber);
+                }
+
+                // Set cursor if saved cursor state present
+                final int pos = savedInstanceState != null ? savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1) : -1;
+                final CharSequence text = _hlEditor.getText();
+                if (_hlEditor.indexesValid(pos) && text != null) {
+                    _hlEditor.smoothMoveCursorToLine(StringUtils.getLineOffsetFromIndex(text, pos)[0]);
+                    _hlEditor.setSelection(pos);
+                }
+            }
+        }
     }
 
     @Override
@@ -223,11 +256,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
 
         loadDocument();
-
-        int cursor = _hlEditor.getSelectionStart();
-        cursor = Math.max(0, cursor);
-        cursor = Math.min(_hlEditor.length(), cursor);
-        _hlEditor.setSelection(cursor);
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
@@ -315,32 +343,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void loadDocument() {
-        int editorpos = _hlEditor.getSelectionStart();
+        final long modTime = _document.getFile().lastModified();
+        //Only trigger the load process if constructing or file updated
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
-        // Load document if mod time newer than that recorded on last load
-        if (_document.hasNewerModTime()) {
-            _hlEditor.setText(_document.loadContent(getContext()));
-        }
+            final String content = _document.loadContent(getContext());
+            _loadModTime = modTime;
 
-        editorpos = editorpos > _hlEditor.length() ? _hlEditor.length() - 1 : editorpos;
-        _hlEditor.setSelection(Math.max(editorpos, 0));
-        Activity activity = getActivity();
+            // Only setText if content changed
+            final CharSequence text = _hlEditor.getText();
+            if (text == null || !content.contentEquals(text)) {
+                _hlEditor.setText(content);
+            }
 
-        if (activity instanceof DocumentActivity) {
-            DocumentActivity da = ((DocumentActivity) activity);
-            da.setDocumentTitle(_document.getTitle());
-            da.setDocument(_document);
-        }
-
-        // Upon construction, the document format has been determined from extension etc
-        // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
-        applyTextFormat(_document.getFormat());
-        _textFormat.getTextActions().setDocument(_document);
-
-        if (_isPreviewVisible) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            setDocumentViewVisibility(_isPreviewVisible);
+            if (_isPreviewVisible) {
+                _webViewClient.setRestoreScrollY(_webView.getScrollY());
+                setDocumentViewVisibility(_isPreviewVisible);
+            }
         }
     }
 
@@ -371,7 +390,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_save: {
-                saveDocument();
+                saveDocument(true);
                 return true;
             }
             case R.id.action_reload: {
@@ -395,20 +414,20 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_share_text: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _shareUtil.shareText(_hlEditor.getText().toString(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_file: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _shareUtil.shareStream(_document.getFile(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), getActivity(), _document, _hlEditor).getConverter();
                     _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
@@ -416,7 +435,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_share_calendar_event: {
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _hlEditor.getText().toString(), null)) {
                         Toast.makeText(getActivity(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
@@ -425,7 +444,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case android.R.id.home: {
                 final Activity activity = getActivity();
-                if (activity != null && saveDocument()) {
+                if (activity != null && saveDocument(false)) {
                     activity.onBackPressed();
                 }
                 return true;
@@ -434,7 +453,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_image:
             case R.id.action_share_pdf: {
                 _appSettings.getSetWebViewFulldrawing(true);
-                if (saveDocument()) {
+                if (saveDocument(false)) {
                     _nextConvertToPrintMode = true;
                     setDocumentViewVisibility(true);
                     Toast.makeText(getActivity(), R.string.please_wait, Toast.LENGTH_LONG).show();
@@ -526,7 +545,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_info: {
                 if (_document != null && _document.getFile() != null) {
-                    saveDocument(); // In order to have the correct info displayed
+                    saveDocument(false); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
                 return true;
@@ -662,10 +681,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return false;
     }
 
-
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument() {
+    public boolean saveDocument(boolean forceSaveEmpty) {
         if (isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
 
             if (_document != null && _document.getFile() != null) {
@@ -674,19 +692,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil);
+            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty);
         }
         return false;
-    }
-
-    public void restoreDocumentPositions() {
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null) && !isDisplayedAtMainActivity()) {
-            int v;
-            if ((v = _document.getInitialLineNumber()) >= 0) { // If Intent contains line number, jump to it
-                _hlEditor.smoothMoveCursorToLine(v);
-            }
-            _document.setInitialLineNumber(-1);
-        }
     }
 
     private boolean isDisplayedAtMainActivity() {
@@ -695,7 +703,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        saveDocument();
         if (_hlEditor != null) {
             outState.putSerializable(SAVESTATE_CURSOR_POS, _hlEditor.getSelectionStart());
         }
@@ -707,7 +714,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onPause() {
-        saveDocument();
+        saveDocument(false);
         if (_document != null && _document.getFile() != null) {
             _appSettings.addRecentDocument(_document.getFile());
         }
@@ -727,7 +734,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (isVisibleToUser && isDisplayedAtMainActivity()) {
             loadDocument();
         } else if (!isVisibleToUser && _document != null) {
-            saveDocument();
+            saveDocument(false);
         }
 
         final Toolbar toolbar = getToolbar();

@@ -140,7 +140,7 @@ public class ZimWikiTextConverter extends TextConverter {
         if (resolver.isWebLink()) {
             markdownLink = resolver.getResolvedLink().replaceAll(" ", "%20");
         } else {
-            markdownLink = "file://"+resolver.getResolvedLink();
+            markdownLink = "file://" + resolver.getResolvedLink();
         }
 
         String linkDescription = resolver.getLinkDescription() != null ? resolver.getLinkDescription() : resolver.getZimPath();

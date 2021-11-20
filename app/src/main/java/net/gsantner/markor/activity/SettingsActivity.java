@@ -35,6 +35,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
@@ -190,10 +191,12 @@ public class SettingsActivity extends AppActivityBase {
                     getString(R.string.app_drawer_launcher_special_files_description), true
             );
             updateSummary(R.string.pref_key__exts_to_always_open_in_this_app, _appSettings.getString(R.string.pref_key__exts_to_always_open_in_this_app, ""));
-            if (_appSettings.getString(R.string.pref_key__file_description_format, "").equals("")) {
+
+            final String fileDescFormat = _appSettings.getString(R.string.pref_key__file_description_format, "");
+            if (fileDescFormat.equals("")) {
                 updateSummary(R.string.pref_key__file_description_format, getString(R.string.default_));
             } else {
-                updateSummary(R.string.pref_key__file_description_format, _appSettings.getString(R.string.pref_key__file_description_format, ""));
+                updateSummary(R.string.pref_key__file_description_format, fileDescFormat);
             }
 
             setPreferenceVisible(R.string.pref_key__is_multi_window_enabled, Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
@@ -220,8 +223,10 @@ public class SettingsActivity extends AppActivityBase {
 
         @SuppressLint("ApplySharedPref")
         @Override
-        protected void onPreferenceChanged(SharedPreferences prefs, String key) {
+        protected void onPreferenceChanged(final SharedPreferences prefs, final String key) {
             super.onPreferenceChanged(prefs, key);
+            final Context context = getContext();
+
             if (eq(key, R.string.pref_key__language)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
@@ -229,8 +234,8 @@ public class SettingsActivity extends AppActivityBase {
                 // Handling widget color scheme
                 WrMarkorWidgetProvider.handleWidgetScheme(
                         getContext(),
-                        new RemoteViews(getContext().getPackageName(), R.layout.widget_layout),
-                        new AppSettings(getContext()).isDarkThemeEnabled());
+                        new RemoteViews(context.getPackageName(), R.layout.widget_layout),
+                        new AppSettings(context).isDarkThemeEnabled());
                 _as.setRecreateMainRequired(true);
                 getActivity().finish();
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
@@ -246,6 +251,12 @@ public class SettingsActivity extends AppActivityBase {
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(getContext(), e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                     prefs.edit().putString(key, "").commit();
+                }
+            } else if (eq(key, R.string.pref_key__share_into_prefix)) {
+                try {
+                    Toast.makeText(context, ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis(), null), Toast.LENGTH_SHORT).show();
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
             }
         }

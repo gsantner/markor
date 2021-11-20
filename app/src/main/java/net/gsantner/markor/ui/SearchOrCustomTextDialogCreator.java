@@ -9,6 +9,15 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
+
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DUE_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,9 +35,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
-import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.ui.fsearch.FileSearchDialog;
 import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
@@ -46,14 +55,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DUE_DATE;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
-import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
 
 public class SearchOrCustomTextDialogCreator {
     public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
@@ -316,10 +317,10 @@ public class SearchOrCustomTextDialogCreator {
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity    Context activity
-     * @param text        Edit Text with todos
-     * @param title       Dialog title
-     * @param queryType   Key used with TodoTxtFilter
+     * @param activity  Context activity
+     * @param text      Edit Text with todos
+     * @param title     Dialog title
+     * @param queryType Key used with TodoTxtFilter
      */
     public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAnd, final String queryType) {
 

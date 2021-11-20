@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -17,8 +19,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ZimWikiFileTests {
 

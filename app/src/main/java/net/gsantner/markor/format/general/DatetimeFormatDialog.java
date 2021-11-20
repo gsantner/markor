@@ -30,11 +30,10 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.Callback;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -119,7 +118,7 @@ public class DatetimeFormatDialog {
             formatEditText.setText(allFormats.get(position));
             popupWindow.dismiss();
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+            previewTextView.setText(ShareUtil.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
         });
 
         popupWindow.setAnchorView(formatEditText);
@@ -145,7 +144,7 @@ public class DatetimeFormatDialog {
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
                     setToNow(cal, alwaysNowCheckBox.isChecked());
-                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(ShareUtil.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                     final boolean error = previewTextView.getText().toString().isEmpty() && !formatEditText.getText().toString().isEmpty();
                     formatEditText.setError(error ? "^^^!!!  'normal text'" : null);
                     previewTextView.setVisibility(error ? View.GONE : View.VISIBLE);
@@ -169,7 +168,7 @@ public class DatetimeFormatDialog {
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
-                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(ShareUtil.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         );
 
@@ -177,7 +176,7 @@ public class DatetimeFormatDialog {
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
-                    previewTextView.setText(parseDatetimeFormatToString(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+                    previewTextView.setText(ShareUtil.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         );
 
@@ -194,7 +193,7 @@ public class DatetimeFormatDialog {
 
         callbackInsertTextToEditor.set((selectedFormat) -> {
             setToNow(cal, alwaysNowCheckBox.isChecked());
-            String text = parseDatetimeFormatToString(locale, selectedFormat, cal.getTimeInMillis());
+            String text = ShareUtil.formatDateTime(locale, selectedFormat, cal.getTimeInMillis());
             previewTextView.setText(text);
             hlEditor.insertOrReplaceTextOnCursor(getOutput(
                     formatInsteadCheckbox.isChecked(), text, formatEditText.getText().toString())
@@ -213,22 +212,6 @@ public class DatetimeFormatDialog {
                 });
 
         dialog.set(builder.show());
-    }
-
-    /**
-     * @param locale     {@link Locale} locale
-     * @param timeFormat {@link String} text which 'll be used as format for {@link SimpleDateFormat}
-     * @param datetime   {@link Long} selected _datetime in milisecond
-     * @return formatted _datetime
-     */
-    private static String parseDatetimeFormatToString(final Locale locale, final String timeFormat, final Long datetime) {
-        try {
-            DateFormat formatter = new SimpleDateFormat(timeFormat.replace("\\n", "\n"), locale);
-            return formatter.format(datetime);
-        } catch (Exception e) {
-            // ToDO: some exception handler about not acceptable format maybe??
-            return "";
-        }
     }
 
     /**
@@ -268,7 +251,7 @@ public class DatetimeFormatDialog {
         for (final String f : formats) {
             Map<String, String> pair = new HashMap<>(2);
             pair.put("format", f);
-            pair.put("date", parseDatetimeFormatToString(locale, f, currentMillis));
+            pair.put("date", ShareUtil.formatDateTime(locale, f, currentMillis, ""));
             formatsAndParsed.add(pair);
         }
 
@@ -359,8 +342,7 @@ public class DatetimeFormatDialog {
     public static String getMostRecentDate(final Activity activity) {
         final List<String> formats = getRecentFormats(activity);
         if (formats.size() > 0) {
-            final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
-            return parseDatetimeFormatToString(locale, formats.get(0), System.currentTimeMillis());
+            return ShareUtil.formatDateTime(activity, formats.get(0), System.currentTimeMillis());
         } else {
             return "";
         }

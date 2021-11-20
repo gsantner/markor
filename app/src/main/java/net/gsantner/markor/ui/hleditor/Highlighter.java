@@ -102,7 +102,7 @@ public abstract class Highlighter {
             _profiler.restart("Link Color");
             createColorSpanForMatches(spannable, Patterns.WEB_URL, 0xff1ea3fd);
             _profiler.restart("Link Size");
-            createRelativeSizeSpanForMatches(spannable, Patterns.WEB_URL, 0.7f);
+            createRelativeSizeSpanForMatches(spannable, Patterns.WEB_URL, 0.85f);
             _profiler.restart("Link Italic");
             createStyleSpanForMatches(spannable, Patterns.WEB_URL, Typeface.ITALIC);
         }

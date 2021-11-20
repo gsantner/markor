@@ -1,13 +1,13 @@
 package other.de.stanetz.jpencconverter.cryption;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-
-import static org.junit.Assert.assertEquals;
 
 
 public class JavaPasswordbasedCryptionTest {
