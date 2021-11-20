@@ -430,4 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch-Wurzelverzeichnis</string>
     <string name="search_dynamically_for_notebook_root">Um Wiki-Links zu folgen, dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu identifizieren. Aktivieren Sie dies, wenn Sie mehrere zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem zim-Notebook entspricht.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Präfix für in Markor geteilten Text. Befolgt Androids SimpleDateFormat-Regeln.\n\nBenutzen Sie den Platzhalter \'%s\' (umgeben von einfachen Anführungszeichen) um den geteilten Text zu positionieren. Falls nicht angegeben, wird der freigegebene Text angehängt und das als Präfix verwendete Format.</string>
+    <string name="share_into_format">Teilen in - Format</string>
 </resources>
