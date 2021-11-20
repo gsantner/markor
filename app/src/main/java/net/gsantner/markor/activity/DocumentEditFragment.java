@@ -204,7 +204,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         new ActivityUtils(getActivity()).hideSoftKeyboard().freeContextRef();
         _hlEditor.clearFocus();
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-
         setupAppearancePreferences(view);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
@@ -222,26 +221,22 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         // Set the correct position after everything else done
-        if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
-            if (isDisplayedAtMainActivity()) {
-                // Scroll to the bottom
-                _primaryScrollView.post(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN));
-            } else {
-                // Scroll to position
-                // If Intent contains line number, jump to it
-                // intentLineNumber only created with document reconstructed from intent
-                if (intentLineNumber >= 0) {
-                    _hlEditor.smoothMoveCursorToLine(intentLineNumber);
-                }
-
-                // Set cursor if saved cursor state present
-                final int pos = savedInstanceState != null ? savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1) : -1;
-                final CharSequence text = _hlEditor.getText();
-                if (_hlEditor.indexesValid(pos) && text != null) {
-                    _hlEditor.smoothMoveCursorToLine(StringUtils.getLineOffsetFromIndex(text, pos)[0]);
-                    _hlEditor.setSelection(pos);
-                }
+        if (!isDisplayedAtMainActivity() && !Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+            // Scroll to position
+            // If Intent contains line number, jump to it
+            // intentLineNumber only created with document reconstructed from intent
+            if (intentLineNumber >= 0) {
+                _hlEditor.smoothMoveCursorToLine(intentLineNumber);
             }
+
+            // Set cursor if saved cursor state present
+            final int pos = savedInstanceState != null ? savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1) : -1;
+            final CharSequence text = _hlEditor.getText();
+            if (_hlEditor.indexesValid(pos) && text != null) {
+                _hlEditor.smoothMoveCursorToLine(StringUtils.getLineOffsetFromIndex(text, pos)[0]);
+                _hlEditor.setSelection(pos);
+            }
+
         }
     }
 
@@ -727,6 +722,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isDisplayedAtMainActivity()) {
             loadDocument();
+            _primaryScrollView.postDelayed(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN), 100);
         } else if (!isVisibleToUser && _document != null) {
             saveDocument(false);
         }

@@ -43,10 +43,6 @@ public class HighlightingEditor extends AppCompatEditText {
         return posLineBegin == posEndBegin;
     }
 
-    interface OnTextChangedListener {
-        void onTextChanged(String text);
-    }
-
     private boolean _modified = true;
     private boolean _hlEnabled = false;
     private boolean _accessibilityEnabled = true;
