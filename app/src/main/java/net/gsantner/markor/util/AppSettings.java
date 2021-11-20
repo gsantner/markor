@@ -917,6 +917,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public String getShareIntoPrefix() {
-        return getString(R.string.pref_key__share_into_prefix, "");
+        return getString(R.string.pref_key__share_into_format, "\n----\n");
     }
 }
