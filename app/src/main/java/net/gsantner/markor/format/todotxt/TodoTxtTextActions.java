@@ -19,7 +19,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
-import android.text.Spannable;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 

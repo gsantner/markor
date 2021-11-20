@@ -1,5 +1,11 @@
 package net.gsantner.markor.format.zimwiki;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import net.gsantner.opoc.util.FileUtils;
 
 import org.junit.After;
@@ -9,12 +15,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class ZimWikiLinkResolverTests {
     private Path tempFolder;
@@ -27,7 +27,7 @@ public class ZimWikiLinkResolverTests {
             tempFolder = Files.createTempDirectory("markorTemp");
             notebookRoot = Files.createDirectory(tempFolder.resolve("notebookRoot"));
             createTestNotebookStructure();
-            System.out.println("Created test notebook in: "+ tempFolder);
+            System.out.println("Created test notebook in: " + tempFolder);
         } catch (IOException e) {
             e.printStackTrace();
             fail("Could not create the test directory");
@@ -36,13 +36,13 @@ public class ZimWikiLinkResolverTests {
 
     /**
      * Creates the following notebook structure:
-     *
+     * <p>
      * notebookRoot ___ My page ___ Another page ___ Very cool subpage
-     *   |                   |___ Yet another page ___ Interesting page
-     *   |                                      |___ Strange page
-     *   |___ Your page ___ Another page
-     *   |            |___ The coolest page
-     *   |___ Another page
+     * |                   |___ Yet another page ___ Interesting page
+     * |                                      |___ Strange page
+     * |___ Your page ___ Another page
+     * |            |___ The coolest page
+     * |___ Another page
      */
     private void createTestNotebookStructure() throws IOException {
 
@@ -67,7 +67,7 @@ public class ZimWikiLinkResolverTests {
     @After
     public void after() {
         FileUtils.deleteRecursive(tempFolder.toFile());
-        System.out.println("Deleted: "+tempFolder);
+        System.out.println("Deleted: " + tempFolder);
     }
 
     @Test
@@ -151,7 +151,7 @@ public class ZimWikiLinkResolverTests {
 
     private void assertResolvedLinkAndDescription(String expectedLinkRelativeToRoot, String expectedDescription, String zimLink, String currentPageRelativeToRoot) {
         ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(zimLink, notebookRoot.toFile(), notebookRoot.resolve(currentPageRelativeToRoot).toFile(), false);
-        String expectedLink = expectedLinkRelativeToRoot!=null ? notebookRoot.resolve(expectedLinkRelativeToRoot).toString() : null;
+        String expectedLink = expectedLinkRelativeToRoot != null ? notebookRoot.resolve(expectedLinkRelativeToRoot).toString() : null;
         assertEquals(expectedLink, resolver.getResolvedLink());
         assertEquals(expectedDescription, resolver.getLinkDescription());
         assertFalse(resolver.isWebLink());

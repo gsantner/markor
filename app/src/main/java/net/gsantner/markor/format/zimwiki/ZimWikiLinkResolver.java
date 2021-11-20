@@ -81,7 +81,7 @@ public class ZimWikiLinkResolver {
         // the link types below need knowledge of the notebook root dir
         if (_shouldDynamicallyDetermineRoot) {
             _notebookRootDir = findNotebookRootDir(_currentPage);
-            if (_notebookRootDir==null) {
+            if (_notebookRootDir == null) {
                 return null;
             }
         }
@@ -103,7 +103,7 @@ public class ZimWikiLinkResolver {
     }
 
     private File findNotebookRootDir(File currentPage) {
-        if (currentPage!= null && currentPage.exists()) {
+        if (currentPage != null && currentPage.exists()) {
             if (FileUtils.join(currentPage, "notebook.zim").exists()) {
                 return currentPage;
             } else {
