@@ -196,8 +196,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
         private void openLink() {
             String fullZimLink = tryExtractZimLink();
-            
-            if (fullZimLink==null) {
+
+            if (fullZimLink == null) {
                 // the link under the cursor is not a zim link, probably just a plain url
                 runCommonTextAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
                 return;
@@ -205,7 +205,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
             ZimWikiLinkResolver resolver = ZimWikiLinkResolver.resolve(fullZimLink, _appSettings.getNotebookDirectory(), _document.getFile(), _appSettings.isZimWikiDynamicNotebookRootEnabled());
             String resolvedLink = resolver.getResolvedLink();
-            if (resolvedLink==null) {
+            if (resolvedLink == null) {
                 return;
             }
 
@@ -222,11 +222,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             int lineStart = StringUtils.getLineStart(text, cursorPos);
             int lineEnd = StringUtils.getLineEnd(text, cursorPos);
             CharSequence line = text.subSequence(lineStart, lineEnd);
-            int cursorPosInLine = cursorPos-lineStart;
+            int cursorPosInLine = cursorPos - lineStart;
 
             Matcher m = ZimWikiHighlighter.Patterns.LINK.pattern.matcher(line);
             while (m.find()) {
-                if (m.start()<cursorPosInLine && m.end()>cursorPosInLine) {
+                if (m.start() < cursorPosInLine && m.end() > cursorPosInLine) {
                     return m.group();
                 }
             }

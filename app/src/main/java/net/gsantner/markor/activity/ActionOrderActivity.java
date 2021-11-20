@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
+
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,8 +46,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
 
 public class ActionOrderActivity extends AppCompatActivity {
 

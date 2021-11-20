@@ -10,6 +10,10 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import static android.content.Context.VIBRATOR_SERVICE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.graphics.Bitmap.CompressFormat;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -88,10 +92,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static android.content.Context.VIBRATOR_SERVICE;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static android.graphics.Bitmap.CompressFormat;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources", "UnusedAssignment", "UnusedReturnValue"})
 public class ContextUtils {
