@@ -501,6 +501,12 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         _adapterData.add(new File(folder, "storage"));
                     }
 
+                    // Private AppStorage: Allow to access to files directory only (don't allow access to internals like shared_preferences & databases)
+                    if (folder.equals(_context.getFilesDir().getParentFile())) {
+                        _adapterData.clear();
+                        _adapterData.add(new File(folder, "files"));
+                    }
+
                     if (folder.getAbsolutePath().equals("/storage")) {
                         // Scan for /storage/emulated/{0,1,2,..}
                         for (int i = 0; i < 10; i++) {
