@@ -430,4 +430,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Combinar todos</string>
     <string name="dynamic_notebook_root_links">Busca dinâmica pela raiz de notebook</string>
     <string name="search_dynamically_for_notebook_root">Para seguir os links da wiki, procure dinamicamente o arquivo notebook.zim para identificar o diretório raiz do caderno atual. Verifique se você utiliza vários blocos de anotações zím ou o diretório de anotações definido no app não corresponde ao seu caderno zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/Prefixo para texto compartilhado no Markor. Segue as regras de SimpleDateFormat do Android.\n\nUse o espaço reservado \'%s\' (cercado por aspas simples) para posicionar o texto compartilhado. Se não for especificado, o texto compartilhado é anexado e o formato usado como prefixo.</string>
 </resources>
