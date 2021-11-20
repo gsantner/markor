@@ -49,6 +49,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.support.v4.graphics.drawable.IconCompat;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -1242,5 +1243,26 @@ public class ShareUtil {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
             activity.startActivity(intent);
         }
+    }
+
+    /**
+     * @param locale   {@link Locale} locale
+     * @param format   {@link String} text which 'll be used as format for {@link SimpleDateFormat}
+     * @param datetime {@link Long}   requested time miliseconds
+     * @param fallback {@link String} default fallback value. If the format is incorrect and a default is not provided, return the specified format
+     * @return formatted string
+     */
+    public static String formatDateTime(final Locale locale, final String format, final Long datetime, final String... fallback) {
+        try {
+            Locale l = locale != null ? locale : Locale.getDefault();
+            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(datetime);
+        } catch (Exception err) {
+            return (fallback != null && fallback.length > 0) ? fallback[0] : format;
+        }
+    }
+
+    public static String formatDateTime(final Context context, final String format, final Long datetime, final String... def) {
+        final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
+        return formatDateTime(locale, format, datetime, def);
     }
 }

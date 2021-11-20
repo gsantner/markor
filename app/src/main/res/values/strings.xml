@@ -446,4 +446,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Match All</string>
     <string name="dynamic_notebook_root_links">Dynamic search for notebook root</string>
     <string name="search_dynamically_for_notebook_root">In order to follow wiki links, dynamically search for the notebook.zim file to identify the root directory for the current notebook. Check this if you use multiple zim notebooks or the notebook directory set in the app does not correspond to your zim notebook.</string>
+    <string name="share_into_prefix_format_dialog">Prefix for any text shared into Markor. Follows Android\'s SimpleDateFormat rules.\n\nA single string placeholder \'%s\' (including quotes - see SimpleDateFormat rules) can be used to specify shared text positioning. Otherwise, this text will be used as a prefix.</string>
+    <string name="share_into_prefix">Shared text prefix</string>
 </resources>

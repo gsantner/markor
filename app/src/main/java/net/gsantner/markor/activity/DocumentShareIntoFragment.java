@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -42,7 +43,6 @@ import net.gsantner.opoc.ui.FilesystemViewerData;
 
 import java.io.File;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -82,13 +82,16 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AppSettings as = new AppSettings(view.getContext());
-        ContextUtils cu = new ContextUtils(view.getContext());
+        final Context context = view.getContext();
+        final AppSettings as = new AppSettings(context);
+        final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
-        String sharedText = getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "";
-        sharedText = sharedText.trim();
+
+        final String prefix = ShareUtil.formatDateTime(context, as.getShareIntoPrefix(), System.currentTimeMillis());
+        final String extra = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
+        final String sharedText = formatOrPrefixSharedText(prefix, extra);
 
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
@@ -99,15 +102,20 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
+
         _hlEditor.setText(sharedText);
-        _hlEditor.setBackgroundColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
-        _hlEditor.setTextColor(ContextCompat.getColor(view.getContext(), as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
+        _hlEditor.setBackgroundColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
+        _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        if (sharedText.trim().isEmpty()) {
+        if (sharedText.isEmpty() || sharedText.equals(prefix)) {
             _hlEditor.requestFocus();
         }
+    }
+
+    private static String formatOrPrefixSharedText(final String format, final String value) {
+        return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
@@ -247,7 +255,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    appendToExistingDocument(file, getSeparator(_sharedText), true);
+                    appendToExistingDocument(file, "", true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -282,7 +290,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         @Override
-        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
+        @SuppressLint("NonConstantResourceId")
+        @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
             PermissionChecker permc = new PermissionChecker(getActivity());
@@ -313,7 +322,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), getSeparator(_sharedText), false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "", false);
                         close = true;
                     }
                     break;
@@ -357,7 +366,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), getSeparator(_sharedText), true);
+                    appendToExistingDocument(new File(preference.getKey()), "", true);
                     close = false;
                 }
             }
@@ -422,26 +431,4 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
         return formattedLink;
     }
-
-    /**
-     * Get separator for use with appendToExistingDocument
-     * If a small amount of text is being inserted, a newline is a sufficient separator.
-     * If a larger amount of text is being inserted, a horizontal line `----` is added as well
-     *
-     * @param s String to be inserted
-     * @return Separator to be used
-     */
-    private static String getSeparator(final String s) {
-        int length = 0;
-        if (!TextUtils.isEmpty(s)) {
-            length = s.length();
-            // Detect if string to be inserted is a formatted link. If so, only count characters in the description
-            final Matcher match = Pattern.compile("\\[(.*)(?<!\\\\)\\]\\(.*(?<!\\\\)\\)").matcher(s);
-            if (match.matches()) {
-                length = match.group(1).length();
-            }
-        }
-        return (length > 50) ? "\n----\n" : "\n";
-    }
-
 }

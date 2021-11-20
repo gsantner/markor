@@ -915,4 +915,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean isZimWikiDynamicNotebookRootEnabled() {
         return getBool(R.string.pref_key__zimwiki__dynamic_notebook_root, false);
     }
+
+    public String getShareIntoPrefix() {
+        return getString(R.string.pref_key__share_into_prefix, "");
+    }
 }
