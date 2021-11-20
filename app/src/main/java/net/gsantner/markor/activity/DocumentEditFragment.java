@@ -210,9 +210,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
         }
-        if (_isPreviewVisible) {
-            setDocumentViewVisibility(true);
-        }
 
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
@@ -227,12 +224,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Set the correct position after everything else done
         if (!Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
             if (isDisplayedAtMainActivity()) {
-
                 // Scroll to the bottom
                 _primaryScrollView.post(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN));
-
             } else {
-
                 // Scroll to position
                 // If Intent contains line number, jump to it
                 // intentLineNumber only created with document reconstructed from intent
