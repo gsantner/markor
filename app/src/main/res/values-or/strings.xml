@@ -222,4 +222,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
     <string name="skip_all">ବାଦ୍ ଦିଅ (ସମସ୍ତ)</string>
     <string name="dynamic_notebook_root_links">ନୋଟବୁକ୍ ମୂଳ ପାଇଁ ଡାଇନାମିକ୍ ସନ୍ଧାନ</string>
+    <string name="share_into_format_prefix_for_text_shared">Markorରେ ଅଂଶୀଦାର ହୋଇଥିବା ପାଠ୍ୟ ପାଇଁ ଫର୍ମାଟ୍/ଉପସର୍ଗ। ଆଣ୍ଡ୍ରଏଡ୍ର ର SimpleDateFormat ନିୟମ ଅନୁସରଣ କରେ।\n\nଅଂଶିଦାରୀ ପାଠ୍ୟ ସ୍ଥାନିତ କରିବାକୁ ପ୍ଲେସହୋଲ୍ଡର୍ \'%s\' (ଉଦ୍ଧୃତି ଚିହ୍ନ ଦ୍ୱାରା ଘେରିକରି) ବ୍ୟବହାର କରନ୍ତୁ। ଯଦି ନିର୍ଦ୍ଦିଷ୍ଟ ହୋଇନାହିଁ, ଅଂଶିଦାରୀ ପାଠ୍ୟ କୁ ଯୋଡ଼ାଯାଏ ଏବଂ ଫର୍ମାଟ୍ ଏକ ଉପସର୍ଗ ଭାବରେ ବ୍ୟବହୃତ ହୁଏ।</string>
+    <string name="share_into_format">ଏଥିରେ ଅଂଶୀଦାର - ଫର୍ମାଟ୍</string>
 </resources>
