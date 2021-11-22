@@ -64,7 +64,6 @@ public class FileSearchResultSelectorDialog {
         searchEditText.setMaxLines(1);
         searchEditText.setTextColor(textColor);
         searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
-        searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
         if (!searchResults.isEmpty()) {
             dialogLayout.addView(searchEditText, margins);
