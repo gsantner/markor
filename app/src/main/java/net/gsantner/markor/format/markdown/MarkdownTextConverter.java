@@ -122,7 +122,6 @@ public class MarkdownTextConverter extends TextConverter {
     );
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
-    private static final Pattern imagePattern = Pattern.compile("(!\\[.*\\])\\((.*)\\)");
 
     //########################
     //## Methods
@@ -212,13 +211,8 @@ public class MarkdownTextConverter extends TextConverter {
         }
 
         // Replace space in image url with %20
-        final Matcher imageMatcher = imagePattern.matcher(markup);
-        while (imageMatcher.find()) {
-            String escapedUrl = imageMatcher.group(2).replace(" ", "%20");
-            markup = markup.substring(0, imageMatcher.start())
-                    + String.format("%s(%s)", imageMatcher.group(1), escapedUrl)
-                    + markup.substring(imageMatcher.end());
-        }
+        markup = escapeSpacesInLink(markup, MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN.pattern.matcher(markup), "![%s](%s)");
+        markup = escapeSpacesInLink(markup, MarkdownHighlighterPattern.ACTION_LINK_PATTERN.pattern.matcher(markup), "[%s](%s)");
 
         ////////////
         // Markup parsing - afterwards = HTML
@@ -247,6 +241,17 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Deliver result
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+    }
+
+    private String escapeSpacesInLink(String markup, Matcher matcher, String replacement) {
+        while (matcher.find()) {
+            String escapedUrl = matcher.group(2).replace(" ", "%20");
+            markup = markup.substring(0, matcher.start())
+                    + String.format(replacement, matcher.group(1), escapedUrl)
+                    + markup.substring(matcher.end());
+        }
+
+        return markup;
     }
 
     @SuppressWarnings({"ConstantConditions", "StringConcatenationInsideStringBufferAppend"})
