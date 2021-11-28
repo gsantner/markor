@@ -51,7 +51,7 @@ public class TodoTxtTextActions extends TextActions {
     @Override
     public boolean runAction(String action, boolean modLongClick, String anotherArg) {
         if (action.equals(CommonTextActions.ACTION_SEARCH)) {
-            SearchOrCustomTextDialogCreator.showSttLineSelectionDialog(_activity, _hlEditor, R.string.search_documents, true, task -> true);
+            SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
             return true;
         } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
@@ -108,7 +108,7 @@ public class TodoTxtTextActions extends TextActions {
         public void onClick(View view) {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-            final TodoTxtTask[] selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
+            final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
 
             switch (_action) {
                 case R.string.tmaid_todotxt_toggle_done: {
@@ -132,8 +132,8 @@ public class TodoTxtTextActions extends TextActions {
                 }
                 case R.string.tmaid_todotxt_add_context: {
                     final List<String> contexts = new ArrayList<>();
-                    contexts.addAll(Arrays.asList(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
-                    contexts.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts()));
+                    contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                    contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
                     SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
                         insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                     });
@@ -141,15 +141,15 @@ public class TodoTxtTextActions extends TextActions {
                 }
                 case R.string.tmaid_todotxt_add_project: {
                     final List<String> projects = new ArrayList<>();
-                    projects.addAll(Arrays.asList(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText()))));
-                    projects.addAll(Arrays.asList(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects()));
+                    projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                    projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
                     SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
                         insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                     });
                     return;
                 }
                 case R.string.tmaid_todotxt_priority: {
-                    SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, selTasks[0].getPriority(), (priority) -> {
+                    SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, selTasks.get(0).getPriority(), (priority) -> {
                         ArrayList<ReplacePattern> patterns = new ArrayList<>();
                         if (priority.length() > 1) {
                             patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
@@ -173,15 +173,15 @@ public class TodoTxtTextActions extends TextActions {
 
                         final ArrayList<TodoTxtTask> keep = new ArrayList<>();
                         final ArrayList<TodoTxtTask> move = new ArrayList<>();
-                        final TodoTxtTask[] allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
 
                         final int[] sel = StringUtils.getSelection(_hlEditor);
                         final CharSequence text = _hlEditor.getText();
                         final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
                         final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
 
-                        for (int i = 0; i < allTasks.length; i++) {
-                            final TodoTxtTask task = allTasks[i];
+                        for (int i = 0; i < allTasks.size(); i++) {
+                            final TodoTxtTask task = allTasks.get(i);
                             if (task.isDone()) {
                                 move.add(task);
                                 if (i <= selStart[0]) selStart[0]--;
@@ -216,7 +216,7 @@ public class TodoTxtTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
                         @Override
                         public void run() {
-                            final List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
+                            final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
                             TodoTxtTask.sortTasks(tasks, orderBy, descending);
                             setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                             new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
@@ -243,11 +243,11 @@ public class TodoTxtTextActions extends TextActions {
 
             switch (_action) {
                 case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, task -> Arrays.asList(task.getContexts()));
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
                     return true;
                 }
                 case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, task -> Arrays.asList(task.getProjects()));
+                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
                     return true;
                 }
                 case R.string.tmaid_common_special_key: {
@@ -261,7 +261,7 @@ public class TodoTxtTextActions extends TextActions {
                 case R.string.tmaid_todotxt_sort_todo: {
                     final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
                     if (last != null && last.size() == 2) {
-                        final List<TodoTxtTask> tasks = Arrays.asList(TodoTxtTask.getAllTasks(_hlEditor.getText()));
+                        final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
                         TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
                         setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                     }
@@ -353,7 +353,7 @@ public class TodoTxtTextActions extends TextActions {
 
 
     private void setDueDate(final int offset) {
-        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor)[0].getDueDate();
+        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor).get(0).getDueDate();
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
         initDate.add(Calendar.DAY_OF_MONTH, (dueString == null || dueString.isEmpty()) ? offset : 0);
 

@@ -41,6 +41,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Checkable;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -230,74 +231,51 @@ public class SearchOrCustomTextDialog {
         );
         final Adapter listAdapter = Adapter.create(activity, dopt);
 
-        final AppCompatEditText searchEditText = new AppCompatEditText(activity);
-        searchEditText.setText(dopt.defaultText);
-        searchEditText.setSingleLine(true);
-        searchEditText.setMaxLines(1);
-        searchEditText.setTextColor(dopt.textColor);
-        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
-        searchEditText.setHint(dopt.searchHintText);
-        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
+        // Constructing the dialog
+        // =========================================================================================
+        if (dopt.titleText != 0 || !TextUtils.isEmpty(dopt.messageText)) {
+            // Using a custom view for title and message.
+            // This is needed because:
+            // 1. https://stackoverflow.com/questions/61339887/alertdialog-doesnt-fit-long-list-view-buttons-if-used-together
+            // 2. In order to control spacing
+            // And is much less hacky than the other approaches
+            dialogBuilder.setCustomTitle(makeTitleView(activity, dopt));
+        }
+
+        final LinearLayout mainLayout = new LinearLayout(activity);
+        mainLayout.setOrientation(LinearLayout.VERTICAL);
+
+        // SearchView is currently constructed even if it isn't needed
+        final View searchView = makeSearchView(activity, dopt);
+        final EditText searchEditText = searchView.findViewWithTag("EDIT");
         searchEditText.addTextChangedListener(TextWatcherDummy.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
 
-        final ContextUtils cu = new ContextUtils(activity);
-        final int margin = (int) cu.convertDpToPx(8);
-        cu.freeContextRef();
-
-        final LinearLayout searchLayout = new LinearLayout(activity);
-        searchLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        editLp.gravity = Gravity.START | Gravity.BOTTOM;
-        searchLayout.addView(searchEditText, editLp);
-
-        // 'Button to clear the search box'
-        final ImageView clearButton = new ImageView(activity);
-        clearButton.setImageResource(dopt.clearInputIcon);
-        TooltipCompat.setTooltipText(clearButton, activity.getString(android.R.string.cancel));
-        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
-        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
-        searchLayout.addView(clearButton, clearLp);
-        clearButton.setOnClickListener((v) -> searchEditText.setText(""));
+        if (dopt.isSearchEnabled) {
+            mainLayout.addView(searchView);
+        }
 
         final ListView listView = new ListView(activity);
-        final LinearLayout linearLayout = new LinearLayout(activity);
         listView.setAdapter(listAdapter);
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        listLayout.weight = 1;
+        mainLayout.addView(listView, listLayout);
 
-        if (dopt.isSearchEnabled) {
-            final LinearLayout.LayoutParams searchLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            searchLp.setMargins(margin, margin / 2, margin, margin / 2);
-            linearLayout.addView(searchLayout, searchLp);
-        }
-
-        final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
-        layoutParams.weight = 1;
-        linearLayout.addView(listView, layoutParams);
-        if (!TextUtils.isEmpty(dopt.messageText)) {
-            dialogBuilder.setMessage(dopt.messageText);
-        }
-
-        dialogBuilder.setView(linearLayout)
+        dialogBuilder.setView(mainLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
 
-        if (dopt.titleText != 0) {
-            dialogBuilder.setTitle(dopt.titleText);
-        }
+        // =========================================================================================
 
         // Ok button action
-        if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
+        if ((dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
                     final List<Integer> sel = new ArrayList<>(listAdapter._selectedItems);
                     Collections.sort(sel);
                     dopt.positionCallback.callback(sel);
-                } else if (dopt.callback != null && !TextUtils.isEmpty(searchText)) {
+                } else if (dopt.callback != null && (!dopt.isSearchEnabled || !TextUtils.isEmpty(searchText))) {
                     dopt.callback.callback(searchText);
                 }
             });
@@ -316,12 +294,24 @@ public class SearchOrCustomTextDialog {
             return false;
         });
 
-        Window w;
-        if ((w = dialog.getWindow()) != null && dopt.isSearchEnabled) {
-            w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        final Window win = dialog.getWindow();
+        if (win != null && dopt.isSearchEnabled) {
+            win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         dialog.show();
+
+        if (win != null) {
+            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
+            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
+            win.setLayout(ds_w, ds_h);
+        }
+
+        if (win != null && dopt.gravity != Gravity.NO_GRAVITY) {
+            WindowManager.LayoutParams wlp = win.getAttributes();
+            wlp.gravity = dopt.gravity;
+            win.setAttributes(wlp);
+        }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
         if (neutralButton != null && dopt.neutralButtonText != 0 && dopt.neutralButtonCallback != null) {
@@ -330,21 +320,10 @@ public class SearchOrCustomTextDialog {
             neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
         }
 
-        if ((w = dialog.getWindow()) != null) {
-            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
-            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
-            w.setLayout(ds_w, ds_h);
-        }
-
-        if ((w = dialog.getWindow()) != null && dopt.gravity != Gravity.NO_GRAVITY) {
-            WindowManager.LayoutParams wlp = w.getAttributes();
-            wlp.gravity = dopt.gravity;
-            w.setAttributes(wlp);
-        }
-
         if (dopt.isSearchEnabled) {
             searchEditText.requestFocus();
         }
+
         if (dopt.defaultText != null) {
             listAdapter.getFilter().filter(searchEditText.getText());
         }
@@ -392,5 +371,77 @@ public class SearchOrCustomTextDialog {
 
         // long click always activates
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+    }
+
+    private static View makeTitleView(final Context context, final DialogOptions dopt) {
+        final ContextUtils cu = new ContextUtils(context);
+        final int paddingSide = (int) cu.convertDpToPx(16);
+        final int paddingBetween = (int) cu.convertDpToPx(4);
+        cu.freeContextRef();
+
+        final LinearLayout titleLayout = new LinearLayout(context);
+        titleLayout.setOrientation(LinearLayout.VERTICAL);
+        titleLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        titleLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
+        titleLayout.setPadding(paddingSide, paddingSide, paddingSide, paddingBetween);
+
+        if (dopt.titleText != 0) {
+            final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
+            title.setSingleLine();
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            title.setText(dopt.titleText);
+            titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
+
+        if (!TextUtils.isEmpty(dopt.messageText)) {
+            final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
+            subTitle.setPadding(0, paddingBetween, 0, 0);
+            subTitle.setText(dopt.messageText);
+            titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
+
+        return titleLayout;
+    }
+
+    private static View makeSearchView(final Context context, final DialogOptions dopt)
+    {
+        final ContextUtils cu = new ContextUtils(context);
+        final int margin = (int) cu.convertDpToPx(8);
+        cu.freeContextRef();
+
+        // Main layout
+        final LinearLayout searchLayout = new LinearLayout(context);
+        searchLayout.setOrientation(LinearLayout.HORIZONTAL);
+        searchLayout.setPadding(margin, 0, margin, margin / 2);
+        searchLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        // Edit text
+        final AppCompatEditText searchEditText = new AppCompatEditText(context);
+        searchEditText.setText(dopt.defaultText);
+        searchEditText.setSingleLine(true);
+        searchEditText.setMaxLines(1);
+        searchEditText.setTextColor(dopt.textColor);
+        searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
+        searchEditText.setHint(dopt.searchHintText);
+        searchEditText.setInputType(dopt.searchInputType == 0 ? searchEditText.getInputType() : dopt.searchInputType);
+        searchEditText.setTag("EDIT"); // So we can easily find the search edit text
+
+        final LinearLayout.LayoutParams editLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        editLp.gravity = Gravity.START | Gravity.BOTTOM;
+        searchLayout.addView(searchEditText, editLp);
+
+        // 'Button to clear the search box'
+        final ImageView clearButton = new ImageView(context);
+        clearButton.setImageResource(dopt.clearInputIcon);
+        TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
+        clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
+        clearButton.setOnClickListener((v) -> searchEditText.setText(""));
+
+        final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
+        searchLayout.addView(clearButton, clearLp);
+
+        return searchLayout;
     }
 }
