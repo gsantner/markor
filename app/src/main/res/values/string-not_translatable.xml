@@ -276,8 +276,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>
+    <string name="pref_key__open_links_with_chrome_custom_tabs" translatable="false">pref_key__open_links_with_chrome_custom_tabs</string>
     <string name="pref_key__todotxt__start_new_tasks_with_huuid_v3" translatable="false">pref_key__todotxt__start_new_tasks_with_huuid_v3</string>
     <string name="features" translatable="false">Features</string>
+    <string name="chrome_custom_tabs" translatable="false">Chrome Custom Tabs</string>
     <string name="file_template__md_markor_markdown_reference" translatable="false">markor-markdown-reference.md</string>
     <string name="file_template__md_jekyll_post" translatable="false">2029-01-01-jekyll-post.md</string>
     <string name="file_template__md_zettelkasten" translatable="false">202901012359-zettelkasten.md</string>

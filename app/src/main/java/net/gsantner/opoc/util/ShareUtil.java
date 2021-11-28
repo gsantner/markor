@@ -42,6 +42,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -967,6 +968,27 @@ public class ShareUtil {
         if (pkg != null && customTabIntent != null) {
             customTabIntent.setPackage(pkg);
         }
+    }
+
+    public boolean openWebpageInChromeCustomTab(final String url){
+        boolean ok = false;
+        ContextUtils cu = new ContextUtils(_context);
+        try {
+            // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
+            // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
+            // and launch the desired Url with CustomTabsIntent.launchUrl()
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(ContextCompat.getColor(_context, cu.getResId(ContextUtils.ResType.COLOR, "primary")));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, cu.getResId(ContextUtils.ResType.COLOR, "primary_dark")));
+            builder.addDefaultShareMenuItem();
+            CustomTabsIntent customTabsIntent = builder.build();
+            enableChromeCustomTabsForOtherBrowsers(customTabsIntent.intent);
+            customTabsIntent.launchUrl(_context, Uri.parse(url));
+            ok = true;
+        } catch (Exception ignored) {
+        }
+        cu.freeContextRef();
+        return ok;
     }
 
     /***
