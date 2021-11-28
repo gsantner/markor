@@ -430,4 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Dopasuj wszystkie</string>
     <string name="dynamic_notebook_root_links">Dynamiczne wyszukiwanie roota notatnika</string>
     <string name="search_dynamically_for_notebook_root">Aby śledzić linki wiki, dynamicznie szukaj plik notebook.zim w celu identyfikacji katalogu głównego dla bieżącego notatnika. Zaznacz to, jeśli używasz wielu notatników zim lub katalog notatnika ustawiony w aplikacji nie odpowiada notatnikowi zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefiks dla tekstu udostępnionego w Markor. Obserwuje reguły SimpleDateFormat Androida.\n\nUżyj symbolu zastępczego \'%s\' (otoczonego pojedynczymi cudzysłowami), aby ustawić wspólny tekst. Jeśli nie określono, tekst udostępniony jest dołączany i format używany jako prefiks.</string>
+    <string name="share_into_format">Udostępnij - Format</string>
 </resources>

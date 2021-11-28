@@ -381,7 +381,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Összes cseréje</string>
     <string name="matches">Találatok</string>
     <string name="search_replace_pattern_error_message">Hibás kereső kifejezés.</string>
+    <string name="backup_settings">Beállítások biztonsági mentése</string>
+    <string name="restore_settings">Beállítások visszaállítása</string>
+    <string name="failed_to_create_backup">Nem sikerült létrehozni a biztonsági mentést</string>
     <string name="export_settings_to_json_file">Beállítások exportálása json fájlba</string>
+    <string name="failed_to_restore_settings_from_backup">Nem sikerült visszaállítani a beállításokat a biztonsági mentésből</string>
+    <string name="newline_is_new_paragraph">Enter = új bekezdés</string>
     <string name="search_in_content">Keresés a tartalomban</string>
     <string name="keep_both">Mindkettő megtartása</string>
     <string name="skip">Kihagyás</string>
