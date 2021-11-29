@@ -10,12 +10,15 @@
 #########################################################*/
 package net.gsantner.opoc.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -39,6 +42,8 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {
             _defaultNavigationBarColor = getWindow().getNavigationBarColor();
         }
+
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     public AS createAppSettingsInstance(Context applicationContext) {
