@@ -210,9 +210,8 @@ public class MarkdownTextConverter extends TextConverter {
             markup = markup.replace("\n", "  \n");
         }
 
-        // Replace space in image url with %20
-        markup = escapeSpacesInLink(markup, MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN.pattern.matcher(markup), "![%s](%s)");
-        markup = escapeSpacesInLink(markup, MarkdownHighlighterPattern.ACTION_LINK_PATTERN.pattern.matcher(markup), "[%s](%s)");
+        // Replace space in url with %20, see #1365
+        markup = escapeSpacesInLink(markup);
 
         ////////////
         // Markup parsing - afterwards = HTML
@@ -243,7 +242,10 @@ public class MarkdownTextConverter extends TextConverter {
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
-    private String escapeSpacesInLink(String markup, Matcher matcher, String replacement) {
+    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+
+    private String escapeSpacesInLink(String markup) {
+        Matcher matcher = linkPattern.matcher(markup);
         if (!matcher.find())
             return markup;
 
@@ -251,8 +253,11 @@ public class MarkdownTextConverter extends TextConverter {
         int previousEnd = 0;
         do {
             String escapedUrl = matcher.group(2).replace(" ", "%20");
+            String titlePart = matcher.group(3);
+            if (titlePart == null)
+                titlePart = "";
             sb.append(markup.substring(previousEnd, matcher.start()))
-                    .append(String.format(replacement, matcher.group(1), escapedUrl));
+                    .append(String.format("[%s](%s%s)", matcher.group(1), escapedUrl, titlePart));
             previousEnd = matcher.end();
         } while (matcher.find());
         sb.append(markup.substring(previousEnd));
