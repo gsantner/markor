@@ -242,14 +242,19 @@
             </PreferenceScreen>
 
         </PreferenceCategory>
-
         <PreferenceCategory android:title="@string/file_browser">
             <android.support.v7.preference.EditTextPreference
-                android:defaultValue="@string/empty_string"
+                    android:defaultValue="@string/empty_string"
                 android:dialogMessage="@string/file_description_format_dialog"
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:key="@string/pref_key__file_description_format"
                 android:title="@string/file_description_format" />
+            <android.support.v7.preference.EditTextPreference
+                android:defaultValue="@string/hide_directories_wildcards_default"
+                android:dialogMessage="@string/hide_directories_match_wildcards_dialog"
+                android:icon="@drawable/ic_baseline_filter_list_24"
+                android:key="@string/pref_key__hide_directories_wildcards"
+                android:title="@string/hide_directories_match_wildcards" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/backup">

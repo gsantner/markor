@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -886,5 +887,37 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public String getShareIntoPrefix() {
         return getString(R.string.pref_key__share_into_format, "\n----\n");
+    }
+
+    private List<Pattern> hideDirectoriesPatternsCache;
+
+    public boolean isHiddenDirectory(String directory) {
+        if (directory.equals("")) {
+            return false;
+        }
+
+        if (hideDirectoriesPatternsCache == null) {
+            final String pref = getString(R.string.pref_key__hide_directories_wildcards, rstr(R.string.hide_directories_wildcards_default)).trim();
+            hideDirectoriesPatternsCache = new ArrayList<>();
+            if (!pref.equals("")) {
+                for (String wildcard : pref.split(",")) {
+                    wildcard = wildcard.trim();
+                    if (wildcard.equals("")) {
+                        continue;
+                    }
+
+                    final String regex = ("^\\Q" + wildcard + "\\E$").replace("*", "\\E.*\\Q");
+                    hideDirectoriesPatternsCache.add(Pattern.compile(regex));
+                }
+            }
+        }
+
+        for (final Pattern pattern : hideDirectoriesPatternsCache) {
+            if (pattern.matcher(directory).matches()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
