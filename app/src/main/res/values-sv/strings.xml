@@ -430,4 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Matcha alla</string>
     <string name="dynamic_notebook_root_links">Dynamisk sökning efter anteckningsbok rot</string>
     <string name="search_dynamically_for_notebook_root">För att följa wiki-länkar, dynamiskt söka efter filen notebook.zim för att identifiera rotkatalogen för den aktuella anteckningsboken. Kontrollera detta om du använder flera anteckningsböcker för zim eller den anteckningsbok som anges i appen inte motsvarar din anteckningsbok för zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix för text som delas in i Markor. Följer Androids SimpleDateFormat regler.\n\nAnvänd platshållaren \'%s\' (omgiven av enstaka offerter) för att placera den delade texten. Om den inte anges läggs den delade texten till och formatet används som prefix.</string>
+    <string name="share_into_format">Dela till - Format</string>
 </resources>

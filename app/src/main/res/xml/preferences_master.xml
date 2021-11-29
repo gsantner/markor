@@ -147,6 +147,12 @@
                 android:icon="@drawable/ic_share_black_24dp"
                 android:key="@string/pref_key__share_into_format"
                 android:title="@string/share_into_format" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_open_in_browser_black_24dp"
+                android:key="@string/pref_key__open_links_with_chrome_custom_tabs"
+                android:title="@string/chrome_custom_tabs" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/main_view">

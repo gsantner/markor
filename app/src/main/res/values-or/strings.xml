@@ -173,6 +173,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">ସମ୍ପାଦନ କିମ୍ୱା ଦର୍ଶନ ମୋଡ୍ କୁ (ସମ୍ପ୍ରତି ମୋଡର ବିପରୀତକୁ) ଯିବା ପାଇଁ ସ୍ଵାଇପ୍ କରନ୍ତୁ</string>
     <string name="folder_first">ପ୍ରଥମେ ଫୋଲ୍ଡର୍</string>
     <string name="internal_storage">ଅନ୍ତର୍ନିହିତ ଷ୍ଟୋରେଜ୍‌</string>
+    <string name="open_the_document_from_main_view">ଆପଣ ତଳେଥିବା ମୁଖ୍ୟ ଦର୍ଶନ, ଫାଇଲ୍ ବ୍ରାଉଜର୍ କିମ୍ୱା ଉନ୍ମୋଚକ ରୁ ଡକ୍ୟୁମେଣ୍ଟ୍ ଖୋଲିପାରିବେ। Markorରେ ଅଂଶିଦାରୀ ପାଠ୍ୟ ଯୋଡ଼ିବାର ଏକ ବିକଳ୍ପ ମଧ୍ୟ ଅଛି।</string>
     <string name="black">କଳା</string>
     <string name="white">ଧଳା</string>
     <string name="view">ଦର୍ଶନ</string>
@@ -222,4 +223,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_both_all">ଉଭୟ ରଖନ୍ତୁ (ସମସ୍ତ)</string>
     <string name="skip_all">ବାଦ୍ ଦିଅ (ସମସ୍ତ)</string>
     <string name="dynamic_notebook_root_links">ନୋଟବୁକ୍ ମୂଳ ପାଇଁ ଡାଇନାମିକ୍ ସନ୍ଧାନ</string>
+    <string name="share_into_format_prefix_for_text_shared">Markorରେ ଅଂଶୀଦାର ହୋଇଥିବା ପାଠ୍ୟ ପାଇଁ ଫର୍ମାଟ୍/ଉପସର୍ଗ। ଆଣ୍ଡ୍ରଏଡ୍ର ର SimpleDateFormat ନିୟମ ଅନୁସରଣ କରେ।\n\nଅଂଶିଦାରୀ ପାଠ୍ୟ ସ୍ଥାନିତ କରିବାକୁ ପ୍ଲେସହୋଲ୍ଡର୍ \'%s\' (ଉଦ୍ଧୃତି ଚିହ୍ନ ଦ୍ୱାରା ଘେରିକରି) ବ୍ୟବହାର କରନ୍ତୁ। ଯଦି ନିର୍ଦ୍ଦିଷ୍ଟ ହୋଇନାହିଁ, ଅଂଶିଦାରୀ ପାଠ୍ୟ କୁ ଯୋଡ଼ାଯାଏ ଏବଂ ଫର୍ମାଟ୍ ଏକ ଉପସର୍ଗ ଭାବରେ ବ୍ୟବହୃତ ହୁଏ।</string>
+    <string name="share_into_format">ଏଥିରେ ଅଂଶୀଦାର - ଫର୍ମାଟ୍</string>
 </resources>

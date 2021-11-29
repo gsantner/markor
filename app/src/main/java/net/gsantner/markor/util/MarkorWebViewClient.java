@@ -70,19 +70,10 @@ public class MarkorWebViewClient extends WebViewClient {
             } else {
                 ContextUtils cu = new ContextUtils(_activity.getApplicationContext());
                 ShareUtil su = new ShareUtil(view.getContext());
-                try {
-                    // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
-                    // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
-                    // and launch the desired Url with CustomTabsIntent.launchUrl()
-                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                    builder.setToolbarColor(ContextCompat.getColor(_activity, R.color.primary));
-                    builder.setSecondaryToolbarColor(ContextCompat.getColor(_activity, R.color.primary_dark));
-                    builder.addDefaultShareMenuItem();
-                    CustomTabsIntent customTabsIntent = builder.build();
-                    su.enableChromeCustomTabsForOtherBrowsers(customTabsIntent.intent);
-                    customTabsIntent.launchUrl(_activity, Uri.parse(url));
-                } catch (Exception e) {
-                    cu.openWebpageInExternalBrowser(url);
+                AppSettings settings = new AppSettings(_activity.getApplicationContext());
+                if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(url))) {
+                    cu.openWebpageInExternalBrowser(url).freeContextRef();
+                    return true;
                 }
             }
         } catch (Exception ignored) {

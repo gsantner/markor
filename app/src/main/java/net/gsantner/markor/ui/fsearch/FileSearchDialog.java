@@ -93,7 +93,6 @@ public class FileSearchDialog {
         searchEditText.setMaxLines(1);
         searchEditText.setTextColor(textColor);
         searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
-        searchEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
             if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                 if (dialog != null && dialog.get() != null) {

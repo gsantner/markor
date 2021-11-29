@@ -430,4 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Potrivește tot</string>
     <string name="dynamic_notebook_root_links">Căutare dinamică după rădăcina de caiet</string>
     <string name="search_dynamically_for_notebook_root">Pentru a urmări link-urile wiki, căutaţi dinamic fişierul notebook.zim pentru a identifica directorul rădăcină pentru caietul de sarcini curent. Bifați acest lucru dacă utilizați mai multe notebooks zim sau directorul notebook din aplicație nu corespunde cu notebook-ul dvs. zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix pentru textul partajat cu Markor. Urmează regulile SimpleDateFormat ale Android.\n\nUtilizați substituentul \'%s\' (înconjurat de oferte unice) pentru a poziționa textul partajat. Dacă nu este specificat, textul partajat este anexat și formatul folosit ca prefix.</string>
+    <string name="share_into_format">Partajare în - Format</string>
 </resources>

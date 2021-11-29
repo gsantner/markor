@@ -430,4 +430,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Coincidir todos</string>
     <string name="dynamic_notebook_root_links">Búsqueda dinámica para la raíz del cuaderno</string>
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'%s\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido se añade y el formato utilizado como prefijo.</string>
+    <string name="share_into_format">Compartir en - Formato</string>
 </resources>
