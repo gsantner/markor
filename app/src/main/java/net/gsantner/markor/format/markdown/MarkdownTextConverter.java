@@ -244,14 +244,20 @@ public class MarkdownTextConverter extends TextConverter {
     }
 
     private String escapeSpacesInLink(String markup, Matcher matcher, String replacement) {
-        while (matcher.find()) {
-            String escapedUrl = matcher.group(2).replace(" ", "%20");
-            markup = markup.substring(0, matcher.start())
-                    + String.format(replacement, matcher.group(1), escapedUrl)
-                    + markup.substring(matcher.end());
-        }
+        if (!matcher.find())
+            return markup;
 
-        return markup;
+        StringBuilder sb = new StringBuilder(markup.length() + 64);
+        int previousEnd = 0;
+        do {
+            String escapedUrl = matcher.group(2).replace(" ", "%20");
+            sb.append(markup.substring(previousEnd, matcher.start()))
+                    .append(String.format(replacement, matcher.group(1), escapedUrl));
+            previousEnd = matcher.end();
+        } while (matcher.find());
+        sb.append(markup.substring(previousEnd));
+
+        return sb.toString();
     }
 
     @SuppressWarnings({"ConstantConditions", "StringConcatenationInsideStringBufferAppend"})
