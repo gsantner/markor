@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -89,6 +91,9 @@ public class SettingsActivity extends AppActivityBase {
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     protected void showFragment(String tag, boolean addToBackStack) {

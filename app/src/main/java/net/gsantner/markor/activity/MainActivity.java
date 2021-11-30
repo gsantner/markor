@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Intent;
@@ -141,6 +143,9 @@ public class MainActivity extends AppActivityBase implements FilesystemViewerFra
                 _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
             }
         }, 1);
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     private void optShowRate() {

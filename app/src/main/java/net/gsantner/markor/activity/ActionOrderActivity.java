@@ -10,6 +10,7 @@
 package net.gsantner.markor.activity;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -90,6 +91,9 @@ public class ActionOrderActivity extends AppCompatActivity {
 
         recycler.setHasFixedSize(true);
         recycler.setAdapter(_adapter);
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

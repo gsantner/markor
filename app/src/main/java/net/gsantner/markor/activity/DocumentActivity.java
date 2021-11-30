@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
@@ -171,6 +173,9 @@ public class DocumentActivity extends AppActivityBase {
         _fragManager = getSupportFragmentManager();
 
         handleLaunchingIntent(getIntent());
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

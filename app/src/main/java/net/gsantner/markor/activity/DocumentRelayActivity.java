@@ -1,5 +1,7 @@
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,9 @@ public class DocumentRelayActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         launchDocumentActivityAndFinish(getIntent());
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

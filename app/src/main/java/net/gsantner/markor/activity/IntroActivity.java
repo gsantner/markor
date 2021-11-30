@@ -1,5 +1,7 @@
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -46,6 +48,9 @@ public class IntroActivity extends AppIntro {
         showSkipButton(false);
         setNextPageSwipeLock(false);
         setSwipeLock(false);
+
+        // Protect window from screenshots
+        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override
