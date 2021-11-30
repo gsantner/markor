@@ -53,16 +53,8 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends AppActivityBase {
 
-    @SuppressWarnings("WeakerAccess")
-    public static class RESULT {
-        public static final int NOCHANGE = -1;
-        public static final int CHANGED = 1;
-        public static final int RESTART_REQ = 2;
-    }
-
     public static int activityRetVal = RESULT.NOCHANGE;
     private static int iconColor = Color.WHITE;
-
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
@@ -123,6 +115,23 @@ public class SettingsActivity extends AppActivityBase {
         super.onStop();
     }
 
+    @Override
+    public void onBackPressed() {
+        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
+        if (prefFrag != null && prefFrag.canGoBack()) {
+            prefFrag.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public static class RESULT {
+        public static final int NOCHANGE = -1;
+        public static final int CHANGED = 1;
+        public static final int RESTART_REQ = 2;
+    }
+
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentCompat {
         protected AppSettings _as;
 
@@ -154,16 +163,6 @@ public class SettingsActivity extends AppActivityBase {
                 }
             }
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
-        if (prefFrag != null && prefFrag.canGoBack()) {
-            prefFrag.goBack();
-            return;
-        }
-        super.onBackPressed();
     }
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
