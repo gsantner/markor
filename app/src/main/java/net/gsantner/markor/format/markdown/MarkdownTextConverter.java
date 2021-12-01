@@ -244,20 +244,18 @@ public class MarkdownTextConverter extends TextConverter {
 
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
 
-    private String escapeSpacesInLink(String markup) {
-        Matcher matcher = linkPattern.matcher(markup);
-        if (!matcher.find())
+    private String escapeSpacesInLink(final String markup) {
+        final Matcher matcher = linkPattern.matcher(markup);
+        if (!matcher.find()){
             return markup;
+        }
 
-        StringBuilder sb = new StringBuilder(markup.length() + 64);
+        final StringBuilder sb = new StringBuilder(markup.length() + 64);
         int previousEnd = 0;
         do {
-            String escapedUrl = matcher.group(2).replace(" ", "%20");
-            String titlePart = matcher.group(3);
-            if (titlePart == null)
-                titlePart = "";
-            sb.append(markup.substring(previousEnd, matcher.start()))
-                    .append(String.format("[%s](%s%s)", matcher.group(1), escapedUrl, titlePart));
+            final String escapedUrl = matcher.group(2).replace(" ", "%20");
+            final String titlePart = matcher.group(3);
+            sb.append(markup.substring(previousEnd, matcher.start())).append(String.format("[%s](%s%s)", matcher.group(1), escapedUrl, (titlePart != null ? titlePart : "")));
             previousEnd = matcher.end();
         } while (matcher.find());
         sb.append(markup.substring(previousEnd));
