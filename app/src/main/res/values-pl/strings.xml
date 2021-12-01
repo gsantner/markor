@@ -330,7 +330,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table">Tablica</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Ile kolumn? Naciśnij przycisk tabeli, aby rozpocząć tabelę (wstaw nagłówek), naciśnij krótki, aby dodać wiersz.</string>
     <string name="example_of_a_markdown_table">Przykład tabeli Markdown</string>
-    <string name="delete_lines">Usuń linie</string>
+    <string name="delete_lines">Usuń linijkę</string>
     <string name="unordered_list">Lista nieuporządkowana</string>
     <string name="ordered_list">Lista uporządkowana</string>
     <string name="check_list">Lista kontrolna</string>
@@ -397,13 +397,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importuj ustawienia z kopii zapasowej pliku json. Po pomyślnym uruchomieniu aplikacji.</string>
     <string name="failed_to_restore_settings_from_backup">Nie udało się przywrócić ustawień z kopii zapasowej</string>
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
-    <string name="search_in_content">Szukaj w treści</string>
+    <string name="search_in_content">Szukaj w zawartości</string>
     <string name="max_search_depth">Głębokość wyszukiwania</string>
     <string name="ignore_list">Ignoruj listę</string>
     <string name="do_not_search_specified_files_and_folders">Nie szukaj określonych plików i folderów.\nUżyj nowej linii jako separatora.\nUżyj cytatów dla dokładnych nazw dirów: \"Test\".\nlub użyj Regex \'^[.].*\'\nPrzykłady: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Wyszukiwanie Regex</string>
-    <string name="case_sensitive">Rozróżniana przez litery</string>
-    <string name="stop_search_after_first_match">Zatrzymaj wyszukiwanie po pierwszym meczu</string>
+    <string name="case_sensitive">Rozróżniaj wielkość liter</string>
+    <string name="stop_search_after_first_match">Zatrzymaj wyszukiwanie po pierwszym dopasowaniu</string>
     <string name="regex_can_not_be_compiled">Regex nie może być skompilowany</string>
     <string name="keep_both">Zachowaj oba</string>
     <string name="skip">Pomiń</string>
