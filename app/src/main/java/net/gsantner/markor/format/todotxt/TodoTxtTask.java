@@ -65,7 +65,8 @@ public class TodoTxtTask {
     }
 
     public static boolean isTodoFile(String filepath) {
-        return filepath != null && TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text"));
+        return filepath != null && (filepath.endsWith("/todo.txt")
+                || TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text")));
     }
 
     public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
@@ -76,7 +77,7 @@ public class TodoTxtTask {
 
         final List<TodoTxtTask> tasks = new ArrayList<>();
         for (final String line : lines) {
-             tasks.add(new TodoTxtTask(line));
+            tasks.add(new TodoTxtTask(line));
         }
         return tasks;
     }
