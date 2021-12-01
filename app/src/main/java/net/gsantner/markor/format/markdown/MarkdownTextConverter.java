@@ -250,12 +250,23 @@ public class MarkdownTextConverter extends TextConverter {
             return markup;
         }
 
+        // 1) Walk through the text till finding a link in markdown syntax
+        // 2) Add all text-before-link to buffer
+        // 3) Extract [title](link to somehere)
+        // 4) Add [title](link%20to%20somewhere) to buffer
+        // 5) Do till the end and add all text & links of original-text to buffer
         final StringBuilder sb = new StringBuilder(markup.length() + 64);
         int previousEnd = 0;
         do {
-            final String escapedUrl = matcher.group(2).replace(" ", "%20");
-            final String titlePart = matcher.group(3);
-            sb.append(markup.substring(previousEnd, matcher.start())).append(String.format("[%s](%s%s)", matcher.group(1), escapedUrl, (titlePart != null ? titlePart : "")));
+            final String url = matcher.group(2);
+            final String title = matcher.group(3);
+            if (url == null){
+                return markup;
+            }
+            sb.append(markup.substring(previousEnd, matcher.start())).append(String.format("[%s](%s%s)", matcher.group(1),
+                    url.trim().replace(" ", "%20"),
+                    (title != null ? title : ""))
+            );
             previousEnd = matcher.end();
         } while (matcher.find());
         sb.append(markup.substring(previousEnd));
