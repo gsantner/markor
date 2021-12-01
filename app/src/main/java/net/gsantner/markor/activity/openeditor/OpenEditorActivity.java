@@ -10,10 +10,10 @@
 package net.gsantner.markor.activity.openeditor;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -22,7 +22,7 @@ import net.gsantner.opoc.util.PermissionChecker;
 
 import java.io.File;
 
-public class OpenEditorActivity extends AppCompatActivity {
+public class OpenEditorActivity extends MarkorBaseActivity {
     protected void openEditorForFile(File file) {
         Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
                 .setAction(Intent.ACTION_CALL_BUTTON)

@@ -61,7 +61,7 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnPageChange;
 
-public class MainActivity extends AppActivityBase implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 

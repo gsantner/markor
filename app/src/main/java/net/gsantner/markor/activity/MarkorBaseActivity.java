@@ -5,7 +5,7 @@ import android.content.Context;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.activity.GsActivityBase;
 
-public abstract class AppActivityBase extends GsActivityBase<AppSettings> {
+public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 
     @Override
     public Integer getNewNavigationBarColor() {

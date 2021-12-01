@@ -151,7 +151,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DocumentRelayActivity"
+            android:name=".activity.openeditor.OpenEditorFromShortcutOrWidgetActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity

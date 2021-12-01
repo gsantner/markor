@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import net.gsantner.markor.activity.DocumentRelayActivity;
 import net.gsantner.markor.model.Document;
 
 public class OpenShareIntoActivity extends OpenEditorActivity {
@@ -22,7 +21,7 @@ public class OpenShareIntoActivity extends OpenEditorActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent openShare = new Intent(this, DocumentRelayActivity.class)
+        Intent openShare = new Intent(this, OpenEditorFromShortcutOrWidgetActivity.class)
                 .setAction(Intent.ACTION_SEND)
                 .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
                 .putExtra(Intent.EXTRA_TEXT, "");

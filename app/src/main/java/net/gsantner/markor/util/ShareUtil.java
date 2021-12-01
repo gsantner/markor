@@ -21,7 +21,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.DocumentRelayActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
 
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
@@ -35,7 +35,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
         if (document != null && document.getFile() != null && !TextUtils.isEmpty(document.getTitle())) {
-            Intent shortcutIntent = new Intent(_context, DocumentRelayActivity.class)
+            Intent shortcutIntent = new Intent(_context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setData(Uri.fromFile(document.getFile()));
             super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
             Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();

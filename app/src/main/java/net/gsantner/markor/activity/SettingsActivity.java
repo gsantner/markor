@@ -49,7 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class SettingsActivity extends AppActivityBase {
+public class SettingsActivity extends MarkorBaseActivity {
 
     @SuppressWarnings("WeakerAccess")
     public static class RESULT {

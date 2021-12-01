@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ActionOrderActivity extends AppCompatActivity {
+public class ActionOrderActivity extends MarkorBaseActivity {
 
     public static final String EXTRA_FORMAT_KEY = "FORMAT_KEY";
 

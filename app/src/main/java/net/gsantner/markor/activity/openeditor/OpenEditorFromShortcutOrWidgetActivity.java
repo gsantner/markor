@@ -1,14 +1,16 @@
-package net.gsantner.markor.activity;
+package net.gsantner.markor.activity.openeditor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 
 /**
  * This Activity exists solely to launch DocumentActivity with the correct intent
  * it is necessary as widget and shortcut intents do not respect MultipleTask etc
  */
-public class DocumentRelayActivity extends Activity {
+public class OpenEditorFromShortcutOrWidgetActivity extends MarkorBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
