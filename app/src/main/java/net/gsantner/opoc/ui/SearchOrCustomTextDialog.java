@@ -403,8 +403,7 @@ public class SearchOrCustomTextDialog {
         return titleLayout;
     }
 
-    private static View makeSearchView(final Context context, final DialogOptions dopt)
-    {
+    private static View makeSearchView(final Context context, final DialogOptions dopt) {
         final ContextUtils cu = new ContextUtils(context);
         final int margin = (int) cu.convertDpToPx(8);
         cu.freeContextRef();

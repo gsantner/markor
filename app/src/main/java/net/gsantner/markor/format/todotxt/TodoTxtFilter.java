@@ -80,31 +80,27 @@ public class TodoTxtFilter {
         public String queryType;
         public List<String> keys;
         public boolean isAnd;
-    };
+    }
 
     /**
-     * Save a 'filter view'
+     * Save a 'filter view' - Filters are saved as a json string in SAVED_TODO_VIEWS as array of objects
      *
-     * Filters are saved as a json string in SAVED_TODO_VIEWS as array of objects:
-     * [
-     *     {
-     *         TITLE: (string) tile string,
-     *         TYPE: (string) query type,
-     *         IS_AND: (boolean) if query is AND or ANY
-     *         KEYS: [ key1, key2, key3 ... ]
-     *     },
-     *     {
-     *         ...
-     *     }
-     * ]
-     *
-     * @param context    context
-     * @param saveTitle  title
-     * @param queryType  query type (one of PRIORITY, CONTEXT, PRIORITY or DUE)
-     * @param selKeys    List of keys
-     * @param isAnd      Whether task should have ALL the keys or ANY
+     * @param context   context
+     * @param saveTitle title
+     * @param queryType query type (one of PRIORITY, CONTEXT, PRIORITY or DUE)
+     * @param selKeys   List of keys
+     * @param isAnd     Whether task should have ALL the keys or ANY
      */
     public static void saveFilter(final Context context, final String saveTitle, final String queryType, final Collection<String> selKeys, final boolean isAnd) {
+        /*
+         [{
+             TITLE: (string) tile string,
+             TYPE: (string) query type,
+             IS_AND: (boolean) if query is AND or ANY
+             KEYS: [ key1, key2, key3 ... ]
+          },
+          {.... }, {.... }]
+         */
         try {
             // Create the view dict
             final JSONObject obj = new JSONObject();

@@ -971,7 +971,7 @@ public class ShareUtil {
         }
     }
 
-    public boolean openWebpageInChromeCustomTab(final String url){
+    public boolean openWebpageInChromeCustomTab(final String url) {
         boolean ok = false;
         ContextUtils cu = new ContextUtils(_context);
         try {

@@ -246,7 +246,7 @@ public class MarkdownTextConverter extends TextConverter {
 
     private String escapeSpacesInLink(final String markup) {
         final Matcher matcher = linkPattern.matcher(markup);
-        if (!matcher.find()){
+        if (!matcher.find()) {
             return markup;
         }
 
@@ -260,7 +260,7 @@ public class MarkdownTextConverter extends TextConverter {
         do {
             final String url = matcher.group(2);
             final String title = matcher.group(3);
-            if (url == null){
+            if (url == null) {
                 return markup;
             }
             sb.append(markup.substring(previousEnd, matcher.start())).append(String.format("[%s](%s%s)", matcher.group(1),
