@@ -39,6 +39,7 @@ import android.print.PrintManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
@@ -1274,16 +1275,17 @@ public class ShareUtil {
      * @param fallback {@link String} default fallback value. If the format is incorrect and a default is not provided, return the specified format
      * @return formatted string
      */
-    public static String formatDateTime(final Locale locale, final String format, final Long datetime, final String... fallback) {
+    public static String formatDateTime(@Nullable final Locale locale, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... fallback) {
         try {
-            Locale l = locale != null ? locale : Locale.getDefault();
-            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(datetime);
+            final Locale l = locale != null ? locale : Locale.getDefault();
+            final long t = datetime != null ? datetime : System.currentTimeMillis();
+            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(t);
         } catch (Exception err) {
             return (fallback != null && fallback.length > 0) ? fallback[0] : format;
         }
     }
 
-    public static String formatDateTime(final Context context, final String format, final Long datetime, final String... def) {
+    public static String formatDateTime(@NonNull final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
         final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
         return formatDateTime(locale, format, datetime, def);
     }
