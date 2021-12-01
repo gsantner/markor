@@ -185,7 +185,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulator</string>
     <string name="start_on_bottom">Zacznij od dołu</string>
     <string name="start_on_bottom_when_loading_document">Po załadowaniu dokumentu ustaw kursor na jego końcu</string>
-    <string name="unordered_list_character">Nieuporządkowany znak z listy</string>
+    <string name="unordered_list_character">Znak listy nieuporządkowanej</string>
     <string name="character_to_start_items_of_unordered_list_with">Który znak ma być użyty do oznaczenia nieuporządkowanych list</string>
     <string name="unordered_list_char_dash">Myślnik (-)</string>
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
@@ -305,7 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Folder startowy aplikacji</string>
     <string name="tab_width">Szerokość tabulatora</string>
     <string name="amount_of_space_for_tab">Ilość spacji za tabulator</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Wybrany plik może być zwykłym plikiem tekstowym. Czy chcesz otworzyć go w edytorze czy w innej aplikacji?\n\nNie próbuj otwierać plików binarnych. Jeśli nie jesteś pewien, otwórz za pomocą innej aplikacji.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Wybrany plik może być zwykłym plikiem tekstowym. Chcesz go edytować, czy użyć innej aplikacji?\n\nNie próbuj otwierać plików binarnych. Jeśli nie jesteś pewien, otwórz za pomocą innej aplikacji.</string>
     <string name="list_in_recent_files">Lista w ostatnich plikach</string>
     <string name="reload">Przeładuj</string>
     <string name="wrap_words">Zawijanie słów</string>
