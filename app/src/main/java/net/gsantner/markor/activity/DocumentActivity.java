@@ -268,8 +268,12 @@ public class DocumentActivity extends MarkorBaseActivity {
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 
-    public void setDocumentTitle(final String title) {
+    public void setTitleText(final String title) {
         _toolbarTitleText.setText(title);
+    }
+
+    public void setDocumentTitle(final String title) {
+        setTitleText(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
