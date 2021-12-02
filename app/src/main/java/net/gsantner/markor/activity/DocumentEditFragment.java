@@ -239,17 +239,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
 
-        _hlEditor.addTextChangedListener(TextWatcherDummy.after((t) -> setTextChangeState(true)));
+        _hlEditor.addTextChangedListener(TextWatcherDummy.after((t) -> setTextChangeState()));
     }
 
-    private void setTextChangeState(final boolean isTextChanged) {
-        if (_isTextChanged != isTextChanged) {
-            _isTextChanged = isTextChanged;
+    private void setTextChangeState() {
+        _isTextChanged = !_document.isDataSame(_hlEditor.getText().toString());
 
-            final String title = _document.getTitle() + (isTextChanged ? "*" : "");
-            if (_activity instanceof DocumentActivity) {
-                ((DocumentActivity) _activity).setTitleText(title);
-            }
+        final String title = _document.getTitle() + (_isTextChanged ? "*" : "");
+        if (_activity instanceof DocumentActivity) {
+            ((DocumentActivity) _activity).setTitleText(title);
         }
     }
 
@@ -357,8 +355,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (text == null || !content.contentEquals(text)) {
                 _hlEditor.setText(content);
             }
-
-            setTextChangeState(false);
 
             if (_isPreviewVisible) {
                 _webViewClient.setRestoreScrollY(_webView.getScrollY());
@@ -693,7 +689,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             updateLauncherWidgets();
-            setTextChangeState(false);
             return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty);
         }
         return false;

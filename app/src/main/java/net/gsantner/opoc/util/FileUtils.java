@@ -36,6 +36,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
@@ -504,16 +505,27 @@ public class FileUtils {
         return file;
     }
 
-    public static String sha512sum(final byte[] bytes) {
+    private static String computeHash(final byte[] bytes, final String algorithm) {
         try {
             final StringBuilder sb = new StringBuilder();
-            for (final byte b : MessageDigest.getInstance("SHA-512").digest(bytes)) {
+            for (final byte b : MessageDigest.getInstance(algorithm).digest(bytes)) {
                 sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+    }
+
+    public static String sha512sum(final byte[] bytes) {
+        return computeHash(bytes, "SHA-512");
+    }
+
+    // CRC32 is a fast non-cryptographic hash algorithm
+    public static long crc32(final byte[] bytes) {
+        CRC32 alg = new CRC32();
+        alg.update(bytes);
+        return alg.getValue();
     }
 
     // Return true if the target file exists, false if there is an issue with the file or it's parent directories
