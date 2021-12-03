@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -239,15 +240,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
 
-        _hlEditor.addTextChangedListener(TextWatcherDummy.after((t) -> setTextChangeState()));
+        _hlEditor.addTextChangedListener(TextWatcherDummy.after((t) -> checkTextChangeState()));
     }
 
-    private void setTextChangeState() {
-        _isTextChanged = !_document.isDataSame(_hlEditor.getText().toString());
+    private void checkTextChangeState() {
+        final boolean isTextChanged = !_document.isDataSame(_hlEditor.getText().toString());
+        if (_isTextChanged != isTextChanged) {
+            _isTextChanged = isTextChanged;
 
-        final String title = _document.getTitle() + (_isTextChanged ? "*" : "");
-        if (_activity instanceof DocumentActivity) {
-            ((DocumentActivity) _activity).setTitleText(title);
+            // Update title with trailing *
+            if (_activity instanceof DocumentActivity) {
+                ((DocumentActivity) _activity).setTitleText(_document.getTitle() + (_isTextChanged ? "*" : ""));
+            } else if (_activity instanceof MainActivity) {
+                final MainActivity act = (MainActivity) _activity;
+                act.setMainTitle(act.getPosTitle(act.getCurrentPos()) + (_isTextChanged ? "*" : ""));
+            }
         }
     }
 
@@ -355,6 +362,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (text == null || !content.contentEquals(text)) {
                 _hlEditor.setText(content);
             }
+
+            checkTextChangeState();
 
             if (_isPreviewVisible) {
                 _webViewClient.setRestoreScrollY(_webView.getScrollY());
@@ -688,8 +697,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
 
-            updateLauncherWidgets();
-            return _document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty);
+            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+                updateLauncherWidgets();
+                checkTextChangeState();
+                return true;
+            }
         }
         return false;
     }

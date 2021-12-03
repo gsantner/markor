@@ -196,7 +196,7 @@ public class Document implements Serializable {
     }
 
     private void setHash(final String s) {
-        _lastLength = s.length();
+        _lastLength = s.length() ;
         _lastHash = FileUtils.crc32(s.getBytes());
     }
 
