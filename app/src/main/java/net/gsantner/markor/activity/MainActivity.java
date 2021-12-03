@@ -357,16 +357,17 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     public void onViewPagerPageSelected(int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
-        updateFabVisibility(pos == 0);
+        updateFabVisibility(pos == tabIdToPos(R.id.nav_notebook));
 
         setMainTitle(getPosTitle(pos));
 
-        if (pos != 0) {
+        if (pos != tabIdToPos(R.id.nav_notebook)) {
             restoreDefaultToolbar();
         }
 
-        if (pos == 1 || pos == 2) {
-            new PermissionChecker(this).doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
+        if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
+            // cannot prevent bottom tab selection
+            new PermissionChecker(this).doIfExtStoragePermissionGranted();
         }
     }
 
