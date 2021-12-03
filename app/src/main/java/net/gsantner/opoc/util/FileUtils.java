@@ -505,10 +505,10 @@ public class FileUtils {
         return file;
     }
 
-    private static String computeHash(final byte[] bytes, final String algorithm) {
+    public static String sha512sum(final byte[] bytes) {
         try {
             final StringBuilder sb = new StringBuilder();
-            for (final byte b : MessageDigest.getInstance(algorithm).digest(bytes)) {
+            for (final byte b : MessageDigest.getInstance("SHA-512").digest(bytes)) {
                 sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
             return sb.toString();
@@ -517,14 +517,14 @@ public class FileUtils {
         }
     }
 
-    public static String sha512sum(final byte[] bytes) {
-        return computeHash(bytes, "SHA-512");
-    }
-
     // CRC32 is a fast non-cryptographic hash algorithm
-    public static long crc32(final byte[] bytes) {
-        CRC32 alg = new CRC32();
-        alg.update(bytes);
+    // Works directly on the CharSequence to prevent need for conversion to String
+    public static long crc32(final CharSequence s) {
+        final CRC32 alg = new CRC32();
+        final int length = s.length();
+        for (int i = 0; i < length; i++) {
+            alg.update((int) s.charAt(i));
+        }
         return alg.getValue();
     }
 

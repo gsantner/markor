@@ -244,7 +244,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void checkTextChangeState() {
-        final boolean isTextChanged = !_document.isDataSame(_hlEditor.getText().toString());
+        final boolean isTextChanged = !_document.isDataSame(_hlEditor.getText());
         if (_isTextChanged != isTextChanged) {
             _isTextChanged = isTextChanged;
 

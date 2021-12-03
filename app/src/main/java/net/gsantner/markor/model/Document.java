@@ -195,13 +195,13 @@ public class Document implements Serializable {
         return document;
     }
 
-    private void setHash(final String s) {
+    private void setHash(final CharSequence s) {
         _lastLength = s.length() ;
-        _lastHash = FileUtils.crc32(s.getBytes());
+        _lastHash = FileUtils.crc32(s);
     }
 
-    public boolean isDataSame(final String s) {
-        return s.length() == _lastLength && FileUtils.crc32(s.getBytes()) == _lastHash;
+    public boolean isDataSame(final CharSequence s) {
+        return s.length() == _lastLength && FileUtils.crc32(s) == _lastHash;
     }
 
     public synchronized String loadContent(final Context context) {
