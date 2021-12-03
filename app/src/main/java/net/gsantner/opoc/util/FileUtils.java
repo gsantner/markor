@@ -36,7 +36,6 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
-import java.util.zip.CRC32;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
@@ -515,19 +514,6 @@ public class FileUtils {
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
-    }
-
-    // CRC32 is a fast non-cryptographic hash algorithm
-    // Works directly on the CharSequence to prevent need for conversion to String
-    public static long crc32(final CharSequence s) {
-        final CRC32 alg = new CRC32();
-        final int length = s.length();
-        for (int i = 0; i < length; i++) {
-            final char c = s.charAt(i);
-            alg.update(c & 0xFF); // high byte
-            alg.update(c >> 8); // low byte
-        }
-        return alg.getValue();
     }
 
     // Return true if the target file exists, false if there is an issue with the file or it's parent directories

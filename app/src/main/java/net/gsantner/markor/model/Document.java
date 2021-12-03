@@ -54,8 +54,7 @@ public class Document implements Serializable {
     private int _intentLineNumber = -1;
 
     // Used to check if string changed
-    private long _lastHash = -1;
-    private int _lastLength = -1;
+    private String _lastContent = "";
 
     public Document(File file) {
         _file = file;
@@ -195,13 +194,12 @@ public class Document implements Serializable {
         return document;
     }
 
-    private void setHash(final CharSequence s) {
-        _lastLength = s.length() ;
-        _lastHash = FileUtils.crc32(s);
+    private void setContent(final String s) {
+        _lastContent = s;
     }
 
-    public boolean isDataSame(final CharSequence s) {
-        return s.length() == _lastLength && FileUtils.crc32(s) == _lastHash;
+    public boolean isContentSame(final CharSequence s) {
+        return s.length() == _lastContent.length() && _lastContent.contentEquals(s);
     }
 
     public synchronized String loadContent(final Context context) {
@@ -239,7 +237,7 @@ public class Document implements Serializable {
         }
 
         // Also set hash and time on load - should prevent unnecessary saves
-        setHash(content);
+        setContent(content);
         _modTime = _file.lastModified();
 
         return content;
@@ -285,7 +283,7 @@ public class Document implements Serializable {
         shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
         // Don't write same content if base file not changed
-        if (isDataSame(content) && _modTime >= _file.lastModified()) {
+        if (isContentSame(content) && _modTime >= _file.lastModified()) {
             return true;
         }
 
@@ -318,7 +316,7 @@ public class Document implements Serializable {
         }
 
         if (success) {
-            setHash(content);
+            setContent(content);
             _modTime = _file.lastModified();
         }
 
