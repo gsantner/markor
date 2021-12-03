@@ -523,7 +523,9 @@ public class FileUtils {
         final CRC32 alg = new CRC32();
         final int length = s.length();
         for (int i = 0; i < length; i++) {
-            alg.update((int) s.charAt(i));
+            final char c = s.charAt(i);
+            alg.update(c & 0xFF); // high byte
+            alg.update(c >> 8); // low byte
         }
         return alg.getValue();
     }
