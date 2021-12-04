@@ -75,6 +75,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A utility class to ease information sharing on Android.
@@ -92,6 +93,8 @@ public class ShareUtil {
     public final static int REQUEST_CAMERA_PICTURE = 50001;
     public final static int REQUEST_PICK_PICTURE = 50002;
     public final static int REQUEST_SAF = 50003;
+    public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
+    public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
 
     public final static int MIN_OVERWRITE_LENGTH = 5;
 
@@ -823,6 +826,11 @@ public class ShareUtil {
                 }
                 break;
             }
+
+            case REQUEST_STORAGE_PERMISSION_M:
+            case REQUEST_STORAGE_PERMISSION_R: {
+                return checkExternalStoragePermission(false);
+            }
         }
         return null;
     }
@@ -1288,5 +1296,44 @@ public class ShareUtil {
     public static String formatDateTime(@NonNull final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
         final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
         return formatDateTime(locale, format, datetime, def);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public boolean checkExternalStoragePermission(final boolean doRequest, String... optionalDescription) {
+        final Activity activity = greedyGetActivity();
+        final int v = android.os.Build.VERSION.SDK_INT;
+        final AtomicReference<Callback.a0> permissionRequest = new AtomicReference<>();
+
+        // On Android M-Q - request M permission
+        if (v >= android.os.Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionRequest.set(() -> ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
+        }
+
+        if (doRequest && permissionRequest.get() != null) {
+            if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
+                permissionRequest.get().callback();
+            } else {
+                final AlertDialog d = new AlertDialog.Builder(activity)
+                        .setMessage(optionalDescription[0])
+                        .setCancelable(false)
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                d.setCanceledOnTouchOutside(false);
+            }
+        }
+
+        // Android M permissions
+        if (v >= android.os.Build.VERSION_CODES.M) {
+            return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        }
+
+        // In case unsure, check if anything is writable at external storage
+        for (final File f : Environment.getExternalStorageDirectory() != null ? Environment.getExternalStorageDirectory().listFiles() : new File[0]) {
+            if (f.canWrite()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

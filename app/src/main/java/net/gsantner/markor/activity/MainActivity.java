@@ -155,6 +155,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionChecker permc = new PermissionChecker(this);
         permc.checkPermissionResult(requestCode, permissions, grantResults);
+
+        if (_shareUtil.checkExternalStoragePermission(false)) {
+            restartMainActivity();
+        }
     }
 
 
@@ -218,11 +222,26 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
     }
 
+    private void restartMainActivity() {
+        getWindow().getDecorView().postDelayed(() -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            finish();
+            startActivity(intent);
+        }, 1);
+    }
+
     @Override
     @SuppressWarnings("unused")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Determine some results and forward using Local Broadcast
         Object result = _shareUtil.extractResultFromActivityResult(requestCode, resultCode, data, this);
+
+        boolean restart = (requestCode == ShareUtil.REQUEST_STORAGE_PERMISSION_R && ((boolean) result));
+        restart |= requestCode == IntroActivity.REQ_CODE_APPINTRO && _shareUtil.checkExternalStoragePermission(false);
+        if (restart) {
+            restartMainActivity();
+        }
 
 
         try {
