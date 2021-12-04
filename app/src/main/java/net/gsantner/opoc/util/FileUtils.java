@@ -504,13 +504,16 @@ public class FileUtils {
         return file;
     }
 
-    public static String sha512sum(final byte[] bytes) {
+    public static String sha512sum(final CharSequence text) {
         try {
-            final StringBuilder sb = new StringBuilder();
-            for (final byte b : MessageDigest.getInstance("SHA-512").digest(bytes)) {
-                sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
+            final MessageDigest alg = MessageDigest.getInstance("SHA-512");
+            final int length = text.length();
+            for (int i = 0; i < length; i++) {
+                final char c = text.charAt(i);
+                alg.update((byte) (c >> 8)); // high part
+                alg.update((byte) (c & 0xFF)); // low part
             }
-            return sb.toString();
+            return new String(alg.digest());
         } catch (NoSuchAlgorithmException e) {
             return null;
         }

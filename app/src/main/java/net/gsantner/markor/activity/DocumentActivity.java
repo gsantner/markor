@@ -268,12 +268,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 
-    public void setTitleText(final String title) {
-        _toolbarTitleText.setText(title);
-    }
-
     public void setDocumentTitle(final String title) {
-        setTitleText(title);
+        _toolbarTitleText.setText(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
@@ -373,7 +369,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     public void setDocument(Document document) {
         _document = document;
-        _toolbarTitleText.setText(_document.getTitle());
+        setDocumentTitle(_document.getTitle());
     }
 
     private void onToolbarTitleClicked(View v) {

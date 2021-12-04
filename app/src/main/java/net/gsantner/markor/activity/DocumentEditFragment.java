@@ -17,14 +17,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -59,7 +57,6 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
-import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -137,8 +134,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
-    private boolean _isTextChanged = false;
+    private boolean _isTextChanged = true; // true forces first update
     private Activity _activity;
+    private MenuItem _saveMenuItem;
+    private MenuItem _undoMenuItem;
+    private MenuItem _redoMenuItem;
 
     public DocumentEditFragment() {
         super();
@@ -239,23 +239,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(pos);
             }
         }
-
-        _hlEditor.addTextChangedListener(TextWatcherDummy.after((t) -> checkTextChangeState()));
-    }
-
-    private void checkTextChangeState() {
-        final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
-        if (_isTextChanged != isTextChanged) {
-            _isTextChanged = isTextChanged;
-
-            // Update title with trailing *
-            if (_activity instanceof DocumentActivity) {
-                ((DocumentActivity) _activity).setTitleText(_document.getTitle() + (_isTextChanged ? "*" : ""));
-            } else if (_activity instanceof MainActivity) {
-                final MainActivity act = (MainActivity) _activity;
-                act.setMainTitle(act.getPosTitle(act.getCurrentPos()) + (_isTextChanged ? "*" : ""));
-            }
-        }
     }
 
     @Override
@@ -299,16 +282,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         menu.findItem(R.id.action_redo).setVisible(_appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && _activity instanceof DocumentActivity && !_isPreviewVisible);
 
-        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
-        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
-        Drawable drawable;
-        drawable = menu.findItem(R.id.action_undo).setEnabled(canUndo).setVisible(!_isPreviewVisible).getIcon();
-        drawable.mutate().setAlpha(canUndo ? 255 : 40);
-        drawable = menu.findItem(R.id.action_redo).setEnabled(canRedo).setVisible(!_isPreviewVisible).getIcon();
-        drawable.mutate().setAlpha(canRedo ? 255 : 40);
+        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(!_isPreviewVisible);
+        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(!_isPreviewVisible);
+        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(!_isPreviewVisible);
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
@@ -346,7 +325,36 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         });
 
+        // Set various initial states
         updateMenuToggleStates(_document.getFormat());
+
+        _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
+
+        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
+        _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
+
+        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+        _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
+    }
+
+    private boolean _lastCanUndo = true;
+    private boolean _lastCanRedo = true;
+    private void updateUndoRedoIconStates() {
+        if (_editTextUndoRedoHelper == null) {
+            return;
+        }
+
+        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
+        if (_undoMenuItem != null && _lastCanUndo != canUndo) {
+            _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
+            _lastCanUndo = canUndo;
+        }
+
+        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+        if (_redoMenuItem != null && _lastCanRedo != canRedo) {
+            _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
+            _lastCanRedo = canUndo;
+        }
     }
 
     public void loadDocument() {
@@ -385,7 +393,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.undo();
                     _hlEditor.enableHighlighterAutoFormat();
-                    ((AppCompatActivity) _activity).supportInvalidateOptionsMenu();
+                    updateUndoRedoIconStates();
                 }
                 return true;
             }
@@ -394,7 +402,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     _hlEditor.disableHighlighterAutoFormat();
                     _editTextUndoRedoHelper.redo();
                     _hlEditor.enableHighlighterAutoFormat();
-                    ((AppCompatActivity) _activity).supportInvalidateOptionsMenu();
+                    updateUndoRedoIconStates();
                 }
                 return true;
             }
@@ -570,22 +578,20 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    private long _lastChangedThreadStart = 0;
-
     @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {
-        if ((_lastChangedThreadStart + HISTORY_DELTA) < System.currentTimeMillis()) {
-            _lastChangedThreadStart = System.currentTimeMillis();
-            _hlEditor.postDelayed(() -> {
-                if (_activity instanceof AppCompatActivity) {
-                    ((AppCompatActivity) _activity).supportInvalidateOptionsMenu();
-                }
-            }, HISTORY_DELTA);
-        }
-        if (_activity != null && _activity instanceof AppCompatActivity) {
-            ((AppCompatActivity) _activity).supportInvalidateOptionsMenu();
-        }
+        checkTextChangeState();
+        updateUndoRedoIconStates();
+    }
 
+    public void checkTextChangeState() {
+        if (_isTextChanged == _document.isContentSame(_hlEditor.getText())) {
+            _isTextChanged = !_isTextChanged;
+
+            if (_saveMenuItem != null) {
+                _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
+            }
+        }
     }
 
     public void applyTextFormat(final int textFormatId) {
