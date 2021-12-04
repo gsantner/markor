@@ -327,33 +327,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
-
-        _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
-
-        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
-        _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
-
-        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
-        _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
+        checkTextChangeState();
+        updateUndoRedoIconStates();
     }
 
-    private boolean _lastCanUndo = true;
-    private boolean _lastCanRedo = true;
     private void updateUndoRedoIconStates() {
         if (_editTextUndoRedoHelper == null) {
             return;
         }
 
         final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
-        if (_undoMenuItem != null && _lastCanUndo != canUndo) {
+        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo) {
             _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
-            _lastCanUndo = canUndo;
         }
 
         final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
-        if (_redoMenuItem != null && _lastCanRedo != canRedo) {
+        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo) {
             _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
-            _lastCanRedo = canUndo;
         }
     }
 
@@ -585,12 +575,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void checkTextChangeState() {
-        if (_isTextChanged == _document.isContentSame(_hlEditor.getText())) {
-            _isTextChanged = !_isTextChanged;
+        _isTextChanged = !_document.isContentSame(_hlEditor.getText());
 
-            if (_saveMenuItem != null) {
-                _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
-            }
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != _isTextChanged) {
+            _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
         }
     }
 
