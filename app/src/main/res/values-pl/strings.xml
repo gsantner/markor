@@ -39,7 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Udostępnij do&#8230;</string>
     <string name="share">Udostępnij</string>
     <string name="search">Szukaj</string>
-    <string name="display_converted_markup">Wyświetl przekonwertowane znaczniki</string>
+    <string name="display_converted_markup">Wyświetl znaczniki markup</string>
     <string name="editor">Edytor</string>
     <string name="folders">Foldery</string>
     <string name="files">Pliki</string>
