@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
-    <string name="open_existing_files_in_view_mode">Otwórz istniejące pliki w trybie podglądu</string>
+    <string name="open_existing_files_in_view_mode">Otwieraj pliki w trybie podglądu</string>
     <string name="about">Informacje</string>
     <string name="plaintext">Zwykły tekst</string>
     <string name="file">Plik</string>
@@ -244,8 +244,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
     <string name="textaction">Akcja tekstu</string>
-    <string name="textactions">Akcje tekstowe</string>
-    <string name="prefer_view">Preferuj widok</string>
+    <string name="textactions">Działania na tekście</string>
+    <string name="prefer_view">Preferuj podgląd</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
     <string name="color">Kolor</string>
@@ -282,13 +282,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">Przesuń, aby zmienić tryb edycji lub widoku (przeciwny do bieżącego trybu)</string>
     <string name="folder_first">Najpierw katalogi</string>
     <string name="go_to">Przejdź do</string>
-    <string name="appdata_public">Dane AppData (publiczne)</string>
-    <string name="appdata_private">Dane aplikacji (prywatne)</string>
+    <string name="appdata_public">Folder danych aplikacji (publiczny)</string>
+    <string name="appdata_private">Folder danych aplikacji (prywatny)</string>
     <string name="appdata_sdcard">AppData (karta SD)</string>
     <string name="internal_storage">Pamięć wewnętrzna</string>
     <string name="open_the_document_from_main_view">Możesz otworzyć dokument z widoku głównego aplikacji, w przeglądarce plików lub w launcherze. Istnieje również możliwość udostępnienia tekstu do Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notatnik jest katalogiem, który Markor ładuje w przeglądarce plików po uruchomieniu aplikacji. To jest folder domowy Twoich plików.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote to najszybsza opcja zapisywania notatek. Jest to plik w formacie Markdown z domyślną lokalizacją &gt;Notatnik/QuickNote. d&lt;, możesz ustawić niestandardową ścieżkę plików w ustawieniach.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote to najszybsza możliwość robienia notatek. Jest to plik w formacie Markdown z domyślną lokalizacją &gt;Notatnik/QuickNote.md&lt;. Możesz wybrać własną lokalizację w ustawieniach.</string>
     <string name="todo_is_the_easiest_way_">Zarządzaj zadaniami za pomocą ToDo. Jest to plik w formacie todo.txt z domyślną lokalizacją &gt;Notebook/todo. xt&lt;, możesz ustawić własną ścieżkę plików w ustawieniach.</string>
     <string name="navigationbar_color">Kolor paska nawigacji</string>
     <string name="black">Czarny</string>
