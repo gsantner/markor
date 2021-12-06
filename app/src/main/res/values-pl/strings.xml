@@ -312,7 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Miękka przerwa, jeśli tekst nie pasuje do szerokości ekranu. W przeciwnym razie włącz przewijanie poziome.</string>
     <string name="recursive_search_in_current_directory">Wyszukiwanie rekursywne w bieżącym katalogu.</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki z tą aplikacją, gdy lista zawiera rozszerzenie pliku. Użyj \'Brak, .html, . ss , .js, na przykład, jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki o wybranych rozszerzeniach w tej aplikacji. Przykładowo, użyj \'None, .html, .css , .js\', jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
     <string name="print_pdf">Drukuj PDF</string>
@@ -377,8 +377,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nie można odszyfrować zawartości pliku. Czy użyłeś złego hasła? Czy plik jest naprawdę zaszyfrowany szyfrowaniem Markors AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Hasło już ustawione. Ustawienie nowego hasła nadpisze istniejące hasło i może nie mieć już dostępu do plików, jeśli zapomnisz hasła.</string>
     <string name="code_block">Blok kodu</string>
-    <string name="add_completion_date">Dodaj datę zakończenia</string>
-    <string name="add_completion_date_for_todos_when_marking_them_as_done">Dodaj datę zakończenia dla zadań przy oznaczaniu ich jako wykonane</string>
+    <string name="add_completion_date">Dodaj datę wykonania</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">Dodaj datę ukończenia zadania przy oznaczaniu jako wykonane</string>
     <string name="file_description_format">Format opisu pliku</string>
     <string name="file_description_format_dialog">Format opisu w każdej przeglądarce plików. Postępuje zgodnie z regułami SimpleDateFormat Androida, z dodatkiem FS do pokazywania rozmiaru pliku. Pozostaw puste, aby użyć domyślnego formatu dla swojego języka.\n\nPrzykładowe wejście:\nFS yyyy MMM dd hh:mm:ss aa\nFormat wyjściowy:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Wczytywanie domyślnych wartości</string>
