@@ -356,8 +356,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">Kolor linku</string>
     <string name="add_context">Dodaj kontekst</string>
     <string name="add_project">Dodaj projekt</string>
-    <string name="archive_completed_tasks">Archiwizuj zakończone zadania</string>
-    <string name="sort_alphabetically">Sortuj alfabetycznie</string>
+    <string name="archive_completed_tasks">Archiwizuj wykonane zadania</string>
+    <string name="sort_alphabetically">Sortuj</string>
     <string name="create_new_file_or_folder">Utwórz nowy plik lub folder</string>
     <string name="choose_format">Wybierz format</string>
     <string name="selected">Wybrane</string>
