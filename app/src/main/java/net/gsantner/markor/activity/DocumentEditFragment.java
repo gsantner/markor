@@ -450,7 +450,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case android.R.id.home: {
-                if (_activity != null && saveDocument(false)) {
+                if (_activity != null && (!_isTextChanged || saveDocument(false))) {
                     _activity.onBackPressed();
                 }
                 return true;
@@ -568,7 +568,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
+    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void onContentEditValueChanged(CharSequence text) {
         checkTextChangeState();
         updateUndoRedoIconStates();
@@ -733,6 +733,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        // This function can be called _outside_ the normal lifecycle!
+        // Do nothing if the fragment is not at least created!
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
+            return;
+        }
+
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isDisplayedAtMainActivity()) {
             loadDocument();

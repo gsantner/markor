@@ -197,11 +197,11 @@ public class Document implements Serializable {
 
     private void setContentHash(final CharSequence s) {
         _lastLength = s.length();
-        _lastHash = FileUtils.sha512sum(s);
+        _lastHash = FileUtils.sha512sum(s.toString().getBytes());
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s.length() == _lastLength && _lastHash.equals(FileUtils.sha512sum(s));
+        return s.length() == _lastLength && _lastHash.equals(FileUtils.sha512sum(s.toString().getBytes()));
     }
 
     public synchronized String loadContent(final Context context) {

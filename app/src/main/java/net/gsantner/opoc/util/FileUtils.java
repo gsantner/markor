@@ -31,6 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -504,16 +505,9 @@ public class FileUtils {
         return file;
     }
 
-    public static String sha512sum(final CharSequence text) {
+    public static String sha512sum(final byte[] data) {
         try {
-            final MessageDigest alg = MessageDigest.getInstance("SHA-512");
-            final int length = text.length();
-            for (int i = 0; i < length; i++) {
-                final char c = text.charAt(i);
-                alg.update((byte) (c >> 8)); // high part
-                alg.update((byte) (c & 0xFF)); // low part
-            }
-            return new String(alg.digest());
+            return Arrays.toString(MessageDigest.getInstance("SHA-512").digest(data));
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
