@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Gumawa ng Folder</string>
     <string name="create_new_document">Gumawa ng bagong dokumento</string>
     <string name="move">Ilipat</string>
+    <string name="copy">Kopyahin</string>
     <string name="info">Impormasyon</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Mayroong nang ganitong file/folder! Mangyaring gumamit ng ibang pangalan</string>
     <string name="import_from_device">Kumuha mula sa device</string>
@@ -62,6 +63,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">Pumili ng mga entry</string>
     <string name="one_item_selected">Isang item ang napili</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d na mga item ang napili</string>
+    <string name="hide_statusbar_at_this_view">Itago ang status bar sa view na ito</string>
+    <string name="hide_statusbar">Itago ang status bar</string>
     <string name="name">Pangalan</string>
     <string name="url_or_path">URL / Daanan</string>
     <string name="insert_link">Magsingit ng Link</string>
@@ -114,9 +117,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Gumawa ng shortcut</string>
     <string name="tried_to_create_shortcut_for_this_notice">Sinubukang gumawa ng shortcut sa iyong home screen. Tandaan lamang na may mga launcher na hindi suportado ito.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Ang napiling file ay wala sa direktorya ng notebook ng app. Gusto mo bang kopyahin ito sa kasalukuyang folder? I-o-overwrite nito ang kahit anong file na may kaparehong pangalan.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Wala sa kasalukuyang folder ang file. Gusto mo ba itong kopyahin sa kasalukuyang folder? Susulatan nito ang kahit anong file na may kaparehong pangalan.</string>
     <string name="files_and_folders">Mga File at folder</string>
     <string name="document_browser">Browser ng Dokumento</string>
     <string name="file_browser">Browser ng File</string>
+    <string name="set_due_date">Magtakda ng due date</string>
+    <string name="insert_replace_date">Magsingit ng petsa</string>
     <string name="create_note" needed="false">Gumawa ng Tala</string>
     <string name="special_documents" needed="false">Mga Espesyal ng Dokumento</string>
     <string name="keep_screen_on" needed="false">Panatilihing nakabukas ang screen</string>
@@ -134,6 +140,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antala sa milisegundo para sa refresh ng pagha-highlight. Magsisimula ang pagha-highlight nang mas maaga kapag mababa ang nakalagay, pero uubusin nito ang iyong baterya at maaring pabagalin ang app sa mga lumang device.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolin kung ang pinasok na teksto ay kailangan bang i-highlight o hindi</string>
     <string name="control_font_size_in_editor">Kontrolin ang laki ng titik na gagamitin sa editor</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Magpapakita ng bar na may mga button sa baba. Kayang baguhin ng mga text action na ito ang text o maglunsad ng isang gawain base sa text.</string>
     <string name="load_last_opened_folder_at_startup">I-load ang huling binuksang folder sa pagbukas</string>
     <string name="format">Ayos</string>
     <string name="contexts">Mga Konteksto</string>
@@ -143,15 +150,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Iba pa</string>
     <string name="empty_file">Bakanteng file</string>
     <string name="break_page_pdf_print">I-break ang pahina (PDF/Pagpi-print)</string>
+    <string name="underline">Salungguhitan</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kung sasalungguhitan ba ang mga hex color code ayon sa kulay</string>
     <string name="underline_hex_color_codes">Salungguhitan ang mga Hex Color Code</string>
     <string name="insert_current_date_when_starting_new_task">Isingit ang petsa ngayon kapag gagawa ng bagong gawain</string>
     <string name="tasks_with_todays_date">Mga Gawain na may petsa ngayon</string>
     <string name="append_contexts_and_projects">Isama ang mga konteksto at proyekto</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Ilagay ang mga konteksto at proyekto sa baba ng isang gawain sa tuwing gumagamit ng tamang text action</string>
     <string name="rtl_rendering">Pagre-render ng RTL</string>
     <string name="highlight_line_ending">I-highlight ang dulo ng linya</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">I-highlight ang mga space sa dulo ng mga linyang mayroong dalawa o higit pang space</string>
     <string name="use_monospace_for_code">Gumamit ng titik na monospace para sa code</string>
+    <string name="disable_code_block_highlight">Wag i-highlight ang mga code block</string>
+    <string name="auto_renumber_ordered_list">Kusang baguhin ang bilang ng mga nakanumerong listahan</string>
+    <string name="auto_renumber_ordered_list_slowdown">Maaaring makaapekto ang option na ito sa performance ng app.</string>
     <string name="use_different_fonttype_slow_down">Gagamitin ang ibang uri ng titik. Maaaring makaapekto ito sa pagganap ng app.</string>
     <string name="general">Kabuuan</string>
     <string name="resources">Mga Mapagkukunan</string>
@@ -162,6 +174,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">Espesyal na Key</string>
     <string name="key_page_up">Pahina Pataas (Page Up)</string>
     <string name="key_page_down">Pahina Pababa (Page Down)</string>
+    <string name="move_text_one_line_up">Itaas ang text</string>
+    <string name="move_text_one_line_down">Ibaba ang text</string>
+    <string name="start_new_line_below">Magsimula ng bagong linya sa baba</string>
     <string name="key_pos_1">Linya Umpisa (Pos Home)</string>
     <string name="key_pos_end">Linya Dulo (Pos End)</string>
     <string name="key_pos_1_document">Simula ng dokumento</string>
@@ -170,6 +185,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tab</string>
     <string name="start_on_bottom">Magsimula sa ibaba</string>
     <string name="start_on_bottom_when_loading_document">Pagka-load ng dokumento, ilagay ang panuro sa dulo nito</string>
+    <string name="unordered_list_character">Karakter ng di-nakanumerong listahan</string>
+    <string name="character_to_start_items_of_unordered_list_with">Ang gagamiting karakter para sa mga di-nakanumerong listahan</string>
+    <string name="unordered_list_char_dash">Gitling (-)</string>
+    <string name="unordered_list_char_asterisk">Asterisk (*)</string>
+    <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Maari lamang mag-edit ang Markor ng lokal at offline na mga dokumento at hindi nito sinusuportahan ang mga file manager na hindi nagbibigay ng buong daanan ng file.</string>
     <string name="sync_to_local_folder_notice">Tandaan: Maaring maglagay ng mga file sa mga custom na folder ang mga app sa pagsi-sync. Buksan sila sa pamamagitan ng pagbago sa folder ng dokumento ng Markor, o di kaya naman sa isang file manager.</string>
     <string name="configure_in_the_apps_settings">I-konpigura sa mga pagsasaayos ng app</string>
@@ -181,6 +201,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Itaas</string>
     <string name="bottom">Ibaba</string>
     <string name="center">Gitna</string>
+    <string name="textaction_spacing">Espasyo ng text action</string>
     <string name="center_text">Igitna ang teksto</string>
     <string name="edit_text_in_center_of_screen">Baguhin ang teksto sa gitna ng screen</string>
     <string name="clipboard">Clipboard</string>
