@@ -28,7 +28,9 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
-            app:contentInsetStart="0dp">
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
 
             <TextView
                 android:id="@+id/note__activity__text_note_title"
