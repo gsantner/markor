@@ -348,7 +348,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void loadDocument() {
-        final long modTime = _document.getFile().lastModified();
+        final long modTime = _document.lastModified();
         //Only trigger the load process if constructing or file updated
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 

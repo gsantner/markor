@@ -29,8 +29,11 @@ import net.gsantner.opoc.util.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.SecureRandom;
 import java.util.Locale;
 
@@ -70,7 +73,7 @@ public class Document implements Serializable {
         }
 
         // Set initial format
-        final String fnlower = getFile().getName().toLowerCase();
+        final String fnlower = _file.getName().toLowerCase();
         if (TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(fnlower)) {
             setFormat(TextFormat.FORMAT_TODOTXT);
         } else if (TextFormat.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
@@ -90,7 +93,7 @@ public class Document implements Serializable {
 
     public static String getPath(final Document document) {
         if (document != null) {
-            final File file = document.getFile();
+            final File file = document._file;
             if (file != null) {
                 return file.getAbsolutePath();
             }
@@ -102,6 +105,16 @@ public class Document implements Serializable {
         return _file;
     }
 
+    public long lastModified() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).lastModifiedTime().toMillis();
+            }
+        } catch (IOException ignored) {
+        }
+        return _file.lastModified();
+    }
+
     public String getTitle() {
         return _title;
     }
@@ -111,7 +124,7 @@ public class Document implements Serializable {
     }
 
     public String getName() {
-        return getFile().getName();
+        return _file.getName();
     }
 
     public int getIntentLineNumber() {
@@ -122,7 +135,7 @@ public class Document implements Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof Document) {
             Document other = ((Document) obj);
-            return equalsc(getFile(), other.getFile())
+            return equalsc(_file, other._file)
                     && equalsc(getTitle(), other.getTitle())
                     && (getFormat() == other.getFormat());
         }
@@ -150,7 +163,7 @@ public class Document implements Serializable {
     }
 
     public boolean isEncrypted() {
-        return isEncrypted(getFile());
+        return isEncrypted(_file);
     }
 
     // Try several fallbacks to get a valid file
@@ -210,22 +223,22 @@ public class Document implements Serializable {
         final char[] pw;
         if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
             try {
-                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(getFile()), (int) getFile().length());
+                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(_file), (int) _file.length());
                 if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
                     content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
                 } else {
                     content = new String(encryptedContext, StandardCharsets.UTF_8);
                 }
             } catch (FileNotFoundException e) {
-                Log.e(Document.class.getName(), "loadDocument:  File " + getFile() + " not found.");
+                Log.e(Document.class.getName(), "loadDocument:  File " + _file + " not found.");
                 content = "";
             } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
                 Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
-                Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + getFile() + ". " + e.getMessage(), e);
+                Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + _file + ". " + e.getMessage(), e);
                 content = "";
             }
         } else {
-            content = FileUtils.readTextFileFast(getFile());
+            content = FileUtils.readTextFileFast(_file);
         }
 
         if (MainActivity.IS_DEBUG_ENABLED) {
@@ -240,7 +253,7 @@ public class Document implements Serializable {
 
         // Also set hash and time on load - should prevent unnecessary saves
         setContentHash(content);
-        _modTime = _file.lastModified();
+        _modTime = lastModified();
 
         return content;
     }
@@ -285,7 +298,7 @@ public class Document implements Serializable {
         shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
         // Don't write same content if base file not changed
-        if (isContentSame(content) && _modTime >= _file.lastModified()) {
+        if (isContentSame(content) && _modTime >= lastModified()) {
             return true;
         }
 
@@ -309,7 +322,7 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                success = FileUtils.writeFile(getFile(), contentAsBytes);
+                success = FileUtils.writeFile(_file, contentAsBytes);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
@@ -319,7 +332,7 @@ public class Document implements Serializable {
 
         if (success) {
             setContentHash(content);
-            _modTime = _file.lastModified();
+            _modTime = lastModified();
         }
 
         return success;
