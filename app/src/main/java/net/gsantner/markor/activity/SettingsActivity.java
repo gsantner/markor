@@ -51,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class SettingsActivity extends AppActivityBase {
+public class SettingsActivity extends MarkorBaseActivity {
 
     public static int activityRetVal = RESULT.NOCHANGE;
     private static int iconColor = Color.WHITE;

@@ -44,6 +44,7 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
@@ -209,6 +210,9 @@ public class MarkdownTextConverter extends TextConverter {
             markup = markup.replace("\n", "  \n");
         }
 
+        // Replace space in url with %20, see #1365
+        markup = escapeSpacesInLink(markup);
+
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
@@ -236,6 +240,38 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Deliver result
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+    }
+
+    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+
+    private String escapeSpacesInLink(final String markup) {
+        final Matcher matcher = linkPattern.matcher(markup);
+        if (!matcher.find()) {
+            return markup;
+        }
+
+        // 1) Walk through the text till finding a link in markdown syntax
+        // 2) Add all text-before-link to buffer
+        // 3) Extract [title](link to somehere)
+        // 4) Add [title](link%20to%20somewhere) to buffer
+        // 5) Do till the end and add all text & links of original-text to buffer
+        final StringBuilder sb = new StringBuilder(markup.length() + 64);
+        int previousEnd = 0;
+        do {
+            final String url = matcher.group(2);
+            final String title = matcher.group(3);
+            if (url == null) {
+                return markup;
+            }
+            sb.append(markup.substring(previousEnd, matcher.start())).append(String.format("[%s](%s%s)", matcher.group(1),
+                    url.trim().replace(" ", "%20"),
+                    (title != null ? title : ""))
+            );
+            previousEnd = matcher.end();
+        } while (matcher.find());
+        sb.append(markup.substring(previousEnd));
+
+        return sb.toString();
     }
 
     @SuppressWarnings({"ConstantConditions", "StringConcatenationInsideStringBufferAppend"})

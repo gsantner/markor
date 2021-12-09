@@ -11,13 +11,9 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.content.ContextCompat;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;

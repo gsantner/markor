@@ -1,8 +1,5 @@
 package net.gsantner.markor.activity;
 
-import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
-
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,16 +13,17 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.opoc.util.PermissionChecker;
+import net.gsantner.markor.util.PermissionChecker;
 
 public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
+    public static final int REQ_CODE_APPINTRO = 61234;
 
     public static void optStart(Activity activeActivity) {
         SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
         boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
         if (!wasShownYet) {
-            activeActivity.startActivity(new Intent(activeActivity, IntroActivity.class));
+            activeActivity.startActivityForResult(new Intent(activeActivity, IntroActivity.class), REQ_CODE_APPINTRO);
         }
     }
 
@@ -44,7 +42,6 @@ public class IntroActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
 
         // Permissions -- takes a permission and slide number
-        askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, getSlides().size());
         showSkipButton(false);
         setNextPageSwipeLock(false);
         setSwipeLock(false);
@@ -77,7 +74,8 @@ public class IntroActivity extends AppIntro {
 
     @Override
     public void onSlideChanged() {
-        if (getPager().getCurrentItem() == 2) {
+        final int i = getPager().getCurrentItem();
+        if (i == 2 || i == getSlides().size() - 1) {
             new PermissionChecker(this).doIfExtStoragePermissionGranted();
         }
     }

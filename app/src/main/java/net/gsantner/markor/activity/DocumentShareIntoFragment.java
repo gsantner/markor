@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -89,10 +90,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
 
-        final String prefix = ShareUtil.formatDateTime(context, as.getShareIntoPrefix(), System.currentTimeMillis());
-        final String extra = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
-        final String sharedText = formatOrPrefixSharedText(prefix, extra);
-
+        final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
         view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
@@ -109,13 +107,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
-        if (sharedText.isEmpty() || sharedText.equals(prefix)) {
+        if (sharedText.isEmpty()) {
             _hlEditor.requestFocus();
         }
-    }
-
-    private static String formatOrPrefixSharedText(final String format, final String value) {
-        return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
     }
 
     @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
@@ -208,23 +202,25 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }
         }
 
+        @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
-            Bundle args = new Bundle();
+            final Bundle args = new Bundle();
             args.putSerializable(Document.EXTRA_PATH, file);
             args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, false);
             final Context context = getContext();
             final Document document = Document.fromArguments(context, args);
-            String trimmedContent = document.loadContent(context).trim();
-            String currentContent = TextUtils.isEmpty(trimmedContent) ? "" : (trimmedContent + "\n");
-            document.saveContent(context, currentContent + separator + _sharedText);
+            final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
+            final boolean isTodoTxt = TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
+
+            final String newContent = document.loadContent(context).replaceAll("(?m)^[\\r\\n]+|[\\r\\n]+$", "")
+                    + separator
+                    + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
+            document.saveContent(context, newContent);
 
             if (showEditor) {
                 showInDocumentActivity(document);
             }
-
-            if (file != null) {
-                _appSettings.addRecentDocument(file);
-            }
+            _appSettings.addRecentDocument(file);
         }
 
         private void showAppendDialog(int keyId) {
@@ -255,7 +251,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    appendToExistingDocument(file, "", true);
+                    appendToExistingDocument(file, "\n", true);
                 }
 
             }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
@@ -273,7 +269,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 public void onFsViewerSelected(String request, File dir, final Integer lineNumber) {
                     NewFileDialog dialog = NewFileDialog.newInstance(dir, false, (ok, f) -> {
                         if (ok && f.isFile()) {
-                            appendToExistingDocument(f, "", true);
+                            appendToExistingDocument(f, "\n", true);
                         }
                     });
                     dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
@@ -322,7 +318,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "", false);
+                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "\n", false);
                         close = true;
                     }
                     break;
@@ -331,11 +327,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
-                            sep = TodoTxtTask.getToday() + " ";
+                            sep += TodoTxtTask.getToday() + " ";
                         }
                         if (appSettings.isTodoNewTaskWithHuuidEnabled()) {
                             sep += "huuid:" + PlainTextStuff.newHuuid(appSettings.getHuuidDeviceId()) + " ";
-                            sep = sep.replace("\n", "");
                         }
                         appendToExistingDocument(_appSettings.getTodoFile(), sep, false);
                         close = true;
@@ -366,7 +361,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
             if (preference.getKey().startsWith("/")) {
                 if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), "", true);
+                    appendToExistingDocument(new File(preference.getKey()), "\n", true);
                     close = false;
                 }
             }
@@ -385,7 +380,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             super.doUpdatePreferences();
             boolean maybeHasWebUrl = _sharedText.contains("http://") || _sharedText.contains("https://");
 
-            setPreferenceVisible(R.string.pref_key__share_into__todo, !_sharedText.trim().contains("\n") && _sharedText.length() < 300);
+            setPreferenceVisible(R.string.pref_key__share_into__todo, _sharedText.length() < 300 && !_sharedText.trim().contains("\n"));
             setPreferenceVisible(R.string.pref_key__share_into__open_in_browser, maybeHasWebUrl);
         }
 
@@ -430,5 +425,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             formattedLink = text + " " + link;
         }
         return formattedLink;
+    }
+
+    private static String formatOrPrefixSharedText(final String format, final String value) {
+        return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
     }
 }

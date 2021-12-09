@@ -50,7 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import other.so.AndroidBug5497Workaround;
 
-public class DocumentActivity extends AppActivityBase {
+public class DocumentActivity extends MarkorBaseActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
     @BindView(R.id.document__placeholder_fragment)

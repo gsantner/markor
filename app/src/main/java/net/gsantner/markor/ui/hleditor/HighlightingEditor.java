@@ -125,7 +125,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void enableHighlighterAutoFormat() {
-        postDelayed(() -> {setFilters(new InputFilter[]{_hl.getAutoFormatter()});}, 10);
+        postDelayed(() -> {
+            setFilters(new InputFilter[]{_hl.getAutoFormatter()});
+        }, 10);
 
         final TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
         if (modifier != null && !_appliedModifiers.contains(modifier)) {
