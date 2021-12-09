@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="AppTheme" parent="AppTheme.Dark">
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
@@ -9,12 +8,4 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
         <item name="android:windowActionModeOverlay">true</item>
     </style>
-
-    <!-- Techically valid for v17 -->
-    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
-        <item name="android:minWidth">0dip</item>
-        <item name="android:paddingStart">8dip</item>
-        <item name="android:paddingEnd">8dip</item>
-    </style>
-
 </resources>

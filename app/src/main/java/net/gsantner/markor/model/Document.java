@@ -57,7 +57,7 @@ public class Document implements Serializable {
     private int _intentLineNumber = -1;
 
     // Used to check if string changed
-    private String _lastHash = "";
+    private long _lastHash = 0;
     private int _lastLength = -1;
 
     public Document(File file) {
@@ -210,11 +210,11 @@ public class Document implements Serializable {
 
     private void setContentHash(final CharSequence s) {
         _lastLength = s.length();
-        _lastHash = FileUtils.sha512sum(s.toString().getBytes());
+        _lastHash = FileUtils.crc32(s.toString().getBytes());
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s.length() == _lastLength && _lastHash.equals(FileUtils.sha512sum(s.toString().getBytes()));
+        return s.length() == _lastLength && _lastHash == (FileUtils.crc32(s.toString().getBytes()));
     }
 
     public synchronized String loadContent(final Context context) {

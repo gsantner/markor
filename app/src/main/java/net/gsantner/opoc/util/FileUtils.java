@@ -37,6 +37,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
+import java.util.zip.CRC32;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
@@ -505,12 +506,26 @@ public class FileUtils {
         return file;
     }
 
-    public static String sha512sum(final byte[] data) {
+    private static String hash(final byte[] data, final String alg) {
         try {
             return Arrays.toString(MessageDigest.getInstance("SHA-512").digest(data));
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+    }
+
+    public static String md5(final byte[] data) {
+        return hash(data, "MD5");
+    }
+
+    public static String sha512(final byte[] data) {
+        return hash(data, "SHA-512");
+    }
+
+    public static long crc32(final byte[] data) {
+        final CRC32 alg = new CRC32();
+        alg.update(data);
+        return alg.getValue();
     }
 
     // Return true if the target file exists, false if there is an issue with the file or it's parent directories
