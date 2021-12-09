@@ -141,6 +141,12 @@
                 android:key="@string/pref_key__is_keep_screen_on"
                 android:title="@string/keep_screen_on" />
 
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_visibility_black_24dp"
+                android:key="@string/pref_key__is_privacy_mode_on"
+                android:title="@string/privacy_mode_on" />
+
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="\\n----\\n"
                 android:dialogMessage="@string/share_into_format_prefix_for_text_shared"

@@ -173,9 +173,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         _fragManager = getSupportFragmentManager();
 
         handleLaunchingIntent(getIntent());
-
-        // Protect window from screenshots
-        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

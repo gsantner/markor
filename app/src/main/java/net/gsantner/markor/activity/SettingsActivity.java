@@ -83,9 +83,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(view -> SettingsActivity.this.onBackPressed());
         showFragment(SettingsFragmentMaster.TAG, false);
-
-        // Protect window from screenshots
-        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     protected void showFragment(String tag, boolean addToBackStack) {

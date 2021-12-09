@@ -15,6 +15,8 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
     public static final int REQ_CODE_APPINTRO = 61234;
@@ -45,9 +47,6 @@ public class IntroActivity extends AppIntro {
         showSkipButton(false);
         setNextPageSwipeLock(false);
         setSwipeLock(false);
-
-        // Protect window from screenshots
-        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

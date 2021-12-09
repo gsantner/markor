@@ -90,9 +90,6 @@ public class ActionOrderActivity extends MarkorBaseActivity {
 
         recycler.setHasFixedSize(true);
         recycler.setAdapter(_adapter);
-
-        // Protect window from screenshots
-        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     @Override

@@ -143,9 +143,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
             }
         }, 1);
-
-        // Protect window from screenshots
-        getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
     }
 
     private void optShowRate() {
