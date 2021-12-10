@@ -508,7 +508,7 @@ public class FileUtils {
 
     private static String hash(final byte[] data, final String alg) {
         try {
-            return Arrays.toString(MessageDigest.getInstance("SHA-512").digest(data));
+            return Arrays.toString(MessageDigest.getInstance(alg).digest(data));
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
