@@ -147,10 +147,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _appSettings = new AppSettings(getContext());
-        if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            WebView.enableSlowWholeDocumentDraw();
-        }
     }
 
     @Override
@@ -163,7 +159,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         _activity = getActivity();
-        _shareUtil = new ShareUtil(view.getContext());
+
+        _appSettings = new AppSettings(_activity);
+        if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            WebView.enableSlowWholeDocumentDraw();
+        }
+
+        _shareUtil = new ShareUtil(_activity);
 
         _webViewClient = new MarkorWebViewClient(_activity);
         _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), _appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
@@ -352,7 +354,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         //Only trigger the load process if constructing or file updated
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
-            final String content = _document.loadContent(getContext());
+            final String content = _document.loadContent(_activity);
             _loadModTime = modTime;
 
             // Only setText if content changed
@@ -596,7 +598,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void setupAppearancePreferences(View fragmentView) {
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
-        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setTypeface(FontPreferenceCompat.typeface(_activity, _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
@@ -636,8 +638,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private void setHorizontalScrollMode(final boolean wrap) {
 
-        final Context context = getContext();
-        if (context != null && _hlEditor != null) {
+        if (_activity != null && _hlEditor != null) {
             _primaryScrollView.removeAllViews();
             if (hsView != null) {
                 hsView.removeAllViews();
@@ -645,7 +646,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (!wrap) {
                 _hlEditor.setHorizontallyScrolling(true);
                 if (hsView == null) {
-                    hsView = new HorizontalScrollView(context);
+                    hsView = new HorizontalScrollView(_activity);
                     hsView.setFillViewport(true);
                 }
                 hsView.addView(_hlEditor);
@@ -691,7 +692,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
             }
 
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+            if (_document.saveContent(_activity, _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();
                 checkTextChangeState();
                 return true;
