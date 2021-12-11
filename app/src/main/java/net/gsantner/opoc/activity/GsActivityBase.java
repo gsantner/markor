@@ -10,6 +10,8 @@
 #########################################################*/
 package net.gsantner.opoc.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +41,18 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {
             _defaultNavigationBarColor = getWindow().getNavigationBarColor();
         }
+
+        // Set secure flag / disallow screenshots
+        if (isFlagSecure() != null) {
+            try {
+                if (isFlagSecure()) {
+                    getWindow().setFlags(FLAG_SECURE, FLAG_SECURE);
+                } else {
+                    getWindow().clearFlags(FLAG_SECURE);
+                }
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     public AS createAppSettingsInstance(Context applicationContext) {
@@ -63,6 +77,10 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
 
     @ColorInt
     public Integer getNewNavigationBarColor() {
+        return null;
+    }
+
+    public Boolean isFlagSecure() {
         return null;
     }
 }

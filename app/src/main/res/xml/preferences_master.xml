@@ -141,6 +141,12 @@
                 android:key="@string/pref_key__is_keep_screen_on"
                 android:title="@string/keep_screen_on" />
 
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_lock_outline_black_24dp"
+                android:key="@string/pref_key__is_disallow_screenshots"
+                android:title="@string/disallow_screenshots" />
+
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="\\n----\\n"
                 android:dialogMessage="@string/share_into_format_prefix_for_text_shared"
