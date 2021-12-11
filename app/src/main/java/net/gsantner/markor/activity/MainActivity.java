@@ -16,7 +16,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -353,10 +352,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     }
 
     public int tabIdToPos(final int id) {
-        if(id == R.id.nav_notebook) return 0;
-        if(id == R.id.nav_todo) return 1;
-        if(id == R.id.nav_quicknote) return 2;
-        if(id == R.id.nav_more) return 3;
+        if (id == R.id.nav_notebook) return 0;
+        if (id == R.id.nav_todo) return 1;
+        if (id == R.id.nav_quicknote) return 2;
+        if (id == R.id.nav_more) return 3;
         return 0;
     }
 
