@@ -56,6 +56,13 @@ public class SettingsActivity extends MarkorBaseActivity {
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
+    @SuppressWarnings("WeakerAccess")
+    public static class RESULT {
+        public static final int NOCHANGE = -1;
+        public static final int CHANGED = 1;
+        public static final int RESTART_REQ = 2;
+    }
+
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         AppSettings appSettings = new AppSettings(this);
@@ -118,13 +125,6 @@ public class SettingsActivity extends MarkorBaseActivity {
             return;
         }
         super.onBackPressed();
-    }
-
-    @SuppressWarnings("WeakerAccess")
-    public static class RESULT {
-        public static final int NOCHANGE = -1;
-        public static final int CHANGED = 1;
-        public static final int RESTART_REQ = 2;
     }
 
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentCompat {
