@@ -1,13 +1,13 @@
 package net.gsantner.markor.activity;
 
+import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.activity.GsActivityBase;
-
-import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 

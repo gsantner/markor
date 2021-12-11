@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;

@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
