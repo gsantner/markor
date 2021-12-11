@@ -143,9 +143,9 @@
 
             <CheckBoxPreference
                 android:defaultValue="false"
-                android:icon="@drawable/ic_visibility_black_24dp"
-                android:key="@string/pref_key__is_privacy_mode_on"
-                android:title="@string/privacy_mode_on" />
+                android:icon="@drawable/ic_lock_outline_black_24dp"
+                android:key="@string/pref_key__is_disallow_screenshots"
+                android:title="@string/disallow_screenshots" />
 
             <android.support.v7.preference.EditTextPreference
                 android:defaultValue="\\n----\\n"

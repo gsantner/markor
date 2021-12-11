@@ -51,11 +51,6 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends MarkorBaseActivity {
 
-    public static int activityRetVal = RESULT.NOCHANGE;
-    private static int iconColor = Color.WHITE;
-    @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
-
     @SuppressWarnings("WeakerAccess")
     public static class RESULT {
         public static final int NOCHANGE = -1;
@@ -63,6 +58,11 @@ public class SettingsActivity extends MarkorBaseActivity {
         public static final int RESTART_REQ = 2;
     }
 
+    public static int activityRetVal = RESULT.NOCHANGE;
+    private static int iconColor = Color.WHITE;
+    @BindView(R.id.toolbar)
+    protected Toolbar toolbar;
+    
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         AppSettings appSettings = new AppSettings(this);
