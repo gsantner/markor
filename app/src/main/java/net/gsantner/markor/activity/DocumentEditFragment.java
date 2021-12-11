@@ -135,9 +135,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
     private boolean _isTextChanged = true; // true forces first update
-    private MenuItem _saveMenuItem;
-    private MenuItem _undoMenuItem;
-    private MenuItem _redoMenuItem;
+    private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     public DocumentEditFragment() {
         super();
