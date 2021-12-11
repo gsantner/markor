@@ -60,9 +60,10 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     public static int activityRetVal = RESULT.NOCHANGE;
     private static int iconColor = Color.WHITE;
+
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
-    
+
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
         AppSettings appSettings = new AppSettings(this);
