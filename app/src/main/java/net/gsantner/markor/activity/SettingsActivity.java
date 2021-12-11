@@ -117,16 +117,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         super.onStop();
     }
 
-    @Override
-    public void onBackPressed() {
-        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
-        if (prefFrag != null && prefFrag.canGoBack()) {
-            prefFrag.goBack();
-            return;
-        }
-        super.onBackPressed();
-    }
-
     public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentCompat {
         protected AppSettings _as;
 
@@ -158,6 +148,16 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
+        if (prefFrag != null && prefFrag.canGoBack()) {
+            prefFrag.goBack();
+            return;
+        }
+        super.onBackPressed();
     }
 
     public static class SettingsFragmentMaster extends MarkorSettingsFragment {
