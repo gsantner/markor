@@ -27,16 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/LightTextToolbarOverlay"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:contentInsetStartWithNavigation="0dp">
+            android:theme="@style/LightTextToolbarOverlay">
 
             <TextView
                 android:id="@+id/note__activity__text_note_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="sans-serif-medium"
                 android:scrollHorizontally="true"
                 android:singleLine="true"

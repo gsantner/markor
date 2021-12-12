@@ -161,11 +161,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         setSupportActionBar(_toolbar);
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowTitleEnabled(false);
-        }
+
         _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         _fragManager = getSupportFragmentManager();
