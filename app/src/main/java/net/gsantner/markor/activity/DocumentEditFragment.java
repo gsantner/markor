@@ -134,7 +134,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
-    private boolean _isTextChanged = true; // true forces first update
+    private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     public DocumentEditFragment() {
@@ -248,7 +248,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
-        if (_document != null && _document.getFile() != null) {
+        if (_document != null) {
             _document.testCreateParent();
             boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
             if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
@@ -261,7 +261,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
 
-        if (_document != null && _document.getFile() != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
+        if (_document != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
 
@@ -544,7 +544,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_info: {
-                if (_document != null && _document.getFile() != null) {
+                if (_document != null) {
                     saveDocument(false); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
@@ -678,12 +678,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(boolean forceSaveEmpty) {
-        if (_isTextChanged && isAdded() && _hlEditor != null && _hlEditor.getText() != null) {
+        // Document is written iff content has changed
+        if (_isTextChanged && !isAdded() && _document != null && _hlEditor != null) {
 
-            if (_document != null && _document.getFile() != null) {
-                _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
-                _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
-            }
+            _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
+            _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
 
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();
@@ -712,7 +711,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onPause() {
         saveDocument(false);
-        if (_document != null && _document.getFile() != null) {
+        if (_document != null) {
             _appSettings.addRecentDocument(_document.getFile());
         }
         super.onPause();
@@ -756,7 +755,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
-            if (_document != null && _document.getFile() != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
+            if (_document != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
                 if (!initPreview) {
                     _hlEditor.requestFocus();
                 }

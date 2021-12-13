@@ -112,13 +112,6 @@ public abstract class Highlighter {
         }
     }
 
-    protected String getFilepath() {
-        if (_document != null && _document.getFile() != null) {
-            return _document.getFile().getAbsolutePath();
-        }
-        return "";
-    }
-
     public AppSettings getAppSettings() {
         return _appSettings;
     }

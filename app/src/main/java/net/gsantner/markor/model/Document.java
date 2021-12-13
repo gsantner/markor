@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
@@ -60,7 +61,7 @@ public class Document implements Serializable {
     private long _lastHash = 0;
     private int _lastLength = -1;
 
-    public Document(File file) {
+    public Document(@NonNull final File file) {
         _file = file;
         final String name = _file.getName();
         final int doti = name.lastIndexOf(".");
@@ -101,7 +102,7 @@ public class Document implements Serializable {
         return null;
     }
 
-    public File getFile() {
+    public @NonNull File getFile() {
         return _file;
     }
 
@@ -214,7 +215,7 @@ public class Document implements Serializable {
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s.length() == _lastLength && _lastHash == (FileUtils.crc32(s.toString().getBytes()));
+        return s != null && s.length() == _lastLength && _lastHash == (FileUtils.crc32(s.toString().getBytes()));
     }
 
     public synchronized String loadContent(final Context context) {
