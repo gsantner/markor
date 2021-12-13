@@ -93,13 +93,7 @@ public class Document implements Serializable {
     }
 
     public static String getPath(final Document document) {
-        if (document != null) {
-            final File file = document._file;
-            if (file != null) {
-                return file.getAbsolutePath();
-            }
-        }
-        return null;
+        return document != null ? document.getFile().getAbsolutePath() : null;
     }
 
     public @NonNull File getFile() {
