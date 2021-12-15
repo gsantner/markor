@@ -664,15 +664,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return FRAGMENT_TAG;
     }
 
-    @Override
-    public boolean onBackPressed() {
-        if (_menuSearchViewForViewMode != null && !_menuSearchViewForViewMode.isIconified()) {
-            _menuSearchViewForViewMode.clearFocus();
-            return true;
-        }
-        return false;
-    }
-
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(boolean forceSaveEmpty) {
