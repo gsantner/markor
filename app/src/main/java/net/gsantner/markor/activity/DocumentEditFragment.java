@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Selection;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -347,8 +348,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void loadDocument() {
-        final long modTime = _document.lastModified();
         //Only trigger the load process if constructing or file updated
+        final long modTime = _document.lastModified();
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
             final String content = _document.loadContent(getContext());
@@ -357,14 +358,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             // Only setText if content changed
             final CharSequence text = _hlEditor.getText();
             if (text == null || !content.contentEquals(text)) {
+
+                final int[] sel = StringUtils.getSelection(_hlEditor);
+                sel[0] = Math.min(sel[0], content.length());
+                sel[1] = Math.min(sel[1], content.length());
+
                 _hlEditor.setText(content);
+
+                _hlEditor.setSelection(sel[0], sel[1]); // hleditor can handle invalid selections
             }
 
             checkTextChangeState();
 
             if (_isPreviewVisible) {
+                setDocumentViewVisibility(true);
                 _webViewClient.setRestoreScrollY(_webView.getScrollY());
-                setDocumentViewVisibility(_isPreviewVisible);
             }
         }
     }
@@ -658,17 +666,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public boolean onBackPressed() {
-        final boolean preview = (
-                getActivity().getIntent().getBooleanExtra(DocumentActivity.EXTRA_DO_PREVIEW, false)
-                        || _appSettings.getDocumentPreviewState(getPath())
-                        || _document.getFile().getName().startsWith("index."));
-        if (_isPreviewVisible && !preview) {
-            setDocumentViewVisibility(false);
-            return true;
-        } else if (!_isPreviewVisible && preview) {
-            setDocumentViewVisibility(true);
-            return true;
-        } else if (_menuSearchViewForViewMode != null && !_menuSearchViewForViewMode.isIconified()) {
+        if (_menuSearchViewForViewMode != null && !_menuSearchViewForViewMode.isIconified()) {
             _menuSearchViewForViewMode.clearFocus();
             return true;
         }
