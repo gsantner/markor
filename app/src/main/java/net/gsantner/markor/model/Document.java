@@ -54,6 +54,7 @@ public class Document implements Serializable {
     private final String _fileExtension;
     private int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
+    private String _path = "";
     private long _modTime = 0;
     private int _intentLineNumber = -1;
 
@@ -72,6 +73,7 @@ public class Document implements Serializable {
             _fileExtension = name.substring(doti).toLowerCase();
             _title = name.substring(0, doti);
         }
+        _path = _file.getAbsolutePath();
 
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
@@ -89,11 +91,7 @@ public class Document implements Serializable {
     }
 
     public String getPath() {
-        return getPath(this);
-    }
-
-    public static String getPath(final Document document) {
-        return document != null ? document.getFile().getAbsolutePath() : null;
+       return _path;
     }
 
     public @NonNull File getFile() {

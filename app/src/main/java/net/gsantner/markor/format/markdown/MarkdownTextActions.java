@@ -232,7 +232,7 @@ public class MarkdownTextActions extends TextActions {
                 case R.string.tmaid_common_indent: {
                     SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
                         _indent = Integer.parseInt(size);
-                        _appSettings.setDocumentIndentSize(getPath(), _indent);
+                        _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
                     });
                     return true;
                 }

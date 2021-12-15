@@ -192,7 +192,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(getPath(), _document.getFormat()));
+        _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
@@ -484,7 +484,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (_document != null) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
-                    _appSettings.setDocumentFormat(getPath(), _document.getFormat());
+                    _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
                 }
                 return true;
             }
@@ -539,7 +539,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
                 wrapTextSetting = wrapText;
-                _appSettings.setDocumentWrapState(getPath(), wrapTextSetting);
+                _appSettings.setDocumentWrapState(_document.getPath(), wrapTextSetting);
                 setHorizontalScrollMode(wrapText);
                 updateMenuToggleStates(0);
                 return true;
@@ -547,7 +547,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
-                _appSettings.setDocumentHighlightState(getPath(), highlightText);
+                _appSettings.setDocumentHighlightState(_document.getPath(), highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -559,9 +559,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_set_font_size: {
-                SearchOrCustomTextDialogCreator.showFontSizeDialog(activity, _appSettings.getDocumentFontSize(getPath()), (newSize) -> {
+                SearchOrCustomTextDialogCreator.showFontSizeDialog(activity, _appSettings.getDocumentFontSize(_document.getPath()), (newSize) -> {
                     _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
-                    _appSettings.setDocumentFontSize(getPath(), newSize);
+                    _appSettings.setDocumentFontSize(_document.getPath(), newSize);
                 });
             }
             default: {
@@ -597,7 +597,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(getPath()));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
         _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
@@ -606,11 +606,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void initDocState() {
-        final String path = getPath();
-        wrapTextSetting = _appSettings.getDocumentWrapState(path);
+        wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
         wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(path, _hlEditor.getText());
+        highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
         updateMenuToggleStates(0);
 
         setHorizontalScrollMode(wrapText);
@@ -672,7 +671,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_isTextChanged && isAdded()) {
 
             _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
-            _appSettings.setDocumentPreviewState(getPath(), _isPreviewVisible);
 
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();
@@ -703,6 +701,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         saveDocument(false);
         if (_document != null) {
             _appSettings.addRecentDocument(_document.getFile());
+            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         }
         super.onPause();
     }
@@ -742,7 +741,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     public void onFragmentFirstTimeVisible() {
-        final boolean initPreview = _appSettings.getDocumentPreviewState(getPath());
+        final boolean initPreview = _appSettings.getDocumentPreviewState(_document.getPath());
         if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
             int lastPos;
             if (_document != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
@@ -808,10 +807,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public Document getDocument() {
         return _document;
-    }
-
-    public String getPath() {
-        return Document.getPath(_document);
     }
 
     public WebView getWebview() {

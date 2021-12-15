@@ -70,11 +70,7 @@ public abstract class TextActions {
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
-        _indent = _appSettings.getDocumentIndentSize(getPath());
-    }
-
-    public String getPath() {
-        return Document.getPath(_document);
+        _indent = _appSettings.getDocumentIndentSize(_document.getPath());
     }
 
     /**

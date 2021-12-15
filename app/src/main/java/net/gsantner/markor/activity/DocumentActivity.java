@@ -279,7 +279,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
             String reqPath = (reqFile != null) ? reqFile.getPath() : "";
-            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getPath());
+            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getDocument().getPath());
         }
 
         if (!sameDocumentRequested) {
