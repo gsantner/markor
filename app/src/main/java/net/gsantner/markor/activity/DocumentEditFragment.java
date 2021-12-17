@@ -352,12 +352,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final long modTime = _document.lastModified();
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED) || modTime > _loadModTime) {
 
-            final String content = _document.loadContent(getContext());
             _loadModTime = modTime;
 
-            // Only setText if content changed
-            final CharSequence text = _hlEditor.getText();
-            if (text == null || !content.contentEquals(text)) {
+            final String content = _document.loadContent(getContext());
+            if (!_document.isContentSame(_hlEditor.getText())) {
 
                 final int[] sel = StringUtils.getSelection(_hlEditor);
                 sel[0] = Math.min(sel[0], content.length());
@@ -409,7 +407,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_reload: {
+                final long oldModTime = _loadModTime;
                 loadDocument();
+                // Use modtime to show toast if document updated
+                if (_loadModTime != oldModTime) {
+                    Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
             case R.id.action_preview: {
