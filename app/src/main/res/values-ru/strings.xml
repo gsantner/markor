@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Создать заметку</string>
     <string name="special_documents" needed="false">Особые документы</string>
     <string name="keep_screen_on" needed="false">Не отключать экран</string>
+    <string name="disallow_screenshots">Запретить скриншоты</string>
     <string name="back_to_previous_folder" needed="false">Вернуться в предыдущую папку</string>
     <string name="app_settings" needed="false">Настройки приложения</string>
     <string name="editor_settings" needed="false">Настройки редактора</string>

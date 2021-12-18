@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Vytvořit poznámku</string>
     <string name="special_documents" needed="false">Speciální dokumenty</string>
     <string name="keep_screen_on" needed="false">Udržovat obrazovku zapnutou</string>
+    <string name="disallow_screenshots">Zakázat snímky obrazovky</string>
     <string name="back_to_previous_folder" needed="false">Zpět do předchozí složky</string>
     <string name="app_settings" needed="false">Nastavení aplikace</string>
     <string name="editor_settings" needed="false">Nastavení editoru</string>

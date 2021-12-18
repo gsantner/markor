@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter a tela ligada</string>
+    <string name="disallow_screenshots">Despermitir capturas de tela</string>
     <string name="back_to_previous_folder" needed="false">Retornar à pasta anterior</string>
     <string name="app_settings" needed="false">Configurações do aplicativo</string>
     <string name="editor_settings" needed="false">Configurações do editor</string>

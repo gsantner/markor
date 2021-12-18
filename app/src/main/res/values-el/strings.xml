@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Δημιουργία Σημείωσης</string>
     <string name="special_documents" needed="false">Ειδικά έγγραφα</string>
     <string name="keep_screen_on" needed="false">Διατήρηση της οθόνης ενεργής</string>
+    <string name="disallow_screenshots">Απαγόρευση στιγμιότυπων οθόνης</string>
     <string name="back_to_previous_folder" needed="false">Επιστροφή στον προηγούμενο φάκελο</string>
     <string name="app_settings" needed="false">Ρυθμίσεις εφαρμογής</string>
     <string name="editor_settings" needed="false">Ρυθμίσεις Επεξεργαστή</string>

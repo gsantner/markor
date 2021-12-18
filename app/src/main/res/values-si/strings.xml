@@ -51,6 +51,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">කිසිවක් නැත</string>
     <string name="other">වෙනත්</string>
     <string name="resources">සම්පත්</string>
+    <string name="default_">පෙරනිමි</string>
     <string name="left">වම</string>
     <string name="right">දකුණ</string>
     <string name="bottom">පහළ</string>
@@ -69,6 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="black">කළු</string>
     <string name="white">සුදු</string>
     <string name="favourite">ප්‍රියතම</string>
+    <string name="reload">නැවත පූරණය</string>
     <string name="current">වර්තමාන</string>
     <string name="tools">මෙවලම්</string>
     <string name="table">වගුව</string>
