@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Opret note</string>
     <string name="special_documents" needed="false">Specielle dokumenter</string>
     <string name="keep_screen_on" needed="false">Hold skærmen tændt</string>
+    <string name="disallow_screenshots">Tillad ikke screenshots</string>
     <string name="back_to_previous_folder" needed="false">Tilbage til tidligere mappe</string>
     <string name="app_settings" needed="false">Programindstillinger</string>
     <string name="editor_settings" needed="false">Editorindstillinger</string>

@@ -22,6 +22,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_already_exists_overwerite">ଫାଇଲ୍ ଆଗରୁ ବିଦ୍ୟମାନ ଅଛି, ନବଲିଖନ କରିବେ କି?</string>
     <string name="browse_filesystem">ଫାଇଲ୍ ସିଷ୍ଟମ୍ ବ୍ରାଉଜ୍ କରନ୍ତୁ</string>
     <string name="title">ଆଖ୍ୟା</string>
+    <string name="empty_directory">ଖାଲି ଡିରେକ୍ଟୋରୀ</string>
     <string name="enter_name_of_folder">ଆପଣଙ୍କ ଫୋଲ୍ଡରର ନାମ ପ୍ରବେଶ କରନ୍ତୁ</string>
     <string name="create_folder">ଫୋଲ୍ଡର୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="create_new_document">ନୂତନ ଡକ୍ୟୁମେଣ୍ଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
@@ -105,6 +106,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">ନୋଟ୍ ସୃଷ୍ଟି କରନ୍ତୁ</string>
     <string name="special_documents" needed="false">ବିଶେଷ ଡକ୍ୟୁମେଣ୍ଟ୍</string>
     <string name="keep_screen_on" needed="false">ସ୍କ୍ରିନ୍ ସଚଳ ରଖନ୍ତୁ</string>
+    <string name="disallow_screenshots">ସ୍କ୍ରିନସଟ୍ ନେବା ଅଗ୍ରାହ୍ୟ କରନ୍ତୁ</string>
     <string name="back_to_previous_folder" needed="false">ପୂର୍ବ ଫୋଲ୍ଡରକୁ ଫେରନ୍ତୁ</string>
     <string name="app_settings" needed="false">ଆପ୍ ସେଟିଂସ୍</string>
     <string name="editor_settings" needed="false">ସମ୍ପାଦକ ସେଟିଂସ୍</string>

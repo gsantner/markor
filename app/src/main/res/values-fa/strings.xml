@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">ایجاد یادداشت</string>
     <string name="special_documents" needed="false">مطالب ویژه</string>
     <string name="keep_screen_on" needed="false">روشن نگه داشتن صفحه نمایش</string>
+    <string name="disallow_screenshots">Disallow screenshots</string>
     <string name="back_to_previous_folder" needed="false">بازگشت به پوشه قبلی</string>
     <string name="app_settings" needed="false">تنظیمات برنامه</string>
     <string name="editor_settings" needed="false">تنظیمات ویرایشگر</string>
@@ -428,4 +429,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">تمام شده</string>
     <string name="match_any">مطالبقت با هر کدام</string>
     <string name="match_all">مطابقت با همه</string>
+    <string name="dynamic_notebook_root_links">Dynamic search for notebook root</string>
+    <string name="search_dynamically_for_notebook_root">In order to follow wiki links, dynamically search for the notebook.zim file to identify the root directory for the current notebook. Check this if you use multiple zim notebooks or the notebook directory set in the app does not correspond to your zim notebook.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix for text shared into Markor. Follows Android\'s SimpleDateFormat rules.\n\nUse the placeholder \'%s\' (surrounded by single quotes) to position the shared text. If not specified, the shared text is appended and the format used as a prefix.</string>
+    <string name="share_into_format">Share into - Format</string>
 </resources>

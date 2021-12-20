@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">新建笔记</string>
     <string name="special_documents" needed="false">特殊文件</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>
+    <string name="disallow_screenshots">不允许截屏</string>
     <string name="back_to_previous_folder" needed="false">返回上一个文件夹</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
