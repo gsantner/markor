@@ -284,4 +284,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
     <string name="reload">טען מחדש</string>
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
+    <string name="unordered_list">רשימה לא ממוספרת</string>
+    <string name="ordered_list">רשימה ממוספרת</string>
 </resources>
