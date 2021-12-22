@@ -284,6 +284,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
     <string name="reload">טען מחדש</string>
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
+    <string name="template">תבנית</string>
+    <string name="send_debug_log">שליחה לוג לפטרון בעיות</string>
+    <string name="current">נוכחי</string>
+    <string name="record_audio">הקלט שמע</string>
+    <string name="attach">צרף</string>
+    <string name="copy_file">העתק קובץ</string>
+    <string name="page">עמוד</string>
+    <string name="tools">כלים</string>
+    <string name="reading">קריאה</string>
+    <string name="read">קרא</string>
+    <string name="table">טבלה</string>
+    <string name="delete_lines">מחיקת שורות</string>
     <string name="unordered_list">רשימה לא ממוספרת</string>
     <string name="ordered_list">רשימה ממוספרת</string>
     <string name="check_list">רשימת משימות</string>
@@ -300,4 +312,39 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">כותרת 5‏</string>
     <string name="heading_6">כותרת 6‏</string>
     <string name="bold">הדגשה</string>
+    <string name="horizontal_line">קו אופקי</string>
+    <string name="toggle_done">סמן כבוצע/לא-בוצע</string>
+    <string name="link_color">צבע קישור</string>
+    <string name="add_context">הוספת קונטקסט</string>
+    <string name="add_project">הוספת פרוייקט</string>
+    <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
+    <string name="choose_format">בחר פורמאט</string>
+    <string name="selected">נבחר</string>
+    <string name="back">חזרה</string>
+    <string name="expand_collapse">הרחב/קפל</string>
+    <string name="essential">חיוני</string>
+    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למשימות חדשות</string>
+    <string name="action_order">סידור פעולות</string>
+    <string name="toggle_action_visibility">הצג או הסתר פעולה</string>
+    <string name="load_default_settings">טען הגדרות ברירת מחדל</string>
+    <string name="drag">גרור</string>
+    <string name="created">נוצר</string>
+    <string name="file_encryption_password">סיסמה להצפנת קבצים</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">לא הוגדרה סיסמא, לא ניתן להצפין/לפענח.
+גש להגדרות -> כללי -> סיסמא
+בכדי להגדיר סיסמא.</string>
+    <string name="encrypt_file_content">הצפן קובץ</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">כשל בהצפנה קובץ. הקובץ לא נשמר.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של מרקור?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">סיסמא כבר מוגדרת. הגדרת סיסמא חדשה תדרוס את הקיימת והנכם עלולים לאבד גישה לקבצים במידה ולא תזכרו את הסיסמא.</string>
+    <string name="code_block">תא קוד</string>
+    <string name="add_completion_date">הוספת תאריך סיום</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">הוסף תאריך סיום עבור מטלות שבוצעו, בעט סימונים</string>
+    <string name="file_description_format">פורמאט תיאור קובץ</string>
+    <string name="file_description_format_dialog">פורמאט עבור התיאור עבור כל קובץ במעיין הקבצים. מבוסס על כללי SimpleDateForm של אנדרויד, עם תוספת של FS עבור גודל קובץ. השאר ריק בכדי להשתמש בפורמאט ברירת המחדל המקומי שלך.
+
+ערך לדוגמא:
+FS yyyy MMM dd hh:mm:ss aa
+תוצאה:
+30KB 2020 Mar 20 11:24:52 PM</string>
 </resources>
