@@ -287,4 +287,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list">רשימה לא ממוספרת</string>
     <string name="ordered_list">רשימה ממוספרת</string>
     <string name="check_list">רשימת משימות</string>
+    <string name="open_link">פתח קישור</string>
+    <string name="common_color_picker">בחירת צבע</string>
+    <string name="date_and_time">תאריך ושעה</string>
+    <string name="jump_to_bottom">דלג למטה</string>
+    <string name="quote">צטט</string>
+    <string name="heading">כותרת</string>
+    <string name="heading_1">כותרת 1‏</string>
+    <string name="heading_2">כותרת 2‏</string>
+    <string name="heading_3">כותרת 3‏</string>
+    <string name="heading_4">כותרת 4‏</string>
+    <string name="heading_5">כותרת 5‏</string>
+    <string name="heading_6">כותרת 6‏</string>
+    <string name="bold">הדגשה</string>
 </resources>
