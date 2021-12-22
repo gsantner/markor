@@ -149,6 +149,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">אף אחד</string>
     <string name="other">אחר</string>
     <string name="empty_file">קובץ ריק</string>
+    <string name="underline">קו תחתון</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
@@ -168,6 +169,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">כפתור מיוחד</string>
     <string name="key_page_up">דף מעלה (דף מעלה)</string>
     <string name="key_page_down">דף מטה (דף מטה)</string>
+    <string name="move_text_one_line_up">הזז טקסט שורה אחת למעלה</string>
+    <string name="move_text_one_line_down">הזז טקסט שורה אחת למטֿה</string>
+    <string name="start_new_line_below">שורה חדשה</string>
     <string name="key_pos_1">תחילת שורה (מיקום בית)</string>
     <string name="key_pos_end">סוף שורה (מיקום סוף)</string>
     <string name="key_pos_1_document">תחילת מסמך</string>
