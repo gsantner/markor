@@ -373,6 +373,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="search_and_replace">חיפוש / החלפה</string>
     <string name="search_for">חפש</string>
     <string name="replace_with">החלף ב</string>
+    <string name="replace_once">החלף (1)</string>
     <string name="replace_all">החלף הכל</string>
     <string name="matches">התאמות</string>
     <string name="browse_by_project">עיין לפי פרוייקט</string>
