@@ -286,4 +286,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
     <string name="unordered_list">רשימה לא ממוספרת</string>
     <string name="ordered_list">רשימה ממוספרת</string>
+    <string name="check_list">רשימת משימות</string>
 </resources>
