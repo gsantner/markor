@@ -82,6 +82,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_save_black_24dp"
+        android:title="@string/save"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
@@ -92,12 +98,6 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_save"
-        android:icon="@drawable/ic_save_black_24dp"
-        android:title="@string/save"
         app:showAsAction="always" />
 
     <item
