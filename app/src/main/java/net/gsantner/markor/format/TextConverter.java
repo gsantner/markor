@@ -84,7 +84,7 @@ public abstract class TextConverter {
         }
 
         String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
-        if (document.getFile() != null && document.getFile().getParentFile() != null) {
+        if (document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }
         baseFolder = "file://" + baseFolder + "/";

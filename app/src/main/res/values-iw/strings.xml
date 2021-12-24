@@ -149,6 +149,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">אף אחד</string>
     <string name="other">אחר</string>
     <string name="empty_file">קובץ ריק</string>
+    <string name="break_page_pdf_print">סיום עמוד (עבור PDF או הדפסה)</string>
+    <string name="underline">קו תחתון</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">האם להוסיף קו תחתון מתחת לקוד הקסאדצימלי בהתאם לצבע</string>
     <string name="underline_hex_color_codes">הוסף שורה מתחת לקוד צבע הקסאדצימלי</string>
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
@@ -168,6 +170,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">כפתור מיוחד</string>
     <string name="key_page_up">דף מעלה (דף מעלה)</string>
     <string name="key_page_down">דף מטה (דף מטה)</string>
+    <string name="move_text_one_line_up">הזז טקסט שורה אחת למעלה</string>
+    <string name="move_text_one_line_down">הזז טקסט שורה אחת למטֿה</string>
+    <string name="start_new_line_below">שורה חדשה</string>
     <string name="key_pos_1">תחילת שורה (מיקום בית)</string>
     <string name="key_pos_end">סוף שורה (מיקום סוף)</string>
     <string name="key_pos_1_document">תחילת מסמך</string>
@@ -175,6 +180,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">בחר הכל (Ctrl+A)</string>
     <string name="start_on_bottom">התחל בתחתית</string>
     <string name="start_on_bottom_when_loading_document">בעת טעינת קובץ, מקם את הסמן בסופו</string>
+    <string name="unordered_list_char_dash">מקף (-)</string>
+    <string name="unordered_list_char_asterisk">כוכבית (*)</string>
+    <string name="unordered_list_char_plus">פלוס (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor יכול לערוך קבצים מקומיים, המנותקים מהרשת בלבד ואינו תומך בסיירי קבצים שאינם מביאים נתיב מלא אל הקובץ.</string>
     <string name="sync_to_local_folder_notice">הערה: אפליקציות סנכרון יכולות לשים קבצים בתיקיות שרירותיות, לפתוח אותם באמצעות שינוי תיקיית המסמכים של Markor בהתאם, או במנהל קבצים אחר.</string>
     <string name="configure_in_the_apps_settings">הגדר בהגדרות האפליקציה</string>
@@ -186,6 +194,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">עליון</string>
     <string name="bottom">תחתית</string>
     <string name="center">מרכז</string>
+    <string name="textaction_spacing">ריווח פעולות טקסט</string>
+    <string name="horizontal_space_between_textactions">רווח אופקי בין כפטורי פעולות טקסט</string>
     <string name="center_text">מרכז טקסט</string>
     <string name="edit_text_in_center_of_screen">ערוך טקסט במרכז המסך</string>
     <string name="clipboard">לוח גזירים</string>
@@ -226,6 +236,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">מתמטיקה</string>
     <string name="table_of_contents">תוכן עניינים</string>
     <string name="miscellaneous">שונות</string>
+    <string name="textaction">פעולת טקסט</string>
+    <string name="textactions">פעולות טקסט</string>
     <string name="prefer_view">העדף תצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>
@@ -268,6 +280,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">אחסון פנימי</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
+    <string name="view">הצג</string>
     <string name="view_mode">מצב תצוגה</string>
     <string name="edit_mode">מצב עריכה</string>
     <string name="mount_storage">הטמע אחסון</string>
@@ -275,9 +288,99 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">מועדף</string>
     <string name="favourites">מועדפים</string>
     <string name="please_wait">המתן</string>
+    <string name="app_start_folder">תיקייה לאתחול אפליקציה</string>
     <string name="tab_width">רוחב טאב</string>
     <string name="amount_of_space_for_tab">כמות הרווחים להצגת טאב</string>
     <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
     <string name="reload">טען מחדש</string>
+    <string name="wrap_words">גלישת שורות</string>
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
+    <string name="template">תבנית</string>
+    <string name="send_debug_log">שליחה לוג לפטרון בעיות</string>
+    <string name="print_pdf">הדפסה / PDF</string>
+    <string name="bigger_headings">כותרות מוגדלות</string>
+    <string name="current">נוכחי</string>
+    <string name="record_audio">הקלט שמע</string>
+    <string name="attach">צרף</string>
+    <string name="copy_file">העתק קובץ</string>
+    <string name="page">עמוד</string>
+    <string name="tools">כלים</string>
+    <string name="reading">קריאה</string>
+    <string name="read">קרא</string>
+    <string name="table">טבלה</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">כמה עמודות? לחיצה ארוכה על כפטור הטבלה תיצור טבלה (הכנס כותרת), לחיצה קצרה תוסיף שורה.</string>
+    <string name="example_of_a_markdown_table">דוגמא לטבלה בMarkdown</string>
+    <string name="delete_lines">מחיקת שורות</string>
+    <string name="unordered_list">רשימה לא ממוספרת</string>
+    <string name="ordered_list">רשימה ממוספרת</string>
+    <string name="check_list">רשימת משימות</string>
+    <string name="open_link">פתח קישור</string>
+    <string name="common_color_picker">בחירת צבע</string>
+    <string name="date_and_time">תאריך ושעה</string>
+    <string name="jump_to_bottom">דלג למטה</string>
+    <string name="quote">צטט</string>
+    <string name="heading">כותרת</string>
+    <string name="heading_1">כותרת 1‏</string>
+    <string name="heading_2">כותרת 2‏</string>
+    <string name="heading_3">כותרת 3‏</string>
+    <string name="heading_4">כותרת 4‏</string>
+    <string name="heading_5">כותרת 5‏</string>
+    <string name="heading_6">כותרת 6‏</string>
+    <string name="bold">הדגשה</string>
+    <string name="italic">נטוי</string>
+    <string name="highlighted">מסומן</string>
+    <string name="strikeout">מחוק בקו</string>
+    <string name="inline_code">קוד מוטבע</string>
+    <string name="horizontal_line">קו אופקי</string>
+    <string name="toggle_done">סמן כבוצע/לא-בוצע</string>
+    <string name="link_color">צבע קישור</string>
+    <string name="add_context">הוספת קונטקסט</string>
+    <string name="add_project">הוספת פרוייקט</string>
+    <string name="archive_completed_tasks">העבר משימות שבוצעו לארכיון</string>
+    <string name="sort_alphabetically">מיין לפי</string>
+    <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
+    <string name="choose_format">בחר פורמאט</string>
+    <string name="selected">נבחר</string>
+    <string name="back">חזרה</string>
+    <string name="expand_collapse">הרחב/קפל</string>
+    <string name="essential">חיוני</string>
+    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למשימות חדשות</string>
+    <string name="action_order">סידור פעולות</string>
+    <string name="toggle_action_visibility">הצג או הסתר פעולה</string>
+    <string name="load_default_settings">טען הגדרות ברירת מחדל</string>
+    <string name="drag">גרור</string>
+    <string name="created">נוצר</string>
+    <string name="file_encryption_password">סיסמה להצפנת קבצים</string>
+    <string name="no_password_set_cannot_encrypt_decrypt">לא הוגדרה סיסמא, לא ניתן להצפין/לפענח.
+גש להגדרות -> כללי -> סיסמא
+בכדי להגדיר סיסמא.</string>
+    <string name="encrypt_file_content">הצפן קובץ</string>
+    <string name="could_not_encrypt_file_content_the_file_was_not_saved">כשל בהצפנה קובץ. הקובץ לא נשמר.</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של מרקור?</string>
+    <string name="password_already_set_setting_a_new_password_will_overwrite">סיסמא כבר מוגדרת. הגדרת סיסמא חדשה תדרוס את הקיימת והנכם עלולים לאבד גישה לקבצים במידה ולא תזכרו את הסיסמא.</string>
+    <string name="code_block">תא קוד</string>
+    <string name="add_completion_date">הוספת תאריך סיום</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">הוסף תאריך סיום עבור מטלות שבוצעו, בעט סימונים</string>
+    <string name="file_description_format">פורמאט תיאור קובץ</string>
+    <string name="file_description_format_dialog">פורמאט עבור התיאור עבור כל קובץ במעיין הקבצים. מבוסס על כללי SimpleDateForm של אנדרויד, עם תוספת של FS עבור גודל קובץ. השאר ריק בכדי להשתמש בפורמאט ברירת המחדל המקומי שלך.
+
+ערך לדוגמא:
+FS yyyy MMM dd hh:mm:ss aa
+תוצאה:
+30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="loading_default_value">טוען ערך ברירת מחדל</string>
+    <string name="file_settings">הגדרות קובץ</string>
+    <string name="search_and_replace">חיפוש / החלפה</string>
+    <string name="search_for">חפש</string>
+    <string name="replace_with">החלף ב</string>
+    <string name="replace_once">החלף (1)</string>
+    <string name="replace_all">החלף הכל</string>
+    <string name="matches">התאמות</string>
+    <string name="browse_by_project">עיין לפי פרוייקט</string>
+    <string name="browse_by_context">עיין לפי קונטקסט</string>
+    <string name="insert_project">הזן פרוייקטים</string>
+    <string name="insert_context">הזן קונטקסטים</string>
+    <string name="browse_todo">עיין ברשימת משימות</string>
+    <string name="browse_by_priority">עיין לפי עדיפות</string>
+    <string name="browse_by_due_date">עיין לפי תאריך גמר</string>
 </resources>

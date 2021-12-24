@@ -79,7 +79,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     private SectionsPagerAdapter _viewPagerAdapter;
 
     private boolean _doubleBackToExitPressedOnce;
-    private MenuItem _lastBottomMenuItem;
 
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
@@ -136,11 +135,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
 
-        _bottomNav.postDelayed(() -> {
-            if (_appSettings.getAppStartupTab() != R.id.nav_notebook) {
-                _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab());
-            }
-        }, 1);
+        _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab()), 10);
     }
 
     private void optShowRate() {
@@ -165,20 +160,11 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        AppSettings as = new AppSettings(this);
-        switch (item.getItemId()) {
-            case R.id.action_preview: {
-                File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
-                DocumentActivity.launch(MainActivity.this, f, false, true, null, null);
-                return true;
-            }
-            case R.id.action_settings: {
-                new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
-                return true;
-            }
+        if (item.getItemId() == R.id.action_settings) {
+            new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
+            return true;
         }
         return false;
-
     }
 
     @Override
@@ -331,38 +317,12 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        updateFabVisibility(item.getItemId() == R.id.nav_notebook);
-        PermissionChecker permc = new PermissionChecker(this);
+        _viewPager.setCurrentItem(tabIdToPos(item.getItemId()));
+        return true;
+    }
 
-        switch (item.getItemId()) {
-            case R.id.nav_notebook: {
-                _viewPager.setCurrentItem(0);
-                _toolbar.setTitle(getFileBrowserTitle());
-                return true;
-            }
-
-            case R.id.nav_todo: {
-                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
-                restoreDefaultToolbar();
-                _viewPager.setCurrentItem(1);
-                _toolbar.setTitle(R.string.todo);
-                return true;
-            }
-            case R.id.nav_quicknote: {
-                permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
-                restoreDefaultToolbar();
-                _viewPager.setCurrentItem(2);
-                _toolbar.setTitle(R.string.quicknote);
-                return true;
-            }
-            case R.id.nav_more: {
-                restoreDefaultToolbar();
-                _viewPager.setCurrentItem(3);
-                _toolbar.setTitle(R.string.more);
-                return true;
-            }
-        }
-        return false;
+    public void setMainTitle(final String title) {
+        _toolbar.setTitle(title);
     }
 
     public void updateFabVisibility(boolean visible) {
@@ -382,17 +342,41 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return title;
     }
 
+    public int tabIdToPos(final int id) {
+        if (id == R.id.nav_notebook) return 0;
+        if (id == R.id.nav_todo) return 1;
+        if (id == R.id.nav_quicknote) return 2;
+        if (id == R.id.nav_more) return 3;
+        return 0;
+    }
+
+    public int getCurrentPos() {
+        return _viewPager.getCurrentItem();
+    }
+
+    public String getPosTitle(final int pos) {
+        if (pos == 0) return getFileBrowserTitle();
+        if (pos == 1) return getString(R.string.todo);
+        if (pos == 2) return getString(R.string.quicknote);
+        if (pos == 3) return getString(R.string.more);
+        return "";
+    }
+
     @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onViewPagerPageSelected(int pos) {
-        Menu menu = _bottomNav.getMenu();
-        PermissionChecker permc = new PermissionChecker(this);
-        (_lastBottomMenuItem != null ? _lastBottomMenuItem : menu.getItem(0)).setChecked(false);
-        _lastBottomMenuItem = menu.getItem(pos).setChecked(true);
-        updateFabVisibility(pos == 0);
-        _toolbar.setTitle(new String[]{getFileBrowserTitle(), getString(R.string.todo), getString(R.string.quicknote), getString(R.string.more)}[pos]);
+        _bottomNav.getMenu().getItem(pos).setChecked(true);
 
-        if (pos > 0 && pos < 3) {
-            permc.doIfExtStoragePermissionGranted(); // cannot prevent bottom tab selection
+        updateFabVisibility(pos == tabIdToPos(R.id.nav_notebook));
+
+        setMainTitle(getPosTitle(pos));
+
+        if (pos != tabIdToPos(R.id.nav_notebook)) {
+            restoreDefaultToolbar();
+        }
+
+        if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
+            // cannot prevent bottom tab selection
+            new PermissionChecker(this).doIfExtStoragePermissionGranted();
         }
     }
 
@@ -422,7 +406,9 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
-                        _toolbar.setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
+                        if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
+                            _toolbar.setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
+                        }
                         invalidateOptionsMenu();
                     }
                 }
