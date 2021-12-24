@@ -161,11 +161,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         setSupportActionBar(_toolbar);
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowTitleEnabled(false);
-        }
+
         _toolbar.setOnClickListener(this::onToolbarTitleClicked);
 
         _fragManager = getSupportFragmentManager();
@@ -283,7 +279,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
             String reqPath = (reqFile != null) ? reqFile.getPath() : "";
-            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getPath());
+            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getDocument().getPath());
         }
 
         if (!sameDocumentRequested) {
@@ -369,7 +365,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     public void setDocument(Document document) {
         _document = document;
-        _toolbarTitleText.setText(_document.getTitle());
+        setDocumentTitle(_document.getTitle());
     }
 
     private void onToolbarTitleClicked(View v) {

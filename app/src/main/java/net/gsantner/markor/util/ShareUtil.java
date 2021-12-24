@@ -34,7 +34,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
-        if (document != null && document.getFile() != null && !TextUtils.isEmpty(document.getTitle())) {
+        if (document != null && !TextUtils.isEmpty(document.getTitle())) {
             Intent shortcutIntent = new Intent(_context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setData(Uri.fromFile(document.getFile()));
             super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
