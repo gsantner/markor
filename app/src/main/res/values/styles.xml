@@ -27,6 +27,7 @@
         <item name="android:actionModeBackground">@color/primary_dark</item>
         <item name="actionModeBackground">@color/primary_dark</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -48,6 +49,7 @@
         <item name="android:actionModeBackground">@color/primary_dark</item>
         <item name="actionModeBackground">@color/primary_dark</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
     </style>
 
 
@@ -70,5 +72,14 @@
     </style>
 
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- reduced spacing -->
+    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="android:minWidth">0dip</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
+        <item name="android:paddingStart">8dip</item>
+        <item name="android:paddingEnd">8dip</item>
+    </style>
 
 </resources>

@@ -98,8 +98,7 @@
         android:id="@+id/action_save"
         android:icon="@drawable/ic_save_black_24dp"
         android:title="@string/save"
-        app:showAsAction="never" />
-
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/submenu_toggles"
