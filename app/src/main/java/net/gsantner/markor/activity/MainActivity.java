@@ -160,20 +160,11 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        AppSettings as = new AppSettings(this);
-        switch (item.getItemId()) {
-            case R.id.action_preview: {
-                final File f = _bottomNav.getSelectedItemId() == R.id.nav_quicknote ? as.getQuickNoteFile() : as.getTodoFile();
-                DocumentActivity.launch(MainActivity.this, f, false, true, null, null);
-                return true;
-            }
-            case R.id.action_settings: {
-                new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
-                return true;
-            }
+        if (item.getItemId() == R.id.action_settings) {
+            new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
+            return true;
         }
         return false;
-
     }
 
     @Override
