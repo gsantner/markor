@@ -97,7 +97,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(R.style.AppTheme_MarkorTheme);
+        setTheme(R.style.AppTheme_Unified);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);

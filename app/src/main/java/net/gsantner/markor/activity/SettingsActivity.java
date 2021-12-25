@@ -69,7 +69,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        setTheme(R.style.AppTheme_MarkorTheme);
+        setTheme(R.style.AppTheme_Unified);
         super.onCreate(b);
 
         /*

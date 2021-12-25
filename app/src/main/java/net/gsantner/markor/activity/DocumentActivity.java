@@ -147,7 +147,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(R.style.AppTheme_MarkorTheme);
+        setTheme(R.style.AppTheme_Unified);
         if (nextLaunchTransparentBg) {
             getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;
