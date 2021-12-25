@@ -44,7 +44,7 @@ public class FileSearchDialog {
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
 
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);

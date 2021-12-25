@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/primary_dark</color>
+    <color name="textActionBarColor">@color/lighter_grey</color>
+
+    <color name="background">#222222</color>
+    <color name="background_2">#424242</color>
+    <color name="primary_text">@color/white</color>
+    <color name="secondary_text">#9e9e9e</color>
+
+    <color name="primary__greyish">#282828</color>
+
+</resources>

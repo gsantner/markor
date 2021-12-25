@@ -92,10 +92,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     public RemoteViews getViewAt(int position) {
         RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
-        if (new AppSettings(_context).isDarkThemeEnabled())
-            rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.dark__primary_text));
-        else
-            rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.light__primary_text));
+        rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.primary_text));
         if (position < _widgetFilesList.length) {
             File file = _widgetFilesList[position];
             Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file).putExtra(Document.EXTRA_PATH_IS_FOLDER, file.isDirectory());

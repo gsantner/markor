@@ -82,7 +82,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getBackgroundColor() {
-        return isDarkThemeEnabled() ? rcolor(R.color.dark__background) : rcolor(R.color.light__background);
+        return rcolor(R.color.background);
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
@@ -593,13 +593,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         }*/
 
         boolean darkMode = isDarkThemeEnabled();
-        int defval = rcolor(darkMode ? R.color.dark_grey : R.color.light__background);
-        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, defval);
-
+        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, rcolor(R.color.background));
     }
 
     public int getEditorTextactionBarColor() {
-        return rcolor(isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.lighter_grey);
+        return rcolor(R.color.textActionBarColor);
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {

@@ -97,7 +97,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(R.style.AppTheme_MarkorTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
@@ -197,9 +197,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
-                ? R.color.dark__background : R.color.light__background);
-        _viewPager.getRootView().setBackgroundColor(color);
+        _viewPager.getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.background));
 
         if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

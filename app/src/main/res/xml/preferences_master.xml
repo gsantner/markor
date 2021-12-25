@@ -192,7 +192,7 @@
                 android:title="@string/basic_color_scheme">
 
                 <other.com.flask.colorpicker.ColorPickerPreference
-                    android:defaultValue="@color/light__background"
+                    android:defaultValue="@color/background"
                     android:icon="@drawable/ic_border_outer_black_24dp"
                     android:key="@string/pref_key__editor_basic_color_scheme__bg_light"
                     android:title="BG Light" />

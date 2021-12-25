@@ -11,8 +11,8 @@
 -->
 <resources>
     <color name="colorPrimary">@color/primary</color>
-    <color name="colorPrimaryDark">@color/primary_dark</color>
     <color name="colorAccent">@color/accent</color>
+    <color name="textActionBarColor">@color/background_2</color>
 
     <!-- Colors from Palette -->
     <color name="primary">#1E2135</color>
@@ -24,22 +24,15 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
     <!-- End colors from Palette -->
+
     <color name="primary__greyish">#343434</color>
-    <color name="primary_dark__greyish">#282828</color>
 
     <color name="accent_light">#FF9800</color>
     <color name="divider_2">#3d3d3d</color>
     <color name="default_link_color">#388E3C</color>
 
-    <color name="light__background">#eeeeee</color>
-    <color name="light__background_2">#f9f9f9</color>
-    <color name="light__primary_text">#212121</color>
-    <color name="light__secondary_text">#757575</color>
-
-    <color name="dark__background">#222222</color>
-    <color name="dark__background_2">#424242</color>
-    <color name="dark__primary_text">@color/white</color>
-    <color name="dark__secondary_text">#9e9e9e</color>
+    <color name="background">#eeeeee</color>
+    <color name="background_2">#f9f9f9</color>
 
     <color name="ic_launcher_background">#636363</color>
     <color name="white">#ffffffff</color>
@@ -48,7 +41,6 @@
     <color name="dark_grey">#ff212121</color>
     <color name="light_grey">#ffC0C0C0</color>
     <color name="lighter_grey">#ffE0E0E0</color>
-
 
     <color name="solarized_bg_dark">#002B36</color>
     <color name="solarized_bg_light">#FCF5E4</color>
@@ -59,7 +51,6 @@
     <color name="gruvbox_fg_light">#3C3836</color>
     <color name="green_dark">#00ff00</color>
     <color name="green_light">#00bb00</color>
-
 
     <color name="sepia_fg_light__bg_dark">#282828</color>
     <color name="sepia_bg_light__fg_dark">#EBDBB2</color>

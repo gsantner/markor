@@ -102,7 +102,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         _hlEditor.setText(sharedText);
-        _hlEditor.setBackgroundColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
+        _hlEditor.setBackgroundColor(ContextCompat.getColor(context, R.color.background_2));
         _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
@@ -191,8 +191,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         public Integer getIconTintColor() {
-            boolean dark = getAppSettings(getContext()).isDarkThemeEnabled();
-            return _cu.rcolor(dark ? R.color.dark__primary_text : R.color.light__primary_text);
+            return _cu.rcolor(R.color.primary_text);
         }
 
         public void setText(String text) {

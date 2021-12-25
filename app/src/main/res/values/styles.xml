@@ -10,48 +10,25 @@
 #########################################################*/
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+
+    <style name="AppTheme.Unified" parent="Theme.AppCompat.DayNight.DarkActionBar">
+
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
-
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:windowBackground">@color/dark__background</item>
-
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-
-        <item name="android:actionModeBackground">@color/primary_dark</item>
-        <item name="actionModeBackground">@color/primary_dark</item>
+        <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
         <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
-        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
-    </style>
-
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowDisablePreview">true</item>
-        <item name="android:windowBackground">@color/light__background</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="windowActionBarOverlay">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
-
-        <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-
         <item name="android:actionModeBackground">@color/primary_dark</item>
         <item name="actionModeBackground">@color/primary_dark</item>
-        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
-        <item name="android:actionButtonStyle">@style/ActionButtonStyle</item>
-    </style>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
 
+    </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
         <item name="preferenceCategoryStyle">@style/AppTheme.PreferenceTheme.CategoryStyle</item>
@@ -74,7 +51,7 @@
     <style name="AppTheme.Light.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <!-- reduced spacing -->
-    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+    <style name="LessSpaceActionButtonStyle" parent="Widget.AppCompat.ActionButton">
         <item name="android:minWidth">0dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>

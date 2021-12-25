@@ -166,7 +166,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _shareUtil = new ShareUtil(activity);
 
         _webViewClient = new MarkorWebViewClient(activity);
-        _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), _appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
+        _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.background));
         _webView.setWebViewClient(_webViewClient);
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);

@@ -118,8 +118,7 @@ public class WrRenameDialog extends DialogFragment {
         EditText editText = root.findViewById(R.id.new_name);
         editText.requestFocus();
         editText.setText(file.getName());
-        editText.setTextColor(ContextCompat.getColor(root.getContext(),
-                darkTheme ? R.color.dark__primary_text : R.color.light__primary_text));
+        editText.setTextColor(ContextCompat.getColor(root.getContext(), R.color.primary_text));
 
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), null);
         dialogBuilder.setNegativeButton(getString(R.string.cancel), null);

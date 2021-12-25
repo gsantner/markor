@@ -123,11 +123,12 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
     }
 
     public static void handleWidgetScheme(Context context, RemoteViews remoteViews, Boolean enabled) {
-        if (enabled) {
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
-        } else {
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
-        }
+        // TODO - use indirection to fix this
+        remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.background));
+        // if (enabled) {
+        // } else {
+        //     remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
+        // }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         appWidgetManager.updateAppWidget(new ComponentName(context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
     }

@@ -69,13 +69,15 @@ public class SettingsActivity extends MarkorBaseActivity {
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        setTheme(R.style.AppTheme_MarkorTheme);
         super.onCreate(b);
-/*
+
+        /*
         ActivityUtils au = new ActivityUtils(this);
         boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
         au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
-        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);*/
+        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
+        */
 
         // Load UI
         setContentView(R.layout.settings__activity);
@@ -83,7 +85,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         FontPreferenceCompat.additionalyCheckedFolder = new File(appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = contextUtils.rcolor(appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        iconColor = contextUtils.rcolor(R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -334,7 +336,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
                 case R.string.pref_key__editor_basic_color_scheme_markor: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.background);
                     break;
                 }
                 case R.string.pref_key__editor_basic_color_scheme_blackorwhite: {

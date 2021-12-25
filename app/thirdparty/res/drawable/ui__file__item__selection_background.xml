@@ -3,17 +3,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary_light" />
+            <solid android:color="@color/primary" />
         </shape>
     </item>
     <item android:state_activated="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary_light" />
+            <solid android:color="@color/primary" />
         </shape>
     </item>
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/primary_light" />
+            <solid android:color="@color/primary" />
         </shape>
     </item>
     <item>
