@@ -290,6 +290,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_sdcard">AppData (כרטיס זכרון)</string>
     <string name="internal_storage">אחסון פנימי</string>
     <string name="open_the_document_from_main_view">ניתן לפתוח את המסמך באמצעות הסרגל בתחתית המסך הראשי, מעיין הקבצים או התפריט. יש גם אפשרות להוסיף טקסט אשר שותף לתוך Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">תיקיית המחברת הינו מה שMarkor טוען לתוך מעיין הקבצים בפתיחה האפלקיציה. זו תיקיית הבית עבור הקבצים שלכם.</string>
     <string name="navigationbar_color">צבע שורת ניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
@@ -333,7 +334,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete_lines">מחיקת שורות</string>
     <string name="unordered_list">רשימה לא ממוספרת</string>
     <string name="ordered_list">רשימה ממוספרת</string>
-    <string name="check_list">רשימת משימות</string>
+    <string name="check_list">רשימת מטלות</string>
     <string name="open_link">פתח קישור</string>
     <string name="common_color_picker">בחירת צבע</string>
     <string name="date_and_time">תאריך ושעה</string>
@@ -356,7 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">צבע קישור</string>
     <string name="add_context">הוספת קונטקסט</string>
     <string name="add_project">הוספת פרוייקט</string>
-    <string name="archive_completed_tasks">העבר משימות שבוצעו לארכיון</string>
+    <string name="archive_completed_tasks">העבר מטלות שבוצעו לארכיון</string>
     <string name="sort_alphabetically">מיין לפי</string>
     <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
     <string name="choose_format">בחר פורמאט</string>
@@ -364,7 +365,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">חזרה</string>
     <string name="expand_collapse">הרחב/קפל</string>
     <string name="essential">חיוני</string>
-    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למשימות חדשות</string>
+    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למטלות חדשות</string>
     <string name="action_order">סידור פעולות</string>
     <string name="toggle_action_visibility">הצג או הסתר פעולה</string>
     <string name="load_default_settings">טען הגדרות ברירת מחדל</string>
@@ -409,6 +410,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="ignore_list">רשימת התעלמות</string>
     <string name="do_not_search_specified_files_and_folders">אל תחפש בקצבים או תיקיות הבאים.\nהשתמשו בשורה חדשה להפרדה.\nהשתמשו בגרשיים לציין שמות תיקייה מדוייקים: ״טסט״.\nאו השתמשו בביטוי רגולרי ^[.].*\'\nדוגמאות: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
+    <string name="case_sensitive">רגישות לאותיות גדולות וקטנות</string>
     <string name="stop_search_after_first_match">עצור חיפוש לאחר התאמה רשאונה</string>
     <string name="regex_can_not_be_compiled">ביטוי רגולרי לא תקין</string>
     <string name="keep_both">לשמור את שניהם</string>
@@ -425,7 +427,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="browse_by_context">עיין לפי קונטקסט</string>
     <string name="insert_project">הזן פרוייקטים</string>
     <string name="insert_context">הזן קונטקסטים</string>
-    <string name="browse_todo">עיין ברשימת משימות</string>
+    <string name="browse_todo">עיין ברשימת מטלות</string>
     <string name="browse_by_priority">עיין לפי עדיפות</string>
     <string name="browse_by_due_date">עיין לפי תאריך גמר</string>
     <string name="due_overdue">באיחור</string>
@@ -436,5 +438,6 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="match_all">התאם לכל</string>
     <string name="dynamic_notebook_root_links">חיפוש דינמי לשורש המחברת</string>
     <string name="search_dynamically_for_notebook_root">על מנת לעקוב אחר קישורי ויקי, יש לחפש בצורה דינמית בקובץ הnotebook.zim בכדי לזהות את תיקיית השורש עבור אותה מחברת. סמן את זה במידה ואתם משתמשים ביותר ממחברת zim אחת או במידה ותיקיית המחברות המוגדרת באפליקציה אינה תואמת למחברת הzim שלכם.</string>
+    <string name="share_into_format_prefix_for_text_shared">פורמאט/תחילית עבור טקסט ששותף לתוך Markor. עוקב אחר חוקי SimpleDateFormat של אנדרויד.\n\nהשתמשו ב\'%s\' (תחום בגרשיים בודדים) למקם את הטקטס המשותף. אם לא מצוין, הטקסט המשותף מצורף בסוף והפורמאט משמש בתור תחילית בלבד.</string>
     <string name="share_into_format">נוסח עבור שיתוף לתוך</string>
 </resources>
