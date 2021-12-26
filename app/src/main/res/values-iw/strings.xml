@@ -388,6 +388,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="restore_settings">שחזור הגדרות מגיבוי</string>
     <string name="failed_to_create_backup">ארעה תקלה ביצירת הגיבוי</string>
     <string name="export_settings_to_json_file">ייצא הגדרות לקובץ json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ייבא הגדרות מקובץ json גיבוי. במקרה של הצלחה, האפליקציה מאותחלת.</string>
     <string name="max_search_depth">עומק חיפוש</string>
     <string name="ignore_list">רשימת התעלמות</string>
     <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
