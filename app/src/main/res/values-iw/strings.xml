@@ -313,11 +313,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">שליחה לוג לפטרון בעיות</string>
     <string name="print_pdf">הדפסה / PDF</string>
     <string name="bigger_headings">כותרות מוגדלות</string>
+    <string name="increase_text_size_of_headings_according_to_level">הגדל טקסט של כותרות בהתאם לדרגתם (# h1, ## h2. ### h3…)</string>
     <string name="current">נוכחי</string>
     <string name="record_audio">הקלט שמע</string>
     <string name="attach">צרף</string>
     <string name="copy_file">העתק קובץ</string>
     <string name="page">עמוד</string>
+    <string name="experimental_features">פיצ׳רים נסיוניים</string>
     <string name="tools">כלים</string>
     <string name="reading">קריאה</string>
     <string name="read">קרא</string>
@@ -390,6 +392,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="replace_once">החלף (1)</string>
     <string name="replace_all">החלף הכל</string>
     <string name="matches">התאמות</string>
+    <string name="search_replace_pattern_error_message">שגיאות חיפוש או החלפה.</string>
     <string name="backup_settings">גיבוי הגדרות</string>
     <string name="restore_settings">שחזור הגדרות מגיבוי</string>
     <string name="failed_to_create_backup">ארעה תקלה ביצירת הגיבוי</string>
