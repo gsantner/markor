@@ -76,8 +76,7 @@ public class FileInfoDialog extends DialogFragment {
         View root;
         AlertDialog.Builder dialogBuilder;
         AppSettings appSettings = new AppSettings(inflater.getContext());
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.isDarkThemeEnabled() ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.getDialogLayout());
         root = inflater.inflate(R.layout.file_info_dialog, null);
 
         dialogBuilder.setView(root);

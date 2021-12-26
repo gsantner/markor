@@ -16,6 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme.Unified"
     tools:context="net.gsantner.markor.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout

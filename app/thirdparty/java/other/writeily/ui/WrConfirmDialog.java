@@ -56,9 +56,7 @@ public class WrConfirmDialog extends DialogFragment {
         _data = getArguments().getSerializable(EXTRA_DATA);
 
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        dialogBuilder = new AlertDialog.Builder(getActivity(), AppSettings.get().getDialogLayout());
 
         dialogBuilder.setTitle(title);
         if (!TextUtils.isEmpty(message)) {

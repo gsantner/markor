@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/name"
+        android:tint="@color/textActionIconColor"
         android:src="@drawable/ic_format_indent_increase_black_24dp" />
 
     <TextView
@@ -50,5 +51,6 @@
         android:alpha="0.3"
         android:contentDescription="@string/drag"
         android:maxHeight="32dp"
+        android:tint="@color/textActionIconColor"
         android:src="@drawable/ic_reorder_black_24dp" />
 </RelativeLayout>

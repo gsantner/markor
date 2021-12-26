@@ -44,7 +44,7 @@ public class FileSearchResultSelectorDialog {
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
         final AppSettings appSettings = new AppSettings(activity);
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.getDialogLayout());
 
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);

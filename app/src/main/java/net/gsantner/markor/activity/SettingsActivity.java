@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
@@ -69,7 +70,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        setTheme(R.style.AppTheme_Unified);
         super.onCreate(b);
 
         /*
@@ -233,12 +233,12 @@ public class SettingsActivity extends MarkorBaseActivity {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
+                _as.applyAppTheme();
                 // Handling widget color scheme
                 WrMarkorWidgetProvider.handleWidgetScheme(
                         getContext(),
                         new RemoteViews(context.getPackageName(), R.layout.widget_layout),
-                        new AppSettings(context).isDarkThemeEnabled());
-                _as.setRecreateMainRequired(true);
+                        _as.isDarkThemeEnabled());
                 getActivity().finish();
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;
@@ -342,12 +342,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__editor_basic_color_scheme_blackorwhite: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.black);
                     _as.setEditorBasicColor(false, R.color.black, R.color.white);
-                    break;
-                }
-                case R.string.pref_key__editor_basic_color_scheme_amoled: {
-                    _as.setEditorBasicColor(true, R.color.white, R.color.black);
-                    _as.setEditorBasicColor(false, R.color.black, R.color.white);
-                    _as.setDarkThemeEnabled(true);
                     break;
                 }
                 case R.string.pref_key__editor_basic_color_scheme_solarized: {

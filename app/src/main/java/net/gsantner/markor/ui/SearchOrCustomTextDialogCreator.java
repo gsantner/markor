@@ -37,7 +37,6 @@ import android.widget.Toast;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
-import net.gsantner.markor.format.todotxt.TodoTxtHighlighterColors;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.ui.fsearch.FileSearchDialog;
 import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
@@ -496,8 +495,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     private static Callback.a1<Spannable> getSttHighlighter(final Context context) {
-        final boolean isDarkTheme = new AppSettings(context).isDarkThemeEnabled();
-        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, new TodoTxtHighlighterColors(), isDarkTheme, null);
+        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, null);
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {
@@ -646,6 +644,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isDarkDialog = as.isDarkThemeEnabled();
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
-        dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);//0xffF57900;//0xffF57900;
+        dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
     }
 }

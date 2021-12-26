@@ -10,6 +10,7 @@
 package net.gsantner.markor;
 
 import android.app.Application;
+import android.content.res.Resources;
 
 public class App extends Application {
     // Make resources not marked as unused
@@ -22,15 +23,21 @@ public class App extends Application {
             R.string.tags,
     };
 
-    private volatile static App _app;
+    private static App _app;
+    private static Resources res;
 
     public static App get() {
         return _app;
+    }
+
+    public static Resources getResouces() {
+        return res;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         _app = this;
+        res =  getResources();
     }
 }

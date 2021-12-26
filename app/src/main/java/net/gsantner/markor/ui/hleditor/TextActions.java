@@ -271,9 +271,6 @@ public abstract class TextActions {
             });
         }
         btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
-
-        boolean isDarkTheme = AppSettings.get().isDarkThemeEnabled();
-        btn.setColorFilter(ContextCompat.getColor(_context, isDarkTheme ? android.R.color.white : R.color.grey));
         barLayout.addView(btn);
     }
 

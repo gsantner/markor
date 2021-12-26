@@ -107,9 +107,7 @@ public class WrRenameDialog extends DialogFragment {
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        dialogBuilder = new AlertDialog.Builder(getActivity(), AppSettings.get().getDialogLayout());
         root = inflater.inflate(R.layout.rename__dialog, null);
 
         dialogBuilder.setTitle(getResources().getString(R.string.rename));

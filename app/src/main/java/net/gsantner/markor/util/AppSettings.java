@@ -11,6 +11,7 @@ package net.gsantner.markor.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
@@ -19,6 +20,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatDelegate;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -61,24 +63,25 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return new AppSettings(App.get());
     }
 
-
-    public void setDarkThemeEnabled(boolean enabled) {
-        setString(R.string.pref_key__app_theme, enabled ? "dark" : "light");
-    }
-
     public boolean isDarkThemeEnabled() {
-        switch (getString(R.string.pref_key__app_theme, "light")) {
-            case "light": {
-                return false;
-            }
-            case "dark": {
-                return true;
-            }
-            case "auto":
-            default: {
-                return !isCurrentHourOfDayBetween(9, 17);
+        final int currentState = AppCompatDelegate.getDefaultNightMode();
+        if (currentState == AppCompatDelegate.MODE_NIGHT_YES) {
+            return true;
+        } else if (currentState == AppCompatDelegate.MODE_NIGHT_NO) {
+            return false;
+        } else {
+            switch (_context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    return true;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    return false;
             }
         }
+        return false;
+    }
+
+    public int getDialogLayout() {
+        return isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog;
     }
 
     public int getBackgroundColor() {
@@ -556,44 +559,24 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return true;//getBool(R.string.pref_key__editor_history_enabled3, true);
     }
 
-    public int getEditorBasicColorSchemeId() {
-        return 0;
-    }
-
     public int getEditorForegroundColor() {
-        /*switch (getEditorBasicColorSchemeId()) {
-            default:
-            case 0:
-                return rcolor(darkMode ? R.color.white : R.color.dark_grey);
-            case 1:
-                return rcolor(darkMode ? R.color.white : R.color.black);
-            case 2:
-                return rcolor(R.color.solarized_fg);
-            case 3:
-                return rcolor(R.color.solarized_fg);
-        }*/
-
-
-        boolean darkMode = isDarkThemeEnabled();
-        int defval = rcolor(darkMode ? R.color.white : R.color.dark_grey);
-        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light, defval);
+        return getInt(isDarkThemeEnabled() ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light, rcolor(R.color.primary_text));
     }
 
     public int getEditorBackgroundColor() {
-        /*switch (getEditorBasicColorSchemeId()) {
-            default:
-            case 0:
-                return rcolor(darkMode ? R.color.dark_grey : R.color.light__background);
-            case 1:
-                return rcolor(darkMode ? R.color.black : R.color.white);
-            case 2:
-                return rcolor(darkMode ? R.color.solarized_bg_dark : R.color.solarized_bg_light);
-            case 3:
-                return rcolor(darkMode ? R.color.solarized_bg_dark : R.color.solarized_bg_light);
-        }*/
+        return getInt(isDarkThemeEnabled() ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, rcolor(R.color.background));
+    }
 
-        boolean darkMode = isDarkThemeEnabled();
-        return getInt(darkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, rcolor(R.color.background));
+    public void applyAppTheme() {
+        final String val = getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto));
+        final int currentMode = AppCompatDelegate.getDefaultNightMode();
+        if (val.equals(_context.getString(R.string.app_theme_auto)) && currentMode != AppCompatDelegate.MODE_NIGHT_AUTO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        } else if (val.equals(_context.getString(R.string.app_theme_light)) && currentMode != AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (val.equals(_context.getString(R.string.app_theme_dark)) && currentMode != AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
     }
 
     public int getEditorTextactionBarColor() {

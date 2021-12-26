@@ -23,4 +23,5 @@
     android:paddingRight="12dp"
     android:paddingStart="12dp"
     android:paddingTop="8dp"
+    android:tint="@color/textActionIconColor"
     tools:ignore="ContentDescription" />

@@ -122,7 +122,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (isYes) {
             openFile.callback(true);
         } else if (isLikelyTextfile) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).getDialogLayout());
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
@@ -147,7 +147,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(R.style.AppTheme_Unified);
         if (nextLaunchTransparentBg) {
             getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;

@@ -103,7 +103,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         _hlEditor.setText(sharedText);
         _hlEditor.setBackgroundColor(ContextCompat.getColor(context, R.color.background_2));
-        _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
+        _hlEditor.setTextColor(ContextCompat.getColor(context, R.color.primary_text));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
