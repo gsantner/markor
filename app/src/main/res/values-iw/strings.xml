@@ -384,6 +384,10 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="replace_once">החלף (1)</string>
     <string name="replace_all">החלף הכל</string>
     <string name="matches">התאמות</string>
+    <string name="backup_settings">גיבוי הגדרות</string>
+    <string name="restore_settings">שחזור הגדרות מגיבוי</string>
+    <string name="failed_to_create_backup">ארעה תקלה ביצירת הגיבוי</string>
+    <string name="export_settings_to_json_file">ייצא הגדרות לקובץ json</string>
     <string name="max_search_depth">עומק חיפוש</string>
     <string name="ignore_list">רשימת התעלמות</string>
     <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
@@ -405,4 +409,13 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="browse_todo">עיין ברשימת משימות</string>
     <string name="browse_by_priority">עיין לפי עדיפות</string>
     <string name="browse_by_due_date">עיין לפי תאריך גמר</string>
+    <string name="due_overdue">באיחור</string>
+    <string name="due_today">להיום</string>
+    <string name="due_future">לעתיד</string>
+    <string name="completed">הושלמו</string>
+    <string name="match_any">התאם לפחות לאחד</string>
+    <string name="match_all">התאם לכל</string>
+    <string name="dynamic_notebook_root_links">חיפוש דינמי לשורש המחברת</string>
+    <string name="search_dynamically_for_notebook_root">על מנת לעקוב אחר קישורי ויקי, יש לחפש בצורה דינמית בקובץ הnotebook.zim בכדי לזהות את תיקיית השורש עבור אותה מחברת. סמן את זה במידה ואתם משתמשים ביותר ממחברת zim אחת או במידה ותיקיית המחברות המוגדרת באפליקציה אינה תואמת למחברת הzim שלכם.</string>
+    <string name="share_into_format">נוסח עבור שיתוף לתוך</string>
 </resources>
