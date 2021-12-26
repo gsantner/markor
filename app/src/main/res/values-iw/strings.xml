@@ -285,7 +285,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">החלק לשינוי המצב לעריכה או תצוגה (הפך מהמצב הנוכחי)</string>
     <string name="folder_first">תיקיות לפני קבצים</string>
     <string name="go_to">עבור אל</string>
+    <string name="appdata_public">AppData (ציבורי)</string>
+    <string name="appdata_private">AppData (פרטי)</string>
+    <string name="appdata_sdcard">AppData (כרטיס זכרון)</string>
     <string name="internal_storage">אחסון פנימי</string>
+    <string name="open_the_document_from_main_view">ניתן לפתוח את המסמך באמצעות הסרגל בתחתית המסך הראשי, מעיין הקבצים או התפריט. יש גם אפשרות להוסיף טקסט אשר שותף לתוך Markor.</string>
     <string name="navigationbar_color">צבע שורת ניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
@@ -372,7 +376,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 בכדי להגדיר סיסמא.</string>
     <string name="encrypt_file_content">הצפן קובץ</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">כשל בהצפנה קובץ. הקובץ לא נשמר.</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של מרקור?</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">סיסמא כבר מוגדרת. הגדרת סיסמא חדשה תדרוס את הקיימת והנכם עלולים לאבד גישה לקבצים במידה ולא תזכרו את הסיסמא.</string>
     <string name="code_block">תא קוד</string>
     <string name="add_completion_date">הוספת תאריך סיום</string>
