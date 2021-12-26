@@ -403,6 +403,7 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="search_in_content">חיפוש בתוכן</string>
     <string name="max_search_depth">עומק חיפוש</string>
     <string name="ignore_list">רשימת התעלמות</string>
+    <string name="do_not_search_specified_files_and_folders">אל תחפש בקצבים או תיקיות הבאים.\nהשתמשו בשורה חדשה להפרדה.\nהשתמשו בגרשיים לציין שמות תיקייה מדוייקים: ״טסט״.\nאו השתמשו בביטוי רגולרי ^[.].*\'\nדוגמאות: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
     <string name="stop_search_after_first_match">עצור חיפוש לאחר התאמה רשאונה</string>
     <string name="regex_can_not_be_compiled">ביטוי רגולרי לא תקין</string>
