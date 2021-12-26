@@ -286,6 +286,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">תיקיות לפני קבצים</string>
     <string name="go_to">עבור אל</string>
     <string name="internal_storage">אחסון פנימי</string>
+    <string name="navigationbar_color">צבע שורת ניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
     <string name="view">הצג</string>
@@ -389,9 +390,13 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="failed_to_create_backup">ארעה תקלה ביצירת הגיבוי</string>
     <string name="export_settings_to_json_file">ייצא הגדרות לקובץ json</string>
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ייבא הגדרות מקובץ json גיבוי. במקרה של הצלחה, האפליקציה מאותחלת.</string>
+    <string name="failed_to_restore_settings_from_backup">ארעה שגיאה בשחזור הגדרות מגיבוי</string>
+    <string name="newline_is_new_paragraph">שורה חדשה תיצור פסקה חדשה</string>
+    <string name="search_in_content">חיפוש בתוכן</string>
     <string name="max_search_depth">עומק חיפוש</string>
     <string name="ignore_list">רשימת התעלמות</string>
     <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
+    <string name="stop_search_after_first_match">עצור חיפוש לאחר התאמה רשאונה</string>
     <string name="regex_can_not_be_compiled">ביטוי רגולרי לא תקין</string>
     <string name="keep_both">לשמור את שניהם</string>
     <string name="skip">דלג</string>
