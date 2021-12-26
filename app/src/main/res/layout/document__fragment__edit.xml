@@ -55,9 +55,9 @@
 
         <LinearLayout
             android:id="@+id/document__fragment__edit__text_actions_bar"
-            android:backgroundTint="@color/textActionBarColor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/textActionBarColor"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
