@@ -11,15 +11,19 @@
 -->
 <resources>
     <string-array name="pref_arrdisp__app_themes" translatable="false">
-        <item translatable="false">@string/auto</item>
+        <item translatable="false">System</item>
+        <item translatable="false">Auto</item>
+        <item translatable="false">Auto (compat)</item>
         <item translatable="false">@string/light</item>
         <item translatable="false">@string/dark</item>
     </string-array>
 
     <string-array name="pref_arrkeys__app_themes" translatable="false">
-        <item translatable="false">@string/app_theme_auto</item>
-        <item translatable="false">@string/app_theme_light</item>
-        <item translatable="false">@string/app_theme_dark</item>
+        <item translatable="false">system</item>
+        <item translatable="false">auto</item>
+        <item translatable="false">autocompat</item>
+        <item translatable="false">light</item>
+        <item translatable="false">dark</item>
     </string-array>
 
     <string-array name="pref_arrdisp__editor_basic_color_schemes" translatable="false">

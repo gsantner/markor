@@ -27,6 +27,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableString;
@@ -38,6 +39,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.util.List;
 
@@ -343,5 +346,25 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         } catch (Exception ignored) {
         }
         return this;
+    }
+
+    /**
+     * Set Android day-night theme
+     * @param pref one out of system (daynight toggle), auto (daynight hour), autocompat (hour 5-17), light (fixed), dark (fixed)
+     */
+    public static void applyDayNightTheme(final String pref){
+        final int curDNmode = AppCompatDelegate.getDefaultNightMode();
+        final boolean prefLight = "light".equals(pref) || ("autocompat".equals(pref) && SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+        final boolean prefDark = "dark".equals(pref) || ("autocompat".equals(pref) && !SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+
+        if (prefLight && curDNmode != AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (prefDark && curDNmode != AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if ("system".equals(pref) && curDNmode != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if ("auto".equals(pref) && curDNmode != AppCompatDelegate.MODE_NIGHT_AUTO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        }
     }
 }

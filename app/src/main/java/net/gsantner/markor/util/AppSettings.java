@@ -568,15 +568,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void applyAppTheme() {
-        final String val = getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto));
-        final int currentMode = AppCompatDelegate.getDefaultNightMode();
-        if (val.equals(_context.getString(R.string.app_theme_auto)) && currentMode != AppCompatDelegate.MODE_NIGHT_AUTO) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-        } else if (val.equals(_context.getString(R.string.app_theme_light)) && currentMode != AppCompatDelegate.MODE_NIGHT_NO) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (val.equals(_context.getString(R.string.app_theme_dark)) && currentMode != AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
+        ActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto)));
     }
 
     public int getEditorTextactionBarColor() {
