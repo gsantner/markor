@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">צור פתק</string>
     <string name="special_documents" needed="false">מסמכים מיוחדים</string>
     <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
+    <string name="disallow_screenshots">חסום צילומי מסך</string>
     <string name="back_to_previous_folder" needed="false">חזרה לתיקיה הקודמת</string>
     <string name="app_settings" needed="false">הגדרות אפליקציה</string>
     <string name="editor_settings" needed="false">הגדרות העורך</string>
@@ -156,6 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
     <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
     <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
+    <string name="append_contexts_and_projects_on_end_of_task">הוסף קונטקסטים ופרויקטים לסוף מטלה בעת שימוש בפעולת הטקסט המתאימה</string>
     <string name="rtl_rendering">תצוגת ימין-לשמאל</string>
     <string name="highlight_line_ending">הדגש סיום שורה</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">הדגש רווחים בסוף שורות המכילות שניים או יותר רווחים</string>
