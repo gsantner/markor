@@ -291,6 +291,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">אחסון פנימי</string>
     <string name="open_the_document_from_main_view">ניתן לפתוח את המסמך באמצעות הסרגל בתחתית המסך הראשי, מעיין הקבצים או התפריט. יש גם אפשרות להוסיף טקסט אשר שותף לתוך Markor.</string>
     <string name="notebook_is_the_home_of_your_files">תיקיית המחברת הינו מה שMarkor טוען לתוך מעיין הקבצים בפתיחה האפלקיציה. זו תיקיית הבית עבור הקבצים שלכם.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">הפתק המהיר הינו הדרך המהירה ביותר לרשום דברים. זהו קובץ בפורמאט Markdown עם מיקום ברירת המחדל &lt;Notebook/QuickNote.md&gt;, הנכם יכולים להגדיר מיקום שונה בהגדרות.</string>
+    <string name="todo_is_the_easiest_way_">נהלו את משימותיכם באמצעות רשימת מטלות. זהו קובץ בפורמאט todo.txt עם מיקום ברירת המחדל &lt;Notebook/todo.txt&gt;, הנכם יכולים להגדיר מיקום שונה בהגדרות.</string>
     <string name="navigationbar_color">צבע שורת ניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
