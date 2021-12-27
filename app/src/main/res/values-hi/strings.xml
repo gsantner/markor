@@ -163,9 +163,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">विवरण</string>
     <string name="edit_picture">चित्र संपादित करें</string>
     <string name="math">गणित</string>
+    <string name="table_of_contents">विषय-सूची</string>
     <string name="miscellaneous">कई तरह का</string>
+    <string name="no_calendar_app_is_installed">कोई कैलेंडर ऐप स्थापित नहीं है</string>
     <string name="background">पृष्ठभूमि</string>
     <string name="font">फ़ॉन्ट</string>
+    <string name="result">परिणाम</string>
     <string name="close">बंद</string>
     <string name="favourite">पसंदीदा</string>
 </resources>
