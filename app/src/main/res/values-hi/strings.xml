@@ -62,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">प्रविष्टियों का चयन करें</string>
     <string name="one_item_selected">एक आइटम चयनित</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d आइटम चयनित</string>
+    <string name="hide_statusbar_at_this_view">इस दृश्य पर स्टेटस बार छुपाएं</string>
     <string name="hide_statusbar">स्थिति पट्टी छुपाएँ</string>
     <string name="name">नाम</string>
     <string name="url_or_path">URL / पथ</string>
@@ -109,17 +110,38 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">संग्रह</string>
     <string name="add_task">कार्य जोड़ें</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">दस्तावेज़ को \"%s\" के रूप में लोड और सहेजा जाना चाहिए</string>
+    <string name="refresh">रिफ्रेश</string>
+    <string name="create_shortcut">शॉर्टकट बनाएँ</string>
     <string name="create_note" needed="false">नोट बनाएं</string>
     <string name="special_documents" needed="false">विशेष दस्तावेज</string>
+    <string name="keep_screen_on" needed="false">स्क्रीन चालू रखें</string>
     <string name="back_to_previous_folder" needed="false">पिछले फ़ोल्डर पर वापस जाएं</string>
     <string name="app_settings" needed="false">एप्लिकेशन सेटिंग</string>
     <string name="editor_settings" needed="false">संपादक सेटिंग्स</string>
     <string name="remember_last_folder_location_on_startup" needed="false">स्टार्टअप पर अंतिम फ़ोल्डर स्थान याद रखें</string>
     <string name="number_of_files_witharg" needed="false">फ़ाइलों की संख्या: %d</string>
     <string name="main_view">प्रमुख राय</string>
+    <string name="syntax_highlighting">सिंटेक्स हाईलाइट</string>
+    <string name="format">स्वरूप</string>
+    <string name="contexts">प्रसंग</string>
+    <string name="project">प्रोजेक्ट</string>
+    <string name="projects">परियोजनाएं</string>
     <string name="none">कुछ नहीं</string>
     <string name="other">अन्य</string>
+    <string name="empty_file">खाली फ़ाइल</string>
+    <string name="underline">रेखांकित</string>
+    <string name="use_monospace_for_code">Code के लिए एक Monospace फ़ॉन्ट का उपयोग करें</string>
     <string name="general">सामान्य</string>
+    <string name="resources">संसाधने</string>
+    <string name="line_spacing">पंक्ति अंतराल</string>
+    <string name="vertical_alignment">लंबवत संरेखण</string>
+    <string name="horizontal_alignment">क्षैतिज संरेखण</string>
+    <string name="left">बाएँ</string>
+    <string name="right">दाएँ</string>
+    <string name="top">ऊपर</string>
+    <string name="bottom">निचे</string>
+    <string name="center">मध्य</string>
+    <string name="clipboard">क्लिपबोर्ड</string>
     <string name="open_source_licenses">खुला स्रोत लाइसेंस</string>
     <string name="rate_this_app">इस ऐप्लिकेशन को रेट करे</string>
     <string name="translate">अनुवाद करें</string>
@@ -130,10 +152,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">इस ऐप का अन्य भाषाओं में अनुवाद करें</string>
     <string name="source_code">सोर्स कोड</string>
     <string name="project_license">परियोजना लाइसेंस</string>
+    <string name="descending">घटते क्रम में</string>
+    <string name="ascending">बढ़ते क्रम में</string>
     <string name="location">स्थान</string>
+    <string name="directory">निर्देशिका</string>
+    <string name="recently_viewed_documents">अभी देखे डाक्यूमेंट्स</string>
+    <string name="details">विवरण</string>
+    <string name="calendar">पंचांग</string>
     <string name="error_picture_selection">कोई चित्र नहीं चुना गया था</string>
     <string name="description">विवरण</string>
     <string name="edit_picture">चित्र संपादित करें</string>
+    <string name="math">गणित</string>
     <string name="miscellaneous">कई तरह का</string>
     <string name="background">पृष्ठभूमि</string>
     <string name="font">फ़ॉन्ट</string>
