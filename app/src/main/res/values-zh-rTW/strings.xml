@@ -263,9 +263,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
     <string name="multiple_windows">多重視窗</string>
     <string name="font">字體</string>
+    <string name="open_new_documents_always_in_new_window">使用您裝置上的\"最近的\"鍵以切換成總是在分別的視窗開啟文件。</string>
     <string name="enter_or_select_format">輸入或選取格式</string>
     <string name="pick_date">選擇日期</string>
     <string name="pick_time">選擇時間</string>
+    <string name="get_format_instead_date_or_time">取代日期或時間的格式</string>
     <string name="always_use_current_date_and_time">永遠使用實際時間</string>
     <string name="result">結果</string>
     <string name="just_time">僅時間</string>
