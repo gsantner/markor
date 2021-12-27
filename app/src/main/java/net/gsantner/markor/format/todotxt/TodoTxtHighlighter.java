@@ -68,15 +68,13 @@ public class TodoTxtHighlighter extends Highlighter {
             _profiler.start(true, "Todo.Txt Highlighting");
             generalHighlightRun(spannable);
             _profiler.restart("Paragraph top padding");
-            createParagraphStyleSpanForMatches(spannable, LINE_OF_TEXT,
-                    (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
+            createSpanForMatches(spannable, LINE_OF_TEXT, (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
 
             basicTodoTxtHighlights(spannable, false, _appSettings.isDarkThemeEnabled(), _profiler);
 
             // Paragraph divider
             _profiler.restart("Paragraph divider");
-            createParagraphStyleSpanForMatches(spannable, LINE_OF_TEXT,
-                    (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(_hlEditor.getCurrentTextColor(), 0.8f, _hlEditor.getTextSize() / 2f));
+            createSpanForMatches(spannable, LINE_OF_TEXT, (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(_hlEditor.getCurrentTextColor(), 0.8f, _hlEditor.getTextSize() / 2f));
 
             // Fix for paragraph padding and horizontal rule
             /*

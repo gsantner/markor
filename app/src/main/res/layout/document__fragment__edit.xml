@@ -76,6 +76,7 @@
 
     <net.gsantner.markor.ui.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />

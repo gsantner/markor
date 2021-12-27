@@ -197,8 +197,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        _viewPager.getRootView().setBackgroundColor(ContextCompat.getColor(this, R.color.background));
-
         if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } else {

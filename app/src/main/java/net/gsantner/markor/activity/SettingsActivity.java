@@ -131,11 +131,6 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
-        public Integer getIconTintColor() {
-            return iconColor;
-        }
-
-        @Override
         protected void onPreferenceChanged(SharedPreferences prefs, String key) {
             activityRetVal = RESULT.CHANGED;
         }

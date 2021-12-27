@@ -556,11 +556,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getEditorForegroundColor() {
-        return getInt(isDarkThemeEnabled() ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light, rcolor(R.color.primary_text));
+        return getInt(R.string.pref_key__editor_basic_color_scheme__fg, rcolor(R.color.primary_text));
     }
 
     public int getEditorBackgroundColor() {
-        return getInt(isDarkThemeEnabled() ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light, rcolor(R.color.background));
+        return getInt(R.string.pref_key__editor_basic_color_scheme__bg, rcolor(R.color.background));
     }
 
     public void applyAppTheme() {
