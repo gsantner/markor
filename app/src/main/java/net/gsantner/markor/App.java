@@ -11,6 +11,7 @@ package net.gsantner.markor;
 
 import android.app.Application;
 import android.content.res.Resources;
+import android.webkit.WebView;
 
 public class App extends Application {
     // Make resources not marked as unused
@@ -39,5 +40,14 @@ public class App extends Application {
         super.onCreate();
         _app = this;
         res =  getResources();
+        instantiateFakeWebviewColorFix();
+    }
+
+    private void instantiateFakeWebviewColorFix() {
+        // Per https://stackoverflow.com/a/54191884/4717438
+        try {
+            new WebView(getApplicationContext());
+        } catch (Exception ignored) {
+        }
     }
 }

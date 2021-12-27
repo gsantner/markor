@@ -64,7 +64,6 @@ public class ActionOrderActivity extends MarkorBaseActivity {
         final AppSettings appSettings = new AppSettings(this);
         final ActivityUtils contextUtils = new ActivityUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        appSettings.applyAppTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_order_activity);
 

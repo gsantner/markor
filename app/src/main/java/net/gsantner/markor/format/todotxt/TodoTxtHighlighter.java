@@ -133,12 +133,12 @@ public class TodoTxtHighlighter extends Highlighter {
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_F, COLOR_PRIORITY_F);
 
             profiler.restart("Date Color");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CREATION_DATE, isDarkTheme ? COLOR_DATE_LIGHT : COLOR_DATE_DARK, 1);
+            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CREATION_DATE, isDarkTheme ? COLOR_DATE_DARK : COLOR_DATE_LIGHT, 1);
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             profiler.restart("Done BgColor");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, isDarkTheme ? COLOR_DONE_LIGHT : COLOR_DONE_DARK);
+            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, isDarkTheme ? COLOR_DONE_DARK : COLOR_DONE_LIGHT);
             profiler.restart("done Strike");
             createSpanWithStrikeThroughForMatches(spannable, TodoTxtTask.PATTERN_DONE);
 

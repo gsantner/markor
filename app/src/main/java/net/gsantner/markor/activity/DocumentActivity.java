@@ -136,14 +136,12 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        _appSettings = new AppSettings(this);
-        _appSettings.applyAppTheme();
-
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
         }
         AppSettings.clearDebugLog();
+        _appSettings = new AppSettings(this);
         _contextUtils = new ActivityUtils(this);
         _contextUtils.setAppLanguage(_appSettings.getLanguage());
         if (_appSettings.isEditorStatusBarHidden()) {
