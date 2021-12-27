@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
+    <string name="disallow_screenshots">ekran alıntılarına izin verme</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -310,6 +311,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
+    <string name="recursive_search_in_current_directory">geçerl dizinde tekrarlayan arama</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
     <string name="template">Şablon</string>
@@ -396,6 +398,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Yedek json dosyasından ayarları içe aktarın. Başarılı olursa, uygulama yeniden başlatılır.</string>
     <string name="failed_to_restore_settings_from_backup">Yedeklemeden ayarlar geri yüklenemedi</string>
     <string name="newline_is_new_paragraph">Yenisatır = yeni paragraf</string>
+    <string name="search_in_content">içerikte arama yap</string>
+    <string name="max_search_depth">Derinlemesine arama yap</string>
+    <string name="ignore_list">Listeyi yok say</string>
     <string name="keep_both">Her ikisini de koru</string>
     <string name="skip">Atla</string>
     <string name="overwrite">Üzerine yaz</string>
