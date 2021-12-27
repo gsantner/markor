@@ -299,6 +299,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">程式啟動時跳轉資料夾</string>
     <string name="tab_width">製表符寬度</string>
     <string name="reload">重新下載</string>
+    <string name="wrap_words">文字折行</string>
     <string name="always_open_with_this_app">永遠使用此應用程式開啟</string>
     <string name="template">模板</string>
     <string name="send_debug_log">發送偵錯日誌</string>
