@@ -34,7 +34,7 @@ public class AttachImageOrLinkDialog {
 
     @SuppressWarnings("RedundantCast")
     public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
-        final AppSettings _appSettings = new AppSettings(activity.getApplicationContext());
+        final AppSettings _appSettings = new AppSettings(activity);
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(activity);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);

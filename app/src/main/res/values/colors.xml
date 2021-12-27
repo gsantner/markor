@@ -18,8 +18,6 @@
     <color name="background_2">@color/light__background_2</color>
     <color name="textActionBarColor">@color/lighter_grey</color>
     <color name="textActionIconColor">@color/grey</color>
-    <color name="todo_txt__done">@color/todo_txt__done_light</color>
-    <color name="todo_txt__date">@color/todo_txt__date_light</color>
 
     <!-- Named colors differing common to day and night -->
     <color name="colorAccent">@color/accent</color>
@@ -73,11 +71,5 @@
     <color name="nord_fg_light">#2E3440</color>
 
     <color name="link">#ff1ea3fd</color>;
-
-    <color name="todo_txt__done_dark">#999d9d9d</color>
-    <color name="todo_txt__done_light">#993d3d3d</color>
-
-    <color name="todo_txt__date_dark">@color/todo_txt__done_dark</color>
-    <color name="todo_txt__date_light">#cc6d6d6d</color>
 
 </resources>

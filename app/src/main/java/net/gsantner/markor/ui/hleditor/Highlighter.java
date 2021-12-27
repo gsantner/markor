@@ -79,7 +79,7 @@ public abstract class Highlighter {
 
     public Highlighter(HighlightingEditor editor, Document document) {
         _hlEditor = editor;
-        _appSettings = new AppSettings(_hlEditor.getContext().getApplicationContext());
+        _appSettings = new AppSettings(_hlEditor.getContext());
 
         _preCalcTabWidth = (int) (_appSettings.getTabWidth() <= 1 ? -1 : editor.getPaint().measureText(" ") * _appSettings.getTabWidth());
         _highlightHexcolor = _appSettings.isHighlightingHexColorEnabled();

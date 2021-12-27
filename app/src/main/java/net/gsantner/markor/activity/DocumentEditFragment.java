@@ -605,7 +605,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
-        fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
 
     private void initDocState() {

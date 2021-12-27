@@ -10,6 +10,7 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -91,7 +92,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         cu.setAppLanguage(as.getLanguage());
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
-        view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
             _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
@@ -288,9 +288,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @SuppressLint("NonConstantResourceId")
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
-            AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
-            PermissionChecker permc = new PermissionChecker(getActivity());
-            ShareUtil shu = new ShareUtil(getContext());
+            final Activity activity = getActivity();
+            AppSettings appSettings = new AppSettings(activity);
+            PermissionChecker permc = new PermissionChecker(activity);
+            ShareUtil shu = new ShareUtil(activity);
             String tmps;
 
             boolean close = false;

@@ -99,7 +99,7 @@ public class SearchOrCustomTextDialogCreator {
 
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, Callback.a2<Integer, Boolean> callback) {
         final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        final AppSettings as = new AppSettings(activity.getApplicationContext());
+        final AppSettings as = new AppSettings(activity);
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
         final int lastUsedTableSize = as.getInt(PREF_LAST_USED_TABLE_SIZE, 3);
         final List<String> availableData = new ArrayList<>();
@@ -167,17 +167,17 @@ public class SearchOrCustomTextDialogCreator {
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
 
-        AppSettings appSettings = new AppSettings(activity.getApplicationContext());
-        String o_context = activity.getString(R.string.context);
-        String o_project = activity.getString(R.string.project);
-        String o_prio = activity.getString(R.string.priority);
-        String o_date = activity.getString(R.string.date);
-        String o_textline = activity.getString(R.string.text_lines);
-        String o_description = activity.getString(R.string.description);
-        String o_duedate = activity.getString(R.string.due_date);
-        String d_asc = " (" + activity.getString(R.string.ascending) + ")";
-        String d_desc = " (" + activity.getString(R.string.descending) + ")";
-        String optLastSelected = "showSttSortDialogue.last_selected";
+        final AppSettings appSettings = new AppSettings(activity);
+        final String o_context = activity.getString(R.string.context);
+        final String o_project = activity.getString(R.string.project);
+        final String o_prio = activity.getString(R.string.priority);
+        final String o_date = activity.getString(R.string.date);
+        final String o_textline = activity.getString(R.string.text_lines);
+        final String o_description = activity.getString(R.string.description);
+        final String o_duedate = activity.getString(R.string.due_date);
+        final String d_asc = " (" + activity.getString(R.string.ascending) + ")";
+        final String d_desc = " (" + activity.getString(R.string.descending) + ")";
+        final String optLastSelected = "showSttSortDialogue.last_selected";
 
         dopt.callback = arg1 -> {
             appSettings.setString(optLastSelected, arg1);
@@ -495,7 +495,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     private static Callback.a1<Spannable> getSttHighlighter(final Context context) {
-        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, null);
+        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, new AppSettings(context).isDarkThemeEnabled(),  null);
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {

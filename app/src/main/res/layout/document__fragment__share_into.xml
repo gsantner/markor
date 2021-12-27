@@ -16,9 +16,8 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:weightSum="100"
-    tools:background="@color/primary"
+    tools:background="@color/background"
     tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
-
 
     <ScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
@@ -31,7 +30,7 @@
             android:id="@+id/document__fragment__share_into__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/background"
             android:fontFamily="sans-serif-light"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"

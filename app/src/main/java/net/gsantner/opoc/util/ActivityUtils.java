@@ -353,17 +353,16 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
      * @param pref one out of system (daynight toggle), auto (daynight hour), autocompat (hour 5-17), light (fixed), dark (fixed)
      */
     public static void applyDayNightTheme(final String pref){
-        final int curDNmode = AppCompatDelegate.getDefaultNightMode();
         final boolean prefLight = "light".equals(pref) || ("autocompat".equals(pref) && SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
         final boolean prefDark = "dark".equals(pref) || ("autocompat".equals(pref) && !SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
 
-        if (prefLight && curDNmode != AppCompatDelegate.MODE_NIGHT_NO) {
+        if (prefLight) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (prefDark && curDNmode != AppCompatDelegate.MODE_NIGHT_YES) {
+        } else if (prefDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if ("system".equals(pref) && curDNmode != AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+        } else if ("system".equals(pref)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if ("auto".equals(pref) && curDNmode != AppCompatDelegate.MODE_NIGHT_AUTO) {
+        } else if ("auto".equals(pref)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         }
     }

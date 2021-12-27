@@ -34,8 +34,6 @@ public class FilesystemViewerCreator {
         ContextUtils cu = new ContextUtils(context);
         ShareUtil shareUtil = new ShareUtil(context);
         AppSettings appSettings = new AppSettings(context);
-        boolean titleLight = cu.shouldColorOnTopBeLight(cu.rcolor(R.color.primary));
-        boolean darkTheme = appSettings.isDarkThemeEnabled();
 
         if (listener != null) {
             opts.listener = listener;
@@ -56,10 +54,10 @@ public class FilesystemViewerCreator {
 
         opts.accentColor = R.color.accent;
         opts.primaryColor = R.color.primary;
-        opts.primaryTextColor = darkTheme ? R.color.dark__primary_text : R.color.light__primary_text;
-        opts.secondaryTextColor = darkTheme ? R.color.dark__secondary_text : R.color.light__secondary_text;
-        opts.backgroundColor = darkTheme ? R.color.dark__background : R.color.light__background;
-        opts.titleTextColor = titleLight ? R.color.dark__primary_text : R.color.light__primary_text;
+        opts.primaryTextColor = R.color.primary_text;
+        opts.secondaryTextColor = R.color.secondary_text;
+        opts.backgroundColor = R.color.background;
+        opts.titleTextColor = R.color.primary_text;
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 

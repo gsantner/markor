@@ -46,6 +46,11 @@ public class TodoTxtHighlighter extends Highlighter {
     private final static int COLOR_PRIORITY_E = 0xffEDD400;
     private final static int COLOR_PRIORITY_F = 0xff888A85;
 
+    private final static int COLOR_DONE_DARK = 0x999d9d9d;
+    private final static int COLOR_DONE_LIGHT = 0x993d3d3d;
+    private final static int COLOR_DATE_DARK = COLOR_DONE_DARK;
+    private final static int COLOR_DATE_LIGHT = 0xcc6d6d6d;
+
 
     public TodoTxtHighlighter(HighlightingEditor hlEditor, Document document) {
         super(hlEditor, document);
@@ -66,7 +71,7 @@ public class TodoTxtHighlighter extends Highlighter {
             createParagraphStyleSpanForMatches(spannable, LINE_OF_TEXT,
                     (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
 
-            basicTodoTxtHighlights(spannable, false,  _profiler);
+            basicTodoTxtHighlights(spannable, false, _appSettings.isDarkThemeEnabled(), _profiler);
 
             // Paragraph divider
             _profiler.restart("Paragraph divider");
@@ -90,7 +95,7 @@ public class TodoTxtHighlighter extends Highlighter {
         return spannable;
     }
 
-    public static Spannable basicTodoTxtHighlights(final Spannable spannable, final boolean clear, NanoProfiler profiler) {
+    public static Spannable basicTodoTxtHighlights(final Spannable spannable, final boolean clear, final boolean isDarkTheme, NanoProfiler profiler) {
         try {
             if (clear) {
                 clearSpans(spannable);
@@ -128,12 +133,12 @@ public class TodoTxtHighlighter extends Highlighter {
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_F, COLOR_PRIORITY_F);
 
             profiler.restart("Date Color");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CREATION_DATE, App.getResouces().getColor(R.color.todo_txt__date), 1);
+            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CREATION_DATE, isDarkTheme ? COLOR_DATE_LIGHT : COLOR_DATE_DARK, 1);
             createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
 
             // Strike out done tasks (apply no other to-do.txt span format afterwards)
             profiler.restart("Done BgColor");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, App.getResouces().getColor(R.color.todo_txt__done));
+            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, isDarkTheme ? COLOR_DONE_LIGHT : COLOR_DONE_DARK);
             profiler.restart("done Strike");
             createSpanWithStrikeThroughForMatches(spannable, TodoTxtTask.PATTERN_DONE);
 

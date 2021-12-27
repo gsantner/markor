@@ -383,7 +383,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     public FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
-            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(getApplicationContext(), false, new FilesystemViewerData.SelectionListenerAdapter() {
+            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(this, false, new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;

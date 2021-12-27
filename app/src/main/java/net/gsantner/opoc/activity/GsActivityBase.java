@@ -35,7 +35,7 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _savedInstanceState = savedInstanceState;
-        _appSettings = createAppSettingsInstance(getApplicationContext());
+        _appSettings = createAppSettingsInstance(this);
         _activityUtils = new ActivityUtils(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {

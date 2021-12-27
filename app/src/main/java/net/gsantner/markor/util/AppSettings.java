@@ -84,10 +84,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog;
     }
 
-    public int getBackgroundColor() {
-        return rcolor(R.color.background);
-    }
-
     public boolean isLoadLastDirectoryAtStartup() {
         return getBool(R.string.pref_key__load_last_directory_at_startup, false);
     }
@@ -569,10 +565,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void applyAppTheme() {
         ActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto)));
-    }
-
-    public int getEditorTextactionBarColor() {
-        return rcolor(R.color.textActionBarColor);
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {

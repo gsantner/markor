@@ -9,8 +9,6 @@
     <color name="background_2">@color/dark__background_2</color>
     <color name="textActionBarColor">@color/dark__background_2</color>
     <color name="textActionIconColor">@color/white</color>
-    <color name="todo_txt__done">@color/todo_txt__done_dark</color>
-    <color name="todo_txt__date">@color/todo_txt__date_dark</color>
 
     <!-- All values specified only in base colors.xml  -->
 
