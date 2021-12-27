@@ -27,7 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">फोल्डर बनाएं</string>
     <string name="create_new_document">नया दस्तावेज़ बनाएं</string>
     <string name="move">स्थान-परिवर्तन</string>
-    <string name="copy">कॉपी करें</string>
+    <string name="copy">प्रतिलिपि बनाएँ</string>
     <string name="info">जानकारी</string>
     <string name="file_folder_already_exists_please_use_a_different_name">फाइल या फोल्डर पहले से उप्ल्व्द उप्ल्व्द है! दूसरा नाम सोचे</string>
     <string name="import_from_device">डिवाइस से आयात करें</string>
@@ -69,7 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_link">लिंक सम्मिलित करें</string>
     <string name="insert_image">चित्र डालें</string>
     <string name="contributors">योगदानकर्ता</string>
-    <string name="save_location">स्थान संरक्षण</string>
+    <string name="save_location">सहेजने का स्थान</string>
     <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
     <string name="licenses">लाइसेंस</string>
     <string name="changelog">परिवर्तन खाता</string>
@@ -215,4 +215,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">फाइल कूटबद्ध करने के लिए कूटशब्द</string>
     <string name="code_block">कोड ब्लॉक</string>
     <string name="file_description_format">विवरण फॉर्मेट</string>
+    <string name="search_for">इसे खोजें</string>
+    <string name="replace_with">से बदलें</string>
+    <string name="matches">मिलता-जुलता</string>
+    <string name="due_overdue">अतिदेय</string>
+    <string name="due_today">आज ही देय</string>
+    <string name="completed">पूर्ण</string>
 </resources>
