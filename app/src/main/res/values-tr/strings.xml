@@ -401,6 +401,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">içerikte arama yap</string>
     <string name="max_search_depth">Derinlemesine arama yap</string>
     <string name="ignore_list">Listeyi yok say</string>
+    <string name="do_not_search_specified_files_and_folders">Belirtilen dosya ve dizinlerde arama yapma. \n Yeni satırı ayraç olarak kullan \n Alıntıları birebir dizin adı olarak kullan: \"Test\".\n Ya da Normal İfadeyi kullan.\'^[.].*\'\n Örneğin: ^\\..*\n\"test\"\n\"Test\"\n.*gizli.*\n.*YEDEK.*\n.*.ini</string>
+    <string name="case_sensitive">Büyük küçük harfe duyarlı</string>
+    <string name="stop_search_after_first_match">İlk eşleşmeden sonra aramayı durdur</string>
+    <string name="regex_can_not_be_compiled">Normal ifade sıralanamamaktadır</string>
     <string name="keep_both">Her ikisini de koru</string>
     <string name="skip">Atla</string>
     <string name="overwrite">Üzerine yaz</string>
@@ -410,4 +414,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' zaten %s içinde var</string>
     <string name="additional_contexts_and_projects">Ek bağlamlar ve projeler</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Boşlukla ayrılmış @bağlamları ve +projeleri girin. Bunlar her zaman todo.txt ekleme diyaloglarında görünecektir.</string>
+    <string name="infinite">Sonsuz</string>
+    <string name="browse_by_context">Bağlama göre araştır</string>
+    <string name="insert_project">Proje Ekle</string>
+    <string name="browse_todo">Görevleri incele</string>
+    <string name="browse_by_due_date">Bitiş tarihine göre göz gezdir</string>
+    <string name="due_overdue">Gecikmiş</string>
+    <string name="due_today">Süresi bugün dolanlar</string>
+    <string name="due_future">Süresi ileride dolanlar</string>
+    <string name="completed">Tamamlananlar</string>
+    <string name="match_any">Herhangi Birini Eşleştir</string>
+    <string name="match_all">Tümünü Eşleştir</string>
+    <string name="dynamic_notebook_root_links">Not defteri kaynağında dinamik arama yap</string>
+    <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
 </resources>
