@@ -21,6 +21,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
+    android:background="@color/background"
     tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded">
 
     <TextView
@@ -33,6 +34,7 @@
         android:gravity="center|start"
         android:minHeight="19sp"
         android:singleLine="true"
-        android:textColor="#f7504d54"
+        android:background="@color/background"
+        android:textColor="@color/primary_text"
         android:textSize="16sp" />
 </LinearLayout>

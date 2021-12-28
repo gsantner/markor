@@ -56,7 +56,6 @@
             android:textSize="13sp"
             tools:ignore="RtlHardcoded" />
 
-
         <Button
             android:id="@+id/widget_main"
             android:layout_width="40dp"
@@ -106,6 +105,7 @@
 
         <RelativeLayout
             android:id="@+id/widget_list_container"
+            android:background="@color/background_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_header">

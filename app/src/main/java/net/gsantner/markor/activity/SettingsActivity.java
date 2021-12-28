@@ -228,11 +228,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _as.applyAppTheme();
-                // Handling widget color scheme
-                WrMarkorWidgetProvider.handleWidgetScheme(
-                        getContext(),
-                        new RemoteViews(context.getPackageName(), R.layout.widget_layout),
-                        _as.isDarkThemeEnabled());
                 getActivity().finish();
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;

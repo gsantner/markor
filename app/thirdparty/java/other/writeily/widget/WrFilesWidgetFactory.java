@@ -30,12 +30,12 @@ import java.util.Arrays;
 
 public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private Context _context;
+    private final Context _context;
     private File[] _widgetFilesList = new File[0];
-    private int _appWidgetId;
-    private File _dir;
+    private final int _appWidgetId;
+    private final File _dir;
 
-    public WrFilesWidgetFactory(Context context, Intent intent) {
+    public WrFilesWidgetFactory(final Context context, final Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         _dir = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
@@ -70,12 +70,6 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             FilesystemViewerFragment.sortFolder(files);
         }
         _widgetFilesList = files.toArray(new File[files.size()]);
-
-        // Handling widget color scheme
-        WrMarkorWidgetProvider.handleWidgetScheme(
-                _context,
-                new RemoteViews(_context.getPackageName(), R.layout.widget_layout),
-                new AppSettings(_context).isDarkThemeEnabled());
     }
 
     @Override
@@ -89,10 +83,9 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     }
 
     @Override
-    public RemoteViews getViewAt(int position) {
-        RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
+    public RemoteViews getViewAt(final int position) {
+        final RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
-        rowView.setTextColor(R.id.widget_note_title, _context.getResources().getColor(R.color.primary_text));
         if (position < _widgetFilesList.length) {
             File file = _widgetFilesList[position];
             Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file).putExtra(Document.EXTRA_PATH_IS_FOLDER, file.isDirectory());

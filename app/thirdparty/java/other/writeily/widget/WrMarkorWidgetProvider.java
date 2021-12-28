@@ -53,12 +53,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        final int N = appWidgetIds.length;
-
         int requestCode = 0;
 
         // Perform this loop procedure for each App Widget that belongs to this provider
-        for (int appWidgetId : appWidgetIds) {
+        for (final int appWidgetId : appWidgetIds) {
             // Get the layout for the App Widget and attach an on-click listener to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
@@ -120,15 +118,5 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-    }
-
-    public static void handleWidgetScheme(Context context, RemoteViews remoteViews, Boolean enabled) {
-        if (enabled) {
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.dark__background));
-        } else {
-            remoteViews.setInt(R.id.widget_notes_list, "setBackgroundColor", context.getResources().getColor(R.color.light__background));
-        }
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        appWidgetManager.updateAppWidget(new ComponentName(context.getPackageName(), WrMarkorWidgetProvider.class.getName()), remoteViews);
     }
 }
