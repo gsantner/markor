@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">צור פתק</string>
     <string name="special_documents" needed="false">מסמכים מיוחדים</string>
     <string name="keep_screen_on" needed="false">השאר את המסך דולק</string>
+    <string name="disallow_screenshots">חסום צילומי מסך</string>
     <string name="back_to_previous_folder" needed="false">חזרה לתיקיה הקודמת</string>
     <string name="app_settings" needed="false">הגדרות אפליקציה</string>
     <string name="editor_settings" needed="false">הגדרות העורך</string>
@@ -156,10 +157,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">הכנס את התאריך הנוכחי בתחילת מטלה חדשה</string>
     <string name="tasks_with_todays_date">מטלות עם התאריך של היום</string>
     <string name="append_contexts_and_projects">הוסף הקשרים ופרויקטים</string>
+    <string name="append_contexts_and_projects_on_end_of_task">הוסף קונטקסטים ופרויקטים לסוף מטלה בעת שימוש בפעולת הטקסט המתאימה</string>
     <string name="rtl_rendering">תצוגת ימין-לשמאל</string>
     <string name="highlight_line_ending">הדגש סיום שורה</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">הדגש רווחים בסוף שורות המכילות שניים או יותר רווחים</string>
     <string name="use_monospace_for_code">השתמש בגופן monospace עבור קוד</string>
+    <string name="disable_code_block_highlight">מנע צביעה של גושי קוד</string>
+    <string name="auto_renumber_ordered_list">מספור מחדש אוטומטי של רשימות ממוספרות</string>
+    <string name="auto_renumber_ordered_list_slowdown">אפשרות זו עלולה להשפיע על ביצועי האפליקציה.</string>
     <string name="use_different_fonttype_slow_down">השתמש בגופנים מסוגים שונים. לשנות את זה דינאמית משפיע על ביצועי האפליקציה.</string>
     <string name="general">כללי</string>
     <string name="resources">מקורות</string>
@@ -178,8 +183,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_1_document">תחילת מסמך</string>
     <string name="key_pos_end_document">סוף מסמך</string>
     <string name="key_ctrl_a">בחר הכל (Ctrl+A)</string>
+    <string name="key_tab">מחולל טבלאות</string>
     <string name="start_on_bottom">התחל בתחתית</string>
     <string name="start_on_bottom_when_loading_document">בעת טעינת קובץ, מקם את הסמן בסופו</string>
+    <string name="unordered_list_character">סימן עבור רשימות לא ממוספרות</string>
+    <string name="character_to_start_items_of_unordered_list_with">באיזה תו להשתמש לסימון רשימות לא ממוספרות</string>
     <string name="unordered_list_char_dash">מקף (-)</string>
     <string name="unordered_list_char_asterisk">כוכבית (*)</string>
     <string name="unordered_list_char_plus">פלוס (+)</string>
@@ -277,13 +285,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="swipe_to_change_to_edit_or_view_mode">החלק לשינוי המצב לעריכה או תצוגה (הפך מהמצב הנוכחי)</string>
     <string name="folder_first">תיקיות לפני קבצים</string>
     <string name="go_to">עבור אל</string>
+    <string name="appdata_public">AppData (ציבורי)</string>
+    <string name="appdata_private">AppData (פרטי)</string>
+    <string name="appdata_sdcard">AppData (כרטיס זכרון)</string>
     <string name="internal_storage">אחסון פנימי</string>
+    <string name="open_the_document_from_main_view">ניתן לפתוח את המסמך באמצעות הסרגל בתחתית המסך הראשי, מעיין הקבצים או התפריט. יש גם אפשרות להוסיף טקסט אשר שותף לתוך Markor.</string>
+    <string name="notebook_is_the_home_of_your_files">תיקיית המחברת הינו מה שMarkor טוען לתוך מעיין הקבצים בפתיחה האפלקיציה. זו תיקיית הבית עבור הקבצים שלכם.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">הפתק המהיר הינו הדרך המהירה ביותר לרשום דברים. זהו קובץ בפורמאט Markdown עם מיקום ברירת המחדל &lt;Notebook/QuickNote.md&gt;, הנכם יכולים להגדיר מיקום שונה בהגדרות.</string>
+    <string name="todo_is_the_easiest_way_">נהלו את משימותיכם באמצעות רשימת מטלות. זהו קובץ בפורמאט todo.txt עם מיקום ברירת המחדל &lt;Notebook/todo.txt&gt;, הנכם יכולים להגדיר מיקום שונה בהגדרות.</string>
+    <string name="navigationbar_color">צבע שורת ניווט</string>
     <string name="black">שחור</string>
     <string name="white">לבן</string>
     <string name="view">הצג</string>
     <string name="view_mode">מצב תצוגה</string>
     <string name="edit_mode">מצב עריכה</string>
     <string name="mount_storage">הטמע אחסון</string>
+    <string name="application_needs_access_to_storage_mount_it">גישה לאכסון זה דורשת הרשאות. יש לעגן (mount) את האכסון על מנת לתת גישה. לחץ אישור בכדי לקבל פופ-אפ שבו עליכם לבחור את האכסון.</string>
     <string name="share_into">שתף ל</string>
     <string name="favourite">מועדף</string>
     <string name="favourites">מועדפים</string>
@@ -291,19 +308,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">תיקייה לאתחול אפליקציה</string>
     <string name="tab_width">רוחב טאב</string>
     <string name="amount_of_space_for_tab">כמות הרווחים להצגת טאב</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">יתכן שהקובץ הנבחר הינו טקסט פשוט. האם ברצונכם לפתוח אותו בעורך או באפליקציה אחרת?\n\nאין לנסות לפתוח קבצים בינאריים. אם אינכם בטוחים, אז פתחו באמצעות אפליקציה אחרת.</string>
     <string name="list_in_recent_files">הצג בקבצים אחרונים</string>
     <string name="reload">טען מחדש</string>
     <string name="wrap_words">גלישת שורות</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">שבירת שורות במקרה של טקטס רחב מהמסך. אחרת אפשר גלילה אופקית.</string>
+    <string name="recursive_search_in_current_directory">חיפוש ריקורסיבי בתיקיה נוכחית.</string>
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">תמיד פתח קבצים באפליקציה זו כאשר הרשימה מכילה את סיומת הקובץ. השתמשו לדוגמא ב \'None, .html, .css , .js\' אם ברצונכם לערוך קבצי web וכאלו ללא סיומת.</string>
     <string name="template">תבנית</string>
     <string name="send_debug_log">שליחה לוג לפטרון בעיות</string>
     <string name="print_pdf">הדפסה / PDF</string>
     <string name="bigger_headings">כותרות מוגדלות</string>
+    <string name="increase_text_size_of_headings_according_to_level">הגדל טקסט של כותרות בהתאם לדרגתם (# h1, ## h2. ### h3…)</string>
     <string name="current">נוכחי</string>
     <string name="record_audio">הקלט שמע</string>
     <string name="attach">צרף</string>
     <string name="copy_file">העתק קובץ</string>
     <string name="page">עמוד</string>
+    <string name="experimental_features">פיצ׳רים נסיוניים</string>
     <string name="tools">כלים</string>
     <string name="reading">קריאה</string>
     <string name="read">קרא</string>
@@ -313,7 +336,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="delete_lines">מחיקת שורות</string>
     <string name="unordered_list">רשימה לא ממוספרת</string>
     <string name="ordered_list">רשימה ממוספרת</string>
-    <string name="check_list">רשימת משימות</string>
+    <string name="check_list">רשימת מטלות</string>
     <string name="open_link">פתח קישור</string>
     <string name="common_color_picker">בחירת צבע</string>
     <string name="date_and_time">תאריך ושעה</string>
@@ -336,7 +359,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">צבע קישור</string>
     <string name="add_context">הוספת קונטקסט</string>
     <string name="add_project">הוספת פרוייקט</string>
-    <string name="archive_completed_tasks">העבר משימות שבוצעו לארכיון</string>
+    <string name="archive_completed_tasks">העבר מטלות שבוצעו לארכיון</string>
     <string name="sort_alphabetically">מיין לפי</string>
     <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
     <string name="choose_format">בחר פורמאט</string>
@@ -344,7 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="back">חזרה</string>
     <string name="expand_collapse">הרחב/קפל</string>
     <string name="essential">חיוני</string>
-    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למשימות חדשות</string>
+    <string name="append_human_readable_uuid_to_new_tasks">צרף מזהה משתמש ייחודי למטלות חדשות</string>
     <string name="action_order">סידור פעולות</string>
     <string name="toggle_action_visibility">הצג או הסתר פעולה</string>
     <string name="load_default_settings">טען הגדרות ברירת מחדל</string>
@@ -356,7 +379,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 בכדי להגדיר סיסמא.</string>
     <string name="encrypt_file_content">הצפן קובץ</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">כשל בהצפנה קובץ. הקובץ לא נשמר.</string>
-    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של מרקור?</string>
+    <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">סיסמא כבר מוגדרת. הגדרת סיסמא חדשה תדרוס את הקיימת והנכם עלולים לאבד גישה לקבצים במידה ולא תזכרו את הסיסמא.</string>
     <string name="code_block">תא קוד</string>
     <string name="add_completion_date">הוספת תאריך סיום</string>
@@ -376,11 +399,47 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="replace_once">החלף (1)</string>
     <string name="replace_all">החלף הכל</string>
     <string name="matches">התאמות</string>
+    <string name="search_replace_pattern_error_message">שגיאות חיפוש או החלפה.</string>
+    <string name="backup_settings">גיבוי הגדרות</string>
+    <string name="restore_settings">שחזור הגדרות מגיבוי</string>
+    <string name="failed_to_create_backup">ארעה תקלה ביצירת הגיבוי</string>
+    <string name="export_settings_to_json_file">ייצא הגדרות לקובץ json</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">ייבא הגדרות מקובץ json גיבוי. במקרה של הצלחה, האפליקציה מאותחלת.</string>
+    <string name="failed_to_restore_settings_from_backup">ארעה שגיאה בשחזור הגדרות מגיבוי</string>
+    <string name="newline_is_new_paragraph">שורה חדשה תיצור פסקה חדשה</string>
+    <string name="search_in_content">חיפוש בתוכן</string>
+    <string name="max_search_depth">עומק חיפוש</string>
+    <string name="ignore_list">רשימת התעלמות</string>
+    <string name="do_not_search_specified_files_and_folders">אל תחפש בקצבים או תיקיות הבאים.\nהשתמשו בשורה חדשה להפרדה.\nהשתמשו בגרשיים לציין שמות תיקייה מדוייקים: ״טסט״.\nאו השתמשו בביטוי רגולרי ^[.].*\'\nדוגמאות: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
+    <string name="regex_search">חיפושי באמצעות ביטוי רגולרי (regex)</string>
+    <string name="case_sensitive">רגישות לאותיות גדולות וקטנות</string>
+    <string name="stop_search_after_first_match">עצור חיפוש לאחר התאמה רשאונה</string>
+    <string name="regex_can_not_be_compiled">ביטוי רגולרי לא תקין</string>
+    <string name="keep_both">לשמור את שניהם</string>
+    <string name="skip">דלג</string>
+    <string name="overwrite">לדרוס</string>
+    <string name="keep_both_all">לשמור את שניהם (הכל)</string>
+    <string name="skip_all">דלג (על הכל)</string>
+    <string name="overwrite_all">לדרוס (את הכל)</string>
+    <string name="copy_move_conflict_message">\'%s\' כבר קיים ב %s</string>
+    <string name="additional_contexts_and_projects">קונטקסטים ופרוייקטים נוספים</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">הזינו @קונטקסטים ו +פרויקטים עם רווחים בינהם. אלו תמיד יהיו זמינים בשדות כתיבה של רשימת המטלות.</string>
+    <string name="infinite">אינסופי</string>
     <string name="browse_by_project">עיין לפי פרוייקט</string>
     <string name="browse_by_context">עיין לפי קונטקסט</string>
     <string name="insert_project">הזן פרוייקטים</string>
     <string name="insert_context">הזן קונטקסטים</string>
-    <string name="browse_todo">עיין ברשימת משימות</string>
+    <string name="browse_todo">עיין ברשימת מטלות</string>
     <string name="browse_by_priority">עיין לפי עדיפות</string>
     <string name="browse_by_due_date">עיין לפי תאריך גמר</string>
+    <string name="due_overdue">באיחור</string>
+    <string name="due_today">להיום</string>
+    <string name="due_future">לעתיד</string>
+    <string name="completed">הושלמו</string>
+    <string name="match_any">התאם לפחות לאחד</string>
+    <string name="match_all">התאם לכל</string>
+    <string name="dynamic_notebook_root_links">חיפוש דינמי לשורש המחברת</string>
+    <string name="search_dynamically_for_notebook_root">על מנת לעקוב אחר קישורי ויקי, יש לחפש בצורה דינמית בקובץ הnotebook.zim בכדי לזהות את תיקיית השורש עבור אותה מחברת. סמן את זה במידה ואתם משתמשים ביותר ממחברת zim אחת או במידה ותיקיית המחברות המוגדרת באפליקציה אינה תואמת למחברת הzim שלכם.</string>
+    <string name="share_into_format_prefix_for_text_shared">פורמאט/תחילית עבור טקסט ששותף לתוך Markor. עוקב אחר חוקי SimpleDateFormat של אנדרויד.\n\nהשתמשו ב\'%s\' (תחום בגרשיים בודדים) למקם את הטקטס המשותף. אם לא מצוין, הטקסט המשותף מצורף בסוף והפורמאט משמש בתור תחילית בלבד.</string>
+    <string name="share_into_format">נוסח עבור שיתוף לתוך</string>
 </resources>
