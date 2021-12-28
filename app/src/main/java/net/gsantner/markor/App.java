@@ -10,7 +10,6 @@
 package net.gsantner.markor;
 
 import android.app.Application;
-import android.content.res.Resources;
 import android.webkit.WebView;
 
 public class App extends Application {
@@ -24,22 +23,16 @@ public class App extends Application {
             R.string.tags,
     };
 
-    private static App _app;
-    private static Resources res;
+    private volatile static App _app;
 
     public static App get() {
         return _app;
-    }
-
-    public static Resources getResouces() {
-        return res;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         _app = this;
-        res =  getResources();
 
         // Per https://stackoverflow.com/a/54191884/4717438
         try {

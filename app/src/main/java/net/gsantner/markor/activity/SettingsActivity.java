@@ -245,7 +245,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             } else if (eq(key, R.string.pref_key__share_into_format)) {
                 try {
-                    Toast.makeText(context, ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis(), null), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
