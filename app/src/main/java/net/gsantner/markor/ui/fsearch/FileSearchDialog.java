@@ -37,8 +37,7 @@ public class FileSearchDialog {
     }
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
-        final AppSettings appSettings = new AppSettings(activity);
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.getDialogLayout());
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
@@ -60,6 +59,7 @@ public class FileSearchDialog {
         final CheckBox searchInContentCheckBox = new CheckBox(activity);
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
+        final AppSettings appSettings = new AppSettings(activity);
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {

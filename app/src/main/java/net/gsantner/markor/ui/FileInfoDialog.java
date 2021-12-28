@@ -75,8 +75,7 @@ public class FileInfoDialog extends DialogFragment {
     private AlertDialog.Builder setUpDialog(final File file, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        AppSettings appSettings = new AppSettings(inflater.getContext());
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), appSettings.getDialogLayout());
+        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
         root = inflater.inflate(R.layout.file_info_dialog, null);
 
         dialogBuilder.setView(root);
@@ -113,6 +112,7 @@ public class FileInfoDialog extends DialogFragment {
         });
 
         // Hide checkbox
+        final AppSettings appSettings = new AppSettings(inflater.getContext());
         CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));

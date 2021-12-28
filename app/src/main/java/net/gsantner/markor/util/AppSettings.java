@@ -80,10 +80,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return false;
     }
 
-    public int getDialogLayout() {
-        return isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog;
-    }
-
     public boolean isLoadLastDirectoryAtStartup() {
         return getBool(R.string.pref_key__load_last_directory_at_startup, false);
     }
