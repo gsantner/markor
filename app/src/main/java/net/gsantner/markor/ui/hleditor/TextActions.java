@@ -63,14 +63,14 @@ public abstract class TextActions {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    public TextActions(Activity activity, Document document) {
+    public TextActions(final Activity activity, final Document document) {
         _document = document;
         _activity = activity;
         _au = new ActivityUtils(activity);
         _context = activity != null ? activity : _hlEditor.getContext();
         _appSettings = new AppSettings(_context);
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
-        _indent = _appSettings.getDocumentIndentSize(_document.getPath());
+        _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }
 
     /**
