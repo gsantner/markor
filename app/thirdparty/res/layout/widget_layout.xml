@@ -50,7 +50,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="60dp"
             android:layout_marginRight="60dp"
-            android:src="@drawable/ic_check_black_24dp"
+            android:src="@drawable/ic_assignment_turned_in_black_24dp"
             android:tint="@color/white"
             android:elevation="2dp"
             android:background="@drawable/fab_circle"/>
