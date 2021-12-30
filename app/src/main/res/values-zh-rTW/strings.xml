@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
+    <string name="disallow_screenshots">不允許螢幕快照</string>
     <string name="back_to_previous_folder" needed="false">回到上個資料夾</string>
     <string name="app_settings" needed="false">程式設定</string>
     <string name="editor_settings" needed="false">編輯器設定</string>
@@ -258,12 +259,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
     <string name="type">檔案類型</string>
     <string name="folder">資料夾</string>
+    <string name="folder_is_created_without_extension">建立的資料夾沒有延伸檔名</string>
     <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
     <string name="multiple_windows">多重視窗</string>
     <string name="font">字體</string>
+    <string name="open_new_documents_always_in_new_window">使用您裝置上的\"最近的\"鍵以切換成總是在分別的視窗開啟文件。</string>
     <string name="enter_or_select_format">輸入或選取格式</string>
     <string name="pick_date">選擇日期</string>
     <string name="pick_time">選擇時間</string>
+    <string name="get_format_instead_date_or_time">取代日期或時間的格式</string>
     <string name="always_use_current_date_and_time">永遠使用實際時間</string>
     <string name="result">結果</string>
     <string name="just_time">僅時間</string>
@@ -295,6 +299,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">程式啟動時跳轉資料夾</string>
     <string name="tab_width">製表符寬度</string>
     <string name="reload">重新下載</string>
+    <string name="wrap_words">文字折行</string>
     <string name="always_open_with_this_app">永遠使用此應用程式開啟</string>
     <string name="template">模板</string>
     <string name="send_debug_log">發送偵錯日誌</string>

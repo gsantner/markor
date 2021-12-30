@@ -126,6 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
+    <string name="disallow_screenshots">ekran alıntılarına izin verme</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -310,6 +311,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
+    <string name="recursive_search_in_current_directory">geçerl dizinde tekrarlayan arama</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
     <string name="template">Şablon</string>
@@ -396,6 +398,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Yedek json dosyasından ayarları içe aktarın. Başarılı olursa, uygulama yeniden başlatılır.</string>
     <string name="failed_to_restore_settings_from_backup">Yedeklemeden ayarlar geri yüklenemedi</string>
     <string name="newline_is_new_paragraph">Yenisatır = yeni paragraf</string>
+    <string name="search_in_content">içerikte arama yap</string>
+    <string name="max_search_depth">Derinlemesine arama yap</string>
+    <string name="ignore_list">Listeyi yok say</string>
+    <string name="do_not_search_specified_files_and_folders">Belirtilen dosya ve dizinlerde arama yapma. \n Yeni satırı ayraç olarak kullan \n Alıntıları birebir dizin adı olarak kullan: \"Test\".\n Ya da Normal İfadeyi kullan.\'^[.].*\'\n Örneğin: ^\\..*\n\"test\"\n\"Test\"\n.*gizli.*\n.*YEDEK.*\n.*.ini</string>
+    <string name="case_sensitive">Büyük küçük harfe duyarlı</string>
+    <string name="stop_search_after_first_match">İlk eşleşmeden sonra aramayı durdur</string>
+    <string name="regex_can_not_be_compiled">Normal ifade sıralanamamaktadır</string>
     <string name="keep_both">Her ikisini de koru</string>
     <string name="skip">Atla</string>
     <string name="overwrite">Üzerine yaz</string>
@@ -405,4 +414,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' zaten %s içinde var</string>
     <string name="additional_contexts_and_projects">Ek bağlamlar ve projeler</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Boşlukla ayrılmış @bağlamları ve +projeleri girin. Bunlar her zaman todo.txt ekleme diyaloglarında görünecektir.</string>
+    <string name="infinite">Sonsuz</string>
+    <string name="browse_by_context">Bağlama göre araştır</string>
+    <string name="insert_project">Proje Ekle</string>
+    <string name="browse_todo">Görevleri incele</string>
+    <string name="browse_by_due_date">Bitiş tarihine göre göz gezdir</string>
+    <string name="due_overdue">Gecikmiş</string>
+    <string name="due_today">Süresi bugün dolanlar</string>
+    <string name="due_future">Süresi ileride dolanlar</string>
+    <string name="completed">Tamamlananlar</string>
+    <string name="match_any">Herhangi Birini Eşleştir</string>
+    <string name="match_all">Tümünü Eşleştir</string>
+    <string name="dynamic_notebook_root_links">Not defteri kaynağında dinamik arama yap</string>
+    <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
+    <string name="share_into_format_prefix_for_text_shared">Markor\'da paylaşılan metni biçimlendir / öne al. Android\'in SimpleDateFormat yani Basit Tarih Formatına uygundur. \n\n \'%s\' ayracını (tek tırnakların içinde) paylaşılan metni konumlandırmak için kullan. Eğer belirtilmemişse, paylaşılan metin eklenir ve biçim başa eklenir.</string>
+    <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
 </resources>
