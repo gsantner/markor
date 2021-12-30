@@ -56,7 +56,7 @@
             android:background="@drawable/fab_circle"/>
 
         <ImageButton
-            android:id="@+id/widget_home"
+            android:id="@+id/widget_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_below="@+id/widget_new_note"

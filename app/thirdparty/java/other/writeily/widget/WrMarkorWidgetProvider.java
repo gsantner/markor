@@ -102,7 +102,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory())
                     .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
-            views.setOnClickPendingIntent(R.id.widget_home, PendingIntent.getActivity(context, requestCode++, goHome, PendingIntent.FLAG_UPDATE_CURRENT));
+            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
