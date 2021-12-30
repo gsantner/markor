@@ -75,12 +75,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_go_to_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/notebook"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/action_go_to"
         android:layout_width="match_parent"
         android:icon="@drawable/ic_folder_white_24dp"
@@ -129,7 +123,12 @@
                 android:id="@+id/action_go_to_favourite_files"
                 android:icon="@drawable/ic_star_black_24dp"
                 android:title="@string/favourites"
-                app:showAsAction="ifRoom" />
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_go_to_home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/notebook"
+                app:showAsAction="never" />
         </menu>
 
     </item>
