@@ -55,17 +55,17 @@ public class ShortcutUtils {
                 return;
             }
 
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            List<ShortcutInfo> newShortcuts = new ArrayList<>();
+            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            final List<ShortcutInfo> newShortcuts = new ArrayList<>();
 
             final AppSettings appSettings = new AppSettings(context);
 
             // Create the to-do shortcut
-            Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+            final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getTodoFile()));
 
-            ShortcutInfo shortcutToDo = new ShortcutInfo.Builder(context, ID_TO_DO)
+            final ShortcutInfo shortcutToDo = new ShortcutInfo.Builder(context, ID_TO_DO)
                     .setShortLabel(createShortLabel(context.getString(R.string.todo)))
                     .setLongLabel(createLongLabel(context.getString(R.string.todo)))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_todo))
@@ -74,11 +74,11 @@ public class ShortcutUtils {
             newShortcuts.add(shortcutToDo);
 
             // Create the QuickNote shortcut
-            Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+            final Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getQuickNoteFile()));
 
-            ShortcutInfo shortcutQuickNote = new ShortcutInfo.Builder(context, ID_QUICK_NOTE)
+            final ShortcutInfo shortcutQuickNote = new ShortcutInfo.Builder(context, ID_QUICK_NOTE)
                     .setShortLabel(createShortLabel(context.getString(R.string.quicknote)))
                     .setLongLabel(createLongLabel(context.getString(R.string.quicknote)))
                     .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_quicknote))
@@ -87,17 +87,13 @@ public class ShortcutUtils {
             newShortcuts.add(shortcutQuickNote);
 
             // Generate shortcuts for the most recent documents. Maximum of MAX_RECENT_DOCUMENTS.
-            AppSettings settings = new AppSettings(context);
-            List<String> recentDocuments = settings.getRecentDocuments();
+            final AppSettings settings = new AppSettings(context);
+            final List<String> recentDocuments = settings.getRecentDocuments();
 
-            int count = 0;
-            for (String filePath : recentDocuments) {
-                if (count > MAX_RECENT_DOCUMENTS) break;
-                count++;
+            for (int i = 0; i < MAX_RECENT_DOCUMENTS; i++) {
+                final File file = new File(recentDocuments.get(i));
 
-                File file = new File(filePath);
-
-                Intent openFile = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+                final Intent openFile = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                         .setAction(Intent.ACTION_EDIT)
                         .setData(Uri.fromFile(file));
 
@@ -105,7 +101,7 @@ public class ShortcutUtils {
                 newShortcuts.add(new ShortcutInfo.Builder(context, ID_PREFIX + name)
                         .setShortLabel(createShortLabel(name))
                         .setLongLabel(createLongLabel(name))
-                        .setIcon(Icon.createWithResource(context, R.drawable.ic_file_shortcut))
+                        .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_file))
                         .setIntent(openFile)
                         .build());
             }

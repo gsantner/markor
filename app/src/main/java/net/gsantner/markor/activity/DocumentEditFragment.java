@@ -669,11 +669,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(boolean forceSaveEmpty) {
+
+        _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
+
         // Document is written iff content has changed
         // _isTextChanged implies _document != null && _hlEditor != null && _hlEditor.getText() != null
         if (_isTextChanged && isAdded()) {
-
-            _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
 
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();

@@ -38,7 +38,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
             final boolean isDir = document.getFile().isDirectory();
             final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
             final Intent intent = new Intent(_context, klass).setData(Uri.fromFile(document.getFile()));
-            final int iconRes = isDir ? R.drawable.ic_folder_shortcut : R.drawable.ic_file_shortcut;
+            final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
             super.createLauncherDesktopShortcut(intent, iconRes, document.getTitle());
             // Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
