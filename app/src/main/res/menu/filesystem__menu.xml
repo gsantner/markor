@@ -133,7 +133,7 @@
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_go_to_home"
-                android:icon="@drawable/ic_folder_white_24dp"
+                android:icon="@drawable/ic_home_black_24dp"
                 android:title="@string/notebook"
                 app:showAsAction="never" />
         </menu>
