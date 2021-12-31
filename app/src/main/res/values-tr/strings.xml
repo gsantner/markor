@@ -402,6 +402,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="max_search_depth">Derinlemesine arama yap</string>
     <string name="ignore_list">Listeyi yok say</string>
     <string name="do_not_search_specified_files_and_folders">Belirtilen dosya ve dizinlerde arama yapma. \n Yeni satırı ayraç olarak kullan \n Alıntıları birebir dizin adı olarak kullan: \"Test\".\n Ya da Normal İfadeyi kullan.\'^[.].*\'\n Örneğin: ^\\..*\n\"test\"\n\"Test\"\n.*gizli.*\n.*YEDEK.*\n.*.ini</string>
+    <string name="regex_search">Normal ifade arama</string>
     <string name="case_sensitive">Büyük küçük harfe duyarlı</string>
     <string name="stop_search_after_first_match">İlk eşleşmeden sonra aramayı durdur</string>
     <string name="regex_can_not_be_compiled">Normal ifade sıralanamamaktadır</string>
@@ -415,9 +416,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Ek bağlamlar ve projeler</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Boşlukla ayrılmış @bağlamları ve +projeleri girin. Bunlar her zaman todo.txt ekleme diyaloglarında görünecektir.</string>
     <string name="infinite">Sonsuz</string>
+    <string name="browse_by_project">Projelere gözat</string>
     <string name="browse_by_context">Bağlama göre araştır</string>
     <string name="insert_project">Proje Ekle</string>
+    <string name="insert_context">Bağlam ekle</string>
     <string name="browse_todo">Görevleri incele</string>
+    <string name="browse_by_priority">Önceliklere gözat</string>
     <string name="browse_by_due_date">Bitiş tarihine göre göz gezdir</string>
     <string name="due_overdue">Gecikmiş</string>
     <string name="due_today">Süresi bugün dolanlar</string>
