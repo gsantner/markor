@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -137,9 +138,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
 
-        final Intent intent = getIntent();
-        final File dir = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
-        if (dir != null && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+        final File dir = getIntentDir(getIntent());
+        if (dir != null) {
             // Start in intent folder
             _startFolder = dir;
         } else {
@@ -152,12 +152,28 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     @Override
     protected void onNewIntent(final Intent intent) {
-        final File dir = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        final File dir = getIntentDir(intent);
         final FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
-        if (frag != null && dir != null && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+        if (frag != null && dir != null) {
             frag.getAdapter().setCurrentFolder(dir, false);
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
+    }
+
+    private static File getIntentDir(final Intent intent) {
+        // By extra path
+        if (intent.hasExtra(Document.EXTRA_PATH) && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+            return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        }
+
+        // By uri
+        final Uri uri = intent.getData();
+        if (uri == null) return null;
+        final String path = uri.getPath();
+        if (path == null) return null;
+        final File dir = new File(uri.getPath());
+        if (!dir.exists() || !dir.isDirectory()) return null;
+        return dir;
     }
 
     private void optShowRate() {

@@ -105,7 +105,7 @@ public class ShortcutUtils {
                 newShortcuts.add(new ShortcutInfo.Builder(context, ID_PREFIX + name)
                         .setShortLabel(createShortLabel(name))
                         .setLongLabel(createLongLabel(name))
-                        .setIcon(Icon.createWithResource(context, R.mipmap.ic_shortcut_file))
+                        .setIcon(Icon.createWithResource(context, R.drawable.ic_file_shortcut))
                         .setIntent(openFile)
                         .build());
             }

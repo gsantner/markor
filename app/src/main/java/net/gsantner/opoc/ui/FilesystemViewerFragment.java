@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -238,6 +239,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
         // Check if is a favourite
         boolean isFavourite = false;
         boolean selTextFilesOnly = true;
+        boolean selDirectoriesOnly = true;
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
         if (selMulti1) {
             for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
@@ -247,9 +249,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 }
             }
         }
-        for (File f : _filesystemViewerAdapter.getCurrentSelection()) {
-            selTextFilesOnly = (selTextFilesOnly && TextFormat.isTextFile(f));
-            selWritable = (selWritable && f.canWrite());
+        for (final File f : _filesystemViewerAdapter.getCurrentSelection()) {
+            selTextFilesOnly &= TextFormat.isTextFile(f);
+            selWritable &= f.canWrite();
+            selDirectoriesOnly &= f.isDirectory();
         }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
@@ -267,6 +270,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
             _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
+            _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
         }
     }
 
@@ -368,12 +372,16 @@ public class FilesystemViewerFragment extends GsFragmentBase
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        PermissionChecker permc = new PermissionChecker(getActivity());
-        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(false, true, false);
+        final PermissionChecker permc = new PermissionChecker(getActivity());
 
         File folderToLoad = null;
 
         switch (item.getItemId()) {
+            case R.id.action_create_shortcut: {
+                final File file = _filesystemViewerAdapter.getCurrentSelection().iterator().next();
+                _shareUtil.createLauncherDesktopShortcut(new Document(file));
+                return true;
+            }
             case R.id.action_sort_by_name: {
                 item.setChecked(true);
                 _appSettings.setSortMethod(SORT_BY_NAME);
