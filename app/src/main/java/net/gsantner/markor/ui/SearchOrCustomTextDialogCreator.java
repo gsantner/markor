@@ -599,13 +599,14 @@ public class SearchOrCustomTextDialogCreator {
 
     @SuppressLint("StringFormatMatches")
     public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a1<Integer> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.positionCallback = (result) -> callback.callback(result.get(0));
-        List<String> data = new ArrayList<>();
+        final List<String> data = new ArrayList<>();
+        // Order of options here should be synchronized with WrMarkorSingleton._moveOrCopySelected
         data.add(activity.getString(R.string.keep_both));
-        data.add(activity.getString(R.string.skip));
         data.add(activity.getString(R.string.overwrite));
+        data.add(activity.getString(R.string.skip));
         if (multiple) {
             data.add(activity.getString(R.string.keep_both_all));
             data.add(activity.getString(R.string.overwrite_all));
