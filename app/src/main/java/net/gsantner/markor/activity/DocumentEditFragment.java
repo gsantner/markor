@@ -177,6 +177,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
+        // Hack to prevent white flash when loading content
+        // Has to be done here, after inflation, and not in layout for some reason...
+        _webView.setBackgroundColor(Color.argb(1, 0, 0, 0));
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
         }
