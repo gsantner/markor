@@ -128,7 +128,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@android:color/white" />
+                android:background="@color/background"
+                android:divider="@color/grey"
+                android:dividerHeight="0.5dp" />
         </RelativeLayout>
     </RelativeLayout>
 
