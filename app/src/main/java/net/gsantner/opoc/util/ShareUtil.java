@@ -96,7 +96,7 @@ public class ShareUtil {
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
 
-    public final static int MIN_OVERWRITE_LENGTH = 5;
+    public final static int MIN_OVERWRITE_LENGTH = 2;
 
     protected static String _lastCameraPictureFilepath;
 
