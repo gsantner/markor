@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -20,10 +22,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Selection;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -375,10 +375,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             checkTextChangeState();
 
-            if (_isPreviewVisible) {
-                setDocumentViewVisibility(true);
-                _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            }
+            setViewModeVisibility(_isPreviewVisible);
         }
     }
 
@@ -423,15 +420,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_preview: {
-                setDocumentViewVisibility(true);
+                setViewModeVisibility(true);
                 return true;
             }
             case R.id.action_edit: {
-                setDocumentViewVisibility(false);
+                setViewModeVisibility(false);
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
-                setDocumentViewVisibility(!_isPreviewVisible);
+                setViewModeVisibility(!_isPreviewVisible);
                 return true;
             }
             case R.id.action_add_shortcut_launcher_home: {
@@ -473,7 +470,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.getSetWebViewFulldrawing(true);
                 if (saveDocument(false)) {
                     _nextConvertToPrintMode = true;
-                    setDocumentViewVisibility(true);
+                    setViewModeVisibility(true);
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -499,7 +496,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_search: {
-                setDocumentViewVisibility(false);
+                setViewModeVisibility(false);
                 _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
                 return true;
             }
@@ -666,19 +663,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument(boolean forceSaveEmpty) {
+    public boolean saveDocument(final boolean forceSaveEmpty) {
+        if (!isAdded()) return false;
+
+        _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
+
+        if (!_isTextChanged) return true;
         // Document is written iff content has changed
         // _isTextChanged implies _document != null && _hlEditor != null && _hlEditor.getText() != null
-        if (_isTextChanged && isAdded()) {
 
-            _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
-
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
-                updateLauncherWidgets();
-                checkTextChangeState();
-                return true;
-            }
+        if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+            updateLauncherWidgets();
+            checkTextChangeState();
+            return true;
         }
+
         return false;
     }
 
@@ -759,22 +758,38 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void setDocumentViewVisibility(final boolean show) {
+    public void setViewModeVisibility(final boolean show) {
         final Activity activity = getActivity();
-        if (!show) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
-        } else {
+        if (show) {
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
             new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            fadeInOut(_webView, _primaryScrollView);
+        } else {
+            _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            fadeInOut(_primaryScrollView, _webView);
         }
 
         _nextConvertToPrintMode = false;
-        _webView.setVisibility(show ? View.VISIBLE : View.GONE);
-
         _isPreviewVisible = show;
+
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
+    }
+
+    private static void fadeInOut(final View in, final View out) {
+        in.setAlpha(0);
+        in.setVisibility(View.VISIBLE);
+        in.animate().alpha(1).setDuration(200).setListener(null);
+        out.animate()
+                .alpha(0)
+                .setDuration(200)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        out.setVisibility(View.GONE);
+                    }
+                });
     }
 
     final View.OnLongClickListener _longClickToTopOrBottom = new View.OnLongClickListener() {
