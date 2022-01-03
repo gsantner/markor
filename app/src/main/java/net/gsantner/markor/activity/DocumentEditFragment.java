@@ -177,10 +177,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        // Hack to prevent white flash when loading content
-        // Has to be done here, after inflation, and not in layout for some reason...
-        _webView.setBackgroundColor(Color.argb(1, 0, 0, 0));
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
         }
@@ -199,17 +195,30 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
-        loadDocument();
-
         if (activity instanceof DocumentActivity) {
             ((DocumentActivity) activity).setDocument(_document);
         }
 
+        _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
+
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
+        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
+
+        _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
+        _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
+
+        // Do not need to send contents to accessibility
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
+
+        _webView.setBackgroundColor(Color.TRANSPARENT);
+
+        loadDocument();
+
+        _hlEditor.clearFocus();
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
-        _hlEditor.clearFocus();
-        _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-        setupAppearancePreferences(view);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
@@ -218,11 +227,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
-        }
-
-        // Do not need to send contents to accessibility
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
 
         // Set the correct position after everything else done
@@ -602,14 +606,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         updateMenuToggleStates(textFormatId);
     }
 
-    private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
-        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-
-        _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
-        _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
-    }
-
     private void initDocState() {
         wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
         wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
@@ -763,7 +759,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void setDocumentViewVisibility(boolean show) {
+    public void setDocumentViewVisibility(final boolean show) {
         final Activity activity = getActivity();
         if (!show) {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
@@ -775,11 +771,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _nextConvertToPrintMode = false;
-        _webView.setAlpha(0);
         _webView.setVisibility(show ? View.VISIBLE : View.GONE);
-        if (show) {
-            _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
-        }
 
         _isPreviewVisible = show;
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();

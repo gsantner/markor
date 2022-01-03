@@ -13,7 +13,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_2"
+    android:background="@android:color/transparent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     tools:context="net.gsantner.markor.activity.DocumentEditFragment"
@@ -31,7 +31,7 @@
             android:id="@+id/document__fragment__edit__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@color/background"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textCapSentences"
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/background"
+        android:background="#F8D507"
         android:minHeight="@dimen/textactions_bar_height"
         android:padding="12dp"
         android:text="@string/warning_disallowed_sd_access"
@@ -76,6 +76,7 @@
 
     <net.gsantner.markor.ui.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
