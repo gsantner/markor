@@ -452,12 +452,16 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
                 @Override
                 public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
-                    if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
+                    final File folder = adapter != null ? adapter.getCurrentFolder() : null;
+                    if (folder != null && !TextUtils.isEmpty(folder.getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
                             _toolbar.setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
                         }
                         invalidateOptionsMenu();
+
+                        // Invalidate the start folder on folder change
+                        _startFolder = folder.equals(_startFolder) ? _startFolder : null;
                     }
                 }
 
