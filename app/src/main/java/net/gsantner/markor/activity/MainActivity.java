@@ -85,6 +85,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     private AppSettings _appSettings;
     private ActivityUtils _contextUtils;
     private ShareUtil _shareUtil;
+
+    private static final String START_FOLDER = "START_FOLDER";
     private File _startFolder;
 
     @SuppressLint("SdCardPath")
@@ -138,7 +140,11 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
 
-        final File dir = getIntentDir(getIntent());
+        File dir = getIntentDir(getIntent());
+        if (dir == null && savedInstanceState != null) {
+            dir = (File) savedInstanceState.getSerializable(START_FOLDER);
+        }
+
         if (dir != null) {
             // Start in intent folder
             _startFolder = dir;
@@ -151,12 +157,20 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(START_FOLDER, _startFolder);
+    }
+
+
+    @Override
     protected void onNewIntent(final Intent intent) {
         final File dir = getIntentDir(intent);
         final FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
         if (frag != null && dir != null) {
             frag.getAdapter().setCurrentFolder(dir, false);
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
+            _startFolder = dir;
         }
     }
 
