@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Selection;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -668,20 +667,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     // Save the file
     // Only supports java.io.File. TODO: Android Content
-    public boolean saveDocument(boolean forceSaveEmpty) {
+    public boolean saveDocument(final boolean forceSaveEmpty) {
+        if (!isAdded()) return false;
 
         _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
 
+        if (!_isTextChanged) return true;
         // Document is written iff content has changed
         // _isTextChanged implies _document != null && _hlEditor != null && _hlEditor.getText() != null
-        if (_isTextChanged && isAdded()) {
 
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
-                updateLauncherWidgets();
-                checkTextChangeState();
-                return true;
-            }
+        if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+            updateLauncherWidgets();
+            checkTextChangeState();
+            return true;
         }
+
         return false;
     }
 
