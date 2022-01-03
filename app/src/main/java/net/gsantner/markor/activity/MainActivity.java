@@ -166,14 +166,12 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
         }
 
-        // By uri
-        final Uri uri = intent.getData();
-        if (uri == null) return null;
-        final String path = uri.getPath();
-        if (path == null) return null;
-        final File dir = new File(uri.getPath());
-        if (!dir.exists() || !dir.isDirectory()) return null;
-        return dir;
+        File dir = null;
+        try {
+            dir = new File(intent.getData().getPath());
+        } catch (NullPointerException ignored) {
+        }
+        return (dir != null && dir.exists() && dir.isDirectory()) ? dir : null ;
     }
 
     private void optShowRate() {
