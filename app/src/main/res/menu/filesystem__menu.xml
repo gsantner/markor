@@ -68,6 +68,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_create_shortcut"
+        android:icon="@drawable/ic_widgets_black_24dp"
+        android:title="@string/create_shortcut"
+        android:visible="false"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_share_files"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"

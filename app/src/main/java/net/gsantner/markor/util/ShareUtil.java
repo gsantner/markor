@@ -18,9 +18,9 @@ import android.print.PrintJob;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
 
@@ -30,15 +30,17 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         setChooserTitle(_context.getString(R.string.share_to_arrow));
     }
 
-    public void createLauncherDesktopShortcut(Document document) {
+    public void createLauncherDesktopShortcut(final Document document) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
         if (document != null && !TextUtils.isEmpty(document.getTitle())) {
-            Intent shortcutIntent = new Intent(_context, OpenEditorFromShortcutOrWidgetActivity.class)
-                    .setData(Uri.fromFile(document.getFile()));
-            super.createLauncherDesktopShortcut(shortcutIntent, R.drawable.ic_launcher, document.getTitle());
-            Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
+            final boolean isDir = document.getFile().isDirectory();
+            final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
+            final Intent intent = new Intent(_context, klass).setData(Uri.fromFile(document.getFile()));
+            final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            super.createLauncherDesktopShortcut(intent, iconRes, document.getTitle());
+            // Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
     }
 

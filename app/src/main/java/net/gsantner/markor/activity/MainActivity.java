@@ -37,6 +37,7 @@ import com.pixplicity.generate.Rate;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
@@ -135,7 +136,42 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
 
-        _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(_appSettings.getAppStartupTab()), 10);
+        // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
+        final int startTab = _appSettings.getAppStartupTab();
+        if (startTab != R.id.nav_notebook && savedInstanceState == null && getIntentDir(getIntent(), null) == null) {
+            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(startTab), 10);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        final File dir = getIntentDir(intent, null);
+        final FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        if (frag != null && dir != null) {
+            frag.getAdapter().setCurrentFolder(dir, false);
+            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
+        }
+    }
+
+    private static File getIntentDir(final Intent intent, final File fallback) {
+        if (intent == null) {
+            return fallback;
+        }
+
+        // By extra path
+        if (intent.hasExtra(Document.EXTRA_PATH) && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+            return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        }
+
+        // By url in data
+        try {
+            final File dir = new File(intent.getData().getPath());
+            if (dir.exists() && dir.isDirectory()) {
+                return dir;
+            }
+        } catch (NullPointerException ignored) {};
+
+        return fallback;
     }
 
     private void optShowRate() {
@@ -185,7 +221,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD;
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
-            Intent intent = getIntent();
+            final Intent intent = getIntent();
             overridePendingTransition(0, 0);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             finish();
@@ -228,7 +264,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (restart) {
             restartMainActivity();
         }
-
 
         try {
             FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
@@ -389,8 +424,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
-                    //opt.rootFolder = _appSettings.getNotebookDirectory();
-                    dopt.rootFolder = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
+                    dopt.rootFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
