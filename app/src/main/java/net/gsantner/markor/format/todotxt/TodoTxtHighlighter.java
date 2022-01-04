@@ -15,9 +15,7 @@ import android.text.InputFilter;
 import android.text.Spannable;
 import android.util.Patterns;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
-import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
 import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;

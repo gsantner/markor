@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
