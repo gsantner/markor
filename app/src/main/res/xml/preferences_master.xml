@@ -511,12 +511,6 @@
                     android:summary="@string/insert_current_date_when_starting_new_task"
                     android:title="@string/tasks_with_todays_date" />
                 <CheckBoxPreference
-                    android:defaultValue="false"
-                    android:icon="@drawable/ic_date_range_black_24dp"
-                    android:key="@string/pref_key__todotxt__start_new_tasks_with_huuid_v3"
-                    android:summary="@string/append_human_readable_uuid_to_new_tasks"
-                    android:title="@string/huuid" />
-                <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_add_white_24dp"
                     android:key="@string/pref_key__todotxt__append_contexts_and_projects_on_end_of_task"

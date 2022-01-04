@@ -38,9 +38,6 @@ public class TodoTxtAutoFormat implements InputFilter {
         if (settings.isTodoStartTasksWithTodaysDateEnabled()) {
             t += TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
         }
-        if (settings.isTodoNewTaskWithHuuidEnabled()) {
-            t += "huuid:" + PlainTextStuff.newHuuid(AppSettings.get().getHuuidDeviceId()) + " ";
-        }
         return source + t;
     }
 }

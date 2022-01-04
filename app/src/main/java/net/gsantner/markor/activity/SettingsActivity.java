@@ -214,7 +214,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__is_editor_statusbar_hidden,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
-                    R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3,
             };
             for (final int keyId : experimentalKeys) {
                 setPreferenceVisible(keyId, _as.isExperimentalFeaturesEnabled());
