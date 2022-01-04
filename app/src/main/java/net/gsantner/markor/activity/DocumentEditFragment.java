@@ -426,10 +426,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 setDocumentViewVisibility(!_isPreviewVisible);
                 return true;
             }
-            case R.id.action_add_shortcut_launcher_home: {
-                _shareUtil.createLauncherDesktopShortcut(_document);
-                return true;
-            }
             case R.id.action_share_text: {
                 if (saveDocument(false)) {
                     _shareUtil.shareText(_hlEditor.getText().toString(), "text/plain");
