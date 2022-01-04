@@ -556,11 +556,19 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public int getEditorBackgroundColor() {
-        return getInt(R.string.pref_key__editor_basic_color_scheme__bg, rcolor(R.color.background));
+        int c = getInt(R.string.pref_key__editor_basic_color_scheme__bg, rcolor(R.color.background));
+        if (getAppThemeName().contains("black")){
+            c = Color.BLACK;
+        }
+        return c;
     }
 
     public void applyAppTheme() {
-        ActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto)));
+        ActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
+    }
+
+    public String getAppThemeName(){
+        return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto));
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {

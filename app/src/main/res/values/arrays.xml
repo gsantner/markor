@@ -16,6 +16,7 @@
         <item translatable="false">Auto (compat)</item>
         <item translatable="false">@string/light</item>
         <item translatable="false">@string/dark</item>
+        <item translatable="false">@string/black</item>
     </string-array>
 
     <string-array name="pref_arrkeys__app_themes" translatable="false">
@@ -24,6 +25,7 @@
         <item translatable="false">autocompat</item>
         <item translatable="false">light</item>
         <item translatable="false">dark</item>
+        <item translatable="false">dark-black</item>
     </string-array>
 
     <string-array name="pref_arrdisp__editor_basic_color_schemes" translatable="false">

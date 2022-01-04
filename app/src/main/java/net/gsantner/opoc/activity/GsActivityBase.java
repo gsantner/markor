@@ -13,7 +13,6 @@ package net.gsantner.opoc.activity;
 import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -21,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.Callback;
 
 public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend> extends AppCompatActivity {
 
@@ -28,8 +28,8 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
     protected Bundle _savedInstanceState;
     protected ActivityUtils _activityUtils;
 
-    @ColorInt
-    protected Integer _defaultNavigationBarColor = null;
+    private final Callback.a0 m_setActivityBackgroundColor = () -> new ActivityUtils(GsActivityBase.this).setActivityBackgroundColor(getNewActivityBackgroundColor()).freeContextRef();
+    private final Callback.a0 m_setActivityNavigationBarColor = () -> new ActivityUtils(GsActivityBase.this).setActivityNavigationBarBackgroundColor(getNewNavigationBarColor()).freeContextRef();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +38,8 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
         _appSettings = createAppSettingsInstance(this);
         _activityUtils = new ActivityUtils(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _defaultNavigationBarColor == null) {
-            _defaultNavigationBarColor = getWindow().getNavigationBarColor();
-        }
+        m_setActivityBackgroundColor.callback();
+        m_setActivityNavigationBarColor.callback();
 
         // Set secure flag / disallow screenshots
         if (isFlagSecure() != null) {
@@ -68,15 +67,17 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
     @Override
     protected void onResume() {
         super.onResume();
-
-        Integer color = getNewNavigationBarColor();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && color != null) {
-            getWindow().setNavigationBarColor(color);
-        }
+        m_setActivityBackgroundColor.callback();
+        m_setActivityNavigationBarColor.callback();
     }
 
     @ColorInt
     public Integer getNewNavigationBarColor() {
+        return null;
+    }
+
+    @ColorInt
+    public Integer getNewActivityBackgroundColor() {
         return null;
     }
 
