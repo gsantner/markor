@@ -42,68 +42,64 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/widget_todo"
+        <ImageButton
+            android:id="@+id/widget_main"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/widget_quicknote"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:background="@drawable/fab_circle"
-            android:text="@string/lightning_symbol"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            tools:ignore="RtlHardcoded" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_home_black_24dp"
+            android:tint="@color/white"
+            android:elevation="2dp"
+            android:background="@drawable/fab_circle"/>
 
-        <Button
-            android:id="@+id/widget_main"
+        <ImageButton
+            android:id="@+id/widget_new_note"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/widget_main"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:tint="@color/white"
+            android:elevation="2dp"
+            android:background="@drawable/fab_circle" />
+
+        <ImageButton
+            android:id="@+id/widget_todo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_below="@+id/widget_new_note"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/fab_circle"
-            android:text="☇"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            tools:ignore="HardcodedText,RtlHardcoded" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_assignment_turned_in_black_24dp"
+            android:tint="@color/white"
+            android:elevation="2dp"
+            android:background="@drawable/fab_circle"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/widget_quicknote"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_toStartOf="@+id/widget_new_note"
-            android:layout_toLeftOf="@+id/widget_new_note"
-            android:background="@drawable/fab_circle"
-            android:text="ⵢ"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            tools:ignore="HardcodedText,RtlHardcoded" />
-
-        <Button
-            android:id="@+id/widget_new_note"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="14dp"
-            android:background="@drawable/fab_circle"
-            android:text="@string/plus"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:layout_below="@+id/widget_todo"
+            android:src="@drawable/ic_lightning_black_24dp"
+            android:tint="@color/white"
+            android:elevation="2dp"
+            android:background="@drawable/fab_circle" />
 
         <RelativeLayout
             android:id="@+id/widget_list_container"

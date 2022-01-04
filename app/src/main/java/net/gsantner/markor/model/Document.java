@@ -91,10 +91,11 @@ public class Document implements Serializable {
     }
 
     public String getPath() {
-       return _path;
+        return _path;
     }
 
-    public @NonNull File getFile() {
+    public @NonNull
+    File getFile() {
         return _file;
     }
 

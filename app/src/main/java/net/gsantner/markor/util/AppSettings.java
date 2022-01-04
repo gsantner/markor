@@ -798,19 +798,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__editor_unordered_list_character, "-");
     }
 
-    public boolean isTodoNewTaskWithHuuidEnabled() {
-        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_huuid_v3, false);
-    }
-
-    public String getHuuidDeviceId() {
-        String deviceid = getString("huuid_deviceid", null);
-        if (deviceid == null) {
-            deviceid = String.format("%08x", new Random().nextInt()).substring(0, 4);
-            setString("huuid_deviceid", deviceid);
-        }
-        return deviceid;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.M)
     public char[] getDefaultPassword() {
         return new PasswordStore(getContext()).loadKey(R.string.pref_key__default_encryption_password);

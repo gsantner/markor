@@ -17,7 +17,6 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
@@ -52,16 +51,14 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     }
 
     private void updateFiles() {
-        _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file ->
-                !file.isDirectory() && TextFormat.isTextFile(file)
-        );
+        _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file -> !file.isDirectory() && TextFormat.isTextFile(file));
         if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments());
         }
         if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
             _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments());
         }
-        ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
+        final ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
 
         //noinspection StatementWithEmptyBody
         if (_dir != null && (_dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR))) {
@@ -87,9 +84,10 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         final RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
         if (position < _widgetFilesList.length) {
-            File file = _widgetFilesList[position];
-            Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file).putExtra(Document.EXTRA_PATH_IS_FOLDER, file.isDirectory());
-            rowView.setTextViewText(R.id.widget_note_title, MarkdownTextConverter.MD_EXTENSION_PATTERN.matcher(file.getName()).replaceAll(""));
+            final File file = _widgetFilesList[position];
+            final Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file)
+                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, file.isDirectory());
+            rowView.setTextViewText(R.id.widget_note_title, file.getName());
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         }
         return rowView;

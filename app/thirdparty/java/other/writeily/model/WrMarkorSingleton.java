@@ -53,7 +53,7 @@ public class WrMarkorSingleton {
     private boolean notChild(final File a, final File b) {
         try {
             return b.equals(a) || !b.getParentFile().getCanonicalPath().startsWith(a.getCanonicalPath());
-        } catch(IOException e) {
+        } catch (IOException e) {
             return false; // Not sure, return false for safety
         }
     }
@@ -134,7 +134,7 @@ public class WrMarkorSingleton {
         if (destDir.isDirectory()) {
             boolean allSane = true;
             for (final File file : files) {
-                final File dest =  new File(destDir, file.getName());
+                final File dest = new File(destDir, file.getName());
                 allSane &= isMove ? saneMove(file, dest) : saneCopy(file, dest);
             }
             if (allSane) {
