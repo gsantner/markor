@@ -169,7 +169,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             if (dir.exists() && dir.isDirectory()) {
                 return dir;
             }
-        } catch (NullPointerException ignored) {};
+        } catch (NullPointerException ignored) {
+        }
 
         return fallback;
     }

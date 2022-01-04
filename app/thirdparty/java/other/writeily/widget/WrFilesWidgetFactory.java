@@ -17,7 +17,6 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;

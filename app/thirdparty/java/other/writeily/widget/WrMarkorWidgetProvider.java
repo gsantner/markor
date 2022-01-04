@@ -20,8 +20,8 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
@@ -106,9 +106,9 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-                .putExtra(Document.EXTRA_PATH, directoryF)
-                .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
+                    .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+                    .putExtra(Document.EXTRA_PATH, directoryF)
+                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);
