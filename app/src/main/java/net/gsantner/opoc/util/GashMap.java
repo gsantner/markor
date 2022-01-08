@@ -2,7 +2,7 @@ package net.gsantner.opoc.util;
 
 //
 // License of this file GashMap.java: Public Domain
-// Created by Gregor Santner, 2021 - https://gsantner.net
+// Created by Gregor Santner, 2022 - https://gsantner.net
 //
 
 import java.util.HashMap;

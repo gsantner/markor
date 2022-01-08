@@ -1,6 +1,6 @@
 //
 // License of this file FileWithCachedData.java: Public Domain
-// Created by Gregor Santner, 2021 - https://gsantner.net
+// Created by Gregor Santner, 2022 - https://gsantner.net
 //
 
 package net.gsantner.opoc.util;

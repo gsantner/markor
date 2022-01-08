@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2021-
+ *   Maintained by Gregor Santner, 2022-
  *   https://gsantner.net/
  *
  *   License of this file: Apache 2.0 (Commercial upon request)

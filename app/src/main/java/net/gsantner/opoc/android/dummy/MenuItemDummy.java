@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Gregor Santner <https://gsantner.net>
+ * Copyright (c) 2022 Gregor Santner <https://gsantner.net>
  * License: Creative Commons Zero (CC0 1.0) / Public Domain
  *  http://creativecommons.org/publicdomain/zero/1.0/
  *
