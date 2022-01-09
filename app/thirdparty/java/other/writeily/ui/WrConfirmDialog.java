@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
 
 import java.io.Serializable;
 

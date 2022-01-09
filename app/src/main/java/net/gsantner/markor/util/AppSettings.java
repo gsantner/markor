@@ -36,7 +36,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -557,7 +556,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public int getEditorBackgroundColor() {
         int c = getInt(R.string.pref_key__editor_basic_color_scheme__bg, rcolor(R.color.background));
-        if (getAppThemeName().contains("black")){
+        if (getAppThemeName().contains("black")) {
             c = Color.BLACK;
         }
         return c;
@@ -567,7 +566,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         ActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
     }
 
-    public String getAppThemeName(){
+    public String getAppThemeName() {
         return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto));
     }
 

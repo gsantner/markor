@@ -495,7 +495,7 @@ public class SearchOrCustomTextDialogCreator {
     }
 
     private static Callback.a1<Spannable> getSttHighlighter(final Context context) {
-        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, new AppSettings(context).isDarkThemeEnabled(),  null);
+        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, new AppSettings(context).isDarkThemeEnabled(), null);
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {

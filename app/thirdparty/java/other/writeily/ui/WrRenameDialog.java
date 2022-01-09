@@ -13,7 +13,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -25,7 +24,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
