@@ -12,7 +12,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ui__filesystem_item__root"
+    android:id="@+id/opoc_filesystem_item__root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -22,7 +22,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/ui__filesystem_item__image"
+        android:id="@+id/opoc_filesystem_item__image"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_gravity="center_vertical|start"
@@ -37,19 +37,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/ui__filesystem_item__title"
+            android:id="@+id/opoc_filesystem_item__title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:importantForAccessibility="no"
-            android:lines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="19sp"
             tools:text="how to write a readme.md" />
 
         <TextView
-            android:id="@+id/ui__filesystem_item__description"
+            android:id="@+id/opoc_filesystem_item__description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

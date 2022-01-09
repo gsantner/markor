@@ -320,7 +320,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     @SuppressWarnings("UnnecessaryReturnStatement")
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ui__filesystem_item__root: {
+            case R.id.opoc_filesystem_item__root: {
                 // A own item was clicked
                 TagContainer data = (TagContainer) view.getTag();
                 if (data != null && data.file != null) {
@@ -452,7 +452,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     @Override
     public boolean onLongClick(View view) {
         switch (view.getId()) {
-            case R.id.ui__filesystem_item__root: {
+            case R.id.opoc_filesystem_item__root: {
                 TagContainer data = (TagContainer) view.getTag();
                 toggleSelection(data);
                 _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
@@ -696,13 +696,13 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         //########################
         //## UI Binding
         //########################
-        @BindView(R.id.ui__filesystem_item__root)
+        @BindView(R.id.opoc_filesystem_item__root)
         LinearLayout itemRoot;
-        @BindView(R.id.ui__filesystem_item__image)
+        @BindView(R.id.opoc_filesystem_item__image)
         ImageView image;
-        @BindView(R.id.ui__filesystem_item__title)
+        @BindView(R.id.opoc_filesystem_item__title)
         TextView title;
-        @BindView(R.id.ui__filesystem_item__description)
+        @BindView(R.id.opoc_filesystem_item__description)
         TextView description;
 
         //########################
