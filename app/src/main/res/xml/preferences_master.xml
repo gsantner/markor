@@ -137,6 +137,13 @@
 
             <CheckBoxPreference
                 android:defaultValue="false"
+                android:icon="@drawable/ic_visibility_off_black_24dp"
+                android:key="@string/pref_key__theming_hide_system_statusbar"
+                android:summary="@string/hide_statusbar_at_this_view"
+                android:title="@string/hide_statusbar" />
+
+            <CheckBoxPreference
+                android:defaultValue="false"
                 android:icon="@drawable/ic_screen_lock_portrait_black_24dp"
                 android:key="@string/pref_key__is_keep_screen_on"
                 android:title="@string/keep_screen_on" />
@@ -161,22 +168,7 @@
                 android:title="@string/chrome_custom_tabs" />
         </PreferenceCategory>
 
-        <PreferenceCategory android:title="@string/main_view">
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_visibility_off_black_24dp"
-                android:key="@string/pref_key__is_overview_statusbar_hidden"
-                android:summary="@string/hide_statusbar_at_this_view"
-                android:title="@string/hide_statusbar" />
-        </PreferenceCategory>
-
         <PreferenceCategory android:title="@string/editor">
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:icon="@drawable/ic_visibility_off_black_24dp"
-                android:key="@string/pref_key__is_editor_statusbar_hidden"
-                android:summary="@string/hide_statusbar_at_this_view"
-                android:title="@string/hide_statusbar" />
             <android.support.v7.preference.SeekBarPreference
                 android:defaultValue="8"
                 android:icon="@drawable/ic_space_bar_black_24dp"

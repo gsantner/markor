@@ -45,8 +45,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 openIntent.putExtra(Document.EXTRA_PATH_IS_FOLDER, openIntent.hasExtra(Document.EXTRA_PATH_IS_FOLDER) ? openIntent.getSerializableExtra(Document.EXTRA_PATH_IS_FOLDER) : file.isDirectory());
-                ActivityUtils au = new ActivityUtils(this);
-                au.animateToActivity(openIntent, true, 1);
+                new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();
             }
         } catch (Exception ignored) {
             finish();

@@ -141,8 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__editor_font_size" translatable="false">pref_key__editor_font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
-    <string name="pref_key__is_editor_statusbar_hidden" translatable="false">pref_key__is_editor_statusbar_hidden</string>
-    <string name="pref_key__is_overview_statusbar_hidden" translatable="false">pref_key__is_overview_statusbar_hidden</string>
+    <string name="pref_key__theming_hide_system_statusbar" translatable="false">pref_key__theming_hide_system_statusbar</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
     <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>

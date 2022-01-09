@@ -33,10 +33,8 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        onPreCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        _savedInstanceState = savedInstanceState;
-        _appSettings = createAppSettingsInstance(this);
-        _activityUtils = new ActivityUtils(this);
 
         m_setActivityBackgroundColor.callback();
         m_setActivityNavigationBarColor.callback();
@@ -52,6 +50,12 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
             } catch (Exception ignored) {
             }
         }
+    }
+
+    protected void onPreCreate(@Nullable Bundle savedInstanceState) {
+        _savedInstanceState = savedInstanceState;
+        _appSettings = createAppSettingsInstance(this);
+        _activityUtils = new ActivityUtils(this);
     }
 
     public AS createAppSettingsInstance(Context applicationContext) {

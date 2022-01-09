@@ -32,7 +32,6 @@ import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -64,25 +63,15 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     public void onCreate(Bundle b) {
         // Must be applied before setContentView
-        AppSettings appSettings = new AppSettings(this);
-        ContextUtils contextUtils = new ContextUtils(this);
-        contextUtils.setAppLanguage(appSettings.getLanguage());
         super.onCreate(b);
-
-        /*
-        ActivityUtils au = new ActivityUtils(this);
-        boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
-        au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
-        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
-        */
 
         // Load UI
         setContentView(R.layout.settings__activity);
         ButterKnife.bind(this);
 
         // Custom code
-        FontPreferenceCompat.additionalyCheckedFolder = new File(appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = contextUtils.rcolor(R.color.primary_text);
+        FontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
+        iconColor = _activityUtils.rcolor(R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -205,7 +194,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
-                    R.string.pref_key__is_editor_statusbar_hidden,
+                    R.string.pref_key__theming_hide_system_statusbar,
                     R.string.pref_key__tab_width_v2,
                     R.string.pref_key__editor_line_spacing,
             };
@@ -226,7 +215,7 @@ public class SettingsActivity extends MarkorBaseActivity {
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _as.applyAppTheme();
                 getActivity().finish();
-            } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
+            } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {

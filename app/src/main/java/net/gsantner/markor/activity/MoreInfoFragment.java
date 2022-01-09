@@ -65,7 +65,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__settings: {
-                    au.animateToActivity(SettingsActivity.class, false, 124);
+                    au.animateToActivity(SettingsActivity.class, false, 124).freeContextRef();
                     return true;
                 }
                 case R.string.pref_key__more_info__rate_app: {

@@ -40,7 +40,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
@@ -79,26 +78,13 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     private SectionsPagerAdapter _viewPagerAdapter;
 
     private boolean _doubleBackToExitPressedOnce;
-
-    private AppSettings _appSettings;
-    private ActivityUtils _contextUtils;
     private ShareUtil _shareUtil;
 
     @SuppressLint("SdCardPath")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(null);
-        }
-        _appSettings = new AppSettings(this);
-        _contextUtils = new ActivityUtils(this);
-        _shareUtil = new ShareUtil(this);
-        _contextUtils.setAppLanguage(_appSettings.getLanguage());
-        if (_appSettings.isOverviewStatusBarHidden()) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
-        _appSettings.applyAppTheme();
         super.onCreate(savedInstanceState);
+        _shareUtil = new ShareUtil(this);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
         setSupportActionBar(_toolbar);
@@ -197,7 +183,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
-            new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null);
+            new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null).freeContextRef();
             return true;
         }
         return false;
@@ -209,8 +195,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _contextUtils.tintMenuItems(menu, true, Color.WHITE);
-        _contextUtils.setSubMenuIconsVisiblity(menu, true);
+        _activityUtils.tintMenuItems(menu, true, Color.WHITE);
+        _activityUtils.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
 

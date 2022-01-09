@@ -203,8 +203,8 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return ret;
     }
 
-    public boolean isEditorStatusBarHidden() {
-        return getBool(R.string.pref_key__is_editor_statusbar_hidden, false);
+    public boolean isHideSystemStatusbar() {
+        return getBool(R.string.pref_key__theming_hide_system_statusbar, false);
     }
 
     public boolean isSpecialFileLaunchersEnabled() {
@@ -220,10 +220,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public boolean isDisallowScreenshots() {
         return getBool(R.string.pref_key__is_disallow_screenshots, false);
-    }
-
-    public boolean isOverviewStatusBarHidden() {
-        return getBool(R.string.pref_key__is_overview_statusbar_hidden, false);
     }
 
     public String getLanguage() {

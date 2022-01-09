@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
@@ -60,8 +59,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     private FragmentManager _fragManager;
     private Document _document;
 
-    private AppSettings _appSettings;
-    private ActivityUtils _contextUtils;
 
     private static boolean nextLaunchTransparentBg = false;
 
@@ -88,7 +85,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
-        activity.startActivity(intent);
+        new ActivityUtils(activity).animateToActivity(intent, false, 0).freeContextRef();
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -137,24 +134,14 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(null);
-        }
         AppSettings.clearDebugLog();
-        _appSettings = new AppSettings(this);
-        _contextUtils = new ActivityUtils(this);
-        _contextUtils.setAppLanguage(_appSettings.getLanguage());
-        if (_appSettings.isEditorStatusBarHidden()) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
         if (nextLaunchTransparentBg) {
-            getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+            //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;
         }
         setContentView(R.layout.document__activity);
-        _contextUtils.setAppLanguage(_appSettings.getLanguage());
         ButterKnife.bind(this);
-        if (_appSettings.isEditorStatusBarHidden()) {
+        if (_appSettings.isHideSystemStatusbar()) {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
@@ -215,7 +202,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         ).replace("\n", "<br/>");
 
         DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
-            _contextUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
+            _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
         };
 
         new AlertDialog.Builder(this)
@@ -237,7 +224,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _contextUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _contextUtils.convertDpToPx(52))) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _activityUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _activityUtils.convertDpToPx(52))) {
                     point.set(event.getX(), event.getY(), 0, 0);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     point.set(point.left, point.top, event.getX(), event.getY());

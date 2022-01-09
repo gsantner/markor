@@ -75,8 +75,8 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
      * @param finishFromActivity true: Finish the current activity
      * @param requestCode        Request code for stating the activity, not waiting for result if null
      */
-    public void animateToActivity(Class to, Boolean finishFromActivity, Integer requestCode) {
-        animateToActivity(new Intent(_activity, to), finishFromActivity, requestCode);
+    public ActivityUtils animateToActivity(Class to, Boolean finishFromActivity, Integer requestCode) {
+        return animateToActivity(new Intent(_activity, to), finishFromActivity, requestCode);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
      * @param finishFromActivity true: Finish the current activity
      * @param requestCode        Request code for stating the activity, not waiting for result if null
      */
-    public void animateToActivity(Intent intent, Boolean finishFromActivity, Integer requestCode) {
+    public ActivityUtils animateToActivity(Intent intent, Boolean finishFromActivity, Integer requestCode) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         if (requestCode != null) {
             _activity.startActivityForResult(intent, requestCode);
@@ -99,6 +99,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         if (finishFromActivity != null && finishFromActivity) {
             _activity.finish();
         }
+        return this;
     }
 
 

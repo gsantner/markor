@@ -11,8 +11,11 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme.Unified" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme.Unified.StartupFlash" parent="AppTheme.Unified">
+        <item name="android:windowBackground">@color/dark__background</item>
+    </style>
 
+    <style name="AppTheme.Unified" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -27,7 +30,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
-
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -58,5 +60,4 @@
         <item name="android:paddingStart">8dip</item>
         <item name="android:paddingEnd">8dip</item>
     </style>
-
 </resources>

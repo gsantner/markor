@@ -12,7 +12,6 @@ package net.gsantner.markor.activity;
 import static android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_DRAG;
 
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
@@ -36,8 +35,6 @@ import net.gsantner.markor.format.plaintext.PlaintextTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 
 import java.util.ArrayList;
@@ -58,12 +55,6 @@ public class ActionOrderActivity extends MarkorBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(null);
-        }
-        final AppSettings appSettings = new AppSettings(this);
-        final ActivityUtils contextUtils = new ActivityUtils(this);
-        contextUtils.setAppLanguage(appSettings.getLanguage());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_order_activity);
 

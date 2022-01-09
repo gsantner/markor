@@ -530,10 +530,11 @@ public class ContextUtils {
      * {@code androidLC} may be in any of the forms: en, de, de-rAt
      * If given an empty string, the default (system) locale gets loaded
      */
-    public void setAppLanguage(final String androidLC) {
+    public ContextUtils setAppLanguage(final String androidLC) {
         Locale locale = getLocaleByAndroidCode(androidLC);
         locale = (locale != null && !androidLC.isEmpty()) ? locale : Resources.getSystem().getConfiguration().locale;
         setLocale(locale);
+        return this;
     }
 
     public ContextUtils setLocale(final Locale locale) {
