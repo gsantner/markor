@@ -26,9 +26,9 @@
         android:gravity="center"
         android:paddingTop="64dp"
         android:text="¯\\_(ツ)_/¯"
-        android:visibility="gone"
         android:textSize="48sp"
         android:textStyle="bold"
+        android:visibility="gone"
         tools:ignore="HardcodedText" />
 
     <android.support.v4.widget.SwipeRefreshLayout

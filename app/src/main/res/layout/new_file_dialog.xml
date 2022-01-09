@@ -51,10 +51,10 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="70"
                 android:hint="@string/my_note"
+                android:importantForAutofill="no"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                android:importantForAutofill="no"
                 tools:ignore="TextFields" />
 
 
@@ -68,13 +68,13 @@
                 android:layout_weight="30"
                 android:gravity="end"
                 android:hint=".md"
+                android:importantForAutofill="no"
                 android:inputType="text|textNoSuggestions"
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
                 tools:ignore="HardcodedText"
-                tools:text=".md"
-                android:importantForAutofill="no" />
+                tools:text=".md" />
         </LinearLayout>
 
 

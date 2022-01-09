@@ -30,11 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_name_of_folder"
-        android:paddingBottom="8dp"
+        android:importantForAutofill="no"
         android:paddingTop="30dp"
+        android:paddingBottom="8dp"
         android:textColor="@color/primary_text"
         android:textColorHint="@color/light_grey"
         android:textSize="16sp"
-        android:importantForAutofill="no"
         tools:ignore="TextFields" />
 </LinearLayout>

@@ -134,7 +134,8 @@
                 android:title="@string/format"
                 app:showAsAction="never">
                 <menu>
-                    <group android:id="@+id/action_format_group"
+                    <group
+                        android:id="@+id/action_format_group"
                         android:checkableBehavior="single">
                         <item
                             android:id="@string/action_format_keyvalue"
@@ -231,8 +232,8 @@
     </item>
     <item
         android:id="@+id/action_info"
-        android:title="@string/info"
         android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/info"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_reload"

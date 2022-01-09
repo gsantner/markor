@@ -22,9 +22,9 @@
     <net.gsantner.markor.ui.DraggableScrollbarScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/textactions_bar_height"
+        android:background="@android:color/transparent"
         android:fillViewport="true">
 
         <net.gsantner.markor.ui.hleditor.HighlightingEditor
@@ -76,9 +76,9 @@
 
     <net.gsantner.markor.ui.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
-        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         android:visibility="gone" />
 
 </FrameLayout>

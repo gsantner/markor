@@ -31,15 +31,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_2"
-            android:textColor="@color/primary_text"
             android:fontFamily="sans-serif-light"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textCapSentences"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:scrollbars="vertical"
+            android:textColor="@color/primary_text"
             android:textCursorDrawable="@drawable/cursor_accent"
             tools:ignore="UnusedAttribute" />
     </ScrollView>

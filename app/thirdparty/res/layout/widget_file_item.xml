@@ -14,27 +14,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
+    android:background="@color/background"
     android:baselineAligned="false"
     android:clickable="true"
     android:orientation="horizontal"
-    android:paddingBottom="2dp"
     android:paddingLeft="10dp"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
-    android:background="@color/background"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="2dp"
     tools:ignore="KeyboardInaccessibleWidget,RtlHardcoded">
 
     <TextView
         android:id="@+id/widget_note_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_file_gray_24dp"
+        android:background="@color/background"
         android:drawableStart="@drawable/ic_file_gray_24dp"
+        android:drawableLeft="@drawable/ic_file_gray_24dp"
         android:ellipsize="end"
         android:gravity="center|start"
         android:minHeight="19sp"
         android:singleLine="true"
-        android:background="@color/background"
         android:textColor="@color/primary_text"
         android:textSize="16sp" />
 </LinearLayout>

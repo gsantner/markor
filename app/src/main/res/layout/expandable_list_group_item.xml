@@ -4,9 +4,9 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceListItem"
+    android:drawablePadding="5dp"
     android:gravity="center_vertical"
+    android:paddingLeft="10dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:drawablePadding="5dp"
-    android:paddingLeft="10dp" />
+    android:textAppearance="?android:attr/textAppearanceListItem" />

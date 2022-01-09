@@ -27,8 +27,8 @@
         android:layout_height="28dp"
         android:layout_gravity="center_vertical|start"
         android:layout_marginRight="16dp"
-        tools:ignore="ContentDescription,RtlHardcoded"
         android:importantForAccessibility="no"
+        tools:ignore="ContentDescription,RtlHardcoded"
         tools:src="@android:drawable/btn_radio" />
 
     <LinearLayout
@@ -42,10 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
+            android:importantForAccessibility="no"
             android:lines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="19sp"
-            android:importantForAccessibility="no"
             tools:text="how to write a readme.md" />
 
         <TextView
@@ -54,10 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ellipsize="middle"
+            android:importantForAccessibility="no"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textSize="15sp"
-            android:importantForAccessibility="no"
             tools:text="/sdcard/Documents/somewhere" />
     </LinearLayout>
 </LinearLayout>

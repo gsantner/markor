@@ -12,8 +12,8 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/name"
-        android:tint="@color/textActionIconColor"
-        android:src="@drawable/ic_format_indent_increase_black_24dp" />
+        android:src="@drawable/ic_format_indent_increase_black_24dp"
+        android:tint="@color/textActionIconColor" />
 
     <TextView
         android:id="@+id/action_text"
@@ -33,12 +33,12 @@
         android:id="@+id/enabled_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_toStartOf="@id/end_icon"
         android:layout_toLeftOf="@id/end_icon"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_centerVertical="true"
-        android:tooltipText="@string/toggle_action_visibility"/>
+        android:tooltipText="@string/toggle_action_visibility" />
 
     <ImageView
         android:id="@+id/end_icon"
@@ -51,6 +51,6 @@
         android:alpha="0.3"
         android:contentDescription="@string/drag"
         android:maxHeight="32dp"
-        android:tint="@color/textActionIconColor"
-        android:src="@drawable/ic_reorder_black_24dp" />
+        android:src="@drawable/ic_reorder_black_24dp"
+        android:tint="@color/textActionIconColor" />
 </RelativeLayout>

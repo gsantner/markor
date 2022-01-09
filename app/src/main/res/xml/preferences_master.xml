@@ -264,13 +264,13 @@
             <Preference
                 android:icon="@drawable/ic_save_black_24dp"
                 android:key="@string/pref_key__backup_settings"
-                android:title="@string/backup_settings"
-                android:summary="@string/export_settings_to_json_file" />
+                android:summary="@string/export_settings_to_json_file"
+                android:title="@string/backup_settings" />
             <Preference
                 android:icon="@drawable/ic_restore_black_24dp"
                 android:key="@string/pref_key__restore_settings"
-                android:title="@string/restore_settings"
-                android:summary="@string/import_settings_from_backup_json_file_on_success_the_app_is_restarted" />
+                android:summary="@string/import_settings_from_backup_json_file_on_success_the_app_is_restarted"
+                android:title="@string/restore_settings" />
         </PreferenceCategory>
 
     </PreferenceScreen>
@@ -289,8 +289,8 @@
             android:defaultValue="15"
             android:icon="@drawable/ic_format_size_black_24dp"
             android:key="@string/pref_key__editor_font_size"
-            android:min="1"
             android:max="36"
+            android:min="1"
             android:summary="@string/control_font_size_in_editor"
             android:title="@string/font_size" />
 
@@ -473,12 +473,13 @@
                     android:key="@string/pref_key__markdown_render_math"
                     android:summary="@string/katex_latex"
                     android:title="@string/math" />
-                <MultiSelectListPreference android:title="@string/table_of_contents"
+                <MultiSelectListPreference
                     android:dialogTitle="@string/table_of_contents"
                     android:entries="@array/pref_arrdisp__markdown_toc"
                     android:entryValues="@array/arr_one_to_six"
                     android:icon="@drawable/ic_list_black_24dp"
-                    android:key="@string/pref_key__markdown_table_of_contents_enabled_levels" />
+                    android:key="@string/pref_key__markdown_table_of_contents_enabled_levels"
+                    android:title="@string/table_of_contents" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">
                 <Preference

@@ -29,18 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/description"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine"
-            android:maxLines="3"
-            android:importantForAutofill="no" />
+            android:maxLines="3" />
 
         <EditText
             android:id="@+id/ui__select_path_dialog__url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/url_or_path"
+            android:importantForAutofill="no"
             android:inputType="textUri|textMultiLine"
-            android:maxLines="3"
-            android:importantForAutofill="no" />
+            android:maxLines="3" />
 
         <Button
             android:id="@+id/ui__select_path_dialog__browse_filesystem"

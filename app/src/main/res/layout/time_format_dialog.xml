@@ -46,13 +46,13 @@
 
             <TextView
                 android:id="@+id/datetime_format_input_show_spinner"
-                android:contentDescription="@string/choose_format"
                 style="@style/Base.Widget.AppCompat.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
+                android:contentDescription="@string/choose_format"
                 android:inputType="none" />
         </RelativeLayout>
 
