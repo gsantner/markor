@@ -27,17 +27,21 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+
+import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 
 import java.util.List;
 
@@ -290,6 +294,28 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         return c;
     }
 
+    public ActivityUtils setActivityBackgroundColor(@ColorInt Integer color) {
+        if (color != null) {
+            try {
+                ((ViewGroup) _activity.findViewById(android.R.id.content)).getChildAt(0).setBackgroundColor(color);
+            } catch (Exception ignored) {
+            }
+        }
+        return this;
+    }
+
+    public ActivityUtils setActivityNavigationBarBackgroundColor(@ColorInt Integer color) {
+        if (color != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    _activity.getWindow().setNavigationBarColor(color);
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        return this;
+    }
+
     public ActivityUtils startCalendarApp() {
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
@@ -343,5 +369,25 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         } catch (Exception ignored) {
         }
         return this;
+    }
+
+    /**
+     * Set Android day-night theme
+     *
+     * @param pref one out of system (daynight toggle), auto (daynight hour), autocompat (hour 5-17), light (fixed), dark (fixed)
+     */
+    public static void applyDayNightTheme(final String pref) {
+        final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+        final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+
+        if (prefLight) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (prefDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if ("system".equals(pref)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if ("auto".equals(pref)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        }
     }
 }

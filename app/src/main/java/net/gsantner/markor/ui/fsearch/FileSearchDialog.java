@@ -37,14 +37,13 @@ public class FileSearchDialog {
     }
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
-        final AppSettings appSettings = new AppSettings(activity);
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
 
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
@@ -60,6 +59,7 @@ public class FileSearchDialog {
         final CheckBox searchInContentCheckBox = new CheckBox(activity);
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
+        final AppSettings appSettings = new AppSettings(activity);
         final Callback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {

@@ -22,7 +22,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -98,7 +97,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (_appSettings.isOverviewStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
+        _appSettings.applyAppTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
@@ -233,10 +232,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
-
-        int color = ContextCompat.getColor(this, _appSettings.isDarkThemeEnabled()
-                ? R.color.dark__background : R.color.light__background);
-        _viewPager.getRootView().setBackgroundColor(color);
 
         if (_appSettings.isKeepScreenOn()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -421,7 +416,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     public FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
-            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(getApplicationContext(), false, new FilesystemViewerData.SelectionListenerAdapter() {
+            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(this, false, new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;

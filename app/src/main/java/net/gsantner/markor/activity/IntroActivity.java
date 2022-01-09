@@ -34,12 +34,12 @@ public class IntroActivity extends AppIntro {
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest
-        addSlide(AppIntroFragment.newInstance(getString(R.string.main_view), getString(R.string.notebook_is_the_home_of_your_files), R.drawable.screen1_main_view, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.editor), getString(R.string.error_need_storage_permission_to_save_documents), R.drawable.screen2_editor, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.view), "", R.drawable.screen3_view, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, ContextCompat.getColor(getApplicationContext(), R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.main_view), getString(R.string.notebook_is_the_home_of_your_files), R.drawable.screen1_main_view, ContextCompat.getColor(this, R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.editor), getString(R.string.error_need_storage_permission_to_save_documents), R.drawable.screen2_editor, ContextCompat.getColor(this, R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.view), "", R.drawable.screen3_view, ContextCompat.getColor(this, R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, ContextCompat.getColor(this, R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, ContextCompat.getColor(this, R.color.primary)));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, ContextCompat.getColor(this, R.color.primary)));
 
         // Permissions -- takes a permission and slide number
         showSkipButton(false);

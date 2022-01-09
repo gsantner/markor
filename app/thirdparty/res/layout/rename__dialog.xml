@@ -32,7 +32,7 @@
         android:hint="@string/enter_name_of_folder"
         android:paddingBottom="8dp"
         android:paddingTop="30dp"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/primary_text"
         android:textColorHint="@color/light_grey"
         android:textSize="16sp"
         android:importantForAutofill="no"

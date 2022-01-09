@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
 
 import java.io.Serializable;
 
@@ -56,9 +55,7 @@ public class WrConfirmDialog extends DialogFragment {
         _data = getArguments().getSerializable(EXTRA_DATA);
 
         AlertDialog.Builder dialogBuilder;
-        boolean darkTheme = AppSettings.get().isDarkThemeEnabled();
-        dialogBuilder = new AlertDialog.Builder(getActivity(), darkTheme ?
-                R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog);
 
         dialogBuilder.setTitle(title);
         if (!TextUtils.isEmpty(message)) {

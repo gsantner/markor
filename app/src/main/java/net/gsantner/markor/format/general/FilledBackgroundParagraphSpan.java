@@ -13,7 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.style.ParagraphStyle;
 
-import net.gsantner.markor.ui.hleditor.SpanCreator;
+import net.gsantner.markor.ui.hleditor.Highlighter;
 
 import java.util.regex.Matcher;
 
@@ -36,7 +36,7 @@ public class FilledBackgroundParagraphSpan extends BackgroundParagraphSpan {
     //
     //
 
-    public static class EverySecondLineSpanCreatorP implements SpanCreator.ParagraphStyleCreator {
+    public static class EverySecondLineSpanCreatorP implements Highlighter.SpanCreator<ParagraphStyle> {
         private int _color;
 
         public EverySecondLineSpanCreatorP(int color) {

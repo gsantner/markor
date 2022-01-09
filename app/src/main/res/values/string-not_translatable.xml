@@ -22,6 +22,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_donate_url" translatable="false"><![CDATA[https://gsantner.net/page/supportme.html?project=markor&source=inapp_supdon]]></string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project" translatable="false">@string/more_info_on_how_to_donate_or_otherwise_support_this_project_text</string>
     <string name="donate_" translatable="false">@string/donate</string>
+    <string name="huuid" translatable="false">hUUID</string>
+
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>
     <string name="bookmark_symbol" translatable="false">\u2605</string>
@@ -43,8 +45,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_drawer_launcher_special_files_description" translatable="false">App drawer launchers - To-Do, QuickNote</string>
 
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>
-    <string name="app_theme_light" translatable="false">light</string>
-    <string name="app_theme_dark" translatable="false">dark</string>
     <string name="app_theme_auto" translatable="false">auto</string>
     <string name="editor_basic_color_scheme_markor" translatable="false">Markor</string>
     <string name="editor_basic_color_scheme_black_or_white" translatable="false">Black or White</string>
@@ -55,7 +55,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
     <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
 
-    <string name="auto" translatable="false">Auto</string>
     <string name="hexcode" translatable="false">Hexcode</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, todo.txt, Plaintext</string>
 
@@ -192,6 +191,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown_newline_newparagraph" translatable="false">pref_key__markdown_newline_newparagraph</string>
     <string name="pref_key__markdown_table_of_contents_enabled_levels" translatable="false">pref_key__markdown_table_of_contents_enabled_levels</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
+    <string name="pref_key__editor_basic_color_scheme__bg" translatable="false">@string/pref_key__editor_basic_color_scheme__bg_light</string>
+    <string name="pref_key__editor_basic_color_scheme__fg" translatable="false">@string/pref_key__editor_basic_color_scheme__fg_light</string>
     <string name="pref_key__editor_basic_color_scheme__bg_light" translatable="false">pref_key__editor_basic_color_scheme__bg_light</string>
     <string name="pref_key__editor_basic_color_scheme__fg_light" translatable="false">pref_key__editor_basic_color_scheme__fg_light</string>
     <string name="pref_key__editor_basic_color_scheme__bg_dark" translatable="false">pref_key__editor_basic_color_scheme__bg_dark</string>

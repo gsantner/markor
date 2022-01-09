@@ -10,22 +10,25 @@
 #########################################################*/
 -->
 <resources>
+    <!-- Named colors -->
     <color name="colorPrimary">@color/primary</color>
-    <color name="colorPrimaryDark">@color/primary_dark</color>
+    <color name="primary_text">@color/light__primary_text</color>
+    <color name="secondary_text">@color/light__secondary_text</color>
+    <color name="background">@color/light__background</color>
+    <color name="background_2">@color/light__background_2</color>
+    <color name="textActionBarColor">@color/lighter_grey</color>
+    <color name="textActionIconColor">@color/grey</color>
+
+    <!-- Named colors differing common to day and night -->
     <color name="colorAccent">@color/accent</color>
 
-    <!-- Colors from Palette -->
+    <!-- Color values -->
     <color name="primary">#1E2135</color>
     <color name="primary_dark">#161828</color>
     <color name="primary_light">#CED9DD</color>
     <color name="accent">#F04B4B</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
-    <!-- End colors from Palette -->
-    <color name="primary__greyish">#343434</color>
-    <color name="primary_dark__greyish">#282828</color>
 
     <color name="accent_light">#FF9800</color>
     <color name="divider_2">#3d3d3d</color>
@@ -49,7 +52,6 @@
     <color name="light_grey">#ffC0C0C0</color>
     <color name="lighter_grey">#ffE0E0E0</color>
 
-
     <color name="solarized_bg_dark">#002B36</color>
     <color name="solarized_bg_light">#FCF5E4</color>
     <color name="solarized_fg">#657b83</color>
@@ -60,7 +62,6 @@
     <color name="green_dark">#00ff00</color>
     <color name="green_light">#00bb00</color>
 
-
     <color name="sepia_fg_light__bg_dark">#282828</color>
     <color name="sepia_bg_light__fg_dark">#EBDBB2</color>
 
@@ -68,4 +69,7 @@
     <color name="nord_fg_dark">#ECEFF4</color>
     <color name="nord_bg_light">#ECEFF4</color>
     <color name="nord_fg_light">#2E3440</color>
+
+    <color name="link">#ff1ea3fd</color>;
+
 </resources>

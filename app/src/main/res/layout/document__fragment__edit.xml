@@ -31,7 +31,7 @@
             android:id="@+id/document__fragment__edit__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@color/background"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textCapSentences"
@@ -50,12 +50,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/textactions_bar_height"
         android:layout_gravity="bottom"
+        android:background="@color/textActionBarColor"
         android:paddingTop="4dp">
 
         <LinearLayout
             android:id="@+id/document__fragment__edit__text_actions_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@color/textActionBarColor"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
@@ -74,6 +76,7 @@
 
     <net.gsantner.markor.ui.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />

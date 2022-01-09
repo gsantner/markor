@@ -48,8 +48,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class FilesystemViewerDialog extends DialogFragment
-        implements FilesystemViewerData.SelectionListener {
+public class FilesystemViewerDialog extends DialogFragment implements FilesystemViewerData.SelectionListener {
     //########################
     //## Static
     //########################
@@ -165,7 +164,7 @@ public class FilesystemViewerDialog extends DialogFragment
     }
 
     private int rcolor(@ColorRes int colorRes) {
-        return ContextCompat.getColor(getActivity(), colorRes);
+        return ContextCompat.getColor(getContext(), colorRes);
     }
 
     private void setDialogOptions(FilesystemViewerData.Options options) {

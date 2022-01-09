@@ -13,7 +13,6 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Date;

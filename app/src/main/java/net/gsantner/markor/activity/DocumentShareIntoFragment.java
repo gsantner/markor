@@ -10,13 +10,13 @@
 package net.gsantner.markor.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
@@ -91,7 +91,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         cu.setAppLanguage(as.getLanguage());
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
-        view.setBackgroundColor(as.getBackgroundColor());
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
             _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
@@ -102,8 +101,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         _hlEditor.setText(sharedText);
-        _hlEditor.setBackgroundColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.dark__background_2 : R.color.light__background_2));
-        _hlEditor.setTextColor(ContextCompat.getColor(context, as.isDarkThemeEnabled() ? R.color.white : R.color.dark_grey));
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
 
@@ -187,12 +184,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             if ((_sharedText.length() * 1.05) < 8200) {
                 outState.putString(EXTRA_TEXT, _sharedText);
             }
-        }
-
-        @Override
-        public Integer getIconTintColor() {
-            boolean dark = getAppSettings(getContext()).isDarkThemeEnabled();
-            return _cu.rcolor(dark ? R.color.dark__primary_text : R.color.light__primary_text);
         }
 
         public void setText(String text) {
@@ -289,9 +280,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @SuppressLint("NonConstantResourceId")
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
-            AppSettings appSettings = new AppSettings(getActivity().getApplicationContext());
-            PermissionChecker permc = new PermissionChecker(getActivity());
-            ShareUtil shu = new ShareUtil(getContext());
+            final Activity activity = getActivity();
+            AppSettings appSettings = new AppSettings(activity);
+            PermissionChecker permc = new PermissionChecker(activity);
+            ShareUtil shu = new ShareUtil(activity);
             String tmps;
 
             boolean close = false;

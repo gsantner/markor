@@ -11,10 +11,12 @@
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:background="@color/background_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
@@ -101,6 +103,7 @@
 
         <RelativeLayout
             android:id="@+id/widget_list_container"
+            android:background="@color/background_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_header">
@@ -121,7 +124,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@android:color/white" />
+                android:background="@color/background"
+                android:divider="@color/grey"
+                android:dividerHeight="0.5dp" />
         </RelativeLayout>
     </RelativeLayout>
 

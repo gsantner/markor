@@ -109,7 +109,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         Object[] fret = checkIfLikelyTextfileAndGetExt(file);
         boolean isLikelyTextfile = (boolean) fret[0];
         String ext = (String) fret[1];
-        boolean isYes = new AppSettings(activity.getApplicationContext()).isExtOpenWithThisApp(ext);
+        boolean isYes = new AppSettings(activity).isExtOpenWithThisApp(ext);
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
@@ -122,7 +122,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (isYes) {
             openFile.callback(true);
         } else if (isLikelyTextfile) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, new AppSettings(activity.getApplicationContext()).isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
@@ -147,7 +147,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (_appSettings.isEditorStatusBarHidden()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        setTheme(_appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         if (nextLaunchTransparentBg) {
             getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;
@@ -191,7 +190,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             showShareInto(intent);
         } else if (file == null && (intentIsView || intentIsEdit)) {
             // No EXTRA_PATH and view of open intent
-            file = new ShareUtil(getApplicationContext()).extractFileFromIntent(intent);
+            file = new ShareUtil(this).extractFileFromIntent(intent);
             if (file == null && intentData != null && intentData.toString().startsWith("content://")) {
                 showNotSupportedMessage();
             }

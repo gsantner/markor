@@ -13,13 +13,12 @@ import android.text.ParcelableSpan;
 import android.text.Spannable;
 
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.SpanCreator;
 
 import java.util.regex.Matcher;
 
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrMarkdownHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
+public class WrMarkdownHeaderSpanCreator implements Highlighter.SpanCreator<ParcelableSpan> {
     private static final Character POUND_SIGN = '#';
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Named colors -->
+    <color name="colorPrimary">@color/primary_dark</color>
+    <color name="primary_text">@color/white</color>
+    <color name="secondary_text">#9e9e9e</color>
+    <color name="background">@color/dark__background</color>
+    <color name="background_2">@color/dark__background_2</color>
+    <color name="textActionBarColor">@color/dark__background_2</color>
+    <color name="textActionIconColor">@color/white</color>
+
+    <!-- All values specified only in base colors.xml  -->
+
+</resources>

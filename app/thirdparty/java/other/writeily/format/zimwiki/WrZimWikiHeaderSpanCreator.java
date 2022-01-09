@@ -13,13 +13,13 @@ import android.text.ParcelableSpan;
 import android.text.Spannable;
 
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
-import net.gsantner.markor.ui.hleditor.SpanCreator;
+import net.gsantner.markor.ui.hleditor.Highlighter;
 
 import java.util.regex.Matcher;
 
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrZimWikiHeaderSpanCreator implements SpanCreator.ParcelableSpanCreator {
+public class WrZimWikiHeaderSpanCreator implements Highlighter.SpanCreator<ParcelableSpan> {
     private static final Character EQUAL_SIGN = '=';
     private static final float STANDARD_PROPORTION_MAX = 1.60f;
     private static final float STANDARD_PROPORTION_MIN = 1.00f;

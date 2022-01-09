@@ -24,7 +24,6 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -47,7 +46,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends MarkorBaseActivity {
 
@@ -69,13 +67,14 @@ public class SettingsActivity extends MarkorBaseActivity {
         AppSettings appSettings = new AppSettings(this);
         ContextUtils contextUtils = new ContextUtils(this);
         contextUtils.setAppLanguage(appSettings.getLanguage());
-        setTheme(appSettings.isDarkThemeEnabled() ? R.style.AppTheme_Dark : R.style.AppTheme_Light);
         super.onCreate(b);
-/*
+
+        /*
         ActivityUtils au = new ActivityUtils(this);
         boolean extraLaunchersEnabled = appSettings.isSpecialFileLaunchersEnabled();
         au.setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
-        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);*/
+        au.setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
+        */
 
         // Load UI
         setContentView(R.layout.settings__activity);
@@ -83,7 +82,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         FontPreferenceCompat.additionalyCheckedFolder = new File(appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = contextUtils.rcolor(appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        iconColor = contextUtils.rcolor(R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -127,11 +126,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _as = new AppSettings(context);
             }
             return _as;
-        }
-
-        @Override
-        public Integer getIconTintColor() {
-            return iconColor;
         }
 
         @Override
@@ -230,12 +224,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 activityRetVal = RESULT.RESTART_REQ;
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__app_theme)) {
-                // Handling widget color scheme
-                WrMarkorWidgetProvider.handleWidgetScheme(
-                        getContext(),
-                        new RemoteViews(context.getPackageName(), R.layout.widget_layout),
-                        new AppSettings(context).isDarkThemeEnabled());
-                _as.setRecreateMainRequired(true);
+                _as.applyAppTheme();
                 getActivity().finish();
             } else if (eq(key, R.string.pref_key__is_overview_statusbar_hidden)) {
                 activityRetVal = RESULT.RESTART_REQ;
@@ -253,7 +242,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
             } else if (eq(key, R.string.pref_key__share_into_format)) {
                 try {
-                    Toast.makeText(context, ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis(), null), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ShareUtil.formatDateTime(context, prefs.getString(key, ""), System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
@@ -333,18 +322,12 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
                 case R.string.pref_key__editor_basic_color_scheme_markor: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.background);
                     break;
                 }
                 case R.string.pref_key__editor_basic_color_scheme_blackorwhite: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.black);
                     _as.setEditorBasicColor(false, R.color.black, R.color.white);
-                    break;
-                }
-                case R.string.pref_key__editor_basic_color_scheme_amoled: {
-                    _as.setEditorBasicColor(true, R.color.white, R.color.black);
-                    _as.setEditorBasicColor(false, R.color.black, R.color.white);
-                    _as.setDarkThemeEnabled(true);
                     break;
                 }
                 case R.string.pref_key__editor_basic_color_scheme_solarized: {

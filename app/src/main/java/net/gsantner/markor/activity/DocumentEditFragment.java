@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -20,7 +22,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -165,7 +166,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _shareUtil = new ShareUtil(activity);
 
         _webViewClient = new MarkorWebViewClient(activity);
-        _webView.setBackgroundColor(ContextCompat.getColor(view.getContext(), _appSettings.isDarkThemeEnabled() ? R.color.dark__background : R.color.light__background));
         _webView.setWebViewClient(_webViewClient);
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
@@ -195,17 +195,30 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
 
-        loadDocument();
-
         if (activity instanceof DocumentActivity) {
             ((DocumentActivity) activity).setDocument(_document);
         }
 
+        _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
+
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
+        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
+
+        _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
+        _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
+
+        // Do not need to send contents to accessibility
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
+
+        _webView.setBackgroundColor(Color.TRANSPARENT);
+
+        loadDocument();
+
+        _hlEditor.clearFocus();
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
-        _hlEditor.clearFocus();
-        _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-        setupAppearancePreferences(view);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
@@ -214,11 +227,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
-        }
-
-        // Do not need to send contents to accessibility
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
 
         // Set the correct position after everything else done
@@ -367,10 +375,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
             checkTextChangeState();
 
-            if (_isPreviewVisible) {
-                setDocumentViewVisibility(true);
-                _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            }
+            setViewModeVisibility(_isPreviewVisible);
         }
     }
 
@@ -415,15 +420,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_preview: {
-                setDocumentViewVisibility(true);
+                setViewModeVisibility(true);
                 return true;
             }
             case R.id.action_edit: {
-                setDocumentViewVisibility(false);
+                setViewModeVisibility(false);
                 return true;
             }
             case R.id.action_preview_edit_toggle: {
-                setDocumentViewVisibility(!_isPreviewVisible);
+                setViewModeVisibility(!_isPreviewVisible);
                 return true;
             }
             case R.id.action_share_text: {
@@ -461,7 +466,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.getSetWebViewFulldrawing(true);
                 if (saveDocument(false)) {
                     _nextConvertToPrintMode = true;
-                    setDocumentViewVisibility(true);
+                    setViewModeVisibility(true);
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -487,7 +492,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_search: {
-                setDocumentViewVisibility(false);
+                setViewModeVisibility(false);
                 _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
                 return true;
             }
@@ -592,15 +597,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 .appendTextActionsToBar(_textActionsBar);
 
         updateMenuToggleStates(textFormatId);
-    }
-
-    private void setupAppearancePreferences(View fragmentView) {
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
-        _hlEditor.setTypeface(FontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-
-        _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
-        _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
-        fragmentView.findViewById(R.id.document__fragment__edit__text_actions_bar__scrolling_parent).setBackgroundColor(_appSettings.getEditorTextactionBarColor());
     }
 
     private void initDocState() {
@@ -763,26 +759,38 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void setDocumentViewVisibility(boolean show) {
+    public void setViewModeVisibility(final boolean show) {
         final Activity activity = getActivity();
-        if (!show) {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
-        } else {
+        if (show) {
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
             new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> new ActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            fadeInOut(_webView, _primaryScrollView);
+        } else {
+            _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            fadeInOut(_primaryScrollView, _webView);
         }
 
         _nextConvertToPrintMode = false;
-        _webView.setAlpha(0);
-        _webView.setVisibility(show ? View.VISIBLE : View.GONE);
-        if (show) {
-            _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
-        }
-
         _isPreviewVisible = show;
+
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
+    }
+
+    private static void fadeInOut(final View in, final View out) {
+        in.setAlpha(0);
+        in.setVisibility(View.VISIBLE);
+        in.animate().alpha(1).setDuration(200).setListener(null);
+        out.animate()
+                .alpha(0)
+                .setDuration(200)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        out.setVisibility(View.GONE);
+                    }
+                });
     }
 
     final View.OnLongClickListener _longClickToTopOrBottom = new View.OnLongClickListener() {

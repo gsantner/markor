@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
 
@@ -43,8 +42,7 @@ public class FileSearchResultSelectorDialog {
     }
 
     private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
-        final AppSettings appSettings = new AppSettings(activity);
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, appSettings.isDarkThemeEnabled() ? R.style.Theme_AppCompat_Dialog : R.style.Theme_AppCompat_Light_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
@@ -53,7 +51,7 @@ public class FileSearchResultSelectorDialog {
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
 
         final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
-        final int textColor = ContextCompat.getColor(activity, appSettings.isDarkThemeEnabled() ? R.color.dark__primary_text : R.color.light__primary_text);
+        final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);
 
