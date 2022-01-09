@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.zimwiki;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.StringRes;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -306,6 +307,9 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
     public static String createZimWikiHeaderAndTitleContents(String fileNameWithoutExtension, Date creationDate, String creationDateLinePrefix) {
         String creationDateFormatted;
         try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                throw new Exception();
+            }
             creationDateFormatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.ROOT).format(creationDate);
         } catch (Exception e) {
             creationDateFormatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ", Locale.ROOT).format(creationDate);
