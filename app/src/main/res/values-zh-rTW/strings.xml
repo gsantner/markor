@@ -278,13 +278,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">取消</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">喜歡這個專案嗎？希望它繼續改善而且問題得到解決嗎？\n\n開發應用程式以及撰寫相關部落格文章都需要很多時間！如果你想要幫忙讓專案可以繼續，請考慮小額捐款！\n\n這個專案是在閒暇時間開發的，完全免費，並且沒有任何廣告！</string>
     <string name="app_start_tab">啟動顯示頁面</string>
+    <string name="tab_to_select_at_start">起始程式時，點選分頁</string>
     <string name="swipe_to_change_mode">滑動以更改模式</string>
+    <string name="swipe_to_change_to_edit_or_view_mode">滑動以變更編輯或檢視模式(現行模式的反向操作)</string>
     <string name="folder_first">資料夾優先</string>
     <string name="go_to">前往</string>
     <string name="appdata_public">應用程式資料(公開)</string>
     <string name="appdata_private">應用程式資料(私人)</string>
     <string name="appdata_sdcard">應用程式資料(SD卡)</string>
     <string name="internal_storage">內部儲存空間</string>
+    <string name="open_the_document_from_main_view">您可以從底部的主檢視區藉由檔案管理程式或啟動器開啟文件，另外還有一個選項是分享附加的文字給Markor。</string>
     <string name="navigationbar_color">導覽列顏色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
