@@ -289,7 +289,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">內部儲存空間</string>
     <string name="open_the_document_from_main_view">您可以從底部的主檢視區藉由檔案管理程式或啟動器開啟文件，另外還有一個選項是分享附加的文字給Markor。</string>
     <string name="notebook_is_the_home_of_your_files">「筆記本」是Markor啟動時傳輸到檔案管理員中的資料夾，也是您檔案的主資料夾。</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">「快速」是迅速記錄的選項，以Markdown格式存放在預設位置。&gt;Notebook/QuickNote.md&lt;您可以在設定裡自訂檔案途徑。</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">「快速」是迅速記錄的選項，以Markdown格式存放在預設位置&gt;Notebook/QuickNote.md&lt;，您可以在設定裡自訂其途徑。</string>
+    <string name="todo_is_the_easiest_way_">ToDo可以用來管理您的工作任務，預設位置是&gt;Notebook/todo.txt&lt;，您可以在設定裡自訂其途徑。</string>
     <string name="navigationbar_color">導覽列顏色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
@@ -297,6 +298,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">檢視模式</string>
     <string name="edit_mode">編輯模式</string>
     <string name="mount_storage">掛接儲存裝置</string>
+    <string name="application_needs_access_to_storage_mount_it">存取儲存空間需要權限，儲存空間掛載後才能存取；在跳出的對話框選擇儲存的位置，按下確認。</string>
     <string name="share_into">分享至</string>
     <string name="favourite">新增至我的最愛</string>
     <string name="favourites">最愛列表</string>
