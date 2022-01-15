@@ -16,8 +16,8 @@
 <a href="https://f-droid.org/repository/browse/?fdid=net.gsantner.markor">
     <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="64">
 </a>
-<a href="https://play.google.com/store/apps/details?id=net.gsantner.markor">
-    <img alt="Get it on Google Play" height="64" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+<a href="https://github.com/gsantner/markor/releases/latest">
+    <img alt="Get it on GitHub" height="64" src="https://gsantner.net/assets/blog/img/badge-download-github-apk.png" />
 </a>
 </div><br/>
 
@@ -97,7 +97,6 @@ The project uses [AOSP Java Code Style](https://source.android.com/source/code-s
 #### Resources
 * Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt)
 * F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
-* Google Play: [Listing](https://play.google.com/store/apps/details?id=net.gsantner.markor&utm_source=reporeadme)  
 * Further download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases](https://github.com/gsantner/markor/releases)
 
 ## Licensing
