@@ -164,6 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="type">ପ୍ରକାର</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="font">ଫଣ୍ଟ</string>
+    <string name="enter_or_select_format">ଫର୍ମାଟ୍ ପ୍ରବେଶ ବା ଚୟନ କରନ୍ତୁ</string>
     <string name="pick_date">ତାରିଖ ବାଛନ୍ତୁ</string>
     <string name="pick_time">ସମୟ ବାଛନ୍ତୁ</string>
     <string name="just_time">କେବଳ ସମୟ</string>
@@ -206,6 +207,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_5">ଶିରୋନାମା ୫</string>
     <string name="heading_6">ଶିରୋନାମା ୬</string>
     <string name="choose_format">ଫର୍ମାଟ୍ ବାଛନ୍ତୁ</string>
+    <string name="expand_collapse">ପ୍ରସାରଣ / ସଙ୍କୋଚନ</string>
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="created">ତିଆରି କରାଗଲା</string>
     <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
