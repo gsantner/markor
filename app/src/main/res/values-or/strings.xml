@@ -12,7 +12,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">ସେଟିଂସମୂହ</string>
     <string name="light">ହାଲୁକା</string>
-    <string name="dark">ଗାଢ଼</string>
+    <string name="dark">ଗାଢ଼</string>
     <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
     <string name="appearance">ରୂପ</string>
     <string name="rename">ନାମ ବଦଳାନ୍ତୁ</string>
@@ -208,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_6">ଶିରୋନାମା ୬</string>
     <string name="choose_format">ଫର୍ମାଟ୍ ବାଛନ୍ତୁ</string>
     <string name="expand_collapse">ପ୍ରସାରଣ / ସଙ୍କୋଚନ</string>
+    <string name="essential">ଅତ୍ୟାବଶ୍ୟକ</string>
     <string name="load_default_settings">ଡିଫଲ୍ଟ ସେଟିଂସ୍ ଲୋଡ୍ କରନ୍ତୁ</string>
     <string name="created">ତିଆରି କରାଗଲା</string>
     <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
