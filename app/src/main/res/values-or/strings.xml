@@ -64,7 +64,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
     <string name="show_license_of_the_app">ଆପ୍ ର ଲାଇସେନ୍ସ ଦେଖାନ୍ତୁ</string>
-    <string name="language_change_restart_description">ଏହି ଆପ୍ ର ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ। ପରିବର୍ତ୍ତନଗୁଡ଼ିକ କାର୍ଯ୍ୟକାରୀ ହେବା ପାଇଁ ଆପ୍ ପୁନଃଆରମ୍ଭ କରନ୍ତୁ</string>
+    <string name="language_change_restart_description">ଏହି ଆପ୍ ର ଭାଷା ବଦଳାନ୍ତୁ। ପରିବର୍ତ୍ତନଗୁଡ଼ିକ କାର୍ଯ୍ୟକାରୀ ହେବା ପାଇଁ ଆପ୍ ପୁନଃଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="language">ଭାଷା</string>
     <string name="error_need_storage_permission_to_save_documents">ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ ସଞ୍ଚୟ କରିବା ପାଇଁ ଷ୍ଟୋରେଜ୍ ଅନୁମତି ଆବଶ୍ୟକ</string>
     <string name="open_with">ଏହା ସହ ଖୋଲନ୍ତୁ</string>
