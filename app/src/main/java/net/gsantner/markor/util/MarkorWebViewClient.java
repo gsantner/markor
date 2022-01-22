@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import net.gsantner.markor.activity.DocumentActivity;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;
 
@@ -51,11 +52,16 @@ public class MarkorWebViewClient extends WebViewClient {
                         break;
                     }
                 }
-                if (TextFormat.isTextFile(file)) {
-                    Intent newPreview = new Intent(_activity, DocumentActivity.class);
-                    newPreview.putExtra(Document.EXTRA_PATH, file);
-                    newPreview.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true);
-                    _activity.startActivity(newPreview);
+                if (file.isDirectory()) {
+                    _activity.startActivity(new Intent(_activity, MainActivity.class)
+                            .putExtra(Document.EXTRA_PATH, file)
+                            .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
+                    );
+                } else if (TextFormat.isTextFile(file)) {
+                    _activity.startActivity(new Intent(_activity, DocumentActivity.class)
+                            .putExtra(Document.EXTRA_PATH, file)
+                            .putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true)
+                    );
                 } else if (file.getName().toLowerCase().endsWith(".apk")) {
                     su.requestApkInstallation(file);
                 } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
