@@ -203,7 +203,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
-            final String newContent = document.loadContent(context).replaceAll("(?m)^[\\r\\n]+|[\\r\\n]+$", "")
+            final String newContent = document.loadContent(context).replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
                     + separator
                     + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
             document.saveContent(context, newContent);
