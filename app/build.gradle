@@ -36,6 +36,7 @@ android {
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
         buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
+        buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage()}\""
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
 

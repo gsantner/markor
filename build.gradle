@@ -110,6 +110,19 @@ ext.getGitHash = { ->
     }
 }
 
+ext.getGitLastCommitMessage = { ->
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'log', '--oneline', '-1', '--format="%s"'
+            standardOutput = stdout
+        }
+        return stdout.toString().replace("\"", "").replace("\\", "").trim()
+    } catch (Exception ignored) {
+        return 'unknown'
+    }
+}
+
 @SuppressWarnings(["UnnecessaryQualifiedReference", "SpellCheckingInspection", "GroovyUnusedDeclaration"])
 // Returns the build date in a RFC3339 compatible format. TZ is always converted to UTC
 static String getBuildDate() {

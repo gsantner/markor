@@ -169,6 +169,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
             summary += (tmp = _cu.bcstr("BUILD_DATE", "")).isEmpty() ? "" : ("\n<b>Build date:</b> " + tmp);
             summary += (tmp = _cu.getAppInstallationSource()).isEmpty() ? "" : ("\n<b>ISource:</b> " + tmp);
             summary += (tmp = _cu.bcstr("GITHASH", "")).isEmpty() ? "" : ("\n<b>VCS Hash:</b> " + tmp);
+            summary += (tmp = _cu.bcstr("GITMSG", "")).isEmpty() ? "" : ("\n<b>VCS Msg:</b> " + tmp);
             pref.setSummary(_cu.htmlToSpanned(summary.trim().replace("\n", "<br/>")));
         }
 
