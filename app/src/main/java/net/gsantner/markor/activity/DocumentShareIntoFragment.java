@@ -406,6 +406,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 text = "";
             }
 
+            link = link.replaceAll("(?m)(?<=&|\\?)(utm_|source|__mk_|ref|sprefix|crid|partner|promo).*?(&|$|\\s|\\))", "");
+
             formattedLink = String.format("[%s](%s )",
                     text.trim().replace("[", "\\[").replace("]", "\\]"),
                     link.trim().replace("(", "\\(").replace(")", "\\)")
