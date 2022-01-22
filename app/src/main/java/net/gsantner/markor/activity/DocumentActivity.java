@@ -135,6 +135,9 @@ public class DocumentActivity extends MarkorBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppSettings.clearDebugLog();
+        if (savedInstanceState != null && savedInstanceState.containsKey(DocumentEditFragment.SAVESTATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(DocumentEditFragment.SAVESTATE_DOCUMENT);
+        }
         if (nextLaunchTransparentBg) {
             //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;
@@ -264,7 +267,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {
             String reqPath = (reqFile != null) ? reqFile.getPath() : "";
-            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getDocument().getPath());
+            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getDocument(_document).getPath());
         }
 
         if (!sameDocumentRequested) {
@@ -358,5 +361,11 @@ public class DocumentActivity extends MarkorBaseActivity {
             DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
             def.onToolbarTitleClicked(_toolbar);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(DocumentEditFragment.SAVESTATE_DOCUMENT, _document);
     }
 }

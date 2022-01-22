@@ -75,9 +75,8 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
-    public static final int HISTORY_DELTA = 5000;
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
-    private static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
 
@@ -818,7 +817,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     //
     //
 
-    public Document getDocument() {
+    /**
+     * Get document of this fragment. if no document set yet, fallback to other passed instances (i.e. from onSavedInstanceState)
+     */
+    public Document getDocument(Document... fallback) {
+        if (_document == null && fallback != null && fallback.length > 0 && fallback[0] != null) {
+            _document = fallback[0];
+        }
         return _document;
     }
 
