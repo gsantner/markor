@@ -9,7 +9,7 @@
 # Markor
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="128" hspace="10" vspace="10">
 <b>Text editor - Notes &amp; ToDo (for Android)</b>.
-<br/>Simple and lightweight, supporting Markdown and todo.txt<br/><br/>
+<br/>Simple and lightweight, supporting Markdown, todo.txt, Zim & more!<br/><br/>
 
 <div style="display:flex;" >
 <a href="https://f-droid.org/repository/browse/?fdid=net.gsantner.markor">
@@ -26,6 +26,9 @@ Markor utilizes simple markup formats like Markdown and todo.txt for note-taking
 It is versatile at working with text; it can also be used for keeping bookmarks, copying to clipboard, fast opening a link from text and lots more.
 Created files are interoperable with any other plaintext software on any platform.
 Markor is openly developed free software that accepts community contributions.
+
+![Screenshots](https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/99-123.jpg)  
+![Screenshots](https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/99-456.jpg)  
 
 ## Features
 📝 Create notes and manage your to-do list using simple markup formats
@@ -50,10 +53,45 @@ Markor is openly developed free software that accepts community contributions.
 <br/>🔃 Markor is an offline app. It works with sync apps, but they have to do syncing respectively. Sync clients known to work in combination include BitTorrent Sync, Dropbox, FolderSync, OwnCloud, NextCloud, Seafile, Syncthing, Syncopoli
 <br/>🔒 Can encrypt your textfiles with AES256. You need to set a password at the settings and use Android device with version Marshmallow or newer. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) to encrypt/decrypt easily on desktop. Be aware that only the text is encrypted not pictures or attachments.
 
-### Privacy<a name="privacy"></a>
-Markor does not use your internet connection unless external resources (e.g. display image by URL) are referenced in user generated content.
+
+## Contribute
+* **Programming**  
+  The project is always open for contributions and welcomes merge requests. Take a look at our [issue tracker](https://github.com/gsantner/markor/issues) for open issues, especially "[good first issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)".
+* **Feature requests & discussions**  
+  Start a discussion [here](https://github.com/gsantner/markor/discussions).
+* **Bug reports**  
+  Report issues [here](https://github.com/gsantner/markor/issues). Please [search](https://github.com/gsantner/markor/issues?q=) for similar issues & [requests](https://github.com/gsantner/markor/discussions?discussions_q=) first. If it's not a bug, please head to discussions.
+* **Localization**  
+  Translate on [Crowdin](https://crowdin.com/project/markor/invite) (free).
+
+## Develop
+Clone the project using git. Then open the project in [Android Studio](https://developer.android.com/studio) (recommended), install required Android SDK dependencies where required.
+You may also use any other plaintext editor of your preference.
+
+There is a Makefile in the project which makes it easy to test, lint, build, install & run the application on your device. See the Makefile for reference.
+You can find binaries (.apk), logs, test results & other outputs in the dist/ directory.  
+Example: `make all install run`.
+
+The project code style is the [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions). Use the _auto reformat_ menu option of Android Studio before commiting or before you create the pull request.
+
+### Technologies / Dependencies
+* Java, Android SDK, AppCompat
+* Editor: Advanced component based on Android EditText
+* Preview: Android WebView
+* Markdown parser: [flexmark-java](https://github.com/vsch/flexmark-java/wiki/Extensions)
+* Zim & todo.txt parser: Custom implementation
+* CI/CD: GitHub Actions
+* Build system: Gradle & Makefile
+
+### Resources
+* Project repository: [Changelog](CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) | [Discussions](https://github.com/gsantner/markor/discussions) | [License](/LICENSE.txt) | [GitHub Releases](https://github.com/gsantner/markor/releases) | [Makefile](Makefile)
+* F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.yml) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
+
+
+## Privacy<a name="privacy"></a>
+Markor does not use your internet connection unless your own user-generated content references external resources (for example, when you reference an external image by URL).
 The app is working completly offline, no internet connection required!
-No personal data will be requested or shared with the author or third parties (i.e. calendar or contacts).
+No personal data is shared with the author or any third parties (i.e. calendar or contacts).
 Files can be shared to other apps from inside the app by pressing the share button.
 Files are stored locally in a user selectable folder, defaulting to the device public documents folder.
 
@@ -61,44 +99,13 @@ Files are stored locally in a user selectable folder, defaulting to the device p
 * WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE  
   Read and write files from/to device storage.
 * INTERNET  
-  In user generated content data can be loaded from the internet.
+  In user-generated content data can be loaded from the internet.
 * INSTALL_SHORTCUT  
   Install a shortcut to launchers to open a file/folder in Markor.
 * RECORD_AUDIO  
-  Markor allows to attach voice notes to the text. The permission is only used when clicking the "attach audio" button/menu to start the audio record dialog. Audio recording is always started and stopped by the user (button press).
+  Attach voice notes to the text. The permission is only used after click on the "attach audio" button, at the audio record dialog. Audio recording is always started and stopped manually by you (button press).
 
-## Demo
-<div style="display:flex;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/01.jpg" width="19%" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/02.jpg" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/03.jpg" width="19%" style="margin-left:10px;" >
-</div>
-
-<div style="display:flex;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/04.jpg" width="19%" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/05.jpg" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/06.jpg" width="19%" style="margin-left:10px;" >
-</div>
-
-<div style="display:flex;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/07.jpg" width="19%" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/08.jpg" width="19%" style="margin-left:10px;" >
-	<img src="https://raw.githubusercontent.com/gsantner/markor/master/metadata/en-US/phoneScreenshots/09.jpg" width="19%" style="margin-left:10px;" >
-</div>
-
-## Contributions
-* **Development (Source code)**  
-  The project is always open for contributions and welcomes merge requests. Take a look at our [issue tracker](https://github.com/gsantner/markor/issues) for open issues, especially those tagged with [good first issue](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) and [help wanted](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22).
-The project uses [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions). Additionally: Use `_camelCase` instead of `mCamelCase` for class members. Use Android Studios _auto reformat feature_ before sending a MR.
-* **Localization**  
-  Translate on [Crowdin](https://crowdin.com/project/markor/invite) (free).
-
-#### Resources
-* Project: [Changelog](/CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) [Help Wanted Issues](https://github.com/gsantner/markor/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22) | [License](/LICENSE.txt)
-* F-Droid: [Listing](https://f-droid.org/packages/net.gsantner.markor) | [Wiki](https://f-droid.org/wiki/page/net.gsantner.markor) | [Metadata](https://gitlab.com/fdroid/fdroiddata/blob/master/metadata/net.gsantner.markor.txt) | [Build log](https://f-droid.org/wiki/page/net.gsantner.markor/lastbuild)
-* Further download options: [Aptoide](https://markor.en.aptoide.com/) | [GitHub Releases](https://github.com/gsantner/markor/releases)
-
-## Licensing
+## License
 The code of the app is licensed Apache 2.0 or Commerical (See [LICENSE](/LICENSE.txt) for details).  
 Localization & translation files (string\*.xml) are licensed CC0 1.0.  
 Project is based on the unmaintained projects writeily and writeily-pro.
