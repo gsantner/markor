@@ -310,6 +310,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">最近使用文件的清單</string>
     <string name="reload">重新下載</string>
     <string name="wrap_words">文字折行</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不能配合螢幕的寬度顯示會斷行，可以啟用水平捲動。</string>
     <string name="always_open_with_this_app">永遠使用此應用程式開啟</string>
     <string name="template">模板</string>
     <string name="send_debug_log">發送偵錯日誌</string>
