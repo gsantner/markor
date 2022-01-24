@@ -9,12 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -24,7 +22,6 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.animation.Animation;
 
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
