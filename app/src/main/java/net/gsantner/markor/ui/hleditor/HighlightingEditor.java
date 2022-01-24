@@ -9,10 +9,12 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -22,6 +24,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.animation.Animation;
 
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
@@ -304,6 +307,10 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg0Delay__arg1Duration) {
+        if (!indexesValid(startIndex, endIndex)) {
+            return;
+        }
+
         final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
         final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
 
@@ -312,24 +319,9 @@ public class HighlightingEditor extends AppCompatEditText {
                 requestFocus();
             }
 
-            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
+            final ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
             anim.setDuration(duration);
             anim.start();
-        }, delay);
-    }
-
-    public void smoothMoveCursorToLine(final int lineNumber, int... arg0Delay__arg1Duration) {
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        this.postDelayed(() -> {
-            String text = getText().toString();
-            int index = StringUtils.getIndexFromLineOffset(text, lineNumber, 0);
-            if (index < 0) {
-                return;
-            }
-
-            smoothMoveCursor(0, index, 1, duration);
         }, delay);
     }
 

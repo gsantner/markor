@@ -56,7 +56,6 @@ public class Document implements Serializable {
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
-    private int _intentLineNumber = -1;
 
     // Used to check if string changed
     private long _lastHash = 0;
@@ -119,10 +118,6 @@ public class Document implements Serializable {
 
     public String getName() {
         return _file.getName();
-    }
-
-    public int getIntentLineNumber() {
-        return _intentLineNumber;
     }
 
     @Override
@@ -190,16 +185,12 @@ public class Document implements Serializable {
     }
 
     public static Document fromArguments(Context context, Bundle arguments) {
-
-        // When called directly with a document
         if (arguments.containsKey(EXTRA_DOCUMENT)) {
+            // When called directly with a document
             return (Document) arguments.getSerializable(EXTRA_DOCUMENT);
+        } else {
+            return new Document(getValidFile(context, arguments));
         }
-
-        Document document = new Document(getValidFile(context, arguments));
-        document._intentLineNumber = arguments.getInt(EXTRA_FILE_LINE_NUMBER, -1);
-
-        return document;
     }
 
     private void setContentHash(final CharSequence s) {

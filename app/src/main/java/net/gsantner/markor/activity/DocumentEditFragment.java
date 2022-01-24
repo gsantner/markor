@@ -144,6 +144,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Create the document as soon as possible
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        } else {
+            _document = Document.fromArguments(getActivity(), getArguments());
+        }
     }
 
     @Override
@@ -180,14 +186,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
         }
 
-        int intentLineNumber = -1;
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-        } else {
-            _document = Document.fromArguments(activity, getArguments());
-            intentLineNumber = _document.getIntentLineNumber();
-        }
-
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
         _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
@@ -195,7 +193,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions().setDocument(_document);
 
         if (activity instanceof DocumentActivity) {
-            ((DocumentActivity) activity).setDocument(_document);
+            ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
@@ -230,19 +228,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Set the correct position after everything else done
         if (!isDisplayedAtMainActivity() && !Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
-            // Scroll to position
-            // If Intent contains line number, jump to it
-            // intentLineNumber only created with document reconstructed from intent
-            if (intentLineNumber >= 0) {
-                _hlEditor.smoothMoveCursorToLine(intentLineNumber);
-            }
 
-            // Set cursor if saved cursor state present
-            final int pos = savedInstanceState != null ? savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1) : -1;
             final CharSequence text = _hlEditor.getText();
-            if (_hlEditor.indexesValid(pos) && text != null) {
-                _hlEditor.smoothMoveCursorToLine(StringUtils.getLineOffsetFromIndex(text, pos)[0]);
-                _hlEditor.setSelection(pos);
+            if (text != null) {
+                if (savedInstanceState == null) {
+                    final int line = getArguments().getInt(Document.EXTRA_FILE_LINE_NUMBER, -1);
+                    _hlEditor.smoothMoveCursor(0, StringUtils.getIndexFromLineOffset(text, line, 0));
+                } else {
+                    _hlEditor.smoothMoveCursor(0, savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1));
+                }
             }
         }
     }
@@ -817,13 +811,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     //
     //
 
-    /**
-     * Get document of this fragment. if no document set yet, fallback to other passed instances (i.e. from onSavedInstanceState)
-     */
-    public Document getDocument(Document... fallback) {
-        if (_document == null && fallback != null && fallback.length > 0 && fallback[0] != null) {
-            _document = fallback[0];
-        }
+    public Document getDocument() {
         return _document;
     }
 
