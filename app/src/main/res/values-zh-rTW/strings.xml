@@ -216,7 +216,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">更多關於如何贊助開發或支持這個專案的資訊</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
-    <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
+    <string name="help_translating_this_app">翻譯這個App的語文界面</string>
     <string name="source_code">原始碼</string>
     <string name="project_license">專案許可證</string>
     <string name="contribute_code_to_this_project_anybody_welcome">歡迎每個人都來提供程式碼</string>
