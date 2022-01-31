@@ -17,6 +17,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -50,6 +51,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private Highlighter _hl;
     private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
 
+    private final static int TEXT_ANIMATION_DURATION = 400;
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
     private final Handler _updateHandler = new Handler();
     private final Runnable _updateRunnable;
@@ -64,9 +66,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
-        _updateRunnable = () -> {
-            highlightWithoutChange();
-        };
+        _updateRunnable = this::highlightWithoutChange;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             setFallbackLineSpacing(false);
@@ -125,9 +125,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void enableHighlighterAutoFormat() {
-        postDelayed(() -> {
-            setFilters(new InputFilter[]{_hl.getAutoFormatter()});
-        }, 10);
+        postDelayed(() -> setFilters(new InputFilter[]{_hl.getAutoFormatter()}), 10);
 
         final TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
         if (modifier != null && !_appliedModifiers.contains(modifier)) {
@@ -303,23 +301,18 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg0Delay__arg1Duration) {
-        if (!indexesValid(startIndex, endIndex)) {
-            return;
+    public void smoothMoveCursor(final int startIndex, final int endIndex) {
+        if (indexesValid(startIndex, endIndex)) {
+            post(() -> {
+                if (!hasFocus()) {
+                    requestFocus();
+                }
+
+                final ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
+                anim.setDuration(TEXT_ANIMATION_DURATION);
+                anim.start();
+            });
         }
-
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        postDelayed(() -> {
-            if (!hasFocus()) {
-                requestFocus();
-            }
-
-            final ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
-            anim.setDuration(duration);
-            anim.start();
-        }, delay);
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

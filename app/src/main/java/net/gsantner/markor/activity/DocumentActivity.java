@@ -256,7 +256,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final Integer lineNumber) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
         File reqFile = (document != null) ? document.getFile() : file;
-        final int fileLineNumber = lineNumber != null && lineNumber >= 0 ? lineNumber : -1;
+        final int fileLineNumber = (lineNumber != null && lineNumber >= 0) ? lineNumber : -1;
 
         boolean sameDocumentRequested = false;
         if (currentFragment instanceof DocumentEditFragment) {

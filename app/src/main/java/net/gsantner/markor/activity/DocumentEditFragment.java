@@ -66,7 +66,6 @@ import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
@@ -79,18 +78,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     private static final String SAVESTATE_CURSOR_POS = "CURSOR_POS";
     private static final String SAVESTATE_PREVIEW_ON = "SAVESTATE_PREVIEW_ON";
-
-    private AppSettings _appSettings;
-    private HorizontalScrollView hsView;
-
-    // Wrap text setting and wrap text state are separated as the wrap text state may depend on
-    // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
-    // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
-    // Toggling the wrap state option will set and save the new value, but the file will always
-    // open wrapped in the main activity.
-    private boolean wrapTextSetting;
-    private boolean wrapText;
-    private boolean highlightText;
 
     public static DocumentEditFragment newInstance(Document document) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -125,6 +112,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @BindView(R.id.document__fragment__edit__content_editor__scrolling_parent)
     DraggableScrollbarScrollView _primaryScrollView;
 
+    private AppSettings _appSettings;
+    private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private TextFormat _textFormat;
@@ -136,6 +125,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private long _loadModTime = 0;
     private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
+
+    // Wrap text setting and wrap text state are separated as the wrap text state may depend on
+    // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
+    // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
+    // Toggling the wrap state option will set and save the new value, but the file will always
+    // open wrapped in the main activity.
+    private boolean wrapTextSetting;
+    private boolean wrapText;
+    private boolean highlightText;
 
     public DocumentEditFragment() {
         super();
@@ -204,6 +202,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
 
+        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -226,19 +226,41 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
 
-        // Set the correct position after everything else done
-        if (!isDisplayedAtMainActivity() && !Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
+        // Set initial wrap state
+        initDocState();
 
-            final CharSequence text = _hlEditor.getText();
-            if (text != null) {
-                if (savedInstanceState == null) {
-                    final int line = getArguments().getInt(Document.EXTRA_FILE_LINE_NUMBER, -1);
-                    _hlEditor.smoothMoveCursor(0, StringUtils.getIndexFromLineOffset(text, line, 0));
-                } else {
-                    _hlEditor.smoothMoveCursor(0, savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1));
-                }
+        final CharSequence text = _hlEditor.getText();
+        if (text != null) {
+            if (savedInstanceState == null) {
+                // When loading from intent
+                _hlEditor.smoothMoveCursor(0, getStartIndex());
+            } else {
+                // When resuming from saved state
+                _hlEditor.smoothMoveCursor(0, savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1));
             }
         }
+    }
+
+    private int getStartIndex() {
+        final CharSequence text = _hlEditor != null ? _hlEditor.getText() : null;
+        if (_document == null || text == null || _appSettings == null) {
+            return 0;
+        }
+
+        // First check if intent has a line number
+        final Bundle arguments = getArguments();
+        final int line = arguments != null ? arguments.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) : -1;
+        if (line >= 0) {
+            return StringUtils.getIndexFromLineOffset(text, line, 0);
+        }
+
+        // Then check if we should start at the bottom
+        if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
+            return text.length();
+        }
+
+        // Then retrieve saved position
+        return _appSettings.getLastEditPosition(_document.getPath());
     }
 
     @Override
@@ -246,8 +268,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
 
         loadDocument();
-
-        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
         if (_document != null) {
             _document.testCreateParent();
@@ -265,9 +285,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_document != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
             _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
         }
-
-        // Set initial wrap state
-        initDocState();
     }
 
     @Override
@@ -326,7 +343,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         });
 
         // Set various initial states
-        updateMenuToggleStates(_document.getFormat());
+        updateMenuToggleStates();
         checkTextChangeState();
         updateUndoRedoIconStates();
     }
@@ -537,14 +554,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 wrapTextSetting = wrapText;
                 _appSettings.setDocumentWrapState(_document.getPath(), wrapTextSetting);
                 setHorizontalScrollMode(wrapText);
-                updateMenuToggleStates(0);
+                updateMenuToggleStates();
                 return true;
             }
             case R.id.action_enable_highlighting: {
                 highlightText = !highlightText;
                 _hlEditor.setHighlightingEnabled(highlightText);
                 _appSettings.setDocumentHighlightState(_document.getPath(), highlightText);
-                updateMenuToggleStates(0);
+                updateMenuToggleStates();
                 return true;
             }
             case R.id.action_info: {
@@ -589,7 +606,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
 
-        updateMenuToggleStates(textFormatId);
+        updateMenuToggleStates();
     }
 
     private void initDocState() {
@@ -597,47 +614,42 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
-        updateMenuToggleStates(0);
+        updateMenuToggleStates();
 
         setHorizontalScrollMode(wrapText);
         _hlEditor.setHighlightingEnabled(highlightText);
     }
 
-    private void updateMenuToggleStates(final int selectedFormatActionId) {
+    private void updateMenuToggleStates() {
         MenuItem mi;
-        SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
             mi.setChecked(wrapText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
             mi.setChecked(highlightText);
         }
-
-        if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
-            for (int i = 0; i < su.size(); i++) {
-                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
-                    mi.setChecked(true);
-                }
-            }
+        if ((mi = _fragmentMenu.findItem(_document.getFormat())) != null) {
+            mi.setChecked(true);
         }
     }
 
     private void setHorizontalScrollMode(final boolean wrap) {
 
         final Context context = getContext();
-        if (context != null && _hlEditor != null) {
+        final boolean isCurrentlyWrap = _hsView == null || (_hsView.getParent() == _primaryScrollView);
+        if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
             _primaryScrollView.removeAllViews();
-            if (hsView != null) {
-                hsView.removeAllViews();
+            if (_hsView != null) {
+                _hsView.removeAllViews();
             }
             if (!wrap) {
                 _hlEditor.setHorizontallyScrolling(true);
-                if (hsView == null) {
-                    hsView = new HorizontalScrollView(context);
-                    hsView.setFillViewport(true);
+                if (_hsView == null) {
+                    _hsView = new HorizontalScrollView(context);
+                    _hsView.setFillViewport(true);
                 }
-                hsView.addView(_hlEditor);
-                _primaryScrollView.addView(hsView);
+                _hsView.addView(_hlEditor);
+                _primaryScrollView.addView(_hsView);
             } else {
                 _hlEditor.setHorizontallyScrolling(false);
                 _primaryScrollView.addView(_hlEditor);
@@ -653,16 +665,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        if (!isAdded()) {
-            return false;
-        }
-
-        // Save edit position regardless of _isTextChanged
-        _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
-
         // Document is written iff content has changed
         // _isTextChanged implies _document != null && _hlEditor != null && _hlEditor.getText() != null
-        if (_isTextChanged) {
+        if (_isTextChanged && isAdded()) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();
                 checkTextChangeState();
@@ -697,6 +702,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         }
+        if (_appSettings != null && _document != null && _hlEditor != null){
+            _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        }
         super.onPause();
     }
 
@@ -730,25 +738,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (isVisibleToUser) {
             initDocState();
-        }
-    }
-
-    @Override
-    public void onFragmentFirstTimeVisible() {
-        final boolean initPreview = _appSettings.getDocumentPreviewState(_document.getPath());
-        if (_savedInstanceState == null || !_savedInstanceState.containsKey(SAVESTATE_CURSOR_POS) && _hlEditor.length() > 0) {
-            int lastPos;
-            if (_document != null && (lastPos = _appSettings.getLastEditPositionChar(_document.getFile())) >= 0 && lastPos <= _hlEditor.length()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(lastPos);
-            } else if (_appSettings.isEditorStartOnBotttom()) {
-                if (!initPreview) {
-                    _hlEditor.requestFocus();
-                }
-                _hlEditor.setSelection(_hlEditor.length());
-            }
         }
     }
 
