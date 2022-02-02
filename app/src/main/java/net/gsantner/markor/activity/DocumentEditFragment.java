@@ -213,9 +213,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         loadDocument();
 
-        _hlEditor.clearFocus();
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-        new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_PREVIEW_ON)) {
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
@@ -229,15 +227,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Set initial wrap state
         initDocState();
 
-        final CharSequence text = _hlEditor.getText();
-        if (text != null) {
-            if (savedInstanceState == null) {
-                // When loading from intent
-                _hlEditor.smoothMoveCursor(0, getStartIndex());
-            } else {
-                // When resuming from saved state
-                _hlEditor.smoothMoveCursor(0, savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1));
-            }
+        // Smooth scroll to starting position
+        if (savedInstanceState == null) {
+            // When loading from intent
+            _hlEditor.smoothMoveCursor(0, getStartIndex());
+        } else {
+            // When resuming from saved state
+            _hlEditor.smoothMoveCursor(0, savedInstanceState.getInt(SAVESTATE_CURSOR_POS, -1));
         }
     }
 
@@ -380,7 +376,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
                 _hlEditor.setText(content);
 
-                _hlEditor.setSelection(sel[0], sel[1]); // hleditor can handle invalid selections
+                // _hlEditor.setSelection(sel[0], sel[1]); // hleditor can handle invalid selections
             }
 
             checkTextChangeState();
@@ -745,9 +741,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Activity activity = getActivity();
         if (show) {
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
-            new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> new ActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
