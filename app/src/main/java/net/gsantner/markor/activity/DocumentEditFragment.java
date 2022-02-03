@@ -377,6 +377,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(sel[0], sel[1]); // hleditor can handle invalid selections
             }
 
+            if (_isPreviewVisible) {
+                setViewModeVisibility(true);
+            }
+
             checkTextChangeState();
         }
     }
@@ -418,9 +422,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 // Toast and update view if required
                 if (_loadModTime != oldModTime) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
-                    if (_isPreviewVisible) {
-                        setViewModeVisibility(true);
-                    }
                 }
                 return true;
             }
@@ -652,8 +653,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.requestFocus();
-            _hlEditor.setSelection(posn);
+            _hlEditor.smoothMoveCursor(0, posn);
         }
     }
 
@@ -743,15 +743,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void setViewModeVisibility(final boolean show) {
         final Activity activity = getActivity();
         if (show) {
-            _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
             new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
             fadeInOut(_primaryScrollView, _webView);
-            _hlEditor.requestFocus();
-            _hlEditor.setSelection(_appSettings.getLastEditPosition(_document.getPath()));
         }
 
         _nextConvertToPrintMode = false;
