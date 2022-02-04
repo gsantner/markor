@@ -95,6 +95,8 @@ public class MarkdownTextConverter extends TextConverter {
             "<script src='file:///android_asset/katex/mhchem.min.js'></script>";
     public static final String JS_KATEX = "";
 
+    public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
+
     //########################
     //## Converter library
     //########################
@@ -191,6 +193,11 @@ public class MarkdownTextConverter extends TextConverter {
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
+        }
+
+        // Enable Mermaid
+        if (markup.contains("```mermaid")) {
+            head += HTML_MERMAID_INCLUDE;
         }
 
         // Enable View (block) code syntax highlighting
