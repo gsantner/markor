@@ -193,8 +193,7 @@ public class MarkdownTextConverter extends TextConverter {
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
-            // Temporarily fence math expressions by masking them as code enclosed in math tags.
-            markup = markup.replaceAll("(?ms)(?<![[:graph:]])(([$]{1,2}).*?\\2)", "<math>`$1`</math>");
+            markup = markup.replaceAll("(?ms)^([$]{2}.*?[$]{2})$", "<div>\n$1\n</div>");
         }
 
         // Enable View (block) code syntax highlighting
@@ -238,15 +237,6 @@ public class MarkdownTextConverter extends TextConverter {
             if (c > 1) {
                 converted = converted.replace(HTML_PRESENTATION_BEAMER_SLIDE_START_DIV.replace("NO", Integer.toString(c - 1)), "</div></div> <!-- Final presentation slide -->");
             }
-        }
-
-        // After render changes: Math
-        if (converted.contains("<math><code>$") || converted.contains("<math>`$")) {
-            converted = converted.replaceAll("(?ms)<math><code>(([$]{1,2}).*?\\2)</code></math>", "$1");
-            // Math tags semm to be fenced when found at the beginning of a line. In this case, the backticks
-            // were not converted into code tags.
-            converted = converted.replaceAll("(?ms)<math>`(([$]{1,2}).*?\\2)`</math>", "$1");
-
         }
 
         // Deliver result
