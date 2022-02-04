@@ -1,6 +1,6 @@
 package net.gsantner.markor.katex.internal;
 
-import net.gsantner.markor.katex.KatexInlineMath;
+import net.gsantner.markor.katex.KatexDisplayMath;
 import com.vladsch.flexmark.parser.InlineParser;
 import com.vladsch.flexmark.parser.InlineParserExtension;
 import com.vladsch.flexmark.parser.InlineParserExtensionFactory;
@@ -10,11 +10,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class KatexInlineMathParser implements InlineParserExtension {
-    Pattern MATH_PATTERN = Pattern.compile("(?<!\\$)\\$((?:.|\n)+?)\\$(?!\\$)");
+public class KatexDisplayMathParser implements InlineParserExtension {
+    Pattern MATH_PATTERN = Pattern.compile("\\$\\$((?:.|\n)+?)\\$\\$");
     private final KatexOptions options;
 
-    public KatexInlineMathParser(final InlineParser inlineParser) {
+    public KatexDisplayMathParser(final InlineParser inlineParser) {
         options = new KatexOptions(inlineParser.getDocument());
     }
 
@@ -30,7 +30,7 @@ public class KatexInlineMathParser implements InlineParserExtension {
 
     @Override
     public boolean parse(final InlineParser inlineParser) {
-        if (inlineParser.peek(1) != '$') {
+        if (inlineParser.peek(1) == '$') {
             BasedSequence input = inlineParser.getInput();
             Matcher matcher = inlineParser.matcher(MATH_PATTERN);
             if (matcher != null) {
@@ -38,8 +38,8 @@ public class KatexInlineMathParser implements InlineParserExtension {
 
                 BasedSequence mathOpen = input.subSequence(matcher.start(), matcher.start(1));
                 BasedSequence mathClosed = input.subSequence(matcher.end(1), matcher.end());
-                KatexInlineMath inlineMath = new KatexInlineMath(mathOpen, mathOpen.baseSubSequence(mathOpen.getEndOffset(),mathClosed.getStartOffset()), mathClosed);
-                inlineParser.getBlock().appendChild(inlineMath);
+                KatexDisplayMath displayMath = new KatexDisplayMath(mathOpen, mathOpen.baseSubSequence(mathOpen.getEndOffset(),mathClosed.getStartOffset()), mathClosed);
+                inlineParser.getBlock().appendChild(displayMath);
                 return true;
             }
         }
@@ -64,7 +64,7 @@ public class KatexInlineMathParser implements InlineParserExtension {
 
         @Override
         public InlineParserExtension create(final InlineParser inlineParser) {
-            return new KatexInlineMathParser(inlineParser);
+            return new KatexDisplayMathParser(inlineParser);
         }
 
         @Override

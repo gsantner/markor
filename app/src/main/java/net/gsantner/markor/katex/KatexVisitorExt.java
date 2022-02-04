@@ -8,6 +8,7 @@ public class KatexVisitorExt {
         return new VisitHandler<?>[] {
 // @formatter:off
                 new VisitHandler<KatexInlineMath>(KatexInlineMath.class, new Visitor<KatexInlineMath>() { @Override public void visit(KatexInlineMath node) { visitor.visit(node); } }),
+                new VisitHandler<KatexDisplayMath>(KatexDisplayMath.class, new Visitor<KatexDisplayMath>() { @Override public void visit(KatexDisplayMath node) { visitor.visit(node); } }),
  // @formatter:on
         };
     }

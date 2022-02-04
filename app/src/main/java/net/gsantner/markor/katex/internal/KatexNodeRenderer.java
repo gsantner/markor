@@ -4,6 +4,7 @@ import com.vladsch.flexmark.ast.*;
 import com.vladsch.flexmark.ast.util.ReferenceRepository;
 import com.vladsch.flexmark.ast.util.TextCollectingVisitor;
 import net.gsantner.markor.katex.KatexInlineMath;
+import net.gsantner.markor.katex.KatexDisplayMath;
 import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
@@ -38,9 +39,7 @@ public class KatexNodeRenderer implements NodeRenderer
         Set<NodeRenderingHandler<?>> set = new HashSet<NodeRenderingHandler<?>>();
         // @formatter:off
         set.add(new NodeRenderingHandler<KatexInlineMath>(KatexInlineMath.class, new CustomNodeRenderer<KatexInlineMath>() { @Override public void render(KatexInlineMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
-        if (options.renderBlockMath) {
-            set.add(new NodeRenderingHandler<FencedCodeBlock>(FencedCodeBlock.class, new CustomNodeRenderer<FencedCodeBlock>() { @Override public void render(FencedCodeBlock node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));// ,// zzzoptionszzz(CUSTOM_NODE)
-        }
+        set.add(new NodeRenderingHandler<KatexDisplayMath>(KatexDisplayMath.class, new CustomNodeRenderer<KatexDisplayMath>() { @Override public void render(KatexDisplayMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
         // @formatter:on
         return set;
     }
@@ -51,23 +50,16 @@ public class KatexNodeRenderer implements NodeRenderer
         html.tag("/span");
     }
 
+    private void render(final KatexDisplayMath node, final NodeRendererContext context, final HtmlWriter html) {
+        html.withAttr().attr(Attribute.CLASS_ATTR, options.inlineMathClass).withAttr().tag("div");
+        html.text(node.getText());
+        html.tag("/div");
+    }
+
     private void render(final FencedCodeBlock node, final NodeRendererContext context, HtmlWriter html) {
         final BasedSequence info = node.getInfoDelimitedByAny(options.blockInfoDelimiters);
 
-        if (options.renderBlockMath && info.equals("math")) {
-            html.line();
-            html.srcPosWithTrailingEOL(node.getChars()).attr(Attribute.CLASS_ATTR, options.blockMathClass).withAttr().tag("div").line().openPre();
-            if (codeContentBlock) {
-                context.renderChildren(node);
-            } else {
-                html.text(node.getContentChars().normalizeEOL());
-            }
-            html.closePre().tag("/div");
-
-            html.lineIf(context.getHtmlOptions().htmlBlockCloseTagEol);
-        } else {
-            context.delegateRender();
-        }
+        context.delegateRender();
     }
 
 

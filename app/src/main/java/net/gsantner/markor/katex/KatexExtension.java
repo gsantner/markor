@@ -16,9 +16,12 @@ public class KatexExtension implements Parser.ParserExtension
         , Formatter.FormatterExtension
 {
     public static final DataKey<Boolean> INLINE_MATH_PARSER = new DataKey<>("INLINE_MATH_PARSER", true);
-    public static final DataKey<Boolean> RENDER_BLOCK_MATH = new DataKey<>("RENDER_BLOCK_MATH", true);
+    public static final DataKey<Boolean> DISPLAY_MATH_PARSER = new DataKey<>("DISPLAY_MATH_PARSER", true);
 
     public static final DataKey<String> INLINE_MATH_CLASS = new DataKey<>("INLINE_MATH_CLASS", "katex");
+    public static final DataKey<String> DISPLAY_MATH_CLASS = new DataKey<>("DISPLAY_MATH_CLASS", "katex");
+
+    public static final DataKey<Boolean> RENDER_BLOCK_MATH = new DataKey<>("RENDER_BLOCK_MATH", true);
     public static final DataKey<String> BLOCK_MATH_CLASS = new DataKey<>("BLOCK_MATH_CLASS", "katex");
     public static final DataKey<String> BLOCK_INFO_DELIMITERS = new DataKey<>("BLOCK_INFO_DELIMITERS", " ");
 
@@ -49,6 +52,9 @@ public class KatexExtension implements Parser.ParserExtension
         KatexOptions options = new KatexOptions(parserBuilder);
         if (options.inlineMathParser) {
             parserBuilder.customInlineParserExtensionFactory(new KatexInlineMathParser.Factory());
+        }
+        if (options.displayMathParser) {
+            parserBuilder.customInlineParserExtensionFactory(new KatexDisplayMathParser.Factory());
         }
     }
 
