@@ -91,6 +91,7 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
             "<script src='file:///android_asset/katex/katex.min.js'></script>" +
+            "<script src='file:///android_asset/katex/mhchem.min.js'></script>" +
             "<script src='file:///android_asset/katex/auto-render.min.js'></script>";
     public static final String JS_KATEX = "" +
             "renderMathInElement(document.body, {" +
