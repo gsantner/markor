@@ -85,7 +85,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
-        new ActivityUtils(activity).animateToActivity(intent, false, 0).freeContextRef();
+        new ActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
