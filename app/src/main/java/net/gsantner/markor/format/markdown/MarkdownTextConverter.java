@@ -99,6 +99,8 @@ public class MarkdownTextConverter extends TextConverter {
             "       {left: '$$', right: '$$', display: true}, { left: '$', right: '$', display: false }," +
             "]});\n";
 
+    public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
+
     //########################
     //## Converter library
     //########################
@@ -195,6 +197,11 @@ public class MarkdownTextConverter extends TextConverter {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
             markup = markup.replaceAll("(?ms)^([$]{2}.*?[$]{2})$", "<div>\n$1\n</div>");
+        }
+
+        // Enable Mermaid
+        if (markup.contains("```mermaid")) {
+            head += HTML_MERMAID_INCLUDE;
         }
 
         // Enable View (block) code syntax highlighting
