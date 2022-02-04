@@ -194,7 +194,6 @@ public class MarkdownTextConverter extends TextConverter {
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             onLoadJs += JS_KATEX;
-            markup = markup.replaceAll("(?ms)^([$]{2}.*?[$]{2})$", "<div>\n$1\n</div>");
         }
 
         // Enable View (block) code syntax highlighting
