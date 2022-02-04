@@ -27,7 +27,7 @@ public class OpenEditorFromShortcutOrWidgetActivity extends MarkorBaseActivity {
     private void launchDocumentActivityAndFinish(Intent intent) {
         Intent newIntent = new Intent(intent);
         newIntent.setClass(this, DocumentActivity.class);
-        DocumentActivity.launch(this, null, null, null, newIntent, null);
+        DocumentActivity.launch(this, null, null, newIntent, null);
         finish();
     }
 }

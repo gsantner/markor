@@ -26,8 +26,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
     protected void openEditorForFile(File file) {
         Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
                 .setAction(Intent.ACTION_CALL_BUTTON)
-                .putExtra(Document.EXTRA_PATH, file)
-                .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
+                .putExtra(Document.EXTRA_PATH, file);
         openActivityAndClose(openIntent, file);
     }
 
@@ -44,7 +43,6 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     FileUtils.writeFile(file, "");
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
-                openIntent.putExtra(Document.EXTRA_PATH_IS_FOLDER, openIntent.hasExtra(Document.EXTRA_PATH_IS_FOLDER) ? openIntent.getSerializableExtra(Document.EXTRA_PATH_IS_FOLDER) : file.isDirectory());
                 new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();
             }
         } catch (Exception ignored) {
