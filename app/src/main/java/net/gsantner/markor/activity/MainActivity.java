@@ -471,10 +471,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     return FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
                 }
                 case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), false, -1);
+                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), -1);
                 }
                 case R.id.nav_todo: {
-                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), false, -1);
+                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), -1);
                 }
                 case R.id.nav_more: {
                     return MoreFragment.newInstance();

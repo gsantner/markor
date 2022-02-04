@@ -268,11 +268,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             }, getFragmentManager(), getActivity());
         }
 
-        private void showInDocumentActivity(Document document) {
+        private void showInDocumentActivity(final Document document) {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
-                a.setDocument(document);
-                a.showTextEditor(document, null, false, _appSettings.getDocumentPreviewState(document.getPath()), null);
+                a.showTextEditor(document, _appSettings.getDocumentPreviewState(document.getPath()), null);
             }
         }
 

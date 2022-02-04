@@ -92,22 +92,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapText;
     private boolean highlightText;
 
-    public static DocumentEditFragment newInstance(Document document) {
+
+    public static DocumentEditFragment newInstance(final Document document, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
+        args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, final int lineNumber) {
-        DocumentEditFragment f = new DocumentEditFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(Document.EXTRA_PATH, path);
-        args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, pathIsFolder);
-        args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        f.setArguments(args);
-        return f;
+    public static DocumentEditFragment newInstance(final File path, final int lineNumber) {
+        return newInstance(new Document(path), lineNumber);
     }
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
@@ -193,10 +189,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
         _textFormat.getTextActions().setDocument(_document);
-
-        if (activity instanceof DocumentActivity) {
-            ((DocumentActivity) activity).setDocument(_document);
-        }
 
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
@@ -817,13 +809,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     //
     //
 
-    /**
-     * Get document of this fragment. if no document set yet, fallback to other passed instances (i.e. from onSavedInstanceState)
-     */
-    public Document getDocument(Document... fallback) {
-        if (_document == null && fallback != null && fallback.length > 0 && fallback[0] != null) {
-            _document = fallback[0];
-        }
+    public Document getDocument() {
         return _document;
     }
 
