@@ -92,22 +92,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapText;
     private boolean highlightText;
 
-    public static DocumentEditFragment newInstance(Document document) {
+
+    public static DocumentEditFragment newInstance(final Document document, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
+        args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         f.setArguments(args);
         return f;
     }
 
-    public static DocumentEditFragment newInstance(File path, boolean pathIsFolder, final int lineNumber) {
-        DocumentEditFragment f = new DocumentEditFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(Document.EXTRA_PATH, path);
-        args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, pathIsFolder);
-        args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        f.setArguments(args);
-        return f;
+    public static DocumentEditFragment newInstance(final File path, final int lineNumber) {
+        return newInstance(new Document(path), lineNumber);
     }
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
@@ -144,6 +140,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Create the document as soon as possible
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        } else {
+            _document = Document.fromArguments(getActivity(), getArguments());
+        }
     }
 
     @Override
@@ -180,14 +182,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
         }
 
-        int intentLineNumber = -1;
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-        } else {
-            _document = Document.fromArguments(activity, getArguments());
-            intentLineNumber = _document.getIntentLineNumber();
-        }
-
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
         _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
@@ -195,7 +189,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getTextActions().setDocument(_document);
 
         if (activity instanceof DocumentActivity) {
-            ((DocumentActivity) activity).setDocument(_document);
+            ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
@@ -233,7 +227,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             // Scroll to position
             // If Intent contains line number, jump to it
             // intentLineNumber only created with document reconstructed from intent
-            if (intentLineNumber >= 0) {
+            final Bundle args = getArguments();
+            final int intentLineNumber = args != null ? args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) : -1;
+            if (savedInstanceState == null && intentLineNumber >= 0) {
                 _hlEditor.smoothMoveCursorToLine(intentLineNumber);
             }
 
@@ -817,13 +813,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     //
     //
 
-    /**
-     * Get document of this fragment. if no document set yet, fallback to other passed instances (i.e. from onSavedInstanceState)
-     */
-    public Document getDocument(Document... fallback) {
-        if (_document == null && fallback != null && fallback.length > 0 && fallback[0] != null) {
-            _document = fallback[0];
-        }
+    public Document getDocument() {
         return _document;
     }
 

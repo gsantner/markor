@@ -11,6 +11,9 @@
 ~° from scratch are placed in the
 ~° thirdparty directory and MIT licensed.
 
+* Mermaid
+~° Copyright Mermaid authors
+
 
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy

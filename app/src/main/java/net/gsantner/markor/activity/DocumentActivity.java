@@ -57,8 +57,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     TextView _toolbarTitleText;
 
     private FragmentManager _fragManager;
-    private Document _document;
-
 
     private static boolean nextLaunchTransparentBg = false;
 
@@ -85,7 +83,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
-        new ActivityUtils(activity).animateToActivity(intent, false, 0).freeContextRef();
+        new ActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -135,9 +133,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppSettings.clearDebugLog();
-        if (savedInstanceState != null && savedInstanceState.containsKey(DocumentEditFragment.SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(DocumentEditFragment.SAVESTATE_DOCUMENT);
-        }
         if (nextLaunchTransparentBg) {
             //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
             nextLaunchTransparentBg = false;
@@ -163,14 +158,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         handleLaunchingIntent(intent);
     }
 
-    private void handleLaunchingIntent(Intent intent) {
+    private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
         File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
-        boolean fileIsFolder = intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false);
 
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
@@ -187,11 +181,12 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         if (!intentIsSend && file != null) {
+            final Document doc = new Document(file);
             final int paramLineNumber = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
             final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
-                    || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(file.getPath()))
+                    || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(doc.getPath()))
                     || file.getName().startsWith("index."));
-            showTextEditor(null, file, fileIsFolder, paramPreview, paramLineNumber);
+            showTextEditor(doc, paramPreview, paramLineNumber);
         }
     }
 
@@ -259,23 +254,16 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public void showTextEditor(@Nullable Document document, @Nullable File file, boolean fileIsFolder, boolean preview, final Integer lineNumber) {
+    public void showTextEditor(final Document document, final boolean preview, final Integer lineNumber) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
-        File reqFile = (document != null) ? document.getFile() : file;
-        final int fileLineNumber = lineNumber != null && lineNumber >= 0 ? lineNumber : -1;
+        final int fileLineNumber = (lineNumber != null && lineNumber >= 0) ? lineNumber : -1;
 
-        boolean sameDocumentRequested = false;
-        if (currentFragment instanceof DocumentEditFragment) {
-            String reqPath = (reqFile != null) ? reqFile.getPath() : "";
-            sameDocumentRequested = reqPath.equals(((DocumentEditFragment) currentFragment).getDocument(_document).getPath());
-        }
+        final boolean sameDocumentRequested = (
+                currentFragment instanceof DocumentEditFragment &&
+                document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
-            if (document != null) {
-                showFragment(DocumentEditFragment.newInstance(document).setPreviewFlag(preview));
-            } else {
-                showFragment(DocumentEditFragment.newInstance(file, fileIsFolder, fileLineNumber).setPreviewFlag(preview));
-            }
+            showFragment(DocumentEditFragment.newInstance(document, fileLineNumber).setPreviewFlag(preview));
         }
     }
 
@@ -351,21 +339,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         return (GsFragmentBase) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
     }
 
-    public void setDocument(Document document) {
-        _document = document;
-        setDocumentTitle(_document.getTitle());
-    }
-
     private void onToolbarTitleClicked(View v) {
         if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
             DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
             def.onToolbarTitleClicked(_toolbar);
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(DocumentEditFragment.SAVESTATE_DOCUMENT, _document);
     }
 }
