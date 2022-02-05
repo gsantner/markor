@@ -1,6 +1,6 @@
-package net.gsantner.markor.katex;
+package net.gsantner.markor.util.flexmark.ext.katex;
 
-import net.gsantner.markor.katex.internal.*;
+import net.gsantner.markor.util.flexmark.ext.katex.internal.*;
 import com.vladsch.flexmark.formatter.Formatter;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;

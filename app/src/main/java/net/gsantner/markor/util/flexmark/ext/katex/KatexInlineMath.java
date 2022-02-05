@@ -1,4 +1,4 @@
-package net.gsantner.markor.katex;
+package net.gsantner.markor.util.flexmark.ext.katex;
 
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.ast.DelimitedNode;
@@ -7,7 +7,7 @@ import com.vladsch.flexmark.util.sequence.BasedSequence;
 /**
  * A Ins node
  */
-public class KatexDisplayMath extends Node implements DelimitedNode {
+public class KatexInlineMath extends Node implements DelimitedNode {
     protected BasedSequence openingMarker = BasedSequence.NULL;
     protected BasedSequence text = BasedSequence.NULL;
     protected BasedSequence closingMarker = BasedSequence.NULL;
@@ -23,14 +23,14 @@ public class KatexDisplayMath extends Node implements DelimitedNode {
         delimitedSegmentSpanChars(out, openingMarker, text, closingMarker, "text");
     }
 
-    public KatexDisplayMath() {
+    public KatexInlineMath() {
     }
 
-    public KatexDisplayMath(BasedSequence chars) {
+    public KatexInlineMath(BasedSequence chars) {
         super(chars);
     }
 
-    public KatexDisplayMath(BasedSequence openingMarker, BasedSequence text, BasedSequence closingMarker) {
+    public KatexInlineMath(BasedSequence openingMarker, BasedSequence text, BasedSequence closingMarker) {
         super(openingMarker.baseSubSequence(openingMarker.getStartOffset(), closingMarker.getEndOffset()));
         this.openingMarker = openingMarker;
         this.text = text;

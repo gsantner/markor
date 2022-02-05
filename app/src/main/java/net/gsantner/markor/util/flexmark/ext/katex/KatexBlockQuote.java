@@ -1,4 +1,4 @@
-package net.gsantner.markor.katex;
+package net.gsantner.markor.util.flexmark.ext.katex;
 
 import com.vladsch.flexmark.ast.*;
 import com.vladsch.flexmark.util.ast.Block;

@@ -1,6 +1,6 @@
-package net.gsantner.markor.katex.internal;
+package net.gsantner.markor.util.flexmark.ext.katex.internal;
 
-import net.gsantner.markor.katex.KatexBlockQuote;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexBlockQuote;
 import com.vladsch.flexmark.formatter.*;
 import com.vladsch.flexmark.util.options.DataHolder;
 

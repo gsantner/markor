@@ -1,9 +1,9 @@
-package net.gsantner.markor.katex.internal;
+package net.gsantner.markor.util.flexmark.ext.katex.internal;
 
 import com.vladsch.flexmark.util.ast.Block;
 import com.vladsch.flexmark.util.ast.BlockContent;
 import com.vladsch.flexmark.util.ast.Node;
-import net.gsantner.markor.katex.KatexBlockQuote;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexBlockQuote;
 import com.vladsch.flexmark.parser.InlineParser;
 import com.vladsch.flexmark.parser.block.*;
 import com.vladsch.flexmark.util.options.DataHolder;

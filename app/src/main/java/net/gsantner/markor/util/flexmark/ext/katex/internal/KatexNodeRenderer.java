@@ -1,10 +1,10 @@
-package net.gsantner.markor.katex.internal;
+package net.gsantner.markor.util.flexmark.ext.katex.internal;
 
 import com.vladsch.flexmark.ast.*;
 import com.vladsch.flexmark.ast.util.ReferenceRepository;
 import com.vladsch.flexmark.ast.util.TextCollectingVisitor;
-import net.gsantner.markor.katex.KatexInlineMath;
-import net.gsantner.markor.katex.KatexDisplayMath;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexInlineMath;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexDisplayMath;
 import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;

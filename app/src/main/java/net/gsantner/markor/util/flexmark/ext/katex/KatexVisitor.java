@@ -1,4 +1,4 @@
-package net.gsantner.markor.katex;
+package net.gsantner.markor.util.flexmark.ext.katex;
 
 public interface KatexVisitor {
     void visit(final KatexInlineMath node);

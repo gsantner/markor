@@ -1,6 +1,6 @@
-package net.gsantner.markor.katex.internal;
+package net.gsantner.markor.util.flexmark.ext.katex.internal;
 
-import net.gsantner.markor.katex.KatexExtension;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexExtension;
 import com.vladsch.flexmark.util.options.DataHolder;
 import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSetter;
