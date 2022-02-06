@@ -71,9 +71,12 @@
 }
 
 .adm-block.adm-collapsed > .adm-heading:after {
-    right: 0.50em;
-    top:calc(50% - .75em);
-    transform: rotate(90deg);
+    display: inline-block;
+    position: absolute;
+    top:calc(50% - .65em);
+    right: 0.5em;
+    font-size: 1.3em;
+    content: '◀';
 }
 
 /* default scheme */
