@@ -94,7 +94,6 @@ public class MarkdownTextConverter extends TextConverter {
             "<script src='file:///android_asset/katex/katex.min.js'></script>" +
             "<script src='file:///android_asset/katex/katex-render.js'></script>" +
             "<script src='file:///android_asset/katex/mhchem.min.js'></script>";
-    public static final String JS_KATEX = "";
     public static final String CSS_KATEX = CSS_S + ".katex { font-size: 105%; }" + CSS_E;
 
 
@@ -196,7 +195,6 @@ public class MarkdownTextConverter extends TextConverter {
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             head += CSS_KATEX;
-            onLoadJs += JS_KATEX;
         }
 
         // Enable Mermaid
