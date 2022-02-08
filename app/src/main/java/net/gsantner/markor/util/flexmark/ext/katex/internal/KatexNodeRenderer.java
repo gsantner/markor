@@ -5,6 +5,8 @@ import com.vladsch.flexmark.ast.util.ReferenceRepository;
 import com.vladsch.flexmark.ast.util.TextCollectingVisitor;
 import net.gsantner.markor.util.flexmark.ext.katex.KatexInlineMath;
 import net.gsantner.markor.util.flexmark.ext.katex.KatexDisplayMath;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexAltInlineMath;
+import net.gsantner.markor.util.flexmark.ext.katex.KatexAltDisplayMath;
 import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
@@ -40,6 +42,8 @@ public class KatexNodeRenderer implements NodeRenderer
         // @formatter:off
         set.add(new NodeRenderingHandler<KatexInlineMath>(KatexInlineMath.class, new CustomNodeRenderer<KatexInlineMath>() { @Override public void render(KatexInlineMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
         set.add(new NodeRenderingHandler<KatexDisplayMath>(KatexDisplayMath.class, new CustomNodeRenderer<KatexDisplayMath>() { @Override public void render(KatexDisplayMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
+        set.add(new NodeRenderingHandler<KatexAltInlineMath>(KatexAltInlineMath.class, new CustomNodeRenderer<KatexAltInlineMath>() { @Override public void render(KatexAltInlineMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
+        set.add(new NodeRenderingHandler<KatexAltDisplayMath>(KatexAltDisplayMath.class, new CustomNodeRenderer<KatexAltDisplayMath>() { @Override public void render(KatexAltDisplayMath node, NodeRendererContext context, HtmlWriter html) { KatexNodeRenderer.this.render(node, context, html); } }));
         // @formatter:on
         return set;
     }
@@ -50,7 +54,19 @@ public class KatexNodeRenderer implements NodeRenderer
         html.tag("/span");
     }
 
+    private void render(final KatexAltInlineMath node, final NodeRendererContext context, final HtmlWriter html) {
+        html.withAttr().attr(Attribute.CLASS_ATTR, options.inlineMathClass).withAttr().tag("span");
+        html.text(node.getText());
+        html.tag("/span");
+    }
+
     private void render(final KatexDisplayMath node, final NodeRendererContext context, final HtmlWriter html) {
+        html.withAttr().attr(Attribute.CLASS_ATTR, options.inlineMathClass).withAttr().tag("div");
+        html.text(node.getText());
+        html.tag("/div");
+    }
+
+    private void render(final KatexAltDisplayMath node, final NodeRendererContext context, final HtmlWriter html) {
         html.withAttr().attr(Attribute.CLASS_ATTR, options.inlineMathClass).withAttr().tag("div");
         html.text(node.getText());
         html.tag("/div");

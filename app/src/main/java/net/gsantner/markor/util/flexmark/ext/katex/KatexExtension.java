@@ -52,9 +52,11 @@ public class KatexExtension implements Parser.ParserExtension
         KatexOptions options = new KatexOptions(parserBuilder);
         if (options.inlineMathParser) {
             parserBuilder.customInlineParserExtensionFactory(new KatexInlineMathParser.Factory());
+            parserBuilder.customInlineParserExtensionFactory(new KatexAltInlineMathParser.Factory());
         }
         if (options.displayMathParser) {
             parserBuilder.customInlineParserExtensionFactory(new KatexDisplayMathParser.Factory());
+            parserBuilder.customInlineParserExtensionFactory(new KatexAltDisplayMathParser.Factory());
         }
     }
 
