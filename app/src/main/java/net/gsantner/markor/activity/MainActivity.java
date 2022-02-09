@@ -116,7 +116,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
-            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), false, true, null, null);
+            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
         }
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
@@ -144,7 +144,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
 
         // By extra path
-        if (intent.hasExtra(Document.EXTRA_PATH) && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        if (file != null && file.isDirectory()) {
             return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
         }
 
@@ -295,7 +296,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
-                                DocumentActivity.launch(MainActivity.this, f, false, false, null, null);
+                                DocumentActivity.launch(MainActivity.this, f, false, null, null);
                             } else if (f.isDirectory()) {
                                 FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
                                 if (wrFragment != null) {
@@ -432,7 +433,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     if (TextFormat.isTextFile(file)) {
-                        DocumentActivity.launch(MainActivity.this, file, false, null, null, lineNumber);
+                        DocumentActivity.launch(MainActivity.this, file, null, null, lineNumber);
                     } else if (file.getName().toLowerCase().endsWith(".apk")) {
                         _shareUtil.requestApkInstallation(file);
                     } else {

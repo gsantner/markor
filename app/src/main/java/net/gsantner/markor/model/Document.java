@@ -46,8 +46,6 @@ public class Document implements Serializable {
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
-    public static final String EXTRA_PATH_IS_FOLDER = "EXTRA_PATH_IS_FOLDER"; // boolean
-
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
 
     private final File _file;
@@ -164,12 +162,8 @@ public class Document implements Serializable {
         // Default to notebook if null
         file = (file == null) ? notebook : file;
 
-        // Default to notebook if IS_FOLDER conflicts
-        final boolean isFolder = arguments.getBoolean(EXTRA_PATH_IS_FOLDER, false);
-        file = (isFolder && file.exists() && !file.isDirectory()) ? notebook : file;
-
         // Default to notebook if could not create directory
-        file = ((isFolder || file.isDirectory()) && !file.exists() && !file.mkdirs()) ? notebook : file;
+        file = (file.isDirectory() && !file.exists() && !file.mkdirs()) ? notebook : file;
 
         // Try to
         if (file.isDirectory()) {
