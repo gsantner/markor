@@ -71,43 +71,37 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             final Intent openShare = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Document.EXTRA_PATH, directoryF)
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open Folder
             final Intent goToFolder = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_PATH, directoryF)
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
+                    .putExtra(Document.EXTRA_PATH, directoryF);
             views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open To-do
             final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getTodoFile())
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
+                    .putExtra(Document.EXTRA_PATH, appSettings.getTodoFile());
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open QuickNote
             final Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getQuickNoteFile())
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, false);
+                    .putExtra(Document.EXTRA_PATH, appSettings.getQuickNoteFile());
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory())
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
+                    .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory());
             views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, PendingIntent.FLAG_UPDATE_CURRENT));
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-                    .putExtra(Document.EXTRA_PATH, directoryF)
-                    .putExtra(Document.EXTRA_PATH_IS_FOLDER, true);
+                    .putExtra(Document.EXTRA_PATH, directoryF);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);

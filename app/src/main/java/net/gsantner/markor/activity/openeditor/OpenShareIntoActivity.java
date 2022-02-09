@@ -23,7 +23,6 @@ public class OpenShareIntoActivity extends OpenEditorActivity {
 
         Intent openShare = new Intent(this, OpenEditorFromShortcutOrWidgetActivity.class)
                 .setAction(Intent.ACTION_SEND)
-                .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
                 .putExtra(Intent.EXTRA_TEXT, "");
         openActivityAndClose(openShare, null);
     }
