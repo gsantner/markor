@@ -1,0 +1,53 @@
+.adm-block {
+    width: 96%;
+    font-size: 90%;
+}
+
+.adm-heading {
+    height: auto;
+    padding-top: 0.4em;
+    padding-left: 2.2em;
+    padding-bottom: 0.4em;
+}
+
+.adm-body {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.adm-heading > span {
+    color: initial;
+}
+
+.adm-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.5em;
+    transform: translateY(-50%);
+}
+
+.adm-block > .adm-heading {
+    position: relative;
+    cursor: pointer;
+}
+
+.adm-block.adm-collapsed > .adm-heading {
+    margin-bottom: 0;
+}
+
+.adm-block.adm-collapsed .adm-body {
+    display: none !important;
+}
+
+.adm-block.adm-open > .adm-heading:after,
+.adm-block.adm-collapsed > .adm-heading:after {
+    top: 50%;
+    transform: translateY(-50%);
+    content: '▼';
+}
+
+.adm-block.adm-collapsed > .adm-heading:after {
+    content: '◀';
+}

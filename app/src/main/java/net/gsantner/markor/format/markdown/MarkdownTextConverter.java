@@ -103,6 +103,7 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
     public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
+            "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition-custom.css'>" +
             "<script src='file:///android_asset/flexmark/admonition.js'></script>";
 
     //########################
