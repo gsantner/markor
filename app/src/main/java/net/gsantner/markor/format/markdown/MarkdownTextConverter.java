@@ -126,8 +126,8 @@ public class MarkdownTextConverter extends TextConverter {
             YamlFrontMatterExtension.create(),
             TypographicExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Typographic-Extension
             GitLabExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Extensions#gitlab-flavoured-markdown
-            FootnoteExtension.create(),           // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
-            AdmonitionExtension.create()
+            AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
+            FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
     );
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
