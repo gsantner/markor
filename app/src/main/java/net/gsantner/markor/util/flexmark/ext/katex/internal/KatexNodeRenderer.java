@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class KatexNodeRenderer implements NodeRenderer
-        // , PhasedNodeRenderer
 {
     final KatexOptions options;
     private final ReferenceRepository referenceRepository;
@@ -53,8 +52,6 @@ public class KatexNodeRenderer implements NodeRenderer
         html.text(node.getText());
         html.tag("/div");
     }
-
-
 
     public static class Factory implements NodeRendererFactory {
         @Override

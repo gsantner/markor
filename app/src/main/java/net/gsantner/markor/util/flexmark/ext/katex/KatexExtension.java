@@ -28,12 +28,10 @@ public class KatexExtension implements Parser.ParserExtension
 
     @Override
     public void rendererOptions(final MutableDataHolder options) {
-
     }
 
     @Override
     public void parserOptions(final MutableDataHolder options) {
-
     }
 
     @Override

@@ -20,12 +20,10 @@ public class KatexDisplayMathParser implements InlineParserExtension {
 
     @Override
     public void finalizeDocument(final InlineParser inlineParser) {
-
     }
 
     @Override
     public void finalizeBlock(final InlineParser inlineParser) {
-
     }
 
     @Override
