@@ -1,7 +1,7 @@
 .adm-block {
     display: block;
-    font-size: 85%;
-    width: 99%;
+    width: 97%;
+    font-size: 90%;
     border-radius: 6px;
     padding-left: 10px;
     margin-bottom: 1em;
@@ -13,21 +13,19 @@
 .adm-heading {
     display: block;
     font-weight: bold;
-    font-size: 0.9em;
-    height: 1.8em;
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
     border-bottom: solid 1px;
-    padding-left: 10px;
+    padding-left: 2.2em;
     margin-left: -10px;
 }
 
 .adm-body {
     display: block;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+    padding-bottom: 0.25em;
+    padding-top: 0.25em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .adm-heading > span {
@@ -38,9 +36,10 @@
     height: 1.6em;
     width: 1.6em;
     display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.25em;
-    margin-left: -0.25em;
+    position: absolute;
+    left: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .adm-hidden {
@@ -62,20 +61,14 @@
 
 .adm-block.adm-open > .adm-heading:after,
 .adm-block.adm-collapsed > .adm-heading:after {
-    display: inline-block;
     position: absolute;
-    top:calc(50% - .65em);
     right: 0.5em;
-    font-size: 1.3em;
+    top: 50%;
+    transform: translateY(-50%);
     content: '▼';
 }
 
 .adm-block.adm-collapsed > .adm-heading:after {
-    display: inline-block;
-    position: absolute;
-    top:calc(50% - .65em);
-    right: 0.5em;
-    font-size: 1.3em;
     content: '◀';
 }
 
