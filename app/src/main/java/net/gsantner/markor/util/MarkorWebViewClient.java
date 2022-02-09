@@ -54,14 +54,10 @@ public class MarkorWebViewClient extends WebViewClient {
                 }
                 if (file.isDirectory()) {
                     _activity.startActivity(new Intent(_activity, MainActivity.class)
-                            .putExtra(Document.EXTRA_PATH, file)
-                            .putExtra(Document.EXTRA_PATH_IS_FOLDER, true)
-                    );
+                            .putExtra(Document.EXTRA_PATH, file));
                 } else if (TextFormat.isTextFile(file)) {
                     _activity.startActivity(new Intent(_activity, DocumentActivity.class)
-                            .putExtra(Document.EXTRA_PATH, file)
-                            .putExtra(DocumentActivity.EXTRA_DO_PREVIEW, true)
-                    );
+                            .putExtra(Document.EXTRA_PATH, file));
                 } else if (file.getName().toLowerCase().endsWith(".apk")) {
                     su.requestApkInstallation(file);
                 } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {

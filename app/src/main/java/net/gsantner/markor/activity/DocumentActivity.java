@@ -61,7 +61,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     private static boolean nextLaunchTransparentBg = false;
 
 
-    public static void launch(Activity activity, File path, Boolean isFolder, Boolean doPreview, Intent intent, final Integer lineNumber) {
+    public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
@@ -70,9 +70,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        }
-        if (isFolder != null) {
-            intent.putExtra(Document.EXTRA_PATH_IS_FOLDER, isFolder);
         }
         if (doPreview != null) {
             intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
@@ -108,7 +105,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, false, null, null, null);
+                DocumentActivity.launch(activity, file, null, null, null);
             } else {
                 new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
             }

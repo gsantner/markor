@@ -60,7 +60,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
         Object intentFile = intent.getSerializableExtra(Document.EXTRA_PATH);
-        if (intentFile != null && intent.getBooleanExtra(Document.EXTRA_PATH_IS_FOLDER, false)) {
+        if (intentFile instanceof File && ((File) intentFile).isDirectory()) {
             f.workingDir = (File) intentFile;
         }
 
@@ -197,7 +197,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             final Bundle args = new Bundle();
             args.putSerializable(Document.EXTRA_PATH, file);
-            args.putBoolean(Document.EXTRA_PATH_IS_FOLDER, false);
             final Context context = getContext();
             final Document document = Document.fromArguments(context, args);
             final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());

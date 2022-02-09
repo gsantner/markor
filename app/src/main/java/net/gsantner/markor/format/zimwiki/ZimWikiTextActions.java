@@ -213,7 +213,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             if (resolver.isWebLink()) {
                 new ContextUtils(_activity).openWebpageInExternalBrowser(resolvedLink);
             } else {
-                DocumentActivity.launch(_activity, new File(resolvedLink), false, false, null, null);
+                DocumentActivity.launch(_activity, new File(resolvedLink), false, null, null);
             }
         }
 
