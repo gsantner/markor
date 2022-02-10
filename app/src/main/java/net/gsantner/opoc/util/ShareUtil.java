@@ -38,6 +38,7 @@ import android.print.PrintJob;
 import android.print.PrintManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -1304,8 +1305,25 @@ public class ShareUtil {
         final int v = android.os.Build.VERSION.SDK_INT;
         final AtomicReference<Callback.a0> permissionRequest = new AtomicReference<>();
 
+        // On Android R+ - check externalStorageManager is granted, otherwise request it
+        if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            permissionRequest.set(() -> {
+                ContextUtils cu = new ContextUtils(activity.getApplicationContext());
+                try {
+                    Uri uri = Uri.parse("package:" + cu.getPackageIdReal());
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                } catch (Exception ex) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                }
+                cu.freeContextRef();
+            });
+        }
+
         // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionRequest.set(() -> ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
         }
 
@@ -1323,8 +1341,13 @@ public class ShareUtil {
             }
         }
 
+        // Android R Manage-All-Files permission
+        if (v >= android.os.Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        }
+
         // Android M permissions
-        if (v >= android.os.Build.VERSION_CODES.M) {
+        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R) {
             return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         }
 
