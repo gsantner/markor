@@ -53,7 +53,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">Elekti</string>
     <string name="create">Krei</string>
     <string name="select_entries">Elekti elementojn</string>
-    <string name="name">Nomo</string>
+    <string name="name">Dosiernomo</string>
     <string name="insert_link">Enmeti Ligilon</string>
     <string name="insert_image">Enmeti Bildon</string>
     <string name="contributors">Kontribuantoj</string>
@@ -182,6 +182,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">Paĝo</string>
     <string name="tools">Iloj</string>
     <string name="read">Legi</string>
+    <string name="example_of_a_markdown_table">Ekzemplo de tablo Markdown</string>
     <string name="delete_lines">Forigi lineojn</string>
     <string name="unordered_list">Neordigita listo</string>
     <string name="ordered_list">Ordigita listo</string>
@@ -200,7 +201,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bold">Dikigi</string>
     <string name="italic">Kursivigi</string>
     <string name="inline_code">Enteksta kodo</string>
+    <string name="horizontal_line">Horizontala lineo</string>
     <string name="link_color">Koloro de ligilo</string>
+    <string name="add_project">Aldoni projekton</string>
     <string name="create_new_file_or_folder">Krei novan dosieron aŭ dosierujon</string>
     <string name="choose_format">Ekejtu formaton</string>
     <string name="selected">Elektita</string>
@@ -226,6 +229,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="additional_contexts_and_projects">Aldonaj kontekstoj kaj projektoj</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Enskribi @kontekstojn kaj +projektojn apartigitaj per spacetoj. Ĉi tiuj videblos ĉiufoje ĉe todo.txt enmetaj dialogoj.</string>
     <string name="infinite">Infinita</string>
+    <string name="browse_by_project">Esplori per projekto</string>
+    <string name="browse_by_context">Esplori per kunteksto</string>
     <string name="insert_project">Enmeti projektojn</string>
     <string name="insert_context">Enmeti kontekstojn</string>
     <string name="due_overdue">Tarda</string>
