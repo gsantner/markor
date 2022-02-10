@@ -22,7 +22,9 @@ import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
-import net.gsantner.markor.util.flexmark.ext.katex.KatexExtension;
+
+import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
+
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
 import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
@@ -107,7 +109,7 @@ public class MarkdownTextConverter extends TextConverter {
             StrikethroughExtension.create(),
             AutolinkExtension.create(),
             InsExtension.create(),
-            KatexExtension.create(),
+            FlexmarkKatexExtension.KatexExtension.create(),
             JekyllTagExtension.create(),
             JekyllFrontMatterExtension.create(),
             SuperscriptExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Extensions#superscript
