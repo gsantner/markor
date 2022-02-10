@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature requests, suggestions & everything else
+    url: https://github.com/gsantner/markor/discussions
+    about: Please submit your suggestions, ideas, requests & everything else here. Please search and reply to existing relevant issues/discussions before creating a new one.
