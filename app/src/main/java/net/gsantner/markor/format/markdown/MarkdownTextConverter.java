@@ -103,8 +103,8 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
     public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
-            "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition-custom.css'>" +
             "<script src='file:///android_asset/flexmark/admonition.js'></script>";
+    public static final String CSS_ADMONITION = CSS_S + ".adm-block { width: 96%; font-size: 90%; } .adm-heading { height: auto; padding-top: 0.4em; padding-left: 2.2em; padding-bottom: 0.4em; } .adm-body { padding-top: 0.25em; padding-bottom: 0.25em; margin-left: 0.5em; margin-right: 0.5em; } .adm-heading > span { color: initial; } .adm-icon { position: absolute; top: 50%; left: 0.5em; transform: translateY(-50%); } .adm-block > .adm-heading { position: relative; cursor: pointer; } .adm-block.adm-collapsed > .adm-heading { margin-bottom: 0; } .adm-block.adm-collapsed .adm-body { display: none !important; } .adm-block.adm-open > .adm-heading:after, .adm-block.adm-collapsed > .adm-heading:after { top: 50%; transform: translateY(-50%); content: '▼'; } .adm-block.adm-collapsed > .adm-heading:after { content: '◀'; }" + CSS_E;
 
     //########################
     //## Converter library
@@ -213,6 +213,7 @@ public class MarkdownTextConverter extends TextConverter {
         // Enable flexmark Admonition support
         if (markup.contains("!!!") || markup.contains("???")) {
             head += HTML_ADMONITION_INCLUDE;
+            head += CSS_ADMONITION;
         }
 
         // Enable View (block) code syntax highlighting
