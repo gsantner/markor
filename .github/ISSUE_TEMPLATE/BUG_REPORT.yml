@@ -1,0 +1,67 @@
+name: "Bug report"
+description: "Submit a report and help to improve the project"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 👍 Thank you for contributing to the project!
+        Please note this is a **free and open-source** project. People take their own **free time** to help you, so please, be patient.
+  - type: checkboxes
+    id: before-posting
+    attributes:
+      label: "⚠️ This issue respects the following points: ⚠️"
+      description: All conditions are **required**. Your issue can be closed if these are checked incorrectly.
+      options:
+        - label: This is a **bug**. Not a question or feature request.
+          required: true
+        - label: The issue is **not** already reported at [Issues](https://github.com/gsantner/markor/issues?q=) or [discussions](https://github.com/gsantner/markor/discussions?discussions_q=). _(I've searched it)_.
+          required: true
+        - label: Markor **is** up to date. See [Releases](https://github.com/gsantner/markor/tags) for the latest version. Updates are available from [F-Droid](https://f-droid.org/en/packages/net.gsantner.markor/) and GitHub. 
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description:  What problem did you encounter? What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Explain what you did to encounter the issue,
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+  - type: textarea
+    id: information
+    attributes:
+      label: Information
+      description: What is your Android version? What device? (In case of custom ROM, what ROM?)
+      value: |
+        Android version: 
+        Device: 
+    validations:
+      required: true
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: Installation method
+      description: Where did you get the application from?
+      options:
+        - "F-Droid"
+        - "Google Play"
+        - "GitHub"
+        - "Git / Other"
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Additional info / Log
+      description: Leave any additional information or logs here.
+      render: shell
