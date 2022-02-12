@@ -45,6 +45,7 @@ body:
       value: |
         Android version: 
         Device: 
+        App Version: 
     validations:
       required: true
   - type: dropdown
@@ -59,6 +60,18 @@ body:
         - "Git / Other"
     validations:
       required: true
+  - type: dropdown
+    id: format
+    attributes:
+      label: Format / Category
+      description: Is the issue about a specific format (i.e. Markdown/todo.txt)?
+      options:
+        - "Markdown"
+        - "todo.txt"
+        - "Zim"
+        - "Key-Value (json/yaml/ini..)"
+        - "Plaintext"
+        - "Something else"
   - type: textarea
     id: log
     attributes:

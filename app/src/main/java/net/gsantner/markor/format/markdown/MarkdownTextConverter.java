@@ -182,7 +182,10 @@ public class MarkdownTextConverter extends TextConverter {
             if (!markup.contains("[TOC]: #") && (isInBlogFolder || appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
                 final String tocToken = "[TOC]: # ''\n  \n";
                 if (markup.startsWith("---") && !markup.contains("[TOC]")) {
-                    markup = markup.replaceFirst("[\n][-]{3,}[\n]{2}", "\n---\n" + tocToken + "\n");
+                    // 1st group: match opening YAML block delimiter ('---'), optionally followed by whitespace, excluding newline
+                    // 2nd group: match YAML block contents, excluding surrounding newlines
+                    // 3rd group: match closing YAML block delimiter ('---' or '...'), excluding newline(s)
+                    markup = markup.replaceFirst("(?ms)(^-{3}\\s*?$)\n+(.*?)\n+(^[.-]{3}\\s*?$)\n+", "$1\n$2\n$3\n\n" + tocToken + "\n");
                 }
 
                 if (!markup.contains("[TOC]")) {
