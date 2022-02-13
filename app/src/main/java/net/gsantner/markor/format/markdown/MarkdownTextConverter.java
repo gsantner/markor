@@ -30,10 +30,12 @@ import com.vladsch.flexmark.ext.toc.TocExtension;
 import com.vladsch.flexmark.ext.toc.internal.TocOptions;
 import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
+import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -43,7 +45,10 @@ import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -101,6 +106,8 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
+    public static final String CSS_YAML_FRONTMATTER = CSS_S + ".yaml-front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .yaml-front-matter-item { text-align: right; margin-bottom: 0.25em; } .yaml-title-container { font-weight: bold; font-size: 110%; } .yaml-date-container { font-style: italic; } .yaml-tags-container { white-space: pre; overflow: scroll; font-size: 80%; } .yaml-tags-item { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.yaml-tags-item:not(:first-child) { margin-left: 0.25em; }" + CSS_E;
+
     //########################
     //## Converter library
     //########################
@@ -131,10 +138,19 @@ public class MarkdownTextConverter extends TextConverter {
     //## Methods
     //########################
 
+    private Map<String, List<String>> extractYamlFrontMatter(String markup) {
+        Set<Extension> yamlParserExtension = Collections.singleton(YamlFrontMatterExtension.create());
+        Parser yamlParser = Parser.builder().extensions(yamlParserExtension).build();
+        AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
+        Node document = yamlParser.parse(markup);
+        visitor.visit(document);
+        return visitor.getData();
+    }
+
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
-        String converted = "", onLoadJs = "", head = "";
+        String converted = "", onLoadJs = "", head = "", yamlFrontMatterBlock = "";
 
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -169,6 +185,33 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_PRESENTATION_BEAMER;
         }
 
+        // Extract YAML Front Matter
+        if (!enablePresentationBeamer) {
+            if (appSettings.isMarkdownYamlDisplayEnabled() && markup.startsWith("---")) {
+                Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
+                yamlFrontMatterMap = extractYamlFrontMatter(markup);
+
+                if (!yamlFrontMatterMap.isEmpty()) {
+                    for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
+                        String key = entry.getKey();
+                        List<String> valueList = entry.getValue();
+                        String value = "";
+
+                        if (key.equals("tags") && valueList.size() == 1) {
+                            // It's not a real tag list, but rather a string of comma-separated strings.
+                            valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
+                            Collections.sort(valueList);
+                        }
+                        for (String v : valueList) {
+                            v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
+                            value += "<span class='yaml-" + key + "-item'>" + v + "</span>";
+                        }
+                        yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + key + "-container'>" + value + "</div>\n";
+                    }
+                }
+            }
+        }
+
         // Table of contents
         final String parentFolderName = file != null && file.getParentFile() != null && !TextUtils.isEmpty(file.getParentFile().getName()) ? file.getParentFile().getName() : "";
         final boolean isInBlogFolder = parentFolderName.equals("_posts") || parentFolderName.equals("blog") || parentFolderName.equals("post");
@@ -194,6 +237,8 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
+
+
 
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
@@ -228,6 +273,12 @@ public class MarkdownTextConverter extends TextConverter {
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+
+        // YAML FrontMatter
+        if (yamlFrontMatterBlock != "") {
+            head += CSS_YAML_FRONTMATTER;
+            converted = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n" + converted;
+        }
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {

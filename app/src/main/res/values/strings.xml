@@ -257,6 +257,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Description</string>
     <string name="edit_picture">Edit picture</string>
     <string name="math">Math</string>
+    <string name="yaml">Show YAML-Block</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="textaction">Text action</string>

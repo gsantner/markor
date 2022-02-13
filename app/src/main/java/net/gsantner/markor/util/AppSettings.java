@@ -186,6 +186,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown_render_math, false);
     }
 
+    public boolean isMarkdownYamlDisplayEnabled() {
+        return getBool(R.string.pref_key__markdown_display_yaml, false);
+    }
+
     public boolean isMarkdownNewlineNewparagraphEnabled() {
         return getBool(R.string.pref_key__markdown_newline_newparagraph, false);
     }

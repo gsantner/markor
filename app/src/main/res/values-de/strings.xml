@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschreibung</string>
     <string name="edit_picture">Bild bearbeiten</string>
     <string name="math">Mathematik</string>
+    <string name="yaml">YAML-Block anzeigen</string>
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="textaction">Text Aktion</string>
