@@ -258,6 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_picture">Edit picture</string>
     <string name="math">Math</string>
     <string name="yaml">Show YAML-Block</string>
+    <string name="list_given_yaml_attributes">List all YAML attributes that should be displayed. Leave empty for none, use \'*\' for all, or list attributes separated by commas.</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="textaction">Text action</string>

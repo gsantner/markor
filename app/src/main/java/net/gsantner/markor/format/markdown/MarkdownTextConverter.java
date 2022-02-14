@@ -187,13 +187,18 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Extract YAML Front Matter
         if (!enablePresentationBeamer) {
-            if (appSettings.isMarkdownYamlDisplayEnabled() && markup.startsWith("---")) {
+            List<String> allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+
+            if (!allowedYamlAttributes.toString().equals("") && markup.startsWith("---")) {
                 Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
                 yamlFrontMatterMap = extractYamlFrontMatter(markup);
 
                 if (!yamlFrontMatterMap.isEmpty()) {
                     for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
                         String key = entry.getKey();
+                        if (!(allowedYamlAttributes.contains(key) || allowedYamlAttributes.contains("*"))) {
+                            continue;
+                        }
                         List<String> valueList = entry.getValue();
                         String value = "";
 

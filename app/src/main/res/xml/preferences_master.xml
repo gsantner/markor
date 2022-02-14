@@ -465,10 +465,11 @@
                     android:key="@string/pref_key__markdown_render_math"
                     android:summary="@string/katex_latex"
                     android:title="@string/math" />
-                <CheckBoxPreference
-                    android:defaultValue="false"
+                <android.support.v7.preference.EditTextPreference
+                    android:defaultValue=""
+                    android:dialogMessage="@string/list_given_yaml_attributes"
                     android:icon="@drawable/ic_visibility_black_24dp"
-                    android:key="@string/pref_key__markdown_display_yaml"
+                    android:key="@string/pref_key__markdown_display_yaml_attributes"
                     android:title="@string/yaml" />
                 <MultiSelectListPreference
                     android:dialogTitle="@string/table_of_contents"
