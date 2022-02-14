@@ -197,9 +197,11 @@ public class MarkdownTextConverter extends TextConverter {
                         List<String> valueList = entry.getValue();
                         String value = "";
 
-                        if (key.equals("tags") && valueList.size() == 1) {
-                            // It's not a real tag list, but rather a string of comma-separated strings.
-                            valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
+                        if (key.equals("tags")) {
+                            if (valueList.size() == 1) {
+                                // It's not a real tag list, but rather a string of comma-separated strings.
+                                valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
+                            }
                             Collections.sort(valueList);
                         }
                         for (String v : valueList) {
