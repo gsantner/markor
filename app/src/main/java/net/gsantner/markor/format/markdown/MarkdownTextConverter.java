@@ -209,6 +209,8 @@ public class MarkdownTextConverter extends TextConverter {
                         }
                         for (String v : valueList) {
                             v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
+                            v = flexmarkRenderer.render(flexmarkParser.parse(v));
+                            v = v.replaceAll("^<p>(.*)</p>\\n*$", "$1");
                             value += "<span class='yaml-" + key + "-item'>" + v + "</span>";
                         }
                         yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + key + "-container'>" + value + "</div>\n";
