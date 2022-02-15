@@ -202,7 +202,6 @@ public class MarkdownTextConverter extends TextConverter {
                                 // It's not a real tag list, but rather a string of comma-separated strings.
                                 valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
                             }
-                            Collections.sort(valueList);
                         }
                         for (String v : valueList) {
                             v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
