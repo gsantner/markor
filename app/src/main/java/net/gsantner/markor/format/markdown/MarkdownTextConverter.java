@@ -139,10 +139,9 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
 
     private Map<String, List<String>> extractYamlFrontMatter(String markup) {
-        Set<Extension> yamlParserExtension = Collections.singleton(YamlFrontMatterExtension.create());
-        Parser yamlParser = Parser.builder().extensions(yamlParserExtension).build();
+        Parser yamlFrontmatterParser = Parser.builder().extensions(Collections.singleton(YamlFrontMatterExtension.create())).build();
         AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
-        Node document = yamlParser.parse(markup);
+        Node document = yamlFrontmatterParser.parse(markup);
         visitor.visit(document);
         return visitor.getData();
     }
@@ -186,10 +185,10 @@ public class MarkdownTextConverter extends TextConverter {
         }
 
         // Extract YAML Front Matter
-        if (!enablePresentationBeamer) {
+        if (!enablePresentationBeamer && markup.startsWith("---")) {
             List<String> allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
 
-            if (!allowedYamlAttributes.toString().equals("") && markup.startsWith("---")) {
+            if (!allowedYamlAttributes.toString().equals("")) {
                 Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
                 yamlFrontMatterMap = extractYamlFrontMatter(markup);
 
@@ -207,7 +206,6 @@ public class MarkdownTextConverter extends TextConverter {
                                 // It's not a real tag list, but rather a string of comma-separated strings.
                                 valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
                             }
-                            Collections.sort(valueList);
                         }
                         for (String v : valueList) {
                             v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
@@ -244,8 +242,6 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
-
-
 
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
