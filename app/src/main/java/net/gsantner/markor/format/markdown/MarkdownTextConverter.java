@@ -35,6 +35,7 @@ import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
+import com.vladsch.flexmark.util.Mutable;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
@@ -44,6 +45,8 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -150,6 +153,7 @@ public class MarkdownTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "", yamlFrontMatterBlock = "";
+        Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
 
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -187,31 +191,17 @@ public class MarkdownTextConverter extends TextConverter {
         // Extract YAML Front Matter
         if (!enablePresentationBeamer && markup.startsWith("---")) {
             List<String> allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+            yamlFrontMatterMap = extractYamlFrontMatter(markup);
 
-            if (!allowedYamlAttributes.toString().equals("")) {
-                Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
+            if (!allowedYamlAttributes.isEmpty()) {
                 yamlFrontMatterMap = extractYamlFrontMatter(markup);
-
                 if (!yamlFrontMatterMap.isEmpty()) {
                     for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
-                        String key = entry.getKey();
-                        if (!(allowedYamlAttributes.contains(key) || allowedYamlAttributes.contains("*"))) {
+                        String attrName = entry.getKey();
+                        if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
                             continue;
                         }
-                        List<String> valueList = entry.getValue();
-                        String value = "";
-
-                        if (key.equals("tags")) {
-                            if (valueList.size() == 1) {
-                                // It's not a real tag list, but rather a string of comma-separated strings.
-                                valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
-                            }
-                        }
-                        for (String v : valueList) {
-                            v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
-                            value += "<span class='yaml-" + key + "-item'>" + v + "</span>";
-                        }
-                        yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + key + "-container'>" + value + "</div>\n";
+                        yamlFrontMatterBlock += "{{ yaml." + attrName + " }}\n";
                     }
                 }
             }
@@ -278,9 +268,53 @@ public class MarkdownTextConverter extends TextConverter {
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
 
         // YAML FrontMatter
-        if (yamlFrontMatterBlock != "") {
+        if (!yamlFrontMatterMap.isEmpty()) {
             head += CSS_YAML_FRONTMATTER;
+            // TODO 1. replace {{ yaml.<key> }} tokens in yamlFrontmatterBlock if configured
+            // TODO 2. unconditionally (?) replace {{ note.<key> }} tokens anywhere in text
+
+/*          Parser yamlAttributeParser = Parser.builder().build();
+            HtmlRenderer yamlAttributeRenderer = HtmlRenderer.builder().build();
+
+            if (!allowedYamlAttributes.isEmpty()) {
+                Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
+                yamlFrontMatterMap = extractYamlFrontMatter(markup);
+
+                if (!yamlFrontMatterMap.isEmpty()) {
+                    for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
+                        String attrName = entry.getKey();
+                        if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
+                            continue;
+                        }
+
+                        List<String> attrValue = entry.getValue();
+                        List<String> attrValueHtml = new ArrayList<>();
+
+                        if (attrName.equals("tags")) {
+                            if (attrValue.size() == 1) {
+                                // It's not a real tag list, but rather a string of comma-separated strings.
+                                attrValue = Arrays.asList(attrValue.get(0).split("(?:,\\s*)"));
+                            }
+                        }
+
+                        for (String aValue : attrValue) {
+                            aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
+                            attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
+                            tStart = LocalTime.now();
+                            System.err.println("end of aValue iteration: " + tStart);
+                        }
+                        yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + attrName + "-container'>" + String.join(" ", attrValueHtml) + "</div>\n";
+                    }
+                    tStart = LocalTime.now();
+                    System.err.println("start rendering: " + tStart);
+                    yamlFrontMatterBlock = yamlAttributeRenderer.render(yamlAttributeParser.parse(yamlFrontMatterBlock));
+                    tStart = LocalTime.now();
+                    System.err.println("done rendering: " + tStart);
+                }
+            }
+*/
             converted = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n" + converted;
+
         }
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
