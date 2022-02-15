@@ -465,12 +465,6 @@
                     android:key="@string/pref_key__markdown_render_math"
                     android:summary="@string/katex_latex"
                     android:title="@string/math" />
-                <android.support.v7.preference.EditTextPreference
-                    android:defaultValue=""
-                    android:dialogMessage="@string/list_given_yaml_attributes"
-                    android:icon="@drawable/ic_visibility_black_24dp"
-                    android:key="@string/pref_key__markdown_display_yaml_attributes"
-                    android:title="@string/yaml" />
                 <MultiSelectListPreference
                     android:dialogTitle="@string/table_of_contents"
                     android:entries="@array/pref_arrdisp__markdown_toc"
@@ -478,6 +472,12 @@
                     android:icon="@drawable/ic_list_black_24dp"
                     android:key="@string/pref_key__markdown_table_of_contents_enabled_levels"
                     android:title="@string/table_of_contents" />
+                <android.support.v7.preference.EditTextPreference
+                    android:defaultValue=""
+                    android:dialogMessage="@string/list_given_yaml_attributes"
+                    android:icon="@drawable/ic_visibility_black_24dp"
+                    android:key="@string/pref_key__markdown_display_yaml_attributes"
+                    android:title="@string/yaml" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">
                 <Preference
