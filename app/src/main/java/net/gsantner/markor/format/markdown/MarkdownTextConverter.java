@@ -139,10 +139,9 @@ public class MarkdownTextConverter extends TextConverter {
     //########################
 
     private Map<String, List<String>> extractYamlFrontMatter(String markup) {
-        Set<Extension> yamlParserExtension = Collections.singleton(YamlFrontMatterExtension.create());
-        Parser yamlParser = Parser.builder().extensions(yamlParserExtension).build();
+        Parser yamlFrontmatterParser = Parser.builder().extensions(Collections.singleton(YamlFrontMatterExtension.create())).build();
         AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
-        Node document = yamlParser.parse(markup);
+        Node document = yamlFrontmatterParser.parse(markup);
         visitor.visit(document);
         return visitor.getData();
     }
@@ -186,29 +185,27 @@ public class MarkdownTextConverter extends TextConverter {
         }
 
         // Extract YAML Front Matter
-        if (!enablePresentationBeamer) {
-            if (appSettings.isMarkdownYamlDisplayEnabled() && markup.startsWith("---")) {
-                Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
-                yamlFrontMatterMap = extractYamlFrontMatter(markup);
+        if (appSettings.isMarkdownYamlDisplayEnabled() && !enablePresentationBeamer && markup.startsWith("---")) {
+            Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
+            yamlFrontMatterMap = extractYamlFrontMatter(markup);
 
-                if (!yamlFrontMatterMap.isEmpty()) {
-                    for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
-                        String key = entry.getKey();
-                        List<String> valueList = entry.getValue();
-                        String value = "";
+            if (!yamlFrontMatterMap.isEmpty()) {
+                for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
+                    String key = entry.getKey();
+                    List<String> valueList = entry.getValue();
+                    String value = "";
 
-                        if (key.equals("tags")) {
-                            if (valueList.size() == 1) {
-                                // It's not a real tag list, but rather a string of comma-separated strings.
-                                valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
-                            }
+                    if (key.equals("tags")) {
+                        if (valueList.size() == 1) {
+                            // It's not a real tag list, but rather a string of comma-separated strings.
+                            valueList = Arrays.asList(valueList.get(0).split("(?:,\\s*)"));
                         }
-                        for (String v : valueList) {
-                            v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
-                            value += "<span class='yaml-" + key + "-item'>" + v + "</span>";
-                        }
-                        yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + key + "-container'>" + value + "</div>\n";
                     }
+                    for (String v : valueList) {
+                        v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
+                        value += "<span class='yaml-" + key + "-item'>" + v + "</span>";
+                    }
+                    yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + key + "-container'>" + value + "</div>\n";
                 }
             }
         }
@@ -238,8 +235,6 @@ public class MarkdownTextConverter extends TextConverter {
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
-
-
 
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
