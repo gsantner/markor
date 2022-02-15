@@ -51,30 +51,23 @@ body:
   - type: dropdown
     id: install-method
     attributes:
-      label: Installation method
-      description: Where did you get the application from?
-      options:
-        - "F-Droid"
-        - "Google Play"
-        - "GitHub"
-        - "Git / Other"
+      label: Source
+      description: Where did you get & install the application from?
+      options: ["F-Droid", "GitHub Releases", "git master branch", "Google Play", "Aptoide", "Something else (-> Additional info)"]
     validations:
       required: true
   - type: dropdown
     id: format
     attributes:
-      label: Format / Category
+      label: Format / File type
       description: Is the issue about a specific format (i.e. Markdown/todo.txt)?
-      options:
-        - "Markdown"
-        - "todo.txt"
-        - "Zim"
-        - "Key-Value (json/yaml/ini..)"
-        - "Plaintext"
-        - "Something else"
+      options: ["No", "Markdown", "todo.txt", "Zim", "Key-Value (json/yaml/ini..)", "Plaintext", "Something else (-> Additional info)"]
+    validations:
+      required: true
   - type: textarea
     id: log
     attributes:
       label: Additional info / Log
       description: Leave any additional information or logs here.
       render: shell
+      value: "-"
