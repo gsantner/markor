@@ -35,7 +35,6 @@ import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
-import com.vladsch.flexmark.util.Mutable;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
@@ -45,13 +44,11 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -153,6 +150,7 @@ public class MarkdownTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "", yamlFrontMatterBlock = "";
+        List<String> allowedYamlAttributes = Collections.EMPTY_LIST;
         Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
 
         MutableDataSet options = new MutableDataSet();
@@ -188,9 +186,9 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_PRESENTATION_BEAMER;
         }
 
-        // Extract YAML Front Matter
+        // Assemble YAML front-matter block
         if (!enablePresentationBeamer && markup.startsWith("---")) {
-            List<String> allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+            allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
             yamlFrontMatterMap = extractYamlFrontMatter(markup);
 
             if (!allowedYamlAttributes.isEmpty()) {
@@ -263,59 +261,45 @@ public class MarkdownTextConverter extends TextConverter {
         // Replace space in url with %20, see #1365
         markup = escapeSpacesInLink(markup);
 
+        // Replace tokens in note with corresponding YAML attribute values
+        if (!yamlFrontMatterMap.isEmpty()) {
+            for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
+                String attrName = entry.getKey();
+                List<String> attrValue = entry.getValue();
+                List<String> attrValueHtml = new ArrayList<>();
+
+                if (attrName.equals("tags") && attrValue.size() == 1) {
+                    // It's not a real tag list, but rather a string of comma-separated strings
+                    attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
+                }
+
+                // The two newlines "\n\n" are essential, otherwise the parser will not parse
+                attrValueHtml.add("<div class='yaml-front-matter-item yaml-" + attrName + "-container'>\n\n");
+                for (String aValue : attrValue) {
+                    // Strip surrounding single or double quotes
+                    aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
+                    attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
+                }
+                attrValueHtml.add("</div>\n");
+
+                // Replace "{{ note.<key }}" tokens in note body
+                String attrValuePlain = String.join(", ", attrValue);
+                markup = markup.replace("{{ note." + attrName + " }}", attrValuePlain);
+                // Replace "{{ yaml.<key> }}" tokens in front-matter
+                yamlFrontMatterBlock = yamlFrontMatterBlock.replace("{{ yaml." + attrName + " }}", String.join("", attrValueHtml));
+            }
+            if (!yamlFrontMatterBlock.equals("")) {
+                head += CSS_YAML_FRONTMATTER;
+                yamlFrontMatterBlock = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(yamlFrontMatterBlock));
+                // The two newlines "\n\n" above were rendered into paragraphs, which we don't want
+                yamlFrontMatterBlock = yamlFrontMatterBlock.replaceAll("(?:</?p>|\\n+)", "");
+            }
+        }
+
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-
-        // YAML FrontMatter
-        if (!yamlFrontMatterMap.isEmpty()) {
-            head += CSS_YAML_FRONTMATTER;
-            // TODO 1. replace {{ yaml.<key> }} tokens in yamlFrontmatterBlock if configured
-            // TODO 2. unconditionally (?) replace {{ note.<key> }} tokens anywhere in text
-
-/*          Parser yamlAttributeParser = Parser.builder().build();
-            HtmlRenderer yamlAttributeRenderer = HtmlRenderer.builder().build();
-
-            if (!allowedYamlAttributes.isEmpty()) {
-                Map<String, List<String>> yamlFrontMatterMap = Collections.EMPTY_MAP;
-                yamlFrontMatterMap = extractYamlFrontMatter(markup);
-
-                if (!yamlFrontMatterMap.isEmpty()) {
-                    for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
-                        String attrName = entry.getKey();
-                        if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
-                            continue;
-                        }
-
-                        List<String> attrValue = entry.getValue();
-                        List<String> attrValueHtml = new ArrayList<>();
-
-                        if (attrName.equals("tags")) {
-                            if (attrValue.size() == 1) {
-                                // It's not a real tag list, but rather a string of comma-separated strings.
-                                attrValue = Arrays.asList(attrValue.get(0).split("(?:,\\s*)"));
-                            }
-                        }
-
-                        for (String aValue : attrValue) {
-                            aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
-                            attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
-                            tStart = LocalTime.now();
-                            System.err.println("end of aValue iteration: " + tStart);
-                        }
-                        yamlFrontMatterBlock += "<div class='yaml-front-matter-item yaml-" + attrName + "-container'>" + String.join(" ", attrValueHtml) + "</div>\n";
-                    }
-                    tStart = LocalTime.now();
-                    System.err.println("start rendering: " + tStart);
-                    yamlFrontMatterBlock = yamlAttributeRenderer.render(yamlAttributeParser.parse(yamlFrontMatterBlock));
-                    tStart = LocalTime.now();
-                    System.err.println("done rendering: " + tStart);
-                }
-            }
-*/
-            converted = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n" + converted;
-
-        }
+        converted = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n" + converted;
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
