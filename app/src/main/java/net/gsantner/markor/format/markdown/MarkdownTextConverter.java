@@ -267,6 +267,7 @@ public class MarkdownTextConverter extends TextConverter {
                 String attrName = entry.getKey();
                 List<String> attrValue = entry.getValue();
                 List<String> attrValueHtml = new ArrayList<>();
+                List<String> attrValuePlain = new ArrayList<>();
 
                 if (attrName.equals("tags") && attrValue.size() == 1) {
                     // It's not a real tag list, but rather a string of comma-separated strings
@@ -278,13 +279,13 @@ public class MarkdownTextConverter extends TextConverter {
                 for (String aValue : attrValue) {
                     // Strip surrounding single or double quotes
                     aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
+                    attrValuePlain.add(aValue);
                     attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
                 }
                 attrValueHtml.add("</div>\n");
 
                 // Replace "{{ note.<key }}" tokens in note body
-                String attrValuePlain = String.join(", ", attrValue);
-                markup = markup.replace("{{ note." + attrName + " }}", attrValuePlain);
+                markup = markup.replace("{{ note." + attrName + " }}", String.join(", ", attrValuePlain));
                 // Replace "{{ yaml.<key> }}" tokens in front-matter
                 yamlFrontMatterBlock = yamlFrontMatterBlock.replace("{{ yaml." + attrName + " }}", String.join("", attrValueHtml));
             }
