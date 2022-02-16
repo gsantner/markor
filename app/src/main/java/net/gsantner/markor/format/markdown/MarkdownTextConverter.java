@@ -186,11 +186,12 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_PRESENTATION_BEAMER;
         }
 
-        // Assemble YAML front-matter block
         if (!enablePresentationBeamer && markup.startsWith("---")) {
-            allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+            // Read YAML attributes
             yamlFrontMatterMap = extractYamlFrontMatter(markup);
+            allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
 
+            // Assemble YAML front-matter block
             if (!allowedYamlAttributes.isEmpty()) {
                 yamlFrontMatterMap = extractYamlFrontMatter(markup);
                 if (!yamlFrontMatterMap.isEmpty()) {
@@ -283,8 +284,10 @@ public class MarkdownTextConverter extends TextConverter {
                 }
                 attrValueHtml.add("</div>\n");
 
-                // Replace "{{ note.<key }}" tokens in note body
-                markup = markup.replace("{{ note." + attrName + " }}", String.join(", ", attrValuePlain));
+                // Replace "{{ <scope>>.<key }}" tokens in note body
+                for (String scope : "page,post,site".split(",")) {
+                    markup = markup.replace("{{ " + scope + "." + attrName + " }}", String.join(", ", attrValuePlain));
+                }
                 // Replace "{{ yaml.<key> }}" tokens in front-matter
                 yamlFrontMatterBlock = yamlFrontMatterBlock.replace("{{ yaml." + attrName + " }}", String.join("", attrValueHtml));
             }
