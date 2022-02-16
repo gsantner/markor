@@ -293,13 +293,14 @@ public class MarkdownTextConverter extends TextConverter {
             }
             if (!yamlFrontMatterBlock.equals("")) {
                 head += CSS_YAML_FRONTMATTER;
+                yamlFrontMatterBlock = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n";
             }
         }
 
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        converted = "<div class='yaml-front-matter-container'>" + yamlFrontMatterBlock + "</div>\n" + converted;
+        converted = yamlFrontMatterBlock + converted;
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
