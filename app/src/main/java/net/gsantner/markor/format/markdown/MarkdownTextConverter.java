@@ -274,13 +274,12 @@ public class MarkdownTextConverter extends TextConverter {
                     attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
                 }
 
-                // The two newlines "\n\n" are essential, otherwise the parser will not parse
-                attrValueHtml.add("<div class='yaml-front-matter-item yaml-" + attrName + "-container'>\n\n");
+                attrValueHtml.add("<div class='yaml-front-matter-item yaml-" + attrName + "-container'>");
                 for (String aValue : attrValue) {
                     // Strip surrounding single or double quotes
                     aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
                     attrValuePlain.add(aValue);
-                    attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
+                    attrValueHtml.add("<span class='yaml-" + attrName + "-item'>" + TextUtils.htmlEncode(aValue) + "</span>");
                 }
                 attrValueHtml.add("</div>\n");
 
@@ -291,9 +290,6 @@ public class MarkdownTextConverter extends TextConverter {
             }
             if (!yamlFrontMatterBlock.equals("")) {
                 head += CSS_YAML_FRONTMATTER;
-                yamlFrontMatterBlock = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(yamlFrontMatterBlock));
-                // The two newlines "\n\n" above were rendered into paragraphs, which we don't want
-                yamlFrontMatterBlock = yamlFrontMatterBlock.replaceAll("(?:</?p>|\\n+)", "");
             }
         }
 
