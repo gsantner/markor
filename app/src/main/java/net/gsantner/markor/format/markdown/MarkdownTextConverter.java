@@ -344,6 +344,8 @@ public class MarkdownTextConverter extends TextConverter {
                 List<String> attrValue = entry.getValue();
                 List<String> attrValueOut = new ArrayList<>();
                 String itemSep = " ";
+                String attrVal_S = "";
+                String attrVal_E = "";
 
                 if (attrName.equals("tags") && attrValue.size() == 1) {
                     // It's not a real tag list, but rather a string of comma-separated strings
@@ -351,7 +353,9 @@ public class MarkdownTextConverter extends TextConverter {
                 }
 
                 if (format.equals("html")) {
-                    attrValueOut.add("<div class='yaml-front-matter-item yaml-" + attrName + "-container'>");
+                    attrVal_S = "<div class='yaml-front-matter-item yaml-" + attrName + "-container'>";
+                    attrVal_E = "</div>\n";
+
                     for (String aValue : attrValue) {
                         // Strip surrounding single or double quotes
                         aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
@@ -361,9 +365,9 @@ public class MarkdownTextConverter extends TextConverter {
                         aValue = aValue.replaceAll("\\*(.*?)\\*", "<b>$1</b>");
                         aValue = aValue.replaceAll("(?<!-)---(?!-)", "&mdash;");
                         aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
+                        aValue = aValue.replaceAll("\\$(.*?)\\$", "<span class='katex'>$1</span>");
                         attrValueOut.add("<span class='yaml-" + attrName + "-item'>" + aValue + "</span>");
                     }
-                    attrValueOut.add("</div>\n");
                 } else {
                     itemSep = ", ";
                     for (String aValue : attrValue) {
@@ -375,7 +379,7 @@ public class MarkdownTextConverter extends TextConverter {
 
                 // Replace "{{ <scope>>.<key }}" tokens in note body
                 for (String scope : scopes.split(",")) {
-                    tokenString = tokenString.replace("{{ " + scope + "." + attrName + " }}", String.join(itemSep, attrValueOut));
+                    tokenString = tokenString.replace("{{ " + scope + "." + attrName + " }}", attrVal_S + String.join(itemSep, attrValueOut) + attrVal_E);
                 }
             }
         }
