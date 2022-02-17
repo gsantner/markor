@@ -98,7 +98,6 @@ public class MarkdownTextConverter extends TextConverter {
             "<script src='file:///android_asset/katex/mhchem.min.js'></script>";
     public static final String CSS_KATEX = CSS_S + ".katex { font-size: inherit; }" + CSS_E;
 
-
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
     //########################
