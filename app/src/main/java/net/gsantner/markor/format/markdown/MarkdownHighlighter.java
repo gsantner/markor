@@ -41,7 +41,6 @@ public class MarkdownHighlighter extends Highlighter {
         _highlightCodeChangeFont = _appSettings.isHighlightCodeMonospaceFont();
         _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
         _highlightCodeBlock = _appSettings.isHighlightCodeBlock();
-        setTextModifier(new ListHandler(_appSettings.isMarkdownAutoUpdateList(), MarkdownAutoFormat.getPrefixPatterns()));
     }
 
     @Override
@@ -100,11 +99,6 @@ public class MarkdownHighlighter extends Highlighter {
 
     private void createHeaderSpanForMatches(Spannable spannable, MarkdownHighlighterPattern pattern, int headerColor) {
         createSpanForMatches(spannable, pattern.pattern, new WrMarkdownHeaderSpanCreator(this, spannable, headerColor, _highlightBiggerHeadings));
-    }
-
-    @Override
-    public InputFilter getAutoFormatter() {
-        return new MarkdownAutoFormat();
     }
 
     @Override

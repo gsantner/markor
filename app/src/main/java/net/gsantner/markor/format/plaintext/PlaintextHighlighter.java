@@ -43,11 +43,6 @@ public class PlaintextHighlighter extends Highlighter {
     }
 
     @Override
-    public InputFilter getAutoFormatter() {
-        return AUTOFORMATTER_NONE;
-    }
-
-    @Override
     public int getHighlightingDelay(Context context) {
         return LONG_HIGHLIGHTING_DELAY;
     }

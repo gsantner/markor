@@ -26,6 +26,7 @@ import android.view.accessibility.AccessibilityEvent;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
@@ -35,6 +36,7 @@ import java.util.Set;
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
+
     public boolean isCurrentLineEmpty() {
         final int posOrig = getSelectionStart();
         final int posLineBegin = moveCursorToBeginOfLine(0);
@@ -49,6 +51,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private final boolean _isSpellingRedUnderline;
     private Highlighter _hl;
     private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
+    private InputFilter _autoFormatFilter;
+    private TextWatcher _autoFormatModifier;
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
     private final Handler _updateHandler = new Handler();
@@ -59,9 +63,11 @@ public class HighlightingEditor extends AppCompatEditText {
         AppSettings as = new AppSettings(context);
         if (as.isHighlightingEnabled()) {
             setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
-            enableHighlighterAutoFormat();
             setHighlightingEnabled(as.isHighlightingEnabled());
         }
+
+        // Initialize. Null == empty
+        setAutoFormatters(null, null);
 
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
         _updateRunnable = () -> {
@@ -107,10 +113,8 @@ public class HighlightingEditor extends AppCompatEditText {
         });
     }
 
-    public void setHighlighter(Highlighter newHighlighter) {
-        disableHighlighterAutoFormat();
+    public void setHighlighter(final Highlighter newHighlighter) {
         _hl = newHighlighter;
-        enableHighlighterAutoFormat();
         highlightWithoutChange();
 
         // Alpha in animation
@@ -124,25 +128,48 @@ public class HighlightingEditor extends AppCompatEditText {
         return _hl;
     }
 
-    public void enableHighlighterAutoFormat() {
-        postDelayed(() -> {
-            setFilters(new InputFilter[]{_hl.getAutoFormatter()});
-        }, 10);
+    public void setAutoFormatters(final InputFilter inputFilter, final TextWatcher modifier) {
+        setAutoFormatEnabled(false); // Remove any existing modifiers if applied
+        _autoFormatFilter = inputFilter;
+        _autoFormatModifier = modifier;
+    }
 
-        final TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
-        if (modifier != null && !_appliedModifiers.contains(modifier)) {
-            addTextChangedListener(modifier);
-            _appliedModifiers.add(modifier);
+    public boolean getAutoFormatEnabled() {
+        final boolean filterApplied = getFilters().length > 0;
+        final boolean modifierApplied = _autoFormatModifier != null && _appliedModifiers.contains(_autoFormatModifier);
+        return (filterApplied || modifierApplied);
+    }
+
+    public void setAutoFormatEnabled(final boolean enable) {
+        if (enable) {
+            if (_autoFormatFilter != null) {
+                setFilters(new InputFilter[]{_autoFormatFilter});
+            }
+            if (_autoFormatModifier != null && !_appliedModifiers.contains(_autoFormatModifier)) {
+                addTextChangedListener(_autoFormatModifier);
+                _appliedModifiers.add(_autoFormatModifier);
+            }
+        } else {
+            setFilters(new InputFilter[]{});
+
+            if (_autoFormatModifier != null) {
+                removeTextChangedListener(_autoFormatModifier);
+                _appliedModifiers.remove(_appliedModifiers);
+            }
         }
     }
 
-    public void disableHighlighterAutoFormat() {
-        setFilters(new InputFilter[]{});
-
-        final TextWatcher modifier = (_hl != null) ? _hl.getTextModifier() : null;
-        if (modifier != null) {
-            removeTextChangedListener(modifier);
-            _appliedModifiers.remove(modifier);
+    // Run some code with auto formatters disabled
+    public void withAutoFormatDisabled(final Callback.a0 callback) {
+        if (getAutoFormatEnabled()) {
+            try {
+                setAutoFormatEnabled(false);
+                callback.callback();
+            } finally {
+                setAutoFormatEnabled(true);
+            }
+        } else {
+            callback.callback();
         }
     }
 

@@ -351,6 +351,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
     private static final String PREF_PREFIX_FONT_SIZE = "PREF_PREFIX_FONT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
+    private static final String PREF_PREFIX_AUTO_FORMAT = "PREF_PREFIX_AUTO_FORMAT";
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
 
@@ -403,6 +404,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             final int sid = _contextUtils.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, value);
             // Note TextFormat.FORMAT_UNKNOWN also == 0
             return sid != 0 ? sid : _default;
+        }
+    }
+
+    public void setDocumentAutoFormatEnabled(final String path, final boolean enabled) {
+        if (fexists(path)) {
+            setBool(PREF_PREFIX_AUTO_FORMAT + path, enabled);
+        }
+    }
+
+    public boolean getDocumentAutoFormatEnabled(final String path) {
+        final boolean _default = false;
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_AUTO_FORMAT + path, _default);
         }
     }
 

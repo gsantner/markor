@@ -26,52 +26,35 @@ public class AutoFormatter {
     private final PrefixPatterns _prefixPatterns;
     private final char _indentCharacter;
 
-    private CharSequence _source;
-    private int _start;
-    private int _end;
-    private Spanned _dest;
-    private int _dstart;
-    private int _dend;
-
     public AutoFormatter(PrefixPatterns prefixPatterns, char indentCharacter) {
         _prefixPatterns = prefixPatterns;
         _indentCharacter = indentCharacter;
     }
 
-    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-        initialize(source, start, end, dest, dstart, dend);
+    public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
 
         try {
-            if (_start < _source.length() && _dstart <= _dest.length() && StringUtils.isNewLine(_source, _start, _end)) {
-                return autoIndent();
+            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+                return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
         }
-        return _source;
-    }
 
-    private void initialize(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-        _source = source;
-        _start = start;
-        _end = end;
-        _dest = dest;
-        _dstart = dstart;
-        _dend = dend;
+        return source;
     }
 
     @SuppressLint("DefaultLocale")
-    private CharSequence autoIndent() {
+    private CharSequence autoIndent(final CharSequence source, final Spanned dest, final int dstart, final int dend) {
 
-        final OrderedListLine oLine = new OrderedListLine(_dest, _dstart, _prefixPatterns);
-        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart, _prefixPatterns);
-        final String indent = _source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
+        final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
+        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
+        final String indent = source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
 
         final String result;
-        if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && _dend >= oLine.groupEnd) {
+        if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
             result = indent + String.format("%s%c ", getNextOrderedValue(oLine.value), oLine.delimiter);
-        } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && _dend >= uLine.groupEnd) {
+        } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && dend >= uLine.groupEnd) {
             String itemPrefix = uLine.newItemPrefix;
             result = indent + itemPrefix;
         } else {

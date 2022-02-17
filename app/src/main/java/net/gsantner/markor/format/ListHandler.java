@@ -17,16 +17,14 @@ import android.text.TextWatcher;
 import net.gsantner.opoc.util.StringUtils;
 
 public class ListHandler implements TextWatcher {
-    private final boolean _reorderEnabled;
     private int reorderPosition;
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
 
     private final AutoFormatter.PrefixPatterns _prefixPatterns;
 
-    public ListHandler(final boolean reorderEnabled, final AutoFormatter.PrefixPatterns prefixPatterns) {
+    public ListHandler(final AutoFormatter.PrefixPatterns prefixPatterns) {
         super();
-        _reorderEnabled = reorderEnabled;
         _prefixPatterns = prefixPatterns;
     }
 
@@ -62,7 +60,7 @@ public class ListHandler implements TextWatcher {
                 e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }
         }
-        if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
+        if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
             AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
         }
     }

@@ -85,7 +85,6 @@ public class ZimWikiHighlighter extends Highlighter {
     public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
         super(editor, document);
         _highlightLinks = false;
-        setTextModifier(new ListHandler(true, ZimWikiAutoFormat.getPrefixPatterns()));  // TODO: introduce a setting for enabling/disabling reordering
     }
 
     @Override
@@ -178,11 +177,6 @@ public class ZimWikiHighlighter extends Highlighter {
         createColorSpanForMatches(spannable, checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_LEFT_BRACKET_GROUP);
         createColorSpanForMatches(spannable, checkboxPattern, symbolColor, Patterns.CHECKBOX_SYMBOL_GROUP);
         createColorSpanForMatches(spannable, checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_RIGHT_BRACKET_GROUP);
-    }
-
-    @Override
-    public InputFilter getAutoFormatter() {
-        return new ZimWikiAutoFormat();
     }
 
     @Override

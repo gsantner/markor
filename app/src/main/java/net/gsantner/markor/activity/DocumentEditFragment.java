@@ -91,7 +91,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean wrapTextSetting;
     private boolean wrapText;
     private boolean highlightText;
-
+    private boolean autoFormat;
 
     public static DocumentEditFragment newInstance(final Document document, final int lineNumber) {
         DocumentEditFragment f = new DocumentEditFragment();
@@ -385,18 +385,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         switch (itemId) {
             case R.id.action_undo: {
                 if (_editTextUndoRedoHelper.getCanUndo()) {
-                    _hlEditor.disableHighlighterAutoFormat();
-                    _editTextUndoRedoHelper.undo();
-                    _hlEditor.enableHighlighterAutoFormat();
+                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
                     updateUndoRedoIconStates();
                 }
                 return true;
             }
             case R.id.action_redo: {
                 if (_editTextUndoRedoHelper.getCanRedo()) {
-                    _hlEditor.disableHighlighterAutoFormat();
-                    _editTextUndoRedoHelper.redo();
-                    _hlEditor.enableHighlighterAutoFormat();
+                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
                     updateUndoRedoIconStates();
                 }
                 return true;
@@ -549,6 +545,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 updateMenuToggleStates(0);
                 return true;
             }
+            case R.id.action_enable_auto_format: {
+                autoFormat = !autoFormat;
+                _hlEditor.setAutoFormatEnabled(autoFormat);
+                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), autoFormat);
+                updateMenuToggleStates(0);
+                return true;
+            }
             case R.id.action_info: {
                 if (_document != null) {
                     saveDocument(false); // In order to have the correct info displayed
@@ -586,7 +589,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
-        _hlEditor.enableHighlighterAutoFormat();
+        _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
+        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         _textFormat.getTextActions()
                 .setHighlightingEditor(_hlEditor)
                 .appendTextActionsToBar(_textActionsBar);
@@ -599,6 +603,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
 
         highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
+        autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
         updateMenuToggleStates(0);
 
         setHorizontalScrollMode(wrapText);
@@ -613,6 +618,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
             mi.setChecked(highlightText);
+        }
+        if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
+            mi.setChecked(autoFormat);
         }
 
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
