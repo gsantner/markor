@@ -188,26 +188,32 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_PRESENTATION_BEAMER;
         }
 
-        if (!enablePresentationBeamer && markup.startsWith("---")) {
-            // Read YAML attributes
-            yamlFrontMatterMap = extractYamlFrontMatter(markup);
-            allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+        if (!enablePresentationBeamer) {
+            if (markup.startsWith("---")) {
+                allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+                if (!allowedYamlAttributes.isEmpty() || markup.matches("\\{\\{\\s+[A-Za-z0-9\\.]+\\s+\\}\\}")) {
+                    // Read YAML attributes
+                    yamlFrontMatterMap = extractYamlFrontMatter(markup);
+                }
 
-            // Assemble YAML front-matter block
-            if (!allowedYamlAttributes.isEmpty()) {
-                yamlFrontMatterMap = extractYamlFrontMatter(markup);
-                if (!yamlFrontMatterMap.isEmpty()) {
-                    for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
-                        String attrName = entry.getKey();
-                        if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
-                            continue;
+                // Assemble YAML front-matter block
+                if (!allowedYamlAttributes.isEmpty()) {
+                    if (!yamlFrontMatterMap.isEmpty()) {
+                        for (Map.Entry<String, List<String>> entry : yamlFrontMatterMap.entrySet()) {
+                            String attrName = entry.getKey();
+                            if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
+                                continue;
+                            }
+                            yamlFrontMatterBlock += "{{ yaml." + attrName + " }}\n";
                         }
-                        yamlFrontMatterBlock += "{{ yaml." + attrName + " }}\n";
+                    }
+                    if (!yamlFrontMatterBlock.equals("")) {
+                        head += CSS_YAML_FRONTMATTER;
                     }
                 }
-                if (!yamlFrontMatterBlock.equals("")) {
-                    head += CSS_YAML_FRONTMATTER;
-                }
+            } else {
+                // If the document doesn't contain a YAML block, the map needs to be reset.
+                yamlFrontMatterMap = Collections.EMPTY_MAP;
             }
         }
 
