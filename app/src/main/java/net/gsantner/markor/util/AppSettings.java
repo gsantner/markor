@@ -414,7 +414,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public boolean getDocumentAutoFormatEnabled(final String path) {
-        final boolean _default = false;
+        final boolean _default = true;
         if (!fexists(path)) {
             return _default;
         } else {
