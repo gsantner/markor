@@ -198,14 +198,12 @@ public class MarkdownTextConverter extends TextConverter {
 
             // Assemble YAML front-matter block
             if (!allowedYamlAttributes.isEmpty()) {
-                if (!yamlAttributeMap.isEmpty()) {
-                    for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
-                        String attrName = entry.getKey();
-                        if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
-                            continue;
-                        }
-                        frontmatter += "{{ frontmatter." + attrName + " }}\n";
+                for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+                    String attrName = entry.getKey();
+                    if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
+                        continue;
                     }
+                    frontmatter += "{{ frontmatter." + attrName + " }}\n";
                 }
                 if (!frontmatter.equals("")) {
                     head += CSS_FRONTMATTER;
@@ -377,55 +375,52 @@ public class MarkdownTextConverter extends TextConverter {
         return visitor.getData();
     }
 
-    private String replaceTokens (final String markup, final String scopes, final String replaceFormatted) {
+    private String replaceTokens(final String markup, final String scopes, final String replaceFormatted) {
         String markupReplaced = markup;
+        String itemSep = ", ";
+        String attrVal_S = "";
+        String attrVal_E = "";
 
-        if (!yamlAttributeMap.isEmpty()) {
-            String itemSep = ", ";
-            String attrVal_S = "";
-            String attrVal_E = "";
+        for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+            String attrName = entry.getKey();
+            List<String> attrValue = entry.getValue();
+            List<String> attrValueOut = new ArrayList<>();
 
-            for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
-                String attrName = entry.getKey();
-                List<String> attrValue = entry.getValue();
-                List<String> attrValueOut = new ArrayList<>();
+            if (attrName.equals("tags") && attrValue.size() == 1) {
+                // It's not a real tag list, but rather a string of comma-separated strings
+                attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
+            }
 
-                if (attrName.equals("tags") && attrValue.size() == 1) {
-                    // It's not a real tag list, but rather a string of comma-separated strings
-                    attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
+            if (replaceFormatted.equals("html")) {
+                itemSep = " ";
+                attrVal_S = HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName);
+                attrVal_E = HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
+
+                for (String aValue : attrValue) {
+                    // Strip surrounding single or double quotes
+                    aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
+                    aValue = TextUtils.htmlEncode(aValue);
+                    aValue = aValue.replaceAll("`(.*?)`", "<code>$1</code>");
+                    aValue = aValue.replaceAll("_(.*?)_", "<em>$1</em>");
+                    aValue = aValue.replaceAll("\\*(.*?)\\*", "<b>$1</b>");
+                    aValue = aValue.replaceAll("(?<!-)---(?!-)", "&mdash;");
+                    aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
+                    aValue = aValue.replaceAll("\\$(.*?)\\$", "<span class='katex'>$1</span>");
+                    attrValueOut.add(HTML_FRONTMATTER_ITEM_S.replace("{{ attrName }}", attrName) + aValue + HTML_FRONTMATTER_ITEM_E);
                 }
-
-                if (replaceFormatted.equals("html")) {
-                    itemSep = " ";
-                    attrVal_S = HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName);
-                    attrVal_E = HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
-
-                    for (String aValue : attrValue) {
-                        // Strip surrounding single or double quotes
-                        aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
-                        aValue = TextUtils.htmlEncode(aValue);
-                        aValue = aValue.replaceAll("`(.*?)`", "<code>$1</code>");
-                        aValue = aValue.replaceAll("_(.*?)_", "<em>$1</em>");
-                        aValue = aValue.replaceAll("\\*(.*?)\\*", "<b>$1</b>");
-                        aValue = aValue.replaceAll("(?<!-)---(?!-)", "&mdash;");
-                        aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
-                        aValue = aValue.replaceAll("\\$(.*?)\\$", "<span class='katex'>$1</span>");
-                        attrValueOut.add(HTML_FRONTMATTER_ITEM_S.replace("{{ attrName }}", attrName) + aValue + HTML_FRONTMATTER_ITEM_E);
-                    }
-                } else {
-                    for (String aValue : attrValue) {
-                        // Strip surrounding single or double quotes
-                        aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
-                        attrValueOut.add(aValue);
-                    }
+            } else {
+                for (String aValue : attrValue) {
+                    // Strip surrounding single or double quotes
+                    aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
+                    attrValueOut.add(aValue);
                 }
+            }
 
-                // Replace "{{ <scope>>.<key> }}" tokens in note body
-                for (String scope : scopes.split(",\\s*")) {
-                    String token = "{{ " + scope + "." + attrName + " }}";
-                    String replacement = attrVal_S + String.join(itemSep, attrValueOut) + attrVal_E;
-                    markupReplaced = markupReplaced.replace(token, replacement);
-                }
+            // Replace "{{ <scope>>.<key> }}" tokens in note body
+            for (String scope : scopes.split(",\\s*")) {
+                String token = "{{ " + scope + "." + attrName + " }}";
+                String replacement = attrVal_S + String.join(itemSep, attrValueOut) + attrVal_E;
+                markupReplaced = markupReplaced.replace(token, replacement);
             }
         }
 
