@@ -115,7 +115,8 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String CSS_FRONTMATTER = CSS_S + ".yaml-front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .yaml-front-matter-item { text-align: right; margin-bottom: 0.25em; } .yaml-title-container { font-weight: bold; font-size: 110%; } .yaml-date-container { font-style: italic; } .yaml-tags-container { white-space: pre; overflow: scroll; font-size: 80%; } .yaml-tags-item { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.yaml-tags-item:not(:first-child) { margin-left: 0.25em; }" + CSS_E;
     public static final String YAML_TOKEN_SCOPES = "page, post, site";
-    public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
+    public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("(?<!\\\\)\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
+    public static final Pattern YAML_ESCAPED_TOKEN_PATTERN = Pattern.compile("\\\\(\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\})");
 
     //########################
     //## Converter library
@@ -418,14 +419,15 @@ public class MarkdownTextConverter extends TextConverter {
                 }
             }
 
-            // Replace "{{ <scope>>.<key> }}" tokens in note body
+            // Replace "{{ <scope>>.<key> }}" tokens in note body, if they are not escaped with a preceeding backslash
             for (String scope : scopes.split(",\\s*")) {
-                String token = "{{ " + scope + "." + attrName + " }}";
+                String tokenPattern = "(?<!\\\\)\\{\\{ " + scope + "\\." + attrName + " \\}\\}";
                 String replacement = attrVal_S + String.join(itemSep, attrValueOut) + attrVal_E;
-                markupReplaced = markupReplaced.replace(token, replacement);
+                markupReplaced = markupReplaced.replaceAll(tokenPattern, replacement);
             }
         }
 
-        return markupReplaced;
+        // Unescape escaped tokens
+        return YAML_ESCAPED_TOKEN_PATTERN.matcher(markupReplaced).replaceAll("$1");
     }
 }
