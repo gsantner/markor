@@ -126,7 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Criar nota</string>
     <string name="special_documents" needed="false">Documentos especiais</string>
     <string name="keep_screen_on" needed="false">Manter a tela ligada</string>
-    <string name="disallow_screenshots">Despermitir capturas de tela</string>
+    <string name="disallow_screenshots">Desautorizar capturas de tela</string>
     <string name="back_to_previous_folder" needed="false">Retornar à pasta anterior</string>
     <string name="app_settings" needed="false">Configurações do aplicativo</string>
     <string name="editor_settings" needed="false">Configurações do editor</string>
@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Realçar espaços no fim das linhas com mais de dois espaços</string>
     <string name="use_monospace_for_code">Usar Monospace em código</string>
     <string name="disable_code_block_highlight">Desativar o destaque de blocos de código</string>
-    <string name="auto_renumber_ordered_list">Lista de auto-renomar ordenada</string>
+    <string name="auto_renumber_ordered_list">Lista de auto-renumeração ordenada</string>
     <string name="auto_renumber_ordered_list_slowdown">Esta opção pode afetar o desempenho do aplicativo.</string>
     <string name="use_different_fonttype_slow_down">Faça o uso de um tipo de fonte diferente. Alterar o tipo de fonte dinamicamente faz um impacto sobre o desempenho do aplicativo.</string>
     <string name="general">Geral</string>
@@ -186,8 +186,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabulação</string>
     <string name="start_on_bottom">Começar na parte inferior</string>
     <string name="start_on_bottom_when_loading_document">Depois que um documento é carregado, posicionar o cursor no final da linha</string>
-    <string name="unordered_list_character">Caracter de lista não ordenado</string>
-    <string name="character_to_start_items_of_unordered_list_with">Qual personagem usar para denotar listas não ordenadas</string>
+    <string name="unordered_list_character">Caractere de lista não ordenado</string>
+    <string name="character_to_start_items_of_unordered_list_with">Qual caractere usar para denotar listas não ordenadas</string>
     <string name="unordered_list_char_dash">Traço (-)</string>
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Mais (+)</string>
@@ -289,7 +289,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Armazenamento interno</string>
     <string name="open_the_document_from_main_view">Você pode abrir o documento na parte inferior da tela principal, pelo gerenciador de arquivos ou no launcher. Há também a opção de anexar texto compartilhado pra dentro do Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook é a pasta que o Markor abre através do gerenciador de arquivos quando o app é iniciado. É a pasta padrão dos seus arquivos.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, que você pode customizar a localização nas configurações.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote é a opção mais rápida para suas anotações. Ele é um arquivo de formato Markdown e sua localização padrão é &gt;Notebook/QuickNote.md&lt;, e você pode customizar a localização nas configurações.</string>
     <string name="todo_is_the_easiest_way_">Gerencie suas tarefas com ToDo. É um arquivo todo.txt com localização padrão &gt;Notebook/todo.txt&lt;, e que pode ter sua localização customizada nas configurações.</string>
     <string name="navigationbar_color">Cor da barra de navegação</string>
     <string name="black">Preto</string>
@@ -298,12 +298,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view_mode">Modo de visualização</string>
     <string name="edit_mode">Modo de edição</string>
     <string name="mount_storage">Acessar armazenamento</string>
-    <string name="application_needs_access_to_storage_mount_it">É necessário permissão para acessar este armazenamento. Faça a montagem para permitir o acesso à ele, confirme o diálogo exibido e selecione o armazenamento, clicando em \"selecione\".</string>
+    <string name="application_needs_access_to_storage_mount_it">É necessário permissão para acessar este armazenamento. Monte o armazenamento para permitir o acesso a ele, confirme o diálogo exibido e selecione o armazenamento, clicando em \"selecione\".</string>
     <string name="share_into">Compartilhar para</string>
     <string name="favourite">Favorito</string>
     <string name="favourites">Favoritos</string>
     <string name="please_wait">Por favor aguarde</string>
-    <string name="app_start_folder">Pasta inicial do app</string>
+    <string name="app_start_folder">Pasta inicial do aplicativo</string>
     <string name="tab_width">Largura da aba</string>
     <string name="amount_of_space_for_tab">Quantidade de espaços para exibir tabulação</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">O arquivo selecionado pode ser um arquivo de texto puro. Você quer abri-lo no editor, ou em outro aplicativo?\n\nNão tente abrir arquivos binários. Se não tem certeza, abra com outro aplicativo.</string>
