@@ -260,20 +260,17 @@ public class AutoFormatter {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
-        int position = firstLine.lineStart; // firstLine.lineEnd + 1 == Start at second line
+        int position = firstLine.lineStart;
 
         if (firstLine.isOrderedList && position < text.length()) {
-            // Stack represents
+            // Stack represents first item at each level 'up' from this line
             final Stack<OrderedListLine> levels = new Stack<>();
             levels.push(firstLine);
-
             OrderedListLine line = firstLine;
 
             try {
                 // Loop to end of list
                 do {
-                    line = new OrderedListLine(text, position, prefixPatterns);
-
                     if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
                         // List is over
                         break;
@@ -322,6 +319,7 @@ public class AutoFormatter {
                     }
 
                     position = line.lineEnd + 1;
+                    line = new OrderedListLine(text, position, prefixPatterns);
                 } while (position < text.length() && position > 0);
 
             } catch (EmptyStackException ignored) {
