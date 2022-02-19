@@ -195,9 +195,26 @@ Relevant for creating printable pages from the document (Print / PDF).
 **Local audio** Yellowcard - Lights up in the sky
 <audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>
 
+
+## Admonition Extension
+Create block-styled side content.  
+Use one of these qualifiers to select the icon and the block color: abstract, summary, tldr, bug, danger, error, example, snippet, failure, fail, missing, question, help, faq, info, todo, note, seealso, quote, cite, success, check, done, tip, hint, important, warning, caution, attention.
+
+!!! warning 'Optional Title'
+    Block-Styled Side Content with **Markdown support**
+
+!!! info ''
+    No-Heading Content
+
+??? bug 'Collapsed by default'
+    Collapsible Block-Styled Side Content
+
+???+ example 'Open by default'
+     Collapsible Block-Styled Side Content
+
 ------------------
 
-This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 2.
+This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 3.
 
 ------------------
 
