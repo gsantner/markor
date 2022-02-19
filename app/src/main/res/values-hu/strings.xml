@@ -166,6 +166,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="auto_renumber_ordered_list_slowdown">Ez az opció befolyásolhatja az app teljesítményét.</string>
     <string name="use_different_fonttype_slow_down">Másik betűtípus használata. Dinamikus megváltoztatása hatással van a teljesítményre.</string>
     <string name="general">Általános</string>
+    <string name="resources">Erőforrások</string>
     <string name="space_between_lines_in_percent">Sorok közötti tér százalékban</string>
     <string name="line_spacing">Sorköz</string>
     <string name="archive_does_move_done_tasks">Az elkészült feladatok áthelyezése adott fájlba ugyanazon mappában</string>
@@ -293,6 +294,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="view">Megtekintés</string>
     <string name="view_mode">Olvasó mód</string>
     <string name="edit_mode">Szerkesztő mód</string>
+    <string name="mount_storage">Tárhely csatolása</string>
     <string name="share_into">Megoszás ide: </string>
     <string name="favourite">Kedvenc</string>
     <string name="favourites">Kedvencek</string>
@@ -319,6 +321,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="page">Oldal</string>
     <string name="experimental_features">Kísérleti funkciók</string>
     <string name="tools">Eszközök</string>
+    <string name="reading">Olvasás</string>
     <string name="table">Táblázat</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Hány oszlop legyen? A táblázat elkezdéséhez (fejléc beszúrásához) hosszan, sor beszúrásához röviden nyomd meg a táblázat gombot.</string>
     <string name="example_of_a_markdown_table">Példa egy Markdown táblázatra</string>
@@ -360,6 +363,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_order">Műveletek sorrendje</string>
     <string name="toggle_action_visibility">Műveletek láthatóságának állítása</string>
     <string name="load_default_settings">Alapértelmezett beállítások betöltése</string>
+    <string name="drag">Húzás</string>
     <string name="created">Létrehozva</string>
     <string name="file_encryption_password">Fájltitkosító jelszó</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nincs jelszó, nem lehet titkosítani.\nJelszó megadásához menj a Beállítások -&gt; Általános -&gt; Jelszó pontra.</string>
@@ -385,13 +389,35 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">Beállítások visszaállítása</string>
     <string name="failed_to_create_backup">Nem sikerült létrehozni a biztonsági mentést</string>
     <string name="export_settings_to_json_file">Beállítások exportálása json fájlba</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Beállítások importálása json file-ból. Sikeres importálás esetén az alkalmazás újraindul.</string>
     <string name="failed_to_restore_settings_from_backup">Nem sikerült visszaállítani a beállításokat a biztonsági mentésből</string>
     <string name="newline_is_new_paragraph">Enter = új bekezdés</string>
     <string name="search_in_content">Keresés a tartalomban</string>
+    <string name="max_search_depth">Keresési mélység</string>
+    <string name="case_sensitive">Kis-nagybetű érzékeny</string>
+    <string name="stop_search_after_first_match">Ne keressen tovább az első találat után</string>
+    <string name="regex_can_not_be_compiled">Regex nem értelmezhető</string>
     <string name="keep_both">Mindkettő megtartása</string>
     <string name="skip">Kihagyás</string>
     <string name="overwrite">Felülírás</string>
     <string name="keep_both_all">Mindkettő megtartása az összesnél</string>
     <string name="skip_all">Összes kihagyása</string>
     <string name="overwrite_all">Az összes felülírása</string>
+    <string name="copy_move_conflict_message">\'%s\' már létezik %s-ben</string>
+    <string name="additional_contexts_and_projects">További kontextusok és projektek</string>
+    <string name="enter_space_seperated_contexts_and_projects_these_will">Adj hozzá szóközzel elválasztott @kontextusokat és +projekteket. Ezek mindig láthatók lesznek a todo.txt beszúrási párbeszédablakában.</string>
+    <string name="infinite">Végtelen</string>
+    <string name="browse_by_project">Böngészés projektenként</string>
+    <string name="browse_by_context">Böngészés kontextusonként</string>
+    <string name="insert_project">Projektek beszúrása</string>
+    <string name="insert_context">Kontextusok beszúrása</string>
+    <string name="browse_todo">Teendők böngészése</string>
+    <string name="browse_by_priority">Böngészés prioritás szerint</string>
+    <string name="browse_by_due_date">Böngészés esedékesség szerint</string>
+    <string name="due_overdue">Esedékes</string>
+    <string name="due_today">Ma esedékes</string>
+    <string name="due_future">Jövőben esedékes</string>
+    <string name="completed">Kész</string>
+    <string name="match_any">Bármelyikkel egyező</string>
+    <string name="match_all">Mindegyikkel egyező</string>
 </resources>
