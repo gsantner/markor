@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings("WeakerAccess")
@@ -92,13 +93,9 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
             "<script src='file:///android_asset/katex/katex.min.js'></script>" +
-            "<script src='file:///android_asset/katex/mhchem.min.js'></script>" +
-            "<script src='file:///android_asset/katex/auto-render.min.js'></script>";
-    public static final String JS_KATEX = "" +
-            "renderMathInElement(document.body, {" +
-            "   'delimiters': [ " +
-            "       {left: '$$', right: '$$', display: true}, { left: '$', right: '$', display: false }," +
-            "]});\n";
+            "<script src='file:///android_asset/katex/katex-render.js'></script>" +
+            "<script src='file:///android_asset/katex/mhchem.min.js'></script>";
+    public static final String CSS_KATEX = CSS_S + ".katex { font-size: inherit; }" + CSS_E;
 
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
@@ -114,6 +111,7 @@ public class MarkdownTextConverter extends TextConverter {
             StrikethroughExtension.create(),
             AutolinkExtension.create(),
             InsExtension.create(),
+            FlexmarkKatexExtension.KatexExtension.create(),
             JekyllTagExtension.create(),
             JekyllFrontMatterExtension.create(),
             SuperscriptExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Extensions#superscript
@@ -204,8 +202,7 @@ public class MarkdownTextConverter extends TextConverter {
         // Enable Math / KaTex
         if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
-            onLoadJs += JS_KATEX;
-            markup = markup.replaceAll("(?ms)^([$]{2}.*?[$]{2})$", "<div>\n$1\n</div>");
+            head += CSS_KATEX;
         }
 
         // Enable Mermaid
