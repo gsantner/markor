@@ -110,6 +110,7 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String HTML_FRONTMATTER_ITEM_CONTAINER_E = "</div>";
     public static final String HTML_TOKEN_ITEM_S = "<span class='{{ scope }}-item-{{ attrName }}'>";
     public static final String HTML_TOKEN_ITEM_E = "</span>";
+    public static final String HTML_TOKEN_DELIMITER = "<span class='{{ scope }}-delimiter-{{ attrName }} delimiter'></span>";
 
     public static final String CSS_FRONTMATTER = CSS_S + ".front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } .front-matter-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.front-matter-item-tags:not(:first-child) { margin-left: 0.25em; } span.delimiter::before { content: ', '; } span.front-matter-delimiter-tags::before { content: ' '; }" + CSS_E;
     public static final String YAML_TOKEN_SCOPES = "page, post, site";
@@ -415,8 +416,7 @@ public class MarkdownTextConverter extends TextConverter {
             // Replace "{{ <scope>>.<key> }}" tokens in note body, if they are not escaped with a preceeding backslash
             for (String scope : scopes.split(",\\s*")) {
                 String tokenPattern = "(?<!\\\\)\\{\\{ " + scope + "\\." + attrName + " \\}\\}";
-                String delimiter = "<span class='" + scope + "-delimiter-" + attrName + " delimiter'></span>";
-                String replacement = TextUtils.join(delimiter, attrValueOut);
+                String replacement = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut);
                 replacement = replacement.replace("{{ scope }}", scope);
                 replacement = replacement.replace("{{ attrName }}", attrName);
                 markupReplaced = markupReplaced.replaceAll(tokenPattern, replacement);
