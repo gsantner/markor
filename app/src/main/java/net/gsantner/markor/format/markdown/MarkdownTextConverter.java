@@ -416,7 +416,7 @@ public class MarkdownTextConverter extends TextConverter {
             for (String scope : scopes.split(",\\s*")) {
                 String tokenPattern = "(?<!\\\\)\\{\\{ " + scope + "\\." + attrName + " \\}\\}";
                 String delimiter = "<span class='" + scope + "-delimiter-" + attrName + " delimiter'></span>";
-                String replacement = String.join(delimiter, attrValueOut);
+                String replacement = TextUtils.join(delimiter, attrValueOut);
                 replacement = replacement.replace("{{ scope }}", scope);
                 replacement = replacement.replace("{{ attrName }}", attrName);
                 markupReplaced = markupReplaced.replaceAll(tokenPattern, replacement);
