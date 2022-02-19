@@ -112,7 +112,7 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String HTML_TOKEN_ITEM_E = "</span>";
     public static final String HTML_TOKEN_DELIMITER = "<span class='{{ scope }}-delimiter-{{ attrName }} delimiter'></span>";
 
-    public static final String CSS_FRONTMATTER = CSS_S + ".front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } .front-matter-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.front-matter-item-tags:not(:first-child) { margin-left: 0.25em; } span.delimiter::before { content: ', '; } span.front-matter-delimiter-tags::before { content: ' '; }" + CSS_E;
+    public static final String CSS_FRONTMATTER = CSS_S + "span.delimiter::before { content: ', '; } .front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } div.front-matter-item > .post-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } div.front-matter-item > span.post-item-tags:not(:first-child) { margin-left: 0.25em; } div.front-matter-item > span.post-delimiter-tags::before { content: ' '; }" + CSS_E;
     public static final String YAML_TOKEN_SCOPES = "page, post, site";
     public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("(?<!\\\\)\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
     public static final Pattern YAML_ESCAPED_TOKEN_PATTERN = Pattern.compile("\\\\(\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\})");
@@ -211,7 +211,8 @@ public class MarkdownTextConverter extends TextConverter {
                     if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
                         continue;
                     }
-                    frontmatter += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ front-matter." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
+                    //noinspection StringConcatenationInLoop
+                    frontmatter += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
                 if (!frontmatter.equals("")) {
                     head += CSS_FRONTMATTER;
@@ -281,7 +282,7 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Replace tokens in note with corresponding YAML attribute values
         markup = replaceTokens(markup, YAML_TOKEN_SCOPES);
-        frontmatter = replaceTokens(frontmatter, "front-matter");
+        frontmatter = replaceTokens(frontmatter, "post");
         if (!frontmatter.equals("")) {
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
