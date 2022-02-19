@@ -10,13 +10,14 @@
 package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Spanned;
 
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -109,6 +110,12 @@ public class AutoFormatter {
 
         public boolean isSiblingLevelOf(final ListLine line) {
             return !isParentLevelOf(line) && !isChildLevelOf(line);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            final ListLine other = obj instanceof ListLine ? (ListLine) obj : null;
+            return other == this || (other != null && lineStart == other.lineStart && lineEnd == other.lineEnd && line.equals(other.line));
         }
     }
 
@@ -253,8 +260,8 @@ public class AutoFormatter {
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
-     * <p>
-     * Sub-lists and other children will be skipped.
+     *
+     * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
     public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
@@ -263,14 +270,17 @@ public class AutoFormatter {
         int position = firstLine.lineStart;
 
         if (firstLine.isOrderedList && position < text.length()) {
-            // Stack represents first item at each level 'up' from this line
+            // Stack represents
             final Stack<OrderedListLine> levels = new Stack<>();
             levels.push(firstLine);
+
             OrderedListLine line = firstLine;
 
             try {
                 // Loop to end of list
                 do {
+                    line = new OrderedListLine(text, position, prefixPatterns);
+
                     if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
                         // List is over
                         break;
@@ -306,7 +316,7 @@ public class AutoFormatter {
 
                         // Restart numbering if list changes
                         final OrderedListLine peek = levels.peek();
-                        final String newValue = (line == peek) ? "1" : getNextOrderedValue(peek.value);
+                        final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
                         if (!newValue.equals(line.value)) {
                             text.replace(line.numStart, line.numEnd, newValue);
 
@@ -319,7 +329,6 @@ public class AutoFormatter {
                     }
 
                     position = line.lineEnd + 1;
-                    line = new OrderedListLine(text, position, prefixPatterns);
                 } while (position < text.length() && position > 0);
 
             } catch (EmptyStackException ignored) {

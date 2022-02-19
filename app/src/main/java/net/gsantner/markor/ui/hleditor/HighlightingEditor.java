@@ -50,7 +50,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private Highlighter _hl;
-    private final Set<TextWatcher> _appliedModifiers = new HashSet<>(); /* Tracks currently applied modifiers */
+    private final Set<TextWatcher> _activeListeners = new HashSet<>(); /* Tracks currently applied modifiers */
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
 
@@ -136,7 +136,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public boolean getAutoFormatEnabled() {
         final boolean filterApplied = getFilters().length > 0;
-        final boolean modifierApplied = _autoFormatModifier != null && _appliedModifiers.contains(_autoFormatModifier);
+        final boolean modifierApplied = _autoFormatModifier != null && _activeListeners.contains(_autoFormatModifier);
         return (filterApplied || modifierApplied);
     }
 
@@ -145,18 +145,28 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_autoFormatFilter != null) {
                 setFilters(new InputFilter[]{_autoFormatFilter});
             }
-            if (_autoFormatModifier != null && !_appliedModifiers.contains(_autoFormatModifier)) {
+            if (_autoFormatModifier != null && !_activeListeners.contains(_autoFormatModifier)) {
                 addTextChangedListener(_autoFormatModifier);
-                _appliedModifiers.add(_autoFormatModifier);
             }
         } else {
             setFilters(new InputFilter[]{});
 
             if (_autoFormatModifier != null) {
                 removeTextChangedListener(_autoFormatModifier);
-                _appliedModifiers.remove(_appliedModifiers);
             }
         }
+    }
+
+    @Override
+    public void addTextChangedListener(final TextWatcher listener) {
+        _activeListeners.add(listener);
+        super.addTextChangedListener(listener);
+    }
+
+    @Override
+    public void removeTextChangedListener(final TextWatcher listener) {
+        super.removeTextChangedListener(listener);
+        _activeListeners.remove(listener);
     }
 
     // Run some code with auto formatters disabled
