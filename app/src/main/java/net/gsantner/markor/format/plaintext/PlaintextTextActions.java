@@ -94,6 +94,10 @@ public class PlaintextTextActions extends TextActions {
                     return runCommonTextAction(R.string.tmaid_common_jump_to_bottom);
                 case R.string.tmaid_common_time:
                     return runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
+                case R.string.tmaid_common_ordered_list_number: {
+                    runRenumberOrderedListIfRequired(true);
+                    return true;
+                }
                 default:
                     return runAction(_action, true, null);
             }

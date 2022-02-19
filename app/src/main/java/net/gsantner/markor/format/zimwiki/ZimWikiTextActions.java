@@ -287,6 +287,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
+                case R.string.tmaid_common_ordered_list_number: {
+                    runRenumberOrderedListIfRequired(true);
+                    return true;
+                }
             }
             return false;
         }

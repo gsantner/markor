@@ -690,7 +690,11 @@ public abstract class TextActions {
     }
 
     public final void runRenumberOrderedListIfRequired() {
-        if (_hlEditor.getAutoFormatEnabled()) {
+        runRenumberOrderedListIfRequired(false);
+    }
+
+    public final void runRenumberOrderedListIfRequired(final boolean force) {
+        if (force || _hlEditor.getAutoFormatEnabled()) {
             final boolean isAccessibilityEnabled = _hlEditor.getAccessibilityEnabled();
             try {
                 _hlEditor.setAccessibilityEnabled(false);

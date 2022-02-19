@@ -205,6 +205,10 @@ public class MarkdownTextActions extends TextActions {
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
+                case R.string.tmaid_common_ordered_list_number: {
+                    runRenumberOrderedListIfRequired(true);
+                    return true;
+                }
                 case R.string.tmaid_common_deindent:
                 case R.string.tmaid_common_indent: {
                     return runCommonTextAction(R.string.tmaid_common_set_indent_size);
