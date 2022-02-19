@@ -246,7 +246,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Diversos</string>
     <string name="textaction">Ações de texto</string>
     <string name="textactions">Ações de texto</string>
-    <string name="prefer_view">Vista preferida</string>
+    <string name="prefer_view">Preferir modo de visualização</string>
     <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
     <string name="popular_documents">Documentos populares</string>
     <string name="color">Cor</string>
