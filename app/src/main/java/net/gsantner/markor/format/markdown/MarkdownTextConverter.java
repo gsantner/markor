@@ -404,12 +404,8 @@ public class MarkdownTextConverter extends TextConverter {
                 // Strip surrounding single or double quotes
                 aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
                 aValue = TextUtils.htmlEncode(aValue);
-                aValue = aValue.replaceAll("`(.*?)`", "<code>$1</code>");
-                aValue = aValue.replaceAll("_(.*?)_", "<em>$1</em>");
-                aValue = aValue.replaceAll("\\*(.*?)\\*", "<b>$1</b>");
                 aValue = aValue.replaceAll("(?<!-)---(?!-)", "&mdash;");
                 aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
-                aValue = aValue.replaceAll("\\$(.*?)\\$", "<span class='katex'>$1</span>");
                 attrValueOut.add(HTML_TOKEN_ITEM_S + aValue + HTML_TOKEN_ITEM_E);
             }
 
