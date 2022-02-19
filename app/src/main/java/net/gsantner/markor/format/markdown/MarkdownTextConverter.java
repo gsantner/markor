@@ -13,6 +13,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.vladsch.flexmark.ext.admonition.AdmonitionExtension;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
@@ -98,6 +99,10 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
+    public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
+            "<script src='file:///android_asset/flexmark/admonition.js'></script>";
+    public static final String CSS_ADMONITION = CSS_S + ".adm-block { width: initial; font-size: 90%; text-indent: 0em; } .adm-heading { height: auto; padding-top: 0.4em; padding-left: 2.2em; padding-bottom: 0.4em; } .adm-body { padding-top: 0.25em; padding-bottom: 0.25em; margin-left: 0.5em; margin-right: 0.5em; } .adm-icon { position: absolute; top: 50%; left: 0.5em; transform: translateY(-50%); } .adm-block > .adm-heading { position: relative; cursor: pointer; } .adm-block.adm-open > .adm-heading:after, .adm-block.adm-collapsed > .adm-heading:after { top: 50%; transform: translateY(-50%); content: '▼'; } .adm-block.adm-collapsed > .adm-heading:after { content: '◀'; } pre + div.adm-block, div.adm-block + pre { margin-top: 1.75em; }" + CSS_E;
+
     //########################
     //## Converter library
     //########################
@@ -120,6 +125,7 @@ public class MarkdownTextConverter extends TextConverter {
             YamlFrontMatterExtension.create(),
             TypographicExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Typographic-Extension
             GitLabExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Extensions#gitlab-flavoured-markdown
+            AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
             FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
     );
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
@@ -204,10 +210,15 @@ public class MarkdownTextConverter extends TextConverter {
             head += HTML_MERMAID_INCLUDE;
         }
 
+        // Enable flexmark Admonition support
+        if (markup.contains("!!!") || markup.contains("???")) {
+            head += HTML_ADMONITION_INCLUDE;
+            head += CSS_ADMONITION;
+        }
+
         // Enable View (block) code syntax highlighting
         final String xt = getViewHlPrismIncludes(context, (appSettings.isDarkThemeEnabled() ? "-tomorrow" : ""));
         head += xt;
-
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
