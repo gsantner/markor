@@ -210,7 +210,7 @@ public class MarkdownTextConverter extends TextConverter {
                     if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
                         continue;
                     }
-                    frontmatter += "{{ front-matter." + attrName + " }}\n";
+                    frontmatter += "{{ post." + attrName + " }}\n";
                 }
                 if (!frontmatter.equals("")) {
                     head += CSS_FRONTMATTER;
@@ -280,7 +280,6 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Replace tokens in note with corresponding YAML attribute values
         markup = replaceTokens(markup, YAML_TOKEN_SCOPES, false);
-        frontmatter = replaceTokens(frontmatter, "front-matter", true);
         if (!frontmatter.equals("")) {
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
