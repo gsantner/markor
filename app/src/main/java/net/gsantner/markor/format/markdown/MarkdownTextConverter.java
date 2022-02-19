@@ -106,8 +106,8 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_FRONTMATTER_CONTAINER_S = "<div class='front-matter-container'>";
     public static final String HTML_FRONTMATTER_CONTAINER_E = "</div>";
-    public static final String HTML_TOKEN_ITEM_CONTAINER_S = "<div class='{{ scope }}-item front-matter-container-{{ attrName }}'>";
-    public static final String HTML_TOKEN_ITEM_CONTAINER_E = "</div>";
+    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_S = "<div class='front-matter-item front-matter-container-{{ attrName }}'>";
+    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_E = "</div>";
     public static final String HTML_TOKEN_ITEM_S = "<span class='{{ scope }}-item-{{ attrName }}'>";
     public static final String HTML_TOKEN_ITEM_E = "</span>";
 
@@ -210,7 +210,7 @@ public class MarkdownTextConverter extends TextConverter {
                     if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
                         continue;
                     }
-                    frontmatter += "{{ front-matter." + attrName + " }}\n";
+                    frontmatter += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ front-matter." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
                 if (!frontmatter.equals("")) {
                     head += CSS_FRONTMATTER;
@@ -279,8 +279,8 @@ public class MarkdownTextConverter extends TextConverter {
         markup = escapeSpacesInLink(markup);
 
         // Replace tokens in note with corresponding YAML attribute values
-        markup = replaceTokens(markup, YAML_TOKEN_SCOPES, false);
-        frontmatter = replaceTokens(frontmatter, "front-matter", true);
+        markup = replaceTokens(markup, YAML_TOKEN_SCOPES);
+        frontmatter = replaceTokens(frontmatter, "front-matter");
         if (!frontmatter.equals("")) {
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
@@ -386,10 +386,8 @@ public class MarkdownTextConverter extends TextConverter {
         return visitor.getData();
     }
 
-    private String replaceTokens(final String markup, final String scopes, boolean wrapInDiv) {
+    private String replaceTokens(final String markup, final String scopes) {
         String markupReplaced = markup;
-        String attrVal_S = "";
-        String attrVal_E = "";
 
         for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
             String attrName = entry.getKey();
@@ -401,13 +399,6 @@ public class MarkdownTextConverter extends TextConverter {
                 attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
             }
 
-            if (wrapInDiv) {
-                attrVal_S = HTML_TOKEN_ITEM_CONTAINER_S;
-                attrVal_E = HTML_TOKEN_ITEM_CONTAINER_E + "\n";
-            } else {
-                attrVal_S = "";
-                attrVal_E = "";
-            }
             for (String aValue : attrValue) {
                 // Strip surrounding single or double quotes
                 aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
@@ -425,7 +416,7 @@ public class MarkdownTextConverter extends TextConverter {
             for (String scope : scopes.split(",\\s*")) {
                 String tokenPattern = "(?<!\\\\)\\{\\{ " + scope + "\\." + attrName + " \\}\\}";
                 String delimiter = "<span class='" + scope + "-delimiter-" + attrName + " delimiter'></span>";
-                String replacement = attrVal_S + String.join(delimiter, attrValueOut) + attrVal_E;
+                String replacement = String.join(delimiter, attrValueOut);
                 replacement = replacement.replace("{{ scope }}", scope);
                 replacement = replacement.replace("{{ attrName }}", attrName);
                 markupReplaced = markupReplaced.replaceAll(tokenPattern, replacement);
