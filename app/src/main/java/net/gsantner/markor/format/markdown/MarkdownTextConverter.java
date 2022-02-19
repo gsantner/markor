@@ -114,7 +114,7 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String CSS_FRONTMATTER = CSS_S + "span.delimiter::before { content: ', '; } .front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } div.front-matter-item > .post-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } div.front-matter-item > span.post-item-tags:not(:first-child) { margin-left: 0.25em; } div.front-matter-item > span.post-delimiter-tags::before { content: ' '; }" + CSS_E;
     public static final String YAML_TOKEN_SCOPES = "page, post, site";
-    public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("(?<!\\\\)\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
+    public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
 
     public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
             "<script src='file:///android_asset/flexmark/admonition.js'></script>";
@@ -280,8 +280,8 @@ public class MarkdownTextConverter extends TextConverter {
         markup = escapeSpacesInLink(markup);
 
         // Replace tokens in note with corresponding YAML attribute values
-        markup = replaceTokens(markup, YAML_TOKEN_SCOPES);
-        frontmatter = replaceTokens(frontmatter, "post");
+        markup = replaceTokens(markup);
+        frontmatter = replaceTokens(frontmatter);
         if (!frontmatter.equals("")) {
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
@@ -387,7 +387,7 @@ public class MarkdownTextConverter extends TextConverter {
         return visitor.getData();
     }
 
-    private String replaceTokens(final String markup, final String scopes) {
+    private String replaceTokens(final String markup) {
         String markupReplaced = markup;
 
         for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
@@ -408,20 +408,15 @@ public class MarkdownTextConverter extends TextConverter {
                 aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
                 attrValueOut.add(HTML_TOKEN_ITEM_S + aValue + HTML_TOKEN_ITEM_E);
             }
+            String tokenValue = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut).replace("{{ attrName }}", attrName);
 
-            // Replace "{{ <scope>>.<key> }}" tokens in note body, if they are not escaped with a backslash
-            // preceeding the scope.
-            for (String scope : scopes.split(",\\s*")) {
+            // Replace "{{ <scope>>.<key> }}" tokens in note body
+            for (String scope : YAML_TOKEN_SCOPES.split(",\\s*")) {
                 String token = "{{ " + scope + "." + attrName + " }}";
-                String escapedToken = "{{ \\" + scope + "." + attrName + " }}";
-                String replacement = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut);
-                replacement = replacement.replace("{{ scope }}", scope);
-                replacement = replacement.replace("{{ attrName }}", attrName);
-                markupReplaced = markupReplaced.replace(token, replacement).replace(escapedToken, token);
+                markupReplaced = markupReplaced.replace(token, tokenValue.replace("{{ scope }}", scope));
             }
         }
 
-        // Unescape escaped tokens
         return markupReplaced;
     }
 }
