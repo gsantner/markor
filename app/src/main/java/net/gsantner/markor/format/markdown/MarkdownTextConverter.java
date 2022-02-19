@@ -106,14 +106,14 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
-    public static final String HTML_FRONTMATTER_CONTAINER_S = "<div class='yaml-front-matter-container'>";
+    public static final String HTML_FRONTMATTER_CONTAINER_S = "<div class='front-matter-container'>";
     public static final String HTML_FRONTMATTER_CONTAINER_E = "</div>";
-    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_S = "<div class='yaml-front-matter-item yaml-{{ attrName }}-container'>";
+    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_S = "<div class='front-matter-item front-matter-{{ attrName }}-container'>";
     public static final String HTML_FRONTMATTER_ITEM_CONTAINER_E = "</div>";
-    public static final String HTML_FRONTMATTER_ITEM_S = "<span class='yaml-{{ attrName }}-item'>";
+    public static final String HTML_FRONTMATTER_ITEM_S = "<span class='front-matter-{{ attrName }}-item'>";
     public static final String HTML_FRONTMATTER_ITEM_E = "</span>";
 
-    public static final String CSS_FRONTMATTER = CSS_S + ".yaml-front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .yaml-front-matter-item { text-align: right; margin-bottom: 0.25em; } .yaml-title-container { font-weight: bold; font-size: 110%; } .yaml-tags-container { white-space: pre; overflow: scroll; font-size: 80%; } .yaml-tags-item { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.yaml-tags-item:not(:first-child) { margin-left: 0.25em; }" + CSS_E;
+    public static final String CSS_FRONTMATTER = CSS_S + ".front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-title-container { font-weight: bold; font-size: 110%; } .front-matter-tags-container { white-space: pre; overflow: scroll; font-size: 80%; } .front-matter-tags-item { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } span.front-matter-tags-item:not(:first-child) { margin-left: 0.25em; }" + CSS_E;
     public static final String YAML_TOKEN_SCOPES = "page, post, site";
     public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("(?<!\\\\)\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
     public static final Pattern YAML_ESCAPED_TOKEN_PATTERN = Pattern.compile("\\\\(\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\})");
