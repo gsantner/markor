@@ -278,13 +278,7 @@ public class AutoFormatter {
 
             try {
                 // Loop to end of list
-                do {
-                    line = new OrderedListLine(text, position, prefixPatterns);
-
-                    if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
-                        // List is over
-                        break;
-                    }
+                while(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
                     if (line.isOrderedList) {
                         // Indented. Add level
@@ -329,11 +323,15 @@ public class AutoFormatter {
                     }
 
                     position = line.lineEnd + 1;
-                } while (position < text.length() && position > 0);
-
-            } catch (EmptyStackException ignored) {
+                    if (position < text.length()) {
+                        line = new OrderedListLine(text, position, prefixPatterns);
+                    } else {
+                        break;
+                    }
+                }
+            } catch (EmptyStackException ex) {
                 // Usually means that indents and de-indents did not match up
-                ignored.printStackTrace();
+                ex.printStackTrace();
             }
         }
     }
