@@ -22,9 +22,6 @@ import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
-
-import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
-
 import com.vladsch.flexmark.ext.jekyll.front.matter.JekyllFrontMatterExtension;
 import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
@@ -50,6 +47,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings("WeakerAccess")

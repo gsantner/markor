@@ -120,6 +120,7 @@ public class FlexmarkKatexExtension {
 
     public static interface KatexVisitor {
         void visit(final KatexInlineMath node);
+
         void visit(final KatexDisplayMath node);
     }
 
