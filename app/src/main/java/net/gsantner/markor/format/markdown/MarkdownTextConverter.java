@@ -210,6 +210,7 @@ public class MarkdownTextConverter extends TextConverter {
                     if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
                         continue;
                     }
+                    //noinspection StringConcatenationInLoop
                     frontmatter += "{{ post." + attrName + " }}\n";
                 }
                 if (!frontmatter.equals("")) {
