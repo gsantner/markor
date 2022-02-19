@@ -41,9 +41,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
     }
 
     @Override
-    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        int res = new ContextUtils(_context).getResId(ContextUtils.ResType.STRING, action);
-        return new ZimWikiTextActionsImpl(res).onClickImpl(null);
+    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
+        return new ZimWikiTextActionsImpl(action).onClickImpl(null);
     }
 
     @Override
@@ -190,7 +189,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 default: {
-                    return runCommonTextAction(_context.getString(_action));
+                    return runCommonTextAction(_action);
                 }
             }
         }
@@ -200,7 +199,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
             if (fullZimLink == null) {
                 // the link under the cursor is not a zim link, probably just a plain url
-                runCommonTextAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
+                runCommonTextAction(R.string.tmaid_common_open_link_browser);
                 return;
             }
 
@@ -275,7 +274,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     return true;
                 }
                 case R.string.tmaid_common_time: {
-                    runCommonTextAction("tmaid_common_time_insert_timestamp");
+                    runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
                     return true;
                 }
                 case R.string.tmaid_zimwiki_code_inline: {
@@ -288,19 +287,8 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                case R.string.tmaid_common_ordered_list_number: {
-                    // TODO: adapt to zim wiki
-                    AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
-                    return true;
-                }
             }
             return false;
-        }
-    }
-
-    private void runRenumberOrderedListIfRequired() {
-        if (_appSettings.isMarkdownAutoUpdateList()) {
-            AutoFormatter.renumberOrderedList(_hlEditor, StringUtils.getSelection(_hlEditor)[0], ZimWikiAutoFormat.getPrefixPatterns());
         }
     }
 
@@ -330,5 +318,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 + titleLine + "\n"
                 + creationDateLine + "\n";
         return contents;
+    }
+
+    @Override
+    protected void renumberOrderedList(final int position) {
+        AutoFormatter.renumberOrderedList(_hlEditor.getText(), position, ZimWikiAutoFormat.getPrefixPatterns());
     }
 }

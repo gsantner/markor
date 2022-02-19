@@ -250,16 +250,6 @@ public class AutoFormatter {
         return listStart;
     }
 
-    // Wrap renumberOrderedList with an accessibility update disable
-    public static void renumberOrderedList(final HighlightingEditor editor, int cursorPosition, final PrefixPatterns prefixPatterns) {
-        try {
-            editor.setAccessibilityEnabled(false);
-            renumberOrderedList(editor.getText(), cursorPosition, prefixPatterns);
-        } finally {
-            editor.setAccessibilityEnabled(true);
-        }
-    }
-
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
@@ -270,7 +260,7 @@ public class AutoFormatter {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
-        int position = firstLine.lineEnd + 1;
+        int position = firstLine.lineStart; // firstLine.lineEnd + 1 == Start at second line
 
         if (firstLine.isOrderedList && position < text.length()) {
             // Stack represents

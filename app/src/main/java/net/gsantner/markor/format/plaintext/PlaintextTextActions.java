@@ -15,9 +15,10 @@ import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.format.general.CommonTextActions;
+import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 
 import java.util.Arrays;
@@ -30,7 +31,7 @@ public class PlaintextTextActions extends TextActions {
     }
 
     @Override
-    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
+    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
         return runCommonTextAction(action);
     }
 
@@ -78,51 +79,30 @@ public class PlaintextTextActions extends TextActions {
         @Override
         public void onClick(View view) {
             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-            switch (_action) {
-                case R.string.tmaid_common_indent: {
-                    runIndentLines(false);
-                    return;
-                }
-                case R.string.tmaid_common_deindent: {
-                    runIndentLines(true);
-                    return;
-                }
-                default: {
-                    runCommonTextAction(_context.getString(_action));
-                }
-            }
+            runCommonTextAction(_action);
         }
 
         @Override
         public boolean onLongClick(View v) {
             switch (_action) {
                 case R.string.tmaid_common_deindent:
-                case R.string.tmaid_common_indent: {
-                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
-                        _indent = Integer.parseInt(size);
-                        _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
-                    });
-                    return true;
-                }
-                default: {
-                    String action = _context.getString(_action);
-                    switch (action) {
-                        case CommonTextActions.ACTION_OPEN_LINK_BROWSER: {
-                            action = CommonTextActions.ACTION_SEARCH;
-                            break;
-                        }
-                        case CommonTextActions.ACTION_SPECIAL_KEY: {
-                            action = CommonTextActions.ACTION_JUMP_BOTTOM_TOP;
-                            break;
-                        }
-                        case "tmaid_common_time": {
-                            action = "tmaid_common_time_insert_timestamp";
-                            break;
-                        }
-                    }
-                    return runAction(action, true, null);
-                }
+                case R.string.tmaid_common_indent:
+                    return runCommonTextAction(R.string.tmaid_common_set_indent_size);
+                case R.string.tmaid_common_open_link_browser:
+                    return runCommonTextAction(R.string.tmaid_common_search_in_content_of_current_file);
+                case R.string.tmaid_common_special_key:
+                    return runCommonTextAction(R.string.tmaid_common_jump_to_bottom);
+                case R.string.tmaid_common_time:
+                    return runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
+                default:
+                    return runAction(_action, true, null);
             }
         }
+    }
+
+    @Override
+    protected void renumberOrderedList(final int position) {
+        // Use markdown format for plain text too
+        AutoFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownAutoFormat.getPrefixPatterns());
     }
 }

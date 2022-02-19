@@ -53,9 +53,9 @@ public class ListHandler implements TextWatcher {
     }
 
     @Override
-    public void afterTextChanged(Editable e) {
+    public void afterTextChanged(final Editable e) {
         // Deletes spans marked for deletion
-        for (Object span : e.getSpans(0, e.length(), this.getClass())) {
+        for (final Object span : e.getSpans(0, e.length(), this.getClass())) {
             if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
                 e.delete(e.getSpanStart(span), e.getSpanEnd(span));
             }

@@ -484,7 +484,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_search: {
                 setViewModeVisibility(false);
-                _textFormat.getTextActions().runAction(CommonTextActions.ACTION_SEARCH);
+                _textFormat.getTextActions().runAction(R.string.tmaid_common_search_in_content_of_current_file);
                 return true;
             }
             case R.id.action_send_debug_log: {
@@ -836,7 +836,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
         if (!_isPreviewVisible && _textFormat != null) {
-            _textFormat.getTextActions().runAction(getString(R.string.tmaid_common_toolbar_title_clicked_edit_action));
+            _textFormat.getTextActions().runAction(R.string.tmaid_common_toolbar_title_clicked_edit_action);
         }
     }
 }

@@ -169,11 +169,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return !getBool(R.string.pref_key__hightlight_code_block_disabled, false);
     }
 
-    public boolean isMarkdownAutoUpdateList() {
-        return true;
-        // return getBool(R.string.pref_key__markdown__auto_renumber_ordered_list, false);
-    }
-
     public int getHighlightingDelayTodoTxt() {
         return getInt(R.string.pref_key__todotxt__hl_delay, 870);
     }

@@ -24,8 +24,6 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,9 +35,8 @@ public class MarkdownTextActions extends TextActions {
     }
 
     @Override
-    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        int res = new ContextUtils(_context).getResId(ContextUtils.ResType.STRING, action);
-        return new MarkdownTextActionsImpl(res).onClickImpl(null);
+    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
+        return new MarkdownTextActionsImpl(action).onClickImpl(null);
     }
 
     @Override
@@ -167,24 +164,8 @@ public class MarkdownTextActions extends TextActions {
                     SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
                     return true;
                 }
-                case R.string.tmaid_common_move_text_one_line_up:
-                case R.string.tmaid_common_move_text_one_line_down: {
-                    runCommonTextAction(_context.getString(_action));
-                    runRenumberOrderedListIfRequired();
-                    return true;
-                }
-                case R.string.tmaid_common_indent: {
-                    runIndentLines(false);
-                    runRenumberOrderedListIfRequired();
-                    return true;
-                }
-                case R.string.tmaid_common_deindent: {
-                    runIndentLines(true);
-                    runRenumberOrderedListIfRequired();
-                    return true;
-                }
                 default: {
-                    return runCommonTextAction(_context.getString(_action));
+                    return runCommonTextAction(_action);
                 }
             }
         }
@@ -207,7 +188,7 @@ public class MarkdownTextActions extends TextActions {
                     return true;
                 }
                 case R.string.tmaid_common_time: {
-                    runCommonTextAction("tmaid_common_time_insert_timestamp");
+                    runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
                     return true;
                 }
                 case R.string.tmaid_markdown_table_insert_columns: {
@@ -224,17 +205,9 @@ public class MarkdownTextActions extends TextActions {
                     Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                case R.string.tmaid_common_ordered_list_number: {
-                    AutoFormatter.renumberOrderedList(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[0], MarkdownAutoFormat.getPrefixPatterns());
-                    return true;
-                }
                 case R.string.tmaid_common_deindent:
                 case R.string.tmaid_common_indent: {
-                    SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
-                        _indent = Integer.parseInt(size);
-                        _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
-                    });
-                    return true;
+                    return runCommonTextAction(R.string.tmaid_common_set_indent_size);
                 }
             }
             return false;
@@ -267,9 +240,8 @@ public class MarkdownTextActions extends TextActions {
         };
     }
 
-    private void runRenumberOrderedListIfRequired() {
-        if (_appSettings.isMarkdownAutoUpdateList()) {
-            AutoFormatter.renumberOrderedList(_hlEditor, StringUtils.getSelection(_hlEditor)[0], MarkdownAutoFormat.getPrefixPatterns());
-        }
+    @Override
+    protected void renumberOrderedList(final int position) {
+        AutoFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownAutoFormat.getPrefixPatterns());
     }
 }
