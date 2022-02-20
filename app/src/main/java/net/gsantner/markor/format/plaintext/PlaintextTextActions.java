@@ -86,20 +86,25 @@ public class PlaintextTextActions extends TextActions {
         public boolean onLongClick(View v) {
             switch (_action) {
                 case R.string.tmaid_common_deindent:
-                case R.string.tmaid_common_indent:
+                case R.string.tmaid_common_indent: {
                     return runCommonTextAction(R.string.tmaid_common_set_indent_size);
-                case R.string.tmaid_common_open_link_browser:
+                }
+                case R.string.tmaid_common_open_link_browser: {
                     return runCommonTextAction(R.string.tmaid_common_search_in_content_of_current_file);
-                case R.string.tmaid_common_special_key:
+                }
+                case R.string.tmaid_common_special_key: {
                     return runCommonTextAction(R.string.tmaid_common_jump_to_bottom);
-                case R.string.tmaid_common_time:
+                }
+                case R.string.tmaid_common_time: {
                     return runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
+                }
                 case R.string.tmaid_common_ordered_list_number: {
                     runRenumberOrderedListIfRequired(true);
                     return true;
                 }
-                default:
+                default: {
                     return runAction(_action, true, null);
+                }
             }
         }
     }

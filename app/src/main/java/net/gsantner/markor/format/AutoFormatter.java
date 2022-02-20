@@ -267,72 +267,73 @@ public class AutoFormatter {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
-        int position = firstLine.lineStart;
+        if (!firstLine.isOrderedList) {
+            return;
+        }
 
-        if (firstLine.isOrderedList && position < text.length()) {
-            // Stack represents
-            final Stack<OrderedListLine> levels = new Stack<>();
-            levels.push(firstLine);
+        // Stack represents each level in the list up from current
+        final Stack<OrderedListLine> levels = new Stack<>();
+        levels.push(firstLine);
 
-            OrderedListLine line = firstLine;
+        OrderedListLine line = firstLine;
+        int position;
 
-            try {
-                // Loop to end of list
-                while(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
+        try {
+            // Loop to end of list
+            while(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
-                    if (line.isOrderedList) {
-                        // Indented. Add level
-                        if (line.isChildLevelOf(levels.peek())) {
-                            levels.push(line);
-                        }
-                        // Dedented. Remove appropriate number of levels
-                        else if (line.isParentLevelOf(levels.peek())) {
-                            while (levels.peek().isChildLevelOf(line)) {
-                                levels.pop();
-                            }
-                        }
-
-                        // Restart if bullet does not match list at this level
-                        if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
-                            levels.pop();
-                            levels.push(line);
-                        }
+                if (line.isOrderedList) {
+                    // Indented. Add level
+                    if (line.isChildLevelOf(levels.peek())) {
+                        levels.push(line);
                     }
-                    // Non-ordered non-empty line. Pop back to parent level
-                    else if (!line.isEmpty) {
-                        while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                    // Dedented. Remove appropriate number of levels
+                    else if (line.isParentLevelOf(levels.peek())) {
+                        while (levels.peek().isChildLevelOf(line)) {
                             levels.pop();
                         }
                     }
 
-                    // Update numbering if needed
-                    if (line.isOrderedList) {
-
-                        // Restart numbering if list changes
-                        final OrderedListLine peek = levels.peek();
-                        final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
-                        if (!newValue.equals(line.value)) {
-                            text.replace(line.numStart, line.numEnd, newValue);
-
-                            // Re-create line as it has changed
-                            line = new OrderedListLine(text, line.lineStart, prefixPatterns);
-                        }
-
+                    // Restart if bullet does not match list at this level
+                    if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
                         levels.pop();
                         levels.push(line);
                     }
-
-                    position = line.lineEnd + 1;
-                    if (position < text.length()) {
-                        line = new OrderedListLine(text, position, prefixPatterns);
-                    } else {
-                        break;
+                }
+                // Non-ordered non-empty line. Pop back to parent level
+                else if (!line.isEmpty) {
+                    while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                        levels.pop();
                     }
                 }
-            } catch (EmptyStackException ex) {
-                // Usually means that indents and de-indents did not match up
-                ex.printStackTrace();
+
+                // Update numbering if needed
+                if (line.isOrderedList) {
+
+                    // Restart numbering if list changes
+                    final OrderedListLine peek = levels.peek();
+                    final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
+                    if (!newValue.equals(line.value)) {
+                        text.replace(line.numStart, line.numEnd, newValue);
+
+                        // Re-create line as it has changed
+                        line = new OrderedListLine(text, line.lineStart, prefixPatterns);
+                    }
+
+                    levels.pop();
+                    levels.push(line);
+                }
+
+                position = line.lineEnd + 1;
+                if (position < text.length()) {
+                    line = new OrderedListLine(text, position, prefixPatterns);
+                } else {
+                    break;
+                }
             }
+        } catch (EmptyStackException ex) {
+            // Usually means that indents and de-indents did not match up
+            ex.printStackTrace();
         }
     }
 

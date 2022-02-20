@@ -20,6 +20,7 @@ public class ListHandler implements TextWatcher {
     private int reorderPosition;
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
+    private boolean alreadyRunning = false; // Prevent this instance from triggering itself
 
     private final AutoFormatter.PrefixPatterns _prefixPatterns;
 
@@ -30,6 +31,9 @@ public class ListHandler implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (alreadyRunning) {
+            return;
+        }
 
         triggerReorder = triggerReorder || containsNewline(s, start, count);
 
@@ -54,22 +58,33 @@ public class ListHandler implements TextWatcher {
 
     @Override
     public void afterTextChanged(final Editable e) {
-        // Deletes spans marked for deletion
-        for (final Object span : e.getSpans(0, e.length(), this.getClass())) {
-            if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
-                e.delete(e.getSpanStart(span), e.getSpanEnd(span));
-            }
+        if (alreadyRunning) {
+            return;
         }
-        if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
+        try {
+            alreadyRunning = true;
+            // Deletes spans marked for deletion
+            for (final Object span : e.getSpans(0, e.length(), this.getClass())) {
+                if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
+                    e.delete(e.getSpanStart(span), e.getSpanEnd(span));
+                }
+            }
+            if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
+                AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
+            }
+        } finally {
+            alreadyRunning = false;
         }
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if (alreadyRunning) {
+            return;
+        }
+
         triggerReorder = containsNewline(s, start, count);
         reorderPosition = start;
-
         beforeLineEnd = StringUtils.getLineEnd(s, start);
     }
 
