@@ -232,8 +232,10 @@ public class TodoTxtTextActions extends TextActions {
                     commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
-                default:
+                default: {
                     runAction(_action);
+                    break;
+                }
             }
         }
 
