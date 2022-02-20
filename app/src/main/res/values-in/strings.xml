@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Bahasa</string>
     <string name="error_need_storage_permission_to_save_documents">Dibutuhkan izin akses penyimpanan untuk menyimpan dokumen</string>
     <string name="open_with">Buka dengan</string>
+    <string name="sort_by">Urut berdasarkan</string>
     <string name="date">Tanggal</string>
     <string name="deleteme____1">Nama</string>
     <string name="size">Ukuran</string>
