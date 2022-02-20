@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Język</string>
     <string name="error_need_storage_permission_to_save_documents">Potrzebuję zezwolenia do pamięci, żeby zapisywać dokumenty</string>
     <string name="open_with">Otwórz za pomocą</string>
-    <string name="sort">Sortuj</string>
+    <string name="sort_by">Sortuj</string>
     <string name="date">Sortuj według daty</string>
     <string name="deleteme____1">Sortuj według nazwy</string>
     <string name="size">Rozmiar</string>
@@ -171,7 +171,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="space_between_lines_in_percent">Odstęp między wierszami w procentach</string>
     <string name="line_spacing">Odstępy między wierszami</string>
     <string name="archive_does_move_done_tasks">Przenieś wykonane zadania do określonego pliku w tym samym folderze</string>
-    <string name="sort_tasks_by_selected_order">Sortuj zadania według wybranej kolejności</string>
+    <string name="sort_tasks_by_selected_order">Sortuj zadania według</string>
     <string name="special_key">Specialne Klawisze</string>
     <string name="key_page_up">Strona w górę (Page Up)</string>
     <string name="key_page_down">Strona w dół (Page Down)</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Dodaj kontekst</string>
     <string name="add_project">Dodaj projekt</string>
     <string name="archive_completed_tasks">Archiwizuj wykonane zadania</string>
-    <string name="sort_alphabetically">Sortuj</string>
     <string name="create_new_file_or_folder">Utwórz nowy plik lub folder</string>
     <string name="choose_format">Wybierz format</string>
     <string name="selected">Wybrane</string>
