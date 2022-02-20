@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Opis</string>
     <string name="edit_picture">Edytuj obrazek</string>
     <string name="math">Matematyka</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Wyświetl wprowadzone atrybuty YAML Front Matter na górze oglądanych dokumentów. Wprowadź klucze oddzielone przecinkami. Pozostaw puste, aby nie użyć \'*\' dla wszystkich. \n\nJeśli jakiś atrybut jest zdefiniowany w dokumencie (tj. title: \'Witaj\') i w Twoim dokumencie znajduje się {{ post.title }} , również jest zamieniony. W ten sposób możesz ustawić własny nagłówek Front Spraw.</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
     <string name="textaction">Akcja tekstu</string>
