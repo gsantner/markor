@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descrizione</string>
     <string name="edit_picture">Modifica immagine</string>
     <string name="math">Matematica</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Inserisci gli attributi YAML Front Matter da mostrare all\'inizio dell\'intestazione dei documenti visualizzati. Inserisci le chiavi separate da virgole. Lascia vuoto per nessuna o usa \'*\' per tutti. \n\nSe hai definito una chiave, ad es. title: \'Hello\' e nel tuo testo c\'è {{ post.title }}, esso sarà sempre sostituito. In questo modo è possibile mostrare un testo iniziale personalizzato.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Visualizza gli attributi YAML Front Matter inseriti in cima ai documenti visualizzati. Inserisci le chiavi separate da virgole. Lascia vuoto per nessuno o usa \'*\' per tutti. \n\nSe un attributo è definito nel documento (es. title: \'Ciao\') e anche nel tuo documento c\'è {{ post.title }} che viene sostituito. Puoi fare un\'intestazione personalizzata di Front Matter in questo modo.</string>
     <string name="table_of_contents">Indice</string>
     <string name="miscellaneous">Varie</string>
     <string name="textaction">Azione sul testo</string>
