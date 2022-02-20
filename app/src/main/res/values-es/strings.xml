@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descripción</string>
     <string name="edit_picture">Editar imagen</string>
     <string name="math">Matemáticas</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Introduzca los atributos YAML Front Matter para mostrar al principio de los documentos vistos. cabecera. Introduzca claves separadas por comas. Deje en blanco para ninguno o utilice \'*\' para todos. \n\nSi tiene alguna clave, p.e. title: \'Hola\' definido y hay {{ post.title }} en tu texto, siempre será reemplazado. Puedes hacer una visualización personalizada de la materia frontal de esta manera.</string>
     <string name="table_of_contents">Tabla de contenidos</string>
     <string name="miscellaneous">Diverso</string>
     <string name="textaction">Acción de texto</string>
