@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschrijving</string>
     <string name="edit_picture">Foto bewerken</string>
     <string name="math">Wis</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Voer de YAML Front Matter attributen in om te laten zien aan het begin van bekeken documenten. kop. Voer sleutels in gescheiden door komma\'s. Laat leeg voor geen of gebruik \'*\' voor alles. \n\nAls je een sleutel hebt, vb. title: \'Hallo\' gedefinieerd en er is {{ post.title }} in je tekst, deze zal altijd worden vervangen. U kunt op deze manier een aangepaste voorkant laten zien.</string>
     <string name="table_of_contents">Inhoudsopgave</string>
     <string name="miscellaneous">Overige</string>
     <string name="textaction">Tekst actie</string>
