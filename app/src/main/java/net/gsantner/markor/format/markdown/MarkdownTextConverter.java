@@ -31,6 +31,7 @@ import com.vladsch.flexmark.ext.toc.TocExtension;
 import com.vladsch.flexmark.ext.toc.internal.TocOptions;
 import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
+import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
@@ -43,8 +44,12 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.util.AppSettings;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,6 +104,18 @@ public class MarkdownTextConverter extends TextConverter {
 
     public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
 
+    public static final String HTML_FRONTMATTER_CONTAINER_S = "<div class='front-matter-container'>";
+    public static final String HTML_FRONTMATTER_CONTAINER_E = "</div>";
+    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_S = "<div class='front-matter-item front-matter-container-{{ attrName }}'>";
+    public static final String HTML_FRONTMATTER_ITEM_CONTAINER_E = "</div>";
+    public static final String HTML_TOKEN_ITEM_S = "<span class='{{ scope }}-item-{{ attrName }}'>";
+    public static final String HTML_TOKEN_ITEM_E = "</span>";
+    public static final String HTML_TOKEN_DELIMITER = "<span class='{{ scope }}-delimiter-{{ attrName }} delimiter'></span>";
+
+    public static final String CSS_FRONTMATTER = CSS_S + "span.delimiter::before { content: ', '; } .front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } div.front-matter-item > .post-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } div.front-matter-item > span.post-item-tags:not(:first-child) { margin-left: 0.25em; } div.front-matter-item > span.post-delimiter-tags::before { content: ' '; }" + CSS_E;
+    public static final String YAML_FRONTMATTER_SCOPES = "post"; //, page, site";
+    public static final Pattern YAML_FRONTMATTER_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(?:" + YAML_FRONTMATTER_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
+
     public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
             "<script src='file:///android_asset/flexmark/admonition.js'></script>";
     public static final String CSS_ADMONITION = CSS_S + ".adm-block { width: initial; font-size: 90%; text-indent: 0em; } .adm-heading { height: auto; padding-top: 0.4em; padding-left: 2.2em; padding-bottom: 0.4em; } .adm-body { padding-top: 0.25em; padding-bottom: 0.25em; margin-left: 0.5em; margin-right: 0.5em; } .adm-icon { position: absolute; top: 50%; left: 0.5em; transform: translateY(-50%); } .adm-block > .adm-heading { position: relative; cursor: pointer; } .adm-block.adm-open > .adm-heading:after, .adm-block.adm-collapsed > .adm-heading:after { top: 50%; transform: translateY(-50%); content: '▼'; } .adm-block.adm-collapsed > .adm-heading:after { content: '◀'; } pre + div.adm-block, div.adm-block + pre { margin-top: 1.75em; }" + CSS_E;
@@ -131,6 +148,8 @@ public class MarkdownTextConverter extends TextConverter {
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
+    private static Map<String, List<String>> yamlAttributeMap = Collections.EMPTY_MAP;
+
     //########################
     //## Methods
     //########################
@@ -139,6 +158,9 @@ public class MarkdownTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "";
+        List<String> allowedYamlAttributes = Collections.EMPTY_LIST;
+        String frontmatter = "";
+        yamlAttributeMap = Collections.EMPTY_MAP;  // reset map
 
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -171,6 +193,30 @@ public class MarkdownTextConverter extends TextConverter {
         final boolean enablePresentationBeamer = markup.contains("\nclass:beamer") || markup.contains("\nclass: beamer");
         if (enablePresentationBeamer) {
             head += CSS_PRESENTATION_BEAMER;
+        }
+
+        if (!enablePresentationBeamer && markup.startsWith("---")) {
+            allowedYamlAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
+            Matcher hasTokens = YAML_FRONTMATTER_TOKEN_PATTERN.matcher(markup);
+            if (!allowedYamlAttributes.isEmpty() || hasTokens.find()) {
+                // Read YAML attributes
+                yamlAttributeMap = extractYamlAttributes(markup);
+            }
+
+            // Assemble YAML front-matter block
+            if (!allowedYamlAttributes.isEmpty()) {
+                for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+                    String attrName = entry.getKey();
+                    if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
+                        continue;
+                    }
+                    //noinspection StringConcatenationInLoop
+                    frontmatter += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
+                }
+                if (!frontmatter.equals("")) {
+                    head += CSS_FRONTMATTER;
+                }
+            }
         }
 
         // Table of contents
@@ -233,9 +279,18 @@ public class MarkdownTextConverter extends TextConverter {
         // Replace space in url with %20, see #1365
         markup = escapeSpacesInLink(markup);
 
+        // Replace tokens in note with corresponding YAML attribute values
+        markup = replaceTokens(markup);
+        if (!TextUtils.isEmpty(frontmatter)) {
+            frontmatter = replaceTokens(frontmatter);
+            frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
+        }
+
+
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+        converted = frontmatter + converted;
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -322,5 +377,50 @@ public class MarkdownTextConverter extends TextConverter {
     public boolean isFileOutOfThisFormat(String filepath) {
         filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
         return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches() && !filepath.toLowerCase().endsWith(".txt")) || filepath.toLowerCase().endsWith(".md.txt");
+    }
+
+    private Map<String, List<String>> extractYamlAttributes(final String markup) {
+        final Parser parser = Parser.builder().extensions(Collections.singleton(YamlFrontMatterExtension.create())).build();
+        final AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
+        visitor.visit(parser.parse(markup));
+        return visitor.getData();
+    }
+
+    private String replaceTokens(final String markup) {
+        String markupReplaced = markup;
+
+        for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+            String attrName = entry.getKey();
+            List<String> attrValue = entry.getValue();
+            List<String> attrValueOut = new ArrayList<>();
+
+            if (attrName.equals("tags") && attrValue.size() == 1) {
+                // It's not a real tag list, but rather a string of comma-separated strings
+                // replaceFirst: [tag1,tag2,tag3] -> "[tag1" "tag2" "tag3]" -> "tag1" "tag2" "tag3"
+                // LinkedHashSet in between keeps order, but eliminates later duplicates
+                attrValue = new ArrayList<>(new LinkedHashSet<>(Arrays.asList(
+                        attrValue.get(0).replaceFirst("^\\[", "").replaceFirst("]$", "").split(",\\s*")))
+                );
+            }
+
+            for (String v : attrValue) {
+                // Strip surrounding single or double quotes
+                v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
+                v = TextUtils.htmlEncode(v)
+                        .replaceAll("(?<!-)---(?!-)", "&mdash;")
+                        .replaceAll("(?<!-)--(?!-)", "&ndash;")
+                        .trim();
+                attrValueOut.add(HTML_TOKEN_ITEM_S + v + HTML_TOKEN_ITEM_E);
+            }
+            String tokenValue = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut).replace("{{ attrName }}", attrName);
+
+            // Replace "{{ <scope>>.<key> }}" tokens in note body
+            for (String scope : YAML_FRONTMATTER_SCOPES.split(",\\s*")) {
+                String token = "{{ " + scope + "." + attrName + " }}";
+                markupReplaced = markupReplaced.replace(token, tokenValue.replace("{{ scope }}", scope));
+            }
+        }
+
+        return markupReplaced;
     }
 }
