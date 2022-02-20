@@ -81,7 +81,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Мова</string>
     <string name="error_need_storage_permission_to_save_documents">Потрібен дозвіл на запис для збереження документів</string>
     <string name="open_with">Відкрити в</string>
-    <string name="sort">Сортування</string>
     <string name="date">Дата</string>
     <string name="deleteme____1">Ім\'я</string>
     <string name="size">Розмір</string>
@@ -359,7 +358,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Додати контекст</string>
     <string name="add_project">Додати проєкт</string>
     <string name="archive_completed_tasks">Архівувати завершені завдання</string>
-    <string name="sort_alphabetically">Сортувати за алфавітом</string>
     <string name="create_new_file_or_folder">Створити новий файл чи директорію</string>
     <string name="choose_format">Оберіть формат</string>
     <string name="selected">Обрано</string>
