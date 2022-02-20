@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Јазик</string>
     <string name="error_need_storage_permission_to_save_documents">Треба дозвола за складување за да се сочуваат документи</string>
     <string name="open_with">Отвори со</string>
-    <string name="sort">Подреди по</string>
+    <string name="sort_by">Подреди по</string>
     <string name="date">Датум</string>
     <string name="deleteme____1">Име</string>
     <string name="size">Големина</string>
