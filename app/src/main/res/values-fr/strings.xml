@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Description</string>
     <string name="edit_picture">Éditer l\'image</string>
     <string name="math">Math</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Entrez les attributs YAML Front Matter à afficher au début des documents visionnés. en-tête. Entrez les clés séparées par des virgules. Laissez vide pour aucun ou utilisez \'*\' pour tous. \n\nSi vous avez une clé, i.e. title: \'Bonjour\' défini et il y a {{ post.title }} dans votre texte, il sera toujours remplacé. Vous pouvez créer un affichage personnalisé de la face avant de cette façon.</string>
     <string name="table_of_contents">Table des matières</string>
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Action texte</string>
