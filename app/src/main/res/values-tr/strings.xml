@@ -81,7 +81,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Dil</string>
     <string name="error_need_storage_permission_to_save_documents">Belgeleri kaydetmek için depolama izni gerekiyor</string>
     <string name="open_with">Şununla aç</string>
-    <string name="sort">Sırala</string>
     <string name="date">Tarihe göre sırala</string>
     <string name="deleteme____1">Ada göre sırala</string>
     <string name="size">Boyuta göre sırala</string>
@@ -358,7 +357,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Bağlam ekle</string>
     <string name="add_project">Proje ekle</string>
     <string name="archive_completed_tasks">Tamamlanan görevleri arşivle</string>
-    <string name="sort_alphabetically">Alfabetik olarak sırala</string>
     <string name="create_new_file_or_folder">Yeni dosya ya da klasör oluştur</string>
     <string name="choose_format">Biçim seç</string>
     <string name="selected">Seçili</string>
