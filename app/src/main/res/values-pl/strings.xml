@@ -45,7 +45,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="files">Pliki</string>
     <string name="document">Dokument</string>
     <string name="documents">Dokumenty</string>
-    <string name="html_as_plaintext">HTML (jako czysty tekst)</string>
+    <string name="html_as_plaintext">HTML (jako zwykły tekst)</string>
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
     <string name="open_existing_files_in_view_mode">Otwieraj pliki w trybie podglądu</string>
@@ -55,7 +55,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">Obraz</string>
     <string name="font_size">Rozmiar czcionki</string>
     <string name="render_rtl_language">Renderowanie dla języków od prawej do lewej</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Błąd: Nie można utworzyć katalogu zapisywania</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Błąd: Nie można utworzyć katalogu Notatek</string>
     <string name="last_modified_witharg">Ostatnio zmodyfikowano: %s</string>
     <string name="select_this_folder">Wybierz ten folder</string>
     <string name="select">Wybierz</string>
@@ -79,7 +79,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Pokaż licencje dzieł osób trzecich</string>
     <string name="language_change_restart_description">Zmienia język aplikacji. Zrestartuj żeby wprowadzić zmiany</string>
     <string name="language">Język</string>
-    <string name="error_need_storage_permission_to_save_documents">Potrzebuję zezwolenia do pamięci, żeby zapisywać dokumenty</string>
+    <string name="error_need_storage_permission_to_save_documents">Potrzebuję dostępu do pamięci, żeby zapisywać dokumenty</string>
     <string name="open_with">Otwórz za pomocą</string>
     <string name="sort_by">Sortuj</string>
     <string name="date">Sortuj według daty</string>
@@ -161,7 +161,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rtl_rendering">Renderowanie RTL</string>
     <string name="highlight_line_ending">Podświetl zakończenie linii</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">Podświetlaj spacje na końcu lini zawierające dwie lub więcej spacji</string>
-    <string name="use_monospace_for_code">Użyj czionki monospace dla kodu</string>
+    <string name="use_monospace_for_code">Użyj czcionki o stałej szerokości dla kodu</string>
     <string name="disable_code_block_highlight">Wyłącz podświetlanie bloków kodu</string>
     <string name="auto_renumber_ordered_list">Automatyczna numeracja list uporządkowanych</string>
     <string name="auto_renumber_ordered_list_slowdown">Ta opcja może mieć wpływ na wydajność aplikacji.</string>
@@ -217,7 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
-    <string name="source_code">Kod Źródłowy</string>
+    <string name="source_code">Kod źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
@@ -426,7 +426,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_overdue">Zaległe</string>
     <string name="due_today">Termin na dziś</string>
     <string name="due_future">Termin w przyszłości</string>
-    <string name="completed">Zakończone</string>
+    <string name="completed">Wykonane</string>
     <string name="match_any">Dopasuj dowolne</string>
     <string name="match_all">Dopasuj wszystkie</string>
     <string name="dynamic_notebook_root_links">Dynamiczne wyszukiwanie roota notatnika</string>
