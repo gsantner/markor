@@ -477,7 +477,7 @@
                     android:dialogMessage="@string/enter_yaml_front_matter_keys_to_display"
                     android:icon="@drawable/ic_visibility_black_24dp"
                     android:key="@string/pref_key__markdown_always_shown_yaml_front_matter_keys"
-                    android:title="@string/yaml" />
+                    android:title="@string/front_matter" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">
                 <Preference
