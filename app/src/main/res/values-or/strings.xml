@@ -53,6 +53,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
+    <string name="one_item_selected">ଗୋଟେ ଆଇଟମ୍ ଚୟନ କରାଯାଇଛି</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%dଟି ଆଇଟମ୍ ଚୟନ କରାଯାଇଛି</string>
     <string name="hide_statusbar_at_this_view">ଏହି ଦର୍ଶନରେ ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାନ୍ତୁ</string>
     <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
     <string name="name">ନାମ</string>
