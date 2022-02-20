@@ -56,7 +56,7 @@ import java.util.regex.Pattern;
 import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MarkdownTextConverter extends TextConverter {
     //########################
     //## Extensions
@@ -148,8 +148,6 @@ public class MarkdownTextConverter extends TextConverter {
     private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
-    private static Map<String, List<String>> yamlAttributeMap = Collections.EMPTY_MAP;
-
     //########################
     //## Methods
     //########################
@@ -158,9 +156,6 @@ public class MarkdownTextConverter extends TextConverter {
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "";
-        List<String> allowedYamlAttributes = Collections.EMPTY_LIST;
-        String frontmatter = "";
-        yamlAttributeMap = Collections.EMPTY_MAP;  // reset map
 
         MutableDataSet options = new MutableDataSet();
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -195,25 +190,28 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_PRESENTATION_BEAMER;
         }
 
+        // Frontmatter
+        String fmaText = "";
+        final List<String> fmaAllowedAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
+        Map<String, List<String>> fma = Collections.EMPTY_MAP;
         if (!enablePresentationBeamer && markup.startsWith("---")) {
-            allowedYamlAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
             Matcher hasTokens = YAML_FRONTMATTER_TOKEN_PATTERN.matcher(markup);
-            if (!allowedYamlAttributes.isEmpty() || hasTokens.find()) {
+            if (!fmaAllowedAttributes.isEmpty() || hasTokens.find()) {
                 // Read YAML attributes
-                yamlAttributeMap = extractYamlAttributes(markup);
+                fma = extractYamlAttributes(markup);
             }
 
             // Assemble YAML front-matter block
-            if (!allowedYamlAttributes.isEmpty()) {
-                for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+            if (!fmaAllowedAttributes.isEmpty()) {
+                for (Map.Entry<String, List<String>> entry : fma.entrySet()) {
                     String attrName = entry.getKey();
-                    if (!(allowedYamlAttributes.contains(attrName) || allowedYamlAttributes.contains("*"))) {
+                    if (!(fmaAllowedAttributes.contains(attrName) || fmaAllowedAttributes.contains("*"))) {
                         continue;
                     }
                     //noinspection StringConcatenationInLoop
-                    frontmatter += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
+                    fmaText += HTML_FRONTMATTER_ITEM_CONTAINER_S.replace("{{ attrName }}", attrName) + "{{ post." + attrName + " }}\n" + HTML_FRONTMATTER_ITEM_CONTAINER_E + "\n";
                 }
-                if (!frontmatter.equals("")) {
+                if (!fmaText.equals("")) {
                     head += CSS_FRONTMATTER;
                 }
             }
@@ -280,17 +278,17 @@ public class MarkdownTextConverter extends TextConverter {
         markup = escapeSpacesInLink(markup);
 
         // Replace tokens in note with corresponding YAML attribute values
-        markup = replaceTokens(markup);
-        if (!TextUtils.isEmpty(frontmatter)) {
-            frontmatter = replaceTokens(frontmatter);
-            frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
+        markup = replaceTokens(markup, fma);
+        if (!TextUtils.isEmpty(fmaText)) {
+            fmaText = replaceTokens(fmaText, fma);
+            fmaText = HTML_FRONTMATTER_CONTAINER_S + fmaText + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
 
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        converted = frontmatter + converted;
+        converted = fmaText + converted;
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -349,7 +347,7 @@ public class MarkdownTextConverter extends TextConverter {
         return sb.toString();
     }
 
-    @SuppressWarnings({"ConstantConditions", "StringConcatenationInsideStringBufferAppend"})
+    @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
     private String getViewHlPrismIncludes(@NonNull final Context context, final String themeName) {
         final StringBuilder sb = new StringBuilder(1500);
         final String js_prefix = "<script type='text/javascript' src='file:///android_asset/prism/";
@@ -386,10 +384,10 @@ public class MarkdownTextConverter extends TextConverter {
         return visitor.getData();
     }
 
-    private String replaceTokens(final String markup) {
+    private String replaceTokens(final String markup, final Map<String, List<String>> fma) {
         String markupReplaced = markup;
 
-        for (Map.Entry<String, List<String>> entry : yamlAttributeMap.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : fma.entrySet()) {
             String attrName = entry.getKey();
             List<String> attrValue = entry.getValue();
             List<String> attrValueOut = new ArrayList<>();
