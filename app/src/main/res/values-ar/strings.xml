@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">اللّغة</string>
     <string name="error_need_storage_permission_to_save_documents">يجب اعطاء البرنامج صلاحية استخدام التخزين لحفظ المستندات</string>
     <string name="open_with">فتح بواسطة</string>
-    <string name="sort">فرز حسب</string>
+    <string name="sort_by">فرز حسب</string>
     <string name="date">التاريخ</string>
     <string name="deleteme____1">الإسم</string>
     <string name="size">الحجم</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">إضافة سياق</string>
     <string name="add_project">إضافة مشروع</string>
     <string name="archive_completed_tasks">أرشيف المهام المكتملة</string>
-    <string name="sort_alphabetically">فرز أبجدياً</string>
     <string name="create_new_file_or_folder">إنشاء ملف أو مجلد جديد</string>
     <string name="choose_format">اختيار التنسيق</string>
     <string name="selected">محدد</string>
