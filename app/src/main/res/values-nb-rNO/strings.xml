@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beskrivelse</string>
     <string name="edit_picture">Rediger bilde</string>
     <string name="math">Matte</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Skriv inn YAML Front Matter attributter å vise i begynnelsen av viste dokumenter. header. Angi nøkler atskilt med komma. La stå tomt for ingen eller bruk \'*\' for alle. \n\nHvis du har en nøkkel, dvs. title: \'Hallo\' definert og det er {{ post.title }} i teksten, den vil alltid bli erstattet. Du kan gjøre en tilpasset front matter visning på denne måten.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Vis angitt YAML Front Matter-attributter på viste dokumenter. Angi nøkler adskilt med komma. La stå tomt for ingen eller bruk \'*\' for alle. \n\nHvis noen attributt er definert i dokumentet (dvs. title: \'Hei\') og det er {{ post.title }} i dokumentet ditt også erstattet. Du kan gjøre en egendefinert Front Matter overskrift på denne måten.</string>
     <string name="table_of_contents">Innholdsfortegnelse</string>
     <string name="miscellaneous">Ymse</string>
     <string name="textaction">Handling når tekst</string>
