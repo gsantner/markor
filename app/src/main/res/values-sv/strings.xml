@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Språk</string>
     <string name="error_need_storage_permission_to_save_documents">Behöver åtkomst till lagringsmedia för att spara dokument</string>
     <string name="open_with">Öppna med</string>
-    <string name="sort">Sortera</string>
+    <string name="sort_by">Sortera</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Namn</string>
     <string name="size">Storlek</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Lägg till kontext</string>
     <string name="add_project">Lägg till projekt</string>
     <string name="archive_completed_tasks">Arkivera slutförda uppgifter</string>
-    <string name="sort_alphabetically">Sortera alfabetiskt</string>
     <string name="create_new_file_or_folder">Skapa en ny fil eller mapp</string>
     <string name="choose_format">Välj format</string>
     <string name="selected">Vald</string>
