@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descripción</string>
     <string name="edit_picture">Editar imagen</string>
     <string name="math">Matemáticas</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Introduzca los atributos YAML Front Matter para mostrar al principio de los documentos vistos. cabecera. Introduzca claves separadas por comas. Deje en blanco para ninguno o utilice \'*\' para todos. \n\nSi tiene alguna clave, p.e. title: \'Hola\' definido y hay {{ post.title }} en tu texto, siempre será reemplazado. Puedes hacer una visualización personalizada de la materia frontal de esta manera.</string>
     <string name="table_of_contents">Tabla de contenidos</string>
     <string name="miscellaneous">Diverso</string>
     <string name="textaction">Acción de texto</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Añadir contexto</string>
     <string name="add_project">Añadir proyecto</string>
     <string name="archive_completed_tasks">Archivar tareas completadas</string>
-
     <string name="create_new_file_or_folder">Crear un nuevo archivo o carpeta</string>
     <string name="choose_format">Elegir formato</string>
     <string name="selected">Seleccionado</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'%s\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido se añade y el formato utilizado como prefijo.</string>
     <string name="share_into_format">Compartir en - Formato</string>
+    <string name="auto_format">Auto-formato</string>
 </resources>
