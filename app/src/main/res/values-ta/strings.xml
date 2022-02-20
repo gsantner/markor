@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">மொழி</string>
     <string name="error_need_storage_permission_to_save_documents">ஆவணங்களை சேமிக்க சேமிப்பகத்தை அணுக அனுமதி வேண்டும்</string>
     <string name="open_with">இதன்மூலம் திற</string>
-    <string name="sort">இதனை கொண்டு வரிசைப்படுத்து</string>
     <string name="date">தேதி</string>
     <string name="deleteme____1">பெயர்</string>
     <string name="size">அளவு</string>
@@ -351,7 +350,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">சூழலை சேர்க்கவும்</string>
     <string name="add_project">திட்டத்தை சேர்க்கவும்</string>
     <string name="archive_completed_tasks">முடிக்கப்பட்ட செயல்களை காப்பகத்தில் சேர்க்கவும்</string>
-    <string name="sort_alphabetically">அகர வரிசைப்படி வரிசைப்படுத்து</string>
     <string name="create_new_file_or_folder">புதிய ஆவணம் அல்லது கோப்புறையை உருவாக்கவும்</string>
     <string name="choose_format">வடிவமைப்பை தேர்ந்தெடு</string>
     <string name="selected">தேர்வுசெய்யப்பட்டது</string>
