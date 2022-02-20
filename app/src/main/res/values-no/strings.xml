@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix for tekst delt inn i Markor. Følger reglene for Androids SimpleDateFormat.\n\nBruk plassholderen \'%s\' (omgitt av enkle tilbud) for å plassere den delte teksten. Hvis ikke angitt, legges den delte teksten til og formatet som brukes som prefiks.</string>
     <string name="share_into_format">Del inn - format</string>
+    <string name="auto_format">Autokoformater</string>
 </resources>
