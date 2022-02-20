@@ -36,7 +36,6 @@ import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
-import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -114,8 +113,8 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String HTML_TOKEN_DELIMITER = "<span class='{{ scope }}-delimiter-{{ attrName }} delimiter'></span>";
 
     public static final String CSS_FRONTMATTER = CSS_S + "span.delimiter::before { content: ', '; } .front-matter-container { margin-bottom: 1.5em; border-bottom: 2px solid black; } .front-matter-item { text-align: right; margin-bottom: 0.25em; } .front-matter-container-title { font-weight: bold; font-size: 110%; } .front-matter-container-tags { white-space: pre; overflow: scroll; font-size: 80%; } div.front-matter-item > .post-item-tags { padding: 0.1em 0.4em; border-radius: 50rem; background-color: #dee2e6; } div.front-matter-item > span.post-item-tags:not(:first-child) { margin-left: 0.25em; } div.front-matter-item > span.post-delimiter-tags::before { content: ' '; }" + CSS_E;
-    public static final String YAML_TOKEN_SCOPES = "page, post, site";
-    public static final Pattern YAML_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(?:" + YAML_TOKEN_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
+    public static final String YAML_FRONTMATTER_SCOPES = "post"; //, page, site";
+    public static final Pattern YAML_FRONTMATTER_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(?:" + YAML_FRONTMATTER_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
 
     public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
             "<script src='file:///android_asset/flexmark/admonition.js'></script>";
@@ -198,7 +197,7 @@ public class MarkdownTextConverter extends TextConverter {
 
         if (!enablePresentationBeamer && markup.startsWith("---")) {
             allowedYamlAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
-            Matcher hasTokens = YAML_TOKEN_PATTERN.matcher(markup);
+            Matcher hasTokens = YAML_FRONTMATTER_TOKEN_PATTERN.matcher(markup);
             if (!allowedYamlAttributes.isEmpty() || hasTokens.find()) {
                 // Read YAML attributes
                 yamlAttributeMap = extractYamlAttributes(markup);
@@ -415,7 +414,7 @@ public class MarkdownTextConverter extends TextConverter {
             String tokenValue = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut).replace("{{ attrName }}", attrName);
 
             // Replace "{{ <scope>>.<key> }}" tokens in note body
-            for (String scope : YAML_TOKEN_SCOPES.split(",\\s*")) {
+            for (String scope : YAML_FRONTMATTER_SCOPES.split(",\\s*")) {
                 String token = "{{ " + scope + "." + attrName + " }}";
                 markupReplaced = markupReplaced.replace(token, tokenValue.replace("{{ scope }}", scope));
             }
