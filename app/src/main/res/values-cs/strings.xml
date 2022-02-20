@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Jazyk</string>
     <string name="error_need_storage_permission_to_save_documents">Pro ukládání dokumentů je třeba oprávnění úložiště</string>
     <string name="open_with">Otevřít pomocí</string>
-    <string name="sort">Řadit podle</string>
+    <string name="sort_by">Řadit podle</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Název</string>
     <string name="size">Velikost</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Přidat kontext</string>
     <string name="add_project">Přidat projekt</string>
     <string name="archive_completed_tasks">Archivovat dokončené úkoly</string>
-    <string name="sort_alphabetically">Seřadit abecedně</string>
     <string name="create_new_file_or_folder">Vytvořit nový soubor nebo složku</string>
     <string name="choose_format">Zvolte formát</string>
     <string name="selected">Vybrané</string>
