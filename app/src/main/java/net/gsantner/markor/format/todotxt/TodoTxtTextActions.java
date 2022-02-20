@@ -49,11 +49,11 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    public boolean runAction(String action, boolean modLongClick, String anotherArg) {
-        if (action.equals(CommonTextActions.ACTION_SEARCH)) {
+    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
+        if (action == R.string.tmaid_common_search_in_content_of_current_file) {
             SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
             return true;
-        } else if (action.equals(CommonTextActions.ACTION_TITLE)) {
+        } else if (action == R.string.tmaid_common_toolbar_title_clicked_edit_action) {
             SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
             return true;
         }
@@ -232,8 +232,10 @@ public class TodoTxtTextActions extends TextActions {
                     commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
                     break;
                 }
-                default:
-                    runAction(_context.getString(_action));
+                default: {
+                    runAction(_action);
+                    break;
+                }
             }
         }
 

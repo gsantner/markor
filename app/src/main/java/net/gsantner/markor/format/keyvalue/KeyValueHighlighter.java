@@ -70,15 +70,9 @@ public class KeyValueHighlighter extends Highlighter {
     }
 
     @Override
-    public InputFilter getAutoFormatter() {
-        return AUTOFORMATTER_NONE;
-    }
-
-    @Override
     public int getHighlightingDelay(Context context) {
         return LONG_HIGHLIGHTING_DELAY;
     }
-
 
     enum KeyValueHighlighterPattern {
         PATTERN_KEY_VALUE(Pattern.compile("(?im)^([a-z_0-9]+)[-:=]")),

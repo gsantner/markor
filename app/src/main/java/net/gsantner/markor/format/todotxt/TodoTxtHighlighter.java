@@ -146,11 +146,6 @@ public class TodoTxtHighlighter extends Highlighter {
     }
 
     @Override
-    public InputFilter getAutoFormatter() {
-        return new TodoTxtAutoFormat();
-    }
-
-    @Override
     public int getHighlightingDelay(Context context) {
         return new AppSettings(context).getHighlightingDelayTodoTxt();
     }

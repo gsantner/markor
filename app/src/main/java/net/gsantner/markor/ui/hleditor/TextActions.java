@@ -229,7 +229,6 @@ public abstract class TextActions {
         return prefKeys;
     }
 
-
     public void appendTextActionsToBar(ViewGroup barLayout) {
         if (barLayout.getChildCount() == 0) {
             setBarVisible(barLayout, true);
@@ -544,37 +543,36 @@ public abstract class TextActions {
         }
     }
 
-    protected boolean runCommonTextAction(String action) {
+    protected boolean runCommonTextAction(final @StringRes int action) {
         switch (action) {
-            case "tmaid_common_unordered_list_char": {
+            case R.string.tmaid_common_unordered_list_char: {
                 runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
                 return true;
             }
-            case "tmaid_common_checkbox_list": {
+            case R.string.tmaid_common_checkbox_list: {
                 runRegularPrefixAction("- [ ] ", "- [x] ", true);
                 return true;
             }
-            case "tmaid_common_ordered_list_number": {
+            case R.string.tmaid_common_ordered_list_number: {
                 runRegularPrefixAction("1. ", true);
                 return true;
             }
-            case "tmaid_common_time": {
+            case R.string.tmaid_common_time: {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
                 return true;
             }
-
-            case "tmaid_common_time_insert_timestamp": {
+            case R.string.tmaid_common_time_insert_timestamp: {
                 try {
                     _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
                 } catch (Exception ignored) {
                 }
                 return true;
             }
-            case "tmaid_common_accordion": {
+            case R.string.tmaid_common_accordion: {
                 _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + _context.getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
-            case "tmaid_common_attach_something": {
+            case R.string.tmaid_common_attach_something: {
                 SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
                     switch (itemId) {
                         case R.id.action_attach_color: {
@@ -597,17 +595,40 @@ public abstract class TextActions {
                 });
                 return true;
             }
+            case R.string.tmaid_common_ordered_list_renumber: {
+                renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]);
+                return true;
+            }
+            case R.string.tmaid_common_move_text_one_line_up:
+            case R.string.tmaid_common_move_text_one_line_down: {
+                moveLineSelectionBy1(_hlEditor, action == R.string.tmaid_common_move_text_one_line_up);
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
+            case R.string.tmaid_common_set_indent_size: {
+                SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
+                    _indent = Integer.parseInt(size);
+                    _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
+                });
+                return true;
+            }
+            case R.string.tmaid_common_indent:
+            case R.string.tmaid_common_deindent: {
+                runIndentLines(action == R.string.tmaid_common_deindent);
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
             default: {
-                return new CommonTextActions(_activity, _hlEditor).runAction(action);
+                return new CommonTextActions(_activity, _hlEditor).runAction(_context.getString(action));
             }
         }
     }
 
-    public boolean runAction(final String action) {
+    public boolean runAction(final @StringRes int action) {
         return runAction(action, false, null);
     }
 
-    public abstract boolean runAction(final String action, boolean modLongClick, String anotherArg);
+    public abstract boolean runAction(final @StringRes int action, boolean modLongClick, String anotherArg);
 
     public static class ActionItem {
         @StringRes
@@ -627,6 +648,62 @@ public abstract class TextActions {
             keyId = data[0];
             iconId = data[1];
             stringId = data[2];
+        }
+    }
+
+    public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
+
+        final Editable text = hlEditor.getText();
+
+        final int[] sel = StringUtils.getSelection(hlEditor);
+        final int linesStart = StringUtils.getLineStart(text, sel[0]);
+        final int linesEnd = StringUtils.getLineEnd(text, sel[1]);
+
+        if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
+
+            final CharSequence lines = text.subSequence(linesStart, linesEnd);
+
+            final int altStart = isUp ? StringUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
+            final int altEnd = StringUtils.getLineEnd(text, altStart);
+            final CharSequence altLine = text.subSequence(altStart, altEnd);
+
+            final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
+            final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+
+            hlEditor.withAutoFormatDisabled(() -> {
+                final String newPair = String.format("%s\n%s", isUp ? lines : altLine, isUp ? altLine : lines);
+                text.replace(Math.min(linesStart, altStart), Math.max(altEnd, linesEnd), newPair);
+            });
+
+            selStart[0] += isUp ? -1 : 1;
+            selEnd[0] += isUp ? -1 : 1;
+
+            hlEditor.setSelection(
+                    StringUtils.getIndexFromLineOffset(text, selStart),
+                    StringUtils.getIndexFromLineOffset(text, selEnd));
+        }
+    }
+
+    // Derived classes should override this to implement format-specific renumber logic
+    protected void renumberOrderedList(final int cursorPosition) {
+        // No-op in base class
+    }
+
+    public final void runRenumberOrderedListIfRequired() {
+        runRenumberOrderedListIfRequired(false);
+    }
+
+    public final void runRenumberOrderedListIfRequired(final boolean force) {
+        if (force || _hlEditor.getAutoFormatEnabled()) {
+            final boolean isAccessibilityEnabled = _hlEditor.getAccessibilityEnabled();
+            try {
+                _hlEditor.setAccessibilityEnabled(false);
+                _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
+            } finally{
+                if (isAccessibilityEnabled) {
+                    _hlEditor.setAccessibilityEnabled(true);
+                }
+            }
         }
     }
 }
