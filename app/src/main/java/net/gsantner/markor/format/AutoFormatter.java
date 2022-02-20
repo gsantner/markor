@@ -10,14 +10,12 @@
 package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -260,7 +258,7 @@ public class AutoFormatter {
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
-     *
+     * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
     public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
@@ -280,7 +278,7 @@ public class AutoFormatter {
 
         try {
             // Loop to end of list
-            while(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
+            while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
                 if (line.isOrderedList) {
                     // Indented. Add level

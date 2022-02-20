@@ -13,8 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import net.gsantner.markor.model.Document;
-
 public class OpenShareIntoActivity extends OpenEditorActivity {
 
     @Override

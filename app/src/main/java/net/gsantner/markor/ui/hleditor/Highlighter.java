@@ -15,7 +15,6 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.text.InputFilter;
 import android.text.ParcelableSpan;
 import android.text.Spannable;
 import android.text.TextWatcher;

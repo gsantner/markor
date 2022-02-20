@@ -14,8 +14,6 @@ import android.text.Spanned;
 
 import net.gsantner.markor.format.AutoFormatter;
 
-import java.util.regex.Pattern;
-
 public class MarkdownAutoFormat implements InputFilter {
 
     private final AutoFormatter _autoFormatter;

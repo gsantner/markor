@@ -699,7 +699,7 @@ public abstract class TextActions {
             try {
                 _hlEditor.setAccessibilityEnabled(false);
                 _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
-            } finally{
+            } finally {
                 if (isAccessibilityEnabled) {
                     _hlEditor.setAccessibilityEnabled(true);
                 }

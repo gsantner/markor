@@ -11,10 +11,8 @@ package net.gsantner.markor.format.markdown;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.InputFilter;
 import android.text.Spannable;
 
-import net.gsantner.markor.format.ListHandler;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
