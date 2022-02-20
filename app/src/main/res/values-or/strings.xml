@@ -135,6 +135,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">ନିମ୍ନ</string>
     <string name="center">କେନ୍ଦ୍ର</string>
     <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
+    <string name="clipboard">କ୍ଲିପବୋର୍ଡ</string>
     <string name="open_source_licenses">ଖୋଲା ଉତ୍ସ ଲାଇସେନ୍ସଗୁଡ଼ିକ</string>
     <string name="rate_this_app">ଏହି ଆପକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ</string>
     <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
@@ -147,6 +148,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">ଅବରୋହଣ</string>
     <string name="ascending">ଆରୋହଣ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
+    <string name="directory">ଡିରେକ୍ଟୋରୀ</string>
     <string name="recently_viewed_documents">ନିକଟରେ ଦେଖାଯାଇଥିବା ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
