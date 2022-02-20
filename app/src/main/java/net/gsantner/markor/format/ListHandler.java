@@ -30,7 +30,7 @@ public class ListHandler implements TextWatcher {
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
         if (alreadyRunning) {
             return;
         }
@@ -78,7 +78,7 @@ public class ListHandler implements TextWatcher {
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void beforeTextChanged(final CharSequence s, int start, final int count, final int after) {
         if (alreadyRunning) {
             return;
         }
@@ -88,7 +88,7 @@ public class ListHandler implements TextWatcher {
         beforeLineEnd = StringUtils.getLineEnd(s, start);
     }
 
-    private boolean containsNewline(CharSequence s, int start, int count) {
+    private boolean containsNewline(final CharSequence s, final int start, final int count) {
         final int end = start + count;
         for (int i = start; i < end; i++) {
             if (s.charAt(i) == '\n') {
