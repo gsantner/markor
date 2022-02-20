@@ -73,7 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language_change_restart_description">بۆ گۆڕینی زمان، پێویستە بەرنامەکە دابخەیت و دووبارە بیکەیتەوە</string>
     <string name="language">زمان</string>
     <string name="open_with">کردنەوە لەڕێی</string>
-    <string name="sort">ڕیزکردن بەپێی</string>
+    <string name="sort_by">ڕیزکردن بەپێی</string>
     <string name="date">بەروار</string>
     <string name="deleteme____1">ناو</string>
     <string name="size">قەبارە</string>
@@ -217,7 +217,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="italic">لار</string>
     <string name="highlighted">دیاریکراو</string>
     <string name="link_color">ڕەنگی بەستەر</string>
-    <string name="sort_alphabetically">ڕیزکردنی ئەبجەدی</string>
     <string name="create_new_file_or_folder">دروستکردنی فایل یان فۆڵدەری نوێ</string>
     <string name="selected">دیاریکراو</string>
     <string name="back">گەڕانەوە</string>
