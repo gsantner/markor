@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">زبان</string>
     <string name="error_need_storage_permission_to_save_documents">برای ذخیره پرونده‌ها دسترسی به محل ذخیره‌سازی نیاز است</string>
     <string name="open_with">باز کردن با</string>
+    <string name="sort_by">مرتب‌سازی</string>
     <string name="date">مرتب‌سازی بر اساس تاریخ</string>
     <string name="deleteme____1">مرتب‌سازی بر اساس نام</string>
     <string name="size">مرتب‌سازی بر اساس اندازه</string>
