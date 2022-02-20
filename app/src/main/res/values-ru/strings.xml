@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Описание</string>
     <string name="edit_picture">Редактировать изображение</string>
     <string name="math">Формулы</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Отображать введенные атрибуты передней части YAML в верхней части просмотренных документов. Введите ключи, разделенные запятыми. Оставьте пустым для них или используйте \'*\' для всех. \n\nЕсли атрибут определен в документе (т.е. title: \'Здравствуйте\'), и в документе есть {{ post.title }} и он тоже заменен. Вы можете сделать свой собственный заголовок Фронт-Матери.</string>
     <string name="table_of_contents">Оглавление</string>
     <string name="miscellaneous">Прочее</string>
     <string name="textaction">Операция с текстом</string>
