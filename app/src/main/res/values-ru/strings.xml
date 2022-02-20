@@ -93,7 +93,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Выход</string>
     <string name="undo">Отменить</string>
     <string name="redo">Вернуть</string>
-    <string name="more">Дополнительно</string>
+    <string name="more">Ещё</string>
     <string name="notebook">Блокнот</string>
     <string name="help">Помощь</string>
     <string name="todo_list">Список дел</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Чтобы перейти по вики-ссылкам, необходимо динамически искать файл notebook.zim для определения корневого каталога текущей записной книжки. Установите флажок, если вы используете несколько цим-блокнотов или установленный в приложении каталог блокнота не соответствует вашему блокноту zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Формат/Префикс для текста, общего в Markor. Следуйте правилам SimpleDateFormat Android.\n\nИспользуйте заполнитель \'%s\' (окружённый одинарными кавычками) для размещения общего текста. Если не указано, общий текст добавляется и формат используется в качестве префикса.</string>
     <string name="share_into_format">Поделиться - Формат</string>
+    <string name="auto_format">Автоформат</string>
 </resources>
