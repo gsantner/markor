@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Περιγραφή</string>
     <string name="edit_picture">Επεξεργασία εικόνας</string>
     <string name="math">Μαθηματικά</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Εμφάνιση καταχωρήθηκε YAML Μπροστινή ύλη χαρακτηριστικά στην κορυφή στα εμφανιζόμενα έγγραφα. Εισάγετε κλειδιά διαχωρισμένα με κόμματα. Αφήστε κενό για κανένα ή χρησιμοποιήστε το \'*\' για όλους. \n\nΕάν οποιοδήποτε χαρακτηριστικό ορίζεται στο έγγραφο (δηλ. τίτλος: \'Γεια σας\') και υπάρχει το {{ post.title }} στο έγγραφό σας και αυτό αντικαθίσταται. Μπορείτε να κάνετε μια προσαρμοσμένη κεφαλίδα μπροστινής ύλης με αυτόν τον τρόπο.</string>
     <string name="table_of_contents">Πίνακας περιεχομένων</string>
     <string name="miscellaneous">Διάφορα</string>
     <string name="textaction">Ενέργεια κειμένου</string>
