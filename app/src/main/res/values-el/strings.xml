@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Περιγραφή</string>
     <string name="edit_picture">Επεξεργασία εικόνας</string>
     <string name="math">Μαθηματικά</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Εισάγετε τα χαρακτηριστικά YAML Front Matter που εμφανίζονται στην αρχή των προβαλλόμενων εγγράφων. Κεφαλίδα. Εισάγετε κλειδιά διαχωρισμένα με κόμματα. Αφήστε κενό για κανένα ή χρησιμοποιήστε το \'*\' για όλους. \n\nΕάν έχετε οποιοδήποτε κλειδί, π.χ. τίτλος: \'Γεια σας\' ορίζεται και υπάρχει {{ post.title }} στο κείμενό σας, πάντα θα αντικατασταθεί. Μπορείτε να κάνετε μια προσαρμοσμένη μπροστινή ύλη να εμφανίζεται με αυτόν τον τρόπο.</string>
     <string name="table_of_contents">Πίνακας περιεχομένων</string>
     <string name="miscellaneous">Διάφορα</string>
     <string name="textaction">Ενέργεια κειμένου</string>
