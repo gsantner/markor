@@ -12,7 +12,6 @@ package net.gsantner.markor.format.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Date;
@@ -32,11 +31,6 @@ public class TodoTxtAutoFormat implements InputFilter {
     }
 
     private CharSequence autoIndent(CharSequence source) {
-        String t = "";
-        final AppSettings settings = AppSettings.get();
-        if (settings.isTodoStartTasksWithTodaysDateEnabled()) {
-            t += TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
-        }
-        return source + t;
+        return source + TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
     }
 }

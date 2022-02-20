@@ -260,10 +260,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__todotxt__append_contexts_and_projects_on_end_of_task, true);
     }
 
-    public boolean isTodoStartTasksWithTodaysDateEnabled() {
-        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
-    }
-
     public boolean isTodoAddCompletionDateEnabled() {
         return getBool(R.string.pref_key__todotxt__add_completion_date_for_todos, true);
     }
