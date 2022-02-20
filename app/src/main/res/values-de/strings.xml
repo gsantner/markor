@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Sprache</string>
     <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystemberechtigung um Dokumente zu speichern</string>
     <string name="open_with">Öffnen mit</string>
-    <string name="sort">Sortieren</string>
+    <string name="sort_by">Sortieren</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Sortieren nach Name</string>
     <string name="size">Größe</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Kontext hinzufügen</string>
     <string name="add_project">Projekt hinzufügen</string>
     <string name="archive_completed_tasks">Erledigte Aufgaben archivieren</string>
-    <string name="sort_alphabetically">Alphabetisch sortieren</string>
     <string name="create_new_file_or_folder">Neue Datei oder Ordner erstellen</string>
     <string name="choose_format">Format auswählen</string>
     <string name="selected">Ausgewählt</string>
