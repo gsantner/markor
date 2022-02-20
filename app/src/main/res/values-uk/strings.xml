@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Опис</string>
     <string name="edit_picture">Редагувати зображення</string>
     <string name="math">Формули</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Показувати атрибути YAML Front Matter на верху переглянутих документів. Введіть ключі, розділені комами. Залиште пустим для нікого, або використайте \'*\' для всіх. \n\nЯкщо у документі визначено будь-який атрибут, тобто title: \'Привіт\') і у вашому документі теж {{ post.title }} замінено. Ви можете зробити його заголовком попереднього перегляду таким чином.</string>
     <string name="table_of_contents">Зміст</string>
     <string name="miscellaneous">Різне</string>
     <string name="textaction">Команда тексту</string>
