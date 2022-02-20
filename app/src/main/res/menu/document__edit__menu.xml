@@ -121,6 +121,13 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/action_enable_auto_format"
+                android:checkable="true"
+                android:icon="@drawable/ic_baseline_align_horizontal_left_24"
+                android:title="@string/auto_format"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/action_set_font_size"
                 android:checkable="false"
                 android:icon="@drawable/ic_format_size_black_24dp"

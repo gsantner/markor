@@ -169,11 +169,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return !getBool(R.string.pref_key__hightlight_code_block_disabled, false);
     }
 
-    public boolean isMarkdownAutoUpdateList() {
-        return true;
-        // return getBool(R.string.pref_key__markdown__auto_renumber_ordered_list, false);
-    }
-
     public int getHighlightingDelayTodoTxt() {
         return getInt(R.string.pref_key__todotxt__hl_delay, 870);
     }
@@ -265,10 +260,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__todotxt__append_contexts_and_projects_on_end_of_task, true);
     }
 
-    public boolean isTodoStartTasksWithTodaysDateEnabled() {
-        return getBool(R.string.pref_key__todotxt__start_new_tasks_with_todays_date, true);
-    }
-
     public boolean isTodoAddCompletionDateEnabled() {
         return getBool(R.string.pref_key__todotxt__add_completion_date_for_todos, true);
     }
@@ -351,6 +342,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_INDENT_SIZE = "PREF_PREFIX_INDENT_SIZE";
     private static final String PREF_PREFIX_FONT_SIZE = "PREF_PREFIX_FONT_SIZE";
     private static final String PREF_PREFIX_FILE_FORMAT = "PREF_PREFIX_FILE_FORMAT";
+    private static final String PREF_PREFIX_AUTO_FORMAT = "PREF_PREFIX_AUTO_FORMAT";
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
 
@@ -403,6 +395,21 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
             final int sid = _contextUtils.getResId(net.gsantner.opoc.util.ContextUtils.ResType.STRING, value);
             // Note TextFormat.FORMAT_UNKNOWN also == 0
             return sid != 0 ? sid : _default;
+        }
+    }
+
+    public void setDocumentAutoFormatEnabled(final String path, final boolean enabled) {
+        if (fexists(path)) {
+            setBool(PREF_PREFIX_AUTO_FORMAT + path, enabled);
+        }
+    }
+
+    public boolean getDocumentAutoFormatEnabled(final String path) {
+        final boolean _default = true;
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_AUTO_FORMAT + path, _default);
         }
     }
 

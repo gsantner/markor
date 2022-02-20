@@ -13,7 +13,6 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.EmptyStackException;
@@ -26,52 +25,35 @@ public class AutoFormatter {
     private final PrefixPatterns _prefixPatterns;
     private final char _indentCharacter;
 
-    private CharSequence _source;
-    private int _start;
-    private int _end;
-    private Spanned _dest;
-    private int _dstart;
-    private int _dend;
-
     public AutoFormatter(PrefixPatterns prefixPatterns, char indentCharacter) {
         _prefixPatterns = prefixPatterns;
         _indentCharacter = indentCharacter;
     }
 
-    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-        initialize(source, start, end, dest, dstart, dend);
+    public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
 
         try {
-            if (_start < _source.length() && _dstart <= _dest.length() && StringUtils.isNewLine(_source, _start, _end)) {
-                return autoIndent();
+            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+                return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             e.printStackTrace();
         }
-        return _source;
-    }
 
-    private void initialize(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-        _source = source;
-        _start = start;
-        _end = end;
-        _dest = dest;
-        _dstart = dstart;
-        _dend = dend;
+        return source;
     }
 
     @SuppressLint("DefaultLocale")
-    private CharSequence autoIndent() {
+    private CharSequence autoIndent(final CharSequence source, final Spanned dest, final int dstart, final int dend) {
 
-        final OrderedListLine oLine = new OrderedListLine(_dest, _dstart, _prefixPatterns);
-        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(_dest, _dstart, _prefixPatterns);
-        final String indent = _source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
+        final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
+        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
+        final String indent = source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
 
         final String result;
-        if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && _dend >= oLine.groupEnd) {
+        if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
             result = indent + String.format("%s%c ", getNextOrderedValue(oLine.value), oLine.delimiter);
-        } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && _dend >= uLine.groupEnd) {
+        } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && dend >= uLine.groupEnd) {
             String itemPrefix = uLine.newItemPrefix;
             result = indent + itemPrefix;
         } else {
@@ -126,6 +108,12 @@ public class AutoFormatter {
 
         public boolean isSiblingLevelOf(final ListLine line) {
             return !isParentLevelOf(line) && !isChildLevelOf(line);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            final ListLine other = obj instanceof ListLine ? (ListLine) obj : null;
+            return other == this || (other != null && lineStart == other.lineStart && lineEnd == other.lineEnd && line.equals(other.line));
         }
     }
 
@@ -267,94 +255,83 @@ public class AutoFormatter {
         return listStart;
     }
 
-    // Wrap renumberOrderedList with an accessibility update disable
-    public static void renumberOrderedList(final HighlightingEditor editor, int cursorPosition, final PrefixPatterns prefixPatterns) {
-        try {
-            editor.setAccessibilityEnabled(false);
-            renumberOrderedList(editor.getText(), cursorPosition, prefixPatterns);
-        } finally {
-            editor.setAccessibilityEnabled(true);
-        }
-    }
-
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
      * <p>
-     * Sub-lists and other children will be skipped.
+     * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
     public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
-        int position = firstLine.lineEnd + 1;
+        if (!firstLine.isOrderedList) {
+            return;
+        }
 
-        if (firstLine.isOrderedList && position < text.length()) {
-            // Stack represents
-            final Stack<OrderedListLine> levels = new Stack<>();
-            levels.push(firstLine);
+        // Stack represents each level in the list up from current
+        final Stack<OrderedListLine> levels = new Stack<>();
+        levels.push(firstLine);
 
-            OrderedListLine line = firstLine;
+        OrderedListLine line = firstLine;
+        int position;
 
-            try {
-                // Loop to end of list
-                do {
-                    line = new OrderedListLine(text, position, prefixPatterns);
+        try {
+            // Loop to end of list
+            while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
-                    if (!(firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
-                        // List is over
-                        break;
+                if (line.isOrderedList) {
+                    // Indented. Add level
+                    if (line.isChildLevelOf(levels.peek())) {
+                        levels.push(line);
                     }
-
-                    if (line.isOrderedList) {
-                        // Indented. Add level
-                        if (line.isChildLevelOf(levels.peek())) {
-                            levels.push(line);
-                        }
-                        // Dedented. Remove appropriate number of levels
-                        else if (line.isParentLevelOf(levels.peek())) {
-                            while (levels.peek().isChildLevelOf(line)) {
-                                levels.pop();
-                            }
-                        }
-
-                        // Restart if bullet does not match list at this level
-                        if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
-                            levels.pop();
-                            levels.push(line);
-                        }
-                    }
-                    // Non-ordered non-empty line. Pop back to parent level
-                    else if (!line.isEmpty) {
-                        while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                    // Dedented. Remove appropriate number of levels
+                    else if (line.isParentLevelOf(levels.peek())) {
+                        while (levels.peek().isChildLevelOf(line)) {
                             levels.pop();
                         }
                     }
 
-                    // Update numbering if needed
-                    if (line.isOrderedList) {
-
-                        // Restart numbering if list changes
-                        final OrderedListLine peek = levels.peek();
-                        final String newValue = (line == peek) ? "1" : getNextOrderedValue(peek.value);
-                        if (!newValue.equals(line.value)) {
-                            text.replace(line.numStart, line.numEnd, newValue);
-
-                            // Re-create line as it has changed
-                            line = new OrderedListLine(text, line.lineStart, prefixPatterns);
-                        }
-
+                    // Restart if bullet does not match list at this level
+                    if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
                         levels.pop();
                         levels.push(line);
                     }
+                }
+                // Non-ordered non-empty line. Pop back to parent level
+                else if (!line.isEmpty) {
+                    while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                        levels.pop();
+                    }
+                }
 
-                    position = line.lineEnd + 1;
-                } while (position < text.length() && position > 0);
+                // Update numbering if needed
+                if (line.isOrderedList) {
 
-            } catch (EmptyStackException ignored) {
-                // Usually means that indents and de-indents did not match up
-                ignored.printStackTrace();
+                    // Restart numbering if list changes
+                    final OrderedListLine peek = levels.peek();
+                    final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
+                    if (!newValue.equals(line.value)) {
+                        text.replace(line.numStart, line.numEnd, newValue);
+
+                        // Re-create line as it has changed
+                        line = new OrderedListLine(text, line.lineStart, prefixPatterns);
+                    }
+
+                    levels.pop();
+                    levels.push(line);
+                }
+
+                position = line.lineEnd + 1;
+                if (position < text.length()) {
+                    line = new OrderedListLine(text, position, prefixPatterns);
+                } else {
+                    break;
+                }
             }
+        } catch (EmptyStackException ex) {
+            // Usually means that indents and de-indents did not match up
+            ex.printStackTrace();
         }
     }
 

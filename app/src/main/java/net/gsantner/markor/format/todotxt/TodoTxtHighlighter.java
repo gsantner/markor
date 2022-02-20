@@ -11,7 +11,6 @@ package net.gsantner.markor.format.todotxt;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.text.InputFilter;
 import android.text.Spannable;
 import android.util.Patterns;
 
@@ -143,11 +142,6 @@ public class TodoTxtHighlighter extends Highlighter {
         }
 
         return spannable;
-    }
-
-    @Override
-    public InputFilter getAutoFormatter() {
-        return new TodoTxtAutoFormat();
     }
 
     @Override

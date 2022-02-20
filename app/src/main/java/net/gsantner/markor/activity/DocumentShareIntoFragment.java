@@ -316,7 +316,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 case R.string.pref_key__share_into__todo: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
-                        if (appSettings.isTodoStartTasksWithTodaysDateEnabled()) {
+                        if (appSettings.getDocumentAutoFormatEnabled(_appSettings.getTodoFile().getAbsolutePath())) {
                             sep += TodoTxtTask.getToday() + " ";
                         }
                         appendToExistingDocument(_appSettings.getTodoFile(), sep, false);

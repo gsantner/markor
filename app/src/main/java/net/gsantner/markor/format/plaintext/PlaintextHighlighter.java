@@ -10,7 +10,6 @@
 package net.gsantner.markor.format.plaintext;
 
 import android.content.Context;
-import android.text.InputFilter;
 import android.text.Spannable;
 
 import net.gsantner.markor.model.Document;
@@ -40,11 +39,6 @@ public class PlaintextHighlighter extends Highlighter {
         }
 
         return spannable;
-    }
-
-    @Override
-    public InputFilter getAutoFormatter() {
-        return AUTOFORMATTER_NONE;
     }
 
     @Override

@@ -17,21 +17,23 @@ import android.text.TextWatcher;
 import net.gsantner.opoc.util.StringUtils;
 
 public class ListHandler implements TextWatcher {
-    private final boolean _reorderEnabled;
     private int reorderPosition;
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
+    private boolean alreadyRunning = false; // Prevent this instance from triggering itself
 
     private final AutoFormatter.PrefixPatterns _prefixPatterns;
 
-    public ListHandler(final boolean reorderEnabled, final AutoFormatter.PrefixPatterns prefixPatterns) {
+    public ListHandler(final AutoFormatter.PrefixPatterns prefixPatterns) {
         super();
-        _reorderEnabled = reorderEnabled;
         _prefixPatterns = prefixPatterns;
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+        if (alreadyRunning) {
+            return;
+        }
 
         triggerReorder = triggerReorder || containsNewline(s, start, count);
 
@@ -55,27 +57,38 @@ public class ListHandler implements TextWatcher {
     }
 
     @Override
-    public void afterTextChanged(Editable e) {
-        // Deletes spans marked for deletion
-        for (Object span : e.getSpans(0, e.length(), this.getClass())) {
-            if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
-                e.delete(e.getSpanStart(span), e.getSpanEnd(span));
-            }
+    public void afterTextChanged(final Editable e) {
+        if (alreadyRunning) {
+            return;
         }
-        if (_reorderEnabled && triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-            AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
+        try {
+            alreadyRunning = true;
+            // Deletes spans marked for deletion
+            for (final Object span : e.getSpans(0, e.length(), this.getClass())) {
+                if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
+                    e.delete(e.getSpanStart(span), e.getSpanEnd(span));
+                }
+            }
+            if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
+                AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
+            }
+        } finally {
+            alreadyRunning = false;
         }
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void beforeTextChanged(final CharSequence s, int start, final int count, final int after) {
+        if (alreadyRunning) {
+            return;
+        }
+
         triggerReorder = containsNewline(s, start, count);
         reorderPosition = start;
-
         beforeLineEnd = StringUtils.getLineEnd(s, start);
     }
 
-    private boolean containsNewline(CharSequence s, int start, int count) {
+    private boolean containsNewline(final CharSequence s, final int start, final int count) {
         final int end = start + count;
         for (int i = start; i < end; i++) {
             if (s.charAt(i) == '\n') {

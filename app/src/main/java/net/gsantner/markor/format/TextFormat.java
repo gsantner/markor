@@ -10,19 +10,24 @@
 package net.gsantner.markor.format;
 
 import android.app.Activity;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueHighlighter;
+import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.format.markdown.MarkdownHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextActions;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
 import net.gsantner.markor.format.plaintext.PlaintextTextActions;
+import net.gsantner.markor.format.todotxt.TodoTxtAutoFormat;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextActions;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
+import net.gsantner.markor.format.zimwiki.ZimWikiAutoFormat;
 import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
 import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.format.zimwiki.ZimWikiTextConverter;
@@ -84,85 +89,70 @@ public class TextFormat {
         TextFormat format = new TextFormat();
         switch (formatId) {
             case FORMAT_PLAIN: {
-                format.setConverter(CONVERTER_PLAINTEXT);
-                format.setHighlighter(new PlaintextHighlighter(hlEditor, document));
-                format.setTextActions(new PlaintextTextActions(activity, document));
+                format._converter = CONVERTER_PLAINTEXT;
+                format._highlighter = new PlaintextHighlighter(hlEditor, document);
+                format._textActions = new PlaintextTextActions(activity, document);
+                format._autoFormatInputFilter = new MarkdownAutoFormat(); // Using the markdown syntax for plain text
+                format._autoFormatTextWatcher = new ListHandler(MarkdownAutoFormat.getPrefixPatterns());
                 break;
             }
             case FORMAT_TODOTXT: {
-                format.setConverter(CONVERTER_TODOTXT);
-                format.setHighlighter(new TodoTxtHighlighter(hlEditor, document));
-                format.setTextActions(new TodoTxtTextActions(activity, document));
+                format._converter = CONVERTER_TODOTXT;
+                format._highlighter = new TodoTxtHighlighter(hlEditor, document);
+                format._textActions = new TodoTxtTextActions(activity, document);
+                format._autoFormatInputFilter = new TodoTxtAutoFormat();
                 break;
             }
-
             case FORMAT_KEYVALUE: {
-                format.setConverter(CONVERTER_KEYVALUE);
-                format.setHighlighter(new KeyValueHighlighter(hlEditor, document));
-                format.setTextActions(new PlaintextTextActions(activity, document));
+                format._converter = CONVERTER_KEYVALUE;
+                format._highlighter = new KeyValueHighlighter(hlEditor, document);
+                format._textActions = new PlaintextTextActions(activity, document);
                 break;
             }
-
             case FORMAT_ZIMWIKI: {
-                format.setConverter(CONVERTER_ZIMWIKI);
-                format.setHighlighter(new ZimWikiHighlighter(hlEditor, document));
-                format.setTextActions(new ZimWikiTextActions(activity, document));
+                format._converter = CONVERTER_ZIMWIKI;
+                format._highlighter = new ZimWikiHighlighter(hlEditor, document);
+                format._textActions = new ZimWikiTextActions(activity, document);
+                format._autoFormatInputFilter = new ZimWikiAutoFormat();
+                format._autoFormatTextWatcher = new ListHandler(ZimWikiAutoFormat.getPrefixPatterns());
                 break;
             }
-
             default:
             case FORMAT_MARKDOWN: {
-                format.setConverter(CONVERTER_MARKDOWN);
-                format.setHighlighter(new MarkdownHighlighter(hlEditor, document));
-                format.setTextActions(new MarkdownTextActions(activity, document));
+                format._converter = CONVERTER_MARKDOWN;
+                format._highlighter = new MarkdownHighlighter(hlEditor, document);
+                format._textActions = new MarkdownTextActions(activity, document);
+                format._autoFormatInputFilter = new MarkdownAutoFormat();
+                format._autoFormatTextWatcher = new ListHandler(MarkdownAutoFormat.getPrefixPatterns());
                 break;
             }
         }
         return format;
     }
 
-    //
-    //
-    //
     private TextActions _textActions;
     private Highlighter _highlighter;
     private TextConverter _converter;
-
-    public TextFormat() {
-    }
-
-    public TextFormat(TextActions textActions, Highlighter highlighter, TextConverter converter) {
-        _textActions = textActions;
-        _highlighter = highlighter;
-        _converter = converter;
-    }
-
-
-    //
-    //
-    //
+    private InputFilter _autoFormatInputFilter;
+    private TextWatcher _autoFormatTextWatcher;
 
     public TextActions getTextActions() {
         return _textActions;
     }
 
-    public void setTextActions(TextActions textActions) {
-        _textActions = textActions;
+    public TextWatcher getAutoFormatTextWatcher() {
+        return _autoFormatTextWatcher;
+    }
+
+    public InputFilter getAutoFormatInputFilter() {
+        return _autoFormatInputFilter;
     }
 
     public Highlighter getHighlighter() {
         return _highlighter;
     }
 
-    public void setHighlighter(Highlighter highlighter) {
-        _highlighter = highlighter;
-    }
-
     public TextConverter getConverter() {
         return _converter;
-    }
-
-    public void setConverter(TextConverter converter) {
-        _converter = converter;
     }
 }
