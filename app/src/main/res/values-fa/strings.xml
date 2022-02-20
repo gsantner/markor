@@ -81,7 +81,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">زبان</string>
     <string name="error_need_storage_permission_to_save_documents">برای ذخیره پرونده‌ها دسترسی به محل ذخیره‌سازی نیاز است</string>
     <string name="open_with">باز کردن با</string>
-    <string name="sort">مرتب‌سازی</string>
     <string name="date">مرتب‌سازی بر اساس تاریخ</string>
     <string name="deleteme____1">مرتب‌سازی بر اساس نام</string>
     <string name="size">مرتب‌سازی بر اساس اندازه</string>
@@ -358,7 +357,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>
-    <string name="sort_alphabetically">Sort alphabetically</string>
     <string name="create_new_file_or_folder">ساخت پرونده یا پوشه جدید</string>
     <string name="choose_format">انتخاب قالب</string>
     <string name="selected">انتخاب شده</string>
