@@ -80,6 +80,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">மொழி</string>
     <string name="error_need_storage_permission_to_save_documents">ஆவணங்களை சேமிக்க சேமிப்பகத்தை அணுக அனுமதி வேண்டும்</string>
     <string name="open_with">இதன்மூலம் திற</string>
+    <string name="sort_by">இதனை கொண்டு வரிசைப்படுத்து</string>
     <string name="date">தேதி</string>
     <string name="deleteme____1">பெயர்</string>
     <string name="size">அளவு</string>
