@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Kuvaus</string>
     <string name="edit_picture">Muokkaa kuvaa</string>
     <string name="math">Matematiikka</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Syötä YAML Front Matter -attribuutit, jotka näytetään katseltujen asiakirjojen alussa. otsikko. Syötä pilkuilla erotetut avaimet. Jätä tyhjäksi tyhjäksi tai käytä \'*\' kaikille. \n\nJos sinulla on jokin avain, eli title: \'Hei määritelty, ja tekstissäsi on {{ post.title }} , se korvataan aina. Voit tehdä mukautetun etukappaleen näyttää tällä tavalla.</string>
     <string name="table_of_contents">Sisällön taulukko</string>
     <string name="miscellaneous">Sekalaiset</string>
     <string name="textaction">Tekstin toiminto</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Lisää konteksti</string>
     <string name="add_project">Lisää projekti</string>
     <string name="archive_completed_tasks">Arkistoi suoritetut tehtävät</string>
-
     <string name="create_new_file_or_folder">Luo uusi tiedosto tai kansio</string>
     <string name="choose_format">Valitse muoto</string>
     <string name="selected">Valittu</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Seuratakseen wiki linkkejä, etsi dynaamisesti notebook.zim-tiedostoa, joka tunnistaa nykyisen muistikirjan juurihakemiston. Valitse tämä, jos käytät useita zim-muistikirjoja tai sovelluksessa asetettu notebook-hakemisto ei vastaa zim-muistikirjaasi.</string>
     <string name="share_into_format_prefix_for_text_shared">Muoto/etuliite Markoriin jaetulle tekstille. Seuraa Androidin SimpleDateFormat sääntöjä.\n\nKäytä paikkamerkkiä \'%s\' (jota ympäröi yksittäinen lainaus) asettaaksesi jaetun tekstin. Jos jaettua tekstiä ei ole määritelty, se on liitetty ja se muoto, jota käytetään etuliitteenä.</string>
     <string name="share_into_format">Jaa - Muoto</string>
+    <string name="auto_format">Automaattimuotoilu</string>
 </resources>

@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">输入 YAML 前台属性以在查看文档开头显示。 标头。输入密钥以逗号分隔。留空则不留空，或者对所有人使用“*”。 \n\n如果你有任何密钥, 例如: title: \'你好\' 定义, 你的文本中有 {{ post.title }} , 它将永远被替换. 您可以设置一个自定义前台显示这种方式。</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
     <string name="textaction">文本操作</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">添加情境</string>
     <string name="add_project">添加项目</string>
     <string name="archive_completed_tasks">存档已完成的任务</string>
-
     <string name="create_new_file_or_folder">创建一个新的文件或文件夹</string>
     <string name="choose_format">选择格式</string>
     <string name="selected">已选择</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">为了跟随wiki链接，动态地搜索notbook.zim文件来识别当前笔记本的根目录。 如果您使用多个zim笔记本或者应用程序中的笔记本目录与您的zim笔记本不对应，请选中此项。</string>
     <string name="share_into_format_prefix_for_text_shared">共享到 Markor的文本格式/前缀。关注Android的 SimpleDateFormat 规则。\n\n使用占位符\'%s\' (周围为单引号) 来定位共享文本。 如果未指定，共享文本将附加，并使用格式作为前缀。</string>
     <string name="share_into_format">分享到 - 格式</string>
+    <string name="auto_format">自动格式</string>
 </resources>

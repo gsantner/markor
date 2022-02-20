@@ -192,11 +192,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="print_pdf">PDF प्रिंट करें</string>
     <string name="current">प्रगति पर</string>
     <string name="heading_1">शीर्षक 1</string>
-    <string name="heading_2">शीर्षक २</string>
+    <string name="heading_2">शीर्षक 2</string>
     <string name="heading_3">शीर्षक 3</string>
-    <string name="heading_4">हेडिंग ४</string>
-    <string name="heading_5">शीर्षक ५</string>
-    <string name="heading_6">शीर्षक ६</string>
+    <string name="heading_4">शीर्षक 4</string>
+    <string name="heading_5">शीर्षक 5</string>
+    <string name="heading_6">शीर्षक 6</string>
     <string name="bold">बोल्ड</string>
     <string name="italic">तिरछा</string>
     <string name="highlighted">हाइलाइट्स</string>
@@ -205,7 +205,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">लिंक रंग</string>
     <string name="add_context">संदर्भ जोड़ें</string>
     <string name="add_project">प्रॉजेक्ट जोड़े</string>
-
     <string name="choose_format">\' स्वरूप \' चुनें</string>
     <string name="selected">चयनित</string>
     <string name="back">पीछे</string>

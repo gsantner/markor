@@ -358,7 +358,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>
-
     <string name="create_new_file_or_folder">ساخت پرونده یا پوشه جدید</string>
     <string name="choose_format">انتخاب قالب</string>
     <string name="selected">انتخاب شده</string>

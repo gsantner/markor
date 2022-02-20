@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">وصف</string>
     <string name="edit_picture">تعديل الصورة</string>
     <string name="math">رياضيات</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">أدخل سمات ماد واجهة YAML لإظهارها في بداية الوثائق المعروضة. الرأس. أدخل المفاتيح مفصولة بفواصل. اتركه فارغاً لللا شيء أو استخدم \'*\' للجميع. \n\nإذا كان لديك أي مفتاح، أي title: \'مرحبا\' معرف وهناك {{ post.title }} في النص الخاص بك، سيتم استبداله دائما. يمكنك أن تجعل مادة أمامية مخصصة تعرض بهذه الطريقة.</string>
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
     <string name="textaction">إجراء النص</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">إضافة سياق</string>
     <string name="add_project">إضافة مشروع</string>
     <string name="archive_completed_tasks">أرشيف المهام المكتملة</string>
-
     <string name="create_new_file_or_folder">إنشاء ملف أو مجلد جديد</string>
     <string name="choose_format">اختيار التنسيق</string>
     <string name="selected">محدد</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">من أجل اتباع روابط ويكي، البحث بشكل ديناميكي عن ملف notebook.zim لتحديد الدليل الجذر لكتاب الملاحظات الحالي. حدد هذا الخيار إذا كنت تستخدم العديد من الملاحظات المضغوطة أو دليل الملاحظات المحدد في التطبيق لا يتوافق مع دفتر الملاحظات المضغوط.</string>
     <string name="share_into_format_prefix_for_text_shared">تنسيق/بادئة للنص المشترك في العلامة. يتبع قواعد SimpleDateFormat للأندرويد.\n\nاستخدم العنصر النائب \'%s\' (محاطة باقتباسات واحدة) لوضع النص المشترك. إذا لم يتم تحديده، يتم إلحاق النص المشترك والشكل المستخدم كبادئ.</string>
     <string name="share_into_format">المشاركة في - التنسيق</string>
+    <string name="auto_format">تنسيق تلقائي</string>
 </resources>

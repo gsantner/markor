@@ -348,7 +348,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">문맥 추가</string>
     <string name="add_project">프로젝트 추가</string>
     <string name="archive_completed_tasks">완료된 할 일 보관처리</string>
-
     <string name="create_new_file_or_folder">새 파일 또는 폴더 만들기</string>
     <string name="choose_format">형식 선택</string>
     <string name="selected">선택됨</string>

@@ -357,7 +357,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Dodaj kontekst</string>
     <string name="add_project">Dodaj projekat</string>
     <string name="archive_completed_tasks">Arhiviraj obavljene zadatke</string>
-
     <string name="create_new_file_or_folder">Kreiraj novu datoteku ili omotnicu</string>
     <string name="choose_format">Izaberi format</string>
     <string name="selected">Odabrano</string>
