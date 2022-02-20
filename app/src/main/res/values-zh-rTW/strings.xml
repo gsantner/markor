@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">語言</string>
     <string name="error_need_storage_permission_to_save_documents">擁有權限才能儲存文件</string>
     <string name="open_with">開啟用</string>
+    <string name="sort_by">排列</string>
     <string name="date">依日期排列</string>
     <string name="deleteme____1">依名稱排列</string>
     <string name="size">大小</string>
