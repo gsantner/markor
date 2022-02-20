@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">ഭാഷ</string>
     <string name="error_need_storage_permission_to_save_documents">ഡോക്യൂമെന്റസ് സൂക്ഷിക്കാൻ സ്റ്റോറേജിലേക്ക് അനുവാദം ആവിശ്യമുണ്ട്</string>
     <string name="open_with">തുറക്കാൻ ഇത് ഉപയോഗിക്കൂ</string>
-    <string name="sort">ക്രമീകരിക്കൂ ഇപ്രകാരം</string>
+    <string name="sort_by">ക്രമീകരിക്കൂ ഇപ്രകാരം</string>
     <string name="date">തീയതി</string>
     <string name="deleteme____1">പേര്</string>
     <string name="size">വലിപ്പം</string>
