@@ -115,10 +115,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
     <string name="app_wide">ଆପ୍-ସାରା</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
+    <string name="overall_theme_used_in_app">ଆପରେ ବ୍ୟବହୃତ ସାମଗ୍ରିକ ଥିମ୍</string>
+    <string name="remember_last_directory">ଶେଷ ଡିରେକ୍ଟୋରୀକୁ ମନେରଖନ୍ତୁ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
     <string name="other">ଅନ୍ୟ</string>
     <string name="empty_file">ଖାଲି ଫାଇଲ୍</string>
+    <string name="break_page_pdf_print">ପୃଷ୍ଠା ଭାଙ୍ଗିବା (PDF/ମୁଦ୍ରଣ)</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="key_pos_1">ଲାଇନ୍ ଆରମ୍ଭ (Pos Home)</string>
@@ -126,6 +129,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_1_document">ଡକ୍ୟୁମେଣ୍ଟ୍ ଆରମ୍ଭ</string>
     <string name="key_pos_end_document">ଡକ୍ୟୁମେଣ୍ଟ୍ ଶେଷ</string>
     <string name="key_ctrl_a">ସବୁ ଚୟନ କରନ୍ତୁ (Ctrl+A)</string>
+    <string name="start_on_bottom">ତଳୁ ଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
     <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
     <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
