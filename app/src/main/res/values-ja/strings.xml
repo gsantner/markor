@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">言語</string>
     <string name="error_need_storage_permission_to_save_documents">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
     <string name="open_with">開く…</string>
-    <string name="sort">並べ替え</string>
+    <string name="sort_by">並べ替え</string>
     <string name="date">日付</string>
     <string name="deleteme____1">名前順に並び替え</string>
     <string name="size">サイズ</string>
@@ -358,7 +358,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">コンテキストを追加</string>
     <string name="add_project">プロジェクトを追加</string>
     <string name="archive_completed_tasks">完了したタスクをアーカイブ</string>
-    <string name="sort_alphabetically">アルファベット順に並べ替え</string>
     <string name="create_new_file_or_folder">新しいファイルまたはフォルダーを作成</string>
     <string name="choose_format">書式の選択</string>
     <string name="selected">選択済み</string>
