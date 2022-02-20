@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Описание</string>
     <string name="edit_picture">Редактировать изображение</string>
     <string name="math">Формулы</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Введите атрибуты YAML Front Matter, чтобы показать в начале просмотренных документов. Заголовок. Введите ключи, разделенные запятыми. Оставьте пустым для них или используйте \'*\' для всех. \n\nЕсли у вас есть ключ, т.е. title: \'Привет\' определено и в вашем тексте есть {{ post.title }} , он всегда будет заменен. Вы можете сделать пользовательские передние вещества отображать таким образом.</string>
     <string name="table_of_contents">Оглавление</string>
     <string name="miscellaneous">Прочее</string>
     <string name="textaction">Операция с текстом</string>
