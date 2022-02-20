@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beskrivning</string>
     <string name="edit_picture">Redigera bild</string>
     <string name="math">Matematik</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Ange YAML Front Matter attribut för att visa i början av visade dokument. header. Ange nycklar separerade med kommatecken. Lämna tomt för ingen eller använd \'*\' för alla. \n\nOm du har någon nyckel, dvs titel: \'Hej\' definierad och det finns {{ post.title }} i din text, kommer den alltid att ersättas. Du kan göra en anpassad front materia visa detta sätt.</string>
     <string name="table_of_contents">Innehållsförteckning</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Åtgärd för text</string>
