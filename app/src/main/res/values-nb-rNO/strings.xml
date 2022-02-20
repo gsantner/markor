@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Språk</string>
     <string name="error_need_storage_permission_to_save_documents">Lagringstilgang behøves for lagring av dokumenter</string>
     <string name="open_with">Åpne med</string>
-    <string name="sort">Sorter</string>
+    <string name="sort_by">Sorter</string>
     <string name="date">Etter dato</string>
     <string name="deleteme____1">Etter name</string>
     <string name="size">Etter størrelse</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Legg til kontekst</string>
     <string name="add_project">Legg til prosjekt</string>
     <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
-    <string name="sort_alphabetically">Sorter alfabetisk</string>
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
     <string name="selected">Valgt</string>
