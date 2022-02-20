@@ -80,7 +80,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">언어</string>
     <string name="error_need_storage_permission_to_save_documents">문서를 저장하려면 저장소 접근 권한이 필요합니다</string>
     <string name="open_with">다음으로 열기:</string>
-    <string name="sort">다음으로 정렬:</string>
+    <string name="sort_by">다음으로 정렬:</string>
     <string name="date">날짜</string>
     <string name="deleteme____1">파일 이름</string>
     <string name="size">크기</string>
@@ -348,7 +348,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">문맥 추가</string>
     <string name="add_project">프로젝트 추가</string>
     <string name="archive_completed_tasks">완료된 할 일 보관처리</string>
-    <string name="sort_alphabetically">알파벳순으로 정렬</string>
+
     <string name="create_new_file_or_folder">새 파일 또는 폴더 만들기</string>
     <string name="choose_format">형식 선택</string>
     <string name="selected">선택됨</string>

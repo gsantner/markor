@@ -87,7 +87,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Language</string>
     <string name="error_need_storage_permission_to_save_documents">Need permission for storage to save documents</string>
     <string name="open_with">Open with</string>
-    <string name="sort">Sort by</string>
+    <string name="sort_by">Sort by</string>
     <string name="date">Date</string>
     <string name="deleteme____1">Name</string>
     <string name="size">Size</string>
@@ -374,7 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Add context</string>
     <string name="add_project">Add project</string>
     <string name="archive_completed_tasks">Archive completed tasks</string>
-    <string name="sort_alphabetically">Sort alphabetically</string>
+
     <string name="create_new_file_or_folder">Create a new file or folder</string>
     <string name="choose_format">Choose format</string>
     <string name="selected">Selected</string>

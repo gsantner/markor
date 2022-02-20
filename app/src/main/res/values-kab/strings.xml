@@ -74,7 +74,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Tutlayt</string>
     <string name="error_need_storage_permission_to_save_documents">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
     <string name="open_with">Ldi s</string>
-    <string name="sort">Smizzwer</string>
+    <string name="sort_by">Smizzwer</string>
     <string name="date">Smizzwer s wazemz</string>
     <string name="deleteme____1">Smizzwer s yisem</string>
     <string name="size">Teɣzi</string>

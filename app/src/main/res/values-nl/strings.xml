@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Taal</string>
     <string name="error_need_storage_permission_to_save_documents">Er is toestemming nodig voor het opslaan van de documenten</string>
     <string name="open_with">Open met</string>
-    <string name="sort">Sorteren</string>
+    <string name="sort_by">Sorteren</string>
     <string name="date">Sorteer op datum</string>
     <string name="deleteme____1">Sorteer op naam</string>
     <string name="size">Sorteer op bestandsgrootte</string>
@@ -358,7 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Context toevoegen</string>
     <string name="add_project">Voeg project toe</string>
     <string name="archive_completed_tasks">Voltooide taken archiveren</string>
-    <string name="sort_alphabetically">Alfabetisch sorteren</string>
+
     <string name="create_new_file_or_folder">Maak een nieuw bestand of map aan</string>
     <string name="choose_format">Kies formaat</string>
     <string name="selected">Geselecteerd</string>

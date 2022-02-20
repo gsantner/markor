@@ -145,7 +145,7 @@
         android:id="@+id/action_sort"
         android:layout_width="match_parent"
         android:icon="@drawable/ic_sort_black_24dp"
-        android:title="@string/sort"
+        android:title="@string/sort_by"
         app:showAsAction="always">
 
         <menu>

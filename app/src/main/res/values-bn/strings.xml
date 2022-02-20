@@ -78,7 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">ভাষা</string>
     <string name="error_need_storage_permission_to_save_documents">নথিগুলো সংরক্ষণ করতে স্টোরেজের অনুমতি প্রয়োজন</string>
     <string name="open_with">খুলতে ব্যবহার করুন</string>
-    <string name="sort">সাজানোর ক্রম</string>
+    <string name="sort_by">সাজানোর ক্রম</string>
     <string name="date">তারিখ</string>
     <string name="deleteme____1">নাম</string>
     <string name="size">আকার</string>

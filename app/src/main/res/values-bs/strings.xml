@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Jezik</string>
     <string name="error_need_storage_permission_to_save_documents">Neophodna je dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
-    <string name="sort">Sortiraj</string>
+    <string name="sort_by">Sortiraj</string>
     <string name="date">Datum</string>
     <string name="deleteme____1">Ime</string>
     <string name="size">Veličina</string>
@@ -357,7 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Dodaj kontekst</string>
     <string name="add_project">Dodaj projekat</string>
     <string name="archive_completed_tasks">Arhiviraj obavljene zadatke</string>
-    <string name="sort_alphabetically">Sortiraj po abecedi</string>
+
     <string name="create_new_file_or_folder">Kreiraj novu datoteku ili omotnicu</string>
     <string name="choose_format">Izaberi format</string>
     <string name="selected">Odabrano</string>

@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Bahasa</string>
     <string name="error_need_storage_permission_to_save_documents">Dibutuhkan izin akses penyimpanan untuk menyimpan dokumen</string>
     <string name="open_with">Buka dengan</string>
-    <string name="sort">Urut berdasarkan</string>
+    <string name="sort_by">Urut berdasarkan</string>
     <string name="date">Tanggal</string>
     <string name="deleteme____1">Nama</string>
     <string name="size">Ukuran</string>
@@ -357,7 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Tambah konteks</string>
     <string name="add_project">Tambah proyek</string>
     <string name="archive_completed_tasks">Arsipkan tugas yang selesai</string>
-    <string name="sort_alphabetically">Urutkan sesuai abjad</string>
+
     <string name="create_new_file_or_folder">Buat berkas baru atau folder</string>
     <string name="choose_format">Pilih format</string>
     <string name="selected">Dipilih</string>

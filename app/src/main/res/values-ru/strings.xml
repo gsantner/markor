@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Язык</string>
     <string name="error_need_storage_permission_to_save_documents">Требуется разрешение для сохранения документов</string>
     <string name="open_with">Открыть с помощью</string>
-    <string name="sort">Сортировать по</string>
+    <string name="sort_by">Сортировать по</string>
     <string name="date">Дата</string>
     <string name="deleteme____1">Имя</string>
     <string name="size">Размер</string>
@@ -358,7 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Добавить контекст</string>
     <string name="add_project">Добавить проект</string>
     <string name="archive_completed_tasks">Архивировать завершенные задачи</string>
-    <string name="sort_alphabetically">Сортировать по алфавиту</string>
+
     <string name="create_new_file_or_folder">Создать новый файл или папку</string>
     <string name="choose_format">Выберите формат</string>
     <string name="selected">Выбрано</string>

@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Idioma</string>
     <string name="error_need_storage_permission_to_save_documents">Necessitem permís d\'emmagatzematge per desar documents</string>
     <string name="open_with">Obre amb</string>
-    <string name="sort">Ordenar per</string>
+    <string name="sort_by">Ordenar per</string>
     <string name="date">Data</string>
     <string name="deleteme____1">Nom</string>
     <string name="size">Mida</string>
@@ -358,7 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Afegeix context</string>
     <string name="add_project">Afegeix un projecte</string>
     <string name="archive_completed_tasks">Arxivar les tasques completades</string>
-    <string name="sort_alphabetically">Ordena alfabèticament</string>
+
     <string name="create_new_file_or_folder">Crea un fitxer o carpeta nova</string>
     <string name="choose_format">Trieu el format</string>
     <string name="selected">Seleccionat</string>

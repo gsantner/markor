@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">שפה</string>
     <string name="error_need_storage_permission_to_save_documents">צריך אישור עבור אחסון לשמירת המסמכים</string>
     <string name="open_with">פתח באמצעות</string>
-    <string name="sort">מיין לפי</string>
+    <string name="sort_by">מיין לפי</string>
     <string name="date">תאריך</string>
     <string name="deleteme____1">שם</string>
     <string name="size">גודל</string>
@@ -360,7 +360,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">הוספת קונטקסט</string>
     <string name="add_project">הוספת פרוייקט</string>
     <string name="archive_completed_tasks">העבר מטלות שבוצעו לארכיון</string>
-    <string name="sort_alphabetically">מיין לפי</string>
+
     <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
     <string name="choose_format">בחר פורמאט</string>
     <string name="selected">נבחר</string>

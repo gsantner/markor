@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Sprog</string>
     <string name="error_need_storage_permission_to_save_documents">Giv tilladelse til at gemme dokumenter</string>
     <string name="open_with">Åbn med</string>
-    <string name="sort">Sortér efter</string>
+    <string name="sort_by">Sortér efter</string>
     <string name="date">Dato</string>
     <string name="deleteme____1">Navn</string>
     <string name="size">Størrelse</string>
@@ -358,7 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Tilføj kontekst</string>
     <string name="add_project">Tilføj projekt</string>
     <string name="archive_completed_tasks">Arkiv fuldførte opgaver</string>
-    <string name="sort_alphabetically">Sortér alfabetisk</string>
+
     <string name="create_new_file_or_folder">Opret en ny fil eller mappe</string>
     <string name="choose_format">Vælg format</string>
     <string name="selected">Valgt</string>
