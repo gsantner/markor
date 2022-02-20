@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beskrivelse</string>
     <string name="edit_picture">Redigér billede</string>
     <string name="math">Matematik</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Indtast YAML Front Matter attributter at vise i begyndelsen af viste dokumenter. header. Indtast nøgler adskilt af kommaer. Lad være tom for ingen eller brug \'*\' for alle. \n\nHvis du har en nøgle, dvs. titel: \'Hello\' defineret og der er {{ post.title }} i din tekst, det vil altid blive erstattet. Du kan lave en brugerdefineret front matter display på denne måde.</string>
     <string name="table_of_contents">Indhold</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Tekst handling</string>
