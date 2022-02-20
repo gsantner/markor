@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Langue</string>
     <string name="error_need_storage_permission_to_save_documents">Vous devez autoriser l\'application à écrire dans le mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
     <string name="open_with">Ouvrir avec</string>
-    <string name="sort">Trier</string>
+    <string name="sort_by">Trier</string>
     <string name="date">Trier par date</string>
     <string name="deleteme____1">Trier par nom</string>
     <string name="size">Taille</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Ajouter un contexte</string>
     <string name="add_project">Ajouter un projet</string>
     <string name="archive_completed_tasks">Archiver les tâches terminées</string>
-    <string name="sort_alphabetically">Trier par ordre alphabétique</string>
     <string name="create_new_file_or_folder">Créer un nouveau fichier ou dossier</string>
     <string name="choose_format">Choisir le format</string>
     <string name="selected">Sélectionné</string>
