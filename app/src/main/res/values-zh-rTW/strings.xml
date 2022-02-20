@@ -81,10 +81,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">語言</string>
     <string name="error_need_storage_permission_to_save_documents">擁有權限才能儲存文件</string>
     <string name="open_with">開啟用</string>
-    <string name="sort">排列</string>
     <string name="date">依日期排列</string>
     <string name="deleteme____1">依名稱排列</string>
-    <string name="size">依大小排列</string>
+    <string name="size">大小</string>
     <string name="reverse_order">反轉順序</string>
     <string name="contribute">貢獻</string>
     <string name="donate">贊助</string>
@@ -348,7 +347,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">行間內程式碼</string>
     <string name="horizontal_line">水平分隔線</string>
     <string name="link_color">連結顏色</string>
-    <string name="sort_alphabetically">依英文字母排序</string>
     <string name="create_new_file_or_folder">建立新檔案或資料夾</string>
     <string name="choose_format">選擇格式</string>
     <string name="selected">選擇</string>
