@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Idioma</string>
     <string name="error_need_storage_permission_to_save_documents">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
     <string name="open_with">Abrir com</string>
+    <string name="sort_by">Ordenar</string>
     <string name="date">Ordenar por Data</string>
     <string name="deleteme____1">Ordenar por Nome</string>
     <string name="size">Tamanho</string>
