@@ -129,7 +129,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__hl_delay" translatable="false">pref_key__todotxt__hl_delay</string>
     <string name="pref_key__todo_filepath" translatable="false">pref_key__todo_filepath</string>
     <string name="pref_key__todotxt__add_completion_date_for_todos" translatable="false">pref_key__todotxt__add_completion_date_for_todos</string>
-    <string name="pref_key__todotxt__start_new_tasks_with_todays_date" translatable="false">pref_key__todotxt__start_new_tasks_with_todays_date</string>
     <string name="pref_key__todotxt__append_contexts_and_projects_on_end_of_task" translatable="false">pref_key__todotxt__append_contexts_and_projects_on_end_of_task</string>
     <string name="pref_key__todotxt__last_used_archive_filename" translatable="false">pref_key__todotxt__last_used_archive_filename</string>
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
@@ -213,15 +212,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_common_attach_something" translatable="false">tmaid_common_attach_something</string>
     <string name="tmaid_common_unordered_list_char" translatable="false">tmaid_common_unordered_list_char</string>
     <string name="tmaid_common_ordered_list_number" translatable="false">tmaid_common_ordered_list_number</string>
+    <string name="tmaid_common_ordered_list_renumber" translatable="false">tmaid_common_ordered_list_renumber</string>
     <string name="tmaid_common_checkbox_list" translatable="false">tmaid_common_checkbox_list</string>
     <string name="tmaid_common_special_key" translatable="false">tmaid_common_special_key</string>
     <string name="tmaid_common_open_link_browser" translatable="false">tmaid_common_open_link_browser</string>
     <string name="tmaid_common_color_picker" translatable="false">tmaid_common_color_picker</string>
     <string name="tmaid_common_time" translatable="false">tmaid_common_time</string>
+    <string name="tmaid_common_time_insert_timestamp" translatable="false">tmaid_common_time_insert_timestamp</string>
     <string name="tmaid_common_jump_to_bottom" translatable="false">tmaid_common_jump_to_bottom</string>
     <string name="tmaid_common_search_in_content_of_current_file" translatable="false">tmaid_common_search_in_content_of_current_file</string>
     <string name="tmaid_common_accordion" translatable="false">tmaid_common_accordion</string>
     <string name="tmaid_common_indent" translatable="false">tmaid_common_indent</string>
+    <string name="tmaid_common_set_indent_size" translatable="false">tmaid_common_set_indent_size</string>
     <string name="tmaid_common_deindent" translatable="false">tmaid_common_deindent</string>
     <string name="tmaid_common_toolbar_title_clicked_edit_action" translatable="false">tmaid_common_toolbar_title_clicked_edit_action</string>
     <string name="tmaid_common_move_text_one_line_up" translatable="false">tmaid_common_move_text_one_line_up</string>

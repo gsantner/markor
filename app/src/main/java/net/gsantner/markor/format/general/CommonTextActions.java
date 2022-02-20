@@ -24,6 +24,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -99,9 +100,9 @@ public class CommonTextActions {
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                         _hlEditor.setSelection(0);
                     } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
-                        moveLineBy1(true);
+                        TextActions.moveLineSelectionBy1(_hlEditor, true);
                     } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
-                        moveLineBy1(false);
+                        TextActions.moveLineSelectionBy1(_hlEditor, false);
                     } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
                         _hlEditor.setSelection(_hlEditor.length());
                     } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
@@ -126,14 +127,6 @@ public class CommonTextActions {
                         _hlEditor.setSelectionExpandWholeLines();
                     }
                 });
-                return true;
-            }
-            case ACTION_MOVE_UP: {
-                moveLineBy1(true);
-                return true;
-            }
-            case ACTION_MOVE_DOWN: {
-                moveLineBy1(false);
                 return true;
             }
             case ACTION_NEW_LINE_BELOW: {
@@ -224,44 +217,5 @@ public class CommonTextActions {
                 break;
         }
         return false;
-    }
-
-    public void moveLineBy1(final boolean up) {
-
-        final Editable text = _hlEditor.getText();
-
-        final int[] sel = StringUtils.getSelection(_hlEditor);
-        final int linesStart = StringUtils.getLineStart(text, sel[0]);
-        final int linesEnd = StringUtils.getLineEnd(text, sel[1]);
-
-        if ((up && linesStart > 0) || (!up && linesEnd < text.length())) {
-
-            final CharSequence lines = text.subSequence(linesStart, linesEnd);
-
-            final int altStart = up ? StringUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
-            final int altEnd = StringUtils.getLineEnd(text, altStart);
-            final CharSequence altLine = text.subSequence(altStart, altEnd);
-
-            try {
-                // Prevents changes in text from triggering list prefix insert etc
-                _hlEditor.disableHighlighterAutoFormat();
-
-                final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
-                final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
-
-                final String newPair = String.format("%s\n%s", up ? lines : altLine, up ? altLine : lines);
-                text.replace(Math.min(linesStart, altStart), Math.max(altEnd, linesEnd), newPair);
-
-                selStart[0] += up ? -1 : 1;
-                selEnd[0] += up ? -1 : 1;
-                _hlEditor.setSelection(
-                        StringUtils.getIndexFromLineOffset(text, selStart),
-                        StringUtils.getIndexFromLineOffset(text, selEnd)
-                );
-
-            } finally {
-                _hlEditor.enableHighlighterAutoFormat();
-            }
-        }
     }
 }
