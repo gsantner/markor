@@ -80,7 +80,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">भाषा</string>
     <string name="error_need_storage_permission_to_save_documents">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>
     <string name="open_with">के साथ खोलें</string>
-    <string name="sort">छाटना</string>
+    <string name="sort_by">छाटना</string>
     <string name="date">दिनांक के हिसाब से छाटना</string>
     <string name="deleteme____1">नाम के हिसाब से छाटना</string>
     <string name="size">आकार</string>
@@ -205,7 +205,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="link_color">लिंक रंग</string>
     <string name="add_context">संदर्भ जोड़ें</string>
     <string name="add_project">प्रॉजेक्ट जोड़े</string>
-    <string name="sort_alphabetically">वर्णानुक्रम के अनुसार लगाएं</string>
     <string name="choose_format">\' स्वरूप \' चुनें</string>
     <string name="selected">चयनित</string>
     <string name="back">पीछे</string>
