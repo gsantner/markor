@@ -281,8 +281,8 @@ public class MarkdownTextConverter extends TextConverter {
 
         // Replace tokens in note with corresponding YAML attribute values
         markup = replaceTokens(markup);
-        frontmatter = replaceTokens(frontmatter);
         if (!TextUtils.isEmpty(frontmatter)) {
+            frontmatter = replaceTokens(frontmatter);
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
@@ -403,13 +403,14 @@ public class MarkdownTextConverter extends TextConverter {
                 );
             }
 
-            for (String aValue : attrValue) {
+            for (String v : attrValue) {
                 // Strip surrounding single or double quotes
-                aValue = aValue.replaceFirst("^(['\"])(.*)\\1", "$2");
-                aValue = TextUtils.htmlEncode(aValue);
-                aValue = aValue.replaceAll("(?<!-)---(?!-)", "&mdash;");
-                aValue = aValue.replaceAll("(?<!-)--(?!-)", "&ndash;");
-                attrValueOut.add(HTML_TOKEN_ITEM_S + aValue + HTML_TOKEN_ITEM_E);
+                v = v.replaceFirst("^(['\"])(.*)\\1", "$2");
+                v = TextUtils.htmlEncode(v)
+                        .replaceAll("(?<!-)---(?!-)", "&mdash;")
+                        .replaceAll("(?<!-)--(?!-)", "&ndash;")
+                        .trim();
+                attrValueOut.add(HTML_TOKEN_ITEM_S + v + HTML_TOKEN_ITEM_E);
             }
             String tokenValue = TextUtils.join(HTML_TOKEN_DELIMITER, attrValueOut).replace("{{ attrName }}", attrName);
 
