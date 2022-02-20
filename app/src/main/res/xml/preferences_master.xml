@@ -473,10 +473,10 @@
                     android:key="@string/pref_key__markdown_table_of_contents_enabled_levels"
                     android:title="@string/table_of_contents" />
                 <android.support.v7.preference.EditTextPreference
-                    android:defaultValue=""
-                    android:dialogMessage="@string/list_given_yaml_attributes"
+                    android:defaultValue="title,tags,date"
+                    android:dialogMessage="@string/enter_yaml_front_matter_keys_to_display"
                     android:icon="@drawable/ic_visibility_black_24dp"
-                    android:key="@string/pref_key__markdown_display_yaml_attributes"
+                    android:key="@string/pref_key__markdown_always_shown_yaml_front_matter_keys"
                     android:title="@string/yaml" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/textactions">

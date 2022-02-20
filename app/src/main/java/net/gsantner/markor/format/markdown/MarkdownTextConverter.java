@@ -48,6 +48,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -196,7 +197,7 @@ public class MarkdownTextConverter extends TextConverter {
         }
 
         if (!enablePresentationBeamer && markup.startsWith("---")) {
-            allowedYamlAttributes = appSettings.getMarkdownShowYamlAttributes();
+            allowedYamlAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
             Matcher hasTokens = YAML_TOKEN_PATTERN.matcher(markup);
             if (!allowedYamlAttributes.isEmpty() || hasTokens.find()) {
                 // Read YAML attributes
@@ -282,7 +283,7 @@ public class MarkdownTextConverter extends TextConverter {
         // Replace tokens in note with corresponding YAML attribute values
         markup = replaceTokens(markup);
         frontmatter = replaceTokens(frontmatter);
-        if (!frontmatter.equals("")) {
+        if (!TextUtils.isEmpty(frontmatter)) {
             frontmatter = HTML_FRONTMATTER_CONTAINER_S + frontmatter + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
@@ -380,10 +381,9 @@ public class MarkdownTextConverter extends TextConverter {
     }
 
     private Map<String, List<String>> extractYamlAttributes(final String markup) {
-        Parser yamlFrontmatterParser = Parser.builder().extensions(Collections.singleton(YamlFrontMatterExtension.create())).build();
-        AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
-        Node document = yamlFrontmatterParser.parse(markup);
-        visitor.visit(document);
+        final Parser parser = Parser.builder().extensions(Collections.singleton(YamlFrontMatterExtension.create())).build();
+        final AbstractYamlFrontMatterVisitor visitor = new AbstractYamlFrontMatterVisitor();
+        visitor.visit(parser.parse(markup));
         return visitor.getData();
     }
 
@@ -397,7 +397,11 @@ public class MarkdownTextConverter extends TextConverter {
 
             if (attrName.equals("tags") && attrValue.size() == 1) {
                 // It's not a real tag list, but rather a string of comma-separated strings
-                attrValue = Arrays.asList(attrValue.get(0).split(",\\s*"));
+                // replaceFirst: [tag1,tag2,tag3] -> "[tag1" "tag2" "tag3]" -> "tag1" "tag2" "tag3"
+                // LinkedHashSet in between keeps order, but eliminates later duplicates
+                attrValue = new ArrayList<>(new LinkedHashSet<>(Arrays.asList(
+                        attrValue.get(0).replaceFirst("^\\[", "").replaceFirst("]$", "").split(",\\s*")))
+                );
             }
 
             for (String aValue : attrValue) {

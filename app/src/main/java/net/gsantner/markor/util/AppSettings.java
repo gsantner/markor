@@ -181,13 +181,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__markdown_render_math, false);
     }
 
-    public List<String> getMarkdownShowYamlAttributes() {
-        String pref = getString(R.string.pref_key__markdown_display_yaml_attributes, "");
-        List<String> attributes = Arrays.asList(pref.replace(" ", "").split(","));
-        if (attributes.get(0).equals("")) {
-            attributes = new ArrayList<>();
-        }
-        return attributes;
+    public List<String> getMarkdownShownYamlFrontMatterKeys() {
+        String pref = getString(R.string.pref_key__markdown_always_shown_yaml_front_matter_keys, "title,tags,date");
+        List<String> keys = new ArrayList<>(Arrays.asList(pref.replace(" ", "").split(",\\s*")));
+        keys.removeAll(Arrays.asList("", null));
+        return keys;
     }
 
     public boolean isMarkdownNewlineNewparagraphEnabled() {
