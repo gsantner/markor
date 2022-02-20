@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Popis</string>
     <string name="edit_picture">Upravit obrázek</string>
     <string name="math">Matematika</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Zadejte YAML atributy fronty pro zobrazení na začátku zobrazených dokumentů. záhlaví. Zadejte klíče oddělené čárkami. Ponechte prázdné pro nic nebo použijte \'*\' pro všechny. \n\nPokud máte nějaký klíč, tj. title: \'Ahoj\' definovaný a ve vašem textu je {{ post.title }} , bude vždy nahrazen. Tímto způsobem můžete vytvořit vlastní frontu zobrazení.</string>
     <string name="table_of_contents">Obsah</string>
     <string name="miscellaneous">Ostatní</string>
     <string name="textaction">Textové moduly</string>
