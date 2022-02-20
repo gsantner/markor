@@ -217,7 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
-    <string name="source_code">Kod źródłowy</string>
+    <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Opis</string>
     <string name="edit_picture">Edytuj obrazek</string>
     <string name="math">Matematyka</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Wprowadź atrybuty YAML Front Matter, aby pokazać na początku oglądanych dokumentów. nagłówek. Wprowadź klucze oddzielone przecinkami. Pozostaw puste dla braku lub użyj \'*\' dla wszystkich. \n\nJeśli masz jakiś klucz, np. title: \'Witaj\' zdefiniowano i znajduje się {{ post.title }} w twoim tekście, zawsze zostanie on zastąpiony. Możesz zrobić niestandardowy widok w ten sposób.</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
     <string name="textaction">Akcja tekstu</string>
