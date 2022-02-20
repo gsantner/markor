@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschrijving</string>
     <string name="edit_picture">Foto bewerken</string>
     <string name="math">Wis</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Voer de YAML Front Matter attributen in om te laten zien aan het begin van bekeken documenten. kop. Voer sleutels in gescheiden door komma\'s. Laat leeg voor geen of gebruik \'*\' voor alles. \n\nAls je een sleutel hebt, vb. title: \'Hallo\' gedefinieerd en er is {{ post.title }} in je tekst, deze zal altijd worden vervangen. U kunt op deze manier een aangepaste voorkant laten zien.</string>
     <string name="table_of_contents">Inhoudsopgave</string>
     <string name="miscellaneous">Overige</string>
     <string name="textaction">Tekst actie</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Context toevoegen</string>
     <string name="add_project">Voeg project toe</string>
     <string name="archive_completed_tasks">Voltooide taken archiveren</string>
-
     <string name="create_new_file_or_folder">Maak een nieuw bestand of map aan</string>
     <string name="choose_format">Kies formaat</string>
     <string name="selected">Geselecteerd</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Om wiki-links te volgen, zoek je dynamisch naar het notebook.zim-bestand om de hoofdmap te identificeren voor het huidige notitieboek. Vink dit aan als je meerdere zim-notitieboekjes of de schrijffolder in de app niet overeenkomt met je zim-notitieboekje.</string>
     <string name="share_into_format_prefix_for_text_shared">Formaat/Voorvoegsel voor tekst gedeeld in Markor. Volgt de Android\'s SimpleDateFormat regels.\n\nGebruik de placeholder \'%s\' (omringd door enkele aanhalingstekens) om de gedeelde tekst te positioneren. Indien niet opgegeven, wordt de gedeelde tekst toegevoegd en het formaat gebruikt als voorvoegsel.</string>
     <string name="share_into_format">Deel mee - Formaat</string>
+    <string name="auto_format">Auto-formaat</string>
 </resources>
