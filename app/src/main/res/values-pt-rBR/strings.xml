@@ -27,7 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Criar pasta</string>
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
-    <string name="copy">copiar</string>
+    <string name="copy">Copiar</string>
     <string name="info">Informações</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Arquivo/pasta já existe! Por favor use um nome diferente</string>
     <string name="import_from_device">Importar do dispositivo</string>
