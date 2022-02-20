@@ -433,5 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Per seguire i collegamenti wiki, cerca dinamicamente il file notebook.zim per identificare la directory radice per il notebook corrente. Spunta questa opzione se usi più notebook zim o la directory del notebook impostata nell\'app non corrisponde al tuo notebook zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formato/Prefisso per il testo condiviso in Markor. Segue le regole SimpleDateFormat di Android.\n\nUsa il segnaposto \'%s\' (circondato da virgolette singole) per posizionare il testo condiviso. Se non specificato, il testo condiviso è messo in fondo e il formato usato come prefisso.</string>
     <string name="share_into_format">Condividi in - Formato</string>
-    <string name="auto_format">Formato Automatico</string>
+    <string name="auto_format">Autoformattazione</string>
 </resources>
