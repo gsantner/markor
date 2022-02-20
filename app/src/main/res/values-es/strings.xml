@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descripción</string>
     <string name="edit_picture">Editar imagen</string>
     <string name="math">Matemáticas</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">La pantalla ingresó los atributos YAML Front Matter en la parte superior de los documentos vistos. Introduzca las claves separadas por comas. Deje en blanco para ninguno o utilice \'*\' para todos. \n\nSi algún atributo está definido en el documento (i.e. title: \'Hola\') y hay {{ post.title }} en su documento también es reemplazado. Puede hacer un encabezamiento personalizado de la materia frontal de esta manera.</string>
     <string name="table_of_contents">Tabla de contenidos</string>
     <string name="miscellaneous">Diverso</string>
     <string name="textaction">Acción de texto</string>
