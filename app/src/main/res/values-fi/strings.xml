@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Kuvaus</string>
     <string name="edit_picture">Muokkaa kuvaa</string>
     <string name="math">Matematiikka</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Syötä YAML Front Matter -attribuutit, jotka näytetään katseltujen asiakirjojen alussa. otsikko. Syötä pilkuilla erotetut avaimet. Jätä tyhjäksi tyhjäksi tai käytä \'*\' kaikille. \n\nJos sinulla on jokin avain, eli title: \'Hei määritelty, ja tekstissäsi on {{ post.title }} , se korvataan aina. Voit tehdä mukautetun etukappaleen näyttää tällä tavalla.</string>
     <string name="table_of_contents">Sisällön taulukko</string>
     <string name="miscellaneous">Sekalaiset</string>
     <string name="textaction">Tekstin toiminto</string>
