@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beskrivelse</string>
     <string name="edit_picture">Rediger bilde</string>
     <string name="math">Matematikk</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Skriv inn YAML Front Matter attributter å vise i begynnelsen av viste dokumenter. header. Angi nøkler atskilt med komma. La stå tomt for ingen eller bruk \'*\' for alle. \n\nHvis du har en nøkkel, dvs. title: \'Hallo\' definert og det er {{ post.title }} i teksten, den vil alltid bli erstattet. Du kan gjøre en tilpasset front matter visning på denne måten.</string>
     <string name="table_of_contents">Tabell over innhold</string>
     <string name="miscellaneous">Forskjellig</string>
     <string name="textaction">Handling når tekst</string>
@@ -358,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Legg til kontekst</string>
     <string name="add_project">Legg til prosjekt</string>
     <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
-
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
     <string name="selected">Valgt</string>
@@ -433,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix for tekst delt inn i Markor. Følger reglene for Androids SimpleDateFormat.\n\nBruk plassholderen \'%s\' (omgitt av enkle tilbud) for å plassere den delte teksten. Hvis ikke angitt, legges den delte teksten til og formatet som brukes som prefiks.</string>
     <string name="share_into_format">Del inn - format</string>
+    <string name="auto_format">Autokoformater</string>
 </resources>
