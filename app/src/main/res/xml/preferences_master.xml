@@ -474,7 +474,7 @@
                     android:title="@string/table_of_contents" />
                 <android.support.v7.preference.EditTextPreference
                     android:defaultValue="title,tags,date"
-                    android:dialogMessage="@string/enter_yaml_front_matter_keys_to_display"
+                    android:dialogMessage="@string/enter_yaml_front_matter_attributes_to_show"
                     android:icon="@drawable/ic_list_black_24dp"
                     android:key="@string/pref_key__markdown_always_shown_yaml_front_matter_keys"
                     android:title="@string/front_matter" />
