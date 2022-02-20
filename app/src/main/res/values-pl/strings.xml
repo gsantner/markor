@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="undo">Cofnij</string>
     <string name="redo">Ponów</string>
     <string name="more">Więcej</string>
-    <string name="notebook">Notatnik</string>
+    <string name="notebook">Notatki</string>
     <string name="help">Pomoc</string>
     <string name="todo_list">Lista rzeczy do zrobienia</string>
     <string name="task">Zadanie</string>
@@ -172,7 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_spacing">Odstępy między wierszami</string>
     <string name="archive_does_move_done_tasks">Przenieś wykonane zadania do określonego pliku w tym samym folderze</string>
     <string name="sort_tasks_by_selected_order">Sortuj zadania według</string>
-    <string name="special_key">Specialne Klawisze</string>
+    <string name="special_key">Znaki specjalne</string>
     <string name="key_page_up">Strona w górę (Page Up)</string>
     <string name="key_page_down">Strona w dół (Page Down)</string>
     <string name="move_text_one_line_up">Przenieś tekst o jedną linię w górę</string>
