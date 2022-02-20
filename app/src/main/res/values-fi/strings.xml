@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Kieli</string>
     <string name="error_need_storage_permission_to_save_documents">Tallennuslupa tarvitaan asiakirjojen tallentamiseksi</string>
     <string name="open_with">Avaa sovelluksessa</string>
-    <string name="sort">Lajitteluperuste</string>
+    <string name="sort_by">Lajitteluperuste</string>
     <string name="date">Päivämäärä</string>
     <string name="deleteme____1">Nimi</string>
     <string name="size">Koko</string>
@@ -359,7 +359,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Lisää konteksti</string>
     <string name="add_project">Lisää projekti</string>
     <string name="archive_completed_tasks">Arkistoi suoritetut tehtävät</string>
-    <string name="sort_alphabetically">Lajittele aakkosjärjestyksessä</string>
     <string name="create_new_file_or_folder">Luo uusi tiedosto tai kansio</string>
     <string name="choose_format">Valitse muoto</string>
     <string name="selected">Valittu</string>
