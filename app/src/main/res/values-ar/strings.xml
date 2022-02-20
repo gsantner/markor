@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">وصف</string>
     <string name="edit_picture">تعديل الصورة</string>
     <string name="math">رياضيات</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">أدخل سمات ماد واجهة YAML لإظهارها في بداية الوثائق المعروضة. الرأس. أدخل المفاتيح مفصولة بفواصل. اتركه فارغاً لللا شيء أو استخدم \'*\' للجميع. \n\nإذا كان لديك أي مفتاح، أي title: \'مرحبا\' معرف وهناك {{ post.title }} في النص الخاص بك، سيتم استبداله دائما. يمكنك أن تجعل مادة أمامية مخصصة تعرض بهذه الطريقة.</string>
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
     <string name="textaction">إجراء النص</string>
