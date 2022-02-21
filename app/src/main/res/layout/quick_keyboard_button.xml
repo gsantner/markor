@@ -15,7 +15,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/keyboard_shortcut_button"
     android:gravity="center_vertical|center_horizontal"
-    android:minWidth="48dp"
+    android:minWidth="40dp"
     android:minHeight="48dp"
     android:paddingStart="12dp"
     android:paddingLeft="12dp"
