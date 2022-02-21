@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschreibung</string>
     <string name="edit_picture">Bild bearbeiten</string>
     <string name="math">Mathematik</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Zeige eingegebene YAML Front-Matter-Attribute oben bei angezeigten Dokumenten. Geben Sie die durch Kommata getrennten Schlüssel ein. Lassen Sie leer oder verwenden Sie \'*\' für alle. \n\nWenn ein Attribut im Dokument definiert ist (z. title: \'Hallo\') und es gibt auch {{ post.title }} in Ihrem Dokument, es wird ersetzt. Sie können auf diese Weise eine benutzerdefinierte Front-Matter-Richtung erstellen.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Eingetragene Titelei-Attribute in YAML in betrachteten Dokumenten oben ausgeben. Geben Sie dafür durch Kommata getrennte Schlüsselbegriffe ein. Lassen Sie diese weg falls keine oder verwenden Sie \'*\' falls alle ausgegeben werden sollen. \n\nWenn irgendein Attribut im Dokument definiert ist (z. B. Titel: \'Hallo\') und es {{ post.title }} auch in Ihrem Dokument gibt, wird es ersetzt. Sie können auf diese Weise eine benutzerdefinierte Titelei-Kopfzeile erstellen.</string>
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="textaction">Text Aktion</string>
