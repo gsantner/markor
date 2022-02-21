@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descripció</string>
     <string name="edit_picture">Edita la imatge</string>
     <string name="math">Matemàtiques</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Mostra els atributs de YAML Front Matter introduïts a la part superior als documents visualitzats. Introduïu les claus separades per comes. Deixeu-lo en blanc per a cap o feu servir \'*\' per a tots. \n\nSi es defineix algun atribut al document (p.ex. títol: \'Hola\') i també hi ha {{ post.title }} al document, se substituirà. Podeu crear un encapçalament personalitzat de Front Matter d\'aquesta manera.</string>
     <string name="table_of_contents">Taula de continguts</string>
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Accions de text</string>
