@@ -400,7 +400,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
     <string name="search_in_content">Szukaj w zawartości</string>
     <string name="max_search_depth">Zasięg wyszukiwania</string>
-    <string name="ignore_list">Ignoruj listę</string>
+    <string name="ignore_list">Lista ignorowanych</string>
     <string name="do_not_search_specified_files_and_folders">Nie szukaj określonych plików i folderów.\nUżyj nowej linii jako separatora.\nUżyj cytatów dla dokładnych nazw dirów: \"Test\".\nlub użyj Regex \'^[.].*\'\nPrzykłady: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Wyszukiwanie Regex</string>
     <string name="case_sensitive">Rozróżniaj wielkość liter</string>
