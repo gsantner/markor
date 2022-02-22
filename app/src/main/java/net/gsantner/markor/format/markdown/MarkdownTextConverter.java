@@ -49,6 +49,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -284,11 +285,19 @@ public class MarkdownTextConverter extends TextConverter {
             fmaText = HTML_FRONTMATTER_CONTAINER_S + fmaText + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
+        // Get document language
+        String docLanguage = "";
+        try {
+            docLanguage = fma.get("lang").get(0);
+        } catch (Exception e) {
+            docLanguage = Locale.getDefault().getLanguage();
+        }
+
 
         ////////////
         // Markup parsing - afterwards = HTML
         converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        converted = fmaText + converted;
+        converted = "<div lang='" + docLanguage + "'>" + fmaText + converted + "</div>";
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
