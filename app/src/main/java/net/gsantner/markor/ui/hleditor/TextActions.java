@@ -618,6 +618,14 @@ public abstract class TextActions {
                 runRenumberOrderedListIfRequired();
                 return true;
             }
+            case R.string.tmaid_common_insert_snippet: {
+                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, _document.getFormat(), (snip) -> {
+                    final int[] sel = StringUtils.getSelection(_hlEditor);
+                    sel[0] = Math.max(0, sel[0]);
+                    _hlEditor.getText().replace(sel[0], sel[1], snip);
+                    _hlEditor.setSelection(sel[0], sel[0] + snip.length());
+                });
+            }
             default: {
                 return new CommonTextActions(_activity, _hlEditor).runAction(_context.getString(action));
             }

@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -35,6 +36,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -44,15 +46,22 @@ import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class SearchOrCustomTextDialogCreator {
@@ -638,6 +647,57 @@ public class SearchOrCustomTextDialogCreator {
             };
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         }
+    }
+
+    private static String getFormatSnippetExtension(@StringRes final int format) {
+        switch (format) {
+            case (TextFormat.FORMAT_MARKDOWN):
+                return ".md";
+            case (TextFormat.FORMAT_PLAIN):
+                return ".txt";
+            case (TextFormat.FORMAT_TODOTXT):
+                return ".todo";
+            case (TextFormat.FORMAT_ZIMWIKI):
+                return ".zim";
+        }
+        return "";
+    }
+
+    public static void showInsertSnippetDialog(final Activity activity, @StringRes final int format, final Callback.a1<String> callback) {
+        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        final AppSettings as = new AppSettings(activity);
+        final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
+        if (!folder.exists() || !folder.isDirectory() || !folder.canRead()) {
+            return;
+        }
+        final String ext = getFormatSnippetExtension(format);
+
+        // Create a map of sippet texts
+        final Map<String, String> texts = new HashMap<>();
+        final String[] names = folder.list((d, name) -> name.substring(name.lastIndexOf('.')).equals(ext));
+        for (final String name : names) {
+            final int extIndex = name.lastIndexOf('.');
+            final String fileExt = name.substring(extIndex);
+            if (fileExt.equals(ext)) {
+                final String content = FileUtils.readTextFileFast(new File(folder, name));
+                if (!TextUtils.isEmpty(content)) {
+                    texts.put(name.substring(0, extIndex), content);
+                }
+            }
+        }
+
+        final List<String> data = new ArrayList<>(texts.keySet());
+        Collections.sort(data);
+        dopt.data = data;
+        dopt.isSearchEnabled = true;
+        dopt.titleText = R.string.insert_snippet;
+        dopt.messageText = "Select snippt to insert";
+        dopt.callback = (key) -> {
+            final String snippetText = texts.get(key);
+            callback.callback(ShareUtil.formatDateTime(activity, snippetText, System.currentTimeMillis(), snippetText));
+        };
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
