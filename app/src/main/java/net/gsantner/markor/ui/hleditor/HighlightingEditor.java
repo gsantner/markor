@@ -378,14 +378,16 @@ public class HighlightingEditor extends AppCompatEditText {
         return _accessibilityEnabled;
     }
 
-    public void replaceCurrentSelection(final String text) {
+    public void replaceCurrentSelection(final String text, final boolean ... reSelect) {
         final Editable edit = getText();
         if (edit != null && text != null) {
             final int[] sel = StringUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> {
                 edit.replace(sel[0], sel[1], text);
-                setSelection(sel[0], sel[0] + text.length());
+                if (reSelect != null && reSelect.length > 0 && reSelect[0]) {
+                    setSelection(sel[0], sel[0] + text.length());
+                }
             });
         }
     }
