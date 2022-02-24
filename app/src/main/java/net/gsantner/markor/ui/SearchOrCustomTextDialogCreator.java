@@ -669,7 +669,8 @@ public class SearchOrCustomTextDialogCreator {
         }
         final String ext = getFormatSnippetExtension(format);
 
-        // Create a map of sippet texts
+        // Read all files in snippets folder with appropriate extension
+        // Create a map of sippet title -> text
         final Map<String, String> texts = new HashMap<>();
         final String[] names = folder.list((d, name) -> name.substring(name.lastIndexOf('.')).equals(ext));
         for (final String name : names) {
@@ -688,7 +689,6 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
-        dopt.messageText = "Select snippt to insert";
         dopt.callback = (key) -> callback.callback(texts.get(key));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
