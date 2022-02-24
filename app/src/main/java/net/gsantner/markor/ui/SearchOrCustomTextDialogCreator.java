@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
-
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
@@ -51,7 +50,6 @@ import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -60,8 +58,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class SearchOrCustomTextDialogCreator {
@@ -693,10 +689,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = "Select snippt to insert";
-        dopt.callback = (key) -> {
-            final String snippetText = texts.get(key);
-            callback.callback(ShareUtil.formatDateTime(activity, snippetText, System.currentTimeMillis(), snippetText));
-        };
+        dopt.callback = (key) -> callback.callback(texts.get(key));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

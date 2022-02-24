@@ -352,6 +352,15 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_AUTO_FORMAT = "PREF_PREFIX_AUTO_FORMAT";
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
+    private static final String PREF_PREFIX_FORMAT_LAST_SNIPPET = "PREF_PREFIX_FORMAT_LAST_SNIPPET";
+
+    public void setLastFormatSnip(final @StringRes int formatId, final String text) {
+        setString(PREF_PREFIX_FORMAT_LAST_SNIPPET + _context.getString(formatId), text);
+    }
+
+    public String getLastFormatSnip(final @StringRes int formatId) {
+        return getString(PREF_PREFIX_FORMAT_LAST_SNIPPET + _context.getString(formatId), "");
+    }
 
     public void setLastEditPosition(File file, int pos) {
         if (file == null || !file.exists()) {

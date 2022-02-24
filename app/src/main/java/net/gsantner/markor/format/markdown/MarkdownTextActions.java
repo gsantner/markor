@@ -214,6 +214,9 @@ public class MarkdownTextActions extends TextActions {
                 case R.string.tmaid_common_indent: {
                     return runCommonTextAction(R.string.tmaid_common_set_indent_size);
                 }
+                case R.string.tmaid_common_insert_snippet: {
+                    return runCommonTextAction(R.string.tmaid_common_insert_recent_snippet);
+                }
             }
             return false;
         }

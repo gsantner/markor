@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class Document implements Serializable {
 
     private final File _file;
     private final String _fileExtension;
-    private int _format = TextFormat.FORMAT_UNKNOWN;
+    private @StringRes int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
@@ -137,7 +138,7 @@ public class Document implements Serializable {
         return _fileExtension;
     }
 
-    public int getFormat() {
+    public @StringRes int getFormat() {
         return _format;
     }
 

@@ -32,10 +32,12 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -620,11 +622,17 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_insert_snippet: {
                 SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, _document.getFormat(), (snip) -> {
-                    final int[] sel = StringUtils.getSelection(_hlEditor);
-                    sel[0] = Math.max(0, sel[0]);
-                    _hlEditor.getText().replace(sel[0], sel[1], snip);
-                    _hlEditor.setSelection(sel[0], sel[0] + snip.length());
+                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(snip));
+                    _appSettings.setLastFormatSnip(_document.getFormat(), snip);
                 });
+                return true;
+            }
+            case R.string.tmaid_common_insert_recent_snippet: {
+                final String snip = _appSettings.getLastFormatSnip(_document.getFormat());
+                if (!TextUtils.isEmpty(snip)) {
+                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(snip));
+                }
+                return true;
             }
             default: {
                 return new CommonTextActions(_activity, _hlEditor).runAction(_context.getString(action));
