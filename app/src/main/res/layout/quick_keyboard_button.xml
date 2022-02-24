@@ -19,7 +19,7 @@
     android:paddingRight="6dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:scaleType="centerInside"
+    android:scaleType="fitCenter"
     android:tint="@color/textActionIconColor"
     tools:src="@drawable/ic_check_box_black_24dp"
     tools:ignore="ContentDescription" />
