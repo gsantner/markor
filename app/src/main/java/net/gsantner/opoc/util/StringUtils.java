@@ -374,7 +374,8 @@ public final class StringUtils {
                 temp.append(c);
             }
         }
-        interpolated.append(temp);
+        interpolated.append(inDate ? "`" : ""); // Mismatched backtick, just add it literally
+        interpolated.append(temp); // Remaining text
         return interpolated.toString();
     }
 }
