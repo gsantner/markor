@@ -358,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Bağlam ekle</string>
     <string name="add_project">Proje ekle</string>
     <string name="archive_completed_tasks">Tamamlanan görevleri arşivle</string>
+
     <string name="create_new_file_or_folder">Yeni dosya ya da klasör oluştur</string>
     <string name="choose_format">Biçim seç</string>
     <string name="selected">Seçili</string>
@@ -432,5 +433,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
     <string name="share_into_format_prefix_for_text_shared">Markor\'da paylaşılan metni biçimlendir / öne al. Android\'in SimpleDateFormat yani Basit Tarih Formatına uygundur. \n\n \'%s\' ayracını (tek tırnakların içinde) paylaşılan metni konumlandırmak için kullan. Eğer belirtilmemişse, paylaşılan metin eklenir ve biçim başa eklenir.</string>
     <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
-    <string name="auto_format">Otomatik biçim</string>
 </resources>

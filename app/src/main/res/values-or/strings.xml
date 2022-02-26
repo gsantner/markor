@@ -53,8 +53,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
-    <string name="one_item_selected">ଗୋଟେ ଆଇଟମ୍ ଚୟନ କରାଯାଇଛି</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%dଟି ଆଇଟମ୍ ଚୟନ କରାଯାଇଛି</string>
     <string name="hide_statusbar_at_this_view">ଏହି ଦର୍ଶନରେ ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାନ୍ତୁ</string>
     <string name="hide_statusbar">ସ୍ଥିତି ଦଣ୍ଡିକା ଲୁଚାଅ</string>
     <string name="name">ନାମ</string>
@@ -115,21 +113,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="number_of_files_witharg" needed="false">ଫାଇଲ୍ ସଂଖ୍ୟା: %d</string>
     <string name="app_wide">ଆପ୍-ସାରା</string>
     <string name="main_view">ମୁଖ୍ୟ ଦର୍ଶନ</string>
-    <string name="overall_theme_used_in_app">ଆପରେ ବ୍ୟବହୃତ ସାମଗ୍ରିକ ଥିମ୍</string>
-    <string name="remember_last_directory">ଶେଷ ଡିରେକ୍ଟୋରୀକୁ ମନେରଖନ୍ତୁ</string>
     <string name="control_font_size_in_editor">ସମ୍ପାଦକରେ ବ୍ୟବହୃତ ଫଣ୍ଟ ଆକାରକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତୁ</string>
     <string name="format">ଫର୍ମାଟ୍</string>
     <string name="other">ଅନ୍ୟ</string>
     <string name="empty_file">ଖାଲି ଫାଇଲ୍</string>
-    <string name="break_page_pdf_print">ପୃଷ୍ଠା ଭାଙ୍ଗିବା (PDF/ମୁଦ୍ରଣ)</string>
     <string name="general">ସାଧାରଣ</string>
     <string name="resources">ସମ୍ବଳ</string>
     <string name="key_pos_1">ଲାଇନ୍ ଆରମ୍ଭ (Pos Home)</string>
     <string name="key_pos_end">ଲାଇନ୍ ଶେଷ (Pos End)</string>
-    <string name="key_pos_1_document">ଡକ୍ୟୁମେଣ୍ଟ୍ ଆରମ୍ଭ</string>
-    <string name="key_pos_end_document">ଡକ୍ୟୁମେଣ୍ଟ୍ ଶେଷ</string>
     <string name="key_ctrl_a">ସବୁ ଚୟନ କରନ୍ତୁ (Ctrl+A)</string>
-    <string name="start_on_bottom">ତଳୁ ଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
     <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
     <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
@@ -141,7 +133,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">ନିମ୍ନ</string>
     <string name="center">କେନ୍ଦ୍ର</string>
     <string name="edit_text_in_center_of_screen">ସ୍କ୍ରିନର ମଝିରେ ପାଠ୍ୟ ସମ୍ପାଦନ କରନ୍ତୁ</string>
-    <string name="clipboard">କ୍ଲିପବୋର୍ଡ</string>
     <string name="open_source_licenses">ଖୋଲା ଉତ୍ସ ଲାଇସେନ୍ସଗୁଡ଼ିକ</string>
     <string name="rate_this_app">ଏହି ଆପକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ</string>
     <string name="translate">ଅନୁବାଦ କରନ୍ତୁ</string>
@@ -154,7 +145,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">ଅବରୋହଣ</string>
     <string name="ascending">ଆରୋହଣ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
-    <string name="directory">ଡିରେକ୍ଟୋରୀ</string>
     <string name="recently_viewed_documents">ନିକଟରେ ଦେଖାଯାଇଥିବା ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
@@ -240,5 +230,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="dynamic_notebook_root_links">ନୋଟବୁକ୍ ମୂଳ ପାଇଁ ଡାଇନାମିକ୍ ସନ୍ଧାନ</string>
     <string name="share_into_format_prefix_for_text_shared">Markorରେ ଅଂଶୀଦାର ହୋଇଥିବା ପାଠ୍ୟ ପାଇଁ ଫର୍ମାଟ୍/ଉପସର୍ଗ। ଆଣ୍ଡ୍ରଏଡ୍ର ର SimpleDateFormat ନିୟମ ଅନୁସରଣ କରେ।\n\nଅଂଶିଦାରୀ ପାଠ୍ୟ ସ୍ଥାନିତ କରିବାକୁ ପ୍ଲେସହୋଲ୍ଡର୍ \'%s\' (ଉଦ୍ଧୃତି ଚିହ୍ନ ଦ୍ୱାରା ଘେରିକରି) ବ୍ୟବହାର କରନ୍ତୁ। ଯଦି ନିର୍ଦ୍ଦିଷ୍ଟ ହୋଇନାହିଁ, ଅଂଶିଦାରୀ ପାଠ୍ୟ କୁ ଯୋଡ଼ାଯାଏ ଏବଂ ଫର୍ମାଟ୍ ଏକ ଉପସର୍ଗ ଭାବରେ ବ୍ୟବହୃତ ହୁଏ।</string>
     <string name="share_into_format">ଏଥିରେ ଅଂଶୀଦାର - ଫର୍ମାଟ୍</string>
-    <string name="auto_format">ସ୍ଵତଃ-ଫର୍ମାଟ୍</string>
 </resources>

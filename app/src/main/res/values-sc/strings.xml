@@ -358,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Annanghe cuntestu</string>
     <string name="add_project">Annanghe unu progetu</string>
     <string name="archive_completed_tasks">Archìvia sas fainas acabadas</string>
+
     <string name="create_new_file_or_folder">Crea unu documentu o una cartella noa</string>
     <string name="choose_format">Issèbera su formadu</string>
     <string name="selected">Ischertados</string>

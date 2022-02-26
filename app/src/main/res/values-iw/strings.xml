@@ -360,6 +360,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">הוספת קונטקסט</string>
     <string name="add_project">הוספת פרוייקט</string>
     <string name="archive_completed_tasks">העבר מטלות שבוצעו לארכיון</string>
+
     <string name="create_new_file_or_folder">צור קובץ או תיקייה</string>
     <string name="choose_format">בחר פורמאט</string>
     <string name="selected">נבחר</string>
@@ -434,12 +435,11 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="due_overdue">באיחור</string>
     <string name="due_today">להיום</string>
     <string name="due_future">לעתיד</string>
-    <string name="completed">הושלם</string>
+    <string name="completed">הושלמו</string>
     <string name="match_any">התאם לפחות לאחד</string>
     <string name="match_all">התאם לכל</string>
     <string name="dynamic_notebook_root_links">חיפוש דינמי לשורש המחברת</string>
     <string name="search_dynamically_for_notebook_root">על מנת לעקוב אחר קישורי ויקי, יש לחפש בצורה דינמית בקובץ הnotebook.zim בכדי לזהות את תיקיית השורש עבור אותה מחברת. סמן את זה במידה ואתם משתמשים ביותר ממחברת zim אחת או במידה ותיקיית המחברות המוגדרת באפליקציה אינה תואמת למחברת הzim שלכם.</string>
     <string name="share_into_format_prefix_for_text_shared">פורמאט/תחילית עבור טקסט ששותף לתוך Markor. עוקב אחר חוקי SimpleDateFormat של אנדרויד.\n\nהשתמשו ב\'%s\' (תחום בגרשיים בודדים) למקם את הטקטס המשותף. אם לא מצוין, הטקסט המשותף מצורף בסוף והפורמאט משמש בתור תחילית בלבד.</string>
     <string name="share_into_format">נוסח עבור שיתוף לתוך</string>
-    <string name="auto_format">פירמוט אוטומטי</string>
 </resources>

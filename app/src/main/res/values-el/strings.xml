@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Περιγραφή</string>
     <string name="edit_picture">Επεξεργασία εικόνας</string>
     <string name="math">Μαθηματικά</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Εισάγετε τα χαρακτηριστικά YAML Front Matter που εμφανίζονται στην αρχή των προβαλλόμενων εγγράφων. Κεφαλίδα. Εισάγετε κλειδιά διαχωρισμένα με κόμματα. Αφήστε κενό για κανένα ή χρησιμοποιήστε το \'*\' για όλους. \n\nΕάν έχετε οποιοδήποτε κλειδί, π.χ. τίτλος: \'Γεια σας\' ορίζεται και υπάρχει {{ post.title }} στο κείμενό σας, πάντα θα αντικατασταθεί. Μπορείτε να κάνετε μια προσαρμοσμένη μπροστινή ύλη να εμφανίζεται με αυτόν τον τρόπο.</string>
     <string name="table_of_contents">Πίνακας περιεχομένων</string>
     <string name="miscellaneous">Διάφορα</string>
     <string name="textaction">Ενέργεια κειμένου</string>
@@ -360,6 +359,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Προσθήκη συγκειμένου</string>
     <string name="add_project">Προσθήκη έργου</string>
     <string name="archive_completed_tasks">Αρχειοθέτηση ολοκληρωμένων εργασιών</string>
+
     <string name="create_new_file_or_folder">Δημιουργία νέου αρχείου ή φακέλου</string>
     <string name="choose_format">Επιλογή μορφής</string>
     <string name="selected">Επιλεγμένο</string>
@@ -434,5 +434,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Για να ακολουθήσετε τους συνδέσμους wiki, αναζητήστε δυναμικά το αρχείο notebook.zim για να εντοπίσετε τον αρχικό κατάλογο για το τρέχον σημειωματάριο. Ενεργοποιήστε αυτή την επιλογή αν χρησιμοποιείτε πολλά σημειωματάρια, ή τον κατάλογο σημειωματαρίων που έχει οριστεί στην εφαρμογή δεν αντιστοιχεί στο zim σημειωματάριο σας.</string>
     <string name="share_into_format_prefix_for_text_shared">Μορφοποίηση/Πρόθεμα για κείμενο που μοιράζεται στο Markor. Ακολουθεί τους κανόνες SimpleDateFormat του Android.\n\nΧρησιμοποιήστε το σύμβολο κράτησης θέσης \'%s\' (περιβάλλεται από μονά εισαγωγικά) για να τοποθετήσετε το κοινόχρηστο κείμενο. Αν δεν καθοριστεί, το κοινόχρηστο κείμενο προστίθεται και η μορφή που χρησιμοποιείται ως πρόθεμα.</string>
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
-    <string name="auto_format">Αυτόματη διαμόρφωση</string>
 </resources>

@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Description</string>
     <string name="edit_picture">Éditer l\'image</string>
     <string name="math">Math</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Entrez les attributs YAML Front Matter à afficher au début des documents visionnés. en-tête. Entrez les clés séparées par des virgules. Laissez vide pour aucun ou utilisez \'*\' pour tous. \n\nSi vous avez une clé, i.e. title: \'Bonjour\' défini et il y a {{ post.title }} dans votre texte, il sera toujours remplacé. Vous pouvez créer un affichage personnalisé de la face avant de cette façon.</string>
     <string name="table_of_contents">Table des matières</string>
     <string name="miscellaneous">Divers</string>
     <string name="textaction">Action texte</string>
@@ -359,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Ajouter un contexte</string>
     <string name="add_project">Ajouter un projet</string>
     <string name="archive_completed_tasks">Archiver les tâches terminées</string>
+
     <string name="create_new_file_or_folder">Créer un nouveau fichier ou dossier</string>
     <string name="choose_format">Choisir le format</string>
     <string name="selected">Sélectionné</string>
@@ -433,5 +433,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Afin de suivre les liens du wiki, recherchez dynamiquement le fichier notebook.zim pour identifier le répertoire racine du cahier actuel. Cochez cette case si vous utilisez plusieurs blocs-notes zim ou si le répertoire de bloc-notes défini dans l\'application ne correspond pas à votre bloc-notes zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Préfixe pour le texte partagé dans Markor. Suit les règles SimpleDateFormat d\'Android.\n\nUtilisez l\'espace réservé \'%s\' (entouré de guillemets simples) pour positionner le texte partagé. Si non spécifié, le texte partagé est ajouté et le format utilisé comme préfixe.</string>
     <string name="share_into_format">Partager dans - Format</string>
-    <string name="auto_format">Format automatique</string>
 </resources>

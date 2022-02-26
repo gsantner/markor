@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Опис</string>
     <string name="edit_picture">Редагувати зображення</string>
     <string name="math">Формули</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Введіть атрибути YAML Front Matter, щоб відображатися на початку переглянутих документів. header. Введіть ключі через кому. Залиште порожнім для відсутності або використовуйте \'*\' для всіх. \n\nЯкщо у вас є будь-який ключ, наприклад, title: \'Привіт\' визначено, а у тексті {{ post.title }} він завжди буде замінений. Ви можете зробити настроювані передні питання таким чином.</string>
     <string name="table_of_contents">Зміст</string>
     <string name="miscellaneous">Різне</string>
     <string name="textaction">Команда тексту</string>
@@ -359,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Додати контекст</string>
     <string name="add_project">Додати проєкт</string>
     <string name="archive_completed_tasks">Архівувати завершені завдання</string>
+
     <string name="create_new_file_or_folder">Створити новий файл чи директорію</string>
     <string name="choose_format">Оберіть формат</string>
     <string name="selected">Обрано</string>
@@ -433,5 +433,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Для того, щоб перейти за посиланнями в вікі, динамічно шукати файл notebook.zim для визначення кореневої директорії для поточного записника. Поставте галочку, якщо ви використовуєте декілька самоблокнотів чи папку з нотатником у програмі не відповідає вашому зошит зошиту.</string>
     <string name="share_into_format_prefix_for_text_shared">Формат/Префікс тексту, виданий Маркер. Застосовує правила простого формату Андроїда.\n\nвикористовувати заповнювач \'%s\' (оточений одинарними лапками), щоб розмістити спільний текст. Якщо не вказано, то додається спільний текст і формат, який використовується як префікс.</string>
     <string name="share_into_format">Поділитися у форматі - Формат</string>
-    <string name="auto_format">Автоматичний формат</string>
 </resources>

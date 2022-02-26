@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Popis</string>
     <string name="edit_picture">Upravit obrázek</string>
     <string name="math">Matematika</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Zadejte YAML atributy fronty pro zobrazení na začátku zobrazených dokumentů. záhlaví. Zadejte klíče oddělené čárkami. Ponechte prázdné pro nic nebo použijte \'*\' pro všechny. \n\nPokud máte nějaký klíč, tj. title: \'Ahoj\' definovaný a ve vašem textu je {{ post.title }} , bude vždy nahrazen. Tímto způsobem můžete vytvořit vlastní frontu zobrazení.</string>
     <string name="table_of_contents">Obsah</string>
     <string name="miscellaneous">Ostatní</string>
     <string name="textaction">Textové moduly</string>
@@ -359,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Přidat kontext</string>
     <string name="add_project">Přidat projekt</string>
     <string name="archive_completed_tasks">Archivovat dokončené úkoly</string>
+
     <string name="create_new_file_or_folder">Vytvořit nový soubor nebo složku</string>
     <string name="choose_format">Zvolte formát</string>
     <string name="selected">Vybrané</string>
@@ -433,5 +433,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Chcete-li sledovat wiki odkazy, dynamicky vyhledat notebook.zim soubor pro identifikaci kořenového adresáře pro aktuální notebook. Zaškrtněte, pokud používáte více sešitů zim nebo nastavený adresář sešitu v aplikaci, neodpovídá Vašemu sešitu zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formát/Předpona pro text sdílený na značce. Postupujte podle pravidel SimpleDateFormat Androidu.\n\nPoužijte zástupný znak \'%s\' (obklopený jednoduchými uvozovkami) pro umístění sdíleného textu. Pokud není specifikováno, sdílený text je připojen a formát se používá jako prefix.</string>
     <string name="share_into_format">Sdílet do - formát</string>
-    <string name="auto_format">Automatický formát</string>
 </resources>

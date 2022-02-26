@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschreibung</string>
     <string name="edit_picture">Bild bearbeiten</string>
     <string name="math">Mathematik</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Geben Sie YAML Front-Matter-Attribute ein, die am Anfang der angezeigten Dokumente angezeigt werden. -Header. Geben Sie die durch Kommata getrennten Schlüssel ein. Lassen Sie leer für keine oder verwenden Sie \'*\' für alle. \n\nWenn Sie einen Schlüssel haben, z. title: \'Hallo\' definiert und es gibt {{ post.title }} in deinem Text, er wird immer ersetzt. Sie können auf diese Weise eine benutzerdefinierte Frontmasse anzeigen.</string>
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="textaction">Text Aktion</string>
@@ -359,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Kontext hinzufügen</string>
     <string name="add_project">Projekt hinzufügen</string>
     <string name="archive_completed_tasks">Erledigte Aufgaben archivieren</string>
+
     <string name="create_new_file_or_folder">Neue Datei oder Ordner erstellen</string>
     <string name="choose_format">Format auswählen</string>
     <string name="selected">Ausgewählt</string>
@@ -430,8 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_any">Jegliche Übereinstimmung</string>
     <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch-Wurzelverzeichnis</string>
-    <string name="search_dynamically_for_notebook_root">Zum Folgen von Wiki-Links dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu bestimmen. Aktivieren Sie diese Option, falls Sie mehrere Zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem Zim-Notebook entspricht.</string>
+    <string name="search_dynamically_for_notebook_root">Um Wiki-Links zu folgen, dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu identifizieren. Aktivieren Sie dies, wenn Sie mehrere zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem zim-Notebook entspricht.</string>
     <string name="share_into_format_prefix_for_text_shared">Formatierung/Präfix für in Markor geteilten Text. Befolgt Androids SimpleDateFormat-Regeln.\n\nVerwenden Sie den Platzhalter \'%s\' (umgeben von einfachen Anführungszeichen), um den geteilten Text zu platzieren. Falls nicht angegeben, wird der geteilte Text angehängt und die Formatierung wie ein Präfix verwendet.</string>
     <string name="share_into_format">Teilen in - Format</string>
-    <string name="auto_format">Auto-Format</string>
 </resources>

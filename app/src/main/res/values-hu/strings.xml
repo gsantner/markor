@@ -352,6 +352,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Kontextus hozzáadása</string>
     <string name="add_project">Projekt hozzáadása</string>
     <string name="archive_completed_tasks">Befejezett feladatok archiválása</string>
+
     <string name="create_new_file_or_folder">Új fájl vagy mappa létrehozása</string>
     <string name="choose_format">Formátum kiválasztása</string>
     <string name="selected">Kiválasztott</string>

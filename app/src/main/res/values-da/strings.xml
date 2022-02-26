@@ -242,7 +242,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beskrivelse</string>
     <string name="edit_picture">Redigér billede</string>
     <string name="math">Matematik</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Indtast YAML Front Matter attributter at vise i begyndelsen af viste dokumenter. header. Indtast nøgler adskilt af kommaer. Lad være tom for ingen eller brug \'*\' for alle. \n\nHvis du har en nøgle, dvs. titel: \'Hello\' defineret og der er {{ post.title }} i din tekst, det vil altid blive erstattet. Du kan lave en brugerdefineret front matter display på denne måde.</string>
     <string name="table_of_contents">Indhold</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Tekst handling</string>
@@ -359,6 +358,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_context">Tilføj kontekst</string>
     <string name="add_project">Tilføj projekt</string>
     <string name="archive_completed_tasks">Arkiv fuldførte opgaver</string>
+
     <string name="create_new_file_or_folder">Opret en ny fil eller mappe</string>
     <string name="choose_format">Vælg format</string>
     <string name="selected">Valgt</string>
@@ -433,5 +433,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">For at følge wiki-links skal du dynamisk søge efter filen notebook.zim for at identificere rodmappen for den aktuelle notesbog. Markér dette hvis du bruger flere zim notesbøger eller den notesbog mappe der er sat i appen, svarer ikke til din zim notesbog.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Præfiks for tekst delt i Markor. Følger Androids SimpleDateFormat regler.\n\nBrug pladsholderen \'%s\' (omgivet af enkelte anførselstegn) til at placere den delte tekst. Hvis ikke angivet, tilføjes den delte tekst og formatet bruges som præfiks.</string>
     <string name="share_into_format">Del på - Format</string>
-    <string name="auto_format">Auto-format</string>
 </resources>
