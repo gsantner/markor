@@ -624,14 +624,14 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_insert_snippet: {
                 SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(snip));
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.tmaid_common_insert_recent_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(_lastSnip));
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
                 }
                 return true;
             }
