@@ -238,25 +238,17 @@ public class HighlightingEditor extends AppCompatEditText {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyEvent_KEYCODE_SOMETHING, 0));
     }
 
-    public void insertOrReplaceTextOnCursor(String newText) {
-        newText = (newText == null ? "" : newText);
-        int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
-        newText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-        int start = Math.max(getSelectionStart(), 0);
-        int end = Math.max(getSelectionEnd(), 0);
-        getText().replace(Math.min(start, end), Math.max(start, end), newText, 0, newText.length());
-        if (newCursorPos >= 0) {
-            setSelection(start + newCursorPos);
-        }
-    }
-
-    public int getShiftWidth(String text) {
-        if (text.contains("sw=2") || text.contains("shiftwidth=2")) {
-            return 2;
-        } else if (text.contains("sw=8") || text.contains("shiftwidth=8")) {
-            return 8;
-        } else {
-            return 4;
+    public void insertOrReplaceTextOnCursor(final String newText) {
+        final Editable edit = getText();
+        if (edit != null && newText != null) {
+            int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
+            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
+            final int[] sel = StringUtils.getSelection(this);
+            sel[0] = Math.max(sel[0], 0);
+            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText) );
+            if (newCursorPos >= 0) {
+                setSelection(sel[0] + newCursorPos);
+            }
         }
     }
 
@@ -376,19 +368,5 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public boolean getAccessibilityEnabled() {
         return _accessibilityEnabled;
-    }
-
-    public void replaceCurrentSelection(final String text, final boolean ... reSelect) {
-        final Editable edit = getText();
-        if (edit != null && text != null) {
-            final int[] sel = StringUtils.getSelection(this);
-            sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(() -> {
-                edit.replace(sel[0], sel[1], text);
-                if (reSelect != null && reSelect.length > 0 && reSelect[0]) {
-                    setSelection(sel[0], sel[0] + text.length());
-                }
-            });
-        }
     }
 }
