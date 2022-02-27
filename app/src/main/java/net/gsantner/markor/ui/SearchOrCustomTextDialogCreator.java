@@ -645,20 +645,6 @@ public class SearchOrCustomTextDialogCreator {
         }
     }
 
-    private static String getFormatSnippetExtension(@StringRes final int format) {
-        switch (format) {
-            case (TextFormat.FORMAT_MARKDOWN):
-                return ".md";
-            case (TextFormat.FORMAT_PLAIN):
-                return ".txt";
-            case (TextFormat.FORMAT_TODOTXT):
-                return ".todo";
-            case (TextFormat.FORMAT_ZIMWIKI):
-                return ".zim";
-        }
-        return "";
-    }
-
     public static void showInsertSnippetDialog(final Activity activity, @StringRes final int format, final Callback.a1<String> callback) {
         final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -667,20 +653,14 @@ public class SearchOrCustomTextDialogCreator {
         if (!folder.exists() || !folder.isDirectory() || !folder.canRead()) {
             return;
         }
-        final String ext = getFormatSnippetExtension(format);
 
         // Read all files in snippets folder with appropriate extension
         // Create a map of sippet title -> text
-        final Map<String, String> texts = new HashMap<>();
-        final String[] names = folder.list((d, name) -> name.substring(name.lastIndexOf('.')).equals(ext));
-        for (final String name : names) {
-            final int extIndex = name.lastIndexOf('.');
-            final String fileExt = name.substring(extIndex);
-            if (fileExt.equals(ext)) {
-                final String content = FileUtils.readTextFileFast(new File(folder, name));
-                if (!TextUtils.isEmpty(content)) {
-                    texts.put(name.substring(0, extIndex), content);
-                }
+        final Map<String, File> texts = new HashMap<>();
+        for (final String name : folder.list()) {
+            final File item = new File(folder, name);
+            if (item.exists() && item.canRead() && FileUtils.isTextFile(item)) {
+                texts.put(name.substring(0, name.lastIndexOf('.')), item);
             }
         }
 
@@ -689,7 +669,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
-        dopt.callback = (key) -> callback.callback(texts.get(key));
+        dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)));
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
