@@ -59,6 +59,7 @@ public abstract class TextActions {
     protected ActivityUtils _au;
     private int _textActionSidePadding;
     protected int _indent;
+    private String _lastSnip;
 
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
@@ -622,16 +623,15 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {
-                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, _document.getFormat(), (snip) -> {
+                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
                     _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(snip));
-                    _appSettings.setLastFormatSnip(_document.getFormat(), snip);
+                    _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.tmaid_common_insert_recent_snippet: {
-                final String snip = _appSettings.getLastFormatSnip(_document.getFormat());
-                if (!TextUtils.isEmpty(snip)) {
-                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(snip));
+                if (!TextUtils.isEmpty(_lastSnip)) {
+                    _hlEditor.replaceCurrentSelection(StringUtils.interpolateEscapedDateTime(_lastSnip));
                 }
                 return true;
             }

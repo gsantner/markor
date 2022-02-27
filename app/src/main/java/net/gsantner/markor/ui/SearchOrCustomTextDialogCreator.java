@@ -645,7 +645,7 @@ public class SearchOrCustomTextDialogCreator {
         }
     }
 
-    public static void showInsertSnippetDialog(final Activity activity, @StringRes final int format, final Callback.a1<String> callback) {
+    public static void showInsertSnippetDialog(final Activity activity, final Callback.a1<String> callback) {
         final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final AppSettings as = new AppSettings(activity);
