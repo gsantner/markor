@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">输入 YAML 前台属性以在查看文档开头显示。 标头。输入密钥以逗号分隔。留空则不留空，或者对所有人使用“*”。 \n\n如果你有任何密钥, 例如: title: \'你好\' 定义, 你的文本中有 {{ post.title }} , 它将永远被替换. 您可以设置一个自定义前台显示这种方式。</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML 前置属性。输入密钥以逗号分隔。留空则不留空，或者全部使用“*”。 \n\n如果文档中定义了任何属性 (即) title: \'你好\', 你的文档有 {{ post.title }} 也被替换。你可以制作一个自定义的前台来向这个方向前进。</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
     <string name="textaction">文本操作</string>

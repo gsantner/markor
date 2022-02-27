@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descritzione</string>
     <string name="edit_picture">Èdita s\'immàgine</string>
     <string name="math">Matemàtica</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Ammustra sos atributos YAML Front Matter insertados a pitzos de sos documentos pompiados. Inserta sas craes separadas dae vìrgulas. Lassa bòidu pro perunu o imprea \'*\' pro totus. \n\nSi un\'atributu est definidu in su documentu ( a es. title: \'Salude\') e in su documentu tuo b\'est {{ post.title }}, s\'at a sostituire. Podes fàghere un\'intestatzione personalizada de Front Matter in custa manera.</string>
     <string name="table_of_contents">Ìnditze</string>
     <string name="miscellaneous">Vàriu</string>
     <string name="textaction">Atziones de su testu</string>
@@ -432,4 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Pro sighire sos ligàmenes wiki chirca in manera dinàmica su documentu notebook.zim pro identificare sa cartella de raighina pro sas notas atuales. Marca·lu si impreas prus blocos de notas zim o si sa cartella de su blocu de notas impostada in s\'aplicatzione non currispondet a su blocu de notas zim tuo.</string>
     <string name="share_into_format_prefix_for_text_shared">Formadu/Prefissu pro su testu cumpartzidu in Markor. Sighit sas règulas SimpleDateFormat de Android.\n\nImprea su sinnapostu \'%s\' (inghiriadu dae virguleddas sìngulas) pro pònnere in logu su testu cumpartzidu. Si no est dislindadu su testu cumpartzidu benit postu in fundu e su formadu s\'impreat comente prefissu.</string>
     <string name="share_into_format">Cumpartzi in - Formadu</string>
+    <string name="auto_format">Formatatzione automàtica</string>
 </resources>
