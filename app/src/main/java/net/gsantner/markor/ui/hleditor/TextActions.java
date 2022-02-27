@@ -247,7 +247,7 @@ public abstract class TextActions {
     }
 
     protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
-        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
+        final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setContentDescription(_activity.getString(descRes));
         TooltipCompat.setTooltipText(btn, _activity.getString(descRes));
@@ -268,7 +268,8 @@ public abstract class TextActions {
                 return false;
             });
         }
-        btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
+        final int sidePadding = _textActionSidePadding + btn.getPaddingLeft(); // Left and right are symmetrical
+        btn.setPadding(sidePadding, btn.getPaddingTop(), sidePadding, btn.getPaddingBottom());
         barLayout.addView(btn);
     }
 
