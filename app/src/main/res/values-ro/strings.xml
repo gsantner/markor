@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Descriere</string>
     <string name="edit_picture">Editează imaginea</string>
     <string name="math">Matematică</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Introduceți atributele YAML Front Matter de afișat la începutul documentelor vizualizate. antet. Introduceţi tastele separate prin virgule. Lăsaţi gol pentru nici unul sau utilizaţi \'*\' pentru toţi. \n\nDacă ai o cheie, adică title: \'Salut\' definit și există {{ post.title }} în textul tău, acesta va fi întotdeauna înlocuit. Puteți afișa o materie frontală personalizată în acest mod.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Afișează atributele YAML Front Matter în partea de sus a documentelor vizualizate. Introduceți cheile separate prin virgule. Lăsați necompletate pentru nici unul sau folosiți \'*\' pentru toți. \n\nDacă orice atribut este definit în document (ex: title: \'Salut\') și în documentul dvs. există {{ post.title }} și el este înlocuit. Puteți face un Front Matter personalizat heading în acest fel.</string>
     <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
     <string name="textaction">Acțiune text</string>
