@@ -11,6 +11,7 @@ package net.gsantner.markor.ui.hleditor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
@@ -18,20 +19,29 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.view.HapticFeedbackConstants;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.Utils;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.format.plaintext.PlainTextStuff;
+import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
@@ -55,8 +65,9 @@ public abstract class TextActions {
     protected Context _context;
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
-    private int _textActionSidePadding;
+    private final int _textActionSidePadding;
     protected int _indent;
+    private String _lastSnip;
 
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
@@ -72,19 +83,26 @@ public abstract class TextActions {
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }
 
-    /**
-     * Derived classes must implement a callback which inherits from ActionCallback
-     */
-    protected abstract static class ActionCallback implements View.OnLongClickListener, View.OnClickListener {
+    // Override to implement custom onClick
+    public boolean onActionClick(final @StringRes int action) {
+        return runCommonTextAction(action);
     }
 
-    /**
-     * Factory to generate ActionCallback for given keyId
-     *
-     * @param keyId Callback must handle keyId
-     * @return Child class of ActionCallback
-     */
-    protected abstract ActionCallback getActionCallback(@StringRes int keyId);
+    // Override to implement custom onLongClick
+    public boolean onActionLongClick(final @StringRes int action) {
+        return runCommonLongPressTextActions(action);
+    }
+
+    // Override to implement custom search action
+    public boolean onSearch() {
+        SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor);
+        return true;
+    }
+
+    // Override to implement custom title action
+    public boolean runTitleClick() {
+        return false;
+    }
 
     /**
      * Derived classes must return a unique StringRes id.
@@ -239,36 +257,36 @@ public abstract class TextActions {
             for (final String key : orderedKeys) {
                 if (!disabledKeys.contains(key)) {
                     final ActionItem action = map.get(key);
-                    final ActionCallback actionCallback = getActionCallback(action.keyId);
-                    appendTextActionToBar(barLayout, action.iconId, action.stringId, actionCallback, actionCallback);
+                    appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
                 }
             }
         }
     }
 
-    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, final View.OnClickListener listener, final View.OnLongClickListener longClickListener) {
-        ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
+    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, @StringRes int actionKey) {
+        final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(iconRes);
         btn.setContentDescription(_activity.getString(descRes));
         TooltipCompat.setTooltipText(btn, _activity.getString(descRes));
         btn.setOnClickListener(v -> {
             try {
-                listener.onClick(v);
+                v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                onActionClick(actionKey);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
-        if (longClickListener != null) {
-            btn.setOnLongClickListener(v -> {
-                try {
-                    return longClickListener.onLongClick(v);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                return false;
-            });
-        }
-        btn.setPadding(_textActionSidePadding, btn.getPaddingTop(), _textActionSidePadding, btn.getPaddingBottom());
+        btn.setOnLongClickListener(v -> {
+            try {
+                v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                return onActionLongClick(actionKey);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        });
+        final int sidePadding = _textActionSidePadding + btn.getPaddingLeft(); // Left and right are symmetrical
+        btn.setPadding(sidePadding, btn.getPaddingTop(), sidePadding, btn.getPaddingBottom());
         barLayout.addView(btn);
     }
 
@@ -543,7 +561,9 @@ public abstract class TextActions {
         }
     }
 
-    protected boolean runCommonTextAction(final @StringRes int action) {
+    // Some actions common to multiple file types
+    // Can be called _explicitly_ by a derived class
+    protected final boolean runCommonTextAction(final @StringRes int action) {
         switch (action) {
             case R.string.tmaid_common_unordered_list_char: {
                 runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
@@ -562,11 +582,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_time_insert_timestamp: {
-                try {
-                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
-                } catch (Exception ignored) {
-                }
-                return true;
+
             }
             case R.string.tmaid_common_accordion: {
                 _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + _context.getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
@@ -576,7 +592,7 @@ public abstract class TextActions {
                 SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
                     switch (itemId) {
                         case R.id.action_attach_color: {
-                            new CommonTextActions(getActivity(), _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
+                            showColorPickerDialog();
                             break;
                         }
                         case R.id.action_attach_date: {
@@ -605,30 +621,101 @@ public abstract class TextActions {
                 runRenumberOrderedListIfRequired();
                 return true;
             }
-            case R.string.tmaid_common_set_indent_size: {
-                SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
-                    _indent = Integer.parseInt(size);
-                    _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
-                });
-                return true;
-            }
             case R.string.tmaid_common_indent:
             case R.string.tmaid_common_deindent: {
                 runIndentLines(action == R.string.tmaid_common_deindent);
                 runRenumberOrderedListIfRequired();
                 return true;
             }
-            default: {
-                return new CommonTextActions(_activity, _hlEditor).runAction(_context.getString(action));
+            case R.string.tmaid_common_insert_snippet: {
+                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
+                    _lastSnip = snip;
+                });
+                return true;
+            }
+            case R.string.tmaid_common_open_link_browser: {
+                String url;
+                if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+                    if (url.endsWith(")")) {
+                        url = url.substring(0, url.length() - 1);
+                    }
+                    new ContextUtils(_activity).openWebpageInExternalBrowser(url);
+                }
+                return true;
+            }
+            case R.string.tmaid_common_special_key: {
+                runSpecialKeyAction();
+                return true;
+            }
+            case R.string.tmaid_common_new_line_below: {
+                // Go to end of line, works with wrapped lines too
+                _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[1]));
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
+                return true;
+            }
+            case R.string.tmaid_common_delete_lines: {
+                final int[] sel = StringUtils.getLineSelection(_hlEditor);
+                final Editable text = _hlEditor.getText();
+                final boolean lastLine = sel[1] == text.length();
+                final boolean firstLine = sel[0] == 0;
+                text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
+                return true;
+            }
+            // case R.string.tmaid_markdown_end_line_with_two_spaces: {
+            //     if (_hlEditor.length() > 1) {
+            //         int start = _hlEditor.getSelectionStart();
+            //         String text = _hlEditor.getText().toString();
+            //         int insertPos = text.indexOf('\n', start);
+            //         insertPos = insertPos < 1 ? text.length() : insertPos;
+            //         _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
+            //         _hlEditor.setSelection((Math.min((insertPos + 3), _hlEditor.length())));
+            //     }
+            //     return true;
+            // }
+        }
+        return false;
+    }
+
+    // Some long-press actions common to multiple file types
+    // Can be called _explicitly_ by a derived class
+    protected final boolean runCommonLongPressTextActions(@StringRes int action) {
+        switch (action) {
+            case R.string.tmaid_common_deindent:
+            case R.string.tmaid_common_indent: {
+                SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
+                    _indent = Integer.parseInt(size);
+                    _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
+                });
+                return true;
+            }
+            case R.string.tmaid_common_open_link_browser: {
+                return onSearch();
+            }
+            case R.string.tmaid_common_special_key: {
+                runJumpBottomTopAction();
+                return true;
+            }
+            case R.string.tmaid_common_time: {
+                try {
+                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
+                } catch (Exception ignored) {
+                }
+                return true;
+            }
+            case R.string.tmaid_common_ordered_list_number: {
+                runRenumberOrderedListIfRequired(true);
+                return true;
+            }
+            case R.string.tmaid_common_insert_snippet: {
+                if (!TextUtils.isEmpty(_lastSnip)) {
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
+                }
+                return true;
             }
         }
+        return false;
     }
-
-    public boolean runAction(final @StringRes int action) {
-        return runAction(action, false, null);
-    }
-
-    public abstract boolean runAction(final @StringRes int action, boolean modLongClick, String anotherArg);
 
     public static class ActionItem {
         @StringRes
@@ -706,4 +793,106 @@ public abstract class TextActions {
             }
         }
     }
+
+    private String rstr(@StringRes int resKey) {
+        return _activity.getString(resKey);
+    }
+
+    public void runSpecialKeyAction() {
+
+        // Needed to prevent selection from being overwritten on refocus
+        final int[] sel = StringUtils.getSelection(_hlEditor);
+        _hlEditor.clearFocus();
+        _hlEditor.requestFocus();
+        _hlEditor.setSelection(sel[0], sel[1]);
+
+        SearchOrCustomTextDialogCreator.showSpecialKeyDialog(_activity, (callbackPayload) -> {
+            if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
+                _hlEditor.requestFocus();
+            }
+            if (callbackPayload.equals(rstr(R.string.key_page_down))) {
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_DOWN);
+            } else if (callbackPayload.equals(rstr(R.string.key_page_up))) {
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_PAGE_UP);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_1))) {
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_end))) {
+                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
+                _hlEditor.setSelection(0);
+            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
+                TextActions.moveLineSelectionBy1(_hlEditor, true);
+            } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
+                TextActions.moveLineSelectionBy1(_hlEditor, false);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
+                _hlEditor.setSelection(_hlEditor.length());
+            } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
+                _hlEditor.setSelection(0, _hlEditor.length());
+            } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\u0009");
+            } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\u200B");
+            } else if (callbackPayload.equals(rstr(R.string.search))) {
+                onSearch();
+            } else if (callbackPayload.equals(rstr(R.string.break_page_pdf_print))) {
+                _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
+            } else if (callbackPayload.equals(rstr(R.string.ohm))) {
+                _hlEditor.insertOrReplaceTextOnCursor("Ω");
+            } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
+                _hlEditor.insertOrReplaceTextOnCursor("‾‾‾‾‾");
+            } else if (callbackPayload.equals(rstr(R.string.shrug))) {
+                _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
+            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+                _hlEditor.insertOrReplaceTextOnCursor("»«");
+            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
+                _hlEditor.setSelectionExpandWholeLines();
+            }
+        });
+    }
+
+    public void showColorPickerDialog() {
+        SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(_activity, new Callback.a1<Integer>() {
+            @Override
+            public void callback(Integer colorInsertType) {
+                ColorPickerDialogBuilder
+                        .with(_hlEditor.getContext())
+                        .setTitle(R.string.color)
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setPositiveButton(android.R.string.ok, new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                                String hex = Utils.getHexString(selectedColor, false).toLowerCase();
+                                int pos = _hlEditor.getSelectionStart();
+                                switch (colorInsertType) {
+                                    case R.string.hexcode: {
+                                        _hlEditor.getText().insert(pos, hex);
+                                        break;
+                                    }
+                                    case R.string.foreground: {
+                                        _hlEditor.getText().insert(pos, "<span style='color:" + hex + ";'></span>");
+                                        _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
+                                        break;
+                                    }
+                                    case R.string.background: {
+                                        _hlEditor.getText().insert(pos, "<span style='background-color:" + hex + ";'></span>");
+                                        _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
+                                        break;
+                                    }
+                                }
+
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, null)
+                        .build()
+                        .show();
+            }
+        });
+    }
+
+    public void runJumpBottomTopAction() {
+        int pos = _hlEditor.getSelectionStart();
+        _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+    }
+
 }

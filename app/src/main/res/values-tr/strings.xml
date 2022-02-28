@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Açıklama</string>
     <string name="edit_picture">Resmi düzenle</string>
     <string name="math">Matematik</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Görüntülenen belgelerde, girilen YAML Ön Konu niteliklerini üstte görüntüleyin. Virgülle ayrılmış anahtar kelimeleri girin. Hiç anahtar kelimeniz yoksa bu alanı boş bırakın veya tümü için \'*\' kullanın. \n\nBelgede herhangi bir öznitelik tanımlanmışsa (örneğin başlık: \'Merhaba\') ve belgenizde de {{ post.title }} mevcutsa, bu değiştirilecektir. Bu şekilde özel bir Ön Konu başlığı oluşturabilirsiniz.</string>
     <string name="table_of_contents">İçindekiler</string>
     <string name="miscellaneous">Çeşitli</string>
     <string name="textaction">Metin eylemi</string>

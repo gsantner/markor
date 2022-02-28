@@ -44,7 +44,6 @@ import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
@@ -484,7 +483,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_search: {
                 setViewModeVisibility(false);
-                _textFormat.getTextActions().runAction(R.string.tmaid_common_search_in_content_of_current_file);
+                _textFormat.getTextActions().onSearch();
                 return true;
             }
             case R.id.action_send_debug_log: {
@@ -494,7 +493,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             case R.id.action_attach_color: {
-                new CommonTextActions(activity, _hlEditor).runAction(CommonTextActions.ACTION_COLOR_PICKER);
+                _textFormat.getTextActions().showColorPickerDialog();
                 return true;
             }
             case R.id.action_attach_date: {
@@ -663,7 +662,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        if (!isAdded()) {
+        if (!isAdded() || _hlEditor == null || _document == null) {
             return false;
         }
 
@@ -671,7 +670,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _appSettings.setLastEditPosition(_document.getFile(), _hlEditor.getSelectionStart());
 
         // Document is written iff content has changed
-        // _isTextChanged implies _document != null && _hlEditor != null && _hlEditor.getText() != null
         if (_isTextChanged) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 updateLauncherWidgets();
@@ -808,7 +806,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                         _webView.scrollBy(0, 1000);
                     }
                 } else {
-                    new CommonTextActions(getActivity(), _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
+                    _textFormat.getTextActions().runJumpBottomTopAction();
                 }
                 return true;
             }
@@ -836,7 +834,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void onToolbarTitleClicked(final Toolbar toolbar) {
         if (!_isPreviewVisible && _textFormat != null) {
-            _textFormat.getTextActions().runAction(R.string.tmaid_common_toolbar_title_clicked_edit_action);
+            _textFormat.getTextActions().runTitleClick();
         }
     }
 }
