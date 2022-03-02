@@ -44,7 +44,7 @@ public abstract class TextConverter {
     protected static final String TOKEN_POST_TODAY_DATE = "{{ post.date_today }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
-    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html lang='" + Locale.getDefault().getLanguage() + "'><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
+    protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html lang='{{ lang }}'><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;width:325px;margin:auto;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_LIGHT = CSS_S + "html,body{color:#303030;}blockquote{color:#73747d;}" + CSS_E;
     protected static final String HTML002_HEAD_WITH_STYLE_DARK = CSS_S + "html,body{color:#ffffff;background-color:#303030;}a:visited{color:#dddddd;}blockquote{color:#cccccc;}" + CSS_E;
     protected static final String HTML003_RIGHT_TO_LEFT = CSS_S + "body{text-align:" + TOKEN_TEXT_DIRECTION + ";direction:rtl;}" + CSS_E;
@@ -120,7 +120,7 @@ public abstract class TextConverter {
         final String contentLower = content.toLowerCase();
         AppSettings appSettings = new AppSettings(context);
         boolean darkTheme = appSettings.isDarkThemeEnabled() && !isExportInLightMode;
-        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
+        String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE.replace("{{ lang }}", Locale.getDefault().getLanguage()) + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
