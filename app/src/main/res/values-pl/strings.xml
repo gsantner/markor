@@ -217,7 +217,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
     <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
-    <string name="source_code">Kod źródłowy</string>
+    <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
     <string name="project_team">Zespół Projektu</string>
@@ -242,7 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Opis</string>
     <string name="edit_picture">Edytuj obrazek</string>
     <string name="math">Matematyka</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Wprowadź atrybuty YAML Front Matter, aby pokazać na początku oglądanych dokumentów. nagłówek. Wprowadź klucze oddzielone przecinkami. Pozostaw puste dla braku lub użyj \'*\' dla wszystkich. \n\nJeśli masz jakiś klucz, np. title: \'Witaj\' zdefiniowano i znajduje się {{ post.title }} w twoim tekście, zawsze zostanie on zastąpiony. Możesz zrobić niestandardowy widok w ten sposób.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Pokaż użyte atrybuty YAML Front Matter na górze oglądanych dokumentów. Wprowadź klucze oddzielone przecinkami. Pozostaw puste, aby nie pokazywać żadnych lub \'*\' żeby pokazać wszystkie. \n\nJeśli jakiś atrybut jest zdefiniowany w dokumencie (tj. title: \'Hello\'), a w dokumencie znajduje się {{ post.title }}, to również zostanie zamieniony. W ten sposób możesz ustawić własny nagłówek Front Matter.</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
     <string name="textaction">Akcja tekstu</string>
@@ -400,7 +400,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="newline_is_new_paragraph">Nowa linia = nowy ustęp</string>
     <string name="search_in_content">Szukaj w zawartości</string>
     <string name="max_search_depth">Zasięg wyszukiwania</string>
-    <string name="ignore_list">Ignoruj listę</string>
+    <string name="ignore_list">Lista ignorowanych</string>
     <string name="do_not_search_specified_files_and_folders">Nie szukaj określonych plików i folderów.\nUżyj nowej linii jako separatora.\nUżyj cytatów dla dokładnych nazw dirów: \"Test\".\nlub użyj Regex \'^[.].*\'\nPrzykłady: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Wyszukiwanie Regex</string>
     <string name="case_sensitive">Rozróżniaj wielkość liter</string>
@@ -415,7 +415,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' już istnieje w %s</string>
     <string name="additional_contexts_and_projects">Dodatkowe konteksty i projekty</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Wprowadź oddzielone spacjami @contexts i +projekty. Będą one zawsze widoczne w oknie dialogowym wstawiania todo.txt.</string>
-    <string name="infinite">Nieskończone</string>
+    <string name="infinite">Bez ograniczeń</string>
     <string name="browse_by_project">Przeglądaj według projektu</string>
     <string name="browse_by_context">Przeglądaj według kontekstu</string>
     <string name="insert_project">Wstaw projekty</string>
