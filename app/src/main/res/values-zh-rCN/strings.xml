@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">共享到 Markor的文本格式/前缀。关注安卓的 SimpleDateFormat 规则。\n\n使用占位符\'%s\' (周围为单引号) 来定位共享文本。 如果未指定，共享文本将附加，并使用格式作为前缀。</string>
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自动格式</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
