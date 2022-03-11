@@ -313,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不能配合螢幕的寬度顯示會斷行，可以啟用水平捲動。</string>
     <string name="recursive_search_in_current_directory">在本目錄遞迴搜尋</string>
     <string name="always_open_with_this_app">永遠使用此應用程式開啟</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">當清單的項目裡包含延伸檔名時，總是以這個程式開啟檔案。例如您要編輯沒有延伸檔名的網頁檔案時可以使用\'None, .html, .css , .js\'等。</string>
     <string name="template">模板</string>
     <string name="send_debug_log">發送偵錯日誌</string>
     <string name="print_pdf">列印 / PDF</string>
