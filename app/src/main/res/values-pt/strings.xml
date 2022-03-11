@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Formato/Prefixo para texto compartilhado no Markor. Segue as regras de SimpleDateFormat do Android.\n\nUse o espaço reservado \'%s\' (cercado por aspas simples) para posicionar o texto compartilhado. Se não for especificado, o texto compartilhado é anexado e o formato usado como prefixo.</string>
     <string name="share_into_format">Compartilhar em - Formato</string>
     <string name="auto_format">Auto-formatar</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
