@@ -432,4 +432,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Markorに共有されるテキストのフォーマット/プレフィックス。AndroidのSimpleDateFormatルールに従います。\n\n共有テキストを配置するには、プレースホルダー \'%s\' (単一引用符で囲まれて) を使用します。 指定されていない場合は、共有テキストが追加され、プレフィックスとして使用される形式が追加されます。</string>
     <string name="share_into_format">共有 → 書式</string>
     <string name="auto_format">自動フォーマット</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
