@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
@@ -344,5 +346,36 @@ public final class StringUtils {
             }
             edit.setSelection(selStart, selEnd);
         }
+    }
+
+    // Search for matching pairs of backticks
+    // interpolate contents of backtick pair as SimpleDateFormat
+    public static String interpolateEscapedDateTime(final String snip) {
+        final StringBuilder interpolated = new StringBuilder();
+        final StringBuilder temp = new StringBuilder();
+        boolean isEscaped = false;
+        boolean inDate = false;
+        for (int i = 0; i < snip.length(); i++) {
+            final char c = snip.charAt(i);
+            if (c == '\\' && !isEscaped) {
+                isEscaped = true;
+            } else if (isEscaped) {
+                isEscaped = false;
+                temp.append(c);
+            } else if (c == '`' && inDate) { // Ending a date region
+                inDate = false;
+                interpolated.append(ShareUtil.formatDateTime((Locale) null, temp.toString(), System.currentTimeMillis()));
+                temp.setLength(0); // clear
+            } else if (c == '`') { // Starting a date region
+                inDate = true;
+                interpolated.append(temp);
+                temp.setLength(0); // clear
+            } else {
+                temp.append(c);
+            }
+        }
+        interpolated.append(inDate ? "`" : ""); // Mismatched backtick, just add it literally
+        interpolated.append(temp); // Remaining text
+        return interpolated.toString();
     }
 }
