@@ -435,4 +435,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Μορφοποίηση/Πρόθεμα για κείμενο που μοιράζεται στο Markor. Ακολουθεί τους κανόνες SimpleDateFormat του Android.\n\nΧρησιμοποιήστε το σύμβολο κράτησης θέσης \'%s\' (περιβάλλεται από μονά εισαγωγικά) για να τοποθετήσετε το κοινόχρηστο κείμενο. Αν δεν καθοριστεί, το κοινόχρηστο κείμενο προστίθεται και η μορφή που χρησιμοποιείται ως πρόθεμα.</string>
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
