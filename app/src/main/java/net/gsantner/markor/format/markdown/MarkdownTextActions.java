@@ -194,7 +194,7 @@ public class MarkdownTextActions extends TextActions {
         if (isHeaderEnabled) {
             _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
         }
-    };
+    }
 
     @Override
     public boolean runTitleClick() {
