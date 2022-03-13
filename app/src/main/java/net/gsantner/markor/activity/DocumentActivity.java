@@ -59,7 +59,8 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(final Activity activity, final File path, final Boolean doPreview, Intent intent, final Integer lineNumber) {
+
+    public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
@@ -103,7 +104,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, false, null, null);
+                DocumentActivity.launch(activity, file, null, null, null);
             } else {
                 new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
             }
@@ -257,7 +258,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditFragment &&
-                document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
+                        document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
             showFragment(DocumentEditFragment.newInstance(document, fileLineNumber));
