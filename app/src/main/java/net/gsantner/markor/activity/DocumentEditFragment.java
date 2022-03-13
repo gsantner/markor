@@ -22,6 +22,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -75,18 +76,22 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static final String START_PREVIEW = "START_PREVIEW";
 
-    public static DocumentEditFragment newInstance(final Document document, final int lineNumber) {
+    public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
-        args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+        if (lineNumber != null && lineNumber >= 0) {
+            args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+        }
+        args.putBoolean(START_PREVIEW, preview);
         f.setArguments(args);
         return f;
     }
 
-    public static DocumentEditFragment newInstance(final File path, final int lineNumber) {
-        return newInstance(new Document(path), lineNumber);
+    public static DocumentEditFragment newInstance(final @NonNull File path, final Integer lineNumber) {
+        return newInstance(new Document(path), lineNumber, false);
     }
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
@@ -133,13 +138,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Bundle args = getArguments();
         // Create the document as soon as possible
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
+            _document = (Document) args.get(Document.EXTRA_DOCUMENT);
         } else {
-            _document = Document.fromArguments(getActivity(), getArguments());
+            // We must have a document
+            _document = Document.getDefault(getContext());
         }
     }
 
@@ -153,7 +162,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
-
         _appSettings = new AppSettings(activity);
         if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WebView.enableSlowWholeDocumentDraw();
@@ -208,7 +216,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
 
-        setViewModeVisibility(_appSettings.getDocumentPreviewState(_document.getPath()));
+        final Bundle args = getArguments();
+
+        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
 
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
@@ -222,11 +232,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // First start - overwrite start position if needed
         if (savedInstanceState == null) {
-            final Bundle args = getArguments();
             if (isDisplayedAtMainActivity()) {
                 startPos = _hlEditor.length();
-            } else if (args != null && args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                // End of line
+            } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
                 startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0});
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();

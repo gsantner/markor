@@ -178,13 +178,18 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
-            final int paramLineNumber = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
-            final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
-                    || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(doc.getPath()))
-                    || file.getName().startsWith("index."));
-            _appSettings.setDocumentPreviewState(doc.getPath(), paramPreview);
 
-            showTextEditor(doc, paramLineNumber);
+            int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            if (startLine < 0 && intentData != null) {
+                startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+            }
+
+            final boolean startInPreview = (startLine < 0) && (
+                intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
+                _appSettings.getDocumentPreviewState(doc.getPath()) ||
+                file.getName().startsWith("index."));
+
+            showTextEditor(doc, startLine, startInPreview);
         }
     }
 
@@ -252,16 +257,15 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public void showTextEditor(final Document document, final Integer lineNumber) {
+    public void showTextEditor(final Document document, final Integer lineNumber, final Boolean startPreview) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
-        final int fileLineNumber = (lineNumber != null && lineNumber >= 0) ? lineNumber : -1;
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditFragment &&
-                        document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
+                document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
-            showFragment(DocumentEditFragment.newInstance(document, fileLineNumber));
+            showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview));
         }
     }
 

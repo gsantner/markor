@@ -195,10 +195,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
-            final Bundle args = new Bundle();
-            args.putSerializable(Document.EXTRA_PATH, file);
             final Context context = getContext();
-            final Document document = Document.fromArguments(context, args);
+            final Document document = new Document(file);
             final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
@@ -270,7 +268,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         private void showInDocumentActivity(Document document) {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
-                a.showTextEditor(document,  null);
+                a.showTextEditor(document,  null, false);
             }
         }
 

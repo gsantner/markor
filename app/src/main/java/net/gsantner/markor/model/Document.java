@@ -155,37 +155,10 @@ public class Document implements Serializable {
     }
 
     // Try several fallbacks to get a valid file
-    private static File getValidFile(Context context, Bundle arguments) {
-        File file = (File) arguments.getSerializable(EXTRA_PATH);
-
+    public static Document getDefault(final Context context) {
         final File notebook = new AppSettings(context).getNotebookDirectory();
-
-        // Default to notebook if null
-        file = (file == null) ? notebook : file;
-
-        // Default to notebook if could not create directory
-        file = (file.isDirectory() && !file.exists() && !file.mkdirs()) ? notebook : file;
-
-        // Try to
-        if (file.isDirectory()) {
-            final String content = arguments.getString(Intent.EXTRA_TEXT);
-            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__TXT);
-            while (temp.exists()) {
-                temp = new File(file, getFileNameWithTimestamp(true));
-            }
-            return temp;
-        }
-
-        return file;
-    }
-
-    public static Document fromArguments(Context context, Bundle arguments) {
-        if (arguments.containsKey(EXTRA_DOCUMENT)) {
-            // When called directly with a document
-            return (Document) arguments.getSerializable(EXTRA_DOCUMENT);
-        } else {
-            return new Document(getValidFile(context, arguments));
-        }
+        final File random = new File(notebook, getFileNameWithTimestamp(true));
+        return new Document(random);
     }
 
     private void setContentHash(final CharSequence s) {
