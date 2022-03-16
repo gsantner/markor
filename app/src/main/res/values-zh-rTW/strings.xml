@@ -349,6 +349,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="inline_code">行間內程式碼</string>
     <string name="horizontal_line">水平分隔線</string>
     <string name="link_color">連結顏色</string>
+    <string name="add_context">加入情境</string>
     <string name="create_new_file_or_folder">建立新檔案或資料夾</string>
     <string name="choose_format">選擇格式</string>
     <string name="selected">選擇</string>
@@ -376,6 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overwrite">覆寫</string>
     <string name="skip_all">全部跳過</string>
     <string name="overwrite_all">全部覆寫</string>
+    <string name="additional_contexts_and_projects">常用的情境與專案</string>
     <string name="infinite">無限</string>
     <string name="auto_format">自動格式化</string>
 </resources>
