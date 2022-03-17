@@ -231,10 +231,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_characters">純文字字元</string>
     <string name="text_words">純文字 字詞</string>
     <string name="directory">資料夾</string>
-    <string name="recently_viewed_documents">最近檔案</string>
+    <string name="recently_viewed_documents">最近開啟的檔案</string>
     <string name="details">細節</string>
     <string name="calendar">日曆</string>
-    <string name="warning_disallowed_sd_access">警告！這個應用沒有權限儲存這個檔案，所有變更將消失。此方無解，Android在此拒絕存取。</string>
+    <string name="warning_disallowed_sd_access">警告！這個應用程式沒有儲存此檔案的權限，所有變更都將遺失。若無法解決這個問題或確認某些設定，Android 將在此拒絕存取。</string>
     <string name="error_picture_selection">無相片被選擇、拍攝，或儲存</string>
     <string name="gallery_picture">相簿圖片</string>
     <string name="camera_picture">相機圖片</string>
