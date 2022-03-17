@@ -362,13 +362,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">已選擇</string>
     <string name="back">返回</string>
     <string name="expand_collapse">展開／摺疊</string>
+    <string name="action_order">動作順序</string>
     <string name="toggle_action_visibility">切换動作可見性</string>
     <string name="load_default_settings">載入預設設定</string>
     <string name="drag">拖曳</string>
     <string name="created">已建立</string>
     <string name="file_encryption_password">檔案加密密碼</string>
+    <string name="encrypt_file_content">加密檔案內容</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">無法加密檔案內容。檔案未儲存。</string>
     <string name="code_block">程式碼區塊</string>
+    <string name="add_completion_date">加入完成日期</string>
+    <string name="add_completion_date_for_todos_when_marking_them_as_done">將待辦事項標示為已完成時，加入完成日期</string>
     <string name="loading_default_value">正在載入預設值</string>
     <string name="file_settings">檔案設定</string>
     <string name="search_and_replace">搜尋 / 取代</string>
@@ -376,6 +380,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_with">取代為</string>
     <string name="replace_once">取代 (1)</string>
     <string name="replace_all">全部取代</string>
+    <string name="matches">比對</string>
+    <string name="search_replace_pattern_error_message">搜尋或取代模式錯誤。</string>
     <string name="backup_settings">備份設定</string>
     <string name="restore_settings">還原設定</string>
     <string name="failed_to_create_backup">建立備份失敗</string>
@@ -401,6 +407,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今天到期</string>
     <string name="due_future">未來到期</string>
     <string name="completed">已完成</string>
+    <string name="match_any">任意匹配</string>
+    <string name="match_all">匹配全部</string>
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自動格式化</string>
+    <string name="insert_snippet">插入片段</string>
 </resources>
