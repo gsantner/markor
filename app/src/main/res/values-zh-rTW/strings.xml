@@ -157,7 +157,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_current_date_when_starting_new_task">當開始一項新工作時插入當今日期</string>
     <string name="tasks_with_todays_date">有今天日期的工作</string>
     <string name="append_contexts_and_projects">增補內文與專案等</string>
-    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字動作時在任務的結尾加入情境或專案。</string>
+    <string name="append_contexts_and_projects_on_end_of_task">使用適當的文字動作時在任務的結尾加入情境或專案</string>
     <string name="rtl_rendering">RTL 顯現</string>
     <string name="highlight_line_ending">標記行末</string>
     <string name="highlight_line_ending_if_two_or_more_spaces">標記末尾有兩三個空格的行</string>
