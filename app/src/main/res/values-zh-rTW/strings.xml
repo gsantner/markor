@@ -362,6 +362,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="selected">已選擇</string>
     <string name="back">返回</string>
     <string name="expand_collapse">展開／摺疊</string>
+    <string name="essential">基本設定</string>
     <string name="action_order">動作順序</string>
     <string name="toggle_action_visibility">切换動作可見性</string>
     <string name="load_default_settings">載入預設設定</string>
