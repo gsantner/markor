@@ -186,8 +186,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">表格</string>
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
-    <string name="unordered_list_character">未排序清單字元</string>
-    <string name="character_to_start_items_of_unordered_list_with">這些字元用來標示未排序清單</string>
+    <string name="unordered_list_character">無序清單項目符號</string>
+    <string name="character_to_start_items_of_unordered_list_with">這些標記用來表示無序清單</string>
     <string name="unordered_list_char_dash">連接符 (-)</string>
     <string name="unordered_list_char_asterisk">星號 (*)</string>
     <string name="unordered_list_char_plus">加號 (+)</string>
