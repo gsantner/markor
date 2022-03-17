@@ -117,7 +117,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">建立捷徑</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有的同名檔案。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">所選文件未列於程式的\"筆記本\"目錄內，您要將它複製到現行目錄內嗎？這樣可能會覆蓋原來檔案。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現行資料夾裡嗎？這將會覆寫現有的同名檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
     <string name="file_browser">檔案瀏覽器</string>
@@ -126,7 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
-    <string name="disallow_screenshots">不允許螢幕快照</string>
+    <string name="disallow_screenshots">不允許截圖</string>
     <string name="back_to_previous_folder" needed="false">回到上個資料夾</string>
     <string name="app_settings" needed="false">程式設定</string>
     <string name="editor_settings" needed="false">編輯器設定</string>
