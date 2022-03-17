@@ -141,7 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
     <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
-    <string name="textactions_show_useful_actions_description__appspecific">用實用的活動顯示一個條列以插入使用中的文字模組</string>
+    <string name="textactions_show_useful_actions_description__appspecific">在底部顯示工作列按鈕以快速修改輸入的內容或執行其他動作。</string>
     <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
     <string name="format">格式</string>
     <string name="contexts">全文</string>
@@ -150,7 +150,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">全無</string>
     <string name="other">其他</string>
     <string name="empty_file">空白檔案</string>
-    <string name="break_page_pdf_print">分頁(PDF/列印)</string>
+    <string name="break_page_pdf_print">分頁（PDF / 列印）</string>
     <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
