@@ -187,11 +187,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom">從底端開始</string>
     <string name="start_on_bottom_when_loading_document">當載入文件後，游標位於末尾</string>
     <string name="unordered_list_character">無序清單項目符號</string>
-    <string name="character_to_start_items_of_unordered_list_with">這些標記用來表示無序清單</string>
-    <string name="unordered_list_char_dash">連接符 (-)</string>
+    <string name="character_to_start_items_of_unordered_list_with">這些符號用來表示無序清單</string>
+    <string name="unordered_list_char_dash">連接號 (-)</string>
     <string name="unordered_list_char_asterisk">星號 (*)</string>
     <string name="unordered_list_char_plus">加號 (+)</string>
-    <string name="filemanager_doesnot_supply_required_data__appspecific">Makor 僅能編輯本機，離線的文件，也不支援未提供完整路徑的檔案管理程式。</string>
+    <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅能編輯本機，離線可用的文件，亦不支援未提供完整路徑的檔案管理器。</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
     <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
     <string name="vertical_alignment">垂直偏移</string>
