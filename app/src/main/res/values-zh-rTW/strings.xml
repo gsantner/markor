@@ -288,9 +288,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_sdcard">應用程式資料(SD卡)</string>
     <string name="internal_storage">內部儲存空間</string>
     <string name="open_the_document_from_main_view">您可以從底部的主檢視區藉由檔案管理程式或啟動器開啟文件，另外還有一個選項是分享附加的文字給Markor。</string>
-    <string name="notebook_is_the_home_of_your_files">「筆記本」是Markor啟動時傳輸到檔案管理員中的資料夾，也是您檔案的主資料夾。</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">「快速」是迅速記錄的選項，以Markdown格式存放在預設位置&gt;Notebook/QuickNote.md&lt;，您可以在設定裡自訂其途徑。</string>
-    <string name="todo_is_the_easiest_way_">ToDo可以用來管理您的工作任務，預設位置是&gt;Notebook/todo.txt&lt;，您可以在設定裡自訂其途徑。</string>
+    <string name="notebook_is_the_home_of_your_files">「筆記本」是 Markor 啟動時在檔案管理器中的載入的資料夾，也是您檔案的主資料夾。</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">「QuickNote」是快速紀錄筆記的最佳選擇，以 Markdown 格式存放在預設位置 &gt;Notebook/QuickNote.md&lt;，您可以在設定裡自訂檔案路徑。</string>
+    <string name="todo_is_the_easiest_way_">「ToDo」可以用來管理您的工作任務，以 todo.txt 格式存放在預設位置 &gt;Notebook/todo.txt&lt;，您可以在設定裡自訂檔案路徑。</string>
     <string name="navigationbar_color">導覽列顏色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
