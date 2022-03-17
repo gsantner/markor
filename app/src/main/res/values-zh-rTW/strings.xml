@@ -391,7 +391,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">在内容中搜尋</string>
     <string name="max_search_depth">搜尋深度</string>
     <string name="ignore_list">忽略列表</string>
+    <string name="regex_search">以正規表示式來搜尋</string>
     <string name="case_sensitive">區分大小寫</string>
+    <string name="stop_search_after_first_match">第一次匹配後停止搜尋</string>
+    <string name="regex_can_not_be_compiled">無法編譯正規表示式</string>
     <string name="keep_both">兩者都保留</string>
     <string name="skip">跳過</string>
     <string name="overwrite">覆寫</string>
