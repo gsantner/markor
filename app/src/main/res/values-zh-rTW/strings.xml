@@ -386,6 +386,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">還原設定</string>
     <string name="failed_to_create_backup">建立備份失敗</string>
     <string name="export_settings_to_json_file">匯出設定至 JSON 檔案</string>
+    <string name="failed_to_restore_settings_from_backup">從備份還原設定失敗</string>
     <string name="case_sensitive">區分大小寫</string>
     <string name="keep_both">兩者都保留</string>
     <string name="skip">跳過</string>
