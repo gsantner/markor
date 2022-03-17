@@ -253,10 +253,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="zero_width_space">零寬度空格</string>
     <string name="basic_color_scheme">基本顏色主題</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
-    <string name="preset">預設</string>
+    <string name="preset">預設值</string>
     <string name="foreground">前景色</string>
     <string name="background">背景</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Set foreground or background color of text? Inserting hex color code is also possible.</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">要設定文字的前景色和背景顏色嗎？也可以插入 Hex 顏色代碼。</string>
     <string name="type">檔案類型</string>
     <string name="folder">資料夾</string>
     <string name="folder_is_created_without_extension">建立的資料夾沒有延伸檔名</string>
