@@ -224,8 +224,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors_public_add_yourself_description">顯示 貢獻者的資訊，貢獻者在提供所有後可在此留下訊息（選項）</string>
     <string name="descending">降冪</string>
     <string name="ascending">升羃</string>
-    <string name="disable_spelling_underline">停用語法檢查</string>
-    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">鍵盤建議停留，紅色底線消失</string>
+    <string name="disable_spelling_underline">停用拼字檢查</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">保留鍵盤輸入時顯示的文字建議，移除紅色底線</string>
     <string name="location">地點</string>
     <string name="text_lines">文字行</string>
     <string name="text_characters">純文字字元</string>
