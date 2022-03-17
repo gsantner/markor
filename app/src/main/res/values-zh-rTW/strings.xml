@@ -263,12 +263,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- 不會覆寫檔案與資料夾</string>
     <string name="multiple_windows">多重視窗</string>
     <string name="font">字型</string>
-    <string name="open_new_documents_always_in_new_window">使用您裝置上的\"最近的\"鍵以切換成總是在分別的視窗開啟文件。</string>
+    <string name="open_new_documents_always_in_new_window">始終在單獨的視窗開啟文件。您可以使用裝置的「最近」按鈕或手勢在視窗之間互相切換。</string>
     <string name="enter_or_select_format">輸入或選擇格式</string>
     <string name="pick_date">選擇日期</string>
     <string name="pick_time">選擇時間</string>
-    <string name="get_format_instead_date_or_time">取代日期或時間的格式</string>
-    <string name="always_use_current_date_and_time">永遠使用實際時間</string>
+    <string name="get_format_instead_date_or_time">不含日期或時間的原始格式</string>
+    <string name="always_use_current_date_and_time">始終使用目前的日期 &amp; 時間</string>
     <string name="result">結果</string>
     <string name="just_time">僅時間</string>
     <string name="just_date">僅日期</string>
@@ -277,7 +277,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">關閉</string>
     <string name="cancel">取消</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">喜歡這個專案嗎？希望它繼續改善而且問題得到解決嗎？\n\n開發應用程式以及撰寫相關部落格文章都需要很多時間！如果你想要幫忙讓專案可以繼續，請考慮小額捐款！\n\n這個專案是在閒暇時間開發的，完全免費，並且沒有任何廣告！</string>
-    <string name="app_start_tab">啟動顯示頁面</string>
+    <string name="app_start_tab">啟動時顯示的頁面</string>
     <string name="tab_to_select_at_start">起始程式時，點選分頁</string>
     <string name="swipe_to_change_mode">滑動以更改模式</string>
     <string name="swipe_to_change_to_edit_or_view_mode">滑動以變更編輯或檢視模式(現行模式的反向操作)</string>
