@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (純文字)</string>
     <string name="document_editor_font">文件編輯字型</string>
     <string name="theme">主題</string>
-    <string name="open_existing_files_in_view_mode">於檢視模式中開啟現存的文件</string>
+    <string name="open_existing_files_in_view_mode">於檢視模式中開啟現有的文件</string>
     <string name="about">說明</string>
     <string name="plaintext">純文字文件</string>
     <string name="file">檔案</string>
@@ -116,8 +116,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">更新</string>
     <string name="create_shortcut">建立捷徑</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個程式的筆記本目錄中，您要將它複製到現行資料夾裡嗎？這將會覆寫現有的同名檔案。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現行資料夾裡嗎？這將會覆寫現有的同名檔案。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在應用程式的筆記本目錄中，您要將它複製到現有資料夾裡嗎？這將會覆寫已存在的同名檔案。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現有資料夾裡嗎？這將會覆寫已存在的同名檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
     <string name="file_browser">檔案瀏覽器</string>
@@ -202,8 +202,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">頂端</string>
     <string name="bottom">底端</string>
     <string name="center">中央</string>
-    <string name="textaction_spacing">文字模組間距</string>
-    <string name="horizontal_space_between_textactions">字句動作按鈕間的水平空間</string>
+    <string name="textaction_spacing">工作列按鈕間距</string>
+    <string name="horizontal_space_between_textactions">工作列按鈕之間的水平間距</string>
     <string name="center_text">文件中央</string>
     <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
@@ -260,7 +260,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="type">檔案類型</string>
     <string name="folder">資料夾</string>
     <string name="folder_is_created_without_extension">建立的資料夾沒有延伸檔名</string>
-    <string name="keep_existing_file">- 不會複寫檔案與資料夾</string>
+    <string name="keep_existing_file">- 不會覆寫檔案與資料夾</string>
     <string name="multiple_windows">多重視窗</string>
     <string name="font">字體</string>
     <string name="open_new_documents_always_in_new_window">使用您裝置上的\"最近的\"鍵以切換成總是在分別的視窗開啟文件。</string>
