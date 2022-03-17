@@ -236,9 +236,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="calendar">日曆</string>
     <string name="warning_disallowed_sd_access">警告！這個應用程式沒有儲存此檔案的權限，所有變更都將遺失。若無法解決這個問題或確認某些設定，Android 將在此拒絕存取。</string>
     <string name="error_picture_selection">無相片被選擇、拍攝，或儲存</string>
-    <string name="gallery_picture">相簿圖片</string>
+    <string name="gallery_picture">相簿</string>
     <string name="camera_picture">相機圖片</string>
-    <string name="enable_undo_and_redo_be_patient">啟用恢復和重做動作，僅適用於進階使用，請小心以免刪除重要資料。關閉再開啟編輯器可以清除歷史紀錄。</string>
+    <string name="enable_undo_and_redo_be_patient">啟用復原和重做動作，僅適用於進階使用，請小心以免刪除重要資料。關閉再開啟編輯器可以清除歷史紀錄。</string>
     <string name="description">詳情</string>
     <string name="edit_picture">編輯圖片</string>
     <string name="math">數學</string>
