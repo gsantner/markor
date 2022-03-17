@@ -278,7 +278,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">取消</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">喜歡這個專案嗎？希望它繼續改善而且問題得到解決嗎？\n\n開發應用程式以及撰寫相關部落格文章都需要很多時間！如果你想要幫忙讓專案可以繼續，請考慮小額捐款！\n\n這個專案是在閒暇時間開發的，完全免費，並且沒有任何廣告！</string>
     <string name="app_start_tab">啟動時顯示的頁面</string>
-    <string name="tab_to_select_at_start">起始程式時，點選分頁</string>
+    <string name="tab_to_select_at_start">開啟應用程式時，選擇要顯示的頁面</string>
     <string name="swipe_to_change_mode">滑動以更改模式</string>
     <string name="swipe_to_change_to_edit_or_view_mode">滑動以變更編輯或檢視模式(現行模式的反向操作)</string>
     <string name="folder_first">資料夾優先</string>
@@ -302,12 +302,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">分享至</string>
     <string name="favourite">新增至我的最愛</string>
     <string name="favourites">最愛列表</string>
-    <string name="please_wait">請稍等</string>
+    <string name="please_wait">請稍候</string>
     <string name="app_start_folder">程式啟動時跳轉資料夾</string>
     <string name="tab_width">製表符寬度</string>
     <string name="amount_of_space_for_tab">表格需要的空間字元數量</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">所選的檔案可能是純文字文件，您想用文字編輯器或是他程式開啟？\n\n執行檔案無法開啟，如果不確定，以其他程式開啟。</string>
-    <string name="list_in_recent_files">最近開啟的文件的列表</string>
+    <string name="list_in_recent_files">最近開啟的文件列表</string>
     <string name="reload">重新下載</string>
     <string name="wrap_words">文字折行</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字超過螢幕寬度時會自動換行。停用該功能則開啟水平捲動。</string>
