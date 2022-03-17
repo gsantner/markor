@@ -175,8 +175,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="special_key">特殊鍵</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
-    <string name="move_text_one_line_up">移動文字上一行</string>
-    <string name="move_text_one_line_down">移動文字下一行</string>
+    <string name="move_text_one_line_up">移動文字到上一行</string>
+    <string name="move_text_one_line_down">移動文字到下一行</string>
     <string name="start_new_line_below">在底下開始新的一行</string>
     <string name="key_pos_1">起始行 (Pos Home)</string>
     <string name="key_pos_end">行末 (Pos End)</string>
