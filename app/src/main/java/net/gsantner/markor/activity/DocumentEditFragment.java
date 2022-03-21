@@ -363,9 +363,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 sel[0] = Math.min(sel[0], content.length());
                 sel[1] = Math.min(sel[1], content.length());
 
+                _hlEditor.setAutoFormatEnabled(false);
                 _hlEditor.setText(content);
-
                 _hlEditor.setSelection(sel[0], sel[1]); // hleditor can handle invalid selections
+                _hlEditor.setAutoFormatEnabled(autoFormat);
             }
 
             checkTextChangeState();
@@ -756,7 +757,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 if (!initPreview) {
                     _hlEditor.requestFocus();
                 }
+                _hlEditor.setAutoFormatEnabled(false);
                 _hlEditor.setSelection(_hlEditor.length());
+                _hlEditor.setAutoFormatEnabled(autoFormat);
             }
         }
     }
