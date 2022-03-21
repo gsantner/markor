@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">تنسيق/بادئة للنص المشترك في العلامة. يتبع قواعد SimpleDateFormat للأندرويد.\n\nاستخدم العنصر النائب \'%s\' (محاطة باقتباسات واحدة) لوضع النص المشترك. إذا لم يتم تحديده، يتم إلحاق النص المشترك والشكل المستخدم كبادئ.</string>
     <string name="share_into_format">المشاركة في - التنسيق</string>
     <string name="auto_format">تنسيق تلقائي</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
