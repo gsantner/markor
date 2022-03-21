@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Format/Prefiks dla tekstu udostępnionego w Markor. Obserwuje reguły SimpleDateFormat Androida.\n\nUżyj symbolu zastępczego \'%s\' (otoczonego pojedynczymi cudzysłowami), aby ustawić wspólny tekst. Jeśli nie określono, tekst udostępniony jest dołączany i format używany jako prefiks.</string>
     <string name="share_into_format">Udostępnij - Format</string>
     <string name="auto_format">Automatyczny format</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>

@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Formaat/Voorvoegsel voor tekst gedeeld in Markor. Volgt de Android\'s SimpleDateFormat regels.\n\nGebruik de placeholder \'%s\' (omringd door enkele aanhalingstekens) om de gedeelde tekst te positioneren. Indien niet opgegeven, wordt de gedeelde tekst toegevoegd en het formaat gebruikt als voorvoegsel.</string>
     <string name="share_into_format">Deel mee - Formaat</string>
     <string name="auto_format">Auto-formaat</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>

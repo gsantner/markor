@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Muoto/etuliite Markoriin jaetulle tekstille. Seuraa Androidin SimpleDateFormat sääntöjä.\n\nKäytä paikkamerkkiä \'%s\' (jota ympäröi yksittäinen lainaus) asettaaksesi jaetun tekstin. Jos jaettua tekstiä ei ole määritelty, se on liitetty ja se muoto, jota käytetään etuliitteenä.</string>
     <string name="share_into_format">Jaa - Muoto</string>
     <string name="auto_format">Automaattimuotoilu</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>

@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Формат/Префікс тексту, виданий Маркер. Застосовує правила простого формату Андроїда.\n\nвикористовувати заповнювач \'%s\' (оточений одинарними лапками), щоб розмістити спільний текст. Якщо не вказано, то додається спільний текст і формат, який використовується як префікс.</string>
     <string name="share_into_format">Поділитися у форматі - Формат</string>
     <string name="auto_format">Автоматичний формат</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>
