@@ -229,6 +229,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_common_toolbar_title_clicked_edit_action" translatable="false">tmaid_common_toolbar_title_clicked_edit_action</string>
     <string name="tmaid_common_move_text_one_line_up" translatable="false">tmaid_common_move_text_one_line_up</string>
     <string name="tmaid_common_move_text_one_line_down" translatable="false">tmaid_common_move_text_one_line_down</string>
+    <string name="tmaid_common_insert_snippet" translatable="false">tmaid_common_insert_snippet</string>
+    <string name="tmaid_common_insert_recent_snippet" translatable="false">tmaid_common_insert_recent_snippet</string>
 
     <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">tmaid_markdown_h1</string>

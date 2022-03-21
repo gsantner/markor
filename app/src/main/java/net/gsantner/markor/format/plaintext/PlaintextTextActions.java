@@ -58,6 +58,7 @@ public class PlaintextTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
+                new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
         };
 
         return Arrays.asList(TMA_ACTIONS);
@@ -102,10 +103,11 @@ public class PlaintextTextActions extends TextActions {
                     runRenumberOrderedListIfRequired(true);
                     return true;
                 }
-                default: {
-                    return runAction(_action, true, null);
+                case R.string.tmaid_common_insert_snippet: {
+                    return runCommonTextAction(R.string.tmaid_common_insert_recent_snippet);
                 }
             }
+            return false;
         }
     }
 

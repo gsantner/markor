@@ -32,10 +32,12 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,6 +59,7 @@ public abstract class TextActions {
     protected ActivityUtils _au;
     private int _textActionSidePadding;
     protected int _indent;
+    private String _lastSnip;
 
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
@@ -617,6 +620,19 @@ public abstract class TextActions {
             case R.string.tmaid_common_deindent: {
                 runIndentLines(action == R.string.tmaid_common_deindent);
                 runRenumberOrderedListIfRequired();
+                return true;
+            }
+            case R.string.tmaid_common_insert_snippet: {
+                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
+                    _lastSnip = snip;
+                });
+                return true;
+            }
+            case R.string.tmaid_common_insert_recent_snippet: {
+                if (!TextUtils.isEmpty(_lastSnip)) {
+                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
+                }
                 return true;
             }
             default: {

@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
-
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
 import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
@@ -23,6 +22,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
@@ -35,6 +35,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -44,14 +45,18 @@ import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -638,6 +643,34 @@ public class SearchOrCustomTextDialogCreator {
             };
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         }
+    }
+
+    public static void showInsertSnippetDialog(final Activity activity, final Callback.a1<String> callback) {
+        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        final AppSettings as = new AppSettings(activity);
+        final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
+        if (!folder.exists() || !folder.isDirectory() || !folder.canRead()) {
+            return;
+        }
+
+        // Read all files in snippets folder with appropriate extension
+        // Create a map of sippet title -> text
+        final Map<String, File> texts = new HashMap<>();
+        for (final String name : folder.list()) {
+            final File item = new File(folder, name);
+            if (item.exists() && item.canRead() && FileUtils.isTextFile(item)) {
+                texts.put(name.substring(0, name.lastIndexOf('.')), item);
+            }
+        }
+
+        final List<String> data = new ArrayList<>(texts.keySet());
+        Collections.sort(data);
+        dopt.data = data;
+        dopt.isSearchEnabled = true;
+        dopt.titleText = R.string.insert_snippet;
+        dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)));
+        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
