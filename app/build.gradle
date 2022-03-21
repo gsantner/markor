@@ -138,7 +138,7 @@ dependencies {
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
-    implementation 'com.github.AppIntro:AppIntro:4.2.3'
+    implementation 'com.github.AppIntro:AppIntro:v4.2.3'
     implementation 'com.kailashdabhi:om-recorder:1.1.5'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
     implementation project(':app:thirdparty-lib-src:QuadFlask-colorpicker')
