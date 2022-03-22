@@ -48,7 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (純文字)</string>
     <string name="document_editor_font">文件編輯字型</string>
     <string name="theme">主題</string>
-    <string name="open_existing_files_in_view_mode">於檢視模式中開啟現有的文件</string>
+    <string name="open_existing_files_in_view_mode">在檢視模式中開啟現有的文件</string>
     <string name="about">說明</string>
     <string name="plaintext">純文字文件</string>
     <string name="file">檔案</string>
@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">選擇 輸入文字</string>
     <string name="one_item_selected">已經選擇一個項目</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已選擇 %d 項目</string>
-    <string name="hide_statusbar_at_this_view">在此檢視隱藏狀態列</string>
+    <string name="hide_statusbar_at_this_view">在這個檢視模式隱藏狀態列</string>
     <string name="hide_statusbar">隱藏狀態列</string>
     <string name="name">名稱</string>
     <string name="url_or_path">網址 / 路徑</string>
@@ -116,8 +116,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">更新</string>
     <string name="create_shortcut">建立捷徑</string>
     <string name="tried_to_create_shortcut_for_this_notice">嘗試在您的主頁建立一個捷徑以方便編輯這個文件，注意，有的啟動器不支援這個功能。</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在應用程式的筆記本目錄中，您要將它複製到現有資料夾裡嗎？這將會覆寫已存在的同名檔案。</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現有資料夾裡嗎？這將會覆寫已存在的同名檔案。</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">所選的檔案不在這個應用的筆記本目錄中，您要將它複製到現有資料夾裡嗎？這將會覆寫已存在的同名檔案。</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">該檔案不在目前的資料夾中。您要將它複製到現行的資料夾裡嗎？這將會覆寫任何已存在的同名檔案。</string>
     <string name="files_and_folders">檔案和資料夾</string>
     <string name="document_browser">文件瀏覽器</string>
     <string name="file_browser">檔案瀏覽器</string>
