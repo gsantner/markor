@@ -332,34 +332,28 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg0Delay__arg1Duration) {
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        postDelayed(() -> {
+    public void smoothMoveCursor(final int index) {
+        post(() -> {
             if (!hasFocus()) {
                 requestFocus();
             }
 
-            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
-            anim.setDuration(duration);
+            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", index);
+            anim.setDuration(300);
             anim.start();
-        }, delay);
+        });
     }
 
-    public void smoothMoveCursorToLine(final int lineNumber, int... arg0Delay__arg1Duration) {
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        this.postDelayed(() -> {
-            String text = getText().toString();
-            int index = StringUtils.getIndexFromLineOffset(text, lineNumber, 0);
-            if (index < 0) {
-                return;
+    public void smoothMoveCursor(final int startIndex, final int endIndex) {
+        post(() -> {
+            if (!hasFocus()) {
+                requestFocus();
             }
 
-            smoothMoveCursor(0, index, 1, duration);
-        }, delay);
+            final ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
+            anim.setDuration(300);
+            anim.start();
+        });
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

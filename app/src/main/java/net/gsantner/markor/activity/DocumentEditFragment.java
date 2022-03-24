@@ -242,7 +242,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         if (_hlEditor.indexesValid(startPos)) {
-            _hlEditor.smoothMoveCursor(0, startPos);
+            _hlEditor.smoothMoveCursor(startPos);
         }
     }
 
@@ -660,7 +660,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.smoothMoveCursor(0, posn);
+            _hlEditor.smoothMoveCursor(posn);
         }
     }
 
