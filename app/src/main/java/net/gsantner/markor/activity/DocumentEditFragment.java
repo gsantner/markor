@@ -22,9 +22,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -242,8 +242,31 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         if (_hlEditor.indexesValid(startPos)) {
-            _hlEditor.smoothMoveCursor(_hlEditor.getSelectionStart(), startPos);
+            setCursor(startPos);
         }
+    }
+
+    public void setCursor(final int index) {
+        if (_hlEditor == null || _primaryScrollView == null) {
+            return;
+        }
+
+        _hlEditor.post(() -> {
+            final Layout layout = _hlEditor.getLayout();
+            if (layout == null || !_hlEditor.indexesValid(index)) {
+                return;
+            }
+
+            final int line = layout.getLineForOffset(index);
+            final int iY = layout.getLineTop(line);
+            final int iX = (int) layout.getPrimaryHorizontal(index);
+            _primaryScrollView.scrollTo(iX, iY);
+
+            if (!_hlEditor.hasFocus()) {
+                _hlEditor.requestFocus();
+            }
+            _hlEditor.setSelection(index);
+        });
     }
 
     @Override
@@ -638,8 +661,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void setHorizontalScrollMode(final boolean wrap) {
-        final Context context = getContext();
 
+        final Context context = getContext();
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
@@ -662,7 +685,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.smoothMoveCursor(0, posn);
+            setCursor(posn);
         }
     }
 
@@ -719,7 +742,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(final boolean isVisibleToUser) {
         // This function can be called _outside_ the normal lifecycle!
         // Do nothing if the fragment is not at least created!
         if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
