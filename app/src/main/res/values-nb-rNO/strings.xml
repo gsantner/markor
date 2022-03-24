@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix for tekst delt inn i Markor. Følger reglene for Androids SimpleDateFormat.\n\nBruk plassholderen \'%s\' (omgitt av enkle tilbud) for å plassere den delte teksten. Hvis ikke angitt, legges den delte teksten til og formatet som brukes som prefiks.</string>
     <string name="share_into_format">Del inn - format</string>
     <string name="auto_format">Autokoformater</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>

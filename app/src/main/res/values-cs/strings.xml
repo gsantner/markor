@@ -434,4 +434,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Formát/Předpona pro text sdílený na značce. Postupujte podle pravidel SimpleDateFormat Androidu.\n\nPoužijte zástupný znak \'%s\' (obklopený jednoduchými uvozovkami) pro umístění sdíleného textu. Pokud není specifikováno, sdílený text je připojen a formát se používá jako prefix.</string>
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
+    <string name="insert_snippet">Insert snippet</string>
 </resources>

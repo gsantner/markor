@@ -442,4 +442,5 @@ FS yyyy MMM dd hh:mm:ss aa
     <string name="share_into_format_prefix_for_text_shared">פורמאט/תחילית עבור טקסט ששותף לתוך Markor. עוקב אחר חוקי SimpleDateFormat של אנדרויד.\n\nהשתמשו ב\'%s\' (תחום בגרשיים בודדים) למקם את הטקטס המשותף. אם לא מצוין, הטקסט המשותף מצורף בסוף והפורמאט משמש בתור תחילית בלבד.</string>
     <string name="share_into_format">נוסח עבור שיתוף לתוך</string>
     <string name="auto_format">פירמוט אוטומטי</string>
+    <string name="insert_snippet">הוסף את הגזיר</string>
 </resources>
