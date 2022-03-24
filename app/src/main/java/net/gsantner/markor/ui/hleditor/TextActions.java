@@ -662,17 +662,6 @@ public abstract class TextActions {
                 text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
                 return true;
             }
-            // case R.string.tmaid_markdown_end_line_with_two_spaces: {
-            //     if (_hlEditor.length() > 1) {
-            //         int start = _hlEditor.getSelectionStart();
-            //         String text = _hlEditor.getText().toString();
-            //         int insertPos = text.indexOf('\n', start);
-            //         insertPos = insertPos < 1 ? text.length() : insertPos;
-            //         _hlEditor.getText().insert(insertPos, "  " + (text.endsWith("\n") ? "" : "\n"));
-            //         _hlEditor.setSelection((Math.min((insertPos + 3), _hlEditor.length())));
-            //     }
-            //     return true;
-            // }
         }
         return false;
     }

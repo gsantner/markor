@@ -88,6 +88,13 @@ public class Document implements Serializable {
         }
     }
 
+    // Get a default file
+    public static Document getDefault(final Context context) {
+        final File notebook = new AppSettings(context).getNotebookDirectory();
+        final File random = new File(notebook, getFileNameWithTimestamp(true));
+        return new Document(random);
+    }
+
     public String getPath() {
         return _path;
     }
@@ -152,13 +159,6 @@ public class Document implements Serializable {
 
     public boolean isEncrypted() {
         return isEncrypted(_file);
-    }
-
-    // Try several fallbacks to get a valid file
-    public static Document getDefault(final Context context) {
-        final File notebook = new AppSettings(context).getNotebookDirectory();
-        final File random = new File(notebook, getFileNameWithTimestamp(true));
-        return new Document(random);
     }
 
     private void setContentHash(final CharSequence s) {
