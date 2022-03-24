@@ -387,11 +387,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 sel[0] = Math.min(sel[0], content.length());
                 sel[1] = Math.min(sel[1], content.length());
 
-                _hlEditor.setText(content);
+                _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
 
-                if (isStarted && _hlEditor.indexesValid(sel)) {
-                    _hlEditor.setSelection(sel[0], sel[1]);
-                }
+                _hlEditor.setSelection(sel[0], sel[1]);
             }
 
             checkTextChangeState();
