@@ -242,31 +242,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         if (_hlEditor.indexesValid(startPos)) {
-            setCursor(startPos);
+            _hlEditor.smoothMoveCursor(0, startPos);
         }
-    }
-
-    public void setCursor(final int index) {
-        if (_hlEditor == null || _primaryScrollView == null) {
-            return;
-        }
-
-        _hlEditor.post(() -> {
-            final Layout layout = _hlEditor.getLayout();
-            if (layout == null || !_hlEditor.indexesValid(index)) {
-                return;
-            }
-
-            final int line = layout.getLineForOffset(index);
-            final int iY = layout.getLineTop(line);
-            final int iX = (int) layout.getPrimaryHorizontal(index);
-            _primaryScrollView.scrollTo(iX, iY);
-
-            if (!_hlEditor.hasFocus()) {
-                _hlEditor.requestFocus();
-            }
-            _hlEditor.setSelection(index);
-        });
     }
 
     @Override
@@ -683,7 +660,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            setCursor(posn);
+            _hlEditor.smoothMoveCursor(0, posn);
         }
     }
 
