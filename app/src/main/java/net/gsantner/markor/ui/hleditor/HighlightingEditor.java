@@ -332,25 +332,18 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int index) {
+    public void smoothMoveCursor(final int index, final int... endIndex) {
         post(() -> {
             if (!hasFocus()) {
                 requestFocus();
             }
 
-            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", index);
-            anim.setDuration(300);
-            anim.start();
-        });
-    }
-
-    public void smoothMoveCursor(final int startIndex, final int endIndex) {
-        post(() -> {
-            if (!hasFocus()) {
-                requestFocus();
+            final ObjectAnimator anim;
+            if (endIndex != null && endIndex.length > 0) {
+                anim = ObjectAnimator.ofInt(this, "selection", index, endIndex[0]);
+            } else {
+                anim = ObjectAnimator.ofInt(this, "selection", index);
             }
-
-            final ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
             anim.setDuration(300);
             anim.start();
         });
