@@ -90,7 +90,7 @@ public class ShortcutUtils {
             final AppSettings settings = new AppSettings(context);
             final List<String> recentDocuments = settings.getRecentDocuments();
 
-            for (int i = 0; i < MAX_RECENT_DOCUMENTS; i++) {
+            for (int i = 0; i < Math.min(MAX_RECENT_DOCUMENTS, recentDocuments.size()); i++) {
                 final File file = new File(recentDocuments.get(i));
 
                 final Intent openFile = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
