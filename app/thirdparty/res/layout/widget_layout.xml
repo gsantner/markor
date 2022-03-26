@@ -18,7 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_2"
+        android:background="@drawable/widget_background"
         tools:ignore="UselessParent">
 
         <LinearLayout

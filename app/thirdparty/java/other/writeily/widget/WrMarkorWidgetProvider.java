@@ -56,6 +56,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (final int appWidgetId : appWidgetIds) {
+
             // Get the layout for the App Widget and attach an on-click listener to the button
             final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 

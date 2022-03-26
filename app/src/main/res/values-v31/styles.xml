@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="AppTheme.Unified">
+        <!-- Enable once we switch to a newer version of the support library / androidx -->
+        <!-- <item name="widgetCornerRadius">@android:dimen/system_app_widget_background_radius</item> -->
+    </style>
+</resources>

@@ -15,5 +15,6 @@
 		<attr name="pickerTitle" format="reference|string"/>
 		<attr name="pickerButtonOk" format="reference|string"/>
 		<attr name="pickerButtonCancel" format="reference|string"/>
+		<attr name="widgetCornerRadius" format="dimension" />
 	</declare-styleable>
 </resources>
