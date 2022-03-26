@@ -279,6 +279,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
                         || _currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)
                         || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR)
                         || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS)
+                        || _currentFolder.equals(new File("/"))
                         || _currentFolder.equals(new File("/storage"))
                         || _currentFolder.equals(new File("/storage/self"))
                         || _currentFolder.equals(new File("/storage/emulated"))
