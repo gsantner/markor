@@ -627,7 +627,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
                 if (_doptMoC.listener instanceof FilesystemViewerDialog) {
                     final TextView titleView = ((FilesystemViewerDialog) _doptMoC.listener)._dialogTitle;
-                    if (titleView != null) {
+                    if (titleView != null && adapter.getCurrentFolder() != null) {
                         titleView.setText(String.format("%s → %s", titleView.getContext().getString(isMove ? R.string.move : R.string.copy), adapter.getCurrentFolder().getName()));
                     }
                 }
