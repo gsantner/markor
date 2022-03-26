@@ -208,12 +208,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
-
-        final Toolbar toolbar = getToolbar();
-        if (toolbar != null) {
-            toolbar.setOnLongClickListener(_longClickToTopOrBottom);
-        }
-
         final Bundle args = getArguments();
         setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
 
@@ -727,12 +721,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         } else if (!isVisibleToUser && _document != null) {
             saveDocument(false);
         }
-
-        final Toolbar toolbar = getToolbar();
-        if (toolbar != null && isVisibleToUser) {
-            toolbar.setOnLongClickListener(_longClickToTopOrBottom);
-        }
-
         if (isVisibleToUser) {
             initDocState();
         }
@@ -783,25 +771,23 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return true;
     }
 
-    final View.OnLongClickListener _longClickToTopOrBottom = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            if (getUserVisibleHint()) {
-                if (_isPreviewVisible) {
-                    boolean top = _webView.getScrollY() > 100;
-                    _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-                    if (!top) {
-                        _webView.scrollBy(0, 1000);
-                        _webView.scrollBy(0, 1000);
-                    }
-                } else {
-                    _textFormat.getTextActions().runJumpBottomTopAction();
+    @Override
+    protected boolean onToolbarLongClicked(View v) {
+        if (getUserVisibleHint()) {
+            if (_isPreviewVisible) {
+                boolean top = _webView.getScrollY() > 100;
+                _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
+                if (!top) {
+                    _webView.scrollBy(0, 1000);
+                    _webView.scrollBy(0, 1000);
                 }
-                return true;
+            } else {
+                _textFormat.getTextActions().runJumpBottomTopAction();
             }
-            return false;
+            return true;
         }
-    };
+        return false;
+    }
 
     //
     //
@@ -816,7 +802,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return _webView;
     }
 
-    public void onToolbarTitleClicked(final Toolbar toolbar) {
+    @Override
+    protected void onToolbarClicked(View v) {
         if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runTitleClick();
         }

@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 /**
  * A common base fragment to extend from
  */
+@SuppressWarnings("unused")
 public abstract class GsFragmentBase extends Fragment {
     private boolean _fragmentFirstTimeVisible = true;
     private final Object _fragmentFirstTimeVisibleSync = new Object();
@@ -75,7 +76,20 @@ public abstract class GsFragmentBase extends Fragment {
                     onFragmentFirstTimeVisible();
                 }
             }
+            attachToolbarClickListenersToFragment();
         }, 1);
+    }
+
+    protected void attachToolbarClickListenersToFragment() {
+        final Toolbar toolbar;
+        if ((toolbar = getToolbar()) != null && getUserVisibleHint()) {
+            toolbar.setOnLongClickListener(clickView -> getUserVisibleHint() && onToolbarLongClicked(clickView));
+            toolbar.setOnClickListener(clickView -> {
+                if (getUserVisibleHint()) {
+                    onToolbarClicked(clickView);
+                }
+            });
+        }
     }
 
     /**
@@ -134,6 +148,8 @@ public abstract class GsFragmentBase extends Fragment {
                 onFragmentFirstTimeVisible();
             }
         }
+
+        attachToolbarClickListenersToFragment();
     }
 
     @Override
@@ -157,5 +173,23 @@ public abstract class GsFragmentBase extends Fragment {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * Called when on @{{@link Toolbar#setOnClickListener(View.OnClickListener)}} click
+     *
+     * @param v Toolbar @{{@link View}}
+     */
+    protected void onToolbarClicked(final View v) {
+    }
+
+    /**
+     * Called when on @{{@link Toolbar#setOnLongClickListener(View.OnLongClickListener)}} long click
+     *
+     * @param v Toolbar @{{@link View}}
+     * @return Toolbar long click was handled = true
+     */
+    protected boolean onToolbarLongClicked(final View v) {
+        return false;
     }
 }

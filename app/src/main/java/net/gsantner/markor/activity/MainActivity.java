@@ -23,7 +23,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,9 +63,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     public static boolean IS_DEBUG_ENABLED = false;
 
-    @BindView(R.id.toolbar)
-    public Toolbar _toolbar;
-
     @BindView(R.id.bottom_navigation_bar)
     BottomNavigationView _bottomNav;
 
@@ -87,9 +83,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _shareUtil = new ShareUtil(this);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
-        setSupportActionBar(_toolbar);
-        _toolbar.setOnClickListener(this::onToolbarTitleClicked);
-
+        setSupportActionBar(findViewById(R.id.toolbar));
         optShowRate();
 
         try {
@@ -339,10 +333,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return true;
     }
 
-    public void setMainTitle(final String title) {
-        _toolbar.setTitle(title);
-    }
-
     public void updateFabVisibility(boolean visible) {
         if (visible) {
             _fab.show();
@@ -385,8 +375,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
         updateFabVisibility(pos == tabIdToPos(R.id.nav_notebook));
-
-        setMainTitle(getPosTitle(pos));
+        setTitle(getPosTitle(pos));
 
         if (pos != tabIdToPos(R.id.nav_notebook)) {
             restoreDefaultToolbar();
@@ -425,7 +414,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
-                            _toolbar.setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
+                            setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
                         }
                         invalidateOptionsMenu();
                     }
@@ -524,14 +513,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
         if (wrFragment != null) {
             wrFragment.clearSelection();
-        }
-    }
-
-    private void onToolbarTitleClicked(View v) {
-        Fragment f = _viewPagerAdapter.getItem(_viewPager.getCurrentItem());
-        if (f instanceof DocumentEditFragment) {
-            DocumentEditFragment def = (DocumentEditFragment) f;
-            def.onToolbarTitleClicked(_toolbar);
         }
     }
 }

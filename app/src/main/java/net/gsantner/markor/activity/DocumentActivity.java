@@ -24,7 +24,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -139,10 +138,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
-        setSupportActionBar(_toolbar);
-
-        _toolbar.setOnClickListener(this::onToolbarTitleClicked);
-
+        setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
         handleLaunchingIntent(getIntent());
@@ -339,12 +335,5 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private GsFragmentBase getCurrentVisibleFragment() {
         return (GsFragmentBase) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
-    }
-
-    private void onToolbarTitleClicked(View v) {
-        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
-            DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
-            def.onToolbarTitleClicked(_toolbar);
-        }
     }
 }
