@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -210,20 +209,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
 
-        loadDocument();
-
-        _hlEditor.clearFocus();
-        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-        new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
-
-        final Bundle args = getArguments();
-
-        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
-
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
+
+        final Bundle args = getArguments();
+        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
+
+        loadDocument();
+
+        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         // Set initial wrap state
         initDocState();
