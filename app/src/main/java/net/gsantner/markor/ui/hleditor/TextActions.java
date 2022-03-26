@@ -719,12 +719,6 @@ public abstract class TextActions {
             iconId = icon;
             stringId = string;
         }
-
-        public ActionItem(int[] data) {
-            keyId = data[0];
-            iconId = data[1];
-            stringId = data[2];
-        }
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
