@@ -10,9 +10,7 @@
 package net.gsantner.markor.model;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
@@ -51,10 +49,11 @@ public class Document implements Serializable {
 
     private final File _file;
     private final String _fileExtension;
-    private @StringRes int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
+    @StringRes
+    private int _format = TextFormat.FORMAT_UNKNOWN;
 
     // Used to check if string changed
     private long _lastHash = 0;
@@ -99,8 +98,8 @@ public class Document implements Serializable {
         return _path;
     }
 
-    public @NonNull
-    File getFile() {
+    @NonNull
+    public File getFile() {
         return _file;
     }
 
@@ -145,7 +144,8 @@ public class Document implements Serializable {
         return _fileExtension;
     }
 
-    public @StringRes int getFormat() {
+    @StringRes
+    public int getFormat() {
         return _format;
     }
 

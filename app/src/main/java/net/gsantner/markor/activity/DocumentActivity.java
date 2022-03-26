@@ -185,9 +185,9 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
 
             final boolean startInPreview = (startLine < 0) && (
-                intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
-                _appSettings.getDocumentPreviewState(doc.getPath()) ||
-                file.getName().startsWith("index."));
+                    intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
+                            _appSettings.getDocumentPreviewState(doc.getPath()) ||
+                            file.getName().startsWith("index."));
 
             showTextEditor(doc, startLine, startInPreview);
         }
@@ -262,7 +262,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditFragment &&
-                document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
+                        document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
             showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview));

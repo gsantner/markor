@@ -70,7 +70,8 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    protected @StringRes int getFormatActionsKey() {
+    @StringRes
+    protected int getFormatActionsKey() {
         return R.string.pref_key__todotxt__action_keys;
     }
 

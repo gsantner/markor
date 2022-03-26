@@ -245,7 +245,7 @@ public class HighlightingEditor extends AppCompatEditText {
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
             final int[] sel = StringUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText) );
+            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
                 setSelection(sel[0] + newCursorPos);
             }
