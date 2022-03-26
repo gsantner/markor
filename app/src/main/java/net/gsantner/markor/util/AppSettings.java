@@ -353,12 +353,17 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
 
-    public void setLastEditPosition(File file, int pos) {
-        if (file == null || !file.exists()) {
-            return;
+    public void setLastEditPosition(final String path, final int pos) {
+        if (fexists(path)) {
+            setInt(PREF_PREFIX_EDIT_POS_CHAR + path, pos);
         }
-        if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
-            setInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), pos, _prefCache);
+    }
+
+    public int getLastEditPosition(final String path, final int def) {
+        if (!fexists(path)) {
+            return def;
+        } else {
+            return getInt(PREF_PREFIX_EDIT_POS_CHAR + path, def);
         }
     }
 
@@ -471,16 +476,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
         final boolean lengthOk = chars != null && chars.length() < (_isDeviceGoodHardware ? 100000 : 35000);
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
-    }
-
-    public int getLastEditPositionChar(File file) {
-        if (file == null || !file.exists()) {
-            return -1;
-        }
-        if (file.equals(getTodoFile()) || file.equals(getQuickNoteFile())) {
-            return -2;
-        }
-        return getInt(PREF_PREFIX_EDIT_POS_CHAR + file.getAbsolutePath(), -3, _prefCache);
     }
 
     public int getLastViewPositionX(File file) {

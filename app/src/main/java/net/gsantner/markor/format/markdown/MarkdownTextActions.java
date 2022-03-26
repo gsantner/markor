@@ -9,21 +9,18 @@
 #########################################################*/
 package net.gsantner.markor.format.markdown;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.StringRes;
-import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.AutoFormatter;
-import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.opoc.util.Callback;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,16 +29,6 @@ public class MarkdownTextActions extends TextActions {
 
     public MarkdownTextActions(Activity activity, Document document) {
         super(activity, document);
-    }
-
-    @Override
-    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
-        return new MarkdownTextActionsImpl(action).onClickImpl(null);
-    }
-
-    @Override
-    protected ActionCallback getActionCallback(@StringRes int keyId) {
-        return new MarkdownTextActionsImpl(keyId);
     }
 
     @Override
@@ -58,10 +45,10 @@ public class MarkdownTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
                 new ActionItem(R.string.tmaid_markdown_bold, R.drawable.ic_format_bold_black_24dp, R.string.bold),
                 new ActionItem(R.string.tmaid_markdown_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
-                new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
-                new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+                new ActionItem(R.string.tmaid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
+                new ActionItem(R.string.tmaid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
-                new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+                new ActionItem(R.string.tmaid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.tmaid_markdown_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code),
                 new ActionItem(R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
@@ -84,168 +71,135 @@ public class MarkdownTextActions extends TextActions {
         return Arrays.asList(TMA_ACTIONS);
     }
 
-    private class MarkdownTextActionsImpl extends ActionCallback {
-        private int _action;
-
-        MarkdownTextActionsImpl(int action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(final View view) {
-            onClickImpl(view);
-        }
-
-        private boolean onClickImpl(final View view) {
-            if (view != null) {
-                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+    @Override
+    public boolean onActionClick(final @StringRes int action) {
+        switch (action) {
+            case R.string.tmaid_markdown_quote: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleQuote());
+                return true;
             }
-            switch (_action) {
-                case R.string.tmaid_markdown_quote: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleQuote());
-                    return true;
-                }
-                case R.string.tmaid_markdown_h1: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
-                    return true;
-                }
-                case R.string.tmaid_markdown_h2: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
-                    return true;
-                }
-                case R.string.tmaid_markdown_h3: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
-                    return true;
-                }
-                case R.string.tmaid_common_unordered_list_char: {
-                    final String listChar = _appSettings.getUnorderedListCharacter();
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
-                    return true;
-                }
-                case R.string.tmaid_common_checkbox_list: {
-                    final String listChar = _appSettings.getUnorderedListCharacter();
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
-                    return true;
-                }
-                case R.string.tmaid_common_ordered_list_number: {
-                    runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
-                    runRenumberOrderedListIfRequired();
-                    return true;
-                }
-                case R.string.tmaid_markdown_bold: {
-                    runInlineAction("**");
-                    return true;
-                }
-                case R.string.tmaid_markdown_italic: {
-                    runInlineAction("_");
-                    return true;
-                }
-                case R.string.tmaid_markdown_strikeout: {
-                    runInlineAction("~~");
-                    return true;
-                }
-                case R.string.tmaid_markdown_code_inline: {
-                    runInlineAction("`");
-                    return true;
-                }
-                case R.string.tmaid_markdown_horizontal_line: {
-                    runInlineAction("----\n");
-                    return true;
-                }
-                case R.string.tmaid_markdown_table_insert_columns: {
-                    SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, callbackInsertTableRow);
-                    return true;
-                }
-                case R.string.tmaid_markdown_insert_link:
-                case R.string.tmaid_markdown_insert_image: {
-                    AttachImageOrLinkDialog.showInsertImageOrLinkDialog(_action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
-                    return true;
-                }
-                case R.string.tmaid_common_toolbar_title_clicked_edit_action: {
-                    SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
-                    return true;
-                }
-                default: {
-                    return runCommonTextAction(_action);
-                }
+            case R.string.tmaid_markdown_h1: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                return true;
+            }
+            case R.string.tmaid_markdown_h2: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                return true;
+            }
+            case R.string.tmaid_markdown_h3: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                return true;
+            }
+            case R.string.tmaid_common_unordered_list_char: {
+                final String listChar = _appSettings.getUnorderedListCharacter();
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithUnorderedListPrefixOrRemovePrefix(listChar));
+                return true;
+            }
+            case R.string.tmaid_common_checkbox_list: {
+                final String listChar = _appSettings.getUnorderedListCharacter();
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.toggleToCheckedOrUncheckedListPrefix(listChar));
+                return true;
+            }
+            case R.string.tmaid_common_ordered_list_number: {
+                runRegexReplaceAction(MarkdownReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix());
+                runRenumberOrderedListIfRequired();
+                return true;
+            }
+            case R.string.tmaid_markdown_bold: {
+                runInlineAction("**");
+                return true;
+            }
+            case R.string.tmaid_markdown_italic: {
+                runInlineAction("_");
+                return true;
+            }
+            case R.string.tmaid_markdown_strikeout: {
+                runInlineAction("~~");
+                return true;
+            }
+            case R.string.tmaid_markdown_code_inline: {
+                runInlineAction("`");
+                return true;
+            }
+            case R.string.tmaid_markdown_horizontal_line: {
+                runInlineAction("----\n");
+                return true;
+            }
+            case R.string.tmaid_markdown_table_insert_columns: {
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, this::insertTableRow);
+                return true;
+            }
+            case R.string.tmaid_markdown_insert_link:
+            case R.string.tmaid_markdown_insert_image: {
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                return true;
+            }
+            default: {
+                return runCommonTextAction(action);
             }
         }
+    }
 
-        @Override
-        public boolean onLongClick(View view) {
-            switch (_action) {
-                case R.string.tmaid_common_open_link_browser: {
-                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_SEARCH);
-                    return true;
-                }
-                case R.string.tmaid_common_special_key: {
-                    new CommonTextActions(_activity, _hlEditor).runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
-                    return true;
-                }
-                case R.string.tmaid_markdown_insert_image: {
-                    int pos = _hlEditor.getSelectionStart();
-                    _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
-                    _hlEditor.setSelection(pos + 48);
-                    return true;
-                }
-                case R.string.tmaid_common_time: {
-                    runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
-                    return true;
-                }
-                case R.string.tmaid_markdown_table_insert_columns: {
-                    SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, callbackInsertTableRow);
-                    return true;
-                }
-                case R.string.tmaid_markdown_code_inline: {
-                    _hlEditor.withAutoFormatDisabled(() -> {
-                        final int c = _hlEditor.setSelectionExpandWholeLines();
-                        _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
-                        _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
-                        _hlEditor.setSelection(c + "\n```\n".length());
-                    });
-                    Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                case R.string.tmaid_common_ordered_list_number: {
-                    runRenumberOrderedListIfRequired(true);
-                    return true;
-                }
-                case R.string.tmaid_common_deindent:
-                case R.string.tmaid_common_indent: {
-                    return runCommonTextAction(R.string.tmaid_common_set_indent_size);
-                }
-                case R.string.tmaid_common_insert_snippet: {
-                    return runCommonTextAction(R.string.tmaid_common_insert_recent_snippet);
-                }
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onActionLongClick(final @StringRes int action) {
+        switch (action) {
+            case R.string.tmaid_markdown_insert_image: {
+                int pos = _hlEditor.getSelectionStart();
+                _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
+                _hlEditor.setSelection(pos + 48);
+                return true;
             }
-            return false;
+            case R.string.tmaid_markdown_table_insert_columns: {
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, this::insertTableRow);
+                return true;
+            }
+            case R.string.tmaid_markdown_code_inline: {
+                _hlEditor.withAutoFormatDisabled(() -> {
+                    final int c = _hlEditor.setSelectionExpandWholeLines();
+                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n```\n");
+                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
+                    _hlEditor.setSelection(c + "\n```\n".length());
+                });
+                Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            default: {
+                return runCommonLongPressTextActions(action);
+            }
         }
+    }
 
-        private final Callback.a2<Integer, Boolean> callbackInsertTableRow = (cols, isHeaderEnabled) -> {
-            StringBuilder sb = new StringBuilder();
-            _hlEditor.requestFocus();
-            if (!_hlEditor.isCurrentLineEmpty()) {
-                sb.append("\n");
-            }
-            for (int i = 0; i < cols - 1; i++) {
-                sb.append("  | ");
-            }
-            if (isHeaderEnabled) {
-                sb.append("\n");
-                for (int i = 0; i < cols; i++) {
-                    sb.append("---");
-                    if (i < cols - 1) {
-                        sb.append("|");
-                    }
+    private void insertTableRow(int cols, boolean isHeaderEnabled) {
+        StringBuilder sb = new StringBuilder();
+        _hlEditor.requestFocus();
+        if (!_hlEditor.isCurrentLineEmpty()) {
+            sb.append("\n");
+        }
+        for (int i = 0; i < cols - 1; i++) {
+            sb.append("  | ");
+        }
+        if (isHeaderEnabled) {
+            sb.append("\n");
+            for (int i = 0; i < cols; i++) {
+                sb.append("---");
+                if (i < cols - 1) {
+                    sb.append("|");
                 }
             }
-            _hlEditor.moveCursorToEndOfLine(0);
-            _hlEditor.insertOrReplaceTextOnCursor(sb.toString());
-            _hlEditor.moveCursorToBeginOfLine(0);
-            if (isHeaderEnabled) {
-                _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
-            }
-        };
+        }
+        _hlEditor.moveCursorToEndOfLine(0);
+        _hlEditor.insertOrReplaceTextOnCursor(sb.toString());
+        _hlEditor.moveCursorToBeginOfLine(0);
+        if (isHeaderEnabled) {
+            _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
+        }
+    }
+
+    @Override
+    public boolean runTitleClick() {
+        SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
+        return true;
     }
 
     @Override

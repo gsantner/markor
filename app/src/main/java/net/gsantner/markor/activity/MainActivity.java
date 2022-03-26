@@ -407,7 +407,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 @Override
                 public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
-                    dopt.rootFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
+                    dopt.rootFolder = _appSettings.getNotebookDirectory();
+                    dopt.startFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();

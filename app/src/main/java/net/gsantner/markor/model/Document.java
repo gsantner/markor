@@ -10,9 +10,7 @@
 package net.gsantner.markor.model;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
@@ -51,10 +49,11 @@ public class Document implements Serializable {
 
     private final File _file;
     private final String _fileExtension;
-    private @StringRes int _format = TextFormat.FORMAT_UNKNOWN;
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
+    @StringRes
+    private int _format = TextFormat.FORMAT_UNKNOWN;
 
     // Used to check if string changed
     private long _lastHash = 0;
@@ -88,12 +87,19 @@ public class Document implements Serializable {
         }
     }
 
+    // Get a default file
+    public static Document getDefault(final Context context) {
+        final File notebook = new AppSettings(context).getNotebookDirectory();
+        final File random = new File(notebook, getFileNameWithTimestamp(true));
+        return new Document(random);
+    }
+
     public String getPath() {
         return _path;
     }
 
-    public @NonNull
-    File getFile() {
+    @NonNull
+    public File getFile() {
         return _file;
     }
 
@@ -138,7 +144,8 @@ public class Document implements Serializable {
         return _fileExtension;
     }
 
-    public @StringRes int getFormat() {
+    @StringRes
+    public int getFormat() {
         return _format;
     }
 
@@ -152,40 +159,6 @@ public class Document implements Serializable {
 
     public boolean isEncrypted() {
         return isEncrypted(_file);
-    }
-
-    // Try several fallbacks to get a valid file
-    private static File getValidFile(Context context, Bundle arguments) {
-        File file = (File) arguments.getSerializable(EXTRA_PATH);
-
-        final File notebook = new AppSettings(context).getNotebookDirectory();
-
-        // Default to notebook if null
-        file = (file == null) ? notebook : file;
-
-        // Default to notebook if could not create directory
-        file = (file.isDirectory() && !file.exists() && !file.mkdirs()) ? notebook : file;
-
-        // Try to
-        if (file.isDirectory()) {
-            final String content = arguments.getString(Intent.EXTRA_TEXT);
-            File temp = new File(file, filenameFromContent(content) + MarkdownTextConverter.EXT_MARKDOWN__TXT);
-            while (temp.exists()) {
-                temp = new File(file, getFileNameWithTimestamp(true));
-            }
-            return temp;
-        }
-
-        return file;
-    }
-
-    public static Document fromArguments(Context context, Bundle arguments) {
-        if (arguments.containsKey(EXTRA_DOCUMENT)) {
-            // When called directly with a document
-            return (Document) arguments.getSerializable(EXTRA_DOCUMENT);
-        } else {
-            return new Document(getValidFile(context, arguments));
-        }
     }
 
     private void setContentHash(final CharSequence s) {

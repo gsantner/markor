@@ -245,7 +245,7 @@ public class HighlightingEditor extends AppCompatEditText {
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
             final int[] sel = StringUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText) );
+            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
                 setSelection(sel[0] + newCursorPos);
             }
@@ -332,34 +332,21 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int startIndex, final int endIndex, int... arg0Delay__arg1Duration) {
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        postDelayed(() -> {
+    public void smoothMoveCursor(final int index, final int... endIndex) {
+        post(() -> {
             if (!hasFocus()) {
                 requestFocus();
             }
 
-            ObjectAnimator anim = ObjectAnimator.ofInt(this, "selection", startIndex, endIndex);
-            anim.setDuration(duration);
-            anim.start();
-        }, delay);
-    }
-
-    public void smoothMoveCursorToLine(final int lineNumber, int... arg0Delay__arg1Duration) {
-        final int delay = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 0 ? arg0Delay__arg1Duration[0] : 500);
-        final int duration = Math.max(1, arg0Delay__arg1Duration != null && arg0Delay__arg1Duration.length > 1 ? arg0Delay__arg1Duration[1] : 400);
-
-        this.postDelayed(() -> {
-            String text = getText().toString();
-            int index = StringUtils.getIndexFromLineOffset(text, lineNumber, 0);
-            if (index < 0) {
-                return;
+            final ObjectAnimator anim;
+            if (endIndex != null && endIndex.length > 0) {
+                anim = ObjectAnimator.ofInt(this, "selection", index, endIndex[0]);
+            } else {
+                anim = ObjectAnimator.ofInt(this, "selection", index);
             }
-
-            smoothMoveCursor(0, index, 1, duration);
-        }, delay);
+            anim.setDuration(300);
+            anim.start();
+        });
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

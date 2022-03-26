@@ -11,12 +11,9 @@ package net.gsantner.markor.format.plaintext;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
-import android.view.HapticFeedbackConstants;
-import android.view.View;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.AutoFormatter;
-import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -31,27 +28,17 @@ public class PlaintextTextActions extends TextActions {
     }
 
     @Override
-    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
-        return runCommonTextAction(action);
-    }
-
-    @Override
-    protected ActionCallback getActionCallback(@StringRes int keyId) {
-        return new PlaintextTextActionImpl(keyId);
-    }
-
-    @Override
     public List<ActionItem> getActiveActionList() {
 
         final ActionItem[] TMA_ACTIONS = {
                 new ActionItem(R.string.tmaid_common_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list),
                 new ActionItem(R.string.tmaid_common_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
                 new ActionItem(R.string.tmaid_common_ordered_list_number, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
-                new ActionItem(R.string.tmaid_common_jump_to_bottom, CommonTextActions.ACTION_JUMP_BOTTOM_TOP_ICON, R.string.jump_to_bottom),
-                new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
-                new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+                new ActionItem(R.string.tmaid_common_jump_to_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom),
+                new ActionItem(R.string.tmaid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
+                new ActionItem(R.string.tmaid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
-                new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+                new ActionItem(R.string.tmaid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.tmaid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.tmaid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
                 new ActionItem(R.string.tmaid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
@@ -68,47 +55,6 @@ public class PlaintextTextActions extends TextActions {
     protected @StringRes
     int getFormatActionsKey() {
         return R.string.pref_key__plaintext__action_keys;
-    }
-
-    private class PlaintextTextActionImpl extends ActionCallback {
-        private int _action;
-
-        PlaintextTextActionImpl(int action) {
-            _action = action;
-        }
-
-        @Override
-        public void onClick(View view) {
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-            runCommonTextAction(_action);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            switch (_action) {
-                case R.string.tmaid_common_deindent:
-                case R.string.tmaid_common_indent: {
-                    return runCommonTextAction(R.string.tmaid_common_set_indent_size);
-                }
-                case R.string.tmaid_common_open_link_browser: {
-                    return runCommonTextAction(R.string.tmaid_common_search_in_content_of_current_file);
-                }
-                case R.string.tmaid_common_special_key: {
-                    return runCommonTextAction(R.string.tmaid_common_jump_to_bottom);
-                }
-                case R.string.tmaid_common_time: {
-                    return runCommonTextAction(R.string.tmaid_common_time_insert_timestamp);
-                }
-                case R.string.tmaid_common_ordered_list_number: {
-                    runRenumberOrderedListIfRequired(true);
-                    return true;
-                }
-                case R.string.tmaid_common_insert_snippet: {
-                    return runCommonTextAction(R.string.tmaid_common_insert_recent_snippet);
-                }
-            }
-            return false;
-        }
     }
 
     @Override
