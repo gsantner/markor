@@ -16,10 +16,10 @@
     android:background="@drawable/keyboard_shortcut_button"
     android:gravity="center_vertical|center_horizontal"
     android:paddingLeft="6dp"
-    android:paddingRight="6dp"
     android:paddingTop="8dp"
+    android:paddingRight="6dp"
     android:paddingBottom="8dp"
     android:scaleType="fitCenter"
     android:tint="@color/textActionIconColor"
-    tools:src="@drawable/ic_check_box_black_24dp"
-    tools:ignore="ContentDescription" />
+    tools:ignore="ContentDescription"
+    tools:src="@drawable/ic_check_box_black_24dp" />
