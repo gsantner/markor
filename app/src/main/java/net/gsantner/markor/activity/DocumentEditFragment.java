@@ -207,6 +207,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
 
+<<<<<<< Updated upstream
         loadDocument();
 
         _hlEditor.clearFocus();
@@ -217,11 +218,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _isPreviewVisible = savedInstanceState.getBoolean(SAVESTATE_PREVIEW_ON, _isPreviewVisible);
         }
 
+=======
+>>>>>>> Stashed changes
         final Toolbar toolbar = getToolbar();
         if (toolbar != null) {
             toolbar.setOnLongClickListener(_longClickToTopOrBottom);
         }
 
+<<<<<<< Updated upstream
         // Set the correct position after everything else done
         if (!isDisplayedAtMainActivity() && !Arrays.asList(_hlEditor, _webView, _document.getFile()).contains(null)) {
             // Scroll to position
@@ -231,6 +235,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             final int intentLineNumber = args != null ? args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) : -1;
             if (savedInstanceState == null && intentLineNumber >= 0) {
                 _hlEditor.smoothMoveCursorToLine(intentLineNumber);
+=======
+        final Bundle args = getArguments();
+        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
+
+        loadDocument();
+
+        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+
+        // Set initial wrap state
+        initDocState();
+
+        int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
+
+        // First start - overwrite start position if needed
+        if (savedInstanceState == null) {
+            if (isDisplayedAtMainActivity()) {
+                startPos = _hlEditor.length();
+            } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
+                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0});
+            } else if (_appSettings.isEditorStartOnBotttom()) {
+                startPos = _hlEditor.length();
+>>>>>>> Stashed changes
             }
 
             // Set cursor if saved cursor state present
@@ -674,7 +700,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Document is written iff content has changed
         if (_isTextChanged) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
-                updateLauncherWidgets();
+                // updateLauncherWidgets();
                 checkTextChangeState();
                 return true;
             } else {
@@ -708,13 +734,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         }
         super.onPause();
-    }
-
-    private void updateLauncherWidgets() {
-        Context c = App.get().getApplicationContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(c, WrMarkorWidgetProvider.class));
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 
     @Override

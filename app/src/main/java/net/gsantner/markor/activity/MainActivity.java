@@ -9,8 +9,13 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
+import static other.writeily.widget.WrMarkorWidgetProvider.updateAllListWidgets;
+
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -33,6 +38,7 @@ import android.view.WindowManager;
 
 import com.pixplicity.generate.Rate;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
@@ -59,6 +65,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnPageChange;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -225,6 +232,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
+        updateAllListWidgets();
     }
 
     private void restartMainActivity() {

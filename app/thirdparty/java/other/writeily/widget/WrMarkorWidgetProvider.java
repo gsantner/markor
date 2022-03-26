@@ -12,12 +12,14 @@ package other.writeily.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
@@ -116,5 +118,12 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    public static void updateAllListWidgets() {
+        final Context appContext = App.get().getApplicationContext();
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(App.get().getApplicationContext());
+        final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, WrMarkorWidgetProvider.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 }
