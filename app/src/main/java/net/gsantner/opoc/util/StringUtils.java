@@ -9,9 +9,18 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Build;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.View;
+import android.view.ViewParent;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -345,6 +354,53 @@ public final class StringUtils {
             }
             edit.setSelection(selStart, selEnd);
         }
+        showSelection(edit);
+    }
+
+    public static void showSelection(final TextView text) {
+        final Layout layout = text.getLayout();
+
+        if (layout == null) return;
+
+        // Try to find scrolling parents 2 levels up in the hierarchy
+        View hScroll = text, vScroll = text;
+        ViewParent parent = text.getParent();
+        if (parent instanceof ScrollView) {
+            vScroll = (View) parent;
+            parent = parent.getParent();
+            if (parent instanceof HorizontalScrollView) {
+                hScroll = (View) parent;
+            }
+        } else if (parent instanceof HorizontalScrollView) {
+            hScroll = (View) parent;
+            parent = parent.getParent();
+            if (parent instanceof ScrollView) {
+                vScroll = (View) parent;
+            }
+        }
+
+        // Find position to set
+        final int[] sel = StringUtils.getSelection(text);
+        final int lineStart = StringUtils.getLineStart(text.getText(), sel[0]);
+
+        final int viewHeight = vScroll.getHeight();
+        final int bottom = layout.getLineBottom(layout.getLineForOffset(sel[1]));
+
+        // Try several options to fit selection vertically
+        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart));
+        int yPos = lineStartTop - text.getLineHeight(); // Top of _line_ start with offset
+        if ((bottom - yPos) > viewHeight) {
+            yPos = lineStartTop; // Top of line start
+        }
+        if ((bottom - yPos) > viewHeight) {
+            yPos = layout.getLineTop(layout.getLineForOffset(sel[0])); // Selection start
+        }
+
+        // Just scroll to start
+        int xPos = (int) layout.getPrimaryHorizontal(sel[0]) + 1;
+
+        vScroll.scrollTo(0, yPos);
+        hScroll.scrollTo(xPos, 0);
     }
 
     // Search for matching pairs of backticks

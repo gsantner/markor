@@ -225,7 +225,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (isDisplayedAtMainActivity()) {
                 startPos = _hlEditor.length();
             } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0});
+                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
             }
