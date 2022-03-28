@@ -9,10 +9,6 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.os.Build;
 import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -357,29 +353,29 @@ public final class StringUtils {
         showSelection(edit);
     }
 
+    // Centre the currently selected text on the screen
     public static void showSelection(final TextView text) {
         final Layout layout = text.getLayout();
-
-        if (layout == null) return;
+        if (layout == null) {
+            return;
+        }
 
         // Try to find scrolling parents 2 levels up in the hierarchy
         View hScroll = text, vScroll = text;
-        ViewParent parent = text.getParent();
-        if (parent instanceof ScrollView) {
-            vScroll = (View) parent;
-            parent = parent.getParent();
-            if (parent instanceof HorizontalScrollView) {
-                hScroll = (View) parent;
+        ViewParent parent1 = text.getParent(), parent2 = parent1.getParent();
+        if (parent1 instanceof ScrollView) {
+            vScroll = (View) parent1;
+            if (parent2 instanceof HorizontalScrollView) {
+                hScroll = (View) parent2;
             }
-        } else if (parent instanceof HorizontalScrollView) {
-            hScroll = (View) parent;
-            parent = parent.getParent();
-            if (parent instanceof ScrollView) {
-                vScroll = (View) parent;
+        } else if (parent1 instanceof HorizontalScrollView) {
+            hScroll = (View) parent1;
+            if (parent2 instanceof ScrollView) {
+                vScroll = (View) parent2;
             }
         }
 
-        // Find position to set
+        // Find position to set in Y
         final int[] sel = StringUtils.getSelection(text);
         final int lineStart = StringUtils.getLineStart(text.getText(), sel[0]);
 
@@ -396,7 +392,7 @@ public final class StringUtils {
             yPos = layout.getLineTop(layout.getLineForOffset(sel[0])); // Selection start
         }
 
-        // Just scroll to start
+        // Just scroll to start in X
         int xPos = (int) layout.getPrimaryHorizontal(sel[0]) + 1;
 
         vScroll.scrollTo(0, yPos);
