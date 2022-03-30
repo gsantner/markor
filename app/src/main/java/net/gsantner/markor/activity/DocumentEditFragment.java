@@ -74,7 +74,6 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
-    public static final String SAVESTATE_CURSOR = "CURSOR";
     public static final String START_PREVIEW = "START_PREVIEW";
 
     public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
@@ -631,7 +630,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
-            final int posn = _hlEditor.getSelectionStart();
+            final int posn = StringUtils.getSelection(_hlEditor)[0];
 
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
@@ -685,18 +684,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-        outState.putInt(SAVESTATE_CURSOR, _hlEditor != null ? _hlEditor.getSelectionStart() : 0);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onPause() {
         saveDocument(false);
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
         if (_appSettings != null && _document != null) {
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
@@ -704,7 +697,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
             }
         }
-        super.onStop();
+        super.onPause();
     }
 
     private void updateLauncherWidgets() {
