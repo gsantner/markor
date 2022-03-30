@@ -397,10 +397,9 @@ public final class StringUtils {
         final int absMin = layout.getLineBottom(layout.getLineForOffset(_end)) - vScroll.getHeight();
 
         // Try several options to fit selection vertically
-        final int padding = text.getCompoundPaddingTop();
-        final int selStartTop = layout.getLineTop(layout.getLineForOffset(_start)) + padding;
-        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart)) + padding;
-        final int lineStartTopWithOffset = lineStartTop - text.getLineHeight() + padding;
+        final int selStartTop = layout.getLineTop(layout.getLineForOffset(_start));
+        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart));
+        final int lineStartTopWithOffset = lineStartTop - text.getLineHeight();
         final int yPos;
         // Pick the smallest option s.t. option > absMin
         if (lineStartTopWithOffset >= absMin) {
