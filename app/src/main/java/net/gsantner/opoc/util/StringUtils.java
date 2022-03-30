@@ -353,50 +353,73 @@ public final class StringUtils {
         showSelection(edit);
     }
 
-    // Centre the currently selected text on the screen
     public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    }
+
+    // Centre the currently selected text on the screen
+    public static void showSelection(final TextView text, final int start, final int end) {
+
         final Layout layout = text.getLayout();
         if (layout == null) {
             return;
         }
 
+        final int _start = Math.min(start, end);
+        final int _end = Math.max(start, end);
+
+        // Note that sel == length is valid
+        if (_start < 0 || _start > text.length() || _end < 0 || _end > text.length()) {
+            return;
+        }
+
         // Try to find scrolling parents 2 levels up in the hierarchy
-        View hScroll = text, vScroll = text;
-        ViewParent parent1 = text.getParent(), parent2 = parent1.getParent();
+        // ------------------------------------------------------------------
+        final ViewParent parent1 = text.getParent(), parent2 = parent1.getParent();
+        final View hScroll, vScroll;
         if (parent1 instanceof ScrollView) {
             vScroll = (View) parent1;
-            if (parent2 instanceof HorizontalScrollView) {
-                hScroll = (View) parent2;
-            }
+            hScroll = (View) ((parent2 instanceof HorizontalScrollView) ? parent2 : text);
         } else if (parent1 instanceof HorizontalScrollView) {
             hScroll = (View) parent1;
-            if (parent2 instanceof ScrollView) {
-                vScroll = (View) parent2;
-            }
+            vScroll = (View) ((parent2 instanceof ScrollView) ? parent2 : text);
+        } else {
+            // Default to scrolling with the textView itself
+            hScroll = text;
+            vScroll = text;
         }
 
         // Find position to set in Y
-        final int[] sel = StringUtils.getSelection(text);
-        final int lineStart = StringUtils.getLineStart(text.getText(), sel[0]);
-
-        final int viewHeight = vScroll.getHeight();
-        final int bottom = layout.getLineBottom(layout.getLineForOffset(sel[1]));
+        // ------------------------------------------------------------------
+        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
+        // sel end will not be visible if we scroll less than this
+        // Note that vScroll.getHeight can be reduced by keyboard
+        final int absMin = layout.getLineBottom(layout.getLineForOffset(_end)) - vScroll.getHeight();
 
         // Try several options to fit selection vertically
-        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart));
-        int yPos = lineStartTop - text.getLineHeight(); // Top of _line_ start with offset
-        if ((bottom - yPos) > viewHeight) {
-            yPos = lineStartTop; // Top of line start
-        }
-        if ((bottom - yPos) > viewHeight) {
-            yPos = layout.getLineTop(layout.getLineForOffset(sel[0])); // Selection start
+        final int padding = text.getCompoundPaddingTop();
+        final int selStartTop = layout.getLineTop(layout.getLineForOffset(_start)) + padding;
+        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart)) + padding;
+        final int lineStartTopWithOffset = lineStartTop - text.getLineHeight() + padding;
+        final int yPos;
+        // Pick the smallest option s.t. option > absMin
+        if (lineStartTopWithOffset >= absMin) {
+            yPos = lineStartTopWithOffset;
+        } else if (lineStartTop >= absMin) {
+            yPos = lineStartTop;
+        } else {
+            yPos = selStartTop;
         }
 
-        // Just scroll to start in X
-        int xPos = (int) layout.getPrimaryHorizontal(sel[0]) + 1;
+        vScroll.post(() -> vScroll.scrollTo(0, yPos));
 
-        vScroll.scrollTo(0, yPos);
-        hScroll.scrollTo(xPos, 0);
+        // Just scroll to start in X, if required
+        // ------------------------------------------------------------------
+        final int xPos = (int) layout.getPrimaryHorizontal(_start) - 1;
+        final int xErr = xPos - hScroll.getScrollX();
+        if (xErr < 0 || xErr > hScroll.getWidth()) {
+            hScroll.post(() -> hScroll.scrollTo(xPos, 0));
+        }
     }
 
     // Search for matching pairs of backticks

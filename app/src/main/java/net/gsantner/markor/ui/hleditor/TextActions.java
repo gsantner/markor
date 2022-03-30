@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -668,6 +669,7 @@ public abstract class TextActions {
 
     // Some long-press actions common to multiple file types
     // Can be called _explicitly_ by a derived class
+    @SuppressLint("NonConstantResourceId")
     protected final boolean runCommonLongPressTextActions(@StringRes int action) {
         switch (action) {
             case R.string.tmaid_common_deindent:
@@ -694,6 +696,11 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_ordered_list_number: {
                 runRenumberOrderedListIfRequired(true);
+                return true;
+            }
+            case R.string.tmaid_common_move_text_one_line_up:
+            case R.string.tmaid_common_move_text_one_line_down: {
+                StringUtils.showSelection(_hlEditor);
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {

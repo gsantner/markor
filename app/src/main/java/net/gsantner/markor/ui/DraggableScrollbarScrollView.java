@@ -2,6 +2,7 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -87,6 +88,13 @@ public class DraggableScrollbarScrollView extends ScrollView {
 
     public void setFastScrollEnabled(boolean fastScrollEnabled) {
         _fastScrollEnabled = fastScrollEnabled;
+    }
+
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        super.onSaveInstanceState();
+        return null;
     }
 
     public boolean isFastScrollEnabled() {

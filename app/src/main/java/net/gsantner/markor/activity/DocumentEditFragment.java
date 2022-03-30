@@ -23,7 +23,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -75,6 +74,7 @@ import other.writeily.widget.WrMarkorWidgetProvider;
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static final String SAVESTATE_CURSOR = "CURSOR";
     public static final String START_PREVIEW = "START_PREVIEW";
 
     public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
@@ -202,6 +202,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
 
+        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -241,8 +243,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
 
         loadDocument();
-
-        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
         if (_document != null) {
             _document.testCreateParent();
@@ -650,7 +650,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.smoothMoveCursor(posn);
+            if (_hlEditor.indexesValid(posn)) {
+                _hlEditor.smoothMoveCursor(posn);
+            }
         }
     }
 
@@ -683,12 +685,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        outState.putInt(SAVESTATE_CURSOR, _hlEditor != null ? _hlEditor.getSelectionStart() : 0);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onPause() {
         saveDocument(false);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
         if (_appSettings != null && _document != null) {
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
@@ -696,7 +704,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
             }
         }
-        super.onPause();
+        super.onStop();
     }
 
     private void updateLauncherWidgets() {
