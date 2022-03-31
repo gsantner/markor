@@ -9,7 +9,12 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.graphics.Rect;
+import android.graphics.Region;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.Layout;
+import android.text.TextDirectionHeuristic;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -354,71 +359,67 @@ public final class StringUtils {
     }
 
     public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
-    }
 
-    // Centre the currently selected text on the screen
-    public static void showSelection(final TextView text, final int start, final int end) {
-
+        // Get view info
+        // ------------------------------------------------------------
         final Layout layout = text.getLayout();
         if (layout == null) {
             return;
         }
 
-        final int _start = Math.min(start, end);
-        final int _end = Math.max(start, end);
+        final int[] sel = StringUtils.getSelection(text);
+        if (sel[0] < 0 || sel[1] < 0) {
+            return;
+        }
+        final int[] lineSel = StringUtils.getLineSelection(text);
 
-        // Note that sel == length is valid
-        if (_start < 0 || _start > text.length() || _end < 0 || _end > text.length()) {
+        final Rect viewSize = new Rect();
+        if (!text.getLocalVisibleRect(viewSize)) {
             return;
         }
 
-        // Try to find scrolling parents 2 levels up in the hierarchy
-        // ------------------------------------------------------------------
-        final ViewParent parent1 = text.getParent(), parent2 = parent1.getParent();
-        final View hScroll, vScroll;
-        if (parent1 instanceof ScrollView) {
-            vScroll = (View) parent1;
-            hScroll = (View) ((parent2 instanceof HorizontalScrollView) ? parent2 : text);
-        } else if (parent1 instanceof HorizontalScrollView) {
-            hScroll = (View) parent1;
-            vScroll = (View) ((parent2 instanceof ScrollView) ? parent2 : text);
-        } else {
-            // Default to scrolling with the textView itself
-            hScroll = text;
-            vScroll = text;
+        // Using lineHeight as convenient padding
+        final int padding = text.getLineHeight();
+
+        // Region in Y
+        // ------------------------------------------------------------
+        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineSel[0]));
+        final int startTop = layout.getLineTop(layout.getLineForOffset(sel[0]));
+        final int endBottom = layout.getLineBottom(layout.getLineForOffset(sel[1]));
+        final int lineEndBottom = layout.getLineBottom(layout.getLineForOffset(lineSel[1]));
+
+        // Try decreasingly excellent options for best region
+        final Rect region = new Rect();
+
+        region.top = lineStartTop;
+        region.bottom = lineEndBottom;
+        if (region.height() > viewSize.height()) {
+            region.bottom = endBottom;
+            if (region.height() > viewSize.height()) {
+                region.top = startTop;
+                if (region.height() > viewSize.height()) {
+                    region.bottom = startTop + viewSize.height();
+                }
+            }
         }
 
-        // Find position to set in Y
-        // ------------------------------------------------------------------
-        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
-        // sel end will not be visible if we scroll less than this
-        // Note that vScroll.getHeight can be reduced by keyboard
-        final int absMin = layout.getLineBottom(layout.getLineForOffset(_end)) - vScroll.getHeight();
-
-        // Try several options to fit selection vertically
-        final int selStartTop = layout.getLineTop(layout.getLineForOffset(_start));
-        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineStart));
-        final int lineStartTopWithOffset = lineStartTop - text.getLineHeight();
-        final int yPos;
-        // Pick the smallest option s.t. option > absMin
-        if (lineStartTopWithOffset >= absMin) {
-            yPos = lineStartTopWithOffset;
-        } else if (lineStartTop >= absMin) {
-            yPos = lineStartTop;
-        } else {
-            yPos = selStartTop;
+        // If at this stage we have space, add padding to make the selection near the top
+        if ((viewSize.height() - region.height()) > padding) {
+            region.top -= padding;
+            region.bottom = region.top + viewSize.height();
         }
 
-        vScroll.post(() -> vScroll.scrollTo(0, yPos));
+        // Region in X - Simple solution as handling RTL, text alignment, centred text is
+        // a huge pain - See TextView.bringPointIntoView
+        // ------------------------------------------------------------
 
-        // Just scroll to start in X, if required
-        // ------------------------------------------------------------------
-        final int xPos = (int) layout.getPrimaryHorizontal(_start) - 1;
-        final int xErr = xPos - hScroll.getScrollX();
-        if (xErr < 0 || xErr > hScroll.getWidth()) {
-            hScroll.post(() -> hScroll.scrollTo(xPos, 0));
-        }
+        final int startLeft = (int) layout.getPrimaryHorizontal(sel[0]);
+        final int endLeft = (int) layout.getPrimaryHorizontal(sel[1]);
+        region.left = Math.min(startLeft, endLeft);
+        region.right = Math.max(startLeft, endLeft);
+        region.right += (region.left == region.right) ? 1 : 0;
+
+        text.requestRectangleOnScreen(region);
     }
 
     // Search for matching pairs of backticks

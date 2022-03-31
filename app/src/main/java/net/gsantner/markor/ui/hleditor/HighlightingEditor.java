@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
@@ -332,20 +333,14 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int index, final int... endIndex) {
+    public void smoothMoveCursor(final int index) {
         post(() -> {
             if (!hasFocus()) {
                 requestFocus();
             }
 
-            final ObjectAnimator anim;
-            if (endIndex != null && endIndex.length > 0) {
-                anim = ObjectAnimator.ofInt(this, "selection", index, endIndex[0]);
-            } else {
-                anim = ObjectAnimator.ofInt(this, "selection", index);
-            }
-            anim.setDuration(300);
-            anim.start();
+            setSelection(index);
+            postDelayed(() -> StringUtils.showSelection(this), 250);
         });
     }
 
