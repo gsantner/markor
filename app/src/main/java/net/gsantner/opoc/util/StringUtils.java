@@ -390,7 +390,7 @@ public final class StringUtils {
             if (region.height() > viewSize.height()) {
                 region.top = startTop;
                 if (region.height() > viewSize.height()) {
-                    region.bottom = startTop + viewSize.height();
+                    region.bottom = startTop + padding;
                 }
             }
         }
@@ -401,8 +401,8 @@ public final class StringUtils {
             region.bottom = region.top + viewSize.height();
         }
 
-        // Region in X - Simple solution as handling RTL, text alignment, centred text is
-        // a huge pain - See TextView.bringPointIntoView
+        // Region in X - as handling RTL, text alignment, and centred text etc is
+        // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
 
         final int startLeft = (int) layout.getPrimaryHorizontal(sel[0]);
