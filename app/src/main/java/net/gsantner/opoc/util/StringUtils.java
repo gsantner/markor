@@ -10,18 +10,10 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
-import android.graphics.Region;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.text.Layout;
-import android.text.TextDirectionHeuristic;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.view.View;
-import android.view.ViewParent;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;

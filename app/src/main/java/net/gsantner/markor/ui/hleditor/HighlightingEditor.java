@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
