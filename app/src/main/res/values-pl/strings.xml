@@ -150,7 +150,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">Nic</string>
     <string name="other">Inne</string>
     <string name="empty_file">Pusty plik</string>
-    <string name="break_page_pdf_print">Podział strony (PDF/drukowanie)</string>
+    <string name="break_page_pdf_print">Podział strony (dla PDF lub druku)</string>
     <string name="underline">Podkreślenie</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">Określa, czy należy podświetlać kody kolorów heksadecymalnych w zależności od koloru</string>
     <string name="underline_hex_color_codes">Podkreślaj kolory w układzie szesnastkowym (Hex)</string>
