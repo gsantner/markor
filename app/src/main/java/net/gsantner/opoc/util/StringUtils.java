@@ -325,7 +325,9 @@ public final class StringUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            edit.setSelection(StringUtils.getIndexFromLineOffset(text, positions.get(0), 0));
+            final int posn = StringUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            showSelection(edit, posn, posn);
+            edit.setSelection(posn);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -345,12 +347,16 @@ public final class StringUtils {
                 selStart = 0;
                 selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
+            showSelection(edit, selStart, selEnd);
             edit.setSelection(selStart, selEnd);
         }
-        showSelection(edit);
     }
 
     public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    }
+
+    public static void showSelection(final TextView text, final int start, final int end) {
 
         // Get view info
         // ------------------------------------------------------------
@@ -359,59 +365,56 @@ public final class StringUtils {
             return;
         }
 
-        final int[] sel = StringUtils.getSelection(text);
-        if (sel[0] < 0 || sel[1] < 0) {
+        final int _start = Math.min(start, end);
+        final int _end = Math.max(start, end);
+        if (start < 0 || end > text.length()) {
             return;
         }
-        final int[] lineSel = StringUtils.getLineSelection(text);
+        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
         if (!text.getLocalVisibleRect(viewSize)) {
             return;
         }
 
-        // Using lineHeight as convenient padding
-        final int padding = text.getLineHeight();
-
         // Region in Y
         // ------------------------------------------------------------
-        final int lineStartTop = layout.getLineTop(layout.getLineForOffset(lineSel[0]));
-        final int startTop = layout.getLineTop(layout.getLineForOffset(sel[0]));
-        final int endBottom = layout.getLineBottom(layout.getLineForOffset(sel[1]));
-        final int lineEndBottom = layout.getLineBottom(layout.getLineForOffset(lineSel[1]));
+        final int selStartLine = layout.getLineForOffset(_start);
+        final int lineStartLine = layout.getLineForOffset(lineStart);
+        final int selStartLineTop = layout.getLineTop(selStartLine);
+        final int lineStartLineTop = layout.getLineTop(lineStartLine);
 
-        // Try decreasingly excellent options for best region
         final Rect region = new Rect();
 
-        region.top = lineStartTop;
-        region.bottom = lineEndBottom;
-        if (region.height() > viewSize.height()) {
-            region.bottom = endBottom;
-            if (region.height() > viewSize.height()) {
-                region.top = startTop;
-                if (region.height() > viewSize.height()) {
-                    region.bottom = startTop + padding;
-                }
-            }
+        if ((selStartLine - lineStartLine) <= 3) {
+            // good to see the start of the line if close enough
+            region.top = lineStartLineTop;
+        } else {
+            region.top = selStartLineTop;
         }
 
-        // If at this stage we have space, add padding to make the selection near the top
-        if ((viewSize.height() - region.height()) > padding) {
-            region.top -= padding;
-            region.bottom = region.top + viewSize.height();
-        }
+        // Push the top to the top
+        region.bottom = region.top + viewSize.height();
 
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
 
-        final int startLeft = (int) layout.getPrimaryHorizontal(sel[0]);
-        final int endLeft = (int) layout.getPrimaryHorizontal(sel[1]);
+        final int endLeft = (int) layout.getPrimaryHorizontal(_end);
+        final int startLeft = (int) layout.getPrimaryHorizontal(_start);
         region.left = Math.min(startLeft, endLeft);
         region.right = Math.max(startLeft, endLeft);
-        region.right += (region.left == region.right) ? 1 : 0;
 
-        text.requestRectangleOnScreen(region);
+        if (region.left == region.right) {
+            // make sure rect width > 0
+            region.right += 1;
+        } else if (region.width() > viewSize.width()) {
+            // Make sure selStart is in rect if possible
+            region.left = startLeft;
+            region.right = region.left + viewSize.width();
+        }
+
+        text.post(() -> text.requestRectangleOnScreen(region));
     }
 
     // Search for matching pairs of backticks

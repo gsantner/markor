@@ -32,7 +32,6 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
@@ -331,15 +330,12 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int index) {
-        post(() -> {
-            if (!hasFocus()) {
-                requestFocus();
-            }
-
-            setSelection(index);
-            postDelayed(() -> StringUtils.showSelection(this), 250);
-        });
+    public void setCursor(final int index) {
+        if (!hasFocus()) {
+            requestFocus();
+        }
+        post(() -> StringUtils.showSelection(this, index, index));
+        post(() ->setSelection(index));
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {
