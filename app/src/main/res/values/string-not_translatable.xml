@@ -12,8 +12,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_name_real" translatable="false">Markor</string>
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
-    <string name="app_community_url" translatable="false">https://matrix.to/#/#markor:matrix.org</string>
-    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
+    <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues/new/choose</string>
     <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
 
     <string name="app_web_url" translatable="false">https://gsantner.net/project/markor.html?source=inapp</string>
@@ -221,16 +221,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tmaid_common_time" translatable="false">tmaid_common_time</string>
     <string name="tmaid_common_time_insert_timestamp" translatable="false">tmaid_common_time_insert_timestamp</string>
     <string name="tmaid_common_jump_to_bottom" translatable="false">tmaid_common_jump_to_bottom</string>
-    <string name="tmaid_common_search_in_content_of_current_file" translatable="false">tmaid_common_search_in_content_of_current_file</string>
     <string name="tmaid_common_accordion" translatable="false">tmaid_common_accordion</string>
     <string name="tmaid_common_indent" translatable="false">tmaid_common_indent</string>
     <string name="tmaid_common_set_indent_size" translatable="false">tmaid_common_set_indent_size</string>
     <string name="tmaid_common_deindent" translatable="false">tmaid_common_deindent</string>
-    <string name="tmaid_common_toolbar_title_clicked_edit_action" translatable="false">tmaid_common_toolbar_title_clicked_edit_action</string>
     <string name="tmaid_common_move_text_one_line_up" translatable="false">tmaid_common_move_text_one_line_up</string>
     <string name="tmaid_common_move_text_one_line_down" translatable="false">tmaid_common_move_text_one_line_down</string>
     <string name="tmaid_common_insert_snippet" translatable="false">tmaid_common_insert_snippet</string>
-    <string name="tmaid_common_insert_recent_snippet" translatable="false">tmaid_common_insert_recent_snippet</string>
 
     <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
     <string name="tmaid_markdown_h1" translatable="false">tmaid_markdown_h1</string>

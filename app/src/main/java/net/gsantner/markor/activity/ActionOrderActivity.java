@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,8 +58,7 @@ public class ActionOrderActivity extends MarkorBaseActivity {
         setContentView(R.layout.action_order_activity);
 
         //  Set back button
-        final Toolbar _toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(_toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

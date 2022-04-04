@@ -19,11 +19,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
-import android.view.HapticFeedbackConstants;
-import android.view.View;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.general.CommonTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
@@ -49,36 +46,17 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    public boolean runAction(final int action, boolean modLongClick, String anotherArg) {
-        if (action == R.string.tmaid_common_search_in_content_of_current_file) {
-            SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
-            return true;
-        } else if (action == R.string.tmaid_common_toolbar_title_clicked_edit_action) {
-            SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
-            return true;
-        }
-        return runCommonTextAction(action);
-    }
-
-    @Override
-    protected ActionCallback getActionCallback(@StringRes int keyId) {
-        return new TodoTxtTextActionsImpl(keyId);
-    }
-
-    @Override
     public List<ActionItem> getActiveActionList() {
-
-        final int projectIcon = R.drawable.ic_new_label_black_24dp;
 
         final ActionItem[] TMA_ACTIONS = {
                 new ActionItem(R.string.tmaid_todotxt_toggle_done, R.drawable.ic_check_box_black_24dp, R.string.toggle_done),
                 new ActionItem(R.string.tmaid_todotxt_add_context, R.drawable.gs_email_sign_black_24dp, R.string.add_context),
-                new ActionItem(R.string.tmaid_todotxt_add_project, projectIcon, R.string.add_project),
+                new ActionItem(R.string.tmaid_todotxt_add_project, R.drawable.ic_new_label_black_24dp, R.string.add_project),
                 new ActionItem(R.string.tmaid_todotxt_priority, R.drawable.ic_star_border_black_24dp, R.string.priority),
-                new ActionItem(R.string.tmaid_common_delete_lines, CommonTextActions.ACTION_DELETE_LINES_ICON, R.string.delete_lines),
-                new ActionItem(R.string.tmaid_common_open_link_browser, CommonTextActions.ACTION_OPEN_LINK_BROWSER__ICON, R.string.open_link),
+                new ActionItem(R.string.tmaid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
+                new ActionItem(R.string.tmaid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 new ActionItem(R.string.tmaid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
-                new ActionItem(R.string.tmaid_common_special_key, CommonTextActions.ACTION_SPECIAL_KEY__ICON, R.string.special_key),
+                new ActionItem(R.string.tmaid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.tmaid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp, R.string.archive_completed_tasks),
                 new ActionItem(R.string.tmaid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp, R.string.sort_by),
                 new ActionItem(R.string.tmaid_todotxt_current_date, R.drawable.ic_date_range_black_24dp, R.string.current_date),
@@ -92,194 +70,177 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     @Override
-    protected @StringRes
-    int getFormatActionsKey() {
+    @StringRes
+    protected int getFormatActionsKey() {
         return R.string.pref_key__todotxt__action_keys;
     }
 
-    private class TodoTxtTextActionsImpl extends ActionCallback {
-        private final int _action;
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onActionClick(final @StringRes int action) {
+        final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
 
-        TodoTxtTextActionsImpl(int action) {
-            _action = action;
-        }
-
-        @SuppressLint("NonConstantResourceId")
-        @Override
-        public void onClick(View view) {
-            view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-            final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
-
-            switch (_action) {
-                case R.string.tmaid_todotxt_toggle_done: {
-                    final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
-                    final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
-                    final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
-                    final String startingPriority = "^\\(([A-Z])\\)\\s";
-                    runRegexReplaceAction(
-                            // If task not done and starts with a priority and contains a pri tag
-                            new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
-                            // else if task not done and starts with a priority and does not contain a pri tag
-                            new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
-                            // else if task is done and contains a pri tag
-                            new ReplacePattern(doneWithDate + bodyWithPri, "($4) $2$5"),
-                            // else if task is done and does not contain a pri tag
-                            new ReplacePattern(doneWithDate, ""),
-                            // else replace task start with 'x ...'
-                            new ReplacePattern("^", doneMark)
-                    );
-                    return;
-                }
-                case R.string.tmaid_todotxt_add_context: {
-                    final List<String> contexts = new ArrayList<>();
-                    contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
-                    contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
-                    SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
-                        insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
-                    });
-                    return;
-                }
-                case R.string.tmaid_todotxt_add_project: {
-                    final List<String> projects = new ArrayList<>();
-                    projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
-                    projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
-                    SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
-                        insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
-                    });
-                    return;
-                }
-                case R.string.tmaid_todotxt_priority: {
-                    SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, selTasks.get(0).getPriority(), (priority) -> {
-                        ArrayList<ReplacePattern> patterns = new ArrayList<>();
-                        if (priority.length() > 1) {
-                            patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
-                        } else if (priority.length() == 1) {
-                            final String _priority = String.format("(%c) ", priority.charAt(0));
-                            patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, _priority));
-                            patterns.add(new ReplacePattern("^\\s*", _priority));
-                        }
-                        runRegexReplaceAction(patterns);
-                        trimLeadingWhiteSpace();
-                    });
-                    return;
-                }
-                case R.string.tmaid_todotxt_current_date: {
-                    setDueDate(_appSettings.getDueDateOffset());
-                    return;
-                }
-                case R.string.tmaid_todotxt_archive_done_tasks: {
-                    SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
-                        callbackPayload = Document.normalizeFilename(callbackPayload);
-
-                        final ArrayList<TodoTxtTask> keep = new ArrayList<>();
-                        final ArrayList<TodoTxtTask> move = new ArrayList<>();
-                        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-
-                        final int[] sel = StringUtils.getSelection(_hlEditor);
-                        final CharSequence text = _hlEditor.getText();
-                        final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
-                        final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
-
-                        for (int i = 0; i < allTasks.size(); i++) {
-                            final TodoTxtTask task = allTasks.get(i);
-                            if (task.isDone()) {
-                                move.add(task);
-                                if (i <= selStart[0]) selStart[0]--;
-                                if (i <= selEnd[0]) selEnd[0]--;
-                            } else {
-                                keep.add(task);
-                            }
-                        }
-                        if (!move.isEmpty() && _document.testCreateParent()) {
-                            File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
-                            String doneFileContents = "";
-                            if (doneFile.exists() && doneFile.canRead()) {
-                                doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
-                            }
-                            doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
-
-                            // Write to done file
-                            if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
-                                final String tasksString = TodoTxtTask.tasksToString(keep);
-                                _hlEditor.setText(tasksString);
-                                _hlEditor.setSelection(
-                                        StringUtils.getIndexFromLineOffset(tasksString, selStart),
-                                        StringUtils.getIndexFromLineOffset(tasksString, selEnd)
-                                );
-                            }
-                        }
-                        new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);
-                    });
-                    return;
-                }
-                case R.string.tmaid_todotxt_sort_todo: {
-                    SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
-                        @Override
-                        public void run() {
-                            final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-                            TodoTxtTask.sortTasks(tasks, orderBy, descending);
-                            setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
-                            new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
-                        }
-                    }.start());
-                    break;
-                }
-                case R.string.tmaid_common_open_link_browser: {
-                    commonTextActions.runAction(CommonTextActions.ACTION_OPEN_LINK_BROWSER);
-                    break;
-                }
-                case R.string.tmaid_common_special_key: {
-                    commonTextActions.runAction(CommonTextActions.ACTION_SPECIAL_KEY);
-                    break;
-                }
-                default: {
-                    runAction(_action);
-                    break;
-                }
+        switch (action) {
+            case R.string.tmaid_todotxt_toggle_done: {
+                final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
+                final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
+                final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
+                final String startingPriority = "^\\(([A-Z])\\)\\s";
+                runRegexReplaceAction(
+                        // If task not done and starts with a priority and contains a pri tag
+                        new ReplacePattern(startingPriority + bodyWithPri, doneMark + "$2 pri:$1$5"),
+                        // else if task not done and starts with a priority and does not contain a pri tag
+                        new ReplacePattern(startingPriority + "(.*)(\\s*)", doneMark + "$2 pri:$1"),
+                        // else if task is done and contains a pri tag
+                        new ReplacePattern(doneWithDate + bodyWithPri, "($4) $2$5"),
+                        // else if task is done and does not contain a pri tag
+                        new ReplacePattern(doneWithDate, ""),
+                        // else replace task start with 'x ...'
+                        new ReplacePattern("^", doneMark)
+                );
+                return true;
             }
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            final CommonTextActions commonTextActions = new CommonTextActions(_activity, _hlEditor);
-
-            switch (_action) {
-                case R.string.tmaid_todotxt_add_context: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
-                    return true;
-                }
-                case R.string.tmaid_todotxt_add_project: {
-                    SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
-                    return true;
-                }
-                case R.string.tmaid_common_special_key: {
-                    commonTextActions.runAction(CommonTextActions.ACTION_JUMP_BOTTOM_TOP);
-                    return true;
-                }
-                case R.string.tmaid_common_open_link_browser: {
-                    commonTextActions.runAction(CommonTextActions.ACTION_SEARCH);
-                    return true;
-                }
-                case R.string.tmaid_todotxt_sort_todo: {
-                    final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
-                    if (last != null && last.size() == 2) {
-                        final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-                        TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
-                        setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+            case R.string.tmaid_todotxt_add_context: {
+                final List<String> contexts = new ArrayList<>();
+                contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
+                SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
+                    insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
+                });
+                return true;
+            }
+            case R.string.tmaid_todotxt_add_project: {
+                final List<String> projects = new ArrayList<>();
+                projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
+                SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
+                    insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
+                });
+                return true;
+            }
+            case R.string.tmaid_todotxt_priority: {
+                SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, selTasks.get(0).getPriority(), (priority) -> {
+                    ArrayList<ReplacePattern> patterns = new ArrayList<>();
+                    if (priority.length() > 1) {
+                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
+                    } else if (priority.length() == 1) {
+                        final String _priority = String.format("(%c) ", priority.charAt(0));
+                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, _priority));
+                        patterns.add(new ReplacePattern("^\\s*", _priority));
                     }
-                    return true;
-                }
-                case R.string.tmaid_todotxt_current_date: {
-                    setDate();
-                    return true;
-                }
-                case R.string.tmaid_common_insert_snippet: {
-                    return runCommonTextAction(R.string.tmaid_common_insert_recent_snippet);
-                }
+                    runRegexReplaceAction(patterns);
+                    trimLeadingWhiteSpace();
+                });
+                return true;
             }
-            return false;
+            case R.string.tmaid_todotxt_current_date: {
+                setDueDate(_appSettings.getDueDateOffset());
+                return true;
+            }
+            case R.string.tmaid_todotxt_archive_done_tasks: {
+                SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
+                    callbackPayload = Document.normalizeFilename(callbackPayload);
+
+                    final ArrayList<TodoTxtTask> keep = new ArrayList<>();
+                    final ArrayList<TodoTxtTask> move = new ArrayList<>();
+                    final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+
+                    final int[] sel = StringUtils.getSelection(_hlEditor);
+                    final CharSequence text = _hlEditor.getText();
+                    final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
+                    final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+
+                    for (int i = 0; i < allTasks.size(); i++) {
+                        final TodoTxtTask task = allTasks.get(i);
+                        if (task.isDone()) {
+                            move.add(task);
+                            if (i <= selStart[0]) selStart[0]--;
+                            if (i <= selEnd[0]) selEnd[0]--;
+                        } else {
+                            keep.add(task);
+                        }
+                    }
+                    if (!move.isEmpty() && _document.testCreateParent()) {
+                        File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
+                        String doneFileContents = "";
+                        if (doneFile.exists() && doneFile.canRead()) {
+                            doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
+                        }
+                        doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
+
+                        // Write to done file
+                        if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
+                            final String tasksString = TodoTxtTask.tasksToString(keep);
+                            _hlEditor.setText(tasksString);
+                            _hlEditor.setSelection(
+                                    StringUtils.getIndexFromLineOffset(tasksString, selStart),
+                                    StringUtils.getIndexFromLineOffset(tasksString, selEnd)
+                            );
+                        }
+                    }
+                    new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);
+                });
+                return true;
+            }
+            case R.string.tmaid_todotxt_sort_todo: {
+                SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
+                    @Override
+                    public void run() {
+                        final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                        TodoTxtTask.sortTasks(tasks, orderBy, descending);
+                        setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                        new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
+                    }
+                }.start());
+                return true;
+            }
+            default: {
+                return runCommonTextAction(action);
+            }
         }
+    }
+
+    @Override
+    public boolean onActionLongClick(final @StringRes int action) {
+
+        switch (action) {
+            case R.string.tmaid_todotxt_add_context: {
+                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
+                return true;
+            }
+            case R.string.tmaid_todotxt_add_project: {
+                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
+                return true;
+            }
+            case R.string.tmaid_todotxt_sort_todo: {
+                final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
+                if (last != null && last.size() == 2) {
+                    final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                    TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
+                    setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                }
+                return true;
+            }
+            case R.string.tmaid_todotxt_current_date: {
+                setDate();
+                return true;
+            }
+            default: {
+                return runCommonLongPressTextActions(action);
+            }
+        }
+    }
+
+    @Override
+    public boolean runTitleClick() {
+        SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
+        return true;
+    }
+
+    @Override
+    public boolean onSearch() {
+        SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
+        return true;
     }
 
     private void insertUniqueItem(String item) {

@@ -24,7 +24,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -139,10 +138,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             AndroidBug5497Workaround.assistActivity(this);
         }
 
-        setSupportActionBar(_toolbar);
-
-        _toolbar.setOnClickListener(this::onToolbarTitleClicked);
-
+        setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
         handleLaunchingIntent(getIntent());
@@ -178,11 +174,18 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
-            final int paramLineNumber = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, (intentData != null ? StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1) : -1));
-            final boolean paramPreview = (paramLineNumber < 0) && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
-                    || (file.exists() && file.isFile() && _appSettings.getDocumentPreviewState(doc.getPath()))
-                    || file.getName().startsWith("index."));
-            showTextEditor(doc, paramPreview, paramLineNumber);
+
+            int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            if (startLine < 0 && intentData != null) {
+                startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+            }
+
+            final boolean startInPreview = (startLine < 0) && (
+                    intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
+                            _appSettings.getDocumentPreviewState(doc.getPath()) ||
+                            file.getName().startsWith("index."));
+
+            showTextEditor(doc, startLine, startInPreview);
         }
     }
 
@@ -250,16 +253,15 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public void showTextEditor(final Document document, final boolean preview, final Integer lineNumber) {
+    public void showTextEditor(final Document document, final Integer lineNumber, final Boolean startPreview) {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
-        final int fileLineNumber = (lineNumber != null && lineNumber >= 0) ? lineNumber : -1;
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditFragment &&
                         document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
-            showFragment(DocumentEditFragment.newInstance(document, fileLineNumber).setPreviewFlag(preview));
+            showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview));
         }
     }
 
@@ -333,12 +335,5 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private GsFragmentBase getCurrentVisibleFragment() {
         return (GsFragmentBase) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
-    }
-
-    private void onToolbarTitleClicked(View v) {
-        if (getExistingFragment(DocumentEditFragment.FRAGMENT_TAG) != null) {
-            DocumentEditFragment def = ((DocumentEditFragment) getExistingFragment(DocumentEditFragment.FRAGMENT_TAG));
-            def.onToolbarTitleClicked(_toolbar);
-        }
     }
 }

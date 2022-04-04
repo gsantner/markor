@@ -25,7 +25,7 @@
             android:id="@+id/widget_header"
             android:layout_width="match_parent"
             android:layout_height="36sp"
-            android:background="@color/primary">
+            android:background="@drawable/widget_top_bar">
 
             <TextView
                 android:id="@+id/widget_header_title"
@@ -48,7 +48,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/fab_circle"
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_header"
-            android:background="@color/background_2">
+            android:background="@drawable/widget_background">
 
             <TextView
                 android:id="@+id/widget_empty_hint"
@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@color/background"
+                android:background="@drawable/widget_background"
                 android:divider="@color/grey"
                 android:dividerHeight="0.5dp" />
         </RelativeLayout>

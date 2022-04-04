@@ -17,10 +17,12 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 
 public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend> extends AppCompatActivity {
 
@@ -87,5 +89,17 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
 
     public Boolean isFlagSecure() {
         return null;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        try {
+            final Toolbar t = findViewById(_activityUtils.getResId(ContextUtils.ResType.ID, "toolbar"));
+            if (t != null) {
+                t.setTitle(title);
+            }
+        } catch (Exception ignored) {
+        }
     }
 }
