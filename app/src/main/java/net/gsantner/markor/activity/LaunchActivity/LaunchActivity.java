@@ -50,10 +50,10 @@ public class LaunchActivity extends MarkorBaseActivity {
         }
     }
 
-    public static boolean checkPermissions(final Context context, final File file) {
+    public static boolean checkPermissions(final Activity activity, final File file) {
         try {
-            final String message = context.getString(R.string.error_need_storage_permission_to_save_documents);
-            if (new PermissionChecker(context).doIfExtStoragePermissionGranted(message)) {
+            final String message = activity.getString(R.string.error_need_storage_permission_to_save_documents);
+            if (new PermissionChecker(activity).doIfExtStoragePermissionGranted(message)) {
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();
                 }
