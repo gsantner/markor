@@ -11,6 +11,7 @@
 package net.gsantner.opoc.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 
 import java.io.File;
@@ -19,14 +20,14 @@ import java.io.File;
 public class PermissionChecker {
     protected static final int CODE_PERMISSION_EXTERNAL_STORAGE = ShareUtil.REQUEST_STORAGE_PERMISSION_M;
 
-    protected Activity _activity;
+    protected Context _context;
 
-    public PermissionChecker(Activity activity) {
-        _activity = activity;
+    public PermissionChecker(final Context context) {
+        _context = context;
     }
 
     public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        ShareUtil shareUtil = new ShareUtil(_activity);
+        ShareUtil shareUtil = new ShareUtil(_context);
         final boolean ret = shareUtil.checkExternalStoragePermission(true, optionalToastMessageForKnowingWhyNeeded);
         shareUtil.freeContextRef();
         return ret;

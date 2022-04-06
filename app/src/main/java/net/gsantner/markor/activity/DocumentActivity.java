@@ -29,8 +29,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
@@ -45,7 +45,6 @@ import butterknife.ButterKnife;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
-    public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
     @BindView(R.id.document__placeholder_fragment)
     FrameLayout _fragPlaceholder;
@@ -55,31 +54,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     TextView _toolbarTitleText;
 
     private FragmentManager _fragManager;
-
-    private static boolean nextLaunchTransparentBg = false;
-
-
-    public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
-        if (intent == null) {
-            intent = new Intent(activity, DocumentActivity.class);
-        }
-        if (path != null) {
-            intent.putExtra(Document.EXTRA_PATH, path);
-        }
-        if (lineNumber != null && lineNumber >= 0) {
-            intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        }
-        if (doPreview != null) {
-            intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new AppSettings(activity).isMultiWindowEnabled()) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        }
-        nextLaunchTransparentBg = (activity instanceof MainActivity);
-        new ActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
-    }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
@@ -103,7 +77,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, null, null, null);
+                LaunchActivity.launch(activity, file, null, null);
             } else {
                 new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
             }
@@ -128,10 +102,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppSettings.clearDebugLog();
-        if (nextLaunchTransparentBg) {
-            //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
-            nextLaunchTransparentBg = false;
-        }
         setContentView(R.layout.document__activity);
         ButterKnife.bind(this);
         if (_appSettings.isHideSystemStatusbar()) {
@@ -156,7 +126,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
-        File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        File file = (File) intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
 
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
@@ -175,13 +145,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
 
-            int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            int startLine = intent.getIntExtra(LaunchActivity.EXTRA_FILE_LINE_NUMBER, -1);
             if (startLine < 0 && intentData != null) {
                 startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
             final boolean startInPreview = (startLine < 0) && (
-                    intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
+                    intent.getBooleanExtra(LaunchActivity.EXTRA_DO_PREVIEW, false) ||
                             _appSettings.getDocumentPreviewState(doc.getPath()) ||
                             file.getName().startsWith("index."));
 

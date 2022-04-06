@@ -21,7 +21,7 @@ import android.webkit.WebView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
+import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
 import net.gsantner.markor.model.Document;
 
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
@@ -36,7 +36,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         // in private/restricted space won't work - because of missing permission grant when re-launching
         if (document != null && !TextUtils.isEmpty(document.getTitle())) {
             final boolean isDir = document.getFile().isDirectory();
-            final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
+            final Class<?> klass = isDir ? MainActivity.class : LaunchActivity.class;
             final Intent intent = new Intent(_context, klass).setData(Uri.fromFile(document.getFile()));
             final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
             super.createLauncherDesktopShortcut(intent, iconRes, document.getTitle());

@@ -34,8 +34,8 @@ import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
@@ -110,7 +110,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
-            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
+            LaunchActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null);
         }
 
         (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
@@ -138,9 +138,9 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
 
         // By extra path
-        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        final File file = (File) intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
         if (file != null && file.isDirectory()) {
-            return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+            return (File) intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
         }
 
         // By url in data
@@ -290,7 +290,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
                         if (ok) {
                             if (f.isFile()) {
-                                DocumentActivity.launch(MainActivity.this, f, false, null, null);
+                                LaunchActivity.launch(this, f, false, null);
                             } else if (f.isDirectory()) {
                                 FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
                                 if (wrFragment != null) {
@@ -423,7 +423,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     if (TextFormat.isTextFile(file)) {
-                        DocumentActivity.launch(MainActivity.this, file, null, null, lineNumber);
+                        LaunchActivity.launch(MainActivity.this, file, null, null);
                     } else if (file.getName().toLowerCase().endsWith(".apk")) {
                         _shareUtil.requestApkInstallation(file);
                     } else {

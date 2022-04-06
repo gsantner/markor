@@ -43,10 +43,6 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
-    public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
-    public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
-    public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
-
     private final File _file;
     private final String _fileExtension;
     private String _title = "";
