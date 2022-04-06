@@ -11,9 +11,9 @@ package net.gsantner.markor.util;
 
 import android.app.Activity;
 
-import net.gsantner.markor.activity.LaunchActivity.LaunchSpecialQuicknote;
-import net.gsantner.markor.activity.LaunchActivity.LaunchSpecialShareInto;
-import net.gsantner.markor.activity.LaunchActivity.LaunchSpecialTodo;
+import net.gsantner.markor.activity.LaunchActivity.OpenSpecialQuicknote;
+import net.gsantner.markor.activity.LaunchActivity.OpenSpecialShareInto;
+import net.gsantner.markor.activity.LaunchActivity.OpenSpecialTodo;
 
 public class ActivityUtils extends net.gsantner.opoc.util.ActivityUtils {
 
@@ -22,8 +22,8 @@ public class ActivityUtils extends net.gsantner.opoc.util.ActivityUtils {
     }
 
     public void applySpecialLaunchersVisibility(boolean extraLaunchersEnabled) {
-        setLauncherActivityEnabled(LaunchSpecialQuicknote.class, extraLaunchersEnabled);
-        setLauncherActivityEnabled(LaunchSpecialTodo.class, extraLaunchersEnabled);
-        setLauncherActivityEnabled(LaunchSpecialShareInto.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenSpecialQuicknote.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenSpecialTodo.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenSpecialShareInto.class, extraLaunchersEnabled);
     }
 }

@@ -26,7 +26,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
+import net.gsantner.markor.activity.LaunchActivity.OpenerActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.model.Document;
@@ -60,7 +60,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
-        Object intentFile = intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
+        Object intentFile = intent.getSerializableExtra(OpenerActivity.EXTRA_PATH);
         if (intentFile instanceof File && ((File) intentFile).isDirectory()) {
             f.workingDir = (File) intentFile;
         }

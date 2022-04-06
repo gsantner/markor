@@ -25,7 +25,7 @@ import java.io.File;
  * This Activity exists solely to launch the correct activity with the correct intent
  * it is necessary as widget and shortcut intents do not respect MultipleTask etc
  */
-public class LaunchActivity extends MarkorBaseActivity {
+public class OpenerActivity extends MarkorBaseActivity {
 
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File

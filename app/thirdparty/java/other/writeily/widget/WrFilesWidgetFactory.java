@@ -16,7 +16,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
+import net.gsantner.markor.activity.LaunchActivity.OpenerActivity;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
@@ -37,7 +37,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     public WrFilesWidgetFactory(final Context context, final Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        _dir = (File) intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
+        _dir = (File) intent.getSerializableExtra(OpenerActivity.EXTRA_PATH);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         rowView.setTextViewText(R.id.widget_note_title, "???");
         if (position < _widgetFilesList.length) {
             final File file = _widgetFilesList[position];
-            final Intent fillInIntent = new Intent().putExtra(LaunchActivity.EXTRA_PATH, file);
+            final Intent fillInIntent = new Intent().putExtra(OpenerActivity.EXTRA_PATH, file);
             rowView.setTextViewText(R.id.widget_note_title, file.getName());
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
         }

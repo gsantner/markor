@@ -29,7 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
+import net.gsantner.markor.activity.LaunchActivity.OpenerActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
@@ -77,7 +77,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         Callback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                LaunchActivity.launch(activity, file, null, null);
+                OpenerActivity.launch(activity, file, null, null);
             } else {
                 new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
             }
@@ -126,7 +126,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
-        File file = (File) intent.getSerializableExtra(LaunchActivity.EXTRA_PATH);
+        File file = (File) intent.getSerializableExtra(OpenerActivity.EXTRA_PATH);
 
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
@@ -145,13 +145,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
 
-            int startLine = intent.getIntExtra(LaunchActivity.EXTRA_FILE_LINE_NUMBER, -1);
+            int startLine = intent.getIntExtra(OpenerActivity.EXTRA_FILE_LINE_NUMBER, -1);
             if (startLine < 0 && intentData != null) {
                 startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
             final boolean startInPreview = (startLine < 0) && (
-                    intent.getBooleanExtra(LaunchActivity.EXTRA_DO_PREVIEW, false) ||
+                    intent.getBooleanExtra(OpenerActivity.EXTRA_DO_PREVIEW, false) ||
                             _appSettings.getDocumentPreviewState(doc.getPath()) ||
                             file.getName().startsWith("index."));
 

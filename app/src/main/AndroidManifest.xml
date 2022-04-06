@@ -159,7 +159,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LaunchActivity.LaunchActivity"
+            android:name=".activity.LaunchActivity.OpenerActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity

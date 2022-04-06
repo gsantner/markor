@@ -1,9 +1,10 @@
 package net.gsantner.markor.activity.LaunchActivity;
 import java.io.File;
 
-public class LaunchSpecialNotebook extends LaunchSpecialBase {
+public class OpenSpecialTodo extends OpenSpecialBase {
     @Override
     public File getSpecialFile() {
-        return _appSettings.getNotebookDirectory();
+        return _appSettings.getTodoFile();
     }
 }
+

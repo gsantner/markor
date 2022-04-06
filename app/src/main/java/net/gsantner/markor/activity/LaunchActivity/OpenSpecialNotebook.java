@@ -1,9 +1,9 @@
 package net.gsantner.markor.activity.LaunchActivity;
 import java.io.File;
 
-public class LaunchSpecialQuicknote extends LaunchSpecialBase {
+public class OpenSpecialNotebook extends OpenSpecialBase {
     @Override
     public File getSpecialFile() {
-        return _appSettings.getQuickNoteFile();
+        return _appSettings.getNotebookDirectory();
     }
 }

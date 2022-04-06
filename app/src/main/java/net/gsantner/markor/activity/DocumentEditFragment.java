@@ -41,7 +41,7 @@ import android.widget.Toast;
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.LaunchActivity.LaunchActivity;
+import net.gsantner.markor.activity.LaunchActivity.OpenerActivity;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
@@ -80,9 +80,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
-        args.putSerializable(LaunchActivity.EXTRA_DOCUMENT, document);
+        args.putSerializable(OpenerActivity.EXTRA_DOCUMENT, document);
         if (lineNumber != null && lineNumber >= 0) {
-            args.putInt(LaunchActivity.EXTRA_FILE_LINE_NUMBER, lineNumber);
+            args.putInt(OpenerActivity.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         args.putBoolean(START_PREVIEW, preview);
         f.setArguments(args);
@@ -143,8 +143,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Create the document as soon as possible
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-        } else if (args != null && args.containsKey(LaunchActivity.EXTRA_DOCUMENT)) {
-            _document = (Document) args.get(LaunchActivity.EXTRA_DOCUMENT);
+        } else if (args != null && args.containsKey(OpenerActivity.EXTRA_DOCUMENT)) {
+            _document = (Document) args.get(OpenerActivity.EXTRA_DOCUMENT);
         } else {
             // We must have a document
             _document = Document.getDefault(getContext());
@@ -224,8 +224,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (savedInstanceState == null) {
             if (isDisplayedAtMainActivity()) {
                 startPos = _hlEditor.length();
-            } else if (args.getInt(LaunchActivity.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(LaunchActivity.EXTRA_FILE_LINE_NUMBER), 0});
+            } else if (args.getInt(OpenerActivity.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
+                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(OpenerActivity.EXTRA_FILE_LINE_NUMBER), 0});
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
             }

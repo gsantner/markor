@@ -5,19 +5,15 @@ import android.os.Bundle;
 
 import net.gsantner.markor.activity.MarkorBaseActivity;
 
-import java.io.File;
-
-public abstract class LaunchSpecialBase extends MarkorBaseActivity {
-
-    public abstract File getSpecialFile();
+public class OpenSpecialShareInto extends MarkorBaseActivity {
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        LaunchActivity.launch(this, getSpecialFile(), null, null);
+        OpenerActivity.launch(this, getIntent().setAction(Intent.ACTION_SEND));
     }
 
     @Override
     public void onNewIntent(final Intent intent) {
-        LaunchActivity.launch(this, getSpecialFile(), null, null);
+        OpenerActivity.launch(this, intent.setAction(Intent.ACTION_SEND));
     }
 }
