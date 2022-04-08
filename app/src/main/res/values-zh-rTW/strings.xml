@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">選擇 輸入文字</string>
     <string name="one_item_selected">已經選擇一個項目</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">已選擇 %d 項目</string>
-    <string name="hide_statusbar_at_this_view">在這個檢視模式隱藏狀態列</string>
+    <string name="hide_statusbar_at_this_view">在這個檢視模式中隱藏狀態列</string>
     <string name="hide_statusbar">隱藏狀態列</string>
     <string name="name">名稱</string>
     <string name="url_or_path">網址 / 路徑</string>
