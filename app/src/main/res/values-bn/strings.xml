@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">ফোল্ডার তৈরি করুন</string>
     <string name="create_new_document">নতুন ডকুমেন্ট তৈরি করুন</string>
     <string name="move">সরান</string>
+    <string name="copy">Ftt</string>
     <string name="info">তথ্য</string>
     <string name="file_folder_already_exists_please_use_a_different_name">ফাইল/ফোল্ডার আগেই আছে! অনুগ্রহ করে অন্য নাম ব্যবহার করো</string>
     <string name="import_from_device">ডিভাইস থেকে আমদানি করো</string>
