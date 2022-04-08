@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.graphics.Rect;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
@@ -323,7 +325,9 @@ public final class StringUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            edit.setSelection(StringUtils.getIndexFromLineOffset(text, positions.get(0), 0));
+            final int posn = StringUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            showSelection(edit, posn, posn);
+            edit.setSelection(posn);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -343,8 +347,74 @@ public final class StringUtils {
                 selStart = 0;
                 selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
+            showSelection(edit, selStart, selEnd);
             edit.setSelection(selStart, selEnd);
         }
+    }
+
+    public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    }
+
+    public static void showSelection(final TextView text, final int start, final int end) {
+
+        // Get view info
+        // ------------------------------------------------------------
+        final Layout layout = text.getLayout();
+        if (layout == null) {
+            return;
+        }
+
+        final int _start = Math.min(start, end);
+        final int _end = Math.max(start, end);
+        if (start < 0 || end > text.length()) {
+            return;
+        }
+        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
+
+        final Rect viewSize = new Rect();
+        if (!text.getLocalVisibleRect(viewSize)) {
+            return;
+        }
+
+        // Region in Y
+        // ------------------------------------------------------------
+        final int selStartLine = layout.getLineForOffset(_start);
+        final int lineStartLine = layout.getLineForOffset(lineStart);
+        final int selStartLineTop = layout.getLineTop(selStartLine);
+        final int lineStartLineTop = layout.getLineTop(lineStartLine);
+
+        final Rect region = new Rect();
+
+        if ((selStartLine - lineStartLine) <= 3) {
+            // good to see the start of the line if close enough
+            region.top = lineStartLineTop;
+        } else {
+            region.top = selStartLineTop;
+        }
+
+        // Push the top to the top
+        region.bottom = region.top + viewSize.height();
+
+        // Region in X - as handling RTL, text alignment, and centred text etc is
+        // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
+        // ------------------------------------------------------------
+
+        final int endLeft = (int) layout.getPrimaryHorizontal(_end);
+        final int startLeft = (int) layout.getPrimaryHorizontal(_start);
+        region.left = Math.min(startLeft, endLeft);
+        region.right = Math.max(startLeft, endLeft);
+
+        if (region.left == region.right) {
+            // make sure rect width > 0
+            region.right += 1;
+        } else if (region.width() > viewSize.width()) {
+            // Make sure selStart is in rect if possible
+            region.left = startLeft;
+            region.right = region.left + viewSize.width();
+        }
+
+        text.post(() -> text.requestRectangleOnScreen(region));
     }
 
     // Search for matching pairs of backticks

@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
@@ -32,7 +31,6 @@ import net.gsantner.opoc.util.StringUtils;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
@@ -332,21 +330,12 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void smoothMoveCursor(final int index, final int... endIndex) {
-        post(() -> {
-            if (!hasFocus()) {
-                requestFocus();
-            }
-
-            final ObjectAnimator anim;
-            if (endIndex != null && endIndex.length > 0) {
-                anim = ObjectAnimator.ofInt(this, "selection", index, endIndex[0]);
-            } else {
-                anim = ObjectAnimator.ofInt(this, "selection", index);
-            }
-            anim.setDuration(300);
-            anim.start();
-        });
+    public void setCursor(final int index) {
+        if (!hasFocus()) {
+            requestFocus();
+        }
+        post(() -> StringUtils.showSelection(this, index, index));
+        post(() ->setSelection(index));
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

@@ -23,7 +23,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -202,6 +201,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
 
+        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
+
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -225,14 +226,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (isDisplayedAtMainActivity()) {
                 startPos = _hlEditor.length();
             } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), new int[]{args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0});
+                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
             }
         }
 
         if (_hlEditor.indexesValid(startPos)) {
-            _hlEditor.smoothMoveCursor(startPos);
+            _hlEditor.setCursor(startPos);
         }
     }
 
@@ -241,8 +242,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onResume();
 
         loadDocument();
-
-        _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
         if (_document != null) {
             _document.testCreateParent();
@@ -631,8 +630,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
-            final int posn = _hlEditor.getSelectionStart();
-
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -650,7 +647,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.smoothMoveCursor(posn);
+            StringUtils.showSelection(_hlEditor);
         }
     }
 
