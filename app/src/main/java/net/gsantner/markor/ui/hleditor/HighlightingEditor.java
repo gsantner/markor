@@ -334,8 +334,11 @@ public class HighlightingEditor extends AppCompatEditText {
         if (!hasFocus()) {
             requestFocus();
         }
-        post(() -> StringUtils.showSelection(this, index, index));
-        post(() ->setSelection(index));
+
+        post(() -> {
+            StringUtils.showSelection(this, index, index);
+            postDelayed(() -> setSelection(index), 200); // Run _after_ showSelection
+        });
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {
