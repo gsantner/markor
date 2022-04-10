@@ -60,7 +60,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
@@ -226,15 +226,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             if (isDisplayedAtMainActivity()) {
                 startPos = _hlEditor.length();
             } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
+                startPos = TextUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
             } else if (_appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
             }
         }
 
-        if (_hlEditor.indexesValid(startPos)) {
-            _hlEditor.setCursor(startPos);
-        }
+        TextUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
     @Override
@@ -349,14 +347,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             final String content = _document.loadContent(getContext());
             if (!_document.isContentSame(_hlEditor.getText())) {
 
-                final int[] sel = StringUtils.getSelection(_hlEditor);
+                final int[] sel = TextUtils.getSelection(_hlEditor);
                 sel[0] = Math.min(sel[0], content.length());
                 sel[1] = Math.min(sel[1], content.length());
 
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
 
                 _hlEditor.setSelection(sel[0], sel[1]);
-                StringUtils.showSelection(_hlEditor);
+                TextUtils.showSelection(_hlEditor);
             }
 
             checkTextChangeState();
@@ -631,7 +629,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
-            final int[] sel = StringUtils.getSelection(_hlEditor);
+            final int[] sel = TextUtils.getSelection(_hlEditor);
 
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
@@ -650,7 +648,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _hlEditor.setCursor(sel[0], sel[1]);
+            // Run after layout() of immediate parent completes
+            (wrap ? _primaryScrollView : _hsView).post(() -> TextUtils.setSelectionAndShow(_hlEditor, sel[0], sel[1]));
         }
     }
 

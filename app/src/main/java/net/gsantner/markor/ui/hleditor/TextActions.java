@@ -19,7 +19,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,7 +42,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -193,7 +192,7 @@ public abstract class TextActions {
 
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
-        settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
+        settings.edit().putString(formatKey, android.text.TextUtils.join(",", values)).apply();
     }
 
     private List<String> loadActionPreference(final String suffix) {
@@ -403,16 +402,16 @@ public abstract class TextActions {
     private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
 
         final Editable text = editor.getText();
-        final int[] selection = StringUtils.getSelection(editor);
-        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
-        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
+        final int[] selection = TextUtils.getSelection(editor);
+        final int[] lStart = TextUtils.getLineOffsetFromIndex(text, selection[0]);
+        final int[] lEnd = TextUtils.getLineOffsetFromIndex(text, selection[1]);
 
-        int lineStart = StringUtils.getLineStart(text, selection[0]);
-        int selEnd = StringUtils.getLineEnd(text, selection[1]);
+        int lineStart = TextUtils.getLineStart(text, selection[0]);
+        int selEnd = TextUtils.getLineEnd(text, selection[1]);
 
         while (lineStart <= selEnd && lineStart <= text.length()) {
 
-            final int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
+            final int lineEnd = TextUtils.getLineEnd(text, lineStart, selEnd);
             final CharSequence line = text.subSequence(lineStart, lineEnd);
 
             for (final ReplacePattern pattern : patterns) {
@@ -444,12 +443,12 @@ public abstract class TextActions {
                 }
             }
 
-            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+            lineStart = TextUtils.getLineEnd(text, lineStart, selEnd) + 1;
         }
 
         editor.setSelection(
-                StringUtils.getIndexFromLineOffset(text, lStart),
-                StringUtils.getIndexFromLineOffset(text, lEnd));
+                TextUtils.getIndexFromLineOffset(text, lStart),
+                TextUtils.getIndexFromLineOffset(text, lEnd));
     }
 
     protected void runInlineAction(String _action) {
@@ -557,7 +556,7 @@ public abstract class TextActions {
             final String leadingIndentPattern = String.format("^\\s{1,%d}", _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
         } else {
-            final String tabString = StringUtils.repeatChars(' ', _indent);
+            final String tabString = TextUtils.repeatChars(' ', _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
         }
     }
@@ -613,7 +612,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_ordered_list_renumber: {
-                renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]);
+                renumberOrderedList(TextUtils.getSelection(_hlEditor)[0]);
                 return true;
             }
             case R.string.tmaid_common_move_text_one_line_up:
@@ -630,7 +629,7 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_insert_snippet: {
                 SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });
                 return true;
@@ -651,12 +650,12 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_new_line_below: {
                 // Go to end of line, works with wrapped lines too
-                _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[1]));
+                _hlEditor.setSelection(TextUtils.getLineEnd(_hlEditor.getText(), TextUtils.getSelection(_hlEditor)[1]));
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
                 return true;
             }
             case R.string.tmaid_common_delete_lines: {
-                final int[] sel = StringUtils.getLineSelection(_hlEditor);
+                final int[] sel = TextUtils.getLineSelection(_hlEditor);
                 final Editable text = _hlEditor.getText();
                 final boolean lastLine = sel[1] == text.length();
                 final boolean firstLine = sel[0] == 0;
@@ -700,12 +699,12 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_move_text_one_line_up:
             case R.string.tmaid_common_move_text_one_line_down: {
-                StringUtils.showSelection(_hlEditor);
+                TextUtils.showSelection(_hlEditor);
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {
-                if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
+                if (!android.text.TextUtils.isEmpty(_lastSnip)) {
+                    _hlEditor.insertOrReplaceTextOnCursor(TextUtils.interpolateEscapedDateTime(_lastSnip));
                 }
                 return true;
             }
@@ -732,20 +731,20 @@ public abstract class TextActions {
 
         final Editable text = hlEditor.getText();
 
-        final int[] sel = StringUtils.getSelection(hlEditor);
-        final int linesStart = StringUtils.getLineStart(text, sel[0]);
-        final int linesEnd = StringUtils.getLineEnd(text, sel[1]);
+        final int[] sel = TextUtils.getSelection(hlEditor);
+        final int linesStart = TextUtils.getLineStart(text, sel[0]);
+        final int linesEnd = TextUtils.getLineEnd(text, sel[1]);
 
         if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
 
             final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
-            final int altStart = isUp ? StringUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
-            final int altEnd = StringUtils.getLineEnd(text, altStart);
+            final int altStart = isUp ? TextUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
+            final int altEnd = TextUtils.getLineEnd(text, altStart);
             final CharSequence altLine = text.subSequence(altStart, altEnd);
 
-            final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
-            final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+            final int[] selStart = TextUtils.getLineOffsetFromIndex(text, sel[0]);
+            final int[] selEnd = TextUtils.getLineOffsetFromIndex(text, sel[1]);
 
             hlEditor.withAutoFormatDisabled(() -> {
                 final String newPair = String.format("%s\n%s", isUp ? lines : altLine, isUp ? altLine : lines);
@@ -756,8 +755,8 @@ public abstract class TextActions {
             selEnd[0] += isUp ? -1 : 1;
 
             hlEditor.setSelection(
-                    StringUtils.getIndexFromLineOffset(text, selStart),
-                    StringUtils.getIndexFromLineOffset(text, selEnd));
+                    TextUtils.getIndexFromLineOffset(text, selStart),
+                    TextUtils.getIndexFromLineOffset(text, selEnd));
         }
     }
 
@@ -775,7 +774,7 @@ public abstract class TextActions {
             final boolean isAccessibilityEnabled = _hlEditor.getAccessibilityEnabled();
             try {
                 _hlEditor.setAccessibilityEnabled(false);
-                _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
+                _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(TextUtils.getSelection(_hlEditor)[0]));
             } finally {
                 if (isAccessibilityEnabled) {
                     _hlEditor.setAccessibilityEnabled(true);
@@ -791,7 +790,7 @@ public abstract class TextActions {
     public void runSpecialKeyAction() {
 
         // Needed to prevent selection from being overwritten on refocus
-        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final int[] sel = TextUtils.getSelection(_hlEditor);
         _hlEditor.clearFocus();
         _hlEditor.requestFocus();
         _hlEditor.setSelection(sel[0], sel[1]);

@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -243,7 +243,7 @@ public class SearchReplaceDialog {
     }
 
     private String getReplacePattern() {
-        return StringUtils.unescapeString(replaceText.getText().toString());
+        return TextUtils.unescapeString(replaceText.getText().toString());
     }
 
     private void updateUI() {

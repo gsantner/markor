@@ -12,7 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.util.Date;
 
@@ -21,7 +21,7 @@ public class TodoTxtAutoFormat implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+            if (start < source.length() && dstart <= dest.length() && TextUtils.isNewLine(source, start, end)) {
                 return autoIndent(source);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {

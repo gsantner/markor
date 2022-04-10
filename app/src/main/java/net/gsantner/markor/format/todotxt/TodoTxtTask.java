@@ -10,10 +10,9 @@
 #########################################################*/
 package net.gsantner.markor.format.todotxt;
 
-import android.text.TextUtils;
 import android.widget.TextView;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,8 +70,8 @@ public class TodoTxtTask {
 
     public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
         final String[] lines = text.subSequence(
-                StringUtils.getLineStart(text, selStart),
-                StringUtils.getLineEnd(text, selEnd)
+                TextUtils.getLineStart(text, selStart),
+                TextUtils.getLineEnd(text, selEnd)
         ).toString().split("\n");
 
         final List<TodoTxtTask> tasks = new ArrayList<>();
@@ -83,7 +82,7 @@ public class TodoTxtTask {
     }
 
     public static List<TodoTxtTask> getSelectedTasks(final TextView view) {
-        final int[] sel = StringUtils.getSelection(view);
+        final int[] sel = TextUtils.getSelection(view);
         return getTasks(view.getText(), sel[0], sel[1]);
     }
 
@@ -226,7 +225,7 @@ public class TodoTxtTask {
     public TodoDueState getDueStatus() {
         if (dueStatus == null) {
             final String date = getDueDate();
-            if (TextUtils.isEmpty(date)) {
+            if (android.text.TextUtils.isEmpty(date)) {
                 dueStatus = TodoDueState.NONE;
             } else {
                 final int comp = date.compareTo(getToday());
@@ -355,8 +354,8 @@ public class TodoTxtTask {
         }
 
         private int compareNull(final String x, final String y) {
-            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
-            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
+            final int xi = android.text.TextUtils.isEmpty(x) ? 1 : 0;
+            final int yi = android.text.TextUtils.isEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 
@@ -375,7 +374,7 @@ public class TodoTxtTask {
         private int compare(final List<String> x, final List<String> y) {
             Collections.sort(x);
             Collections.sort(y);
-            return compare(TextUtils.join("", x), TextUtils.join("", y));
+            return compare(android.text.TextUtils.join("", x), android.text.TextUtils.join("", y));
         }
 
         private int compare(final String x, final String y) {

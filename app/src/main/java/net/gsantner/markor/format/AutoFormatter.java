@@ -13,7 +13,7 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -33,7 +33,7 @@ public class AutoFormatter {
     public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
 
         try {
-            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+            if (start < source.length() && dstart <= dest.length() && TextUtils.isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -48,7 +48,7 @@ public class AutoFormatter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
-        final String indent = source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
+        final String indent = source + TextUtils.repeatChars(_indentCharacter, oLine.indent);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -89,10 +89,10 @@ public class AutoFormatter {
         public ListLine(CharSequence text, int position) {
 
             this.text = text;
-            lineStart = StringUtils.getLineStart(text, position);
-            lineEnd = StringUtils.getLineEnd(text, position);
+            lineStart = TextUtils.getLineStart(text, position);
+            lineEnd = TextUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
-            indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
+            indent = TextUtils.getNextNonWhitespace(text, lineStart) - lineStart;
             isEmpty = (lineEnd - lineStart) == indent;
             isTopLevel = indent <= INDENT_DELTA;
         }

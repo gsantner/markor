@@ -26,7 +26,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -44,7 +43,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,7 +147,7 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add("archive.txt");
         availableData.add("done.txt");
         String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
-        if (!TextUtils.isEmpty(hl)) {
+        if (!android.text.TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
             if (!availableData.contains(hl)) {
                 availableData.add(hl);
@@ -398,7 +397,7 @@ public class SearchOrCustomTextDialogCreator {
                 doptSave.titleText = R.string.name;
                 doptSave.searchHintText = R.string.empty_string;
                 doptSave.callback = saveTitle -> {
-                    if (!TextUtils.isEmpty(saveTitle)) {
+                    if (!android.text.TextUtils.isEmpty(saveTitle)) {
                         TodoTxtFilter.saveFilter(activity, saveTitle, queryType, selKeys, useAnd[0]);
                     }
                 };
@@ -433,7 +432,7 @@ public class SearchOrCustomTextDialogCreator {
             for (final Integer p : posns) {
                 selIndices.add(lineIndices.get(p));
             }
-            StringUtils.selectLines(text, selIndices);
+            TextUtils.selectLines(text, selIndices);
         };
 
         return dopt;
@@ -445,7 +444,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), TextUtils.getSelection(text));
         };
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -510,17 +509,17 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, StringUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, TextUtils.getSelection(text));
         };
         dopt2.neutralButtonText = R.string.search_and_replace;
-        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
+        dopt2.positionCallback = (result) -> TextUtils.selectLines(text, result);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
+        dopt2.positionCallback = (result) -> TextUtils.selectLines(text, result);
         dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
@@ -633,7 +632,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
-                if (!TextUtils.isEmpty(password)) {
+                if (!android.text.TextUtils.isEmpty(password)) {
                     AppSettings.get().setDefaultPassword(password);
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }

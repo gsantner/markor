@@ -26,7 +26,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -241,7 +241,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (edit != null && newText != null) {
             int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = StringUtils.getSelection(this);
+            final int[] sel = TextUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
@@ -265,11 +265,11 @@ public class HighlightingEditor extends AppCompatEditText {
     // Set selection to fill whole lines
     // Returns original selectionStart
     public int setSelectionExpandWholeLines() {
-        final int[] sel = StringUtils.getSelection(this);
+        final int[] sel = TextUtils.getSelection(this);
         final CharSequence text = getText();
         setSelection(
-                StringUtils.getLineStart(text, sel[0]),
-                StringUtils.getLineEnd(text, sel[1])
+                TextUtils.getLineStart(text, sel[0]),
+                TextUtils.getLineEnd(text, sel[1])
         );
         return sel[0];
     }
@@ -290,13 +290,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
 
     public boolean indexesValid(int... indexes) {
-        int len = length();
-        for (int index : indexes) {
-            if (index < 0 || index > len) {
-                return false;
-            }
-        }
-        return true;
+        return TextUtils.inRange(0, length(), indexes);
     }
 
     @Override
@@ -328,18 +322,6 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-    }
-
-    public void setCursor(final int start, final int... end) {
-        post(() -> {
-            if (!hasFocus()) {
-                requestFocus();
-            }
-
-            final int _end = end != null && end.length > 0 ? end[0] : start;
-            StringUtils.showSelection(this, start, _end);
-            post(() -> setSelection(start, _end)); // Run _after_ showSelection
-        });
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

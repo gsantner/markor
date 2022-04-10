@@ -11,8 +11,8 @@ package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
 import android.text.Layout;
-import android.text.TextUtils;
 import android.util.Base64;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,23 +24,25 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class StringUtils {
+public final class TextUtils {
 
     // Suppress default constructor for noninstantiability
-    private StringUtils() {
+    private TextUtils() {
         throw new AssertionError();
     }
 
     public static boolean isValidIndex(final CharSequence s, final int... indices) {
-        if (s != null && indices.length > 0) {
-            for (final int i : indices) {
-                if (i < 0 || i >= s.length()) {
-                    return false;
-                }
+        return s != null && inRange(0, s.length() - 1, indices);
+    }
+
+    // Checks if all values are in [min, max] _inclusive_
+    public static boolean inRange(final int min, final int max, final int... values) {
+        for (final int i : values) {
+            if (i < min || i > max) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     public static int getLineStart(CharSequence s, int start) {
@@ -325,16 +327,15 @@ public final class StringUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = StringUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            showSelection(edit, posn, posn);
-            edit.setSelection(posn);
+            final int posn = TextUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            setSelectionAndShow(edit, posn);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
             final int minLine = Collections.min(pSet), maxLine = Collections.max(pSet);
             if (maxLine - minLine == pSet.size() - 1) { // Case contiguous indices
-                selStart = StringUtils.getLineStart(text, StringUtils.getIndexFromLineOffset(text, minLine, 0));
-                selEnd = StringUtils.getIndexFromLineOffset(text, maxLine, 0);
+                selStart = TextUtils.getLineStart(text, TextUtils.getIndexFromLineOffset(text, minLine, 0));
+                selEnd = TextUtils.getIndexFromLineOffset(text, maxLine, 0);
             } else { // Case non-contiguous indices
                 final String[] lines = text.toString().split("\n");
                 final List<String> sel = new ArrayList<>(), unsel = new ArrayList<>();
@@ -342,13 +343,12 @@ public final class StringUtils {
                     (pSet.contains(i) ? sel : unsel).add(lines[i]);
                 }
                 sel.addAll(unsel);
-                final String newText = TextUtils.join("\n", sel);
+                final String newText = android.text.TextUtils.join("\n", sel);
                 edit.setText(newText);
                 selStart = 0;
-                selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
+                selEnd = TextUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
-            showSelection(edit, selStart, selEnd);
-            edit.setSelection(selStart, selEnd);
+            setSelectionAndShow(edit, selStart, selEnd);
         }
     }
 
@@ -370,7 +370,7 @@ public final class StringUtils {
         if (start < 0 || end > text.length()) {
             return;
         }
-        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
+        final int lineStart = TextUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
         if (!text.getLocalVisibleRect(viewSize)) {
@@ -399,15 +399,15 @@ public final class StringUtils {
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
-
         final int endLeft = (int) layout.getPrimaryHorizontal(_end);
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
+        final int charWidth = (int) layout.getSecondaryHorizontal(_start) - startLeft;
         region.left = Math.min(startLeft, endLeft);
         region.right = Math.max(startLeft, endLeft);
 
-        if (region.left == region.right) {
+        if (Math.abs(region.left - region.right) <= charWidth) {
             // make sure rect width > 0
-            region.right += 1;
+            region.right += charWidth;
         } else if (region.width() > viewSize.width()) {
             // Make sure selStart is in rect if possible
             region.left = startLeft;
@@ -415,6 +415,20 @@ public final class StringUtils {
         }
 
         text.post(() -> text.requestRectangleOnScreen(region));
+    }
+
+    public static void setSelectionAndShow(final EditText edit, final int start, final int... end) {
+        final int _end = end != null && end.length > 0 ? end[0] : start;
+        if (inRange(0, edit.length(), start, _end)) {
+            edit.post(() -> {
+                if (!edit.hasFocus()) {
+                    edit.requestFocus();
+                }
+
+                edit.setSelection(start, _end);
+                edit.post(() -> showSelection(edit, start, _end));
+            });
+        }
     }
 
     // Search for matching pairs of backticks

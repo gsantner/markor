@@ -56,7 +56,6 @@ import android.support.v4.provider.DocumentFile;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -120,7 +119,7 @@ public class ShareUtil {
         ContextUtils cu = new ContextUtils(_context);
         final String provider = cu.getFileProvider();
         cu.freeContextRef();
-        if (TextUtils.isEmpty(provider)) {
+        if (android.text.TextUtils.isEmpty(provider)) {
             throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(): No FileProvider authority provided");
         }
         return provider;
@@ -389,9 +388,9 @@ public class ShareUtil {
      * @return Filename
      */
     public static String getFilenameWithTimestamp(String... A0prefixA1postfixA2ext) {
-        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
-        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
-        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
+        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !android.text.TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
+        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !android.text.TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
+        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !android.text.TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
         return String.format("%s%s%s.%s", prefix.trim(), SDF_IMAGES.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
     }
 
@@ -507,7 +506,7 @@ public class ShareUtil {
         List<String> clipper = new ArrayList<>();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null && !TextUtils.isEmpty(cm.getText())) {
+            if (cm != null && !android.text.TextUtils.isEmpty(cm.getText())) {
                 clipper.add(cm.getText().toString());
             }
         } else {
@@ -516,7 +515,7 @@ public class ShareUtil {
                 ClipData data = cm.getPrimaryClip();
                 for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
                     ClipData.Item item = data.getItemAt(i);
-                    if (item != null && !TextUtils.isEmpty(item.getText())) {
+                    if (item != null && !android.text.TextUtils.isEmpty(item.getText())) {
                         clipper.add(data.getItemAt(i).getText().toString());
                     }
                 }
@@ -661,7 +660,7 @@ public class ShareUtil {
                 }
             }
             fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-            if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/") && (tmpf = new File(tmps)).exists()) {
+            if (fileUri != null && !android.text.TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/") && (tmpf = new File(tmps)).exists()) {
                 return tmpf;
             }
         }
@@ -778,7 +777,7 @@ public class ShareUtil {
                                 continue;
                             }
                             picturePath = cursor.getString(curColIndex);
-                            if (!TextUtils.isEmpty(picturePath)) {
+                            if (!android.text.TextUtils.isEmpty(picturePath)) {
                                 break;
                             }
                         }
@@ -961,7 +960,7 @@ public class ShareUtil {
             pkg = null;
         } else if (browsers.size() == 1) {
             pkg = browsers.get(0);
-        } else if (!TextUtils.isEmpty(userDefaultBrowser) && browsers.contains(userDefaultBrowser)) {
+        } else if (!android.text.TextUtils.isEmpty(userDefaultBrowser) && browsers.contains(userDefaultBrowser)) {
             pkg = userDefaultBrowser;
         } else {
             for (String checkpkg : checkpkgs) {
@@ -1024,7 +1023,7 @@ public class ShareUtil {
      */
     public Uri getStorageAccessFrameworkTreeUri() {
         String treeStr = PreferenceManager.getDefaultSharedPreferences(_context).getString(PREF_KEY__SAF_TREE_URI, null);
-        if (!TextUtils.isEmpty(treeStr)) {
+        if (!android.text.TextUtils.isEmpty(treeStr)) {
             try {
                 return Uri.parse(treeStr);
             } catch (Exception ignored) {
@@ -1287,7 +1286,7 @@ public class ShareUtil {
         try {
             final Locale l = locale != null ? locale : Locale.getDefault();
             final long t = datetime != null ? datetime : System.currentTimeMillis();
-            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(t);
+            return new SimpleDateFormat(TextUtils.unescapeString(format), l).format(t);
         } catch (Exception err) {
             return (fallback != null && fallback.length > 0) ? fallback[0] : format;
         }
@@ -1310,7 +1309,7 @@ public class ShareUtil {
         }
 
         if (doRequest && permissionRequest.get() != null) {
-            if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
+            if (optionalDescription == null || optionalDescription.length == 0 || android.text.TextUtils.isEmpty(optionalDescription[0])) {
                 permissionRequest.get().callback();
             } else {
                 final AlertDialog d = new AlertDialog.Builder(activity)

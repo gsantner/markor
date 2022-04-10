@@ -14,7 +14,7 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextWatcher;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 public class ListHandler implements TextWatcher {
     private int reorderPosition;
@@ -85,7 +85,7 @@ public class ListHandler implements TextWatcher {
 
         triggerReorder = containsNewline(s, start, count);
         reorderPosition = start;
-        beforeLineEnd = StringUtils.getLineEnd(s, start);
+        beforeLineEnd = TextUtils.getLineEnd(s, start);
     }
 
     private boolean containsNewline(final CharSequence s, final int start, final int count) {

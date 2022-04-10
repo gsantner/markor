@@ -36,7 +36,7 @@ import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.util.TextUtils;
 
 import java.io.File;
 
@@ -177,7 +177,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
             int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             if (startLine < 0 && intentData != null) {
-                startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+                startLine = TextUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
             final boolean startInPreview = (startLine < 0) && (
