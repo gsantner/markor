@@ -631,6 +631,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
+            final int[] sel = StringUtils.getSelection(_hlEditor);
+
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -648,7 +650,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            _primaryScrollView.postDelayed(() -> StringUtils.showSelection(_hlEditor), 250);
+            _hlEditor.setCursor(sel[0], sel[1]);
         }
     }
 

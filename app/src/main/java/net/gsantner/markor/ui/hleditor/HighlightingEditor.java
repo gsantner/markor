@@ -330,14 +330,15 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    public void setCursor(final int index) {
-        if (!hasFocus()) {
-            requestFocus();
-        }
-
+    public void setCursor(final int start, final int... end) {
         post(() -> {
-            StringUtils.showSelection(this, index, index);
-            postDelayed(() -> setSelection(index), 200); // Run _after_ showSelection
+            if (!hasFocus()) {
+                requestFocus();
+            }
+
+            final int _end = end != null && end.length > 0 ? end[0] : start;
+            StringUtils.showSelection(this, start, _end);
+            post(() -> setSelection(start, _end)); // Run _after_ showSelection
         });
     }
 
