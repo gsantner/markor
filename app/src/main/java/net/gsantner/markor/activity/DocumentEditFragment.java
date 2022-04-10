@@ -356,6 +356,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
 
                 _hlEditor.setSelection(sel[0], sel[1]);
+                StringUtils.showSelection(_hlEditor);
             }
 
             checkTextChangeState();
@@ -647,7 +648,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            StringUtils.showSelection(_hlEditor);
+            _primaryScrollView.postDelayed(() -> StringUtils.showSelection(_hlEditor), 250);
         }
     }
 
