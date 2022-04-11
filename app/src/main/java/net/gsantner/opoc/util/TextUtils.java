@@ -399,21 +399,13 @@ public final class TextUtils {
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
-        final int endLeft = (int) layout.getPrimaryHorizontal(_end);
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        final int charWidth = (int) layout.getSecondaryHorizontal(_start) - startLeft;
-        region.left = Math.min(startLeft, endLeft);
-        region.right = Math.max(startLeft, endLeft);
+        final int halfWidth = viewSize.width() / 2;
+        // Push the start to the middle of the screen
+        region.left = startLeft - halfWidth;
+        region.right = startLeft + halfWidth;
 
-        if (Math.abs(region.left - region.right) <= charWidth) {
-            // make sure rect width > 0
-            region.right += charWidth;
-        } else if (region.width() > viewSize.width()) {
-            // Make sure selStart is in rect if possible
-            region.left = startLeft;
-            region.right = region.left + viewSize.width();
-        }
-
+        // Call in post to try to make sure we run after any pending actions
         text.post(() -> text.requestRectangleOnScreen(region));
     }
 
