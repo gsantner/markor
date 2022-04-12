@@ -19,6 +19,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
@@ -192,7 +193,7 @@ public abstract class TextActions {
 
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
-        settings.edit().putString(formatKey, android.text.TextUtils.join(",", values)).apply();
+        settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
     }
 
     private List<String> loadActionPreference(final String suffix) {
@@ -703,7 +704,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {
-                if (!android.text.TextUtils.isEmpty(_lastSnip)) {
+                if (!TextUtils.isEmpty(_lastSnip)) {
                     _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
                 }
                 return true;

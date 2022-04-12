@@ -26,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -147,7 +148,7 @@ public class SearchOrCustomTextDialogCreator {
         availableData.add("archive.txt");
         availableData.add("done.txt");
         String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
-        if (!android.text.TextUtils.isEmpty(hl)) {
+        if (!TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
             if (!availableData.contains(hl)) {
                 availableData.add(hl);
@@ -397,7 +398,7 @@ public class SearchOrCustomTextDialogCreator {
                 doptSave.titleText = R.string.name;
                 doptSave.searchHintText = R.string.empty_string;
                 doptSave.callback = saveTitle -> {
-                    if (!android.text.TextUtils.isEmpty(saveTitle)) {
+                    if (!TextUtils.isEmpty(saveTitle)) {
                         TodoTxtFilter.saveFilter(activity, saveTitle, queryType, selKeys, useAnd[0]);
                     }
                 };
@@ -632,7 +633,7 @@ public class SearchOrCustomTextDialogCreator {
             dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
-                if (!android.text.TextUtils.isEmpty(password)) {
+                if (!TextUtils.isEmpty(password)) {
                     AppSettings.get().setDefaultPassword(password);
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }

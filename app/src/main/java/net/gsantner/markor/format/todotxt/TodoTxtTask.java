@@ -10,6 +10,7 @@
 #########################################################*/
 package net.gsantner.markor.format.todotxt;
 
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import net.gsantner.opoc.util.StringUtils;
@@ -225,7 +226,7 @@ public class TodoTxtTask {
     public TodoDueState getDueStatus() {
         if (dueStatus == null) {
             final String date = getDueDate();
-            if (android.text.TextUtils.isEmpty(date)) {
+            if (TextUtils.isEmpty(date)) {
                 dueStatus = TodoDueState.NONE;
             } else {
                 final int comp = date.compareTo(getToday());
@@ -354,8 +355,8 @@ public class TodoTxtTask {
         }
 
         private int compareNull(final String x, final String y) {
-            final int xi = android.text.TextUtils.isEmpty(x) ? 1 : 0;
-            final int yi = android.text.TextUtils.isEmpty(y) ? 1 : 0;
+            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
+            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 
@@ -374,7 +375,7 @@ public class TodoTxtTask {
         private int compare(final List<String> x, final List<String> y) {
             Collections.sort(x);
             Collections.sort(y);
-            return compare(android.text.TextUtils.join("", x), android.text.TextUtils.join("", y));
+            return compare(TextUtils.join("", x), TextUtils.join("", y));
         }
 
         private int compare(final String x, final String y) {
