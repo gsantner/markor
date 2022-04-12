@@ -11,7 +11,7 @@ package net.gsantner.markor.format.zimwiki;
 
 import net.gsantner.markor.ui.hleditor.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.opoc.util.TextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +66,7 @@ public class ZimWikiReplacePatternGenerator {
             return patterns;
         }
 
-        String headingChars = TextUtils.repeatChars('=', numberOfEqualSigns);
+        String headingChars = StringUtils.repeatChars('=', numberOfEqualSigns);
 
         patterns.add(removeHeadingCharsForExactHeadingLevel(headingChars));
         patterns.add(replaceDifferentHeadingLevelWithThisLevel(headingChars));

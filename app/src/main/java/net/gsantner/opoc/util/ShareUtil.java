@@ -1286,7 +1286,7 @@ public class ShareUtil {
         try {
             final Locale l = locale != null ? locale : Locale.getDefault();
             final long t = datetime != null ? datetime : System.currentTimeMillis();
-            return new SimpleDateFormat(TextUtils.unescapeString(format), l).format(t);
+            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(t);
         } catch (Exception err) {
             return (fallback != null && fallback.length > 0) ? fallback[0] : format;
         }

@@ -12,7 +12,6 @@ package net.gsantner.opoc.util;
 import android.graphics.Rect;
 import android.text.Layout;
 import android.util.Base64;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,10 +23,10 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class TextUtils {
+public final class StringUtils {
 
     // Suppress default constructor for noninstantiability
-    private TextUtils() {
+    private StringUtils() {
         throw new AssertionError();
     }
 
@@ -327,15 +326,15 @@ public final class TextUtils {
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = TextUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            final int posn = StringUtils.getIndexFromLineOffset(text, positions.get(0), 0);
             setSelectionAndShow(edit, posn);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
             final int minLine = Collections.min(pSet), maxLine = Collections.max(pSet);
             if (maxLine - minLine == pSet.size() - 1) { // Case contiguous indices
-                selStart = TextUtils.getLineStart(text, TextUtils.getIndexFromLineOffset(text, minLine, 0));
-                selEnd = TextUtils.getIndexFromLineOffset(text, maxLine, 0);
+                selStart = StringUtils.getLineStart(text, StringUtils.getIndexFromLineOffset(text, minLine, 0));
+                selEnd = StringUtils.getIndexFromLineOffset(text, maxLine, 0);
             } else { // Case non-contiguous indices
                 final String[] lines = text.toString().split("\n");
                 final List<String> sel = new ArrayList<>(), unsel = new ArrayList<>();
@@ -346,7 +345,7 @@ public final class TextUtils {
                 final String newText = android.text.TextUtils.join("\n", sel);
                 edit.setText(newText);
                 selStart = 0;
-                selEnd = TextUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
+                selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
             setSelectionAndShow(edit, selStart, selEnd);
         }
@@ -370,7 +369,7 @@ public final class TextUtils {
         if (start < 0 || end > text.length()) {
             return;
         }
-        final int lineStart = TextUtils.getLineStart(text.getText(), _start);
+        final int lineStart = StringUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
         if (!text.getLocalVisibleRect(viewSize)) {

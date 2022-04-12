@@ -12,7 +12,7 @@ package net.gsantner.markor.format.todotxt;
 
 import android.widget.TextView;
 
-import net.gsantner.opoc.util.TextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,8 +70,8 @@ public class TodoTxtTask {
 
     public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
         final String[] lines = text.subSequence(
-                TextUtils.getLineStart(text, selStart),
-                TextUtils.getLineEnd(text, selEnd)
+                StringUtils.getLineStart(text, selStart),
+                StringUtils.getLineEnd(text, selEnd)
         ).toString().split("\n");
 
         final List<TodoTxtTask> tasks = new ArrayList<>();
@@ -82,7 +82,7 @@ public class TodoTxtTask {
     }
 
     public static List<TodoTxtTask> getSelectedTasks(final TextView view) {
-        final int[] sel = TextUtils.getSelection(view);
+        final int[] sel = StringUtils.getSelection(view);
         return getTasks(view.getText(), sel[0], sel[1]);
     }
 

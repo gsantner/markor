@@ -26,7 +26,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.TextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -241,7 +241,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (edit != null && newText != null) {
             int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = TextUtils.getSelection(this);
+            final int[] sel = StringUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
@@ -265,11 +265,11 @@ public class HighlightingEditor extends AppCompatEditText {
     // Set selection to fill whole lines
     // Returns original selectionStart
     public int setSelectionExpandWholeLines() {
-        final int[] sel = TextUtils.getSelection(this);
+        final int[] sel = StringUtils.getSelection(this);
         final CharSequence text = getText();
         setSelection(
-                TextUtils.getLineStart(text, sel[0]),
-                TextUtils.getLineEnd(text, sel[1])
+                StringUtils.getLineStart(text, sel[0]),
+                StringUtils.getLineEnd(text, sel[1])
         );
         return sel[0];
     }
@@ -290,7 +290,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
 
     public boolean indexesValid(int... indexes) {
-        return TextUtils.inRange(0, length(), indexes);
+        return StringUtils.inRange(0, length(), indexes);
     }
 
     @Override

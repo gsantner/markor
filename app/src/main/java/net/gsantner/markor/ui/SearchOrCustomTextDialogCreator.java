@@ -43,7 +43,7 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.TextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -432,7 +432,7 @@ public class SearchOrCustomTextDialogCreator {
             for (final Integer p : posns) {
                 selIndices.add(lineIndices.get(p));
             }
-            TextUtils.selectLines(text, selIndices);
+            StringUtils.selectLines(text, selIndices);
         };
 
         return dopt;
@@ -444,7 +444,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), TextUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text));
         };
 
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
@@ -509,17 +509,17 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, TextUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, StringUtils.getSelection(text));
         };
         dopt2.neutralButtonText = R.string.search_and_replace;
-        dopt2.positionCallback = (result) -> TextUtils.selectLines(text, result);
+        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
         SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.positionCallback = (result) -> TextUtils.selectLines(text, result);
+        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
         dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;

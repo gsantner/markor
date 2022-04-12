@@ -11,7 +11,7 @@ package net.gsantner.markor.format.markdown;
 
 import net.gsantner.markor.ui.hleditor.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.opoc.util.TextUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class MarkdownReplacePatternGenerator {
 
         List<TextActions.ReplacePattern> patterns = new ArrayList<>();
 
-        String heading = TextUtils.repeatChars('#', level);
+        String heading = StringUtils.repeatChars('#', level);
 
         // Replace this exact heading level with nothing
         patterns.add(new TextActions.ReplacePattern("^(\\s{0,3})" + heading + " ", "$1"));
