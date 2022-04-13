@@ -314,7 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">在目前目錄中遞迴搜尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">當列表的項目裡包含副檔名時，總是以這個程式開啟檔案。如果您要編輯網頁檔案或其他不含附檔名的檔案時，可以使用 \'None, .html, .css , .js\' 等。</string>
-    <string name="template">模板</string>
+    <string name="template">範本</string>
     <string name="send_debug_log">傳送偵錯日誌</string>
     <string name="print_pdf">列印 / PDF</string>
     <string name="bigger_headings">大標題</string>
@@ -329,7 +329,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reading">讀取中</string>
     <string name="read">讀取</string>
     <string name="table">表格</string>
-    <string name="how_much_columns_press_table_button_long_to_start_table">多少列呢？長按表格按鈕以開始一個表單，(插入抬頭)，短按會增加一行。</string>
+    <string name="how_much_columns_press_table_button_long_to_start_table">需要多少欄 (columns)？長按表格按鈕建立表格（插入 header），輕觸則新增一列 (row)。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
     <string name="delete_lines">刪除線</string>
     <string name="unordered_list">無序清單</string>
