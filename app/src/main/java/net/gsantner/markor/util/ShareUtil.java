@@ -37,7 +37,7 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
-        final String title = file != null ? FileUtils.extractTitle(file) : null;
+        final String title = file != null ? FileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
             final boolean isDir = file.isDirectory();
             final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;

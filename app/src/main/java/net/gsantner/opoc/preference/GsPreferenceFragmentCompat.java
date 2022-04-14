@@ -51,6 +51,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -454,11 +455,11 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
      * Is key equal
      *
      * @param pref     A preference
-     * @param resIdKey the resource id of the string
-     * @return if equals
+     * @param resIdKey one or more string resource ids
+     * @return if equals any of the resource ids
      */
-    public boolean eq(@Nullable Preference pref, @StringRes int resIdKey) {
-        return pref != null && getString(resIdKey).equals(pref.getKey());
+    public boolean eq(final @Nullable Preference pref, final @StringRes int... resIdKey) {
+        return pref != null && eq(pref.getKey(), resIdKey);
     }
 
 
@@ -469,7 +470,8 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
      * @param resIdKey one or more string resource ids
      * @return if equals any of the resource ids
      */
-    public boolean eq(@Nullable String key, @StringRes int... resIdKey) {
+    public boolean eq(final @Nullable String key, @StringRes int... resIdKey) {
+        resIdKey = resIdKey != null ? resIdKey : new int[0];
         for (final int id : resIdKey) {
             if (getString(id).equals(key)) {
                 return true;

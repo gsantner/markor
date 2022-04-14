@@ -46,7 +46,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Get the layout for the App Widget and attach an on-click listener to the button
             final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-            views.setTextViewText(R.id.widget_header_title, FileUtils.extractTitle(directoryF));
+            views.setTextViewText(R.id.widget_header_title, FileUtils.getFilenameWithoutExtension(directoryF));
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             final Intent openShare = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
