@@ -14,10 +14,10 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:configure="other.writeily.widget.WrWidgetConfigure"
     android:initialLayout="@layout/widget_layout"
-    android:minWidth="200dp"
-    android:minHeight="150dp"
+    android:minWidth="100dp"
+    android:minHeight="200dp"
     android:minResizeWidth="60dp"
     android:minResizeHeight="80dp"
     android:previewImage="@drawable/widget_preview"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="1800000"></appwidget-provider>
+    android:updatePeriodMillis="1800000" />

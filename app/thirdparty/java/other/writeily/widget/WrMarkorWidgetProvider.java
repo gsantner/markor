@@ -99,7 +99,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
-    // Update all widget lists and shortcuts
+    // Update all widget lists and shortcuts for all widgets
     public static void updateLauncherWidgets() {
         final Context context = App.get().getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

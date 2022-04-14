@@ -542,12 +542,14 @@ public class FileUtils {
         return false;
     }
 
+    // Get the title of the file
     public static String extractTitle(final File file) {
         final String name = file.getName();
         final int doti = name.lastIndexOf(".");
         return (doti < 0) ? name : name.substring(0, doti);
     }
 
+    /// Get the file extension of the file
     public static String extractExtension(final File file) {
         final String name = file.getName();
         final int doti = name.lastIndexOf(".");
