@@ -466,11 +466,16 @@ public abstract class GsPreferenceFragmentCompat<AS extends SharedPreferencesPro
      * Is key equal
      *
      * @param key      the key
-     * @param resIdKey the resource id of the string
-     * @return if equals
+     * @param resIdKey one or more string resource ids
+     * @return if equals any of the resource ids
      */
-    public boolean eq(@Nullable String key, @StringRes int resIdKey) {
-        return getString(resIdKey).equals(key);
+    public boolean eq(@Nullable String key, @StringRes int... resIdKey) {
+        for (final int id : resIdKey) {
+            if (getString(id).equals(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasTitle() {

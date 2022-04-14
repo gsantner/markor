@@ -23,6 +23,9 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.FileUtils;
+
+import java.io.File;
 
 public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
     public ShareUtil(Context context) {
@@ -30,16 +33,17 @@ public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
         setChooserTitle(_context.getString(R.string.share_to_arrow));
     }
 
-    public void createLauncherDesktopShortcut(final Document document) {
+    public void createLauncherDesktopShortcut(final File file) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
-        if (document != null && !TextUtils.isEmpty(document.getTitle())) {
-            final boolean isDir = document.getFile().isDirectory();
+        final String title = file != null ? FileUtils.extractTitle(file) : null;
+        if (!TextUtils.isEmpty(title)) {
+            final boolean isDir = file.isDirectory();
             final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
-            final Intent intent = new Intent(_context, klass).setData(Uri.fromFile(document.getFile()));
+            final Intent intent = new Intent(_context, klass).setData(Uri.fromFile(file));
             final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
-            super.createLauncherDesktopShortcut(intent, iconRes, document.getTitle());
+            super.createLauncherDesktopShortcut(intent, iconRes, title);
             // Toast.makeText(_context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
     }

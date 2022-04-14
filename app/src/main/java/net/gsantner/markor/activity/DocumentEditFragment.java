@@ -13,9 +13,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.Lifecycle;
-import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -38,7 +36,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
@@ -664,7 +661,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Document is written iff content has changed
         if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
-                updateLauncherWidgets();
                 checkTextChangeState();
                 return true;
             } else {
@@ -696,13 +692,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
         super.onPause();
-    }
-
-    private void updateLauncherWidgets() {
-        Context c = App.get().getApplicationContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(c);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(c, WrMarkorWidgetProvider.class));
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
     }
 
     @Override

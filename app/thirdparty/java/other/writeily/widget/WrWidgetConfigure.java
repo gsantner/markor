@@ -12,7 +12,6 @@ package other.writeily.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -23,35 +22,47 @@ import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 
 public class WrWidgetConfigure extends AppCompatActivity {
-    private int _appWidgetId;
+    private int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
+    private static final String WIDGET_PREF_NAME = "MARKOR_WIDGET_PREF";
+    private static final String WIDGET_PREFIX = "WIDGET_PATH";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         if (extras != null) {
             _appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
-        showSelectionDialog();
+
+        if (_appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            showSelectionDialog();
+        }
     }
 
+    @Override
+    protected void onStop() {
+        // Update when done
+        WrMarkorWidgetProvider.updateLauncherWidgets();
+        super.onStop();
+    }
+
+    // only runs for a valid id
     private void showSelectionDialog() {
-        PermissionChecker permc = new PermissionChecker(this);
+        final PermissionChecker permc = new PermissionChecker(this);
         if (permc.mkdirIfStoragePermissionGranted()) {
-            FragmentManager fragManager = getSupportFragmentManager();
+            final FragmentManager fragManager = getSupportFragmentManager();
             FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    complete(file.getAbsolutePath());
-                }
-
-                @Override
-                public void onFsViewerNothingSelected(String request) {
+                    setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
+                    setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId));
                     finish();
                 }
 
@@ -62,7 +73,6 @@ public class WrWidgetConfigure extends AppCompatActivity {
                 }
             }, fragManager, this);
         }
-
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -74,29 +84,13 @@ public class WrWidgetConfigure extends AppCompatActivity {
         }
     }
 
-    public final void complete(String directory) {
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            _appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+    public static File getWidgetDirectory(final Context context, int id) {
+        final String notebook = new AppSettings(context).getNotebookDirectoryAsStr();
+        final String path = context.getSharedPreferences(WIDGET_PREF_NAME, MODE_PRIVATE).getString(WIDGET_PREFIX + id, notebook);
+        return new File(StringUtils.fallback(path, notebook));
+    }
 
-            Context context = getApplicationContext();
-
-            // Store widget filter
-            SharedPreferences preferences = context.getSharedPreferences("" + _appWidgetId, MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(WrMarkorWidgetProvider.WIDGET_PATH, directory);
-            editor.apply();
-
-            Intent resultValue = new Intent(context, WrFilesWidgetService.class);
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId);
-            setResult(RESULT_OK, resultValue);
-
-            Intent i = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, this, WrMarkorWidgetProvider.class);
-            i.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{_appWidgetId});
-            sendBroadcast(i);
-
-            finish();
-        }
+    public static void setWidgetDirectory(final Context context, int id, final File dir) {
+        context.getSharedPreferences(WIDGET_PREF_NAME, MODE_PRIVATE).edit().putString(WIDGET_PREFIX + id, dir.getPath()).apply();
     }
 }

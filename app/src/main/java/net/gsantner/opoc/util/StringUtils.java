@@ -452,4 +452,8 @@ public final class StringUtils {
         interpolated.append(temp); // Remaining text
         return interpolated.toString();
     }
+
+    public static <T> T fallback(final T thing, final T fallback) {
+        return thing != null ? thing : fallback;
+    }
 }

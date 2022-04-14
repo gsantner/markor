@@ -541,4 +541,16 @@ public class FileUtils {
         }
         return false;
     }
+
+    public static String extractTitle(final File file) {
+        final String name = file.getName();
+        final int doti = name.lastIndexOf(".");
+        return (doti < 0) ? name : name.substring(0, doti);
+    }
+
+    public static String extractExtension(final File file) {
+        final String name = file.getName();
+        final int doti = name.lastIndexOf(".");
+        return (doti < 0) ? "" : name.substring(doti).toLowerCase();
+    }
 }

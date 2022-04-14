@@ -45,6 +45,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends MarkorBaseActivity {
 
@@ -235,6 +236,8 @@ public class SettingsActivity extends MarkorBaseActivity {
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
+            } else if (eq(key, R.string.pref_key__notebook_directory, R.string.pref_key__quicknote_filepath, R.string.pref_key__todo_filepath)) {
+                WrMarkorWidgetProvider.updateLauncherWidgets();
             }
         }
 
@@ -282,7 +285,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                             @Override
                             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                                 dopt.titleText = R.string.quicknote;
-                                dopt.rootFolder = Environment.getExternalStorageDirectory();
+                                dopt.rootFolder = AppSettings.get().getNotebookDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
                     }
@@ -303,7 +306,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                             @Override
                             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                                 dopt.titleText = R.string.todo;
-                                dopt.rootFolder = Environment.getExternalStorageDirectory();
+                                dopt.rootFolder = AppSettings.get().getNotebookDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
                     }

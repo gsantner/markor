@@ -61,16 +61,9 @@ public class Document implements Serializable {
 
     public Document(@NonNull final File file) {
         _file = file;
-        final String name = _file.getName();
-        final int doti = name.lastIndexOf(".");
-        if (doti < 0) {
-            _fileExtension = "";
-            _title = name;
-        } else {
-            _fileExtension = name.substring(doti).toLowerCase();
-            _title = name.substring(0, doti);
-        }
         _path = _file.getAbsolutePath();
+        _title = FileUtils.extractTitle(_file);
+        _fileExtension = FileUtils.extractTitle(_file);
 
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
