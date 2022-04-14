@@ -12,7 +12,9 @@ package other.writeily.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -85,9 +87,22 @@ public class WrWidgetConfigure extends AppCompatActivity {
     }
 
     public static File getWidgetDirectory(final Context context, int id) {
-        final String notebook = new AppSettings(context).getNotebookDirectoryAsStr();
-        final String path = context.getSharedPreferences(WIDGET_PREF_NAME, MODE_PRIVATE).getString(WIDGET_PREFIX + id, notebook);
-        return new File(StringUtils.fallback(path, notebook));
+        String path;
+
+        // Try new method first
+        path = context.getSharedPreferences(WIDGET_PREF_NAME, MODE_PRIVATE).getString(WIDGET_PREFIX + id, null);
+        if (path != null) {
+            return new File(path);
+        }
+
+        // Try old method next
+        path = context.getSharedPreferences("" + id, MODE_PRIVATE).getString(WIDGET_PREFIX + id, null);
+        if (path != null) {
+            return new File(path);
+        }
+
+        // Fallback
+        return new AppSettings(context).getNotebookDirectory();
     }
 
     public static void setWidgetDirectory(final Context context, int id, final File dir) {
