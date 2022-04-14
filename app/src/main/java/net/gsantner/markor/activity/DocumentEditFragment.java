@@ -232,9 +232,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
         }
 
-        if (_hlEditor.indexesValid(startPos)) {
-            _hlEditor.setCursor(startPos);
-        }
+        StringUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
     @Override
@@ -356,6 +354,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
 
                 _hlEditor.setSelection(sel[0], sel[1]);
+                StringUtils.showSelection(_hlEditor);
             }
 
             checkTextChangeState();
@@ -630,6 +629,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
         if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
 
+            final int[] sel = StringUtils.getSelection(_hlEditor);
+
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -647,7 +648,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _primaryScrollView.addView(_hlEditor);
             }
 
-            StringUtils.showSelection(_hlEditor);
+            // Run after layout() of immediate parent completes
+            (wrap ? _primaryScrollView : _hsView).post(() -> StringUtils.setSelectionAndShow(_hlEditor, sel[0], sel[1]));
         }
     }
 

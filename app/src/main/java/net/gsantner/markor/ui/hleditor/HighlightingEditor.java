@@ -290,13 +290,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
 
     public boolean indexesValid(int... indexes) {
-        int len = length();
-        for (int index : indexes) {
-            if (index < 0 || index > len) {
-                return false;
-            }
-        }
-        return true;
+        return StringUtils.inRange(0, length(), indexes);
     }
 
     @Override
@@ -328,14 +322,6 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-    }
-
-    public void setCursor(final int index) {
-        if (!hasFocus()) {
-            requestFocus();
-        }
-        post(() -> StringUtils.showSelection(this, index, index));
-        post(() ->setSelection(index));
     }
 
     public void setAccessibilityEnabled(final boolean enabled) {

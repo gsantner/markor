@@ -11,7 +11,6 @@ package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
 import android.text.Layout;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,15 +31,17 @@ public final class StringUtils {
     }
 
     public static boolean isValidIndex(final CharSequence s, final int... indices) {
-        if (s != null && indices.length > 0) {
-            for (final int i : indices) {
-                if (i < 0 || i >= s.length()) {
-                    return false;
-                }
+        return s != null && inRange(0, s.length() - 1, indices);
+    }
+
+    // Checks if all values are in [min, max] _inclusive_
+    public static boolean inRange(final int min, final int max, final int... values) {
+        for (final int i : values) {
+            if (i < min || i > max) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     public static int getLineStart(CharSequence s, int start) {
@@ -326,8 +327,7 @@ public final class StringUtils {
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
             final int posn = StringUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            showSelection(edit, posn, posn);
-            edit.setSelection(posn);
+            setSelectionAndShow(edit, posn);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -342,13 +342,12 @@ public final class StringUtils {
                     (pSet.contains(i) ? sel : unsel).add(lines[i]);
                 }
                 sel.addAll(unsel);
-                final String newText = TextUtils.join("\n", sel);
+                final String newText = android.text.TextUtils.join("\n", sel);
                 edit.setText(newText);
                 selStart = 0;
                 selEnd = StringUtils.getIndexFromLineOffset(newText, positions.size() - 1, 0);
             }
-            showSelection(edit, selStart, selEnd);
-            edit.setSelection(selStart, selEnd);
+            setSelectionAndShow(edit, selStart, selEnd);
         }
     }
 
@@ -399,22 +398,28 @@ public final class StringUtils {
         // Region in X - as handling RTL, text alignment, and centred text etc is
         // a huge pain (see TextView.bringPointIntoView), we use a very simple solution.
         // ------------------------------------------------------------
-
-        final int endLeft = (int) layout.getPrimaryHorizontal(_end);
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
-        region.left = Math.min(startLeft, endLeft);
-        region.right = Math.max(startLeft, endLeft);
+        final int halfWidth = viewSize.width() / 2;
+        // Push the start to the middle of the screen
+        region.left = startLeft - halfWidth;
+        region.right = startLeft + halfWidth;
 
-        if (region.left == region.right) {
-            // make sure rect width > 0
-            region.right += 1;
-        } else if (region.width() > viewSize.width()) {
-            // Make sure selStart is in rect if possible
-            region.left = startLeft;
-            region.right = region.left + viewSize.width();
-        }
-
+        // Call in post to try to make sure we run after any pending actions
         text.post(() -> text.requestRectangleOnScreen(region));
+    }
+
+    public static void setSelectionAndShow(final EditText edit, final int start, final int... end) {
+        final int _end = end != null && end.length > 0 ? end[0] : start;
+        if (inRange(0, edit.length(), start, _end)) {
+            edit.post(() -> {
+                if (!edit.hasFocus()) {
+                    edit.requestFocus();
+                }
+
+                edit.setSelection(start, _end);
+                edit.post(() -> showSelection(edit, start, _end));
+            });
+        }
     }
 
     // Search for matching pairs of backticks
