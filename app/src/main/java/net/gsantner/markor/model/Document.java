@@ -63,7 +63,7 @@ public class Document implements Serializable {
         _file = file;
         _path = _file.getAbsolutePath();
         _title = FileUtils.getFilenameWithoutExtension(_file);
-        _fileExtension = FileUtils.getFilenameWithoutExtension(_file);
+        _fileExtension = FileUtils.getFilenameExtension(_file);
 
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
@@ -108,10 +108,6 @@ public class Document implements Serializable {
 
     public String getTitle() {
         return _title;
-    }
-
-    public void setTitle(String title) {
-        _title = title == null ? "" : title;
     }
 
     public String getName() {
