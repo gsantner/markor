@@ -1,11 +1,9 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
+ *   Developed/Maintained by Gregor Santner, 2017-2022
  *   https://gsantner.net/
  *
- *   License of this file: Apache 2.0 (Commercial upon request)
- *     https://www.apache.org/licenses/LICENSE-2.0
- *     https://github.com/gsantner/opoc/#licensing
+ *   License of this file: Creative Commons Zero (CC0 1.0) / Public Domain
  *
 #########################################################*/
 package net.gsantner.opoc.util;
@@ -85,8 +83,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale"})
 public class ShareUtil {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
-    public final static SimpleDateFormat SDF_RFC3339_ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
-    public final static SimpleDateFormat SDF_IMAGES = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
+    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
+    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
 
@@ -392,7 +390,7 @@ public class ShareUtil {
         final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
         final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
         final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
-        return String.format("%s%s%s.%s", prefix.trim(), SDF_IMAGES.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
+        return String.format("%s%s%s.%s", prefix.trim(), DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
     }
 
     /**
@@ -706,8 +704,11 @@ public class ShareUtil {
         if (!(_context instanceof Activity)) {
             throw new RuntimeException("Error: ShareUtil.requestCameraPicture needs an Activity Context.");
         }
+        final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        final String timestampedFilename = getFilenameWithTimestamp("IMG", "", "jpg");
+        final File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+
         String cameraPictureFilepath = null;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(_context.getPackageManager()) != null) {
             File photoFile;
             try {
@@ -715,12 +716,9 @@ public class ShareUtil {
                 if (target != null && !target.isDirectory()) {
                     photoFile = target;
                 } else {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH);
-                    File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
-                    String imageFileName = ((new ContextUtils(_context).rstr("app_name")).replaceAll("[^a-zA-Z0-9\\.\\-]", "_") + "_").replace("__", "_") + sdf.format(new Date());
-                    photoFile = new File(storageDir, imageFileName + ".jpg");
+                    photoFile = new File(storageDir, timestampedFilename);
                     if (!photoFile.getParentFile().exists() && !photoFile.getParentFile().mkdirs()) {
-                        photoFile = File.createTempFile(imageFileName + "_", ".jpg", storageDir);
+                        photoFile = File.createTempFile(timestampedFilename.replace(".jpg", "_"), ".jpg", storageDir);
                     }
                 }
 
@@ -736,8 +734,7 @@ public class ShareUtil {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Uri uri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(_context, getFileProviderAuthority(), photoFile));
                 } else {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
