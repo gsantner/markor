@@ -9,63 +9,44 @@
 ###########################################################*/
 package other.writeily.widget;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 
 public class WrMarkorWidgetProvider extends AppWidgetProvider {
-    public static final String WIDGET_PATH = "WIDGET_PATH";
 
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        super.onDeleted(context, appWidgetIds);
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        super.onDisabled(context);
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        super.onEnabled(context);
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-    }
-
+    @SuppressLint("UnspecifiedImmutableFlag")
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        int requestCode = 0;
+        int requestCode = 1;
+        final AppSettings appSettings = new AppSettings(context);
 
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (final int appWidgetId : appWidgetIds) {
+
+            final File directoryF = WrWidgetConfigure.getWidgetDirectory(context, appWidgetId);
+
             // Get the layout for the App Widget and attach an on-click listener to the button
             final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-            final SharedPreferences sharedPreferences = context.getSharedPreferences("" + appWidgetId, Context.MODE_PRIVATE);
-            final String directory = sharedPreferences.getString(WIDGET_PATH, AppSettings.get().getNotebookDirectoryAsStr());
-
-            final File directoryF = new File(directory);
-            views.setTextViewText(R.id.widget_header_title, directoryF.getName());
-
-            final AppSettings appSettings = new AppSettings(context);
+            views.setTextViewText(R.id.widget_header_title, FileUtils.getFilenameWithoutExtension(directoryF));
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             final Intent openShare = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
@@ -114,6 +95,23 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
+
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+    }
+
+    // Update all widget lists and shortcuts for all widgets
+    public static void updateLauncherWidgets() {
+        final Context context = App.get().getApplicationContext();
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        final ComponentName comp = new ComponentName(context, WrMarkorWidgetProvider.class);
+        final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(comp);
+
+        // Update List
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_notes_list);
+
+        // Trigger remote views update
+        context.sendBroadcast(new Intent(context, WrMarkorWidgetProvider.class)
+                .setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
+                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds));
     }
 }
