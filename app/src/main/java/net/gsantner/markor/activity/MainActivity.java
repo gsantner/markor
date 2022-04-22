@@ -58,6 +58,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnPageChange;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -172,7 +173,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             restartMainActivity();
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -499,9 +499,14 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        WrMarkorWidgetProvider.updateLauncherWidgets();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
-
         restoreDefaultToolbar();
     }
 

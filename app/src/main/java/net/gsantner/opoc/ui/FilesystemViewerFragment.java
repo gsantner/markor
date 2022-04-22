@@ -66,6 +66,7 @@ import butterknife.ButterKnife;
 import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class FilesystemViewerFragment extends GsFragmentBase
         implements FilesystemViewerData.SelectionListener {
@@ -374,12 +375,12 @@ public class FilesystemViewerFragment extends GsFragmentBase
     public boolean onOptionsItemSelected(MenuItem item) {
         final PermissionChecker permc = new PermissionChecker(getActivity());
 
-        File folderToLoad = null;
+        final int _id = item.getItemId();
 
-        switch (item.getItemId()) {
+        switch (_id) {
             case R.id.action_create_shortcut: {
                 final File file = _filesystemViewerAdapter.getCurrentSelection().iterator().next();
-                _shareUtil.createLauncherDesktopShortcut(new Document(file));
+                _shareUtil.createLauncherDesktopShortcut(file);
                 return true;
             }
             case R.id.action_sort_by_name: {
@@ -440,8 +441,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
             case R.id.action_go_to_appdata_sdcard_1:
             case R.id.action_go_to_appdata_sdcard_2:
             case R.id.action_go_to_appdata_public: {
-                folderToLoad = _appSettings.getFolderToLoadByMenuId(item.getItemId());
-                break;
+                final File folder = _appSettings.getFolderToLoadByMenuId(_id);
+                _filesystemViewerAdapter.setCurrentFolder(folder, true);
+                Toast.makeText(getContext(), folder.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+                return true;
             }
             case R.id.action_favourite:
             case R.id.action_favourite_remove: {
@@ -468,12 +471,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 return true;
             }
 
-            case R.id.action_move_selected_items: {
-                askForMoveOrCopy(true);
-                return true;
-            }
+            case R.id.action_move_selected_items:
             case R.id.action_copy_selected_items: {
-                askForMoveOrCopy(false);
+                askForMoveOrCopy(_id == R.id.action_move_selected_items);
                 return true;
             }
 
@@ -514,12 +514,6 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 }
                 return true;
             }
-        }
-
-        if (folderToLoad != null) {
-            _filesystemViewerAdapter.setCurrentFolder(folderToLoad, true);
-            Toast.makeText(getContext(), folderToLoad.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-            return true;
         }
 
         return false;

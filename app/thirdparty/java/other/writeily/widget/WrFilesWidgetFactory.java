@@ -26,18 +26,19 @@ import net.gsantner.opoc.ui.FilesystemViewerFragment;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context _context;
-    private File[] _widgetFilesList = new File[0];
+    private final List<File> _widgetFilesList;
     private final int _appWidgetId;
-    private final File _dir;
 
     public WrFilesWidgetFactory(final Context context, final Intent intent) {
         _context = context;
         _appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        _dir = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        _widgetFilesList = new ArrayList<>();
     }
 
     @Override
@@ -51,40 +52,36 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     }
 
     private void updateFiles() {
-        _widgetFilesList = (_dir == null) ? new File[0] : _dir.listFiles(file -> !file.isDirectory() && TextFormat.isTextFile(file));
-        if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
-            _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments());
-        }
-        if (_dir != null && _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
-            _widgetFilesList = FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments());
-        }
-        final ArrayList<File> files = new ArrayList<>(Arrays.asList(_widgetFilesList != null ? _widgetFilesList : new File[0]));
+        _widgetFilesList.clear();
+        final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
 
-        //noinspection StatementWithEmptyBody
-        if (_dir != null && (_dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS) || _dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR))) {
-            // nothing to do
-        } else {
-            FilesystemViewerFragment.sortFolder(files);
+        if (dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
+            _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments())));
+        } else if (dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
+            _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments())));
+        } else if (dir.exists() && dir.canRead()){
+            final File[] all = dir.listFiles(file -> !file.isDirectory() && TextFormat.isTextFile(file));
+            _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
+            FilesystemViewerFragment.sortFolder(_widgetFilesList); // Sort only if actual folder
         }
-        _widgetFilesList = files.toArray(new File[files.size()]);
     }
 
     @Override
     public void onDestroy() {
-        _widgetFilesList = new File[0];
+        _widgetFilesList.clear();
     }
 
     @Override
     public int getCount() {
-        return _widgetFilesList == null ? 0 : _widgetFilesList.length;
+        return _widgetFilesList.size();
     }
 
     @Override
     public RemoteViews getViewAt(final int position) {
         final RemoteViews rowView = new RemoteViews(_context.getPackageName(), R.layout.widget_file_item);
         rowView.setTextViewText(R.id.widget_note_title, "???");
-        if (position < _widgetFilesList.length) {
-            final File file = _widgetFilesList[position];
+        if (position < _widgetFilesList.size()) {
+            final File file = _widgetFilesList.get(position);
             final Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file);
             rowView.setTextViewText(R.id.widget_note_title, file.getName());
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);

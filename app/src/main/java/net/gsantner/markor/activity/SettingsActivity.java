@@ -45,6 +45,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends MarkorBaseActivity {
 
@@ -161,7 +162,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         public void doUpdatePreferences() {
             String remove = "/storage/emulated/0/";
             updateSummary(R.string.pref_key__notebook_directory,
-                    _cu.htmlToSpanned("<small><small>" + AppSettings.get().getNotebookDirectoryAsStr().replace(remove, "") + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _as.getNotebookDirectoryAsStr().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__quicknote_filepath,
                     _cu.htmlToSpanned("<small><small>" + _as.getQuickNoteFile().getAbsolutePath().replace(remove, "") + "</small></small>")
@@ -235,6 +236,8 @@ public class SettingsActivity extends MarkorBaseActivity {
                 } catch (IllegalArgumentException e) {
                     Toast.makeText(context, e.getLocalizedMessage() + "\n\n" + getString(R.string.loading_default_value), Toast.LENGTH_SHORT).show();
                 }
+            } else if (eq(key, R.string.pref_key__notebook_directory, R.string.pref_key__quicknote_filepath, R.string.pref_key__todo_filepath)) {
+                WrMarkorWidgetProvider.updateLauncherWidgets();
             }
         }
 
@@ -250,9 +253,8 @@ public class SettingsActivity extends MarkorBaseActivity {
                         FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                AppSettings as = AppSettings.get();
-                                as.setSaveDirectory(file.getAbsolutePath());
-                                as.setRecreateMainRequired(true);
+                                _as.setSaveDirectory(file.getAbsolutePath());
+                                _as.setRecreateMainRequired(true);
                                 doUpdatePreferences();
                             }
 
@@ -273,16 +275,15 @@ public class SettingsActivity extends MarkorBaseActivity {
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                AppSettings as = AppSettings.get();
-                                as.setQuickNoteFile(file);
-                                as.setRecreateMainRequired(true);
+                                _as.setQuickNoteFile(file);
+                                _as.setRecreateMainRequired(true);
                                 doUpdatePreferences();
                             }
 
                             @Override
                             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                                 dopt.titleText = R.string.quicknote;
-                                dopt.rootFolder = Environment.getExternalStorageDirectory();
+                                dopt.rootFolder = _as.getNotebookDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
                     }
@@ -294,16 +295,15 @@ public class SettingsActivity extends MarkorBaseActivity {
                         FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                AppSettings as = AppSettings.get();
-                                as.setTodoFile(file);
-                                as.setRecreateMainRequired(true);
+                                _as.setTodoFile(file);
+                                _as.setRecreateMainRequired(true);
                                 doUpdatePreferences();
                             }
 
                             @Override
                             public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                                 dopt.titleText = R.string.todo;
-                                dopt.rootFolder = Environment.getExternalStorageDirectory();
+                                dopt.rootFolder = _as.getNotebookDirectory();
                             }
                         }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
                     }
