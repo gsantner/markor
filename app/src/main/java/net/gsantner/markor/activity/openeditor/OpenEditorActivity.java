@@ -40,7 +40,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     file.getParentFile().mkdirs();
                 }
                 if (!file.exists() && !file.isDirectory()) {
-                    FileUtils.writeFile(file, "");
+                    FileUtils.writeFile(file, "", true);
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();

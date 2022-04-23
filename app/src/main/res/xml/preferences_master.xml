@@ -357,6 +357,12 @@
                 android:key="@string/pref_key__editor_unordered_list_character"
                 android:summary="@string/character_to_start_items_of_unordered_list_with"
                 android:title="@string/unordered_list_character" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_baseline_dehaze_24"
+                android:key="@string/pref_key__editor_add_bom_to_new_file"
+                android:summary="@string/when_creating_new_file_add_bom_for_utf8"
+                android:title="@string/add_bom_to_new_file" />
         </PreferenceCategory>
     </PreferenceScreen>
 

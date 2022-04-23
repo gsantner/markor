@@ -198,6 +198,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
     <string name="unordered_list_character">Unordered list character</string>
     <string name="character_to_start_items_of_unordered_list_with">Which character to use to denote unordered lists</string>
+    <string name="add_bom_to_new_file">Add BOM to new file</string>
+    <string name="when_creating_new_file_add_bom_for_utf8">When creating new file, add BOM for UTF-8</string>
+
     <string name="unordered_list_char_dash">Dash (-)</string>
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>

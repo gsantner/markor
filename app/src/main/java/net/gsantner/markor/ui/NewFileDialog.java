@@ -171,6 +171,11 @@ public class NewFileDialog extends DialogFragment {
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
+                            if (appSettings.isEditorAddBomToNewFile()) {
+                                arg_fos.write(0xEF);
+                                arg_fos.write(0xBB);
+                                arg_fos.write(0xBF);
+                            }
                             if (templateContents != null && (!f.exists() || f.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
                                 arg_fos.write(templateContents);
                             }

@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 
 
 import android.text.TextUtils;
+import android.util.Pair;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -58,6 +59,37 @@ public class FileUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static Pair<String, Boolean> readTextFileFastWithBOM(final File file) {
+        try (final FileInputStream inputStream = new FileInputStream(file)) {
+            final ByteArrayOutputStream result = new ByteArrayOutputStream();
+
+            final byte[] bomBuffer = new byte[3];
+            int bomReadLength = inputStream.read(bomBuffer);
+            boolean hasBOM = bomReadLength == 3 &&
+                    bomBuffer[0] == (byte) 0xEF &&
+                    bomBuffer[1] == (byte) 0xBB &&
+                    bomBuffer[2] == (byte) 0xBF;
+
+            if (!hasBOM && bomReadLength > 0) {
+                result.write(bomBuffer, 0, bomReadLength);
+            }
+            if (bomReadLength < 3) {
+                return new Pair<>(result.toString("UTF-8"), hasBOM);
+            }
+
+            final byte[] buffer = new byte[1024];
+            for (int length; (length = inputStream.read(buffer)) != -1; ) {
+                result.write(buffer, 0, length);
+            }
+            return new Pair<>(result.toString("UTF-8"), hasBOM);
+        } catch (FileNotFoundException e) {
+            System.err.println("readTextFileFast: File " + file + " not found.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Pair<>("", false);
     }
 
     public static byte[] readCloseStreamWithSize(final InputStream stream, int size) {
@@ -177,8 +209,13 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data) {
+    public static boolean writeFile(final File file, final byte[] data, boolean withBOM) {
         try (final FileOutputStream output = new FileOutputStream(file)) {
+            if (withBOM) {
+                output.write(0xEF);
+                output.write(0xBB);
+                output.write(0xBF);
+            }
             output.write(data);
             output.flush();
             return true;
@@ -188,8 +225,8 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data) {
-        return writeFile(file, data.getBytes());
+    public static boolean writeFile(final File file, final String data, boolean withBOM) {
+        return writeFile(file, data.getBytes(), withBOM);
     }
 
     public static boolean copyFile(final File src, final File dst) {
