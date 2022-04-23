@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -64,6 +66,7 @@ public class WrRenameDialog extends DialogFragment {
 
         EditText newNameField = _dialog.findViewById(R.id.new_name);
         addFilenameClashTextWatcher(newNameField);
+        newNameField.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
 
         _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             View root = inflater.inflate(R.layout.rename__dialog, null);

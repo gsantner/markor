@@ -899,11 +899,14 @@ public class ContextUtils {
      */
     @SuppressWarnings("Convert2Lambda")
     public static final InputFilter INPUTFILTER_FILENAME = new InputFilter() {
-        public CharSequence filter(CharSequence src, int start, int end, Spanned dest, int dstart, int dend) {
-            if (src.length() < 1) return null;
-            char last = src.charAt(src.length() - 1);
-            String illegal = "|\\?*<\":>[]/'";
-            if (illegal.indexOf(last) > -1) return src.subSequence(0, src.length() - 1);
+        public CharSequence filter(final CharSequence src, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
+            if (src != null && src.length() > 0) {
+                String out = src.toString();
+                for (char disallowed : "|\\?*<\":>[]/'".toCharArray()) {
+                    out = out.replace(Character.toString(disallowed), "");
+                }
+                return out;
+            }
             return null;
         }
     };
