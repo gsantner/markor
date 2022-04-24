@@ -60,7 +60,7 @@ buildscript {
 
 allprojects {
     repositories {
-        //配置阿里镜像，删除东西，添加东西
+        //Configure
         maven { url 'https://maven.aliyun.com/repository/public' }//jcenter
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }//gradle-plugin
         maven { url 'https://maven.aliyun.com/repository/central' }//central
