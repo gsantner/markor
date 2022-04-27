@@ -21,6 +21,9 @@ public class StringUtilsTest {
         assertThat(StringUtils.findDiff("abd", "ab12d")).isEqualTo(new int[] {2, 2, 4});
         assertThat(StringUtils.findDiff("abcd", "")).isEqualTo(new int[] {0, 4, 0});
         assertThat(StringUtils.findDiff("", "abcd")).isEqualTo(new int[] {0, 0, 4});
+        assertThat(StringUtils.findDiff("ab11d", "ab1d")).isEqualTo(new int[] {3, 4, 3});
+        assertThat(StringUtils.findDiff("aaaaa", "aaa")).isEqualTo(new int[] {3, 5, 3});
+        assertThat(StringUtils.findDiff("aaa", "aaaaa")).isEqualTo(new int[] {3, 3, 5});
     }
 }
 

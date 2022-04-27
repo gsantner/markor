@@ -473,7 +473,8 @@ public final class StringUtils {
         }
 
         int end = 0;
-        while(end < minLength && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
+        final int maxEnd = minLength - start;
+        while(end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
 
         return new int[] { start, dl - end, sl - end };
     }
