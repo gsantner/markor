@@ -388,15 +388,10 @@ public abstract class TextActions {
      * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
-        try {
-            if (editor instanceof HighlightingEditor) {
-                ((HighlightingEditor) editor).setAccessibilityEnabled(false);
-            }
+        if (editor instanceof HighlightingEditor) {
+            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns, matchAll));
+        } else {
             _runRegexReplaceAction(editor, patterns, matchAll);
-        } finally {
-            if (editor instanceof HighlightingEditor) {
-                ((HighlightingEditor) editor).setAccessibilityEnabled(true);
-            }
         }
     }
 
@@ -772,15 +767,7 @@ public abstract class TextActions {
 
     public final void runRenumberOrderedListIfRequired(final boolean force) {
         if (force || _hlEditor.getAutoFormatEnabled()) {
-            final boolean isAccessibilityEnabled = _hlEditor.getAccessibilityEnabled();
-            try {
-                _hlEditor.setAccessibilityEnabled(false);
-                _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
-            } finally {
-                if (isAccessibilityEnabled) {
-                    _hlEditor.setAccessibilityEnabled(true);
-                }
-            }
+            _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
         }
     }
 

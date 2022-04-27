@@ -167,17 +167,32 @@ public class HighlightingEditor extends AppCompatEditText {
         _activeListeners.remove(listener);
     }
 
+    // Run some code with accessibility disabled
+    public void withAccessibilityDisabled(final Callback.a0 callback) {
+        if (getAccessibilityEnabled()) {
+            try {
+                setAccessibilityEnabled(false);
+                callback.callback();
+            } finally {
+                setAccessibilityEnabled(true);
+            }
+        } else {
+            callback.callback();
+        }
+    }
+
     // Run some code with auto formatters disabled
+    // Also disables accessibility
     public void withAutoFormatDisabled(final Callback.a0 callback) {
         if (getAutoFormatEnabled()) {
             try {
                 setAutoFormatEnabled(false);
-                callback.callback();
+                withAccessibilityDisabled(() -> callback.callback());
             } finally {
                 setAutoFormatEnabled(true);
             }
         } else {
-            callback.callback();
+            withAccessibilityDisabled(() -> callback.callback());
         }
     }
 

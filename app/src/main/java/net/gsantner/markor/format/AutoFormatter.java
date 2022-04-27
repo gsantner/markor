@@ -236,7 +236,7 @@ public class AutoFormatter {
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
-    private static OrderedListLine getOrderedListStart(final Editable text, int position, final PrefixPatterns prefixPatterns) {
+    private static OrderedListLine getOrderedListStart(final CharSequence text, int position, final PrefixPatterns prefixPatterns) {
         position = Math.max(Math.min(position, text.length() - 1), 0);
         OrderedListLine listStart = new OrderedListLine(text, position, prefixPatterns);
 
@@ -261,7 +261,10 @@ public class AutoFormatter {
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
+    public static void renumberOrderedList(final Editable edit, int cursorPosition, final PrefixPatterns prefixPatterns) {
+
+        // Copy all the text
+        final StringBuilder text = new StringBuilder(edit);
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
@@ -329,6 +332,11 @@ public class AutoFormatter {
                     break;
                 }
             }
+
+            // Replace the text in Editable in one chunk
+            final int[] diff = StringUtils.findDiff(edit, text);
+            edit.replace(diff[0], diff[1], text.subSequence(diff[0], diff[2]));
+
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
