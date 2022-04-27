@@ -263,14 +263,14 @@ public class AutoFormatter {
      */
     public static void renumberOrderedList(final Editable edit, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
-        // Copy all the text
-        final StringBuilder text = new StringBuilder(edit);
-
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(edit, cursorPosition, prefixPatterns);
         if (!firstLine.isOrderedList) {
             return;
         }
+
+        // Copy all the text
+        final StringBuilder text = new StringBuilder(edit);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
@@ -280,6 +280,7 @@ public class AutoFormatter {
         int position;
 
         try {
+            boolean madeChange = false;
             // Loop to end of list
             while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
@@ -315,7 +316,9 @@ public class AutoFormatter {
                     final OrderedListLine peek = levels.peek();
                     final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
                     if (!newValue.equals(line.value)) {
+
                         text.replace(line.numStart, line.numEnd, newValue);
+                        madeChange = true;
 
                         // Re-create line as it has changed
                         line = new OrderedListLine(text, line.lineStart, prefixPatterns);
@@ -334,8 +337,10 @@ public class AutoFormatter {
             }
 
             // Replace the text in Editable in one chunk
-            final int[] diff = StringUtils.findDiff(edit, text);
-            edit.replace(diff[0], diff[1], text.subSequence(diff[0], diff[2]));
+            if (madeChange) {
+                final int[] diff = StringUtils.findDiff(edit, text);
+                edit.replace(diff[0], diff[1], text.subSequence(diff[0], diff[2]));
+            }
 
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
