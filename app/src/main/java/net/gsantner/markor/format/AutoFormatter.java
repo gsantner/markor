@@ -11,6 +11,7 @@ package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
@@ -269,8 +270,9 @@ public class AutoFormatter {
             return;
         }
 
-        // Copy all the text
-        final StringBuilder text = new StringBuilder(edit);
+        // Copy all the text if we are going to process
+        // SpannableStringBuilder makes the spans _appear_ to transition smoothly
+        final Editable text = new SpannableStringBuilder(edit);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
