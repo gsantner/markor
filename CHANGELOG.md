@@ -1,6 +1,11 @@
 ### Recent changes
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project website](https://gsantner.net/) to see what is going on.
 
+### v2.9 [Blog Post](https://gsantner.net/blog/2022/05/01/markor-v2.9.html?source=changelog)
+- a
+- b
+- c
+
 ### v2.8 [Blog Post](https://gsantner.net/blog/2021/07/29/markor-v2.8-todotxt-dialog-contexts-projects-multi-selection.html?source=changelog)
 - Reference to GitHub discussion on More page, by @gsantner
 - Add multi-selection to todo.txt dialogs, by @harshad1 @gsantner
