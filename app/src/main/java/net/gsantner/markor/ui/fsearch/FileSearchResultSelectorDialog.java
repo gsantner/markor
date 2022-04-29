@@ -9,6 +9,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,13 +103,21 @@ public class FileSearchResultSelectorDialog {
             return false;
         });
 
+        // Long click on parent takes us to the top of the file
+        expandableListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            if (ExpandableListView.getPackedPositionType(position) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                final int groupPosition = ExpandableListView.getPackedPositionGroup(position);
+                // Start on end of first line
+                dialogCallback.callback(((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(groupPosition)).path, 0);
+                return true;
+            };
+            return false;
+        });
+
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
             Pair<String, Integer> childItem = (Pair<String, Integer>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            if (childItem.second >= 0) {
-                if (dialog != null && dialog.get() != null) {
-                    dialog.get().dismiss();
-                }
+            if (childItem != null && childItem.second != null && childItem.second >= 0) {
                 dialogCallback.callback(groupItem.path, childItem.second);
             }
             return false;
@@ -194,7 +203,7 @@ public class FileSearchResultSelectorDialog {
                 textView = (TextView) inflater.inflate(R.layout.expandable_list_group_item, null);
                 textView.setClickable(false);
             }
-            textView.setText(groupInfo.toString());
+            textView.setText(Html.fromHtml(String.format("<b>%s</b>", groupInfo.toString())));
 
             final int iconResId = groupInfo.isDirectory || groupInfo.children.isEmpty() ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
