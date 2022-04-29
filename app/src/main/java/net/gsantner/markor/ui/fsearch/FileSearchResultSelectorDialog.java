@@ -103,15 +103,16 @@ public class FileSearchResultSelectorDialog {
             return false;
         });
 
-        // Long click on parent takes us to the top of the file
+        // Long click on file name takes us to the top of the file
         expandableListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            if (ExpandableListView.getPackedPositionType(position) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+            final long pos = expandableListView.getExpandableListPosition(position);
+            final int type = ExpandableListView.getPackedPositionType(pos);
+            if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                 final int groupPosition = ExpandableListView.getPackedPositionGroup(position);
                 // Start on end of first line
                 dialogCallback.callback(((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(groupPosition)).path, 0);
-                return true;
             };
-            return false;
+            return true;
         });
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
