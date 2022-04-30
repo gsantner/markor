@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -204,7 +205,8 @@ public class FileSearchResultSelectorDialog {
                 textView = (TextView) inflater.inflate(R.layout.expandable_list_group_item, null);
                 textView.setClickable(false);
             }
-            textView.setText(Html.fromHtml(String.format("<b>%s</b>", groupInfo.toString())));
+            textView.setText(groupInfo.toString());
+            textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
 
             final int iconResId = groupInfo.isDirectory || groupInfo.children.isEmpty() ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
