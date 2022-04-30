@@ -11,6 +11,7 @@ package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
@@ -236,7 +237,7 @@ public class AutoFormatter {
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
-    private static OrderedListLine getOrderedListStart(final Editable text, int position, final PrefixPatterns prefixPatterns) {
+    private static OrderedListLine getOrderedListStart(final CharSequence text, int position, final PrefixPatterns prefixPatterns) {
         position = Math.max(Math.min(position, text.length() - 1), 0);
         OrderedListLine listStart = new OrderedListLine(text, position, prefixPatterns);
 
@@ -261,13 +262,17 @@ public class AutoFormatter {
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable text, int cursorPosition, final PrefixPatterns prefixPatterns) {
+    public static void renumberOrderedList(final Editable edit, int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(edit, cursorPosition, prefixPatterns);
         if (!firstLine.isOrderedList) {
             return;
         }
+
+        // Copy all the text if we are going to process
+        // SpannableStringBuilder makes the spans _appear_ to transition smoothly
+        final Editable text = new SpannableStringBuilder(edit);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
@@ -277,6 +282,7 @@ public class AutoFormatter {
         int position;
 
         try {
+            boolean madeChange = false;
             // Loop to end of list
             while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
@@ -312,7 +318,9 @@ public class AutoFormatter {
                     final OrderedListLine peek = levels.peek();
                     final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
                     if (!newValue.equals(line.value)) {
+
                         text.replace(line.numStart, line.numEnd, newValue);
+                        madeChange = true;
 
                         // Re-create line as it has changed
                         line = new OrderedListLine(text, line.lineStart, prefixPatterns);
@@ -329,6 +337,13 @@ public class AutoFormatter {
                     break;
                 }
             }
+
+            // Replace the text in Editable in one chunk
+            if (madeChange) {
+                final int[] diff = StringUtils.findDiff(edit, text);
+                edit.replace(diff[0], diff[1], text.subSequence(diff[0], diff[2]));
+            }
+
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
