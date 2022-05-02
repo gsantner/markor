@@ -17,10 +17,6 @@ import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import net.gsantner.markor.BuildConfig;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.MainActivity_ViewBinding;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
