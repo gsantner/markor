@@ -10,10 +10,16 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
+import android.text.Editable;
 import android.text.Layout;
+import android.text.SpannableStringBuilder;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import net.gsantner.markor.BuildConfig;
+import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.activity.MainActivity_ViewBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -477,5 +483,24 @@ public final class StringUtils {
         while(end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
 
         return new int[] { start, dl - end, sl - end };
+    }
+
+    // This function 'chunks' updates on an editable.
+    // A _copy_ of the editable is passed into the callback,
+    // the the copy and the original are diffed,
+    // and the changes are moved back to the original in a single step
+    public static boolean performChunkedUpdate(final Editable edit, final Callback.a1<Editable> callback) {
+
+        final Editable copy = new SpannableStringBuilder(edit);
+
+        callback.callback(copy);
+
+        final int[] diff = StringUtils.findDiff(edit, copy);
+        if (diff[0] != diff[1] || diff[0] != diff[2]) {
+            edit.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+            return true;
+        }
+
+        return false;
     }
 }

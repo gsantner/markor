@@ -256,23 +256,24 @@ public class AutoFormatter {
         return listStart;
     }
 
+
+    public static boolean renumberOrderedList(final Editable text, final int cursorPosition, final PrefixPatterns prefixPatterns) {
+        return StringUtils.performChunkedUpdate(text, (_text) -> _renumberOrderedList(_text, cursorPosition, prefixPatterns));
+    }
+
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable edit, int cursorPosition, final PrefixPatterns prefixPatterns) {
+    private static void _renumberOrderedList(final Editable text, final int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(edit, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
         if (!firstLine.isOrderedList) {
             return;
         }
-
-        // Copy all the text if we are going to process
-        // SpannableStringBuilder makes the spans _appear_ to transition smoothly
-        final Editable text = new SpannableStringBuilder(edit);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
@@ -282,7 +283,6 @@ public class AutoFormatter {
         int position;
 
         try {
-            boolean madeChange = false;
             // Loop to end of list
             while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
 
@@ -318,9 +318,7 @@ public class AutoFormatter {
                     final OrderedListLine peek = levels.peek();
                     final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
                     if (!newValue.equals(line.value)) {
-
                         text.replace(line.numStart, line.numEnd, newValue);
-                        madeChange = true;
 
                         // Re-create line as it has changed
                         line = new OrderedListLine(text, line.lineStart, prefixPatterns);
@@ -337,13 +335,6 @@ public class AutoFormatter {
                     break;
                 }
             }
-
-            // Replace the text in Editable in one chunk
-            if (madeChange) {
-                final int[] diff = StringUtils.findDiff(edit, text);
-                edit.replace(diff[0], diff[1], text.subSequence(diff[0], diff[2]));
-            }
-
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
