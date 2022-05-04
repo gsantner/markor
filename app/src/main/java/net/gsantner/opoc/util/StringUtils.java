@@ -10,7 +10,9 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.util.Base64;
@@ -481,22 +483,181 @@ public final class StringUtils {
         return new int[] { start, dl - end, sl - end };
     }
 
-    // This function 'chunks' updates on an editable.
-    // A _copy_ of the editable is passed into the callback,
-    // the the copy and the original are diffed,
-    // and the changes are moved back to the original in a single step
-    public static boolean performChunkedUpdate(final Editable edit, final Callback.a1<Editable> callback) {
+    /**
+     * Allows convenient chunking of actions on an editable.
+     * This works by maintaining a _reference_ to an editable to which all operations are passed.
+     * When a _change_ is made, the original reference is copied and all operations are
+     * applied to the copy. Finally, `applyChanges()` diffs the original and copy and makes
+     * a single chunked change.
+     */
+    public static class ChunkedEditable implements Editable {
 
-        final Editable copy = new SpannableStringBuilder(edit);
+        private final Editable original;
+        private Editable copy;
 
-        callback.callback(copy);
-
-        final int[] diff = StringUtils.findDiff(edit, copy);
-        if (diff[0] != diff[1] || diff[0] != diff[2]) {
-            edit.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
-            return true;
+        public static ChunkedEditable wrap(@NonNull final Editable e) {
+            return (e instanceof ChunkedEditable) ? (ChunkedEditable) e : new ChunkedEditable(e);
         }
 
-        return false;
+        private ChunkedEditable(@NonNull final Editable e) {
+            original = e;
+        }
+
+        public boolean hasChanges() {
+            return copy != null;
+        }
+
+        // Apply changes from copy to original
+        public boolean applyChanges() {
+            if (!hasChanges()) {
+                return false;
+            }
+
+            final int[] diff = StringUtils.findDiff(original, copy);
+            if (diff[0] != diff[1] || diff[0] != diff[2]) {
+                original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+                copy = null; // Reset as we have applied all changed
+                return true;
+            }
+            return false;
+        }
+
+        private void makeCopyIfNeeded() {
+            if (copy == null) {
+                // All operations will now run on copy
+                // SpannableStringBuilder maintains spans etc
+                copy = new SpannableStringBuilder(original);
+            }
+        }
+
+        private Editable select() {
+            return hasChanges() ? copy : original;
+        }
+
+        // All other functions which edit the editable alias this routine
+        @Override
+        public Editable replace(int st, int en, CharSequence source, int start, int end) {
+            makeCopyIfNeeded();
+            return select().replace(st, en, source, start, end);
+        }
+
+        // Convenience functions for replace ^. All these are just aliases
+        // -------------------------------------------------------------------------------
+
+        @Override
+        public Editable replace(int st, int en, CharSequence text) {
+            return replace(st, en, text, 0, text.length());
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text, int start, int end) {
+            return replace(where, where, text, start, end);
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text) {
+            return replace(where, where, text, 0, text.length());
+        }
+
+        @Override
+        public Editable delete(int st, int en) {
+            return replace(st, en, "", 0, 0);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text) {
+            return replace(length(), length(), text, 0, text.length());
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text, int start, int end) {
+            return replace(length(), length(), text, start, end);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(char text) {
+            return append(String.valueOf(text));
+        }
+
+        @Override
+        public void clear() {
+            replace(0, length(), "", 0, 0);
+        }
+
+        // Other functions - all just forwarded to copy or original as needed
+        // -------------------------------------------------------------------------------
+        @Override
+        public void clearSpans() {
+            select().clearSpans();
+        }
+
+        @Override
+        public void setFilters(InputFilter[] filters) {
+            select().setFilters(filters);
+        }
+
+        @Override
+        public InputFilter[] getFilters() {
+            return select().getFilters();
+        }
+
+        @Override
+        public void getChars(int start, int end, char[] dest, int destoff) {
+            select().getChars(start, end, dest, destoff);
+        }
+
+        @Override
+        public void setSpan(Object what, int start, int end, int flags) {
+            select().setSpan(what, start, end, flags);
+        }
+
+        @Override
+        public void removeSpan(Object what) {
+            select().removeSpan(what);
+        }
+
+        @Override
+        public <T> T[] getSpans(int start, int end, Class<T> type) {
+            return select().getSpans(start, end, type);
+        }
+
+        @Override
+        public int getSpanStart(Object tag) {
+            return select().getSpanStart(tag);
+        }
+
+        @Override
+        public int getSpanEnd(Object tag) {
+            return select().getSpanEnd(tag);
+        }
+
+        @Override
+        public int getSpanFlags(Object tag) {
+            return select().getSpanFlags(tag);
+        }
+
+        @Override
+        public int nextSpanTransition(int start, int limit, Class type) {
+            return select().nextSpanTransition(start, limit, type);
+        }
+
+        @Override
+        public int length() {
+            return select().length();
+        }
+
+        @Override
+        public char charAt(int index) {
+            return select().charAt(index);
+        }
+
+        @NonNull
+        @Override
+        public CharSequence subSequence(int start, int end) {
+            return select().subSequence(start, end);
+        }
     }
 }

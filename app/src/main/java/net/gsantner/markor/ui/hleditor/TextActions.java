@@ -397,57 +397,56 @@ public abstract class TextActions {
 
     private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
 
-        final Editable _text = editor.getText();
+        final StringUtils.ChunkedEditable text = StringUtils.ChunkedEditable.wrap(editor.getText());
         final int[] selection = StringUtils.getSelection(editor);
-        final int[] lStart = StringUtils.getLineOffsetFromIndex(_text, selection[0]);
-        final int[] lEnd = StringUtils.getLineOffsetFromIndex(_text, selection[1]);
+        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
+        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
 
-        StringUtils.performChunkedUpdate(_text, (text) -> {
+        int lineStart = StringUtils.getLineStart(text, selection[0]);
+        int selEnd = StringUtils.getLineEnd(text, selection[1]);
 
-            int lineStart = StringUtils.getLineStart(text, selection[0]);
-            int selEnd = StringUtils.getLineEnd(text, selection[1]);
+        while (lineStart <= selEnd && lineStart <= text.length()) {
 
-            while (lineStart <= selEnd && lineStart <= text.length()) {
+            final int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
+            final CharSequence line = text.subSequence(lineStart, lineEnd);
 
-                final int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
-                final CharSequence line = text.subSequence(lineStart, lineEnd);
+            for (final ReplacePattern pattern : patterns) {
 
-                for (final ReplacePattern pattern : patterns) {
+                final Matcher searcher = pattern.searchPattern.matcher(line);
 
-                    final Matcher searcher = pattern.searchPattern.matcher(line);
+                // Find matched region
+                int matchStart = line.length();
+                int matchEnd = -1;
+                while (searcher.find()) {
+                    matchStart = Math.min(matchStart, searcher.start());
+                    matchEnd = Math.max(matchEnd, searcher.end());
 
-                    // Find matched region
-                    int matchStart = line.length();
-                    int matchEnd = -1;
-                    while (searcher.find()) {
-                        matchStart = Math.min(matchStart, searcher.start());
-                        matchEnd = Math.max(matchEnd, searcher.end());
-
-                        if (!pattern.replaceAll) break; // Limit region based on search type
-                    }
-
-                    if (matchEnd >= matchStart) { // Will be true iff at least one match has been found
-                        if (!pattern.replacePattern.equals("$0")) {
-                            final CharSequence oldRegion = line.subSequence(matchStart, matchEnd);
-                            // Have to create a new matcher, unfortunately, as replace does not respect region
-                            final Matcher replacer = pattern.searchPattern.matcher(oldRegion);
-                            final String newRegion = pattern.replaceAll ? replacer.replaceAll(pattern.replacePattern) : replacer.replaceFirst(pattern.replacePattern);
-                            text.replace(matchStart + lineStart, matchEnd + lineStart, newRegion);
-                            // Change effective selection based on update
-                            selEnd += newRegion.length() - oldRegion.length();
-                        }
-
-                        if (!matchAll) break; // Exit after first match
-                    }
+                    if (!pattern.replaceAll) break; // Limit region based on search type
                 }
 
-                lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+                if (matchEnd >= matchStart) { // Will be true iff at least one match has been found
+                    if (!pattern.replacePattern.equals("$0")) {
+                        final CharSequence oldRegion = line.subSequence(matchStart, matchEnd);
+                        // Have to create a new matcher, unfortunately, as replace does not respect region
+                        final Matcher replacer = pattern.searchPattern.matcher(oldRegion);
+                        final String newRegion = pattern.replaceAll ? replacer.replaceAll(pattern.replacePattern) : replacer.replaceFirst(pattern.replacePattern);
+                        text.replace(matchStart + lineStart, matchEnd + lineStart, newRegion);
+                        // Change effective selection based on update
+                        selEnd += newRegion.length() - oldRegion.length();
+                    }
+
+                    if (!matchAll) break; // Exit after first match
+                }
             }
-        });
+
+            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+        }
+
+        text.applyChanges();
 
         editor.setSelection(
-                StringUtils.getIndexFromLineOffset(_text, lStart),
-                StringUtils.getIndexFromLineOffset(_text, lEnd));
+                StringUtils.getIndexFromLineOffset(text, lStart),
+                StringUtils.getIndexFromLineOffset(text, lEnd));
     }
 
     protected void runInlineAction(String _action) {

@@ -271,8 +271,10 @@ public class AutoFormatter {
      */
     public static void renumberOrderedList(final Editable edit, final int cursorPosition, final PrefixPatterns prefixPatterns) {
 
+        final StringUtils.ChunkedEditable chunked = StringUtils.ChunkedEditable.wrap(edit);
+
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(edit, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, prefixPatterns);
         if (!firstLine.isOrderedList) {
             return;
         }
@@ -282,53 +284,51 @@ public class AutoFormatter {
         levels.push(firstLine);
 
         try {
-            StringUtils.performChunkedUpdate(edit, (copy) -> {
-                // Recreate as we are using a _copy_ of edit
-                OrderedListLine line = new OrderedListLine(copy, firstLine.lineStart, prefixPatterns);
-                // Loop to end of list
-                while (line != null && (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
+            // Loop to end of list
+            OrderedListLine line = firstLine;
+            while (line != null && (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
 
-                    if (line.isOrderedList) {
-                        // Indented. Add level
-                        if (line.isChildLevelOf(levels.peek())) {
-                            levels.push(line);
-                        }
-                        // Dedented. Remove appropriate number of levels
-                        else if (line.isParentLevelOf(levels.peek())) {
-                            while (levels.peek().isChildLevelOf(line)) {
-                                levels.pop();
-                            }
-                        }
-
-                        // Restart if bullet does not match list at this level
-                        if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
-                            levels.pop();
-                            levels.push(line);
-                        }
+                if (line.isOrderedList) {
+                    // Indented. Add level
+                    if (line.isChildLevelOf(levels.peek())) {
+                        levels.push(line);
                     }
-                    // Non-ordered non-empty line. Pop back to parent level
-                    else if (!line.isEmpty) {
-                        while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                    // Dedented. Remove appropriate number of levels
+                    else if (line.isParentLevelOf(levels.peek())) {
+                        while (levels.peek().isChildLevelOf(line)) {
                             levels.pop();
                         }
                     }
 
-                    // Update numbering if needed
-                    if (line.isOrderedList) {
-                        // Restart numbering if list changes
-                        final OrderedListLine peek = levels.peek();
-                        final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
-                        if (!newValue.equals(line.value)) {
-                            copy.replace(line.numStart, line.numEnd, newValue);
-                            line = line.recreate(); // Recreate as line has changed
-                        }
+                    // Restart if bullet does not match list at this level
+                    if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
                         levels.pop();
                         levels.push(line);
                     }
-
-                    line = line.getNext();
                 }
-            });
+                // Non-ordered non-empty line. Pop back to parent level
+                else if (!line.isEmpty) {
+                    while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
+                        levels.pop();
+                    }
+                }
+
+                // Update numbering if needed
+                if (line.isOrderedList) {
+                    // Restart numbering if list changes
+                    final OrderedListLine peek = levels.peek();
+                    final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
+                    if (!newValue.equals(line.value)) {
+                        chunked.replace(line.numStart, line.numEnd, newValue);
+                        line = line.recreate(); // Recreate as line has changed
+                    }
+                    levels.pop();
+                    levels.push(line);
+                }
+                line = line.getNext();
+            }
+
+            chunked.applyChanges();
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
