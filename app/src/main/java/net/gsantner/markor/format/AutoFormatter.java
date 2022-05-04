@@ -11,7 +11,6 @@ package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import net.gsantner.opoc.util.StringUtils;
@@ -79,6 +78,7 @@ public class AutoFormatter {
     public static class ListLine {
         protected static final int INDENT_DELTA = 2;
 
+        protected final PrefixPatterns prefixPatterns;
         protected final CharSequence text;
 
         public final int lineStart, lineEnd;
@@ -87,9 +87,10 @@ public class AutoFormatter {
         public final boolean isEmpty;
         public final boolean isTopLevel;
 
-        public ListLine(CharSequence text, int position) {
+        public ListLine(CharSequence text, int position, PrefixPatterns patterns) {
 
             this.text = text;
+            prefixPatterns = patterns;
             lineStart = StringUtils.getLineStart(text, position);
             lineEnd = StringUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
@@ -127,8 +128,6 @@ public class AutoFormatter {
         private static final int VALUE_GROUP = 3;
         private static final int DELIM_GROUP = 4;
 
-        private final PrefixPatterns prefixPatterns;
-
         public final boolean isOrderedList;
         public final char delimiter;
         public final int numStart, numEnd;
@@ -136,8 +135,7 @@ public class AutoFormatter {
         public final String value;
 
         public OrderedListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
-            super(text, position);
-            this.prefixPatterns = prefixPatterns;
+            super(text, position, prefixPatterns);
 
             final Matcher match = prefixPatterns.prefixOrderedList.matcher(line);
             isOrderedList = match.find();
@@ -189,6 +187,18 @@ public class AutoFormatter {
             }
             return line;
         }
+
+        public OrderedListLine getNext() {
+            final int nextLineStart = lineEnd + 1;
+            if (nextLineStart < text.length()) {
+                return new OrderedListLine(text, nextLineStart, prefixPatterns);
+            }
+            return null;
+        }
+
+        public OrderedListLine recreate() {
+            return new OrderedListLine(text, (lineEnd + lineStart) / 2, prefixPatterns);
+        }
     }
 
     /**
@@ -199,15 +209,12 @@ public class AutoFormatter {
         private static final int CHECKBOX_PREFIX_LEFT_GROUP = 3;
         private static final int CHECKBOX_PREFIX_RIGHT_GROUP = 4;
 
-        private final PrefixPatterns prefixPatterns;
-
         public final boolean isUnorderedOrCheckList;
         public final String newItemPrefix;
         public final int groupStart, groupEnd;
 
         public UnOrderedOrCheckListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
-            super(text, position);
-            this.prefixPatterns = prefixPatterns;
+            super(text, position, prefixPatterns);
 
             final Matcher checklistMatcher = prefixPatterns.prefixCheckBoxList.matcher(line);
             final Matcher unorderedListMatcher = prefixPatterns.prefixUnorderedList.matcher(line);
@@ -256,21 +263,16 @@ public class AutoFormatter {
         return listStart;
     }
 
-
-    public static boolean renumberOrderedList(final Editable text, final int cursorPosition, final PrefixPatterns prefixPatterns) {
-        return StringUtils.performChunkedUpdate(text, (_text) -> _renumberOrderedList(_text, cursorPosition, prefixPatterns));
-    }
-
     /**
      * This function will first walk up to the top of the current list
      * and then walk down to the end, renumbering ordered list items along the way
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    private static void _renumberOrderedList(final Editable text, final int cursorPosition, final PrefixPatterns prefixPatterns) {
+    public static void renumberOrderedList(final Editable edit, final int cursorPosition, final PrefixPatterns prefixPatterns) {
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(text, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(edit, cursorPosition, prefixPatterns);
         if (!firstLine.isOrderedList) {
             return;
         }
@@ -279,62 +281,54 @@ public class AutoFormatter {
         final Stack<OrderedListLine> levels = new Stack<>();
         levels.push(firstLine);
 
-        OrderedListLine line = firstLine;
-        int position;
-
         try {
-            // Loop to end of list
-            while (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line)) {
+            StringUtils.performChunkedUpdate(edit, (copy) -> {
+                // Recreate as we are using a _copy_ of edit
+                OrderedListLine line = new OrderedListLine(copy, firstLine.lineStart, prefixPatterns);
+                // Loop to end of list
+                while (line != null && (firstLine.isParentLevelOf(line) || firstLine.isMatchingList(line))) {
 
-                if (line.isOrderedList) {
-                    // Indented. Add level
-                    if (line.isChildLevelOf(levels.peek())) {
-                        levels.push(line);
+                    if (line.isOrderedList) {
+                        // Indented. Add level
+                        if (line.isChildLevelOf(levels.peek())) {
+                            levels.push(line);
+                        }
+                        // Dedented. Remove appropriate number of levels
+                        else if (line.isParentLevelOf(levels.peek())) {
+                            while (levels.peek().isChildLevelOf(line)) {
+                                levels.pop();
+                            }
+                        }
+
+                        // Restart if bullet does not match list at this level
+                        if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
+                            levels.pop();
+                            levels.push(line);
+                        }
                     }
-                    // Dedented. Remove appropriate number of levels
-                    else if (line.isParentLevelOf(levels.peek())) {
-                        while (levels.peek().isChildLevelOf(line)) {
+                    // Non-ordered non-empty line. Pop back to parent level
+                    else if (!line.isEmpty) {
+                        while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
                             levels.pop();
                         }
                     }
 
-                    // Restart if bullet does not match list at this level
-                    if (line != levels.peek() && !levels.peek().isMatchingList(line)) {
+                    // Update numbering if needed
+                    if (line.isOrderedList) {
+                        // Restart numbering if list changes
+                        final OrderedListLine peek = levels.peek();
+                        final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
+                        if (!newValue.equals(line.value)) {
+                            copy.replace(line.numStart, line.numEnd, newValue);
+                            line = line.recreate(); // Recreate as line has changed
+                        }
                         levels.pop();
                         levels.push(line);
                     }
+
+                    line = line.getNext();
                 }
-                // Non-ordered non-empty line. Pop back to parent level
-                else if (!line.isEmpty) {
-                    while (!levels.isEmpty() && !levels.peek().isParentLevelOf(line)) {
-                        levels.pop();
-                    }
-                }
-
-                // Update numbering if needed
-                if (line.isOrderedList) {
-
-                    // Restart numbering if list changes
-                    final OrderedListLine peek = levels.peek();
-                    final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
-                    if (!newValue.equals(line.value)) {
-                        text.replace(line.numStart, line.numEnd, newValue);
-
-                        // Re-create line as it has changed
-                        line = new OrderedListLine(text, line.lineStart, prefixPatterns);
-                    }
-
-                    levels.pop();
-                    levels.push(line);
-                }
-
-                position = line.lineEnd + 1;
-                if (position < text.length()) {
-                    line = new OrderedListLine(text, position, prefixPatterns);
-                } else {
-                    break;
-                }
-            }
+            });
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
