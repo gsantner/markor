@@ -242,6 +242,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">תיאור</string>
     <string name="edit_picture">ערוך תמונה</string>
     <string name="math">מתמטיקה</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">הצג מאפייני מידע מקדים (YAML Front Matter) בראש מסמכים מוצגים. הזן מפתחות מופרדים בפסיקים. השאר ריק עבור כלום או הזן \'*\' עבור הכל. \n\nאם מאפיין כלשהו מוגדר במסמך (כגון title: \'Hello\') ובמסמך עצמו יש {{ post.title }} אז הוא יוצב. כך ניתן ליצור כותרות מותאמות באמצעות מידע מקדים.</string>
     <string name="table_of_contents">תוכן עניינים</string>
     <string name="miscellaneous">שונות</string>
     <string name="textaction">פעולת טקסט</string>
