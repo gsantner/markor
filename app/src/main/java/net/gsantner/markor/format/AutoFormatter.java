@@ -52,7 +52,7 @@ public class AutoFormatter {
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
-            result = indent + String.format("%s%c ", getNextOrderedValue(oLine.value), oLine.delimiter);
+            result = indent + String.format("%s%c ", getNextOrderedValue(oLine.value, false), oLine.delimiter);
         } else if (uLine.isUnorderedOrCheckList && uLine.lineEnd != uLine.groupEnd && dend >= uLine.groupEnd) {
             String itemPrefix = uLine.newItemPrefix;
             result = indent + itemPrefix;
@@ -77,6 +77,7 @@ public class AutoFormatter {
 
     public static class ListLine {
         protected static final int INDENT_DELTA = 2;
+        private static final int TAB_SPACES = 4;
 
         protected final PrefixPatterns prefixPatterns;
         protected final CharSequence text;
@@ -94,7 +95,7 @@ public class AutoFormatter {
             lineStart = StringUtils.getLineStart(text, position);
             lineEnd = StringUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
-            indent = StringUtils.getNextNonWhitespace(text, lineStart) - lineStart;
+            indent = StringUtils.getLineIndent(text, lineStart, TAB_SPACES);
             isEmpty = (lineEnd - lineStart) == indent;
             isTopLevel = indent <= INDENT_DELTA;
         }
@@ -317,7 +318,7 @@ public class AutoFormatter {
                 if (line.isOrderedList) {
                     // Restart numbering if list changes
                     final OrderedListLine peek = levels.peek();
-                    final String newValue = line.equals(peek) ? "1" : getNextOrderedValue(peek.value);
+                    final String newValue =  getNextOrderedValue(peek.value, line.equals(peek));
                     if (!newValue.equals(line.value)) {
                         chunked.replace(line.numStart, line.numEnd, newValue);
                         line = line.recreate(); // Recreate as line has changed
@@ -335,20 +336,20 @@ public class AutoFormatter {
         }
     }
 
-    private static String getNextOrderedValue(String currentValue) {
+    private static String getNextOrderedValue(final String currentValue, final boolean restart) {
         final Pattern numberPattern = Pattern.compile("\\d+");
         final Pattern lowercaseLetterPattern = Pattern.compile("[a-z]");
         final Pattern capitalLetterPattern = Pattern.compile("[A-z]");
 
         if (numberPattern.matcher(currentValue).find()) {
             int intValue = Integer.parseInt(currentValue);
-            return Integer.toString(intValue + 1);
+            return restart ? "1" : Integer.toString(intValue + 1);
         } else {
             char charValue = currentValue.charAt(0);
             if (lowercaseLetterPattern.matcher(currentValue).find()) {
-                return charValue < 'z' ? "" + (char) (charValue + 1) : "" + 'a';
+                return (restart || charValue >= 'z') ? "a" :  String.valueOf(charValue + 1);
             } else if (capitalLetterPattern.matcher(currentValue).find()) {
-                return charValue < 'Z' ? "" + (char) (charValue + 1) : "" + 'A';
+                return (restart || charValue >= 'Z') ? "A" :  String.valueOf(charValue + 1);
             }
         }
         return "0";

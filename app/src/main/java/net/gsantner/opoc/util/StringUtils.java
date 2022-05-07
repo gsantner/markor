@@ -156,7 +156,7 @@ public final class StringUtils {
      */
     public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
         p = Math.min(Math.max(p, 0), s.length());
-        final int line = countChar(s, '\n', 0, p);
+        final int line = countChars(s, 0, p, '\n')[0];
         final int offset = getLineEnd(s, p) - p;
 
         return new int[]{line, offset};
@@ -198,26 +198,27 @@ public final class StringUtils {
     }
 
     /**
-     * Count instances of char 'c' between start and end
+     * Count instances of chars between start and end
      *
      * @param s     Sequence to count in
-     * @param c     Char to count
      * @param start start of section to count within
      * @param end   end of section to count within
-     * @return number of instances of c in c between start and end
+     * @param chars Array of chars to count
+     * @return number of instances of each char in [start, end)
      */
-    public static int countChar(final CharSequence s, final char c, int start, int end) {
-        int count = 0;
-        if (isValidIndex(s, start, end - 1)) {
-            start = Math.max(0, start);
-            end = Math.min(end, s.length());
-            for (int i = start; i < end; i++) {
-                if (s.charAt(i) == c) {
-                    count++;
+    public static int[] countChars(final CharSequence s, int start, int end, final char ... chars) {
+        final int[] counts = new int[chars.length];
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        for (int i = start; i < end; i++) {
+            final char c = s.charAt(i);
+            for (int j = 0; j < chars.length; j++) {
+                if (c == chars[j]) {
+                    counts[j]++;
                 }
             }
         }
-        return count;
+        return counts;
     }
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
@@ -483,6 +484,39 @@ public final class StringUtils {
         return new int[] { start, dl - end, sl - end };
     }
 
+    // Compute the line indent, counting each tab as tabSize spaces
+    public static int getLineIndent(final CharSequence text, final int posn, final int tabSize) {
+        final int lineStart = getLineStart(text, posn);
+        final int indentEnd = getNextNonWhitespace(text, lineStart);
+        final int[] counts = countChars(text, lineStart, indentEnd, ' ', '\t');
+        return counts[0] + tabSize * counts[1];
+    }
+
+    // Checks if two CharSequences are identical between [start, end)
+    public static boolean checkSame(
+            final CharSequence a, final int aStart, final int aEnd,
+            final CharSequence b, final int bStart, final int bEnd) {
+
+        // Return not same for various pathological cases
+        if ((aEnd < aStart) || (bEnd < bStart) || !isValidIndex(a, aStart, aEnd - 1) || !isValidIndex(b, bStart, bEnd - 1)) {
+            return false;
+        }
+
+        // Not same if lengths not same
+        if ((aEnd - aStart) != (bStart - bEnd)) {
+            return false;
+        }
+
+        final int length = aEnd - aStart;
+        for (int i = 0; i < length; i++) {
+            if (a.charAt(aStart + i) != b.charAt(bStart + i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Allows convenient chunking of actions on an editable.
      * This works by maintaining a _reference_ to an editable to which all operations are passed.
@@ -522,14 +556,6 @@ public final class StringUtils {
             return false;
         }
 
-        private void makeCopyIfNeeded() {
-            if (copy == null) {
-                // All operations will now run on copy
-                // SpannableStringBuilder maintains spans etc
-                copy = new SpannableStringBuilder(original);
-            }
-        }
-
         private Editable select() {
             return hasChanges() ? copy : original;
         }
@@ -537,8 +563,16 @@ public final class StringUtils {
         // All other functions which edit the editable alias this routine
         @Override
         public Editable replace(int st, int en, CharSequence source, int start, int end) {
-            makeCopyIfNeeded();
-            return select().replace(st, en, source, start, end);
+            // Don't do extra work if no change is not real
+            if (!checkSame(this , st, en, source, start, end)) {
+                if (copy == null) {
+                    // All operations will now run on copy
+                    // SpannableStringBuilder maintains spans etc
+                    copy = new SpannableStringBuilder(original);
+                }
+                select().replace(st, en, source, start, end);
+            }
+            return this;
         }
 
         // Convenience functions for replace ^. All these are just aliases
