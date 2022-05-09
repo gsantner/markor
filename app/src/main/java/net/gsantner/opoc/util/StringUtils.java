@@ -537,13 +537,9 @@ public final class StringUtils {
             original = e;
         }
 
-        public boolean hasChanges() {
-            return copy != null;
-        }
-
         // Apply changes from copy to original
         public boolean applyChanges() {
-            if (!hasChanges()) {
+            if (copy == null) {
                 return false;
             }
 
@@ -557,7 +553,7 @@ public final class StringUtils {
         }
 
         private Editable select() {
-            return hasChanges() ? copy : original;
+            return copy != null ? copy : original;
         }
 
         // All other functions which edit the editable alias this routine
