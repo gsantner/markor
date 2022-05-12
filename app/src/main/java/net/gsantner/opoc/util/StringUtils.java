@@ -78,21 +78,24 @@ public final class StringUtils {
         return i;
     }
 
-    public static int getNextNonWhitespace(CharSequence s, int start) {
-        return getNextNonWhitespace(s, start, s.length());
-    }
-
-    public static int getNextNonWhitespace(CharSequence s, int start, int maxRange) {
-        int i = start;
-        if (isValidIndex(s, start, maxRange - 1)) {
-            for (; i < maxRange; i++) {
-                char c = s.charAt(i);
-                if (c != ' ' && c != '\t') {
-                    break;
-                }
+    public static int getLastNonWhitespace(final CharSequence s, final int start) {
+        for (int i = Math.min(s.length() - 1, start); i >= 0; i--) {
+            char c = s.charAt(i);
+            if (c != ' ' && c != '\t') {
+                return i;
             }
         }
-        return i;
+        return -1;
+    }
+
+    public static int getNextNonWhitespace(final CharSequence s, final int start) {
+        for (int i = Math.max(0, start); i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c != ' ' && c != '\t') {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static boolean isNullOrWhitespace(String str) {

@@ -115,7 +115,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
-    private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -560,16 +559,20 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void onContentEditValueChanged(CharSequence text) {
-        checkTextChangeState();
+    public void onContentEditValueChanged(final CharSequence text) {
+        checkTextChangeState(text);
         updateUndoRedoIconStates();
     }
 
     public void checkTextChangeState() {
-        _isTextChanged = !_document.isContentSame(_hlEditor.getText());
+        checkTextChangeState(_hlEditor.getText());
+    }
 
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != _isTextChanged) {
-            _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
+    public void checkTextChangeState(final CharSequence text) {
+        final boolean isTextChanged = !_document.isContentSame(text);
+
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() == isTextChanged) {
+            _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);
         }
     }
 
@@ -659,8 +662,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff content has changed
-        if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+        if (_document != null && _hlEditor != null && isAdded()) {
+            if (_document.saveContent(getContext(), _hlEditor.getText(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
@@ -694,23 +697,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onPause();
     }
 
-    @Override
-    public void setUserVisibleHint(final boolean isVisibleToUser) {
+    public void setVisibleState(final boolean isVisibleToUser) {
         // This function can be called _outside_ the normal lifecycle!
-        // Do nothing if the fragment is not at least created!
-        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
             return;
         }
 
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isDisplayedAtMainActivity()) {
-            loadDocument();
-            _primaryScrollView.postDelayed(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN), 100);
-        } else if (!isVisibleToUser && _document != null) {
-            saveDocument(false);
-        }
         if (isVisibleToUser) {
+            loadDocument();
             initDocState();
+        } else {
+            saveDocument(false);
         }
     }
 

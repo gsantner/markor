@@ -25,6 +25,7 @@ import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -229,18 +230,22 @@ public class Document implements Serializable {
         return saveContent(context, content, null, false);
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean isManualSave) {
-        if (!isManualSave && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+    // Doing as we don't want to convert to string or copy unless necessary
+    private static int trimmedLength(final CharSequence c) {
+        return StringUtils.getLastNonWhitespace(c, c.length()) - StringUtils.getNextNonWhitespace(c, 0);
+    }
+
+    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, boolean isManualSave) {
+        if (!isManualSave && trimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 
         if (!testCreateParent()) {
             return false;
         }
-        shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
         // Don't write same content if base file not changed
-        if (isContentSame(content) && _modTime >= lastModified()) {
+        if (_modTime >= lastModified() && isContentSame(content)) {
             return true;
         }
 
@@ -249,10 +254,12 @@ public class Document implements Serializable {
             final char[] pw;
             final byte[] contentAsBytes;
             if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(content, pw);
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(content.toString(), pw);
             } else {
-                contentAsBytes = content.getBytes();
+                contentAsBytes = content.toString().getBytes();
             }
+
+            shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
             if (shareUtil.isUnderStorageAccessFolder(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
@@ -274,7 +281,11 @@ public class Document implements Serializable {
 
         if (success) {
             setContentHash(content);
-            _modTime = lastModified();
+            final long curModTime = lastModified();
+            if (_modTime >= curModTime) {
+                Log.w("MARKOR_DOCUMENT", "File modification time unchanged after write");
+            }
+            _modTime = curModTime;
         }
 
         return success;
