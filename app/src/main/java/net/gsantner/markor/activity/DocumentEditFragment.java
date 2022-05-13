@@ -51,6 +51,7 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
+import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -231,28 +232,38 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         StringUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
+    public void resume() {
+        initDocState();
+        loadDocument();
+    }
+
     @Override
     public void onResume() {
+        resume();
         super.onResume();
+    }
 
-        loadDocument();
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        super.onSaveInstanceState(outState);
+    }
 
-        if (_document != null) {
-            _document.testCreateParent();
-            boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
-            if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
-                permok = true;
+    public void pause() {
+        saveDocument(false);
+        if (_appSettings != null && _document != null) {
+            _appSettings.addRecentDocument(_document.getFile());
+            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
+            if (_hlEditor != null) {
+                _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
             }
-            if (_shareUtil.isUnderStorageAccessFolder(_document.getFile()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
-                _shareUtil.showMountSdDialog(getActivity());
-                return;
-            }
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
+    }
 
-        if (_document != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
-            _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
-        }
+    @Override
+    public void onPause() {
+        pause();
+        super.onPause();
     }
 
     @Override
@@ -658,11 +669,27 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return FRAGMENT_TAG;
     }
 
+    public boolean checkPermissions() {
+
+        if (_document != null) {
+            final File file = _document.getFile();
+
+            if (_shareUtil.isUnderStorageAccessFolder(file) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                _shareUtil.showMountSdDialog(getActivity());
+            }
+
+            final boolean permok =  _document.testCreateParent() && _shareUtil.canWriteFile(file);
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+            return permok;
+        }
+        return false;
+    }
+
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        // Document is written iff content has changed
-        if (_document != null && _hlEditor != null && isAdded()) {
+        // Document is written iff writeable && content has changed
+        if (checkPermissions() && _hlEditor != null && isAdded()) {
             if (_document.saveContent(getContext(), _hlEditor.getText(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
@@ -676,39 +703,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private boolean isDisplayedAtMainActivity() {
         return getActivity() instanceof MainActivity;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onPause() {
-        saveDocument(false);
-        if (_appSettings != null && _document != null) {
-            _appSettings.addRecentDocument(_document.getFile());
-            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
-            if (_hlEditor != null) {
-                _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
-            }
-        }
-        super.onPause();
-    }
-
-    public void setVisibleState(final boolean isVisibleToUser) {
-        // This function can be called _outside_ the normal lifecycle!
-        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-            return;
-        }
-
-        if (isVisibleToUser) {
-            loadDocument();
-            initDocState();
-        } else {
-            saveDocument(false);
-        }
     }
 
     public void updateViewModeText() {

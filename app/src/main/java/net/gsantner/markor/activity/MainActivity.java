@@ -384,15 +384,12 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
 
         if (_prevPos == tabIdToPos(R.id.nav_quicknote) || _prevPos == tabIdToPos(R.id.nav_todo)) {
-            // Trigger Exit
-            ((DocumentEditFragment) _viewPagerAdapter.getItem(pos)).setVisibleState(false);
+            ((DocumentEditFragment) _viewPagerAdapter.getItem(_prevPos)).pause();
         }
 
         if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
             new PermissionChecker(this).doIfExtStoragePermissionGranted();
-
-            // Trigger entrance
-            ((DocumentEditFragment) _viewPagerAdapter.getItem(pos)).setVisibleState(true);
+            ((DocumentEditFragment) _viewPagerAdapter.getItem(pos)).resume();
         }
 
         _prevPos = pos;

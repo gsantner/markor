@@ -1093,10 +1093,10 @@ public class ShareUtil {
      * Requires storage access framework permission for external storage (SD)
      *
      * @param file  The file object (file/folder)
-     * @param isDir Wether or not the given file parameter is a directory
      * @return Wether or not the file can be written
      */
-    public boolean canWriteFile(final File file, final boolean isDir) {
+    public boolean canWriteFile(final File file) {
+        final boolean isDir = file.isDirectory();
         if (file == null) {
             return false;
         } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
