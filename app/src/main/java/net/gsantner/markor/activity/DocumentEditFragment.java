@@ -51,7 +51,6 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
-import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
@@ -65,7 +64,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -220,12 +218,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // First start - overwrite start position if needed
         if (savedInstanceState == null) {
-            if (isDisplayedAtMainActivity()) {
+            if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
             } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
                 startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
-            } else if (_appSettings.isEditorStartOnBotttom()) {
-                startPos = _hlEditor.length();
             }
         }
 
@@ -233,7 +229,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void resume() {
-        initDocState();
         loadDocument();
     }
 
