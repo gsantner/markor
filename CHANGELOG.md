@@ -1,6 +1,29 @@
 ### Recent changes
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project website](https://gsantner.net/) to see what is going on.
 
+### v2.9 [Blog Post](https://gsantner.net/blog/2022/05/14/markor-v2.9-snippets-zimwiki-math-daynight-privacy-markdown-todotxt.html?source=changelog)
+- Updates are officially only available from GitHub and F-Droid as of now
+- New feature: Snippets
+- Discussion forum & questions now on Markor GitHub Discussion
+- Faster Markor application startup with less flashing
+- Improve performance at filebrowser and editor
+- Allow to install APK files from filebrowser on click
+- Markdown Table of Contents options
+- Zim: Follow links to other wiki pages
+- Under the hood improvements for I/O, widgets & syntax highlighting
+- todo.txt: Better browsing at editor with dialog & saved search queries
+- Settings option to enable/disable Chrome Custom Tabs
+- Privacy settings option to disallow screenshots of Markor
+- Debloat & drop experimental/unused features, i.e. todo.txt huuid
+- Support Android Day/Night theme system
+- Filebrowser: Show full filename (multiline allowed instead of singleline only)
+- View mode: Open links to folders in filebrowser
+- Markdown: Better Math support, add mhchem chemistry module
+- Markdown: Add support flowcharts with Mermaid
+- Markdown: Add admonition extension (create fancy info boxes quickly)
+- Per-file settings - In addition to the global settings, many options are now also configurable on a file basis
+- Markdown: Display YAML fron-matter contents (like article titles and publish date)
+
 ### v2.8 [Blog Post](https://gsantner.net/blog/2021/07/29/markor-v2.8-todotxt-dialog-contexts-projects-multi-selection.html?source=changelog)
 - Reference to GitHub discussion on More page, by @gsantner
 - Add multi-selection to todo.txt dialogs, by @harshad1 @gsantner
