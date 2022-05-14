@@ -213,14 +213,19 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Set initial wrap state
         initDocState();
+    }
+
+    @Override
+    public void onFragmentFirstTimeVisible() {
 
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
+        final Bundle args = getArguments();
 
         // First start - overwrite start position if needed
-        if (savedInstanceState == null) {
+        if (_savedInstanceState == null) {
             if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
-            } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
+            } else if (args != null && args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
                 startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
             }
         }
@@ -577,7 +582,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void checkTextChangeState(final CharSequence text) {
         final boolean isTextChanged = !_document.isContentSame(text);
 
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() == isTextChanged) {
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged) {
             _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);
         }
     }

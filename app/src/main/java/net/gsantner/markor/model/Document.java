@@ -153,7 +153,7 @@ public class Document implements Serializable {
 
     private void setContentHash(final CharSequence s) {
         _lastLength = s.length();
-        _lastHash = FileUtils.crc32(s.toString().getBytes());
+        _lastHash = FileUtils.crc32(s);
     }
 
     public boolean isContentSame(final CharSequence s) {

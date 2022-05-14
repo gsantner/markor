@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -520,6 +522,18 @@ public class FileUtils {
 
     public static String sha512(final byte[] data) {
         return hash(data, "SHA-512");
+    }
+
+    public static long crc32(final CharSequence data) {
+        final CRC32 alg = new CRC32();
+        final int length = data.length();
+        for (int i = 0; i < length; i++) {
+            final char c = data.charAt(i);
+            // Upper and lower bytes
+            alg.update((byte) (c & 0xff));
+            alg.update((byte) (c >> 8));
+        }
+        return alg.getValue();
     }
 
     public static long crc32(final byte[] data) {
