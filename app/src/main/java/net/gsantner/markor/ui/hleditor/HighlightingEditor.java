@@ -167,17 +167,28 @@ public class HighlightingEditor extends AppCompatEditText {
         _activeListeners.remove(listener);
     }
 
+    // Run some code with accessibility disabled
+    public void withAccessibilityDisabled(final Callback.a0 callback) {
+        try {
+            _accessibilityEnabled = false;
+            callback.callback();
+        } finally {
+            _accessibilityEnabled = true;
+        }
+    }
+
     // Run some code with auto formatters disabled
+    // Also disables accessibility
     public void withAutoFormatDisabled(final Callback.a0 callback) {
         if (getAutoFormatEnabled()) {
             try {
                 setAutoFormatEnabled(false);
-                callback.callback();
+                withAccessibilityDisabled(() -> callback.callback());
             } finally {
                 setAutoFormatEnabled(true);
             }
         } else {
-            callback.callback();
+            withAccessibilityDisabled(() -> callback.callback());
         }
     }
 
@@ -213,16 +224,14 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
-                setAccessibilityEnabled(false);
-                _hl.run(getText());
+                withAccessibilityDisabled(() ->_hl.run(getText()));
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();
             } catch (Error e) {
                 e.printStackTrace();
-            } finally {
-                setAccessibilityEnabled(true);
             }
+
             if (MainActivity.IS_DEBUG_ENABLED) {
                 AppSettings.appendDebugLog(_hl._profiler.resetDebugText());
                 AppSettings.appendDebugLog("Finished highlighting");
@@ -322,13 +331,5 @@ public class HighlightingEditor extends AppCompatEditText {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
-    }
-
-    public void setAccessibilityEnabled(final boolean enabled) {
-        _accessibilityEnabled = enabled;
-    }
-
-    public boolean getAccessibilityEnabled() {
-        return _accessibilityEnabled;
     }
 }
