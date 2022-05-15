@@ -272,7 +272,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__app_start_folder" translatable="false">pref_key__app_start_folder</string>
     <string name="pref_key__swipe_to_change_mode" translatable="false">pref_key__swipe_to_change_mode</string>
     <string name="pref_key__filesystem_folder_first" translatable="false">pref_key__filesystem_folder_first</string>
-    <string name="pref_key__show_dot_files" translatable="false">pref_key__show_dot_files</string>
+    <string name="pref_key__show_dot_files_v2" translatable="false">pref_key__show_dot_files_v2</string>
     <string name="pref_key__tab_width_v2" translatable="false">pref_key__tab_width_v2</string>
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
