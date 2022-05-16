@@ -90,7 +90,8 @@ public final class StringUtils {
     }
 
     public static int getNextNonWhitespace(final CharSequence s, final int start) {
-        for (int i = Math.max(0, start); i < s.length(); i++) {
+        final int length = s.length();
+        for (int i = Math.max(0, start); i < length; i++) {
             char c = s.charAt(i);
             if (c != ' ' && c != '\t') {
                 return i;
@@ -483,7 +484,7 @@ public final class StringUtils {
         return new int[] { start, dl - end, sl - end };
     }
 
-    // Debounce any
+    // Debounce any callback
     public static Runnable makeDebounced(final View view, final long delayMs, final Runnable callback) {
         final Object sync = new Object();
         return () -> {
