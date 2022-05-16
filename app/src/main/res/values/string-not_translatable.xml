@@ -180,7 +180,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__hightlight_code_block_disabled" translatable="false">pref_key__hightlight_code_block_disabled</string>
     <string name="pref_key__editor_markdown_bigger_headings_2" translatable="false">pref_key__editor_markdown_bigger_headings_2</string>
     <string name="pref_key__editor_unordered_list_character" translatable="false">pref_key__editor_unordered_list_character</string>
-    <string name="pref_key__editor_add_bom_to_new_file" translatable="false">pref_key__editor_add_bom_to_new_file</string>
     <string name="pref_key__recent_documents" translatable="false">pref_key__recent_documents</string>
     <string name="pref_key__popular_documents" translatable="false">pref_key__popular_documents</string>
     <string name="pref_key__favourite_files" translatable="false">pref_key__favourite_files</string>

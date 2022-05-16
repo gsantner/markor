@@ -90,6 +90,7 @@ public class NewFileDialog extends DialogFragment {
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
         final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
+        final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
@@ -99,6 +100,7 @@ public class NewFileDialog extends DialogFragment {
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
+        utf8BomCheckbox.setChecked(appSettings.getNewFileDialogLastUsedUtf8Bom());
         fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
@@ -154,6 +156,10 @@ public class NewFileDialog extends DialogFragment {
             appSettings.setNewFileDialogLastUsedEncryption(isChecked);
         });
 
+        utf8BomCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appSettings.setNewFileDialogLastUsedUtf8Bom(isChecked);
+        });
+
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
 
@@ -171,7 +177,7 @@ public class NewFileDialog extends DialogFragment {
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
-                            if (appSettings.isEditorAddBomToNewFile()) {
+                            if (appSettings.getNewFileDialogLastUsedUtf8Bom()) {
                                 arg_fos.write(0xEF);
                                 arg_fos.write(0xBB);
                                 arg_fos.write(0xBF);

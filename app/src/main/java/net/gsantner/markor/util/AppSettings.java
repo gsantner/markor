@@ -307,10 +307,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
     }
 
-    public boolean isEditorAddBomToNewFile() {
-        return getBool(R.string.pref_key__editor_add_bom_to_new_file, false);
-    }
-
     public void addRecentDocument(File file) {
         if (!listFileInRecents(file)) {
             return;
@@ -835,6 +831,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setNewFileDialogLastUsedEncryption(boolean b) {
+        setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
+    }
+
+    public boolean getNewFileDialogLastUsedUtf8Bom() {
+        return getBool(R.string.pref_key__new_file_dialog_lastused_encryption, false);
+    }
+
+    public void setNewFileDialogLastUsedUtf8Bom(boolean b) {
         setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
     }
 

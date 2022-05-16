@@ -198,9 +198,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
     <string name="unordered_list_character">Unordered list character</string>
     <string name="character_to_start_items_of_unordered_list_with">Which character to use to denote unordered lists</string>
-    <string name="add_bom_to_new_file">Add BOM to new file</string>
-    <string name="when_creating_new_file_add_bom_for_utf8">When creating new file, add BOM for UTF-8</string>
-
     <string name="unordered_list_char_dash">Dash (-)</string>
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
@@ -394,6 +391,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">File encryption password</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No password set, cannot encrypt or decrypt.\nGo to Settings -> General -> Password to set a password.</string>
     <string name="encrypt_file_content">Encrypt file content</string>
+    <string name="utf8_with_bom">UTF-8 with BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Could not encrypt file content. The file was not saved.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Could not decrypt file content. Did you use a wrong password? Is the file really encrypted with Markors AES encryption?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Password already set. Setting a new password will overwrite the existing password and you may not be able to access files anymore in case you forget the password.</string>
