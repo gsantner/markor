@@ -36,7 +36,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
@@ -53,7 +55,7 @@ public class Document implements Serializable {
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
-    private boolean _hasBOM = false;
+    private boolean _withBom = false;
     @StringRes
     private int _format = TextFormat.FORMAT_UNKNOWN;
 
@@ -181,9 +183,9 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            Pair<String, Boolean> result = FileUtils.readTextFileFastWithBOM(_file);
+            final Pair<String, Map<String, Object>> result = FileUtils.readTextFileFast(_file);
             content = result.first;
-            _hasBOM = result.second;
+            _withBom = (boolean) result.second.get("withBom");
         }
 
         if (MainActivity.IS_DEBUG_ENABLED) {
@@ -260,7 +262,7 @@ public class Document implements Serializable {
             if (shareUtil.isUnderStorageAccessFolder(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
-                        if (_hasBOM) {
+                        if (_withBom) {
                             fos.write(0xEF);
                             fos.write(0xBB);
                             fos.write(0xBF);
@@ -272,7 +274,9 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                success = FileUtils.writeFile(_file, contentAsBytes, _hasBOM);
+                final Map<String, Object> options = new HashMap<>(1);
+                options.put("withBom", _withBom);
+                success = FileUtils.writeFile(_file, contentAsBytes, options);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);

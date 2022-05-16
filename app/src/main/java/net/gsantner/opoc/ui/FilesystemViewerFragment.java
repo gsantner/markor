@@ -507,7 +507,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     if (TextFormat.isTextFile(file)) {
-                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
                     }
