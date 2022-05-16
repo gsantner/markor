@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 import android.graphics.Rect;
 import android.text.Layout;
 import android.util.Base64;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -480,5 +481,16 @@ public final class StringUtils {
         while(end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
 
         return new int[] { start, dl - end, sl - end };
+    }
+
+    // Debounce any
+    public static Runnable makeDebounced(final View view, final long delayMs, final Runnable callback) {
+        final Object sync = new Object();
+        return () -> {
+            synchronized (sync) {
+                view.removeCallbacks(callback);
+                view.postDelayed(callback, delayMs);
+            }
+        };
     }
 }

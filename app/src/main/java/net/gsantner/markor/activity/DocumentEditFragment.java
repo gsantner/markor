@@ -21,6 +21,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -53,9 +55,11 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
@@ -213,6 +217,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Set initial wrap state
         initDocState();
+
+        final Runnable after = StringUtils.makeDebounced(_hlEditor, 500, () -> {
+            checkTextChangeState();
+            updateUndoRedoIconStates();
+        });
+        _hlEditor.addTextChangedListener(TextWatcherDummy.after((s) -> after.run()));
     }
 
     @Override
@@ -569,18 +579,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void onContentEditValueChanged(final CharSequence text) {
-        checkTextChangeState(text);
-        updateUndoRedoIconStates();
-    }
-
     public void checkTextChangeState() {
-        checkTextChangeState(_hlEditor.getText());
-    }
-
-    public void checkTextChangeState(final CharSequence text) {
-        final boolean isTextChanged = !_document.isContentSame(text);
+        final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
 
         if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged) {
             _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);

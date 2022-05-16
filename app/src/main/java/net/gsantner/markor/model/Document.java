@@ -157,7 +157,7 @@ public class Document implements Serializable {
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s != null && s.length() == _lastLength && _lastHash == (FileUtils.crc32(s.toString().getBytes()));
+        return s != null && s.length() == _lastLength && _lastHash == FileUtils.crc32(s);
     }
 
     public synchronized String loadContent(final Context context) {
