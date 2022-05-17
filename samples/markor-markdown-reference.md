@@ -195,6 +195,19 @@ Relevant for creating printable pages from the document (Print / PDF).
 **Local audio** Yellowcard - Lights up in the sky
 <audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>
 
+## Charts / Graphs / Diagrams (mermaidjs)
+Pie, flow, sequence, class, state, ER  
+See also: mermaidjs [live editor](https://mermaid-js.github.io/mermaid-live-editor/).
+
+```mermaid
+graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
+```
+
+
 
 ## Admonition Extension
 Create block-styled side content.  
@@ -214,7 +227,7 @@ Use one of these qualifiers to select the icon and the block color: abstract, su
 
 ------------------
 
-This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 3.
+This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 4.
 
 ------------------
 

@@ -24,6 +24,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -647,8 +648,10 @@ public class SearchOrCustomTextDialogCreator {
         baseConf(activity, dopt);
         final AppSettings as = new AppSettings(activity);
         final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
-        if (!folder.exists() || !folder.isDirectory() || !folder.canRead()) {
-            return;
+        if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
+            if (!folder.mkdirs()) {
+                return;
+            }
         }
 
         // Read all files in snippets folder with appropriate extension
@@ -657,7 +660,7 @@ public class SearchOrCustomTextDialogCreator {
         for (final String name : folder.list()) {
             final File item = new File(folder, name);
             if (item.exists() && item.canRead() && FileUtils.isTextFile(item)) {
-                texts.put(name.substring(0, name.lastIndexOf('.')), item);
+                texts.put(name, item);
             }
         }
 
@@ -666,6 +669,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
+        dopt.messageText = Html.fromHtml("<small><small>" + folder.getAbsolutePath() + "</small></small>");
         dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)).first);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

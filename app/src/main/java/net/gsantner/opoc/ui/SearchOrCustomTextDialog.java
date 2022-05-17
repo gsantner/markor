@@ -78,7 +78,7 @@ public class SearchOrCustomTextDialog {
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
-        public String messageText = "";
+        public CharSequence messageText = "";
         public String defaultText = "";
         public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;

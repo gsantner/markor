@@ -27,7 +27,7 @@ android {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
         versionName "2.9.0"
-        versionCode 131
+        versionCode 132
 
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
