@@ -110,7 +110,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">History</string>
     <string name="sync">Sync</string>
     <string name="search_or_custom">Search / Custom</string>
-    <string name="save">Save</string>
+    <string name="save"   >Save     (from Markor to disk)</string>
+    <string name="save_as">Save as  (new file on disk)</string>
     <string name="update">Update</string>
     <string name="clear">Clear</string>
     <string name="due_date">Due date</string>

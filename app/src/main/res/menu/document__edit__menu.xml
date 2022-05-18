@@ -88,6 +88,12 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_save_as"
+        android:icon="@drawable/ic_save_as_black_24dp"
+        android:title="@string/save_as"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
