@@ -106,6 +106,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_or_custom">搜尋／自訂</string>
     <string name="save">儲存\t(從 Markor 存儲到磁盤)</string>
     <string name="save_as">另存為\t(新文件)</string>
+
+    <string name="hint_current_file_has_changed">當前編輯文件已經更改，是否先存儲？</string>
+    <string name="hint_current_file_has_changed_yes">是，請存儲。</string>
+    <string name="hint_current_file_has_changed_no">不必了。</string>
+
     <string name="update">升級</string>
     <string name="clear">清除</string>
     <string name="due_date">到期日</string>

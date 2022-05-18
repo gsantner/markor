@@ -112,6 +112,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_or_custom">Search / Custom</string>
     <string name="save"   >Save     (from Markor to disk)</string>
     <string name="save_as">Save as  (new file on disk)</string>
+
+
+    <string name="hint_current_file_has_changed">The file being edited has been modified, do you want to preserve it first?</string>
+    <string name="hint_current_file_has_changed_yes">Yes, I want to save it.</string>
+    <string name="hint_current_file_has_changed_no">No, thanks.</string>
+
     <string name="update">Update</string>
     <string name="clear">Clear</string>
     <string name="due_date">Due date</string>

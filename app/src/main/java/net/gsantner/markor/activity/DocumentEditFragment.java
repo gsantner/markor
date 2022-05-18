@@ -705,37 +705,40 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         Log.d(getFragmentTag(), "saveAsNewDocument: find currentFolder is "+currentFolder);
         if (currentFolder==null)
             return false;
-        NewFileDialog dialog = NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, f) -> {
+        if (isDocumentWritten())
+            hintUserToSaveFileBeforeOpenNew();
+        NewFileDialog dialog = NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, newFile) -> {
             if (ok) {
-                if (f.isFile()) {
+                if (newFile.isFile()) {
                     File source = this._document.getFile();
                     try(FileChannel inputChannel = new FileInputStream(source).getChannel();
-                        FileChannel outputChannel = new FileOutputStream(f).getChannel()){
+                        FileChannel outputChannel = new FileOutputStream(newFile).getChannel()){
                         outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    DocumentActivity.launch(_parentActivity, f, false, null, null);
-                } else if (f.isDirectory()) {
+                    _document = new Document(newFile);
+//                    openNewFileInExistingFragment(); //difficult
+                    DocumentActivity.launch(_parentActivity, newFile, false, null, null);
+                } else if (newFile.isDirectory()) {
                     return;
                 }
             }
         });
-        if (isDocumentWritten())
-            hintUserToSaveFileBeforeOpenNew();
         dialog.show(_parentActivity.getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
-
         return true;
     }
 
     private void hintUserToSaveFileBeforeOpenNew() {
         AlertDialog.Builder builder=new AlertDialog.Builder(_parentActivity);
-        builder.setMessage("当前文件已经更改，是否先保存?");
-        builder.setPositiveButton("是，先保存", (dialog, which) -> saveDocument(true));
-        builder.setNegativeButton("不必", (dialog, which) -> dialog.cancel());
-        builder.create().show();
+        builder.setTitle(R.string.save_as);
+        builder.setMessage(R.string.hint_current_file_has_changed);
+        builder.setPositiveButton(R.string.hint_current_file_has_changed_yes, (dialog, which) -> saveDocument(true));
+        builder.setNegativeButton(R.string.hint_current_file_has_changed_no, (dialog, which) -> dialog.cancel());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
 
