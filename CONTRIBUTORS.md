@@ -48,3 +48,4 @@ Where:
 * **[Peter Schwede](https://github.com/pschwede)**<br>~° Added Zim-Wiki support.
 * **[Frederic Jacob](https://github.com/fredericjacob)**<br>~° Added Zim-Wiki highlighting, text actions, view mode, page creation.
 * **[Winston Feng](https://github.com/tifish)**<br>~° Support spaces in URL.
+* **[Ye Canming](https://github.com/2catycm)**<br/>~° Add save as feature. 
