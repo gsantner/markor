@@ -80,8 +80,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
-    public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview
-    , MarkorBaseActivity parentActivity) {
+    public static DocumentEditFragment newInstance(final @NonNull Document document,
+                                                   final Integer lineNumber, final boolean preview,
+                                                   MarkorBaseActivity parentActivity) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
@@ -98,7 +99,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static DocumentEditFragment newInstance(final @NonNull File path, final Integer lineNumber) {
         return newInstance(new Document(path), lineNumber, false, null);
     }
-    public static DocumentEditFragment newInstance(final @NonNull File path, final Integer lineNumber, MarkorBaseActivity parentActivity) {
+
+    public static DocumentEditFragment newInstance(final @NonNull File path,
+                                                   final Integer lineNumber,
+                                                   MarkorBaseActivity parentActivity) {
         return newInstance(new Document(path), lineNumber, false, parentActivity);
     }
 
@@ -700,33 +704,35 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     /**
      * This method saves the current document as a new document.
-     *  1. The name of the new document is specified by the user by a dialog.
-     *  2. The user will then edit the new document in a new Document edit fragment.
-     *  3. When the user gets back to from the new document, he/she can continue to edit the old document in this fragment.
+     * 1. The name of the new document is specified by the user by a dialog.
+     * 2. The user will then edit the new document in a new Document edit fragment.
+     * 3. When the user gets back to from the new document, he/she can continue to edit the old document in this fragment.
      */
     public boolean saveAsNewDocument() {
         File currentFolder = new File(this._document.getPath()).getParentFile();
-        Log.d(getFragmentTag(), "saveAsNewDocument: find currentFolder is "+currentFolder);
-        if (currentFolder==null)
+        Log.d(getFragmentTag(), "saveAsNewDocument: find currentFolder is " + currentFolder);
+        if (currentFolder == null) {
             return false;
-        NewFileDialog dialog = NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, newFile) -> {
-            if (ok) {
-                if (newFile.isFile()) {
-                    if (isDocumentWritten()) {
-                        AlertDialog alertDialog = getDialogToHintUserToSaveFileBeforeOpenNew();
-                        alertDialog.setOnDismissListener(dialogInterface -> {
+        }
+        NewFileDialog dialog =
+            NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, newFile) -> {
+                if (ok) {
+                    if (newFile.isFile()) {
+                        if (isDocumentWritten()) {
+                            AlertDialog alertDialog = getDialogToHintUserToSaveFileBeforeOpenNew();
+                            alertDialog.setOnDismissListener(dialogInterface -> {
+                                transferAndLaunch(newFile);
+                            });
+                            Log.d(getFragmentTag(), "saveAsNewDocument: show confirm save dialog.");
+                            alertDialog.show();
+                        } else {
                             transferAndLaunch(newFile);
-                        });
-                        Log.d(getFragmentTag(), "saveAsNewDocument: show confirm save dialog.");
-                        alertDialog.show();
-                    }else{
-                        transferAndLaunch(newFile);
+                        }
+                    } else if (newFile.isDirectory()) {
+                        return;
                     }
-                } else if (newFile.isDirectory()) {
-                    return;
                 }
-            }
-        });
+            });
         Log.d(getFragmentTag(), "saveAsNewDocument: show new file dialog.");
         dialog.show(_parentActivity.getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
         return true;
@@ -755,6 +761,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     /**
      * Transfer the content in this DocumentEditFragment to a new file,
      * then invoke a new DocumentEditFragment to edit the new file.
+     *
      * @param newFile
      */
     private void transferAndLaunch(File newFile) {
