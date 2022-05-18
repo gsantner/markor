@@ -261,7 +261,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                         document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
-            showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview));
+            showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview, this));
         }
     }
 

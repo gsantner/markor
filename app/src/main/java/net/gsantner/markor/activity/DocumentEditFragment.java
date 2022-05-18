@@ -13,14 +13,17 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,6 +39,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.util.Optional;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
@@ -46,6 +55,7 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
+import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
@@ -55,6 +65,7 @@ import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.ui.FilesystemViewerFragment;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
@@ -73,7 +84,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
-    public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
+    public static DocumentEditFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview
+    , MarkorBaseActivity parentActivity) {
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
@@ -82,11 +94,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
         args.putBoolean(START_PREVIEW, preview);
         f.setArguments(args);
+        f._parentActivity = parentActivity;
         return f;
     }
 
+    @Deprecated
     public static DocumentEditFragment newInstance(final @NonNull File path, final Integer lineNumber) {
-        return newInstance(new Document(path), lineNumber, false);
+        return newInstance(new Document(path), lineNumber, false, null);
+    }
+    public static DocumentEditFragment newInstance(final @NonNull File path, final Integer lineNumber, MarkorBaseActivity parentActivity) {
+        return newInstance(new Document(path), lineNumber, false, parentActivity);
     }
 
     @BindView(R.id.document__fragment__edit__highlighting_editor)
@@ -118,6 +135,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
+    private MarkorBaseActivity _parentActivity;
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
     // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
     // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
@@ -389,6 +407,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 saveDocument(true);
                 return true;
             }
+            case R.id.action_save_as: {
+                Log.d(getFragmentTag(), "onOptionsItemSelected: action_save_as was selected. ");
+                saveAsNewDocument();
+                return true;
+            }
             case R.id.action_reload: {
                 final long oldModTime = _loadModTime;
                 loadDocument();
@@ -658,8 +681,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        // Document is written iff content has changed
-        if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
+
+        if (isDocumentWritten()) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
@@ -670,6 +693,51 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return true; // Report success if text not changed
         }
     }
+    /**
+     * Document is written iff content has changed.
+     * @return whether the document in this fragment has been written.
+     */
+    public boolean isDocumentWritten(){
+        return _isTextChanged && _document != null && _hlEditor != null && isAdded();
+    }
+    public boolean saveAsNewDocument() {
+        File currentFolder = new File(this._document.getPath()).getParentFile();
+        Log.d(getFragmentTag(), "saveAsNewDocument: find currentFolder is "+currentFolder);
+        if (currentFolder==null)
+            return false;
+        NewFileDialog dialog = NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, f) -> {
+            if (ok) {
+                if (f.isFile()) {
+                    File source = this._document.getFile();
+                    try(FileChannel inputChannel = new FileInputStream(source).getChannel();
+                        FileChannel outputChannel = new FileOutputStream(f).getChannel()){
+                        outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    DocumentActivity.launch(_parentActivity, f, false, null, null);
+                } else if (f.isDirectory()) {
+                    return;
+                }
+            }
+        });
+        if (isDocumentWritten())
+            hintUserToSaveFileBeforeOpenNew();
+        dialog.show(_parentActivity.getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+
+        return true;
+    }
+
+    private void hintUserToSaveFileBeforeOpenNew() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(_parentActivity);
+        builder.setMessage("当前文件已经更改，是否先保存?");
+        builder.setPositiveButton("是，先保存", (dialog, which) -> saveDocument(true));
+        builder.setNegativeButton("不必", (dialog, which) -> dialog.cancel());
+        builder.create().show();
+    }
+
 
     private boolean isDisplayedAtMainActivity() {
         return getActivity() instanceof MainActivity;

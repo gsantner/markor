@@ -104,7 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">历史</string>
     <string name="sync">同步</string>
     <string name="search_or_custom">搜索 / 自定义</string>
-    <string name="save">保存\t(从 Markor 到存储磁盘)</string>
+    <string name="save">保存\t(从 Markor 存储到磁盘)</string>
     <string name="save_as">另存为\t(新文件)</string>
     <string name="update">更新</string>
     <string name="clear">清空</string>
