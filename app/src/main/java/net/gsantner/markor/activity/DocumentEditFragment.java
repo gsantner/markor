@@ -16,7 +16,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -44,7 +43,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.util.Optional;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
@@ -65,7 +63,6 @@ import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.ui.FilesystemViewerFragment;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
@@ -75,7 +72,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -678,6 +674,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return FRAGMENT_TAG;
     }
 
+    /**
+     * Document is written iff content has changed.
+     * @return whether the document in this fragment has been written.
+     */
+    public boolean isDocumentWritten(){
+        return _isTextChanged && _document != null && _hlEditor != null && isAdded();
+    }
+
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
@@ -693,54 +697,80 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return true; // Report success if text not changed
         }
     }
+
     /**
-     * Document is written iff content has changed.
-     * @return whether the document in this fragment has been written.
+     * This method saves the current document as a new document.
+     *  1. The name of the new document is specified by the user by a dialog.
+     *  2. The user will then edit the new document in a new Document edit fragment.
+     *  3. When the user gets back to from the new document, he/she can continue to edit the old document in this fragment.
      */
-    public boolean isDocumentWritten(){
-        return _isTextChanged && _document != null && _hlEditor != null && isAdded();
-    }
     public boolean saveAsNewDocument() {
         File currentFolder = new File(this._document.getPath()).getParentFile();
         Log.d(getFragmentTag(), "saveAsNewDocument: find currentFolder is "+currentFolder);
         if (currentFolder==null)
             return false;
-        if (isDocumentWritten())
-            hintUserToSaveFileBeforeOpenNew();
         NewFileDialog dialog = NewFileDialog.newInstance(currentFolder.getAbsoluteFile(), false, (ok, newFile) -> {
             if (ok) {
                 if (newFile.isFile()) {
-                    File source = this._document.getFile();
-                    try(FileChannel inputChannel = new FileInputStream(source).getChannel();
-                        FileChannel outputChannel = new FileOutputStream(newFile).getChannel()){
-                        outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (isDocumentWritten()) {
+                        AlertDialog alertDialog = getDialogToHintUserToSaveFileBeforeOpenNew();
+                        alertDialog.setOnDismissListener(dialogInterface -> {
+                            transferAndLaunch(newFile);
+                        });
+                        Log.d(getFragmentTag(), "saveAsNewDocument: show confirm save dialog.");
+                        alertDialog.show();
+                    }else{
+                        transferAndLaunch(newFile);
                     }
-                    _document = new Document(newFile);
-//                    openNewFileInExistingFragment(); //difficult
-                    DocumentActivity.launch(_parentActivity, newFile, false, null, null);
                 } else if (newFile.isDirectory()) {
                     return;
                 }
             }
         });
+        Log.d(getFragmentTag(), "saveAsNewDocument: show new file dialog.");
         dialog.show(_parentActivity.getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
         return true;
     }
 
-    private void hintUserToSaveFileBeforeOpenNew() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(_parentActivity);
+    /**
+     * This method ask user to save the document in this fragment before going to a new fragment.
+     * Although onPause() will save the contents automatically, it is better for user to know it because
+     * if the user save this document as a new document, the content transferred from
+     * this document should include or should not include the unsaved content changes,
+     * which should be decided by the user.
+     */
+    private AlertDialog getDialogToHintUserToSaveFileBeforeOpenNew() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(_parentActivity);
         builder.setTitle(R.string.save_as);
         builder.setMessage(R.string.hint_current_file_has_changed);
-        builder.setPositiveButton(R.string.hint_current_file_has_changed_yes, (dialog, which) -> saveDocument(true));
-        builder.setNegativeButton(R.string.hint_current_file_has_changed_no, (dialog, which) -> dialog.cancel());
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        builder.setPositiveButton(R.string.hint_current_file_has_changed_yes, (dialog, which) -> {
+            dialog.dismiss();
+            saveDocument(true);
+        });
+        builder.setNegativeButton(R.string.hint_current_file_has_changed_no,
+            (dialog, which) -> dialog.cancel());
+        return builder.create();
     }
 
+    /**
+     * Transfer the content in this DocumentEditFragment to a new file,
+     * then invoke a new DocumentEditFragment to edit the new file.
+     * @param newFile
+     */
+    private void transferAndLaunch(File newFile) {
+        File source = this._document.getFile();
+        try (FileChannel inputChannel = new FileInputStream(source).getChannel();
+             FileChannel outputChannel = new FileOutputStream(newFile).getChannel()) {
+            outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        _document = new Document(newFile);
+//                    openNewFileInExistingFragment(); //difficult
+        DocumentActivity.launch(_parentActivity, newFile, false, null, null);
+    }
 
     private boolean isDisplayedAtMainActivity() {
         return getActivity() instanceof MainActivity;
