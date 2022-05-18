@@ -104,6 +104,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="history">历史</string>
     <string name="sync">同步</string>
     <string name="search_or_custom">搜索 / 自定义</string>
+
     <string name="save">保存\t(从 Markor 存储到磁盘)</string>
     <string name="save_as">另存为\t(新文件)</string>
 
@@ -297,7 +298,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">您可以从底部主视图、文件浏览器或启动器打开文档。还有一个选项可以附加分享到 Markor 的文本。</string>
     <string name="notebook_is_the_home_of_your_files">笔记本是程序启动时 Markor 在文件浏览器中加载的文件夹。它是你的文件的主文件夹。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote 是写下笔记最快选择。它是一个默认位置为 &gt;Notebook/QuickNote.md&lt; 的 Markdown 格式的文件，您可以在设置中设置一个自定义文件路径。</string>
-    <string name="todo_is_the_easiest_way_">使用 ToDo 来管理您的任务。它是一个 todo.txt 格式的文件，默认位置为 &gt;Notebook/todo.txt&lt;，您可以在设置中自定义文件路径。</string>
+    <string name="todo_is_the_easiest_way_">使用 ToDo管理您的任务。它是 todo.txt 格式的文件，默认位置 &gt;Notebook/todo。 xt&lt;，您可以在设置中设置自定义文件路径。</string>
     <string name="navigationbar_color">导航栏颜色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
