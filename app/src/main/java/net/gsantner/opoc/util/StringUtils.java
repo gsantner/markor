@@ -494,4 +494,15 @@ public final class StringUtils {
             }
         };
     }
+
+    // Debounce any
+    public static Runnable makeDebounced(final View view, final long delayMs, final Runnable callback) {
+        final Object sync = new Object();
+        return () -> {
+            synchronized (sync) {
+                view.removeCallbacks(callback);
+                view.postDelayed(callback, delayMs);
+            }
+        };
+    }
 }
