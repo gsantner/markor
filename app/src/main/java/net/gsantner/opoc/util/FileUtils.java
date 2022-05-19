@@ -47,6 +47,8 @@ public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
+    public final static String WITH_BOM = "withBom";
+
     public static Pair<String, Map<String, Object>> readTextFileFast(final File file) {
         Map<String, Object> info = new HashMap<>(1);
 
@@ -59,7 +61,7 @@ public class FileUtils {
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
                     bomBuffer[2] == (byte) 0xBF;
-            info.put("withBom", withBom);
+            info.put(WITH_BOM, withBom);
 
             if (!withBom && bomReadLength > 0) {
                 result.write(bomBuffer, 0, bomReadLength);
@@ -200,7 +202,7 @@ public class FileUtils {
     }
 
     public static boolean writeFile(final File file, final byte[] data, Map<String, Object> options) {
-        boolean withBom = options != null && (Boolean) options.get("withBom");
+        boolean withBom = options != null && (Boolean) options.get(WITH_BOM);
 
         try (final FileOutputStream output = new FileOutputStream(file)) {
             if (withBom) {

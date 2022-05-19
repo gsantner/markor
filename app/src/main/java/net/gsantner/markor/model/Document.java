@@ -185,7 +185,7 @@ public class Document implements Serializable {
         } else {
             final Pair<String, Map<String, Object>> result = FileUtils.readTextFileFast(_file);
             content = result.first;
-            _withBom = (boolean) result.second.get("withBom");
+            _withBom = (boolean) result.second.get(FileUtils.WITH_BOM);
         }
 
         if (MainActivity.IS_DEBUG_ENABLED) {
@@ -275,7 +275,7 @@ public class Document implements Serializable {
                 success = true;
             } else {
                 final Map<String, Object> options = new HashMap<>(1);
-                options.put("withBom", _withBom);
+                options.put(FileUtils.WITH_BOM, _withBom);
                 success = FileUtils.writeFile(_file, contentAsBytes, options);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {

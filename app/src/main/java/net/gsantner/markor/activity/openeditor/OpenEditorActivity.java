@@ -43,7 +43,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                 }
                 if (!file.exists() && !file.isDirectory()) {
                     final Map<String, Object> options = new HashMap<>(1);
-                    options.put("withBom", new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom());
+                    options.put(FileUtils.WITH_BOM, new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom());
                     FileUtils.writeFile(file, "", options);
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
