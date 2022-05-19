@@ -901,11 +901,13 @@ public class ContextUtils {
     public static final InputFilter INPUTFILTER_FILENAME = new InputFilter() {
         public CharSequence filter(final CharSequence src, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
             if (src != null && src.length() > 0) {
-                String out = src.toString();
                 for (char disallowed : "|\\?*<\":>[]/'".toCharArray()) {
-                    out = out.replace(Character.toString(disallowed), "");
+                    for (int i = start; i < end; i++) {
+                        if (src.charAt(i) == disallowed) {
+                            return "";
+                        }
+                    }
                 }
-                return out;
             }
             return null;
         }
