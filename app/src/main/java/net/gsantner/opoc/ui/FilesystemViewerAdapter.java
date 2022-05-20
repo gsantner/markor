@@ -23,6 +23,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -177,7 +178,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
+                        isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(Color.parseColor("#E3B51B"));

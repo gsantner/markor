@@ -15,6 +15,7 @@ import android.support.v4.provider.DocumentFile;
 
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
 
@@ -66,43 +67,39 @@ public class WrMarkorSingleton {
         return saneCopy(file, dest) && !file.equals(dest);
     }
 
-    public boolean moveFile(final File file, final File dest, final Context context) {
+    public boolean moveFile(final File file, final File dest, final Context context, AppSettings appSettings) {
         if (saneMove(file, dest) && !dest.exists()) {
-            boolean renameSuccess;
-            try {
-                renameSuccess = file.renameTo(dest);
-            } catch (Exception e) {
-                renameSuccess = false;
-            }
-            return (renameSuccess || (copyFile(file, dest) && deleteFile(file, context)));
+            return (copyFile(file, dest, appSettings) && deleteFile(file, context, appSettings));
         }
         return false;
     }
 
-    public boolean copyFile(final File file, final File dest) {
+    public boolean copyFile(final File file, final File dest, AppSettings appSettings) {
         if (saneCopy(file, dest) && !dest.exists()) {
             if (file.isDirectory()) {
                 if (dest.mkdir()) {
                     boolean success = true;
+                    appSettings.copyFavouriteFile(file, dest);
                     for (final File dirFile : file.listFiles()) {
                         // Merge not supported, dest here will always be available
-                        success &= this.copyFile(dirFile, new File(dest, dirFile.getName()));
+                        success &= this.copyFile(dirFile, new File(dest, dirFile.getName()), appSettings);
                     }
                     return success;
                 }
                 return false;
             } else {
                 FileUtils.copyFile(file, dest);
+                appSettings.copyFavouriteFile(file, dest);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean deleteFile(final File file, final Context context) {
+    public boolean deleteFile(final File file, final Context context, AppSettings appSettings) {
         if (file.isDirectory()) {
             for (final File childFile : file.listFiles()) {
-                deleteFile(childFile, context);
+                deleteFile(childFile, context, appSettings);
             }
         }
 
@@ -110,16 +107,27 @@ public class WrMarkorSingleton {
         if (context != null && shareUtil.isUnderStorageAccessFolder(file)) {
             final DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
             shareUtil.freeContextRef();
-            return dof == null ? false : (dof.delete() || !dof.exists());
+            boolean successfulDelete = true;
+            if(dof == null)
+                successfulDelete = false;
+            else if(dof.delete()) {
+                appSettings.deleteFavouriteFile(file);
+            }
+            else if(dof.exists()) successfulDelete = true;
+            return successfulDelete;
         } else {
             shareUtil.freeContextRef();
-            return file.delete();
+            boolean successfulDelete = file.delete();
+            if(successfulDelete) {
+                appSettings.deleteFavouriteFile(file);
+            }
+            return successfulDelete;
         }
     }
 
-    public void deleteSelectedItems(final Collection<File> files, final Context context) {
+    public void deleteSelectedItems(final Collection<File> files, final Context context, AppSettings appSettings) {
         for (final File file : files) {
-            deleteFile(file, context);
+            deleteFile(file, context, appSettings);
         }
     }
 
@@ -130,7 +138,7 @@ public class WrMarkorSingleton {
         ASK
     }
 
-    public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove) {
+    public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove, AppSettings appSettings) {
         if (destDir.isDirectory()) {
             boolean allSane = true;
             for (final File file : files) {
@@ -140,7 +148,7 @@ public class WrMarkorSingleton {
             if (allSane) {
                 final Stack<File> _files = new Stack<>();
                 _files.addAll(files);
-                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResolution.ASK, false);
+                _moveOrCopySelected(_files, destDir, activity, isMove, ConflictResolution.ASK, false, appSettings);
                 return;
             }
         }
@@ -152,7 +160,8 @@ public class WrMarkorSingleton {
             final Activity activity,
             final boolean isMove,
             ConflictResolution resolution,
-            boolean preserveResolution
+            boolean preserveResolution,
+            AppSettings appSettings
     ) {
         while (!files.empty()) {
             final File file = files.pop();
@@ -160,10 +169,10 @@ public class WrMarkorSingleton {
             if (dest.exists()) {
                 // Special case - duplicate the file with new name if copying to same directory
                 if (resolution == ConflictResolution.KEEP_BOTH || (!isMove && file.equals(dest))) {
-                    moveOrCopy(activity, file, findNonConflictingDest(file, destDir), isMove);
+                    moveOrCopy(activity, file, findNonConflictingDest(file, destDir), isMove, appSettings);
                 } else if (resolution == ConflictResolution.OVERWRITE) {
-                    if (deleteFile(dest, activity)) {
-                        moveOrCopy(activity, file, dest, isMove);
+                    if (deleteFile(dest, activity, appSettings)) {
+                        moveOrCopy(activity, file, dest, isMove, appSettings);
                     }
                 } else if (resolution == ConflictResolution.ASK) {
                     // Put the file back in
@@ -178,22 +187,22 @@ public class WrMarkorSingleton {
                                 } else if (option == 2 || option == 5) {
                                     res = ConflictResolution.SKIP;
                                 }
-                                _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
+                                _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2, appSettings);
                             });
                     return; // Process will be continued by callback
                 }
                 resolution = preserveResolution ? resolution : ConflictResolution.ASK;
             } else {
-                moveOrCopy(activity, file, dest, isMove);
+                moveOrCopy(activity, file, dest, isMove, appSettings);
             }
         }
     }
 
-    private void moveOrCopy(final Context context, final File src, final File dest, final boolean isMove) {
+    private void moveOrCopy(final Context context, final File src, final File dest, final boolean isMove, AppSettings appSettings) {
         if (isMove) {
-            moveFile(src, dest, context);
+            moveFile(src, dest, context, appSettings);
         } else {
-            copyFile(src, dest);
+            copyFile(src, dest, appSettings);
         }
     }
 

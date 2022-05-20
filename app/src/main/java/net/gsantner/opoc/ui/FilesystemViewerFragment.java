@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -66,7 +65,6 @@ import butterknife.ButterKnife;
 import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class FilesystemViewerFragment extends GsFragmentBase
         implements FilesystemViewerData.SelectionListener {
@@ -231,17 +229,20 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void updateMenuItems() {
+        // Here: perform action when file is selected;
         final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
         final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
         final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
         final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
+        // selFiles: current selected files
 
         // Check if is a favourite
         boolean isFavourite = false;
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
+        // _dopt.favouriteFiles: contains all favourite files;
         if (selMulti1) {
             for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
                 if (selFiles.contains(favourite)) {
@@ -292,6 +293,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     public void reloadCurrentFolder() {
+        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
         _filesystemViewerAdapter.unselectAll();
         _filesystemViewerAdapter.reloadCurrentFolder();
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -459,8 +461,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 askForDeletingFilesRecursive((confirmed, data) -> {
                     if (confirmed) {
                         Runnable deleter = () -> {
-                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemViewerAdapter.getCurrentSelection(), getContext());
+                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemViewerAdapter.getCurrentSelection(), getContext(), _appSettings);
                             _recyclerList.post(() -> {
+                                _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
                                 _filesystemViewerAdapter.unselectAll();
                                 _filesystemViewerAdapter.reloadCurrentFolder();
                             });
@@ -497,7 +500,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             case R.id.action_rename_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
+                    WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder(), _appSettings);
                     renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
                 }
                 return true;
@@ -597,7 +600,8 @@ public class FilesystemViewerFragment extends GsFragmentBase
             @Override
             public void onFsViewerSelected(String request, File file, Integer lineNumber) {
                 super.onFsViewerSelected(request, file, null);
-                WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove);
+                WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove, _appSettings);
+                _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
             }

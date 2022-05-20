@@ -10,6 +10,7 @@
 package net.gsantner.markor;
 
 import android.app.Application;
+import android.util.Log;
 import android.webkit.WebView;
 
 public class App extends Application {
@@ -33,7 +34,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         _app = this;
-
         // Per https://stackoverflow.com/a/54191884/4717438
         try {
             new WebView(getApplicationContext());
