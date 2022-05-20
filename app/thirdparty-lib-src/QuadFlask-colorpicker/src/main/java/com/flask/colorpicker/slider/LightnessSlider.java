@@ -12,63 +12,63 @@ import com.flask.colorpicker.Utils;
 import com.flask.colorpicker.builder.PaintBuilder;
 
 public class LightnessSlider extends AbsCustomSlider {
-	private int color;
-	private Paint barPaint = PaintBuilder.newPaint().build();
-	private Paint solid = PaintBuilder.newPaint().build();
-	private Paint clearingStroke = PaintBuilder.newPaint().color(0xffffffff).xPerMode(PorterDuff.Mode.CLEAR).build();
+    private int color;
+    private Paint barPaint = PaintBuilder.newPaint().build();
+    private Paint solid = PaintBuilder.newPaint().build();
+    private Paint clearingStroke = PaintBuilder.newPaint().color(0xffffffff).xPerMode(PorterDuff.Mode.CLEAR).build();
 
-	private ColorPickerView colorPicker;
+    private ColorPickerView colorPicker;
 
-	public LightnessSlider(Context context) {
-		super(context);
-	}
+    public LightnessSlider(Context context) {
+        super(context);
+    }
 
-	public LightnessSlider(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public LightnessSlider(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public LightnessSlider(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
+    public LightnessSlider(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
 
-	@Override
-	protected void drawBar(Canvas barCanvas) {
-		int width = barCanvas.getWidth();
-		int height = barCanvas.getHeight();
+    @Override
+    protected void drawBar(Canvas barCanvas) {
+        int width = barCanvas.getWidth();
+        int height = barCanvas.getHeight();
 
-		float[] hsv = new float[3];
-		Color.colorToHSV(color, hsv);
-		int l = Math.max(2, width / 256);
-		for (int x = 0; x <= width; x += l) {
-			hsv[2] = (float) x / (width - 1);
-			barPaint.setColor(Color.HSVToColor(hsv));
-			barCanvas.drawRect(x, 0, x + l, height, barPaint);
-		}
-	}
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        int l = Math.max(2, width / 256);
+        for (int x = 0; x <= width; x += l) {
+            hsv[2] = (float) x / (width - 1);
+            barPaint.setColor(Color.HSVToColor(hsv));
+            barCanvas.drawRect(x, 0, x + l, height, barPaint);
+        }
+    }
 
-	@Override
-	protected void onValueChanged(float value) {
-		if (colorPicker != null)
-			colorPicker.setLightness(value);
-	}
+    @Override
+    protected void onValueChanged(float value) {
+        if (colorPicker != null)
+            colorPicker.setLightness(value);
+    }
 
-	@Override
-	protected void drawHandle(Canvas canvas, float x, float y) {
-		solid.setColor(Utils.colorAtLightness(color, value));
-		canvas.drawCircle(x, y, handleRadius, clearingStroke);
-		canvas.drawCircle(x, y, handleRadius * 0.75f, solid);
-	}
+    @Override
+    protected void drawHandle(Canvas canvas, float x, float y) {
+        solid.setColor(Utils.colorAtLightness(color, value));
+        canvas.drawCircle(x, y, handleRadius, clearingStroke);
+        canvas.drawCircle(x, y, handleRadius * 0.75f, solid);
+    }
 
-	public void setColorPicker(ColorPickerView colorPicker) {
-		this.colorPicker = colorPicker;
-	}
+    public void setColorPicker(ColorPickerView colorPicker) {
+        this.colorPicker = colorPicker;
+    }
 
-	public void setColor(int color) {
-		this.color = color;
-		this.value = Utils.lightnessOfColor(color);
-		if (bar != null) {
-			updateBar();
-			invalidate();
-		}
-	}
+    public void setColor(int color) {
+        this.color = color;
+        this.value = Utils.lightnessOfColor(color);
+        if (bar != null) {
+            updateBar();
+            invalidate();
+        }
+    }
 }

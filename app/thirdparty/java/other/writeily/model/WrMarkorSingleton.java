@@ -108,17 +108,16 @@ public class WrMarkorSingleton {
             final DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
             shareUtil.freeContextRef();
             boolean successfulDelete = true;
-            if(dof == null)
+            if (dof == null)
                 successfulDelete = false;
-            else if(dof.delete()) {
+            else if (dof.delete()) {
                 appSettings.deleteFavouriteFile(file);
-            }
-            else if(dof.exists()) successfulDelete = true;
+            } else if (dof.exists()) successfulDelete = true;
             return successfulDelete;
         } else {
             shareUtil.freeContextRef();
             boolean successfulDelete = file.delete();
-            if(successfulDelete) {
+            if (successfulDelete) {
                 appSettings.deleteFavouriteFile(file);
             }
             return successfulDelete;

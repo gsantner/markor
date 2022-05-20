@@ -21,7 +21,6 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
@@ -374,7 +373,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         String fileAddressBefore = file.getAbsolutePath();
         String fileAddressAfter = newFile.getAbsolutePath();
         for (String fileAddress : listBefore) {
-            if(fileAddress.startsWith(fileAddressBefore)) {
+            if (fileAddress.startsWith(fileAddressBefore)) {
                 String newFileAddress = fileAddressAfter + fileAddress.substring(fileAddressBefore.length());
                 listAfter.remove(fileAddress);
                 listAfter.add(newFileAddress);

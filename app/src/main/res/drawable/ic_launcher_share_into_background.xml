@@ -3,7 +3,8 @@
     android:height="108dp"
     android:viewportWidth="785.00854"
     android:viewportHeight="785.00854">
-    <group android:translateX="-7.8500853"
+    <group
+        android:translateX="-7.8500853"
         android:translateY="-7.8500853">
         <path
             android:pathData="M137.7,129.3L663,129.3A21.5,30.4 90,0 1,693.4 150.8L693.4,642.1A21.5,30.4 90,0 1,663 663.7L137.7,663.7A21.5,30.4 90,0 1,107.3 642.1L107.3,150.8A21.5,30.4 90,0 1,137.7 129.3z"
@@ -13,7 +14,7 @@
             android:fillColor="#eaeaea"
             android:strokeWidth="50"
             android:strokeLineJoin="round"
-            android:strokeAlpha="1"/>
+            android:strokeAlpha="1" />
         <path
             android:pathData="m137.7,129.3c-16.8,0 -30.4,-1.3 -30.4,19.7l0,113L693.4,262l0,-111c0,-21 -13.6,-21.8 -30.4,-21.8z"
             android:strokeLineCap="round"
@@ -22,7 +23,7 @@
             android:fillColor="#797c76"
             android:strokeWidth="0"
             android:strokeLineJoin="round"
-            android:strokeAlpha="1"/>
+            android:strokeAlpha="1" />
 
         <!--   left most strip part
             <path
@@ -43,7 +44,7 @@
             android:fillColor="#363b5f"
             android:strokeWidth="11.25"
             android:strokeLineJoin="round"
-            android:strokeAlpha="1"/>
+            android:strokeAlpha="1" />
         <path
             android:pathData="M400.4,161.9L400.4,161.9A10.8,17.8 90,0 1,418.1 172.7L418.1,220A10.8,17.8 90,0 1,400.4 230.7L400.4,230.7A10.8,17.8 90,0 1,382.6 220L382.6,172.7A10.8,17.8 90,0 1,400.4 161.9z"
             android:strokeLineCap="round"
@@ -52,7 +53,7 @@
             android:fillColor="#363b5f"
             android:strokeWidth="11.25"
             android:strokeLineJoin="round"
-            android:strokeAlpha="1"/>
+            android:strokeAlpha="1" />
         <path
             android:pathData="M492.2,161.9L492.2,161.9A10.8,17.8 90,0 1,510 172.7L510,220A10.8,17.8 90,0 1,492.2 230.7L492.2,230.7A10.8,17.8 90,0 1,474.4 220L474.4,172.7A10.8,17.8 90,0 1,492.2 161.9z"
             android:strokeLineCap="round"
@@ -61,7 +62,7 @@
             android:fillColor="#363b5f"
             android:strokeWidth="11.25"
             android:strokeLineJoin="round"
-            android:strokeAlpha="1"/>
+            android:strokeAlpha="1" />
         <!--   right most strip part
             <path
                 android:pathData="M584,161.9L584,161.9A10.8,17.8 90,0 1,601.8 172.7L601.8,220A10.8,17.8 90,0 1,584 230.7L584,230.7A10.8,17.8 90,0 1,566.3 220L566.3,172.7A10.8,17.8 90,0 1,584 161.9z"

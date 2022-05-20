@@ -59,7 +59,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments())));
         } else if (dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
             _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments())));
-        } else if (dir.exists() && dir.canRead()){
+        } else if (dir.exists() && dir.canRead()) {
             final File[] all = dir.listFiles(file -> !file.isDirectory() && TextFormat.isTextFile(file));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
             FilesystemViewerFragment.sortFolder(_widgetFilesList); // Sort only if actual folder

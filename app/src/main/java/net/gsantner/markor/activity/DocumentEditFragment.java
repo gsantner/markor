@@ -64,7 +64,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")

@@ -470,7 +470,7 @@ public abstract class TextActions {
             else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
                     (selectionStart >= _action.length())) &&
                     (text.substring(selectionStart - _action.length(),
-                            selectionEnd + _action.length())
+                                    selectionEnd + _action.length())
                             .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
                 text = text.substring(selectionStart, selectionEnd);

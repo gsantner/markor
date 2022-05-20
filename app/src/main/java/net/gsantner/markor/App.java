@@ -10,7 +10,6 @@
 package net.gsantner.markor;
 
 import android.app.Application;
-import android.util.Log;
 import android.webkit.WebView;
 
 public class App extends Application {

@@ -4,5 +4,4 @@
     android:layout_width="wrap_content"
     android:layout_height="@dimen/default_preview_height"
     android:gravity="center"
-    android:background="@android:color/transparent">
-</LinearLayout>
+    android:background="@android:color/transparent"></LinearLayout>

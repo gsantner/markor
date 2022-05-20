@@ -95,7 +95,7 @@ public class WrRenameDialog extends DialogFragment {
             }
 
             if (renamed || !filenameChanged) {
-                if(file.getParentFile() != null) {
+                if (file.getParentFile() != null) {
                     _appSettings.renameFavoriteFile(file, new File(file.getParentFile(), newFileName));
                 }
                 if (_callback != null) {
