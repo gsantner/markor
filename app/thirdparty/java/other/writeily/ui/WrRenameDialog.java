@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
@@ -37,16 +38,18 @@ public class WrRenameDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "WrRenameDialog";
 
     public static WrRenameDialog newInstance(File sourceFile) {
-        return newInstance(sourceFile, null);
+        return newInstance(sourceFile, null, null);
     }
 
+    public AppSettings _appSettings;
 
-    public static WrRenameDialog newInstance(File sourceFile, Callback.a1<File> callback) {
+    public static WrRenameDialog newInstance(File sourceFile, Callback.a1<File> callback, AppSettings appSettings) {
         WrRenameDialog dialog = new WrRenameDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
         dialog.setArguments(args);
         dialog._callback = callback;
+        dialog._appSettings = appSettings;
         return dialog;
     }
 
@@ -92,6 +95,9 @@ public class WrRenameDialog extends DialogFragment {
             }
 
             if (renamed || !filenameChanged) {
+                if (file.getParentFile() != null) {
+                    _appSettings.renameFavoriteFile(file, new File(file.getParentFile(), newFileName));
+                }
                 if (_callback != null) {
                     _callback.callback(file);
                 }
