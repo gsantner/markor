@@ -229,20 +229,17 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     private void updateMenuItems() {
-        // Here: perform action when file is selected;
         final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
         final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
         final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
         final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
-        // selFiles: current selected files
 
-        // Check if is a favourite
         boolean isFavourite = false;
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
-        // _dopt.favouriteFiles: contains all favourite files;
+
         if (selMulti1) {
             for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
                 if (selFiles.contains(favourite)) {
