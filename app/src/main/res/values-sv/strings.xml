@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
     <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
-    <string name="configure_in_the_apps_settings">Ställ in i appens inställningar</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontell justering</string>
     <string name="default_">Förvald</string>
