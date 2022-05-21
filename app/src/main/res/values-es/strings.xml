@@ -374,6 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Contraseña del cifrado de archivo</string>
     <string name="no_password_set_cannot_encrypt_decrypt">No se ha establecido ninguna contraseña, no se puede cifrar o descifrar.\nVaya a Ajustes -&gt; General -&gt; Contraseña para establecer una contraseña.</string>
     <string name="encrypt_file_content">Cifrar contenido del archivo</string>
+    <string name="utf8_with_bom">UTF-8 con BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">No se pudo cifrar el contenido del archivo. El archivo no fue guardado.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">No se pudo descifrar el contenido del archivo. ¿Usaste una contraseña incorrecta? ¿El archivo está realmente cifrado con el cifrado AES de Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">La contraseña ya está configurada. Establecer una nueva contraseña sobrescribirá la contraseña existente y es posible que ya no pueda acceder a los archivos en caso de que olvide la contraseña.</string>
