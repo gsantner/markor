@@ -466,22 +466,22 @@ public final class StringUtils {
         final int minLength = Math.min(dl, sl);
 
         int start = 0;
-        while(start < minLength && source.charAt(start) == dest.charAt(start)) start++;
+        while (start < minLength && source.charAt(start) == dest.charAt(start)) start++;
 
         // Handle several special cases
         if (sl == dl && start == sl) { // Case where 2 sequences are same
-            return new int[] { sl, sl, sl };
+            return new int[]{sl, sl, sl};
         } else if (sl < dl && start == sl) { // Pure crop
-            return new int[] { sl, dl, sl };
+            return new int[]{sl, dl, sl};
         } else if (dl < sl && start == dl) { // Pure append
-            return new int[] { dl, dl, sl };
+            return new int[]{dl, dl, sl};
         }
 
         int end = 0;
         final int maxEnd = minLength - start;
-        while(end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
+        while (end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
 
-        return new int[] { start, dl - end, sl - end };
+        return new int[]{start, dl - end, sl - end};
     }
 
     // Compute the line indent, counting each tab as tabSize spaces
