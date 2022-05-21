@@ -350,7 +350,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void deleteFavouriteFile(File file) {
         List<String> list = new ArrayList<>();
-        List<File> favourites = getFavouriteFilesAll();
+        List<File> favourites = getFavouriteFiles();
         String abs = file.getAbsolutePath();
         for (File f : favourites) {
             list.add(f.getAbsolutePath());
@@ -364,7 +364,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public void renameFavoriteFile(File file, File newFile) {
         List<String> listBefore = new ArrayList<>();
         List<String> listAfter = new ArrayList<>();
-        List<File> favourites = getFavouriteFilesAll();
+        List<File> favourites = getFavouriteFiles();
         String abs = file.getAbsolutePath();
         for (File f : favourites) {
             listBefore.add(f.getAbsolutePath());
@@ -592,17 +592,6 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public ArrayList<File> getFavouriteFiles() {
-        ArrayList<File> list = new ArrayList<>();
-        for (String fp : getStringList(R.string.pref_key__favourite_files)) {
-            File f = new File(fp);
-            if (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f)) {
-                list.add(f);
-            }
-        }
-        return list;
-    }
-
-    public ArrayList<File> getFavouriteFilesAll() {
         ArrayList<File> list = new ArrayList<>();
         for (String fp : getStringList(R.string.pref_key__favourite_files)) {
             File f = new File(fp);
