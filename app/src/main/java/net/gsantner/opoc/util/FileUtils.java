@@ -201,7 +201,7 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data, Map<String, Object> options) {
+    public static boolean writeFile(final File file, final byte[] data, final Map<String, Object> options) {
         boolean withBom = options != null && (Boolean) options.get(WITH_BOM);
 
         try (final FileOutputStream output = new FileOutputStream(file)) {
@@ -219,7 +219,7 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data, Map<String, Object> options) {
+    public static boolean writeFile(final File file, final String data, final Map<String, Object> options) {
         return writeFile(file, data.getBytes(), options);
     }
 
