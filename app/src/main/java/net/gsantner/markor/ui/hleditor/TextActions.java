@@ -397,10 +397,13 @@ public abstract class TextActions {
 
     private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
 
-        final Editable text = editor.getText();
+        Editable text = editor.getText();
         final int[] selection = StringUtils.getSelection(editor);
         final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
         final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
+
+        // Chunk if more than one line will be acted upon
+        text = lEnd[0] != lStart[0] ? StringUtils.ChunkedEditable.wrap(text) : text;
 
         int lineStart = StringUtils.getLineStart(text, selection[0]);
         int selEnd = StringUtils.getLineEnd(text, selection[1]);
@@ -440,6 +443,11 @@ public abstract class TextActions {
             }
 
             lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+        }
+
+        // Apply changes if chunked
+        if (text instanceof StringUtils.ChunkedEditable) {
+            ((StringUtils.ChunkedEditable) text).applyChanges();
         }
 
         editor.setSelection(

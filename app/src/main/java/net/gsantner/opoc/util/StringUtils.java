@@ -10,7 +10,11 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.Layout;
+import android.text.SpannableStringBuilder;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -152,7 +156,7 @@ public final class StringUtils {
      */
     public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
         p = Math.min(Math.max(p, 0), s.length());
-        final int line = countChar(s, '\n', 0, p);
+        final int line = countChars(s, 0, p, '\n')[0];
         final int offset = getLineEnd(s, p) - p;
 
         return new int[]{line, offset};
@@ -194,26 +198,27 @@ public final class StringUtils {
     }
 
     /**
-     * Count instances of char 'c' between start and end
+     * Count instances of chars between start and end
      *
      * @param s     Sequence to count in
-     * @param c     Char to count
      * @param start start of section to count within
      * @param end   end of section to count within
-     * @return number of instances of c in c between start and end
+     * @param chars Array of chars to count
+     * @return number of instances of each char in [start, end)
      */
-    public static int countChar(final CharSequence s, final char c, int start, int end) {
-        int count = 0;
-        if (isValidIndex(s, start, end - 1)) {
-            start = Math.max(0, start);
-            end = Math.min(end, s.length());
-            for (int i = start; i < end; i++) {
-                if (s.charAt(i) == c) {
-                    count++;
+    public static int[] countChars(final CharSequence s, int start, int end, final char ... chars) {
+        final int[] counts = new int[chars.length];
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        for (int i = start; i < end; i++) {
+            final char c = s.charAt(i);
+            for (int j = 0; j < chars.length; j++) {
+                if (c == chars[j]) {
+                    counts[j]++;
                 }
             }
         }
-        return count;
+        return counts;
     }
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
@@ -477,5 +482,212 @@ public final class StringUtils {
         while (end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
 
         return new int[]{start, dl - end, sl - end};
+    }
+
+    // Compute the line indent, counting each tab as tabSize spaces
+    public static int getLineIndent(final CharSequence text, final int posn, final int tabSize) {
+        final int lineStart = getLineStart(text, posn);
+        final int indentEnd = getNextNonWhitespace(text, lineStart);
+        final int[] counts = countChars(text, lineStart, indentEnd, ' ', '\t');
+        return counts[0] + tabSize * counts[1];
+    }
+
+    // Checks if two CharSequences are identical between [start, end)
+    public static boolean checkSame(
+            final CharSequence a, final int aStart, final int aEnd,
+            final CharSequence b, final int bStart, final int bEnd) {
+
+        // Return not same for various pathological cases
+        if ((aEnd < aStart) || (bEnd < bStart) || !isValidIndex(a, aStart, aEnd - 1) || !isValidIndex(b, bStart, bEnd - 1)) {
+            return false;
+        }
+
+        // Not same if lengths not same
+        if ((aEnd - aStart) != (bStart - bEnd)) {
+            return false;
+        }
+
+        final int length = aEnd - aStart;
+        for (int i = 0; i < length; i++) {
+            if (a.charAt(aStart + i) != b.charAt(bStart + i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Allows convenient chunking of actions on an editable.
+     * This works by maintaining a _reference_ to an editable to which all operations are passed.
+     * When a _change_ is made, the original reference is copied and all operations are
+     * applied to the copy. Finally, `applyChanges()` diffs the original and copy and makes
+     * a single chunked change.
+     */
+    public static class ChunkedEditable implements Editable {
+
+        private final Editable original;
+        private Editable copy;
+
+        public static ChunkedEditable wrap(@NonNull final Editable e) {
+            return (e instanceof ChunkedEditable) ? (ChunkedEditable) e : new ChunkedEditable(e);
+        }
+
+        private ChunkedEditable(@NonNull final Editable e) {
+            original = e;
+        }
+
+        // Apply changes from copy to original
+        public boolean applyChanges() {
+            if (copy == null) {
+                return false;
+            }
+
+            final int[] diff = StringUtils.findDiff(original, copy);
+            if (diff[0] != diff[1] || diff[0] != diff[2]) {
+                original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+                copy = null; // Reset as we have applied all changed
+                return true;
+            }
+            return false;
+        }
+
+        private Editable select() {
+            return copy != null ? copy : original;
+        }
+
+        // All other functions which edit the editable alias this routine
+        @Override
+        public Editable replace(int st, int en, CharSequence source, int start, int end) {
+            // Don't do extra work if no change is not real
+            if (!checkSame(this , st, en, source, start, end)) {
+                if (copy == null) {
+                    // All operations will now run on copy
+                    // SpannableStringBuilder maintains spans etc
+                    copy = new SpannableStringBuilder(original);
+                }
+                select().replace(st, en, source, start, end);
+            }
+            return this;
+        }
+
+        // Convenience functions for replace ^. All these are just aliases
+        // -------------------------------------------------------------------------------
+
+        @Override
+        public Editable replace(int st, int en, CharSequence text) {
+            return replace(st, en, text, 0, text.length());
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text, int start, int end) {
+            return replace(where, where, text, start, end);
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text) {
+            return replace(where, where, text, 0, text.length());
+        }
+
+        @Override
+        public Editable delete(int st, int en) {
+            return replace(st, en, "", 0, 0);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text) {
+            return replace(length(), length(), text, 0, text.length());
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text, int start, int end) {
+            return replace(length(), length(), text, start, end);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(char text) {
+            return append(String.valueOf(text));
+        }
+
+        @Override
+        public void clear() {
+            replace(0, length(), "", 0, 0);
+        }
+
+        // Other functions - all just forwarded to copy or original as needed
+        // -------------------------------------------------------------------------------
+        @Override
+        public void clearSpans() {
+            select().clearSpans();
+        }
+
+        @Override
+        public void setFilters(InputFilter[] filters) {
+            select().setFilters(filters);
+        }
+
+        @Override
+        public InputFilter[] getFilters() {
+            return select().getFilters();
+        }
+
+        @Override
+        public void getChars(int start, int end, char[] dest, int destoff) {
+            select().getChars(start, end, dest, destoff);
+        }
+
+        @Override
+        public void setSpan(Object what, int start, int end, int flags) {
+            select().setSpan(what, start, end, flags);
+        }
+
+        @Override
+        public void removeSpan(Object what) {
+            select().removeSpan(what);
+        }
+
+        @Override
+        public <T> T[] getSpans(int start, int end, Class<T> type) {
+            return select().getSpans(start, end, type);
+        }
+
+        @Override
+        public int getSpanStart(Object tag) {
+            return select().getSpanStart(tag);
+        }
+
+        @Override
+        public int getSpanEnd(Object tag) {
+            return select().getSpanEnd(tag);
+        }
+
+        @Override
+        public int getSpanFlags(Object tag) {
+            return select().getSpanFlags(tag);
+        }
+
+        @Override
+        public int nextSpanTransition(int start, int limit, Class type) {
+            return select().nextSpanTransition(start, limit, type);
+        }
+
+        @Override
+        public int length() {
+            return select().length();
+        }
+
+        @Override
+        public char charAt(int index) {
+            return select().charAt(index);
+        }
+
+        @NonNull
+        @Override
+        public CharSequence subSequence(int start, int end) {
+            return select().subSequence(start, end);
+        }
     }
 }
