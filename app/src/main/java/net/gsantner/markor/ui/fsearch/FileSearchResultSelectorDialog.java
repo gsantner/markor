@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,13 +104,22 @@ public class FileSearchResultSelectorDialog {
             return false;
         });
 
+        // Long click on file name takes us to the top of the file
+        expandableListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            final long pos = expandableListView.getExpandableListPosition(position);
+            final int type = ExpandableListView.getPackedPositionType(pos);
+            if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                final int groupPosition = ExpandableListView.getPackedPositionGroup(position);
+                // Start on end of first line
+                dialogCallback.callback(((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(groupPosition)).path, 0);
+            };
+            return true;
+        });
+
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
             GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
             Pair<String, Integer> childItem = (Pair<String, Integer>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            if (childItem.second >= 0) {
-                if (dialog != null && dialog.get() != null) {
-                    dialog.get().dismiss();
-                }
+            if (childItem != null && childItem.second != null && childItem.second >= 0) {
                 dialogCallback.callback(groupItem.path, childItem.second);
             }
             return false;
