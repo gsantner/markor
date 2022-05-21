@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 
 
 import android.text.TextUtils;
+import android.util.Pair;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -32,8 +33,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
@@ -44,20 +47,41 @@ public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
-    public static String readTextFileFast(final File file) {
+    public final static String WITH_BOM = "withBom";
+
+    public static Pair<String, Map<String, Object>> readTextFileFast(final File file) {
+        Map<String, Object> info = new HashMap<>(1);
+
         try (final FileInputStream inputStream = new FileInputStream(file)) {
             final ByteArrayOutputStream result = new ByteArrayOutputStream();
+
+            final byte[] bomBuffer = new byte[3];
+            int bomReadLength = inputStream.read(bomBuffer);
+            boolean withBom = bomReadLength == 3 &&
+                    bomBuffer[0] == (byte) 0xEF &&
+                    bomBuffer[1] == (byte) 0xBB &&
+                    bomBuffer[2] == (byte) 0xBF;
+            info.put(WITH_BOM, withBom);
+
+            if (!withBom && bomReadLength > 0) {
+                result.write(bomBuffer, 0, bomReadLength);
+            }
+            if (bomReadLength < 3) {
+                return new Pair<>(result.toString("UTF-8"), info);
+            }
+
             final byte[] buffer = new byte[1024];
             for (int length; (length = inputStream.read(buffer)) != -1; ) {
                 result.write(buffer, 0, length);
             }
-            return result.toString("UTF-8");
+            return new Pair<>(result.toString("UTF-8"), info);
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+
+        return new Pair<>("", info);
     }
 
     public static byte[] readCloseStreamWithSize(final InputStream stream, int size) {
@@ -177,8 +201,15 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data) {
+    public static boolean writeFile(final File file, final byte[] data, final Map<String, Object> options) {
+        boolean withBom = options != null && (Boolean) options.get(WITH_BOM);
+
         try (final FileOutputStream output = new FileOutputStream(file)) {
+            if (withBom) {
+                output.write(0xEF);
+                output.write(0xBB);
+                output.write(0xBF);
+            }
             output.write(data);
             output.flush();
             return true;
@@ -188,8 +219,8 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data) {
-        return writeFile(file, data.getBytes());
+    public static boolean writeFile(final File file, final String data, final Map<String, Object> options) {
+        return writeFile(file, data.getBytes(), options);
     }
 
     public static boolean copyFile(final File src, final File dst) {

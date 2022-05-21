@@ -4,13 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,7 +110,8 @@ public class FileSearchResultSelectorDialog {
                 final int groupPosition = ExpandableListView.getPackedPositionGroup(position);
                 // Start on end of first line
                 dialogCallback.callback(((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(groupPosition)).path, 0);
-            };
+            }
+            ;
             return true;
         });
 

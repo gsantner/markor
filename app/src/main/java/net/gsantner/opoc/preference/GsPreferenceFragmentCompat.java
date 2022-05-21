@@ -51,7 +51,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
