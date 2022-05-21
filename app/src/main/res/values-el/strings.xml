@@ -375,6 +375,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Κωδικός πρόσβασης κρυπτογράφησης αρχείου</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Δεν έχει οριστεί κωδικός πρόσβασης, δεν μπορεί να κρυπτογραφηθεί ή να αποκρυπτογραφηθεί.\nΜεταβείτε στις Ρυθμίσεις -&gt; Γενικά -&gt; Κωδικός πρόσβασης για να ορίσετε έναν κωδικό πρόσβασης.</string>
     <string name="encrypt_file_content">Κρυπτογράφηση περιεχομένου αρχείου</string>
+    <string name="utf8_with_bom">UTF-8 με BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Αδυναμία κρυπτογράφησης περιεχομένου αρχείου. Το αρχείο δεν αποθηκεύτηκε.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Δεν ήταν δυνατή η αποκρυπτογράφηση περιεχομένου αρχείου. Χρησιμοποιείτε λάθος κωδικό πρόσβασης? Είναι το αρχείο πραγματικά κρυπτογραφημένο με κρυπτογράφηση Markors AES;</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Ο κωδικός πρόσβασης έχει ήδη οριστεί. Ο ορισμός νέου κωδικού πρόσβασης θα αντικαταστήσει τον υπάρχοντα κωδικό πρόσβασης και ενδέχεται να μην μπορείτε να έχετε πρόσβαση σε αρχεία πια σε περίπτωση που ξεχάσετε τον κωδικό πρόσβασης.</string>
