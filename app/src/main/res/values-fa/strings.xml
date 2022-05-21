@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">مثبت (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">مارکور فقط می‌تواند فایل‌هایی را ویرایش کند که محلی هستند و به صورت آفلاین در دسترس هستند و فایل منیجر‌هایی را که مسیر کامل فایل را نمی‌دهند را ساپورت نمی‌کند.</string>
     <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders. Open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
-    <string name="configure_in_the_apps_settings">پیکربندی در تنظیمات برنامه‌ها</string>
     <string name="vertical_alignment">Vertical alignment</string>
     <string name="horizontal_alignment">Horizontal alignment</string>
     <string name="default_">پیش‌فرض</string>
