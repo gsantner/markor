@@ -327,7 +327,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void copyFavouriteFile(File fileBefore, File fileAfter) {
         List<String> list = new ArrayList<>();
-        List<File> favourites = getFavouriteFiles();
+        List<File> favourites = getFavouriteFiles(false);
         for (File f : favourites) {
             // Only existing files or file which is 'virtual storage' is considered
             if (f != null && (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f))) {
@@ -350,7 +350,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
     public void deleteFavouriteFile(File file) {
         List<String> list = new ArrayList<>();
-        List<File> favourites = getFavouriteFiles();
+        List<File> favourites = getFavouriteFiles(true);
         String abs = file.getAbsolutePath();
         for (File f : favourites) {
             list.add(f.getAbsolutePath());
@@ -364,7 +364,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     public void renameFavoriteFile(File file, File newFile) {
         List<String> listBefore = new ArrayList<>();
         List<String> listAfter = new ArrayList<>();
-        List<File> favourites = getFavouriteFiles();
+        List<File> favourites = getFavouriteFiles(true);
         String abs = file.getAbsolutePath();
         for (File f : favourites) {
             listBefore.add(f.getAbsolutePath());
@@ -385,7 +385,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     // getFavouriteFiles: contains all files marked as favourite
     public void toggleFavouriteFile(File file) {
         List<String> list = new ArrayList<>();
-        List<File> favourites = getFavouriteFiles();
+        List<File> favourites = getFavouriteFiles(false);
         for (File f : favourites) {
             // Only existing files or file which is 'virtual storage' is considered
             if (f != null && (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f))) {
@@ -591,11 +591,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return r;
     }
 
-    public ArrayList<File> getFavouriteFiles() {
+    public ArrayList<File> getFavouriteFiles(boolean clearDeleted) {
         ArrayList<File> list = new ArrayList<>();
         for (String fp : getStringList(R.string.pref_key__favourite_files)) {
             File f = new File(fp);
-            list.add(f);
+            if (clearDeleted || (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f))) {
+                list.add(f);
+            }
         }
         return list;
     }
