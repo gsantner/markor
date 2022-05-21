@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan alleen lokale, offline beschikbare documenten bewerken en ondersteunt geen bestandsbeheerders die niet het volledige bestandspad aangeven.</string>
     <string name="sync_to_local_folder_notice">Opmerking: Sync apps kunnen bestanden plaatsen in aangepaste mappen. Open ze door de document map van Markor dienovereenkomstig te wijzigen, of in een andere bestandsbeheerder.</string>
-    <string name="configure_in_the_apps_settings">Configureren in de app instellingen</string>
     <string name="vertical_alignment">Verticale uitlijning</string>
     <string name="horizontal_alignment">Horizontale uitleining</string>
     <string name="default_">Standaard</string>
