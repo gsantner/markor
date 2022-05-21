@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Pluss (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bare redigere lokale tilgjengelige dokumenter og støtter ikke filbehandlere som ikke gir en hel filsti.</string>
     <string name="sync_to_local_folder_notice">Merk: Synkroniser apper kan plassere filer i egendefinerte mapper. Åpne dem ved å endre Markors dokumentmappe tilsvarende, eller i en annen filbehandler.</string>
-    <string name="configure_in_the_apps_settings">Sett opp i programinnstillingene</string>
     <string name="vertical_alignment">Loddrett justering</string>
     <string name="horizontal_alignment">Vannrett justering</string>
     <string name="default_">Forvalg</string>
