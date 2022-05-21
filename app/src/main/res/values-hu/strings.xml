@@ -192,7 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plusz (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor csak helyi offline dokumentumok szerkesztésére képes, és nem támogat fájlkezelőket, amelyek nem adják meg a teljes elérési utat.</string>
     <string name="sync_to_local_folder_notice">Megjegyzés: A szinkronizációs appok egyedi mappába tehetik a fájlokat. Nyisd meg őket a Markor mappájának megváltoztatásával, vagy egy fájlkezelőn keresztül.</string>
-    <string name="configure_in_the_apps_settings">Testreszabható a beállításokban</string>
+
     <string name="vertical_alignment">Függőleges igazítás</string>
     <string name="horizontal_alignment">Vízszintes igazítás</string>
     <string name="default_">Alapértelmezett</string>

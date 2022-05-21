@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">プラス (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markorはローカルのオフライン利用可能なドキュメントのみ編集できます。ファイルをフルパスで提供しないファイルマネージャーはサポートしていません。</string>
     <string name="sync_to_local_folder_notice">注意: 同期アプリがカスタムフォルダーにファイルを配置することがあります。Markor のドキュメントフォルダーを変更するか、別のファイルマネージャーでそれを開くことができます。</string>
-    <string name="configure_in_the_apps_settings">アプリ設定を構成します</string>
+
     <string name="vertical_alignment">縦に揃える</string>
     <string name="horizontal_alignment">横に揃える</string>
     <string name="default_">デフォルト</string>

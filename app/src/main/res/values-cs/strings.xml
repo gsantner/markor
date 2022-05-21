@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
     <string name="sync_to_local_folder_notice">Poznámka: Synchronizační aplikace mohou ukládat soubory do vlastních složek. Otevřete je tím, že změníte v aplikaci Markor umístění složky s dokumenty, nebo pomocí správce souborů.</string>
-    <string name="configure_in_the_apps_settings">Nastavte v nastavení aplikace</string>
+
     <string name="vertical_alignment">Vertikální vyrovnání</string>
     <string name="horizontal_alignment">Vodorovné zarovnání</string>
     <string name="default_">Standardní</string>

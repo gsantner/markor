@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">加號 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅能編輯本機或離線的可用文件，也不支援未提供完整路徑的檔案管理器。</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
-    <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
+
     <string name="vertical_alignment">垂直偏移</string>
     <string name="horizontal_alignment">水平偏移</string>
     <string name="default_">系統預設</string>

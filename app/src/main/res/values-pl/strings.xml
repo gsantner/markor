@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor może edytować tylko pliki dostępne lokalnie, offline oraz nie wspiera menedżerów plików, które nie zapewniają pełnej ścieżki pliku.</string>
     <string name="sync_to_local_folder_notice">Uwaga: Aplikacje synchronizujące mogą zapisywać pliki w niestandardowych folderach. Otwórz je zmieniając folder dokumentów Markora, lub używając innego menedżera plików.</string>
-    <string name="configure_in_the_apps_settings">Konfiguruj w ustawieniach aplikacji</string>
+
     <string name="vertical_alignment">Wyrównanie w pionie</string>
     <string name="horizontal_alignment">Wyrównanie w poziomie</string>
     <string name="default_">Domyślna</string>

@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plussa (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor voi muokata vain paikallisia, offline-tilassa käytettävissä olevia asiakirjoja, eikä tue tiedostojen hallintaa, jotka eivät tarjoa koko tiedostopolkua.</string>
     <string name="sync_to_local_folder_notice">Huomaa: Synkronointisovellukset voivat sijoittaa tiedostoja mukautettuihin kansioihin. Avaa ne muuttamalla Markorin asiakirjakansio vastaavasti tai toisessa tiedostohallinnassa.</string>
-    <string name="configure_in_the_apps_settings">Määritä sovelluksen asetuksissa</string>
+
     <string name="vertical_alignment">Pystytasaus</string>
     <string name="horizontal_alignment">Vaakatasaus</string>
     <string name="default_">Oletus</string>

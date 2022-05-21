@@ -126,7 +126,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="start_on_bottom_when_loading_document">ഡോക്യുമെന്റ് ലോഡ് ചെയ്യുമ്പോൾ കഴ്സർ അവസാനം നിർത്തുക</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor-ന് ലോക്കൽ അഥവാ ഓഫ്‌ലൈൻ ഡോക്യൂമെന്റസ് മാത്രമേ പരിഷ്കരിക്കാൻ കഴിയൂ, മാത്രമല്ല മുഴുവൻ ഫയൽ പാത്ത് നൽകാത്ത ഫയൽ മാനേജർസ് പിന്തുണക്കില്ല.</string>
     <string name="sync_to_local_folder_notice">കുറിപ്പ്: സമന്വയം നടത്തുന്ന അപ്പ്ലിക്കേഷൻസ് ഫയൽസിനെ നിർദ്ദേശിക്കുന്ന ഫോൾഡറിൽ ഇടാം. അവ തുറക്കാൻ Markor-ന്റെ ഡോക്യുമെന്റ് ഫോൾഡർ ആവശ്യാനുസരണം മാറ്റുക, അല്ലെങ്കിൽ മറ്റൊരു ഫയൽ മാനേജർ ഉപയോഗിക്കുക.</string>
-    <string name="configure_in_the_apps_settings">അപ്പ്ലിക്കേഷന്റെ സജ്ജീകരണത്തിൽ നിർവചിക്കുക</string>
+
     <string name="vertical_alignment">ലംബമായ നിരത്തൽ</string>
     <string name="horizontal_alignment">തിരശ്ചീനമായ നിരത്തൽ</string>
     <string name="default_">സ്വതേ ഉള്ള മൂല്യം</string>

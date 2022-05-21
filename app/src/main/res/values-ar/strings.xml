@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">زائد (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">يمكن للعلامة فقط تعديل المستندات المحلية المتاحة دون اتصال ولا تدعم مديري الملفات الذين لا يوفرون مسار الملف الكامل.</string>
     <string name="sync_to_local_folder_notice">ملاحظة: قد تضع التطبيقات المزامنة الملفات في مجلدات مخصصة. فتحها بتغيير مجلد المستندات الخاص بالعلامة وفقا لذلك، أو في مدير ملفات آخر.</string>
-    <string name="configure_in_the_apps_settings">اظبطه في إعدادات التطبيق</string>
+
     <string name="vertical_alignment">محاذاة رأسية</string>
     <string name="horizontal_alignment">محاذاة أفقية</string>
     <string name="default_">افتراضي</string>

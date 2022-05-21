@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbare Dokumente bearbeiten und unterstützt keine Datei-Manager, die nicht den vollständigen Dateipfad angeben.</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
-    <string name="configure_in_the_apps_settings">Siehe App-Einstellungen</string>
+
     <string name="vertical_alignment">Vertikale Anordnung</string>
     <string name="horizontal_alignment">Horizontale Anordnung</string>
     <string name="default_">Standard</string>

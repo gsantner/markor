@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
     <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Puede abrirlas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
-    <string name="configure_in_the_apps_settings">Configurar en los ajustes de aplicaciones</string>
+
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
     <string name="default_">Predeterminado</string>

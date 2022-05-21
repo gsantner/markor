@@ -11,7 +11,6 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -190,21 +189,10 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     private void showNotSupportedMessage() {
-
-        final String notSupportedMessage = (
-                getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice_paths,
-                        getString(R.string.configure_in_the_apps_settings))
-        ).replace("\n", "<br/>");
-
-        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
-            _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
-        };
-
+        final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
         new AlertDialog.Builder(this)
                 .setMessage(Html.fromHtml(notSupportedMessage))
-                .setNegativeButton(R.string.more_info, listener)
+                .setNegativeButton(R.string.more_info, (di, i) -> _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
                 .create().show();
