@@ -16,6 +16,7 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
@@ -36,7 +37,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
@@ -53,6 +56,7 @@ public class Document implements Serializable {
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
+    private boolean _withBom = false;
     @StringRes
     private int _format = TextFormat.FORMAT_UNKNOWN;
 
@@ -161,7 +165,6 @@ public class Document implements Serializable {
     }
 
     public synchronized String loadContent(final Context context) {
-
         String content;
         final char[] pw;
         if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
@@ -181,7 +184,9 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            content = FileUtils.readTextFileFast(_file);
+            final Pair<String, Map<String, Object>> result = FileUtils.readTextFileFast(_file);
+            content = result.first;
+            _withBom = (boolean) result.second.get(FileUtils.WITH_BOM);
         }
 
         if (MainActivity.IS_DEBUG_ENABLED) {
@@ -264,6 +269,11 @@ public class Document implements Serializable {
             if (shareUtil.isUnderStorageAccessFolder(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
+                        if (_withBom) {
+                            fos.write(0xEF);
+                            fos.write(0xBB);
+                            fos.write(0xBF);
+                        }
                         fos.write(contentAsBytes);
                         fos.flush();
                     } catch (Exception ignored) {
@@ -271,7 +281,9 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                success = FileUtils.writeFile(_file, contentAsBytes);
+                final Map<String, Object> options = new HashMap<>(1);
+                options.put(FileUtils.WITH_BOM, _withBom);
+                success = FileUtils.writeFile(_file, contentAsBytes, options);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);

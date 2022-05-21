@@ -3,9 +3,7 @@
  *   Maintained by Gregor Santner, 2020-
  *   https://gsantner.net/
  *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ *   License: Public domain / Creative Commons Zero 1.0
  *
 #########################################################*/
 package net.gsantner.opoc.util;

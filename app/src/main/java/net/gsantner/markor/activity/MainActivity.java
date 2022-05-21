@@ -82,6 +82,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _shareUtil = new ShareUtil(this);
         setContentView(R.layout.main__activity);
         ButterKnife.bind(this);
@@ -201,7 +202,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     protected void onResume() {
         //new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
-        IS_DEBUG_ENABLED = BuildConfig.IS_TEST_BUILD;
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
             final Intent intent = getIntent();

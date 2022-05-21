@@ -131,7 +131,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">ସବୁ ଚୟନ କରନ୍ତୁ (Ctrl+A)</string>
     <string name="start_on_bottom">ତଳୁ ଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor କେବଳ ସ୍ଥାନୀୟ, ଅଫଲାଇନ୍ ଉପଲବ୍ଧ ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକୁ ସମ୍ପାଦନ କରିପାରେ ଏବଂ ସମ୍ପୂର୍ଣ୍ଣ ଫାଇଲ୍ ପଥ ପ୍ରଦାନ କରୁନଥିବା ଫାଇଲ୍ ପରିଚାଳକଗୁଡ଼ିକୁ ସମର୍ଥନ କରେ ନାହିଁ।</string>
-    <string name="configure_in_the_apps_settings">ଆପ୍ ସେଟିଂସରେ ବିନ୍ୟାସ କରନ୍ତୁ</string>
+
     <string name="vertical_alignment">ଭୂଲମ୍ବ ଶ୍ରେଣୀବଦ୍ଧତା</string>
     <string name="horizontal_alignment">ଭୂସମାନ୍ତର ଶ୍ରେଣୀବଦ୍ଧତା</string>
     <string name="default_">ଡିଫଲ୍ଟ</string>
@@ -223,6 +223,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">ତିଆରି କରାଗଲା</string>
     <string name="file_encryption_password">ଫାଇଲ୍ ଏନକ୍ରିପସନ୍ ପାସ୍‍ୱାର୍ଡ଼</string>
     <string name="no_password_set_cannot_encrypt_decrypt">କୌଣସି ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ ହୋଇନାହିଁ, ଏନକ୍ରିପ୍ଟ କିମ୍ୱା ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିବ ନାହିଁ।\nଏକ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବାକୁ ସେଟିଂସମୂହ -&gt; ସାଧାରଣ -&gt; ପାସ୍‍ୱାର୍ଡ଼ କୁ ଯାଆନ୍ତୁ।</string>
+    <string name="utf8_with_bom">BOM ସହିତ UTF-8</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ଫାଇଲ୍ ବିଷୟବସ୍ତୁ ଡିକ୍ରିପ୍ଟ କରାଯାଇପାରିଲା ନାହିଁ। ଆପଣ ଏକ ଭୁଲ୍ ପାସ୍‍ୱାର୍ଡ଼ ବ୍ୟବହାର କରିଛନ୍ତି କି? ଫାଇଲ୍ ପ୍ରକୃତରେ Markor ର AES ଏନକ୍ରିପସନ୍ ସହିତ ହି ଏନକ୍ରିପ୍ଟ ହୋଇଛି ତ?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">ପାସ୍‍ୱାର୍ଡ଼ ପୂର୍ବରୁ ସେଟ୍ ହୋଇଛି। ଏକ ନୂତନ ପାସ୍‍ୱାର୍ଡ଼ ସେଟ୍ କରିବା ଦ୍ୱାରା ବିଦ୍ୟମାନ ପାସ୍‍ୱାର୍ଡ଼ ନବଲିଖନ ହେବ ଏବଂ ଯଦି ଆପଣ ପାସ୍‍ୱାର୍ଡ଼ ଭୁଲିଯାଆନ୍ତି ତେବେ ଆପଣ ଆଉ ଫାଇଲ୍ ଆକସେସ୍ କରିବାକୁ ସମର୍ଥ ହୋଇନପାରନ୍ତି।</string>
     <string name="file_settings">ଫାଇଲ୍ ସେଟିଂସ୍</string>

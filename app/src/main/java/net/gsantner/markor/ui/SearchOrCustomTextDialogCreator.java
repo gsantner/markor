@@ -69,6 +69,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogHeightDp = 530;
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
+        dopt.okButtonText = 0;
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -94,6 +95,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.iconsForData = availableDataToIconMap;
         dopt.isSearchEnabled = false;
+        dopt.okButtonText = 0;
         dopt.titleText = 0;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
@@ -216,6 +218,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 530;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
+        dopt.okButtonText = 0;
 
         dopt.titleText = R.string.sort_tasks_by_selected_order;
         dopt.messageText = "";
@@ -477,6 +480,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = new ArrayList<>(Arrays.asList(hexcode, fg, bg));
         dopt.titleText = R.string.color;
         dopt.isSearchEnabled = false;
+        dopt.okButtonText = 0;
         dopt.messageText = activity.getString(R.string.set_foreground_or_background_color_hexcolor_also_possible);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -591,6 +595,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = availableData;
         dopt.highlightData = highlightedData;
         dopt.titleText = R.string.priority;
+        dopt.okButtonText = 0;
         dopt.messageText = "";
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -669,8 +674,9 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
+        dopt.okButtonText = 0;
         dopt.messageText = Html.fromHtml("<small><small>" + folder.getAbsolutePath() + "</small></small>");
-        dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)));
+        dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)).first);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

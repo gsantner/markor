@@ -268,7 +268,11 @@ public class SearchOrCustomTextDialog {
         // =========================================================================================
 
         // Ok button action
+<<<<<<< HEAD
         if ((dopt.isSearchEnabled && dopt.callback != null) || (dopt.isMultiSelectEnabled && dopt.positionCallback != null)) {
+=======
+        if (((dopt.callback != null) || (dopt.isMultiSelectEnabled)) && dopt.okButtonText != 0) {
+>>>>>>> upstream/master
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
@@ -284,7 +288,7 @@ public class SearchOrCustomTextDialog {
         final AlertDialog dialog = dialogBuilder.create();
 
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
-            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && dopt.okButtonText != 0) {
                 dialog.dismiss();
                 if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
                     dopt.callback.callback(searchEditText.getText().toString());

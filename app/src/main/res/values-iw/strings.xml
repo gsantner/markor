@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">פלוס (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor יכול לערוך קבצים מקומיים, המנותקים מהרשת בלבד ואינו תומך בסיירי קבצים שאינם מביאים נתיב מלא אל הקובץ.</string>
     <string name="sync_to_local_folder_notice">הערה: אפליקציות סנכרון יכולות לשים קבצים בתיקיות שרירותיות, לפתוח אותם באמצעות שינוי תיקיית המסמכים של Markor בהתאם, או במנהל קבצים אחר.</string>
-    <string name="configure_in_the_apps_settings">הגדר בהגדרות האפליקציה</string>
+
     <string name="vertical_alignment">יישור אנכי</string>
     <string name="horizontal_alignment">יישור אופקי</string>
     <string name="default_">ברירת מחדל</string>

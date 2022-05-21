@@ -14,4 +14,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light">สว่าง</string>
     <string name="rename">เปลี่ยนชื่อ</string>
     <string name="name">ชื่อเรื่อง</string>
+    <string name="deleteme____1">ชื่อเรื่อง</string>
 </resources>

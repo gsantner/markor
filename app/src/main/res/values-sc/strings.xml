@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Prus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor podet editare petzi documentos locales e disponìbiles chene sa connessione a ìnternet e non suportat gestore de documentos chi non frunint s\'àndala intrea pro sos documentos.</string>
     <string name="sync_to_local_folder_notice">Ammenta·ti: sas aplicatziones de sincronizatzione diant pòdere sarvare sos documentos in cartellas personalizadas. Aberi·los mudende sa cartella de sos documentos de Markor, o impreende un\'àteru gestore de documentos.</string>
-    <string name="configure_in_the_apps_settings">Configura in sas impostatziones de s\'aplicatzione</string>
+
     <string name="vertical_alignment">Alliniamentu verticale</string>
     <string name="horizontal_alignment">Alliniamentu orizontale</string>
     <string name="default_">Predefinidu</string>

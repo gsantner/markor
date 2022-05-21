@@ -59,12 +59,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hexcode" translatable="false">Hexcode</string>
     <string name="markup_formats_supported_list" translatable="false">Markdown, todo.txt, Plaintext</string>
 
-
-    <string name="sync_to_local_folder_notice_paths" translatable="false"><![CDATA[
-    <b>Dropbox:</b> Android/data/com.dropbox.android/files/u123456/scratch/
-    \n<b>Own/NextCloud:</b> %s]]></string>
-
-
     <!-- About Screen -->
     <string name="copyright_license_text_official" translatable="false"><![CDATA[
         ### Copyright © 2017-2022

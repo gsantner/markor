@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Pluss (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bare redigere lokale, offline tilgjengelige dokumenter og støtter ikke filadministratorer som ikke gir fullstendig filbane.</string>
     <string name="sync_to_local_folder_notice">Merk: Synkroniser apper kan plassere filer i egendefinerte mapper. Åpne dem ved å endre Markors dokumentmappe tilsvarende, eller i en annen filbehandler.</string>
-    <string name="configure_in_the_apps_settings">Sett opp i programinnstillingene</string>
+
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontal justering</string>
     <string name="default_">Standard</string>
@@ -374,6 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Fil krypteringspassord</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Ingen passordinnstilling kan ikke kryptere eller dekryptere.\nGå til Innstillinger -&gt; Generelt -&gt; Passord for å angi et passord.</string>
     <string name="encrypt_file_content">Krypter filinnhold</string>
+    <string name="utf8_with_bom">UTF-8 med BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunne ikke kryptere filinnholdet. Filen ble ikke lagret.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunne ikke dekryptere filinnhold. Har du brukt et feil passord? Er filen virkelig kryptert med Markors AES kryptering?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Passordet er allerede angitt. Å oppgi et nytt passord vil overskrive det eksisterende passordet, og det kan hende du ikke har tilgang til filer lenger dersom du glemmer passordet.</string>

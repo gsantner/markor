@@ -59,7 +59,6 @@ import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;

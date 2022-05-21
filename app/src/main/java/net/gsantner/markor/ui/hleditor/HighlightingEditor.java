@@ -224,7 +224,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (MainActivity.IS_DEBUG_ENABLED) {
                     AppSettings.appendDebugLog("Start highlighting");
                 }
-                withAccessibilityDisabled(() ->_hl.run(getText()));
+                withAccessibilityDisabled(() -> _hl.run(getText()));
             } catch (Exception e) {
                 // In no case ever let highlighting crash the editor
                 e.printStackTrace();

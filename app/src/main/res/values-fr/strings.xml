@@ -193,7 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que des fichiers locaux, disponibles hors connexion, et ne supporte pas les gestionnaires de fichiers qui ne fournissent pas le chemin d’accès complet du fichier.</string>
     <string name="sync_to_local_folder_notice">Remarque : Les applications de synchronisation peuvent placer des fichiers dans des dossiers personnalisés. Ouvrez-les en modifiant le dossier de document de Markor en conséquence, ou dans un autre gestionnaire de fichiers.</string>
-    <string name="configure_in_the_apps_settings">Configurer dans les réglages</string>
+
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
     <string name="default_">Par défaut</string>
@@ -374,6 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Mot de passe de chiffrement de fichier</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Aucun mot de passe défini, ne peut pas chiffrer ou déchiffrer.\nAllez dans Paramètres -&gt; Général -&gt; Mot de passe pour définir un mot de passe.</string>
     <string name="encrypt_file_content">Chiffrer le contenu du fichier</string>
+    <string name="utf8_with_bom">UTF-8 avec BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Impossible de chiffrer le contenu du fichier. Le fichier n\'a pas été enregistré.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Impossible de déchiffrer le contenu du fichier. Avez-vous utilisé un mauvais mot de passe ? Le fichier est-il vraiment chiffré avec le chiffrement AES de Markors ?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Mot de passe déjà défini. Définir un nouveau mot de passe écrasera le mot de passe existant et vous risquez de ne plus pouvoir accéder aux fichiers en cas d\'oubli du mot de passe.</string>

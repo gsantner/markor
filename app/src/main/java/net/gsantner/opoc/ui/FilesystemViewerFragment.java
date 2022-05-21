@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
@@ -66,7 +65,6 @@ import butterknife.ButterKnife;
 import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class FilesystemViewerFragment extends GsFragmentBase
         implements FilesystemViewerData.SelectionListener {
@@ -507,7 +505,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     if (TextFormat.isTextFile(file)) {
-                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file));
+                        _shareUtil.setClipboard(FileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
                     }
