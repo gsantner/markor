@@ -560,12 +560,16 @@ public class FileUtils {
     }
 
     // Return true if the target file exists, false if there is an issue with the file or it's parent directories
-    public static boolean fileExists(final File checkFile) {
+    public static boolean fileExists(final File checkFile, boolean... caseInsensitive) {
+        boolean isAndroid = System.getProperty("java.specification.vendor").contains("Android");
+        boolean sensitive = !isAndroid && (caseInsensitive == null || caseInsensitive.length == 0 || !caseInsensitive[0]);
+
         File[] files;
         if (checkFile != null && checkFile.getParentFile() != null && (files = checkFile.getParentFile().listFiles()) != null) {
             final String checkFilename = checkFile.getName();
-            for (final File f : files) {
-                if (f.getName().equals(checkFilename)) {
+            for (final File existingFile : files) {
+                final String existingName = existingFile.getName();
+                if (sensitive ? existingName.equals(checkFilename) : existingName.equalsIgnoreCase(checkFilename)) {
                     return true;
                 }
             }
