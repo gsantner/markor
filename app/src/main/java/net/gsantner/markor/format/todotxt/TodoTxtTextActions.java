@@ -164,7 +164,7 @@ public class TodoTxtTextActions extends TextActions {
                         File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
                         String doneFileContents = "";
                         if (doneFile.exists() && doneFile.canRead()) {
-                            doneFileContents = FileUtils.readTextFileFast(doneFile).trim() + "\n";
+                            doneFileContents = FileUtils.readTextFileFast(doneFile).first.trim() + "\n";
                         }
                         doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 

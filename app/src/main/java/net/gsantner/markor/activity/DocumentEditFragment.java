@@ -67,6 +67,7 @@ import net.gsantner.opoc.util.TextViewUndoRedo;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.OnTextChanged;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")

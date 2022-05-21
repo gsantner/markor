@@ -21,6 +21,8 @@ import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.PermissionChecker;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OpenEditorActivity extends MarkorBaseActivity {
     protected void openEditorForFile(File file) {
@@ -40,7 +42,9 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     file.getParentFile().mkdirs();
                 }
                 if (!file.exists() && !file.isDirectory()) {
-                    FileUtils.writeFile(file, "");
+                    final Map<String, Object> options = new HashMap<>(1);
+                    options.put(FileUtils.WITH_BOM, new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom());
+                    FileUtils.writeFile(file, "", options);
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();

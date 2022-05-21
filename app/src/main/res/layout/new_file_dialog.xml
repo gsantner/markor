@@ -119,6 +119,13 @@
             android:layout_marginTop="8dp"
             android:text="@string/encrypt_file_content" />
 
+        <CheckBox
+            android:id="@+id/new_file_dialog__utf8_bom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/utf8_with_bom" />
+
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"

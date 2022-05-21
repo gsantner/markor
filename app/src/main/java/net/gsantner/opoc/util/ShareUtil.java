@@ -796,7 +796,7 @@ public class ShareUtil {
 
                                 // Create temporary file in cache directory
                                 picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
-                                FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input));
+                                FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input), null);
                             }
                         } catch (IOException ignored) {
                             // nothing we can do here, null value will be handled below
