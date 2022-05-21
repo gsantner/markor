@@ -206,7 +206,6 @@ public class FileSearchResultSelectorDialog {
                 textView.setClickable(false);
             }
             textView.setText(groupInfo.toString());
-            textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
 
             final int iconResId = groupInfo.isDirectory || groupInfo.children.isEmpty() ? 0 : isExpanded
                     ? R.drawable.ic_baseline_keyboard_arrow_up_24
