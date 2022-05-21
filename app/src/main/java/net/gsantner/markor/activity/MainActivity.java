@@ -404,7 +404,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     dopt.showDotFiles = _appSettings.isShowDotFiles();
                     dopt.fileComparable = FilesystemViewerFragment.sortFolder(null);
 
-                    dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    dopt.favouriteFiles = _appSettings.getFavouriteFiles(false);
                     dopt.recentFiles = _appSettings.getAsFileList(_appSettings.getRecentDocuments());
                     dopt.popularFiles = _appSettings.getAsFileList(_appSettings.getPopularDocuments());
                 }

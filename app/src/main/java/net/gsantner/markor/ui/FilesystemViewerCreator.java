@@ -63,7 +63,7 @@ public class FilesystemViewerCreator {
 
         opts.recentFiles = appSettings.getAsFileList(appSettings.getRecentDocuments());
         opts.popularFiles = appSettings.getAsFileList(appSettings.getPopularDocuments());
-        opts.favouriteFiles = appSettings.getFavouriteFiles();
+        opts.favouriteFiles = appSettings.getFavouriteFiles(false);
 
         opts.titleText = R.string.select;
 

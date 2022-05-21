@@ -290,7 +290,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     public void reloadCurrentFolder() {
-        _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+        _dopt.favouriteFiles = _appSettings.getFavouriteFiles(false);
         _filesystemViewerAdapter.unselectAll();
         _filesystemViewerAdapter.reloadCurrentFolder();
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -449,7 +449,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             case R.id.action_favourite_remove: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0));
-                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles(false);
                     updateMenuItems();
                 }
                 return true;
@@ -460,7 +460,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
                         Runnable deleter = () -> {
                             WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemViewerAdapter.getCurrentSelection(), getContext(), _appSettings);
                             _recyclerList.post(() -> {
-                                _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                                _dopt.favouriteFiles = _appSettings.getFavouriteFiles(false);
                                 _filesystemViewerAdapter.unselectAll();
                                 _filesystemViewerAdapter.reloadCurrentFolder();
                             });
@@ -598,7 +598,7 @@ public class FilesystemViewerFragment extends GsFragmentBase
             public void onFsViewerSelected(String request, File file, Integer lineNumber) {
                 super.onFsViewerSelected(request, file, null);
                 WrMarkorSingleton.getInstance().moveOrCopySelected(files, file, getActivity(), isMove, _appSettings);
-                _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                _dopt.favouriteFiles = _appSettings.getFavouriteFiles(false);
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
             }
