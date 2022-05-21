@@ -373,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">ファイルの暗号化パスワード</string>
     <string name="no_password_set_cannot_encrypt_decrypt">パスワードが設定されていません。暗号化、復号化できません。\n設定 -&gt; 全般 -&gt; パスワードに移動して、パスワードを設定してください。</string>
     <string name="encrypt_file_content">ファイルの内容を暗号化する</string>
+    <string name="utf8_with_bom">UTF-8 with BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">ファイルの内容を暗号化できません。ファイルを保存しませんでした。</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">ファイルの内容を復号化できません。パスワードが間違っていませんか? ファイルがMarkorのAES暗号で暗号化されていますか?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">パスワードがすでに設定されています。新しいパスワードを設定すると、既存のパスワードを上書きします。パスワードを忘れた場合はファイルにアクセスできなくなる可能性があります。</string>

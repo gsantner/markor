@@ -374,6 +374,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Пароль шифрования файла</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Пароль не установлен, не могу зашифровать или расшифровать.\nПерейдите в Настройки -&gt; Общие -&gt; Пароль для установки пароля.</string>
     <string name="encrypt_file_content">Шифровать содержимое файла</string>
+    <string name="utf8_with_bom">UTF-8 с BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Не удалось зашифровать содержимое файла. Файл не был сохранен.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не удалось расшифровать содержимое файла. Используете ли вы неверный пароль? Файл действительно зашифрован Markors AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль уже установлен. Установка нового пароля перезапишет существующий пароль, и вы больше не сможете получить доступ к файлам в случае, если вы забудете пароль.</string>
