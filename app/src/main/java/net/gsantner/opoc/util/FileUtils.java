@@ -532,9 +532,9 @@ public class FileUtils {
     public static boolean fileExists(final File checkFile) {
         File[] files;
         if (checkFile != null && checkFile.getParentFile() != null && (files = checkFile.getParentFile().listFiles()) != null) {
-            final String checkFilename = checkFile.getName();
+            final String checkFilename = checkFile.getName().toLowerCase();
             for (final File f : files) {
-                if (f.getName().equals(checkFilename)) {
+                if (f.getName().toLowerCase().equals(checkFilename)) {
                     return true;
                 }
             }
