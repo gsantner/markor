@@ -10,7 +10,6 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -33,37 +32,43 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "TryFinallyCanBeTryWithResources"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection",  "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
-    public final static String WITH_BOM = "withBom";
+    /**
+     * Info of various types about a file
+     */
+    public static class FileInfo {
+        public boolean hasBom = false;
+        public FileInfo setBom(boolean hasBom) {
+            this.hasBom = hasBom;
+            return this;
+        }
+    }
 
-    public static Pair<String, Map<String, Object>> readTextFileFast(final File file) {
-        Map<String, Object> info = new HashMap<>(1);
+    public static Pair<String, FileInfo> readTextFileFast(final File file) {
+        final FileInfo info = new FileInfo();
 
         try (final FileInputStream inputStream = new FileInputStream(file)) {
             final ByteArrayOutputStream result = new ByteArrayOutputStream();
 
             final byte[] bomBuffer = new byte[3];
-            int bomReadLength = inputStream.read(bomBuffer);
-            boolean withBom = bomReadLength == 3 &&
+            final int bomReadLength = inputStream.read(bomBuffer);
+            info.hasBom = bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
                     bomBuffer[2] == (byte) 0xBF;
-            info.put(WITH_BOM, withBom);
 
-            if (!withBom && bomReadLength > 0) {
+            if (!info.hasBom && bomReadLength > 0) {
                 result.write(bomBuffer, 0, bomReadLength);
             }
             if (bomReadLength < 3) {
@@ -201,11 +206,9 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data, final Map<String, Object> options) {
-        boolean withBom = options != null && (Boolean) options.get(WITH_BOM);
-
+    public static boolean writeFile(final File file, final byte[] data, final FileInfo options) {
         try (final FileOutputStream output = new FileOutputStream(file)) {
-            if (withBom) {
+            if (options != null && options.hasBom) {
                 output.write(0xEF);
                 output.write(0xBB);
                 output.write(0xBF);
@@ -219,7 +222,7 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data, final Map<String, Object> options) {
+    public static boolean writeFile(final File file, final String data, final FileInfo options) {
         return writeFile(file, data.getBytes(), options);
     }
 
@@ -308,7 +311,7 @@ public class FileUtils {
         boolean ok = true;
         if (file.exists()) {
             if (file.isDirectory()) {
-                for (File child : file.listFiles())
+                for (final File child : file.listFiles())
                     ok &= deleteRecursive(child);
             }
             ok &= file.delete();
@@ -352,7 +355,6 @@ public class FileUtils {
         return true;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean renameFileInSameFolder(File srcFile, String destFilename) {
         return renameFile(srcFile, new File(srcFile.getParent(), destFilename));
     }
@@ -551,6 +553,18 @@ public class FileUtils {
 
     public static String sha512(final byte[] data) {
         return hash(data, "SHA-512");
+    }
+
+    public static long crc32(final CharSequence data) {
+        final CRC32 alg = new CRC32();
+        final int length = data.length();
+        for (int i = 0; i < length; i++) {
+            final char c = data.charAt(i);
+            // Upper and lower bytes
+            alg.update((byte) (c & 0xff));
+            alg.update((byte) (c >> 8));
+        }
+        return alg.getValue();
     }
 
     public static long crc32(final byte[] data) {
