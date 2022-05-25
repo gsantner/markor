@@ -268,7 +268,7 @@ public class SearchOrCustomTextDialog {
         // =========================================================================================
 
         // Ok button action
-        if (((dopt.callback != null) || (dopt.isMultiSelectEnabled)) && dopt.okButtonText != 0) {
+        if (((dopt.callback != null && dopt.isSearchEnabled) || (dopt.positionCallback != null && dopt.isMultiSelectEnabled)) && dopt.okButtonText != 0) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
