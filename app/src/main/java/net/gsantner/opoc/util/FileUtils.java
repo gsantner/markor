@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +48,7 @@ public class FileUtils {
     /**
      * Info of various types about a file
      */
-    public static class FileInfo {
+    public static class FileInfo implements Serializable {
         public boolean hasBom = false;
         public FileInfo setBom(boolean hasBom) {
             this.hasBom = hasBom;
