@@ -229,7 +229,7 @@ public class Document implements Serializable {
         }
     }
 
-    public boolean saveContent(final Context context, final String content) {
+    public boolean saveContent(final Context context, final CharSequence content) {
         return saveContent(context, content, null, false);
     }
 

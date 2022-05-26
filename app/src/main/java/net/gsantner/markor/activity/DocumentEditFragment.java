@@ -659,7 +659,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff content has changed
         if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+            if (_document.saveContent(getContext(), _hlEditor.getText(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
