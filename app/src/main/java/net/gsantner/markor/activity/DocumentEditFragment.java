@@ -211,7 +211,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         loadDocument();
 
-        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor, 500);
+        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
 
         // Set initial wrap state
         initDocState();
