@@ -700,12 +700,9 @@ public final class StringUtils {
     // Debounce any callback
     public static Runnable makeDebounced(final Handler handler, final long delayMs, final Runnable callback) {
         final Handler _handler = handler == null ? new Handler(Looper.getMainLooper()) : handler;
-        final Object sync = new Object();
         return () -> {
-            synchronized (sync) {
-                _handler.removeCallbacks(callback);
-                _handler.postDelayed(callback, delayMs);
-            }
+            _handler.removeCallbacks(callback);
+            _handler.postDelayed(callback, delayMs);
         };
     }
 }
