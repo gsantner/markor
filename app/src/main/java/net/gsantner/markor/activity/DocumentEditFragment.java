@@ -115,7 +115,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
-    private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -566,10 +565,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void checkTextChangeState() {
-        _isTextChanged = !_document.isContentSame(_hlEditor.getText());
+        final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
 
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != _isTextChanged) {
-            _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged) {
+            _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);
         }
     }
 
@@ -659,7 +658,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff content has changed
-        if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
+        if (_document != null && _hlEditor != null && isAdded()) {
             if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
