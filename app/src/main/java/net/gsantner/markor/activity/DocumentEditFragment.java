@@ -20,7 +20,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -59,7 +61,7 @@ import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
-
+import net.gsantner.markor.activity.DocumentActivity;
 import java.io.File;
 
 import butterknife.BindView;
@@ -117,6 +119,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private long _loadModTime = 0;
     private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
+    private boolean _isFullScreen = false;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
     // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
@@ -362,6 +365,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item == null) {
@@ -517,6 +521,16 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_speed_read: {
                 CoolExperimentalStuff.showSpeedReadDialog(activity, _hlEditor.getText().toString());
                 return true;
+            }
+            case R.id.action_full_screen:{
+                _isFullScreen = ! _isFullScreen;
+                DocumentActivity temp = (DocumentActivity) activity;
+                if(_isFullScreen){
+                    temp.hideSystemUI();//现在是基类，我不知道调用主类重写的方法没有
+                }else {
+                    temp.showSystemUI();
+                }
+
             }
             case R.id.action_wrap_words: {
                 wrapText = !wrapText;
