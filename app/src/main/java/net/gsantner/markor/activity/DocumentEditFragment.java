@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -61,12 +60,10 @@ import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
 import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
-import net.gsantner.markor.activity.DocumentActivity;
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -526,7 +523,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _isFullScreen = ! _isFullScreen;
                 DocumentActivity temp = (DocumentActivity) activity;
                 if(_isFullScreen){
-                    temp.hideSystemUI();//现在是基类，我不知道调用主类重写的方法没有
+                    temp.hideSystemUI();
                 }else {
                     temp.showSystemUI();
                 }

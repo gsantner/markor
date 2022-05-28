@@ -129,7 +129,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onWindowFocusChanged(false);
         AppSettings.clearDebugLog();
         if (nextLaunchTransparentBg) {
             //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
