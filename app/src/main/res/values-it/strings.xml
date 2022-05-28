@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Più (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Puoi aprirli modificando la cartella dei documenti di Markor, o usando un altro file manager.</string>
-
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orizzontale</string>
     <string name="default_">Predefinito</string>
