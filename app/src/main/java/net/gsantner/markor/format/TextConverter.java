@@ -19,6 +19,7 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 import java.util.Date;
 import java.util.Locale;
+import java.text.SimpleDateFormat;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class TextConverter {
@@ -121,6 +122,16 @@ public abstract class TextConverter {
         final String contentLower = content.toLowerCase();
         AppSettings appSettings = new AppSettings(context);
         boolean darkTheme = appSettings.isDarkThemeEnabled() && !isExportInLightMode;
+		
+		SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String myDate = format.format(new Date()); //1969-12-31 16:00
+        String time = myDate.split(" ")[1];
+        String hour = time.split(":")[0];
+        int currentHour = Integer.parseInt(hour);
+        if(currentHour>=21 || currentHour<=6){
+            darkTheme = true;
+        }
+		
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE.replace(TOKEN_POST_LANG, Locale.getDefault().getLanguage()) + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
