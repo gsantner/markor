@@ -192,7 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor može uređivati samo lokalne dokumente kojima ima pristup i ne podržava programe za upravljanje datotekama koji ne prikazuju cijelu putanju.</string>
     <string name="sync_to_local_folder_notice">Napomena: Programi za sinhronizaciju nekada smještaju datoteke u vlastite direktorije. Pristupite im tako što ćete promijeniti direktorije u postavkama Markora ili koristite program za upravljanje datotekama.</string>
-
     <string name="vertical_alignment">Uspravno poravnanje</string>
     <string name="horizontal_alignment">Vodoravno poravnanje</string>
     <string name="default_">Osnovni</string>
