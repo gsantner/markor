@@ -1,0 +1,3 @@
+[submodule "app/libs/ColorPickerHex"]
+	path = app/libs/ColorPickerHex
+	url = https://github.com/peterfajdiga/ColorPickerHex.git

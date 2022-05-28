@@ -1,2 +1,4 @@
 include(':app:thirdparty-lib-src:QuadFlask-colorpicker')
 include ':app'
+include ':ColorPickerHex'
+project(':ColorPickerHex').projectDir = new File('app/libs/ColorPickerHex/colorpickerhex')
