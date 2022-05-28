@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+A project by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">การตั้งค่าโปรไฟล์</string>
+    <string name="light">สว่าง</string>
+    <string name="rename">เปลี่ยนชื่อ</string>
+    <string name="name">ชื่อเรื่อง</string>
+    <string name="deleteme____1">ชื่อเรื่อง</string>
+</resources>
