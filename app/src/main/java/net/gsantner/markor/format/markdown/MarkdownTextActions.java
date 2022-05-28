@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MarkdownTextActions extends TextActions {
-
+    private int _CurrentHeadingWithLevel = 0;
     public MarkdownTextActions(Activity activity, Document document) {
         super(activity, document);
     }
@@ -79,15 +79,43 @@ public class MarkdownTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_markdown_h1: {
-                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                if (_CurrentHeadingWithLevel != 1 && _CurrentHeadingWithLevel !=4){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
+                    _CurrentHeadingWithLevel = 1;
+                }else if(_CurrentHeadingWithLevel == 1){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(4));
+                    _CurrentHeadingWithLevel = 4;
+                }else if(_CurrentHeadingWithLevel == 4){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(0));
+                    _CurrentHeadingWithLevel = 0;
+                }
+
                 return true;
             }
             case R.string.tmaid_markdown_h2: {
-                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                if (_CurrentHeadingWithLevel != 2 && _CurrentHeadingWithLevel !=5){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(2));
+                    _CurrentHeadingWithLevel = 2;
+                }else if(_CurrentHeadingWithLevel == 2){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(5));
+                    _CurrentHeadingWithLevel = 5;
+                }else if(_CurrentHeadingWithLevel == 5){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(0));
+                    _CurrentHeadingWithLevel = 0;
+                }
                 return true;
             }
             case R.string.tmaid_markdown_h3: {
-                runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                if (_CurrentHeadingWithLevel != 3 && _CurrentHeadingWithLevel !=6){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(3));
+                    _CurrentHeadingWithLevel = 3;
+                }else if(_CurrentHeadingWithLevel == 3){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(6));
+                    _CurrentHeadingWithLevel = 6;
+                }else if(_CurrentHeadingWithLevel == 6){
+                    runRegexReplaceAction(MarkdownReplacePatternGenerator.setOrUnsetHeadingWithLevel(0));
+                    _CurrentHeadingWithLevel = 0;
+                }
                 return true;
             }
             case R.string.tmaid_common_unordered_list_char: {
