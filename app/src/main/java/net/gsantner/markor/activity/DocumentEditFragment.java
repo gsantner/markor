@@ -521,11 +521,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_full_screen:{
                 _isFullScreen = ! _isFullScreen;
-                DocumentActivity temp = (DocumentActivity) activity;
-                if(_isFullScreen){
-                    temp.hideSystemUI();
-                }else {
-                    temp.showSystemUI();
+                MarkorBaseActivity temp = (MarkorBaseActivity) activity;
+                if (temp!=null) {
+                    if (_isFullScreen) {
+                        temp.hideSystemUI();
+                    } else {
+                        temp.showSystemUI();
+                    }
                 }
 
             }

@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.view.View;
 import android.view.WindowManager;
 
 import net.gsantner.markor.R;
@@ -49,5 +51,37 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
     @Override
     public Boolean isFlagSecure() {
         return _appSettings.isDisallowScreenshots();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    public void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+        View decorView = this.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
+
+
+    }
+
+    // Shows the system bars by removing all the flags
+    // except for the ones that make the content appear under the system bars.
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    public void showSystemUI() {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
+        View decorView = this.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
+
     }
 }
