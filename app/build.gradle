@@ -20,7 +20,6 @@ rootProject.ext.version_minSdk = 16
 ext.version_library_flexmark = "0.42.14"
 
 android {
-    buildToolsVersion rootProject.ext.version_buildTools
     compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {

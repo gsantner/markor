@@ -54,6 +54,7 @@ public class NewFileDialog extends DialogFragment {
     private Callback.a2<Boolean, File> callback;
 
     public static NewFileDialog newInstance(final File sourceFile, final boolean allowCreateDir, final Callback.a2<Boolean, File> callback) {
+//        System.out.println("Invoke new instance method of class net.gsantner.markor.ui.NewFileDialog. ");
         NewFileDialog dialog = new NewFileDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DIR, sourceFile);

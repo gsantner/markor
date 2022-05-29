@@ -30,8 +30,14 @@ buildscript {
     }
 
     repositories {
-        maven { url 'https://maven.google.com' }
-        jcenter()
+        // The old version of the codes.
+//        maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        //maven { url 'https://maven.google.com' }
+        //google()
+        //jcenter()
         maven { url "https://jitpack.io" }
         mavenCentral()
     }
@@ -50,8 +56,13 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'https://maven.google.com' }
-        jcenter()
+        //maven { url 'https://maven.google.com' }
+        //google()
+        //jcenter()
+        // Modify the http to https 
+        
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
         maven { url "https://jitpack.io" }
         mavenCentral()
     }
