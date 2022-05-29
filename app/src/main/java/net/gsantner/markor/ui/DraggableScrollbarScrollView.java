@@ -29,6 +29,15 @@ public class DraggableScrollbarScrollView extends ScrollView {
         super(context, attrs, defStyleAttr);
     }
 
+    {
+        // Issue #1025 Related:
+        // When init the scroll, just set it as the bottom in here.
+        // It may give a better usage for the user.
+        //
+        // todo: Next step, describe a micro database to store this special info, and fetch it here.
+        smoothScrollTo(0, (int )_thumbHeight);
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (!_fastScrollEnabled) {
