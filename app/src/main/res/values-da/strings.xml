@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan kun redigere lokale, offline tilgængelige dokumenter og understøtter ikke filadministratorer, der ikke giver den fulde filsti.</string>
     <string name="sync_to_local_folder_notice">Notits: Synkroniserende programmer vil måske placere filer i brugerdefinerede mapper. Disse kan åbnes ved at ændre Makors dokumentmappe eller i et andet filhåndteringsprogram</string>
-    <string name="configure_in_the_apps_settings">Konfigurér i programindstillinger</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontalt justering</string>
     <string name="default_">Standard</string>
@@ -374,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Fil kryptering adgangskode</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Ingen adgangskode angivet, kan ikke kryptere eller dekryptere.\nGå til Indstillinger -&gt; Generelt -&gt; Adgangskode for at angive en adgangskode.</string>
     <string name="encrypt_file_content">Kryptér filindhold</string>
+    <string name="utf8_with_bom">UTF-8 med BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Kunne ikke kryptere filindholdet. Filen blev ikke gemt.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Kunne ikke dekryptere fil indhold. Har du brugt en forkert adgangskode? Er filen virkelig krypteret med Markors AES kryptering?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Adgangskode allerede angivet. Indstilling af en ny adgangskode vil overskrive den eksisterende adgangskode, og du kan muligvis ikke længere tilgå filer, hvis du glemmer adgangskoden.</string>

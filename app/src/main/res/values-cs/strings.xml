@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
     <string name="sync_to_local_folder_notice">Poznámka: Synchronizační aplikace mohou ukládat soubory do vlastních složek. Otevřete je tím, že změníte v aplikaci Markor umístění složky s dokumenty, nebo pomocí správce souborů.</string>
-    <string name="configure_in_the_apps_settings">Nastavte v nastavení aplikace</string>
     <string name="vertical_alignment">Vertikální vyrovnání</string>
     <string name="horizontal_alignment">Vodorovné zarovnání</string>
     <string name="default_">Standardní</string>
@@ -374,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Heslo pro zašifrování souboru</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Není nastaveno žádné heslo, nelze šifrovat ani dešifrovat.\nPřejděte do Nastavení -&gt; Obecné -&gt; Heslo pro zašifrování souboru.</string>
     <string name="encrypt_file_content">Šifrovat obsah souboru</string>
+    <string name="utf8_with_bom">UTF-8 s BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Nelze zašifrovat obsah souboru. Soubor nebyl uložen.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Nelze dešifrovat obsah souboru. Použito nesprávné heslo? Je soubor opravdu šifrován pomocí AES šifrování programu Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Heslo je již nastaveno. Zadáním nového hesla se přepíše stávající heslo a v případě, že ho zapomenete, již možná nebudete moci přistupovat k souborům.</string>

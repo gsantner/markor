@@ -192,7 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Tambah (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor hanya dapat mengedit file lokal, dokumen tersedia secara offline dan tidak mendukung pengelola berkas yang tidak menyertakan berkas utasan penuh.</string>
     <string name="sync_to_local_folder_notice">Catatan: Aplikasi sinkronisasi dapat menempatkan file di folder kustom. Buka dengan mengubah folder dokumen Markor yang sesuai, atau di pengelola file lain.</string>
-    <string name="configure_in_the_apps_settings">Konfigurasi di setelan aplikasi</string>
     <string name="vertical_alignment">Letak vertikal</string>
     <string name="horizontal_alignment">Letak horizontal</string>
     <string name="default_">Bawaan</string>

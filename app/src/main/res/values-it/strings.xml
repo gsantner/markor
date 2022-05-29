@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Più (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Puoi aprirli modificando la cartella dei documenti di Markor, o usando un altro file manager.</string>
-    <string name="configure_in_the_apps_settings">Configura nelle impostazioni dell\'applicazione</string>
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orizzontale</string>
     <string name="default_">Predefinito</string>
@@ -374,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Password di cifratura file</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Nessuna password impostata, impossibile cifrare o decifrare.\nVai a Impostazioni -&gt; Generale -&gt; Password per impostare una password.</string>
     <string name="encrypt_file_content">Crittografa il contenuto del file</string>
+    <string name="utf8_with_bom">UTF-8 con BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Impossibile crittografare il contenuto del file. Il file non è stato salvato.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Impossibile decifrare il contenuto del file. Hai usato una password sbagliata? Il file è veramente crittografato con la crittografia AES di Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Password già impostata. Impostare una nuova password sovrascriverà la password esistente e potresti non essere più in grado di accedere ai file nel caso in cui dimentichi la password.</string>

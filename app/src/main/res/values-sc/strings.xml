@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Prus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor podet editare petzi documentos locales e disponìbiles chene sa connessione a ìnternet e non suportat gestore de documentos chi non frunint s\'àndala intrea pro sos documentos.</string>
     <string name="sync_to_local_folder_notice">Ammenta·ti: sas aplicatziones de sincronizatzione diant pòdere sarvare sos documentos in cartellas personalizadas. Aberi·los mudende sa cartella de sos documentos de Markor, o impreende un\'àteru gestore de documentos.</string>
-    <string name="configure_in_the_apps_settings">Configura in sas impostatziones de s\'aplicatzione</string>
     <string name="vertical_alignment">Alliniamentu verticale</string>
     <string name="horizontal_alignment">Alliniamentu orizontale</string>
     <string name="default_">Predefinidu</string>
@@ -374,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Crae de tzifradura de su documentu</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Peruna crae de tzifradura impostada, non si podet tzifrare o detzifrare.\nBae a sas Impostatziones -&gt; Generales -&gt; Crae pro impostare una crae.</string>
     <string name="encrypt_file_content">Tzifra su cuntenutu de su documentu</string>
+    <string name="utf8_with_bom">UTF-8 cun BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Tzifradura de su documentu fallida. Su documentu no est istadu sarvadu.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Detzifradura de su cuntenutu de su documentu fallida. As impreadu una crae isballiada? Su documentu est tzifradu cun sa critografia AES de Markor a beru?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Crae giai impostada. Impostende una crae noa as a subraiscrìere sa crae chi b\'est e dias pòdere no èssere prus in gradu de atzèdere a sos documentos, s\'in casu mai as a ismentigare sa crae.</string>

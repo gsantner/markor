@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
     <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
-    <string name="configure_in_the_apps_settings">Налаштувати в налаштуваннях додатку</string>
     <string name="vertical_alignment">Вертикальне вирівнювання</string>
     <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
     <string name="default_">За замовчуванням</string>
@@ -374,6 +373,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Пароль шифрування файлу</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Пароль не встановлено, тому неможливо шифрувати чи розшифровувати.\nПерейдіть до налаштувань -&gt; Загальне -&gt; Пароль щоб встановити пароль.</string>
     <string name="encrypt_file_content">Шифрувати вміст файлу</string>
+    <string name="utf8_with_bom">UTF-8 з BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Не вдалося зашифрувати вміст файлу. Файл не було збережено.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Не вдалося розшифрувати вміст файлу. Ви використовуєте неправильний пароль? Файл дійсно було зашифровано з використанням Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Пароль уже встановлено. Встановлення нового пароля перезапише наявний пароль, і ви втратите доступ до файлів, якщо забудете пароль.</string>

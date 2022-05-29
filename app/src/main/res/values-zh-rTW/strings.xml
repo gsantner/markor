@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">加號 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅能編輯本機或離線的可用文件，也不支援未提供完整路徑的檔案管理器。</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
-    <string name="configure_in_the_apps_settings">在程式的設定選項中調校。</string>
     <string name="vertical_alignment">垂直偏移</string>
     <string name="horizontal_alignment">水平偏移</string>
     <string name="default_">系統預設</string>
@@ -373,6 +372,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">檔案加密密碼</string>
     <string name="no_password_set_cannot_encrypt_decrypt">未設定密碼，無法加密或解密。\n 請到設定-&gt; 一般 -&gt; 密碼，設定一個密碼。</string>
     <string name="encrypt_file_content">加密檔案內容</string>
+    <string name="utf8_with_bom">帶 BOM 的 UTF-8</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">無法加密檔案內容。檔案未儲存。</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">無法解密檔案內容。你的密碼錯了嗎？這個檔案真的是用Markors的AES加密過的嗎？</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">已設好密碼。設定新密碼將會覆蓋既存的密碼，如果你忘了新密碼，可能不能再讀取檔案了。</string>

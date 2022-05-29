@@ -834,6 +834,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
     }
 
+    public boolean getNewFileDialogLastUsedUtf8Bom() {
+        return getBool(R.string.pref_key__new_file_dialog_lastused_encryption, false);
+    }
+
+    public void setNewFileDialogLastUsedUtf8Bom(boolean b) {
+        setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
+    }
+
     public String getNewFileDialogLastUsedExtension() {
         return getString(R.string.pref_key__new_file_dialog_lastused_extension, ".md");
     }

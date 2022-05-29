@@ -189,7 +189,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">கூட்டல் குறி (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ஆல் உங்கள் சாதனத்தில் இருக்கும், இணையத்தொடர்பு தேவைப்படாத ஆவணங்களை மட்டுமே திருத்த முடியும் மற்றும் முழு கோப்பு பாதை வழங்காத கோப்பு மேலாளர் செயலிக்கு ஆதரவளிக்காது.</string>
     <string name="sync_to_local_folder_notice">குறிப்பு: ஒத்திசைவு செயலிகள் ஆவணங்களை தனிப்பயன் கோப்புறைகளில் வைக்கலாம். Markor ன் ஆவண கோப்புறையை மாற்றுதல் அல்லது மற்றய கோப்பு நிர்வாகி மூலம் அவைகளை திறக்கலாம்.</string>
-    <string name="configure_in_the_apps_settings">செயலியின் அமைப்புகளுடன் கட்டமைக்கவும்</string>
     <string name="vertical_alignment">செங்குத்து சீரமைப்பு</string>
     <string name="horizontal_alignment">கிடைமட்ட சீரமைப்பு</string>
     <string name="default_">இயல்புநிலை</string>

@@ -9,9 +9,4 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">การตั้งค่าโปรไฟล์</string>
-    <string name="light">สว่าง</string>
-    <string name="rename">เปลี่ยนชื่อ</string>
-    <string name="name">ชื่อเรื่อง</string>
-</resources>
+<resources xmlns:tools="http://schemas.android.com/tools"></resources>
