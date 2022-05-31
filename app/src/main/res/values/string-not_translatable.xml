@@ -113,7 +113,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="regex" translatable="false">Regex</string>
     <string name="multiline" translatable="false">Multiline</string>
 
-    <string name="hide_directories_wildcards_default" translatable="false">*_files,*.assets</string>
 
     <!--
         Preference keys
@@ -307,14 +306,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="accordion" translatable="false">Accordion</string>
     <string name="pref_key__default_encryption_password" translatable="false">pref_key__default_encryption_password</string>
     <string name="pref_key__set_encryption_password" translatable="false">pref_key__set_encryption_password</string>
-    <string name="empty_string" translatable="false" />
+    <string name="empty_string" translatable="false"/>
     <string name="pref_key__new_file_dialog_lastused_encryption" translatable="false">pref_key__new_file_dialog_lastused_encryption</string>
     <string name="pref_key__new_file_dialog_lastused_extension" translatable="false">pref_key__new_file_dialog_lastused_extension</string>
     <string name="pref_key__new_file_dialog_lastused_type" translatable="false">pref_key__new_file_dialog_lastused_type</string>
     <string name="pref_key__file_browser_last_browsed_folder" translatable="false">pref_key__file_browser_last_browsed_folder</string>
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
-    <string name="pref_key__hide_directories_wildcards" translatable="false">pref_key__hide_directories_wildcards</string>
     <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
     <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
     <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>

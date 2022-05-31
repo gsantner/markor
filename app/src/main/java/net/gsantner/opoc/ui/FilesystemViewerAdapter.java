@@ -34,7 +34,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.FileWithCachedData;
@@ -178,7 +177,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                        isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
+                isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(Color.parseColor("#E3B51B"));
@@ -668,13 +667,13 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
             constraint = constraint.toString().toLowerCase(Locale.getDefault()).trim();
             _filteredList.clear();
 
-            final AppSettings appSettings = AppSettings.get();
-            for (File file : _originalList) {
-                if (constraint.length() == 0 || file.getName().toLowerCase(Locale.getDefault()).contains(constraint)) {
-                    if (file.isDirectory() && appSettings.isHiddenDirectory(file.getName())) {
-                        continue;
+            if (constraint.length() == 0) {
+                _filteredList.addAll(_originalList);
+            } else {
+                for (File file : _originalList) {
+                    if (file.getName().toLowerCase(Locale.getDefault()).contains(constraint)) {
+                        _filteredList.add(file);
                     }
-                    _filteredList.add(file);
                 }
             }
 
