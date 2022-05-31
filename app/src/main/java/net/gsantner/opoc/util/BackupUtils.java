@@ -178,7 +178,7 @@ public class BackupUtils {
     @SuppressLint("ApplySharedPref")
     public static void loadBackup(final Context context, final File backupFileContainingJson) {
         try {
-            final JSONObject json = new JSONObject(FileUtils.readTextFileFast(backupFileContainingJson));
+            final JSONObject json = new JSONObject(FileUtils.readTextFileFast(backupFileContainingJson).first);
             final List<SharedPreferences.Editor> editors = new ArrayList<>();
             for (Iterator<String> it = json.keys(); it.hasNext(); ) {
                 final String prefName = it.next();
