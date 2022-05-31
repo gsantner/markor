@@ -177,7 +177,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
+                        isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(Color.parseColor("#E3B51B"));
@@ -601,7 +601,9 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
         final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
-        final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".");
+        final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".") &&
+                !(f.isDirectory() && filename.endsWith("_files") && new File(dir, filename.replaceFirst("_files$", ".html")).isFile()) &&
+                !(f.isDirectory() && filename.endsWith(".assets") && new File(dir, filename.replaceFirst("\\.assets$", ".md")).isFile());
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;
     }
