@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Συν (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Το Markor μπορεί να επεξεργαστεί μόνο τοπικά, offline διαθέσιμα έγγραφα και δεν υποστηρίζει διαχειριστές αρχείων που δεν παρέχουν την πλήρη διαδρομή αρχείου.</string>
     <string name="sync_to_local_folder_notice">Σημείωση: Οι εφαρμογές συγχρονισμού μπορούν να τοποθετούν αρχεία σε προσαρμοσμένους φακέλους. Ανοίξτε τα αλλάζοντας αναλόγως το φάκελο εγγράφων του Markor, ή σε άλλο διαχειριστή αρχείων.</string>
-
     <string name="vertical_alignment">Κατακόρυφη στοίχιση</string>
     <string name="horizontal_alignment">Οριζόντια στοίχιση</string>
     <string name="default_">Προεπιλογή</string>
