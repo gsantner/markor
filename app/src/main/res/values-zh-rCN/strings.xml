@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">加号 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、离线可用的文档，且不支持不提供完整文件路径的文件管理器。</string>
     <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，请相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
-
     <string name="vertical_alignment">垂直对齐</string>
     <string name="horizontal_alignment">水平对齐</string>
     <string name="default_">默认</string>

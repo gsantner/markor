@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor poate edita doar documentele locale disponibile offline şi nu acceptă manageri de fişiere care nu oferă calea completă a fişierelor.</string>
     <string name="sync_to_local_folder_notice">Notă: Aplicațiile de sincronizare pot plasa fișiere în dosare personalizate. Deschide-le schimbând dosarul documentului Markor\'s în consecință sau într-un alt manager de fișiere.</string>
-
     <string name="vertical_alignment">Aliniere verticală</string>
     <string name="horizontal_alignment">Aliniere orizontală</string>
     <string name="default_">Implicit</string>

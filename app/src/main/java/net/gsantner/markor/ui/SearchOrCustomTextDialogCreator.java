@@ -674,9 +674,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
-        dopt.okButtonText = 0;
         dopt.messageText = Html.fromHtml("<small><small>" + folder.getAbsolutePath() + "</small></small>");
-        dopt.callback = (key) -> callback.callback(FileUtils.readTextFileFast(texts.get(key)).first);
+        dopt.positionCallback = (ind) -> callback.callback(FileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només pot editar documents locals disponibles sense connexió i no admet administradors d\'arxius que no proporcionin la ruta completa del fitxer.</string>
     <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades. Podeu obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
-
     <string name="vertical_alignment">Alineació vertical</string>
     <string name="horizontal_alignment">Alineació horitzontal</string>
     <string name="default_">Per defecte</string>

@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan kun redigere lokale, offline tilgængelige dokumenter og understøtter ikke filadministratorer, der ikke giver den fulde filsti.</string>
     <string name="sync_to_local_folder_notice">Notits: Synkroniserende programmer vil måske placere filer i brugerdefinerede mapper. Disse kan åbnes ved at ændre Makors dokumentmappe eller i et andet filhåndteringsprogram</string>
-
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontalt justering</string>
     <string name="default_">Standard</string>

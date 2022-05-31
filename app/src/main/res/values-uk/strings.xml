@@ -193,7 +193,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
     <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
-
     <string name="vertical_alignment">Вертикальне вирівнювання</string>
     <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
     <string name="default_">За замовчуванням</string>
