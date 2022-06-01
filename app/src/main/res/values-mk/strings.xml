@@ -202,4 +202,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attach">Придонеси</string>
     <string name="copy_file">Копирај фајл</string>
     <string name="page">Страница</string>
+    <string name="experimental_features">Експериментални карактеристики</string>
+    <string name="tools">Алатки</string>
+    <string name="reading">Читање</string>
+    <string name="read">Прочитај</string>
+    <string name="table">Табла</string>
+    <string name="delete_lines">Избриши линии</string>
+    <string name="open_link">Отвори линк</string>
+    <string name="common_color_picker">Бирач на боја</string>
+    <string name="date_and_time">Датум и време</string>
+    <string name="jump_to_bottom">Оди на дното</string>
+    <string name="quote">Цитат</string>
+    <string name="heading">Заглавје</string>
+    <string name="heading_1">Заглавје 1</string>
+    <string name="heading_2">Заглавје 2</string>
+    <string name="heading_3">Заглавје 3</string>
+    <string name="created">Создадено</string>
+    <string name="code_block">Блок на код</string>
+    <string name="copy_move_conflict_message">\'%s\' веќе постои во %s</string>
+    <string name="infinite">Безконечно</string>
+    <string name="browse_by_project">Пребарај по проект</string>
+    <string name="completed">Завршено</string>
 </resources>
