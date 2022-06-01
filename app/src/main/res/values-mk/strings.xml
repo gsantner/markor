@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Создај директориум</string>
     <string name="create_new_document">Создај нов документ</string>
     <string name="move">Премести</string>
+    <string name="copy">Копирај</string>
     <string name="info">Инфо</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Фајл/директориум веќе постои! Одберете друго име</string>
     <string name="import_from_device">Увезете од други уреди</string>
@@ -47,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (како обичен текст)</string>
     <string name="document_editor_font">Документ Уредувачки Фонт</string>
     <string name="theme">Тема</string>
+    <string name="open_existing_files_in_view_mode">Отварај постечки фајлови во прегледен режим</string>
     <string name="about">За</string>
     <string name="plaintext">Обичен текст</string>
     <string name="file">Фајл</string>
@@ -108,6 +110,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive">Архивирај</string>
     <string name="add_task">Додади задача</string>
     <string name="add_x_witharg">Додади %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Документ што ќе се отвори и сними како \"%s\"</string>
     <string name="refresh">Освежи</string>
     <string name="create_shortcut">Креирај кратенка</string>
     <string name="files_and_folders">Фајлови и директориуми</string>
@@ -121,6 +124,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_settings" needed="false">Нагодувања на апликација</string>
     <string name="editor_settings" needed="false">Нагодувања на Едитор</string>
     <string name="number_of_files_witharg" needed="false">Број на фајлови: %d</string>
+    <string name="app_wide">Низ апликацијата</string>
     <string name="main_view">Главен приказ</string>
     <string name="format">Формат</string>
     <string name="contexts">Контексти</string>
@@ -130,6 +134,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Друго</string>
     <string name="empty_file">Празен фајл</string>
     <string name="tasks_with_todays_date">Задачи со денешен датум</string>
+    <string name="rtl_rendering">Десно-на-лево рендерирање</string>
+    <string name="highlight_line_ending">Означени краеви на линии</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Означени краеви на линиите со две или повеќе празни места</string>
     <string name="general">Општо</string>
     <string name="resources">Ресурси</string>
 </resources>
