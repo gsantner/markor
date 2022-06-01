@@ -601,12 +601,15 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
         final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
-        final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".") &&
-                !(f.isDirectory() &&
-                        ((filename.endsWith("_files") && new File(dir, filename.replaceFirst("_files$", ".html")).isFile()) ||
-                                (filename.endsWith(".assets") && new File(dir, filename.replaceFirst("\\.assets$", ".md")).isFile())));
+        final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;
+    }
+
+    private boolean isAccessoryFolder(File dir, String filename, File file) {
+        return file.isDirectory() &&
+                ((filename.endsWith("_files") && new File(dir, filename.replaceFirst("_files$", ".html")).isFile()) ||
+                        (filename.endsWith(".assets") && new File(dir, filename.replaceFirst("\\.assets$", ".md")).isFile()));
     }
 
     public FilesystemViewerData.Options getFsOptions() {
