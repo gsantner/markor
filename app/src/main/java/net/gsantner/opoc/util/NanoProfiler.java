@@ -10,8 +10,6 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -73,7 +71,6 @@ public class NanoProfiler {
             text = "NanoProfiler::: " + _groupCount + text;
             _debugText += text + "\n";
             System.out.println(text);
-            Log.i("markor_regex_replace", text);
         }
     }
 }

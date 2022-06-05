@@ -20,7 +20,6 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
@@ -388,14 +387,11 @@ public abstract class TextActions {
      * @param patterns An array of ReplacePattern
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
-        final long start = System.nanoTime();
         if (editor instanceof HighlightingEditor) {
             ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns));
         } else {
             _runRegexReplaceAction(editor, patterns);
         }
-        // TODO - remove
-        Log.i("markor_regex_replace", "" + 0.001 * (System.nanoTime() - start) + " us");
     }
 
     private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
