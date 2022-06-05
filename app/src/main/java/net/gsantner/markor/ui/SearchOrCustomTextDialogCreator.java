@@ -34,6 +34,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.vladsch.flexmark.util.collection.OrderedMap;
+
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
@@ -51,7 +53,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -648,33 +649,42 @@ public class SearchOrCustomTextDialogCreator {
         }
     }
 
-    public static void showInsertSnippetDialog(final Activity activity, final Callback.a1<String> callback) {
-        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-        final AppSettings as = new AppSettings(activity);
+    // Read all files in snippets folder with appropriate extension
+    // Create a map of sippet title -> text
+    public static Map<String, File> getSnippets(final AppSettings as) {
+        final Map<String, File> texts = new OrderedMap<>();
         final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
         if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
             if (!folder.mkdirs()) {
-                return;
+                return texts;
             }
         }
 
         // Read all files in snippets folder with appropriate extension
         // Create a map of sippet title -> text
-        final Map<String, File> texts = new HashMap<>();
-        for (final String name : folder.list()) {
+        final String[] ls = folder.list();
+        for (final String name : ls == null ? new String[]{} : ls) {
             final File item = new File(folder, name);
             if (item.exists() && item.canRead() && FileUtils.isTextFile(item)) {
                 texts.put(name, item);
             }
         }
+        return texts;
+    }
+
+    public static void showInsertSnippetDialog(final Activity activity, final Callback.a1<String> callback) {
+        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+
+        final AppSettings as = new AppSettings(activity);
+        final Map<String, File> texts = getSnippets(as);
 
         final List<String> data = new ArrayList<>(texts.keySet());
         Collections.sort(data);
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
-        dopt.messageText = Html.fromHtml("<small><small>" + folder.getAbsolutePath() + "</small></small>");
+        dopt.messageText = Html.fromHtml("<small><small>" + as.getSnippetsFolder().getAbsolutePath() + "</small></small>");
         dopt.positionCallback = (ind) -> callback.callback(FileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

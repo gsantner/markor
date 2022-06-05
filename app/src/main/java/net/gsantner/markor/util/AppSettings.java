@@ -135,6 +135,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
+    public File getSnippetsFolder(){
+        return new File(getNotebookDirectory(), ".app/snippets");
+    }
+
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
