@@ -206,7 +206,7 @@ public final class StringUtils {
      * @param chars Array of chars to count
      * @return number of instances of each char in [start, end)
      */
-    public static int[] countChars(final CharSequence s, int start, int end, final char ... chars) {
+    public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
         final int[] counts = new int[chars.length];
         start = Math.max(0, start);
         end = Math.min(end, s.length());
@@ -560,7 +560,7 @@ public final class StringUtils {
         @Override
         public Editable replace(int st, int en, CharSequence source, int start, int end) {
             // Don't do extra work if no change is not real
-            if (!checkSame(this , st, en, source, start, end)) {
+            if (!checkSame(this, st, en, source, start, end)) {
                 if (copy == null) {
                     // All operations will now run on copy
                     // SpannableStringBuilder maintains spans etc
