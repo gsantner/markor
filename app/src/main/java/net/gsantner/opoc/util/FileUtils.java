@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection",  "TryFinallyCanBeTryWithResources"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
@@ -50,8 +50,9 @@ public class FileUtils {
      */
     public static class FileInfo implements Serializable {
         public boolean hasBom = false;
-        public FileInfo setBom(boolean hasBom) {
-            this.hasBom = hasBom;
+
+        public FileInfo withBom(boolean bom) {
+            hasBom = bom;
             return this;
         }
     }
@@ -64,10 +65,11 @@ public class FileUtils {
 
             final byte[] bomBuffer = new byte[3];
             final int bomReadLength = inputStream.read(bomBuffer);
-            info.hasBom = bomReadLength == 3 &&
+            info.withBom(bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
-                    bomBuffer[2] == (byte) 0xBF;
+                    bomBuffer[2] == (byte) 0xBF
+            );
 
             if (!info.hasBom && bomReadLength > 0) {
                 result.write(bomBuffer, 0, bomReadLength);
