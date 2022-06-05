@@ -13,6 +13,8 @@ package net.gsantner.opoc.util;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -27,6 +29,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -50,7 +54,6 @@ public class FileUtils {
      */
     public static class FileInfo implements Serializable {
         public boolean hasBom = false;
-
         public FileInfo withBom(boolean bom) {
             hasBom = bom;
             return this;
@@ -65,6 +68,7 @@ public class FileUtils {
 
             final byte[] bomBuffer = new byte[3];
             final int bomReadLength = inputStream.read(bomBuffer);
+
             info.withBom(bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&

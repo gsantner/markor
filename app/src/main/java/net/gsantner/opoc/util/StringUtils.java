@@ -10,15 +10,20 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.GetChars;
 import android.text.InputFilter;
 import android.text.Layout;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -462,30 +467,53 @@ public final class StringUtils {
         return interpolated.toString();
     }
 
-    // Find the smallest single difference region { a, b, c }
-    // s.t. setting dest[a:b] = source[a:c] makes dest == source
-    public static int[] findDiff(final CharSequence dest, final CharSequence source) {
+    /**
+     * Find the smallest single diff from source -> dest
+     *
+     * @param dest        Into which we want to apply the diff
+     * @param source      From which we want to apply the diff
+     * @param startSkip   Don't check the first startSkip chars for sameness
+     * @param endSkip     Don't check the first startSkip chars for sameness
+     * @return  { a, b, c } s.t. setting dest[a:b] = source[a:c] makes dest == source
+     */
+    public static int[] findDiff(final CharSequence dest, final CharSequence source, final int startSkip, final int endSkip) {
+        final int[] diff = findDiff(dest, startSkip, dest.length() - endSkip, source, startSkip, source.length() - endSkip);
+        return new int[] { diff[0], diff[1], diff[3] };
+    }
 
-        final int dl = dest.length(), sl = source.length();
+    /**
+     * Find the smallest single diff from source -> dest
+     *
+     * @param dest        Into which we want to apply the diff
+     * @param ds          Dest start region
+     * @param dn          Dest end region
+     * @param source      From which we want to apply the diff
+     * @param ss          Source start region
+     * @param sn          Dest end region
+     *
+     * @return  { a, b, c, d } s.t. setting dest[a:b] = source[c:d] will make dest[ds:dn] == source[ss:sn]
+     */
+    public static int[] findDiff(final CharSequence dest, final int ds, final int dn, final CharSequence source, final int ss, final int sn) {
+        final int dl = Math.max(dn - ds, 0), sl = Math.max(sn - ss, 0);
         final int minLength = Math.min(dl, sl);
 
         int start = 0;
-        while (start < minLength && source.charAt(start) == dest.charAt(start)) start++;
+        while (start < minLength && source.charAt(start + ss) == dest.charAt(start + ds)) start++;
 
         // Handle several special cases
         if (sl == dl && start == sl) { // Case where 2 sequences are same
-            return new int[]{sl, sl, sl};
+            return new int[]{dn, dn, sn, sn};
         } else if (sl < dl && start == sl) { // Pure crop
-            return new int[]{sl, dl, sl};
+            return new int[]{ds + start, dn, sn, sn};
         } else if (dl < sl && start == dl) { // Pure append
-            return new int[]{dl, dl, sl};
+            return new int[]{dn, dn, start + ss, sn};
         }
 
         int end = 0;
         final int maxEnd = minLength - start;
-        while (end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
+        while (end < maxEnd && source.charAt(sn - end - 1) == dest.charAt(dn - end - 1)) end++;
 
-        return new int[]{start, dl - end, sl - end};
+        return new int[]{ds + start, dn - end, ss + start, sn - end};
     }
 
     // Compute the line indent, counting each tab as tabSize spaces
@@ -494,31 +522,6 @@ public final class StringUtils {
         final int indentEnd = getNextNonWhitespace(text, lineStart);
         final int[] counts = countChars(text, lineStart, indentEnd, ' ', '\t');
         return counts[0] + tabSize * counts[1];
-    }
-
-    // Checks if two CharSequences are identical between [start, end)
-    public static boolean checkSame(
-            final CharSequence a, final int aStart, final int aEnd,
-            final CharSequence b, final int bStart, final int bEnd) {
-
-        // Return not same for various pathological cases
-        if ((aEnd < aStart) || (bEnd < bStart) || !isValidIndex(a, aStart, aEnd - 1) || !isValidIndex(b, bStart, bEnd - 1)) {
-            return false;
-        }
-
-        // Not same if lengths not same
-        if ((aEnd - aStart) != (bStart - bEnd)) {
-            return false;
-        }
-
-        final int length = aEnd - aStart;
-        for (int i = 0; i < length; i++) {
-            if (a.charAt(aStart + i) != b.charAt(bStart + i)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -531,7 +534,9 @@ public final class StringUtils {
     public static class ChunkedEditable implements Editable {
 
         private final Editable original;
-        private Editable copy;
+        private StringBuilder copy;
+        private int _startSkip = 0;
+        private int _endSkip = 0;
 
         public static ChunkedEditable wrap(@NonNull final Editable e) {
             return (e instanceof ChunkedEditable) ? (ChunkedEditable) e : new ChunkedEditable(e);
@@ -547,30 +552,30 @@ public final class StringUtils {
                 return false;
             }
 
-            final int[] diff = StringUtils.findDiff(original, copy);
-            if (diff[0] != diff[1] || diff[0] != diff[2]) {
+            final int[] diff = StringUtils.findDiff(original, copy, _startSkip, Math.max(_endSkip, 0));
+            final boolean hasDiff = diff[0] != diff[1] || diff[0] != diff[2];
+            if (hasDiff) {
                 original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
-                copy = null; // Reset as we have applied all changed
-                return true;
             }
-            return false;
-        }
-
-        private Editable select() {
-            return copy != null ? copy : original;
+            copy = null; // Reset as we have applied all changed
+            return hasDiff;
         }
 
         // All other functions which edit the editable alias this routine
         @Override
         public Editable replace(int st, int en, CharSequence source, int start, int end) {
-            // Don't do extra work if no change is not real
-            if (!checkSame(this, st, en, source, start, end)) {
+            // Replace minimal region, only if actually required - replacing is expensive
+            final int[] diff = findDiff((copy != null ? copy : original), st, en, source, start, end);
+            if (diff[0] != diff[1] || diff[2] != diff[3]) {
                 if (copy == null) {
                     // All operations will now run on copy
                     // SpannableStringBuilder maintains spans etc
-                    copy = new SpannableStringBuilder(original);
+                    copy = new StringBuilder(original);
+                    _startSkip = _endSkip = copy.length();
                 }
-                select().replace(st, en, source, start, end);
+                _startSkip = Math.min(_startSkip, diff[0]);
+                _endSkip = Math.min(_endSkip, copy.length() - diff[1] - 1);
+                copy.replace(diff[0], diff[1], StringUtils.toString(source, diff[2], diff[3]));
             }
             return this;
         }
@@ -623,75 +628,106 @@ public final class StringUtils {
 
         // Other functions - all just forwarded to copy or original as needed
         // -------------------------------------------------------------------------------
-        @Override
-        public void clearSpans() {
-            select().clearSpans();
-        }
-
-        @Override
-        public void setFilters(InputFilter[] filters) {
-            select().setFilters(filters);
-        }
-
-        @Override
-        public InputFilter[] getFilters() {
-            return select().getFilters();
-        }
-
-        @Override
-        public void getChars(int start, int end, char[] dest, int destoff) {
-            select().getChars(start, end, dest, destoff);
-        }
-
-        @Override
-        public void setSpan(Object what, int start, int end, int flags) {
-            select().setSpan(what, start, end, flags);
-        }
-
-        @Override
-        public void removeSpan(Object what) {
-            select().removeSpan(what);
-        }
-
-        @Override
-        public <T> T[] getSpans(int start, int end, Class<T> type) {
-            return select().getSpans(start, end, type);
-        }
-
-        @Override
-        public int getSpanStart(Object tag) {
-            return select().getSpanStart(tag);
-        }
-
-        @Override
-        public int getSpanEnd(Object tag) {
-            return select().getSpanEnd(tag);
-        }
-
-        @Override
-        public int getSpanFlags(Object tag) {
-            return select().getSpanFlags(tag);
-        }
-
-        @Override
-        public int nextSpanTransition(int start, int limit, Class type) {
-            return select().nextSpanTransition(start, limit, type);
-        }
 
         @Override
         public int length() {
-            return select().length();
+            return (copy != null ? copy : original).length();
         }
 
         @Override
         public char charAt(int index) {
-            return select().charAt(index);
+            return (copy != null ? copy : original).charAt(index);
         }
 
         @NonNull
         @Override
         public CharSequence subSequence(int start, int end) {
-            return select().subSequence(start, end);
+            return (copy != null ? copy : original).subSequence(start, end);
         }
+
+        @Override
+        public void getChars(int start, int end, char[] dest, int destoff) {
+            TextUtils.getChars(copy != null ? copy : original, start, end, dest, destoff);
+        }
+
+        // All spannable things unsupported
+        // -------------------------------------------------------------------------------
+        @Override
+        public void clearSpans() {
+            // Do nothing
+        }
+
+        @Override
+        public void setFilters(InputFilter[] filters) {
+            // Do nothing
+        }
+
+        @Override
+        public InputFilter[] getFilters() {
+            return null;
+        }
+
+        @Override
+        public void setSpan(Object what, int start, int end, int flags) {
+            // Do nothing
+        }
+
+        @Override
+        public void removeSpan(Object what) {
+            // Do nothing
+        }
+
+        @Override
+        public <T> T[] getSpans(int start, int end, Class<T> type) {
+            return null;
+        }
+
+        @Override
+        public int getSpanStart(Object tag) {
+            return -1;
+        }
+
+        @Override
+        public int getSpanEnd(Object tag) {
+            return -1;
+        }
+
+        @Override
+        public int getSpanFlags(Object tag) {
+            return 0;
+        }
+
+        @Override
+        public int nextSpanTransition(int start, int limit, Class type) {
+            return -1;
+        }
+    }
+
+    public static Runnable makeDebounced(final long delayMs, final Runnable callback) {
+        return makeDebounced(null, delayMs, callback);
+    }
+
+    // Debounce any callback
+    public static Runnable makeDebounced(final Handler handler, final long delayMs, final Runnable callback) {
+        final Handler _handler = handler == null ? new Handler(Looper.getMainLooper()) : handler;
+        final Object sync = new Object();
+        return () -> {
+            synchronized (sync) {
+                _handler.removeCallbacks(callback);
+                _handler.postDelayed(callback, delayMs);
+            }
+        };
+    }
+
+    // Converts region to string with a minimum of work
+    public static String toString(final CharSequence source, int start, int end) {
+        if (source instanceof String) {
+            // Already very fast
+            return ((String) source).substring(start, end);
+        }
+
+        final char[] buf = new char[end - start];
+        TextUtils.getChars(source, start, end, buf, 0);
+        return new String(buf);
     }
 }

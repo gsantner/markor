@@ -15,7 +15,6 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 
 import org.junit.Test;
 
-import java.util.List;
 import java.util.regex.Matcher;
 
 public class ZimWikiReplacePatternGeneratorTests {
@@ -147,7 +146,7 @@ public class ZimWikiReplacePatternGeneratorTests {
 
         private String replaceWithFirstMatchingPattern(List<TextActions.ReplacePattern> replacePatterns, String input) {
             for (TextActions.ReplacePattern replacePattern : replacePatterns) {
-                Matcher matcher = replacePattern.searchPattern.matcher(input);
+                Matcher matcher = replacePattern.matcher.reset(input);
                 if (matcher.find()) {
                     return matcher.replaceFirst(replacePattern.replacePattern);
                 }

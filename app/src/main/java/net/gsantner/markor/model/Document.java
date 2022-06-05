@@ -26,7 +26,6 @@ import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -233,13 +232,8 @@ public class Document implements Serializable {
         return saveContent(context, content, null, false);
     }
 
-    // Doing as we don't want to convert to string or copy unless necessary
-    private static int trimmedLength(final CharSequence c) {
-        return StringUtils.getLastNonWhitespace(c, c.length()) - StringUtils.getNextNonWhitespace(c, 0);
-    }
-
     public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, boolean isManualSave) {
-        if (!isManualSave && trimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
+        if (!isManualSave && TextUtils.getTrimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 

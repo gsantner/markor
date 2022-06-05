@@ -20,6 +20,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
@@ -200,11 +201,7 @@ public abstract class TextActions {
         String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
         SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
-        List<String> values = Collections.emptyList();
-        if (combinedKeys != null) {
-            values = new ArrayList<String>(Arrays.asList(combinedKeys.split(",")));
-        }
-        return values;
+        return combinedKeys != null ? Arrays.asList(combinedKeys.split(",")) : Collections.emptyList();
     }
 
     /**
@@ -330,9 +327,13 @@ public abstract class TextActions {
     }
 
     public static class ReplacePattern {
-        public final Pattern searchPattern;
+        public final Matcher matcher;
         public final String replacePattern;
         public final boolean replaceAll;
+
+        public boolean isSameReplace() {
+            return replacePattern.equals("$0");
+        }
 
         /**
          * Construct a ReplacePattern
@@ -342,9 +343,13 @@ public abstract class TextActions {
          * @param replaceAll     whether to replace all or just the first
          */
         public ReplacePattern(Pattern searchPattern, String replacePattern, boolean replaceAll) {
-            this.searchPattern = searchPattern;
+            this.matcher = searchPattern.matcher("");
             this.replacePattern = replacePattern;
             this.replaceAll = replaceAll;
+        }
+
+        public CharSequence replace() {
+            return replaceAll ? matcher.replaceAll(replacePattern) : matcher.replaceFirst(replacePattern);
         }
 
         public ReplacePattern(String searchPattern, String replacePattern, boolean replaceAll) {
@@ -361,23 +366,19 @@ public abstract class TextActions {
     }
 
     public void runRegexReplaceAction(final ReplacePattern... patterns) {
-        runRegexReplaceAction(Arrays.asList(patterns), false);
+        runRegexReplaceAction(Arrays.asList(patterns));
     }
 
     public void runRegexReplaceAction(final List<ReplacePattern> patterns) {
-        runRegexReplaceAction(patterns, false);
+        runRegexReplaceAction(_hlEditor, patterns);
     }
 
     public void runRegexReplaceAction(final String pattern, final String replace) {
-        runRegexReplaceAction(Arrays.asList(new ReplacePattern(pattern, replace)), false);
-    }
-
-    public void runRegexReplaceAction(final List<ReplacePattern> patterns, final boolean matchAll) {
-        runRegexReplaceAction(_hlEditor, patterns, matchAll);
+        runRegexReplaceAction(Collections.singletonList(new ReplacePattern(pattern, replace)));
     }
 
     public static void runRegexReplaceAction(final EditText editor, final ReplacePattern... patterns) {
-        runRegexReplaceAction(editor, Arrays.asList(patterns), false);
+        runRegexReplaceAction(editor, Arrays.asList(patterns));
     }
 
     /**
@@ -385,74 +386,57 @@ public abstract class TextActions {
      * This function wraps _runRegexReplaceAction with a call to disable text trackers
      *
      * @param patterns An array of ReplacePattern
-     * @param matchAll Whether to stop matching subsequent ReplacePatterns after first match+replace
      */
-    public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
+    public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
+        final long start = System.nanoTime();
         if (editor instanceof HighlightingEditor) {
-            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns, matchAll));
+            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns));
         } else {
-            _runRegexReplaceAction(editor, patterns, matchAll);
+            _runRegexReplaceAction(editor, patterns);
         }
+        // TODO - remove
+        Log.i("markor_regex_replace", "" + 0.001 * (System.nanoTime() - start) + " us");
     }
 
-    private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns, final boolean matchAll) {
+    private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
 
-        Editable text = editor.getText();
-        final int[] selection = StringUtils.getSelection(editor);
-        final int[] lStart = StringUtils.getLineOffsetFromIndex(text, selection[0]);
-        final int[] lEnd = StringUtils.getLineOffsetFromIndex(text, selection[1]);
+        final int[] sel = StringUtils.getSelection(editor);
+        final StringUtils.ChunkedEditable text = StringUtils.ChunkedEditable.wrap(editor.getText());
 
-        // Chunk if more than one line will be acted upon
-        text = lEnd[0] != lStart[0] ? StringUtils.ChunkedEditable.wrap(text) : text;
+        // Offset of selection start from text end - used to restore selection
+        final int selEndOffset = text.length() - sel[1];
+        // Offset of selection start from line end - used to restore selection
+        final int selStartOffset = sel[1] == sel[0] ? selEndOffset : StringUtils.getLineEnd(text, sel[0]) - sel[0];
 
-        int lineStart = StringUtils.getLineStart(text, selection[0]);
-        int selEnd = StringUtils.getLineEnd(text, selection[1]);
+        // Start of line on which sel begins
+        final int selStartStart = StringUtils.getLineStart(text, sel[0]);
+        // Number of lines we will be modifying
+        final int lineCount = StringUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
 
-        while (lineStart <= selEnd && lineStart <= text.length()) {
+        int lineStart = selStartStart;
 
-            final int lineEnd = StringUtils.getLineEnd(text, lineStart, selEnd);
-            final CharSequence line = text.subSequence(lineStart, lineEnd);
+        for (int i = 0; i < lineCount; i++) {
+
+            int lineEnd = StringUtils.getLineEnd(text, lineStart);
+            final String line = StringUtils.toString(text, lineStart, lineEnd);
 
             for (final ReplacePattern pattern : patterns) {
-
-                final Matcher searcher = pattern.searchPattern.matcher(line);
-
-                // Find matched region
-                int matchStart = line.length();
-                int matchEnd = -1;
-                while (searcher.find()) {
-                    matchStart = Math.min(matchStart, searcher.start());
-                    matchEnd = Math.max(matchEnd, searcher.end());
-
-                    if (!pattern.replaceAll) break; // Limit region based on search type
-                }
-
-                if (matchEnd >= matchStart) { // Will be true iff at least one match has been found
-                    if (!pattern.replacePattern.equals("$0")) {
-                        final CharSequence oldRegion = line.subSequence(matchStart, matchEnd);
-                        // Have to create a new matcher, unfortunately, as replace does not respect region
-                        final Matcher replacer = pattern.searchPattern.matcher(oldRegion);
-                        final String newRegion = pattern.replaceAll ? replacer.replaceAll(pattern.replacePattern) : replacer.replaceFirst(pattern.replacePattern);
-                        text.replace(matchStart + lineStart, matchEnd + lineStart, newRegion);
-                        // Change effective selection based on update
-                        selEnd += newRegion.length() - oldRegion.length();
+                if (pattern.matcher.reset(line).find()) {
+                    if (!pattern.isSameReplace()) {
+                        text.replace(lineStart, lineEnd, pattern.replace());
                     }
-
-                    if (!matchAll) break; // Exit after first match
+                    break;
                 }
             }
 
-            lineStart = StringUtils.getLineEnd(text, lineStart, selEnd) + 1;
+            lineStart = StringUtils.getLineEnd(text, lineStart) + 1;
         }
 
-        // Apply changes if chunked
-        if (text instanceof StringUtils.ChunkedEditable) {
-            ((StringUtils.ChunkedEditable) text).applyChanges();
-        }
+        text.applyChanges();
 
-        editor.setSelection(
-                StringUtils.getIndexFromLineOffset(text, lStart),
-                StringUtils.getIndexFromLineOffset(text, lEnd));
+        final int newSelEnd = text.length() - selEndOffset;
+        final int newSelStart = sel[0] == sel[1] ? newSelEnd : StringUtils.getLineEnd(text, selStartStart) - selStartOffset;
+        editor.setSelection(newSelStart, newSelEnd);
     }
 
     protected void runInlineAction(String _action) {
