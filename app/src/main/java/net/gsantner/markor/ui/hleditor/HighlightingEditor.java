@@ -192,6 +192,15 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    @Override
+    public boolean onTextContextMenuItem(int id) {
+        // Copy-paste fix by bad richtext pasting - example text from code at https://plantuml.com/activity-diagram-beta
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && id == android.R.id.paste) {
+            id = android.R.id.pasteAsPlainText;
+        }
+        return super.onTextContextMenuItem(id);
+    }
+
     private void cancelUpdate() {
         _updateHandler.removeCallbacks(_updateRunnable);
     }
