@@ -170,7 +170,7 @@
             android:maxRecents="5"
             android:parentActivityName=".activity.MainActivity"
             android:taskAffinity=".activity.DocumentActivity"
-            android:theme="@style/AppTheme.Unified"
+            android:theme="@style/AppTheme.Unified.StartupFlash"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             tools:targetApi="lollipop">
             <meta-data
