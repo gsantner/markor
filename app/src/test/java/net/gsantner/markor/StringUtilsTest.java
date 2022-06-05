@@ -2,6 +2,8 @@ package net.gsantner.markor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import net.gsantner.opoc.util.StringUtils;
+
 import org.junit.Test;
 
 public class StringUtilsTest {

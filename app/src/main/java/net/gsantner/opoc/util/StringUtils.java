@@ -14,16 +14,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.text.Editable;
-import android.text.GetChars;
 import android.text.InputFilter;
 import android.text.Layout;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
