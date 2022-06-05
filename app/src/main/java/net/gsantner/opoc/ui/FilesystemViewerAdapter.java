@@ -177,7 +177,7 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
 
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                        isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
+                isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(Color.parseColor("#E3B51B"));
