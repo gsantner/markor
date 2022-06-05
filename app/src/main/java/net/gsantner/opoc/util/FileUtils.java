@@ -50,6 +50,7 @@ public class FileUtils {
      */
     public static class FileInfo implements Serializable {
         public boolean hasBom = false;
+
         public FileInfo withBom(boolean bom) {
             hasBom = bom;
             return this;
@@ -64,7 +65,6 @@ public class FileUtils {
 
             final byte[] bomBuffer = new byte[3];
             final int bomReadLength = inputStream.read(bomBuffer);
-
             info.withBom(bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
