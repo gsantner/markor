@@ -76,6 +76,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     private boolean _doubleBackToExitPressedOnce;
     private ShareUtil _shareUtil;
+    private int _prevPos = -1;
 
     @SuppressLint("SdCardPath")
     @Override
@@ -109,6 +110,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnNavigationItemSelectedListener(this);
+        _prevPos = tabIdToPos(R.id.nav_notebook); // Default
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
@@ -381,10 +383,16 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             restoreDefaultToolbar();
         }
 
-        if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
-            // cannot prevent bottom tab selection
-            new PermissionChecker(this).doIfExtStoragePermissionGranted();
+        if (_prevPos == tabIdToPos(R.id.nav_quicknote) || _prevPos == tabIdToPos(R.id.nav_todo)) {
+            ((DocumentEditFragment) _viewPagerAdapter.getItem(_prevPos)).pause();
         }
+
+        if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
+            new PermissionChecker(this).doIfExtStoragePermissionGranted();
+            ((DocumentEditFragment) _viewPagerAdapter.getItem(pos)).resume();
+        }
+
+        _prevPos = pos;
     }
 
     private FilesystemViewerData.Options _filesystemDialogOptions = null;
