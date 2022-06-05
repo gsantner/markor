@@ -26,6 +26,7 @@ import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,9 +37,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
@@ -55,7 +54,7 @@ public class Document implements Serializable {
     private String _title = "";
     private String _path = "";
     private long _modTime = 0;
-    private boolean _withBom = false;
+    private FileUtils.FileInfo _fileInfo;
     @StringRes
     private int _format = TextFormat.FORMAT_UNKNOWN;
 
@@ -156,11 +155,11 @@ public class Document implements Serializable {
 
     private void setContentHash(final CharSequence s) {
         _lastLength = s.length();
-        _lastHash = FileUtils.crc32(s.toString().getBytes());
+        _lastHash = FileUtils.crc32(s);
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s != null && s.length() == _lastLength && _lastHash == (FileUtils.crc32(s.toString().getBytes()));
+        return s != null && s.length() == _lastLength && _lastHash == FileUtils.crc32(s);
     }
 
     public synchronized String loadContent(final Context context) {
@@ -183,9 +182,9 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            final Pair<String, Map<String, Object>> result = FileUtils.readTextFileFast(_file);
+            final Pair<String, FileUtils.FileInfo> result = FileUtils.readTextFileFast(_file);
             content = result.first;
-            _withBom = (boolean) result.second.get(FileUtils.WITH_BOM);
+            _fileInfo = result.second;
         }
 
         if (MainActivity.IS_DEBUG_ENABLED) {
@@ -230,22 +229,26 @@ public class Document implements Serializable {
         }
     }
 
-    public boolean saveContent(final Context context, final String content) {
+    public boolean saveContent(final Context context, final CharSequence content) {
         return saveContent(context, content, null, false);
     }
 
-    public synchronized boolean saveContent(final Context context, final String content, ShareUtil shareUtil, boolean isManualSave) {
-        if (!isManualSave && content.trim().length() < ShareUtil.MIN_OVERWRITE_LENGTH) {
+    // Doing as we don't want to convert to string or copy unless necessary
+    private static int trimmedLength(final CharSequence c) {
+        return StringUtils.getLastNonWhitespace(c, c.length()) - StringUtils.getNextNonWhitespace(c, 0);
+    }
+
+    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, boolean isManualSave) {
+        if (!isManualSave && trimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 
         if (!testCreateParent()) {
             return false;
         }
-        shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
         // Don't write same content if base file not changed
-        if (isContentSame(content) && _modTime >= lastModified()) {
+        if (_modTime >= lastModified() && isContentSame(content)) {
             return true;
         }
 
@@ -254,15 +257,17 @@ public class Document implements Serializable {
             final char[] pw;
             final byte[] contentAsBytes;
             if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
-                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(content, pw);
+                contentAsBytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(content.toString(), pw);
             } else {
-                contentAsBytes = content.getBytes();
+                contentAsBytes = content.toString().getBytes();
             }
+
+            shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
 
             if (shareUtil.isUnderStorageAccessFolder(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
-                        if (_withBom) {
+                        if (_fileInfo != null && _fileInfo.hasBom) {
                             fos.write(0xEF);
                             fos.write(0xBB);
                             fos.write(0xBF);
@@ -274,9 +279,7 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
-                final Map<String, Object> options = new HashMap<>(1);
-                options.put(FileUtils.WITH_BOM, _withBom);
-                success = FileUtils.writeFile(_file, contentAsBytes, options);
+                success = FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
@@ -286,7 +289,11 @@ public class Document implements Serializable {
 
         if (success) {
             setContentHash(content);
-            _modTime = lastModified();
+            final long curModTime = lastModified();
+            if (_modTime >= curModTime) {
+                Log.w("MARKOR_DOCUMENT", "File modification time unchanged after write");
+            }
+            _modTime = curModTime;
         }
 
         return success;
