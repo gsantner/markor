@@ -318,7 +318,7 @@ public class AutoFormatter {
                 if (line.isOrderedList) {
                     // Restart numbering if list changes
                     final OrderedListLine peek = levels.peek();
-                    final String newValue =  getNextOrderedValue(peek.value, line.equals(peek));
+                    final String newValue = getNextOrderedValue(peek.value, line.equals(peek));
                     if (!newValue.equals(line.value)) {
                         chunked.replace(line.numStart, line.numEnd, newValue);
                         line = line.recreate(); // Recreate as line has changed
@@ -347,9 +347,9 @@ public class AutoFormatter {
         } else {
             char charValue = currentValue.charAt(0);
             if (lowercaseLetterPattern.matcher(currentValue).find()) {
-                return (restart || charValue >= 'z') ? "a" :  String.valueOf(charValue + 1);
+                return (restart || charValue >= 'z') ? "a" : String.valueOf(charValue + 1);
             } else if (capitalLetterPattern.matcher(currentValue).find()) {
-                return (restart || charValue >= 'Z') ? "A" :  String.valueOf(charValue + 1);
+                return (restart || charValue >= 'Z') ? "A" : String.valueOf(charValue + 1);
             }
         }
         return "0";
