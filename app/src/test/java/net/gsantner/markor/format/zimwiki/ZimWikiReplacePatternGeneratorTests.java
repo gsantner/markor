@@ -15,6 +15,7 @@ import net.gsantner.markor.ui.hleditor.TextActions;
 
 import org.junit.Test;
 
+import java.util.List;
 import java.util.regex.Matcher;
 
 public class ZimWikiReplacePatternGeneratorTests {
