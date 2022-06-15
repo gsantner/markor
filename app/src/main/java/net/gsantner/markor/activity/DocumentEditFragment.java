@@ -53,6 +53,7 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -213,8 +214,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         // Set initial wrap state
         initDocState();
-    }
 
+        final Runnable debounced = StringUtils.makeDebounced(500, () -> {
+            checkTextChangeState();
+            updateUndoRedoIconStates();
+        });
+        _hlEditor.addTextChangedListener(TextWatcherDummy.after(s -> debounced.run()));
+    }
 
     @Override
     public void onFragmentFirstTimeVisible() {
@@ -568,12 +574,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return super.onOptionsItemSelected(item);
             }
         }
-    }
-
-    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void onContentEditValueChanged(CharSequence text) {
-        checkTextChangeState();
-        updateUndoRedoIconStates();
     }
 
     public void checkTextChangeState() {
