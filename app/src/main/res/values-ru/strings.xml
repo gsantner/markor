@@ -163,7 +163,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Подсвечивать пробелы в конце строк с двумя и более пробелами</string>
     <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
     <string name="disable_code_block_highlight">Отключить подсветку блоков кода</string>
-    <string name="auto_renumber_ordered_list">Автоматическое обновление упорядоченных списков</string>
+    <string name="auto_renumber_ordered_list">Автообновление номеров упорядоченных списков</string>
     <string name="auto_renumber_ordered_list_slowdown">Этот параметр может повлиять на производительность приложений.</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
     <string name="general">Общие</string>
@@ -199,10 +199,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="left">По левому краю</string>
     <string name="right">По правому краю</string>
     <string name="top">По верхнему краю</string>
-    <string name="bottom">Подвал</string>
+    <string name="bottom">По нижнему краю</string>
     <string name="center">Центр</string>
-    <string name="textaction_spacing">Расстояние между операциями</string>
-    <string name="horizontal_space_between_textactions">Горизонтальное пространство между текстовыми кнопками действий</string>
+    <string name="textaction_spacing">Расстояние между кнопками</string>
+    <string name="horizontal_space_between_textactions">Пространство между кнопками управления текстом</string>
     <string name="center_text">Центрировать текст</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
@@ -226,9 +226,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="disable_spelling_underline">Отключить подчёркивание ошибок</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Оставить подсказки клавиатуры, но выключить красное подчёркивание</string>
     <string name="location">Местоположение</string>
-    <string name="text_lines">Текстовые линии</string>
-    <string name="text_characters">Параметры текста</string>
-    <string name="text_words">Текст слова</string>
+    <string name="text_lines">Строк</string>
+    <string name="text_characters">Знаков</string>
+    <string name="text_words">Слов</string>
     <string name="directory">Папка</string>
     <string name="recently_viewed_documents">Недавно открытые документы</string>
     <string name="details">Подробности</string>
