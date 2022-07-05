@@ -39,7 +39,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Поделиться с…</string>
     <string name="share">Поделиться</string>
     <string name="search">Поиск</string>
-    <string name="display_converted_markup">Показать результат разметки</string>
+    <string name="display_converted_markup">Показывает результат разметки</string>
     <string name="editor">Редактор</string>
     <string name="folders">Папки</string>
     <string name="files">Файлы</string>
@@ -241,7 +241,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Описание</string>
     <string name="edit_picture">Редактировать изображение</string>
     <string name="math">Формулы</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Отображать введенные атрибуты передней части YAML в верхней части просмотренных документов. Введите ключи, разделенные запятыми. Оставьте пустым для них или используйте \'*\' для всех. \n\nЕсли атрибут определен в документе (т.е. title: \'Здравствуйте\'), и в документе есть {{ post.title }} и он тоже заменен. Вы можете сделать свой собственный заголовок Фронт-Матери.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Отображать введенные атрибуты YAML Front Matter в верхней части просматриваемых документов. Введите имена атрибутов, разделенные запятыми. Если пусто - ничего не отобразится. Если \'*\' - будут отображены все. \n\nЕсли атрибут определен в документе (т.е. title: \'Hi\'), и в документе также есть {{ post.title }} то произойдёт замена. Так вы можете сделать свой заголовок Front Matter.</string>
     <string name="table_of_contents">Оглавление</string>
     <string name="miscellaneous">Прочее</string>
     <string name="textaction">Операция с текстом</string>
@@ -289,8 +289,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Внутренняя память</string>
     <string name="open_the_document_from_main_view">Вы можете открыть документ из главного окна внизу, из файлового браузера или из лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Блокнот — это папка, которую Markor открывает в обозревателе файлов при запуске. Это папка по умолчанию для ваших файлов.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote помогает быстро делать заметки. Это файл в формате Markdown с именем QuickNote.md, расположенный в папке по умолчанию. Вы можете изменить папку в настройках.</string>
-    <string name="todo_is_the_easiest_way_">Управляйте задачами с помощью ToDo. Это файл в формате todo.txt, расположенный в папке по умолчанию. Вы можете изменить папку в настройках.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote помогает быстро делать заметки. Это файл в формате Markdown, путь по умолчанию: &gt;Notebook/QuickNote.md&lt;. Вы можете изменить путь в настройках.</string>
+    <string name="todo_is_the_easiest_way_">Управляйте задачами с помощью ToDo. Это файл в формате todo.txt, путь по умолчанию: &gt;Notebook/todo.txt&lt;. Вы можете изменить путь в настройках.</string>
     <string name="navigationbar_color">Цвет панели навигации</string>
     <string name="black">Чёрный</string>
     <string name="white">Белый</string>
