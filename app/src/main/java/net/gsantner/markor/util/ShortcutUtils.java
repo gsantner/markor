@@ -65,7 +65,7 @@ public class ShortcutUtils {
             final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getTodoFile()))
-                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
 
             final ShortcutInfo shortcutToDo = new ShortcutInfo.Builder(context, ID_TO_DO)
                     .setShortLabel(createShortLabel(context.getString(R.string.todo)))
@@ -79,7 +79,7 @@ public class ShortcutUtils {
             final Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getQuickNoteFile()))
-                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
 
             final ShortcutInfo shortcutQuickNote = new ShortcutInfo.Builder(context, ID_QUICK_NOTE)
                     .setShortLabel(createShortLabel(context.getString(R.string.quicknote)))
