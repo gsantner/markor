@@ -174,12 +174,14 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
 
-            int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
-            if (startLine < 0 && intentData != null) {
+            Integer startLine = null;
+            if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
+                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            } else if (intentData != null) {
                 startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
-            final boolean startInPreview = (startLine < 0) && (
+            final boolean startInPreview = (startLine == null) && (
                     intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
                             _appSettings.getDocumentPreviewState(doc.getPath()) ||
                             file.getName().startsWith("index."));
