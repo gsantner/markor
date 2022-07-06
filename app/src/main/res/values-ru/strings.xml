@@ -103,7 +103,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="priority">Важность</string>
     <string name="history">История</string>
     <string name="sync">Синхронизация</string>
-    <string name="search_or_custom">Поиск / Настраиваемый</string>
+    <string name="search_or_custom">Искать или Новый</string>
     <string name="save">Сохранить</string>
     <string name="update">Обновить</string>
     <string name="clear">Очистить</string>
@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_directory">Запоминать последнюю папку</string>
     <string name="syntax_highlighting">Подсветка синтаксиса</string>
     <string name="highlighting_delay">Задержка подсветки</string>
-    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка в миллисекундах перед обновлением. Низкие значения означают быстрое обновление и могут увеличить расход заряда и замедлить старые устройства.</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка в мс перед обновлением подсветки синтаксиса. Меньше - быстрее обновление и больше расход энергии, а старые устройства - медленнее.</string>
     <string name="highlighting_enabled_or_not__appspecific">Подсвечивать введённый текст</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта в редакторе</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показывать внизу панель с кнопками. Они изменяют текст или запускают действия.</string>
@@ -164,7 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="use_monospace_for_code">Использовать моноширный шрифт для кода</string>
     <string name="disable_code_block_highlight">Отключить подсветку блоков кода</string>
     <string name="auto_renumber_ordered_list">Автообновление номеров упорядоченных списков</string>
-    <string name="auto_renumber_ordered_list_slowdown">Этот параметр может повлиять на производительность приложений.</string>
+    <string name="auto_renumber_ordered_list_slowdown">Это может повлиять на производительность.</string>
     <string name="use_different_fonttype_slow_down">Использовать различные типы шрифтов. Динамическое изменение типа шрифта влияет на производительность приложения.</string>
     <string name="general">Общие</string>
     <string name="resources">Ресурсы</string>
@@ -266,7 +266,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_new_documents_always_in_new_window">Открывать документы в отдельных окнах. Переключайтесь между ними с помощью кнопки «Обзор» на устройстве</string>
     <string name="enter_or_select_format">Введите или выберите формат</string>
     <string name="pick_date">Выбрать дату</string>
-    <string name="pick_time">Время Выбирать</string>
+    <string name="pick_time">Выбор времени</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
     <string name="always_use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
     <string name="result">Результат</string>
@@ -278,14 +278,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="cancel">Отмена</string>
     <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание постов в блоге занимает много времени! Если вы хотите помочь проекту, пожалуйста, сделайте небольшое пожертвование!\n\nРазработчки развивают проект в свободное время без зарплаты и рекламы!</string>
     <string name="app_start_tab">Начальная вкладка</string>
-    <string name="tab_to_select_at_start">Вкладка для выбора при запуске приложения</string>
+    <string name="tab_to_select_at_start">Начальная вкладка при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>
     <string name="swipe_to_change_to_edit_or_view_mode">Смахните для перехода между режимом редактирования и просмотра (на режим, противоположный текущему)</string>
-    <string name="folder_first">Сначала папку</string>
+    <string name="folder_first">Папки вверху</string>
     <string name="go_to">Перейти к</string>
-    <string name="appdata_public">AppData (публичный)</string>
-    <string name="appdata_private">AppData (приватный)</string>
-    <string name="appdata_sdcard">Приложения (SD-карта)</string>
+    <string name="appdata_public">AppData (public)</string>
+    <string name="appdata_private">AppData (private)</string>
+    <string name="appdata_sdcard">AppData (SD-карта)</string>
     <string name="internal_storage">Внутренняя память</string>
     <string name="open_the_document_from_main_view">Вы можете открыть документ из главного окна внизу, из файлового браузера или из лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Блокнот — это папка, которую Markor открывает в обозревателе файлов при запуске. Это папка по умолчанию для ваших файлов.</string>
