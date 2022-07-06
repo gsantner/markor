@@ -267,8 +267,8 @@ public class SearchOrCustomTextDialog {
 
         // =========================================================================================
 
-        // Ok button action
-        if ((dopt.callback != null) || (dopt.isMultiSelectEnabled)) {
+        // Ok button only present under these circumstances
+        if (((dopt.callback != null && dopt.isSearchEnabled) || (dopt.positionCallback != null && dopt.isMultiSelectEnabled))) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
                 if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
@@ -284,7 +284,7 @@ public class SearchOrCustomTextDialog {
         final AlertDialog dialog = dialogBuilder.create();
 
         searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
-            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER) && dopt.okButtonText != 0) {
                 dialog.dismiss();
                 if (dopt.callback != null && !TextUtils.isEmpty(searchEditText.getText().toString())) {
                     dopt.callback.callback(searchEditText.getText().toString());
@@ -342,10 +342,16 @@ public class SearchOrCustomTextDialog {
         };
 
         // Helper function to append selection count to OK button
+        final String okString = dopt.okButtonText != 0 ? activity.getString(dopt.okButtonText) : "";
         final Button okButton = dialog.getButton(Dialog.BUTTON_POSITIVE);
-        final String okText = activity.getString(dopt.okButtonText) + (dopt.isMultiSelectEnabled ? " (%d)" : "");
         final Callback.a0 setOkButtonState = () -> {
-            okButton.setText(okText.replace("%d", Integer.toString(listAdapter._selectedItems.size())));
+            if (okButton != null) {
+                if (dopt.isMultiSelectEnabled) {
+                    okButton.setText(okString + String.format(" (%d)", listAdapter._selectedItems.size()));
+                } else {
+                    okButton.setText(okString);
+                }
+            }
         };
 
         // Set ok button text initially

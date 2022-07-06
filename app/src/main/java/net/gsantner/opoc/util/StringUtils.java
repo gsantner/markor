@@ -10,7 +10,13 @@
 package net.gsantner.opoc.util;
 
 import android.graphics.Rect;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -78,21 +84,25 @@ public final class StringUtils {
         return i;
     }
 
-    public static int getNextNonWhitespace(CharSequence s, int start) {
-        return getNextNonWhitespace(s, start, s.length());
-    }
-
-    public static int getNextNonWhitespace(CharSequence s, int start, int maxRange) {
-        int i = start;
-        if (isValidIndex(s, start, maxRange - 1)) {
-            for (; i < maxRange; i++) {
-                char c = s.charAt(i);
-                if (c != ' ' && c != '\t') {
-                    break;
-                }
+    public static int getLastNonWhitespace(final CharSequence s, final int start) {
+        for (int i = Math.min(s.length() - 1, start); i >= 0; i--) {
+            char c = s.charAt(i);
+            if (c != ' ' && c != '\t') {
+                return i;
             }
         }
-        return i;
+        return -1;
+    }
+
+    public static int getNextNonWhitespace(final CharSequence s, final int start) {
+        final int length = s.length();
+        for (int i = Math.max(0, start); i < length; i++) {
+            char c = s.charAt(i);
+            if (c != ' ' && c != '\t') {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static boolean isNullOrWhitespace(String str) {
@@ -152,7 +162,7 @@ public final class StringUtils {
      */
     public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
         p = Math.min(Math.max(p, 0), s.length());
-        final int line = countChar(s, '\n', 0, p);
+        final int line = countChars(s, 0, p, '\n')[0];
         final int offset = getLineEnd(s, p) - p;
 
         return new int[]{line, offset};
@@ -194,26 +204,27 @@ public final class StringUtils {
     }
 
     /**
-     * Count instances of char 'c' between start and end
+     * Count instances of chars between start and end
      *
      * @param s     Sequence to count in
-     * @param c     Char to count
      * @param start start of section to count within
      * @param end   end of section to count within
-     * @return number of instances of c in c between start and end
+     * @param chars Array of chars to count
+     * @return number of instances of each char in [start, end)
      */
-    public static int countChar(final CharSequence s, final char c, int start, int end) {
-        int count = 0;
-        if (isValidIndex(s, start, end - 1)) {
-            start = Math.max(0, start);
-            end = Math.min(end, s.length());
-            for (int i = start; i < end; i++) {
-                if (s.charAt(i) == c) {
-                    count++;
+    public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
+        final int[] counts = new int[chars.length];
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        for (int i = start; i < end; i++) {
+            final char c = s.charAt(i);
+            for (int j = 0; j < chars.length; j++) {
+                if (c == chars[j]) {
+                    counts[j]++;
                 }
             }
         }
-        return count;
+        return counts;
     }
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
@@ -453,29 +464,267 @@ public final class StringUtils {
         return interpolated.toString();
     }
 
-    // Find the smallest single difference region { a, b, c }
-    // s.t. setting dest[a:b] = source[a:c] makes dest == source
-    public static int[] findDiff(final CharSequence dest, final CharSequence source) {
+    /**
+     * Find the smallest single diff from source -> dest
+     *
+     * @param dest        Into which we want to apply the diff
+     * @param source      From which we want to apply the diff
+     * @param startSkip   Don't check the first startSkip chars for sameness
+     * @param endSkip     Don't check the first startSkip chars for sameness
+     * @return  { a, b, c } s.t. setting dest[a:b] = source[a:c] makes dest == source
+     */
+    public static int[] findDiff(final CharSequence dest, final CharSequence source, final int startSkip, final int endSkip) {
+        final int[] diff = findDiff(dest, startSkip, dest.length() - endSkip, source, startSkip, source.length() - endSkip);
+        return new int[] { diff[0], diff[1], diff[3] };
+    }
 
-        final int dl = dest.length(), sl = source.length();
+    /**
+     * Find the smallest single diff from source -> dest
+     *
+     * @param dest        Into which we want to apply the diff
+     * @param ds          Dest start region
+     * @param dn          Dest end region
+     * @param source      From which we want to apply the diff
+     * @param ss          Source start region
+     * @param sn          Dest end region
+     *
+     * @return  { a, b, c, d } s.t. setting dest[a:b] = source[c:d] will make dest[ds:dn] == source[ss:sn]
+     */
+    public static int[] findDiff(final CharSequence dest, final int ds, final int dn, final CharSequence source, final int ss, final int sn) {
+        final int dl = Math.max(dn - ds, 0), sl = Math.max(sn - ss, 0);
         final int minLength = Math.min(dl, sl);
 
         int start = 0;
-        while(start < minLength && source.charAt(start) == dest.charAt(start)) start++;
+        while (start < minLength && source.charAt(start + ss) == dest.charAt(start + ds)) start++;
 
         // Handle several special cases
         if (sl == dl && start == sl) { // Case where 2 sequences are same
-            return new int[] { sl, sl, sl };
+            return new int[]{dn, dn, sn, sn};
         } else if (sl < dl && start == sl) { // Pure crop
-            return new int[] { sl, dl, sl };
+            return new int[]{ds + start, dn, sn, sn};
         } else if (dl < sl && start == dl) { // Pure append
-            return new int[] { dl, dl, sl };
+            return new int[]{dn, dn, start + ss, sn};
         }
 
         int end = 0;
         final int maxEnd = minLength - start;
-        while(end < maxEnd && source.charAt(sl - end - 1) == dest.charAt(dl - end - 1)) end++;
+        while (end < maxEnd && source.charAt(sn - end - 1) == dest.charAt(dn - end - 1)) end++;
 
-        return new int[] { start, dl - end, sl - end };
+        return new int[]{ds + start, dn - end, ss + start, sn - end};
+    }
+
+    // Compute the line indent, counting each tab as tabSize spaces
+    public static int getLineIndent(final CharSequence text, final int posn, final int tabSize) {
+        final int lineStart = getLineStart(text, posn);
+        final int indentEnd = getNextNonWhitespace(text, lineStart);
+        final int[] counts = countChars(text, lineStart, indentEnd, ' ', '\t');
+        return counts[0] + tabSize * counts[1];
+    }
+
+    /**
+     * Allows convenient chunking of actions on an editable.
+     * This works by maintaining a _reference_ to an editable to which all operations are passed.
+     * When a _change_ is made, the original reference is copied and all operations are
+     * applied to the copy. Finally, `applyChanges()` diffs the original and copy and makes
+     * a single chunked change.
+     */
+    public static class ChunkedEditable implements Editable {
+
+        private final Editable original;
+        private StringBuilder copy;
+        private int _startSkip = 0;
+        private int _endSkip = 0;
+
+        public static ChunkedEditable wrap(@NonNull final Editable e) {
+            return (e instanceof ChunkedEditable) ? (ChunkedEditable) e : new ChunkedEditable(e);
+        }
+
+        private ChunkedEditable(@NonNull final Editable e) {
+            original = e;
+        }
+
+        // Apply changes from copy to original
+        public boolean applyChanges() {
+            if (copy == null) {
+                return false;
+            }
+
+            final int[] diff = StringUtils.findDiff(original, copy, _startSkip, Math.max(_endSkip, 0));
+            final boolean hasDiff = diff[0] != diff[1] || diff[0] != diff[2];
+            if (hasDiff) {
+                original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+            }
+            copy = null; // Reset as we have applied all changed
+            return hasDiff;
+        }
+
+        // All other functions which edit the editable alias this routine
+        @Override
+        public Editable replace(int st, int en, CharSequence source, int start, int end) {
+            // Replace minimal region, only if actually required - replacing is expensive
+            final int[] diff = findDiff((copy != null ? copy : original), st, en, source, start, end);
+            if (diff[0] != diff[1] || diff[2] != diff[3]) {
+                if (copy == null) {
+                    // All operations will now run on copy
+                    // SpannableStringBuilder maintains spans etc
+                    copy = new StringBuilder(original);
+                    _startSkip = _endSkip = copy.length();
+                }
+                _startSkip = Math.min(_startSkip, diff[0]);
+                _endSkip = Math.min(_endSkip, copy.length() - diff[1] - 1);
+                copy.replace(diff[0], diff[1], StringUtils.toString(source, diff[2], diff[3]));
+            }
+            return this;
+        }
+
+        // Convenience functions for replace ^. All these are just aliases
+        // -------------------------------------------------------------------------------
+
+        @Override
+        public Editable replace(int st, int en, CharSequence text) {
+            return replace(st, en, text, 0, text.length());
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text, int start, int end) {
+            return replace(where, where, text, start, end);
+        }
+
+        @Override
+        public Editable insert(int where, CharSequence text) {
+            return replace(where, where, text, 0, text.length());
+        }
+
+        @Override
+        public Editable delete(int st, int en) {
+            return replace(st, en, "", 0, 0);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text) {
+            return replace(length(), length(), text, 0, text.length());
+        }
+
+        @NonNull
+        @Override
+        public Editable append(CharSequence text, int start, int end) {
+            return replace(length(), length(), text, start, end);
+        }
+
+        @NonNull
+        @Override
+        public Editable append(char text) {
+            return append(String.valueOf(text));
+        }
+
+        @Override
+        public void clear() {
+            replace(0, length(), "", 0, 0);
+        }
+
+        // Other functions - all just forwarded to copy or original as needed
+        // -------------------------------------------------------------------------------
+
+        @Override
+        public int length() {
+            return (copy != null ? copy : original).length();
+        }
+
+        @Override
+        public char charAt(int index) {
+            return (copy != null ? copy : original).charAt(index);
+        }
+
+        @NonNull
+        @Override
+        public CharSequence subSequence(int start, int end) {
+            return (copy != null ? copy : original).subSequence(start, end);
+        }
+
+        @Override
+        public void getChars(int start, int end, char[] dest, int destoff) {
+            TextUtils.getChars(copy != null ? copy : original, start, end, dest, destoff);
+        }
+
+        // All spannable things unsupported
+        // -------------------------------------------------------------------------------
+        @Override
+        public void clearSpans() {
+            // Do nothing
+        }
+
+        @Override
+        public void setFilters(InputFilter[] filters) {
+            // Do nothing
+        }
+
+        @Override
+        public InputFilter[] getFilters() {
+            return null;
+        }
+
+        @Override
+        public void setSpan(Object what, int start, int end, int flags) {
+            // Do nothing
+        }
+
+        @Override
+        public void removeSpan(Object what) {
+            // Do nothing
+        }
+
+        @Override
+        public <T> T[] getSpans(int start, int end, Class<T> type) {
+            return null;
+        }
+
+        @Override
+        public int getSpanStart(Object tag) {
+            return -1;
+        }
+
+        @Override
+        public int getSpanEnd(Object tag) {
+            return -1;
+        }
+
+        @Override
+        public int getSpanFlags(Object tag) {
+            return 0;
+        }
+
+        @Override
+        public int nextSpanTransition(int start, int limit, Class type) {
+            return -1;
+        }
+    }
+
+    public static Runnable makeDebounced(final long delayMs, final Runnable callback) {
+        return makeDebounced(null, delayMs, callback);
+    }
+
+    // Debounce any callback
+    public static Runnable makeDebounced(final Handler handler, final long delayMs, final Runnable callback) {
+        final Handler _handler = handler == null ? new Handler(Looper.getMainLooper()) : handler;
+        final Object sync = new Object();
+        return () -> {
+            synchronized (sync) {
+                _handler.removeCallbacks(callback);
+                _handler.postDelayed(callback, delayMs);
+            }
+        };
+    }
+
+    // Converts region to string with a minimum of work
+    public static String toString(final CharSequence source, int start, int end) {
+        if (source instanceof String) {
+            // Already very fast
+            return ((String) source).substring(start, end);
+        }
+
+        final char[] buf = new char[end - start];
+        TextUtils.getChars(source, start, end, buf, 0);
+        return new String(buf);
     }
 }

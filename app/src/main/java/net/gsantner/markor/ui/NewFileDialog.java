@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -37,12 +38,16 @@ import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
@@ -90,6 +95,7 @@ public class NewFileDialog extends DialogFragment {
         final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
         final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
         final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
+        final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
         final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
@@ -99,6 +105,8 @@ public class NewFileDialog extends DialogFragment {
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
+        utf8BomCheckbox.setChecked(appSettings.getNewFileDialogLastUsedUtf8Bom());
+        utf8BomCheckbox.setVisibility(appSettings.isExperimentalFeaturesEnabled() ? View.VISIBLE : View.GONE);
         fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
@@ -106,6 +114,7 @@ public class NewFileDialog extends DialogFragment {
         fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
 
+        loadTemplatesIntoSpinner(appSettings, templateSpinner);
         final AtomicBoolean typeSpinnerNoTriggerOnFirst = new AtomicBoolean(true);
         typeSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
             if (pos == 3) { // Zim
@@ -154,6 +163,10 @@ public class NewFileDialog extends DialogFragment {
             appSettings.setNewFileDialogLastUsedEncryption(isChecked);
         });
 
+        utf8BomCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appSettings.setNewFileDialogLastUsedUtf8Bom(isChecked);
+        });
+
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
 
@@ -171,6 +184,11 @@ public class NewFileDialog extends DialogFragment {
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
                     shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
                         try {
+                            if (appSettings.getNewFileDialogLastUsedUtf8Bom()) {
+                                arg_fos.write(0xEF);
+                                arg_fos.write(0xBB);
+                                arg_fos.write(0xBF);
+                            }
                             if (templateContents != null && (!f.exists() || f.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
                                 arg_fos.write(templateContents);
                             }
@@ -200,6 +218,17 @@ public class NewFileDialog extends DialogFragment {
         }
 
         return dialogBuilder;
+    }
+
+    private void loadTemplatesIntoSpinner(final AppSettings appSettings, final Spinner templateSpinner) {
+        List<String> templates = new ArrayList<>();
+        for (int i = 0; i < templateSpinner.getCount(); i++) {
+            templates.add((String) templateSpinner.getAdapter().getItem(i));
+        }
+        templates.addAll(SearchOrCustomTextDialogCreator.getSnippets(appSettings).keySet());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, templates.toArray(new String[0]));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        templateSpinner.setAdapter(adapter);
     }
 
     private boolean ez(EditText et) {
@@ -271,9 +300,16 @@ public class NewFileDialog extends DialogFragment {
                 t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }
-            default:
-            case 0: {
-                return null; // Empty file template (that doesn't overwrite anything
+            default: {
+                AppSettings as = new AppSettings(getContext());
+                Map<String, File> snippets = SearchOrCustomTextDialogCreator.getSnippets(as);
+                if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
+                    t = FileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
+                    break;
+                }
+
+                // Empty file template (that doesn't overwrite anything)
+                return null;
             }
         }
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));

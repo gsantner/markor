@@ -23,10 +23,16 @@ import net.gsantner.opoc.util.PermissionChecker;
 import java.io.File;
 
 public class OpenEditorActivity extends MarkorBaseActivity {
-    protected void openEditorForFile(File file) {
-        Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
+
+    protected void openEditorForFile(final File file, final Integer line) {
+        final Intent openIntent = new Intent(getApplicationContext(), DocumentActivity.class)
                 .setAction(Intent.ACTION_CALL_BUTTON)
                 .putExtra(Document.EXTRA_PATH, file);
+
+        if (line != null) {
+            openIntent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, line);
+        }
+
         openActivityAndClose(openIntent, file);
     }
 
@@ -40,7 +46,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     file.getParentFile().mkdirs();
                 }
                 if (!file.exists() && !file.isDirectory()) {
-                    FileUtils.writeFile(file, "");
+                    FileUtils.writeFile(file, "", new FileUtils.FileInfo().withBom(new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom()));
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();

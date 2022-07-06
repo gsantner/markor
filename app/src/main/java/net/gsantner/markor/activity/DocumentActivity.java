@@ -11,7 +11,6 @@ package net.gsantner.markor.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -175,12 +174,14 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
 
-            int startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
-            if (startLine < 0 && intentData != null) {
+            Integer startLine = null;
+            if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
+                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+            } else if (intentData != null) {
                 startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
-            final boolean startInPreview = (startLine < 0) && (
+            final boolean startInPreview = (startLine == null) && (
                     intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
                             _appSettings.getDocumentPreviewState(doc.getPath()) ||
                             file.getName().startsWith("index."));
@@ -190,21 +191,10 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     private void showNotSupportedMessage() {
-
-        final String notSupportedMessage = (
-                getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice) + "\n\n"
-                        + getString(R.string.sync_to_local_folder_notice_paths,
-                        getString(R.string.configure_in_the_apps_settings))
-        ).replace("\n", "<br/>");
-
-        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
-            _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url));
-        };
-
+        final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
         new AlertDialog.Builder(this)
                 .setMessage(Html.fromHtml(notSupportedMessage))
-                .setNegativeButton(R.string.more_info, listener)
+                .setNegativeButton(R.string.more_info, (di, i) -> _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
                 .create().show();

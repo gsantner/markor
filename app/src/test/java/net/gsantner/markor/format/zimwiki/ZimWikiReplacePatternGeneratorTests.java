@@ -147,7 +147,7 @@ public class ZimWikiReplacePatternGeneratorTests {
 
         private String replaceWithFirstMatchingPattern(List<TextActions.ReplacePattern> replacePatterns, String input) {
             for (TextActions.ReplacePattern replacePattern : replacePatterns) {
-                Matcher matcher = replacePattern.searchPattern.matcher(input);
+                Matcher matcher = replacePattern.matcher.reset(input);
                 if (matcher.find()) {
                     return matcher.replaceFirst(replacePattern.replacePattern);
                 }

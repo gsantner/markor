@@ -12,6 +12,7 @@ package net.gsantner.markor.activity.openeditor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 
 public class OpenEditorTodoActivity extends OpenEditorActivity {
@@ -19,6 +20,6 @@ public class OpenEditorTodoActivity extends OpenEditorActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        openEditorForFile(new AppSettings(getApplicationContext()).getTodoFile());
+        openEditorForFile(new AppSettings(getApplicationContext()).getTodoFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
     }
 }

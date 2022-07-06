@@ -10,8 +10,8 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-
 import android.text.TextUtils;
+import android.util.Pair;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -39,25 +40,56 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation", "TryFinallyCanBeTryWithResources"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources"})
 public class FileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
-    public static String readTextFileFast(final File file) {
+    /**
+     * Info of various types about a file
+     */
+    public static class FileInfo implements Serializable {
+        public boolean hasBom = false;
+
+        public FileInfo withBom(boolean bom) {
+            hasBom = bom;
+            return this;
+        }
+    }
+
+    public static Pair<String, FileInfo> readTextFileFast(final File file) {
+        final FileInfo info = new FileInfo();
+
         try (final FileInputStream inputStream = new FileInputStream(file)) {
             final ByteArrayOutputStream result = new ByteArrayOutputStream();
+
+            final byte[] bomBuffer = new byte[3];
+            final int bomReadLength = inputStream.read(bomBuffer);
+            info.withBom(bomReadLength == 3 &&
+                    bomBuffer[0] == (byte) 0xEF &&
+                    bomBuffer[1] == (byte) 0xBB &&
+                    bomBuffer[2] == (byte) 0xBF
+            );
+
+            if (!info.hasBom && bomReadLength > 0) {
+                result.write(bomBuffer, 0, bomReadLength);
+            }
+            if (bomReadLength < 3) {
+                return new Pair<>(result.toString("UTF-8"), info);
+            }
+
             final byte[] buffer = new byte[1024];
             for (int length; (length = inputStream.read(buffer)) != -1; ) {
                 result.write(buffer, 0, length);
             }
-            return result.toString("UTF-8");
+            return new Pair<>(result.toString("UTF-8"), info);
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
+
+        return new Pair<>("", info);
     }
 
     public static byte[] readCloseStreamWithSize(final InputStream stream, int size) {
@@ -177,8 +209,13 @@ public class FileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data) {
+    public static boolean writeFile(final File file, final byte[] data, final FileInfo options) {
         try (final FileOutputStream output = new FileOutputStream(file)) {
+            if (options != null && options.hasBom) {
+                output.write(0xEF);
+                output.write(0xBB);
+                output.write(0xBF);
+            }
             output.write(data);
             output.flush();
             return true;
@@ -188,8 +225,8 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data) {
-        return writeFile(file, data.getBytes());
+    public static boolean writeFile(final File file, final String data, final FileInfo options) {
+        return writeFile(file, data.getBytes(), options);
     }
 
     public static boolean copyFile(final File src, final File dst) {
@@ -277,7 +314,7 @@ public class FileUtils {
         boolean ok = true;
         if (file.exists()) {
             if (file.isDirectory()) {
-                for (File child : file.listFiles())
+                for (final File child : file.listFiles())
                     ok &= deleteRecursive(child);
             }
             ok &= file.delete();
@@ -321,7 +358,6 @@ public class FileUtils {
         return true;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean renameFileInSameFolder(File srcFile, String destFilename) {
         return renameFile(srcFile, new File(srcFile.getParent(), destFilename));
     }
@@ -522,6 +558,18 @@ public class FileUtils {
         return hash(data, "SHA-512");
     }
 
+    public static long crc32(final CharSequence data) {
+        final CRC32 alg = new CRC32();
+        final int length = data.length();
+        for (int i = 0; i < length; i++) {
+            final char c = data.charAt(i);
+            // Upper and lower bytes
+            alg.update((byte) (c & 0xff));
+            alg.update((byte) (c >> 8));
+        }
+        return alg.getValue();
+    }
+
     public static long crc32(final byte[] data) {
         final CRC32 alg = new CRC32();
         alg.update(data);
@@ -529,12 +577,16 @@ public class FileUtils {
     }
 
     // Return true if the target file exists, false if there is an issue with the file or it's parent directories
-    public static boolean fileExists(final File checkFile) {
+    public static boolean fileExists(final File checkFile, boolean... caseInsensitive) {
+        boolean isAndroid = System.getProperty("java.specification.vendor").contains("Android");
+        boolean sensitive = !isAndroid && (caseInsensitive == null || caseInsensitive.length == 0 || !caseInsensitive[0]);
+
         File[] files;
         if (checkFile != null && checkFile.getParentFile() != null && (files = checkFile.getParentFile().listFiles()) != null) {
             final String checkFilename = checkFile.getName();
-            for (final File f : files) {
-                if (f.getName().equals(checkFilename)) {
+            for (final File existingFile : files) {
+                final String existingName = existingFile.getName();
+                if (sensitive ? existingName.equals(checkFilename) : existingName.equalsIgnoreCase(checkFilename)) {
                     return true;
                 }
             }

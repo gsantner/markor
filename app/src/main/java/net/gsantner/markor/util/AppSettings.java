@@ -135,6 +135,10 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
+    public File getSnippetsFolder(){
+        return new File(getNotebookDirectory(), ".app/snippets");
+    }
+
     public String getFontFamily() {
         return getString(R.string.pref_key__font_family, rstr(R.string.default_font_family));
     }
@@ -831,6 +835,14 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
     }
 
     public void setNewFileDialogLastUsedEncryption(boolean b) {
+        setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
+    }
+
+    public boolean getNewFileDialogLastUsedUtf8Bom() {
+        return getBool(R.string.pref_key__new_file_dialog_lastused_encryption, false);
+    }
+
+    public void setNewFileDialogLastUsedUtf8Bom(boolean b) {
         setBool(R.string.pref_key__new_file_dialog_lastused_encryption, b);
     }
 

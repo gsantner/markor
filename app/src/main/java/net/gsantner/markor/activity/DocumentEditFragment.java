@@ -53,6 +53,7 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -64,7 +65,6 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnTextChanged;
-import other.writeily.widget.WrMarkorWidgetProvider;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -77,7 +77,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
-        if (lineNumber != null && lineNumber >= 0) {
+        if (lineNumber != null) {
             args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         args.putBoolean(START_PREVIEW, preview);
@@ -115,7 +115,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private long _loadModTime = 0;
-    private boolean _isTextChanged = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -216,44 +215,67 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Set initial wrap state
         initDocState();
 
+        final Runnable debounced = StringUtils.makeDebounced(500, () -> {
+            checkTextChangeState();
+            updateUndoRedoIconStates();
+        });
+        _hlEditor.addTextChangedListener(TextWatcherDummy.after(s -> debounced.run()));
+    }
+
+    @Override
+    public void onFragmentFirstTimeVisible() {
+
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
+        final Bundle args = getArguments();
 
         // First start - overwrite start position if needed
-        if (savedInstanceState == null) {
-            if (isDisplayedAtMainActivity()) {
+        if (_savedInstanceState == null) {
+            if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
-            } else if (args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
-            } else if (_appSettings.isEditorStartOnBotttom()) {
-                startPos = _hlEditor.length();
+            } else if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+                final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+                if (lno >= 0) {
+                    startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
+                } else {
+                    startPos = _hlEditor.length();
+                }
             }
         }
 
         StringUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
+    public void resume() {
+        loadDocument();
+    }
+
     @Override
     public void onResume() {
+        resume();
         super.onResume();
+    }
 
-        loadDocument();
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        super.onSaveInstanceState(outState);
+    }
 
-        if (_document != null) {
-            _document.testCreateParent();
-            boolean permok = _shareUtil.canWriteFile(_document.getFile(), false);
-            if (!permok && !_document.getFile().isDirectory() && _shareUtil.canWriteFile(_document.getFile(), _document.getFile().isDirectory())) {
-                permok = true;
+    public void pause() {
+        saveDocument(false);
+        if (_appSettings != null && _document != null) {
+            _appSettings.addRecentDocument(_document.getFile());
+            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
+            if (_hlEditor != null) {
+                _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
             }
-            if (_shareUtil.isUnderStorageAccessFolder(_document.getFile()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
-                _shareUtil.showMountSdDialog(getActivity());
-                return;
-            }
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
         }
+    }
 
-        if (_document != null && _document.getFile().getAbsolutePath().contains("mordor/1-epub-experiment.md") && getActivity() instanceof DocumentActivity) {
-            _hlEditor.setText(CoolExperimentalStuff.convertEpubToText(_document.getFile(), getString(R.string.page)));
-        }
+    @Override
+    public void onPause() {
+        pause();
+        super.onPause();
     }
 
     @Override
@@ -559,17 +581,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    @OnTextChanged(value = R.id.document__fragment__edit__highlighting_editor, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    public void onContentEditValueChanged(CharSequence text) {
-        checkTextChangeState();
-        updateUndoRedoIconStates();
-    }
-
     public void checkTextChangeState() {
-        _isTextChanged = !_document.isContentSame(_hlEditor.getText());
+        final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
 
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != _isTextChanged) {
-            _saveMenuItem.setEnabled(_isTextChanged).getIcon().mutate().setAlpha(_isTextChanged ? 255 : 40);
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged) {
+            _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);
         }
     }
 
@@ -655,12 +671,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return FRAGMENT_TAG;
     }
 
+    public boolean checkPermissions() {
+
+        if (_document != null) {
+            final File file = _document.getFile();
+
+            if (_shareUtil.isUnderStorageAccessFolder(file) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                _shareUtil.showMountSdDialog(getActivity());
+            }
+
+            final boolean permok =  _document.testCreateParent() && _shareUtil.canWriteFile(file, false);
+            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
+            return permok;
+        }
+        return false;
+    }
+
     // Save the file
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        // Document is written iff content has changed
-        if (_isTextChanged && _document != null && _hlEditor != null && isAdded()) {
-            if (_document.saveContent(getContext(), _hlEditor.getText().toString(), _shareUtil, forceSaveEmpty)) {
+        // Document is written iff writeable && content has changed
+        if (checkPermissions() && _hlEditor != null && isAdded()) {
+            if (_document.saveContent(getContext(), _hlEditor.getText(), _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
@@ -673,45 +705,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private boolean isDisplayedAtMainActivity() {
         return getActivity() instanceof MainActivity;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onPause() {
-        saveDocument(false);
-        if (_appSettings != null && _document != null) {
-            _appSettings.addRecentDocument(_document.getFile());
-            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
-            if (_hlEditor != null) {
-                _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
-            }
-        }
-        super.onPause();
-    }
-
-    @Override
-    public void setUserVisibleHint(final boolean isVisibleToUser) {
-        // This function can be called _outside_ the normal lifecycle!
-        // Do nothing if the fragment is not at least created!
-        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.CREATED)) {
-            return;
-        }
-
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isDisplayedAtMainActivity()) {
-            loadDocument();
-            _primaryScrollView.postDelayed(() -> _primaryScrollView.fullScroll(View.FOCUS_DOWN), 100);
-        } else if (!isVisibleToUser && _document != null) {
-            saveDocument(false);
-        }
-        if (isVisibleToUser) {
-            initDocState();
-        }
     }
 
     public void updateViewModeText() {

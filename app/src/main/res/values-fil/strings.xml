@@ -192,7 +192,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Maari lamang mag-edit ang Markor ng lokal at offline na mga dokumento at hindi nito sinusuportahan ang mga file manager na hindi nagbibigay ng buong daanan ng file.</string>
     <string name="sync_to_local_folder_notice">Tandaan: Maaring maglagay ng mga file sa mga custom na folder ang mga app sa pagsi-sync. Buksan sila sa pamamagitan ng pagbago sa folder ng dokumento ng Markor, o di kaya naman sa isang file manager.</string>
-    <string name="configure_in_the_apps_settings">I-konpigura sa mga pagsasaayos ng app</string>
     <string name="vertical_alignment">Patayong pagkakahanay</string>
     <string name="horizontal_alignment">Pahigang pagkakahanay</string>
     <string name="default_">Default</string>
