@@ -367,12 +367,12 @@ public class SearchOrCustomTextDialogCreator {
 
         final boolean[] useAnd = {false};
         if (enableAnd) {
-            dopt.neutralButtonText = R.string.match_any;
+            dopt.neutralButtonText = R.string.matching_any;
             dopt.neutralButtonCallback = (dialog) -> {
                 Button neutralButton;
                 if (dialog != null && (neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)) != null) {
                     useAnd[0] = !useAnd[0];
-                    neutralButton.setText(useAnd[0] ? R.string.match_all : R.string.match_any);
+                    neutralButton.setText(useAnd[0] ? R.string.matching_all : R.string.matching_any);
                 }
             };
         }
