@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Heute fällig</string>
     <string name="due_future">Künftig fällig</string>
     <string name="completed">Abgeschlossen</string>
-    <string name="match_any">Jegliche Übereinstimmung</string>
-    <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch-Wurzelverzeichnis</string>
     <string name="search_dynamically_for_notebook_root">Zum Folgen von Wiki-Links dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu bestimmen. Aktivieren Sie diese Option, falls Sie mehrere Zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem Zim-Notebook entspricht.</string>
     <string name="share_into_format_prefix_for_text_shared">Formatierung/Präfix für in Markor geteilten Text. Befolgt Androids SimpleDateFormat-Regeln.\n\nVerwenden Sie den Platzhalter \'%s\' (umgeben von einfachen Anführungszeichen), um den geteilten Text zu platzieren. Falls nicht angegeben, wird der geteilte Text angehängt und die Formatierung wie ein Präfix verwendet.</string>

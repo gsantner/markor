@@ -425,8 +425,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今日が期限</string>
     <string name="due_future">今後の予定</string>
     <string name="completed">完了</string>
-    <string name="match_any">どれにでも一致</string>
-    <string name="match_all">すべて一致</string>
     <string name="dynamic_notebook_root_links">ノートブックのルートを動的に検索</string>
     <string name="search_dynamically_for_notebook_root">wiki のリンクをたどるために、notebook.zim ファイルを動的に検索して、現在のノートブックのルートディレクトリを特定します。 複数のzimノートブックを使用している場合や、アプリ内で設定されているノートブックディレクトリがzimノートブックに対応していない場合は、これを確認してください。</string>
     <string name="share_into_format_prefix_for_text_shared">Markorに共有されるテキストのフォーマット/プレフィックス。AndroidのSimpleDateFormatルールに従います。\n\n共有テキストを配置するには、プレースホルダー \'%s\' (単一引用符で囲まれて) を使用します。 指定されていない場合は、共有テキストが追加され、プレフィックスとして使用される形式が追加されます。</string>

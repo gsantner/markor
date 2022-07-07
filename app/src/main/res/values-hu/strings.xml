@@ -416,6 +416,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Ma esedékes</string>
     <string name="due_future">Jövőben esedékes</string>
     <string name="completed">Kész</string>
-    <string name="match_any">Bármelyikkel egyező</string>
-    <string name="match_all">Mindegyikkel egyező</string>
 </resources>

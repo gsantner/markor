@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">الواجب اليوم</string>
     <string name="due_future">مستحق في المستقبل</string>
     <string name="completed">مكتمل</string>
-    <string name="match_any">مطابقة أي</string>
-    <string name="match_all">مطابقة الكل</string>
     <string name="dynamic_notebook_root_links">البحث الديناميكي عن جذر دفتر الملاحظات</string>
     <string name="search_dynamically_for_notebook_root">من أجل اتباع روابط ويكي، البحث بشكل ديناميكي عن ملف notebook.zim لتحديد الدليل الجذر لكتاب الملاحظات الحالي. حدد هذا الخيار إذا كنت تستخدم العديد من الملاحظات المضغوطة أو دليل الملاحظات المحدد في التطبيق لا يتوافق مع دفتر الملاحظات المضغوط.</string>
     <string name="share_into_format_prefix_for_text_shared">تنسيق/بادئة للنص المشترك في العلامة. يتبع قواعد SimpleDateFormat للأندرويد.\n\nاستخدم العنصر النائب \'%s\' (محاطة باقتباسات واحدة) لوضع النص المشترك. إذا لم يتم تحديده، يتم إلحاق النص المشترك والشكل المستخدم كبادئ.</string>

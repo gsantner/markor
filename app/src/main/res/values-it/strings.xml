@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Scade oggi</string>
     <string name="due_future">Scadenza in futuro</string>
     <string name="completed">Completato</string>
-    <string name="match_any">Trova alcuni</string>
-    <string name="match_all">Corrisponde tutto</string>
     <string name="dynamic_notebook_root_links">Ricerca dinamica della radice del notebook</string>
     <string name="search_dynamically_for_notebook_root">Per seguire i collegamenti wiki, cerca dinamicamente il file notebook.zim per identificare la directory radice per il notebook corrente. Spunta questa opzione se usi più notebook zim o la directory del notebook impostata nell\'app non corrisponde al tuo notebook zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formato/Prefisso per il testo condiviso in Markor. Segue le regole SimpleDateFormat di Android.\n\nUsa il segnaposto \'%s\' (circondato da virgolette singole) per posizionare il testo condiviso. Se non specificato, il testo condiviso è messo in fondo e il formato usato come prefisso.</string>

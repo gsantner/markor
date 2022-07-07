@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Сьогодні</string>
     <string name="due_future">Термін дії в майбутньому</string>
     <string name="completed">Завершені</string>
-    <string name="match_any">Збігів</string>
-    <string name="match_all">Відповідає всім</string>
     <string name="dynamic_notebook_root_links">Динамічний пошук кореневого блокноту</string>
     <string name="search_dynamically_for_notebook_root">Для того, щоб перейти за посиланнями в вікі, динамічно шукати файл notebook.zim для визначення кореневої директорії для поточного записника. Поставте галочку, якщо ви використовуєте декілька самоблокнотів чи папку з нотатником у програмі не відповідає вашому зошит зошиту.</string>
     <string name="share_into_format_prefix_for_text_shared">Формат/Префікс тексту, виданий Маркер. Застосовує правила простого формату Андроїда.\n\nвикористовувати заповнювач \'%s\' (оточений одинарними лапками), щоб розмістити спільний текст. Якщо не вказано, то додається спільний текст і формат, який використовується як префікс.</string>

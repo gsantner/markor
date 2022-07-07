@@ -424,8 +424,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Dospijeva danas</string>
     <string name="due_future">Dospijeva u budućnosti</string>
     <string name="completed">Završeno</string>
-    <string name="match_any">Potrefi bilo koji</string>
-    <string name="match_all">Potrefi sve</string>
     <string name="dynamic_notebook_root_links">Dinamička potraga za izvorom bilježnice</string>
     <string name="search_dynamically_for_notebook_root">Da bi se pratili wiki-linkovi, dinamički pretraži bilježnica.zim datoteku kako bi se utvrdio temeljni direktorij za trenutnu bilježnicu. Aktivirajte ovo ukoliko koristite više zim bilježnica ili ako je u aplikaciji podešeno da se direktorij u kojem se bilježnica nalazi ne veže za Vašu zim-bilježnicu.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/prefiks za tekst podijeljen s Markorom. Slijedi Androidova SimpleDateFormat pravila.\n\nKoristi oznaku \'%s\' (okruženu polunavodnicima) za pozicioniranje dijeljenog teksta. Ako nije precizirano, dijeljeni tekst bit će dodat na kraju a format će se koristiti kao prefiks.</string>

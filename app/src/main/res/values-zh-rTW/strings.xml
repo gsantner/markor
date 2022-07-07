@@ -424,8 +424,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今天到期</string>
     <string name="due_future">未來到期</string>
     <string name="completed">已完成</string>
-    <string name="match_any">任意匹配</string>
-    <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">動態搜尋筆記本根目錄</string>
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自動格式化</string>

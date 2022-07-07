@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Forfalder i dag</string>
     <string name="due_future">Forfalder i fremtiden</string>
     <string name="completed">Afsluttet</string>
-    <string name="match_any">Match Enhver</string>
-    <string name="match_all">Match Alle</string>
     <string name="dynamic_notebook_root_links">Dynamisk søgning efter notesbog rod</string>
     <string name="search_dynamically_for_notebook_root">For at følge wiki-links skal du dynamisk søge efter filen notebook.zim for at identificere rodmappen for den aktuelle notesbog. Markér dette hvis du bruger flere zim notesbøger eller den notesbog mappe der er sat i appen, svarer ikke til din zim notesbog.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Præfiks for tekst delt i Markor. Følger Androids SimpleDateFormat regler.\n\nBrug pladsholderen \'%s\' (omgivet af enkelte anførselstegn) til at placere den delte tekst. Hvis ikke angivet, tilføjes den delte tekst og formatet bruges som præfiks.</string>

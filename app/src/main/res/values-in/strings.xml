@@ -424,6 +424,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Tenggat hari ini</string>
     <string name="due_future">Tenggat mendatang</string>
     <string name="completed">Diselesaikan</string>
-    <string name="match_any">Cocokkan apa saja</string>
-    <string name="match_all">Cocokkan semua</string>
 </resources>

@@ -427,8 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Iscadit oe</string>
     <string name="due_future">Iscadèntzia in su tempus benidore</string>
     <string name="completed">Cumpridu</string>
-    <string name="match_any">Currispondet a cale si siat</string>
-    <string name="match_all">Currispondet totu</string>
     <string name="dynamic_notebook_root_links">Chirca dinàmica de sa raighina de sas notas</string>
     <string name="search_dynamically_for_notebook_root">Pro sighire sos ligàmenes wiki chirca in manera dinàmica su documentu notebook.zim pro identificare sa cartella de raighina pro sas notas atuales. Marca·lu si impreas prus blocos de notas zim o si sa cartella de su blocu de notas impostada in s\'aplicatzione non currispondet a su blocu de notas zim tuo.</string>
     <string name="share_into_format_prefix_for_text_shared">Formadu/Prefissu pro su testu cumpartzidu in Markor. Sighit sas règulas SimpleDateFormat de Android.\n\nImprea su sinnapostu \'%s\' (inghiriadu dae virguleddas sìngulas) pro pònnere in logu su testu cumpartzidu. Si no est dislindadu su testu cumpartzidu benit postu in fundu e su formadu s\'impreat comente prefissu.</string>
