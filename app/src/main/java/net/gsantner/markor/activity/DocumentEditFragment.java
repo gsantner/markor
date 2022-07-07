@@ -77,7 +77,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         DocumentEditFragment f = new DocumentEditFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
-        if (lineNumber != null && lineNumber >= 0) {
+        if (lineNumber != null) {
             args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
         args.putBoolean(START_PREVIEW, preview);
@@ -232,8 +232,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_savedInstanceState == null) {
             if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
                 startPos = _hlEditor.length();
-            } else if (args != null && args.getInt(Document.EXTRA_FILE_LINE_NUMBER, -1) >= 0) {
-                startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), args.getInt(Document.EXTRA_FILE_LINE_NUMBER), 0);
+            } else if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+                final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+                if (lno >= 0) {
+                    startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
+                } else {
+                    startPos = _hlEditor.length();
+                }
             }
         }
 

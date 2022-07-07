@@ -47,6 +47,7 @@ public class Document implements Serializable {
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
+    public static final int EXTRA_FILE_LINE_NUMBER_LAST = -1; // Flag for last line. Any -ve number will work
 
     private final File _file;
     private final String _fileExtension;
