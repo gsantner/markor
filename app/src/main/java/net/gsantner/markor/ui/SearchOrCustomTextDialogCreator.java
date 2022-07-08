@@ -271,6 +271,7 @@ public class SearchOrCustomTextDialogCreator {
         icons.add(R.drawable.ic_check_black_24dp);
         callbacks.add(() -> {
             final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
+            dopt2.highlighter = null; // Don't need the grey + strikeout highlighting. Makes it harder to see.
             dopt2.titleText = R.string.completed;
             SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
