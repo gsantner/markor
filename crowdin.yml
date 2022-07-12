@@ -64,5 +64,6 @@ files:
         eo: eo # Esperanto
         or: or # Odia/Oriya (India)
         hr: hr # Croatia
+        bg: bg # Bulgarian
         th: th # Thai
     translate_attributes: 0
