@@ -691,8 +691,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
-        if (checkPermissions() && _hlEditor != null && isAdded()) {
-            if (_document.saveContent(getContext(), _hlEditor.getText(), _shareUtil, forceSaveEmpty)) {
+        final CharSequence text = _hlEditor.getText();
+        if (!_document.isContentSame(text) && checkPermissions() && _hlEditor != null && isAdded()) {
+            if (_document.saveContent(getContext(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
