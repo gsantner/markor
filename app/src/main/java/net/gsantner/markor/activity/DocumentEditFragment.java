@@ -169,7 +169,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         webSettings.setTextZoom((int) (_appSettings.getViewFontSize() / 15.7f * 100f));
-        webSettings.setAppCacheEnabled(true);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setDatabaseEnabled(true);
         webSettings.setGeolocationEnabled(false);
         webSettings.setJavaScriptEnabled(true);

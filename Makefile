@@ -49,7 +49,7 @@ lint:
 	rm -Rf $(DIST_DIR)/lint
 	mkdir -p $(DIST_DIR)/lint/
 	$(MAKE) A="lintFlavorDefaultDebug" gradle
-	find app -type f -iname 'lint-results-*' | xargs cp -R -t $(DIST_DIR)/lint
+	find app -type f -iname 'lint-results-*' | grep -v 'intermediates' | xargs cp -R -t $(DIST_DIR)/lint
 	$(MAKE) A="-lint" gradle-analyze-log
 
 test:
