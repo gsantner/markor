@@ -156,8 +156,11 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
+    @SuppressWarnings({"ConstantConditions", "RedundantSuppression"})
     public void addTextChangedListener(final TextWatcher listener) {
-        _activeListeners.add(listener);
+        if (_activeListeners != null) {
+            _activeListeners.add(listener);
+        }
         super.addTextChangedListener(listener);
     }
 
