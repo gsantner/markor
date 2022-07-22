@@ -43,8 +43,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class SettingsActivity extends MarkorBaseActivity {
@@ -59,7 +57,6 @@ public class SettingsActivity extends MarkorBaseActivity {
     public static int activityRetVal = RESULT.NOCHANGE;
     private static int iconColor = Color.WHITE;
 
-    @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
     public void onCreate(Bundle b) {
@@ -68,7 +65,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Load UI
         setContentView(R.layout.settings__activity);
-        ButterKnife.bind(this);
+        toolbar = findViewById(R.id.toolbar);
 
         // Custom code
         FontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");

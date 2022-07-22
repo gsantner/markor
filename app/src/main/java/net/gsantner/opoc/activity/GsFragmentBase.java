@@ -27,8 +27,6 @@ import android.view.ViewGroup;
 import net.gsantner.opoc.android.dummy.MenuItemDummy;
 import net.gsantner.opoc.util.ContextUtils;
 
-import butterknife.ButterKnife;
-
 /**
  * A common base fragment to extend from
  */
@@ -61,9 +59,7 @@ public abstract class GsFragmentBase extends Fragment {
         if (getLayoutResId() == 0) {
             Log.e(getClass().getCanonicalName(), "Error: GsFragmentbase.onCreateview: Returned 0 for getLayoutResId");
         }
-        View view = inflater.inflate(getLayoutResId(), container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(getLayoutResId(), container, false);
     }
 
     @Override

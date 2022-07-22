@@ -14,8 +14,6 @@
  * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
  * Most features are usable without any additional project files and resources
- *
- * Required: Butterknife library
  */
 package net.gsantner.opoc.ui;
 
@@ -40,13 +38,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.gsantner.markor.R;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 public class FilesystemViewerDialog extends DialogFragment implements FilesystemViewerData.SelectionListener {
     //########################
@@ -65,32 +60,15 @@ public class FilesystemViewerDialog extends DialogFragment implements Filesystem
     //########################
     //## Member
     //########################
-    @BindView(R.id.ui__filesystem_dialog__list)
-    RecyclerView _recyclerList;
-
-    @BindView(R.id.ui__filesystem_dialog__title)
-    TextView _dialogTitle;
-
-    @BindView(R.id.ui__filesystem_dialog__button_cancel)
-    TextView _buttonCancel;
-
-    @BindView(R.id.ui__filesystem_dialog__button_ok)
-    TextView _buttonOk;
-
-    @BindView(R.id.ui__filesystem_dialog__utilbar)
-    LinearLayout _utilBar;
-
-    @BindView(R.id.ui__filesystem_dialog__buttons)
-    LinearLayout _buttonBar;
-
-    @BindView(R.id.ui__filesystem_dialog__home)
-    ImageView _homeButton;
-
-    @BindView(R.id.ui__filesystem_dialog__search_button)
-    ImageView _buttonSearch;
-
-    @BindView(R.id.ui__filesystem_dialog__search_edit)
-    EditText _searchEdit;
+    private RecyclerView _recyclerList;
+    public TextView _dialogTitle;
+    private TextView _buttonCancel;
+    private TextView _buttonOk;
+    private LinearLayout _utilBar;
+    private LinearLayout _buttonBar;
+    private ImageView _homeButton;
+    private ImageView _buttonSearch;
+    private EditText _searchEdit;
 
     private FilesystemViewerAdapter _filesystemViewerAdapter;
     private FilesystemViewerData.Options _dopt;
@@ -102,8 +80,6 @@ public class FilesystemViewerDialog extends DialogFragment implements Filesystem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.opoc_filesystem_dialog, container, false);
-        ButterKnife.bind(this, root);
-
         if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         }
@@ -114,12 +90,21 @@ public class FilesystemViewerDialog extends DialogFragment implements Filesystem
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
-        if (_buttonCancel == null) {
-            ButterKnife.bind(this, root);
-            if (_buttonCancel == null) {
-                System.err.println("Error: at " + getClass().getName() + " :: Could not bind UI");
-            }
+        _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
+        _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title);
+        _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
+        _buttonOk = root.findViewById(R.id.ui__filesystem_dialog__button_ok);
+        _utilBar = root.findViewById(R.id.ui__filesystem_dialog__utilbar);
+        _buttonBar = root.findViewById(R.id.ui__filesystem_dialog__buttons);
+        _homeButton = root.findViewById(R.id.ui__filesystem_dialog__home);
+        _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
+        _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
+
+        _searchEdit.addTextChangedListener(TextWatcherDummy.on(this::changeAdapterFilter));
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonCancel, _buttonOk}){
+            v.setOnClickListener(this::onClicked);
         }
+
 
         if (_dopt == null || _buttonCancel == null) {
             dismiss();
@@ -174,14 +159,12 @@ public class FilesystemViewerDialog extends DialogFragment implements Filesystem
         checkOptions();
     }
 
-    @OnTextChanged(value = R.id.ui__filesystem_dialog__search_edit, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void changeAdapterFilter(CharSequence s, int start, int before, int count) {
         if (_filesystemViewerAdapter != null) {
             _filesystemViewerAdapter.getFilter().filter(s.toString());
         }
     }
 
-    @OnClick({R.id.ui__filesystem_dialog__home, R.id.ui__filesystem_dialog__search_button, R.id.ui__filesystem_dialog__button_cancel, R.id.ui__filesystem_dialog__button_ok})
     public void onClicked(View view) {
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:

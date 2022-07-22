@@ -53,26 +53,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.OnPageChange;
 import other.writeily.widget.WrMarkorWidgetProvider;
 
 public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 
-    @BindView(R.id.bottom_navigation_bar)
-    BottomNavigationView _bottomNav;
-
-    @BindView(R.id.fab_add_new_item)
-    FloatingActionButton _fab;
-
-    @BindView(R.id.main__view_pager_container)
-    ViewPager _viewPager;
+    private BottomNavigationView _bottomNav;
+    private ViewPager _viewPager;
     private SectionsPagerAdapter _viewPagerAdapter;
+    private FloatingActionButton _fab;
 
     private boolean _doubleBackToExitPressedOnce;
     private ShareUtil _shareUtil;
@@ -85,7 +75,19 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _shareUtil = new ShareUtil(this);
         setContentView(R.layout.main__activity);
-        ButterKnife.bind(this);
+        _bottomNav = findViewById(R.id.bottom_navigation_bar);
+        _viewPager = findViewById(R.id.main__view_pager_container);
+        _fab = findViewById(R.id.fab_add_new_item);
+        _fab.setOnClickListener(this::onClickFab);
+        _fab.setOnLongClickListener(this::onLongClickFab);
+        _viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                onViewPagerPageSelected(position);
+            }
+        });
+
         setSupportActionBar(findViewById(R.id.toolbar));
         optShowRate();
 
@@ -252,7 +254,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
     }
 
-    @OnLongClick({R.id.fab_add_new_item})
     public boolean onLongClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);
         FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
@@ -265,7 +266,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     }
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
-    @OnClick({R.id.fab_add_new_item})
     public void onClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);
         FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
@@ -335,14 +335,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return true;
     }
 
-    public void updateFabVisibility(boolean visible) {
-        if (visible) {
-            _fab.show();
-        } else {
-            _fab.hide();
-        }
-    }
-
     public String getFileBrowserTitle() {
         final File file = _appSettings.getFileBrowserLastBrowsedFolder();
         String title = getString(R.string.app_name);
@@ -372,11 +364,14 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return "";
     }
 
-    @OnPageChange(value = R.id.main__view_pager_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onViewPagerPageSelected(int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
-        updateFabVisibility(pos == tabIdToPos(R.id.nav_notebook));
+        if (pos == tabIdToPos(R.id.nav_notebook)) {
+            _fab.show();
+        } else {
+            _fab.hide();
+        }
         setTitle(getPosTitle(pos));
 
         if (pos != tabIdToPos(R.id.nav_notebook)) {

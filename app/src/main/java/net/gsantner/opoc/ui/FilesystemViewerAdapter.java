@@ -50,9 +50,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemViewerAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
     //########################
@@ -703,13 +700,9 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         //########################
         //## UI Binding
         //########################
-        @BindView(R.id.opoc_filesystem_item__root)
         LinearLayout itemRoot;
-        @BindView(R.id.opoc_filesystem_item__image)
         ImageView image;
-        @BindView(R.id.opoc_filesystem_item__title)
         TextView title;
-        @BindView(R.id.opoc_filesystem_item__description)
         TextView description;
 
         //########################
@@ -717,7 +710,10 @@ public class FilesystemViewerAdapter extends RecyclerView.Adapter<FilesystemView
         //########################
         FilesystemViewerViewHolder(View row) {
             super(row);
-            ButterKnife.bind(this, row);
+            itemRoot = row.findViewById(R.id.opoc_filesystem_item__root);
+            image = row.findViewById(R.id.opoc_filesystem_item__image);
+            title = row.findViewById(R.id.opoc_filesystem_item__title);
+            description = row.findViewById(R.id.opoc_filesystem_item__description);
         }
     }
 }

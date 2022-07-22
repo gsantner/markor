@@ -37,21 +37,19 @@ import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 import java.util.regex.Matcher;
 
-import butterknife.BindView;
-import butterknife.OnTextChanged;
-
 public class DocumentShareIntoFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
-    private File workingDir;
 
     public static DocumentShareIntoFragment newInstance(Intent intent) {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
@@ -69,9 +67,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         return f;
     }
 
-    @BindView(R.id.document__fragment__share_into__highlighting_editor)
-    HighlightingEditor _hlEditor;
-
+    private File workingDir;
+    private HighlightingEditor _hlEditor;
     private ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
 
     public DocumentShareIntoFragment() {
@@ -89,6 +86,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final AppSettings as = new AppSettings(context);
         final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
+        _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
+        _hlEditor.addTextChangedListener(TextWatcherDummy.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
         if (_savedInstanceState == null) {
@@ -109,7 +108,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
     }
 
-    @OnTextChanged(value = R.id.document__fragment__share_into__highlighting_editor, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void onTextChanged(CharSequence text) {
         if (_shareIntoImportOptionsFragment != null) {
             _shareIntoImportOptionsFragment.setText(text.toString());
