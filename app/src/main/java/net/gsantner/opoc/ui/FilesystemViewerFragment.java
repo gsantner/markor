@@ -14,8 +14,6 @@
  * most bits (color, text, images) can be controller using FilesystemViewerData.
  * The data container contains a listener callback for results.
  * Most features are usable without any additional project files and resources
- *
- * Required: Butterknife library
  */
 package net.gsantner.opoc.ui;
 
@@ -60,8 +58,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
@@ -84,14 +80,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
     //########################
     //## Member
     //########################
-    @BindView(R.id.ui__filesystem_dialog__list)
-    RecyclerView _recyclerList;
 
-    @BindView(R.id.pull_to_refresh)
-    public SwipeRefreshLayout swipe;
-
-    @BindView(R.id.empty_hint)
-    public TextView _emptyHint;
+    private RecyclerView _recyclerList;
+    private SwipeRefreshLayout swipe;
+    private TextView _emptyHint;
 
     private FilesystemViewerAdapter _filesystemViewerAdapter;
     private FilesystemViewerData.Options _dopt;
@@ -114,7 +106,10 @@ public class FilesystemViewerFragment extends GsFragmentBase
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
-        ButterKnife.bind(this, root);
+        _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
+        swipe = root.findViewById(R.id.pull_to_refresh);
+        _emptyHint = root.findViewById(R.id.empty_hint);
+
         _appSettings = new AppSettings(root.getContext());
         _contextUtils = new ContextUtils(root.getContext());
         _shareUtil = new ShareUtil(root.getContext());

@@ -38,20 +38,14 @@ import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
-    @BindView(R.id.document__placeholder_fragment)
-    FrameLayout _fragPlaceholder;
-    @BindView(R.id.toolbar)
-    Toolbar _toolbar;
-    @BindView(R.id.note__activity__text_note_title)
-    TextView _toolbarTitleText;
+    private FrameLayout _fragPlaceholder;
+    private Toolbar _toolbar;
+    private TextView _toolbarTitleText;
 
     private FragmentManager _fragManager;
 
@@ -132,7 +126,10 @@ public class DocumentActivity extends MarkorBaseActivity {
             nextLaunchTransparentBg = false;
         }
         setContentView(R.layout.document__activity);
-        ButterKnife.bind(this);
+        _fragPlaceholder = findViewById(R.id.document__placeholder_fragment);
+        _toolbar = findViewById(R.id.toolbar);
+        _toolbarTitleText = findViewById(R.id.note__activity__text_note_title);
+
         if (_appSettings.isHideSystemStatusbar()) {
             AndroidBug5497Workaround.assistActivity(this);
         }

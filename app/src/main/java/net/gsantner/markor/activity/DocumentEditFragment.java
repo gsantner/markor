@@ -63,9 +63,6 @@ import net.gsantner.opoc.util.TextViewUndoRedo;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.OnTextChanged;
-
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditFragment extends GsFragmentBase implements TextFormat.TextFormatApplier {
@@ -89,20 +86,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return newInstance(new Document(path), lineNumber, false);
     }
 
-    @BindView(R.id.document__fragment__edit__highlighting_editor)
-    HighlightingEditor _hlEditor;
-
-    @BindView(R.id.document__fragment__edit__text_actions_bar)
-    ViewGroup _textActionsBar;
-
-    @BindView(R.id.document__fragment__edit__content_editor__permission_warning)
-    TextView _textSdWarning;
-
-    @BindView(R.id.document__fragment_view_webview)
-    WebView _webView;
-
-    @BindView(R.id.document__fragment__edit__content_editor__scrolling_parent)
-    DraggableScrollbarScrollView _primaryScrollView;
+    private HighlightingEditor _hlEditor;
+    private ViewGroup _textActionsBar;
+    private TextView _textSdWarning;
+    private WebView _webView;
+    private DraggableScrollbarScrollView _primaryScrollView;
 
     private AppSettings _appSettings;
     private HorizontalScrollView _hsView;
@@ -160,6 +148,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WebView.enableSlowWholeDocumentDraw();
         }
+
+        _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
+        _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
+        _textSdWarning = view.findViewById(R.id.document__fragment__edit__content_editor__permission_warning);
+        _webView = view.findViewById(R.id.document__fragment_view_webview);
+        _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
 
         _shareUtil = new ShareUtil(activity);
 

@@ -49,9 +49,6 @@ Version 2.0, January 2004
 * adapter-kit
 ~° Copyright 2013 Mobs & Geeks
 
-* Butterknife
-~° Copyright 2013 Jake Wharton
-
 * Commons IO
 ~° Copyright Apache Foundation
 
