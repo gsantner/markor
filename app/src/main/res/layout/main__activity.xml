@@ -9,7 +9,7 @@
  *
 #########################################################*/
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -32,9 +32,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
-            app:title="@string/app_name">
-
-        </android.support.v7.widget.Toolbar>
+            app:title="@string/app_name" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -42,41 +40,31 @@
         android:id="@+id/main__view_pager_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="56dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize" />
 
-    <RelativeLayout
-        android:id="@+id/main_bottom_stuff"
+    <!--suppress AndroidUnknownAttribute -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_new_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="72dp"
+        android:contentDescription="@string/create_new_file_or_folder"
+        android:src="@drawable/ic_add_white_24dp" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom">
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="start|bottom"
+        android:background="@color/primary"
+        app:itemBackground="@color/primary"
+        app:itemIconTint="@drawable/bottomnav_color_selector"
+        app:itemTextColor="@drawable/bottomnav_color_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/main__bottom_nav" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_new_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/bottom_navigation_bar"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/create_new_file_or_folder"
-            android:src="@drawable/ic_add_white_24dp"
-            tools:elevation="2dp"
-            tools:ignore="RtlHardcoded" />
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/primary"
-            app:itemBackground="@color/primary"
-            app:itemIconTint="@drawable/bottomnav_color_selector"
-            app:itemTextColor="@drawable/bottomnav_color_selector"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/main__bottom_nav"
-            tools:elevation="2dp" />
-
-    </RelativeLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>
