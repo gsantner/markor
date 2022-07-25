@@ -2,8 +2,6 @@ package com.flask.colorpicker;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.Xfermode;
 import android.graphics.drawable.ColorDrawable;
 
 import com.flask.colorpicker.builder.PaintBuilder;

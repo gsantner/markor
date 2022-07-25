@@ -4,8 +4,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.WindowManager;
+
+import androidx.annotation.Nullable;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.ActivityUtils;

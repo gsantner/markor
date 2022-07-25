@@ -49,11 +49,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.os.ConfigurationCompat;
-import android.support.v7.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.annotation.Nullable;
+import androidx.core.os.ConfigurationCompat;
+import androidx.preference.ListPreference;
 
 import net.gsantner.opoc.util.ContextUtils;
 

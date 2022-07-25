@@ -10,7 +10,8 @@
 package net.gsantner.markor.activity.openeditor;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;

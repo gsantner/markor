@@ -15,15 +15,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceGroup;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
@@ -42,7 +43,6 @@ import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
 import net.gsantner.opoc.ui.FilesystemViewerAdapter;
 import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 import java.util.regex.Matcher;

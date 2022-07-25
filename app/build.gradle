@@ -29,6 +29,7 @@ android {
         versionName "2.10.1"
         versionCode 134
 
+        multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
@@ -67,20 +68,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    configurations.all {
-        resolutionStrategy {
-            eachDependency { details ->
-                if (details.requested.group == 'com.android.support') {
-                    if (details.requested.name != 'multidex' && details.requested.name != 'multidex-instrumentation') {
-                        details.useVersion "${rootProject.ext.version_library_appcompat}"
-                    }
-                }
-            }
         }
     }
 
@@ -108,14 +97,14 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.13.1'
 
     // Android standard libs
-    implementation "com.android.support:appcompat-v7:${version_library_appcompat}"
-    implementation "com.android.support:design:${version_library_appcompat}"
-    implementation "com.android.support:support-v4:${version_library_appcompat}"
-    implementation "com.android.support:recyclerview-v7:${version_library_appcompat}"
-    implementation "com.android.support:palette-v7:${version_library_appcompat}"
-    implementation "com.android.support:preference-v7:${version_library_appcompat}"
-    implementation "com.android.support:preference-v14:${version_library_appcompat}"
-    implementation "com.android.support:customtabs:${version_library_appcompat}"
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation 'androidx.browser:browser:1.4.0'
 
     // Markdown convertor (Flexmark)
     implementation "com.vladsch.flexmark:flexmark:${version_library_flexmark}"
@@ -138,7 +127,7 @@ dependencies {
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
-    implementation 'com.github.AppIntro:AppIntro:v4.2.3'
+    implementation 'com.github.AppIntro:AppIntro:6.2.0'
     implementation 'com.kailashdabhi:om-recorder:1.1.5'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
     implementation project(':app:thirdparty-lib-src:QuadFlask-colorpicker')

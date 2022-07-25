@@ -13,7 +13,8 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.annotation.ColorInt;
+
+import androidx.annotation.ColorInt;
 
 // Creates a colored line at the very top of a paragraph
 public class HorizontalLineBackgroundParagraphSpan extends BackgroundParagraphSpan {

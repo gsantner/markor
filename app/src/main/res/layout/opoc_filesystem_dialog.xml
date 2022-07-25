@@ -83,14 +83,14 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ui__filesystem_dialog__list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@+id/ui__filesystem_dialog__buttons"
         android:layout_below="@+id/ui__filesystem_dialog__utilbar"
         android:minHeight="100dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <LinearLayout
         android:id="@+id/ui__filesystem_dialog__buttons"

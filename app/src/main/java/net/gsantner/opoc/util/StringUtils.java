@@ -12,7 +12,6 @@ package net.gsantner.opoc.util;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -20,6 +19,8 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;

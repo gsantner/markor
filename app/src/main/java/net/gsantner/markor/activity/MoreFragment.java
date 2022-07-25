@@ -11,9 +11,10 @@ package net.gsantner.markor.activity;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.activity.GsFragmentBase;

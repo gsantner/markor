@@ -10,11 +10,12 @@
 #########################################################*/
 package net.gsantner.opoc.ui;
 
-import android.arch.core.util.Function;
 import android.os.Environment;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.arch.core.util.Function;
 
 import java.io.File;
 import java.io.Serializable;

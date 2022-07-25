@@ -20,17 +20,13 @@ buildscript {
         version_compileSdk = 33
         version_buildTools = "33.0.0"
         version_minSdk = 17
-
-        // https://developer.android.com/topic/libraries/support-library/
-        version_library_appcompat = "28.0.0" //androidx
-        // https://github.com/guardianproject/NetCipher/releases
-        version_library_netcipher = "2.0.0-alpha1"
     }
 
     repositories {
         maven { url 'https://maven.google.com' }
         maven { url "https://jitpack.io" }
         mavenCentral()
+        google()
     }
 
     dependencies {
@@ -51,6 +47,7 @@ allprojects {
         maven { url 'https://maven.google.com' }
         maven { url "https://jitpack.io" }
         jcenter()
+        google()
     }
 
     tasks.matching { task -> task.name.matches('.*generate.*Resources') }.all {

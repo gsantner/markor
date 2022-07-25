@@ -18,15 +18,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.TooltipCompat;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -47,6 +38,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.TooltipCompat;
 
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
@@ -225,10 +226,10 @@ public class SearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dopt.isDarkDialog
-                ? android.support.v7.appcompat.R.style.Theme_AppCompat_Dialog
-                : android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog
-        );
+        ContextUtils cu = new ContextUtils(activity);
+        final int dialogStyle = cu.getResId(ContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
+
         final Adapter listAdapter = Adapter.create(activity, dopt);
 
         // Constructing the dialog

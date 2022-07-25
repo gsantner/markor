@@ -11,8 +11,9 @@ package net.gsantner.markor.format.zimwiki;
 
 import android.app.Activity;
 import android.os.Build;
-import android.support.annotation.StringRes;
 import android.widget.Toast;
+
+import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
