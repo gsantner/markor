@@ -10,7 +10,7 @@
  *
 #########################################################*/
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ui__filesystem_dialog__root"
@@ -21,7 +21,6 @@
         android:id="@+id/empty_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingTop="64dp"
@@ -45,4 +44,4 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-</RelativeLayout>
+</FrameLayout>

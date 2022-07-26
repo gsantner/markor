@@ -10,7 +10,7 @@
  *
 #########################################################*/
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,37 +26,45 @@
         android:id="@+id/file_identifier_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:contentDescription="@null"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/note_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/file_identifier_icon"
+        android:layout_alignLeft="@+id/file_identifier_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:ellipsize="end"
+        android:lines="1"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:paddingRight="8dp"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="19sp"
+        tools:text="myfile.md" />
 
-        <TextView
-            android:id="@+id/note_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="19sp" />
+    <TextView
+        android:id="@+id/note_extra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/file_identifier_icon"
+        android:layout_alignLeft="@+id/file_identifier_icon"
+        android:layout_alignTop="@+id/note_title"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:ellipsize="middle"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:singleLine="true"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="15sp"
+        tools:text="20kb, 19.02.2004" />
 
-        <TextView
-            android:id="@+id/note_extra"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="middle"
-            android:fontFamily="sans-serif-light"
-            android:singleLine="true"
-            android:textColor="@android:color/tertiary_text_dark"
-            android:textSize="15sp"
-            tools:ignore="UnusedAttribute" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
