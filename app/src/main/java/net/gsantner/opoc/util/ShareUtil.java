@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Developed/Maintained by Gregor Santner, 2017-2022
- *   https://gsantner.net/
- *
- *   License of this file: Creative Commons Zero (CC0 1.0) / Public Domain
+ * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/
 package net.gsantner.opoc.util;
@@ -582,6 +580,7 @@ public class ShareUtil {
         File tmpf;
         String tmps;
         String fileStr;
+        String[] sarr;
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
             // Markor, S.M.T FileManager
@@ -662,8 +661,34 @@ public class ShareUtil {
             if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/") && (tmpf = new File(tmps)).exists()) {
                 return tmpf;
             }
+
+            // Scan MediaStore.MediaColumns
+            sarr = resolveDataColumns(_context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
+            if (sarr[0] != null && (tmpf = new File(sarr[0])).exists()) {
+                return tmpf;
+            } else if (sarr[1] != null && (tmpf = new File(Environment.getExternalStorageDirectory(), sarr[1])).exists()) {
+                return tmpf;
+            }
+
         }
+
         return null;
+    }
+
+    public static String[] resolveDataColumns(final Context context, final Intent intent, final String... columns) {
+        final String[] out = (new String[columns.length]);
+        final Cursor cursor = context.getContentResolver().query(intent.getData(), columns, null, null, null);
+        final int INVALID = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            for (int i = 0; i < columns.length; i++) {
+                final int coli = TextUtils.isEmpty(columns[i]) ? INVALID : cursor.getColumnIndex(columns[i]);
+                out[i] = (coli == INVALID ? null : cursor.getString(coli));
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return out;
     }
 
     /**
