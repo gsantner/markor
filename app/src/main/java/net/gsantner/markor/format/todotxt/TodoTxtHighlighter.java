@@ -45,22 +45,23 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
         createSpanForMatches(LINE_OF_TEXT, matcher -> new ParagraphDividerSpan(_textColor, _textSize));
     }
 
+    // Adds spacing and divider line between paragraphs
     public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateLayout {
-        private final int _color;
-        private final float _textSize;
+        private final int _lineColor;
+        private final float _spacing;
         private Integer _origAscent = null;
 
-        public ParagraphDividerSpan(@ColorInt int color, float textSize) {
-            _color = color;
-            _textSize = textSize;
+        public ParagraphDividerSpan(@ColorInt int lineColor, float spacing) {
+            _lineColor = lineColor;
+            _spacing = spacing;
         }
 
         @Override
         public void drawBackground(@NonNull Canvas canvas, @NonNull Paint paint, int left, int right, int top, int baseline, int bottom, @NonNull CharSequence text, int start, int end, int lineNumber) {
             if (start > 0 && text.charAt(start - 1) == '\n') {
-                paint.setColor(_color);
+                paint.setColor(_lineColor);
                 paint.setStrokeWidth(0);
-                canvas.drawLine(left, top + _textSize / 2, right, top +  _textSize / 2, paint);
+                canvas.drawLine(left, top + _spacing / 2, right, top +  _spacing / 2, paint);
             }
         }
 
@@ -70,7 +71,7 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
                 _origAscent = fm.ascent;
             }
             boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
-            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) _textSize : _origAscent;
+            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) _spacing : _origAscent;
         }
     }
 }

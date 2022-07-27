@@ -94,14 +94,9 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
             final int[] regionY = hlRegionY();
             if (isShiftSignificant(regionY)) {
                 final long start = System.nanoTime();
-                try {
-                    beginBatchEdit();
-                    blockBringNextPointIntoView();
-                    withAccessibilityDisabled(() -> _hl.clear().apply(hlRegionIndex(regionY)));
-                    _hlRegionY = regionY;
-                } finally {
-                    endBatchEdit();
-                }
+                blockBringNextPointIntoView();
+                withAccessibilityDisabled(() -> _hl.clear().apply(hlRegionIndex(regionY)));
+                _hlRegionY = regionY;
                 Log.d("Highlighting", "updateDynamicHighlighting took " + (0.001 * (System.nanoTime() - start)) + " uS");
             }
         }
