@@ -9,145 +9,69 @@
 #########################################################*/
 package net.gsantner.markor.format.todotxt;
 
-import android.content.Context;
-import android.graphics.Typeface;
-import android.text.Spannable;
-import android.util.Patterns;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.text.style.LineBackgroundSpan;
+import android.text.style.LineHeightSpan;
+import android.text.style.UpdateLayout;
 
-import net.gsantner.markor.BuildConfig;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.general.FirstLineTopPaddedParagraphSpan;
-import net.gsantner.markor.format.general.HorizontalLineBackgroundParagraphSpan;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.NanoProfiler;
 
 import java.util.regex.Pattern;
 
-public class TodoTxtHighlighter extends Highlighter {
+public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
 
-    private final static Pattern LINK = Patterns.WEB_URL;
-    private final static Pattern NEWLINE_CHARACTER = Pattern.compile("(\\n|^)");
-    private final static Pattern LINESTART = Pattern.compile("(?m)^.");
     private final static Pattern LINE_OF_TEXT = Pattern.compile("(?m)(.*)?");
 
-    private final static int COLOR_CATEGORY = 0xffef6C00;
-    private final static int COLOR_CONTEXT = 0xff88b04b;
-
-    private final static int COLOR_PRIORITY_A = 0xffEF2929;
-    private final static int COLOR_PRIORITY_B = 0xffF57900;
-    private final static int COLOR_PRIORITY_C = 0xff73D216;
-    private final static int COLOR_PRIORITY_D = 0xff0099CC;
-    private final static int COLOR_PRIORITY_E = 0xffEDD400;
-    private final static int COLOR_PRIORITY_F = 0xff888A85;
-
-    private final static int COLOR_DONE_DARK = 0x999d9d9d;
-    private final static int COLOR_DONE_LIGHT = 0x993d3d3d;
-    private final static int COLOR_DATE_DARK = COLOR_DONE_DARK;
-    private final static int COLOR_DATE_LIGHT = 0xcc6d6d6d;
-
-
-    public TodoTxtHighlighter(HighlightingEditor hlEditor, Document document) {
-        super(hlEditor, document);
+    public TodoTxtHighlighter(final AppSettings as) {
+        super(as);
     }
 
     @Override
-    protected Spannable run(final Spannable spannable) {
-        try {
-            clearSpans(spannable);
-
-            if (spannable.length() == 0) {
-                return spannable;
-            }
-
-            _profiler.start(true, "Todo.Txt Highlighting");
-            generalHighlightRun(spannable);
-            _profiler.restart("Paragraph top padding");
-            createSpanForMatches(spannable, LINE_OF_TEXT, (matcher, iM) -> new FirstLineTopPaddedParagraphSpan(2f));
-
-            basicTodoTxtHighlights(spannable, false, _appSettings.isDarkThemeEnabled(), _profiler);
-
-            // Paragraph divider
-            _profiler.restart("Paragraph divider");
-            createSpanForMatches(spannable, LINE_OF_TEXT, (matcher, iM) -> new HorizontalLineBackgroundParagraphSpan(_hlEditor.getCurrentTextColor(), 0.8f, _hlEditor.getTextSize() / 2f));
-
-            // Fix for paragraph padding and horizontal rule
-            /*
-            nprofiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 0.8f);
-            nprofiler.restart("Single line fix 2");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 1.2f);*/
-            _profiler.restart("Single line fix 1");
-            createRelativeSizeSpanForMatches(spannable, LINESTART, 1.00001f);
-            _profiler.end();
-            _profiler.printProfilingGroup();
-        } catch (Exception ex) {
-            // Ignoring errors
-        }
-
-        return spannable;
-    }
-
-    public static Spannable basicTodoTxtHighlights(final Spannable spannable, final boolean clear, final boolean isDarkTheme, NanoProfiler profiler) {
-        try {
-            if (clear) {
-                clearSpans(spannable);
-            }
-
-            if (spannable.length() == 0) {
-                return spannable;
-            }
-
-            if (profiler == null) {
-                profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD || MainActivity.IS_DEBUG_ENABLED);
-            }
-
-            profiler.restart("Context");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CONTEXTS, COLOR_CONTEXT);
-            profiler.restart("Category");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PROJECTS, COLOR_CATEGORY);
-            profiler.restart("KeyValue");
-            createStyleSpanForMatches(spannable, TodoTxtTask.PATTERN_KEY_VALUE_PAIRS, Typeface.ITALIC);
-
-            // Priorities
-            profiler.restart("Priority Bold");
-            createStyleSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_ANY, Typeface.BOLD);
-            profiler.restart("Priority A");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_A, COLOR_PRIORITY_A);
-            profiler.restart("Priority B");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_B, COLOR_PRIORITY_B);
-            profiler.restart("Priority C");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_C, COLOR_PRIORITY_C);
-            profiler.restart("Priority D");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_D, COLOR_PRIORITY_D);
-            profiler.restart("Priority E");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_E, COLOR_PRIORITY_E);
-            profiler.restart("Priority F");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_PRIORITY_F, COLOR_PRIORITY_F);
-
-            profiler.restart("Date Color");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_CREATION_DATE, isDarkTheme ? COLOR_DATE_DARK : COLOR_DATE_LIGHT, 1);
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
-
-            // Strike out done tasks (apply no other to-do.txt span format afterwards)
-            profiler.restart("Done BgColor");
-            createColorSpanForMatches(spannable, TodoTxtTask.PATTERN_DONE, isDarkTheme ? COLOR_DONE_DARK : COLOR_DONE_LIGHT);
-            profiler.restart("done Strike");
-            createSpanWithStrikeThroughForMatches(spannable, TodoTxtTask.PATTERN_DONE);
-
-        } catch (Exception ex) {
-            // Ignoring errors
-        }
-
-        return spannable;
+    public Highlighter configure(Paint paint) {
+        _delay = _appSettings.getHighlightingDelayTodoTxt();
+        return super.configure(paint);
     }
 
     @Override
-    public int getHighlightingDelay(Context context) {
-        return new AppSettings(context).getHighlightingDelayTodoTxt();
+    public void generateSpans() {
+
+        super.generateSpans();
+
+        // Paragraph space and divider half way up the space
+        createSpanForMatches(LINE_OF_TEXT, matcher -> new ParagraphDividerSpan(_textColor, _textSize));
     }
 
+    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateLayout {
+        private final int _color;
+        private final float _textSize;
+        private Integer _origAscent = null;
+
+        public ParagraphDividerSpan(@ColorInt int color, float textSize) {
+            _color = color;
+            _textSize = textSize;
+        }
+
+        @Override
+        public void drawBackground(@NonNull Canvas canvas, @NonNull Paint paint, int left, int right, int top, int baseline, int bottom, @NonNull CharSequence text, int start, int end, int lineNumber) {
+            if (start > 0 && text.charAt(start - 1) == '\n') {
+                paint.setColor(_color);
+                paint.setStrokeWidth(0);
+                canvas.drawLine(left, top + _textSize / 2, right, top +  _textSize / 2, paint);
+            }
+        }
+
+        @Override
+        public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
+            if (_origAscent == null) {
+                _origAscent = fm.ascent;
+            }
+            boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
+            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) _textSize : _origAscent;
+        }
+    }
 }
 

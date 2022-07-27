@@ -10,43 +10,25 @@
 package other.writeily.format;
 
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.ParcelableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 
 public class WrProportionalHeaderSpanCreator {
 
-    private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
-
-    private final String _fontType;
-    private final int _fontSize;
+    private final String _fontFamily;
+    private final float _textSize;
     private final int _color;
-    private final boolean _shouldUseDynamicTextSize;
 
-    public WrProportionalHeaderSpanCreator(String fontType, int fontSize, int color, boolean shouldUseDynamicTextSize) {
-        _fontType = fontType;
-        _fontSize = fontSize;
+    public WrProportionalHeaderSpanCreator(final String fontFamily, float textSize, int color) {
+        _fontFamily = fontFamily;
+        _textSize = textSize;
         _color = color;
-        _shouldUseDynamicTextSize = shouldUseDynamicTextSize;
     }
 
     public ParcelableSpan createHeaderSpan(float proportion) {
-        if (_shouldUseDynamicTextSize) {
-            Float size = calculateAdjustedSize(proportion);
-            return new TextAppearanceSpan(_fontType, Typeface.BOLD, size.byteValue(),
-                    ColorStateList.valueOf(_color), null);
-        } else {
-            return new ForegroundColorSpan(_color);
-        }
-    }
-
-    private float calculateAdjustedSize(Float proportion) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                _fontSize * proportion,
-                DISPLAY_METRICS);
+        final int size = (int) (_textSize * proportion);
+        return new TextAppearanceSpan(_fontFamily, Typeface.BOLD, size, ColorStateList.valueOf(_color), null);
     }
 }

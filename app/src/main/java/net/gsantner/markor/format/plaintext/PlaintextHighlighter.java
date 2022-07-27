@@ -1,3 +1,4 @@
+package net.gsantner.markor.format.plaintext;
 /*#######################################################
  *
  *   Maintained by Gregor Santner, 2018-
@@ -7,43 +8,20 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
-package net.gsantner.markor.format.plaintext;
-
-import android.content.Context;
-import android.text.Spannable;
-
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.util.AppSettings;
 
 public class PlaintextHighlighter extends Highlighter {
-    public PlaintextHighlighter(HighlightingEditor hlEditor, Document document) {
-        super(hlEditor, document);
+
+    public PlaintextHighlighter(AppSettings as) {
+        super(as);
     }
 
     @Override
-    protected Spannable run(final Spannable spannable) {
-        try {
-            clearSpans(spannable);
-
-            if (spannable.length() == 0) {
-                return spannable;
-            }
-
-            _profiler.start(true, "Plaintext Highlighting");
-            generalHighlightRun(spannable);
-            _profiler.end();
-            _profiler.printProfilingGroup();
-        } catch (Exception ex) {
-            // Ignoring errors
-        }
-
-        return spannable;
-    }
-
-    @Override
-    public int getHighlightingDelay(Context context) {
-        return LONG_HIGHLIGHTING_DELAY;
+    protected void generateSpans() {
+        createTabSpans(_tabSize);
+        createUnderlineHexColorsSpans();
+        createHighlightLinksSpans();
     }
 
 }

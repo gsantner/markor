@@ -9,206 +9,334 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
-import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.text.ParcelableSpan;
+import android.support.annotation.Nullable;
 import android.text.Spannable;
-import android.text.TextWatcher;
-import android.text.style.BackgroundColorSpan;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.CharacterStyle;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.LineBackgroundSpan;
-import android.text.style.LineHeightSpan;
-import android.text.style.ParagraphStyle;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.ReplacementSpan;
-import android.text.style.StrikethroughSpan;
-import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
-import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
+import android.text.style.UpdateAppearance;
+import android.util.Log;
 import android.util.Patterns;
 
-import net.gsantner.markor.BuildConfig;
-import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
-import net.gsantner.markor.format.general.HexColorCodeUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.NanoProfiler;
+import net.gsantner.opoc.util.Callback;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "FieldCanBeLocal", "unused"})
 public abstract class Highlighter {
+
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
-    protected float _highlightingFactorBasedOnFilesize = 1f;
 
-    protected final NanoProfiler _profiler = new NanoProfiler().setEnabled(BuildConfig.IS_TEST_BUILD || MainActivity.IS_DEBUG_ENABLED);
+    public static final Pattern HEX_CODE_UNDERLINE_PATTERN = Pattern.compile("(?:\\s|[\";,:'*]|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|[\";,:'*]|$)");
+    private static final Pattern PATTERN_TAB = Pattern.compile("\t");
 
-    protected abstract Spannable run(final Spannable spannable);
-
-    protected static Highlighter getDefaultHighlighter(HighlightingEditor hlEditor, Document document) {
-        return new PlaintextHighlighter(hlEditor, document);
+    protected static Highlighter getDefaultHighlighter(final AppSettings as) {
+        return new PlaintextHighlighter(as);
     }
 
-    public abstract int getHighlightingDelay(Context context);
+    // Functions for derived classes to implement
+    // ---------------------------------------------------------------------------------------------
 
-    //
+    // Derived classes should override this to generate all spans
+    // All exceptions will be caught and handled
+    protected abstract void generateSpans();
+
+    public int getHighlightingDelay() {
+        return _delay;
+    }
+
+    // Configuration - to be set on a call to configure
+    protected int _delay = LONG_HIGHLIGHTING_DELAY;
+    protected float _textSize = 1;
+    protected int _tabSize = 1;
+    protected boolean _isDarkMode = false;
+    protected int _textColor = Color.BLACK;
+    protected String  _fontFamily = "";
+
+    public Highlighter configure() {
+        return configure(null);
+    }
+
+    /**
+     * Configure this highlighter. Call before doing any highlighting
+     * This is separate from the constructor as we may want to reconfigure after font size etc change
+     *
+     * @param paint Optional paint to pass in - used for text parameters
+     * @return Highlighter
+     */
+    public Highlighter configure(@Nullable final Paint paint) {
+        _isDarkMode = _appSettings.isDarkThemeEnabled();
+        _fontFamily = _appSettings.getFontFamily();
+        _textColor = _appSettings.getEditorForegroundColor();
+        if (paint != null) {
+            _textSize = paint.getTextSize();
+            _tabSize = (int) (_appSettings.getTabWidth() * paint.measureText(" "));
+        }
+        return this;
+    }
+
     // Instance
-    //
-    protected final HighlightingEditor _hlEditor;
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * A class representing any span
+     */
+    public static class SpanGroup implements Comparable<SpanGroup> {
+        int start, end;
+        final Object span;
+
+        SpanGroup(Object o, int s, int e) {
+            span = o;
+            start = s;
+            end = e;
+        }
+
+        @Override
+        public int compareTo(final SpanGroup o) {
+            return start - o.start;
+        }
+    }
+
+    private final List<SpanGroup> _groups;
+    private final List<Integer> _applied;
+
+    protected Spannable _spannable;
     protected final AppSettings _appSettings;
 
-    protected final int _preCalcTabWidth;
-    protected boolean _highlightLinks = true;
-    protected final boolean _highlightHexcolor;
-    protected final Document _document;
-    private TextWatcher _modifier = null;
-
-    public Highlighter(HighlightingEditor editor, Document document) {
-        _hlEditor = editor;
-        _appSettings = new AppSettings(_hlEditor.getContext());
-
-        _preCalcTabWidth = (int) (_appSettings.getTabWidth() <= 1 ? -1 : editor.getPaint().measureText(" ") * _appSettings.getTabWidth());
-        _highlightHexcolor = _appSettings.isHighlightingHexColorEnabled();
-        _document = document;
+    public Highlighter(final AppSettings as) {
+        _appSettings = as;
+        _groups = new ArrayList<>();
+        _applied = new ArrayList<>();
     }
 
-    public float getHighlightingFactorBasedOnFilesize() {
-        return _highlightingFactorBasedOnFilesize;
-    }
+    // ---------------------------------------------------------------------------------------------
 
-    public void generalHighlightRun(final Spannable spannable) {
-        final String text = spannable.toString();
-        _highlightingFactorBasedOnFilesize = Math.max(1, Math.min(Math.max(text.length() - 9000, 10000) / 10000, 4));
-        _profiler.restart("General Highlighter");
-        if (_preCalcTabWidth > 0) {
-            _profiler.restart("Tabulator width");
-            createReplacementSpanForMatches(spannable, Pattern.compile("\t"), _preCalcTabWidth);
+    /**
+     * Removes all spans applied by this highlighter to the currently set spannable
+     * @return this
+     */
+    public synchronized Highlighter clear() {
+        if (_spannable != null) {
+            for (int i = _applied.size() - 1; i >= 0; i--) {
+                // Reverse order to align with TextView internals
+                _spannable.removeSpan(_groups.get(_applied.get(i)).span);
+            }
+            _applied.clear();
         }
-        if (_highlightLinks && (text.contains("http://") || text.contains("https://"))) {
-            _profiler.restart("Link Color");
-            createColorSpanForMatches(spannable, Patterns.WEB_URL, 0xff1ea3fd);
-            _profiler.restart("Link Size");
-            createRelativeSizeSpanForMatches(spannable, Patterns.WEB_URL, 0.85f);
-            _profiler.restart("Link Italic");
-            createStyleSpanForMatches(spannable, Patterns.WEB_URL, Typeface.ITALIC);
+        return this;
+    }
+
+    /**
+     * Change the currently attached spannable.
+     * Caller is responsible for clearing spans attached to existing spannable
+     * @param spannable Spannable to work on
+     * @return this
+     */
+    public synchronized Highlighter setSpannable(@Nullable final Spannable spannable) {
+        if (spannable != _spannable) {
+            _groups.clear();
+            _applied.clear();
+            _spannable = spannable;
         }
-        if (_highlightHexcolor) {
-            _profiler.restart("RGB Color underline");
-            createColoredUnderlineSpanForMatches(spannable, HexColorCodeUnderlineSpan.PATTERN, new HexColorCodeUnderlineSpan(), 1);
+
+        return this;
+    }
+
+    /**
+     * Helper to change spans in 'onTextChanged'
+     */
+    public Highlighter fixup(final int start, final int before, final int count) {
+        return fixup(start + before, count - before);
+    }
+
+    // Adjust all spans after a change in the text
+
+    /**
+     * Adjust all currently computed spans. Use to adjust spans after text edited.
+     * @param after Apply to spans with region starting after 'after'
+     * @param delta Apply to
+     * @return this
+     */
+    public synchronized Highlighter fixup(final int after, final int delta) {
+        for (int i = _groups.size() - 1; i >= 0; i--) {
+            final SpanGroup group = _groups.get(i);
+            // Very simple fixup. If the group is entirely after 'after', adjust it's region
+            if (group.start <= after) {
+                // We iterate backwards. As groups are sorted, if start is before after, can break out
+                break;
+            } else {
+                group.start += delta;
+                group.end += delta;
+            }
         }
+        return this;
     }
 
-    public AppSettings getAppSettings() {
-        return _appSettings;
+    // Get currently attached spannable
+    public Spannable getSpannable() {
+        return _spannable;
     }
 
-    //
-    // Clear spans
-    //
-
-    public static void clearSpans(Spannable spannable) {
-        clearCharacterSpanType(spannable, TextAppearanceSpan.class);
-        clearCharacterSpanType(spannable, ForegroundColorSpan.class);
-        clearCharacterSpanType(spannable, BackgroundColorSpan.class);
-        clearCharacterSpanType(spannable, StrikethroughSpan.class);
-        clearCharacterSpanType(spannable, RelativeSizeSpan.class);
-        clearCharacterSpanType(spannable, StyleSpan.class);
-        clearCharacterSpanType(spannable, ColorUnderlineSpan.class);
-        clearParagraphSpanType(spannable, LineBackgroundSpan.class);
-        clearParagraphSpanType(spannable, LineHeightSpan.class);
+    // Region specified as array
+    public Highlighter apply(final int[] region) {
+        return apply(region[0], region[1]);
     }
 
-    private static <T extends CharacterStyle> void clearCharacterSpanType(Spannable spannable, Class<T> spanType) {
-        CharacterStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
+    // Apply all spans
+    public Highlighter apply() {
+        return apply(0, -1);
+    }
 
-        for (int n = spans.length; n-- > 0; ) {
-            spannable.removeSpan(spans[n]);
+    public boolean isApplied(final int index) {
+        // _applied is an ordered list of int, we can very efficiently search it
+        return !_applied.isEmpty()
+                && index <= _applied.get(_applied.size() - 1) // In the common case, we will hit this
+                && index >= _applied.get(0)
+                && Collections.binarySearch(_applied, index) >= 0;
+    }
+
+    /**
+     * Apply spans which intersect region [start, end)
+     * @return this
+     */
+    public synchronized Highlighter apply(int start, int end) {
+        if (_spannable == null) {
+            return this;
         }
-    }
 
-    private static <T extends ParagraphStyle> void clearParagraphSpanType(Spannable spannable, Class<T> spanType) {
-        ParagraphStyle[] spans = spannable.getSpans(0, spannable.length(), spanType);
+        final boolean sortRequired = !_applied.isEmpty();
+        final int length = _spannable.length();
 
-        for (int n = spans.length; n-- > 0; ) {
-            spannable.removeSpan(spans[n]);
+        start = Math.max(0, start);
+        end = Math.min(end < 0 ? _spannable.length() : end, _spannable.length());
+
+        for (int i = 0; i < _groups.size(); i++) {
+            final SpanGroup group = _groups.get(i);
+
+            if (group.start > end) {
+                // As we are sorted on start, we can break out after the first group.start > end
+                break;
+            }
+
+            final boolean intersecting = group.start < end && group.end > start;
+            final boolean valid = group.start >= 0 && group.end <= length;
+            if (intersecting && valid && !isApplied(i)) {
+                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _applied.add(i);
+            }
+
         }
+
+        if (sortRequired) {
+            // Sort the list of applied spans if required
+            Collections.sort(_applied);
+        }
+
+        return this;
     }
 
-    private boolean _isFirstHighlighting = false;
+    /**
+     * Recompute all spans. References to existing spans will be lost.
+     * Caller is responsible for calling 'clear()' before this, if necessary
+     * @return this
+     */
+    public synchronized final Highlighter recompute() {
+        _groups.clear();
+        _applied.clear();
 
-    protected boolean isFirstHighlighting() {
-        boolean f = _isFirstHighlighting;
-        _isFirstHighlighting = false;
-        return f;
+        if (TextUtils.isEmpty(_spannable)) {
+            return this;
+        }
+
+        // Highlighting cannot generate exceptions!
+        try
+        {
+            generateSpans();
+            Collections.sort(_groups); // Dramatically improves performance
+        } catch (Exception ex) {
+            Log.w(getClass().getName(), ex);
+        } catch (Error er) {
+            Log.w(getClass().getName(), er);
+        }
+
+        return this;
     }
 
     //
     // Create spans
     //
 
-    public interface SpanCreator<SpanType> {
-        SpanType create(final Matcher matcher, final int iM);
+    protected final void addSpanGroup(final Object span, final int start, final int end) {
+        _groups.add(new SpanGroup(span, start, end));
     }
 
-    protected static <SpanType> void createSpanForMatches(final Spannable spannable, final Pattern pattern, final SpanCreator<SpanType> creator, int... groupsToMatch) {
+    protected final void createSpanForMatches(final Pattern pattern, Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
-        int i = 0;
-        final Matcher m = pattern.matcher(spannable);
+        final Matcher m = pattern.matcher(_spannable);
+
         while (m.find()) {
-            final SpanType span = creator.create(m, i++);
+            final Object span = creator.callback(m);
             if (span != null) {
                 for (final int g : groupsToMatch) {
                     final int start = m.start(g);
                     final int end = m.end(g);
                     if ((g == 0 || g <= m.groupCount()) && Math.abs(end - start) > 0) {
-                        spannable.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        addSpanGroup(span, start, end);
                     }
                 }
             }
         }
     }
 
-    protected static void createStyleSpanForMatches(final Spannable spannable, final Pattern pattern, final int style, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new StyleSpan(style));
+    protected final void createStyleSpanForMatches(final Pattern pattern, final int style, int... groupsToMatch) {
+        createSpanForMatches(pattern, new HighlightSpan().setTypeface(style), groupsToMatch);
     }
 
-    protected static void createColorSpanForMatches(final Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new ForegroundColorSpan(color), groupsToMatch);
+    protected final void createColorSpanForMatches(final Pattern pattern, final int color, int... groupsToMatch) {
+         createSpanForMatches(pattern, new HighlightSpan().setForeColor(color), groupsToMatch);
     }
 
-    protected static void createColorBackgroundSpan(Spannable spannable, final Pattern pattern, final int color, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new BackgroundColorSpan(color), groupsToMatch);
+    protected final void createColorBackgroundSpan(final Pattern pattern, final int color, int... groupsToMatch) {
+         createSpanForMatches(pattern, new HighlightSpan().setBackColor(color), groupsToMatch);
     }
 
-    protected static void createSpanWithStrikeThroughForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new StrikethroughSpan(), groupsToMatch);
+    protected final void createStrikeThroughSpanForMatches(final Pattern pattern, int... groupsToMatch) {
+         createSpanForMatches(pattern, new HighlightSpan().setStrike(true), groupsToMatch);
     }
 
-    protected static void createTypefaceSpanForMatches(Spannable spannable, Pattern pattern, final String typeface, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new TypefaceSpan(typeface), groupsToMatch);
+    protected final void createTypefaceSpanForMatches(Pattern pattern, final String typeface, int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new TypefaceSpan(typeface), groupsToMatch);
     }
 
-    protected static void createRelativeSizeSpanForMatches(Spannable spannable, final Pattern pattern, float relativeSize, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new RelativeSizeSpan(relativeSize), groupsToMatch);
+    protected final void createRelativeSizeSpanForMatches(final Pattern pattern, float relativeSize, int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new RelativeSizeSpan(relativeSize), groupsToMatch);
     }
 
-    protected static void createReplacementSpanForMatches(final Spannable spannable, final Pattern pattern, final int charWidth, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new ReplacementSpan() {
+    protected final void createReplacementSpanForMatches(final Pattern pattern, final int charWidth, int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new ReplacementSpan() {
             @Override
             public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-                return charWidth;
+                 return charWidth;
             }
 
             @Override
@@ -217,24 +345,134 @@ public abstract class Highlighter {
         }, groupsToMatch);
     }
 
-    protected static void createMonospaceSpanForMatches(Spannable spannable, final Pattern pattern, int... groupsToMatch) {
-        createTypefaceSpanForMatches(spannable, pattern, "monospace", groupsToMatch);
+    protected final void createMonospaceSpanForMatches(final Pattern pattern, int... groupsToMatch) {
+         createTypefaceSpanForMatches(pattern, "monospace", groupsToMatch);
     }
 
-    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new ColorUnderlineSpan(color, null), groupsToMatch);
+    protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
-    protected static void createColoredUnderlineSpanForMatches(Spannable spannable, final Pattern pattern, final SpanCreator<ParcelableSpan> creator, int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, creator, groupsToMatch);
+    protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, final Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
+         createSpanForMatches(pattern, creator, groupsToMatch);
     }
 
-    protected static void createSuperscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new SuperscriptSpan(), groupsToMatch);
+    protected final void createSuperscriptStyleSpanForMatches(final Pattern pattern, final int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new SuperscriptSpan(), groupsToMatch);
     }
 
-    protected static void createSubscriptStyleSpanForMatches(Spannable spannable, final Pattern pattern, final int... groupsToMatch) {
-        createSpanForMatches(spannable, pattern, (matcher, iM) -> new SubscriptSpan(), groupsToMatch);
+    protected final void createSubscriptStyleSpanForMatches(final Pattern pattern, final int... groupsToMatch) {
+         createSpanForMatches(pattern, matcher -> new SubscriptSpan(), groupsToMatch);
     }
 
+    protected final void createTabSpans(final int tabWidth)  {
+        if (tabWidth > 0) {
+            createReplacementSpanForMatches(PATTERN_TAB, tabWidth);
+        }
+    }
+
+    protected final void createHighlightLinksSpans() {
+        createSpanForMatches(Patterns.WEB_URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextSize(_textSize * 0.85f));
+    }
+
+    protected final void createUnderlineHexColorsSpans() {
+        createColoredUnderlineSpanForMatches(HEX_CODE_UNDERLINE_PATTERN, m -> new ColorUnderlineSpan(Color.parseColor(m.group(1)), 3f), 1);
+    }
+
+    // We _do not_ implement UpdateLayout or Parcelable for performance reasons
+    public static class HighlightSpan extends CharacterStyle implements UpdateAppearance, Callback.r1<Object, Matcher> {
+
+        public Boolean bold = null;
+        public Boolean italic = null;
+        public Boolean underline = null;
+        public Boolean strikethrough = null;
+        public Float textSize = null;
+        public @ColorInt Integer foregroundColor = null;
+        public @ColorInt Integer backgroundColor = null;
+
+        // Setters. Use null (default) to indicate "don't change this value"
+        public HighlightSpan setForeColor(@ColorInt Integer color) {
+            foregroundColor = color;
+            return this;
+        }
+
+        public HighlightSpan setBackColor(@ColorInt Integer color) {
+            backgroundColor = color;
+            return this;
+        }
+
+        public HighlightSpan setTextSize(Float size) {
+            textSize = size;
+            return this;
+        }
+
+        public HighlightSpan setStrike(Boolean val) {
+            strikethrough = val;
+            return this;
+        }
+
+        public HighlightSpan setUnderline(Boolean val) {
+            underline = val;
+            return this;
+        }
+
+        public HighlightSpan setBold(Boolean val) {
+            bold = val;
+            return this;
+        }
+
+        public HighlightSpan setItalic(Boolean val) {
+            italic = val;
+            return this;
+        }
+
+        public HighlightSpan setTypeface(final int tf) {
+            return setBold((tf & Typeface.BOLD) != 0).setItalic((tf & Typeface.ITALIC) != 0);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint tp) {
+            if (bold != null) {
+                tp.setFakeBoldText(bold);
+            }
+
+            if (strikethrough != null) {
+                tp.setStrikeThruText(strikethrough);
+            }
+
+            if (underline != null) {
+                tp.setUnderlineText(underline);
+            }
+
+            if (italic != null && italic) {
+                tp.setTextSkewX(-0.25f); // This is what android uses
+            }
+
+            if (foregroundColor != null)  {
+                tp.setColor(foregroundColor);
+            }
+
+            if (backgroundColor != null) {
+                tp.bgColor = backgroundColor;
+            }
+
+            if (textSize != null) {
+                tp.setTextSize(textSize);
+            }
+        }
+
+
+        @Override
+        public HighlightSpan callback(Matcher m) {
+            // Return a copy
+            return new HighlightSpan()
+                    .setForeColor(foregroundColor)
+                    .setBackColor(backgroundColor)
+                    .setBold(bold)
+                    .setItalic(italic)
+                    .setUnderline(underline)
+                    .setStrike(strikethrough)
+                    .setTextSize(textSize);
+        }
+    }
 }

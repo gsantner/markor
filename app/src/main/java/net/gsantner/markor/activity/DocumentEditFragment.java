@@ -441,7 +441,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument(false)) {
-                    TextConverter converter = TextFormat.getFormat(_document.getFormat(), activity, _document, _hlEditor).getConverter();
+                    TextConverter converter = TextFormat.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
@@ -585,7 +585,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void applyTextFormat(final int textFormatId) {
         _textActionsBar.removeAllViews();
-        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
+        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));

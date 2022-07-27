@@ -415,7 +415,7 @@ public class TextViewUndoRedo {
                 return;
             }
 
-            mBeforeChange = s.subSequence(start, start + count);
+            mBeforeChange = StringUtils.toString(s, start, start + count);
         }
 
         public void onTextChanged(CharSequence s, int start, int before,
@@ -424,11 +424,12 @@ public class TextViewUndoRedo {
                 return;
             }
 
-            mAfterChange = s.subSequence(start, start + count);
+            mAfterChange = StringUtils.toString(s, start, start + count);
             mEditHistory.add(new EditItem(start, mBeforeChange, mAfterChange));
         }
 
         public void afterTextChanged(Editable s) {
+            // ignored
         }
     }
 }

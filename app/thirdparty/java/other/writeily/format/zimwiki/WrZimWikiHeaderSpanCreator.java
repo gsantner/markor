@@ -10,39 +10,34 @@
 package other.writeily.format.zimwiki;
 
 import android.text.ParcelableSpan;
-import android.text.Spannable;
-
-import net.gsantner.markor.format.zimwiki.ZimWikiHighlighter;
-import net.gsantner.markor.ui.hleditor.Highlighter;
 
 import java.util.regex.Matcher;
-
+import net.gsantner.opoc.util.Callback;
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrZimWikiHeaderSpanCreator implements Highlighter.SpanCreator<ParcelableSpan> {
+public class WrZimWikiHeaderSpanCreator implements Callback.r1<Object, Matcher> {
+
     private static final Character EQUAL_SIGN = '=';
     private static final float STANDARD_PROPORTION_MAX = 1.60f;
     private static final float STANDARD_PROPORTION_MIN = 1.00f;
     private static final float SIZE_STEP = (STANDARD_PROPORTION_MAX - STANDARD_PROPORTION_MIN) / 5f;
 
-    protected ZimWikiHighlighter _highlighter;
-    private final Spannable _spannable;
+    private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrZimWikiHeaderSpanCreator(ZimWikiHighlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize, final String fontType, final int fontSize) {
-        _highlighter = highlighter;
-        _spannable = spannable;
-        _spanCreator = new WrProportionalHeaderSpanCreator(fontType, fontSize, color, dynamicTextSize);
+    public WrZimWikiHeaderSpanCreator(final CharSequence text, int color, final String fontFamily, final float fontSize) {
+        _text = text;
+        _spanCreator = new WrProportionalHeaderSpanCreator(fontFamily, fontSize, color);
     }
 
-    public ParcelableSpan create(Matcher m, int iM) {
+    public ParcelableSpan callback(final Matcher m) {
         final char[] headingCharacters = extractMatchingRange(m);
         float proportion = calculateProportionBasedOnEqualSignCount(headingCharacters);
         return _spanCreator.createHeaderSpan(proportion);
     }
 
     private char[] extractMatchingRange(Matcher m) {
-        return _spannable.subSequence(m.start(), m.end()).toString().trim().toCharArray();
+        return _text.subSequence(m.start(), m.end()).toString().trim().toCharArray();
     }
 
     private float calculateProportionBasedOnEqualSignCount(final char[] headingSequence) {

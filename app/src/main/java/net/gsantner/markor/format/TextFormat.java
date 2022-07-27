@@ -33,8 +33,8 @@ import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.format.zimwiki.ZimWikiTextConverter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.FileUtils;
 
 import java.io.File;
@@ -85,12 +85,14 @@ public class TextFormat {
         void applyTextFormat(int textFormatId);
     }
 
-    public static TextFormat getFormat(int formatId, Activity activity, Document document, HighlightingEditor hlEditor) {
-        TextFormat format = new TextFormat();
+    public static TextFormat getFormat(int formatId, final Activity activity, final Document document) {
+        final TextFormat format = new TextFormat();
+        final AppSettings as = new AppSettings(activity);
+
         switch (formatId) {
             case FORMAT_PLAIN: {
                 format._converter = CONVERTER_PLAINTEXT;
-                format._highlighter = new PlaintextHighlighter(hlEditor, document);
+                format._highlighter = new PlaintextHighlighter(as);
                 format._textActions = new PlaintextTextActions(activity, document);
                 format._autoFormatInputFilter = new MarkdownAutoFormat(); // Using the markdown syntax for plain text
                 format._autoFormatTextWatcher = new ListHandler(MarkdownAutoFormat.getPrefixPatterns());
@@ -98,20 +100,20 @@ public class TextFormat {
             }
             case FORMAT_TODOTXT: {
                 format._converter = CONVERTER_TODOTXT;
-                format._highlighter = new TodoTxtHighlighter(hlEditor, document);
+                format._highlighter = new TodoTxtHighlighter(as);
                 format._textActions = new TodoTxtTextActions(activity, document);
                 format._autoFormatInputFilter = new TodoTxtAutoFormat();
                 break;
             }
             case FORMAT_KEYVALUE: {
                 format._converter = CONVERTER_KEYVALUE;
-                format._highlighter = new KeyValueHighlighter(hlEditor, document);
+                format._highlighter = new KeyValueHighlighter(as);
                 format._textActions = new PlaintextTextActions(activity, document);
                 break;
             }
             case FORMAT_ZIMWIKI: {
                 format._converter = CONVERTER_ZIMWIKI;
-                format._highlighter = new ZimWikiHighlighter(hlEditor, document);
+                format._highlighter = new ZimWikiHighlighter(as);
                 format._textActions = new ZimWikiTextActions(activity, document);
                 format._autoFormatInputFilter = new ZimWikiAutoFormat();
                 format._autoFormatTextWatcher = new ListHandler(ZimWikiAutoFormat.getPrefixPatterns());
@@ -120,7 +122,7 @@ public class TextFormat {
             default:
             case FORMAT_MARKDOWN: {
                 format._converter = CONVERTER_MARKDOWN;
-                format._highlighter = new MarkdownHighlighter(hlEditor, document);
+                format._highlighter = new MarkdownHighlighter(as);
                 format._textActions = new MarkdownTextActions(activity, document);
                 format._autoFormatInputFilter = new MarkdownAutoFormat();
                 format._autoFormatTextWatcher = new ListHandler(MarkdownAutoFormat.getPrefixPatterns());

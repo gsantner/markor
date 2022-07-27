@@ -10,188 +10,237 @@
 package net.gsantner.markor.ui.hleditor;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Build;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
-
 @SuppressWarnings("UnusedReturnValue")
-public class HighlightingEditor extends AppCompatEditText {
+public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
 
-    public boolean isCurrentLineEmpty() {
-        final int posOrig = getSelectionStart();
-        final int posLineBegin = moveCursorToBeginOfLine(0);
-        final int posEndBegin = moveCursorToEndOfLine(0);
-        setSelection(posOrig);
-        return posLineBegin == posEndBegin;
-    }
+    final static double HIGHLIGHT_REFRESH_SCROLL = 0.1;
+    final static double HIGHLIGHT_EXTRA_REGION_HEIGHT = 0.5; // Extra screens to highlight
+    final static int HIGHLIGHT_SMALL_FILE_THRESHOLD = 25000; // Dynamic highlighting disabled for smaller files
+    final static long BLOCK_BRING_CURSOR_INTO_VIEW_DELAY_MS = 200; // Block auto-scrolling for time after highlighing (hack)
 
-    private boolean _modified = true;
-    private boolean _hlEnabled = false;
+    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
+
+    private long _minPointIntoViewTime = 0;
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private Highlighter _hl;
-    private final Set<TextWatcher> _activeListeners = new HashSet<>(); /* Tracks currently applied modifiers */
+    private Runnable _hlDebounced;  /* Debounced runnable which recomputes highlighting */
+    private boolean _hlEnabled; /* Whether highlighting is enabled */
+    private int[] _hlRegionY; /* Region (indices) highlihging is currently applied to */
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
-
-    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
-    private final Handler _updateHandler = new Handler();
-    private final Runnable _updateRunnable;
+    private boolean _autoFormatEnabled;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        AppSettings as = new AppSettings(context);
-        if (as.isHighlightingEnabled()) {
-            setHighlighter(Highlighter.getDefaultHighlighter(this, new Document(new File("/tmp"))));
-            setHighlightingEnabled(as.isHighlightingEnabled());
-        }
 
-        // Initialize. Null == empty
+        super(context, attrs);
+        final AppSettings as = new AppSettings(context);
+
         setAutoFormatters(null, null);
 
         _isSpellingRedUnderline = !as.isDisableSpellingRedUnderline();
-        _updateRunnable = () -> {
-            highlightWithoutChange();
-        };
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             setFallbackLineSpacing(false);
         }
 
-        addTextChangedListener(new TextWatcher() {
+        _hlEnabled = false;
+
+        addTextChangedListener(new TextWatcherDummy() {
             @Override
-            public void afterTextChanged(Editable e) {
-                cancelUpdate();
-                if (!_modified) {
-                    return;
-                }
-                if (MainActivity.IS_DEBUG_ENABLED) {
-                    AppSettings.appendDebugLog("Changed text (afterTextChanged)");
-                }
-                if (_hl != null) {
-                    int delay = (int) _hl.getHighlightingFactorBasedOnFilesize() * (_hl.isFirstHighlighting() ? 300 : _hl.getHighlightingDelay(getContext()));
-                    if (MainActivity.IS_DEBUG_ENABLED) {
-                        AppSettings.appendDebugLog("Highlighting run: delay " + delay + "ms, cfactor " + _hl.getHighlightingFactorBasedOnFilesize());
-                    }
-                    _updateHandler.postDelayed(_updateRunnable, delay);
+            public void onTextChanged (CharSequence s,int start, int before, int count){
+                if (_hlEnabled && _hl != null && enableDynamicHighlighting()) {
+                    withAccessibilityDisabled(() -> _hl.fixup(start, before, count));
                 }
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (MainActivity.IS_DEBUG_ENABLED) {
-                    AppSettings.appendDebugLog("Changed text (onTextChanged)");
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (MainActivity.IS_DEBUG_ENABLED) {
-                    AppSettings.appendDebugLog("Changed text (beforeTextChanged)");
+            public void afterTextChanged ( final Editable s){
+                if (_hlEnabled && _hl != null && _hlDebounced != null) {
+                    _hlDebounced.run();
                 }
             }
         });
+
+        getViewTreeObserver().addOnScrollChangedListener(this::updateDynamicHighlighting);
+    }
+
+    // Highlighting
+    // ---------------------------------------------------------------------------------------------
+
+    private void updateDynamicHighlighting() {
+        if (_hlEnabled && _hl != null && enableDynamicHighlighting()) {
+            final int[] regionY = hlRegionY();
+            if (isShiftSignificant(regionY)) {
+                final long start = System.nanoTime();
+                try {
+                    beginBatchEdit();
+                    blockBringNextPointIntoView();
+                    withAccessibilityDisabled(() -> _hl.clear().apply(hlRegionIndex(regionY)));
+                    _hlRegionY = regionY;
+                } finally {
+                    endBatchEdit();
+                }
+                Log.d("Highlighting", "updateDynamicHighlighting took " + (0.001 * (System.nanoTime() - start)) + " uS");
+            }
+        }
     }
 
     public void setHighlighter(final Highlighter newHighlighter) {
-        _hl = newHighlighter;
-        highlightWithoutChange();
+        if (_hl != null) {
+            _hl.clear();
+        }
 
-        // Alpha in animation
-        setAlpha(0.3f);
-        animate().alpha(1.0f)
-                .setDuration(500)
-                .setListener(null);
+        _hl = newHighlighter;
+
+        if (_hl != null) {
+
+            _hl.setSpannable(getText()).configure(getPaint());
+
+            _hlDebounced = StringUtils.makeDebounced(_hl.getHighlightingDelay(),
+                    () -> withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion())));
+
+            if (_hlEnabled) {
+                fadeInHighlight();
+            }
+        }
+    }
+
+    public void fadeInHighlight() {
+        if (_hl != null) {
+            setAlpha(0.3f);
+            post(() -> withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion())));
+            animate().alpha(1.0f).setDuration(1000).start();
+        }
     }
 
     public Highlighter getHighlighter() {
         return _hl;
     }
 
-    public void setAutoFormatters(final InputFilter inputFilter, final TextWatcher modifier) {
-        setAutoFormatEnabled(false); // Remove any existing modifiers if applied
-        _autoFormatFilter = inputFilter;
-        _autoFormatModifier = modifier;
+    public void setHighlightingEnabled(final boolean enable) {
+        if (enable && !_hlEnabled) {
+            _hlEnabled = true;
+            fadeInHighlight();
+        } else if (!enable && _hlEnabled) {
+            _hlEnabled = false;
+            if (_hl != null) {
+                _hl.clear();
+            }
+        }
     }
 
-    public boolean getAutoFormatEnabled() {
-        final boolean filterApplied = getFilters().length > 0;
-        final boolean modifierApplied = _autoFormatModifier != null && _activeListeners.contains(_autoFormatModifier);
-        return (filterApplied || modifierApplied);
+    // Region to highlight in text index
+    private int[] hlRegion() {
+        // If no dynamic highlighitng, highlight whole file
+        return enableDynamicHighlighting() ? hlRegionIndex(hlRegionY()) : new int[] { 0, -1 };
     }
 
-    public void setAutoFormatEnabled(final boolean enable) {
-        if (enable) {
-            if (_autoFormatFilter != null) {
-                setFilters(new InputFilter[]{_autoFormatFilter});
-            }
-            if (_autoFormatModifier != null && !_activeListeners.contains(_autoFormatModifier)) {
-                addTextChangedListener(_autoFormatModifier);
-            }
+    // Region to highlight in text index
+    private int[] hlRegionIndex(final int[] regionY) {
+        final Layout layout = getLayout();
+
+        final int startL = layout.getLineForVertical(regionY[0]);
+        final int endL = layout.getLineForVertical(regionY[1]);
+
+        final int start = layout.getLineStart(startL);
+        final int end = layout.getLineEnd(endL);
+
+        return new int[] { start, end };
+    }
+
+    // Region to highlight in y coordinate
+    private int[] hlRegionY() {
+        final Rect rect = new Rect();
+        getLocalVisibleRect(rect);
+
+        final int offset = (int) (rect.height() * HIGHLIGHT_EXTRA_REGION_HEIGHT);
+        final int startY = rect.top - offset;
+        final int endY = rect.bottom + offset;
+
+        return new int[] { startY, endY };
+    }
+
+    private boolean isShiftSignificant(final int[] region) {
+        if (_hlRegionY == null) {
+            return true;
+        }
+
+        final double screenSize = (region[1] - region[0]) / (1 + 2 * HIGHLIGHT_EXTRA_REGION_HEIGHT);
+        final double offset = Math.max(Math.abs(_hlRegionY[0] - region[0]), Math.abs(region[1] - _hlRegionY[1]));
+        return (screenSize <= 0) || ((offset / screenSize) > HIGHLIGHT_REFRESH_SCROLL);
+    }
+
+    private boolean enableDynamicHighlighting() {
+        return length() > HIGHLIGHT_SMALL_FILE_THRESHOLD;
+    }
+
+    private void blockBringNextPointIntoView() {
+        _minPointIntoViewTime = System.currentTimeMillis() + BLOCK_BRING_CURSOR_INTO_VIEW_DELAY_MS;
+    }
+
+    private boolean bringPointIntoViewAllowed() {
+        return System.currentTimeMillis() >= _minPointIntoViewTime;
+    }
+
+    // Various overrides
+    // ---------------------------------------------------------------------------------------------
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
+    // Hack to prevent auto-scroll
+    @Override
+    public boolean bringPointIntoView(int cursor) {
+        if (bringPointIntoViewAllowed()) {
+            return super.bringPointIntoView(cursor);
         } else {
-            setFilters(new InputFilter[]{});
-
-            if (_autoFormatModifier != null) {
-                removeTextChangedListener(_autoFormatModifier);
-            }
+            return false;
         }
     }
 
     @Override
-    @SuppressWarnings({"ConstantConditions", "RedundantSuppression"})
-    public void addTextChangedListener(final TextWatcher listener) {
-        if (_activeListeners != null) {
-            _activeListeners.add(listener);
-        }
-        super.addTextChangedListener(listener);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        updateDynamicHighlighting();
     }
 
     @Override
-    public void removeTextChangedListener(final TextWatcher listener) {
-        super.removeTextChangedListener(listener);
-        _activeListeners.remove(listener);
-    }
-
-    // Run some code with accessibility disabled
-    public void withAccessibilityDisabled(final Callback.a0 callback) {
-        try {
-            _accessibilityEnabled = false;
-            callback.callback();
-        } finally {
-            _accessibilityEnabled = true;
+    public void setTextSize(float size) {
+        super.setTextSize(size);
+        if (_hl != null) {
+            _hl.configure(getPaint());
         }
     }
 
-    // Run some code with auto formatters disabled
-    // Also disables accessibility
-    public void withAutoFormatDisabled(final Callback.a0 callback) {
-        if (getAutoFormatEnabled()) {
-            try {
-                setAutoFormatEnabled(false);
-                withAccessibilityDisabled(() -> callback.callback());
-            } finally {
-                setAutoFormatEnabled(true);
-            }
-        } else {
-            withAccessibilityDisabled(() -> callback.callback());
+    @Override
+    public void setText(final CharSequence text, final BufferType type) {
+        super.setText(text, type);
+        if (_hl != null) {
+            _hl.setSpannable(getText());
         }
     }
 
@@ -202,10 +251,6 @@ public class HighlightingEditor extends AppCompatEditText {
             id = android.R.id.pasteAsPlainText;
         }
         return super.onTextContextMenuItem(id);
-    }
-
-    private void cancelUpdate() {
-        _updateHandler.removeCallbacks(_updateRunnable);
     }
 
     // Accessibility code is blocked during rapid update events
@@ -229,28 +274,96 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    private void highlightWithoutChange() {
-        if (_hlEnabled) {
-            _modified = false;
-            try {
-                if (MainActivity.IS_DEBUG_ENABLED) {
-                    AppSettings.appendDebugLog("Start highlighting");
-                }
-                withAccessibilityDisabled(() -> _hl.run(getText()));
-            } catch (Exception e) {
-                // In no case ever let highlighting crash the editor
-                e.printStackTrace();
-            } catch (Error e) {
-                e.printStackTrace();
-            }
+    @Override
+    public boolean isSuggestionsEnabled() {
+        return _isSpellingRedUnderline && super.isSuggestionsEnabled();
+    }
 
-            if (MainActivity.IS_DEBUG_ENABLED) {
-                AppSettings.appendDebugLog(_hl._profiler.resetDebugText());
-                AppSettings.appendDebugLog("Finished highlighting");
-            }
-            _modified = true;
+    @Override
+    public void setSelection(int index) {
+        if (indexesValid(index)) {
+            super.setSelection(index);
         }
     }
+
+    @Override
+    public void setSelection(int start, int stop) {
+        if (indexesValid(start, stop)) {
+            super.setSelection(start, stop);
+        } else if (indexesValid(start, stop - 1)) {
+            super.setSelection(start, stop - 1);
+        } else if (indexesValid(start + 1, stop)) {
+            super.setSelection(start + 1, stop);
+        }
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
+        if (MainActivity.IS_DEBUG_ENABLED) {
+            AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
+        }
+    }
+
+    // Auto-format
+    // ---------------------------------------------------------------------------------------------
+
+    public void setAutoFormatters(final InputFilter inputFilter, final TextWatcher modifier) {
+        final boolean state = getAutoFormatEnabled();
+        setAutoFormatEnabled(false); // Remove any existing modifiers if applied
+        _autoFormatFilter = inputFilter;
+        _autoFormatModifier = modifier;
+        setAutoFormatEnabled(state); // Restore state
+    }
+
+    public boolean getAutoFormatEnabled() {
+        return _autoFormatEnabled;
+    }
+
+    public void setAutoFormatEnabled(final boolean enable) {
+        if (enable && !_autoFormatEnabled) {
+            if (_autoFormatFilter != null) {
+                setFilters(new InputFilter[]{_autoFormatFilter});
+            }
+            if (_autoFormatModifier != null) {
+                addTextChangedListener(_autoFormatModifier);
+            }
+        } else if (!enable && _autoFormatEnabled){
+            setFilters(new InputFilter[]{});
+            if (_autoFormatModifier != null) {
+                removeTextChangedListener(_autoFormatModifier);
+            }
+        }
+        _autoFormatEnabled = enable;
+    }
+
+    // Run some code with accessibility disabled
+    public void withAccessibilityDisabled(final Callback.a0 callback) {
+        try {
+            _accessibilityEnabled = false;
+            callback.callback();
+        } finally {
+            _accessibilityEnabled = true;
+        }
+    }
+
+    // Run some code with auto formatters disabled
+    // Also disables accessibility
+    public void withAutoFormatDisabled(final Callback.a0 callback) {
+        if (getAutoFormatEnabled()) {
+            try {
+                setAutoFormatEnabled(false);
+                withAccessibilityDisabled(callback);
+            } finally {
+                setAutoFormatEnabled(true);
+            }
+        } else {
+            withAccessibilityDisabled(callback);
+        }
+    }
+
+    // Utility functions for interaction
+    // ---------------------------------------------------------------------------------------------
 
     public void simulateKeyPress(int keyEvent_KEYCODE_SOMETHING) {
         dispatchKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyEvent_KEYCODE_SOMETHING, 0));
@@ -295,53 +408,7 @@ public class HighlightingEditor extends AppCompatEditText {
         return sel[0];
     }
 
-    //
-    // Simple getter / setter
-    //
-
-    public void setHighlightingEnabled(final boolean enable) {
-        if (_hlEnabled && !enable) {
-            _hlEnabled = false;
-            Highlighter.clearSpans(getText());
-        } else if (!_hlEnabled && enable && _hl != null) {
-            _hlEnabled = true;
-            highlightWithoutChange();
-        }
-    }
-
-
     public boolean indexesValid(int... indexes) {
         return StringUtils.inRange(0, length(), indexes);
-    }
-
-    @Override
-    public boolean isSuggestionsEnabled() {
-        return _isSpellingRedUnderline && super.isSuggestionsEnabled();
-    }
-
-    @Override
-    public void setSelection(int index) {
-        if (indexesValid(index)) {
-            super.setSelection(index);
-        }
-    }
-
-    @Override
-    public void setSelection(int start, int stop) {
-        if (indexesValid(start, stop)) {
-            super.setSelection(start, stop);
-        } else if (indexesValid(start, stop - 1)) {
-            super.setSelection(start, stop - 1);
-        } else if (indexesValid(start + 1, stop)) {
-            super.setSelection(start + 1, stop);
-        }
-    }
-
-    @Override
-    protected void onSelectionChanged(int selStart, int selEnd) {
-        super.onSelectionChanged(selStart, selEnd);
-        if (MainActivity.IS_DEBUG_ENABLED) {
-            AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
-        }
     }
 }
