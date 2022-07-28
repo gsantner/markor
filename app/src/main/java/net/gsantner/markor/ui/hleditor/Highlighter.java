@@ -120,7 +120,7 @@ public abstract class Highlighter {
         // Empty class - just implements UpdateLayout
     }
 
-    private final ForceUpdateLayout _updater;
+    private final ForceUpdateLayout _layoutUpdater;
 
     private final List<SpanGroup> _groups;
     private final List<Integer> _applied;
@@ -133,7 +133,7 @@ public abstract class Highlighter {
         _groups = new ArrayList<>();
         _applied = new ArrayList<>();
 
-        _updater = new ForceUpdateLayout();
+        _layoutUpdater = new ForceUpdateLayout();
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -237,6 +237,10 @@ public abstract class Highlighter {
         start = Math.max(0, start);
         end = Math.min(end < 0 ? _spannable.length() : end, _spannable.length());
 
+        if (start >= end) {
+            return this;
+        }
+
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
@@ -259,8 +263,10 @@ public abstract class Highlighter {
             Collections.sort(_applied);
         }
 
-        // Update layout of region
-        _spannable.setSpan(_updater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        // Update layout of region, offset in order to prevent tearing
+        final int size = end - start;
+        final int mid = (end + start) / 2;
+        _spannable.setSpan(_layoutUpdater, Math.max(0, mid - size), Math.min(length, mid + size), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return this;
     }
@@ -293,7 +299,7 @@ public abstract class Highlighter {
     }
 
     //
-    // Create spans
+    // Helpers for creating spans
     //
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
