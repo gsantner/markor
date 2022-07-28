@@ -27,6 +27,7 @@ import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.UpdateAppearance;
+import android.text.style.UpdateLayout;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -115,6 +116,12 @@ public abstract class Highlighter {
         }
     }
 
+    private static class ForceUpdateLayout implements UpdateLayout {
+        // Empty class - just implements UpdateLayout
+    }
+
+    private final ForceUpdateLayout _updater;
+
     private final List<SpanGroup> _groups;
     private final List<Integer> _applied;
 
@@ -125,6 +132,8 @@ public abstract class Highlighter {
         _appSettings = as;
         _groups = new ArrayList<>();
         _applied = new ArrayList<>();
+
+        _updater = new ForceUpdateLayout();
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -249,6 +258,9 @@ public abstract class Highlighter {
             // Sort the list of applied spans if required
             Collections.sort(_applied);
         }
+
+        // Update layout of region
+        _spannable.setSpan(_updater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return this;
     }
