@@ -202,6 +202,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Bundle args = getArguments();
         setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
 
+        _loadModTime = 0; // force next load
         loadDocument();
 
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
@@ -351,9 +352,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void loadDocument() {
         //Only trigger the load process if constructing or file updated
-        final long modTime = _document.lastModified();
-        final boolean isStarted = getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED);
-        if (!isStarted || modTime > _loadModTime) {
+        final long modTime = _document != null ? _document.lastModified() : Long.MIN_VALUE;
+        if (modTime > _loadModTime) {
 
             _loadModTime = modTime;
 
@@ -686,7 +686,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
-        if (!_document.isContentSame(text) && checkPermissions() && _hlEditor != null && isAdded()) {
+        if (_document != null && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
             if (_document.saveContent(getContext(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
