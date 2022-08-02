@@ -235,7 +235,7 @@ public abstract class Highlighter {
         final int length = _spannable.length();
 
         start = Math.max(0, start);
-        end = Math.min(end < 0 ? _spannable.length() : end, _spannable.length());
+        end = Math.min(end < 0 ? length : end, length);
 
         if (start >= end) {
             return this;
@@ -263,11 +263,29 @@ public abstract class Highlighter {
             Collections.sort(_applied);
         }
 
-        // Update layout of region, offset in order to prevent tearing
-        final int size = end - start;
-        final int mid = (end + start) / 2;
-        _spannable.setSpan(_layoutUpdater, Math.max(0, mid - size), Math.min(length, mid + size), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return this;
+    }
 
+    public final Highlighter reflow(final int[] region) {
+        if (region != null && region.length >= 2) {
+            reflow(region[0], region[1]);
+        }
+        return this;
+    }
+
+    // Update whole layout
+    public final Highlighter reflow() {
+        return reflow(0, -1);
+    }
+
+    // Reflow highlighted region (to prevent tearing etc)
+    public synchronized final Highlighter reflow(int start, int end) {
+        if (_spannable != null) {
+            final int length = _spannable.length();
+            start = Math.max(0, start);
+            end = Math.min(end < 0 ? length : end, length);
+            _spannable.setSpan(_layoutUpdater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return this;
     }
 
