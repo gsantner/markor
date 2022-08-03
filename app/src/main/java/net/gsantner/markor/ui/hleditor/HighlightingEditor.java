@@ -15,7 +15,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -33,10 +33,9 @@ import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.StringUtils;
 
 @SuppressWarnings("UnusedReturnValue")
-public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
+public class HighlightingEditor extends AppCompatEditText {
 
-    final static double HIGHLIGHT_REFRESH_SCROLL = 0.25;     // How much to scroll before re-highlight
-    final static double HIGHLIGHT_EXTRA_REGION_HEIGHT = 0.5; // Extra screens to highlight.
+    final static float HIGHLIGHT_REFRESH_SLOP_FACTOR = 10.0f; // Extra above and below to highlight
     final static int HIGHLIGHT_SMALL_FILE_THRESHOLD = 25000; // Dynamic highlighting disabled for smaller files
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 200; // Block auto-scrolling for time after highlighing (hack)
 
@@ -52,8 +51,6 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
-    private int _midLine = -1;
-    private int _midLineBaseline = -1;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
 
@@ -92,46 +89,30 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
-    private void recordMeasuredPosition() {
-        final Layout layout = getLayout();
-        if (layout != null) {
-            final Rect rect = new Rect();
-            getLocalVisibleRect(rect);
-
-            final int mid = (rect.top + rect.bottom) / 2;
-            _midLine = layout.getLineForVertical(mid);
-            _midLineBaseline = layout.getLineBaseline(_midLine);
-        }
+    private boolean isRunHighlight() {
+        return _hlEnabled && _hl != null && getLayout() != null;
     }
 
-    private void restoreMeasuredPosition() {
-        final Layout layout = getLayout();
-        if (_midLine >= 0 && _midLineBaseline >= 0 && layout != null) {
-            final int currentBaseline = layout.getLineBaseline(_midLine);
-            final int shift = currentBaseline - _midLineBaseline;
-            final float textSize = getPaint().getTextSize();
-            if (Math.abs(shift) > (0.5 * textSize)) {
-                scrollBy(0, shift);
+    // Re-apply highlighting on region change
+    private void updateDynamicHighlighting() {
+        if (isRunHighlight() && isDynamicHlEnabled()) {
+            final int[] newRegionY = hlRegionY();
+            if (isShiftSignificant(newRegionY)) {
+                final long start = System.nanoTime();
+                final int[] hlIndices = hlRegionIndex(newRegionY);
+                blockBringNextPointIntoView(); // Hack to prevent scrolling to cursor
+                withAccessibilityDisabled(() -> _hl.clear().apply(hlIndices));
+                _oldHlRegionY = newRegionY;
+                Log.d("Highlighting", "" + (0.000001 * (System.nanoTime() - start)) + " mS");
             }
         }
     }
 
-    private void updateDynamicHighlighting() {
-        if (!_hlEnabled || _hl == null || !isDynamicHlEnabled()) {
-            return;
-        }
-
-        final int[] newRegionY = hlRegionY();
-        if (isShiftSignificant(newRegionY)) {
-            final long start = System.nanoTime();
-
-            final int[] hlIndices = hlRegionIndex(newRegionY);
-            final int[] reflowIndices = hlRegionIndex(offsetRegionY(newRegionY));
-            blockBringNextPointIntoView(); // Hack to prevent scrolling to cursor
-            withAccessibilityDisabled(() -> _hl.clear().apply(hlIndices).reflow(reflowIndices));
-            _oldHlRegionY = newRegionY;
-
-            Log.d("Highlighting", "" + (0.000001 * (System.nanoTime() - start)) + " mS");
+    // Recompute and re-apply highlighting
+    public void highlight() {
+        if (isRunHighlight()) {
+            blockBringNextPointIntoView();
+            withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion()));
         }
     }
 
@@ -146,8 +127,7 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
 
             _hl.setSpannable(getText()).configure(getPaint());
 
-            _hlDebounced = StringUtils.makeDebounced(_hl.getHighlightingDelay(),
-                    () -> withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion())));
+            _hlDebounced = StringUtils.makeDebounced(_hl.getHighlightingDelay(), this::highlight);
 
             if (_hlEnabled) {
                 fadeInHighlight();
@@ -156,11 +136,13 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void fadeInHighlight() {
-        if (_hl != null) {
-            setAlpha(0.3f);
-            post(() -> withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion())));
-            animate().alpha(1.0f).setDuration(1000).start();
-        }
+        post(() -> {
+            if (isRunHighlight()) {
+                setAlpha(0.3f);
+                highlight();
+                animate().alpha(1.0f).setDuration(1000).start();
+            }
+        });
     }
 
     public Highlighter getHighlighter() {
@@ -174,7 +156,7 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
-                _hl.clear().reflow();
+                _hl.clear();
             }
         }
     }
@@ -187,10 +169,6 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
 
     // Region to highlight in text index
     private int[] hlRegionIndex(final int[] regionY) {
-        if (regionY == null) {
-            return null;
-        }
-
         final Layout layout = getLayout();
 
         final int startL = layout.getLineForVertical(regionY[0]);
@@ -202,11 +180,8 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
         return new int[] { start, end };
     }
 
-    private int[] offsetRegionY(final int[] regionY) {
-        final int size = Math.abs(regionY[1] - regionY[0]);
-        final int start = Math.max(regionY[0] - size, 0);
-        final int end = Math.min(regionY[1] + size, getHeight());
-        return new int[] { start, end };
+    private int hlSlop() {
+        return Math.round(getPaint().getTextSize() * HIGHLIGHT_REFRESH_SLOP_FACTOR);
     }
 
     // Region to highlight in y coordinate
@@ -214,7 +189,7 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
         final Rect rect = new Rect();
         getLocalVisibleRect(rect);
 
-        final int offset = (int) (rect.height() * HIGHLIGHT_EXTRA_REGION_HEIGHT);
+        final int offset = hlSlop();
         final int startY = rect.top - offset;
         final int endY = rect.bottom + offset;
 
@@ -222,13 +197,9 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     private boolean isShiftSignificant(final int[] region) {
-        if (_oldHlRegionY == null) {
-            return true;
-        }
-
-        final double screenSize = (region[1] - region[0]) / (1 + 2 * HIGHLIGHT_EXTRA_REGION_HEIGHT);
-        final double offset = Math.max(Math.abs(_oldHlRegionY[0] - region[0]), Math.abs(region[1] - _oldHlRegionY[1]));
-        return (screenSize <= 0) || ((offset / screenSize) > HIGHLIGHT_REFRESH_SCROLL);
+        // No old hl region or shift > text size
+        final int threshold = hlSlop() / 2;
+        return _oldHlRegionY == null || Math.max(Math.abs(_oldHlRegionY[0] - region[0]), Math.abs(region[1] - _oldHlRegionY[1])) > threshold;
     }
 
     private boolean isDynamicHlEnabled() {
@@ -245,6 +216,17 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
 
     // Various overrides
     // ---------------------------------------------------------------------------------------------
+
+    public void onPause() {
+        // Nothing here
+
+    }
+
+    public void onResume() {
+        if (isRunHighlight()) {
+            withAccessibilityDisabled(() -> _hl.clear().apply(hlRegion()));
+        }
+    }
 
     @Override
     public Parcelable onSaveInstanceState() {
@@ -289,6 +271,9 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
         super.setText(text, type);
         if (_hl != null) {
             _hl.setSpannable(getText());
+            if (_hlEnabled) {
+                fadeInHighlight();
+            }
         }
     }
 

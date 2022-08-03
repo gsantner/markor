@@ -13,7 +13,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -242,6 +241,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void resume() {
         loadDocument();
+        if (_hlEditor != null) {
+            _hlEditor.onResume();
+        }
     }
 
     @Override
@@ -258,6 +260,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void pause() {
         saveDocument(false);
+        if (_hlEditor != null) {
+            _hlEditor.onPause();
+        }
+
         if (_appSettings != null && _document != null) {
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);

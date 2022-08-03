@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 public class DraggableScrollbarScrollView extends ScrollView {
 
     private boolean _isFastScrolling = false;
+    private boolean _isFling = false;
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;
     private int _thumbHeight;
@@ -29,6 +30,19 @@ public class DraggableScrollbarScrollView extends ScrollView {
 
     public DraggableScrollbarScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public boolean slowScrollShift(final int shift) {
+        if (!_isFastScrolling) {
+            scrollBy(0, shift);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void fling(int velocityY) {
+        super.fling(velocityY);
     }
 
     @Override

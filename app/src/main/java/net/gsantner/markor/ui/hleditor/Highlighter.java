@@ -263,29 +263,11 @@ public abstract class Highlighter {
             Collections.sort(_applied);
         }
 
-        return this;
-    }
+        // Offset and force a layout
+        start = Math.max(start - end + start, 0);
+        end = Math.min(end + end - start, length);
+        _spannable.setSpan(_layoutUpdater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-    public final Highlighter reflow(final int[] region) {
-        if (region != null && region.length >= 2) {
-            reflow(region[0], region[1]);
-        }
-        return this;
-    }
-
-    // Update whole layout
-    public final Highlighter reflow() {
-        return reflow(0, -1);
-    }
-
-    // Reflow highlighted region (to prevent tearing etc)
-    public synchronized final Highlighter reflow(int start, int end) {
-        if (_spannable != null) {
-            final int length = _spannable.length();
-            start = Math.max(0, start);
-            end = Math.min(end < 0 ? length : end, length);
-            _spannable.setSpan(_layoutUpdater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
         return this;
     }
 
