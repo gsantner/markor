@@ -143,13 +143,17 @@ public abstract class Highlighter {
      * @return this
      */
     public synchronized Highlighter clear() {
-        if (_spannable != null) {
-            for (int i = _applied.size() - 1; i >= 0; i--) {
-                // Reverse order to align with TextView internals
-                _spannable.removeSpan(_groups.get(_applied.get(i)).span);
-            }
-            _applied.clear();
+        if (_spannable == null) {
+            return this;
         }
+
+        for (int i = _applied.size() - 1; i >= 0; i--) {
+            // Reverse order to align with TextView internals
+            final SpanGroup group = _groups.get(_applied.get(i));
+            _spannable.removeSpan(group.span);
+        }
+        _applied.clear();
+
         return this;
     }
 
@@ -263,9 +267,19 @@ public abstract class Highlighter {
             Collections.sort(_applied);
         }
 
-        // Offset and force a layout
-        start = Math.max(start - end + start, 0);
-        end = Math.min(end + end - start, length);
+        return this;
+    }
+
+    public Highlighter reflow(final int[] region) {
+        return reflow(region[0], region[1]);
+    }
+
+    // Reflow selected region with extra
+    public Highlighter reflow(int start, int end) {
+        final int length = _spannable.length();
+        final int size = end - start;
+        start = Math.max(start - size, 0);
+        end = end < 0 ? length : Math.min(end + size, length);
         _spannable.setSpan(_layoutUpdater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return this;

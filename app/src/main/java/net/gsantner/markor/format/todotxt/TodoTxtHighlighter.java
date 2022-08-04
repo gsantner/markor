@@ -15,6 +15,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
+import android.text.style.UpdateAppearance;
 import android.text.style.UpdateLayout;
 
 import net.gsantner.markor.ui.hleditor.Highlighter;
@@ -46,7 +47,8 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
     }
 
     // Adds spacing and divider line between paragraphs
-    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateLayout {
+    // Should implement UpdateLayout, but we rely on the Highlighter to do this
+    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateAppearance {
         private final int _lineColor;
         private final float _spacing;
         private Integer _origAscent = null;

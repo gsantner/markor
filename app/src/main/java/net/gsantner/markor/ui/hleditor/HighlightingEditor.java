@@ -35,9 +35,9 @@ import net.gsantner.opoc.util.StringUtils;
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
-    final static float HIGHLIGHT_REFRESH_SLOP_FACTOR = 10.0f; // Extra above and below to highlight
-    final static int HIGHLIGHT_SMALL_FILE_THRESHOLD = 25000; // Dynamic highlighting disabled for smaller files
-    final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 200; // Block auto-scrolling for time after highlighing (hack)
+    final static float HIGHLIGHT_REFRESH_SLOP_FACTOR = 10.0f; // Extra lines to highlight
+    final static int HIGHLIGHT_SMALL_FILE_THRESHOLD = 25000;  // Dynamic highlighting disabled for smaller files
+    final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 200;  // Block auto-scrolling for time after highlighing (hack)
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
@@ -47,7 +47,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private Highlighter _hl;
     private Runnable _hlDebounced;  /* Debounced runnable which recomputes highlighting */
     private boolean _hlEnabled; /* Whether highlighting is enabled */
-    private int[] _oldHlRegionY; /* Region (indices) highlihging is currently applied to */
+    private int[] _oldHlRegionY; /* Region (Y coordinates) highlighting is currently applied to */
+    private int[] _oldHlRegionI; /* Region (indices) highlighting is currently applied to */
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
@@ -101,7 +102,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 final long start = System.nanoTime();
                 final int[] hlIndices = hlRegionIndex(newRegionY);
                 blockBringNextPointIntoView(); // Hack to prevent scrolling to cursor
-                withAccessibilityDisabled(() -> _hl.clear().apply(hlIndices));
+                withAccessibilityDisabled(() -> _hl.clear().apply(hlIndices).reflow(hlIndices));
                 _oldHlRegionY = newRegionY;
                 Log.d("Highlighting", "" + (0.000001 * (System.nanoTime() - start)) + " mS");
             }
@@ -112,7 +113,8 @@ public class HighlightingEditor extends AppCompatEditText {
     public void highlight() {
         if (isRunHighlight()) {
             blockBringNextPointIntoView();
-            withAccessibilityDisabled(() -> _hl.clear().recompute().apply(hlRegion()));
+            final int[] region = hlRegion();
+            withAccessibilityDisabled(() -> _hl.clear().recompute().apply(region).reflow(region));
         }
     }
 
@@ -156,7 +158,7 @@ public class HighlightingEditor extends AppCompatEditText {
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
-                _hl.clear();
+                _hl.clear().reflow(0, -1);
             }
         }
     }
@@ -198,8 +200,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private boolean isShiftSignificant(final int[] region) {
         // No old hl region or shift > text size
-        final int threshold = hlSlop() / 2;
-        return _oldHlRegionY == null || Math.max(Math.abs(_oldHlRegionY[0] - region[0]), Math.abs(region[1] - _oldHlRegionY[1])) > threshold;
+        return _oldHlRegionY == null || Math.max(Math.abs(_oldHlRegionY[0] - region[0]), Math.abs(region[1] - _oldHlRegionY[1])) > hlSlop() / 2;
     }
 
     private boolean isDynamicHlEnabled() {
@@ -219,7 +220,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void onPause() {
         // Nothing here
-
     }
 
     public void onResume() {
