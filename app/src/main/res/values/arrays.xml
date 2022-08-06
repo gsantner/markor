@@ -13,7 +13,7 @@
     <string-array name="pref_arrdisp__app_themes" translatable="false">
         <item translatable="false">System</item>
         <item translatable="false">Auto</item>
-        <item translatable="false">Auto (compat)</item>
+        <item translatable="false">Auto (09:00 - 17:00)</item>
         <item translatable="false">@string/light</item>
         <item translatable="false">@string/dark</item>
         <item translatable="false">@string/black</item>
