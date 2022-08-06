@@ -168,6 +168,11 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
         }
 
+        if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
+            intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
+            showShareInto(intent);
+        }
+
         if (!intentIsSend && file != null) {
             final Document doc = new Document(file);
 
