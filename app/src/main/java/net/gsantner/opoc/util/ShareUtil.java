@@ -905,18 +905,11 @@ public class ShareUtil {
      */
     public void requestPictureEdit(final File file) {
         Uri uri = getUriByFileProviderAuthority(file);
-        int flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION;
-
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setDataAndType(uri, "image/*");
-        intent.addFlags(flags);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-
-        for (ResolveInfo resolveInfo : _context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)) {
-            String packageName = resolveInfo.activityInfo.packageName;
-            _context.grantUriPermission(packageName, uri, flags);
-        }
         _context.startActivity(Intent.createChooser(intent, null));
     }
 
