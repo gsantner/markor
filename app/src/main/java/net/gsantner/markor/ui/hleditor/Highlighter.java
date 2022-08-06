@@ -35,6 +35,7 @@ import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -208,16 +209,6 @@ public abstract class Highlighter {
         return _spannable;
     }
 
-    // Region specified as array
-    public Highlighter apply(final int[] region) {
-        return apply(region[0], region[1]);
-    }
-
-    // Apply all spans
-    public Highlighter apply() {
-        return apply(0, -1);
-    }
-
     public boolean isApplied(final int index) {
         // _applied is an ordered list of int, we can very efficiently search it
         return !_applied.isEmpty()
@@ -226,34 +217,36 @@ public abstract class Highlighter {
                 && Collections.binarySearch(_applied, index) >= 0;
     }
 
+    // Apply all spans
+    public Highlighter apply() {
+        return apply(new int[]{0, -1});
+    }
+
     /**
      * Apply spans which intersect region [start, end)
      * @return this
      */
-    public synchronized Highlighter apply(int start, int end) {
+    public synchronized Highlighter apply(final int[] region) {
         if (_spannable == null) {
             return this;
         }
 
         final boolean sortRequired = !_applied.isEmpty();
+
         final int length = _spannable.length();
-
-        start = Math.max(0, start);
-        end = Math.min(end < 0 ? length : end, length);
-
-        if (start >= end) {
+        if (!StringUtils.fixRegion(region, length)) {
             return this;
         }
 
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
-            if (group.start > end) {
+            if (group.start > region[1]) {
                 // As we are sorted on start, we can break out after the first group.start > end
                 break;
             }
 
-            final boolean intersecting = group.start < end && group.end > start;
+            final boolean intersecting = group.start < region[1] && group.end > region[0];
             final boolean valid = group.start >= 0 && group.end <= length;
             if (intersecting && valid && !isApplied(i)) {
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -270,19 +263,28 @@ public abstract class Highlighter {
         return this;
     }
 
-    public Highlighter reflow(final int[] region) {
-        return reflow(region[0], region[1]);
+
+    public final Highlighter reflow() {
+        return reflow(new int[] { 0, -1 });
     }
 
     // Reflow selected region with extra
-    public Highlighter reflow(int start, int end) {
-        final int length = _spannable.length();
-        final int size = end - start;
-        start = Math.max(start - size, 0);
-        end = end < 0 ? length : Math.min(end + size, length);
-        _spannable.setSpan(_layoutUpdater, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+    public final Highlighter reflow(final int[] region) {
+        if (StringUtils.fixRegion(region, _spannable.length())) {
+            _spannable.setSpan(_layoutUpdater, region[0], region[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return this;
+    }
+
+    public final float offset(final int index) {
+        float offset = 0;
+        for (final int i : _applied) {
+            final SpanGroup group = _groups.get(i);
+            if (group.span instanceof ShiftText) {
+                offset += ((ShiftText) group.span).yShift(_spannable, group.start, group.end, index);
+            }
+        }
+        return offset;
     }
 
     /**
@@ -493,10 +495,10 @@ public abstract class Highlighter {
             }
         }
 
-
+        // The class is a callback which returns a clone of itself
+        // So we can construct an instance and use it as a span generator
         @Override
         public HighlightSpan callback(Matcher m) {
-            // Return a copy
             return new HighlightSpan()
                     .setForeColor(foregroundColor)
                     .setBackColor(backgroundColor)
@@ -506,5 +508,11 @@ public abstract class Highlighter {
                     .setStrike(strikethrough)
                     .setTextSize(textSize);
         }
+    }
+
+    // Interface for spans which will shift text in Y - used to adjust scroll position
+    protected interface ShiftText {
+        // How much will text at index be shifted in y
+        float yShift(CharSequence text, int spanStart, int spanEnd, int index);
     }
 }

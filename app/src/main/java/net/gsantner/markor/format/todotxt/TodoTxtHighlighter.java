@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
 import android.text.style.UpdateAppearance;
-import android.text.style.UpdateLayout;
 
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
@@ -48,7 +47,7 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
 
     // Adds spacing and divider line between paragraphs
     // Should implement UpdateLayout, but we rely on the Highlighter to do this
-    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateAppearance {
+    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, ShiftText, UpdateAppearance {
         private final int _lineColor;
         private final float _spacing;
         private Integer _origAscent = null;
@@ -74,6 +73,11 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
             }
             boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
             fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) _spacing : _origAscent;
+        }
+
+        @Override
+        public float yShift(final CharSequence text, final int start, final int end, final int index) {
+            return index >= start ? _spacing : 0;
         }
     }
 }

@@ -727,4 +727,16 @@ public final class StringUtils {
         TextUtils.getChars(source, start, end, buf, 0);
         return new String(buf);
     }
+
+    public static boolean fixRegion(final int[] region, final int length) {
+        if (length <= 0 || region == null || region.length < 2) {
+            return false;
+        }
+
+        // Clamp region to [0, length]
+        region[0] = Math.max(0, region[0]);
+        region[1] = region[1] < 0 ? length : Math.min(length, region[1]);
+
+        return region[1] > region[0];
+    }
 }

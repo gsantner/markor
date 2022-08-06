@@ -1,5 +1,7 @@
 package net.gsantner.markor.format.todotxt;
+
 import android.graphics.Typeface;
+
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
 

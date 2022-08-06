@@ -39,7 +39,6 @@ import android.widget.TextView;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
-import net.gsantner.opoc.util.Callback;
 
 import java.io.File;
 

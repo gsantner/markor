@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
@@ -14,7 +13,6 @@ import android.widget.ScrollView;
 public class DraggableScrollbarScrollView extends ScrollView {
 
     private boolean _isFastScrolling = false;
-    private boolean _isFling = false;
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;
     private int _thumbHeight;
@@ -34,7 +32,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
 
     public boolean slowScrollShift(final int shift) {
         if (!_isFastScrolling) {
-            scrollBy(0, shift);
+            setScrollY(getScrollY() + shift);
             return true;
         }
         return false;
