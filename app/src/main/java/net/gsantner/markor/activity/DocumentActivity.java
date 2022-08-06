@@ -36,8 +36,8 @@ import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.util.StringUtils;
-import java.io.File;
 
+import java.io.File;
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
