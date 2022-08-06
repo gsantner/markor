@@ -377,6 +377,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 גש להגדרות -> כללי -> סיסמא
 בכדי להגדיר סיסמא.</string>
     <string name="encrypt_file_content">הצפן קובץ</string>
+    <string name="utf8_with_bom">UTF-8 עם BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">כשל בהצפנה קובץ. הקובץ לא נשמר.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">כשל בפיענוח קובץ. האם הזנתם סיסמא שגויה? האם הקובץ הוצפן באמצעות AES של Markor?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">סיסמא כבר מוגדרת. הגדרת סיסמא חדשה תדרוס את הקיימת והנכם עלולים לאבד גישה לקבצים במידה ולא תזכרו את הסיסמא.</string>
