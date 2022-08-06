@@ -24,7 +24,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -1072,4 +1071,21 @@
         </activity>
     </application>
 
+    <queries>
+        <package android:name="com.android.chrome" />
+        <package android:name="com.chrome.beta" />
+        <package android:name="com.chrome.dev" />
+        <package android:name="com.google.android.apps.chrome" />
+        <package android:name="org.chromium.chrome" />
+        <package android:name="org.mozilla.fennec_fdroid" />
+        <package android:name="org.mozilla.firefox" />
+        <package android:name="org.mozilla.firefox_beta" />
+        <package android:name="org.mozilla.fennec_aurora" />
+        <package android:name="org.mozilla.klar" />
+        <package android:name="org.mozilla.focus" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 </manifest>
