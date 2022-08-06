@@ -29,7 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">移動</string>
     <string name="copy">コピー</string>
     <string name="info">情報</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">ファイルまたはフォルダ名はすでに存在しています。別の名前を使用してください。</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">ファイルまたはフォルダ名はすでに存在します。別の名前を使用してください。</string>
     <string name="import_from_device">デバイスからインポート</string>
     <string name="import_">インポート</string>
     <string name="append_to_witharg">%s に追記</string>
@@ -241,6 +241,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">説明</string>
     <string name="edit_picture">画像を編集</string>
     <string name="math">数式</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">ドキュメントの上部に、 YAML Front-matter で書いた属性情報を表示できます。表示させたいキーの名前をカンマで区切って入力してください。何も入力しないと属性情報を表示せず、* を入力するとすべての属性情報を表示します。\n\nただし、ドキュメントに title: \'Hello\' のような属性情報と {{ post.title }} が書いてある場合は前者が優先されます。これを利用すれば、カスタムの Fromt-matter の見出しを作成できます。</string>
     <string name="table_of_contents">目次</string>
     <string name="miscellaneous">その他</string>
     <string name="textaction">テキスト操作</string>
@@ -394,12 +395,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="restore_settings">設定を復元</string>
     <string name="failed_to_create_backup">バックアップの作成に失敗しました</string>
     <string name="export_settings_to_json_file">json ファイルに設定をエクスポート</string>
-    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">バックアップ json ファイルから設定をインポートします。アプリを再起動します。</string>
+    <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">バックアップした json ファイルから設定をインポートします。アプリが再起動されます。</string>
     <string name="failed_to_restore_settings_from_backup">バックアップから設定を復元できませんでした</string>
     <string name="newline_is_new_paragraph">format@@0 = 新しい段落</string>
     <string name="search_in_content">内容を検索</string>
     <string name="max_search_depth">検索の深さ</string>
     <string name="ignore_list">無視リスト</string>
+    <string name="do_not_search_specified_files_and_folders">入力したファイルやフォルダを検索しません。\nファイルやフォルダの指定は改行で区切ってください。\n\"Test\" のようにダブルクオーテーションで囲うと厳密に名前を指定できます。\n\'^[.].*\' のように正規表現も使えます。\n例: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">正規表現検索</string>
     <string name="case_sensitive">大文字と小文字を区別する</string>
     <string name="stop_search_after_first_match">最初の一致後に検索を停止</string>
