@@ -651,7 +651,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hsView.removeAllViews();
             }
             if (!wrap) {
-                _hlEditor.setHorizontallyScrolling(true);
                 if (_hsView == null) {
                     _hsView = new HorizontalScrollView(context);
                     _hsView.setFillViewport(true);
@@ -659,7 +658,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hsView.addView(_hlEditor);
                 _primaryScrollView.addView(_hsView);
             } else {
-                _hlEditor.setHorizontallyScrolling(false);
                 _primaryScrollView.addView(_hlEditor);
             }
 

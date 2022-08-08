@@ -226,7 +226,7 @@ public abstract class Highlighter {
      * Apply spans which intersect region [start, end)
      * @return this
      */
-    public synchronized Highlighter apply(final int[] region) {
+    public synchronized Highlighter apply(int[] range) {
         if (_spannable == null) {
             return this;
         }
@@ -234,19 +234,19 @@ public abstract class Highlighter {
         final boolean sortRequired = !_applied.isEmpty();
 
         final int length = _spannable.length();
-        if (!StringUtils.fixRegion(region, length)) {
+        if (!StringUtils.checkRange(length, range)) {
             return this;
         }
 
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
-            if (group.start > region[1]) {
+            if (group.start > range[1]) {
                 // As we are sorted on start, we can break out after the first group.start > end
                 break;
             }
 
-            final boolean intersecting = group.start < region[1] && group.end > region[0];
+            final boolean intersecting = group.start < range[1] && group.end > range[0];
             final boolean valid = group.start >= 0 && group.end <= length;
             if (intersecting && valid && !isApplied(i)) {
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -263,15 +263,10 @@ public abstract class Highlighter {
         return this;
     }
 
-
-    public final Highlighter reflow() {
-        return reflow(new int[] { 0, -1 });
-    }
-
-    // Reflow selected region with extra
-    public final Highlighter reflow(final int[] region) {
-        if (StringUtils.fixRegion(region, _spannable.length())) {
-            _spannable.setSpan(_layoutUpdater, region[0], region[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    // Reflow selected region's lines
+    public final Highlighter reflow(final int[] range) {
+        if (StringUtils.checkRange(_spannable, range)) {
+            _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return this;
     }
