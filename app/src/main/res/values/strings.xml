@@ -145,9 +145,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">The overall theme used in the app</string>
     <string name="remember_last_directory">Remember last directory</string>
     <string name="syntax_highlighting">Syntax highlighting</string>
+    <string name="dynamic_highlighting">Dynamic highlighting</string>
     <string name="highlighting_delay">Highlighting delay</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Delay in milliseconds for highlighting refresh. A lower value will start highlighting earlier, but it will drain your battery and may slow down the app on older devices.</string>
     <string name="highlighting_enabled_or_not__appspecific">Control whether entered text should be highlighted or not</string>
+    <string name="dynamic_highlighting_effect">Dynamic highlighting increases performance. May cause rendering artifacts.</string>
     <string name="control_font_size_in_editor">Control the font size used in the editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Show a bar with handy buttons on bottom. These text actions modify the text or run an action based on the text.</string>
     <string name="load_last_opened_folder_at_startup">Load the last opened folder at startup</string>

@@ -182,6 +182,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
+        _hlEditor.setScrollView(_primaryScrollView);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
@@ -191,8 +192,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-
-        _hlEditor.setScrollView(_primaryScrollView);
 
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -595,6 +594,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textActionsBar.removeAllViews();
         _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         _textFormat.getTextActions()

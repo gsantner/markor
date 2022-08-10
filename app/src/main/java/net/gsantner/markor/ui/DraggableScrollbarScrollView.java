@@ -9,6 +9,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
+import net.gsantner.opoc.util.Callback;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarScrollView extends ScrollView {
 
@@ -19,28 +24,19 @@ public class DraggableScrollbarScrollView extends ScrollView {
     private int _grabWidth;
 
     public DraggableScrollbarScrollView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public DraggableScrollbarScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DraggableScrollbarScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
     public boolean slowScrollShift(final int shift) {
-        if (!_isFastScrolling) {
+        if (!_isFastScrolling && Math.abs(shift) > 0) {
             setScrollY(getScrollY() + shift);
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void fling(int velocityY) {
-        super.fling(velocityY);
     }
 
     @Override
@@ -106,5 +102,4 @@ public class DraggableScrollbarScrollView extends ScrollView {
     public boolean isFastScrollEnabled() {
         return _fastScrollEnabled;
     }
-
 }

@@ -715,6 +715,20 @@ public final class StringUtils {
         };
     }
 
+    public static Runnable blockReentry(final Runnable callback) {
+        final boolean[] block = new boolean[] { false };
+        return () -> {
+            if (!block[0]) {
+                try {
+                    block[0] = true;
+                    callback.run();
+                } finally {
+                    block[0] = false;
+                }
+            }
+        };
+    }
+
     // Converts region to string with a minimum of work
     public static String toString(final CharSequence source, int start, int end) {
         if (source instanceof String) {

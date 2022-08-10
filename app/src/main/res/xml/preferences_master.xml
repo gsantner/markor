@@ -99,6 +99,12 @@
                 android:summary="@string/highlighting_enabled_or_not__appspecific"
                 android:title="@string/syntax_highlighting" />
             <CheckBoxPreference
+                android:defaultValue="true"
+                android:icon="@drawable/ic_highlight_black_24dp"
+                android:key="@string/pref_key__is_dynamic_highlighting_activated"
+                android:summary="@string/dynamic_highlighting_effect"
+                android:title="@string/dynamic_highlighting" />
+            <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_widgets_black_24dp"
                 android:key="@string/pref_key__is_launcher_for_special_files_enabled"

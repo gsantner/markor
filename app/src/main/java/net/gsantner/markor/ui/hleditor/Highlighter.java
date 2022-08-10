@@ -217,16 +217,15 @@ public abstract class Highlighter {
                 && Collections.binarySearch(_applied, index) >= 0;
     }
 
-    // Apply all spans
-    public Highlighter apply() {
-        return apply(new int[]{0, -1});
+    public synchronized Highlighter apply() {
+        return apply(new int[] { 0, _spannable.length() });
     }
 
     /**
      * Apply spans which intersect region [start, end)
      * @return this
      */
-    public synchronized Highlighter apply(int[] range) {
+    public synchronized Highlighter apply(final int[] range) {
         if (_spannable == null) {
             return this;
         }
@@ -264,19 +263,20 @@ public abstract class Highlighter {
     }
 
     // Reflow selected region's lines
-    public final Highlighter reflow(final int[] range) {
+    public final synchronized Highlighter reflow(final int[] range) {
         if (StringUtils.checkRange(_spannable, range)) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return this;
     }
 
-    public final float offset(final int index) {
+    // The current offset of char at index in y due to spans implementing ShiftY
+    public final float yOffset(final int index) {
         float offset = 0;
         for (final int i : _applied) {
             final SpanGroup group = _groups.get(i);
-            if (group.span instanceof ShiftText) {
-                offset += ((ShiftText) group.span).yShift(_spannable, group.start, group.end, index);
+            if (group.span instanceof ShiftY) {
+                offset += ((ShiftY) group.span).yShift(_spannable, group.start, group.end, index);
             }
         }
         return offset;
@@ -506,7 +506,7 @@ public abstract class Highlighter {
     }
 
     // Interface for spans which will shift text in Y - used to adjust scroll position
-    protected interface ShiftText {
+    protected interface ShiftY {
         // How much will text at index be shifted in y
         float yShift(CharSequence text, int spanStart, int spanEnd, int index);
     }
