@@ -48,9 +48,9 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
             views.setTextViewText(R.id.widget_header_title, FileUtils.getFilenameWithoutExtension(directoryF));
 
-            int intentFlag = PendingIntent.FLAG_UPDATE_CURRENT;
+            int intentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                intentFlag |= PendingIntent.FLAG_IMMUTABLE;
+                intentFlags |= PendingIntent.FLAG_IMMUTABLE;
             }
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
@@ -58,33 +58,33 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Document.EXTRA_PATH, directoryF)
                     .putExtra(Intent.EXTRA_TEXT, "");
-            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, intentFlag));
+            views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, intentFlags));
 
             // Open Folder
             final Intent goToFolder = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_PATH, directoryF);
-            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, intentFlag));
+            views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, intentFlags));
 
             // Open To-do
             final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(Document.EXTRA_PATH, appSettings.getTodoFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
-            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, intentFlag));
+            views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, intentFlags));
 
             // Open QuickNote
             final Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .putExtra(Document.EXTRA_PATH, appSettings.getQuickNoteFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
-            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, intentFlag));
+            views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, intentFlags));
 
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory());
-            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, intentFlag));
+            views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, intentFlags));
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
@@ -96,7 +96,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(R.id.widget_notes_list, notesListIntent);
 
             final Intent openNoteIntent = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class);
-            final PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, requestCode++, openNoteIntent, intentFlag);
+            final PendingIntent openNotePendingIntent = PendingIntent.getActivity(context, requestCode++, openNoteIntent, intentFlags);
             views.setPendingIntentTemplate(R.id.widget_notes_list, openNotePendingIntent);
 
             // Tell the AppWidgetManager to perform an update on the current app widget

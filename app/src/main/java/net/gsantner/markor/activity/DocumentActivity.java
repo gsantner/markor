@@ -53,7 +53,6 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-
     public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
@@ -138,6 +137,8 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
+
+        new PermissionChecker(this).doIfExtStoragePermissionGranted();
 
         handleLaunchingIntent(getIntent());
     }

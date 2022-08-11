@@ -448,13 +448,13 @@ public class ContextUtils {
     /**
      * Restart the current app. Supply the class to start on startup
      */
-    public void restartApp(final Class classToStart) {
+    public void restartApp(Class classToStart) {
         final Intent intent = new Intent(_context, classToStart);
-        int flag = PendingIntent.FLAG_CANCEL_CURRENT;
+        int flags = PendingIntent.FLAG_CANCEL_CURRENT;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            flag |= PendingIntent.FLAG_IMMUTABLE;
+            flags |= PendingIntent.FLAG_IMMUTABLE;
         }
-        final PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, flag);
+        final PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, flags);
         final AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (_context instanceof Activity) {
             ((Activity) _context).finish();

@@ -23,12 +23,13 @@ public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
     public static final int REQ_CODE_APPINTRO = 61234;
 
-    public static void optStart(Activity activeActivity) {
+    public static boolean optStart(Activity activeActivity) {
         SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
         boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
         if (!wasShownYet) {
             activeActivity.startActivityForResult(new Intent(activeActivity, IntroActivity.class), REQ_CODE_APPINTRO);
         }
+        return !wasShownYet;
     }
 
     @Override
