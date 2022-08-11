@@ -81,7 +81,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _fab = findViewById(R.id.fab_add_new_item);
         _fab.setOnClickListener(this::onClickFab);
         _fab.setOnLongClickListener(this::onLongClickFab);
-        _viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        _viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -91,22 +91,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
         setSupportActionBar(findViewById(R.id.toolbar));
         optShowRate();
-
-        try {
-            if (_appSettings.isAppCurrentVersionFirstStart(true)) {
-                SimpleMarkdownParser smp = SimpleMarkdownParser.get().setDefaultSmpFilter(SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-                String html = "";
-                html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
-                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-                html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-                ActivityUtils _au = new ActivityUtils(this);
-                _au.showDialogWithHtmlTextView(0, html);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        IntroActivity.optStart(this);
 
         // Setup viewpager
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -131,6 +115,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     @Override
     protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
         final File dir = getIntentDir(intent, null);
         final FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
         if (frag != null && dir != null) {
@@ -224,6 +209,21 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
+
+        boolean firstStart = IntroActivity.optStart(this);
+        try {
+            if (!firstStart && new PermissionChecker(this).doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
+                SimpleMarkdownParser smp = SimpleMarkdownParser.get().setDefaultSmpFilter(SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                String html = "";
+                html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
+                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+                ActivityUtils _au = new ActivityUtils(this);
+                _au.showDialogWithHtmlTextView(0, html);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void restartMainActivity() {
@@ -238,6 +238,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     @SuppressWarnings("unused")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         // Determine some results and forward using Local Broadcast
         Object result = _shareUtil.extractResultFromActivityResult(requestCode, resultCode, data, this);
 
