@@ -309,7 +309,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
                 case R.string.pref_key__editor_basic_color_scheme_markor: {
                     _as.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
-                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.background);
+                    _as.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
                     break;
                 }
                 case R.string.pref_key__editor_basic_color_scheme_blackorwhite: {
