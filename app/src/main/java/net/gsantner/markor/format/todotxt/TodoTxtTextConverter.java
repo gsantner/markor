@@ -10,7 +10,8 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.content.Context;
-import android.support.v4.text.TextUtilsCompat;
+
+import androidx.core.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverter;
 

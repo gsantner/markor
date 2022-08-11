@@ -15,12 +15,13 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatDelegate;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.util.Pair;
 
 import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;

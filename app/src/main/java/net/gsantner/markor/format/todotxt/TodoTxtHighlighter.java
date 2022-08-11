@@ -11,11 +11,12 @@ package net.gsantner.markor.format.todotxt;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
 import android.text.style.UpdateAppearance;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;

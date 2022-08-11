@@ -11,9 +11,10 @@ package net.gsantner.markor.format.markdown;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.annotation.StringRes;
 import android.view.KeyEvent;
 import android.widget.Toast;
+
+import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.AutoFormatter;

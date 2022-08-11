@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.design.widget.Snackbar;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.util.Pair;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;

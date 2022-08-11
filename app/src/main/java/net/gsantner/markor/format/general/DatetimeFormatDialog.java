@@ -13,8 +13,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.os.ConfigurationCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,6 +23,9 @@ import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.os.ConfigurationCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;

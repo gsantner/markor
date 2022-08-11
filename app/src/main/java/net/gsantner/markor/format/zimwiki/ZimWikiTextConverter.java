@@ -9,8 +9,9 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import android.arch.core.util.Function;
 import android.content.Context;
+
+import androidx.arch.core.util.Function;
 
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;

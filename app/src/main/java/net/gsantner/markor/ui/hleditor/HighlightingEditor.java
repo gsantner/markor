@@ -14,8 +14,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -25,6 +23,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;

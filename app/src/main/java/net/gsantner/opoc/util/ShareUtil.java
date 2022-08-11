@@ -34,30 +34,32 @@ import android.print.PrintJob;
 import android.print.PrintManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.pm.ShortcutInfoCompat;
-import android.support.v4.content.pm.ShortcutManagerCompat;
-import android.support.v4.graphics.drawable.IconCompat;
-import android.support.v4.os.ConfigurationCompat;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
+import androidx.core.os.ConfigurationCompat;
+import androidx.core.util.Pair;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.PreferenceManager;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -1319,8 +1321,25 @@ public class ShareUtil {
         final int v = android.os.Build.VERSION.SDK_INT;
         final AtomicReference<Callback.a0> permissionRequest = new AtomicReference<>();
 
+        // On Android R+ - check externalStorageManager is granted, otherwise request it
+        if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            permissionRequest.set(() -> {
+                ContextUtils cu = new ContextUtils(activity.getApplicationContext());
+                try {
+                    Uri uri = Uri.parse("package:" + cu.getPackageIdReal());
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                } catch (Exception ex) {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                }
+                cu.freeContextRef();
+            });
+        }
+
         // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissionRequest.set(() -> ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
         }
 
@@ -1338,8 +1357,13 @@ public class ShareUtil {
             }
         }
 
+        // Android R Manage-All-Files permission
+        if (v >= android.os.Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        }
+
         // Android M permissions
-        if (v >= android.os.Build.VERSION_CODES.M) {
+        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R) {
             return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         }
 

@@ -14,8 +14,9 @@ package net.gsantner.markor.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceGroup;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;

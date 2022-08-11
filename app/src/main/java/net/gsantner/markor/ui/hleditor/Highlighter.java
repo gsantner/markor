@@ -13,9 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -30,6 +27,10 @@ import android.text.style.UpdateAppearance;
 import android.text.style.UpdateLayout;
 import android.util.Log;
 import android.util.Patterns;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;

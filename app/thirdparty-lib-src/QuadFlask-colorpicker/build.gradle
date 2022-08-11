@@ -6,7 +6,7 @@ android {
 
 	defaultConfig {
 		minSdkVersion 14
-                targetSdkVersion rootProject.ext.version_compileSdk
+		targetSdkVersion rootProject.ext.version_compileSdk
 		versionCode 11
 		versionName "0.0.11"
 	}
@@ -26,5 +26,5 @@ android {
 
 
 dependencies {
-        implementation "com.android.support:appcompat-v7:${version_library_appcompat}"
+        implementation 'androidx.appcompat:appcompat:1.0.0'
 }

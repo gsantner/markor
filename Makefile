@@ -61,7 +61,7 @@ test:
 	$(MAKE) A="-test" gradle-analyze-log
 
 clean:
-	$(MAKE) A="clean cleanBuildCache" gradle
+	$(MAKE) A="clean" gradle
 	rm -Rf $(DIST_DIR) app/build app/flavor* .idea dist
 	find . -type f -iname "*.iml" -delete
 	$(MAKE) $(DIST_DIR)

@@ -44,19 +44,6 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.RawRes;
-import android.support.annotation.StringRes;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.app.ActivityManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -74,6 +61,21 @@ import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.RawRes;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.core.app.ActivityManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.text.TextUtilsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
 
@@ -446,10 +448,14 @@ public class ContextUtils {
     /**
      * Restart the current app. Supply the class to start on startup
      */
-    public void restartApp(Class classToStart) {
-        Intent intent = new Intent(_context, classToStart);
-        PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+    public void restartApp(final Class classToStart) {
+        final Intent intent = new Intent(_context, classToStart);
+        int flag = PendingIntent.FLAG_CANCEL_CURRENT;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            flag |= PendingIntent.FLAG_IMMUTABLE;
+        }
+        final PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, flag);
+        final AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (_context instanceof Activity) {
             ((Activity) _context).finish();
         }

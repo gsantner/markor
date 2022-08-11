@@ -9,9 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.ui;
 
-import android.arch.core.util.Function;
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
+
+import androidx.arch.core.util.Function;
+import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;

@@ -11,7 +11,8 @@ package other.writeily.model;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.provider.DocumentFile;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;

@@ -15,9 +15,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.TooltipCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
@@ -27,6 +24,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.TooltipCompat;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.Utils;
