@@ -237,6 +237,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         ShareUtil shu = new ShareUtil(this);
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
