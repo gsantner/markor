@@ -6,10 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
-
 
 import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntroFragment;

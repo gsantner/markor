@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MotionEvent;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,7 +44,6 @@ import other.so.AndroidBug5497Workaround;
 public class DocumentActivity extends MarkorBaseActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
-    private FrameLayout _fragPlaceholder;
     private Toolbar _toolbar;
     private TextView _toolbarTitleText;
 
@@ -127,7 +125,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             nextLaunchTransparentBg = false;
         }
         setContentView(R.layout.document__activity);
-        _fragPlaceholder = findViewById(R.id.document__placeholder_fragment);
         _toolbar = findViewById(R.id.toolbar);
         _toolbarTitleText = findViewById(R.id.note__activity__text_note_title);
 
@@ -149,6 +146,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         handleLaunchingIntent(intent);
     }
 
+    @SuppressWarnings("PointlessBooleanExpression")
     private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
@@ -160,25 +158,19 @@ public class DocumentActivity extends MarkorBaseActivity {
         boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
         boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
+        boolean showedShareInto = false;
 
         if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            showShareInto(intent);
-        } else if (file == null && (intentIsView || intentIsEdit)) {
-            // No EXTRA_PATH and view of open intent
-            file = new ShareUtil(this).extractFileFromIntent(intent);
-            if (file == null && intentData != null && intentData.toString().startsWith("content://")) {
-                showNotSupportedMessage();
-            }
-        }
-
-        if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
+            showedShareInto = showShareInto(intent);
+        } else if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
-            showShareInto(intent);
+            showedShareInto = showShareInto(intent);
+        } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
+            file = new ShareUtil(this).extractFileFromIntent(intent);
         }
 
-        if (!intentIsSend && file != null) {
+        if (file != null) {
             final Document doc = new Document(file);
-
             Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
@@ -186,12 +178,14 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
-            final boolean startInPreview = (startLine == null) && (
-                    intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) ||
-                            _appSettings.getDocumentPreviewState(doc.getPath()) ||
-                            file.getName().startsWith("index."));
-
+            final boolean startInPreview = (startLine == null) && (false
+                    || intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
+                    || _appSettings.getDocumentPreviewState(doc.getPath())
+                    || file.getName().startsWith("index.")
+            );
             showTextEditor(doc, startLine, startInPreview);
+        } else if (!showedShareInto) {
+            showNotSupportedMessage();
         }
     }
 
@@ -261,10 +255,11 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public void showShareInto(Intent intent) {
+    public boolean showShareInto(Intent intent) {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
+        return true;
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

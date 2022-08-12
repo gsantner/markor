@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
 import java.security.MessageDigest;
@@ -260,7 +261,7 @@ public class FileUtils {
         }
     }
 
-    public static boolean copyFile(final File src, final FileOutputStream os) {
+    public static boolean copyFile(final File src, final OutputStream os) {
         InputStream is = null;
         try {
             try {

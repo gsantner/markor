@@ -50,6 +50,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.content.pm.ShortcutInfoCompat;
@@ -66,6 +67,7 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -87,6 +89,7 @@ public class ShareUtil {
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
+    public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
 
     public final static int REQUEST_CAMERA_PICTURE = 50001;
     public final static int REQUEST_PICK_PICTURE = 50002;
@@ -576,26 +579,42 @@ public class ShareUtil {
      * @param receivingIntent The intent from {@link Activity#getIntent()}
      * @return A file or null if extraction did not succeed
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public File extractFileFromIntent(final Intent receivingIntent) {
         String action = receivingIntent.getAction();
         String type = receivingIntent.getType();
-        File tmpf;
         String tmps;
         String fileStr;
         String[] sarr;
+        final ArrayList<String> probeFiles = new ArrayList<>();
+
+        // Filter non existing files out
+        Callback.a0 filterNe = () -> {
+            for (String fp : new ArrayList<>(probeFiles)) {
+                boolean ok = false;
+                if (!TextUtils.isEmpty(fp)) {
+                    File f = new File(fp);
+                    ok = f.exists() && f.canRead();
+                }
+                if (!ok) {
+                    probeFiles.remove(fp);
+                }
+            }
+        };
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
             // Markor, S.M.T FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
-                return new File(receivingIntent.getStringExtra(tmps));
+                probeFiles.add(receivingIntent.getStringExtra(tmps));
             }
 
             // Analyze data/Uri
             Uri fileUri = receivingIntent.getData();
+            fileUri = (fileUri != null ? fileUri : receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM));
             if (fileUri != null && (fileStr = fileUri.toString()) != null) {
                 // Uri contains file
                 if (fileStr.startsWith("file://")) {
-                    return new File(fileUri.getPath());
+                    probeFiles.add(fileUri.getPath());
                 }
                 if (fileStr.startsWith((tmps = "content://"))) {
                     fileStr = fileStr.substring(tmps.length());
@@ -616,71 +635,83 @@ public class ShareUtil {
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
                     for (String prefix : new String[]{"external/", "media/", "storage_root/"}) {
                         if (fileStr.startsWith((tmps = prefix))) {
-                            File f = new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
-                            if (f.exists()) {
-                                return f;
-                            }
+                            probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
                         }
                     }
 
                     // Next/OwnCloud Fileprovider
                     for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
                         if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
-                            return new File(Uri.decode("/storage/" + fileStr.substring(tmps.length())));
+                            probeFiles.add(Uri.decode("/storage/" + fileStr.substring(tmps.length()).trim()));
                         }
                     }
                     // AOSP File Manager/Documents
                     if (fileProvider.equals("com.android.externalstorage.documents") && fileStr.startsWith(tmps = "/primary%3A")) {
-                        return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
                     }
                     // Mi File Explorer
                     if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
-                        return new File(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
+                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
                     }
 
                     if (fileStr.startsWith(tmps = "external_files/")) {
                         for (String prefix : new String[]{Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
-                            File f = new File(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
-                            if (f.exists()) {
-                                return f;
-                            }
+                            probeFiles.add(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
                         }
 
                     }
 
                     // URI Encoded paths with full path after content://package/
                     if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
-                        tmpf = new File(Uri.decode(fileStr));
-                        if (tmpf.exists()) {
-                            return tmpf;
-                        } else if ((tmpf = new File(fileStr)).exists()) {
-                            return tmpf;
-                        }
+                        probeFiles.add(Uri.decode(fileStr));
+                        probeFiles.add(fileStr);
                     }
                 }
             }
             fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-            if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/") && (tmpf = new File(tmps)).exists()) {
-                return tmpf;
+            if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/")) {
+                probeFiles.add(tmps);
             }
 
             // Scan MediaStore.MediaColumns
             sarr = resolveDataColumns(_context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
-            if (sarr[0] != null && (tmpf = new File(sarr[0])).exists()) {
-                return tmpf;
-            } else if (sarr[1] != null && (tmpf = new File(Environment.getExternalStorageDirectory(), sarr[1])).exists()) {
-                return tmpf;
+            if (sarr[0] != null) {
+                probeFiles.add(sarr[0]);
             }
+            if (sarr[1] != null) {
+                probeFiles.add(Environment.getExternalStorageDirectory() + "/" + sarr[1]);
+            }
+        }
+        filterNe.callback();
 
+        // Try build proxy by contentresolver if no file found
+        if (probeFiles.isEmpty()) {
+            Uri uri = new ShareCompat.IntentReader(_context, receivingIntent).getStream();
+            uri = (uri != null ? uri : receivingIntent.getData());
+            try {
+                File f = new File(_context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + uri.getLastPathSegment());
+                f.getParentFile().mkdirs();
+                byte[] data = FileUtils.readCloseBinaryStream(_context.getContentResolver().openInputStream(uri));
+                FileUtils.writeFile(f, data, null);
+                f.setReadable(true);
+                f.setWritable(true);
+                probeFiles.add(f.getAbsolutePath());
+            } catch (Exception ignored) {
+            }
         }
 
-        return null;
+        return probeFiles.isEmpty() ? null : new File(probeFiles.get(0));
     }
 
     public static String[] resolveDataColumns(final Context context, final Intent intent, final String... columns) {
         final String[] out = (new String[columns.length]);
-        final Cursor cursor = context.getContentResolver().query(intent.getData(), columns, null, null, null);
         final int INVALID = -1;
+        Cursor cursor;
+        try {
+            cursor = context.getContentResolver().query(intent.getData(), columns, null, null, null);
+        } catch (Exception ignored) {
+            cursor = null;
+        }
         if (cursor != null && cursor.moveToFirst()) {
             for (int i = 0; i < columns.length; i++) {
                 final int coli = TextUtils.isEmpty(columns[i]) ? INVALID : cursor.getColumnIndex(columns[i]);
@@ -931,6 +962,7 @@ public class ShareUtil {
         try {
             cursor = _context.getContentResolver().query(uri, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[]{file.getAbsolutePath()}, null);
             if (cursor != null && cursor.moveToFirst()) {
+                @SuppressLint("Range")
                 int mediaid = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                 return Uri.withAppendedPath(uri, mediaid + "");
             }
@@ -1095,6 +1127,10 @@ public class ShareUtil {
         return false;
     }
 
+    public boolean isContentResolverProxyFile(final File file) {
+        return file != null && CONTENT_RESOLVER_FILE_PROXY_SEGMENT.equals(file.getParentFile().getName());
+    }
+
     /**
      * Greedy extract Activity from parameter or convert context if it's a activity
      */
@@ -1214,9 +1250,9 @@ public class ShareUtil {
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
-    public void writeFile(final File file, final boolean isDirectory, final Callback.a2<Boolean, FileOutputStream> writeFileCallback) {
+    public void writeFile(final File file, final boolean isDirectory, final Callback.a2<Boolean, OutputStream> writeFileCallback) {
         try {
-            FileOutputStream fileOutputStream = null;
+            OutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
             final boolean existingEmptyFile = file.canWrite() && file.length() < MIN_OVERWRITE_LENGTH;
             final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile().canWrite();
@@ -1225,6 +1261,15 @@ public class ShareUtil {
                     file.mkdirs();
                 } else {
                     fileOutputStream = new FileOutputStream(file);
+                }
+            } else if (isContentResolverProxyFile(file)) {
+                // File initially read from Activity, Intent & ContentResolver -> write back to it
+                try {
+                    Intent intent = greedyGetActivity().getIntent();
+                    Uri uri = new ShareCompat.IntentReader(_context, intent).getStream();
+                    uri = (uri != null ? uri : intent.getData());
+                    fileOutputStream = _context.getContentResolver().openOutputStream(uri);
+                } catch (Exception ignored) {
                 }
             } else {
                 DocumentFile dof = getDocumentFile(file, isDirectory);
