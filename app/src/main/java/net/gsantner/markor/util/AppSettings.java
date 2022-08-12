@@ -57,6 +57,11 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         if (_isDeviceGoodHardware == null) {
             _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware();
         }
+
+        if (getInt(R.string.pref_key__editor_basic_color_scheme__bg, -999) == -999) {
+            setEditorBasicColor(true, R.color.white, R.color.dark_grey);
+            setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
+        }
     }
 
     public static AppSettings get() {
