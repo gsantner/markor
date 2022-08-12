@@ -141,7 +141,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
-    public File getSnippetsFolder(){
+    public File getSnippetsFolder() {
         return new File(getNotebookDirectory(), ".app/snippets");
     }
 

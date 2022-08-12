@@ -35,7 +35,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -686,7 +685,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _shareUtil.showMountSdDialog(getActivity());
             }
 
-            final boolean permok =  _document.testCreateParent() && _shareUtil.canWriteFile(file, false);
+            final boolean permok = _document.testCreateParent() && _shareUtil.canWriteFile(file, false);
             _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
             return permok;
         }
@@ -699,7 +698,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (_document != null && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
-            if (_document.saveContent(getContext(), text, _shareUtil, forceSaveEmpty)) {
+            if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
