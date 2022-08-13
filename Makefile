@@ -10,7 +10,7 @@ env-%:
 DIST_DIR = dist
 MOVE = mv
 
-all: $(DIST_DIR) spellcheck lint test build aapt_dump_badging
+all: $(DIST_DIR) spellcheck lint deptree test build aapt_dump_badging
 
 ####################################################################################
 
@@ -59,6 +59,10 @@ test:
 	find app -type d -iname 'testFlavorDefaultDebugUnitTest' | xargs cp -R -t $(DIST_DIR)/
 	mv ${DIST_DIR}/testFlavorDefaultDebugUnitTest $(DIST_DIR)/tests
 	$(MAKE) A="-test" gradle-analyze-log
+
+deptree:
+	$(MAKE) A="app:dependencies --configuration flavor$(FLAVOR)DebugRuntimeClasspath" gradle
+	$(MAKE) A="-dependency-tree" gradle-analyze-log
 
 clean:
 	$(MAKE) A="clean" gradle

@@ -211,7 +211,7 @@ public class FileUtils {
     }
 
     public static boolean writeFile(final File file, final byte[] data, final FileInfo options) {
-        try (final FileOutputStream output = new FileOutputStream(file)) {
+        try (final FileOutputStream output = new FileOutputStream(file, false)) {
             if (options != null && options.hasBom) {
                 output.write(0xEF);
                 output.write(0xBB);

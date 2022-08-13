@@ -34,6 +34,7 @@ import android.print.PrintJob;
 import android.print.PrintManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -70,7 +71,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -633,7 +636,7 @@ public class ShareUtil {
                     }
 
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
-                    for (String prefix : new String[]{"external/", "media/", "storage_root/"}) {
+                    for (String prefix : new String[]{"external/", "media/", "storage_root/", "external-path/"}) {
                         if (fileStr.startsWith((tmps = prefix))) {
                             probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
                         }
@@ -674,7 +677,7 @@ public class ShareUtil {
             }
 
             // Scan MediaStore.MediaColumns
-            sarr = resolveDataColumns(_context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
+            sarr = contentColumnData(_context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
             if (sarr[0] != null) {
                 probeFiles.add(sarr[0]);
             }
@@ -686,10 +689,15 @@ public class ShareUtil {
 
         // Try build proxy by contentresolver if no file found
         if (probeFiles.isEmpty()) {
-            Uri uri = new ShareCompat.IntentReader(_context, receivingIntent).getStream();
-            uri = (uri != null ? uri : receivingIntent.getData());
             try {
-                File f = new File(_context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + uri.getLastPathSegment());
+                // Try detect content file & filename in Intent
+                Uri uri = new ShareCompat.IntentReader(_context, receivingIntent).getStream();
+                uri = (uri != null ? uri : receivingIntent.getData());
+                sarr = contentColumnData(_context, receivingIntent, OpenableColumns.DISPLAY_NAME);
+                tmps = sarr != null && !TextUtils.isEmpty(sarr[0]) ? sarr[0] : uri.getLastPathSegment();
+
+                // Proxy file to app-private storage (= java.io.File)
+                File f = new File(_context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
                 f.getParentFile().mkdirs();
                 byte[] data = FileUtils.readCloseBinaryStream(_context.getContentResolver().openInputStream(uri));
                 FileUtils.writeFile(f, data, null);
@@ -703,7 +711,7 @@ public class ShareUtil {
         return probeFiles.isEmpty() ? null : new File(probeFiles.get(0));
     }
 
-    public static String[] resolveDataColumns(final Context context, final Intent intent, final String... columns) {
+    public static String[] contentColumnData(final Context context, final Intent intent, final String... columns) {
         final String[] out = (new String[columns.length]);
         final int INVALID = -1;
         Cursor cursor;
@@ -1155,11 +1163,22 @@ public class ShareUtil {
     public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
-        } else if (file.getAbsolutePath().startsWith(_context.getCacheDir().getParentFile().getAbsolutePath())) {
-            // Private App-Data
-            return true;
-        } if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
-                || file.getAbsolutePath().startsWith(_context.getFilesDir().getAbsolutePath())) {
+        }
+        final String realpath = file.getAbsolutePath();
+
+        //  Own AppData directories do not require any special permission or handling
+        final ArrayList<File> appCacheDirs = new ArrayList<>(Arrays.asList(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? _context.getExternalCacheDirs() : new File[]{_context.getExternalCacheDir()}));
+        appCacheDirs.add(_context.getCacheDir());
+        appCacheDirs.removeAll(Collections.singleton(null));
+        for (File dir : appCacheDirs) {
+            if (realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
+                //noinspection ResultOfMethodCallIgnored
+                file.getAbsoluteFile().getParentFile().mkdirs();
+                return true;
+            }
+        }
+
+        if (realpath.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
             boolean s1 = isDir && file.getParentFile().canWrite();
             return !isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite();
         } else {
@@ -1259,20 +1278,20 @@ public class ShareUtil {
             ParcelFileDescriptor pfd = null;
             final boolean existingEmptyFile = file.canWrite() && file.length() < MIN_OVERWRITE_LENGTH;
             final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile().canWrite();
-            if (existingEmptyFile || nonExistingCreatableFile) {
-                if (isDirectory) {
-                    file.mkdirs();
-                } else {
-                    fileOutputStream = new FileOutputStream(file);
-                }
-            } else if (isContentResolverProxyFile(file)) {
+            if (isContentResolverProxyFile(file)) {
                 // File initially read from Activity, Intent & ContentResolver -> write back to it
                 try {
                     Intent intent = greedyGetActivity().getIntent();
                     Uri uri = new ShareCompat.IntentReader(_context, intent).getStream();
                     uri = (uri != null ? uri : intent.getData());
-                    fileOutputStream = _context.getContentResolver().openOutputStream(uri);
+                    fileOutputStream = _context.getContentResolver().openOutputStream(uri, "rwt");
                 } catch (Exception ignored) {
+                }
+            } else if (existingEmptyFile || nonExistingCreatableFile) {
+                if (isDirectory) {
+                    file.mkdirs();
+                } else {
+                    fileOutputStream = new FileOutputStream(file);
                 }
             } else {
                 DocumentFile dof = getDocumentFile(file, isDirectory);
@@ -1290,6 +1309,7 @@ public class ShareUtil {
             }
             if (fileOutputStream != null) {
                 try {
+                    fileOutputStream.flush();
                     fileOutputStream.close();
                 } catch (Exception ignored) {
                 }

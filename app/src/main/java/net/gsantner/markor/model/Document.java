@@ -269,7 +269,6 @@ public class Document implements Serializable {
                             fos.write(0xBF);
                         }
                         fos.write(contentAsBytes);
-                        fos.flush();
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
                         if (shu.isContentResolverProxyFile(_file)) {
