@@ -1155,7 +1155,10 @@ public class ShareUtil {
     public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
-        } else if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
+        } else if (file.getAbsolutePath().startsWith(_context.getCacheDir().getParentFile().getAbsolutePath())) {
+            // Private App-Data
+            return true;
+        } if (file.getAbsolutePath().startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())
                 || file.getAbsolutePath().startsWith(_context.getFilesDir().getAbsolutePath())) {
             boolean s1 = isDir && file.getParentFile().canWrite();
             return !isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite();
