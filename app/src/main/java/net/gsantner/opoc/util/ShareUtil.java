@@ -633,7 +633,7 @@ public class ShareUtil {
                     }
 
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
-                    for (String prefix : new String[]{"external/", "media/", "storage_root/"}) {
+                    for (String prefix : new String[]{"external/", "media/", "storage_root/", "external-path/"}) {
                         if (fileStr.startsWith((tmps = prefix))) {
                             probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
                         }
