@@ -52,7 +52,7 @@ public class MarkdownHighlighter extends Highlighter {
 
         if (_highlightBiggerHeadings) {
             createSpanForMatches(MarkdownHighlighterPattern.HEADING.pattern,
-                    new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _fontFamily, _textSize));
+                    new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
         } else {
             createColorSpanForMatches(MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
         }

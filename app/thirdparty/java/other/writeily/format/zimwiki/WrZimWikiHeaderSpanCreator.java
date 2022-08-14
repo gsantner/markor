@@ -9,8 +9,6 @@
 #########################################################*/
 package other.writeily.format.zimwiki;
 
-import android.text.ParcelableSpan;
-
 import java.util.regex.Matcher;
 import net.gsantner.opoc.util.Callback;
 import other.writeily.format.WrProportionalHeaderSpanCreator;
@@ -25,12 +23,12 @@ public class WrZimWikiHeaderSpanCreator implements Callback.r1<Object, Matcher> 
     private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrZimWikiHeaderSpanCreator(final CharSequence text, int color, final String fontFamily, final float fontSize) {
+    public WrZimWikiHeaderSpanCreator(final CharSequence text, int color, final float fontSize) {
         _text = text;
-        _spanCreator = new WrProportionalHeaderSpanCreator(fontFamily, fontSize, color);
+        _spanCreator = new WrProportionalHeaderSpanCreator(fontSize, color);
     }
 
-    public ParcelableSpan callback(final Matcher m) {
+    public Object callback(final Matcher m) {
         final char[] headingCharacters = extractMatchingRange(m);
         float proportion = calculateProportionBasedOnEqualSignCount(headingCharacters);
         return _spanCreator.createHeaderSpan(proportion);

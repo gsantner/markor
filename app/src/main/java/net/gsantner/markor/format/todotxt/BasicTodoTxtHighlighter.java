@@ -44,7 +44,8 @@ public class BasicTodoTxtHighlighter extends Highlighter {
         createColorSpanForMatches(TodoTxtTask.PATTERN_CREATION_DATE, _isDarkMode ? COLOR_DATE_DARK : COLOR_DATE_LIGHT, 1);
         createColorSpanForMatches(TodoTxtTask.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
 
-        // Strike out done tasks (apply no other to-do.txt span format afterwards)
+        // Strike out done tasks
+        // Note - as we now sort by start, projects, contexts, tags and due date will be highlighted for done tasks
         createSpanForMatches(TodoTxtTask.PATTERN_DONE, new HighlightSpan().setForeColor(_isDarkMode ? COLOR_DONE_DARK : COLOR_DONE_LIGHT).setStrike(true));
     }
 }

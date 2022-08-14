@@ -106,7 +106,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
         if (_isZimWikiBiggerHeadings) {
             createSpanForMatches(Patterns.HEADING.pattern,
-                    new WrZimWikiHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _fontFamily, _textSize));
+                    new WrZimWikiHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _textSize));
         } else {
             createColorSpanForMatches(Patterns.HEADING.pattern, Colors.COLOR_HEADING);
         }

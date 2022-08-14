@@ -14,6 +14,7 @@ import android.graphics.Paint;
 import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
 import android.text.style.UpdateAppearance;
+import android.text.style.UpdateLayout;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
     }
 
     // Adds spacing and divider line between paragraphs
-    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateAppearance, ShiftY {
+    public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateLayout, ShiftY {
         private final int _lineColor;
         private final float _spacing;
         private Integer _origAscent = null;

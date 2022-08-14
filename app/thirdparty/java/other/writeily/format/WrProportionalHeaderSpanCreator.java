@@ -9,26 +9,57 @@
 #########################################################*/
 package other.writeily.format;
 
-import android.content.res.ColorStateList;
-import android.graphics.Typeface;
-import android.text.ParcelableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
+import android.graphics.Paint;
+import android.text.TextPaint;
+import android.text.style.CharacterStyle;
+import android.text.style.LineHeightSpan;
+import android.text.style.UpdateLayout;
+
+import androidx.annotation.ColorInt;
+
+import net.gsantner.markor.ui.hleditor.Highlighter;
 
 public class WrProportionalHeaderSpanCreator {
 
-    private final String _fontFamily;
     private final float _textSize;
     private final int _color;
 
-    public WrProportionalHeaderSpanCreator(final String fontFamily, float textSize, int color) {
-        _fontFamily = fontFamily;
+    public WrProportionalHeaderSpanCreator(float textSize, int color) {
         _textSize = textSize;
         _color = color;
     }
 
-    public ParcelableSpan createHeaderSpan(float proportion) {
-        final int size = (int) (_textSize * proportion);
-        return new TextAppearanceSpan(_fontFamily, Typeface.BOLD, size, ColorStateList.valueOf(_color), null);
+    public Object createHeaderSpan(final float proportion) {
+        return new LargerHeaderSpan(_color, _textSize, proportion);
+    }
+
+    public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout, Highlighter.ShiftY {
+
+        final @ColorInt int _color;
+        final float _headerSize;
+        final float _offset;
+
+        public LargerHeaderSpan(final @ColorInt int color, final float textSize, final float proportion) {
+            _color = color;
+            _headerSize = textSize * proportion;
+            _offset = _headerSize - textSize;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint textPaint) {
+            textPaint.setFakeBoldText(true);
+            textPaint.setColor(_color);
+            textPaint.setTextSize(_headerSize);
+        }
+
+        @Override
+        public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3, Paint.FontMetricsInt fontMetricsInt) {
+            fontMetricsInt.ascent -= _offset;
+        }
+
+        @Override
+        public float yShift(CharSequence text, int spanStart, int spanEnd, int index) {
+            return index >= spanStart ? _offset : 0;
+        }
     }
 }

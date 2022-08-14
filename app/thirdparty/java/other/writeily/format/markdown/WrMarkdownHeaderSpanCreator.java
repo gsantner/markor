@@ -9,8 +9,6 @@
 ###########################################################*/
 package other.writeily.format.markdown;
 
-import android.text.ParcelableSpan;
-
 import net.gsantner.opoc.util.Callback;
 
 import java.util.regex.Matcher;
@@ -25,12 +23,12 @@ public class WrMarkdownHeaderSpanCreator implements Callback.r1<Object, Matcher>
     private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrMarkdownHeaderSpanCreator(final CharSequence text, int color, final String fontFamily, final float textSize) {
+    public WrMarkdownHeaderSpanCreator(final CharSequence text, int color, final float textSize) {
         _text = text;
-        _spanCreator = new WrProportionalHeaderSpanCreator(fontFamily, textSize, color);
+        _spanCreator = new WrProportionalHeaderSpanCreator(textSize, color);
     }
 
-    public ParcelableSpan callback(Matcher m) {
+    public Object callback(Matcher m) {
         final char[] charSequence = extractMatchingRange(m);
         float proportion = calculateProportionBasedOnHeaderType(charSequence);
         return _spanCreator.createHeaderSpan(proportion);

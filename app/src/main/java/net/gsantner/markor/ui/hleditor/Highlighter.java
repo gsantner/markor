@@ -507,7 +507,7 @@ public abstract class Highlighter {
     }
 
     // Interface for spans which will shift text in Y - used to adjust scroll position
-    protected interface ShiftY {
+    public interface ShiftY {
         // How much will text at index be shifted in y
         float yShift(CharSequence text, int spanStart, int spanEnd, int index);
     }
