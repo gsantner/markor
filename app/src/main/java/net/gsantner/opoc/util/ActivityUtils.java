@@ -114,7 +114,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
 
     public void showSnackBar(@StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
         Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
+                        showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
                 .setAction(actionResId, listener)
                 .show();
     }
