@@ -101,7 +101,7 @@ public class FilesystemViewerDialog extends DialogFragment implements Filesystem
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
 
         _searchEdit.addTextChangedListener(TextWatcherDummy.on(this::changeAdapterFilter));
-        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonCancel, _buttonOk}){
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonCancel, _buttonOk}) {
             v.setOnClickListener(this::onClicked);
         }
 

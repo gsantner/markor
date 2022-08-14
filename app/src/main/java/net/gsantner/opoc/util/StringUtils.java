@@ -467,28 +467,27 @@ public final class StringUtils {
     /**
      * Find the smallest single diff from source -> dest
      *
-     * @param dest        Into which we want to apply the diff
-     * @param source      From which we want to apply the diff
-     * @param startSkip   Don't check the first startSkip chars for sameness
-     * @param endSkip     Don't check the first startSkip chars for sameness
-     * @return  { a, b, c } s.t. setting dest[a:b] = source[a:c] makes dest == source
+     * @param dest      Into which we want to apply the diff
+     * @param source    From which we want to apply the diff
+     * @param startSkip Don't check the first startSkip chars for sameness
+     * @param endSkip   Don't check the first startSkip chars for sameness
+     * @return { a, b, c } s.t. setting dest[a:b] = source[a:c] makes dest == source
      */
     public static int[] findDiff(final CharSequence dest, final CharSequence source, final int startSkip, final int endSkip) {
         final int[] diff = findDiff(dest, startSkip, dest.length() - endSkip, source, startSkip, source.length() - endSkip);
-        return new int[] { diff[0], diff[1], diff[3] };
+        return new int[]{diff[0], diff[1], diff[3]};
     }
 
     /**
      * Find the smallest single diff from source -> dest
      *
-     * @param dest        Into which we want to apply the diff
-     * @param ds          Dest start region
-     * @param dn          Dest end region
-     * @param source      From which we want to apply the diff
-     * @param ss          Source start region
-     * @param sn          Dest end region
-     *
-     * @return  { a, b, c, d } s.t. setting dest[a:b] = source[c:d] will make dest[ds:dn] == source[ss:sn]
+     * @param dest   Into which we want to apply the diff
+     * @param ds     Dest start region
+     * @param dn     Dest end region
+     * @param source From which we want to apply the diff
+     * @param ss     Source start region
+     * @param sn     Dest end region
+     * @return { a, b, c, d } s.t. setting dest[a:b] = source[c:d] will make dest[ds:dn] == source[ss:sn]
      */
     public static int[] findDiff(final CharSequence dest, final int ds, final int dn, final CharSequence source, final int ss, final int sn) {
         final int dl = Math.max(dn - ds, 0), sl = Math.max(sn - ss, 0);

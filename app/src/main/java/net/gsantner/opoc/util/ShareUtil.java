@@ -1120,7 +1120,7 @@ public class ShareUtil {
     public boolean isUnderStorageAccessFolder(final File file) {
         if (file != null) {
             // When file writeable as is, it's the fastest way to learn SAF isn't required
-            if (file.canWrite()) {
+            if (canWriteFile(file, false)) {
                 return false;
             }
             ContextUtils cu = new ContextUtils(_context);
@@ -1160,11 +1160,28 @@ public class ShareUtil {
      * @param isDir Wether or not the given file parameter is a directory
      * @return Wether or not the file can be written
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public boolean canWriteFile(final File file, final boolean isDir) {
         if (file == null) {
             return false;
         }
         final String realpath = file.getAbsolutePath();
+
+        // try to ensure parent directories exist and are writable
+        Callback.a2<File, Boolean> tryMkdirs = (f, isDir1) -> {
+            try {
+                File target = (isDir1 ? f : f.getParentFile());
+                target.mkdirs();
+                target.setWritable(true);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (f.exists()) {
+                    f.setWritable(true);
+                }
+            } catch (Exception ignored) {
+            }
+        };
 
         //  Own AppData directories do not require any special permission or handling
         final ArrayList<File> appCacheDirs = new ArrayList<>(Arrays.asList(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? _context.getExternalCacheDirs() : new File[]{_context.getExternalCacheDir()}));
@@ -1172,19 +1189,20 @@ public class ShareUtil {
         appCacheDirs.removeAll(Collections.singleton(null));
         for (File dir : appCacheDirs) {
             if (realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
-                //noinspection ResultOfMethodCallIgnored
-                file.getAbsoluteFile().getParentFile().mkdirs();
+                tryMkdirs.callback(file.getAbsoluteFile(), false);
                 return true;
             }
         }
 
-        if (realpath.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath())) {
-            boolean s1 = isDir && file.getParentFile().canWrite();
-            return !isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite();
-        } else {
-            DocumentFile dof = getDocumentFile(file, isDir);
-            return dof != null && dof.canWrite();
+        // Try direct file access
+        tryMkdirs.callback(file, isDir);
+        if (!isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite()) {
+            return true;
         }
+
+        // Try with SAF
+        DocumentFile dof = getDocumentFile(file, isDir);
+        return dof != null && dof.canWrite();
     }
 
     /**

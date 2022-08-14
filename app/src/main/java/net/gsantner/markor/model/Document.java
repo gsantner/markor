@@ -41,7 +41,7 @@ import java.util.Locale;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
-@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused", "UnnecessaryLocalVariable"})
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
@@ -224,7 +224,8 @@ public class Document implements Serializable {
     public static boolean testCreateParent(final File file) {
         try {
             final File parent = file.getParentFile();
-            return parent != null && (parent.exists() || parent.mkdirs());
+            boolean ok = parent != null && (parent.exists() || parent.mkdirs());
+            return ok;
         } catch (NullPointerException e) {
             return false;
         }
