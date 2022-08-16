@@ -28,7 +28,7 @@ public class KeyValueHighlighter extends Highlighter {
 
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        createHighlightLinksSpans();
+        createSmallBlueLinkSpans();
 
         createStyleSpanForMatches(KeyValueHighlighterPattern.PATTERN_KEY_VALUE.getPattern(), Typeface.BOLD);
         createStyleSpanForMatches(KeyValueHighlighterPattern.PATTERN_KEY_VALUE_QUOTED.getPattern(), Typeface.BOLD);

@@ -28,6 +28,7 @@ public class BasicTodoTxtHighlighter extends Highlighter {
 
     @Override
     public void generateSpans() {
+        createSmallBlueLinkSpans();
         createColorSpanForMatches(TodoTxtTask.PATTERN_CONTEXTS, COLOR_CONTEXT);
         createColorSpanForMatches(TodoTxtTask.PATTERN_PROJECTS, COLOR_CATEGORY);
         createStyleSpanForMatches(TodoTxtTask.PATTERN_KEY_VALUE_PAIRS, Typeface.ITALIC);

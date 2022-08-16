@@ -401,7 +401,7 @@ public abstract class Highlighter {
         }
     }
 
-    protected final void createHighlightLinksSpans() {
+    protected final void createSmallBlueLinkSpans() {
         createSpanForMatches(Patterns.WEB_URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextSize(_textSize * 0.85f));
     }
 
