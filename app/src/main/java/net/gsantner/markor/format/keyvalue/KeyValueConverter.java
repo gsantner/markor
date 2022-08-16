@@ -17,11 +17,7 @@ import java.util.Arrays;
 public class KeyValueConverter extends PlaintextConverter {
 
     @Override
-    public boolean isFileOutOfThisFormat(String filepath) {
-        if (!filepath.contains(".")) {
-            return false;
-        }
-        String ext = filepath.substring(filepath.lastIndexOf(".")).toLowerCase();
-        return Arrays.asList(new String[]{".yml", ".yaml", ".toml", ".vcf", ".ics", ".ini", ".json", ".csv"}).contains(ext);
+    public boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
+        return Arrays.asList(new String[]{".yml", ".yaml", ".toml", ".vcf", ".ics", ".ini", ".json", ".csv", ".zim"}).contains(extWithDot);
     }
 }
