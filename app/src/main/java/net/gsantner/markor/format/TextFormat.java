@@ -71,9 +71,9 @@ public class TextFormat {
         if (file == null) {
             return false;
         }
-        final String path = file.getAbsolutePath().toLowerCase(Locale.ROOT);
+        final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
         for (TextConverter converter : CONVERTERS) {
-            if (converter.isFileOutOfThisFormat(path)) {
+            if (converter.isFileOutOfThisFormat(filepath)) {
                 return true;
             }
         }
