@@ -9,7 +9,7 @@
 📓 QuickNote: Fast accessible for keeping notes
 ☑️ To-Do: Write down your to-do
 🖍 Markup formats: Markdown, todo.txt and zim wiki
-📋 Copy to clipboard: Copy any text, including text shared into Markor
+📋 Clipboard: Share any text to Markor to save it in a note
 💡 Notebook is the root folder of documents and can be changed to any location on filesystem. QuickNote and ToDo are textfiles
 
 🎨 Highly customizeable, dark theme available
