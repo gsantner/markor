@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Celkové téma použité v aplikaci</string>
     <string name="remember_last_directory">Pamatuj si poslední složku</string>
     <string name="syntax_highlighting">Zvýraznění syntaxe</string>
+    <string name="dynamic_highlighting">Dynamické zvýraznění</string>
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
+    <string name="dynamic_highlighting_effect">Dynamické zvýraznění zvyšuje výkon. Může způsobit kreslení artefaktů.</string>
     <string name="control_font_size_in_editor">Nastavení velikost písma použitého v editoru</string>
     <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Tlačítka spouští jednotlivé textové moduly.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
