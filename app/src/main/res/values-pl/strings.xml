@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Ogólny motyw używany w aplikacji</string>
     <string name="remember_last_directory">Zapamiętaj ostatnią lokalizację katalogu</string>
     <string name="syntax_highlighting">Podświetlanie składni</string>
+    <string name="dynamic_highlighting">Dynamiczne podświetlenie</string>
     <string name="highlighting_delay">Opóźnienie podświetlania</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Opóźnienie odświeżania podświetlenia w milisekundach. Niższa wartość będzie podświetlać wcześniej, ale to będzie rozładowywać baterię i aplikacja może działać wolniej na starszych urzączeniach.</string>
     <string name="highlighting_enabled_or_not__appspecific">Określ, czy wprowadzony tekst ma być podświetlony, czy nie</string>
+    <string name="dynamic_highlighting_effect">Dynamiczne podświetlenie zwiększa wydajność. Może powodować renderowanie artefaktów.</string>
     <string name="control_font_size_in_editor">Ustaw rozmiar czcionki używany w edytorze</string>
     <string name="textactions_show_useful_actions_description__appspecific">Pokaż pasek z przydatnymi akcjami, aby wstawić najczęściej używane moduły tekstowe</string>
     <string name="load_last_opened_folder_at_startup">Otwórz ostatni otworzony katalog podczas uruchamiania</string>
