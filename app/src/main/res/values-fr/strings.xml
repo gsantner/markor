@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Le thème principal utilisé par l\'application</string>
     <string name="remember_last_directory">Se souvenir du dossier courant</string>
     <string name="syntax_highlighting">Coloration syntaxique</string>
+    <string name="dynamic_highlighting">Surlignage dynamique</string>
     <string name="highlighting_delay">Délai de rafraîchissement</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Délai de rafraîchissement de la coloration syntaxique en ms. Une faible valeur affiche la coloration plus tôt, mais réduit les performances de l\'application et consomme plus de batterie.</string>
     <string name="highlighting_enabled_or_not__appspecific">Détermine si le texte entré doit être coloré syntaxiquement ou pas</string>
+    <string name="dynamic_highlighting_effect">Le surlignage dynamique augmente les performances. Peut causer le rendu des artefacts.</string>
     <string name="control_font_size_in_editor">Fixe la taille de la police de caractères utilisée dans l\'éditeur</string>
     <string name="textactions_show_useful_actions_description__appspecific">Affiche une barre avec des boutons pratiques en bas. Ces actions de texte modifient le texte ou exécutent une action basée sur le texte.</string>
     <string name="load_last_opened_folder_at_startup">Charger le dernier dossier ouvert au démarrage suivant</string>
