@@ -23,6 +23,7 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -161,12 +162,13 @@ public class ZimWikiTextConverter extends TextConverter {
     /**
      * NOTE: This method only works if the full file path is specified.
      *
-     * @param filepath of a file
+     * @param filepath   of a file
+     * @param extWithDot
      * @return true if the file extension is .txt and the file contains a zim header; false otherwise
      */
     @Override
-    public boolean isFileOutOfThisFormat(String filepath) {
-        if (filepath.matches("(?i)^.+\\.txt$")) {
+    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
+        if (extWithDot.equals(".txt")) {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader(new File(filepath)));
@@ -181,7 +183,7 @@ public class ZimWikiTextConverter extends TextConverter {
                 }
             }
         }
-        return false;
+        return Arrays.asList(new String[]{".wikitext"}).contains(extWithDot);
     }
 
     /*

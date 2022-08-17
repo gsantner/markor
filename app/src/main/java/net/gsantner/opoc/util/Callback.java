@@ -85,6 +85,9 @@ public class Callback {
         String callback(A arg1, B arg2, C arg3, D arg4, E arg5);
     }
 
+    public interface r0<R> {
+        R callback();
+    }
     public interface r1<R, A> {
         R callback(A arg1);
     }

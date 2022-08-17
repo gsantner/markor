@@ -2,11 +2,17 @@ package net.gsantner.markor.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
+
+import net.gsantner.opoc.util.Callback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarScrollView extends ScrollView {
@@ -18,15 +24,19 @@ public class DraggableScrollbarScrollView extends ScrollView {
     private int _grabWidth;
 
     public DraggableScrollbarScrollView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public DraggableScrollbarScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DraggableScrollbarScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public boolean slowScrollShift(final int shift) {
+        if (!_isFastScrolling && Math.abs(shift) > 0) {
+            setScrollY(getScrollY() + shift);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -78,7 +88,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setSmoothScrollingEnabled(true);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         }
         final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();

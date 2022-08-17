@@ -10,6 +10,7 @@
 package net.gsantner.markor.format;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
 
@@ -19,6 +20,8 @@ import net.gsantner.markor.util.AppSettings;
 import java.io.File;
 import java.util.Date;
 import java.util.Locale;
+
+import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class TextConverter {
@@ -174,5 +177,11 @@ public abstract class TextConverter {
         return CONTENT_TYPE_HTML;
     }
 
-    public abstract boolean isFileOutOfThisFormat(String filepath);
+    public boolean isFileOutOfThisFormat(String filepath) {
+        String extWithDot = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "").replaceAll(".*\\.", ".").toLowerCase();
+        extWithDot = TextUtils.isEmpty(extWithDot) || extWithDot.startsWith(".") ? extWithDot : "";
+        return isFileOutOfThisFormat(filepath, extWithDot);
+    }
+
+    protected abstract boolean isFileOutOfThisFormat(String filepath, String extWithDot);
 }

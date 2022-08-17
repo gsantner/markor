@@ -134,13 +134,12 @@ public final class StringUtils {
         return new int[]{selectionStart, selectionEnd};
     }
 
+    public static int[] getLineSelection(final CharSequence text, final int[] sel) {
+        return sel != null && sel.length >= 2 ? new int[]{ getLineStart(text, sel[0]), getLineEnd(text, sel[1]) } : null;
+    }
+
     public static int[] getLineSelection(final TextView text) {
-        final int[] sel = getSelection(text);
-        final CharSequence s = text.getText();
-        return new int[]{
-                getLineStart(s, sel[0]),
-                getLineEnd(s, sel[1])
-        };
+        return getLineSelection(text.getText(), getSelection(text));
     }
 
     public static String getSelectedLines(final TextView text) {
@@ -716,6 +715,20 @@ public final class StringUtils {
         };
     }
 
+    public static Runnable blockReentry(final Runnable callback) {
+        final boolean[] block = new boolean[] { false };
+        return () -> {
+            if (!block[0]) {
+                try {
+                    block[0] = true;
+                    callback.run();
+                } finally {
+                    block[0] = false;
+                }
+            }
+        };
+    }
+
     // Converts region to string with a minimum of work
     public static String toString(final CharSequence source, int start, int end) {
         if (source instanceof String) {
@@ -726,5 +739,14 @@ public final class StringUtils {
         final char[] buf = new char[end - start];
         TextUtils.getChars(source, start, end, buf, 0);
         return new String(buf);
+    }
+
+    // Check if a range is valid
+    public static boolean checkRange(final CharSequence seq, final int ... indices) {
+        return checkRange(seq.length(), indices);
+    }
+
+    public static boolean checkRange(final int length, final int ... indices) {
+        return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
     }
 }

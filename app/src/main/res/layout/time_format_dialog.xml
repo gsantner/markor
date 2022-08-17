@@ -41,7 +41,7 @@
                 android:layout_toLeftOf="@+id/datetime_format_input_show_spinner"
                 android:hint="@string/enter_or_select_format"
                 android:importantForAutofill="no"
-                android:inputType="textFilter"
+                android:inputType="textFilter|textNoSuggestions"
                 tools:targetApi="o" />
 
             <TextView

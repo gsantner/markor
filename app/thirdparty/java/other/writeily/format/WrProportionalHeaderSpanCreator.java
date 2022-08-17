@@ -9,44 +9,57 @@
 #########################################################*/
 package other.writeily.format;
 
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.text.ParcelableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
+import android.graphics.Paint;
+import android.text.TextPaint;
+import android.text.style.CharacterStyle;
+import android.text.style.LineHeightSpan;
+import android.text.style.UpdateLayout;
+
+import androidx.annotation.ColorInt;
+
+import net.gsantner.markor.ui.hleditor.Highlighter;
 
 public class WrProportionalHeaderSpanCreator {
 
-    private static final DisplayMetrics DISPLAY_METRICS = Resources.getSystem().getDisplayMetrics();
-
-    private final String _fontType;
-    private final int _fontSize;
+    private final float _textSize;
     private final int _color;
-    private final boolean _shouldUseDynamicTextSize;
 
-    public WrProportionalHeaderSpanCreator(String fontType, int fontSize, int color, boolean shouldUseDynamicTextSize) {
-        _fontType = fontType;
-        _fontSize = fontSize;
+    public WrProportionalHeaderSpanCreator(float textSize, int color) {
+        _textSize = textSize;
         _color = color;
-        _shouldUseDynamicTextSize = shouldUseDynamicTextSize;
     }
 
-    public ParcelableSpan createHeaderSpan(float proportion) {
-        if (_shouldUseDynamicTextSize) {
-            Float size = calculateAdjustedSize(proportion);
-            return new TextAppearanceSpan(_fontType, Typeface.BOLD, size.byteValue(),
-                    ColorStateList.valueOf(_color), null);
-        } else {
-            return new ForegroundColorSpan(_color);
+    public Object createHeaderSpan(final float proportion) {
+        return new LargerHeaderSpan(_color, _textSize, proportion);
+    }
+
+    public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout, Highlighter.ShiftY {
+
+        final @ColorInt int _color;
+        final float _headerSize;
+        final float _offset;
+
+        public LargerHeaderSpan(final @ColorInt int color, final float textSize, final float proportion) {
+            _color = color;
+            _headerSize = textSize * proportion;
+            _offset = _headerSize - textSize;
         }
-    }
 
-    private float calculateAdjustedSize(Float proportion) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                _fontSize * proportion,
-                DISPLAY_METRICS);
+        @Override
+        public void updateDrawState(TextPaint textPaint) {
+            textPaint.setFakeBoldText(true);
+            textPaint.setColor(_color);
+            textPaint.setTextSize(_headerSize);
+        }
+
+        @Override
+        public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3, Paint.FontMetricsInt fontMetricsInt) {
+            fontMetricsInt.ascent -= _offset;
+        }
+
+        @Override
+        public float yShift(CharSequence text, int spanStart, int spanEnd, int index) {
+            return index >= spanStart ? _offset : 0;
+        }
     }
 }

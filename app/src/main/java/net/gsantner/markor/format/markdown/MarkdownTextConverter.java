@@ -373,7 +373,7 @@ public class MarkdownTextConverter extends TextConverter {
     }
 
     @Override
-    public boolean isFileOutOfThisFormat(String filepath) {
+    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
         filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
         return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches() && !filepath.toLowerCase().endsWith(".txt")) || filepath.toLowerCase().endsWith(".md.txt");
     }
