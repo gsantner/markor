@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Sovelluksessa käytetty yleinen teema</string>
     <string name="remember_last_directory">Muista viimeinen hakemisto</string>
     <string name="syntax_highlighting">Syntaksin korostaminen</string>
+    <string name="dynamic_highlighting">Dynaaminen korostus</string>
     <string name="highlighting_delay">Korostusviive</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viive millisekunneissa korostuksen päivitykseen. Pienempi arvo aloittaa korostuksen aiemmin, mutta se tyhjentää akun ja saattaa hidastaa sovellusta vanhemmilla laitteilla.</string>
     <string name="highlighting_enabled_or_not__appspecific">Hallitse, onko syötetty teksti korostettava vai ei</string>
+    <string name="dynamic_highlighting_effect">Dynaaminen korostus lisää suorituskykyä. Voi aiheuttaa renderöintiä.</string>
     <string name="control_font_size_in_editor">Hallitse editorissa käytettyä fonttikokoa</string>
     <string name="textactions_show_useful_actions_description__appspecific">Näytä palkki, jossa alhaalla on käteviä painikkeita. Nämä tekstitoiminnot muuttavat tekstiä tai suorittavat tekstiin perustuvan toiminnon.</string>
     <string name="load_last_opened_folder_at_startup">Lataa viimeksi avattu kansio käynnistyksen yhteydessä</string>
