@@ -263,10 +263,15 @@ public abstract class Highlighter {
         return this;
     }
 
+    public final Highlighter reflow() {
+        return reflow(new int[] {0, _spannable.length()});
+    }
+
     // Reflow selected region's lines
     public final synchronized Highlighter reflow(final int[] range) {
         if (StringUtils.checkRange(_spannable, range)) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            _spannable.removeSpan(_layoutUpdater);
         }
         return this;
     }

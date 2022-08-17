@@ -19,6 +19,7 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -32,6 +33,7 @@ import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.NanoProfiler;
 import net.gsantner.opoc.util.StringUtils;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -42,6 +44,8 @@ public class HighlightingEditor extends AppCompatEditText {
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
+
+    private NanoProfiler _p = new NanoProfiler();
 
     private long _minPointIntoViewTime = 0;
     private int _blockBringPointIntoViewCount = 0;
@@ -131,12 +135,11 @@ public class HighlightingEditor extends AppCompatEditText {
                 withAccessibilityDisabled(() -> {
                     // Hack to prevent scrolling to cursor. Time based blocking _may_ fail though.
                     blockBringPointIntoView();
-                    final int[][] regions = hlRegions(middleY, rect.height());
                     _hl.clear();
                     if (recompute) {
                         _hl.recompute();
                     }
-                    _hl.apply(regions[0]).reflow(regions[1]);
+                    _hl.apply(hlRegion(middleY, rect.height()));
                 });
 
                 _hlRect = rect;
@@ -177,7 +180,7 @@ public class HighlightingEditor extends AppCompatEditText {
     public void initHighlighter() {
         _hlShiftThreshold = Math.round(getPaint().getTextSize() * HIGHLIGHT_SHIFT_LINES);
         if (_hl != null) {
-            _hl.setSpannable(getText()).configure(getPaint());
+            _hl.setSpannable(getText()).configure(getPaint()).reflow();
         }
     }
 
@@ -200,22 +203,16 @@ public class HighlightingEditor extends AppCompatEditText {
         return prev;
     }
 
-    // Region to highlight and region to reflow
-    private int[][] hlRegions(final int y, final int height) {
-        final int[] hlRegion, reflowRegion;
+    // Region to highlight
+    private int[] hlRegion(final int y, final int height) {
         if (_isDynamicHighlightingEnabled) {
             final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * height) + _hlShiftThreshold;
             final int startY = y - hlSize;
             final int endY = y + hlSize;
-            hlRegion = new int[]{rowStart(startY), rowEnd(endY)};
-            // We reflow an expanded region to minimize tearing
-            reflowRegion = new int[]{rowStart(startY - hlSize), rowEnd(endY + hlSize)};
+            return new int[]{rowStart(startY), rowEnd(endY)};
         } else {
-            hlRegion = new int[] { 0, length() };
-            reflowRegion = null; // Reflow not required
+            return new int[] { 0, length() };
         }
-
-        return new int[][] { hlRegion, reflowRegion };
     }
 
     private int rowStart(final int y) {
