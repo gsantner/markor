@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Het algemene thema gebruikt in de app</string>
     <string name="remember_last_directory">Herinner laatste folder</string>
     <string name="syntax_highlighting">Syntaxis markering</string>
+    <string name="dynamic_highlighting">Dynamische markering</string>
     <string name="highlighting_delay">Gemarkeerde vertraging</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Vertraging in milliseconden voor het markeren van verversing. Een lagere waarde zal eerder markeren, maar het zal uw batterij verliezen en kan de app op oudere apparaten vertragen.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controleren of ingevoerde tekst moet worden gemarkeerd of niet</string>
+    <string name="dynamic_highlighting_effect">Dynamische markering verhoogt de prestaties. Kan resulteren in het renderen van artefacten.</string>
     <string name="control_font_size_in_editor">Stel de lettergrootte in die gebruikt wordt in de bewerker</string>
     <string name="textactions_show_useful_actions_description__appspecific">Toon een balk met handige knoppen onderaan. Deze tekstacties wijzigen de tekst of voeren een actie uit op basis van de tekst.</string>
     <string name="load_last_opened_folder_at_startup">Laad de laatst geopende folder tijdens het opstarten</string>
