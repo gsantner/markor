@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
     <string name="remember_last_directory">Recorda el darrer directori</string>
     <string name="syntax_highlighting">Destacament de la sintaxi</string>
+    <string name="dynamic_highlighting">Ressaltat dinàmic</string>
     <string name="highlighting_delay">Retard del destacament</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
+    <string name="dynamic_highlighting_effect">El ressaltat dinàmic augmenta el rendiment. Pot provocar artefactes de renderització.</string>
     <string name="control_font_size_in_editor">Controla la mida de la font utilitzada a l\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Mostra una barra amb botons útils a la part inferior. Aquestes accions de text modifiquen el text o executen una acció basada en el text.</string>
     <string name="load_last_opened_folder_at_startup">Carrega l\'última carpeta oberta a l\'inici</string>
