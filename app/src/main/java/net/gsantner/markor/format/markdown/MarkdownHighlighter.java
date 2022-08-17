@@ -49,7 +49,7 @@ public class MarkdownHighlighter extends Highlighter {
 
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        createHighlightLinksSpans();
+        createSmallBlueLinkSpans();
 
         if (_highlightBiggerHeadings) {
             createSpanForMatches(MarkdownHighlighterPattern.HEADING.pattern,

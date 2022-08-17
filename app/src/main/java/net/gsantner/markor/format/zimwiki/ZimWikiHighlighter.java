@@ -133,6 +133,7 @@ public class ZimWikiHighlighter extends Highlighter {
 
         createColorSpanForMatches(Patterns.LIST_ORDERED.pattern, Colors.ORDERED_LIST_NUMBER_COLOR);
 
+        createSmallBlueLinkSpans();
         createColorSpanForMatches(Patterns.LINK.pattern, Colors.LINK_COLOR);
 
         createSuperscriptStyleSpanForMatches(Patterns.SUPERSCRIPT.pattern);

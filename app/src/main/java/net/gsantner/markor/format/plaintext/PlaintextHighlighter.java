@@ -21,7 +21,7 @@ public class PlaintextHighlighter extends Highlighter {
     protected void generateSpans() {
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        createHighlightLinksSpans();
+        createSmallBlueLinkSpans();
     }
 
 }

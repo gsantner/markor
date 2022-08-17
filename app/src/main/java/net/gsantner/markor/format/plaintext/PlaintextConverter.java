@@ -52,16 +52,8 @@ public class PlaintextConverter extends TextConverter {
     }
 
     @Override
-    public boolean isFileOutOfThisFormat(String filepath) {
+    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
         AppSettings appSettings = AppSettings.get();
-        filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        if (!filepath.contains(".")) {
-            return appSettings.isExtOpenWithThisApp("");
-        }
-        String ext = filepath.substring(filepath.lastIndexOf("."));
-        if (appSettings.isExtOpenWithThisApp(ext)) {
-            return true;
-        }
-        return EXT.contains(ext);
+        return EXT.contains(extWithDot) || appSettings.isExtOpenWithThisApp(extWithDot);
     }
 }
