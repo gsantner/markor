@@ -182,7 +182,8 @@
                 android:max="32"
                 android:summary="@string/horizontal_space_between_textactions"
                 android:title="@string/textaction_spacing"
-                app:min="0" />
+                app:min="0"
+                app:showSeekBarValue="true" />
 
             <PreferenceScreen
                 android:icon="@drawable/ic_palette_black_24dp"
@@ -290,7 +291,8 @@
             android:max="36"
             android:min="1"
             android:summary="@string/control_font_size_in_editor"
-            android:title="@string/font_size" />
+            android:title="@string/font_size"
+            app:showSeekBarValue="true" />
 
         <androidx.preference.SeekBarPreference
             android:defaultValue="1"
@@ -299,7 +301,8 @@
             android:max="12"
             android:summary="@string/amount_of_space_for_tab"
             android:title="@string/tab_width"
-            app:min="1" />
+            app:min="1"
+            app:showSeekBarValue="true" />
 
         <PreferenceCategory android:title="@string/syntax_highlighting">
             <CheckBoxPreference
@@ -335,7 +338,8 @@
                 android:max="250"
                 android:summary="@string/space_between_lines_in_percent"
                 android:title="@string/line_spacing"
-                app:min="50" />
+                app:min="50"
+                app:showSeekBarValue="true" />
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_visibility_black_24dp"
@@ -418,7 +422,8 @@
                 android:max="36"
                 android:summary="-1 => Editor"
                 android:title="@string/font_size"
-                app:min="-1" />
+                app:min="-1"
+                app:showSeekBarValue="true" />
         </PreferenceCategory>
     </PreferenceScreen>
 
@@ -439,7 +444,8 @@
                     android:max="3000"
                     android:summary="@string/highlighting_delay_lower_value_more_battery_drain_description__appspecific"
                     android:title="@string/highlighting_delay"
-                    app:min="50" />
+                    app:min="50"
+                    app:showSeekBarValue="true" />
                 <CheckBoxPreference
                     android:defaultValue="false"
                     android:icon="@drawable/ic_space_bar_black_24dp"
@@ -531,7 +537,8 @@
                     android:max="5000"
                     android:summary="@string/highlighting_delay_lower_value_more_battery_drain_description__appspecific"
                     android:title="@string/highlighting_delay"
-                    app:min="50" />
+                    app:min="50"
+                    app:showSeekBarValue="true" />
             </PreferenceCategory>
         </PreferenceScreen>
 
