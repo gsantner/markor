@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">الشكل العام للتطبيق</string>
     <string name="remember_last_directory">تذكر آخر مجلد</string>
     <string name="syntax_highlighting">تظليل بناء الجملة</string>
+    <string name="dynamic_highlighting">إبراز ديناميكي</string>
     <string name="highlighting_delay">تأخر التظليل</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">تأخر التظليل بالمللي ثانية. القيمة الأقل ستفعل التظليل أسرع، ولكن قد تستهلك البطارية أكثر أو تبطئ التطبيق في الهواتف القديمة.</string>
     <string name="highlighting_enabled_or_not__appspecific">اختيار تظليل النص من عدمه</string>
+    <string name="dynamic_highlighting_effect">تسليط الضوء الديناميكي يزيد من الأداء. قد يؤدي إلى عرض الحقائق.</string>
     <string name="control_font_size_in_editor">اختيار حجم الخط المستخدم في المحرر</string>
     <string name="textactions_show_useful_actions_description__appspecific">إظهار شريط مع أزرار سهلة في الأسفل. هذه الإجراءات النصية تعدل النص أو تشغيل إجراء مبني على النص.</string>
     <string name="load_last_opened_folder_at_startup">بدء التطبيق بآخر مجلد مفتوح مسبقا</string>

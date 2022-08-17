@@ -132,7 +132,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="remember_last_folder_location_on_startup" needed="false">Ingatkan lokasi folder terakhir</string>
     <string name="number_of_files_witharg" needed="false">Jumlah berkas: %d</string>
     <string name="app_wide">App-wide</string>
-    <string name="main_view">Tampilan awal</string>
+    <string name="main_view">Tampilan Utama</string>
     <string name="overall_theme_used_in_app">Tema keseluruhan yang digunakan di dalam aplikasi</string>
     <string name="remember_last_directory">Ingatkan direktori terakhir</string>
     <string name="syntax_highlighting">Penyorotan sintaks</string>
@@ -209,14 +209,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_source_licenses">Lisensi sumber terbuka</string>
     <string name="rate_this_app">Beri nilai aplikasi ini</string>
     <string name="translate">Terjemahkan</string>
-    <string name="more_info_and_help">Info lebih lanjut dan bantuan</string>
+    <string name="more_info_and_help">Info dan bantuan lebih lanjut</string>
     <string name="report_bugs">Laporkan Bug</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Info tentang donasi untuk developer atau kontribusi untuk proyek ini.</string>
     <string name="join_community">Bergabung ke Komunitas</string>
     <string name="bug_reports_suggest_improvements">Memberikan umpan balik, melaporkan bug atau menyarankan perbaikan</string>
     <string name="help_translating_this_app">Terjemahkan aplikasi ini ke bahasa lain</string>
-    <string name="source_code">Kode sumber</string>
-    <string name="project_license">Lisensi proyek</string>
+    <string name="source_code">Kode Sumber</string>
+    <string name="project_license">Lisensi Proyek</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Kode kontribusi untuk proyek. Semua orang dipersilakan untuk melakukannya, termasuk pendatang baru</string>
     <string name="project_team">Tim proyek</string>
     <string name="contributors_public_add_yourself_description">Tampilkan info kontributor. Berikan untuk ditampilkan di sini secara opt-in setelah berkontribusi</string>
@@ -238,7 +238,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="camera_picture">Foto kamera</string>
     <string name="enable_undo_and_redo_be_patient">Aktifkan tindakan undo dan redo. Hanya cocok untuk penggunaan lanjutan, bersabarlah untuk tidak menghapus sesuatu yang penting. Tutup dan buka editor untuk menghapus riwayat.</string>
     <string name="description">Deskripsi</string>
-    <string name="edit_picture">Edit foto atau gambar</string>
+    <string name="edit_picture">Sunting gambar</string>
     <string name="math">Matematika</string>
     <string name="table_of_contents">Daftar Isi</string>
     <string name="miscellaneous">Lain-lain</string>

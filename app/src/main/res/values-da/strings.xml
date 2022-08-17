@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Det generelle tema brugt i programmet</string>
     <string name="remember_last_directory">Husk sidste mappe</string>
     <string name="syntax_highlighting">Fremhævelse af syntakst</string>
+    <string name="dynamic_highlighting">Dynamisk fremhævning</string>
     <string name="highlighting_delay">Udskyd fremhævelse</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Antal millisekunder der ventes før fremhævelsen er genopfrisket. En lavere værdi vil starte fremhævelsen tidligere, men vil sluge mere batteri og presse maskineriet.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollér om angivne tekst skal være fremhævet eller ej</string>
+    <string name="dynamic_highlighting_effect">Dynamisk fremhævning øger ydeevnen. Kan forårsage gengivelse artefakter.</string>
     <string name="control_font_size_in_editor">Kontrollér størrelsen af skrifttypen der bliver brugt i editoren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Vis en linje med handy knapper nederst. Disse teksthandlinger ændrer teksten eller kører en handling baseret på teksten.</string>
     <string name="load_last_opened_folder_at_startup">Hent den sidst åbnede mappe ved programstart</string>

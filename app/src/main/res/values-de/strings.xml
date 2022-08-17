@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Das global in dieser App verwendete Thema ändern</string>
     <string name="remember_last_directory">Letzten Ordner merken</string>
     <string name="syntax_highlighting">Syntax-Highlighting</string>
+    <string name="dynamic_highlighting">Dynamische Hervorhebung</string>
     <string name="highlighting_delay">Highlighting-Verzögerung</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
+    <string name="dynamic_highlighting_effect">Dynamische Hervorhebung erhöht die Leistung. Kann Artefakte rendern.</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
     <string name="load_last_opened_folder_at_startup">Beim App-Start den zuletzt geöffneten Ordner laden</string>

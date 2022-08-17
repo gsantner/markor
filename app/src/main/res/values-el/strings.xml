@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Το γενικό θέμα που χρησιμοποιείται στην εφαρμογή</string>
     <string name="remember_last_directory">Απομνημόνευση τελευταίου φακέλου</string>
     <string name="syntax_highlighting">Επισήμανση σύνταξης</string>
+    <string name="dynamic_highlighting">Δυναμική επισήμανση</string>
     <string name="highlighting_delay">Καθυστέρηση επισήμανσης</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Καθυστέρηση σε χιλιοστά του δευτερολέπτου για ανανέωση της επισήμανσης. Μια χαμηλότερη τιμή θα ξεκινήσει την επισήμανση νωρίτερα, αλλά θα εξαντλήσει την μπαταρία σας και ενδέχεται να επιβραδύνει την εφαρμογή σε παλαιότερες συσκευές.</string>
     <string name="highlighting_enabled_or_not__appspecific">Ελέγχει αν το εισαχθέν κείμενο πρέπει να επισημανθεί ή όχι</string>
+    <string name="dynamic_highlighting_effect">Δυναμική επισήμανση αυξάνει την απόδοση. Μπορεί να προκαλέσει απόδοση τεχνουργήματα.</string>
     <string name="control_font_size_in_editor">Έλεγχος του μεγέθους γραμματοσειράς που χρησιμοποιείται στον επεξεργαστή</string>
     <string name="textactions_show_useful_actions_description__appspecific">Εμφάνιση μιας γραμμής με εύχρηστα κουμπιά στο κάτω μέρος. Αυτές οι ενέργειες κειμένου τροποποιούν το κείμενο ή τρέχουν μια ενέργεια βασισμένη στο κείμενο.</string>
     <string name="load_last_opened_folder_at_startup">Φόρτωση του τελευταίου ανοιγμένου φακέλου κατά την εκκίνηση</string>

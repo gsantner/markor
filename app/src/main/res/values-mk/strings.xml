@@ -217,6 +217,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_1">Заглавје 1</string>
     <string name="heading_2">Заглавје 2</string>
     <string name="heading_3">Заглавје 3</string>
+    <string name="heading_4">Заглавје 4</string>
+    <string name="heading_5">Заглавје 5</string>
+    <string name="heading_6">Заглавје 6</string>
     <string name="created">Создадено</string>
     <string name="code_block">Блок на код</string>
     <string name="copy_move_conflict_message">\'%s\' веќе постои во %s</string>

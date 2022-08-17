@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Det generelle temaet som brukes i appen</string>
     <string name="remember_last_directory">Husk siste mappe</string>
     <string name="syntax_highlighting">Syntaksutheving</string>
+    <string name="dynamic_highlighting">Dynamisk utheving</string>
     <string name="highlighting_delay">Utheving forsinkelse</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Forsinkelse i millisekunder for framhevelsesindekser. En lavere verdi vil begynne å fremheve belysningen, men det tømmer batteriet og kan gjøre appen tregere på eldre enheter.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontroller om innskrevet tekst skal framheves eller ikke</string>
+    <string name="dynamic_highlighting_effect">Dynamisk utheving øker ytelsen. Kan føre til gjengivelsesartifakter.</string>
     <string name="control_font_size_in_editor">Kontroller skriftstørrelsen som brukes i editoren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger for å sette inn ofte brukt tekst i tekstmoduler</string>
     <string name="load_last_opened_folder_at_startup">Last sist åpnede mappe ved oppstart</string>
