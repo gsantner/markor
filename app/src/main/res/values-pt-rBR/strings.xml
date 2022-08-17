@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Tema geral usando no aplicativo</string>
     <string name="remember_last_directory">Lembrar da última pasta</string>
     <string name="syntax_highlighting">Destaque de sintaxe</string>
+    <string name="dynamic_highlighting">Destaque dinâmico</string>
     <string name="highlighting_delay">Realçar delongas</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Atraso em milissegundos para atualizar os destaques. Um valor baixo destaca mais rapidamente mas também utiliza mais bateria e poderá atrasar a aplicação em dispositivos mais antigos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlar se o texto inserido será realçado ou não</string>
+    <string name="dynamic_highlighting_effect">O realce dinâmico aumenta o desempenho. Pode causar a renderização de artefatos.</string>
     <string name="control_font_size_in_editor">Controlar o tamanho da fonte do editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Mostrar uma barra com botões úteis abaixo. Eles podem modificar o texto ou executar uma ação baseada no texto.</string>
     <string name="load_last_opened_folder_at_startup">Abrir última pasta usada ao iniciar</string>
