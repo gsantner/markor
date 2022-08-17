@@ -162,10 +162,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
+    public boolean isDynamicHighlightingEnabled() {
+        return getBool(R.string.pref_key__is_dynamic_highlighting_activated, true);
+    }
+
     public int getMarkdownHighlightingDelay() {
         return getInt(R.string.pref_key__markdown__hl_delay_v2, 650);
     }
-
 
     public boolean isMarkdownHighlightLineEnding() {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);

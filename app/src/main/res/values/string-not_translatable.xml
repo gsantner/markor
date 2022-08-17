@@ -129,6 +129,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_preview_first" translatable="false">pref_key__is_preview_first</string>
     <string name="pref_key__is_render_rtl" translatable="false">pref_key__is_render_rtl</string>
     <string name="pref_key__is_highlighting_activated" translatable="false">pref_key__is_highlighting_activated</string>
+    <string name="pref_key__is_dynamic_highlighting_activated" translatable="false">pref_key__is_dynamic_highlighting_activated</string>
     <string name="pref_key__load_last_directory_at_startup" translatable="false">pref_key__load_last_directory_at_startup</string>
     <string name="pref_key__notebook_directory" translatable="false">pref_key__notebook_directory</string>
     <string name="pref_key__last_opened_directory" translatable="false">pref_key__last_opened_directory</string>

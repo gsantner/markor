@@ -20,7 +20,6 @@ import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleCompar
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Build;
 import android.text.Editable;
 import android.text.Html;
@@ -38,12 +37,13 @@ import androidx.core.content.ContextCompat;
 import com.vladsch.flexmark.util.collection.OrderedMap;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.todotxt.BasicTodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
-import net.gsantner.markor.format.todotxt.TodoTxtHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.ui.fsearch.FileSearchDialog;
 import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.ui.fsearch.SearchEngine;
+import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
 import net.gsantner.opoc.util.Callback;
@@ -434,7 +434,8 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = R.string.search;
         dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.isMultiSelectEnabled = true;
-        dopt.highlighter = new AppSettings(activity).isHighlightingEnabled() ? getSttHighlighter(activity) : null;
+        final AppSettings as = new AppSettings(activity);
+        dopt.highlighter = as.isHighlightingEnabled() ? getSttHighlighter(as) : null;
         dopt.positionCallback = (posns) -> {
             final List<Integer> selIndices = new ArrayList<>();
             for (final Integer p : posns) {
@@ -504,8 +505,9 @@ public class SearchOrCustomTextDialogCreator {
         SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static Callback.a1<Spannable> getSttHighlighter(final Context context) {
-        return (s) -> TodoTxtHighlighter.basicTodoTxtHighlights(s, true, new AppSettings(context).isDarkThemeEnabled(), null);
+    private static Callback.a1<Spannable> getSttHighlighter(final AppSettings as) {
+        final Highlighter h = new BasicTodoTxtHighlighter(as).configure();
+        return s -> h.setSpannable(s).recompute().apply();
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {

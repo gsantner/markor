@@ -53,6 +53,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="o">
 
+        <!-- <profileable android:shell="true"/> -->
+
         <meta-data
             android:name="android.webkit.WebView.MetricsOptOut"
             android:value="true" />

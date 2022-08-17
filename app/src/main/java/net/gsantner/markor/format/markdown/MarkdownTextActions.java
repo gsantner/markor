@@ -22,6 +22,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.opoc.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -174,9 +175,13 @@ public class MarkdownTextActions extends TextActions {
     private void insertTableRow(int cols, boolean isHeaderEnabled) {
         StringBuilder sb = new StringBuilder();
         _hlEditor.requestFocus();
-        if (!_hlEditor.isCurrentLineEmpty()) {
+
+        // Append if current line empty
+        final int[] sel = StringUtils.getLineSelection(_hlEditor);
+        if (sel[0] != -1 && sel[0] == sel[1]) {
             sb.append("\n");
         }
+
         for (int i = 0; i < cols - 1; i++) {
             sb.append("  | ");
         }

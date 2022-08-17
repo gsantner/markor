@@ -10,9 +10,8 @@
 package net.gsantner.markor.format;
 
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Pair;
 
 import net.gsantner.opoc.util.StringUtils;
 
@@ -21,6 +20,7 @@ public class ListHandler implements TextWatcher {
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
     private boolean alreadyRunning = false; // Prevent this instance from triggering itself
+    private Pair<Integer, Integer> _deleteRegion;
 
     private final AutoFormatter.PrefixPatterns _prefixPatterns;
 
@@ -40,15 +40,13 @@ public class ListHandler implements TextWatcher {
         // Detects if enter pressed on empty list (correctly handles indent) and marks line for deletion.
         if (beforeLineEnd != null && count > 0 && start > -1 && start < s.length() && s.charAt(start) == '\n') {
 
-            final Spannable sSpan = (Spannable) s;
-
             final AutoFormatter.OrderedListLine oMatch = new AutoFormatter.OrderedListLine(s, start, _prefixPatterns);
             final AutoFormatter.UnOrderedOrCheckListLine uMatch = new AutoFormatter.UnOrderedOrCheckListLine(s, start, _prefixPatterns);
 
             if (oMatch.isOrderedList && beforeLineEnd == oMatch.groupEnd) {
-                sSpan.setSpan(this, oMatch.lineStart, oMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
+                _deleteRegion = Pair.create(oMatch.lineStart, oMatch.lineEnd + 1);
             } else if (uMatch.isUnorderedOrCheckList && beforeLineEnd == uMatch.groupEnd) {
-                sSpan.setSpan(this, uMatch.lineStart, uMatch.lineEnd + 1, Spanned.SPAN_COMPOSING);
+                _deleteRegion = Pair.create(oMatch.lineStart, oMatch.lineEnd + 1);
             } else {
                 reorderPosition = start;
             }
@@ -63,11 +61,9 @@ public class ListHandler implements TextWatcher {
         }
         try {
             alreadyRunning = true;
-            // Deletes spans marked for deletion
-            for (final Object span : e.getSpans(0, e.length(), this.getClass())) {
-                if ((e.getSpanFlags(span) & Spanned.SPAN_COMPOSING) != 0) {
-                    e.delete(e.getSpanStart(span), e.getSpanEnd(span));
-                }
+            if (_deleteRegion != null) {
+                e.delete(_deleteRegion.first, _deleteRegion.second);
+                _deleteRegion = null;
             }
             if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
                 AutoFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);

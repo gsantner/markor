@@ -9,38 +9,33 @@
 ###########################################################*/
 package other.writeily.format.markdown;
 
-import android.text.ParcelableSpan;
-import android.text.Spannable;
-
-import net.gsantner.markor.ui.hleditor.Highlighter;
+import net.gsantner.opoc.util.Callback;
 
 import java.util.regex.Matcher;
 
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrMarkdownHeaderSpanCreator implements Highlighter.SpanCreator<ParcelableSpan> {
+public class WrMarkdownHeaderSpanCreator implements Callback.r1<Object, Matcher> {
     private static final Character POUND_SIGN = '#';
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;
 
-    protected Highlighter _highlighter;
-    private final Spannable _spannable;
+    private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrMarkdownHeaderSpanCreator(Highlighter highlighter, Spannable spannable, int color, boolean dynamicTextSize) {
-        _highlighter = highlighter;
-        _spannable = spannable;
-        _spanCreator = new WrProportionalHeaderSpanCreator(highlighter.getAppSettings().getFontFamily(), highlighter.getAppSettings().getFontSize(), color, dynamicTextSize);
+    public WrMarkdownHeaderSpanCreator(final CharSequence text, int color, final float textSize) {
+        _text = text;
+        _spanCreator = new WrProportionalHeaderSpanCreator(textSize, color);
     }
 
-    public ParcelableSpan create(Matcher m, int iM) {
+    public Object callback(Matcher m) {
         final char[] charSequence = extractMatchingRange(m);
         float proportion = calculateProportionBasedOnHeaderType(charSequence);
         return _spanCreator.createHeaderSpan(proportion);
     }
 
     private char[] extractMatchingRange(Matcher m) {
-        return _spannable.subSequence(m.start(), m.end()).toString().trim().toCharArray();
+        return _text.subSequence(m.start(), m.end()).toString().trim().toCharArray();
     }
 
     private Float calculateProportionBasedOnHeaderType(final char[] charSequence) {
@@ -53,8 +48,7 @@ public class WrMarkdownHeaderSpanCreator implements Highlighter.SpanCreator<Parc
     }
 
     private Float calculateProportionForUnderlineHeader(final char[] charSequence) {
-        return Character.valueOf('=').equals(charSequence[charSequence.length - 1])
-                ? 1.6f : 1.0f;
+        return Character.valueOf('=').equals(charSequence[charSequence.length - 1]) ? 1.6f : 1.0f;
     }
 
     private Float calculateProportionForHashesHeader(final char[] charSequence) {

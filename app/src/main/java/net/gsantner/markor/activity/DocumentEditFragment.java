@@ -187,6 +187,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
+        _hlEditor.setScrollView(_primaryScrollView);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
 
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
@@ -246,6 +247,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void resume() {
         loadDocument();
+        if (_hlEditor != null) {
+            _hlEditor.onResume();
+        }
     }
 
     @Override
@@ -262,6 +266,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void pause() {
         saveDocument(false);
+        if (_hlEditor != null) {
+            _hlEditor.onPause();
+        }
+
         if (_appSettings != null && _document != null) {
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
@@ -445,7 +453,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html:
             case R.id.action_share_html_source: {
                 if (saveDocument(false)) {
-                    TextConverter converter = TextFormat.getFormat(_document.getFormat(), activity, _document, _hlEditor).getConverter();
+                    TextConverter converter = TextFormat.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
@@ -589,8 +597,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void applyTextFormat(final int textFormatId) {
         _textActionsBar.removeAllViews();
-        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document, _hlEditor);
+        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         _textFormat.getTextActions()
@@ -647,7 +656,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hsView.removeAllViews();
             }
             if (!wrap) {
-                _hlEditor.setHorizontallyScrolling(true);
                 if (_hsView == null) {
                     _hsView = new HorizontalScrollView(context);
                     _hsView.setFillViewport(true);
@@ -655,7 +663,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hsView.addView(_hlEditor);
                 _primaryScrollView.addView(_hsView);
             } else {
-                _hlEditor.setHorizontallyScrolling(false);
                 _primaryScrollView.addView(_hlEditor);
             }
 

@@ -9,19 +9,18 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.text.Spannable;
 
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.util.AppSettings;
 
 import java.util.regex.Pattern;
 
 import other.writeily.format.zimwiki.WrZimWikiHeaderSpanCreator;
 
 public class ZimWikiHighlighter extends Highlighter {
+
     //
     // Statics
     //
@@ -80,105 +79,83 @@ public class ZimWikiHighlighter extends Highlighter {
     // Members
     //
 
-    public ZimWikiHighlighter(HighlightingEditor editor, Document document) {
-        super(editor, document);
-        _highlightLinks = false;
+    public ZimWikiHighlighter(AppSettings as) {
+        super(as);
+    }
+
+    private boolean _isZimWikiBiggerHeadings = false;
+    private String _fontFamily = "";
+    private boolean _isHighlightCodeBlock = false;
+    private boolean _isHighlightCodeMonospace = false;
+
+    @Override
+    public Highlighter configure(final Paint paint) {
+        _delay = _appSettings.getMarkdownHighlightingDelay();
+        _isZimWikiBiggerHeadings = _appSettings.isZimWikiBiggerHeadings();
+        _fontFamily = _appSettings.getFontFamily();
+        _isHighlightCodeMonospace = _appSettings.isHighlightCodeMonospaceFont();
+        _isHighlightCodeBlock = _appSettings.isHighlightCodeBlock();
+        return super.configure(paint);
     }
 
     @Override
-    protected Spannable run(final Spannable spannable) {
-        clearSpans(spannable);
-        if (spannable.length() == 0) {
-            return spannable;
-        }
+    protected void generateSpans() {
 
-        //
-        // Do highlight
-        //
-        _profiler.start(true, "ZimWiki Highlighting");
-        generalHighlightRun(spannable);
+        createTabSpans(_tabSize);
+        createUnderlineHexColorsSpans();
 
-        _profiler.restart("Heading");
-        if (_appSettings.isZimWikiBiggerHeadings()) {
-            createHeaderSpanForMatches(spannable, Patterns.HEADING, Colors.COLOR_HEADING);
+        if (_isZimWikiBiggerHeadings) {
+            createSpanForMatches(Patterns.HEADING.pattern,
+                    new WrZimWikiHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _textSize));
         } else {
-            createColorSpanForMatches(spannable, Patterns.HEADING.pattern, Colors.COLOR_HEADING);
+            createColorSpanForMatches(Patterns.HEADING.pattern, Colors.COLOR_HEADING);
         }
 
-        _profiler.restart("Bold");
-        createStyleSpanForMatches(spannable, Patterns.BOLD.pattern, Typeface.BOLD);
+        createStyleSpanForMatches(Patterns.BOLD.pattern, Typeface.BOLD);
 
-        _profiler.restart("Italics");
-        createStyleSpanForMatches(spannable, Patterns.ITALICS.pattern, Typeface.ITALIC);
+        createStyleSpanForMatches(Patterns.ITALICS.pattern, Typeface.ITALIC);
 
-        _profiler.restart("Marked (highlighted)");
-        createColorBackgroundSpan(spannable, Patterns.HIGHLIGHTED.pattern, Colors.HIGHLIGHT_BACKGROUND_COLOR);
+        createColorBackgroundSpan(Patterns.HIGHLIGHTED.pattern, Colors.HIGHLIGHT_BACKGROUND_COLOR);
 
-        _profiler.restart("Strikethrough");
-        createSpanWithStrikeThroughForMatches(spannable, Patterns.STRIKETHROUGH.pattern);
+        createStrikeThroughSpanForMatches(Patterns.STRIKETHROUGH.pattern);
 
-        _profiler.restart("Preformatted (monospaced) inline");
-        if (_appSettings.isHighlightCodeMonospaceFont()) {
-            createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_INLINE.pattern);
-        }
-        if (_appSettings.isHighlightCodeBlock()) {
-            createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_INLINE.pattern, Colors.CODEBLOCK_COLOR);
+        if (_isHighlightCodeMonospace) {
+            createMonospaceSpanForMatches(Patterns.PREFORMATTED_INLINE.pattern);
+            createMonospaceSpanForMatches(Patterns.PREFORMATTED_MULTILINE.pattern);
         }
 
-        _profiler.restart("Preformatted (monospaced) multiline");
-        if (_appSettings.isHighlightCodeMonospaceFont()) {
-            createMonospaceSpanForMatches(spannable, Patterns.PREFORMATTED_MULTILINE.pattern);
-        }
-        if (_appSettings.isHighlightCodeBlock()) {
-            createColorBackgroundSpan(spannable, Patterns.PREFORMATTED_MULTILINE.pattern, Colors.CODEBLOCK_COLOR);
+        if (_isHighlightCodeBlock) {
+            createColorBackgroundSpan(Patterns.PREFORMATTED_INLINE.pattern, Colors.CODEBLOCK_COLOR);
+            createColorBackgroundSpan(Patterns.PREFORMATTED_MULTILINE.pattern, Colors.CODEBLOCK_COLOR);
         }
 
-        _profiler.restart("Unordered list");
-        createColorSpanForMatches(spannable, Patterns.LIST_UNORDERED.pattern, Colors.UNORDERED_LIST_BULLET_COLOR);
+        createColorSpanForMatches(Patterns.LIST_UNORDERED.pattern, Colors.UNORDERED_LIST_BULLET_COLOR);
 
-        _profiler.restart("Ordered list");
-        createColorSpanForMatches(spannable, Patterns.LIST_ORDERED.pattern, Colors.ORDERED_LIST_NUMBER_COLOR);
+        createColorSpanForMatches(Patterns.LIST_ORDERED.pattern, Colors.ORDERED_LIST_NUMBER_COLOR);
 
-        _profiler.restart("Link");
-        createColorSpanForMatches(spannable, Patterns.LINK.pattern, Colors.LINK_COLOR);
+        createSmallBlueLinkSpans();
+        createColorSpanForMatches(Patterns.LINK.pattern, Colors.LINK_COLOR);
 
-        _profiler.restart("Superscript");
-        createSuperscriptStyleSpanForMatches(spannable, Patterns.SUPERSCRIPT.pattern);
+        createSuperscriptStyleSpanForMatches(Patterns.SUPERSCRIPT.pattern);
 
-        _profiler.restart("Subscript");
-        createSubscriptStyleSpanForMatches(spannable, Patterns.SUBSCRIPT.pattern);
+        createSubscriptStyleSpanForMatches(Patterns.SUBSCRIPT.pattern);
 
-        _profiler.restart("Checklist");
-        createCheckboxSpansForAllCheckStates(spannable);
+        createCheckboxSpansForAllCheckStates();
 
-        _profiler.restart("Zim Header");
-        createColorSpanForMatches(spannable, Patterns.ZIMHEADER.pattern, Colors.ZIMHEADER_COLOR);
+        createColorSpanForMatches(Patterns.ZIMHEADER.pattern, Colors.ZIMHEADER_COLOR);
 
-        _profiler.end();
-        _profiler.printProfilingGroup();
-
-        return spannable;
     }
 
-    private void createHeaderSpanForMatches(Spannable spannable, Patterns pattern, int headerColor) {
-        createSpanForMatches(spannable, pattern.pattern, new WrZimWikiHeaderSpanCreator(this, spannable, headerColor, _appSettings.isZimWikiBiggerHeadings(), _appSettings.getFontFamily(), _appSettings.getFontSize()));
+    private void createCheckboxSpansForAllCheckStates() {
+        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_UNCHECKED.pattern, 0xffffffff);
+        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_CHECKED.pattern, Colors.CHECKLIST_CHECKED_COLOR);
+        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_CROSSED.pattern, Colors.CHECKLIST_CROSSED_COLOR);
+        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_ARROW.pattern, Colors.CHECKLIST_ARROW_COLOR);
     }
 
-    private void createCheckboxSpansForAllCheckStates(Spannable spannable) {
-        createCheckboxSpanWithDifferentColors(spannable, Patterns.CHECKLIST_UNCHECKED.pattern, 0xffffffff);
-        createCheckboxSpanWithDifferentColors(spannable, Patterns.CHECKLIST_CHECKED.pattern, Colors.CHECKLIST_CHECKED_COLOR);
-        createCheckboxSpanWithDifferentColors(spannable, Patterns.CHECKLIST_CROSSED.pattern, Colors.CHECKLIST_CROSSED_COLOR);
-        createCheckboxSpanWithDifferentColors(spannable, Patterns.CHECKLIST_ARROW.pattern, Colors.CHECKLIST_ARROW_COLOR);
-    }
-
-    private void createCheckboxSpanWithDifferentColors(Spannable spannable, Pattern checkboxPattern, int symbolColor) {
-        createColorSpanForMatches(spannable, checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_LEFT_BRACKET_GROUP);
-        createColorSpanForMatches(spannable, checkboxPattern, symbolColor, Patterns.CHECKBOX_SYMBOL_GROUP);
-        createColorSpanForMatches(spannable, checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_RIGHT_BRACKET_GROUP);
-    }
-
-    @Override
-    public int getHighlightingDelay(Context context) {
-        return _appSettings.getMarkdownHighlightingDelay();
+    private void createCheckboxSpanWithDifferentColors(final Pattern checkboxPattern, final int symbolColor) {
+        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_LEFT_BRACKET_GROUP);
+        createColorSpanForMatches(checkboxPattern, symbolColor, Patterns.CHECKBOX_SYMBOL_GROUP);
+        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_RIGHT_BRACKET_GROUP);
     }
 }

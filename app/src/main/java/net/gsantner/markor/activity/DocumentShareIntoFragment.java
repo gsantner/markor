@@ -28,6 +28,7 @@ import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
@@ -102,6 +103,8 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         _hlEditor.setText(sharedText);
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setHighlighter(new PlaintextHighlighter(as));
+        _hlEditor.setHighlightingEnabled(true);
 
         if (sharedText.isEmpty()) {
             _hlEditor.requestFocus();
