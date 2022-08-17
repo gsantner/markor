@@ -261,7 +261,7 @@ public class Document implements Serializable {
             }
 
             final ShareUtil shu = (shareUtil != null ? shareUtil : new ShareUtil(context));
-            if (shareUtil.isUnderStorageAccessFolder(_file) || shareUtil.isContentResolverProxyFile(_file)) {
+            if (shareUtil.isUnderStorageAccessFolder(_file, false) || shareUtil.isContentResolverProxyFile(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {

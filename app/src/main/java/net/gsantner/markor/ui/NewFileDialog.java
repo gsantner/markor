@@ -205,7 +205,7 @@ public class NewFileDialog extends DialogFragment {
                     }
                     final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
                     File f = new File(basedir, usedFoldername);
-                    if (shareUtil.isUnderStorageAccessFolder(f)) {
+                    if (shareUtil.isUnderStorageAccessFolder(f, true)) {
                         DocumentFile dof = shareUtil.getDocumentFile(f, true);
                         callback(dof != null && dof.exists(), f);
                     } else {

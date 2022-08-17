@@ -283,7 +283,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (permc.mkdirIfStoragePermissionGranted()) {
             switch (view.getId()) {
                 case R.id.fab_add_new_item: {
-                    if (_shareUtil.isUnderStorageAccessFolder(fsFrag.getCurrentFolder()) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                    if (_shareUtil.isUnderStorageAccessFolder(fsFrag.getCurrentFolder(), true) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
                         _shareUtil.showMountSdDialog(this);
                         return;
                     }

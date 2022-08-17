@@ -1117,10 +1117,11 @@ public class ShareUtil {
      * @param file The file object (file/folder)
      * @return Wether or not the file is under storage access folder
      */
-    public boolean isUnderStorageAccessFolder(final File file) {
+    public boolean isUnderStorageAccessFolder(final File file, boolean isDir) {
         if (file != null) {
+            isDir = isDir || (file.exists() && file.isDirectory());
             // When file writeable as is, it's the fastest way to learn SAF isn't required
-            if (canWriteFile(file, false)) {
+            if (canWriteFile(file, isDir, false)) {
                 return false;
             }
             ContextUtils cu = new ContextUtils(_context);
@@ -1161,7 +1162,7 @@ public class ShareUtil {
      * @return Wether or not the file can be written
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public boolean canWriteFile(final File file, final boolean isDir) {
+    public boolean canWriteFile(final File file, final boolean isDir, final boolean trySaf) {
         if (file == null) {
             return false;
         }
@@ -1202,7 +1203,10 @@ public class ShareUtil {
 
         // Try with SAF
         DocumentFile dof = getDocumentFile(file, isDir);
-        return dof != null && dof.canWrite();
+        if (trySaf && dof != null && dof.canWrite()){
+            return true;
+        }
+        return false;
     }
 
     /**
