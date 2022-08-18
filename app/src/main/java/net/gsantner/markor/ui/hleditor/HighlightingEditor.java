@@ -19,7 +19,6 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -33,7 +32,6 @@ import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.NanoProfiler;
 import net.gsantner.opoc.util.StringUtils;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -44,8 +42,6 @@ public class HighlightingEditor extends AppCompatEditText {
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
-
-    private NanoProfiler _p = new NanoProfiler();
 
     private long _minPointIntoViewTime = 0;
     private int _blockBringPointIntoViewCount = 0;
@@ -97,6 +93,9 @@ public class HighlightingEditor extends AppCompatEditText {
         final ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
         observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
+
+        // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
+        setEmojiCompatEnabled(false);
     }
 
     // Highlighting
