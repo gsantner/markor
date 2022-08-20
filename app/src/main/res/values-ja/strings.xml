@@ -141,7 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">ハイライト表示の遅延</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">ハイライト表示を更新するまでの時間(ミリ秒)。値を小さくすると早く強調表示が開始されますが、バッテリーを消費し、古いデバイスではアプリが遅くなることがあります。</string>
     <string name="highlighting_enabled_or_not__appspecific">入力したテキストをハイライト表示するかどうかを設定します</string>
-    <string name="dynamic_highlighting_effect">動的ハイライトはパフォーマンスを向上させます。アーティファクトをレンダリングする可能性があります。</string>
+    <string name="dynamic_highlighting_effect">動的ハイライトを使うとパフォーマンスが改善します。ただし、正しい描画がされないことがあります。</string>
     <string name="control_font_size_in_editor">エディターで使用するフォントサイズを設定します</string>
     <string name="textactions_show_useful_actions_description__appspecific">下に便利なボタンとバーを表示します。これらの操作はテキストを変更、またはテキストに基づいて操作を実行します。</string>
     <string name="load_last_opened_folder_at_startup">起動時に最後に開いたフォルダーを読み込みます</string>

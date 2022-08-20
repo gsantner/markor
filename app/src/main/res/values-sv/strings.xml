@@ -137,9 +137,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Appens övergripande tema</string>
     <string name="remember_last_directory">Kom ihåg senaste katalogen</string>
     <string name="syntax_highlighting">Syntaxfärgning</string>
+    <string name="dynamic_highlighting">Dynamisk markering</string>
     <string name="highlighting_delay">Fördröjning för syntaxfärgning</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Fördröjning i millisekunder innan syntaxfärgningen uppdateras. Ett lägre värde startar syntaxfärgningen tidigare, men drar mer batteri och minskar prestandan.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollera om inmatad text ska markeras eller inte</string>
+    <string name="dynamic_highlighting_effect">Dynamisk markering ökar prestanda. Kan orsaka rendering artefakter.</string>
     <string name="control_font_size_in_editor">Ändra typsnittsstorlek i redigeraren</string>
     <string name="textactions_show_useful_actions_description__appspecific">Visa en meny med praktiska knappar längst ned. Dessa textåtgärder modifierar texten eller kör en handling som baseras på texten.</string>
     <string name="load_last_opened_folder_at_startup">Ladda senaste öppnade mapp vid start</string>
