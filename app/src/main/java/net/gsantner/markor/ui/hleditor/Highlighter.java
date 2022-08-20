@@ -48,7 +48,6 @@ public abstract class Highlighter {
 
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
 
-    public static final Pattern HEX_CODE_UNDERLINE_PATTERN = Pattern.compile("(?:\\s|[\";,:'*]|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|[\";,:'*]|$)");
     private static final Pattern PATTERN_TAB = Pattern.compile("\t");
 
     protected static Highlighter getDefaultHighlighter(final AppSettings as) {
@@ -411,7 +410,7 @@ public abstract class Highlighter {
     }
 
     protected final void createUnderlineHexColorsSpans() {
-        createColoredUnderlineSpanForMatches(HEX_CODE_UNDERLINE_PATTERN, m -> new ColorUnderlineSpan(Color.parseColor(m.group(1)), 3f), 1);
+        createColoredUnderlineSpanForMatches(ColorUnderlineSpan.HEX_CODE_UNDERLINE_PATTERN, m -> new ColorUnderlineSpan(m.group(1), 3f), 1);
     }
 
     // We _do not_ implement UpdateLayout or Parcelable for performance reasons

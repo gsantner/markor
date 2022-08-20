@@ -990,13 +990,23 @@ public class ContextUtils {
         return mimeType;
     }
 
-    public Integer parseColor(final String colorstr) {
-        if (colorstr == null || colorstr.trim().isEmpty()) {
+    /**
+     * Parse color hex string, using RGBA (instead of {@link Color#parseColor(String)} which uses ARGB)
+     * @param hexcolorString Hex color string in RRGGBB or RRGGBBAA format
+     * @return {@link ColorInt}
+     */
+    public @ColorInt Integer parseHexColorString(final String hexcolorString) {
+        String h = TextUtils.isEmpty(hexcolorString) ? "" : hexcolorString;
+        h = h.replaceAll("[^A-Fa-f0-9]", "").trim();
+        if (h.isEmpty() || h.length() > 8) {
             return null;
         }
         try {
-            return Color.parseColor(colorstr);
-        } catch (IllegalArgumentException ignored) {
+            if (h.length() > 6) {
+                h = h.substring(6) + (h.length() == 8 ? "" : "0") + h.substring(0,6);
+            }
+            return Color.parseColor("#"+h);
+        } catch (Exception ignored) {
             return null;
         }
     }
