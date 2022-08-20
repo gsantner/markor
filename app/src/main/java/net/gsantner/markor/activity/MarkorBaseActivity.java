@@ -34,7 +34,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _activityUtils.parseColor(_appSettings.getNavigationBarColor());
+        return _activityUtils.parseHexColorString(_appSettings.getNavigationBarColor());
     }
 
     @Override
