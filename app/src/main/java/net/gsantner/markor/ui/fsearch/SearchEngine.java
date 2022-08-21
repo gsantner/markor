@@ -4,10 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.core.util.Pair;
 
 import com.google.android.material.snackbar.Snackbar;
 

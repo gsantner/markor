@@ -10,12 +10,17 @@
 package net.gsantner.markor.format;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
 
+import androidx.core.content.ContextCompat;
+
+import net.gsantner.markor.R;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.util.ContextUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -42,10 +47,12 @@ public abstract class TextConverter {
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE = "{{ app.token_headline_underline_inverse_of_theme }}";
     protected static final String TOKEN_LINK_COLOR = "{{ app.token_link_color }}";
+    protected static final String TOKEN_ACCENT_COLOR = "{{ app.token_accent_color }}";
     protected static final String TOKEN_TEXT_CONVERTER_CSS_CLASS = "{{ post.text_converter_name }}";
     protected static final String TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT = "{{ app.webview_max_zoom_out_by_default }}";
     protected static final String TOKEN_POST_TODAY_DATE = "{{ post.date_today }}";
     protected static final String TOKEN_POST_LANG = "{{ post.lang }}";
+    protected static final String TOKEN_FILEURI_VIEWED_FILE = "{{ app.fileuri_viewed_file }}";
 
     protected static final String HTML_DOCTYPE = "<!DOCTYPE html>";
     protected static final String HTML001_HEAD_WITH_BASESTYLE = "<html lang='" + TOKEN_POST_LANG + "'><head>" + CSS_S + "html,body{padding:4px 8px 4px 8px;font-family:'" + TOKEN_FONT + "';}h1,h2,h3,h4,h5,h6{font-family:'sans-serif-condensed';}a{color: " + TOKEN_LINK_COLOR + ";text-decoration:underline;}img{height:auto;max-width:100%;max-height: 90vh;margin:auto;}" + CSS_E;
@@ -55,6 +62,7 @@ public abstract class TextConverter {
     protected static final String HTML004_HEAD_META_VIEWPORT_MOBILE = "<style>video, img { max-width: 100%; } pre { max-width: 100%; overflow: auto; } </style>";//"<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'>";
     protected static final String HTML100_PERCENT_IN_FILEPATH = "<base>" + JS_S + "var newbase = document.baseURI.split('%').join('%25'); document.querySelector('base').setAttribute('href', newbase);" + JS_E;
     protected static final String CSS_TABLE_STYLE = CSS_S + "table, th, td {  border: 1px solid " + TOKEN_BW_INVERSE_OF_THEME + "; border-collapse: collapse; border-spacing: 0; padding: 6px; }" + CSS_E;
+    protected static final String CSS_BUTTON_STYLE_MATERIAL = CSS_S + "button:hover,button:active {filter: invert(1);} button { display: inline-block; box-sizing: border-box; border: none; border-radius: 4px; padding: 0 16px; min-width: 64px; height: 36px; font-family: 'Roboto'; font-size: 14px; font-weight: 500;  line-height: 36px; overflow: hidden; outline: none; vertical-align: middle; text-align: center; text-overflow: ellipsis; text-transform: uppercase; box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); margin: 4px 4px 8px 0px;}   " + CSS_E;
 
     // onPageLoaded_markor_private() invokes the user injected function onPageLoaded()
     protected static final String HTML500_BODY = "</head>\n<body class='" + TOKEN_TEXT_CONVERTER_CSS_CLASS + "' onload='onPageLoaded_markor_private();'>\n\n<!-- USER DOCUMENT CONTENT -->\n\n\n";
@@ -128,7 +136,7 @@ public abstract class TextConverter {
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
-        html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE;
+        html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE + CSS_BUTTON_STYLE_MATERIAL;
         if (appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
         }
@@ -165,10 +173,12 @@ public abstract class TextConverter {
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
                 .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
+                .replace(TOKEN_ACCENT_COLOR, ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
-                .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()));
+                .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
+                .replace(TOKEN_FILEURI_VIEWED_FILE, file != null ? Uri.fromFile(file.getAbsoluteFile()).toString() : "file:///dummy");
 
         return html;
     }

@@ -47,7 +47,7 @@ public class KeyValueHighlighter extends Highlighter {
             createStyleSpanForMatches(spannable, KeyValueHighlighterPattern.PATTERN_CSV.getPattern(), Typeface.BOLD);
         }
         */
-}
+    }
 
     enum KeyValueHighlighterPattern {
         PATTERN_KEY_VALUE(Pattern.compile("(?im)^([a-z_0-9]+)[-:=]")),

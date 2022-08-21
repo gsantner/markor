@@ -13,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.style.LineBackgroundSpan;
 import android.text.style.LineHeightSpan;
-import android.text.style.UpdateAppearance;
 import android.text.style.UpdateLayout;
 
 import androidx.annotation.ColorInt;
@@ -63,7 +62,7 @@ public class TodoTxtHighlighter extends BasicTodoTxtHighlighter {
             if (start > 0 && text.charAt(start - 1) == '\n') {
                 paint.setColor(_lineColor);
                 paint.setStrokeWidth(0);
-                canvas.drawLine(left, top + _spacing / 2, right, top +  _spacing / 2, paint);
+                canvas.drawLine(left, top + _spacing / 2, right, top + _spacing / 2, paint);
             }
         }
 

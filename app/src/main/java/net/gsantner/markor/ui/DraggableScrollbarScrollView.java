@@ -9,11 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
-import net.gsantner.opoc.util.Callback;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarScrollView extends ScrollView {
 

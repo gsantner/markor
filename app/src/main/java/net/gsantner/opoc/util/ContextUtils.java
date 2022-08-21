@@ -52,6 +52,7 @@ import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -67,13 +68,11 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.RawRes;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.core.app.ActivityManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.text.TextUtilsCompat;
-import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
@@ -123,8 +122,9 @@ public class ContextUtils {
      *
      * @return A valid id if the id could be found, else 0
      */
-    public int getResId(final ResType resType, final String name) {
+    public int getResId(final ResType resType, String name) {
         try {
+            name = name.toLowerCase(Locale.ROOT).replace("#", "no").replaceAll("[^A-Za-z0-9_]", "_");
             return _context.getResources().getIdentifier(name, resType.name().toLowerCase(Locale.ENGLISH), _context.getPackageName());
         } catch (Exception e) {
             return 0;
@@ -992,10 +992,12 @@ public class ContextUtils {
 
     /**
      * Parse color hex string, using RGBA (instead of {@link Color#parseColor(String)} which uses ARGB)
+     *
      * @param hexcolorString Hex color string in RRGGBB or RRGGBBAA format
      * @return {@link ColorInt}
      */
-    public @ColorInt Integer parseHexColorString(final String hexcolorString) {
+    public @ColorInt
+    Integer parseHexColorString(final String hexcolorString) {
         String h = TextUtils.isEmpty(hexcolorString) ? "" : hexcolorString;
         h = h.replaceAll("[^A-Fa-f0-9]", "").trim();
         if (h.isEmpty() || h.length() > 8) {
@@ -1003,9 +1005,9 @@ public class ContextUtils {
         }
         try {
             if (h.length() > 6) {
-                h = h.substring(6) + (h.length() == 8 ? "" : "0") + h.substring(0,6);
+                h = h.substring(6) + (h.length() == 8 ? "" : "0") + h.substring(0, 6);
             }
-            return Color.parseColor("#"+h);
+            return Color.parseColor("#" + h);
         } catch (Exception ignored) {
             return null;
         }

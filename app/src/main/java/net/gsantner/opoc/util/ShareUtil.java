@@ -21,8 +21,10 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -37,7 +39,10 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Base64;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -58,17 +63,20 @@ import androidx.core.content.pm.ShortcutInfoCompat;
 import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.os.ConfigurationCompat;
-import androidx.core.util.Pair;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
+import net.gsantner.opoc.net.OpocNetworkUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,7 +93,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Also allows to parse/fetch information out of shared information.
  * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
-@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale"})
+@SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
 public class ShareUtil {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
@@ -103,6 +111,7 @@ public class ShareUtil {
     public final static int MIN_OVERWRITE_LENGTH = 2;
 
     protected static String _lastCameraPictureFilepath;
+    private static Pair<File, List<Pair<String, String>>> CACHE_LAST_EXTRACT_FILE_METADATA;
 
     protected Context _context;
     protected String _chooserTitle;
@@ -546,7 +555,7 @@ public class ShareUtil {
         new Thread() {
             public void run() {
                 // Returns a simple result, handleable without json parser {"key":"feediyujiq"}
-                String ret = NetworkUtils.performCall(server + "/documents", NetworkUtils.POST, text);
+                String ret = OpocNetworkUtils.performCall(server + "/documents", OpocNetworkUtils.POST, text);
                 final String key = (ret.length() > 15) ? ret.split("\"")[3] : "";
                 handler.post(() -> callback.callback(!key.isEmpty(), server + "/" + key));
             }
@@ -1203,7 +1212,7 @@ public class ShareUtil {
 
         // Try with SAF
         DocumentFile dof = getDocumentFile(file, isDir);
-        if (trySaf && dof != null && dof.canWrite()){
+        if (trySaf && dof != null && dof.canWrite()) {
             return true;
         }
         return false;
@@ -1464,5 +1473,96 @@ public class ShareUtil {
             }
         }
         return false;
+    }
+
+    public List<Pair<String, String>> extractFileMetadata(Context context, File file, boolean withHtml) {
+        if (CACHE_LAST_EXTRACT_FILE_METADATA != null && CACHE_LAST_EXTRACT_FILE_METADATA.first.equals(file)) {
+            return CACHE_LAST_EXTRACT_FILE_METADATA.second;
+        }
+        final Uri fileUri = Uri.fromFile(file.getAbsoluteFile());
+        final ArrayList<Pair<String, String>> extracted = new ArrayList<>();
+        final ContextUtils cu = new ContextUtils(context);
+
+        // "Last modified" -> R.string.last_modified
+        final Callback.a2<String, String> append = (key, value) -> {
+            final int resId = cu.getResId(ContextUtils.ResType.STRING, key);
+            extracted.add(new Pair<>((resId != 0 ? context.getString(resId) : key), value));
+        };
+
+        // java.io.File metadata like name, size, modtime
+        append.callback("File", file.getAbsolutePath());
+        append.callback("Size", FileUtils.getReadableFileSize(file.length(), true));
+        append.callback("Last modified", DateUtils.formatDateTime(context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
+
+        // Detect all possible metadata keys from MediaMetadataRetriever as there is no queryAll method
+        final List<Pair<Integer, String>> mmrfields = new ArrayList<>();
+        for (Field field : MediaMetadataRetriever.class.getDeclaredFields()) {
+            String prefix = "METADATA_KEY_";
+            String name = field.getName();
+            if (name.startsWith(prefix)) {
+                prefix = StringUtils.toTitleCase(name.replace(prefix, "").replace("_", " ").replaceAll("\\s*(?i)num(ber)?\\s*", " No. "));
+                try {
+                    mmrfields.add(new Pair<>(field.getInt(null), prefix));
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        Collections.sort(mmrfields, (sortO1, sortO2) -> sortO1.first - sortO2.first);
+
+        // Extractor for generic multimedia file metadata like title/artist
+        // setDataSource may throw exception on certain files, hence wrap the call
+        final MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        try {
+            mmr.setDataSource(context, fileUri);
+        } catch (Exception ignored) {
+        }
+
+        // Extract Cover& preview if available
+        try {
+            Bitmap bitmap;
+            final byte[] data = withHtml ? mmr.getEmbeddedPicture() : null;
+            if (data != null) {
+                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                append.callback("Cover", "<img src='data:image/jpeg;base64,%s' style='max-height: 85vh; max-width: 100%;' />".replace("%s", imageToBase64(bitmap, Bitmap.CompressFormat.JPEG, 50)));
+            }
+            bitmap = withHtml ? mmr.getFrameAtTime() : null;
+            if (bitmap != null) {
+                append.callback("Preview", "<img src='data:image/jpeg;base64,%s' style='max-height: 85vh; max-width: 100%;' />".replace("%s", imageToBase64(bitmap, Bitmap.CompressFormat.JPEG, 50)));
+            }
+        } catch (Exception ignored) {
+        }
+
+        // Extract all other detected fields
+        for (final Pair<Integer, String> mmrfield : mmrfields) {
+            String v = null;
+            try {
+                v = mmr.extractMetadata(mmrfield.first);
+            } catch (Exception ignored) {
+            }
+            if (!TextUtils.isEmpty(v)) {
+                if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_BITRATE) {
+                    v = FileUtils.getHumanReadableByteCountSI(Long.parseLong(v)) + "ps";
+                } else if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_DURATION) {
+                    final int[] hms = FileUtils.getTimeDiffHMS(Long.parseLong(v), 0);
+                    v = String.format("%sh %sm %ss", hms[0], hms[1], hms[2]);
+                }
+                append.callback(mmrfield.second, v);
+            }
+        }
+
+        // free resources
+        try {
+            cu.freeContextRef();
+            mmr.release();
+        } catch (Exception ignored) {
+        }
+        CACHE_LAST_EXTRACT_FILE_METADATA = new Pair<>(file, extracted);
+        return extracted;
+    }
+
+    public static String imageToBase64(Bitmap bitmap, Bitmap.CompressFormat format, int q) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(format, q, outputStream);
+        return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT).replaceAll("\\s+", "");
     }
 }

@@ -308,8 +308,8 @@ public class SearchOrCustomTextDialog {
         if (win != null) {
             int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
             int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
-            ds_w = (ds_w*1.1 > activity.getResources().getDisplayMetrics().widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
-            ds_h = (ds_h*1.1 > activity.getResources().getDisplayMetrics().heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
+            ds_w = (ds_w * 1.1 > activity.getResources().getDisplayMetrics().widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
+            ds_h = (ds_h * 1.1 > activity.getResources().getDisplayMetrics().heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
             win.setLayout(ds_w, ds_h);
         }
 

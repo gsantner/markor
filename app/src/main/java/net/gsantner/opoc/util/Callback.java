@@ -88,6 +88,7 @@ public class Callback {
     public interface r0<R> {
         R callback();
     }
+
     public interface r1<R, A> {
         R callback(A arg1);
     }

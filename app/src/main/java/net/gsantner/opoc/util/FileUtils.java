@@ -523,17 +523,19 @@ public class FileUtils {
     }
 
     public static String getHumanReadableByteCountSI(final long bytes) {
+        String out;
         if (bytes < 1000) {
-            return String.format(Locale.getDefault(), "%d%s", bytes, "B");
+            out = String.format(Locale.getDefault(), "%d %s", bytes, "B");
         } else if (bytes < 1000000) {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000f), "KB");
+            out = String.format(Locale.getDefault(), "%.2f %s", (bytes / 1000f), "KB");
         } else if (bytes < 1000000000) {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000f), "MB");
+            out = String.format(Locale.getDefault(), "%.2f %s", (bytes / 1000000f), "MB");
         } else if (bytes < 1000000000000L) {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000f), "GB");
+            out = String.format(Locale.getDefault(), "%.2f %s", (bytes / 1000000000f), "GB");
         } else {
-            return String.format(Locale.getDefault(), "%.2f%s", (bytes / 1000000000000f), "TB");
+            out = String.format(Locale.getDefault(), "%.2f %s", (bytes / 1000000000000f), "TB");
         }
+        return out.replaceFirst(",0+( [A-Z])", "$1");
     }
 
     public static File join(File file, String... childSegments) {

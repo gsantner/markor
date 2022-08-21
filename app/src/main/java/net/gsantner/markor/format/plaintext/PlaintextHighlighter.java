@@ -8,6 +8,7 @@ package net.gsantner.markor.format.plaintext;
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
+
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
 
