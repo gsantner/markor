@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -264,6 +265,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void resume() {
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            return;
+        }
+
         loadDocument();
         if (_hlEditor != null) {
             _hlEditor.onResume();
@@ -283,6 +288,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void pause() {
+        if (!getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+            return;
+        }
+
         saveDocument(false);
         if (_hlEditor != null) {
             _hlEditor.onPause();
