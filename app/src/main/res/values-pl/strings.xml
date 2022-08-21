@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderowanie dla języków od prawej do lewej</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Błąd: Nie można utworzyć katalogu Notatek</string>
     <string name="last_modified_witharg">Ostatnio zmodyfikowano: %s</string>
+    <string name="last_modified">Ostatnio zmodyfikowane</string>
     <string name="select_this_folder">Wybierz ten folder</string>
     <string name="select">Wybierz</string>
     <string name="create">Stwórz</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Wyszukiwanie rekursywne w bieżącym katalogu.</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki o wybranych rozszerzeniach w tej aplikacji. Przykładowo, użyj \'None, .html, .css , .js\', jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
+    <string name="rotate">Obróć</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
     <string name="print_pdf">Drukuj PDF</string>
