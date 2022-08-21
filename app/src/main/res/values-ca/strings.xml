@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activa el suport per a idiomes escrits de dreta a esquerra</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: no es pot crear el directori del quadern</string>
     <string name="last_modified_witharg">Última modificació: %s</string>
+    <string name="last_modified">Última modificació</string>
     <string name="select_this_folder">Selecciona aquesta carpeta</string>
     <string name="select">Selecciona</string>
     <string name="create">Crea</string>
