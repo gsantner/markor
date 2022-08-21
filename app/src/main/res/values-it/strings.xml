@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderizza per lingue da destra a sinistra</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Errore: impossibile creare una nuova cartella per i documenti</string>
     <string name="last_modified_witharg">Ultima modifica: %s</string>
+    <string name="last_modified">Ultima modifica</string>
     <string name="select_this_folder">Seleziona questa cartella</string>
     <string name="select">Seleziona</string>
     <string name="create">Crea</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella directory corrente.</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
+    <string name="rotate">Ruota</string>
     <string name="template">Template</string>
     <string name="send_debug_log">Invia log di debug</string>
     <string name="print_pdf">Stampa / PDF</string>
