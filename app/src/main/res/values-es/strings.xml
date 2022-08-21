@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderizar para idiomas de derecha a izquierda</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: no se puede crear el directorio de guardado</string>
     <string name="last_modified_witharg">Última modificación: %s</string>
+    <string name="last_modified">Última modificación</string>
     <string name="select_this_folder">Seleccionar esta carpeta</string>
     <string name="select">Seleccionar</string>
     <string name="create">Crear</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Búsqueda recursiva en el directorio actual.</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
+    <string name="rotate">Rotar</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Enviar registro de depuración</string>
     <string name="print_pdf">Imprimir / PDF</string>
