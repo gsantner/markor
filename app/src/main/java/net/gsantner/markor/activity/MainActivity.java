@@ -508,16 +508,12 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     protected void onPause() {
         super.onPause();
-        ((DocumentEditFragment) _viewPagerAdapter.getItem(tabIdToPos(R.id.nav_todo))).pause();
-        ((DocumentEditFragment) _viewPagerAdapter.getItem(tabIdToPos(R.id.nav_quicknote))).pause();
         WrMarkorWidgetProvider.updateLauncherWidgets();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ((DocumentEditFragment) _viewPagerAdapter.getItem(tabIdToPos(R.id.nav_todo))).resume();
-        ((DocumentEditFragment) _viewPagerAdapter.getItem(tabIdToPos(R.id.nav_quicknote))).resume();
         restoreDefaultToolbar();
     }
 
