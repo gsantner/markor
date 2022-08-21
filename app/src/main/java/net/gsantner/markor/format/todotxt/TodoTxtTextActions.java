@@ -67,6 +67,7 @@ public class TodoTxtTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
 
                 new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(TMA_ACTIONS);

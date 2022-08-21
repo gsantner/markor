@@ -94,7 +94,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
-public class ShareUtil {
+public class ShareUtil extends ContextUtils {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
@@ -117,16 +117,13 @@ public class ShareUtil {
     protected String _chooserTitle;
 
     public ShareUtil(final Context context) {
+        super(context);
         _context = context;
         _chooserTitle = "➥";
     }
 
     public void setContext(final Context c) {
         _context = c;
-    }
-
-    public void freeContextRef() {
-        _context = null;
     }
 
     public String getFileProviderAuthority() {

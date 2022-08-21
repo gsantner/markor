@@ -44,7 +44,7 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
@@ -257,7 +257,7 @@ public abstract class TextActions {
         final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
         for (final String key : orderedKeys) {
             final ActionItem action = map.get(key);
-            if (!disabledKeys.contains(key) && action.displayMode == displayMode) {
+            if (!disabledKeys.contains(key) && (action.displayMode == displayMode || action.displayMode == ActionItem.DisplayMode.ANY)) {
                 appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
             }
         }
@@ -632,7 +632,7 @@ public abstract class TextActions {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
-                    new ContextUtils(_activity).openWebpageInExternalBrowser(url);
+                    _au.openWebpageInExternalBrowser(url);
                 }
                 return true;
             }
@@ -660,6 +660,14 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_web_jump_to_table_of_contents: {
                 m_webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                return true;
+            }
+            case R.string.tmaid_common_view_file_in_other_app: {
+                _au.viewFileInOtherApp(_document.getFile(), FileUtils.getMimeType(_document.getFile()));
+                return true;
+            }
+            case R.string.tmaid_common_rotate_screen: {
+                _au.nextScreenRotationSetting();
                 return true;
             }
         }
@@ -721,7 +729,7 @@ public abstract class TextActions {
         public int stringId;
         public DisplayMode displayMode;
 
-        public enum DisplayMode {EDIT, VIEW}
+        public enum DisplayMode {EDIT, VIEW, ANY}
 
         public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string, final DisplayMode... a_displayMode) {
             keyId = key;

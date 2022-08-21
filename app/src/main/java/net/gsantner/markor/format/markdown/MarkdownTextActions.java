@@ -71,6 +71,7 @@ public class MarkdownTextActions extends TextActions {
 
                 new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
                 new ActionItem(R.string.tmaid_common_web_jump_to_table_of_contents, R.drawable.ic_list_black_24dp, R.string.table_of_contents, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(TMA_ACTIONS);
