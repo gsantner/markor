@@ -120,4 +120,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font">Phông chữ</string>
     <string name="close">Đóng</string>
     <string name="favourite">Yêu thích</string>
+    <string name="rotate">Xoay</string>
 </resources>
