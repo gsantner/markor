@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Vis for højre-mod-venstre sprog</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fejl: Kan ikke oprette mappe til notesbogen</string>
     <string name="last_modified_witharg">Sidst modificeret: %s</string>
+    <string name="last_modified">Sidst ændret</string>
     <string name="select_this_folder">Vælg denne mappe</string>
     <string name="select">Vælg</string>
     <string name="create">Opret</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursiv søgning i den aktuelle mappe.</string>
     <string name="always_open_with_this_app">Åbn altid med denne app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
+    <string name="rotate">Rotér</string>
     <string name="template">Skabelon</string>
     <string name="send_debug_log">Send Fejlsøgningslog</string>
     <string name="print_pdf">Print / PDF</string>
