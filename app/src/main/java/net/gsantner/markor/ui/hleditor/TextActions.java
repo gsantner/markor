@@ -21,6 +21,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -62,6 +63,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class TextActions {
     protected HighlightingEditor _hlEditor;
+    protected WebView m_webView;
     protected Document _document;
     protected Activity _activity;
     protected Context _context;
@@ -245,18 +247,18 @@ public abstract class TextActions {
         return prefKeys;
     }
 
-    public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (barLayout.getChildCount() == 0) {
-            setBarVisible(barLayout, true);
+    @SuppressWarnings("ConstantConditions")
+    public void recreateTextActionBarButtons(ViewGroup barLayout, ActionItem.DisplayMode displayMode) {
+        barLayout.removeAllViews();
+        setBarVisible(barLayout, true);
 
-            final Map<String, ActionItem> map = getActiveActionMap();
-            final List<String> orderedKeys = getActionOrder();
-            final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
-            for (final String key : orderedKeys) {
-                if (!disabledKeys.contains(key)) {
-                    final ActionItem action = map.get(key);
-                    appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
-                }
+        final Map<String, ActionItem> map = getActiveActionMap();
+        final List<String> orderedKeys = getActionOrder();
+        final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
+        for (final String key : orderedKeys) {
+            final ActionItem action = map.get(key);
+            if (!disabledKeys.contains(key) && action.displayMode == displayMode) {
+                appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
             }
         }
     }
@@ -502,6 +504,11 @@ public abstract class TextActions {
         return this;
     }
 
+    public TextActions setWebView(WebView webView) {
+        m_webView = webView;
+        return this;
+    }
+
     public Document getDocument() {
         return _document;
     }
@@ -647,6 +654,14 @@ public abstract class TextActions {
                 text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
                 return true;
             }
+            case R.string.tmaid_common_web_jump_to_very_top_or_bottom: {
+                runJumpBottomTopAction(ActionItem.DisplayMode.VIEW);
+                return true;
+            }
+            case R.string.tmaid_common_web_jump_to_table_of_contents: {
+                m_webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                return true;
+            }
         }
         return false;
     }
@@ -668,7 +683,7 @@ public abstract class TextActions {
                 return onSearch();
             }
             case R.string.tmaid_common_special_key: {
-                runJumpBottomTopAction();
+                runJumpBottomTopAction(ActionItem.DisplayMode.EDIT);
                 return true;
             }
             case R.string.tmaid_common_time: {
@@ -704,11 +719,15 @@ public abstract class TextActions {
         public int iconId;
         @StringRes
         public int stringId;
+        public DisplayMode displayMode;
 
-        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+        public enum DisplayMode {EDIT, VIEW}
+
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string, final DisplayMode... a_displayMode) {
             keyId = key;
             iconId = icon;
             stringId = string;
+            displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
     }
 
@@ -856,9 +875,18 @@ public abstract class TextActions {
         });
     }
 
-    public void runJumpBottomTopAction() {
-        int pos = _hlEditor.getSelectionStart();
-        _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+    public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
+        if (displayMode == ActionItem.DisplayMode.EDIT) {
+            int pos = _hlEditor.getSelectionStart();
+            _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+        } else if (displayMode == ActionItem.DisplayMode.VIEW) {
+            boolean top = m_webView.getScrollY() > 100;
+            m_webView.scrollTo(0, top ? 0 : m_webView.getContentHeight());
+            if (!top) {
+                m_webView.scrollBy(0, 1000);
+                m_webView.scrollBy(0, 1000);
+            }
+        }
     }
 
 }

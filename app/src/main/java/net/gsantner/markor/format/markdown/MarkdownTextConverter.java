@@ -239,7 +239,7 @@ public class MarkdownTextConverter extends TextConverter {
             head += CSS_TOC_STYLE;
             options.set(TocExtension.LEVELS, TocOptions.getLevels(appSettings.getMarkdownTableOfContentLevels()))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
-                    .set(TocExtension.DIV_CLASS, "markor-table-of-contents")
+                    .set(TocExtension.DIV_CLASS, "markor-table-of-contents toc")
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
                     .set(TocExtension.BLANK_LINE_SPACER, false);
         }
