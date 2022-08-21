@@ -276,7 +276,7 @@ public class Document implements Serializable {
         }
 
         // Don't write same content if base file not changed
-        if (_modTime == fileModTime() && isContentSame(content)) {
+        if (!hasFileChangedSinceLastLoad() && isContentSame(content)) {
             return true;
         }
 

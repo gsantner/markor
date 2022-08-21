@@ -254,7 +254,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
                 if (lno >= 0) {
                     startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST){
+                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
                     startPos = _hlEditor.length();
                 }
             }
