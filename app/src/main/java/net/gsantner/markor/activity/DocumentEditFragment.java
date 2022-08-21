@@ -96,13 +96,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
+    private boolean _documentErrorExitInProgress = false;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
-    private long _loadModTime = 0;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -122,16 +122,35 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Bundle args = getArguments();
-        // Create the document as soon as possible
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
-        } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
-            _document = (Document) args.get(Document.EXTRA_DOCUMENT);
-        } else {
-            // We must have a document
-            _document = Document.getDefault(getContext());
+        checkCreateDocument(); // In the normal course of things document should be created here
+    }
+
+    // Using `if (_document != null)` everywhere is dangerous
+    // It may cause reads or writes to _silently fail_
+    // Instead we try to create it, and exit if that isn't possible
+    private boolean checkCreateDocument() {
+        if (_documentErrorExitInProgress) {
+            return false;
         }
+
+        if (_document == null) {
+            final Bundle args = getArguments();
+            if (_savedInstanceState != null && _savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
+                _document = (Document) _savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+            } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
+                _document = (Document) args.get(Document.EXTRA_DOCUMENT);
+            }
+        }
+
+        // At this stage, if the document is still null, a hard exit is the best
+        if (_document == null) {
+            final Activity activity = getActivity();
+            Toast.makeText(activity, R.string.document_error_exit_message, Toast.LENGTH_LONG).show();
+            _documentErrorExitInProgress = true;
+            activity.finish();
+        }
+
+        return _document != null;
     }
 
     @Override
@@ -207,7 +226,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Bundle args = getArguments();
         setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
 
-        _loadModTime = 0; // force next load
         loadDocument();
 
         _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
@@ -236,7 +254,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
                 if (lno >= 0) {
                     startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-                } else {
+                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST){
                     startPos = _hlEditor.length();
                 }
             }
@@ -270,7 +288,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             _hlEditor.onPause();
         }
 
-        if (_appSettings != null && _document != null) {
+        if (checkCreateDocument() && _appSettings != null) {
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
             if (_hlEditor != null) {
@@ -362,12 +380,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void loadDocument() {
+    public boolean loadDocument() {
         //Only trigger the load process if constructing or file updated
-        final long modTime = _document != null ? _document.lastModified() : Long.MIN_VALUE;
-        if (modTime > _loadModTime) {
-
-            _loadModTime = modTime;
+        if (checkCreateDocument() && _document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
             if (!_document.isContentSame(_hlEditor.getText())) {
@@ -381,13 +396,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 _hlEditor.setSelection(sel[0], sel[1]);
                 StringUtils.showSelection(_hlEditor);
             }
-
             checkTextChangeState();
 
             if (_isPreviewVisible) {
                 updateViewModeText();
             }
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -418,10 +434,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_reload: {
-                final long oldModTime = _loadModTime;
-                loadDocument();
-                // Use modtime to show toast if document updated
-                if (_loadModTime != oldModTime) {
+                if (loadDocument()) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -491,7 +504,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.string.action_format_todotxt:
             case R.string.action_format_plaintext:
             case R.string.action_format_markdown: {
-                if (_document != null) {
+                if (checkCreateDocument()) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
                     _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
@@ -569,7 +582,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_info: {
-                if (_document != null) {
+                if (checkCreateDocument()) {
                     saveDocument(false); // In order to have the correct info displayed
                     FileInfoDialog.show(_document.getFile(), getFragmentManager());
                 }
@@ -636,9 +649,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
             for (int i = 0; i < su.size(); i++) {
-                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
-                    mi.setChecked(true);
-                }
+                mi.setChecked(true);
             }
         }
     }
@@ -678,7 +689,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public boolean checkPermissions() {
 
-        if (_document != null) {
+        if (checkCreateDocument()) {
             final File file = _document.getFile();
 
             if (_shareUtil.isUnderStorageAccessFolder(file, false) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
@@ -697,7 +708,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
-        if (_document != null && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
+        if (checkCreateDocument() && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
             if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
@@ -760,20 +771,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     protected boolean onToolbarLongClicked(View v) {
-        if (getUserVisibleHint()) {
-            if (_isPreviewVisible) {
-                boolean top = _webView.getScrollY() > 100;
-                _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-                if (!top) {
-                    _webView.scrollBy(0, 1000);
-                    _webView.scrollBy(0, 1000);
-                }
-            } else {
-                _textFormat.getTextActions().runJumpBottomTopAction();
+        if (_isPreviewVisible) {
+            boolean top = _webView.getScrollY() > 100;
+            _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
+            if (!top) {
+                _webView.scrollBy(0, 1000);
+                _webView.scrollBy(0, 1000);
             }
-            return true;
+        } else {
+            _textFormat.getTextActions().runJumpBottomTopAction();
         }
-        return false;
+        return true;
     }
 
     //
