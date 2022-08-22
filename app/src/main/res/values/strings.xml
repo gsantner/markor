@@ -455,4 +455,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
     <string name="document_error_exit_message">Error encountered. Exiting to minimize data loss.</string>
+    <string name="save_error_clipboard">Save error. Document copied to clipboard.</string>
 </resources>

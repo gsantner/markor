@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -112,10 +111,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
     // Toggling the wrap state option will set and save the new value, but the file will always
     // open wrapped in the main activity.
-    private boolean wrapTextSetting;
-    private boolean wrapText;
-    private boolean highlightText;
-    private boolean autoFormat;
+    private boolean _wrapTextSetting;
+    private boolean _wrapText;
+    private boolean _highlightText;
+    private boolean _autoFormat;
 
     public DocumentEditFragment() {
         super();
@@ -210,8 +209,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
+
         final Bundle args = getArguments();
-        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
+        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
+        if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
+            setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview));
+        } else {
+            setViewModeVisibility(startInPreview);
+        }
 
         // Set initial wrap state
         initDocState();
@@ -553,30 +558,31 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_wrap_words: {
-                wrapText = !wrapText;
-                wrapTextSetting = wrapText;
-                _appSettings.setDocumentWrapState(_document.getPath(), wrapTextSetting);
-                setHorizontalScrollMode(wrapText);
+                _wrapText = !_wrapText;
+                _wrapTextSetting = _wrapText;
+                _appSettings.setDocumentWrapState(_document.getPath(), _wrapTextSetting);
+                setHorizontalScrollMode(_wrapText);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_highlighting: {
-                highlightText = !highlightText;
-                _hlEditor.setHighlightingEnabled(highlightText);
-                _appSettings.setDocumentHighlightState(_document.getPath(), highlightText);
+                _highlightText = !_highlightText;
+                _hlEditor.setHighlightingEnabled(_highlightText);
+                _appSettings.setDocumentHighlightState(_document.getPath(), _highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_auto_format: {
-                autoFormat = !autoFormat;
-                _hlEditor.setAutoFormatEnabled(autoFormat);
-                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), autoFormat);
+                _autoFormat = !_autoFormat;
+                _hlEditor.setAutoFormatEnabled(_autoFormat);
+                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), _autoFormat);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_info: {
-                saveDocument(false); // In order to have the correct info displayed
-                FileInfoDialog.show(_document.getFile(), getParentFragmentManager());
+                if (saveDocument(false)) { // In order to have the correct info displayed
+                    FileInfoDialog.show(_document.getFile(), getParentFragmentManager());
+                }
                 return true;
             }
             case R.id.action_set_font_size: {
@@ -614,28 +620,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     private void initDocState() {
-        wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
-        wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
+        _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
+        _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
 
-        highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
-        autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
+        _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
+        _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
         updateMenuToggleStates(0);
 
-        setHorizontalScrollMode(wrapText);
-        _hlEditor.setHighlightingEnabled(highlightText);
+        setHorizontalScrollMode(_wrapText);
+        _hlEditor.setHighlightingEnabled(_highlightText);
     }
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
-            mi.setChecked(wrapText);
+            mi.setChecked(_wrapText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
-            mi.setChecked(highlightText);
+            mi.setChecked(_highlightText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
-            mi.setChecked(autoFormat);
+            mi.setChecked(_autoFormat);
         }
 
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
@@ -700,6 +706,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 checkTextChangeState();
                 return true;
             } else {
+                _shareUtil.setClipboard(text);
+                Toast.makeText(getContext(), R.string.save_error_clipboard, Toast.LENGTH_LONG).show();
                 return false; // Failure only if saveContent somehow fails
             }
         } else {
@@ -758,23 +766,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     protected boolean onToolbarLongClicked(View v) {
-        if (_isPreviewVisible) {
-            boolean top = _webView.getScrollY() > 100;
-            _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-            if (!top) {
-                _webView.scrollBy(0, 1000);
-                _webView.scrollBy(0, 1000);
+        if (isVisible() && isResumed()) {
+            if (_isPreviewVisible) {
+                boolean top = _webView.getScrollY() > 100;
+                _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
+                if (!top) {
+                    _webView.scrollBy(0, 1000);
+                    _webView.scrollBy(0, 1000);
+                }
+            } else {
+                _textFormat.getTextActions().runJumpBottomTopAction();
             }
-        } else {
-            _textFormat.getTextActions().runJumpBottomTopAction();
+            return true;
         }
-        return true;
+        return false;
     }
-
-    //
-    //
-    //
-    //
 
     public Document getDocument() {
         return _document;
