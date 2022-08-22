@@ -97,7 +97,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
-    private boolean _documentErrorExitInProgress = false;
     private TextFormat _textFormat;
     private ShareUtil _shareUtil;
     private TextViewUndoRedo _editTextUndoRedoHelper;
@@ -124,8 +123,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-        if (_savedInstanceState != null && _savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) _savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
             _document = (Document) args.get(Document.EXTRA_DOCUMENT);
         }
@@ -250,8 +249,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void resume() {
-        loadDocument();
-        _hlEditor.onResume();
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+            loadDocument();
+            _hlEditor.onResume();
+        }
     }
 
     @Override
@@ -267,11 +268,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void pause() {
-        saveDocument(false);
-        _hlEditor.onPause();
-        _appSettings.addRecentDocument(_document.getFile());
-        _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
-        _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+            saveDocument(false);
+            _hlEditor.onPause();
+            _appSettings.addRecentDocument(_document.getFile());
+            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
+            _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        }
     }
 
     @Override
