@@ -92,9 +92,7 @@ public class TextViewUndoRedo {
     }
 
     public void setTextView(TextView textView) {
-        if (mTextView != null) {
-            mTextView.removeTextChangedListener(mChangeListener);
-        }
+        disconnect();
         mTextView = textView;
         mTextView.addTextChangedListener(mChangeListener);
     }
@@ -109,7 +107,9 @@ public class TextViewUndoRedo {
      * Disconnect this undo/redo from the text view.
      */
     public void disconnect() {
-        mTextView.removeTextChangedListener(mChangeListener);
+        if (mTextView != null) {
+            mTextView.removeTextChangedListener(mChangeListener);
+        }
     }
 
     /**

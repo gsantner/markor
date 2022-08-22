@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -104,6 +105,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
+    private boolean _initialized = false;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
     // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
@@ -211,10 +213,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         final Bundle args = getArguments();
         setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
 
-        loadDocument();
-
-        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-
         // Set initial wrap state
         initDocState();
 
@@ -223,6 +221,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(TextWatcherDummy.after(s -> debounced.run()));
+
+        _initialized = true;
     }
 
     @Override
@@ -249,9 +249,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void resume() {
-        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+        if (_initialized) {
             loadDocument();
             _hlEditor.onResume();
+        } else {
+            Log.d(DocumentEditFragment.class.getName(), "Resume called uninitialized");
         }
     }
 
@@ -268,12 +270,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void pause() {
-        if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+        if (_initialized) {
             saveDocument(false);
             _hlEditor.onPause();
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
             _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        } else {
+            Log.d(DocumentEditFragment.class.getName(), "Pause called uninitialized");
         }
     }
 
@@ -361,7 +365,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public boolean loadDocument() {
-        //Only trigger the load process if constructing or file updated
+        // Only trigger the load process if constructing or file updated
         if (_document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
@@ -371,7 +375,18 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 sel[0] = Math.min(sel[0], content.length());
                 sel[1] = Math.min(sel[1], content.length());
 
+                if (_editTextUndoRedoHelper != null) {
+                    _editTextUndoRedoHelper.disconnect();
+                    _editTextUndoRedoHelper.clearHistory();
+                }
+
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
+
+                if (_editTextUndoRedoHelper == null) {
+                    _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+                } else {
+                    _editTextUndoRedoHelper.setTextView(_hlEditor);
+                }
 
                 _hlEditor.setSelection(sel[0], sel[1]);
                 StringUtils.showSelection(_hlEditor);
@@ -677,7 +692,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     // Save the file
-    // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();

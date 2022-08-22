@@ -132,7 +132,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 final float oldOffset = _hl.yOffset(shiftTestIndex);
 
                 withAccessibilityDisabled(() -> {
-                    // Hack to prevent scrolling to cursor. Time based blocking _may_ fail though.
+                    // Hack to prevent scrolling to cursor
                     blockBringPointIntoView();
                     _hl.clear();
                     if (recompute) {
