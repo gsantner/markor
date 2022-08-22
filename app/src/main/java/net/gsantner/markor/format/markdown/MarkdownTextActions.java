@@ -10,10 +10,10 @@
 package net.gsantner.markor.format.markdown;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
@@ -29,8 +29,8 @@ import java.util.List;
 
 public class MarkdownTextActions extends TextActions {
 
-    public MarkdownTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public MarkdownTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -167,7 +167,6 @@ public class MarkdownTextActions extends TextActions {
                     _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
                     _hlEditor.setSelection(c + "\n```\n".length());
                 });
-                Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                 return true;
             }
             default: {

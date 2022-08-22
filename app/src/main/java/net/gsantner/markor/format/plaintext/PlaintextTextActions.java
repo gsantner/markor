@@ -9,8 +9,9 @@
 #########################################################*/
 package net.gsantner.markor.format.plaintext;
 
-import android.app.Activity;
+import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
@@ -24,8 +25,8 @@ import java.util.List;
 
 public class PlaintextTextActions extends TextActions {
 
-    public PlaintextTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public PlaintextTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override

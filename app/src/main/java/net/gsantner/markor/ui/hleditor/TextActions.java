@@ -27,6 +27,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
@@ -56,6 +58,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,7 +69,6 @@ public abstract class TextActions {
     protected WebView m_webView;
     protected Document _document;
     protected Activity _activity;
-    protected Context _context;
     protected AppSettings _appSettings;
     protected ActivityUtils _au;
     private final int _textActionSidePadding;
@@ -77,13 +79,10 @@ public abstract class TextActions {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    public TextActions(final Activity activity, final Document document) {
+    public TextActions(@NonNull final Context context, final Document document) {
         _document = document;
-        _activity = activity;
-        _au = new ActivityUtils(activity);
-        _context = activity != null ? activity : _hlEditor.getContext();
-        _appSettings = new AppSettings(_context);
-        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _appSettings = new AppSettings(context.getApplicationContext());
+        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * context.getResources().getDisplayMetrics().density);
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }
 
@@ -258,28 +257,47 @@ public abstract class TextActions {
         for (final String key : orderedKeys) {
             final ActionItem action = map.get(key);
             if (!disabledKeys.contains(key) && (action.displayMode == displayMode || action.displayMode == ActionItem.DisplayMode.ANY)) {
-                appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
+                appendTextActionToBar(barLayout, action);
             }
         }
     }
 
-    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, @StringRes int actionKey) {
+    protected void appendTextActionToBar(ViewGroup barLayout, @NonNull ActionItem action) {
         final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
-        btn.setImageResource(iconRes);
-        btn.setContentDescription(_activity.getString(descRes));
-        TooltipCompat.setTooltipText(btn, _activity.getString(descRes));
+        btn.setImageResource(action.iconId);
+        btn.setContentDescription(_activity.getString(action.stringId));
+        TooltipCompat.setTooltipText(btn, _activity.getString(action.stringId));
+        final AtomicBoolean showTooltip = new AtomicBoolean(false);
+
+        // show the android tooltip text popup (which only can be shown through longClick)
+        final Callback.a1<Integer> triggerTooltip = stringId -> {
+            showTooltip.set(true);
+            btn.setContentDescription(_activity.getString(stringId));
+            TooltipCompat.setTooltipText(btn, _activity.getString(stringId));
+            btn.postDelayed(btn::performLongClick, 100);
+        };
+
         btn.setOnClickListener(v -> {
             try {
+                // run action
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                onActionClick(actionKey);
+                if (onActionClick(action.keyId)) {
+                    triggerTooltip.callback(action.stringId);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
         btn.setOnLongClickListener(v -> {
             try {
+                if (showTooltip.getAndSet(false)) {
+                    return false;
+                }
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                return onActionLongClick(actionKey);
+                if (onActionLongClick(action.keyId)) {
+                    triggerTooltip.callback(action.stringId); // replace in future with separate description stringId for longClick
+                    return true;
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -495,17 +513,17 @@ public abstract class TextActions {
     //
     //
     //
-    public HighlightingEditor getHighlightingEditor() {
-        return _hlEditor;
-    }
 
-    public TextActions setHighlightingEditor(HighlightingEditor hlEditor) {
+    public TextActions setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
+        _activity = activity;
         _hlEditor = hlEditor;
-        return this;
-    }
-
-    public TextActions setWebView(WebView webView) {
-        m_webView = webView;
+        m_webView = webview;
+        if (_au != null) {
+            _au.freeContextRef();
+        }
+        if (activity != null) {
+            _au = new ActivityUtils(activity);
+        }
         return this;
     }
 
@@ -522,18 +540,8 @@ public abstract class TextActions {
         return _activity;
     }
 
-    public TextActions setActivity(Activity activity) {
-        _activity = activity;
-        return this;
-    }
-
     public Context getContext() {
-        return _context;
-    }
-
-    public TextActions setContext(Context context) {
-        _context = context;
-        return this;
+        return _activity;
     }
 
     /**
@@ -577,7 +585,7 @@ public abstract class TextActions {
 
             }
             case R.string.tmaid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + _context.getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + getContext().getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.tmaid_common_attach_something: {

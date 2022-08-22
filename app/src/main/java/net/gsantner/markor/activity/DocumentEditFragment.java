@@ -408,12 +408,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item == null) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
+        final Activity activity = getActivity();
+        if (activity == null) {
             return true;
         }
-        _shareUtil.setContext(getContext());
-        final Activity activity = getActivity();
+        _shareUtil.setContext(activity);
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
@@ -613,14 +613,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void applyTextFormat(final int textFormatId) {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
         _textActionsBar.removeAllViews();
-        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
+        _textFormat = TextFormat.getFormat(textFormatId, activity, _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
-        _textFormat.getTextActions().setHighlightingEditor(_hlEditor).setWebView(_webView);
-
+        _textFormat.getTextActions().setUiReferences(activity, _hlEditor, _webView);
         updateMenuToggleStates(textFormatId);
     }
 

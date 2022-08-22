@@ -12,6 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,8 +43,8 @@ public class TodoTxtTextActions extends TextActions {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtTextActions.class.getCanonicalName() + "_last_sort_order_key";
 
-    public TodoTxtTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public TodoTxtTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -348,8 +349,8 @@ public class TodoTxtTextActions extends TextActions {
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(_context.getString(R.string.due_date))
-                .setExtraLabel(_context.getString(R.string.clear))
+                .setMessage(getContext().getString(R.string.due_date))
+                .setExtraLabel(getContext().getString(R.string.clear))
                 .setExtraListener(clear)
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }

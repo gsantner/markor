@@ -9,10 +9,11 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
@@ -34,8 +35,8 @@ import java.util.regex.Matcher;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
-    public ZimWikiTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public ZimWikiTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
