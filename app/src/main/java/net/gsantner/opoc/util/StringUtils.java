@@ -135,7 +135,7 @@ public final class StringUtils {
     }
 
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
-        return sel != null && sel.length >= 2 ? new int[]{ getLineStart(text, sel[0]), getLineEnd(text, sel[1]) } : null;
+        return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
 
     public static int[] getLineSelection(final TextView text) {
@@ -716,7 +716,7 @@ public final class StringUtils {
     }
 
     public static Runnable blockReentry(final Runnable callback) {
-        final boolean[] block = new boolean[] { false };
+        final boolean[] block = new boolean[]{false};
         return () -> {
             if (!block[0]) {
                 try {
@@ -742,11 +742,24 @@ public final class StringUtils {
     }
 
     // Check if a range is valid
-    public static boolean checkRange(final CharSequence seq, final int ... indices) {
+    public static boolean checkRange(final CharSequence seq, final int... indices) {
         return checkRange(seq.length(), indices);
     }
 
-    public static boolean checkRange(final int length, final int ... indices) {
+    public static boolean checkRange(final int length, final int... indices) {
         return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
+    }
+
+    public static String toTitleCase(final String str) {
+        final String delimiters = " '-/#.";
+        final StringBuilder sb = new StringBuilder();
+
+        boolean nextUppercase = true;
+        for (char c : str.toCharArray()) {
+            c = (nextUppercase) ? Character.toUpperCase(c) : Character.toLowerCase(c);
+            sb.append(c);
+            nextUppercase = (delimiters.indexOf(c) >= 0);
+        }
+        return sb.toString().replaceAll("\\s+", " ").trim();
     }
 }

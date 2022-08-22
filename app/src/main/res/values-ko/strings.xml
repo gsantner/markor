@@ -305,6 +305,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">텍스트가 화면 너비를 초과할 경우 자동으로 줄을 바꿉니다. 이 기능을 사용하지 않을 경우 가로 스크롤바를 표시합니다.</string>
     <string name="always_open_with_this_app">항상 이 앱으로 열기</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">목록이 파일 확장자를 포함할 경우 항상 이 앱으로 파일을 열게 됩니다. 웹 파일 또는 확장자가 없는 파일을 편집하고자 할 때는 \'None, .html, .css, .js\'와 같은 예시를 사용하세요.</string>
+    <string name="rotate">회전</string>
     <string name="template">템플릿</string>
     <string name="send_debug_log">디버그 기록을 전송</string>
     <string name="print_pdf">인쇄 / PDF</string>

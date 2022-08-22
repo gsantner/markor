@@ -71,4 +71,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">منفرق مضامین</string>
     <string name="background">پس منظر</string>
     <string name="font">فونٹ</string>
+    <string name="rotate">گھمائیں</string>
 </resources>

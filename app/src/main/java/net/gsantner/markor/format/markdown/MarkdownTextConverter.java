@@ -146,8 +146,8 @@ public class MarkdownTextConverter extends TextConverter {
             AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
             FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
     );
-    private static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
-    private static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
+    public static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
+    public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
     //## Methods

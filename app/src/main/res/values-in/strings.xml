@@ -312,6 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Pencarian rekursif di direktori saat ini.</string>
     <string name="always_open_with_this_app">Selalu buka dengan aplikasi ini</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Selalu buka file dengan aplikasi ini saat daftar berisi ekstensi file. Gunakan \'None, .html, .css, .js\' misalnya jika Anda ingin mengedit file web dan yang tanpa ekstensi file.</string>
+    <string name="rotate">Rotasi</string>
     <string name="template">Sampul</string>
     <string name="send_debug_log">Kirim Log Debug</string>
     <string name="print_pdf">Cetak / PDF</string>

@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Processamento para idiomas RTL</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erro: não foi possível criar o diretório</string>
     <string name="last_modified_witharg">Última modificação: %s</string>
+    <string name="last_modified">Última modificação</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
     <string name="create">Criar</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual.</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esta aplicação se a wextensão do ficheiro estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar ficheiros web ou ficheiros que não tenham extensão.</string>
+    <string name="rotate">Rodar</string>
     <string name="template">Modelo</string>
     <string name="send_debug_log">Enviar registos de debug</string>
     <string name="print_pdf">Imprimir/PDF</string>

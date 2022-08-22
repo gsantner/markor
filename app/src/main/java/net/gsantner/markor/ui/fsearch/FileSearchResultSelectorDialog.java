@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
-import androidx.core.util.Pair;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.Callback;

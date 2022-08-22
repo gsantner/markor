@@ -48,7 +48,6 @@ public abstract class Highlighter {
 
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
 
-    public static final Pattern HEX_CODE_UNDERLINE_PATTERN = Pattern.compile("(?:\\s|[\";,:'*]|^)(#[A-Fa-f0-9]{6,8})+(?:\\s|[\";,:'*]|$)");
     private static final Pattern PATTERN_TAB = Pattern.compile("\t");
 
     protected static Highlighter getDefaultHighlighter(final AppSettings as) {
@@ -72,7 +71,7 @@ public abstract class Highlighter {
     protected int _tabSize = 1;
     protected boolean _isDarkMode = false;
     protected int _textColor = Color.BLACK;
-    protected String  _fontFamily = "";
+    protected String _fontFamily = "";
 
     public Highlighter configure() {
         return configure(null);
@@ -142,6 +141,7 @@ public abstract class Highlighter {
 
     /**
      * Removes all spans applied by this highlighter to the currently set spannable
+     *
      * @return this
      */
     public synchronized Highlighter clear() {
@@ -162,6 +162,7 @@ public abstract class Highlighter {
     /**
      * Change the currently attached spannable.
      * Caller is responsible for clearing spans attached to existing spannable
+     *
      * @param spannable Spannable to work on
      * @return this
      */
@@ -186,6 +187,7 @@ public abstract class Highlighter {
 
     /**
      * Adjust all currently computed spans. Use to adjust spans after text edited.
+     *
      * @param after Apply to spans with region starting after 'after'
      * @param delta Apply to
      * @return this
@@ -219,11 +221,12 @@ public abstract class Highlighter {
     }
 
     public synchronized Highlighter apply() {
-        return apply(new int[] { 0, _spannable.length() });
+        return apply(new int[]{0, _spannable.length()});
     }
 
     /**
      * Apply spans which intersect region [start, end)
+     *
      * @return this
      */
     public synchronized Highlighter apply(final int[] range) {
@@ -264,7 +267,7 @@ public abstract class Highlighter {
     }
 
     public final Highlighter reflow() {
-        return reflow(new int[] {0, _spannable.length()});
+        return reflow(new int[]{0, _spannable.length()});
     }
 
     // Reflow selected region's lines
@@ -291,6 +294,7 @@ public abstract class Highlighter {
     /**
      * Recompute all spans. References to existing spans will be lost.
      * Caller is responsible for calling 'clear()' before this, if necessary
+     *
      * @return this
      */
     public synchronized final Highlighter recompute() {
@@ -302,8 +306,7 @@ public abstract class Highlighter {
         }
 
         // Highlighting cannot generate exceptions!
-        try
-        {
+        try {
             generateSpans();
             Collections.sort(_groups); // Dramatically improves performance
         } catch (Exception ex) {
@@ -348,30 +351,30 @@ public abstract class Highlighter {
     }
 
     protected final void createColorSpanForMatches(final Pattern pattern, final int color, int... groupsToMatch) {
-         createSpanForMatches(pattern, new HighlightSpan().setForeColor(color), groupsToMatch);
+        createSpanForMatches(pattern, new HighlightSpan().setForeColor(color), groupsToMatch);
     }
 
     protected final void createColorBackgroundSpan(final Pattern pattern, final int color, int... groupsToMatch) {
-         createSpanForMatches(pattern, new HighlightSpan().setBackColor(color), groupsToMatch);
+        createSpanForMatches(pattern, new HighlightSpan().setBackColor(color), groupsToMatch);
     }
 
     protected final void createStrikeThroughSpanForMatches(final Pattern pattern, int... groupsToMatch) {
-         createSpanForMatches(pattern, new HighlightSpan().setStrike(true), groupsToMatch);
+        createSpanForMatches(pattern, new HighlightSpan().setStrike(true), groupsToMatch);
     }
 
     protected final void createTypefaceSpanForMatches(Pattern pattern, final String typeface, int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new TypefaceSpan(typeface), groupsToMatch);
+        createSpanForMatches(pattern, matcher -> new TypefaceSpan(typeface), groupsToMatch);
     }
 
     protected final void createRelativeSizeSpanForMatches(final Pattern pattern, float relativeSize, int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new RelativeSizeSpan(relativeSize), groupsToMatch);
+        createSpanForMatches(pattern, matcher -> new RelativeSizeSpan(relativeSize), groupsToMatch);
     }
 
     protected final void createReplacementSpanForMatches(final Pattern pattern, final int charWidth, int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new ReplacementSpan() {
+        createSpanForMatches(pattern, matcher -> new ReplacementSpan() {
             @Override
             public int getSize(@NonNull Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-                 return charWidth;
+                return charWidth;
             }
 
             @Override
@@ -381,26 +384,26 @@ public abstract class Highlighter {
     }
 
     protected final void createMonospaceSpanForMatches(final Pattern pattern, int... groupsToMatch) {
-         createTypefaceSpanForMatches(pattern, "monospace", groupsToMatch);
+        createTypefaceSpanForMatches(pattern, "monospace", groupsToMatch);
     }
 
     protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, @ColorInt int color, int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new ColorUnderlineSpan(color, null), groupsToMatch);
+        createSpanForMatches(pattern, matcher -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
     protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, final Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
-         createSpanForMatches(pattern, creator, groupsToMatch);
+        createSpanForMatches(pattern, creator, groupsToMatch);
     }
 
     protected final void createSuperscriptStyleSpanForMatches(final Pattern pattern, final int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new SuperscriptSpan(), groupsToMatch);
+        createSpanForMatches(pattern, matcher -> new SuperscriptSpan(), groupsToMatch);
     }
 
     protected final void createSubscriptStyleSpanForMatches(final Pattern pattern, final int... groupsToMatch) {
-         createSpanForMatches(pattern, matcher -> new SubscriptSpan(), groupsToMatch);
+        createSpanForMatches(pattern, matcher -> new SubscriptSpan(), groupsToMatch);
     }
 
-    protected final void createTabSpans(final int tabWidth)  {
+    protected final void createTabSpans(final int tabWidth) {
         if (tabWidth > 0) {
             createReplacementSpanForMatches(PATTERN_TAB, tabWidth);
         }
@@ -411,7 +414,7 @@ public abstract class Highlighter {
     }
 
     protected final void createUnderlineHexColorsSpans() {
-        createColoredUnderlineSpanForMatches(HEX_CODE_UNDERLINE_PATTERN, m -> new ColorUnderlineSpan(Color.parseColor(m.group(1)), 3f), 1);
+        createColoredUnderlineSpanForMatches(ColorUnderlineSpan.HEX_CODE_UNDERLINE_PATTERN, m -> new ColorUnderlineSpan(m.group(1), 3f), 1);
     }
 
     // We _do not_ implement UpdateLayout or Parcelable for performance reasons
@@ -422,8 +425,10 @@ public abstract class Highlighter {
         public Boolean underline = null;
         public Boolean strikethrough = null;
         public Float textSize = null;
-        public @ColorInt Integer foregroundColor = null;
-        public @ColorInt Integer backgroundColor = null;
+        public @ColorInt
+        Integer foregroundColor = null;
+        public @ColorInt
+        Integer backgroundColor = null;
 
         // Setters. Use null (default) to indicate "don't change this value"
         public HighlightSpan setForeColor(@ColorInt Integer color) {
@@ -483,7 +488,7 @@ public abstract class Highlighter {
                 tp.setTextSkewX(-0.25f); // This is what android uses
             }
 
-            if (foregroundColor != null)  {
+            if (foregroundColor != null) {
                 tp.setColor(foregroundColor);
             }
 

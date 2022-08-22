@@ -54,7 +54,7 @@
 
     <!-- reduced spacing -->
     <style name="LessSpaceActionButtonStyle" parent="Widget.AppCompat.ActionButton">
-        <item name="android:minWidth">0dip</item>
+        <item name="android:minWidth">1dip</item>
         <item name="android:paddingLeft">8dip</item>
         <item name="android:paddingRight">8dip</item>
         <item name="android:paddingStart">8dip</item>

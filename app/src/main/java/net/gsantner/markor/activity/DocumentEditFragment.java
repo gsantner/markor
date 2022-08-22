@@ -19,6 +19,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
@@ -55,6 +57,7 @@ import net.gsantner.markor.util.MarkorWebViewClient;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.activity.GsFragmentBase;
 import net.gsantner.opoc.android.dummy.TextWatcherDummy;
+import net.gsantner.opoc.net.OpocWebViewChromeClient;
 import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
@@ -102,6 +105,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
+    private OpocWebViewChromeClient _webChromeClient;
     private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
     private boolean _initialized = false;
@@ -136,7 +140,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant"})
+    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -163,7 +167,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _webViewClient = new MarkorWebViewClient(activity);
+        _webChromeClient = new OpocWebViewChromeClient(_webView, getActivity(), view.findViewById(R.id.document__fragment_fullscreen_overlay));
+        _webView.setWebChromeClient(_webChromeClient);
         _webView.setWebViewClient(_webViewClient);
+        _webView.addJavascriptInterface(this, "Android");
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
@@ -177,6 +184,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            webSettings.setMediaPlaybackRequiresUserGesture(false);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
@@ -256,7 +266,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void resume() {
         if (_initialized) {
             loadDocument();
-            _hlEditor.onResume();
         } else {
             Log.d(DocumentEditFragment.class.getName(), "Resume called uninitialized");
         }
@@ -277,7 +286,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void pause() {
         if (_initialized) {
             saveDocument(false);
-            _hlEditor.onPause();
             _appSettings.addRecentDocument(_document.getFile());
             _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
             _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
@@ -742,6 +750,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
     }
 
+    // Callback from view-mode/javascript
+    @SuppressWarnings("unused")
+    @JavascriptInterface
+    public void webViewJavascriptCallback(final String[] jsArgs) {
+        final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
+        final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+    }
+
     private static boolean fadeInOut(final View in, final View out) {
         // Do nothing if we are already in the correct state
         if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
@@ -795,5 +811,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         if (!_isPreviewVisible && _textFormat != null) {
             _textFormat.getTextActions().runTitleClick();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        try {
+            _webView.loadUrl("about:blank");
+            _webView.destroy();
+        } catch (Exception ignored) {
+        }
+        super.onDestroy();
     }
 }

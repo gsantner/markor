@@ -1,14 +1,13 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
- *     https://www.apache.org/licenses/LICENSE-2.0
- *     https://github.com/gsantner/opoc/#licensing
+ * SPDX-FileCopyrightText: 2022-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/
-package net.gsantner.opoc.util;
+package net.gsantner.opoc.net;
+
+import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.util.FileUtils;
 
 import org.json.JSONObject;
 
@@ -28,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "deprecation"})
-public class NetworkUtils {
+public class OpocNetworkUtils {
     private static final String UTF8 = "UTF-8";
     public static final String GET = "GET";
     public static final String POST = "POST";
@@ -225,7 +224,7 @@ public class NetworkUtils {
     public static void httpGetAsync(final String url, final Callback.a1<String> callback) {
         new Thread(() -> {
             try {
-                String c = NetworkUtils.performCall(url, GET);
+                String c = OpocNetworkUtils.performCall(url, GET);
                 callback.callback(c);
             } catch (Exception ignored) {
             }

@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">渲染从右往左读的语言</string>
     <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
     <string name="last_modified_witharg">上次修改：%s</string>
+    <string name="last_modified">最后修改</string>
     <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
@@ -137,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">作用于整个应用的主题</string>
     <string name="remember_last_directory">记住上次使用的目录</string>
     <string name="syntax_highlighting">语法高亮</string>
+    <string name="dynamic_highlighting">动态高亮</string>
     <string name="highlighting_delay">语法高亮延时</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
     <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
+    <string name="dynamic_highlighting_effect">动态高亮增加性能。可能会导致渲染伪影。</string>
     <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
@@ -314,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">在当前目录中进行递归搜索。</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\'。</string>
+    <string name="rotate">旋转</string>
     <string name="template">模板</string>
     <string name="send_debug_log">发送调试日志</string>
     <string name="print_pdf">打印/PDF</string>

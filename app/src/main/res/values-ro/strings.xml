@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Randare pentru limbile cu scriere de la dreapta la stânga</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Eroare: Imposibil de creat notebook-uri</string>
     <string name="last_modified_witharg">Modificat ultima dată: %s</string>
+    <string name="last_modified">Ultima modificare</string>
     <string name="select_this_folder">Selectați acest dosar</string>
     <string name="select">Selectează</string>
     <string name="create">Creează</string>
@@ -137,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Tema generală utilizată în aplicație</string>
     <string name="remember_last_directory">Memorează ultimul director</string>
     <string name="syntax_highlighting">Evidențiere sintaxă</string>
+    <string name="dynamic_highlighting">Evidență dinamică</string>
     <string name="highlighting_delay">Întârziere evidenţiere</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Întârziere în milisecunde pentru evidențierea reîmprospătării. O valoare mai mică va începe să evidențieze mai devreme, dar va consuma bateria și poate încetini aplicația pe dispozitive mai vechi.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlul dacă textul introdus trebuie evidențiat sau nu</string>
+    <string name="dynamic_highlighting_effect">Dinamic care evidențiază creșterea performanței. Poate cauza redarea artefactelor.</string>
     <string name="control_font_size_in_editor">Controlează dimensiunea fontului folosită în editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Afișează o bară cu butoane utile în partea de jos. Aceste acțiuni de text modifică textul sau execută o acțiune bazată pe text.</string>
     <string name="load_last_opened_folder_at_startup">Încarcă ultimul dosar deschis la pornire</string>
@@ -314,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Căutare recursivă în directorul curent.</string>
     <string name="always_open_with_this_app">Deschideți întotdeauna cu această aplicație</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia de fișiere. Folosiți \'Niciunul, .html, . ss , .js de exemplu dacă doriţi să editaţi fişiere web şi cele fără extensia fişierului.</string>
+    <string name="rotate">Rotire</string>
     <string name="template">Șablon</string>
     <string name="send_debug_log">Trimite jurnalul de depanare</string>
     <string name="print_pdf">Print / PDF</string>
@@ -346,7 +350,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Titlu3</string>
     <string name="heading_4">Titlu4</string>
     <string name="heading_5">Titlu5</string>
-    <string name="heading_6">Titlu6</string>
+    <string name="heading_6">Subtitlu 6</string>
     <string name="bold">Bold</string>
     <string name="italic">Italic</string>
     <string name="highlighted">Evident</string>

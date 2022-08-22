@@ -27,6 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crear cartafol</string>
     <string name="create_new_document">Crear un novo Documento</string>
     <string name="move">Mover</string>
+    <string name="copy">Copiar</string>
     <string name="info">Información</string>
     <string name="import_from_device">Importar dun dispositivo</string>
     <string name="import_">Importar</string>

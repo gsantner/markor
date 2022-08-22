@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Hahmonna oikealta vasemmalle -kielille</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Virhe: muistiinpanojen hakemistoa ei voi luoda</string>
     <string name="last_modified_witharg">Viimeksi muokattu: %s</string>
+    <string name="last_modified">Viimeksi muokattu</string>
     <string name="select_this_folder">Valitse tämä kansio</string>
     <string name="select">Valitse</string>
     <string name="create">Luo</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursiivinen haku nykyisessä hakemistossa.</string>
     <string name="always_open_with_this_app">Avaa aina tällä sovelluksella</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Avaa aina tiedostoja tällä sovelluksella, kun lista sisältää tiedostopäätteen. Käytä \'Ei mitään, .html, . ss , .js esimerkiksi jos haluat muokata web-tiedostoja ja niitä ilman tiedostopäätettä.</string>
+    <string name="rotate">Kierrä</string>
     <string name="template">Malli</string>
     <string name="send_debug_log">Lähetä Vianetsintäloki</string>
     <string name="print_pdf">Print / PDF</string>

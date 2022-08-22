@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Vykreslovat pro right-to-left jazyky</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Nelze vytvořit složku pro notebook</string>
     <string name="last_modified_witharg">Naposledy změněno: %s</string>
+    <string name="last_modified">Naposledy upraveno</string>
     <string name="select_this_folder">Vybrat tuto složku</string>
     <string name="select">Vybrat</string>
     <string name="create">Vytvoøit</string>
@@ -141,7 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Zpoždění zvýraznění</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Prodleva v milisekundách pro aktualizaci zvýraznění. Nižší hodnota začne zvýrazňovat dříve, ale bude vybíjet baterii a může zpomalit aplikaci na starších zařízeních.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrolovat, zda zadaný text by měl být zvýrazněn, nebo ne</string>
-    <string name="dynamic_highlighting_effect">Dynamické zvýraznění zvyšuje výkon. Může způsobit kreslení artefaktů.</string>
+    <string name="dynamic_highlighting_effect">Dynamické zvýraznění zvyšuje výkon, ale může způsobit vykreslování artefaktů.</string>
     <string name="control_font_size_in_editor">Nastavení velikost písma použitého v editoru</string>
     <string name="textactions_show_useful_actions_description__appspecific">Zobrazit dole lištu s užitečnými tlačítky. Tlačítka spouští jednotlivé textové moduly.</string>
     <string name="load_last_opened_folder_at_startup">Načíst poslední otevřenou složku při spuštění</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekurentní vyhledávání v aktuální složce.</string>
     <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
+    <string name="rotate">Otoèit</string>
     <string name="template">Šablona</string>
     <string name="send_debug_log">Odeslat protokol ladění</string>
     <string name="print_pdf">Tisk / PDF</string>

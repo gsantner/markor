@@ -193,6 +193,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_mode">ସମ୍ପାଦନ ମୋଡ୍‍</string>
     <string name="please_wait">ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ</string>
     <string name="reload">ପୁନଃଲୋଡ୍ କରନ୍ତୁ</string>
+    <string name="rotate">ଘୂର୍ଣ୍ଣନ କରନ୍ତୁ</string>
     <string name="template">ଟେମ୍ପଲେଟ୍</string>
     <string name="print_pdf">ମୁଦ୍ରଣ / PDF</string>
     <string name="increase_text_size_of_headings_according_to_level">ସ୍ତର ଅନୁଯାୟୀ ଶୀର୍ଷଲେଖ ର ପାଠ୍ୟ ଆକାର ବୃଦ୍ଧି କରନ୍ତୁ (# h1, ## h2. ### h3…)</string>

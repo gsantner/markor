@@ -1,11 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2020-
- *   https://gsantner.net/
- *
- *   License: Apache 2.0 / Commercial
- *  https://github.com/gsantner/opoc/#licensing
- *  https://www.apache.org/licenses/LICENSE-2.0
+ * SPDX-FileCopyrightText: 2020-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/
 package net.gsantner.opoc.activity;
@@ -14,6 +10,8 @@ import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
@@ -30,6 +28,7 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
     protected AS _appSettings;
     protected Bundle _savedInstanceState;
     protected ActivityUtils _activityUtils;
+    private int m_initialToolbarHeight = 0;
 
     private final Callback.a0 m_setActivityBackgroundColor = () -> new ActivityUtils(GsActivityBase.this).setActivityBackgroundColor(getNewActivityBackgroundColor()).freeContextRef();
     private final Callback.a0 m_setActivityNavigationBarColor = () -> new ActivityUtils(GsActivityBase.this).setActivityNavigationBarBackgroundColor(getNewNavigationBarColor()).freeContextRef();
@@ -100,6 +99,25 @@ public abstract class GsActivityBase<AS extends SharedPreferencesPropertyBackend
             if (t != null) {
                 t.setTitle(title);
             }
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Set the Activity {@link Toolbar}, or more specific it's parent AppBarLayout to visible/gone
+     *
+     * @param visible Show toolbar or not
+     */
+    public void setToolbarVisible(boolean visible) {
+        try {
+            final int toolbarResId = _activityUtils.getResId(ContextUtils.ResType.ID, "toolbar");
+            LinearLayout appBarLayout = ((LinearLayout) findViewById(toolbarResId).getParent());
+            if (!visible && m_initialToolbarHeight == 0) {
+                m_initialToolbarHeight = appBarLayout.getMeasuredHeight();
+            }
+            ViewGroup.LayoutParams lp = appBarLayout.getLayoutParams();
+            lp.height = visible ? m_initialToolbarHeight : 0;
+            appBarLayout.setLayoutParams(lp);
         } catch (Exception ignored) {
         }
     }

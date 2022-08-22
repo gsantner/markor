@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -76,14 +77,14 @@ public class HighlightingEditor extends AppCompatEditText {
 
         addTextChangedListener(new TextWatcherDummy() {
             @Override
-            public void onTextChanged (CharSequence s,int start, int before, int count){
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
                     withAccessibilityDisabled(() -> _hl.fixup(start, before, count));
                 }
             }
 
             @Override
-            public void afterTextChanged ( final Editable s){
+            public void afterTextChanged(final Editable s) {
                 if (_hlEnabled && _hl != null && _hlDebounced != null) {
                     _hlDebounced.run();
                 }
@@ -103,8 +104,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private boolean isScrollSignificant(final Rect rect) {
         return _hlRect == null ||
-               Math.abs(rect.top - _hlRect.top) > _hlShiftThreshold ||
-               Math.abs(rect.bottom - _hlRect.bottom) > _hlShiftThreshold;
+                Math.abs(rect.top - _hlRect.top) > _hlShiftThreshold ||
+                Math.abs(rect.bottom - _hlRect.bottom) > _hlShiftThreshold;
     }
 
 
@@ -210,7 +211,7 @@ public class HighlightingEditor extends AppCompatEditText {
             final int endY = y + hlSize;
             return new int[]{rowStart(startY), rowEnd(endY)};
         } else {
-            return new int[] { 0, length() };
+            return new int[]{0, length()};
         }
     }
 
@@ -233,12 +234,12 @@ public class HighlightingEditor extends AppCompatEditText {
     // Various overrides
     // ---------------------------------------------------------------------------------------------
 
-    public void onPause() {
-        // Nothing here
-    }
-
-    public void onResume() {
-        updateHighlighting(true);
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == View.VISIBLE) {
+            updateHighlighting(true);
+        }
     }
 
     @Override
@@ -379,7 +380,7 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_autoFormatModifier != null) {
                 addTextChangedListener(_autoFormatModifier);
             }
-        } else if (!enable && _autoFormatEnabled){
+        } else if (!enable && _autoFormatEnabled) {
             setFilters(new InputFilter[]{});
             if (_autoFormatModifier != null) {
                 removeTextChangedListener(_autoFormatModifier);

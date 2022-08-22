@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activa el suport per a idiomes escrits de dreta a esquerra</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: no es pot crear el directori del quadern</string>
     <string name="last_modified_witharg">Última modificació: %s</string>
+    <string name="last_modified">Última modificació</string>
     <string name="select_this_folder">Selecciona aquesta carpeta</string>
     <string name="select">Selecciona</string>
     <string name="create">Crea</string>
@@ -137,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">El tema principal utilitza en l\'aplicació</string>
     <string name="remember_last_directory">Recorda el darrer directori</string>
     <string name="syntax_highlighting">Destacament de la sintaxi</string>
+    <string name="dynamic_highlighting">Ressaltat dinàmic</string>
     <string name="highlighting_delay">Retard del destacament</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Retard en mil·lisegons per ressaltar l\'actualització. Un valor inferior començarà a ressaltar abans, però esgotarà més aviat la bateria i pot alentir l\'aplicació en dispositius més antics.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controla si el text introduït s\'ha de ressaltar o no</string>
+    <string name="dynamic_highlighting_effect">El ressaltat dinàmic augmenta el rendiment. Pot provocar artefactes de renderització.</string>
     <string name="control_font_size_in_editor">Controla la mida de la font utilitzada a l\'editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Mostra una barra amb botons útils a la part inferior. Aquestes accions de text modifiquen el text o executen una acció basada en el text.</string>
     <string name="load_last_opened_folder_at_startup">Carrega l\'última carpeta oberta a l\'inici</string>
@@ -314,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Cerca recursiva al directori actual.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
+    <string name="rotate">Gira</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Envia registre de depuració</string>
     <string name="print_pdf">Imprimeix / PDF</string>

@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Відображати для писемності справа-наліво</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Помилка: неможливо створити директорію</string>
     <string name="last_modified_witharg">Дата зміни: %s</string>
+    <string name="last_modified">Остання зміна</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
     <string name="create">Створити</string>
@@ -137,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Загальна тема додатку</string>
     <string name="remember_last_directory">Пам\'ятати останню директорію</string>
     <string name="syntax_highlighting">Підсвічування синтаксису</string>
+    <string name="dynamic_highlighting">Динамічне підсвічування</string>
     <string name="highlighting_delay">Затримка підсвічування</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Затримка оновлення підсвітки синтаксису у мілісекундах. Нижчі значення пришвидшують оновлення, проте підвищують витрату заряду батареї та можуть сповільнити роботу додатку на старіших пристроях.</string>
     <string name="highlighting_enabled_or_not__appspecific">Встановлює наявність підсвітки синтаксису тексту</string>
+    <string name="dynamic_highlighting_effect">Динамічне підсвічування збільшує продуктивність. Може призвести до створення артефактів.</string>
     <string name="control_font_size_in_editor">Задає розмір шрифту для тексту в редакторі</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показувати панель знизу із зручними кнопками команд тексту, які перетворюють його або виконують відповідну дію.</string>
     <string name="load_last_opened_folder_at_startup">Завантажити останню відкриту директорію після запуску</string>
@@ -314,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточному каталозі.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
+    <string name="rotate">Повернути</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Надсилати Debug-журнал</string>
     <string name="print_pdf">Друк / PDF</string>
