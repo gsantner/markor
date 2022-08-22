@@ -27,7 +27,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Tạo thư mục</string>
     <string name="create_new_document">Tạo tài liệu mới</string>
     <string name="move">Di chuyển</string>
+    <string name="copy">Sao Chép</string>
     <string name="info">Xem thông tin</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Trùng tên! Vui lòng sử dụng tên khác</string>
     <string name="import_from_device">Nhập từ thiết bị</string>
     <string name="import_">Nhập khẩu</string>
     <string name="append_to_witharg">Gắn tiếp vào %s</string>
@@ -46,6 +48,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (như văn bản thuần)</string>
     <string name="document_editor_font">Phông chữ soạn thảo tài liệu</string>
     <string name="theme">Chủ đề</string>
+    <string name="open_existing_files_in_view_mode">Mở tệp có sẵn ở chế độ xem</string>
     <string name="about">Trong khoảng</string>
     <string name="plaintext">Văn bản đơn thuần</string>
     <string name="file">Tệp tin</string>
@@ -54,12 +57,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Hiển thị ngôn ngữ từ phải sang trái</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Lỗi: Không thể tạo thư mục sổ ghi chép</string>
     <string name="last_modified_witharg">Sửa đổi lần cuối: %s</string>
+    <string name="last_modified">Sửa đổi lần cuối</string>
     <string name="select_this_folder">Chọn thư mục này</string>
     <string name="select">Chọn</string>
     <string name="create">Tạo ra</string>
     <string name="select_entries">Chọn mục</string>
     <string name="one_item_selected">Một khoản mục được chọn</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d khoản mục được chọn</string>
+    <string name="hide_statusbar_at_this_view">Ẩn thanh trạng thái ở chế độ này</string>
     <string name="hide_statusbar">Ẩn thanh trạng thái</string>
     <string name="name">Tên</string>
     <string name="url_or_path">URL / đường dẫn</string>
@@ -70,17 +75,41 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_storage_folder">Chọn thư mục lưu trữ</string>
     <string name="licenses">Giấy phép</string>
     <string name="changelog">Nhật ký thay đổi</string>
+    <string name="more_info">Tìm hiểu thêm</string>
     <string name="show_license_of_the_app">Hiển thị giấy phép của ứng dụng</string>
     <string name="show_third_party_licenses">Hiển thị giấy phép của bên thứ ba</string>
     <string name="language_change_restart_description">Thay đổi ngôn ngữ của ứng dụng. Khởi động lại ứng dụng để các thay đổi có hiệu lực</string>
     <string name="language">Ngôn ngữ</string>
+    <string name="error_need_storage_permission_to_save_documents">Cần cấp quyền sao lưu vào bộ nhớ</string>
+    <string name="open_with">Mở bằng</string>
+    <string name="sort_by">Tìm theo</string>
+    <string name="date">Ngày</string>
     <string name="deleteme____1">Tên</string>
     <string name="size">Kích cỡ</string>
+    <string name="reverse_order">Đảo thứ tự</string>
     <string name="contribute">Đóng góp</string>
     <string name="donate">Quyên góp</string>
+    <string name="project_page">Trang dự án</string>
+    <string name="press_back_again_to_exit">Bấm \'Trở lại\' lần nữa để thoát</string>
     <string name="exit">Thoát</string>
+    <string name="undo">Hoàn nguyên</string>
+    <string name="redo">Trở lại</string>
     <string name="more">Thêm</string>
+    <string name="notebook">Nhật ký</string>
     <string name="help">Trợ giúp</string>
+    <string name="todo_list">Danh sách công việc</string>
+    <string name="task">Công việc</string>
+    <string name="list">Danh sách</string>
+    <string name="priority">Ưu tiên</string>
+    <string name="history">Lịch sử</string>
+    <string name="sync">Đồng bộ</string>
+    <string name="search_or_custom">Tìm kiếm / Tùy chỉnh</string>
+    <string name="save">Lưu</string>
+    <string name="update">Cập nhật</string>
+    <string name="clear">Xóa</string>
+    <string name="due_date">Thời hạn</string>
+    <string name="current_date">Hôm nay</string>
+    <string name="archive">Kho lưu trữ</string>
     <string name="add_task">Thêm tác vụ</string>
     <string name="add_x_witharg">Thêm %s</string>
     <string name="document_to_be_loaded_and_saved_as_witharg">Tài liệu được tải và lưu dưới dạng \"%s\"</string>
@@ -88,15 +117,51 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_shortcut">Tạo lối tắt</string>
     <string name="tried_to_create_shortcut_for_this_notice">Cố gắng để tạo một shortcut để màn hình của bạn. Lưu ý rằng một số bệ phóng có thể hỗ trợ điều này.</string>
     <string name="file_not_in_save_path_do_import_notice__appspecific">Tệp đã chọn không nằm trong thư mục máy tính xách tay các ứng dụng. Bạn có muốn sao chép nó vào thư mục hiện tại? Điều này sẽ ghi đè lên bất kỳ tập tin hiện có cùng tên.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Tệp được chọn không nằm trong thư mục này. Bạn có muốn sao chép? Hành động này sẽ ghi đè dữ liệu lên các tệp trùng tên.</string>
     <string name="files_and_folders">Tệp và cặp</string>
     <string name="document_browser">Trình duyệt tài liệu</string>
+    <string name="file_browser">Trình duyệt tệp tin</string>
+    <string name="set_due_date">Đặt thời hạn</string>
+    <string name="insert_replace_date">Nhập thời gian</string>
     <string name="create_note" needed="false">Tạo ghi chú</string>
     <string name="special_documents" needed="false">Tài liệu đặc biệt</string>
+    <string name="keep_screen_on" needed="false">Giữ màn hình luôn bật</string>
+    <string name="disallow_screenshots">Tắt chế độ chụp màn hình</string>
     <string name="back_to_previous_folder" needed="false">Quay lại mục trước</string>
     <string name="app_settings" needed="false">Cài đặt App</string>
     <string name="editor_settings" needed="false">Biên tập viên cài đặt</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Nhớ vị trí tệp sau cùng khi khởi động</string>
+    <string name="number_of_files_witharg" needed="false">Số lượng tệp: %d</string>
     <string name="main_view">Mục hiển thị chính</string>
+    <string name="remember_last_directory">Nhớ đường dẫn sau cùng</string>
+    <string name="syntax_highlighting">Đánh dấu cú pháp</string>
+    <string name="dynamic_highlighting">Đánh dấu động</string>
+    <string name="highlighting_delay">Đánh dấu độ trễ</string>
+    <string name="highlighting_enabled_or_not__appspecific">Tùy chọn đánh dấu văn bản</string>
+    <string name="dynamic_highlighting_effect">Đánh dấu động làm tăng hiệu suất. Có thể gây hiện tượng răng cưa.</string>
+    <string name="control_font_size_in_editor">Chọn kích cỡ phông chữ bằng bộ tùy chỉnh</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Hiện thanh tác vụ kèm các phím tiện lợi. Hành động văn bản giúp điều chỉnh nội dung và thực hiện tác vụ.</string>
+    <string name="load_last_opened_folder_at_startup">Tải tệp sau cùng khi khởi động</string>
+    <string name="format">Định dạng</string>
+    <string name="project">Dự án</string>
+    <string name="projects">Dự án</string>
+    <string name="none">Trống</string>
     <string name="other">Khác</string>
+    <string name="break_page_pdf_print">Ngắt trang (PDF/Bản cứng)</string>
+    <string name="underline">Gạch chân</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Tùy chọn gạch các màu thuộc mã màu hex</string>
+    <string name="underline_hex_color_codes">Gạch chân mã màu hex</string>
+    <string name="insert_current_date_when_starting_new_task">Nhập ngày hiện hành khi khởi tạo công việc</string>
+    <string name="tasks_with_todays_date">Các công việc hôm nay</string>
+    <string name="append_contexts_and_projects">Thêm ngữ cảnh và dự án</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Thêm ngữ cảnh và dự án vào cuối mỗi mục công việc khi sử dụng đúng nội dung</string>
+    <string name="rtl_rendering">Kết xuất phải sang trái</string>
+    <string name="highlight_line_ending">Đánh dấu hết dòng</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Đánh dấu khoảng trắng cuối mỗi dòng nếu chứa nhiều khoảng trắng</string>
+    <string name="use_monospace_for_code">Sử dụng phông chữ cố định để lập trình</string>
+    <string name="disable_code_block_highlight">Tắt đánh dấu các khối mã</string>
+    <string name="auto_renumber_ordered_list">Tự động đánh số thứ tự danh sách</string>
+    <string name="auto_renumber_ordered_list_slowdown">Tùy chọn này có thể ảnh hưởng hiệu suất ứng dụng.</string>
     <string name="general">Cài đặt chung</string>
     <string name="line_spacing">Line Spacing</string>
     <string name="vertical_alignment">Căn chỉnh theo chiều dọc</string>
@@ -120,4 +185,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font">Phông chữ</string>
     <string name="close">Đóng</string>
     <string name="favourite">Yêu thích</string>
+    <string name="rotate">Xoay</string>
 </resources>

@@ -31,4 +31,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="miscellaneous">Ostalo</string>
     <string name="background">Pozadina</string>
     <string name="favourite">Omiljeno</string>
+    <string name="rotate">Rotiraj</string>
 </resources>

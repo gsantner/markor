@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activa el suport per a idiomes escrits de dreta a esquerra</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: no es pot crear el directori del quadern</string>
     <string name="last_modified_witharg">Última modificació: %s</string>
+    <string name="last_modified">Última modificació</string>
     <string name="select_this_folder">Selecciona aquesta carpeta</string>
     <string name="select">Selecciona</string>
     <string name="create">Crea</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Cerca recursiva al directori actual.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
+    <string name="rotate">Gira</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Envia registre de depuració</string>
     <string name="print_pdf">Imprimeix / PDF</string>

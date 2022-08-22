@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Gjengivelse for høyre-til-venstre -språk</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Feil: Kan ikke opprette notatblokkmappe</string>
     <string name="last_modified_witharg">Sist endret: %s</string>
+    <string name="last_modified">Sist endret</string>
     <string name="select_this_folder">Velg denne mappen</string>
     <string name="select">Velg</string>
     <string name="create">Opprett</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
+    <string name="rotate">Roter</string>
     <string name="template">Mal</string>
     <string name="send_debug_log">Send debug-logg</string>
     <string name="print_pdf">Print / PDF</string>

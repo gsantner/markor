@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Opbouw voor rechts-naar-links talen</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fout: Kan geen opslagfolder maken</string>
     <string name="last_modified_witharg">Laatst gewijzigd: %s</string>
+    <string name="last_modified">Laatst gewijzigd</string>
     <string name="select_this_folder">Selecteer deze map</string>
     <string name="select">Selecteer</string>
     <string name="create">Aanmaken</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Recursieve zoekopdracht in de huidige map.</string>
     <string name="always_open_with_this_app">Altijd open met deze app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
+    <string name="rotate">Draaien</string>
     <string name="template">Sjabloon</string>
     <string name="send_debug_log">Stuur debug log</string>
     <string name="print_pdf">Print / PDF</string>

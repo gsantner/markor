@@ -313,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">在目前目錄中遞迴搜尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">當列表的項目裡包含副檔名時，總是以這個程式開啟檔案。如果您要編輯網頁檔案或其他不含附檔名的檔案時，可以使用 \'None, .html, .css , .js\' 等。</string>
+    <string name="rotate">旋轉</string>
     <string name="template">範本</string>
     <string name="send_debug_log">傳送偵錯日誌</string>
     <string name="print_pdf">列印 / PDF</string>

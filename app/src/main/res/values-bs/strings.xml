@@ -312,6 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekurzivna pretraga u trenutnom direktoriju.</string>
     <string name="always_open_with_this_app">Uvijek otvori u ovoj aplikaciji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Datoteke uvijek otvori u ovoj aplikaciji kad popis sadržava ekstenziju. Koristi \'None, .html, .css, .js\' i slično za uređivanje web-datoteka i datoteka bez ekstenzije.</string>
+    <string name="rotate">Rotiraj</string>
     <string name="template">Šablon</string>
     <string name="send_debug_log">Pošalji izvještaj za ispravljanje grešaka</string>
     <string name="print_pdf">Štampaj / PDF</string>

@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Χρήση για γλώσσες με φορά δεξιά-προς-αριστερά</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Σφάλμα: Δεν είναι δυνατή η δημιουργία καταλόγου αποθήκευσης</string>
     <string name="last_modified_witharg">Τελευταία τροποποίηση: %s</string>
+    <string name="last_modified">Τελευταία τροποποίηση</string>
     <string name="select_this_folder">Επιλέξτε αυτόν τον φάκελο</string>
     <string name="select">Επιλογή</string>
     <string name="create">Δημιουργία</string>
@@ -317,6 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Αναδρομική αναζήτηση στον τρέχοντα κατάλογο.</string>
     <string name="always_open_with_this_app">Πάντα άνοιγμα με αυτήν την εφαρμογή</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Πάντα να ανοίγετε αρχεία με αυτήν την εφαρμογή, όταν η λίστα περιέχει την επέκταση αρχείου. Χρησιμοποιήστε \'Κανένα, .html, . ss , .js\' για παράδειγμα, αν θέλετε να επεξεργαστείτε τα αρχεία web και αυτά χωρίς επέκταση αρχείου.</string>
+    <string name="rotate">Περιστροφή</string>
     <string name="template">Πρότυπο</string>
     <string name="send_debug_log">Αποστολή Καταγραφής Αποσφαλμάτωσης</string>
     <string name="print_pdf">Print / PDF</string>

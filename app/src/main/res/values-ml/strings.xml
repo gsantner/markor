@@ -154,4 +154,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">അടയ്ക്കുക</string>
     <string name="cancel">റദ്ദാക്കുക</string>
     <string name="reload">വീണ്ടും ലോഡ് ചെയ്യുക</string>
+    <string name="rotate">തിരിക്കുക</string>
 </resources>

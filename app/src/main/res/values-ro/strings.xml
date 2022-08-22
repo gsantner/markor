@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Randare pentru limbile cu scriere de la dreapta la stânga</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Eroare: Imposibil de creat notebook-uri</string>
     <string name="last_modified_witharg">Modificat ultima dată: %s</string>
+    <string name="last_modified">Ultima modificare</string>
     <string name="select_this_folder">Selectați acest dosar</string>
     <string name="select">Selectează</string>
     <string name="create">Creează</string>
@@ -316,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Căutare recursivă în directorul curent.</string>
     <string name="always_open_with_this_app">Deschideți întotdeauna cu această aplicație</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Deschideți întotdeauna fișiere cu această aplicație atunci când lista conține extensia de fișiere. Folosiți \'Niciunul, .html, . ss , .js de exemplu dacă doriţi să editaţi fişiere web şi cele fără extensia fişierului.</string>
+    <string name="rotate">Rotire</string>
     <string name="template">Șablon</string>
     <string name="send_debug_log">Trimite jurnalul de depanare</string>
     <string name="print_pdf">Print / PDF</string>
