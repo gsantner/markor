@@ -146,10 +146,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             //       return true;
             // }
             case R.string.tmaid_zimwiki_insert_link:
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.FILE_OR_LINK_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             case R.string.tmaid_zimwiki_insert_image: {
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.IMAGE_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.IMAGE_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             }
             case R.string.tmaid_common_indent:
@@ -197,7 +197,6 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n'''\n");
                     _hlEditor.setSelection(c + "\n'''\n".length());
                 });
-                Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                 return true;
             }
             default: {
@@ -223,9 +222,9 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         }
 
         if (resolver.isWebLink()) {
-            new ContextUtils(_activity).openWebpageInExternalBrowser(resolvedLink);
+           getAndroidUtils().openWebpageInExternalBrowser(resolvedLink);
         } else {
-            DocumentActivity.launch(_activity, new File(resolvedLink), false, null, null);
+            DocumentActivity.launch(getActivity(), new File(resolvedLink), false, null, null);
         }
     }
 
@@ -289,7 +288,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
     @Override
     public boolean runTitleClick() {
-        SearchOrCustomTextDialogCreator.showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), _activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), getActivity(), _hlEditor);
         return true;
     }
 

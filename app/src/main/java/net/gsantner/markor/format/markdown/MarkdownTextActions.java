@@ -132,12 +132,12 @@ public class MarkdownTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_markdown_table_insert_columns: {
-                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, this::insertTableRow);
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(getActivity(), false, this::insertTableRow);
                 return true;
             }
             case R.string.tmaid_markdown_insert_link:
             case R.string.tmaid_markdown_insert_image: {
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             }
             default: {
@@ -157,7 +157,7 @@ public class MarkdownTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_markdown_table_insert_columns: {
-                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, this::insertTableRow);
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(getActivity(), true, this::insertTableRow);
                 return true;
             }
             case R.string.tmaid_markdown_code_inline: {
@@ -207,7 +207,7 @@ public class MarkdownTextActions extends TextActions {
 
     @Override
     public boolean runTitleClick() {
-        SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), getActivity(), _hlEditor);
         return true;
     }
 

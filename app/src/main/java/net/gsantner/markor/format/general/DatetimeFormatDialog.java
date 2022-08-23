@@ -278,11 +278,11 @@ public class DatetimeFormatDialog {
      * <p>
      * The lengths string is used to split the concatenated string.
      *
-     * @param activity Activity in order to get settings
+     * @param context Context in order to get settings
      * @return List of Strings representing recently used formats
      */
-    private static List<String> getRecentFormats(final Activity activity) {
-        final SharedPreferences settings = activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+    private static List<String> getRecentFormats(final Context context) {
+        final SharedPreferences settings = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         final String combined = settings.getString(RECENT_FORMATS_STRING, null);
         final String lengths = settings.getString(RECENT_FORMATS_LENGTHS, null);
 
@@ -337,13 +337,13 @@ public class DatetimeFormatDialog {
     /**
      * Get a date string for the most recently used format
      *
-     * @param activity Activity in order to get settings
+     * @param context Activity in order to get settings
      * @return String    representing current date / time in last used format
      */
-    public static String getMostRecentDate(final Activity activity) {
-        final List<String> formats = getRecentFormats(activity);
+    public static String getMostRecentDate(final Context context) {
+        final List<String> formats = getRecentFormats(context);
         if (formats.size() > 0) {
-            return ShareUtil.formatDateTime(activity, formats.get(0), System.currentTimeMillis());
+            return ShareUtil.formatDateTime(context, formats.get(0), System.currentTimeMillis());
         } else {
             return "";
         }
