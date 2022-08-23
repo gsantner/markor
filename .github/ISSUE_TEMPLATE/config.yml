@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Feature requests, suggestions & everything else
-    url: https://github.com/gsantner/markor/discussions
-    about: Please submit your suggestions, ideas, requests & everything else here. Please search and reply to existing relevant issues/discussions before creating a new one.
+  - name: Search (USE THIS BEFORE POSTING ANYTHING - THANKS!)
+    url: https://github.com/gsantner/markor/issues?q=#js-issues-search
+    about: Link to the search for all kinds (existing issues, questions, recent changes & more)
+  - name: Question
+    url: https://github.com/gsantner/markor/issues/95
+    about: Please search and reply to existing relevant issues/discussions before writing.

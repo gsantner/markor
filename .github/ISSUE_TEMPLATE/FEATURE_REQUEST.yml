@@ -1,5 +1,5 @@
-name: "Bug report"
-description: "Submit a report and help to improve the project"
+name: "Feature request"
+description: "Submit a feature or enhancement request and help to improve the project"
 body:
   - type: markdown
     attributes:
@@ -12,27 +12,21 @@ body:
       label: "⚠️ This issue respects the following points: ⚠️"
       description: All conditions are **required**. Your issue can be closed if these are checked incorrectly.
       options:
-        - label: This is a **bug**. Not a [question](https://github.com/gsantner/markor/issues/95) or [feature request](https://github.com/gsantner/markor/issues/new/choose).
+        - label: This is a **enhancement/feature request**. Not a [bug](https://github.com/gsantner/markor/issues/new/choose) or [question](https://github.com/gsantner/markor/issues/95).
           required: true
         - label: The topic is **not** already reported at [Issues](https://github.com/gsantner/markor/issues?q=#js-issues-search). _(I've searched it)_.
           required: true
         - label: Markor **is** up to date. See [Releases](https://github.com/gsantner/markor/tags) for the latest version. Updates are available from [F-Droid](https://f-droid.org/en/packages/net.gsantner.markor/) and GitHub. 
           required: true
-        - label: Is the bug still present in the latest code version (git master)? Please [download](https://nightly.link/gsantner/markor/workflows/build-android-project/master) and try the test version of Markor, named **Mordor**. No worries Markor and Mordor appear as completely separate applications, you can install both side-by-side and Markor settings are not touched. In case the issue is resolved there, you don't need to create a bug report - the change will be part of the next Markor update.
+        - label: Is the wanted feature/enhancement present in the latest code version (git master)? Please [download](https://nightly.link/gsantner/markor/workflows/build-android-project/master) and try the test version of Markor, named **Mordor**. No worries Markor and Mordor appear as completely separate applications, you can install both side-by-side and Markor settings are not touched. If so, the change will be part of the next Markor update.
           required: true
   - type: textarea
     id: description
-    attributes:
-      label: Description
-      description:  What problem did you encounter? What did you expect to happen?
     validations:
       required: true
-  - type: textarea
-    id: reproduce
     attributes:
-      label: Steps to reproduce
-      description: |
-        Explain what you did to encounter the issue,
+      label: Description
+      description:  What do you want (or not want) and where do you want it?
       value: |
         1. 
         2. 
@@ -62,7 +56,7 @@ body:
     id: format
     attributes:
       label: Format / File type
-      description: Is the issue about a specific format (i.e. Markdown/todo.txt)?
+      description: Is the request about a specific format (i.e. Markdown/todo.txt)?
       options: ["Not specific", "Markdown", "todo.txt", "Zim", "Key-Value (json/yaml/ini..)", "Plaintext", "Binary", "Something else (-> Additional info)"]
     validations:
       required: true
