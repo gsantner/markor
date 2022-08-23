@@ -12,6 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,8 +43,8 @@ public class TodoTxtTextActions extends TextActions {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtTextActions.class.getCanonicalName() + "_last_sort_order_key";
 
-    public TodoTxtTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public TodoTxtTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -65,6 +66,9 @@ public class TodoTxtTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
+
+                new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(TMA_ACTIONS);
@@ -345,8 +349,8 @@ public class TodoTxtTextActions extends TextActions {
                 .setActivity(_activity)
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(_context.getString(R.string.due_date))
-                .setExtraLabel(_context.getString(R.string.clear))
+                .setMessage(getContext().getString(R.string.due_date))
+                .setExtraLabel(getContext().getString(R.string.clear))
                 .setExtraListener(clear)
                 .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
     }

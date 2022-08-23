@@ -50,6 +50,7 @@ import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
@@ -407,12 +408,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item == null) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
+        final Activity activity = getActivity();
+        if (activity == null) {
             return true;
         }
-        _shareUtil.setContext(getContext());
-        final Activity activity = getActivity();
+        _shareUtil.setContext(activity);
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
@@ -612,16 +613,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void applyTextFormat(final int textFormatId) {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
         _textActionsBar.removeAllViews();
-        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
+        _textFormat = TextFormat.getFormat(textFormatId, activity, _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
-        _textFormat.getTextActions()
-                .setHighlightingEditor(_hlEditor)
-                .appendTextActionsToBar(_textActionsBar);
-
+        _textFormat.getTextActions().setUiReferences(activity, _hlEditor, _webView);
         updateMenuToggleStates(textFormatId);
     }
 
@@ -735,6 +737,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     public void setViewModeVisibility(final boolean show) {
         final Activity activity = getActivity();
+        _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
             new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
@@ -785,16 +788,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     protected boolean onToolbarLongClicked(View v) {
         if (getUserVisibleHint()) {
-            if (_isPreviewVisible) {
-                boolean top = _webView.getScrollY() > 100;
-                _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-                if (!top) {
-                    _webView.scrollBy(0, 1000);
-                    _webView.scrollBy(0, 1000);
-                }
-            } else {
-                _textFormat.getTextActions().runJumpBottomTopAction();
-            }
+            _textFormat.getTextActions().runJumpBottomTopAction(_isPreviewVisible ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
             return true;
         }
         return false;
