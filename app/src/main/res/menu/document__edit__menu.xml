@@ -164,6 +164,10 @@
                             android:id="@string/action_format_zimwiki"
                             android:icon="@drawable/fountain_pen"
                             android:title="@string/zim_wiki" />
+                        <item
+                            android:id="@string/action_format_embedbinary"
+                            android:icon="@drawable/ic_image_black_24dp"
+                            android:title="@string/embed_binary" />
                     </group>
                 </menu>
             </item>

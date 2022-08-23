@@ -42,6 +42,7 @@ import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.binary.EmbedBinaryConverter;
 import net.gsantner.markor.format.general.DatetimeFormatDialog;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
@@ -62,6 +63,7 @@ import net.gsantner.opoc.preference.FontPreferenceCompat;
 import net.gsantner.opoc.ui.FilesystemViewerData;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.CoolExperimentalStuff;
+import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 import net.gsantner.opoc.util.TextViewUndoRedo;
 
@@ -137,6 +139,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             // We must have a document
             _document = Document.getDefault(getContext());
         }
+    }
+
+    public boolean isViewBinary() {
+        return !(getActivity() instanceof MainActivity);
     }
 
     @Override
@@ -382,7 +388,8 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void loadDocument() {
         //Only trigger the load process if constructing or file updated
         final long modTime = _document != null ? _document.lastModified() : Long.MIN_VALUE;
-        if (modTime > _loadModTime) {
+        boolean doReload = modTime > _loadModTime;
+        if (doReload && !isViewBinary()) {
 
             _loadModTime = modTime;
 
@@ -400,10 +407,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
 
             checkTextChangeState();
+        }
 
-            if (_isPreviewVisible) {
-                updateViewModeText();
-            }
+        if (doReload && _isPreviewVisible) {
+            updateViewModeText();
         }
     }
 
@@ -715,7 +722,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
-        if (_document != null && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
+        if (_document != null && !isViewBinary() && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
             if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
@@ -761,6 +768,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+        if (type.equals(EmbedBinaryConverter.JS_CALLBACK_TYPE_OPEN_CURRENT_FILE_IN_EXTERNAL_APP)) {
+            _shareUtil.viewFileInOtherApp(_document.getFile(), FileUtils.getMimeType(_document.getFile()));
+        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {

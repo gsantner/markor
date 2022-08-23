@@ -79,6 +79,8 @@ public class Document implements Serializable {
             setFormat(TextFormat.FORMAT_MARKDOWN);
         } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(getPath())) {
             setFormat(TextFormat.FORMAT_ZIMWIKI);
+        } else if (TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {
+            setFormat(TextFormat.FORMAT_EMBEDBINARY);
         } else {
             setFormat(TextFormat.FORMAT_PLAIN);
         }
