@@ -236,7 +236,7 @@ public class Document implements Serializable {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, boolean isManualSave) {
+    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil1, boolean isManualSave) {
         if (!isManualSave && TextUtils.getTrimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }
@@ -260,7 +260,7 @@ public class Document implements Serializable {
                 contentAsBytes = content.toString().getBytes();
             }
 
-            final ShareUtil shu = (shareUtil != null ? shareUtil : new ShareUtil(context));
+            final ShareUtil shareUtil = (shareUtil1 != null ? shareUtil1 : new ShareUtil(context));
             if (shareUtil.isUnderStorageAccessFolder(_file, false) || shareUtil.isContentResolverProxyFile(_file)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
@@ -272,7 +272,7 @@ public class Document implements Serializable {
                         fos.write(contentAsBytes);
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
-                        if (shu.isContentResolverProxyFile(_file)) {
+                        if (shareUtil.isContentResolverProxyFile(_file)) {
                             FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
                     } catch (Exception ignored) {
