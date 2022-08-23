@@ -21,17 +21,17 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.BuildConfig;
@@ -53,22 +53,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, NavigationBarView.OnItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 
     private BottomNavigationView _bottomNav;
-    private ViewPager _viewPager;
+    private ViewPager2 _viewPager;
     private SectionsPagerAdapter _viewPagerAdapter;
     private FloatingActionButton _fab;
 
     private boolean _doubleBackToExitPressedOnce;
     private ShareUtil _shareUtil;
-    private int _prevPos = -1;
 
     @SuppressLint("SdCardPath")
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _fab = findViewById(R.id.fab_add_new_item);
         _fab.setOnClickListener(this::onClickFab);
         _fab.setOnLongClickListener(this::onLongClickFab);
-        _viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        _viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -97,8 +97,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         _viewPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
-        _bottomNav.setOnNavigationItemSelectedListener(this);
-        _prevPos = tabIdToPos(R.id.nav_notebook); // Default
+        _bottomNav.setOnItemSelectedListener(this);
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
@@ -118,7 +117,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
         final File dir = getIntentDir(intent, null);
-        final FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        final FilesystemViewerFragment frag = getNotebook();
         if (frag != null && dir != null) {
             frag.getAdapter().setCurrentFolder(dir, false);
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
@@ -179,7 +178,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main__menu, menu);
-
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
         _activityUtils.tintMenuItems(menu, true, Color.WHITE);
@@ -251,8 +249,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
 
         try {
-            FilesystemViewerFragment frag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
-            frag.getAdapter().reconfigure();
+            getNotebook().getAdapter().reconfigure();
         } catch (Exception ignored) {
             recreate();
         }
@@ -260,7 +257,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     public boolean onLongClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);
-        FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        FilesystemViewerFragment fsFrag = getNotebook();
         if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
             fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)
                             ? FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE : FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS
@@ -269,10 +266,9 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return true;
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public void onClickFab(View view) {
-        PermissionChecker permc = new PermissionChecker(this);
-        FilesystemViewerFragment fsFrag = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        final PermissionChecker permc = new PermissionChecker(this);
+        final FilesystemViewerFragment fsFrag = getNotebook();
         if (fsFrag == null) {
             return;
         }
@@ -281,34 +277,27 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             fsFrag.getAdapter().loadFolder(_appSettings.getNotebookDirectory());
             return;
         }
-        if (permc.mkdirIfStoragePermissionGranted()) {
-            switch (view.getId()) {
-                case R.id.fab_add_new_item: {
-                    if (_shareUtil.isUnderStorageAccessFolder(fsFrag.getCurrentFolder(), true) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
-                        _shareUtil.showMountSdDialog(this);
-                        return;
-                    }
 
-                    if (!fsFrag.getAdapter().isCurrentFolderWriteable()) {
-                        return;
-                    }
-
-                    NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
-                        if (ok) {
-                            if (f.isFile()) {
-                                DocumentActivity.launch(MainActivity.this, f, false, null, null);
-                            } else if (f.isDirectory()) {
-                                FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
-                                if (wrFragment != null) {
-                                    wrFragment.reloadCurrentFolder();
-                                }
-                            }
-                        }
-                    });
-                    dialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
-                    break;
-                }
+        if (permc.mkdirIfStoragePermissionGranted() && view.getId() == R.id.fab_add_new_item) {
+            if (_shareUtil.isUnderStorageAccessFolder(fsFrag.getCurrentFolder(), true) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+                _shareUtil.showMountSdDialog(this);
+                return;
             }
+
+            if (!fsFrag.getAdapter().isCurrentFolderWriteable()) {
+                return;
+            }
+
+            NewFileDialog dialog = NewFileDialog.newInstance(fsFrag.getCurrentFolder(), true, (ok, f) -> {
+                if (ok) {
+                    if (f.isFile()) {
+                        DocumentActivity.launch(MainActivity.this, f, false, null, null);
+                    } else if (f.isDirectory()) {
+                        fsFrag.reloadCurrentFolder();
+                    }
+                }
+            });
+            dialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
         }
     }
 
@@ -322,7 +311,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
 
         // Check if fragment handled back press
-        GsFragmentBase frag = _viewPagerAdapter.getCachedFragments().get(_viewPager.getCurrentItem());
+        GsFragmentBase frag = _viewPagerAdapter.get(getCurrentPos());
         if (frag != null && frag.onBackPressed()) {
             return;
         }
@@ -381,17 +370,6 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         if (pos != tabIdToPos(R.id.nav_notebook)) {
             restoreDefaultToolbar();
         }
-
-        if (_prevPos == tabIdToPos(R.id.nav_quicknote) || _prevPos == tabIdToPos(R.id.nav_todo)) {
-            ((DocumentEditFragment) _viewPagerAdapter.getItem(_prevPos)).pause();
-        }
-
-        if (pos == tabIdToPos(R.id.nav_quicknote) || pos == tabIdToPos(R.id.nav_todo)) {
-            new PermissionChecker(this).doIfExtStoragePermissionGranted();
-            ((DocumentEditFragment) _viewPagerAdapter.getItem(pos)).resume();
-        }
-
-        _prevPos = pos;
     }
 
     private FilesystemViewerData.Options _filesystemDialogOptions = null;
@@ -442,67 +420,51 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         return _filesystemDialogOptions;
     }
 
-    class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private HashMap<Integer, GsFragmentBase> _fragCache = new LinkedHashMap<>();
+    class SectionsPagerAdapter extends FragmentStateAdapter {
+        private final HashMap<Integer, GsFragmentBase> _fragCache = new LinkedHashMap<>();
 
         SectionsPagerAdapter(FragmentManager fragMgr) {
-            super(fragMgr);
+            super(fragMgr, MainActivity.this.getLifecycle());
         }
 
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            GsFragmentBase fragment = (GsFragmentBase) super.instantiateItem(container, position);
-            _fragCache.put(position, fragment);
-            return fragment;
+        public Fragment createFragment(int pos) {
+            return get(pos);
         }
 
-        @Override
-        public Fragment getItem(int pos) {
-            final Fragment existing = _fragCache.get(pos);
-            if (existing != null) {
-                return existing;
+        public GsFragmentBase get(int pos) {
+            if (_fragCache.containsKey(pos)) {
+                return Objects.requireNonNull(_fragCache.get(pos));
             }
 
-            switch (_bottomNav.getMenu().getItem(pos).getItemId()) {
-                default:
-                case R.id.nav_notebook: {
-                    return FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
-                }
-                case R.id.nav_quicknote: {
-                    return DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), -1);
-                }
-                case R.id.nav_todo: {
-                    return DocumentEditFragment.newInstance(_appSettings.getTodoFile(), -1);
-                }
-                case R.id.nav_more: {
-                    return MoreFragment.newInstance();
-                }
+            final GsFragmentBase frag;
+            final int id = _bottomNav.getMenu().getItem(pos).getItemId();
+            if (id == R.id.nav_quicknote) {
+                frag = DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+            } else if (id == R.id.nav_todo) {
+                frag = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+            } else if (id == R.id.nav_more) {
+                frag = MoreFragment.newInstance();
+            } else {
+                frag = FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
             }
+
+            frag.setMenuVisibility(false);
+
+            _fragCache.put(pos, frag);
+
+            return frag;
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-            _fragCache.remove(position);
-        }
-
-        @Override
-        public int getCount() {
+        public int getItemCount() {
             return _bottomNav.getMenu().size();
         }
+    }
 
-        public GsFragmentBase getFragmentByTag(String fragmentTag) {
-            for (GsFragmentBase frag : _fragCache.values()) {
-                if (fragmentTag.equals(frag.getFragmentTag())) {
-                    return frag;
-                }
-            }
-            return null;
-        }
-
-        public HashMap<Integer, GsFragmentBase> getCachedFragments() {
-            return _fragCache;
-        }
+    private FilesystemViewerFragment getNotebook() {
+        return (FilesystemViewerFragment) _viewPagerAdapter.get(tabIdToPos(R.id.nav_notebook));
     }
 
     @Override
@@ -522,7 +484,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
      * while {@link FilesystemViewerFragment} action mode is active (e.g. when renaming a file)
      */
     private void restoreDefaultToolbar() {
-        FilesystemViewerFragment wrFragment = (FilesystemViewerFragment) _viewPagerAdapter.getFragmentByTag(FilesystemViewerFragment.FRAGMENT_TAG);
+        FilesystemViewerFragment wrFragment = getNotebook();
         if (wrFragment != null) {
             wrFragment.clearSelection();
         }

@@ -290,8 +290,9 @@ public class Document implements Serializable {
                 contentAsBytes = content.toString().getBytes();
             }
 
-            final ShareUtil shu = (shareUtil != null ? shareUtil : new ShareUtil(context));
-            if (shareUtil.isUnderStorageAccessFolder(_file, false) || shareUtil.isContentResolverProxyFile(_file)) {
+            shareUtil = (shareUtil != null ? shareUtil : new ShareUtil(context));
+            final boolean isContentResolverProxyFile = shareUtil.isContentResolverProxyFile(_file);
+            if (isContentResolverProxyFile || shareUtil.isUnderStorageAccessFolder(_file, false)) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {
@@ -302,7 +303,7 @@ public class Document implements Serializable {
                         fos.write(contentAsBytes);
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
-                        if (shu.isContentResolverProxyFile(_file)) {
+                        if (isContentResolverProxyFile) {
                             FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
                     } catch (Exception ignored) {
