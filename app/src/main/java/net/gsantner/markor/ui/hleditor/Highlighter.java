@@ -214,7 +214,7 @@ public abstract class Highlighter {
         return _spannable;
     }
 
-    public synchronized Highlighter apply() {
+    public Highlighter apply() {
         return apply(new int[]{0, _spannable.length()});
     }
 
@@ -262,18 +262,6 @@ public abstract class Highlighter {
             _spannable.removeSpan(_layoutUpdater);
         }
         return this;
-    }
-
-    // The current offset of char at index in y due to spans implementing ShiftY
-    public final float yOffset(final int index) {
-        float offset = 0;
-        for (final int i : _applied) {
-            final SpanGroup group = _groups.get(i);
-            if (group.span instanceof ShiftY) {
-                offset += ((ShiftY) group.span).yShift(_spannable, group.start, group.end, index);
-            }
-        }
-        return offset;
     }
 
     /**
@@ -499,11 +487,5 @@ public abstract class Highlighter {
                     .setStrike(strikethrough)
                     .setTextSize(textSize);
         }
-    }
-
-    // Interface for spans which will shift text in Y - used to adjust scroll position
-    public interface ShiftY {
-        // How much will text at index be shifted in y
-        float yShift(CharSequence text, int spanStart, int spanEnd, int index);
     }
 }

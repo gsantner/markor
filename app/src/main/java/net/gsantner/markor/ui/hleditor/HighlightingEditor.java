@@ -116,7 +116,8 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void updateHighlighting(final boolean recompute) {
-        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && getLayout() != null) {
+        final Layout layout = getLayout();
+        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && layout != null) {
             _isUpdatingDynamicHighlighting = true; // Don't enter here if already applying highlighting
 
             final Rect rect = new Rect();
@@ -129,8 +130,8 @@ public class HighlightingEditor extends AppCompatEditText {
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user
                 final int middleY = Math.round(0.5f * (rect.top + rect.bottom));
-                final int shiftTestIndex = rowStart(middleY);
-                final float oldOffset = _hl.yOffset(shiftTestIndex);
+                final int shiftTestLine = layout.getLineForVertical(middleY);
+                final int oldOffset = layout.getLineBaseline(shiftTestLine);
 
                 withAccessibilityDisabled(() -> {
                     // Hack to prevent scrolling to cursor
@@ -142,12 +143,12 @@ public class HighlightingEditor extends AppCompatEditText {
                     _hl.apply(hlRegion(middleY, rect.height()));
                 });
 
-                _hlRect = rect;
-
-                final int shift = Math.round(_hl.yOffset(shiftTestIndex) - oldOffset);
-                if (_scrollView != null && shift != 0) {
+                final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
+                if (_scrollView != null && Math.abs(shift) > 1) {
                     _scrollView.slowScrollShift(shift);
                 }
+
+                _hlRect = rect;
             }
 
             _isUpdatingDynamicHighlighting = false;
