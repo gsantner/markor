@@ -61,11 +61,31 @@ public class EmbedBinaryConverter extends TextConverter {
 
         // Usage of binary file depending on file extension / MIME
         if (EXT_IMAGE.contains(extWithDot)) {
-            converted += "<img src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
+            converted += "<img class='rotatable' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
         } else if (EXT_VIDEO.contains(extWithDot)) {
-            converted += "<video autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' src='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
+            converted += "<video class='htmlav' autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' src='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
         } else if (EXT_AUDIO.contains(extWithDot)) {
-            converted += " <audio title='" + file.getName() + "' autoplay controls loop style='width: 100%;'><source src='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio>";
+            converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay controls loop style='width: 100%;'><source src='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio>";
+        }
+
+        // div width side margins
+        converted += "\n\n<br/><div style='margin: 16px; margin-top: 0px;'><br/>\n";
+
+        if (converted.contains("htmlav")) {
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-9e9);\"/>⏮️️</button>";
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏪</button>";
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avPause();\"/>⏯️</button>";
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(+9e9);\"/>⏭️</button>";
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
+            onLoadJs += "document.avSeek       = function(delta) { var o=document.getElementsByClassName('htmlav')[0]; o.currentTime +=delta; o.play(); };";
+            onLoadJs += "document.avLoopToggle = function()      { var o=document.getElementsByClassName('htmlav')[0]; o.loop = !o.loop; };";
+            onLoadJs += "document.avPause      = function()      { var o=document.getElementsByClassName('htmlav')[0]; if(o.paused){o.play();} else{o.pause();}; };";
+        }
+        if (converted.contains("rotatable")) {
+            converted += "<button type='button' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";
+            onLoadJs += "document.rotation = 0;";
+            onLoadJs += "document.rotate       = function()      { var o=document.getElementsByClassName('rotatable')[0]; document.rotation+=90; o.style.transform = 'rotate(xdeg)'.replace('x', document.rotation); };";
         }
 
         // Add file info table below content
@@ -74,23 +94,10 @@ public class EmbedBinaryConverter extends TextConverter {
         for (Pair<String, String> metaPair : shu.extractFileMetadata(context, file, true)) {
             table.append(String.format("%s | %s\n", metaPair.first.replace("|", "/"), metaPair.second.replace("|", "/")));
         }
-
-
-        converted += "\n\n<br/><div style='margin: 16px;'>\n";
-        // Add button to open in external app
-        converted += String.format("<button style='background-color: " + TOKEN_ACCENT_COLOR + ";' type='button' onclick=\"javascript:Android.webViewJavascriptCallback('%s');\"/>%s</button>"
-                , JS_CALLBACK_TYPE_OPEN_CURRENT_FILE_IN_EXTERNAL_APP
-                , context.getString(R.string.open_file_with)
-        );
-        converted += String.format("<button style='background-color: " + TOKEN_ACCENT_COLOR + ";' type='button' onclick=\"javascript:Android.webViewJavascriptCallback('%s');\"/>%s</button>"
-                , JS_CALLBACK_TYPE_OPEN_CURRENT_FILE_IN_EXTERNAL_APP
-                , context.getString(R.string.rotate)
-        );
-
-        converted += "<br/>";
         converted += MarkdownTextConverter.flexmarkRenderer.render(MarkdownTextConverter.flexmarkParser.parse(table.toString()));
-        converted += "</div>";
 
+        // end div with side margins
+        converted += "</div>";
 
         converted += HTML101_BODY_END;
         shu.setContext(null);

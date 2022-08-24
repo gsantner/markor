@@ -768,9 +768,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
-        if (type.equals(EmbedBinaryConverter.JS_CALLBACK_TYPE_OPEN_CURRENT_FILE_IN_EXTERNAL_APP)) {
-            _shareUtil.viewFileInOtherApp(_document.getFile(), FileUtils.getMimeType(_document.getFile()));
-        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {
