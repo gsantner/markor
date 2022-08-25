@@ -91,9 +91,8 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         });
 
-        final ViewTreeObserver observer = getViewTreeObserver();
-        observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
-        observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
+        // Listen to and update highlighting on scroll
+        getViewTreeObserver().addOnScrollChangedListener(this::updateDynamicHighlighting);
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -110,15 +109,16 @@ public class HighlightingEditor extends AppCompatEditText {
 
 
     private void updateDynamicHighlighting() {
-        if (_isDynamicHighlightingEnabled) {
+        if (_isDynamicHighlightingEnabled && !_isUpdatingDynamicHighlighting) {
+            _isUpdatingDynamicHighlighting = true;
             updateHighlighting(false);
+            _isUpdatingDynamicHighlighting = false;
         }
     }
 
     private void updateHighlighting(final boolean recompute) {
-        final Layout layout = getLayout();
-        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && layout != null) {
-            _isUpdatingDynamicHighlighting = true; // Don't enter here if already applying highlighting
+        final Layout layout;
+        if (_hlEnabled && _hl != null && (layout = getLayout()) != null) {
 
             final Rect rect = new Rect();
             getLocalVisibleRect(rect);
@@ -145,13 +145,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
                 final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
                 if (_scrollView != null && Math.abs(shift) > 1) {
+                    // Only apply the shift when not flicking or drag-scrolling
                     _scrollView.slowScrollShift(shift);
                 }
 
                 _hlRect = rect;
             }
-
-            _isUpdatingDynamicHighlighting = false;
         }
     }
 
@@ -210,9 +209,9 @@ public class HighlightingEditor extends AppCompatEditText {
             final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * height) + _hlShiftThreshold;
             final int startY = y - hlSize;
             final int endY = y + hlSize;
-            return new int[]{rowStart(startY), rowEnd(endY)};
+            return new int[]{ rowStart(startY), rowEnd(endY) };
         } else {
-            return new int[]{0, length()};
+            return new int[]{ 0, length() };
         }
     }
 
@@ -280,7 +279,9 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        post(this::updateDynamicHighlighting);
+        if (w != oldw || h != oldh) {
+            post(this::updateDynamicHighlighting);
+        }
     }
 
     @Override
