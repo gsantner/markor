@@ -70,16 +70,17 @@ public class MarkdownTextConverter extends TextConverter {
     public static final String EXT_MARKDOWN__MDOWN = ".mdown";
     public static final String EXT_MARKDOWN__MKDN = ".mkdn";
     public static final String EXT_MARKDOWN__MDWN = ".mdwn";
+    public static final String EXT_MARKDOWN__MDX = ".mdx";
     public static final String EXT_MARKDOWN__TEXT = ".text";
     public static final String EXT_MARKDOWN__RMD = ".rmd";
 
-    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(text)|(rmd))";
+    public static final String MD_EXTENSIONS_PATTERN_LIST = "((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(txt)|(mdwn)|(mdx)|(text)|(rmd))";
     public static final Pattern PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT = Pattern.compile("((?i).*\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
     public static final Pattern MD_EXTENSION_PATTERN = Pattern.compile("((?i)\\." + MD_EXTENSIONS_PATTERN_LIST + "$)");
     public static final String[] MD_EXTENSIONS = new String[]{
             EXT_MARKDOWN__MD, EXT_MARKDOWN__MARKDOWN, EXT_MARKDOWN__MKD, EXT_MARKDOWN__MDOWN,
             EXT_MARKDOWN__MKDN, EXT_MARKDOWN__TXT, EXT_MARKDOWN__MDWN, EXT_MARKDOWN__TEXT,
-            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT
+            EXT_MARKDOWN__RMD, EXT_MARKDOWN__MD_TXT, EXT_MARKDOWN__MDX
     };
 
     //########################

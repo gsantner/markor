@@ -55,7 +55,6 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             final Intent openShare = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_SEND)
-                    .putExtra(Document.EXTRA_PATH, directoryF)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, staticFlags));
 
