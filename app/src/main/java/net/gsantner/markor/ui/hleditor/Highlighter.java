@@ -296,7 +296,9 @@ public abstract class Highlighter {
     //
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
-        _groups.add(new SpanGroup(span, start, end));
+        if (end > start && span != null) {
+            _groups.add(new SpanGroup(span, start, end));
+        }
     }
 
     protected final void createSpanForMatches(final Pattern pattern, Callback.r1<Object, Matcher> creator, int... groupsToMatch) {

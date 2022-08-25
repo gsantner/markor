@@ -21,7 +21,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
@@ -38,7 +37,7 @@ import net.gsantner.opoc.util.StringUtils;
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
-    final static int HIGHLIGHT_SHIFT_LINES = 3;              // Lines to scroll before hl updated
+    final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
 
@@ -107,18 +106,16 @@ public class HighlightingEditor extends AppCompatEditText {
                 Math.abs(rect.bottom - _hlRect.bottom) > _hlShiftThreshold;
     }
 
-
     private void updateDynamicHighlighting() {
-        if (_isDynamicHighlightingEnabled && !_isUpdatingDynamicHighlighting) {
-            _isUpdatingDynamicHighlighting = true;
+        if (_isDynamicHighlightingEnabled) {
             updateHighlighting(false);
-            _isUpdatingDynamicHighlighting = false;
         }
     }
 
     private void updateHighlighting(final boolean recompute) {
         final Layout layout;
-        if (_hlEnabled && _hl != null && (layout = getLayout()) != null) {
+        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && (layout = getLayout()) != null) {
+            _isUpdatingDynamicHighlighting = true;
 
             final Rect rect = new Rect();
             getLocalVisibleRect(rect);
@@ -129,28 +126,28 @@ public class HighlightingEditor extends AppCompatEditText {
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user
-                final int middleY = Math.round(0.5f * (rect.top + rect.bottom));
-                final int shiftTestLine = layout.getLineForVertical(middleY);
+                final int shiftTestLine = layout.getLineForVertical(rect.centerY());
                 final int oldOffset = layout.getLineBaseline(shiftTestLine);
 
                 withAccessibilityDisabled(() -> {
-                    // Hack to prevent scrolling to cursor
-                    blockBringPointIntoView();
+                    blockBringPointIntoView(); // Hack to prevent scrolling to cursor
                     _hl.clear();
                     if (recompute) {
                         _hl.recompute();
                     }
-                    _hl.apply(hlRegion(middleY, rect.height()));
+                    _hl.apply(hlRegion(rect));
                 });
+
+                _hlRect = rect;
 
                 final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
                 if (_scrollView != null && Math.abs(shift) > 1) {
                     // Only apply the shift when not flicking or drag-scrolling
                     _scrollView.slowScrollShift(shift);
                 }
-
-                _hlRect = rect;
             }
+
+            _isUpdatingDynamicHighlighting = false;
         }
     }
 
@@ -204,11 +201,11 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Region to highlight
-    private int[] hlRegion(final int y, final int height) {
+    private int[] hlRegion(final Rect rect) {
         if (_isDynamicHighlightingEnabled) {
-            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * height) + _hlShiftThreshold;
-            final int startY = y - hlSize;
-            final int endY = y + hlSize;
+            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * rect.height()) + _hlShiftThreshold;
+            final int startY = rect.centerY() - hlSize;
+            final int endY = rect.centerY() + hlSize;
             return new int[]{ rowStart(startY), rowEnd(endY) };
         } else {
             return new int[]{ 0, length() };
@@ -279,8 +276,8 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (w != oldw || h != oldh) {
-            post(this::updateDynamicHighlighting);
+        if (h != oldh) {
+            updateHighlighting(false);
         }
     }
 
