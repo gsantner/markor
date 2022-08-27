@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Отображать письмо слева направо</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Ошибка: не получилось создать папку блокнота</string>
     <string name="last_modified_witharg">Последнее изменение: %s</string>
-    <string name="last_modified">Последнее изменение</string>
+    <string name="last_modified">Был изменён</string>
     <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
     <string name="create">Создать</string>
