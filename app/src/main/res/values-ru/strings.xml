@@ -309,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Начальная папка</string>
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть текстовым файлом. Открыть его в редакторе или в другом приложении? \n\nНе пытайтесь открыть бинарные файлы. Если вы не уверены, откройте другим приложением.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выберите текстовый файл. Вы хотите открыть его в редакторе или в другом приложении? \n\nНе пытайтесь открывать бинарные файлы. Если вы не уверены, откройте другим приложением.</string>
     <string name="list_in_recent_files">Показывать в недавних файлах</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
