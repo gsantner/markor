@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">En haut</string>
     <string name="bottom">En bas</string>
     <string name="center">Centré</string>
+    <string name="actionbutton_spacing">Espacement des boutons d\'action</string>
+    <string name="horizontal_space_between_actionbuttons">Espace horizontal entre les boutons d\'action</string>
     <string name="center_text">Centrer le texte</string>
     <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
     <string name="clipboard">Presse-papier</string>
