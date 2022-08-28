@@ -10,10 +10,10 @@
 package net.gsantner.markor.format.markdown;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
@@ -29,8 +29,8 @@ import java.util.List;
 
 public class MarkdownTextActions extends TextActions {
 
-    public MarkdownTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public MarkdownTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -68,6 +68,10 @@ public class MarkdownTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
+
+                new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_web_jump_to_table_of_contents, R.drawable.ic_list_black_24dp, R.string.table_of_contents, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(TMA_ACTIONS);
@@ -128,12 +132,12 @@ public class MarkdownTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_markdown_table_insert_columns: {
-                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, false, this::insertTableRow);
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(getActivity(), false, this::insertTableRow);
                 return true;
             }
             case R.string.tmaid_markdown_insert_link:
             case R.string.tmaid_markdown_insert_image: {
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(action == R.string.tmaid_markdown_insert_image ? 2 : 3, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             }
             default: {
@@ -153,7 +157,7 @@ public class MarkdownTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_markdown_table_insert_columns: {
-                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(_activity, true, this::insertTableRow);
+                SearchOrCustomTextDialogCreator.showInsertTableRowDialog(getActivity(), true, this::insertTableRow);
                 return true;
             }
             case R.string.tmaid_markdown_code_inline: {
@@ -163,7 +167,6 @@ public class MarkdownTextActions extends TextActions {
                     _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n```\n");
                     _hlEditor.setSelection(c + "\n```\n".length());
                 });
-                Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                 return true;
             }
             default: {
@@ -204,7 +207,7 @@ public class MarkdownTextActions extends TextActions {
 
     @Override
     public boolean runTitleClick() {
-        SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), _activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), getActivity(), _hlEditor);
         return true;
     }
 

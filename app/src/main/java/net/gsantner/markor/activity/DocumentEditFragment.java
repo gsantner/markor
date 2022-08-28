@@ -50,6 +50,7 @@ import net.gsantner.markor.ui.FileInfoDialog;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
+import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.MarkorWebViewClient;
@@ -308,24 +309,29 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
 
-        menu.findItem(R.id.action_undo).setVisible(_appSettings.isEditorHistoryEnabled());
-        menu.findItem(R.id.action_redo).setVisible(_appSettings.isEditorHistoryEnabled());
+        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
+        final boolean isText = !_document.isBinaryFileNoTextLoading();
+
+        menu.findItem(R.id.action_undo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
 
-        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
-        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(!_isPreviewVisible);
-        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(!_isPreviewVisible);
-        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(!_isPreviewVisible);
+        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
+        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && !_isPreviewVisible);
+        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
 
         // Edit / Preview switch
-        menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
+        menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.submenu_attach).setVisible(false);
-        menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search_view).setVisible(_isPreviewVisible);
-        menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
+        menu.findItem(R.id.submenu_format_selection).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.submenu_share).setVisible(isText);
+        menu.findItem(R.id.submenu_tools).setVisible(isText);
+        menu.findItem(R.id.submenu_per_file_settings).setVisible(isText);
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
@@ -420,9 +426,13 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     @Override
-    public boolean onOptionsItemSelected(final @NonNull MenuItem item) {
-        _shareUtil.setContext(getContext());
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         final Activity activity = getActivity();
+        if (activity == null) {
+            return true;
+        }
+        _shareUtil.setContext(activity);
+
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
@@ -616,16 +626,17 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void applyTextFormat(final int textFormatId) {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
         _textActionsBar.removeAllViews();
-        _textFormat = TextFormat.getFormat(textFormatId, getActivity(), _document);
+        _textFormat = TextFormat.getFormat(textFormatId, activity, _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
-        _textFormat.getTextActions()
-                .setHighlightingEditor(_hlEditor)
-                .appendTextActionsToBar(_textActionsBar);
-
+        _textFormat.getTextActions().setUiReferences(activity, _hlEditor, _webView);
         updateMenuToggleStates(textFormatId);
     }
 
@@ -742,8 +753,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getConverter().convertMarkupShowInWebView(_document, text, _webView, _nextConvertToPrintMode);
     }
 
-    public void setViewModeVisibility(final boolean show) {
+    public void setViewModeVisibility(boolean show) {
         final Activity activity = getActivity();
+        show |= _document.isBinaryFileNoTextLoading();
+
+        _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
             new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
@@ -767,6 +781,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+        if (type.equalsIgnoreCase("toast") && args.length == 2) {
+            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {
@@ -794,16 +811,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     protected boolean onToolbarLongClicked(View v) {
         if (isVisible() && isResumed()) {
-            if (_isPreviewVisible) {
-                boolean top = _webView.getScrollY() > 100;
-                _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
-                if (!top) {
-                    _webView.scrollBy(0, 1000);
-                    _webView.scrollBy(0, 1000);
-                }
-            } else {
-                _textFormat.getTextActions().runJumpBottomTopAction();
-            }
+            _textFormat.getTextActions().runJumpBottomTopAction(_isPreviewVisible ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
             return true;
         }
         return false;

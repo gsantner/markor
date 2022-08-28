@@ -12,6 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,8 +43,8 @@ public class TodoTxtTextActions extends TextActions {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtTextActions.class.getCanonicalName() + "_last_sort_order_key";
 
-    public TodoTxtTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public TodoTxtTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -65,6 +66,9 @@ public class TodoTxtTextActions extends TextActions {
                 new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
+
+                new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(TMA_ACTIONS);
@@ -105,7 +109,7 @@ public class TodoTxtTextActions extends TextActions {
                 final List<String> contexts = new ArrayList<>();
                 contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
                 contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
-                SearchOrCustomTextDialogCreator.showSttContextDialog(_activity, contexts, (context) -> {
+                SearchOrCustomTextDialogCreator.showSttContextDialog(getActivity(), contexts, (context) -> {
                     insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                 });
                 return true;
@@ -114,13 +118,13 @@ public class TodoTxtTextActions extends TextActions {
                 final List<String> projects = new ArrayList<>();
                 projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
                 projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
-                SearchOrCustomTextDialogCreator.showSttProjectDialog(_activity, projects, (project) -> {
+                SearchOrCustomTextDialogCreator.showSttProjectDialog(getActivity(), projects, (project) -> {
                     insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                 });
                 return true;
             }
             case R.string.tmaid_todotxt_priority: {
-                SearchOrCustomTextDialogCreator.showPriorityDialog(_activity, selTasks.get(0).getPriority(), (priority) -> {
+                SearchOrCustomTextDialogCreator.showPriorityDialog(getActivity(), selTasks.get(0).getPriority(), (priority) -> {
                     ArrayList<ReplacePattern> patterns = new ArrayList<>();
                     if (priority.length() > 1) {
                         patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
@@ -139,7 +143,7 @@ public class TodoTxtTextActions extends TextActions {
                 return true;
             }
             case R.string.tmaid_todotxt_archive_done_tasks: {
-                SearchOrCustomTextDialogCreator.showSttArchiveDialog(_activity, (callbackPayload) -> {
+                SearchOrCustomTextDialogCreator.showSttArchiveDialog(getActivity(), (callbackPayload) -> {
                     callbackPayload = Document.normalizeFilename(callbackPayload);
 
                     final ArrayList<TodoTxtTask> keep = new ArrayList<>();
@@ -179,12 +183,12 @@ public class TodoTxtTextActions extends TextActions {
                             );
                         }
                     }
-                    new AppSettings(_activity).setLastTodoUsedArchiveFilename(callbackPayload);
+                    _appSettings.setLastTodoUsedArchiveFilename(callbackPayload);
                 });
                 return true;
             }
             case R.string.tmaid_todotxt_sort_todo: {
-                SearchOrCustomTextDialogCreator.showSttSortDialogue(_activity, (orderBy, descending) -> new Thread() {
+                SearchOrCustomTextDialogCreator.showSttSortDialogue(getActivity(), (orderBy, descending) -> new Thread() {
                     @Override
                     public void run() {
                         final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
@@ -206,11 +210,11 @@ public class TodoTxtTextActions extends TextActions {
 
         switch (action) {
             case R.string.tmaid_todotxt_add_context: {
-                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
+                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
                 return true;
             }
             case R.string.tmaid_todotxt_add_project: {
-                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(_activity, _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
+                SearchOrCustomTextDialogCreator.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
                 return true;
             }
             case R.string.tmaid_todotxt_sort_todo: {
@@ -234,13 +238,13 @@ public class TodoTxtTextActions extends TextActions {
 
     @Override
     public boolean runTitleClick() {
-        SearchOrCustomTextDialogCreator.showSttFilteringDialog(_activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showSttFilteringDialog(getActivity(), _hlEditor);
         return true;
     }
 
     @Override
     public boolean onSearch() {
-        SearchOrCustomTextDialogCreator.showSttSearchDialog(_activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showSttSearchDialog(getActivity(), _hlEditor);
         return true;
     }
 
@@ -313,10 +317,10 @@ public class TodoTxtTextActions extends TextActions {
         };
 
         new DateFragment()
-                .setActivity(_activity)
+                .setActivity(getActivity())
                 .setListener(listener)
                 .setCalendar(initDate)
-                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
+                .show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "date");
     }
 
 
@@ -342,13 +346,13 @@ public class TodoTxtTextActions extends TextActions {
         };
 
         new DateFragment()
-                .setActivity(_activity)
+                .setActivity(getActivity())
                 .setListener(listener)
                 .setCalendar(initDate)
-                .setMessage(_context.getString(R.string.due_date))
-                .setExtraLabel(_context.getString(R.string.clear))
+                .setMessage(getContext().getString(R.string.due_date))
+                .setExtraLabel(getContext().getString(R.string.clear))
                 .setExtraListener(clear)
-                .show(((FragmentActivity) _activity).getSupportFragmentManager(), "date");
+                .show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "date");
     }
 
     /**

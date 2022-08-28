@@ -94,7 +94,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
-public class ShareUtil {
+public class ShareUtil extends ContextUtils {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
@@ -117,6 +117,7 @@ public class ShareUtil {
     protected String _chooserTitle;
 
     public ShareUtil(final Context context) {
+        super(context);
         _context = context;
         _chooserTitle = "➥";
     }
@@ -125,14 +126,8 @@ public class ShareUtil {
         _context = c;
     }
 
-    public void freeContextRef() {
-        _context = null;
-    }
-
     public String getFileProviderAuthority() {
-        ContextUtils cu = new ContextUtils(_context);
-        final String provider = cu.getFileProvider();
-        cu.freeContextRef();
+        final String provider = getFileProvider();
         if (TextUtils.isEmpty(provider)) {
             throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(): No FileProvider authority provided");
         }
@@ -325,11 +320,12 @@ public class ShareUtil {
 
         if (fileUri != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(fileUri, (TextUtils.isEmpty(type) ? getMimeType(file) : type));
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            intent.setData(fileUri);
+            intent.setClipData(ClipData.newRawUri(file.getName(), fileUri));
             intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(fileUri, type);
+            intent.putExtra(Intent.EXTRA_TITLE, file.getName());
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             showChooser(intent, null);
             return true;
         }
@@ -381,7 +377,7 @@ public class ShareUtil {
     public boolean shareImage(final Bitmap bitmap, final Integer... quality) {
         try {
             File file = new File(_context.getCacheDir(), getFilenameWithTimestamp());
-            if (bitmap != null && new ContextUtils(_context).writeImageToFile(file, bitmap, quality)) {
+            if (bitmap != null && writeImageToFile(file, bitmap, quality)) {
                 String x = FileUtils.getMimeType(file);
                 shareStream(file, FileUtils.getMimeType(file));
                 return true;
@@ -1047,14 +1043,13 @@ public class ShareUtil {
 
     public boolean openWebpageInChromeCustomTab(final String url) {
         boolean ok = false;
-        ContextUtils cu = new ContextUtils(_context);
         try {
             // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
             // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
             // and launch the desired Url with CustomTabsIntent.launchUrl()
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(ContextCompat.getColor(_context, cu.getResId(ContextUtils.ResType.COLOR, "primary")));
-            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, cu.getResId(ContextUtils.ResType.COLOR, "primary_dark")));
+            builder.setToolbarColor(ContextCompat.getColor(_context, getResId(ContextUtils.ResType.COLOR, "primary")));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, getResId(ContextUtils.ResType.COLOR, "primary_dark")));
             builder.addDefaultShareMenuItem();
             CustomTabsIntent customTabsIntent = builder.build();
             enableChromeCustomTabsForOtherBrowsers(customTabsIntent.intent);
@@ -1062,7 +1057,6 @@ public class ShareUtil {
             ok = true;
         } catch (Exception ignored) {
         }
-        cu.freeContextRef();
         return ok;
     }
 
@@ -1108,14 +1102,12 @@ public class ShareUtil {
         Uri safUri = getStorageAccessFrameworkTreeUri();
         if (safUri != null) {
             String safUriStr = safUri.toString();
-            ContextUtils cu = new ContextUtils(_context);
-            for (Pair<File, String> storage : cu.getStorages(false, true)) {
+            for (Pair<File, String> storage : getStorages(false, true)) {
                 @SuppressWarnings("ConstantConditions") String storageFolderName = storage.first.getName();
                 if (safUriStr.contains(storageFolderName)) {
                     return storage.first;
                 }
             }
-            cu.freeContextRef();
         }
         return null;
     }
@@ -1133,14 +1125,11 @@ public class ShareUtil {
             if (canWriteFile(file, isDir, false)) {
                 return false;
             }
-            ContextUtils cu = new ContextUtils(_context);
-            for (Pair<File, String> storage : cu.getStorages(false, true)) {
+            for (Pair<File, String> storage : getStorages(false, true)) {
                 if (file.getAbsolutePath().startsWith(storage.first.getAbsolutePath())) {
-                    cu.freeContextRef();
                     return true;
                 }
             }
-            cu.freeContextRef();
         }
         return false;
     }
@@ -1235,10 +1224,7 @@ public class ShareUtil {
         }
 
         // Get ContextUtils to find storageRootFolder
-        ContextUtils cu = new ContextUtils(_context);
-        File baseFolderFile = cu.getStorageRootFolder(file);
-        cu.freeContextRef();
-
+        File baseFolderFile = getStorageRootFolder(file);
         String baseFolder = baseFolderFile == null ? null : baseFolderFile.getAbsolutePath();
         boolean originalDirectory = false;
         if (baseFolder == null) {
@@ -1423,9 +1409,8 @@ public class ShareUtil {
         // On Android R+ - check externalStorageManager is granted, otherwise request it
         if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
             permissionRequest.set(() -> {
-                ContextUtils cu = new ContextUtils(activity.getApplicationContext());
                 try {
-                    Uri uri = Uri.parse("package:" + cu.getPackageIdReal());
+                    Uri uri = Uri.parse("package:" + getPackageIdReal());
                     Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
                     activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 } catch (Exception ex) {
@@ -1433,7 +1418,6 @@ public class ShareUtil {
                     intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                     activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 }
-                cu.freeContextRef();
             });
         }
 
@@ -1481,11 +1465,10 @@ public class ShareUtil {
         }
         final Uri fileUri = Uri.fromFile(file.getAbsoluteFile());
         final ArrayList<Pair<String, String>> extracted = new ArrayList<>();
-        final ContextUtils cu = new ContextUtils(context);
 
         // "Last modified" -> R.string.last_modified
         final Callback.a2<String, String> append = (key, value) -> {
-            final int resId = cu.getResId(ContextUtils.ResType.STRING, key);
+            final int resId = getResId(ContextUtils.ResType.STRING, key);
             extracted.add(new Pair<>((resId != 0 ? context.getString(resId) : key), value));
         };
 
@@ -1552,7 +1535,6 @@ public class ShareUtil {
 
         // free resources
         try {
-            cu.freeContextRef();
             mmr.release();
         } catch (Exception ignored) {
         }

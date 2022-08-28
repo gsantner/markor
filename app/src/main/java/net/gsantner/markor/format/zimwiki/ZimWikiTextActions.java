@@ -9,10 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.format.zimwiki;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
@@ -21,7 +21,6 @@ import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
@@ -34,8 +33,8 @@ import java.util.regex.Matcher;
 
 public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActions {
 
-    public ZimWikiTextActions(Activity activity, Document document) {
-        super(activity, document);
+    public ZimWikiTextActions(@NonNull Context context, Document document) {
+        super(context, document);
     }
 
     @Override
@@ -74,6 +73,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                 new ActionItem(R.string.tmaid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.tmaid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.tmaid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
+
+                new ActionItem(R.string.tmaid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_web_jump_to_table_of_contents, R.drawable.ic_list_black_24dp, R.string.table_of_contents, ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.tmaid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
         };
 
         return Arrays.asList(ZIMWIKI_ACTIONS);
@@ -141,10 +144,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
             //       return true;
             // }
             case R.string.tmaid_zimwiki_insert_link:
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.FILE_OR_LINK_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             case R.string.tmaid_zimwiki_insert_image: {
-                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.IMAGE_ACTION, _document.getFormat(), _activity, _hlEditor, _document.getFile());
+                AttachImageOrLinkDialog.showInsertImageOrLinkDialog(AttachImageOrLinkDialog.IMAGE_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
                 return true;
             }
             case R.string.tmaid_common_indent:
@@ -192,7 +195,6 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
                     _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n'''\n");
                     _hlEditor.setSelection(c + "\n'''\n".length());
                 });
-                Toast.makeText(_activity, R.string.code_block, Toast.LENGTH_SHORT).show();
                 return true;
             }
             default: {
@@ -218,9 +220,9 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         }
 
         if (resolver.isWebLink()) {
-            new ContextUtils(_activity).openWebpageInExternalBrowser(resolvedLink);
+            getAndroidUtils().openWebpageInExternalBrowser(resolvedLink);
         } else {
-            DocumentActivity.launch(_activity, new File(resolvedLink), false, null, null);
+            DocumentActivity.launch(getActivity(), new File(resolvedLink), false, null, null);
         }
     }
 
@@ -284,7 +286,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
 
     @Override
     public boolean runTitleClick() {
-        SearchOrCustomTextDialogCreator.showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), _activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showHeadlineDialog(ZimWikiHighlighter.Patterns.HEADING.pattern.toString(), getActivity(), _hlEditor);
         return true;
     }
 

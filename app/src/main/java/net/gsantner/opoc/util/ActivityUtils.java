@@ -1,15 +1,12 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2016-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
- *     https://www.apache.org/licenses/LICENSE-2.0
- *     https://github.com/gsantner/opoc/#licensing
+ * SPDX-FileCopyrightText: 2016-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
@@ -17,6 +14,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.net.Uri;
@@ -33,6 +31,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
@@ -49,7 +48,7 @@ import java.util.List;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "rawtypes", "UnusedReturnValue"})
-public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
+public class ActivityUtils extends net.gsantner.opoc.util.ShareUtil {
     //########################
     //## Members, Constructors
     //########################
@@ -379,6 +378,7 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
      *
      * @param pref one out of system (daynight toggle), auto (daynight hour), autocompat (hour 5-17), light (fixed), dark (fixed)
      */
+    @SuppressLint("WrongConstant")
     public static void applyDayNightTheme(final String pref) {
         final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
         final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
@@ -392,5 +392,37 @@ public class ActivityUtils extends net.gsantner.opoc.util.ContextUtils {
         } else if ("auto".equals(pref)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         }
+    }
+
+
+    public void nextScreenRotationSetting() {
+        String text = "";
+        int nextOrientation;
+        switch (_activity.getRequestedOrientation()) {
+            case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE: {
+                nextOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                text = "Portrait";
+                break;
+            }
+            case ActivityInfo.SCREEN_ORIENTATION_PORTRAIT: {
+                nextOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+                text = "Sensor";
+                break;
+            }
+            case ActivityInfo.SCREEN_ORIENTATION_SENSOR: {
+                nextOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+                text = "Default";
+                break;
+            }
+            default: {
+                nextOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                text = "Landscape";
+                break;
+            }
+        }
+        int resId = getResId(ResType.STRING, text);
+        text = (resId != 0 ? _context.getString(resId) : text);
+        Toast.makeText(_context, text, Toast.LENGTH_SHORT).show();
+        _activity.setRequestedOrientation(nextOrientation);
     }
 }

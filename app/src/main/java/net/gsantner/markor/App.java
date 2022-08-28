@@ -9,10 +9,11 @@
 #########################################################*/
 package net.gsantner.markor;
 
-import android.app.Application;
 import android.webkit.WebView;
 
-public class App extends Application {
+import androidx.multidex.MultiDexApplication;
+
+public class App extends MultiDexApplication {
     // Make resources not marked as unused
     @SuppressWarnings("unused")
     private static final Object[] unused_ignore = new Object[]

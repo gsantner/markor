@@ -14,18 +14,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
@@ -43,7 +45,7 @@ import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.opoc.format.plaintext.PlainTextStuff;
 import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
@@ -55,33 +57,32 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class TextActions {
-    protected HighlightingEditor _hlEditor;
-    protected Document _document;
-    protected Activity _activity;
-    protected Context _context;
-    protected AppSettings _appSettings;
-    protected ActivityUtils _au;
+    private Activity m_activity;
+    private ActivityUtils m_au;
     private final int _textActionSidePadding;
-    protected int _indent;
     private String _lastSnip;
+
+    protected HighlightingEditor _hlEditor;
+    protected WebView m_webView;
+    protected Document _document;
+    protected AppSettings _appSettings;
+    protected int _indent;
 
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
-    public TextActions(final Activity activity, final Document document) {
+    public TextActions(@NonNull final Context context, final Document document) {
         _document = document;
-        _activity = activity;
-        _au = new ActivityUtils(activity);
-        _context = activity != null ? activity : _hlEditor.getContext();
-        _appSettings = new AppSettings(_context);
-        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * _context.getResources().getDisplayMetrics().density);
+        _appSettings = new AppSettings(context.getApplicationContext());
+        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * context.getResources().getDisplayMetrics().density);
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }
 
@@ -97,7 +98,7 @@ public abstract class TextActions {
 
     // Override to implement custom search action
     public boolean onSearch() {
-        SearchOrCustomTextDialogCreator.showSearchDialog(_activity, _hlEditor);
+        SearchOrCustomTextDialogCreator.showSearchDialog(getActivity(), _hlEditor);
         return true;
     }
 
@@ -154,11 +155,12 @@ public abstract class TextActions {
      * @return List or resource strings
      */
     public List<String> getActiveActionKeys() {
-        List<ActionItem> actionList = getActiveActionList();
-        ArrayList<String> keys = new ArrayList<String>();
+        final List<ActionItem> actionList = getActiveActionList();
+        final ArrayList<String> keys = new ArrayList<>();
 
-        Resources res = _activity.getResources();
-        for (ActionItem item : actionList) keys.add(res.getString(item.keyId));
+        for (ActionItem item : actionList) {
+            keys.add(rstr(item.keyId));
+        }
 
         return keys;
     }
@@ -192,14 +194,14 @@ public abstract class TextActions {
         values = new ArrayList<>(values);
         values.retainAll(getActiveActionKeys());
 
-        SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
-        String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
+        SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        String formatKey = rstr(getFormatActionsKey()) + suffix;
         settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
     }
 
     private List<String> loadActionPreference(final String suffix) {
-        String formatKey = _activity.getResources().getString(getFormatActionsKey()) + suffix;
-        SharedPreferences settings = _activity.getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        String formatKey = rstr(getFormatActionsKey()) + suffix;
+        SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
         String combinedKeys = settings.getString(formatKey, null);
         return combinedKeys != null ? Arrays.asList(combinedKeys.split(",")) : Collections.emptyList();
     }
@@ -245,39 +247,58 @@ public abstract class TextActions {
         return prefKeys;
     }
 
-    public void appendTextActionsToBar(ViewGroup barLayout) {
-        if (barLayout.getChildCount() == 0) {
-            setBarVisible(barLayout, true);
+    @SuppressWarnings("ConstantConditions")
+    public void recreateTextActionBarButtons(ViewGroup barLayout, ActionItem.DisplayMode displayMode) {
+        barLayout.removeAllViews();
+        setBarVisible(barLayout, true);
 
-            final Map<String, ActionItem> map = getActiveActionMap();
-            final List<String> orderedKeys = getActionOrder();
-            final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
-            for (final String key : orderedKeys) {
-                if (!disabledKeys.contains(key)) {
-                    final ActionItem action = map.get(key);
-                    appendTextActionToBar(barLayout, action.iconId, action.stringId, action.keyId);
-                }
+        final Map<String, ActionItem> map = getActiveActionMap();
+        final List<String> orderedKeys = getActionOrder();
+        final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
+        for (final String key : orderedKeys) {
+            final ActionItem action = map.get(key);
+            if (!disabledKeys.contains(key) && (action.displayMode == displayMode || action.displayMode == ActionItem.DisplayMode.ANY)) {
+                appendTextActionToBar(barLayout, action);
             }
         }
     }
 
-    protected void appendTextActionToBar(ViewGroup barLayout, @DrawableRes int iconRes, @StringRes int descRes, @StringRes int actionKey) {
-        final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
-        btn.setImageResource(iconRes);
-        btn.setContentDescription(_activity.getString(descRes));
-        TooltipCompat.setTooltipText(btn, _activity.getString(descRes));
+    protected void appendTextActionToBar(ViewGroup barLayout, @NonNull ActionItem action) {
+        final ImageView btn = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
+        btn.setImageResource(action.iconId);
+        btn.setContentDescription(rstr(action.stringId));
+        TooltipCompat.setTooltipText(btn, rstr(action.stringId));
+        final AtomicBoolean showTooltip = new AtomicBoolean(false);
+
+        // show the android tooltip text popup (which only can be shown through longClick)
+        final Callback.a1<Integer> triggerTooltip = stringId -> {
+            showTooltip.set(true);
+            btn.setContentDescription(rstr(stringId));
+            TooltipCompat.setTooltipText(btn, rstr(stringId));
+            btn.postDelayed(btn::performLongClick, 100);
+        };
+
         btn.setOnClickListener(v -> {
             try {
+                // run action
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                onActionClick(actionKey);
+                if (onActionClick(action.keyId)) {
+                    triggerTooltip.callback(action.stringId);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
         btn.setOnLongClickListener(v -> {
             try {
+                if (showTooltip.getAndSet(false)) {
+                    return false;
+                }
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                return onActionLongClick(actionKey);
+                if (onActionLongClick(action.keyId)) {
+                    triggerTooltip.callback(action.stringId); // replace in future with separate description stringId for longClick
+                    return true;
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -493,12 +514,17 @@ public abstract class TextActions {
     //
     //
     //
-    public HighlightingEditor getHighlightingEditor() {
-        return _hlEditor;
-    }
 
-    public TextActions setHighlightingEditor(HighlightingEditor hlEditor) {
+    public TextActions setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
+        m_activity = activity;
         _hlEditor = hlEditor;
+        m_webView = webview;
+        if (m_au != null) {
+            m_au.freeContextRef();
+        }
+        if (activity != null) {
+            m_au = new ActivityUtils(activity);
+        }
         return this;
     }
 
@@ -512,28 +538,22 @@ public abstract class TextActions {
     }
 
     public Activity getActivity() {
-        return _activity;
-    }
-
-    public TextActions setActivity(Activity activity) {
-        _activity = activity;
-        return this;
+        return m_activity;
     }
 
     public Context getContext() {
-        return _context;
+        return m_activity != null ? m_activity : _appSettings.getContext();
     }
 
-    public TextActions setContext(Context context) {
-        _context = context;
-        return this;
+    public ActivityUtils getAndroidUtils() {
+        return m_au;
     }
 
     /**
      * Callable from background thread!
      */
     public void setEditorTextAsync(final String text) {
-        _activity.runOnUiThread(() -> _hlEditor.setText(text));
+        getActivity().runOnUiThread(() -> _hlEditor.setText(text));
     }
 
     protected void runIndentLines(final boolean deIndent) {
@@ -570,11 +590,11 @@ public abstract class TextActions {
 
             }
             case R.string.tmaid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + _context.getString(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.tmaid_common_attach_something: {
-                SearchOrCustomTextDialogCreator.showAttachSomethingDialog(_activity, itemId -> {
+                SearchOrCustomTextDialogCreator.showAttachSomethingDialog(getActivity(), itemId -> {
                     switch (itemId) {
                         case R.id.action_attach_color: {
                             showColorPickerDialog();
@@ -613,7 +633,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {
-                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(_activity, (snip) -> {
+                SearchOrCustomTextDialogCreator.showInsertSnippetDialog(getActivity(), (snip) -> {
                     _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });
@@ -625,7 +645,7 @@ public abstract class TextActions {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
-                    new ContextUtils(_activity).openWebpageInExternalBrowser(url);
+                    getAndroidUtils().openWebpageInExternalBrowser(url);
                 }
                 return true;
             }
@@ -647,6 +667,22 @@ public abstract class TextActions {
                 text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));
                 return true;
             }
+            case R.string.tmaid_common_web_jump_to_very_top_or_bottom: {
+                runJumpBottomTopAction(ActionItem.DisplayMode.VIEW);
+                return true;
+            }
+            case R.string.tmaid_common_web_jump_to_table_of_contents: {
+                m_webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                return true;
+            }
+            case R.string.tmaid_common_view_file_in_other_app: {
+                getAndroidUtils().viewFileInOtherApp(_document.getFile(), FileUtils.getMimeType(_document.getFile()));
+                return true;
+            }
+            case R.string.tmaid_common_rotate_screen: {
+                getAndroidUtils().nextScreenRotationSetting();
+                return true;
+            }
         }
         return false;
     }
@@ -658,7 +694,7 @@ public abstract class TextActions {
         switch (action) {
             case R.string.tmaid_common_deindent:
             case R.string.tmaid_common_indent: {
-                SearchOrCustomTextDialogCreator.showIndentSizeDialog(_activity, _indent, (size) -> {
+                SearchOrCustomTextDialogCreator.showIndentSizeDialog(getActivity(), _indent, (size) -> {
                     _indent = Integer.parseInt(size);
                     _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
                 });
@@ -668,12 +704,12 @@ public abstract class TextActions {
                 return onSearch();
             }
             case R.string.tmaid_common_special_key: {
-                runJumpBottomTopAction();
+                runJumpBottomTopAction(ActionItem.DisplayMode.EDIT);
                 return true;
             }
             case R.string.tmaid_common_time: {
                 try {
-                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(_activity));
+                    _hlEditor.insertOrReplaceTextOnCursor(DatetimeFormatDialog.getMostRecentDate(getContext()));
                 } catch (Exception ignored) {
                 }
                 return true;
@@ -704,11 +740,15 @@ public abstract class TextActions {
         public int iconId;
         @StringRes
         public int stringId;
+        public DisplayMode displayMode;
 
-        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
+        public enum DisplayMode {EDIT, VIEW, ANY}
+
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string, final DisplayMode... a_displayMode) {
             keyId = key;
             iconId = icon;
             stringId = string;
+            displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
     }
 
@@ -761,7 +801,7 @@ public abstract class TextActions {
     }
 
     private String rstr(@StringRes int resKey) {
-        return _activity.getString(resKey);
+        return getContext().getString(resKey);
     }
 
     public void runSpecialKeyAction() {
@@ -772,7 +812,7 @@ public abstract class TextActions {
         _hlEditor.requestFocus();
         _hlEditor.setSelection(sel[0], sel[1]);
 
-        SearchOrCustomTextDialogCreator.showSpecialKeyDialog(_activity, (callbackPayload) -> {
+        SearchOrCustomTextDialogCreator.showSpecialKeyDialog(getActivity(), (callbackPayload) -> {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                 _hlEditor.requestFocus();
             }
@@ -817,7 +857,7 @@ public abstract class TextActions {
     }
 
     public void showColorPickerDialog() {
-        SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(_activity, new Callback.a1<Integer>() {
+        SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(getActivity(), new Callback.a1<Integer>() {
             @Override
             public void callback(Integer colorInsertType) {
                 ColorPickerDialogBuilder
@@ -856,9 +896,18 @@ public abstract class TextActions {
         });
     }
 
-    public void runJumpBottomTopAction() {
-        int pos = _hlEditor.getSelectionStart();
-        _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+    public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
+        if (displayMode == ActionItem.DisplayMode.EDIT) {
+            int pos = _hlEditor.getSelectionStart();
+            _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+        } else if (displayMode == ActionItem.DisplayMode.VIEW) {
+            boolean top = m_webView.getScrollY() > 100;
+            m_webView.scrollTo(0, top ? 0 : m_webView.getContentHeight());
+            if (!top) {
+                m_webView.scrollBy(0, 1000);
+                m_webView.scrollBy(0, 1000);
+            }
+        }
     }
 
 }

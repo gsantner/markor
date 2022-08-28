@@ -1,6 +1,6 @@
 ---
-name: Minor bug report
-about: Only use this option in case you experience issues with the normal 'Bug report' option
+name: Plain issue
+about: Only use this option in case you experience issues with the other options. Can happen at non-official GitHub applications not supporting the GitHub issue form.
 title: ''
 assignees: ''
 
