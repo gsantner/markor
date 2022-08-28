@@ -11,7 +11,6 @@ package net.gsantner.markor.format.zimwiki;
 
 import android.content.Context;
 import android.os.Build;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -22,7 +21,6 @@ import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.opoc.util.ContextUtils;
 import net.gsantner.opoc.util.StringUtils;
 
 import java.io.File;
@@ -222,7 +220,7 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         }
 
         if (resolver.isWebLink()) {
-           getAndroidUtils().openWebpageInExternalBrowser(resolvedLink);
+            getAndroidUtils().openWebpageInExternalBrowser(resolvedLink);
         } else {
             DocumentActivity.launch(getActivity(), new File(resolvedLink), false, null, null);
         }

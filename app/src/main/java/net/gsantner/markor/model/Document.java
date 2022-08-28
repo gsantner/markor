@@ -79,6 +79,8 @@ public class Document implements Serializable {
             setFormat(TextFormat.FORMAT_MARKDOWN);
         } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(getPath())) {
             setFormat(TextFormat.FORMAT_ZIMWIKI);
+        } else if (TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {
+            setFormat(TextFormat.FORMAT_EMBEDBINARY);
         } else {
             setFormat(TextFormat.FORMAT_PLAIN);
         }
@@ -150,6 +152,10 @@ public class Document implements Serializable {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
+    public boolean isBinaryFileNoTextLoading() {
+        return _file != null && TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
+    }
+
     public boolean isEncrypted() {
         return isEncrypted(_file);
     }
@@ -166,7 +172,10 @@ public class Document implements Serializable {
     public synchronized String loadContent(final Context context) {
         String content;
         final char[] pw;
-        if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
+
+        if (isBinaryFileNoTextLoading()) {
+            content = "";
+        } else if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
             try {
                 final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(_file), (int) _file.length());
                 if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
@@ -237,6 +246,9 @@ public class Document implements Serializable {
 
     @SuppressWarnings("ConstantConditions")
     public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil1, boolean isManualSave) {
+        if (isBinaryFileNoTextLoading()) {
+            return true;
+        }
         if (!isManualSave && TextUtils.getTrimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
             return false;
         }

@@ -310,24 +310,29 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
 
-        menu.findItem(R.id.action_undo).setVisible(_appSettings.isEditorHistoryEnabled());
-        menu.findItem(R.id.action_redo).setVisible(_appSettings.isEditorHistoryEnabled());
+        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
+        final boolean isText = !_document.isBinaryFileNoTextLoading();
+
+        menu.findItem(R.id.action_undo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
 
-        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
-        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(!_isPreviewVisible);
-        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(!_isPreviewVisible);
-        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(!_isPreviewVisible);
+        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
+        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && !_isPreviewVisible);
+        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
 
         // Edit / Preview switch
-        menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
+        menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.submenu_attach).setVisible(false);
-        menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search_view).setVisible(_isPreviewVisible);
-        menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
+        menu.findItem(R.id.submenu_format_selection).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.submenu_share).setVisible(isText);
+        menu.findItem(R.id.submenu_tools).setVisible(isText);
+        menu.findItem(R.id.submenu_per_file_settings).setVisible(isText);
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
@@ -735,8 +740,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
     }
 
-    public void setViewModeVisibility(final boolean show) {
+    public void setViewModeVisibility(boolean show) {
         final Activity activity = getActivity();
+        show |= _document.isBinaryFileNoTextLoading();
+
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
@@ -761,6 +768,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+        if (type.equalsIgnoreCase("toast") && args.length == 2) {
+            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {
