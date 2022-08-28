@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Sus</string>
     <string name="bottom">Jos</string>
     <string name="center">Centru</string>
-
-
     <string name="center_text">Text centru</string>
     <string name="edit_text_in_center_of_screen">Editează textul în centrul ecranului</string>
     <string name="clipboard">Clipboard</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Afișează atributele YAML Front Matter în partea de sus a documentelor vizualizate. Introduceți cheile separate prin virgule. Lăsați necompletate pentru nici unul sau folosiți \'*\' pentru toți. \n\nDacă orice atribut este definit în document (ex: title: \'Salut\') și în documentul dvs. există {{ post.title }} și el este înlocuit. Puteți face un Front Matter personalizat heading în acest fel.</string>
     <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
-
-
     <string name="prefer_view">Prefer vizualizarea</string>
     <string name="no_calendar_app_is_installed">Nicio aplicație din calendar nu este instalată!</string>
     <string name="popular_documents">Documente populare</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partajare în - Format</string>
     <string name="auto_format">Format automat</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Eroare: Nu s-a putut deschide.</string>
+    <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
 </resources>
