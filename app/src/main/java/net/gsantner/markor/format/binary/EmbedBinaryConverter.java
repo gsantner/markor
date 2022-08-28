@@ -60,7 +60,7 @@ public class EmbedBinaryConverter extends TextConverter {
         final ShareUtil shu = new ShareUtil(context);
 
         // Sticky header with content depending on type
-        if (true){
+        if (true) {
             converted += "\n<div class='sticky' style='top: 0px; border-top-width:0.1px; width: 100%; background: black;'>\n";
             if (EXT_IMAGE.contains(extWithDot)) {
                 converted += "<img class='rotatable' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/><br/>";
@@ -91,7 +91,7 @@ public class EmbedBinaryConverter extends TextConverter {
                 onLoadJs += "document.getElementsByClassName('htmlav')[0].addEventListener('ended', ()=>{ console.error('ended'); document.avSetPlaylistPos(null, +1); });";
 
                 // Add file itself as first item to playlist
-                onLoadJs += "document.avAddToPlaylist('" + TOKEN_FILEURI_VIEWED_FILE+ "', '" + TOKEN_FILEURI_VIEWED_FILE + "');";
+                onLoadJs += "document.avAddToPlaylist('" + TOKEN_FILEURI_VIEWED_FILE + "', '" + TOKEN_FILEURI_VIEWED_FILE + "');";
             }
             if (converted.contains("rotatable")) {
                 converted += "<button type='button' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";
@@ -117,8 +117,8 @@ public class EmbedBinaryConverter extends TextConverter {
             if (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST)) {
                 int i = 0;
                 for (SimpleM3UParser.M3U_Entry line : new SimpleM3UParser().parse(FileUtils.readTextFileFast(file).first)) {
-                    converted += "\n<button type='button' onclick=\"javascript:document.avSetPlaylistPos("+(i+1)+");\"/>" + line.getName() + "</button>";
-                    onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '"+ line.getUrl() + "');";
+                    converted += "\n<button type='button' onclick=\"javascript:document.avSetPlaylistPos(" + (i + 1) + ");\"/>" + line.getName() + "</button>";
+                    onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '" + line.getUrl() + "');";
                     i++;
                 }
                 if (i > 0) {

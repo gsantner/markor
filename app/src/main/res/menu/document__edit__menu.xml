@@ -101,7 +101,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/submenu_toggles"
+        android:id="@+id/submenu_per_file_settings"
         android:icon="@drawable/ic_check_black_24dp"
         android:title="@string/file_settings"
         app:showAsAction="never">
