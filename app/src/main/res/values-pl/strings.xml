@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Wyszukiwanie rekursywne w bieżącym katalogu.</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki o wybranych rozszerzeniach w tej aplikacji. Przykładowo, użyj \'None, .html, .css , .js\', jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
+    <string name="open_file_with">Otwórz plik z</string>
     <string name="rotate">Obróć</string>
     <string name="template">Szablon</string>
     <string name="send_debug_log">Wyślij dziennik debugowania</string>
