@@ -318,6 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Αναδρομική αναζήτηση στον τρέχοντα κατάλογο.</string>
     <string name="always_open_with_this_app">Πάντα άνοιγμα με αυτήν την εφαρμογή</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Πάντα να ανοίγετε αρχεία με αυτήν την εφαρμογή, όταν η λίστα περιέχει την επέκταση αρχείου. Χρησιμοποιήστε \'Κανένα, .html, . ss , .js\' για παράδειγμα, αν θέλετε να επεξεργαστείτε τα αρχεία web και αυτά χωρίς επέκταση αρχείου.</string>
+    <string name="open_file_with">Άνοιγμα αρχείου με</string>
     <string name="rotate">Περιστροφή</string>
     <string name="template">Πρότυπο</string>
     <string name="send_debug_log">Αποστολή Καταγραφής Αποσφαλμάτωσης</string>
