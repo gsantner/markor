@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursiivinen haku nykyisessä hakemistossa.</string>
     <string name="always_open_with_this_app">Avaa aina tällä sovelluksella</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Avaa aina tiedostoja tällä sovelluksella, kun lista sisältää tiedostopäätteen. Käytä \'Ei mitään, .html, . ss , .js esimerkiksi jos haluat muokata web-tiedostoja ja niitä ilman tiedostopäätettä.</string>
+    <string name="open_file_with">Avaa tiedosto ohjelmalla</string>
     <string name="rotate">Kierrä</string>
     <string name="template">Malli</string>
     <string name="send_debug_log">Lähetä Vianetsintäloki</string>
