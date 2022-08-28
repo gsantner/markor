@@ -440,4 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поделиться - Формат</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Ошибка: не удалось открыть.</string>
+    <string name="document_error_clip">Произошла ошибка: текст скопирован в буфер обмена.</string>
 </resources>
