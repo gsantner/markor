@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
     <string name="center">Mitte</string>
+    <string name="actionbutton_spacing">ActionButton Abstand</string>
+    <string name="horizontal_space_between_actionbuttons">Horizontaler Abstand zwischen den ActionButtons</string>
     <string name="center_text">Text mittig</string>
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
