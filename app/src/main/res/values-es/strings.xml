@@ -440,4 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Compartir en - Formato</string>
     <string name="auto_format">Auto-formato</string>
     <string name="insert_snippet">Insertar fragmento</string>
+    <string name="document_error_exit">Error: No se pudo abrir.</string>
+    <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
 </resources>
