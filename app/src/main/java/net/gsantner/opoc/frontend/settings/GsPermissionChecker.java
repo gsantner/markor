@@ -12,13 +12,13 @@ package net.gsantner.opoc.frontend.settings;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.File;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsPermissionChecker {
-    protected static final int CODE_PERMISSION_EXTERNAL_STORAGE = ShareUtil.REQUEST_STORAGE_PERMISSION_M;
+    protected static final int CODE_PERMISSION_EXTERNAL_STORAGE = GsShareUtil.REQUEST_STORAGE_PERMISSION_M;
 
     protected Activity _activity;
 
@@ -27,7 +27,7 @@ public class GsPermissionChecker {
     }
 
     public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        ShareUtil shareUtil = new ShareUtil(_activity);
+        GsShareUtil shareUtil = new GsShareUtil(_activity);
         final boolean ret = shareUtil.checkExternalStoragePermission(true, optionalToastMessageForKnowingWhyNeeded);
         shareUtil.freeContextRef();
         return ret;

@@ -24,8 +24,8 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;

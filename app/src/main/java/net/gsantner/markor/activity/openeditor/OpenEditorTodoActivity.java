@@ -13,8 +13,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 
 public class OpenEditorTodoActivity extends OpenEditorActivity {
 

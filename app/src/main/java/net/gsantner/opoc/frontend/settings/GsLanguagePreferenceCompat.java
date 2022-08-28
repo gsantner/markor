@@ -55,7 +55,7 @@ import androidx.annotation.Nullable;
 import androidx.core.os.ConfigurationCompat;
 import androidx.preference.ListPreference;
 
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -99,7 +99,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
     public boolean callChangeListener(Object newValue) {
         if (newValue instanceof String) {
             // Does not apply to existing UI, use recreate()
-            new ContextUtils(getContext()).setAppLanguage((String) newValue);
+            new GsContextUtils(getContext()).setAppLanguage((String) newValue);
         }
         return super.callChangeListener(newValue);
     }
@@ -113,7 +113,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
         setDefaultValue(SYSTEM_LANGUAGE_CODE);
 
         // Fetch readable details
-        ContextUtils contextUtils = new ContextUtils(context);
+        GsContextUtils contextUtils = new GsContextUtils(context);
         List<String> languages = new ArrayList<>();
         Object bcof = contextUtils.getBuildConfigValue("DETECTED_ANDROID_LOCALES");
         if (bcof instanceof String[]) {
@@ -174,7 +174,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
     // Add current language to summary
     @Override
     public CharSequence getSummary() {
-        Locale locale = new ContextUtils(getContext()).getLocaleByAndroidCode(getValue());
+        Locale locale = new GsContextUtils(getContext()).getLocaleByAndroidCode(getValue());
         String prefix = TextUtils.isEmpty(super.getSummary())
                 ? "" : super.getSummary() + "\n\n";
         return prefix + summarizeLocale(locale, getValue());

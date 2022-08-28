@@ -18,9 +18,9 @@ import android.webkit.WebView;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -176,9 +176,9 @@ public abstract class TextConverterBase {
         html = html
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
-                .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
+                .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : GsContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
                 .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
-                .replace(TOKEN_ACCENT_COLOR, ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
+                .replace(TOKEN_ACCENT_COLOR, GsContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))

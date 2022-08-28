@@ -23,15 +23,26 @@ import androidx.annotation.RequiresApi;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
+import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.File;
 
-public class ShareUtil extends net.gsantner.opoc.util.ShareUtil {
+public class ShareUtil extends GsShareUtil {
     public ShareUtil(Context context) {
         super(context);
         setChooserTitle(_context.getString(R.string.share_to_arrow));
+    }
+
+    public GsShareUtil applySpecialLaunchersVisibility(boolean extraLaunchersEnabled) {
+        setLauncherActivityEnabled(OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenEditorTodoActivity.class, extraLaunchersEnabled);
+        setLauncherActivityEnabled(OpenShareIntoActivity.class, extraLaunchersEnabled);
+        return this;
     }
 
     public void createLauncherDesktopShortcut(final File file) {

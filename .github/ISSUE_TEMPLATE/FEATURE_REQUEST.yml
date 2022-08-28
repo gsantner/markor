@@ -57,7 +57,7 @@ body:
     attributes:
       label: Format / File type
       description: Is the request about a specific format (i.e. Markdown/todo.txt)?
-      options: ["Not specific", "Markdown", "todo.txt", "Zim", "Key-Value (json/yaml/ini..)", "Plaintext", "Binary", "Something else (-> Additional info)"]
+      options: ["Not specific", "Markdown", "todo.txt", "Wikitext, Zim", "Key-Value (json/yaml/ini..)", "Plaintext", "Binary", "Something else (-> Additional info)"]
     validations:
       required: true
   - type: textarea

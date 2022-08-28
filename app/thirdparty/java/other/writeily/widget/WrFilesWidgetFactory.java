@@ -18,8 +18,8 @@ import android.widget.RemoteViewsService;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 

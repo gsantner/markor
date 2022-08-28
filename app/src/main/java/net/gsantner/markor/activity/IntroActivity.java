@@ -13,9 +13,9 @@ import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntroFragment;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.util.GsContextUtils;
 
 public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
@@ -33,7 +33,7 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ContextUtils(this).setAppLanguage(AppSettings.get().getLanguage());
+        new GsContextUtils(this).setAppLanguage(AppSettings.get().getLanguage());
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest

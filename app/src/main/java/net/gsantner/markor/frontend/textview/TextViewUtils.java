@@ -22,7 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsShareUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -409,7 +409,7 @@ public final class TextViewUtils extends GsTextUtils {
                 temp.append(c);
             } else if (c == '`' && inDate) { // Ending a date region
                 inDate = false;
-                interpolated.append(ShareUtil.formatDateTime((Locale) null, temp.toString(), System.currentTimeMillis()));
+                interpolated.append(GsShareUtil.formatDateTime((Locale) null, temp.toString(), System.currentTimeMillis()));
                 temp.setLength(0); // clear
             } else if (c == '`') { // Starting a date region
                 inDate = true;

@@ -34,7 +34,7 @@ public class BackupUtils extends GsBackupUtils {
                             loadBackup(context, file);
                         }
                     }, manager, activity,
-                    input -> input != null && input.exists() && input.toString().trim().toLowerCase().endsWith(".json")
+                    (c, file) -> file != null && file.exists() && file.toString().trim().toLowerCase().endsWith(".json")
             );
         }
     }

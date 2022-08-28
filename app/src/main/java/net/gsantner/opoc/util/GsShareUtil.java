@@ -99,7 +99,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * (M)Permissions are not checked, wrap ShareUtils methods if neccessary
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
-public class ShareUtil extends ContextUtils {
+public class GsShareUtil extends GsContextUtils {
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
@@ -121,7 +121,7 @@ public class ShareUtil extends ContextUtils {
     protected Context _context;
     protected String _chooserTitle;
 
-    public ShareUtil(final Context context) {
+    public GsShareUtil(final Context context) {
         super(context);
         _context = context;
         _chooserTitle = "➥";
@@ -140,7 +140,7 @@ public class ShareUtil extends ContextUtils {
     }
 
 
-    public ShareUtil setChooserTitle(final String title) {
+    public GsShareUtil setChooserTitle(final String title) {
         _chooserTitle = title;
         return this;
     }
@@ -325,7 +325,7 @@ public class ShareUtil extends ContextUtils {
 
         if (fileUri != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(fileUri, (TextUtils.isEmpty(type) ? getMimeType(file) : type));
+            intent.setDataAndType(fileUri, (TextUtils.isEmpty(type) ? getMimeType(_context, file) : type));
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             intent.setClipData(ClipData.newRawUri(file.getName(), fileUri));
             intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
@@ -823,7 +823,7 @@ public class ShareUtil extends ContextUtils {
 
     /**
      * Extract result data from {@link Activity#onActivityResult(int, int, Intent)}.
-     * Forward all arguments from activity. Only requestCodes from {@link ShareUtil} get analyzed.
+     * Forward all arguments from activity. Only requestCodes from {@link GsShareUtil} get analyzed.
      * Also may forward results via local broadcast
      */
     @SuppressLint("ApplySharedPref")
@@ -1053,8 +1053,8 @@ public class ShareUtil extends ContextUtils {
             // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
             // and launch the desired Url with CustomTabsIntent.launchUrl()
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(ContextCompat.getColor(_context, getResId(ContextUtils.ResType.COLOR, "primary")));
-            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, getResId(ContextUtils.ResType.COLOR, "primary_dark")));
+            builder.setToolbarColor(ContextCompat.getColor(_context, getResId(GsContextUtils.ResType.COLOR, "primary")));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, getResId(GsContextUtils.ResType.COLOR, "primary_dark")));
             builder.addDefaultShareMenuItem();
             CustomTabsIntent customTabsIntent = builder.build();
             enableChromeCustomTabsForOtherBrowsers(customTabsIntent.intent);
@@ -1473,7 +1473,7 @@ public class ShareUtil extends ContextUtils {
 
         // "Last modified" -> R.string.last_modified
         final GsCallback.a2<String, String> append = (key, value) -> {
-            final int resId = getResId(ContextUtils.ResType.STRING, key);
+            final int resId = getResId(GsContextUtils.ResType.STRING, key);
             extracted.add(new Pair<>((resId != 0 ? context.getString(resId) : key), value));
         };
 

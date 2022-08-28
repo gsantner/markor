@@ -14,7 +14,7 @@ import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.opoc.format.GsSimplePlaylistParser;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS;
         converted = HTML100_BODY_BEGIN;
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
-        final ShareUtil shu = new ShareUtil(context);
+        final GsShareUtil shu = new GsShareUtil(context);
 
         // Sticky header with content depending on type
         if (true) {

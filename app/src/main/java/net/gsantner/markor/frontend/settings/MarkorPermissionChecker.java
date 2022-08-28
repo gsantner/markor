@@ -14,7 +14,7 @@ import android.app.Activity;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
-import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.GsActivityUtils;
 
 public class MarkorPermissionChecker extends GsPermissionChecker {
 
@@ -31,7 +31,7 @@ public class MarkorPermissionChecker extends GsPermissionChecker {
     public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
         boolean val = super.checkPermissionResult(requestCode, permissions, grantResults);
         if (!val) {
-            new ActivityUtils(_activity).showSnackBar(R.string.error_need_storage_permission_to_save_documents, true);
+            new GsActivityUtils(_activity).showSnackBar(R.string.error_need_storage_permission_to_save_documents, true);
         }
         return val;
     }

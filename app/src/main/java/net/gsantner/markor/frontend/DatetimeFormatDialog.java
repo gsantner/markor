@@ -30,9 +30,9 @@ import androidx.core.os.ConfigurationCompat;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -86,7 +86,7 @@ public class DatetimeFormatDialog {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
-        final ContextUtils cu = new ContextUtils(viewRoot.getContext());
+        final GsContextUtils cu = new GsContextUtils(viewRoot.getContext());
         final AppSettings as = new AppSettings(viewRoot.getContext());
 
         final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);

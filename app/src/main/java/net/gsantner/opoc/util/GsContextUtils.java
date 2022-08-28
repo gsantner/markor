@@ -19,6 +19,7 @@ import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -94,13 +95,13 @@ import java.util.List;
 import java.util.Locale;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources", "UnusedAssignment", "UnusedReturnValue"})
-public class ContextUtils {
+public class GsContextUtils {
     //
     // Members, Constructors
     //
     protected Context _context;
 
-    public ContextUtils(Context context) {
+    public GsContextUtils(Context context) {
         _context = context;
     }
 
@@ -110,6 +111,15 @@ public class ContextUtils {
 
     public void freeContextRef() {
         _context = null;
+    }
+
+    public GsContextUtils setLauncherActivityEnabled(Class activityClass, boolean enable) {
+        try {
+            ComponentName component = new ComponentName(_context, activityClass);
+            _context.getPackageManager().setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        } catch (Exception ignored) {
+        }
+        return this;
     }
 
     //
@@ -265,7 +275,7 @@ public class ContextUtils {
      * Send a {@link Intent#ACTION_VIEW} Intent with given paramter
      * If the parameter is an string a browser will get triggered
      */
-    public ContextUtils openWebpageInExternalBrowser(final String url) {
+    public GsContextUtils openWebpageInExternalBrowser(final String url) {
         try {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -535,14 +545,14 @@ public class ContextUtils {
      * {@code androidLC} may be in any of the forms: en, de, de-rAt
      * If given an empty string, the default (system) locale gets loaded
      */
-    public ContextUtils setAppLanguage(final String androidLC) {
+    public GsContextUtils setAppLanguage(final String androidLC) {
         Locale locale = getLocaleByAndroidCode(androidLC);
         locale = (locale != null && !androidLC.isEmpty()) ? locale : Resources.getSystem().getConfiguration().locale;
         setLocale(locale);
         return this;
     }
 
-    public ContextUtils setLocale(final Locale locale) {
+    public GsContextUtils setLocale(final Locale locale) {
         Configuration config = _context.getResources().getConfiguration();
         config.locale = (locale != null ? locale : Resources.getSystem().getConfiguration().locale);
         _context.getResources().updateConfiguration(config, null);
@@ -939,8 +949,8 @@ public class ContextUtils {
     }
 
 
-    public String getMimeType(final File file) {
-        return getMimeType(Uri.fromFile(file));
+    public String getMimeType(final Context context, final File file) {
+        return getMimeType(context, file.getAbsolutePath());
     }
 
     /**
@@ -948,17 +958,14 @@ public class ContextUtils {
      * Android/Java's own MimeType map is very very small and detection barely works at all
      * Hence use custom map for some file extensions
      */
-    public String getMimeType(final Uri uri) {
+    public String getMimeType(final Context context, String uri) {
         String mimeType = null;
-        if (ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) {
-            ContentResolver cr = _context.getContentResolver();
-            mimeType = cr.getType(uri);
+        uri = uri.replaceFirst("\\.jenc$", "");
+        if (uri.startsWith(ContentResolver.SCHEME_CONTENT + "://")) {
+            ContentResolver cr = context.getContentResolver();
+            mimeType = cr.getType(Uri.parse(uri));
         } else {
-            String filename = uri.toString();
-            if (filename.endsWith(".jenc")) {
-                filename = filename.replace(".jenc", "");
-            }
-            String ext = MimeTypeMap.getFileExtensionFromUrl(filename);
+            String ext = MimeTypeMap.getFileExtensionFromUrl(uri);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
 
             // Try to guess if the recommended methods fail
@@ -990,7 +997,7 @@ public class ContextUtils {
         if (TextUtils.isEmpty(mimeType)) {
             mimeType = "*/*";
         }
-        return mimeType;
+        return mimeType.toLowerCase(Locale.ROOT);
     }
 
     /**

@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsMenuItemDummy;
 
 /**
@@ -35,7 +35,7 @@ public abstract class GsFragmentBase extends Fragment {
     private boolean _fragmentFirstTimeVisible = true;
     private final Object _fragmentFirstTimeVisibleSync = new Object();
 
-    protected ContextUtils _cu;
+    protected GsContextUtils _cu;
     protected Bundle _savedInstanceState = null;
     protected Menu _fragmentMenu = new GsMenuItemDummy.Menu();
 
@@ -53,7 +53,7 @@ public abstract class GsFragmentBase extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _cu = new ContextUtils(inflater.getContext());
+        _cu = new GsContextUtils(inflater.getContext());
         _cu.setAppLanguage(getAppLanguage());
         _savedInstanceState = savedInstanceState;
         if (getLayoutResId() == 0) {
@@ -165,7 +165,7 @@ public abstract class GsFragmentBase extends Fragment {
     @SuppressWarnings("ConstantConditions")
     protected Toolbar getToolbar() {
         try {
-            return (Toolbar) getActivity().findViewById(new ContextUtils(getActivity()).getResId(ContextUtils.ResType.ID, "toolbar"));
+            return (Toolbar) getActivity().findViewById(new GsContextUtils(getActivity()).getResId(GsContextUtils.ResType.ID, "toolbar"));
         } catch (Exception e) {
             return null;
         }

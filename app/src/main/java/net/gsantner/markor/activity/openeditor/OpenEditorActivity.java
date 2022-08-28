@@ -14,10 +14,10 @@ import android.content.Intent;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
-import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     GsFileUtils.writeFile(file, "", new GsFileUtils.FileInfo().withBom(new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom()));
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
-                new ActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();
+                new GsActivityUtils(this).animateToActivity(openIntent, true, 1).freeContextRef();
             }
         } catch (Exception ignored) {
             finish();

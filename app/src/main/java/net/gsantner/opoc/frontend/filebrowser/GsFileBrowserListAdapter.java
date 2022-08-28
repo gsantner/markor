@@ -34,7 +34,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 
@@ -97,18 +97,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _recyclerView = recyclerView;
         _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 
-        ContextUtils cu = new ContextUtils(context);
+        GsContextUtils cu = new GsContextUtils(context);
         if (_dopt.primaryColor == 0) {
-            _dopt.primaryColor = cu.getResId(ContextUtils.ResType.COLOR, "primary");
+            _dopt.primaryColor = cu.getResId(GsContextUtils.ResType.COLOR, "primary");
         }
         if (_dopt.accentColor == 0) {
-            _dopt.accentColor = cu.getResId(ContextUtils.ResType.COLOR, "accent");
+            _dopt.accentColor = cu.getResId(GsContextUtils.ResType.COLOR, "accent");
         }
         if (_dopt.primaryTextColor == 0) {
-            _dopt.primaryTextColor = cu.getResId(ContextUtils.ResType.COLOR, "primary_text");
+            _dopt.primaryTextColor = cu.getResId(GsContextUtils.ResType.COLOR, "primary_text");
         }
         if (_dopt.secondaryTextColor == 0) {
-            _dopt.secondaryTextColor = cu.getResId(ContextUtils.ResType.COLOR, "secondary_text");
+            _dopt.secondaryTextColor = cu.getResId(GsContextUtils.ResType.COLOR, "secondary_text");
         }
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
@@ -139,7 +139,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.title.setText("????");
             return;
         }
-        new ContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
+        new GsContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
         final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         final String filename = file_pre.getName();
         if (_virtualMapping.containsKey(file_pre)) {
@@ -599,7 +599,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     @Override
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
-        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.apply(f);
+        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
         final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;

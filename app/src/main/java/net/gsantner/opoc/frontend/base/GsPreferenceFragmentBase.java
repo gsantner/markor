@@ -75,8 +75,8 @@ import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsActivityUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -142,14 +142,14 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     private final List<PreferenceScreen> _prefScreenBackstack = new ArrayList<>();
     protected AS _appSettings;
     protected int _defaultIconTintColor;
-    protected ContextUtils _cu;
+    protected GsContextUtils _cu;
 
     @Override
     @Deprecated
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Activity activity = getActivity();
         _appSettings = getAppSettings(activity);
-        _cu = new ContextUtils(activity);
+        _cu = new GsContextUtils(activity);
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
 
@@ -208,7 +208,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
      */
     protected int keyToStringResId(Preference preference) {
         if (preference != null && !TextUtils.isEmpty(preference.getKey())) {
-            return _cu.getResId(ContextUtils.ResType.STRING, preference.getKey());
+            return _cu.getResId(GsContextUtils.ResType.STRING, preference.getKey());
         }
         return 0;
     }
@@ -218,7 +218,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
      * This only works if the key is only defined once and value=key
      */
     protected int keyToStringResId(String keyAsString) {
-        return _cu.getResId(ContextUtils.ResType.STRING, keyAsString);
+        return _cu.getResId(GsContextUtils.ResType.STRING, keyAsString);
     }
 
 
@@ -542,7 +542,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     }
 
     public Integer getDividerColor() {
-        ActivityUtils au = new ActivityUtils(getActivity());
+        GsActivityUtils au = new GsActivityUtils(getActivity());
         try {
             return Color.parseColor(au.shouldColorOnTopBeLight(au.getActivityBackgroundColor()) ? "#3d3d3d" : "#d1d1d1");
         } catch (Exception ignored) {

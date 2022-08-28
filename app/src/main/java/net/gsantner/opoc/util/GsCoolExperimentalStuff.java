@@ -100,7 +100,7 @@ public class GsCoolExperimentalStuff {
         textViewTextDisplay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 72);
         textViewTextDisplay.setGravity(Gravity.CENTER);
         textViewTextDisplay.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        textViewTextDisplay.setMinHeight((int) new ContextUtils(activity).convertDpToPx(1000));
+        textViewTextDisplay.setMinHeight((int) new GsContextUtils(activity).convertDpToPx(1000));
         Runnable updateViewOnUi = () -> {
             textViewTextDisplay.setText(displayString.get());
             currentWordTextShower.setText(String.format(Locale.ENGLISH, "Word: %d", textPos.get() + 1));

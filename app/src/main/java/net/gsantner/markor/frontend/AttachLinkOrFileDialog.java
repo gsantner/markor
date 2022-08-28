@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.util.Function;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import net.gsantner.markor.R;
@@ -191,7 +191,7 @@ public class AttachLinkOrFileDialog {
         buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
                 AppCompatActivity a = (AppCompatActivity) activity;
-                Function<File, Boolean> f = action == AUDIO_ACTION ? MarkorFileBrowserFactory.IsMimeAudio : (action == FILE_OR_LINK_ACTION ? null : MarkorFileBrowserFactory.IsMimeImage);
+                GsCallback.b2<Context, File> f = action == AUDIO_ACTION ? MarkorFileBrowserFactory.IsMimeAudio : (action == FILE_OR_LINK_ACTION ? null : MarkorFileBrowserFactory.IsMimeImage);
                 MarkorFileBrowserFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
             }
         });

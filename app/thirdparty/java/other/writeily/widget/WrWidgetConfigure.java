@@ -20,8 +20,8 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
