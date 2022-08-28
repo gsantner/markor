@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Bovenkant</string>
     <string name="bottom">Onderkant</string>
     <string name="center">Midden</string>
+    <string name="actionbutton_spacing">Afstand ActieKnop</string>
+    <string name="horizontal_space_between_actionbuttons">Horizontale ruimte tussen ActionButtons</string>
     <string name="center_text">Centreren</string>
     <string name="edit_text_in_center_of_screen">Bewerk tekst in het midden van het scherm</string>
     <string name="clipboard">Plakbord</string>
