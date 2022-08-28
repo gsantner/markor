@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Nahoře</string>
     <string name="bottom">Dole</string>
     <string name="center">Na střed</string>
+    <string name="actionbutton_spacing">Mezery tlačítek akce</string>
+    <string name="horizontal_space_between_actionbuttons">Horizontální prostor mezi tlačítky akcí</string>
     <string name="center_text">Center</string>
     <string name="edit_text_in_center_of_screen">Editovat text uprostřed obrazovky</string>
     <string name="clipboard">Schránka</string>
