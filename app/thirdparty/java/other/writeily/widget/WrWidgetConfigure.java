@@ -22,7 +22,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 
@@ -58,7 +58,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
         final PermissionChecker permc = new PermissionChecker(this);
         if (permc.mkdirIfStoragePermissionGranted()) {
             final FragmentManager fragManager = getSupportFragmentManager();
-            FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
@@ -67,7 +67,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.titleText = R.string.select_folder;
                     dopt.rootFolder = AppSettings.get().getNotebookDirectory();
                 }

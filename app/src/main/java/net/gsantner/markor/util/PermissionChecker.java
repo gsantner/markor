@@ -12,9 +12,10 @@ package net.gsantner.markor.util;
 import android.app.Activity;
 
 import net.gsantner.markor.R;
+import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
 import net.gsantner.opoc.util.ActivityUtils;
 
-public class PermissionChecker extends net.gsantner.opoc.util.PermissionChecker {
+public class PermissionChecker extends GsPermissionChecker {
 
     public PermissionChecker(Activity activity) {
         super(activity);

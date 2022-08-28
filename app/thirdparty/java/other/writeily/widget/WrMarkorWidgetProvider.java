@@ -26,7 +26,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 
@@ -50,7 +50,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Get the layout for the App Widget and attach an on-click listener to the button
             final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-            views.setTextViewText(R.id.widget_header_title, FileUtils.getFilenameWithoutExtension(directoryF));
+            views.setTextViewText(R.id.widget_header_title, GsFileUtils.getFilenameWithoutExtension(directoryF));
 
             // ~~~Create new File~~~ Share empty text into markor, easier to access from widget than new file dialog
             final Intent openShare = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)

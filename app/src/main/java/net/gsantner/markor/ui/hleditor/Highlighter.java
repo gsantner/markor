@@ -35,8 +35,8 @@ import androidx.annotation.Nullable;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -153,7 +153,7 @@ public abstract class Highlighter {
         }
 
         final Iterator<Integer> it = _applied.descendingIterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             _spannable.removeSpan(_groups.get(it.next()).span);
         }
         _applied.clear();
@@ -229,7 +229,7 @@ public abstract class Highlighter {
         }
 
         final int length = _spannable.length();
-        if (!StringUtils.checkRange(length, range)) {
+        if (!TextViewUtils.checkRange(length, range)) {
             return this;
         }
 
@@ -257,7 +257,7 @@ public abstract class Highlighter {
 
     // Reflow selected region's lines
     public final synchronized Highlighter reflow(final int[] range) {
-        if (StringUtils.checkRange(_spannable, range)) {
+        if (TextViewUtils.checkRange(_spannable, range)) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             _spannable.removeSpan(_layoutUpdater);
         }
@@ -301,7 +301,7 @@ public abstract class Highlighter {
         }
     }
 
-    protected final void createSpanForMatches(final Pattern pattern, Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
+    protected final void createSpanForMatches(final Pattern pattern, GsCallback.r1<Object, Matcher> creator, int... groupsToMatch) {
         if (groupsToMatch == null || groupsToMatch.length < 1) {
             groupsToMatch = new int[]{0};
         }
@@ -366,7 +366,7 @@ public abstract class Highlighter {
         createSpanForMatches(pattern, matcher -> new ColorUnderlineSpan(color, null), groupsToMatch);
     }
 
-    protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, final Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
+    protected final void createColoredUnderlineSpanForMatches(final Pattern pattern, final GsCallback.r1<Object, Matcher> creator, int... groupsToMatch) {
         createSpanForMatches(pattern, creator, groupsToMatch);
     }
 
@@ -393,7 +393,7 @@ public abstract class Highlighter {
     }
 
     // We _do not_ implement UpdateLayout or Parcelable for performance reasons
-    public static class HighlightSpan extends CharacterStyle implements UpdateAppearance, Callback.r1<Object, Matcher> {
+    public static class HighlightSpan extends CharacterStyle implements UpdateAppearance, GsCallback.r1<Object, Matcher> {
 
         public Boolean bold = null;
         public Boolean italic = null;

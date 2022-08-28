@@ -36,10 +36,10 @@ import net.gsantner.markor.format.zimwiki.ZimWikiTextActions;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.AndroidSpinnerOnItemSelectedAdapter;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -57,9 +57,9 @@ public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = "net.gsantner.markor.ui.NewFileDialog";
     public static final String EXTRA_DIR = "EXTRA_DIR";
     public static final String EXTRA_ALLOW_CREATE_DIR = "EXTRA_ALLOW_CREATE_DIR";
-    private Callback.a2<Boolean, File> callback;
+    private GsCallback.a2<Boolean, File> callback;
 
-    public static NewFileDialog newInstance(final File sourceFile, final boolean allowCreateDir, final Callback.a2<Boolean, File> callback) {
+    public static NewFileDialog newInstance(final File sourceFile, final boolean allowCreateDir, final GsCallback.a2<Boolean, File> callback) {
         NewFileDialog dialog = new NewFileDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DIR, sourceFile);
@@ -117,7 +117,7 @@ public class NewFileDialog extends DialogFragment {
 
         loadTemplatesIntoSpinner(appSettings, templateSpinner);
         final AtomicBoolean typeSpinnerNoTriggerOnFirst = new AtomicBoolean(true);
-        typeSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+        typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
             if (pos == 3) { // Zim
                 templateSpinner.setSelection(7); // Zim empty
             }
@@ -138,7 +138,7 @@ public class NewFileDialog extends DialogFragment {
         }));
         typeSpinner.setSelection(appSettings.getNewFileDialogLastUsedType());
 
-        templateSpinner.setOnItemSelectedListener(new AndroidSpinnerOnItemSelectedAdapter(pos -> {
+        templateSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
             String prefix = null;
 
             if (pos == 3) { // Jekyll
@@ -305,7 +305,7 @@ public class NewFileDialog extends DialogFragment {
                 AppSettings as = new AppSettings(getContext());
                 Map<String, File> snippets = SearchOrCustomTextDialogCreator.getSnippets(as);
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
-                    t = FileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
+                    t = GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
                     break;
                 }
 

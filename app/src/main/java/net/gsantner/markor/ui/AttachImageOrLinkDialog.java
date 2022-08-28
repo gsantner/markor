@@ -20,11 +20,11 @@ import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.AudioRecordOmDialog;
-import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.GashMap;
+import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -57,7 +57,7 @@ public class AttachImageOrLinkDialog {
             default:
             case FILE_OR_LINK_ACTION: {
                 actionTitle = R.string.insert_link;
-                formatTemplate = new GashMap<Integer, String>().load(
+                formatTemplate = new GsHashMap<Integer, String>().load(
                         TextFormat.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
                         TextFormat.FORMAT_ZIMWIKI, "[[{{ template.link }}|{{ template.title }}]]"
                 ).getOrDefault(textFormatId, "<a href='{{ template.link }}'>{{ template.title }}</a>");
@@ -65,7 +65,7 @@ public class AttachImageOrLinkDialog {
             }
             case IMAGE_ACTION: {
                 actionTitle = R.string.insert_image;
-                formatTemplate = new GashMap<Integer, String>().load(
+                formatTemplate = new GsHashMap<Integer, String>().load(
                         TextFormat.FORMAT_MARKDOWN, "![{{ template.title }}]({{ template.link }})",
                         TextFormat.FORMAT_ZIMWIKI, "{{{{ template.link }}}}"
                 ).getOrDefault(textFormatId, "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
@@ -120,7 +120,7 @@ public class AttachImageOrLinkDialog {
 
 
         // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
-        final FilesystemViewerData.SelectionListener fsListener = new FilesystemViewerData.SelectionListenerAdapter() {
+        final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
                 final String saveDir = _appSettings.getNotebookDirectoryAsStr();
@@ -128,13 +128,13 @@ public class AttachImageOrLinkDialog {
                 boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
-                    text = FileUtils.relativePath(currentWorkingFile, file);
+                    text = GsFileUtils.relativePath(currentWorkingFile, file);
                 } else if ("abs_if_not_relative".equals(request)) {
                     text = file.getAbsolutePath();
                 } else {
                     String filename = file.getName();
                     if ("audio_record_om_dialog".equals(request)) {
-                        filename = AudioRecordOmDialog.generateFilename(file).getName();
+                        filename = GsAudioRecordOmDialog.generateFilename(file).getName();
                     }
                     File targetCopy = new File(currentWorkingFile.getParentFile(), filename);
                     showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile, null));
@@ -161,7 +161,7 @@ public class AttachImageOrLinkDialog {
             }
 
             @Override
-            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 if (currentWorkingFile != null) {
                     dopt.rootFolder = currentWorkingFile.getParentFile();
                 }
@@ -187,7 +187,7 @@ public class AttachImageOrLinkDialog {
         });
 
         // Audio Record -> fs listener with arg file,"audio_record"
-        buttonAudioRecord.setOnClickListener(v -> AudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath, null)));
+        buttonAudioRecord.setOnClickListener(v -> GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath, null)));
 
         buttonPictureEdit.setOnClickListener(v -> {
             String filepath = inputPathUrl.getText().toString().replace("%20", " ");
@@ -229,9 +229,9 @@ public class AttachImageOrLinkDialog {
         return builder.show();
     }
 
-    public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final Callback.a2<Boolean, File> copyFileFinishedCallback) {
-        final Callback.a1<File> copyToDirInvocation = cbValTargetFile -> new ShareUtil(activity).writeFile(cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
-            if (wfCbValOpened && FileUtils.copyFile(srcFile, wfCbValStream)) {
+    public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final GsCallback.a2<Boolean, File> copyFileFinishedCallback) {
+        final GsCallback.a1<File> copyToDirInvocation = cbValTargetFile -> new ShareUtil(activity).writeFile(cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
+            if (wfCbValOpened && GsFileUtils.copyFile(srcFile, wfCbValStream)) {
                 copyFileFinishedCallback.callback(true, cbValTargetFile);
             }
         });

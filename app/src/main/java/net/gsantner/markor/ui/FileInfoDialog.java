@@ -29,7 +29,7 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -85,7 +85,7 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__fileinfodialog__location).setText(file.getParentFile().getAbsolutePath());
         tv(root, R.id.ui__fileinfodialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
-        tv(root, R.id.ui__fileinfodialog__size_description).setText(FileUtils.getReadableFileSize(file.length(), false));
+        tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
         tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
             new ShareUtil(v.getContext()).setClipboard(file.getAbsolutePath());
             Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
@@ -97,12 +97,12 @@ public class FileInfoDialog extends DialogFragment {
         root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.GONE);
         root.findViewById(R.id.ui__fileinfodialog__fileinfo).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
         root.findViewById(R.id.ui__fileinfodialog__filesettings).setVisibility(file.isFile() ? View.VISIBLE : View.GONE);
-        if (FileUtils.isTextFile(file)) {
+        if (GsFileUtils.isTextFile(file)) {
             root.findViewById(R.id.ui__fileinfodialog__textinfo).setVisibility(View.VISIBLE);
             AtomicInteger valLines = new AtomicInteger(0);
             AtomicInteger valChars = new AtomicInteger(0);
             AtomicInteger valWords = new AtomicInteger(0);
-            FileUtils.retrieveTextFileSummary(file, valChars, valLines, valWords);
+            GsFileUtils.retrieveTextFileSummary(file, valChars, valLines, valWords);
 
             tv(root, R.id.ui__fileinfodialog__textinfo_caption).setText(getString(R.string.text_lines) + String.format(" / %s / %s", getString(R.string.text_words), getString(R.string.text_characters)).replace("Text ", ""));
             tv(root, R.id.ui__fileinfodialog__textinfo_description).setText(String.format(Locale.ENGLISH, "%d / %d / %d", valLines.intValue(), valWords.intValue(), valChars.intValue()));

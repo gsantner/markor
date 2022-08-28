@@ -28,7 +28,7 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -59,8 +59,9 @@ public class Document implements Serializable {
     private String _path = "";
     private long _modTime = -1; // The file's mod time when it was last touched by this document
     private long _touchTime = -1; // The last time this document touched the file
-    private FileUtils.FileInfo _fileInfo;
-    private @StringRes int _format = TextFormat.FORMAT_UNKNOWN;
+    private GsFileUtils.FileInfo _fileInfo;
+    private @StringRes
+    int _format = TextFormat.FORMAT_UNKNOWN;
     private transient SharedPreferences _modTimePref;
 
     // Used to check if string changed
@@ -70,8 +71,8 @@ public class Document implements Serializable {
     public Document(@NonNull final File file) {
         _file = file;
         _path = _file.getAbsolutePath();
-        _title = FileUtils.getFilenameWithoutExtension(_file);
-        _fileExtension = FileUtils.getFilenameExtension(_file);
+        _title = GsFileUtils.getFilenameWithoutExtension(_file);
+        _fileExtension = GsFileUtils.getFilenameExtension(_file);
 
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
@@ -195,11 +196,11 @@ public class Document implements Serializable {
 
     private void setContentHash(final CharSequence s) {
         _lastLength = s.length();
-        _lastHash = FileUtils.crc32(s);
+        _lastHash = GsFileUtils.crc32(s);
     }
 
     public boolean isContentSame(final CharSequence s) {
-        return s != null && s.length() == _lastLength && _lastHash == FileUtils.crc32(s);
+        return s != null && s.length() == _lastLength && _lastHash == GsFileUtils.crc32(s);
     }
 
     public synchronized String loadContent(final Context context) {
@@ -210,7 +211,7 @@ public class Document implements Serializable {
             content = "";
         } else if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
             try {
-                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(_file), (int) _file.length());
+                final byte[] encryptedContext = GsFileUtils.readCloseStreamWithSize(new FileInputStream(_file), (int) _file.length());
                 if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
                     content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
                 } else {
@@ -225,7 +226,7 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            final Pair<String, FileUtils.FileInfo> result = FileUtils.readTextFileFast(_file);
+            final Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
             content = result.first;
             _fileInfo = result.second;
         }
@@ -235,7 +236,7 @@ public class Document implements Serializable {
                     "\n\n\n--------------\nLoaded document, filepattern "
                             + getName().replaceAll(".*\\.", "-")
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
-                            + "(" + FileUtils.getReadableFileSize(content.getBytes().length, true) +
+                            + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
                             "). Language >" + Locale.getDefault().toString()
                             + "<, Language override >" + AppSettings.get().getLanguage() + "<");
         }
@@ -321,14 +322,14 @@ public class Document implements Serializable {
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
                         if (isContentResolverProxyFile) {
-                            FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                            GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
                     } catch (Exception ignored) {
                     }
                 });
                 success = true;
             } else {
-                success = FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
             }
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);

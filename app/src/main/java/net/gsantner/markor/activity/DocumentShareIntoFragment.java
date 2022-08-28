@@ -38,12 +38,12 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.activity.GsFragmentBase;
-import net.gsantner.opoc.android.dummy.TextWatcherDummy;
-import net.gsantner.opoc.format.plaintext.PlainTextStuff;
-import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
-import net.gsantner.opoc.ui.FilesystemViewerAdapter;
-import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.base.GsFragmentBase;
+import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -88,7 +88,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         final ContextUtils cu = new ContextUtils(context);
         cu.setAppLanguage(as.getLanguage());
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
-        _hlEditor.addTextChangedListener(TextWatcherDummy.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
+        _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
         if (_savedInstanceState == null) {
@@ -128,7 +128,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     }
 
 
-    public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentCompat<AppSettings> {
+    public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentBase<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
         private File workingDir;
@@ -216,15 +216,15 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             final File startFolder;
             switch (keyId) {
                 case R.string.pref_key__favourite_files: {
-                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
                     break;
                 }
                 case R.string.pref_key__popular_documents: {
-                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
+                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
                     break;
                 }
                 case R.string.pref_key__recent_documents: {
-                    startFolder = FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
+                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
                     break;
                 }
                 default: {
@@ -232,9 +232,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
             }
-            FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = startFolder;
                 }
 
@@ -248,9 +248,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
 
         private void createNewDocument() {
-            FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+            FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
                 }
 
@@ -324,7 +324,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
-                    if ((tmps = PlainTextStuff.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
+                    if ((tmps = GsTextUtils.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
                         new ContextUtils(getActivity()).openWebpageInExternalBrowser(tmps);
                         close = true;
                     }

@@ -27,8 +27,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -244,7 +244,7 @@ public class SearchReplaceDialog {
     }
 
     private String getReplacePattern() {
-        return StringUtils.unescapeString(replaceText.getText().toString());
+        return TextViewUtils.unescapeString(replaceText.getText().toString());
     }
 
     private void updateUI() {
@@ -289,7 +289,7 @@ public class SearchReplaceDialog {
         final List<ReplaceGroup> recents = new ArrayList<>();
 
         try {
-            final SharedPreferences settings = _activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+            final SharedPreferences settings = _activity.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = settings.getString(RECENT_SEARCH_REPLACE_STRING, "");
             if (jsonString.length() > 0) {
                 final JSONArray array = new JSONArray(jsonString);
@@ -335,7 +335,7 @@ public class SearchReplaceDialog {
             array.put(rg.toJson());
         }
 
-        final SharedPreferences.Editor edit = _activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
+        final SharedPreferences.Editor edit = _activity.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
         edit.putString(RECENT_SEARCH_REPLACE_STRING, array.toString()).apply();
     }
 

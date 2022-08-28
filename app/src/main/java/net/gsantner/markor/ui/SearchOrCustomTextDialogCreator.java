@@ -45,10 +45,10 @@ import net.gsantner.markor.ui.fsearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.ui.fsearch.SearchEngine;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.ui.SearchOrCustomTextDialog;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,8 +61,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class SearchOrCustomTextDialogCreator {
-    public static void showSpecialKeyDialog(Activity activity, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
@@ -72,14 +72,14 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showAttachSomethingDialog(final Activity activity, final Callback.a1<Integer> userCallback) {
+    public static void showAttachSomethingDialog(final Activity activity, final GsCallback.a1<Integer> userCallback) {
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToActionMap = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
-        final Callback.a3<Integer, Integer, Integer> addToList = (strRes, actionRes, iconRes) -> {
+        final GsCallback.a3<Integer, Integer, Integer> addToList = (strRes, actionRes, iconRes) -> {
             availableData.add(activity.getString(strRes));
             availableDataToActionMap.add(actionRes);
             availableDataToIconMap.add(iconRes);
@@ -91,7 +91,7 @@ public class SearchOrCustomTextDialogCreator {
         addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
         addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
 
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
         dopt.data = availableData;
@@ -101,11 +101,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = 0;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.gravity = Gravity.BOTTOM | Gravity.END;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, Callback.a2<Integer, Boolean> callback) {
-        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, GsCallback.a2<Integer, Boolean> callback) {
+        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         final AppSettings as = new AppSettings(activity);
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
         final int lastUsedTableSize = as.getInt(PREF_LAST_USED_TABLE_SIZE, 3);
@@ -128,12 +128,12 @@ public class SearchOrCustomTextDialogCreator {
         dopt.searchInputType = InputType.TYPE_CLASS_NUMBER;
         dopt.highlightData = Collections.singletonList(Integer.toString(lastUsedTableSize));
         dopt.searchHintText = R.string.search_or_custom;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, Callback.a2<String, Integer> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a2<String, Integer> callback) {
         if (!SearchEngine.isSearchExecuting) {
-            Callback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+            GsCallback.a1<SearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
                 SearchEngine.queueFileSearch(activity, searchOptions, (searchResults) ->
                         FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback));
@@ -142,8 +142,8 @@ public class SearchOrCustomTextDialogCreator {
         }
     }
 
-    public static void showSttArchiveDialog(Activity activity, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showSttArchiveDialog(Activity activity, GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         List<String> highlightedData = new ArrayList<>();
@@ -165,11 +165,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.highlightData = highlightedData;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.messageText = activity.getString(R.string.archive_does_move_done_tasks);
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttSortDialogue(Activity activity, final Callback.a2<String, Boolean> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showSttSortDialogue(Activity activity, final GsCallback.a2<String, Boolean> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
@@ -200,7 +200,7 @@ public class SearchOrCustomTextDialogCreator {
             callback.callback(values[0], values[1].contains(d_desc.replace(" ", "")));
         };
 
-        final Callback.a2<String, Integer> addToList = (o_by, iconRes) -> {
+        final GsCallback.a2<String, Integer> addToList = (o_by, iconRes) -> {
             availableData.add(o_by + d_asc);
             availableData.add(o_by + d_desc);
             availableDataToIconMap.add(iconRes);
@@ -226,11 +226,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.messageText = "";
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isSearchEnabled = false;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttContextDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showSttContextDialog(Activity activity, List<String> availableData, GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -241,16 +241,16 @@ public class SearchOrCustomTextDialogCreator {
                 callback.callback(dopt.data.get(i).toString());
             }
         };
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
         final List<String> options = new ArrayList<>();
         final List<Integer> icons = new ArrayList<>();
-        final List<Callback.a0> callbacks = new ArrayList<>();
+        final List<GsCallback.a0> callbacks = new ArrayList<>();
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
@@ -271,10 +271,10 @@ public class SearchOrCustomTextDialogCreator {
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
         callbacks.add(() -> {
-            final SearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
+            final GsSearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
             dopt2.highlighter = null; // Don't need the grey + strikeout highlighting. Makes it harder to see.
             dopt2.titleText = R.string.completed;
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
 
         // Add saved views
@@ -285,7 +285,7 @@ public class SearchOrCustomTextDialogCreator {
             // No icon for the saved searches
             options.add(gp.title);
             callbacks.add(() -> {
-                final SearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
+                final GsSearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
                         activity, text, TodoTxtFilter.taskSelector(gp.keys, TodoTxtFilter.keyGetter(activity, gp.queryType), gp.isAnd));
                 doptView.titleText = R.string.search;
                 doptView.messageText = gp.title;
@@ -293,7 +293,7 @@ public class SearchOrCustomTextDialogCreator {
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
                 doptView.neutralButtonCallback = viewDialog -> {
-                    final SearchOrCustomTextDialog.DialogOptions confirmDopt = new SearchOrCustomTextDialog.DialogOptions();
+                    final GsSearchOrCustomTextDialog.DialogOptions confirmDopt = new GsSearchOrCustomTextDialog.DialogOptions();
                     baseConf(activity, confirmDopt);
                     confirmDopt.titleText = R.string.confirm_delete;
                     confirmDopt.messageText = gp.title;
@@ -302,10 +302,10 @@ public class SearchOrCustomTextDialogCreator {
                         viewDialog.dismiss();
                         TodoTxtFilter.deleteFilterIndex(activity, finalI);
                     };
-                    SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, confirmDopt);
+                    GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, confirmDopt);
                 };
 
-                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
+                GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptView);
             });
         }
 
@@ -316,7 +316,7 @@ public class SearchOrCustomTextDialogCreator {
         dopt.titleText = R.string.browse_todo;
         dopt.dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
 
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     /**
@@ -332,10 +332,10 @@ public class SearchOrCustomTextDialogCreator {
      */
     public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAnd, final String queryType) {
 
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
-        final Callback.r1<List<String>, TodoTxtTask> getKeys = TodoTxtFilter.keyGetter(activity, queryType);
+        final GsCallback.r1<List<String>, TodoTxtTask> getKeys = TodoTxtFilter.keyGetter(activity, queryType);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
 
         final List<String> keys = new ArrayList<>();
@@ -393,14 +393,14 @@ public class SearchOrCustomTextDialogCreator {
             }
             selKeys.addAll(noneIncluded ? Collections.singletonList(null) : Collections.emptyList());
 
-            final SearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
+            final GsSearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
             doptSel.messageText = activity.getString(title);
 
             // Callback to save view
             doptSel.neutralButtonText = R.string.save;
             doptSel.neutralButtonCallback = (dialog) -> {
                 // Get save name
-                final SearchOrCustomTextDialog.DialogOptions doptSave = new SearchOrCustomTextDialog.DialogOptions();
+                final GsSearchOrCustomTextDialog.DialogOptions doptSave = new GsSearchOrCustomTextDialog.DialogOptions();
                 baseConf(activity, doptSave);
                 doptSave.titleText = R.string.name;
                 doptSave.searchHintText = R.string.empty_string;
@@ -410,16 +410,16 @@ public class SearchOrCustomTextDialogCreator {
                     }
                 };
                 // Note that we do not dismiss the existing view
-                SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSave);
+                GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSave);
             };
 
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSel);
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSel);
         };
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static SearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final Callback.b1<TodoTxtTask> filter) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static GsSearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final GsCallback.b1<TodoTxtTask> filter) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
@@ -441,30 +441,30 @@ public class SearchOrCustomTextDialogCreator {
             for (final Integer p : posns) {
                 selIndices.add(lineIndices.get(p));
             }
-            StringUtils.selectLines(text, selIndices);
+            TextViewUtils.selectLines(text, selIndices);
         };
 
         return dopt;
     }
 
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
-        final SearchOrCustomTextDialog.DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
+        final GsSearchOrCustomTextDialog.DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), StringUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, text.getText(), TextViewUtils.getSelection(text));
         };
 
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
 
     /**
      * Allow to choose between Hexcolor / foreground / background color, pass back stringid
      */
-    public static void showColorSelectionModeDialog(Activity activity, Callback.a1<Integer> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showColorSelectionModeDialog(Activity activity, GsCallback.a1<Integer> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
 
         final String hexcode = activity.getString(R.string.hexcode);
         final String fg = activity.getString(R.string.foreground);
@@ -486,11 +486,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
         dopt.messageText = activity.getString(R.string.set_foreground_or_background_color_hexcolor_also_possible);
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttProjectDialog(Activity activity, List<String> availableData, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showSttProjectDialog(Activity activity, List<String> availableData, GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -502,16 +502,16 @@ public class SearchOrCustomTextDialogCreator {
                 callback.callback(dopt.data.get(pi).toString());
             }
         };
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static Callback.a1<Spannable> getSttHighlighter(final AppSettings as) {
+    private static GsCallback.a1<Spannable> getSttHighlighter(final AppSettings as) {
         final Highlighter h = new BasicTodoTxtHighlighter(as).configure();
         return s -> h.setSpannable(s).recompute().apply();
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {
-        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
+        GsSearchOrCustomTextDialog.DialogOptions dopt2 = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
         final Editable edit = text.getText();
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
@@ -520,17 +520,17 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.searchHintText = R.string.search;
         dopt2.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
-            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, StringUtils.getSelection(text));
+            SearchReplaceDialog.showSearchReplaceDialog(activity, edit, TextViewUtils.getSelection(text));
         };
         dopt2.neutralButtonText = R.string.search_and_replace;
-        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+        dopt2.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
-        SearchOrCustomTextDialog.DialogOptions dopt2 = new SearchOrCustomTextDialog.DialogOptions();
+        GsSearchOrCustomTextDialog.DialogOptions dopt2 = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt2);
-        dopt2.positionCallback = (result) -> StringUtils.selectLines(text, result);
+        dopt2.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
         dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
         dopt2.titleText = R.string.table_of_contents;
         dopt2.searchHintText = R.string.search;
@@ -538,11 +538,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt2.isSearchEnabled = true;
         dopt2.searchIsRegex = false;
         dopt2.gravity = Gravity.TOP;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
-    public static void showIndentSizeDialog(final Activity activity, final int indent, final Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showIndentSizeDialog(final Activity activity, final int indent, final GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = Arrays.asList("1", "2", "4", "8");
@@ -551,11 +551,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.titleText = R.string.indent;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showFontSizeDialog(final Activity activity, final int currentSize, final Callback.a1<Integer> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showFontSizeDialog(final Activity activity, final int currentSize, final GsCallback.a1<Integer> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
         final int minFontSize = 1;
@@ -570,11 +570,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 400;
         dopt.titleText = R.string.font_size;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showPriorityDialog(Activity activity, char selectedPriority, Callback.a1<String> callback) {
-        SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showPriorityDialog(Activity activity, char selectedPriority, GsCallback.a1<String> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
 
@@ -605,12 +605,12 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isSearchEnabled = false;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 475;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     @SuppressLint("StringFormatMatches")
-    public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final Callback.a1<Integer> callback) {
-        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final GsCallback.a1<Integer> callback) {
+        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.positionCallback = (result) -> callback.callback(result.get(0));
         final List<String> data = new ArrayList<>();
@@ -630,13 +630,13 @@ public class SearchOrCustomTextDialogCreator {
         dopt.messageText = activity.getString(R.string.copy_move_conflict_message, fileName, destName);
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void showSetPasswordDialog(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final AppSettings as = new AppSettings(activity.getApplicationContext());
-            final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+            final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
@@ -649,7 +649,7 @@ public class SearchOrCustomTextDialogCreator {
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }
             };
-            SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
         }
     }
 
@@ -669,15 +669,15 @@ public class SearchOrCustomTextDialogCreator {
         final String[] ls = folder.list();
         for (final String name : ls == null ? new String[]{} : ls) {
             final File item = new File(folder, name);
-            if (item.exists() && item.canRead() && FileUtils.isTextFile(item)) {
+            if (item.exists() && item.canRead() && GsFileUtils.isTextFile(item)) {
                 texts.put(name, item);
             }
         }
         return texts;
     }
 
-    public static void showInsertSnippetDialog(final Activity activity, final Callback.a1<String> callback) {
-        final SearchOrCustomTextDialog.DialogOptions dopt = new SearchOrCustomTextDialog.DialogOptions();
+    public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
+        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
         final AppSettings as = new AppSettings(activity);
@@ -689,11 +689,11 @@ public class SearchOrCustomTextDialogCreator {
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as.getSnippetsFolder().getAbsolutePath() + "</small></small>");
-        dopt.positionCallback = (ind) -> callback.callback(FileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
-        SearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void baseConf(Activity activity, SearchOrCustomTextDialog.DialogOptions dopt) {
+    public static void baseConf(Activity activity, GsSearchOrCustomTextDialog.DialogOptions dopt) {
         AppSettings as = new AppSettings(activity);
         dopt.isDarkDialog = as.isDarkThemeEnabled();
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;

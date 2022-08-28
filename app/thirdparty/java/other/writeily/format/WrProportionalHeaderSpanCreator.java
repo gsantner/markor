@@ -17,8 +17,6 @@ import android.text.style.UpdateLayout;
 
 import androidx.annotation.ColorInt;
 
-import net.gsantner.markor.ui.hleditor.Highlighter;
-
 public class WrProportionalHeaderSpanCreator {
 
     private final float _textSize;
@@ -35,7 +33,8 @@ public class WrProportionalHeaderSpanCreator {
 
     public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout {
 
-        final @ColorInt int _color;
+        final @ColorInt
+        int _color;
         final float _headerSize;
         final float _offset;
 

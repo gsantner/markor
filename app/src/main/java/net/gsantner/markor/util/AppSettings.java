@@ -27,9 +27,9 @@ import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemViewerAdapter;
-import net.gsantner.opoc.ui.FilesystemViewerFragment;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import java.util.Locale;
 import other.de.stanetz.jpencconverter.PasswordStore;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
-public class AppSettings extends SharedPreferencesPropertyBackend {
+public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private final SharedPreferences _prefCache;
     private final SharedPreferences _prefHistory;
     public static Boolean _isDeviceGoodHardware = null;
@@ -257,7 +257,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
 
 
     public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, FilesystemViewerFragment.SORT_BY_NAME);
+        return getInt(R.string.pref_key__sort_method, GsFileBrowserFragment.SORT_BY_NAME);
     }
 
     public void setSortReverse(boolean value) {
@@ -342,7 +342,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         List<String> list = new ArrayList<>();
         List<File> favourites = getFavouriteFiles();
         for (File f : favourites) {
-            if (f != null && (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f))) {
+            if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f))) {
                 list.add(f.getAbsolutePath());
             }
         }
@@ -549,7 +549,7 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
         ArrayList<File> list = new ArrayList<>();
         for (String fp : getStringList(R.string.pref_key__favourite_files)) {
             File f = new File(fp);
-            if (f.exists() || FilesystemViewerAdapter.isVirtualStorage(f)) {
+            if (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f)) {
                 list.add(f);
             }
         }
@@ -705,13 +705,13 @@ public class AppSettings extends SharedPreferencesPropertyBackend {
                 return getNotebookDirectory();
             }
             case R.id.action_go_to_popular_files: {
-                return FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR;
+                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
             }
             case R.id.action_go_to_recent_files: {
-                return FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS;
+                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
             }
             case R.id.action_go_to_favourite_files: {
-                return FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                return GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
             case R.id.action_go_to_appdata_private: {
                 return _contextUtils.getAppDataPrivateDir();

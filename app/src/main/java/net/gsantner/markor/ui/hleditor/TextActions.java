@@ -43,10 +43,10 @@ import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.plaintext.PlainTextStuff;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -271,7 +271,7 @@ public abstract class TextActions {
         final AtomicBoolean showTooltip = new AtomicBoolean(false);
 
         // show the android tooltip text popup (which only can be shown through longClick)
-        final Callback.a1<Integer> triggerTooltip = stringId -> {
+        final GsCallback.a1<Integer> triggerTooltip = stringId -> {
             showTooltip.set(true);
             btn.setContentDescription(rstr(stringId));
             TooltipCompat.setTooltipText(btn, rstr(stringId));
@@ -418,25 +418,25 @@ public abstract class TextActions {
 
     private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
 
-        final int[] sel = StringUtils.getSelection(editor);
-        final StringUtils.ChunkedEditable text = StringUtils.ChunkedEditable.wrap(editor.getText());
+        final int[] sel = TextViewUtils.getSelection(editor);
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editor.getText());
 
         // Offset of selection start from text end - used to restore selection
         final int selEndOffset = text.length() - sel[1];
         // Offset of selection start from line end - used to restore selection
-        final int selStartOffset = sel[1] == sel[0] ? selEndOffset : StringUtils.getLineEnd(text, sel[0]) - sel[0];
+        final int selStartOffset = sel[1] == sel[0] ? selEndOffset : TextViewUtils.getLineEnd(text, sel[0]) - sel[0];
 
         // Start of line on which sel begins
-        final int selStartStart = StringUtils.getLineStart(text, sel[0]);
+        final int selStartStart = TextViewUtils.getLineStart(text, sel[0]);
         // Number of lines we will be modifying
-        final int lineCount = StringUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
+        final int lineCount = TextViewUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
 
         int lineStart = selStartStart;
 
         for (int i = 0; i < lineCount; i++) {
 
-            int lineEnd = StringUtils.getLineEnd(text, lineStart);
-            final String line = StringUtils.toString(text, lineStart, lineEnd);
+            int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
+            final String line = TextViewUtils.toString(text, lineStart, lineEnd);
 
             for (final ReplacePattern pattern : patterns) {
                 if (pattern.matcher.reset(line).find()) {
@@ -447,13 +447,13 @@ public abstract class TextActions {
                 }
             }
 
-            lineStart = StringUtils.getLineEnd(text, lineStart) + 1;
+            lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
         }
 
         text.applyChanges();
 
         final int newSelEnd = text.length() - selEndOffset;
-        final int newSelStart = sel[0] == sel[1] ? newSelEnd : StringUtils.getLineEnd(text, selStartStart) - selStartOffset;
+        final int newSelStart = sel[0] == sel[1] ? newSelEnd : TextViewUtils.getLineEnd(text, selStartStart) - selStartOffset;
         editor.setSelection(newSelStart, newSelEnd);
     }
 
@@ -561,7 +561,7 @@ public abstract class TextActions {
             final String leadingIndentPattern = String.format("^\\s{1,%d}", _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern(leadingIndentPattern, ""));
         } else {
-            final String tabString = StringUtils.repeatChars(' ', _indent);
+            final String tabString = TextViewUtils.repeatChars(' ', _indent);
             TextActions.runRegexReplaceAction(_hlEditor, new TextActions.ReplacePattern("^", tabString));
         }
     }
@@ -617,7 +617,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_ordered_list_renumber: {
-                renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]);
+                renumberOrderedList(TextViewUtils.getSelection(_hlEditor)[0]);
                 return true;
             }
             case R.string.tmaid_common_move_text_one_line_up:
@@ -634,14 +634,14 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_insert_snippet: {
                 SearchOrCustomTextDialogCreator.showInsertSnippetDialog(getActivity(), (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(snip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.tmaid_common_open_link_browser: {
                 String url;
-                if ((url = PlainTextStuff.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+                if ((url = GsTextUtils.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
@@ -655,12 +655,12 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_new_line_below: {
                 // Go to end of line, works with wrapped lines too
-                _hlEditor.setSelection(StringUtils.getLineEnd(_hlEditor.getText(), StringUtils.getSelection(_hlEditor)[1]));
+                _hlEditor.setSelection(TextViewUtils.getLineEnd(_hlEditor.getText(), TextViewUtils.getSelection(_hlEditor)[1]));
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
                 return true;
             }
             case R.string.tmaid_common_delete_lines: {
-                final int[] sel = StringUtils.getLineSelection(_hlEditor);
+                final int[] sel = TextViewUtils.getLineSelection(_hlEditor);
                 final Editable text = _hlEditor.getText();
                 final boolean lastLine = sel[1] == text.length();
                 final boolean firstLine = sel[0] == 0;
@@ -676,7 +676,7 @@ public abstract class TextActions {
                 return true;
             }
             case R.string.tmaid_common_view_file_in_other_app: {
-                getAndroidUtils().viewFileInOtherApp(_document.getFile(), FileUtils.getMimeType(_document.getFile()));
+                getAndroidUtils().viewFileInOtherApp(_document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
                 return true;
             }
             case R.string.tmaid_common_rotate_screen: {
@@ -720,12 +720,12 @@ public abstract class TextActions {
             }
             case R.string.tmaid_common_move_text_one_line_up:
             case R.string.tmaid_common_move_text_one_line_down: {
-                StringUtils.showSelection(_hlEditor);
+                TextViewUtils.showSelection(_hlEditor);
                 return true;
             }
             case R.string.tmaid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(StringUtils.interpolateEscapedDateTime(_lastSnip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(_lastSnip));
                 }
                 return true;
             }
@@ -756,20 +756,20 @@ public abstract class TextActions {
 
         final Editable text = hlEditor.getText();
 
-        final int[] sel = StringUtils.getSelection(hlEditor);
-        final int linesStart = StringUtils.getLineStart(text, sel[0]);
-        final int linesEnd = StringUtils.getLineEnd(text, sel[1]);
+        final int[] sel = TextViewUtils.getSelection(hlEditor);
+        final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
+        final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
 
         if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
 
             final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
-            final int altStart = isUp ? StringUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
-            final int altEnd = StringUtils.getLineEnd(text, altStart);
+            final int altStart = isUp ? TextViewUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
+            final int altEnd = TextViewUtils.getLineEnd(text, altStart);
             final CharSequence altLine = text.subSequence(altStart, altEnd);
 
-            final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
-            final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+            final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
+            final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
             hlEditor.withAutoFormatDisabled(() -> {
                 final String newPair = String.format("%s\n%s", isUp ? lines : altLine, isUp ? altLine : lines);
@@ -780,8 +780,8 @@ public abstract class TextActions {
             selEnd[0] += isUp ? -1 : 1;
 
             hlEditor.setSelection(
-                    StringUtils.getIndexFromLineOffset(text, selStart),
-                    StringUtils.getIndexFromLineOffset(text, selEnd));
+                    TextViewUtils.getIndexFromLineOffset(text, selStart),
+                    TextViewUtils.getIndexFromLineOffset(text, selEnd));
         }
     }
 
@@ -796,7 +796,7 @@ public abstract class TextActions {
 
     public final void runRenumberOrderedListIfRequired(final boolean force) {
         if (force || _hlEditor.getAutoFormatEnabled()) {
-            _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(StringUtils.getSelection(_hlEditor)[0]));
+            _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(TextViewUtils.getSelection(_hlEditor)[0]));
         }
     }
 
@@ -807,7 +807,7 @@ public abstract class TextActions {
     public void runSpecialKeyAction() {
 
         // Needed to prevent selection from being overwritten on refocus
-        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
         _hlEditor.clearFocus();
         _hlEditor.requestFocus();
         _hlEditor.setSelection(sel[0], sel[1]);
@@ -857,7 +857,7 @@ public abstract class TextActions {
     }
 
     public void showColorPickerDialog() {
-        SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(getActivity(), new Callback.a1<Integer>() {
+        SearchOrCustomTextDialogCreator.showColorSelectionModeDialog(getActivity(), new GsCallback.a1<Integer>() {
             @Override
             public void callback(Integer colorInsertType) {
                 ColorPickerDialogBuilder

@@ -17,7 +17,7 @@ import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.format.binary.EmbedBinaryConverter;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class PlaintextConverter extends TextConverter {
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
-        final String extWithDot = FileUtils.getFilenameExtension(file);
+        final String extWithDot = GsFileUtils.getFilenameExtension(file);
 
         if (extWithDot.startsWith(".htm")) {
             converted += markup;

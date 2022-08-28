@@ -20,8 +20,8 @@ import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.ui.FilesystemViewerAdapter;
-import net.gsantner.opoc.ui.FilesystemViewerFragment;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,14 +55,14 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         _widgetFilesList.clear();
         final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
 
-        if (dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)) {
+        if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getRecentDocuments())));
-        } else if (dir.equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_POPULAR)) {
+        } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
             _widgetFilesList.addAll(Arrays.asList(FilesystemViewerCreator.strlistToArray(AppSettings.get().getPopularDocuments())));
-        } else if (dir.exists() && dir.canRead()){
+        } else if (dir.exists() && dir.canRead()) {
             final File[] all = dir.listFiles(file -> !file.isDirectory() && TextFormat.isTextFile(file));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
-            FilesystemViewerFragment.sortFolder(_widgetFilesList); // Sort only if actual folder
+            GsFileBrowserFragment.sortFolder(_widgetFilesList); // Sort only if actual folder
         }
     }
 

@@ -279,7 +279,7 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:summary="@string/editor_settings"
         android:title="@string/edit_mode">
-        <net.gsantner.opoc.preference.FontPreferenceCompat
+        <net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat
             android:defaultValue="@string/default_font_family"
             android:icon="@drawable/ic_format_shapes_black_24dp"
             android:key="@string/pref_key__font_family"
@@ -597,7 +597,7 @@
             android:summary="%1$s"
             android:title="@string/theme" />
 
-        <net.gsantner.opoc.preference.LanguagePreferenceCompat
+        <net.gsantner.opoc.frontend.settings.GsLanguagePreferenceCompat
             android:icon="@drawable/ic_language_black_24dp"
             android:key="@string/pref_key__language"
             android:summary="@string/language_change_restart_description"

@@ -27,8 +27,8 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.text.ParseException;
@@ -150,10 +150,10 @@ public class TodoTxtTextActions extends TextActions {
                     final ArrayList<TodoTxtTask> move = new ArrayList<>();
                     final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
 
-                    final int[] sel = StringUtils.getSelection(_hlEditor);
+                    final int[] sel = TextViewUtils.getSelection(_hlEditor);
                     final CharSequence text = _hlEditor.getText();
-                    final int[] selStart = StringUtils.getLineOffsetFromIndex(text, sel[0]);
-                    final int[] selEnd = StringUtils.getLineOffsetFromIndex(text, sel[1]);
+                    final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
+                    final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
                     for (int i = 0; i < allTasks.size(); i++) {
                         final TodoTxtTask task = allTasks.get(i);
@@ -169,7 +169,7 @@ public class TodoTxtTextActions extends TextActions {
                         File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
                         String doneFileContents = "";
                         if (doneFile.exists() && doneFile.canRead()) {
-                            doneFileContents = FileUtils.readTextFileFast(doneFile).first.trim() + "\n";
+                            doneFileContents = GsFileUtils.readTextFileFast(doneFile).first.trim() + "\n";
                         }
                         doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
@@ -178,8 +178,8 @@ public class TodoTxtTextActions extends TextActions {
                             final String tasksString = TodoTxtTask.tasksToString(keep);
                             _hlEditor.setText(tasksString);
                             _hlEditor.setSelection(
-                                    StringUtils.getIndexFromLineOffset(tasksString, selStart),
-                                    StringUtils.getIndexFromLineOffset(tasksString, selEnd)
+                                    TextViewUtils.getIndexFromLineOffset(tasksString, selStart),
+                                    TextViewUtils.getIndexFromLineOffset(tasksString, selEnd)
                             );
                         }
                     }
@@ -253,7 +253,7 @@ public class TodoTxtTextActions extends TextActions {
         // Pattern to match <space><literal string><space OR end of line>
         // i.e. to check if a word is present in the line
         final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));
-        final String lines = StringUtils.getSelectedLines(_hlEditor);
+        final String lines = TextViewUtils.getSelectedLines(_hlEditor);
         // Multiline or setting
         if (lines.contains("\n") || _appSettings.isTodoAppendProConOnEndEnabled()) {
             runRegexReplaceAction(
@@ -272,7 +272,7 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     private void insertInline(String thing) {
-        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
         final CharSequence text = _hlEditor.getText();
         if (sel[0] > 0) {
             final char before = text.charAt(sel[0] - 1);
@@ -304,7 +304,7 @@ public class TodoTxtTextActions extends TextActions {
     }
 
     private void setDate() {
-        final int[] sel = StringUtils.getSelection(_hlEditor);
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
         final Editable text = _hlEditor.getText();
         final String selStr = text.subSequence(sel[0], sel[1]).toString();
         Calendar initDate = parseDateString(selStr, Calendar.getInstance());

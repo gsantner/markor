@@ -21,7 +21,7 @@ import net.gsantner.markor.format.AutoFormatter;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.AttachImageOrLinkDialog;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -227,10 +227,10 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
     }
 
     private String tryExtractZimLink() {
-        int cursorPos = StringUtils.getSelection(_hlEditor)[0];
+        int cursorPos = TextViewUtils.getSelection(_hlEditor)[0];
         CharSequence text = _hlEditor.getText();
-        int lineStart = StringUtils.getLineStart(text, cursorPos);
-        int lineEnd = StringUtils.getLineEnd(text, cursorPos);
+        int lineStart = TextViewUtils.getLineStart(text, cursorPos);
+        int lineEnd = TextViewUtils.getLineEnd(text, cursorPos);
         CharSequence line = text.subSequence(lineStart, lineEnd);
         int cursorPosInLine = cursorPos - lineStart;
 
@@ -247,11 +247,11 @@ public class ZimWikiTextActions extends net.gsantner.markor.ui.hleditor.TextActi
         final CharSequence text = _hlEditor.getText();
         runRegexReplaceAction(ZimWikiReplacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel));
 
-        final int[] lineSelection = StringUtils.getLineSelection(_hlEditor);
+        final int[] lineSelection = TextViewUtils.getLineSelection(_hlEditor);
         Matcher m = ZimWikiHighlighter.Patterns.HEADING.pattern.matcher(text.subSequence(lineSelection[0], lineSelection[1]));
         if (m.find()) {
             final int afterHeadingTextOffset = m.end(3);
-            final int lineStart = StringUtils.getLineStart(text, StringUtils.getSelection(_hlEditor)[0]);
+            final int lineStart = TextViewUtils.getLineStart(text, TextViewUtils.getSelection(_hlEditor)[0]);
             _hlEditor.setSelection(lineStart + afterHeadingTextOffset);
         }
     }

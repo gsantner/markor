@@ -3,6 +3,9 @@
  * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
+ * Written 2017-2022 by Gregor Santner <https://gsantner.net/>
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
 package net.gsantner.opoc.util;
 
@@ -67,7 +70,9 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
-import net.gsantner.opoc.net.OpocNetworkUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.net.GsNetworkUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -378,8 +383,8 @@ public class ShareUtil extends ContextUtils {
         try {
             File file = new File(_context.getCacheDir(), getFilenameWithTimestamp());
             if (bitmap != null && writeImageToFile(file, bitmap, quality)) {
-                String x = FileUtils.getMimeType(file);
-                shareStream(file, FileUtils.getMimeType(file));
+                String x = GsFileUtils.getMimeType(file);
+                shareStream(file, GsFileUtils.getMimeType(file));
                 return true;
             }
         } catch (Exception ignored) {
@@ -544,14 +549,14 @@ public class ShareUtil extends ContextUtils {
      * @param callback        Callback after paste try
      * @param serverOrNothing Supply one or no hastebin server. If empty, the default gets taken
      */
-    public void pasteOnHastebin(final String text, final Callback.a2<Boolean, String> callback, final String... serverOrNothing) {
+    public void pasteOnHastebin(final String text, final GsCallback.a2<Boolean, String> callback, final String... serverOrNothing) {
         final Handler handler = new Handler();
         final String server = (serverOrNothing != null && serverOrNothing.length > 0 && serverOrNothing[0] != null)
                 ? serverOrNothing[0] : "https://hastebin.com";
         new Thread() {
             public void run() {
                 // Returns a simple result, handleable without json parser {"key":"feediyujiq"}
-                String ret = OpocNetworkUtils.performCall(server + "/documents", OpocNetworkUtils.POST, text);
+                String ret = GsNetworkUtils.performCall(server + "/documents", GsNetworkUtils.POST, text);
                 final String key = (ret.length() > 15) ? ret.split("\"")[3] : "";
                 handler.post(() -> callback.callback(!key.isEmpty(), server + "/" + key));
             }
@@ -597,7 +602,7 @@ public class ShareUtil extends ContextUtils {
         final ArrayList<String> probeFiles = new ArrayList<>();
 
         // Filter non existing files out
-        Callback.a0 filterNe = () -> {
+        GsCallback.a0 filterNe = () -> {
             for (String fp : new ArrayList<>(probeFiles)) {
                 boolean ok = false;
                 if (!TextUtils.isEmpty(fp)) {
@@ -704,8 +709,8 @@ public class ShareUtil extends ContextUtils {
                 // Proxy file to app-private storage (= java.io.File)
                 File f = new File(_context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
                 f.getParentFile().mkdirs();
-                byte[] data = FileUtils.readCloseBinaryStream(_context.getContentResolver().openInputStream(uri));
-                FileUtils.writeFile(f, data, null);
+                byte[] data = GsFileUtils.readCloseBinaryStream(_context.getContentResolver().openInputStream(uri));
+                GsFileUtils.writeFile(f, data, null);
                 f.setReadable(true);
                 f.setWritable(true);
                 probeFiles.add(f.getAbsolutePath());
@@ -867,7 +872,7 @@ public class ShareUtil extends ContextUtils {
 
                                 // Create temporary file in cache directory
                                 picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
-                                FileUtils.writeFile(new File(picturePath), FileUtils.readCloseBinaryStream(input), null);
+                                GsFileUtils.writeFile(new File(picturePath), GsFileUtils.readCloseBinaryStream(input), null);
                             }
                         } catch (IOException ignored) {
                             // nothing we can do here, null value will be handled below
@@ -921,7 +926,7 @@ public class ShareUtil extends ContextUtils {
      * @param filterActions  All {@link IntentFilter} actions to filter for
      * @return The created instance. Has to be unregistered on {@link Activity} lifecycle events.
      */
-    public BroadcastReceiver receiveResultFromLocalBroadcast(final Callback.a2<Intent, BroadcastReceiver> callback, final boolean autoUnregister, final String... filterActions) {
+    public BroadcastReceiver receiveResultFromLocalBroadcast(final GsCallback.a2<Intent, BroadcastReceiver> callback, final boolean autoUnregister, final String... filterActions) {
         IntentFilter intentFilter = new IntentFilter();
         for (String filterAction : filterActions) {
             intentFilter.addAction(filterAction);
@@ -1167,7 +1172,7 @@ public class ShareUtil extends ContextUtils {
         final String realpath = file.getAbsolutePath();
 
         // try to ensure parent directories exist and are writable
-        Callback.a2<File, Boolean> tryMkdirs = (f, isDir1) -> {
+        GsCallback.a2<File, Boolean> tryMkdirs = (f, isDir1) -> {
             try {
                 File target = (isDir1 ? f : f.getParentFile());
                 target.mkdirs();
@@ -1289,7 +1294,7 @@ public class ShareUtil extends ContextUtils {
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
-    public void writeFile(final File file, final boolean isDirectory, final Callback.a2<Boolean, OutputStream> writeFileCallback) {
+    public void writeFile(final File file, final boolean isDirectory, final GsCallback.a2<Boolean, OutputStream> writeFileCallback) {
         try {
             OutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
@@ -1389,7 +1394,7 @@ public class ShareUtil extends ContextUtils {
         try {
             final Locale l = locale != null ? locale : Locale.getDefault();
             final long t = datetime != null ? datetime : System.currentTimeMillis();
-            return new SimpleDateFormat(StringUtils.unescapeString(format), l).format(t);
+            return new SimpleDateFormat(TextViewUtils.unescapeString(format), l).format(t);
         } catch (Exception err) {
             return (fallback != null && fallback.length > 0) ? fallback[0] : format;
         }
@@ -1404,7 +1409,7 @@ public class ShareUtil extends ContextUtils {
     public boolean checkExternalStoragePermission(final boolean doRequest, String... optionalDescription) {
         final Activity activity = greedyGetActivity();
         final int v = android.os.Build.VERSION.SDK_INT;
-        final AtomicReference<Callback.a0> permissionRequest = new AtomicReference<>();
+        final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
 
         // On Android R+ - check externalStorageManager is granted, otherwise request it
         if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
@@ -1467,14 +1472,14 @@ public class ShareUtil extends ContextUtils {
         final ArrayList<Pair<String, String>> extracted = new ArrayList<>();
 
         // "Last modified" -> R.string.last_modified
-        final Callback.a2<String, String> append = (key, value) -> {
+        final GsCallback.a2<String, String> append = (key, value) -> {
             final int resId = getResId(ContextUtils.ResType.STRING, key);
             extracted.add(new Pair<>((resId != 0 ? context.getString(resId) : key), value));
         };
 
         // java.io.File metadata like name, size, modtime
         append.callback("File", file.getAbsolutePath());
-        append.callback("Size", FileUtils.getReadableFileSize(file.length(), true));
+        append.callback("Size", GsFileUtils.getReadableFileSize(file.length(), true));
         append.callback("Last modified", DateUtils.formatDateTime(context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
 
         // Detect all possible metadata keys from MediaMetadataRetriever as there is no queryAll method
@@ -1483,7 +1488,7 @@ public class ShareUtil extends ContextUtils {
             String prefix = "METADATA_KEY_";
             String name = field.getName();
             if (name.startsWith(prefix)) {
-                prefix = StringUtils.toTitleCase(name.replace(prefix, "").replace("_", " ").replaceAll("\\s*(?i)num(ber)?\\s*", " No. "));
+                prefix = TextViewUtils.toTitleCase(name.replace(prefix, "").replace("_", " ").replaceAll("\\s*(?i)num(ber)?\\s*", " No. "));
                 try {
                     mmrfields.add(new Pair<>(field.getInt(null), prefix));
                 } catch (Exception ignored) {
@@ -1524,9 +1529,9 @@ public class ShareUtil extends ContextUtils {
             }
             if (!TextUtils.isEmpty(v)) {
                 if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_BITRATE) {
-                    v = FileUtils.getHumanReadableByteCountSI(Long.parseLong(v)) + "ps";
+                    v = GsFileUtils.getHumanReadableByteCountSI(Long.parseLong(v)) + "ps";
                 } else if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_DURATION) {
-                    final int[] hms = FileUtils.getTimeDiffHMS(Long.parseLong(v), 0);
+                    final int[] hms = GsFileUtils.getTimeDiffHMS(Long.parseLong(v), 0);
                     v = String.format("%sh %sm %ss", hms[0], hms[1], hms[2]);
                 }
                 append.callback(mmrfield.second, v);

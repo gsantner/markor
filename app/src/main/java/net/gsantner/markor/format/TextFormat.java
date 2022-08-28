@@ -38,7 +38,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.ui.hleditor.Highlighter;
 import net.gsantner.markor.ui.hleditor.TextActions;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.Locale;
@@ -86,7 +86,7 @@ public class TextFormat {
             }
         }
 
-        return FileUtils.isTextFile(file);
+        return GsFileUtils.isTextFile(file);
     }
 
     public interface TextFormatApplier {

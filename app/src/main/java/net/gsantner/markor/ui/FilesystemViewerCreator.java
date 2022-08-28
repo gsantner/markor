@@ -18,8 +18,8 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.ui.FilesystemViewerDialog;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 import java.util.List;
@@ -30,8 +30,8 @@ public class FilesystemViewerCreator {
     public static Function<File, Boolean> IsMimeAudio = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("audio/");
     public static Function<File, Boolean> IsMimeVideo = file -> file != null && ContextUtils.get().getMimeType(file).startsWith("video/");
 
-    public static FilesystemViewerData.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, FilesystemViewerData.SelectionListener listener) {
-        FilesystemViewerData.Options opts = new FilesystemViewerData.Options();
+    public static GsFileBrowserOptions.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, GsFileBrowserOptions.SelectionListener listener) {
+        GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
         ContextUtils cu = new ContextUtils(context);
         ShareUtil shareUtil = new ShareUtil(context);
         AppSettings appSettings = new AppSettings(context);
@@ -83,19 +83,19 @@ public class FilesystemViewerCreator {
         return files;
     }
 
-    private static void showDialog(FragmentManager fm, FilesystemViewerData.Options opts) {
-        FilesystemViewerDialog filesystemViewerDialog = FilesystemViewerDialog.newInstance(opts);
-        filesystemViewerDialog.show(fm, FilesystemViewerDialog.FRAGMENT_TAG);
+    private static void showDialog(FragmentManager fm, GsFileBrowserOptions.Options opts) {
+        GsFileBrowserDialog filesystemViewerDialog = GsFileBrowserDialog.newInstance(opts);
+        filesystemViewerDialog.show(fm, GsFileBrowserDialog.FRAGMENT_TAG);
     }
 
-    public static void showFileDialog(FilesystemViewerData.SelectionListener listener, FragmentManager fm, Context context, Function<File, Boolean> fileOverallFilter) {
-        final FilesystemViewerData.Options opts = prepareFsViewerOpts(context, false, listener);
+    public static void showFileDialog(GsFileBrowserOptions.SelectionListener listener, FragmentManager fm, Context context, Function<File, Boolean> fileOverallFilter) {
+        final GsFileBrowserOptions.Options opts = prepareFsViewerOpts(context, false, listener);
         opts.fileOverallFilter = fileOverallFilter;
         showDialog(fm, opts);
     }
 
-    public static void showFolderDialog(FilesystemViewerData.SelectionListener listener, FragmentManager fm, Context context) {
-        final FilesystemViewerData.Options opts = prepareFsViewerOpts(context, true, listener);
+    public static void showFolderDialog(GsFileBrowserOptions.SelectionListener listener, FragmentManager fm, Context context) {
+        final GsFileBrowserOptions.Options opts = prepareFsViewerOpts(context, true, listener);
         opts.okButtonText = R.string.select_this_folder;
         showDialog(fm, opts);
     }

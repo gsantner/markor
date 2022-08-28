@@ -12,8 +12,8 @@ import android.util.Pair;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.opoc.format.OpocSimplePlaylistParser;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.format.GsSimplePlaylistParser;
+import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.File;
@@ -33,7 +33,7 @@ public class EmbedBinaryConverter extends TextConverter {
     private static final String HTML100_BODY_BEGIN = "<div>\n  ";
     private static final String HTML101_BODY_END = "\n\n</div>";
     private static final String CSS_EMBED_STYLE = CSS_S + "html,body{padding: 0px; margin:0px;}" + CSS_E;
-    private static final String CSS_EMBED_TABLE_LIMITS = CSS_S + "table {word-break: break-word;} thead tr th:first-child, tbody tr td:first-child {word-break:keep-all; min-width: 100px;} thead {display:none;}  table tr:nth-child(odd) td{ background: " + TOKEN_COLOR_GREY_OF_THEME +"; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
+    private static final String CSS_EMBED_TABLE_LIMITS = CSS_S + "table {word-break: break-word;} thead tr th:first-child, tbody tr td:first-child {word-break:keep-all; min-width: 100px;} thead {display:none;}  table tr:nth-child(odd) td{ background: " + TOKEN_COLOR_GREY_OF_THEME + "; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
 
     static {
         EXT.addAll(EXT_IMAGE);
@@ -55,7 +55,7 @@ public class EmbedBinaryConverter extends TextConverter {
         }
         head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS;
         converted = HTML100_BODY_BEGIN;
-        final String extWithDot = FileUtils.getFilenameExtension(file);
+        final String extWithDot = GsFileUtils.getFilenameExtension(file);
         final ShareUtil shu = new ShareUtil(context);
 
         // Sticky header with content depending on type
@@ -119,7 +119,7 @@ public class EmbedBinaryConverter extends TextConverter {
                 table.append(String.format("%s | %s\n-----|-----\n", context.getString(R.string.name), context.getString(R.string.info)));
 
                 int i = 0;
-                for (OpocSimplePlaylistParser.M3U_Entry line : new OpocSimplePlaylistParser().parse(FileUtils.readTextFileFast(file).first)) {
+                for (GsSimplePlaylistParser.Item line : new GsSimplePlaylistParser().parse(GsFileUtils.readTextFileFast(file).first)) {
                     onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '" + line.getUrl() + "');";
                     table.append(line.getName(80)).append(" | ");
                     table.append("<button type='button' onclick=\"javascript:document.avSetPlaylistPos(");

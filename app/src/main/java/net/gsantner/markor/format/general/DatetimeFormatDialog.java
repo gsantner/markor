@@ -32,8 +32,8 @@ import net.gsantner.markor.ui.hleditor.HighlightingEditor;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,7 +96,7 @@ public class DatetimeFormatDialog {
         cal.set(Calendar.SECOND, 0);
 
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
-        final AtomicReference<Callback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
+        final AtomicReference<GsCallback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
         final EditText formatEditText = viewRoot.findViewById(R.id.datetime_format_input);
@@ -282,7 +282,7 @@ public class DatetimeFormatDialog {
      * @return List of Strings representing recently used formats
      */
     private static List<String> getRecentFormats(final Context context) {
-        final SharedPreferences settings = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+        final SharedPreferences settings = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         final String combined = settings.getString(RECENT_FORMATS_STRING, null);
         final String lengths = settings.getString(RECENT_FORMATS_LENGTHS, null);
 
@@ -329,7 +329,7 @@ public class DatetimeFormatDialog {
             lengths.add(Integer.toString(s.length()));
         }
 
-        final SharedPreferences.Editor edit = activity.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
+        final SharedPreferences.Editor edit = activity.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE).edit();
         edit.putString(RECENT_FORMATS_STRING, TextUtils.join("", formatSet)).apply();
         edit.putString(RECENT_FORMATS_LENGTHS, TextUtils.join(",", lengths)).apply();
     }

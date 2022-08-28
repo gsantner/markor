@@ -20,15 +20,15 @@ import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
-import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
+import net.gsantner.opoc.format.GsSimpleMarkdownParser;
+import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
 import java.io.IOException;
 import java.util.Locale;
 
-public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
+public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
     public static final String TAG = "MoreInfoFragment";
 
     public static MoreInfoFragment newInstance() {
@@ -105,9 +105,9 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                 }
                 case R.string.pref_key__more_info__open_source_licenses: {
                     try {
-                        au.showDialogWithHtmlTextView(R.string.licenses, new SimpleMarkdownParser().parse(
+                        au.showDialogWithHtmlTextView(R.string.licenses, new GsSimpleMarkdownParser().parse(
                                 getResources().openRawResource(R.raw.licenses_3rd_party),
-                                "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
+                                "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -115,9 +115,9 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                 }
                 case R.string.pref_key__more_info__contributors_public_info: {
                     try {
-                        au.showDialogWithHtmlTextView(R.string.contributors, new SimpleMarkdownParser().parse(
+                        au.showDialogWithHtmlTextView(R.string.contributors, new GsSimpleMarkdownParser().parse(
                                 getResources().openRawResource(R.raw.contributors),
-                                "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
+                                "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -125,9 +125,9 @@ public class MoreInfoFragment extends GsPreferenceFragmentCompat<AppSettings> {
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
                     new ShareUtil(getContext()).setClipboard(preference.getSummary());
-                    SimpleMarkdownParser smp = new SimpleMarkdownParser();
+                    GsSimpleMarkdownParser smp = new GsSimpleMarkdownParser();
                     try {
-                        String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();
+                        String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();
                         au.showDialogWithHtmlTextView(R.string.changelog, html);
                     } catch (Exception ex) {
 

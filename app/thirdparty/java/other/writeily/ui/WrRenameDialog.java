@@ -27,9 +27,9 @@ import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class WrRenameDialog extends DialogFragment {
     }
 
 
-    public static WrRenameDialog newInstance(File sourceFile, Callback.a1<File> callback) {
+    public static WrRenameDialog newInstance(File sourceFile, GsCallback.a1<File> callback) {
         WrRenameDialog dialog = new WrRenameDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_FILEPATH, sourceFile);
@@ -51,7 +51,7 @@ public class WrRenameDialog extends DialogFragment {
         return dialog;
     }
 
-    private Callback.a1<File> _callback;
+    private GsCallback.a1<File> _callback;
     private boolean _filenameClash;
     private AlertDialog _dialog;
 
@@ -88,7 +88,7 @@ public class WrRenameDialog extends DialogFragment {
                 }
             } else {
                 if (!_filenameClash) {
-                    renamed = FileUtils.renameFileInSameFolder(file, newFileName);
+                    renamed = GsFileUtils.renameFileInSameFolder(file, newFileName);
                 }
             }
 
@@ -148,7 +148,7 @@ public class WrRenameDialog extends DialogFragment {
 
     // Return true in case of filename clash
     private boolean optShowFilenameClashDialog(File originalFile, String newName) {
-        final boolean clash = FileUtils.fileExists(new File(originalFile.getParent(), newName));
+        final boolean clash = GsFileUtils.fileExists(new File(originalFile.getParent(), newName));
         if (clash) {
             ((TextView) _dialog.findViewById(R.id.dialog_message)).setText(R.string.file_folder_already_exists_please_use_a_different_name);
             _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);

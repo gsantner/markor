@@ -3,6 +3,9 @@
  * SPDX-FileCopyrightText: 2016-2022 Gregor Santner <https://gsantner.net/>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
+ * Written 2016-2022 by Gregor Santner <https://gsantner.net/>
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
 package net.gsantner.opoc.util;
 
@@ -76,7 +79,7 @@ import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
-import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
+import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -470,13 +473,13 @@ public class ContextUtils {
 
     /**
      * Load a markdown file from a {@link RawRes}, prepend each line with {@code prepend} text
-     * and convert markdown to html using {@link SimpleMarkdownParser}
+     * and convert markdown to html using {@link GsSimpleMarkdownParser}
      */
     public String loadMarkdownForTextViewFromRaw(@RawRes int rawMdFile, String prepend) {
         try {
-            return new SimpleMarkdownParser()
+            return new GsSimpleMarkdownParser()
                     .parse(_context.getResources().openRawResource(rawMdFile),
-                            prepend, SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
+                            prepend, GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
                     .replaceColor("#000001", rcolor(getResId(ResType.COLOR, "accent")))
                     .removeMultiNewlines().replaceBulletCharacter("*").getHtml();
         } catch (IOException e) {

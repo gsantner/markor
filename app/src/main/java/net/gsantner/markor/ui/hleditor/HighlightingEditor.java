@@ -9,13 +9,10 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -32,9 +29,9 @@ import androidx.appcompat.widget.AppCompatEditText;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.ui.DraggableScrollbarScrollView;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.android.dummy.TextWatcherDummy;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
@@ -77,7 +74,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         _hlEnabled = false;
 
-        addTextChangedListener(new TextWatcherDummy() {
+        addTextChangedListener(new GsTextWatcherAdapter() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
@@ -177,7 +174,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_hl != null) {
             initHighlighter();
             final Runnable update = () -> updateHighlighting(true);
-            _hlDebounced = StringUtils.makeDebounced(_hl.getHighlightingDelay(), update);
+            _hlDebounced = TextViewUtils.makeDebounced(_hl.getHighlightingDelay(), update);
             post(update);
         }
     }
@@ -214,9 +211,9 @@ public class HighlightingEditor extends AppCompatEditText {
             final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * rect.height()) + _hlShiftThreshold;
             final int startY = rect.centerY() - hlSize;
             final int endY = rect.centerY() + hlSize;
-            return new int[]{ rowStart(startY), rowEnd(endY) };
+            return new int[]{rowStart(startY), rowEnd(endY)};
         } else {
-            return new int[]{ 0, length() };
+            return new int[]{0, length()};
         }
     }
 
@@ -400,7 +397,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Run some code with accessibility disabled
-    public void withAccessibilityDisabled(final Callback.a0 callback) {
+    public void withAccessibilityDisabled(final GsCallback.a0 callback) {
         try {
             _accessibilityEnabled = false;
             callback.callback();
@@ -411,7 +408,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Run some code with auto formatters disabled
     // Also disables accessibility
-    public void withAutoFormatDisabled(final Callback.a0 callback) {
+    public void withAutoFormatDisabled(final GsCallback.a0 callback) {
         if (getAutoFormatEnabled()) {
             try {
                 setAutoFormatEnabled(false);
@@ -437,7 +434,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (edit != null && newText != null) {
             int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = StringUtils.getSelection(this);
+            final int[] sel = TextViewUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
@@ -461,16 +458,16 @@ public class HighlightingEditor extends AppCompatEditText {
     // Set selection to fill whole lines
     // Returns original selectionStart
     public int setSelectionExpandWholeLines() {
-        final int[] sel = StringUtils.getSelection(this);
+        final int[] sel = TextViewUtils.getSelection(this);
         final CharSequence text = getText();
         setSelection(
-                StringUtils.getLineStart(text, sel[0]),
-                StringUtils.getLineEnd(text, sel[1])
+                TextViewUtils.getLineStart(text, sel[0]),
+                TextViewUtils.getLineEnd(text, sel[1])
         );
         return sel[0];
     }
 
     public boolean indexesValid(int... indexes) {
-        return StringUtils.inRange(0, length(), indexes);
+        return TextViewUtils.inRange(0, length(), indexes);
     }
 }

@@ -17,7 +17,7 @@ import androidx.documentfile.provider.DocumentFile;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,7 +93,7 @@ public class WrMarkorSingleton {
                 }
                 return false;
             } else {
-                FileUtils.copyFile(file, dest);
+                GsFileUtils.copyFile(file, dest);
                 return true;
             }
         }

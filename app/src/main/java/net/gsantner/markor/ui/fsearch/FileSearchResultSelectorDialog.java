@@ -21,8 +21,8 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchResultSelectorDialog {
-    public static void showDialog(final Activity activity, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
+    public static void showDialog(final Activity activity, final List<SearchEngine.FitFile> searchResults, final GsCallback.a2<String, Integer> dialogCallback) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         dialog.set(buildDialog(activity, dialog, searchResults, dialogCallback).create());
         if (dialog.get().getWindow() != null) {
@@ -42,7 +42,7 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final Callback.a2<String, Integer> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<SearchEngine.FitFile> searchResults, final GsCallback.a2<String, Integer> dialogCallback) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final LinearLayout dialogLayout = new LinearLayout(activity);

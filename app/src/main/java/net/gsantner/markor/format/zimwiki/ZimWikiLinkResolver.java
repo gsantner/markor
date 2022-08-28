@@ -1,6 +1,6 @@
 package net.gsantner.markor.format.zimwiki;
 
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -104,7 +104,7 @@ public class ZimWikiLinkResolver {
 
     private File findNotebookRootDir(File currentPage) {
         if (currentPage != null && currentPage.exists()) {
-            if (FileUtils.join(currentPage, "notebook.zim").exists()) {
+            if (GsFileUtils.join(currentPage, "notebook.zim").exists()) {
                 return currentPage;
             } else {
                 return findNotebookRootDir(currentPage.getParentFile());
@@ -119,7 +119,7 @@ public class ZimWikiLinkResolver {
         }
 
         File parentFolder = currentPage.getParentFile();
-        File candidateFile = FileUtils.join(parentFolder, relativeLinkToCheck);
+        File candidateFile = GsFileUtils.join(parentFolder, relativeLinkToCheck);
         if (candidateFile.exists()) {
             return candidateFile.toString();
         } else {

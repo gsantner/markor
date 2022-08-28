@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +38,7 @@ public class TodoTxtFilter {
     private static final String TYPE = "type";
 
     // For any type, return a function which maps a task -> a list of string keys
-    public static Callback.r1<List<String>, TodoTxtTask> keyGetter(final Context context, final String type) {
+    public static GsCallback.r1<List<String>, TodoTxtTask> keyGetter(final Context context, final String type) {
         switch (type) {
             case PROJECT:
                 return TodoTxtTask::getProjects;
@@ -58,7 +58,7 @@ public class TodoTxtFilter {
     }
 
     // For a list of keys and a task -> key mapping, return a function which selects tasks
-    public static Callback.b1<TodoTxtTask> taskSelector(final Collection<String> keys, final Callback.r1<List<String>, TodoTxtTask> keyGetter, final boolean isAnd) {
+    public static GsCallback.b1<TodoTxtTask> taskSelector(final Collection<String> keys, final GsCallback.r1<List<String>, TodoTxtTask> keyGetter, final boolean isAnd) {
 
         final boolean noneIncluded = keys.remove(null);
         final Set<String> searchSet = (keys instanceof HashSet) ? (HashSet) keys : new HashSet<>(keys);
@@ -118,7 +118,7 @@ public class TodoTxtFilter {
             newArray.put(obj);
 
             // This oldArray / newArray approach needed as array.remove is api 19+
-            final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+            final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final JSONArray oldArray = new JSONArray(pref.getString(SAVED_TODO_VIEWS, "[]"));
             final int addCount = Math.min(MAX_RECENT_VIEWS - 1, oldArray.length());
             for (int i = 0; i < addCount; i++) {
@@ -141,7 +141,7 @@ public class TodoTxtFilter {
 
     public static boolean deleteFilterIndex(final Context context, int index) {
         try {
-            final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+            final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             // Load the existing list of views
 
             final JSONArray oldArray = new JSONArray(pref.getString(SAVED_TODO_VIEWS, "[]"));
@@ -168,7 +168,7 @@ public class TodoTxtFilter {
     public static List<Group> loadSavedFilters(final Context context) {
         try {
             final List<Group> loadedViews = new ArrayList<>();
-            final SharedPreferences pref = context.getSharedPreferences(SharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
+            final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = pref.getString(SAVED_TODO_VIEWS, "[]");
             final JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {

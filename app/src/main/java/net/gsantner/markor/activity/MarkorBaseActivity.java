@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.activity.GsActivityBase;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 

@@ -9,11 +9,13 @@
 #########################################################*/
 package other.writeily.format.zimwiki;
 
+import net.gsantner.opoc.wrapper.GsCallback;
+
 import java.util.regex.Matcher;
-import net.gsantner.opoc.util.Callback;
+
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrZimWikiHeaderSpanCreator implements Callback.r1<Object, Matcher> {
+public class WrZimWikiHeaderSpanCreator implements GsCallback.r1<Object, Matcher> {
 
     private static final Character EQUAL_SIGN = '=';
     private static final float STANDARD_PROPORTION_MAX = 1.60f;

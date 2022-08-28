@@ -8,21 +8,22 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.R;
 import net.gsantner.markor.ui.FilesystemViewerCreator;
 import net.gsantner.markor.ui.hleditor.TextActions;
-import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsBackupUtils;
 
 import java.io.File;
 import java.util.List;
 
-public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
+public class BackupUtils extends GsBackupUtils {
 
     public static void showBackupSelectFromDialog(final Context context, final FragmentManager manager) {
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
             FilesystemViewerCreator.showFileDialog(
-                    new FilesystemViewerData.SelectionListenerAdapter() {
+                    new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
-                        public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
                             dopt.titleText = R.string.select;
                         }
@@ -42,9 +43,9 @@ public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
             final Activity activity = (Activity) context;
 
             FilesystemViewerCreator.showFolderDialog(
-                    new FilesystemViewerData.SelectionListenerAdapter() {
+                    new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
-                        public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
                             dopt.titleText = R.string.select_folder;
                         }
@@ -59,7 +60,7 @@ public class BackupUtils extends net.gsantner.opoc.util.BackupUtils {
     }
 
     public static List<String> getPrefNamesToBackup() {
-        List<String> prefs = net.gsantner.opoc.util.BackupUtils.getPrefNamesToBackup();
+        List<String> prefs = GsBackupUtils.getPrefNamesToBackup();
         prefs.add(TextActions.ACTION_ORDER_PREF_NAME);
         return prefs;
     }

@@ -3,6 +3,9 @@
  * SPDX-FileCopyrightText: 2016-2022 Gregor Santner <https://gsantner.net/>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
+ * Written 2016-2022 by Gregor Santner <https://gsantner.net/>
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
 package net.gsantner.opoc.util;
 
@@ -42,13 +45,13 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
 import java.util.List;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "rawtypes", "UnusedReturnValue"})
-public class ActivityUtils extends net.gsantner.opoc.util.ShareUtil {
+public class ActivityUtils extends ShareUtil {
     //########################
     //## Members, Constructors
     //########################
@@ -380,8 +383,8 @@ public class ActivityUtils extends net.gsantner.opoc.util.ShareUtil {
      */
     @SuppressLint("WrongConstant")
     public static void applyDayNightTheme(final String pref) {
-        final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
-        final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !SharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+        final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+        final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
 
         if (prefLight) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

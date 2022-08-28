@@ -12,8 +12,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextFormat;
-import net.gsantner.opoc.util.Callback;
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -84,7 +84,7 @@ public class SearchEngine {
         }
     }
 
-    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, Callback.a1<List<FitFile>> callback) {
+    public static SearchEngine.QueueSearchFilesTask queueFileSearch(Activity activity, SearchOptions config, GsCallback.a1<List<FitFile>> callback) {
         SearchEngine.activity.set(new WeakReference<>(activity));
         SearchEngine.isSearchExecuting = true;
         SearchEngine.addToHistory(config.query);
@@ -96,7 +96,7 @@ public class SearchEngine {
 
     public static class QueueSearchFilesTask extends AsyncTask<Void, Integer, List<FitFile>> {
         private final SearchOptions _config;
-        private final Callback.a1<List<FitFile>> _callback;
+        private final GsCallback.a1<List<FitFile>> _callback;
         private final Pattern _regex;
 
         private Snackbar _snackBar;
@@ -108,7 +108,7 @@ public class SearchEngine {
         private final List<Pattern> _ignoredRegexDirs = new ArrayList<>();
         private final List<String> _ignoredExactDirs = new ArrayList<>();
 
-        public QueueSearchFilesTask(final SearchOptions config, final Callback.a1<List<FitFile>> callback) {
+        public QueueSearchFilesTask(final SearchOptions config, final GsCallback.a1<List<FitFile>> callback) {
             _config = config;
             _callback = callback;
 
@@ -443,7 +443,7 @@ public class SearchEngine {
 
         private InputStream getInputStream(File file) throws FileNotFoundException {
             if (isEncryptedFile(file)) {
-                final byte[] encryptedContext = FileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
+                final byte[] encryptedContext = GsFileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
                 return new ByteArrayInputStream(JavaPasswordbasedCryption.getDecryptedText(encryptedContext, _config.password.clone()).getBytes(StandardCharsets.UTF_8));
             } else {
                 return new FileInputStream(file);

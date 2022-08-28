@@ -16,7 +16,7 @@ import androidx.arch.core.util.Function;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.TextFormat;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -113,7 +113,7 @@ public class ZimWikiTextConverter extends TextConverter {
         int markdownLevel = 7 - Math.min(6, equalSignsCount);
 
         return String.format("%s %s",
-                StringUtils.repeatChars('#', markdownLevel),
+                TextViewUtils.repeatChars('#', markdownLevel),
                 group.replaceAll("^=+\\s*|\\s*=+$", ""));
     }
 

@@ -9,13 +9,13 @@
 ###########################################################*/
 package other.writeily.format.markdown;
 
-import net.gsantner.opoc.util.Callback;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.regex.Matcher;
 
 import other.writeily.format.WrProportionalHeaderSpanCreator;
 
-public class WrMarkdownHeaderSpanCreator implements Callback.r1<Object, Matcher> {
+public class WrMarkdownHeaderSpanCreator implements GsCallback.r1<Object, Matcher> {
     private static final Character POUND_SIGN = '#';
     private static final float STANDARD_PROPORTION_MAX = 1.80f;
     private static final float SIZE_STEP = 0.20f;

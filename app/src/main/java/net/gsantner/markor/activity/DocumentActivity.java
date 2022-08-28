@@ -32,10 +32,10 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.opoc.activity.GsFragmentBase;
-import net.gsantner.opoc.util.Callback;
+import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.ShareUtil;
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 
@@ -93,7 +93,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         String ext = (String) fret[1];
         boolean isYes = new AppSettings(activity).isExtOpenWithThisApp(ext);
 
-        Callback.a1<Boolean> openFile = (openInThisApp) -> {
+        GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
                 DocumentActivity.launch(activity, file, null, null, null);
             } else {
@@ -175,7 +175,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {
-                startLine = StringUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+                startLine = TextViewUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
             final boolean startInPreview = (startLine == null) && (false

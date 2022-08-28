@@ -35,10 +35,10 @@ import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.preference.FontPreferenceCompat;
-import net.gsantner.opoc.preference.GsPreferenceFragmentCompat;
-import net.gsantner.opoc.preference.SharedPreferencesPropertyBackend;
-import net.gsantner.opoc.ui.FilesystemViewerData;
+import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -69,7 +69,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         toolbar = findViewById(R.id.toolbar);
 
         // Custom code
-        FontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
+        GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
         iconColor = _activityUtils.rcolor(R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -80,7 +80,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     protected void showFragment(String tag, boolean addToBackStack) {
         String toolbarTitle = getString(R.string.settings);
-        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(tag);
+        GsPreferenceFragmentBase prefFrag = (GsPreferenceFragmentBase) getSupportFragmentManager().findFragmentByTag(tag);
         if (prefFrag == null) {
             switch (tag) {
                 case SettingsFragmentMaster.TAG:
@@ -105,11 +105,11 @@ public class SettingsActivity extends MarkorBaseActivity {
         super.onStop();
     }
 
-    public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentCompat {
+    public static abstract class MarkorSettingsFragment extends GsPreferenceFragmentBase {
         protected AppSettings _as;
 
         @Override
-        protected SharedPreferencesPropertyBackend getAppSettings(Context context) {
+        protected GsSharedPreferencesPropertyBackend getAppSettings(Context context) {
             if (_as == null) {
                 _as = new AppSettings(context);
             }
@@ -135,7 +135,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
     @Override
     public void onBackPressed() {
-        GsPreferenceFragmentCompat prefFrag = (GsPreferenceFragmentCompat) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
+        GsPreferenceFragmentBase prefFrag = (GsPreferenceFragmentBase) getSupportFragmentManager().findFragmentByTag(SettingsFragmentMaster.TAG);
         if (prefFrag != null && prefFrag.canGoBack()) {
             prefFrag.goBack();
             return;
@@ -248,7 +248,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__notebook_directory: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFolderDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                        FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setSaveDirectory(file.getAbsolutePath());
@@ -257,7 +257,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                                 dopt.titleText = R.string.select_storage_folder;
                                 if (!permc.mkdirIfStoragePermissionGranted()) {
                                     dopt.rootFolder = Environment.getExternalStorageDirectory();
@@ -270,7 +270,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__quicknote_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                        FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setQuickNoteFile(file);
@@ -279,7 +279,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                                 dopt.titleText = R.string.quicknote;
                                 dopt.rootFolder = _as.getNotebookDirectory();
                             }
@@ -290,7 +290,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__todo_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFileDialog(new FilesystemViewerData.SelectionListenerAdapter() {
+                        FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setTodoFile(file);
@@ -299,7 +299,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                             }
 
                             @Override
-                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                                 dopt.titleText = R.string.todo;
                                 dopt.rootFolder = _as.getNotebookDirectory();
                             }

@@ -13,7 +13,7 @@ import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.Spanned;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -33,7 +33,7 @@ public class AutoFormatter {
     public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
 
         try {
-            if (start < source.length() && dstart <= dest.length() && StringUtils.isNewLine(source, start, end)) {
+            if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -48,7 +48,7 @@ public class AutoFormatter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
-        final String indent = source + StringUtils.repeatChars(_indentCharacter, oLine.indent);
+        final String indent = source + TextViewUtils.repeatChars(_indentCharacter, oLine.indent);
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -92,10 +92,10 @@ public class AutoFormatter {
 
             this.text = text;
             prefixPatterns = patterns;
-            lineStart = StringUtils.getLineStart(text, position);
-            lineEnd = StringUtils.getLineEnd(text, position);
+            lineStart = TextViewUtils.getLineStart(text, position);
+            lineEnd = TextViewUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
-            indent = StringUtils.getLineIndent(text, lineStart, TAB_SPACES);
+            indent = TextViewUtils.getLineIndent(text, lineStart, TAB_SPACES);
             isEmpty = (lineEnd - lineStart) == indent;
             isTopLevel = indent <= INDENT_DELTA;
         }
@@ -272,7 +272,7 @@ public class AutoFormatter {
      */
     public static void renumberOrderedList(final Editable edit, final int cursorPosition, final PrefixPatterns prefixPatterns) {
 
-        final StringUtils.ChunkedEditable chunked = StringUtils.ChunkedEditable.wrap(edit);
+        final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, prefixPatterns);

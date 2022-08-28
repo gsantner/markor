@@ -43,11 +43,11 @@ import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.util.PermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.activity.GsFragmentBase;
-import net.gsantner.opoc.format.markdown.SimpleMarkdownParser;
-import net.gsantner.opoc.ui.FilesystemViewerAdapter;
-import net.gsantner.opoc.ui.FilesystemViewerData;
-import net.gsantner.opoc.ui.FilesystemViewerFragment;
+import net.gsantner.opoc.format.GsSimpleMarkdownParser;
+import net.gsantner.opoc.frontend.base.GsFragmentBase;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +58,7 @@ import java.util.concurrent.TimeUnit;
 
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class MainActivity extends MarkorBaseActivity implements FilesystemViewerFragment.FilesystemFragmentOptionsListener, NavigationBarView.OnItemSelectedListener {
+public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener, NavigationBarView.OnItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 
@@ -117,7 +117,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
         final File dir = getIntentDir(intent, null);
-        final FilesystemViewerFragment frag = getNotebook();
+        final GsFileBrowserFragment frag = getNotebook();
         if (frag != null && dir != null) {
             frag.getAdapter().setCurrentFolder(dir, false);
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
@@ -212,10 +212,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         boolean firstStart = IntroActivity.optStart(this);
         try {
             if (!firstStart && new PermissionChecker(this).doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
-                SimpleMarkdownParser smp = SimpleMarkdownParser.get().setDefaultSmpFilter(SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 String html = "";
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
-                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", SimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
                 ActivityUtils _au = new ActivityUtils(this);
                 _au.showDialogWithHtmlTextView(0, html);
@@ -257,10 +257,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     public boolean onLongClickFab(View view) {
         PermissionChecker permc = new PermissionChecker(this);
-        FilesystemViewerFragment fsFrag = getNotebook();
+        GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
-            fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS)
-                            ? FilesystemViewerAdapter.VIRTUAL_STORAGE_FAVOURITE : FilesystemViewerAdapter.VIRTUAL_STORAGE_RECENTS
+            fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
+                            ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS
                     , true);
         }
         return true;
@@ -268,7 +268,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     public void onClickFab(View view) {
         final PermissionChecker permc = new PermissionChecker(this);
-        final FilesystemViewerFragment fsFrag = getNotebook();
+        final GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag == null) {
             return;
         }
@@ -372,14 +372,14 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
     }
 
-    private FilesystemViewerData.Options _filesystemDialogOptions = null;
+    private GsFileBrowserOptions.Options _filesystemDialogOptions = null;
 
     @Override
-    public FilesystemViewerData.Options getFilesystemFragmentOptions(FilesystemViewerData.Options existingOptions) {
+    public GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
-            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(this, false, new FilesystemViewerData.SelectionListenerAdapter() {
+            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
-                public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
                     dopt.startFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
@@ -387,7 +387,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder();
                     dopt.showDotFiles = _appSettings.isShowDotFiles();
-                    dopt.fileComparable = FilesystemViewerFragment.sortFolder(null);
+                    dopt.fileComparable = GsFileBrowserFragment.sortFolder(null);
 
                     dopt.favouriteFiles = _appSettings.getFavouriteFiles();
                     dopt.recentFiles = _appSettings.getAsFileList(_appSettings.getRecentDocuments());
@@ -395,7 +395,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
                 }
 
                 @Override
-                public void onFsViewerDoUiUpdate(FilesystemViewerAdapter adapter) {
+                public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
@@ -447,7 +447,7 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
             } else if (id == R.id.nav_more) {
                 frag = MoreFragment.newInstance();
             } else {
-                frag = FilesystemViewerFragment.newInstance(getFilesystemFragmentOptions(null));
+                frag = GsFileBrowserFragment.newInstance(getFilesystemFragmentOptions(null));
             }
 
             frag.setMenuVisibility(false);
@@ -463,8 +463,8 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
         }
     }
 
-    private FilesystemViewerFragment getNotebook() {
-        return (FilesystemViewerFragment) _viewPagerAdapter.get(tabIdToPos(R.id.nav_notebook));
+    private GsFileBrowserFragment getNotebook() {
+        return (GsFileBrowserFragment) _viewPagerAdapter.get(tabIdToPos(R.id.nav_notebook));
     }
 
     @Override
@@ -481,10 +481,10 @@ public class MainActivity extends MarkorBaseActivity implements FilesystemViewer
 
     /**
      * Restores the default toolbar. Used when changing the tab or moving to another activity
-     * while {@link FilesystemViewerFragment} action mode is active (e.g. when renaming a file)
+     * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)
      */
     private void restoreDefaultToolbar() {
-        FilesystemViewerFragment wrFragment = getNotebook();
+        GsFileBrowserFragment wrFragment = getNotebook();
         if (wrFragment != null) {
             wrFragment.clearSelection();
         }

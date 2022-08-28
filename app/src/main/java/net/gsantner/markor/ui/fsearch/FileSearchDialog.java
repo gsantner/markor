@@ -19,13 +19,13 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.AppSettings;
-import net.gsantner.opoc.util.Callback;
 import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchDialog {
-    public static void showDialog(final Activity activity, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
+    public static void showDialog(final Activity activity, final GsCallback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AtomicReference<AlertDialog> dialogRef = new AtomicReference<>();
         dialogRef.set(buildDialog(activity, dialogRef, dialogCallback).create());
         if (dialogRef.get().getWindow() != null) {
@@ -37,7 +37,7 @@ public class FileSearchDialog {
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final Callback.a1<SearchEngine.SearchOptions> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final GsCallback.a1<SearchEngine.SearchOptions> dialogCallback) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final ScrollView scrollView = new ScrollView(activity);
@@ -61,7 +61,7 @@ public class FileSearchDialog {
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
         final AppSettings appSettings = new AppSettings(activity);
-        final Callback.a0 submit = () -> {
+        final GsCallback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {
                 SearchEngine.SearchOptions opt = new SearchEngine.SearchOptions();

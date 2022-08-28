@@ -13,7 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 
-import net.gsantner.opoc.util.StringUtils;
+import net.gsantner.markor.util.TextViewUtils;
 
 public class ListHandler implements TextWatcher {
     private int reorderPosition;
@@ -81,7 +81,7 @@ public class ListHandler implements TextWatcher {
 
         triggerReorder = containsNewline(s, start, count);
         reorderPosition = start;
-        beforeLineEnd = StringUtils.getLineEnd(s, start);
+        beforeLineEnd = TextViewUtils.getLineEnd(s, start);
     }
 
     private boolean containsNewline(final CharSequence s, final int start, final int count) {

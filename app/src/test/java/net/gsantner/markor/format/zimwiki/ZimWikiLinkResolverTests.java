@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import net.gsantner.opoc.util.FileUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -66,7 +66,7 @@ public class ZimWikiLinkResolverTests {
 
     @After
     public void after() {
-        FileUtils.deleteRecursive(tempFolder.toFile());
+        GsFileUtils.deleteRecursive(tempFolder.toFile());
         System.out.println("Deleted: " + tempFolder);
     }
 

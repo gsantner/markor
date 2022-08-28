@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.activity.GsFragmentBase;
+import net.gsantner.opoc.frontend.base.GsFragmentBase;
 
 public class MoreFragment extends GsFragmentBase {
     public static final String FRAGMENT_TAG = "MoreFragment";
