@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущем каталоге.</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Если расширение файла есть в списке, всегда будет открывать его в Markor. К примеру, если вы хотите редактировать файлы без расширения и веб-файлы, введите \'None, .html, .css, .js\'.</string>
+    <string name="open_file_with">Открыть файл</string>
     <string name="rotate">Поворот</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить журнал отладки</string>
