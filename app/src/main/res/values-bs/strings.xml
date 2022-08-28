@@ -200,8 +200,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Vrh</string>
     <string name="bottom">Dno</string>
     <string name="center">Sredina</string>
-
-
     <string name="center_text">Tekst u sredini</string>
     <string name="edit_text_in_center_of_screen">Obrađuj tekst na sredini ekrana</string>
     <string name="clipboard">Kopirani sadržaj</string>
@@ -242,8 +240,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Sadržaj</string>
     <string name="miscellaneous">Razno</string>
-
-
     <string name="prefer_view">Preferirani način rada</string>
     <string name="no_calendar_app_is_installed">Nije instalirana aplikacija za upravljanje kalendarima.</string>
     <string name="popular_documents">Popularni dokumenti</string>
