@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Góra</string>
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
-
-
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
     <string name="clipboard">Schowek</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Pokaż użyte atrybuty YAML Front Matter na górze oglądanych dokumentów. Wprowadź klucze oddzielone przecinkami. Pozostaw puste, aby nie pokazywać żadnych lub \'*\' żeby pokazać wszystkie. \n\nJeśli jakiś atrybut jest zdefiniowany w dokumencie (tj. title: \'Hello\'), a w dokumencie znajduje się {{ post.title }}, to również zostanie zamieniony. W ten sposób możesz ustawić własny nagłówek Front Matter.</string>
     <string name="table_of_contents">Spis treści</string>
     <string name="miscellaneous">Różne</string>
-
-
     <string name="prefer_view">Preferuj podgląd</string>
     <string name="no_calendar_app_is_installed">Brak aplikacji Kalendarza!</string>
     <string name="popular_documents">Popularne dokumenty</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Udostępnij - Format</string>
     <string name="auto_format">Automatyczny format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Błąd: Nie można otworzyć.</string>
+    <string name="document_error_clip">Wystąpił błąd: Tekst skopiowany do schowka.</string>
 </resources>
