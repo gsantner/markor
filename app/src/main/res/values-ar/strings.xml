@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">البحث المتكرر في الدليل الحالي.</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">فتح الملفات دائما مع هذا التطبيق عندما تحتوي القائمة على امتداد الملف. استخدم \'لا شيء، .html. .js\' على سبيل المثال إذا كنت ترغب في تحرير ملفات الويب وتلك التي ليس لها امتداد للملف.</string>
+    <string name="open_file_with">فتح الملف باستخدام</string>
     <string name="rotate">تدوير</string>
     <string name="template">النموذج</string>
     <string name="send_debug_log">إرسال سِجل للأخطاء</string>
