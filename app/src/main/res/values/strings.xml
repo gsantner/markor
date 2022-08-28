@@ -214,9 +214,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Top</string>
     <string name="bottom">Bottom</string>
     <string name="center">Center</string>
-    <string name="textaction_spacing">Text action spacing</string>
-    <string name="horizontal_space_between_textactions">Horizontal space between text action buttons</string>
-
+    <string name="actionbutton_spacing">ActionButton spacing</string>
+    <string name="horizontal_space_between_actionbuttons">Horizontal space between ActionButtons</string>
     <string name="center_text">Center text</string>
     <string name="edit_text_in_center_of_screen">Edit text in the center of the screen</string>
     <string name="clipboard">Clipboard</string>
@@ -262,8 +261,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Display entered YAML Front Matter attributes on top at viewed documents. Enter keys separated by commas. Leave empty for none or use \'*\' for all. \n\nIf any attribute is defined in the document (i.e. title: \'Hello\') and there is {{ post.title }} in your document too it is replaced. You can make a custom Front Matter heading this way.</string>
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
-    <string name="textaction">Text action</string>
-    <string name="textactions">Text actions</string>
+
+
     <string name="prefer_view">Prefer view</string>
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>

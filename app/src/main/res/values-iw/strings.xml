@@ -201,8 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">עליון</string>
     <string name="bottom">תחתית</string>
     <string name="center">מרכז</string>
-    <string name="textaction_spacing">ריווח פעולות טקסט</string>
-    <string name="horizontal_space_between_textactions">רווח אופקי בין כפטורי פעולות טקסט</string>
+
+
     <string name="center_text">מרכז טקסט</string>
     <string name="edit_text_in_center_of_screen">ערוך טקסט במרכז המסך</string>
     <string name="clipboard">לוח גזירים</string>
@@ -244,8 +244,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">הצג מאפייני מידע מקדים (YAML Front Matter) בראש מסמכים מוצגים. הזן מפתחות מופרדים בפסיקים. השאר ריק עבור כלום או הזן \'*\' עבור הכל. \n\nאם מאפיין כלשהו מוגדר במסמך (כגון title: \'Hello\') ובמסמך עצמו יש {{ post.title }} אז הוא יוצב. כך ניתן ליצור כותרות מותאמות באמצעות מידע מקדים.</string>
     <string name="table_of_contents">תוכן עניינים</string>
     <string name="miscellaneous">שונות</string>
-    <string name="textaction">פעולת טקסט</string>
-    <string name="textactions">פעולות טקסט</string>
+
+
     <string name="prefer_view">העדף תצוגה</string>
     <string name="no_calendar_app_is_installed">לא מותקנת אפליקציית לוח שנה!</string>
     <string name="popular_documents">מסמכים בשימוש נפוץ</string>

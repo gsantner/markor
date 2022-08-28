@@ -200,8 +200,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Felső</string>
     <string name="bottom">Alsó</string>
     <string name="center">Középen</string>
-    <string name="textaction_spacing">Műveleti billentyűk távolsága</string>
-    <string name="horizontal_space_between_textactions">Vízszintes távolság a szöveget módosító billentyűk között</string>
+
+
     <string name="center_text">Középre rendez</string>
     <string name="edit_text_in_center_of_screen">Szöveg szerkesztése a képernyő közepén</string>
     <string name="clipboard">Vágólap</string>
@@ -241,8 +241,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Tartalomjegyzék</string>
     <string name="miscellaneous">Egyéb</string>
-    <string name="textaction">Szöveg művelet</string>
-    <string name="textactions">Szöveg műveletek</string>
+
+
     <string name="prefer_view">Olvasó mód előnyben részesítése</string>
     <string name="no_calendar_app_is_installed">Nincs telepítve naptáralkalmazás!</string>
     <string name="popular_documents">Népszerű dokumentumok</string>

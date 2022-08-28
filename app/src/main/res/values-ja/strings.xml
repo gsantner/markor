@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">上部</string>
     <string name="bottom">下部</string>
     <string name="center">中央</string>
-    <string name="textaction_spacing">テキスト操作の間隔</string>
-    <string name="horizontal_space_between_textactions">テキスト操作の横の間隔</string>
+
+
     <string name="center_text">テキストの中央揃え</string>
     <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
     <string name="clipboard">クリップボード</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">ドキュメントの上部に、 YAML Front-matter で書いた属性情報を表示できます。表示させたいキーの名前をカンマで区切って入力してください。何も入力しないと属性情報を表示せず、* を入力するとすべての属性情報を表示します。\n\nただし、ドキュメントに title: \'Hello\' のような属性情報と {{ post.title }} が書いてある場合は前者が優先されます。これを利用すれば、カスタムの Fromt-matter の見出しを作成できます。</string>
     <string name="table_of_contents">目次</string>
     <string name="miscellaneous">その他</string>
-    <string name="textaction">テキスト操作</string>
-    <string name="textactions">テキスト操作</string>
+
+
     <string name="prefer_view">表示を優先</string>
     <string name="no_calendar_app_is_installed">カレンダーアプリがインストールされていません!</string>
     <string name="popular_documents">人気のあるドキュメント</string>

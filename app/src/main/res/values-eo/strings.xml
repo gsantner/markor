@@ -148,8 +148,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Eksponi la YAML frontan aferon supre en rigardataj dokumentoj. Entajpu ŝlosilojn apartitajn per komoj. Lasu malplene por nenio, aŭ uzu \"*\" por ĉio.\n\nSe ajn atributo estas difinita en la dokumento (ekz title: \'Saluton\') kaj estas {{ post.title }} en via dokumento, ĝi estos anstataŭata. Vi povas ĉi-maniere farigi laŭmendan frontan aferon.</string>
     <string name="table_of_contents">Enhavtabelo</string>
     <string name="miscellaneous">Aliaĵoj</string>
-    <string name="textaction">Teksta ago</string>
-    <string name="textactions">Tekstaj agoj</string>
+
+
     <string name="color">Koloro</string>
     <string name="foreground">Malfono</string>
     <string name="background">Fono</string>

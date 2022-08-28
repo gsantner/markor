@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">أعلى</string>
     <string name="bottom">أسفل</string>
     <string name="center">توسيط</string>
-    <string name="textaction_spacing">تباعد إجراءات النص</string>
-    <string name="horizontal_space_between_textactions">مساحة أفقية بين أزرار إجراء النص</string>
+
+
     <string name="center_text">توسيط النص</string>
     <string name="edit_text_in_center_of_screen">تحرير النص في منتصف الشاشة</string>
     <string name="clipboard">الحافظة</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">عرض السمات الأمامية لـ YAML في الأعلى في المستندات المعروضة. أدخل مفاتيح مفصولة بفواصل. اتركه فارغاً لللا شيء أو استخدم \'*\' للجميع. \n\nإذا تم تعريف أي سمة في المستند (أي title: \'مرحبا\') وهناك {{ post.title }} في المستند الخاص بك تم استبداله. يمكنك صنع عنصر واجهة مخصص في اتجاه هذه الطريقة.</string>
     <string name="table_of_contents">الفهرس</string>
     <string name="miscellaneous">أخرى</string>
-    <string name="textaction">إجراء النص</string>
-    <string name="textactions">إجراءات النص</string>
+
+
     <string name="prefer_view">تفضيل العرض</string>
     <string name="no_calendar_app_is_installed">لا يوجد تطبيق تقويم!</string>
     <string name="popular_documents">المستندات الشائعة</string>

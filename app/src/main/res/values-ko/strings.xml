@@ -194,8 +194,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">위</string>
     <string name="bottom">아래</string>
     <string name="center">중앙</string>
-    <string name="textaction_spacing">텍스트 동작 버튼 간격</string>
-    <string name="horizontal_space_between_textactions">텍스트 동작 버튼의 가로 간격을 설정</string>
+
+
     <string name="center_text">텍스트 중앙 정렬</string>
     <string name="edit_text_in_center_of_screen">화면의 중앙에서 텍스트 편집</string>
     <string name="clipboard">클립보드</string>
@@ -236,8 +236,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">수식</string>
     <string name="table_of_contents">목차</string>
     <string name="miscellaneous">기타</string>
-    <string name="textaction">텍스트 동작</string>
-    <string name="textactions">텍스트 동작</string>
+
+
     <string name="prefer_view">편집 대신 읽기 모드 우선</string>
     <string name="no_calendar_app_is_installed">달력 앱이 설치되지 않았습니다!</string>
     <string name="popular_documents">인기 문서</string>

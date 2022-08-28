@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Topp</string>
     <string name="bottom">Bunn</string>
     <string name="center">Midtstilt</string>
-    <string name="textaction_spacing">Avstand for teksthandling</string>
-    <string name="horizontal_space_between_textactions">Horisontalt mellomrom for handlingsknapper</string>
+
+
     <string name="center_text">Sentrer tekst</string>
     <string name="edit_text_in_center_of_screen">Rediger tekst i midten av skjermen</string>
     <string name="clipboard">Utklippstavle</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Vis angitt YAML Front Matter-attributter på viste dokumenter. Angi nøkler adskilt med komma. La stå tomt for ingen eller bruk \'*\' for alle. \n\nHvis noen attributt er definert i dokumentet (dvs. title: \'Hei\') og det er {{ post.title }} i dokumentet ditt også erstattet. Du kan gjøre en egendefinert Front Matter overskrift på denne måten.</string>
     <string name="table_of_contents">Tabell over innhold</string>
     <string name="miscellaneous">Forskjellig</string>
-    <string name="textaction">Handling når tekst</string>
-    <string name="textactions">Teksthandlinger</string>
+
+
     <string name="prefer_view">Foretrekk utsikt</string>
     <string name="no_calendar_app_is_installed">Ingen kalenderapp installert!</string>
     <string name="popular_documents">Populære dokumenter</string>

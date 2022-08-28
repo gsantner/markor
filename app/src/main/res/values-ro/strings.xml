@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Sus</string>
     <string name="bottom">Jos</string>
     <string name="center">Centru</string>
-    <string name="textaction_spacing">Spațiere acțiune text</string>
-    <string name="horizontal_space_between_textactions">Spațiu orizontal între butoanele de acțiune text</string>
+
+
     <string name="center_text">Text centru</string>
     <string name="edit_text_in_center_of_screen">Editează textul în centrul ecranului</string>
     <string name="clipboard">Clipboard</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Afișează atributele YAML Front Matter în partea de sus a documentelor vizualizate. Introduceți cheile separate prin virgule. Lăsați necompletate pentru nici unul sau folosiți \'*\' pentru toți. \n\nDacă orice atribut este definit în document (ex: title: \'Salut\') și în documentul dvs. există {{ post.title }} și el este înlocuit. Puteți face un Front Matter personalizat heading în acest fel.</string>
     <string name="table_of_contents">Cuprins</string>
     <string name="miscellaneous">Diverse</string>
-    <string name="textaction">Acțiune text</string>
-    <string name="textactions">Acțiuni text</string>
+
+
     <string name="prefer_view">Prefer vizualizarea</string>
     <string name="no_calendar_app_is_installed">Nicio aplicație din calendar nu este instalată!</string>
     <string name="popular_documents">Documente populare</string>

@@ -24,6 +24,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="donate_" translatable="false">@string/donate</string>
     <string name="huuid" translatable="false">hUUID</string>
     <string name="embed_binary" translatable="false">Embed binary</string>
+    <string name="actionbutton" translatable="false">ActionButton</string>
 
 
     <string name="checkmark_symbol" translatable="false">\u2301</string>

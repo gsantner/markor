@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">Inferior</string>
     <string name="center">Centro</string>
-    <string name="textaction_spacing">Espaciado de módulo de texto</string>
-    <string name="horizontal_space_between_textactions">Espacio horizontal entre los botones de acción de texto</string>
+
+
     <string name="center_text">Centrar texto</string>
     <string name="edit_text_in_center_of_screen">Editar texto en el centro de la pantalla</string>
     <string name="clipboard">Portapapeles</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Mostar los atributos YAML Front Matter ingresados en la parte superior de los documentos vistos. Introduzca las claves separadas por comas. Déjelo vacío para ninguno o use \'*\' para todos. \n\nSi se define algún atributo en el documento (es decir, título: \'Hola\') y también hay {{ post.title }} en su documento, se reemplaza. Puede crear un encabezado Front Matter personalizado de esta manera.</string>
     <string name="table_of_contents">Tabla de contenidos</string>
     <string name="miscellaneous">Diverso</string>
-    <string name="textaction">Acción de texto</string>
-    <string name="textactions">Acciones de texto</string>
+
+
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">¡No hay una aplicación de calendario instalada!</string>
     <string name="popular_documents">Documentos populares</string>

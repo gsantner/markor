@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">По верхнему краю</string>
     <string name="bottom">Снизу</string>
     <string name="center">Центр</string>
-    <string name="textaction_spacing">Расстояние между кнопками</string>
-    <string name="horizontal_space_between_textactions">Пространство между кнопками управления текстом</string>
+
+
     <string name="center_text">Центрировать текст</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
@@ -247,8 +247,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Отображать введенные атрибуты YAML Front Matter в верхней части просматриваемых документов. Введите имена атрибутов, разделенные запятыми. Если пусто - ничего не отобразится. Если \'*\' - будут отображены все. \n\nЕсли атрибут определен в документе (т.е. title: \'Hi\'), и в документе также есть {{ post.title }} то произойдёт замена. Так вы можете сделать свой заголовок Front Matter.</string>
     <string name="table_of_contents">Оглавление</string>
     <string name="miscellaneous">Прочее</string>
-    <string name="textaction">Операция с текстом</string>
-    <string name="textactions">Операции с текстом</string>
+
+
     <string name="prefer_view">Предпочитать просмотр</string>
     <string name="no_calendar_app_is_installed">Приложение календаря не установлено!</string>
     <string name="popular_documents">Частые документы</string>

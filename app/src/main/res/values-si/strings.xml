@@ -200,8 +200,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">ඉහළට</string>
     <string name="bottom">පහළ</string>
     <string name="center">මැද</string>
-    <string name="textaction_spacing">පෙළ ක්‍රියා පරතරය</string>
-    <string name="horizontal_space_between_textactions">පෙළ ක්‍රියා බොත්තම් අතර තිරස් අවකාශය</string>
+
+
     <string name="center_text">මධ්‍ය පෙළ</string>
     <string name="edit_text_in_center_of_screen">තිරයේ මැද පෙළ සංස්කරණය කරන්න</string>
     <string name="clipboard">පසුරු පුවරුව</string>
@@ -243,8 +243,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">නැරඹූ ලේඛනවල ඉහළින් YAML Front Matter උපලක්ෂණ ඇතුළත් කළ සංදර්ශකය. කොමා වලින් වෙන් කරන ලද යතුරු ඇතුල් කරන්න. කිසිවක් සඳහා හිස්ව තබන්න හෝ සියල්ල සඳහා \'*\' භාවිතා කරන්න. \n\nලේඛනයේ කිසියම් ගුණාංගයක් නිර්වචනය කර ඇත්නම් (එනම් මාතෘකාව: \'හෙලෝ\') සහ ඔබේ ලේඛනයේ {{ post.title }} ක් තිබේ නම් එය ප්‍රතිස්ථාපනය වේ. ඔබට මේ ආකාරයෙන් අභිරුචි ඉදිරිපස පදාර්ථයක් සෑදිය හැක.</string>
     <string name="table_of_contents">අන්තර්ගත වගුව</string>
     <string name="miscellaneous">විවිධ</string>
-    <string name="textaction">පෙළ ක්‍රියාව</string>
-    <string name="textactions">පෙළ ක්‍රියා</string>
+
+
     <string name="prefer_view">නැරඹීමට කැමති</string>
     <string name="no_calendar_app_is_installed">දින දර්ශන යෙදුමක් ස්ථාපනය කර නැත!</string>
     <string name="popular_documents">ජනප්රිය ලේඛන</string>

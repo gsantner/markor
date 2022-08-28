@@ -180,8 +180,8 @@
                 android:icon="@drawable/ic_space_bar_black_24dp"
                 android:key="@string/pref_key__editor_textaction_bar_item_padding"
                 android:max="32"
-                android:summary="@string/horizontal_space_between_textactions"
-                android:title="@string/textaction_spacing"
+                android:summary="@string/horizontal_space_between_actionbuttons"
+                android:title="@string/actionbutton_spacing"
                 app:min="0"
                 app:showSeekBarValue="true" />
 
@@ -491,7 +491,7 @@
                     android:key="@string/pref_key__markdown_always_shown_yaml_front_matter_keys"
                     android:title="@string/front_matter" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/textactions">
+            <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__markdown__reorder_actions"
@@ -504,7 +504,7 @@
         <PreferenceScreen
             android:icon="@drawable/ic_assignment_turned_in_black_24dp"
             android:title="@string/todo_txt">
-            <PreferenceCategory android:title="@string/textactions">
+            <PreferenceCategory android:title="@string/actionbutton">
                 <CheckBoxPreference
                     android:defaultValue="true"
                     android:icon="@drawable/ic_date_range_black_24dp"
@@ -555,7 +555,7 @@
                     android:summary="@string/increase_text_size_of_headings_according_to_level"
                     android:title="@string/bigger_headings" />
             </PreferenceCategory>
-            <PreferenceCategory android:title="@string/textactions">
+            <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__wikitext_reorder_actions"
@@ -574,7 +574,7 @@
             android:icon="@drawable/ic_text_fields_black_24dp"
             android:title="@string/plaintext">
 
-            <PreferenceCategory android:title="@string/textactions">
+            <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
                     android:key="@string/pref_key__plaintext__reorder_actions"
