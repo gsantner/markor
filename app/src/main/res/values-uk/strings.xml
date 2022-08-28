@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточному каталозі.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
+    <string name="open_file_with">Відкрити файл за допомогою</string>
     <string name="rotate">Повернути</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Надсилати Debug-журнал</string>
