@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Вгорі</string>
     <string name="bottom">Знизу</string>
     <string name="center">У центрі</string>
-
-
+    <string name="actionbutton_spacing">Інтервал між кнопками дій</string>
+    <string name="horizontal_space_between_actionbuttons">Горизонтальний простір між кнопками дії</string>
     <string name="center_text">Центрувати текст</string>
     <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
     <string name="clipboard">Буфер обміну</string>
@@ -247,8 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Показувати атрибути YAML Front Matter на верху переглянутих документів. Введіть ключі, розділені комами. Залиште пустим для нікого, або використайте \'*\' для всіх. \n\nЯкщо у документі визначено будь-який атрибут, тобто title: \'Привіт\') і у вашому документі теж {{ post.title }} замінено. Ви можете зробити його заголовком попереднього перегляду таким чином.</string>
     <string name="table_of_contents">Зміст</string>
     <string name="miscellaneous">Різне</string>
-
-
     <string name="prefer_view">Перевага перегляду</string>
     <string name="no_calendar_app_is_installed">Не встановлено додатку календаря!</string>
     <string name="popular_documents">Популярні документи</string>
@@ -440,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поділитися у форматі - Формат</string>
     <string name="auto_format">Автоматичний формат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Помилка: Не вдалося відкрити.</string>
+    <string name="document_error_clip">Помилка виявлення: текст скопійовано до буфера обміну.</string>
 </resources>
