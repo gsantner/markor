@@ -36,12 +36,12 @@ import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.frontend.NewFileDialog;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.NewFileDialog;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -157,7 +157,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionChecker permc = new PermissionChecker(this);
+        MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         permc.checkPermissionResult(requestCode, permissions, grantResults);
 
         if (_shareUtil.checkExternalStoragePermission(false)) {
@@ -211,7 +211,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         boolean firstStart = IntroActivity.optStart(this);
         try {
-            if (!firstStart && new PermissionChecker(this).doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
+            if (!firstStart && new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
                 GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 String html = "";
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
@@ -256,7 +256,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public boolean onLongClickFab(View view) {
-        PermissionChecker permc = new PermissionChecker(this);
+        MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
             fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
@@ -267,7 +267,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public void onClickFab(View view) {
-        final PermissionChecker permc = new PermissionChecker(this);
+        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         final GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag == null) {
             return;
@@ -377,7 +377,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     public GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
-            _filesystemDialogOptions = FilesystemViewerCreator.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
+            _filesystemDialogOptions = MarkorFileBrowserFactory.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
@@ -407,7 +407,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    if (TextFormat.isTextFile(file)) {
+                    if (FormatRegistry.isTextFile(file)) {
                         DocumentActivity.launch(MainActivity.this, file, null, null, lineNumber);
                     } else if (file.getName().toLowerCase().endsWith(".apk")) {
                         _shareUtil.requestApkInstallation(file);
@@ -441,9 +441,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final GsFragmentBase frag;
             final int id = _bottomNav.getMenu().getItem(pos).getItemId();
             if (id == R.id.nav_quicknote) {
-                frag = DocumentEditFragment.newInstance(_appSettings.getQuickNoteFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+                frag = DocumentEditAndViewFragment.newInstance(_appSettings.getQuickNoteFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
             } else if (id == R.id.nav_todo) {
-                frag = DocumentEditFragment.newInstance(_appSettings.getTodoFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+                frag = DocumentEditAndViewFragment.newInstance(_appSettings.getTodoFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
             } else if (id == R.id.nav_more) {
                 frag = MoreFragment.newInstance();
             } else {

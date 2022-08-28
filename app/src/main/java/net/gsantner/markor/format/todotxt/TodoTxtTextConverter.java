@@ -13,14 +13,14 @@ import android.content.Context;
 
 import androidx.core.text.TextUtilsCompat;
 
-import net.gsantner.markor.format.TextConverter;
+import net.gsantner.markor.format.TextConverterBase;
 
 import java.io.File;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings("WeakerAccess")
-public class TodoTxtTextConverter extends TextConverter {
+public class TodoTxtTextConverter extends TextConverterBase {
 
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
@@ -51,6 +51,6 @@ public class TodoTxtTextConverter extends TextConverter {
 
     @Override
     protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return TodoTxtTask.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+        return TodoTxtParser.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
     }
 }

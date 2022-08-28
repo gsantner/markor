@@ -14,8 +14,8 @@ import android.content.Context;
 
 import androidx.documentfile.provider.DocumentFile;
 
-import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -169,7 +169,7 @@ public class WrMarkorSingleton {
                 } else if (resolution == ConflictResolution.ASK) {
                     // Put the file back in
                     files.push(file);
-                    SearchOrCustomTextDialogCreator.showCopyMoveConflictDialog(
+                    MarkorDialogFactory.showCopyMoveConflictDialog(
                             activity, file.getName(), destDir.getName(), files.size() > 1, (option) -> {
                                 ConflictResolution res = ConflictResolution.ASK;
                                 if (option == 0 || option == 3) {
@@ -231,7 +231,7 @@ public class WrMarkorSingleton {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
-                } else if (TextFormat.isTextFile(f)) {
+                } else if (FormatRegistry.isTextFile(f)) {
                     addedFiles.add(f);
                 }
             }

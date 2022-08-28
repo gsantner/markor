@@ -39,7 +39,7 @@
         android:required="false" />
 
     <application
-        android:name=".App"
+        android:name=".ApplicationObject"
         android:allowBackup="true"
         android:appCategory="productivity"
         android:fullBackupContent="@xml/full_backup_rules"
@@ -77,7 +77,7 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.ActionOrderActivity"
+            android:name=".activity.ActionButtonSettingsActivity"
             android:parentActivityName=".activity.SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -179,7 +179,7 @@
             tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="net.gsantner.markor.activity.MainActivity" />
+                android:value="web.gsantner.markor.activity.MainActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

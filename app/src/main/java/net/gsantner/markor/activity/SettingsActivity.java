@@ -28,12 +28,12 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -242,13 +242,13 @@ public class SettingsActivity extends MarkorBaseActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
-            PermissionChecker permc = new PermissionChecker(getActivity());
+            MarkorPermissionChecker permc = new MarkorPermissionChecker(getActivity());
             switch (keyResId) {
 
                 case R.string.pref_key__notebook_directory: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setSaveDirectory(file.getAbsolutePath());
@@ -270,7 +270,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__quicknote_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setQuickNoteFile(file);
@@ -283,14 +283,14 @@ public class SettingsActivity extends MarkorBaseActivity {
                                 dopt.titleText = R.string.quicknote;
                                 dopt.rootFolder = _as.getNotebookDirectory();
                             }
-                        }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
+                        }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     }
                     return true;
                 }
                 case R.string.pref_key__todo_filepath: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                             @Override
                             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                                 _as.setTodoFile(file);
@@ -303,7 +303,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                                 dopt.titleText = R.string.todo;
                                 dopt.rootFolder = _as.getNotebookDirectory();
                             }
-                        }, fragManager, getActivity(), FilesystemViewerCreator.IsMimeText);
+                        }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     }
                     return true;
                 }
@@ -344,13 +344,13 @@ public class SettingsActivity extends MarkorBaseActivity {
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
                 case R.string.pref_key__markdown__reorder_actions:
-                case R.string.pref_key__zimwiki__reorder_actions:
+                case R.string.pref_key__wikitext_reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {
-                    startActivity(new Intent(getActivity(), ActionOrderActivity.class).putExtra(ActionOrderActivity.EXTRA_FORMAT_KEY, keyResId));
+                    startActivity(new Intent(getActivity(), ActionButtonSettingsActivity.class).putExtra(ActionButtonSettingsActivity.EXTRA_FORMAT_KEY, keyResId));
                     break;
                 }
                 case R.string.pref_key__set_encryption_password: {
-                    SearchOrCustomTextDialogCreator.showSetPasswordDialog(getActivity());
+                    MarkorDialogFactory.showSetPasswordDialog(getActivity());
                     break;
                 }
                 case R.string.pref_key__backup_settings: {

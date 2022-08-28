@@ -20,12 +20,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
-import net.gsantner.markor.App;
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -106,7 +106,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
     // Update all widget lists and shortcuts for all widgets
     public static void updateLauncherWidgets() {
-        final Context context = App.get().getApplicationContext();
+        final Context context = ApplicationObject.get().getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         final ComponentName comp = new ComponentName(context, WrMarkorWidgetProvider.class);
         final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(comp);

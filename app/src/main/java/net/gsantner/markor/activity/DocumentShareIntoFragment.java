@@ -27,16 +27,16 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.format.plaintext.PlaintextHighlighter;
-import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
+import net.gsantner.markor.format.todotxt.TodoTxtParser;
+import net.gsantner.markor.frontend.NewFileDialog;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.NewFileDialog;
-import net.gsantner.markor.ui.hleditor.HighlightingEditor;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -103,7 +103,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         _hlEditor.setText(sharedText);
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
         _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
-        _hlEditor.setHighlighter(new PlaintextHighlighter(as));
+        _hlEditor.setHighlighter(new PlaintextSyntaxHighlighter(as));
         _hlEditor.setHighlightingEnabled(true);
 
         if (sharedText.isEmpty()) {
@@ -199,7 +199,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             final Context context = getContext();
             final Document document = new Document(file);
             final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
-            final boolean isTodoTxt = TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
+            final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
             final String newContent = document.loadContent(context).replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
                     + separator
@@ -232,7 +232,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     break;
                 }
             }
-            FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+            MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = startFolder;
@@ -243,12 +243,12 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     appendToExistingDocument(file, "\n", true);
                 }
 
-            }, getFragmentManager(), getActivity(), FilesystemViewerCreator.IsMimeText);
+            }, getFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
 
         private void createNewDocument() {
-            FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
@@ -279,7 +279,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             final Activity activity = getActivity();
             AppSettings appSettings = new AppSettings(activity);
-            PermissionChecker permc = new PermissionChecker(activity);
+            MarkorPermissionChecker permc = new MarkorPermissionChecker(activity);
             ShareUtil shu = new ShareUtil(activity);
             String tmps;
 
@@ -316,7 +316,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (appSettings.getDocumentAutoFormatEnabled(_appSettings.getTodoFile().getAbsolutePath())) {
-                            sep += TodoTxtTask.getToday() + " ";
+                            sep += TodoTxtParser.getToday() + " ";
                         }
                         appendToExistingDocument(_appSettings.getTodoFile(), sep, false);
                         close = true;

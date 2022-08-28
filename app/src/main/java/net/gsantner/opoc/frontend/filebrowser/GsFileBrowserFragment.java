@@ -38,14 +38,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextFormat;
-import net.gsantner.markor.ui.FileInfoDialog;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.SearchOrCustomTextDialogCreator;
-import net.gsantner.markor.ui.fsearch.SearchEngine;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.frontend.FileInfoDialog;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -137,8 +137,8 @@ public class GsFileBrowserFragment extends GsFragmentBase
 
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
 
-        if (SearchEngine.isSearchExecuting) {
-            SearchEngine.activity.set(new WeakReference<>(getActivity()));
+        if (FileSearchEngine.isSearchExecuting) {
+            FileSearchEngine.activity.set(new WeakReference<>(getActivity()));
         }
     }
 
@@ -245,7 +245,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
             }
         }
         for (final File f : _filesystemViewerAdapter.getCurrentSelection()) {
-            selTextFilesOnly &= TextFormat.isTextFile(f);
+            selTextFilesOnly &= FormatRegistry.isTextFile(f);
             selWritable &= f.canWrite();
             selDirectoriesOnly &= f.isDirectory();
         }
@@ -367,7 +367,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final PermissionChecker permc = new PermissionChecker(getActivity());
+        final MarkorPermissionChecker permc = new MarkorPermissionChecker(getActivity());
 
         final int _id = item.getItemId();
 
@@ -500,7 +500,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
             case R.id.action_fs_copy_to_clipboard: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    if (TextFormat.isTextFile(file)) {
+                    if (FormatRegistry.isTextFile(file)) {
                         _shareUtil.setClipboard(GsFileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
@@ -514,9 +514,9 @@ public class GsFileBrowserFragment extends GsFragmentBase
     }
 
     private void executeSearchAction() {
-        if (new PermissionChecker(getActivity()).doIfExtStoragePermissionGranted()) {
+        if (new MarkorPermissionChecker(getActivity()).doIfExtStoragePermissionGranted()) {
             final File currentFolder = getCurrentFolder();
-            SearchOrCustomTextDialogCreator.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
+            MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
                 File load = new File(currentFolder, relFilePath);
                 if (load.isDirectory()) {
                     _filesystemViewerAdapter.loadFolder(load);
@@ -587,7 +587,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
 
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+        MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
             private GsFileBrowserOptions.Options _doptMoC;
 
             @Override
@@ -626,7 +626,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
     }
 
     private void showImportDialog() {
-        FilesystemViewerCreator.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+        MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                 importFile(file);

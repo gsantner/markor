@@ -204,67 +204,67 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
     <string name="pref_key__is_disallow_screenshots" translatable="false">pref_key__is_disallow_screenshots</string>
 
-    <string name="tmaid_common_delete_lines" translatable="false">tmaid_common_delete_lines</string>
-    <string name="tmaid_common_new_line_below" translatable="false">tmaid_common_new_line_below</string>
-    <string name="tmaid_common_attach_something" translatable="false">tmaid_common_attach_something</string>
-    <string name="tmaid_common_unordered_list_char" translatable="false">tmaid_common_unordered_list_char</string>
-    <string name="tmaid_common_ordered_list_number" translatable="false">tmaid_common_ordered_list_number</string>
-    <string name="tmaid_common_ordered_list_renumber" translatable="false">tmaid_common_ordered_list_renumber</string>
-    <string name="tmaid_common_checkbox_list" translatable="false">tmaid_common_checkbox_list</string>
-    <string name="tmaid_common_special_key" translatable="false">tmaid_common_special_key</string>
-    <string name="tmaid_common_open_link_browser" translatable="false">tmaid_common_open_link_browser</string>
-    <string name="tmaid_common_color_picker" translatable="false">tmaid_common_color_picker</string>
-    <string name="tmaid_common_time" translatable="false">tmaid_common_time</string>
-    <string name="tmaid_common_time_insert_timestamp" translatable="false">tmaid_common_time_insert_timestamp</string>
-    <string name="tmaid_common_web_jump_to_very_top_or_bottom" translatable="false">tmaid_common_web_jump_to_very_top_or_bottom</string>
-    <string name="tmaid_common_web_jump_to_table_of_contents" translatable="false">tmaid_common_web_jump_to_table_of_contents</string>
-    <string name="tmaid_common_view_file_in_other_app" translatable="false">tmaid_common_view_file_in_other_app</string>
-    <string name="tmaid_common_rotate_screen" translatable="false">tmaid_common_rotate_screen</string>
-    <string name="tmaid_common_accordion" translatable="false">tmaid_common_accordion</string>
-    <string name="tmaid_common_indent" translatable="false">tmaid_common_indent</string>
-    <string name="tmaid_common_set_indent_size" translatable="false">tmaid_common_set_indent_size</string>
-    <string name="tmaid_common_deindent" translatable="false">tmaid_common_deindent</string>
-    <string name="tmaid_common_move_text_one_line_up" translatable="false">tmaid_common_move_text_one_line_up</string>
-    <string name="tmaid_common_move_text_one_line_down" translatable="false">tmaid_common_move_text_one_line_down</string>
-    <string name="tmaid_common_insert_snippet" translatable="false">tmaid_common_insert_snippet</string>
+    <string name="abid_common_delete_lines" translatable="false">abid_common_delete_lines</string>
+    <string name="abid_common_new_line_below" translatable="false">abid_common_new_line_below</string>
+    <string name="abid_common_attach_something" translatable="false">abid_common_attach_something</string>
+    <string name="abid_common_unordered_list_char" translatable="false">abid_common_unordered_list_char</string>
+    <string name="abid_common_ordered_list_number" translatable="false">abid_common_ordered_list_number</string>
+    <string name="abid_common_ordered_list_renumber" translatable="false">abid_common_ordered_list_renumber</string>
+    <string name="abid_common_checkbox_list" translatable="false">abid_common_checkbox_list</string>
+    <string name="abid_common_special_key" translatable="false">abid_common_special_key</string>
+    <string name="abid_common_open_link_browser" translatable="false">abid_common_open_link_browser</string>
+    <string name="abid_common_color_picker" translatable="false">abid_common_color_picker</string>
+    <string name="abid_common_time" translatable="false">abid_common_time</string>
+    <string name="abid_common_time_insert_timestamp" translatable="false">abid_common_time_insert_timestamp</string>
+    <string name="abid_common_web_jump_to_very_top_or_bottom" translatable="false">abid_common_web_jump_to_very_top_or_bottom</string>
+    <string name="abid_common_web_jump_to_table_of_contents" translatable="false">abid_common_web_jump_to_table_of_contents</string>
+    <string name="abid_common_view_file_in_other_app" translatable="false">abid_common_view_file_in_other_app</string>
+    <string name="abid_common_rotate_screen" translatable="false">abid_common_rotate_screen</string>
+    <string name="abid_common_accordion" translatable="false">abid_common_accordion</string>
+    <string name="abid_common_indent" translatable="false">abid_common_indent</string>
+    <string name="abid_common_set_indent_size" translatable="false">abid_common_set_indent_size</string>
+    <string name="abid_common_deindent" translatable="false">abid_common_deindent</string>
+    <string name="abid_common_move_text_one_line_up" translatable="false">abid_common_move_text_one_line_up</string>
+    <string name="abid_common_move_text_one_line_down" translatable="false">abid_common_move_text_one_line_down</string>
+    <string name="abid_common_insert_snippet" translatable="false">abid_common_insert_snippet</string>
 
-    <string name="tmaid_markdown_quote" translatable="false">tmaid_markdown_quote</string>
-    <string name="tmaid_markdown_h1" translatable="false">tmaid_markdown_h1</string>
-    <string name="tmaid_markdown_h2" translatable="false">tmaid_markdown_h2</string>
-    <string name="tmaid_markdown_h3" translatable="false">tmaid_markdown_h3</string>
-    <string name="tmaid_markdown_bold" translatable="false">tmaid_markdown_bold</string>
-    <string name="tmaid_markdown_italic" translatable="false">tmaid_markdown_italic</string>
-    <string name="tmaid_markdown_strikeout" translatable="false">tmaid_markdown_strikeout</string>
-    <string name="tmaid_markdown_code_inline" translatable="false">tmaid_markdown_code_inline</string>
-    <string name="tmaid_markdown_horizontal_line" translatable="false">tmaid_markdown_horizontal_line</string>
-    <string name="tmaid_markdown_insert_image" translatable="false">tmaid_markdown_insert_image</string>
-    <string name="tmaid_markdown_insert_link" translatable="false">tmaid_markdown_insert_link</string>
-    <string name="tmaid_markdown_table_insert_columns" translatable="false">tmaid_markdown_table_insert_columns</string>
+    <string name="abid_markdown_quote" translatable="false">abid_markdown_quote</string>
+    <string name="abid_markdown_h1" translatable="false">abid_markdown_h1</string>
+    <string name="abid_markdown_h2" translatable="false">abid_markdown_h2</string>
+    <string name="abid_markdown_h3" translatable="false">abid_markdown_h3</string>
+    <string name="abid_markdown_bold" translatable="false">abid_markdown_bold</string>
+    <string name="abid_markdown_italic" translatable="false">abid_markdown_italic</string>
+    <string name="abid_markdown_strikeout" translatable="false">abid_markdown_strikeout</string>
+    <string name="abid_markdown_code_inline" translatable="false">abid_markdown_code_inline</string>
+    <string name="abid_markdown_horizontal_line" translatable="false">abid_markdown_horizontal_line</string>
+    <string name="abid_markdown_insert_image" translatable="false">abid_markdown_insert_image</string>
+    <string name="abid_markdown_insert_link" translatable="false">abid_markdown_insert_link</string>
+    <string name="abid_markdown_table_insert_columns" translatable="false">abid_markdown_table_insert_columns</string>
 
-    <string name="tmaid_zimwiki_h1" translatable="false">tmaid_zimwiki_h1</string>
-    <string name="tmaid_zimwiki_h2" translatable="false">tmaid_zimwiki_h2</string>
-    <string name="tmaid_zimwiki_h3" translatable="false">tmaid_zimwiki_h3</string>
-    <string name="tmaid_zimwiki_h4" translatable="false">tmaid_zimwiki_h4</string>
-    <string name="tmaid_zimwiki_h5" translatable="false">tmaid_zimwiki_h5</string>
-    <string name="tmaid_zimwiki_bold" translatable="false">tmaid_zimwiki_bold</string>
-    <string name="tmaid_zimwiki_italic" translatable="false">tmaid_zimwiki_italic</string>
-    <string name="tmaid_zimwiki_highlight" translatable="false">tmaid_zimwiki_highlight</string>
-    <string name="tmaid_zimwiki_strikeout" translatable="false">tmaid_zimwiki_strikeout</string>
-    <string name="tmaid_zimwiki_code_inline" translatable="false">tmaid_zimwiki_code_inline</string>
-    <string name="tmaid_zimwiki_insert_link" translatable="false">tmaid_zimwiki_insert_link</string>
-    <string name="tmaid_zimwiki_insert_image" translatable="false">tmaid_zimwiki_insert_image</string>
+    <string name="abid_wikitext_h1" translatable="false">abid_wikitext_h1</string>
+    <string name="abid_wikitext_h2" translatable="false">abid_wikitext_h2</string>
+    <string name="abid_wikitext_h3" translatable="false">abid_wikitext_h3</string>
+    <string name="abid_wikitext_h4" translatable="false">abid_wikitext_h4</string>
+    <string name="abid_wikitext_h5" translatable="false">abid_wikitext_h5</string>
+    <string name="abid_wikitext_bold" translatable="false">abid_wikitext_bold</string>
+    <string name="abid_wikitext_italic" translatable="false">abid_wikitext_italic</string>
+    <string name="abid_wikitext_highlight" translatable="false">abid_wikitext_highlight</string>
+    <string name="abid_wikitext_strikeout" translatable="false">abid_wikitext_strikeout</string>
+    <string name="abid_wikitext_code_inline" translatable="false">abid_wikitext_code_inline</string>
+    <string name="abid_wikitext_insert_link" translatable="false">abid_wikitext_insert_link</string>
+    <string name="abid_wikitext_insert_image" translatable="false">abid_wikitext_insert_image</string>
 
-    <string name="tmaid_todotxt_toggle_done" translatable="false">tmaid_todotxt_toggle_done</string>
-    <string name="tmaid_todotxt_add_context" translatable="false">tmaid_todotxt_add_context</string>
-    <string name="tmaid_todotxt_add_project" translatable="false">tmaid_todotxt_add_project</string>
-    <string name="tmaid_todotxt_priority" translatable="false">tmaid_todotxt_priority</string>
-    <string name="tmaid_todotxt_archive_done_tasks" translatable="false">tmaid_todotxt_archive_done_tasks</string>
-    <string name="tmaid_todotxt_current_date" translatable="false">tmaid_todotxt_current_date</string>
-    <string name="tmaid_todotxt_sort_todo" translatable="false">tmaid_todotxt_sort_todo</string>
+    <string name="abid_todotxt_toggle_done" translatable="false">abid_todotxt_toggle_done</string>
+    <string name="abid_todotxt_add_context" translatable="false">abid_todotxt_add_context</string>
+    <string name="abid_todotxt_add_project" translatable="false">abid_todotxt_add_project</string>
+    <string name="abid_todotxt_priority" translatable="false">abid_todotxt_priority</string>
+    <string name="abid_todotxt_archive_done_tasks" translatable="false">abid_todotxt_archive_done_tasks</string>
+    <string name="abid_todotxt_current_date" translatable="false">abid_todotxt_current_date</string>
+    <string name="abid_todotxt_sort_todo" translatable="false">abid_todotxt_sort_todo</string>
 
 
     <string name="jekyll_post" translatable="false">Jekyll Post</string>
-    <string name="zim_wiki" translatable="false">Zim Wiki</string>
+    <string name="wikitext" translatable="false">Wikitext</string>
     <string name="pref_key__is_multi_window_enabled" translatable="false">pref_key__is_multi_window_enabled</string>
     <string name="pref_key__is_enable_experimental_features" translatable="false">pref_key__is_enable_experimental_features</string>
     <string name="pref_key__app_start_tab_v2" translatable="false">pref_key__app_start_tab_v2</string>
@@ -312,10 +312,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__file_browser_last_browsed_folder" translatable="false">pref_key__file_browser_last_browsed_folder</string>
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
-    <string name="pref_key__editor_zimwiki_bigger_headings" translatable="false">pref_key__editor_zimwiki_bigger_headings</string>
-    <string name="pref_key__zimwiki__reorder_actions" translatable="false">pref_key__zimwiki__reorder_actions</string>
-    <string name="pref_key__zimwiki__action_keys" translatable="false">pref_key__zimwiki__action_keys</string>
-    <string name="pref_key__zimwiki__dynamic_notebook_root" translatable="false">pref_key__zimwiki__dynamic_notebook_root</string>
+    <string name="pref_key__wikitext_bigger_headings" translatable="false">pref_key__wikitext_bigger_headings</string>
+    <string name="pref_key__wikitext_reorder_actions" translatable="false">pref_key__wikitext_reorder_actions</string>
+    <string name="pref_key__wikitext_action_keys" translatable="false">pref_key__wikitext_action_keys</string>
+    <string name="pref_key__wikitext_dynamic_notebook_root" translatable="false">pref_key__wikitext_dynamic_notebook_root</string>
     <string name="pref_key__max_search_depth" translatable="false">pref_key__max_search_depth</string>
     <string name="pref_key__filesearch_ignorelist" translatable="false">pref_key__filesearch_ignorelist</string>
     <string name="pref_key__is_search_query_case_sensitive" translatable="false">pref_key__is_search_query_case_sensitive</string>
@@ -332,6 +332,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_embedbinary" translatable="false">action_format_embedbinary</string>
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
-    <string name="action_format_zimwiki" translatable="false">action_format_zimwiki</string>
+    <string name="action_format_wikitext" translatable="false">action_format_wikitext</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
 </resources>

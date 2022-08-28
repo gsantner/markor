@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.Unified"
-    tools:context="net.gsantner.markor.activity.DocumentActivity">
+    tools:context="web.gsantner.markor.activity.DocumentActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

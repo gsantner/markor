@@ -21,12 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
-import net.gsantner.markor.App;
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.TextFormat;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.util.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -61,7 +60,7 @@ public class Document implements Serializable {
     private long _touchTime = -1; // The last time this document touched the file
     private GsFileUtils.FileInfo _fileInfo;
     private @StringRes
-    int _format = TextFormat.FORMAT_UNKNOWN;
+    int _format = FormatRegistry.FORMAT_UNKNOWN;
     private transient SharedPreferences _modTimePref;
 
     // Used to check if string changed
@@ -76,18 +75,18 @@ public class Document implements Serializable {
 
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
-        if (TextFormat.CONVERTER_TODOTXT.isFileOutOfThisFormat(fnlower)) {
-            setFormat(TextFormat.FORMAT_TODOTXT);
-        } else if (TextFormat.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
-            setFormat(TextFormat.FORMAT_KEYVALUE);
-        } else if (TextFormat.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
-            setFormat(TextFormat.FORMAT_MARKDOWN);
-        } else if (TextFormat.CONVERTER_ZIMWIKI.isFileOutOfThisFormat(getPath())) {
-            setFormat(TextFormat.FORMAT_ZIMWIKI);
-        } else if (TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {
-            setFormat(TextFormat.FORMAT_EMBEDBINARY);
+        if (FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(fnlower)) {
+            setFormat(FormatRegistry.FORMAT_TODOTXT);
+        } else if (FormatRegistry.CONVERTER_KEYVALUE.isFileOutOfThisFormat(fnlower)) {
+            setFormat(FormatRegistry.FORMAT_KEYVALUE);
+        } else if (FormatRegistry.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
+            setFormat(FormatRegistry.FORMAT_MARKDOWN);
+        } else if (FormatRegistry.CONVERTER_WIKITEXT.isFileOutOfThisFormat(getPath())) {
+            setFormat(FormatRegistry.FORMAT_WIKITEXT);
+        } else if (FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {
+            setFormat(FormatRegistry.FORMAT_EMBEDBINARY);
         } else {
-            setFormat(TextFormat.FORMAT_PLAIN);
+            setFormat(FormatRegistry.FORMAT_PLAIN);
         }
     }
 
@@ -110,7 +109,7 @@ public class Document implements Serializable {
     private void initModTimePref() {
         // We do not do this in constructor as we want to init after deserialization too
         if (_modTimePref == null) {
-            _modTimePref = App.get().getApplicationContext().getSharedPreferences(MOD_PREF_NAME, Context.MODE_PRIVATE);
+            _modTimePref = ApplicationObject.get().getApplicationContext().getSharedPreferences(MOD_PREF_NAME, Context.MODE_PRIVATE);
         }
     }
 
@@ -187,7 +186,7 @@ public class Document implements Serializable {
     }
 
     public boolean isBinaryFileNoTextLoading() {
-        return _file != null && TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
+        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
     }
 
     public boolean isEncrypted() {

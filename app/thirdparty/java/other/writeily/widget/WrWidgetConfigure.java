@@ -19,9 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
@@ -55,10 +55,10 @@ public class WrWidgetConfigure extends AppCompatActivity {
 
     // only runs for a valid id
     private void showSelectionDialog() {
-        final PermissionChecker permc = new PermissionChecker(this);
+        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         if (permc.mkdirIfStoragePermissionGranted()) {
             final FragmentManager fragManager = getSupportFragmentManager();
-            FilesystemViewerCreator.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
                     setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
@@ -77,7 +77,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
+        if (new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
             showSelectionDialog();
         } else {
             finish();

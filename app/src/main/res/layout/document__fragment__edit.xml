@@ -16,10 +16,10 @@
     android:background="@android:color/transparent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="net.gsantner.markor.activity.DocumentEditFragment"
+    tools:context="web.gsantner.markor.activity.DocumentEditFragment"
     tools:showIn="@layout/document__activity">
 
-    <net.gsantner.markor.ui.DraggableScrollbarScrollView
+    <net.gsantner.markor.frontend.DraggableScrollbarScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +27,7 @@
         android:background="@android:color/transparent"
         android:fillViewport="true">
 
-        <net.gsantner.markor.ui.hleditor.HighlightingEditor
+        <net.gsantner.markor.frontend.textview.HighlightingEditor
             android:id="@+id/document__fragment__edit__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,7 +42,7 @@
             android:scrollbars="none"
             android:textCursorDrawable="@drawable/cursor_accent" />
 
-    </net.gsantner.markor.ui.DraggableScrollbarScrollView>
+    </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
 
     <HorizontalScrollView
         android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"
@@ -73,7 +73,7 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
-    <net.gsantner.markor.ui.DraggableScrollbarWebView
+    <net.gsantner.markor.web.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

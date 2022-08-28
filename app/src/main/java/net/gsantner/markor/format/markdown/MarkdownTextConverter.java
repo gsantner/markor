@@ -41,8 +41,8 @@ import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.TextConverter;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.markor.model.AppSettings;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings({"unchecked", "WeakerAccess"})
-public class MarkdownTextConverter extends TextConverter {
+public class MarkdownTextConverter extends TextConverterBase {
     //########################
     //## Extensions
     //########################

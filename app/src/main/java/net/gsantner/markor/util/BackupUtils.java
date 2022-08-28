@@ -6,8 +6,9 @@ import android.content.Context;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.ui.FilesystemViewerCreator;
-import net.gsantner.markor.ui.hleditor.TextActions;
+import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsBackupUtils;
 
@@ -20,7 +21,7 @@ public class BackupUtils extends GsBackupUtils {
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
-            FilesystemViewerCreator.showFileDialog(
+            MarkorFileBrowserFactory.showFileDialog(
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
@@ -42,7 +43,7 @@ public class BackupUtils extends GsBackupUtils {
         if (context instanceof Activity) {
             final Activity activity = (Activity) context;
 
-            FilesystemViewerCreator.showFolderDialog(
+            MarkorFileBrowserFactory.showFolderDialog(
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
@@ -61,7 +62,7 @@ public class BackupUtils extends GsBackupUtils {
 
     public static List<String> getPrefNamesToBackup() {
         List<String> prefs = GsBackupUtils.getPrefNamesToBackup();
-        prefs.add(TextActions.ACTION_ORDER_PREF_NAME);
+        prefs.add(ActionButtonBase.ACTION_ORDER_PREF_NAME);
         return prefs;
     }
 }

@@ -28,11 +28,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.util.AppSettings;
-import net.gsantner.markor.util.PermissionChecker;
-import net.gsantner.markor.util.TextViewUtils;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.ShareUtil;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -135,7 +135,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
-        new PermissionChecker(this).doIfExtStoragePermissionGranted();
+        new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted();
 
         handleLaunchingIntent(getIntent());
     }
@@ -205,7 +205,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (_appSettings.isSwipeToChangeMode() && _appSettings.isEditorLineBreakingEnabled() && getCurrentVisibleFragment() instanceof DocumentEditFragment) {
+        if (_appSettings.isSwipeToChangeMode() && _appSettings.isEditorLineBreakingEnabled() && getCurrentVisibleFragment() instanceof DocumentEditAndViewFragment) {
             try {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
@@ -247,11 +247,11 @@ public class DocumentActivity extends MarkorBaseActivity {
         GsFragmentBase currentFragment = getCurrentVisibleFragment();
 
         final boolean sameDocumentRequested = (
-                currentFragment instanceof DocumentEditFragment &&
-                        document.getPath().equals(((DocumentEditFragment) currentFragment).getDocument().getPath()));
+                currentFragment instanceof DocumentEditAndViewFragment &&
+                        document.getPath().equals(((DocumentEditAndViewFragment) currentFragment).getDocument().getPath()));
 
         if (!sameDocumentRequested) {
-            showFragment(DocumentEditFragment.newInstance(document, lineNumber, startPreview));
+            showFragment(DocumentEditAndViewFragment.newInstance(document, lineNumber, startPreview));
         }
     }
 
@@ -264,7 +264,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        new PermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
+        new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
     }
 
     @Override

@@ -19,7 +19,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.util.ActivityUtils;

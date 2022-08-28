@@ -15,7 +15,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
 import net.gsantner.opoc.util.ActivityUtils;
 import net.gsantner.opoc.util.GsFileUtils;

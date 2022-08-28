@@ -70,8 +70,8 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
-import net.gsantner.markor.util.TextViewUtils;
-import net.gsantner.opoc.net.GsNetworkUtils;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.web.GsNetworkUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.ByteArrayOutputStream;

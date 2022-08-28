@@ -17,7 +17,7 @@
     android:focusableInTouchMode="true"
     android:weightSum="100"
     tools:background="@color/background"
-    tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
+    tools:context="web.gsantner.markor.activity.DocumentShareIntoFragment">
 
     <ScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"
@@ -26,7 +26,7 @@
         android:layout_weight="40"
         android:fillViewport="true">
 
-        <net.gsantner.markor.ui.hleditor.HighlightingEditor
+        <net.gsantner.markor.frontend.textview.HighlightingEditor
             android:id="@+id/document__fragment__share_into__highlighting_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

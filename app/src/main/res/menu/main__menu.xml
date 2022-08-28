@@ -12,7 +12,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="net.gsantner.markor.activity.MainActivity"
+    tools:context="web.gsantner.markor.activity.MainActivity"
     tools:ignore="AlwaysShowAction">
 
     <item

@@ -13,9 +13,9 @@ import com.github.appintro.AppIntro;
 import com.github.appintro.AppIntroFragment;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.AppSettings;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.ContextUtils;
-import net.gsantner.markor.util.PermissionChecker;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 
 public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
@@ -53,7 +53,7 @@ public class IntroActivity extends AppIntro {
     @Override
     protected void onSkipPressed(@Nullable Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        if (new PermissionChecker(this).doIfExtStoragePermissionGranted()) {
+        if (new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted()) {
             finish();
         }
     }
@@ -67,7 +67,7 @@ public class IntroActivity extends AppIntro {
     protected void onDonePressed(@Nullable Fragment currentFragment) {
         super.onDonePressed(currentFragment);
         PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().putBoolean(PREF_KEY_WAS_SHOWN, true).apply();
-        new PermissionChecker(this).doIfExtStoragePermissionGranted();
+        new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted();
         finish();
     }
 

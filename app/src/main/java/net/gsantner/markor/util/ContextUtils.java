@@ -12,7 +12,7 @@ package net.gsantner.markor.util;
 import android.content.Context;
 import android.webkit.MimeTypeMap;
 
-import net.gsantner.markor.App;
+import net.gsantner.markor.ApplicationObject;
 
 public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     public ContextUtils(Context context) {
@@ -20,7 +20,7 @@ public class ContextUtils extends net.gsantner.opoc.util.ContextUtils {
     }
 
     public static ContextUtils get() {
-        return new ContextUtils(App.get());
+        return new ContextUtils(ApplicationObject.get());
     }
 
     public static String getMimeType(String url) {
