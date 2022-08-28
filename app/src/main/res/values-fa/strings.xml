@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">بالا</string>
     <string name="bottom">پایین</string>
     <string name="center">وسط</string>
-    <string name="textaction_spacing">Text action spacing</string>
-    <string name="horizontal_space_between_textactions">Horizontal space between text action buttons</string>
     <string name="center_text">متن وسط باشد</string>
     <string name="edit_text_in_center_of_screen">متن را در وسط صفحه‌نمایش ویرایش کنید</string>
     <string name="clipboard">Clipboard</string>
@@ -243,8 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">ریاضی</string>
     <string name="table_of_contents">فهرست محتوا</string>
     <string name="miscellaneous">متفرقه</string>
-    <string name="textaction">کنش متن</string>
-    <string name="textactions">کنش‌های متن</string>
     <string name="prefer_view">نمایش ترجیحی</string>
     <string name="no_calendar_app_is_installed">برنامه‌ای برای تقویم نصب نشده است!</string>
     <string name="popular_documents">اسناد محبوب</string>

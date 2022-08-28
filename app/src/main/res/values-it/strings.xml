@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In alto</string>
     <string name="bottom">In basso</string>
     <string name="center">Al centro</string>
-    <string name="textaction_spacing">Distanza tra le azioni sul testo</string>
-    <string name="horizontal_space_between_textactions">Spazio orizzontale tra i pulsanti azione testo</string>
     <string name="center_text">Centra il testo</string>
     <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Visualizza gli attributi YAML Front Matter inseriti in cima ai documenti visualizzati. Inserisci le chiavi separate da virgole. Lascia vuoto per nessuno o usa \'*\' per tutti. \n\nSe un attributo è definito nel documento (es. title: \'Ciao\') e nel tuo documento c\'è {{ post.title }}, esso verrà sostituito. Puoi fare un\'intestazione personalizzata di Front Matter in questo modo.</string>
     <string name="table_of_contents">Indice</string>
     <string name="miscellaneous">Varie</string>
-    <string name="textaction">Azione sul testo</string>
-    <string name="textactions">Azioni sul testo</string>
     <string name="prefer_view">Vista preferita</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Condividi in - Formato</string>
     <string name="auto_format">Autoformattazione</string>
     <string name="insert_snippet">Inserisci estratto</string>
+    <string name="document_error_exit">Errore: impossibile aprire.</string>
+    <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
 </resources>

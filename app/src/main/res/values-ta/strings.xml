@@ -197,8 +197,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">மேல்</string>
     <string name="bottom">கீழ்</string>
     <string name="center">மையம்</string>
-    <string name="textaction_spacing">உரை செயலுக்கான இடைவெளி</string>
-    <string name="horizontal_space_between_textactions">உரை நடவடிக்கை பொத்தான்களுக்கு நடுவே கிடைமட்ட இடைவெளி</string>
     <string name="center_text">மைய உரை</string>
     <string name="edit_text_in_center_of_screen">திரையின் மையத்தில் உள்ள உரையை திருத்துக</string>
     <string name="clipboard">இடைநிலைப் பலகை</string>
@@ -239,8 +237,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">கணிதம்</string>
     <string name="table_of_contents">உள்ளடக்கங்களின் அட்டவணை</string>
     <string name="miscellaneous">இதர</string>
-    <string name="textaction">உரை நடவடிக்கை</string>
-    <string name="textactions">உரை நடவடிக்கைகள்</string>
     <string name="prefer_view">திருத்துவதற்க்காண பார்வை முறையை தேர்வு செய்யவும்</string>
     <string name="no_calendar_app_is_installed">நாட்காட்டி செயலி நிறுவப்படவில்லை!</string>
     <string name="popular_documents">பிரபலமான ஆவணங்கள்</string>

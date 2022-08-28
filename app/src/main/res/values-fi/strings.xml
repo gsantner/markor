@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Alkuun</string>
     <string name="bottom">Alas</string>
     <string name="center">Keskitetty</string>
-    <string name="textaction_spacing">Tekstitoiminnon etäisyys</string>
-    <string name="horizontal_space_between_textactions">Vaakasuuntainen väli tekstitoimintopainikkeiden välillä</string>
+    <string name="actionbutton_spacing">Toimintapainikkeen väli</string>
+    <string name="horizontal_space_between_actionbuttons">Vaakasuora tila toimintopainikkeiden välillä</string>
     <string name="center_text">Keskitä teksti</string>
     <string name="edit_text_in_center_of_screen">Muokkaa tekstiä näytön keskellä</string>
     <string name="clipboard">Leikepöytä</string>
@@ -247,8 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Näytä YAML Front Matter -attribuutit näytetyissä asiakirjoissa. Syötä näppäimet pilkulla erotettuna. Jätä tyhjäksi tyhjäksi tai käytä \'*\' kaikille. \n\nJos jokin attribuutti on määritelty asiakirjassa (esim. title: \'Hei \') ja dokumentissasi on {{ post.title }} myös se korvataan. Voit tehdä mukautetun etukappaleen menossa tällä tavalla.</string>
     <string name="table_of_contents">Sisällön taulukko</string>
     <string name="miscellaneous">Sekalaiset</string>
-    <string name="textaction">Tekstin toiminto</string>
-    <string name="textactions">Tekstin toiminnot</string>
     <string name="prefer_view">Suosi näkymää</string>
     <string name="no_calendar_app_is_installed">Kalenterisovellusta ei ole asennettu!</string>
     <string name="popular_documents">Suositut asiakirjat</string>
@@ -440,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Jaa - Muoto</string>
     <string name="auto_format">Automaattimuotoilu</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Virhe: Ei voitu avata.</string>
+    <string name="document_error_clip">Tapahtui virhe: Teksti kopioitu leikepöydälle.</string>
 </resources>

@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">顶端</string>
     <string name="bottom">底端</string>
     <string name="center">居中</string>
-    <string name="textaction_spacing">文本操作按钮间距</string>
-    <string name="horizontal_space_between_textactions">文本操作按钮之间水平方向的距离</string>
+    <string name="actionbutton_spacing">动作按钮间距</string>
+    <string name="horizontal_space_between_actionbuttons">动作按钮之间的水平空间</string>
     <string name="center_text">居中文字</string>
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
@@ -247,8 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML 前置属性。输入密钥以逗号分隔。留空则不留空，或者全部使用“*”。 \n\n如果文档中定义了任何属性 (即) title: \'你好\', 你的文档有 {{ post.title }} 也被替换。你可以制作一个自定义的前台来向这个方向前进。</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
-    <string name="textaction">文本操作</string>
-    <string name="textactions">文本操作</string>
     <string name="prefer_view">首选视图</string>
     <string name="no_calendar_app_is_installed">没有安装日历应用！</string>
     <string name="popular_documents">常用文档</string>
@@ -440,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
+    <string name="document_error_exit">错误：无法打开。</string>
+    <string name="document_error_clip">发生错误：文本已复制到剪贴板。</string>
 </resources>

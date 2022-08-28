@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In artu</string>
     <string name="bottom">In bassu</string>
     <string name="center">Tzentru</string>
-    <string name="textaction_spacing">Ispatziamentu intre sas atziones de su testu</string>
-    <string name="horizontal_space_between_textactions">Ispàtziu orizontale intre sos butones de atzione pro su testu</string>
     <string name="center_text">Tzentra su testu</string>
     <string name="edit_text_in_center_of_screen">Èdita su testu in su tzentru de s\'ischermu</string>
     <string name="clipboard">Punta de billete</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Ammustra sos atributos YAML Front Matter insertados a pitzos de sos documentos pompiados. Inserta sas craes separadas dae vìrgulas. Lassa bòidu pro perunu o imprea \'*\' pro totus. \n\nSi un\'atributu est definidu in su documentu ( a es. title: \'Salude\') e in su documentu tuo b\'est {{ post.title }}, s\'at a sostituire. Podes fàghere un\'intestatzione personalizada de Front Matter in custa manera.</string>
     <string name="table_of_contents">Ìnditze</string>
     <string name="miscellaneous">Vàriu</string>
-    <string name="textaction">Atziones de su testu</string>
-    <string name="textactions">Atziones de su testu</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">Non b\'at peruna aplicatzione de calendàriu installada!</string>
     <string name="popular_documents">Documentos populares</string>

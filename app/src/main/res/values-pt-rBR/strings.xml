@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">inferior</string>
     <string name="center">Centro</string>
-    <string name="textaction_spacing">Espaçamento do módulo de texto</string>
-    <string name="horizontal_space_between_textactions">Espaço horizontal entre os botões de ação de texto</string>
+    <string name="actionbutton_spacing">Espaçamento ActionButton</string>
+    <string name="horizontal_space_between_actionbuttons">Espaço horizontal entre ActionButtons</string>
     <string name="center_text">Texto no centro</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro da tela</string>
     <string name="clipboard">Área de transferência</string>
@@ -247,8 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Exiba os atributos de Matérias Virtuais YAML digitados em cima em documentos visualizados. Insira as teclas separadas por vírgulas. Deixe em branco para nenhum ou use \'*\' para todos. \n\nSe algum atributo for definido no documento (por exemplo, title: \'Hello\') e {{ post.title }} em seu documento também ele foi substituído. Você pode fazer uma questão de Frente personalizada indo nessa direção.</string>
     <string name="table_of_contents">Tabela de conteúdos</string>
     <string name="miscellaneous">Diversos</string>
-    <string name="textaction">Ações de texto</string>
-    <string name="textactions">Ações de texto</string>
     <string name="prefer_view">Preferir modo de visualização</string>
     <string name="no_calendar_app_is_installed">Nenhum aplicativo de calendário está instalado!</string>
     <string name="popular_documents">Documentos populares</string>
@@ -440,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Compartilhar em - Formato</string>
     <string name="auto_format">Auto-formatar</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Erro: Não foi possível abrir.</string>
+    <string name="document_error_clip">Erro encontrado: Texto copiado para área de transferência.</string>
 </resources>

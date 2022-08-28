@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Πάνω</string>
     <string name="bottom">Κάτω</string>
     <string name="center">Κέντρο</string>
-    <string name="textaction_spacing">Ενέργεια κειμένου</string>
-    <string name="horizontal_space_between_textactions">Οριζόντιο κενό μεταξύ των κουμπιών ενεργειών κειμένου</string>
     <string name="center_text">Κεντραρισμένο κείμενο</string>
     <string name="edit_text_in_center_of_screen">Επεξεργασία κειμένου στο κέντρο της οθόνης</string>
     <string name="clipboard">Πρόχειρο</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Καταχωρήθηκαν χαρακτηριστικά YAML Front Matter στην κορυφή των εμφανιζόμενων εγγράφων. Εισάγετε κλειδιά διαχωρισμένα με κόμματα. Αφήστε κενό για τίποτα ή χρησιμοποιήστε το \'*\' για όλα. \n\nΕάν οποιοδήποτε χαρακτηριστικό ορίζεται στο έγγραφο (δηλ. τίτλος: \'Γεια σας\') και υπάρχει το {{ post.title }} στο έγγραφό σας τότε αυτό αντικαθίσταται. Μπορείτε να κάνετε μια προσαρμοσμένη κεφαλίδα Front Matter με αυτόν τον τρόπο.</string>
     <string name="table_of_contents">Πίνακας περιεχομένων</string>
     <string name="miscellaneous">Διάφορα</string>
-    <string name="textaction">Ενέργεια κειμένου</string>
-    <string name="textactions">Ενέργειες κειμένου</string>
     <string name="prefer_view">Προτιμώμενη προβολή</string>
     <string name="no_calendar_app_is_installed">Δεν υπάρχει εγκατεστημένη εφαρμογή ημερολογίου!</string>
     <string name="popular_documents">Δημοφιλή έγγραφα</string>
@@ -441,4 +437,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
     <string name="insert_snippet">Εισαγωγή αποσπάσματος κώδικα</string>
+    <string name="document_error_exit">Σφάλμα: Αδύνατο το άνοιγμα.</string>
+    <string name="document_error_clip">Αντιμετώπιση σφάλματος: Το κείμενο αντιγράφηκε στο πρόχειρο.</string>
 </resources>

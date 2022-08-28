@@ -204,8 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Överst</string>
     <string name="bottom">Längst ner</string>
     <string name="center">Mitten</string>
-    <string name="textaction_spacing">Avstånd för textåtgärd</string>
-    <string name="horizontal_space_between_textactions">Horisontellt utrymme mellan textåtgärdsknappar</string>
+    <string name="actionbutton_spacing">ÅtgärdKnapp avstånd</string>
+    <string name="horizontal_space_between_actionbuttons">Horisontell utrymme mellan ActionKnappar</string>
     <string name="center_text">Centrera text</string>
     <string name="edit_text_in_center_of_screen">Editera text i mitten av skärmen</string>
     <string name="clipboard">Klippbord</string>
@@ -247,8 +247,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Visa inmatade YAML Front Matter attribut högst upp på visade dokument. Ange nycklar separerade med kommatecken. Lämna tomt för ingen eller använd \'*\' för alla. \n\nOm något attribut är definierat i dokumentet (dvs. titel: \'Hej\') och det finns {{ post.title }} i ditt dokument också det ersätts. Du kan göra en anpassad Front Matter rubrik på detta sätt.</string>
     <string name="table_of_contents">Innehållsförteckning</string>
     <string name="miscellaneous">Diverse</string>
-    <string name="textaction">Åtgärd för text</string>
-    <string name="textactions">Åtgärder för text</string>
     <string name="prefer_view">Föredra vy</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app är installerad!</string>
     <string name="popular_documents">Populära dokument</string>
@@ -440,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Dela till - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Fel: Kunde inte öppna.</string>
+    <string name="document_error_clip">Ett fel uppstod: Text kopierad till urklipp.</string>
 </resources>

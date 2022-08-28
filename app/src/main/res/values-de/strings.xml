@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
     <string name="center">Mitte</string>
-    <string name="textaction_spacing">Text Modul Abstand</string>
-    <string name="horizontal_space_between_textactions">Horizontaler Abstand zwischen Textaktions-Buttons</string>
     <string name="center_text">Text mittig</string>
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Eingetragene Titelei-Attribute in YAML in betrachteten Dokumenten oben ausgeben. Geben Sie dafür durch Kommata getrennte Schlüsselbegriffe ein. Lassen Sie diese weg falls keine oder verwenden Sie \'*\' falls alle ausgegeben werden sollen. \n\nWenn irgendein Attribut im Dokument definiert ist (z. B. Titel: \'Hallo\') und es {{ post.title }} auch in Ihrem Dokument gibt, wird es ersetzt. Sie können auf diese Weise eine benutzerdefinierte Titelei-Kopfzeile erstellen.</string>
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="miscellaneous">Verschiedenes</string>
-    <string name="textaction">Text Aktion</string>
-    <string name="textactions">Text Aktionen</string>
     <string name="prefer_view">Ansichts-Modus bevorzugen</string>
     <string name="no_calendar_app_is_installed">Es ist keine Kalender-App installiert!</string>
     <string name="popular_documents">Beliebte Dokumente</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Teilen in - Format</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
+    <string name="document_error_exit">Fehler: Konnte nicht öffnen.</string>
+    <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
 </resources>

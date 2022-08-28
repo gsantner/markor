@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">Inferior</string>
     <string name="center">Centre</string>
-    <string name="textaction_spacing">Espaiat d\'acció del text</string>
-    <string name="horizontal_space_between_textactions">Espai horitzontal entre botons d\'acció de text</string>
     <string name="center_text">Centra el text</string>
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Mostra els atributs de YAML Front Matter introduïts a la part superior als documents visualitzats. Introduïu les claus separades per comes. Deixeu-lo en blanc per a cap o feu servir \'*\' per a tots. \n\nSi es defineix algun atribut al document (p.ex. títol: \'Hola\') i també hi ha {{ post.title }} al document, se substituirà. Podeu crear un encapçalament personalitzat de Front Matter d\'aquesta manera.</string>
     <string name="table_of_contents">Taula de continguts</string>
     <string name="miscellaneous">Divers</string>
-    <string name="textaction">Accions de text</string>
-    <string name="textactions">Accions de text</string>
     <string name="prefer_view">Vista preferida</string>
     <string name="no_calendar_app_is_installed">No hi ha cap aplicació de calendari instal·lada!</string>
     <string name="popular_documents">Documents populars</string>

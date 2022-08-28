@@ -200,8 +200,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Itaas</string>
     <string name="bottom">Ibaba</string>
     <string name="center">Gitna</string>
-    <string name="textaction_spacing">Espasyo ng text action</string>
-    <string name="horizontal_space_between_textactions">Espasyo sa pagitan ng mga text action button</string>
     <string name="center_text">Igitna ang teksto</string>
     <string name="edit_text_in_center_of_screen">Baguhin ang teksto sa gitna ng screen</string>
     <string name="clipboard">Clipboard</string>
@@ -242,8 +240,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Talaan ng nilalaman</string>
     <string name="miscellaneous">Sari-sari</string>
-    <string name="textaction">Text action</string>
-    <string name="textactions">Mga text action</string>
     <string name="prefer_view">Mas gustong view</string>
     <string name="no_calendar_app_is_installed">Walang naka-install na app na kalendaryo!</string>
     <string name="popular_documents">Mga popular na dokumento</string>

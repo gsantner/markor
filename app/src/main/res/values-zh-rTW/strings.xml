@@ -201,8 +201,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">頂端</string>
     <string name="bottom">底端</string>
     <string name="center">中央</string>
-    <string name="textaction_spacing">文字動作間距</string>
-    <string name="horizontal_space_between_textactions">文字動作按鈕之間的水平間距</string>
     <string name="center_text">文件中央</string>
     <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
@@ -243,8 +241,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">數學公式及符號</string>
     <string name="table_of_contents">目錄</string>
     <string name="miscellaneous">其他</string>
-    <string name="textaction">文字動作</string>
-    <string name="textactions">文字動作</string>
     <string name="prefer_view">偏好檢視</string>
     <string name="no_calendar_app_is_installed">未找到日曆應用程式</string>
     <string name="popular_documents">常用文件</string>

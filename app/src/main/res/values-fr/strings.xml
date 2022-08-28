@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">En haut</string>
     <string name="bottom">En bas</string>
     <string name="center">Centré</string>
-    <string name="textaction_spacing">Espacement du module de texte</string>
-    <string name="horizontal_space_between_textactions">Espace horizontal entre les boutons d\'action du texte</string>
     <string name="center_text">Centrer le texte</string>
     <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
     <string name="clipboard">Presse-papier</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Afficher les attributs entrés YAML Front Matter en haut des documents visualisés. Entrez les clés séparées par des virgules. Laisser vide pour aucun ou utiliser \'*\' pour tous. \n\nSi un attribut est défini dans le document (i.e. title: \'Bonjour\') et il y a {{ post.title }} dans votre document aussi, il est remplacé. Vous pouvez faire un en-tête personnalisé de cette façon.</string>
     <string name="table_of_contents">Table des matières</string>
     <string name="miscellaneous">Divers</string>
-    <string name="textaction">Action texte</string>
-    <string name="textactions">Actions texte</string>
     <string name="prefer_view">Vue préférée</string>
     <string name="no_calendar_app_is_installed">Aucune application de calendrier installée !</string>
     <string name="popular_documents">Documents populaires</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partager dans - Format</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Erreur: Impossible d\'ouvrir.</string>
+    <string name="document_error_clip">Erreur rencontrée: Texte copié dans le presse-papiers.</string>
 </resources>
