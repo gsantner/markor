@@ -203,8 +203,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Üst</string>
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
-
-
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
@@ -246,8 +244,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Görüntülenen belgelerde, girilen YAML Ön Konu niteliklerini üstte görüntüleyin. Virgülle ayrılmış anahtar kelimeleri girin. Hiç anahtar kelimeniz yoksa bu alanı boş bırakın veya tümü için \'*\' kullanın. \n\nBelgede herhangi bir öznitelik tanımlanmışsa (örneğin başlık: \'Merhaba\') ve belgenizde de {{ post.title }} mevcutsa, bu değiştirilecektir. Bu şekilde özel bir Ön Konu başlığı oluşturabilirsiniz.</string>
     <string name="table_of_contents">İçindekiler</string>
     <string name="miscellaneous">Çeşitli</string>
-
-
     <string name="prefer_view">Görünümü tercih et</string>
     <string name="no_calendar_app_is_installed">Hiçbir takvim uygulaması yüklü değil!</string>
     <string name="popular_documents">Popüler belgeler</string>
