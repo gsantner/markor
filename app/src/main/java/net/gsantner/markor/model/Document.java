@@ -152,6 +152,10 @@ public class Document implements Serializable {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && file.getName().endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
     }
 
+    public boolean isBinaryFileNoTextLoading() {
+        return _file != null && TextFormat.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
+    }
+
     public boolean isEncrypted() {
         return isEncrypted(_file);
     }

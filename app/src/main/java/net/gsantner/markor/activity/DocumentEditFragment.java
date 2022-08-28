@@ -141,10 +141,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public boolean isViewBinary() {
-        return !(getActivity() instanceof MainActivity);
-    }
-
     @Override
     protected int getLayoutResId() {
         return R.layout.document__fragment__edit;
@@ -389,7 +385,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         //Only trigger the load process if constructing or file updated
         final long modTime = _document != null ? _document.lastModified() : Long.MIN_VALUE;
         boolean doReload = modTime > _loadModTime;
-        if (doReload && !isViewBinary()) {
+        if (doReload && !_document.isBinaryFileNoTextLoading()) {
 
             _loadModTime = modTime;
 
@@ -722,7 +718,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public boolean saveDocument(final boolean forceSaveEmpty) {
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
-        if (_document != null && !isViewBinary() && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
+        if (_document != null && !_document.isBinaryFileNoTextLoading() && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
             if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
@@ -768,6 +764,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+        if (type.equalsIgnoreCase("toast") && args.length == 2){
+            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {
