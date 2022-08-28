@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Nahoře</string>
     <string name="bottom">Dole</string>
     <string name="center">Na střed</string>
-
-
     <string name="center_text">Center</string>
     <string name="edit_text_in_center_of_screen">Editovat text uprostřed obrazovky</string>
     <string name="clipboard">Schránka</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Zobrazí zadané atributy YAML Front Matter nahoře na zobrazených dokladech. Zadejte klíče oddělené čárkami. Ponechte prázdné pro všechny nebo použijte \'*\' pro všechny. \n\nJe-li nějaký atribut definován v dokumentu (tj. Název: \'Ahoj\' a ve vašem dokladu je také {{ post.title }} nahrazen. Tímto způsobem si můžete vytvořit vlastní nadpis.</string>
     <string name="table_of_contents">Obsah</string>
     <string name="miscellaneous">Ostatní</string>
-
-
     <string name="prefer_view">Upřednostnit mód náhledu</string>
     <string name="no_calendar_app_is_installed">Žádná aplikace kalendáře není nainstalována!</string>
     <string name="popular_documents">Oblíbené dokumenty</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Chyba: Nelze otevřít.</string>
+    <string name="document_error_clip">Došlo k chybě: Text zkopírován do schránky.</string>
 </resources>
