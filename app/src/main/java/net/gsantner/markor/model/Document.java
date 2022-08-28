@@ -122,6 +122,10 @@ public class Document implements Serializable {
         _modTimePref.edit().putLong(_file.getAbsolutePath(), _touchTime).apply();
     }
 
+    public void resetChangeTracking() {
+        _modTime = _touchTime = -1;
+    }
+
     public boolean hasFileChangedSinceLastLoad() {
         return _modTime < 0                            // Never read
                 || _touchTime < 0                      // Never read

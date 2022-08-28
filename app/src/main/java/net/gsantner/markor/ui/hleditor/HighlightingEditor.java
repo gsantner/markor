@@ -9,10 +9,12 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -40,6 +42,7 @@ public class HighlightingEditor extends AppCompatEditText {
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
+    final static long MAX_SAVESTATE_LENGTH = 200000;         // Clear text if longer than this
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
@@ -78,7 +81,7 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
-                    withAccessibilityDisabled(() -> _hl.fixup(start, before, count));
+                    _hl.fixup(start, before, count);
                 }
             }
 
@@ -129,14 +132,19 @@ public class HighlightingEditor extends AppCompatEditText {
                 final int shiftTestLine = layout.getLineForVertical(rect.centerY());
                 final int oldOffset = layout.getLineBaseline(shiftTestLine);
 
-                withAccessibilityDisabled(() -> {
-                    blockBringPointIntoView(); // Hack to prevent scrolling to cursor
+                final int[] newHlRegion = hlRegion(rect); // Compute this _before_ clear
+                try {
+                    beginBatchEdit();
+                    blockBringPointIntoView(); // Hack to block bring point into view
                     _hl.clear();
                     if (recompute) {
                         _hl.recompute();
                     }
-                    _hl.apply(hlRegion(rect));
-                });
+                    _hl.apply(newHlRegion);
+                } finally {
+                    blockBringPointIntoView(); // Hack to block bring point into view
+                    endBatchEdit();
+                }
 
                 _hlRect = rect;
 
@@ -232,6 +240,18 @@ public class HighlightingEditor extends AppCompatEditText {
     // ---------------------------------------------------------------------------------------------
 
     @Override
+    public void beginBatchEdit() {
+        _accessibilityEnabled = false;
+        super.beginBatchEdit();
+    }
+
+    @Override
+    public void endBatchEdit() {
+        super.endBatchEdit();
+        _accessibilityEnabled = true;
+    }
+
+    @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == View.VISIBLE) {
@@ -239,13 +259,11 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    // We don't want to save instance state - will be re-created anew
+    @SuppressLint("MissingSuperCall")
     @Override
     public Parcelable onSaveInstanceState() {
-        // Make sure spans cleared before save
-        if (_hl != null && _hlEnabled) {
-            _hl.clear();
-        }
-        return super.onSaveInstanceState();
+        return new Bundle();
     }
 
     @Override
@@ -276,7 +294,7 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (h != oldh) {
+        if (Math.abs(oldh - h) > _hlShiftThreshold) {
             updateHighlighting(false);
         }
     }
