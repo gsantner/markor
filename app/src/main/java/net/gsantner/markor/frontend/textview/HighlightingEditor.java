@@ -41,7 +41,6 @@ public class HighlightingEditor extends AppCompatEditText {
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
-    final static long MAX_SAVESTATE_LENGTH = 200000;         // Clear text if longer than this
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
@@ -95,7 +94,7 @@ public class HighlightingEditor extends AppCompatEditText {
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
-        // observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
+        observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -179,7 +178,7 @@ public class HighlightingEditor extends AppCompatEditText {
             initHighlighter();
             final Runnable update = () -> updateHighlighting(true);
             _hlDebounced = TextViewUtils.makeDebounced(_hl.getHighlightingDelay(), update);
-            post(update);
+            updateHighlighting(true);
         }
     }
 
@@ -200,7 +199,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (enable && !_hlEnabled) {
             _hlEnabled = true;
             initHighlighter();
-            post(() -> updateHighlighting(true));
+            updateHighlighting(true);
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
