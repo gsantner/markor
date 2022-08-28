@@ -457,4 +457,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Share into - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Error: Could not open.</string>
+    <string name="document_error_clip">Error encountered: Text copied to clipboard.</string>
 </resources>

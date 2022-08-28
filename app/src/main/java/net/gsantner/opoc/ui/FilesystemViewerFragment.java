@@ -566,7 +566,9 @@ public class FilesystemViewerFragment extends GsFragmentBase
     }
 
     public void clearSelection() {
-        _filesystemViewerAdapter.unselectAll();
+        if (_filesystemViewerAdapter != null) { // Happens when restoring after rotation etc
+            _filesystemViewerAdapter.unselectAll();
+        }
     }
 
 

@@ -9,10 +9,12 @@
 #########################################################*/
 package net.gsantner.markor.ui.hleditor;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -21,9 +23,9 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -37,9 +39,10 @@ import net.gsantner.opoc.util.StringUtils;
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
-    final static int HIGHLIGHT_SHIFT_LINES = 3;              // Lines to scroll before hl updated
+    final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
     final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
+    final static long MAX_SAVESTATE_LENGTH = 200000;         // Clear text if longer than this
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
@@ -78,7 +81,7 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
-                    withAccessibilityDisabled(() -> _hl.fixup(start, before, count));
+                    _hl.fixup(start, before, count);
                 }
             }
 
@@ -90,9 +93,8 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         });
 
-        final ViewTreeObserver observer = getViewTreeObserver();
-        observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
-        observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
+        // Listen to and update highlighting on scroll
+        getViewTreeObserver().addOnScrollChangedListener(this::updateDynamicHighlighting);
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -107,7 +109,6 @@ public class HighlightingEditor extends AppCompatEditText {
                 Math.abs(rect.bottom - _hlRect.bottom) > _hlShiftThreshold;
     }
 
-
     private void updateDynamicHighlighting() {
         if (_isDynamicHighlightingEnabled) {
             updateHighlighting(false);
@@ -115,8 +116,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void updateHighlighting(final boolean recompute) {
-        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && getLayout() != null) {
-            _isUpdatingDynamicHighlighting = true; // Don't enter here if already applying highlighting
+        final Layout layout;
+        if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && (layout = getLayout()) != null) {
+            _isUpdatingDynamicHighlighting = true;
 
             final Rect rect = new Rect();
             getLocalVisibleRect(rect);
@@ -127,24 +129,28 @@ public class HighlightingEditor extends AppCompatEditText {
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user
-                final int middleY = Math.round(0.5f * (rect.top + rect.bottom));
-                final int shiftTestIndex = rowStart(middleY);
-                final float oldOffset = _hl.yOffset(shiftTestIndex);
+                final int shiftTestLine = layout.getLineForVertical(rect.centerY());
+                final int oldOffset = layout.getLineBaseline(shiftTestLine);
 
-                withAccessibilityDisabled(() -> {
-                    // Hack to prevent scrolling to cursor. Time based blocking _may_ fail though.
-                    blockBringPointIntoView();
+                final int[] newHlRegion = hlRegion(rect); // Compute this _before_ clear
+                try {
+                    beginBatchEdit();
+                    blockBringPointIntoView(); // Hack to block bring point into view
                     _hl.clear();
                     if (recompute) {
                         _hl.recompute();
                     }
-                    _hl.apply(hlRegion(middleY, rect.height()));
-                });
+                    _hl.apply(newHlRegion);
+                } finally {
+                    blockBringPointIntoView(); // Hack to block bring point into view
+                    endBatchEdit();
+                }
 
                 _hlRect = rect;
 
-                final int shift = Math.round(_hl.yOffset(shiftTestIndex) - oldOffset);
-                if (_scrollView != null && shift != 0) {
+                final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
+                if (_scrollView != null && Math.abs(shift) > 1) {
+                    // Only apply the shift when not flicking or drag-scrolling
                     _scrollView.slowScrollShift(shift);
                 }
             }
@@ -203,14 +209,14 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Region to highlight
-    private int[] hlRegion(final int y, final int height) {
+    private int[] hlRegion(final Rect rect) {
         if (_isDynamicHighlightingEnabled) {
-            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * height) + _hlShiftThreshold;
-            final int startY = y - hlSize;
-            final int endY = y + hlSize;
-            return new int[]{rowStart(startY), rowEnd(endY)};
+            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * rect.height()) + _hlShiftThreshold;
+            final int startY = rect.centerY() - hlSize;
+            final int endY = rect.centerY() + hlSize;
+            return new int[]{ rowStart(startY), rowEnd(endY) };
         } else {
-            return new int[]{0, length()};
+            return new int[]{ 0, length() };
         }
     }
 
@@ -233,21 +239,24 @@ public class HighlightingEditor extends AppCompatEditText {
     // Various overrides
     // ---------------------------------------------------------------------------------------------
 
-    public void onPause() {
-        // Nothing here
-    }
-
-    public void onResume() {
-        updateHighlighting(true);
+    @Override
+    public void beginBatchEdit() {
+        _accessibilityEnabled = false;
+        super.beginBatchEdit();
     }
 
     @Override
-    public Parcelable onSaveInstanceState() {
-        // Make sure spans cleared before save
-        if (_hl != null && _hlEnabled) {
-            _hl.clear();
+    public void endBatchEdit() {
+        super.endBatchEdit();
+        _accessibilityEnabled = true;
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == View.VISIBLE) {
+            updateHighlighting(true);
         }
-        return super.onSaveInstanceState();
     }
 
     @Override
@@ -278,7 +287,9 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        updateDynamicHighlighting();
+        if (Math.abs(oldh - h) > _hlShiftThreshold) {
+            updateHighlighting(false);
+        }
     }
 
     @Override

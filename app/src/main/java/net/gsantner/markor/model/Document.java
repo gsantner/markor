@@ -10,6 +10,7 @@
 package net.gsantner.markor.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.TextFormat;
@@ -45,19 +47,21 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 public class Document implements Serializable {
     private static final int MAX_TITLE_EXTRACTION_LENGTH = 25;
 
+    private static final String MOD_PREF_NAME = "DOCUMENT_MOD_TIMES";
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
     public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
-    public static final int EXTRA_FILE_LINE_NUMBER_LAST = -1; // Flag for last line. Any -ve number will work
+    public static final int EXTRA_FILE_LINE_NUMBER_LAST = -919385553; // Flag for last line
 
     private final File _file;
     private final String _fileExtension;
     private String _title = "";
     private String _path = "";
-    private long _modTime = 0;
+    private long _modTime = -1; // The file's mod time when it was last touched by this document
+    private long _touchTime = -1; // The last time this document touched the file
     private FileUtils.FileInfo _fileInfo;
-    @StringRes
-    private int _format = TextFormat.FORMAT_UNKNOWN;
+    private @StringRes int _format = TextFormat.FORMAT_UNKNOWN;
+    private transient SharedPreferences _modTimePref;
 
     // Used to check if string changed
     private long _lastHash = 0;
@@ -102,7 +106,36 @@ public class Document implements Serializable {
         return _file;
     }
 
-    public long lastModified() {
+    private void initModTimePref() {
+        // We do not do this in constructor as we want to init after deserialization too
+        if (_modTimePref == null) {
+            _modTimePref = App.get().getApplicationContext().getSharedPreferences(MOD_PREF_NAME, Context.MODE_PRIVATE);
+        }
+    }
+
+    private long getGlobalTouchTime() {
+        initModTimePref();
+        return _modTimePref.getLong(_file.getAbsolutePath(), 0);
+    }
+
+    private void setGlobalTouchTime() {
+        initModTimePref();
+        _touchTime = System.currentTimeMillis();
+        _modTimePref.edit().putLong(_file.getAbsolutePath(), _touchTime).apply();
+    }
+
+    public void resetChangeTracking() {
+        _modTime = _touchTime = -1;
+    }
+
+    public boolean hasFileChangedSinceLastLoad() {
+        return _modTime < 0                            // Never read
+                || _touchTime < 0                      // Never read
+                || fileModTime() > _modTime            // File mod time updated
+                || getGlobalTouchTime() > _touchTime;  // File has been modified by another document
+    }
+
+    public long fileModTime() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).lastModifiedTime().toMillis();
@@ -209,7 +242,8 @@ public class Document implements Serializable {
 
         // Also set hash and time on load - should prevent unnecessary saves
         setContentHash(content);
-        _modTime = lastModified();
+        _modTime = fileModTime();
+        setGlobalTouchTime();
 
         return content;
     }
@@ -258,7 +292,7 @@ public class Document implements Serializable {
         }
 
         // Don't write same content if base file not changed
-        if (_modTime >= lastModified() && isContentSame(content)) {
+        if (!hasFileChangedSinceLastLoad() && isContentSame(content)) {
             return true;
         }
 
@@ -272,8 +306,10 @@ public class Document implements Serializable {
                 contentAsBytes = content.toString().getBytes();
             }
 
+
             final ShareUtil shareUtil = (shareUtil1 != null ? shareUtil1 : new ShareUtil(context));
-            if (shareUtil.isUnderStorageAccessFolder(_file, false) || shareUtil.isContentResolverProxyFile(_file)) {
+            final boolean isContentResolverProxyFile = shareUtil.isContentResolverProxyFile(_file);
+            if (shareUtil.isUnderStorageAccessFolder(_file, false) || isContentResolverProxyFile) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {
@@ -284,7 +320,7 @@ public class Document implements Serializable {
                         fos.write(contentAsBytes);
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
-                        if (shareUtil.isContentResolverProxyFile(_file)) {
+                        if (isContentResolverProxyFile) {
                             FileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
                     } catch (Exception ignored) {
@@ -302,11 +338,8 @@ public class Document implements Serializable {
 
         if (success) {
             setContentHash(content);
-            final long curModTime = lastModified();
-            if (_modTime >= curModTime) {
-                Log.w("MARKOR_DOCUMENT", "File modification time unchanged after write");
-            }
-            _modTime = curModTime;
+            _modTime = fileModTime();
+            setGlobalTouchTime();
         }
 
         return success;
@@ -343,7 +376,7 @@ public class Document implements Serializable {
     }
 
     // Convenient wrapper
-    private static String getFileNameWithTimestamp(boolean includeExt) {
+    private static String getFileNameWithTimestamp(final boolean includeExt) {
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
         return ShareUtil.getFilenameWithTimestamp("", "", ext);
     }

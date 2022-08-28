@@ -40,7 +40,10 @@ import net.gsantner.opoc.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -124,7 +127,7 @@ public abstract class Highlighter {
     private final ForceUpdateLayout _layoutUpdater;
 
     private final List<SpanGroup> _groups;
-    private final List<Integer> _applied;
+    private final NavigableSet<Integer> _applied;
 
     protected Spannable _spannable;
     protected final AppSettings _appSettings;
@@ -132,7 +135,7 @@ public abstract class Highlighter {
     public Highlighter(final AppSettings as) {
         _appSettings = as;
         _groups = new ArrayList<>();
-        _applied = new ArrayList<>();
+        _applied = new TreeSet<>();
 
         _layoutUpdater = new ForceUpdateLayout();
     }
@@ -149,10 +152,9 @@ public abstract class Highlighter {
             return this;
         }
 
-        for (int i = _applied.size() - 1; i >= 0; i--) {
-            // Reverse order to align with TextView internals
-            final SpanGroup group = _groups.get(_applied.get(i));
-            _spannable.removeSpan(group.span);
+        final Iterator<Integer> it = _applied.descendingIterator();
+        while(it.hasNext()) {
+            _spannable.removeSpan(_groups.get(it.next()).span);
         }
         _applied.clear();
 
@@ -212,15 +214,7 @@ public abstract class Highlighter {
         return _spannable;
     }
 
-    public boolean isApplied(final int index) {
-        // _applied is an ordered list of int, we can very efficiently search it
-        return !_applied.isEmpty()
-                && index <= _applied.get(_applied.size() - 1) // In the common case, we will hit this
-                && index >= _applied.get(0)
-                && Collections.binarySearch(_applied, index) >= 0;
-    }
-
-    public synchronized Highlighter apply() {
+    public Highlighter apply() {
         return apply(new int[]{0, _spannable.length()});
     }
 
@@ -234,8 +228,6 @@ public abstract class Highlighter {
             return this;
         }
 
-        final boolean sortRequired = !_applied.isEmpty();
-
         final int length = _spannable.length();
         if (!StringUtils.checkRange(length, range)) {
             return this;
@@ -244,23 +236,16 @@ public abstract class Highlighter {
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
-            if (group.start > range[1]) {
+            if (group.start >= range[1]) {
                 // As we are sorted on start, we can break out after the first group.start > end
                 break;
             }
 
-            final boolean intersecting = group.start < range[1] && group.end > range[0];
-            final boolean valid = group.start >= 0 && group.end <= length;
-            if (intersecting && valid && !isApplied(i)) {
+            final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
+            if (valid && !_applied.contains(i)) {
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 _applied.add(i);
             }
-
-        }
-
-        if (sortRequired) {
-            // Sort the list of applied spans if required
-            Collections.sort(_applied);
         }
 
         return this;
@@ -277,18 +262,6 @@ public abstract class Highlighter {
             _spannable.removeSpan(_layoutUpdater);
         }
         return this;
-    }
-
-    // The current offset of char at index in y due to spans implementing ShiftY
-    public final float yOffset(final int index) {
-        float offset = 0;
-        for (final int i : _applied) {
-            final SpanGroup group = _groups.get(i);
-            if (group.span instanceof ShiftY) {
-                offset += ((ShiftY) group.span).yShift(_spannable, group.start, group.end, index);
-            }
-        }
-        return offset;
     }
 
     /**
@@ -323,7 +296,9 @@ public abstract class Highlighter {
     //
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
-        _groups.add(new SpanGroup(span, start, end));
+        if (end > start && span != null) {
+            _groups.add(new SpanGroup(span, start, end));
+        }
     }
 
     protected final void createSpanForMatches(final Pattern pattern, Callback.r1<Object, Matcher> creator, int... groupsToMatch) {
@@ -514,11 +489,5 @@ public abstract class Highlighter {
                     .setStrike(strikethrough)
                     .setTextSize(textSize);
         }
-    }
-
-    // Interface for spans which will shift text in Y - used to adjust scroll position
-    public interface ShiftY {
-        // How much will text at index be shifted in y
-        float yShift(CharSequence text, int spanStart, int spanEnd, int index);
     }
 }
