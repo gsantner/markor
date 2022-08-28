@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Øverste</string>
     <string name="bottom">Bund</string>
     <string name="center">Centrer</string>
-
-
     <string name="center_text">Centrér tekst</string>
     <string name="edit_text_in_center_of_screen">Redigér tekst i centrum af skærmen</string>
     <string name="clipboard">Udklipsholder</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Vis indtastede YAML Front Matter attributter øverst på viste dokumenter. Indtast nøgler adskilt af kommaer. Efterlad tom for ingen eller brug \'*\' for alle. \n\nHvis nogen attribut er defineret i dokumentet (dvs. titel: \'Hello\') og der er {{ post.title }} i dit dokument også udskiftet. Du kan lave en brugerdefineret Front Matter overskrift på denne måde.</string>
     <string name="table_of_contents">Indhold</string>
     <string name="miscellaneous">Diverse</string>
-
-
     <string name="prefer_view">Foretræk visning</string>
     <string name="no_calendar_app_is_installed">Ingen kalender-app installeret</string>
     <string name="popular_documents">Populære dokumenter</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Del på - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Fejl: Kunne ikke åbne.</string>
+    <string name="document_error_clip">Der opstod en fejl: Tekst kopieret til udklipsholder.</string>
 </resources>
