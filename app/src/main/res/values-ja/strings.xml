@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">現在のディレクトリの再帰的な検索。</string>
     <string name="always_open_with_this_app">いつもこのアプリで開く</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">リストにファイル拡張子が含まれている場合は、常にこのアプリでファイルを開きます。 たとえば、Webファイルやファイル拡張子のないファイルを編集したい場合は、 \'なし, .html, .css , .js\' を使用してください。</string>
+    <string name="open_file_with">ファイルを開く</string>
     <string name="rotate">回転</string>
     <string name="template">テンプレート</string>
     <string name="send_debug_log">デバッグログを送信</string>
