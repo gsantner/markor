@@ -204,8 +204,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Bovenkant</string>
     <string name="bottom">Onderkant</string>
     <string name="center">Midden</string>
-
-
     <string name="center_text">Centreren</string>
     <string name="edit_text_in_center_of_screen">Bewerk tekst in het midden van het scherm</string>
     <string name="clipboard">Plakbord</string>
@@ -247,8 +245,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="enter_yaml_front_matter_attributes_to_show">Toon ingevoerde YAML Front Matter attributen boven op documenten te bekijken. Voer sleutels in gescheiden door komma\'s. Laat leeg voor geen of gebruik \'*\' voor iedereen. \n\nAls een attribuut is gedefinieerd in het document (d.w.z. title: \'Hallo\') en er zijn {{ post.title }} in je document die ook worden vervangen. Je kunt op deze manier een aangepaste koptekst van het Front Matter maken.</string>
     <string name="table_of_contents">Inhoudsopgave</string>
     <string name="miscellaneous">Overige</string>
-
-
     <string name="prefer_view">Voorkeur weergave</string>
     <string name="no_calendar_app_is_installed">Geen agenda app is geïnstalleerd!</string>
     <string name="popular_documents">Populaire documenten</string>
@@ -440,4 +436,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Deel mee - Formaat</string>
     <string name="auto_format">Auto-formaat</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Fout: Kan niet openen.</string>
+    <string name="document_error_clip">Fout opgetreden: tekst gekopieerd naar klembord.</string>
 </resources>
