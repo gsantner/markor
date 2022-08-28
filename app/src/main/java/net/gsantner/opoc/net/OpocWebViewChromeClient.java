@@ -8,8 +8,10 @@ package net.gsantner.opoc.net;
 
 import android.app.Activity;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -23,6 +25,8 @@ import java.lang.ref.WeakReference;
  */
 @SuppressWarnings("rawtypes")
 public class OpocWebViewChromeClient extends WebChromeClient {
+    public static String userAgentOverride = "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.97 Mobile Safari/537.36";
+
     private final WeakReference<FrameLayout> m_fullscreenContainer;
     private final WeakReference<Activity> m_activity;
     private final WeakReference<WebView> m_webView;
@@ -39,6 +43,11 @@ public class OpocWebViewChromeClient extends WebChromeClient {
         m_fullscreenContainer = new WeakReference<>(fullscreenContainer);
         m_activity = new WeakReference<>(activity);
         m_webView = new WeakReference<>(webView);
+
+        final WebSettings webSettings = m_webView.get().getSettings();
+        if (!TextUtils.isEmpty(userAgentOverride)) {
+            webSettings.setUserAgentString(userAgentOverride);
+        }
     }
 
     @Override
