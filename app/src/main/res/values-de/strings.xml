@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis.</string>
     <string name="always_open_with_this_app">Immer mit dieser App öffnen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
+    <string name="open_file_with">Datei öffnen mit</string>
     <string name="rotate">Drehen</string>
     <string name="template">Vorlage</string>
     <string name="send_debug_log">Debug-Log senden</string>

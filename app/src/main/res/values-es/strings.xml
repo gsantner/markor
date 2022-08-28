@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Búsqueda recursiva en el directorio actual.</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
+    <string name="open_file_with">Abrir archivo con</string>
     <string name="rotate">Rotar</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Enviar registro de depuración</string>

@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
+    <string name="open_file_with">Åpne fil med</string>
     <string name="rotate">Roter</string>
     <string name="template">Mal</string>
     <string name="send_debug_log">Send debug-logg</string>

@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursiv søgning i den aktuelle mappe.</string>
     <string name="always_open_with_this_app">Åbn altid med denne app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åbn altid filer med denne app, når listen indeholder filtypen. Brug \'Ingen, .html, . Ss, .js\' for eksempel, hvis du ønsker at redigere web-filer og dem uden filtypenavn.</string>
+    <string name="open_file_with">Åbn fil med</string>
     <string name="rotate">Rotér</string>
     <string name="template">Skabelon</string>
     <string name="send_debug_log">Send Fejlsøgningslog</string>

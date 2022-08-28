@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderiza pro limbas iscritas dae destra a manca</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Errore: Impossìbile creare una cartella pro sos documentos</string>
     <string name="last_modified_witharg">Ùrtima modìfica: %s</string>
+    <string name="last_modified">Ùrtima modìfica</string>
     <string name="select_this_folder">Ischerta custa cartella</string>
     <string name="select">Ischerta</string>
     <string name="create">Crea</string>
@@ -137,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Su tema generale impreadu in s\'aplicatzione</string>
     <string name="remember_last_directory">Ammenta s\'ùrtima cartella</string>
     <string name="syntax_highlighting">Evidentziatzione de sa sintassi</string>
+    <string name="dynamic_highlighting">Evidentziatzione dinàmica</string>
     <string name="highlighting_delay">Ritardu in s\'evidentziatzione</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Ritardu in millisegundos pro s\'agiornamentu de s\'evidentziatzione. Unu valore prus bassu at a evidentziare prus in presse, ma at a consumire de prus sa bateria tua e diat pòdere rallentare s\'aplicatzione in sos dispositivos prus betzos.</string>
     <string name="highlighting_enabled_or_not__appspecific">Controlla si su testu insertadu diat dèpere èssere evidentziadu o nono</string>
+    <string name="dynamic_highlighting_effect">S\'evidentziatzione dinàmica megiorat su rendimentu. Diat pòdere causare sa renderizatzione de artefatos.</string>
     <string name="control_font_size_in_editor">Controlla sa mannària de su caràtere impreadu in s\'editore</string>
     <string name="textactions_show_useful_actions_description__appspecific">Ammustra una barra cun butones discansosos in suta. Custas atziones de su testu mudant su testu o faghent partire un\'atzione basada in subra de su testu.</string>
     <string name="load_last_opened_folder_at_startup">Càrriga s\'ùrtima cartella aberta a s\'allughìngiu</string>
@@ -314,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
+    <string name="open_file_with">Aberi su documentu cun</string>
     <string name="rotate">Ròdia</string>
     <string name="template">Modellu</string>
     <string name="send_debug_log">Imbia unu registru de depuratzione (debug)</string>

@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekurentní vyhledávání v aktuální složce.</string>
     <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
+    <string name="open_file_with">Otevřít soubor pomocí</string>
     <string name="rotate">Otoèit</string>
     <string name="template">Šablona</string>
     <string name="send_debug_log">Odeslat protokol ladění</string>

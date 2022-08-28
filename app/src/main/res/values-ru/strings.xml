@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Отображать письмо слева направо</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Ошибка: не получилось создать папку блокнота</string>
     <string name="last_modified_witharg">Последнее изменение: %s</string>
-    <string name="last_modified">Последнее изменение</string>
+    <string name="last_modified">Был изменён</string>
     <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
     <string name="create">Создать</string>
@@ -309,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">Начальная папка</string>
     <string name="tab_width">Ширина табуляции</string>
     <string name="amount_of_space_for_tab">Количество пробелов в отступе</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выбранный файл может быть текстовым файлом. Открыть его в редакторе или в другом приложении? \n\nНе пытайтесь открыть бинарные файлы. Если вы не уверены, откройте другим приложением.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Выберите текстовый файл. Вы хотите открыть его в редакторе или в другом приложении? \n\nНе пытайтесь открывать бинарные файлы. Если вы не уверены, откройте другим приложением.</string>
     <string name="list_in_recent_files">Показывать в недавних файлах</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущем каталоге.</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Если расширение файла есть в списке, всегда будет открывать его в Markor. К примеру, если вы хотите редактировать файлы без расширения и веб-файлы, введите \'None, .html, .css, .js\'.</string>
+    <string name="open_file_with">Открыть файл</string>
     <string name="rotate">Поворот</string>
     <string name="template">Шаблон</string>
     <string name="send_debug_log">Отправить журнал отладки</string>
