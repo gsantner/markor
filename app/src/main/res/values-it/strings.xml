@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In alto</string>
     <string name="bottom">In basso</string>
     <string name="center">Al centro</string>
+    <string name="actionbutton_spacing">Spaziatura bottone</string>
+    <string name="horizontal_space_between_actionbuttons">Spazio orizzontale tra i Pulsanti azione</string>
     <string name="center_text">Centra il testo</string>
     <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
