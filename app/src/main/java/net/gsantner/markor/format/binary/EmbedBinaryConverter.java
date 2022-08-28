@@ -26,7 +26,7 @@ public class EmbedBinaryConverter extends TextConverter {
     private static final List<String> EXT = new ArrayList<>();
     private static final List<String> EXT_AUDIO = Arrays.asList(".mp3", ".ogg", ".flac", ".opus", ".oga", ".wma", ".m4a", ".aac", ".wav", ".amr", ".mid", ".midi", ".pcm");
     private static final List<String> EXT_IMAGE = Arrays.asList(".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".svg", ".heic", ".heif");
-    private static final List<String> EXT_VIDEO = Arrays.asList(".webm", ".mp4", ".mpeg4", ".mpeg", ".mpg", ".mkv", ".3gp", ".ts");
+    private static final List<String> EXT_VIDEO = Arrays.asList(".webm", ".mp4", ".mpeg4", ".mpeg", ".mpg", ".mkv", ".3gp", ".ts", ".m4v");
     private static final List<String> EXT_TEXT_PLAYLIST = Arrays.asList(".m3u", ".m3u8"); // don't register
 
     public static final String EXT_MATCHES_M3U_PLAYLIST = "(?i).m3u8?";
@@ -63,20 +63,20 @@ public class EmbedBinaryConverter extends TextConverter {
         if (true) {
             converted += "\n<div class='sticky' style='top: 0px; border-top-width:0.1px; width: 100%; background: black;'>\n";
             if (EXT_IMAGE.contains(extWithDot)) {
-                converted += "<img class='rotatable' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/><br/>";
+                converted += "<img class='' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
             } else if (EXT_VIDEO.contains(extWithDot) || EXT_TEXT_PLAYLIST.contains(extWithDot)) {
-                converted += "<video class='htmlav' autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video><br/>";
+                converted += "<video class='htmlav' autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
             } else if (EXT_AUDIO.contains(extWithDot)) {
-                converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay loop controls loop='0' style='width: 100%;'><source srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio><br/>";
+                converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay loop controls loop='0' style='width: 100%;'><source srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio>";
             }
-            converted += "<div style='margin-left: 12px; margin-right: 8px;'>";
+            converted += "<span class='clear'></span><div style='margin-left: 12px; margin-right: 8px;'>";
             if (converted.contains("htmlav")) {
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, -1);\"/>⏮️️</button>";
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏪</button>";
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avPause();\"/>⏯️</button>";
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, +1);\"/>⏭️</button>";
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, -1);\"/>⏮️️</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏪</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avPause();\"/>⏯️</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, +1);\"/>⏭️</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
                 onLoadJs += "document.playlist = []; document.playlistTitles = []; document.playlistIndex = -1;";
                 onLoadJs += "document.avLoopToggle = function()      { var o=document.getElementsByClassName('htmlav')[0]; o.loop = !o.loop; };";
                 onLoadJs += "document.avSeek           = function(delta)    { var o=document.getElementsByClassName('htmlav')[0]; o.currentTime +=delta; o.play(); };";
@@ -95,7 +95,7 @@ public class EmbedBinaryConverter extends TextConverter {
                 onLoadJs += "document.avAddToPlaylist('" + TOKEN_FILEURI_VIEWED_FILE + "', '" + TOKEN_FILEURI_VIEWED_FILE + "');";
             }
             if (converted.contains("rotatable")) {
-                converted += "<button type='button' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";
                 onLoadJs += "document.rotation = 0;";
                 onLoadJs += "document.rotate       = function()      { var o=document.getElementsByClassName('rotatable')[0]; document.rotation+=90; o.style.transform = 'rotate(xdeg)'.replace('x', document.rotation); o.style.height = Math.min(o.offsetHeight, window.screen.width*0.9)+'px'; };";
             }
