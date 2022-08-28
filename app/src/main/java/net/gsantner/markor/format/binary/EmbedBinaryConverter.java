@@ -27,7 +27,6 @@ public class EmbedBinaryConverter extends TextConverter {
     private static final List<String> EXT_AUDIO = Arrays.asList(".mp3", ".ogg", ".flac", ".opus", ".oga", ".wma", ".m4a", ".aac", ".wav", ".amr", ".mid", ".midi", ".pcm");
     private static final List<String> EXT_IMAGE = Arrays.asList(".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".svg", ".heic", ".heif");
     private static final List<String> EXT_VIDEO = Arrays.asList(".webm", ".mp4", ".mpeg4", ".mpeg", ".mpg", ".mkv", ".3gp", ".ts", ".m4v");
-    private static final List<String> EXT_TEXT_PLAYLIST = Arrays.asList(".m3u", ".m3u8"); // don't register
 
     public static final String EXT_MATCHES_M3U_PLAYLIST = "(?i).m3u8?";
 
@@ -64,7 +63,7 @@ public class EmbedBinaryConverter extends TextConverter {
             converted += "\n<div class='sticky' style='top: 0px; border-top-width:0.1px; width: 100%; background: black;'>\n";
             if (EXT_IMAGE.contains(extWithDot)) {
                 converted += "<img class='' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
-            } else if (EXT_VIDEO.contains(extWithDot) || EXT_TEXT_PLAYLIST.contains(extWithDot)) {
+            } else if (EXT_VIDEO.contains(extWithDot) || extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST)) {
                 converted += "<video class='htmlav' autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
             } else if (EXT_AUDIO.contains(extWithDot)) {
                 converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay loop controls loop='0' style='width: 100%;'><source srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio>";
