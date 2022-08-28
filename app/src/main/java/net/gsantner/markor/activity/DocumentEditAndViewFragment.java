@@ -137,7 +137,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface"})
+    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface", "JavascriptInterface"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -153,7 +153,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         // Using `if (_document != null)` everywhere is dangerous
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
-        if (!isStateGood()) {
+        if (isStateBad()) {
             Toast.makeText(activity, R.string.document_error_exit, Toast.LENGTH_LONG).show();
             activity.finish();
             return;
@@ -292,12 +292,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-
-        // Don't save contents - will be reloaded from file
-        _hlEditor.setHighlightingEnabled(false);
-        _hlEditor.setAutoFormatEnabled(false);
-        _hlEditor.setText("");
-
         super.onSaveInstanceState(outState);
     }
 
@@ -384,7 +378,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     }
 
     public boolean loadDocument() {
-        if (!isSdStatusGood() || !isStateGood()) {
+        if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
@@ -642,7 +636,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
-        SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
             mi.setChecked(_wrapText);
         }
@@ -653,9 +646,13 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             mi.setChecked(_autoFormat);
         }
 
+        final SubMenu su;
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
             for (int i = 0; i < su.size(); i++) {
-                mi.setChecked(true);
+                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
+                    mi.setChecked(true);
+                    break;
+                }
             }
         }
     }
@@ -703,27 +700,27 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         }
     }
 
-    public boolean isSdStatusGood() {
+    public boolean isSdStatusBad() {
         if (_shareUtil.isUnderStorageAccessFolder(_document.getFile(), false) &&
                 _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
             _shareUtil.showMountSdDialog(getActivity());
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Checks document state if things aren't in a good state
-    public boolean isStateGood() {
-        return (_document != null &&
-                _hlEditor != null &&
-                _appSettings != null &&
-                _document.testCreateParent() &&
-                _shareUtil.canWriteFile(_document.getFile(), false, true));
+    public boolean isStateBad() {
+        return (_document == null ||
+                _hlEditor == null ||
+                _appSettings == null ||
+                !_document.testCreateParent() ||
+                !_shareUtil.canWriteFile(_document.getFile(), false, true));
     }
 
     // Save the file
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        if (!isSdStatusGood() || !isStateGood()) {
+        if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }

@@ -11,8 +11,10 @@ package net.gsantner.markor.frontend.textview;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
@@ -20,6 +22,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
@@ -89,8 +92,10 @@ public class HighlightingEditor extends AppCompatEditText {
             }
         });
 
-        // Listen to and update highlighting on scroll
-        getViewTreeObserver().addOnScrollChangedListener(this::updateDynamicHighlighting);
+        // Listen to and update highlighting
+        final ViewTreeObserver observer = getViewTreeObserver();
+        observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
+        // observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -179,9 +184,10 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void initHighlighter() {
-        _hlShiftThreshold = Math.round(getPaint().getTextSize() * HIGHLIGHT_SHIFT_LINES);
+        final Paint paint = getPaint();
+        _hlShiftThreshold = Math.round(paint.getTextSize() * HIGHLIGHT_SHIFT_LINES);
         if (_hl != null) {
-            _hl.setSpannable(getText()).configure(getPaint()).reflow();
+            _hl.setSpannable(getText()).configure(paint).reflow();
         }
     }
 
@@ -245,6 +251,15 @@ public class HighlightingEditor extends AppCompatEditText {
     public void endBatchEdit() {
         super.endBatchEdit();
         _accessibilityEnabled = true;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        if (_hl != null && _hlEnabled) {
+            _hl.clear(); // Don't save spans
+        }
+        super.onSaveInstanceState();
+        return null; // Don't save any state - rely on recreation
     }
 
     @Override
