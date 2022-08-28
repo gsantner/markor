@@ -12,7 +12,7 @@ import android.util.Pair;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.opoc.format.playlist.SimpleM3UParser;
+import net.gsantner.opoc.format.OpocSimplePlaylistParser;
 import net.gsantner.opoc.util.FileUtils;
 import net.gsantner.opoc.util.ShareUtil;
 
@@ -34,7 +34,7 @@ public class EmbedBinaryConverter extends TextConverter {
     private static final String HTML100_BODY_BEGIN = "<div>\n  ";
     private static final String HTML101_BODY_END = "\n\n</div>";
     private static final String CSS_EMBED_STYLE = CSS_S + "html,body{padding: 0px; margin:0px;}" + CSS_E;
-    private static final String CSS_EMBED_TABLE_LIMITS = CSS_S + "table {word-break: break-word;} thead tr th:first-child, tbody tr td:first-child {word-break:keep-all; min-width: 100px;} thead {display:none;}" + CSS_E;
+    private static final String CSS_EMBED_TABLE_LIMITS = CSS_S + "table {word-break: break-word;} thead tr th:first-child, tbody tr td:first-child {word-break:keep-all; min-width: 100px;} thead {display:none;}  table tr:nth-child(odd) td{ background: " + TOKEN_COLOR_GREY_OF_THEME +"; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
 
     static {
         EXT.addAll(EXT_IMAGE);
@@ -69,6 +69,7 @@ public class EmbedBinaryConverter extends TextConverter {
             } else if (EXT_AUDIO.contains(extWithDot)) {
                 converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay loop controls loop='0' style='width: 100%;'><source srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio><br/>";
             }
+            converted += "<div style='margin-left: 12px; margin-right: 8px;'>";
             if (converted.contains("htmlav")) {
                 converted += "<button type='button' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, -1);\"/>⏮️️</button>";
                 converted += "<button type='button' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏪</button>";
@@ -86,7 +87,7 @@ public class EmbedBinaryConverter extends TextConverter {
                         "Android.webViewJavascriptCallback(['toast', document.playlistTitles[document.playlistIndex] ]);" +
                         "};";
                 onLoadJs += "document.avPause          = function()         { var o=document.getElementsByClassName('htmlav')[0]; if(o.paused){o.play();} else{o.pause();}; };";
-                onLoadJs += "document.avSetUrl         = function(u)        { var o=document.getElementsByClassName('htmlav')[0]; o.src = u; };";
+                onLoadJs += "document.avSetUrl         = function(u)        { var o=document.getElementsByClassName('htmlav')[0]; o.src = u; o.play(); };";
                 onLoadJs += "document.avAddToPlaylist  = function(t, u)     { var o=document.getElementsByClassName('htmlav')[0]; document.playlist.push(u); document.playlistTitles.push(t); if (document.playlistIndex < 0){ document.avSetPlaylistPos(null, 1);} };";
                 onLoadJs += "document.getElementsByClassName('htmlav')[0].addEventListener('ended', ()=>{ console.error('ended'); document.avSetPlaylistPos(null, +1); });";
 
@@ -98,7 +99,7 @@ public class EmbedBinaryConverter extends TextConverter {
                 onLoadJs += "document.rotation = 0;";
                 onLoadJs += "document.rotate       = function()      { var o=document.getElementsByClassName('rotatable')[0]; document.rotation+=90; o.style.transform = 'rotate(xdeg)'.replace('x', document.rotation); o.style.height = Math.min(o.offsetHeight, window.screen.width*0.9)+'px'; };";
             }
-            converted += "\n</div>\n"; // sticky
+            converted += "\n</div></div>\n"; // button-margin, sticky
         }
 
 
@@ -115,14 +116,20 @@ public class EmbedBinaryConverter extends TextConverter {
 
             // m3u/m3u8: buttons for playlist entries
             if (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST)) {
+                table.setLength(0);
+                table.append(String.format("%s | %s\n-----|-----\n", context.getString(R.string.name), context.getString(R.string.info)));
+
                 int i = 0;
-                for (SimpleM3UParser.M3U_Entry line : new SimpleM3UParser().parse(FileUtils.readTextFileFast(file).first)) {
-                    converted += "\n<button type='button' onclick=\"javascript:document.avSetPlaylistPos(" + (i + 1) + ");\"/>" + line.getName() + "</button>";
+                for (OpocSimplePlaylistParser.M3U_Entry line : new OpocSimplePlaylistParser().parse(FileUtils.readTextFileFast(file).first)) {
                     onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '" + line.getUrl() + "');";
+                    table.append(line.getName(80)).append(" | ");
+                    table.append("<button type='button' onclick=\"javascript:document.avSetPlaylistPos(");
+                    table.append(i + 1).append(");\"/>&#10132;</button>\n");
                     i++;
                 }
                 if (i > 0) {
                     onLoadJs += "document.avLoopToggle(); document.avSetPlaylistPos(1, 0);";
+                    converted += "\n<br/>" + MarkdownTextConverter.flexmarkRenderer.render(MarkdownTextConverter.flexmarkParser.parse(table.toString()));
                 }
             }
 

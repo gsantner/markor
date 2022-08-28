@@ -10,12 +10,7 @@
  * Mainly for playlists with video streams
  * See https://gsantner.net/blog/2019/07/26/simple-m3u-playlist-parser-iptv-m3u8-android-java.html
  */
-package net.gsantner.opoc.format.playlist;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Environment;
+package net.gsantner.opoc.format;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Simple Parser for M3U playlists
  */
 @SuppressWarnings({"WeakerAccess", "CaughtExceptionImmediatelyRethrown", "unused", "SpellCheckingInspection"})
-public class SimpleM3UParser {
+public class OpocSimplePlaylistParser {
     private final static String EXTINF_TAG = "#EXTINF:";
     private final static String EXTINF_TVG_NAME = "tvg-name=\"";
     private final static String EXTINF_TVG_ID = "tvg-id=\"";
@@ -204,17 +199,21 @@ public class SimpleM3UParser {
         public int seconds = -1;
         public boolean isRadio = false;
 
-        public String getName() {
+        public String getName(int... maxLen) {
+            final int limitTotal = maxLen != null && maxLen.length > 0 ? maxLen[0] : 999;
+            final int limitBegin = Math.round(limitTotal * 0.565f);
+            final int limitEnd = Math.round(limitTotal * 0.435f);
+
+            String t = "";
             if (tvgName != null) {
-                return tvgName;
+                t = tvgName;
             } else if (name != null) {
-                return name;
+                t = name;
             } else if (url != null) {
-                String t = url.replaceFirst("(?i)https?:..", "");
-                t = t.length() < 27 ? t : t.replaceFirst("(.{20}).+(.{7})", "$1…$2");
-                return t;
+                t = url.replaceFirst("(?i)https?:..", "").replaceFirst("\\.\\w+$", "");
             }
-            return "";
+            t = t.length() < limitTotal ? t : t.replaceFirst("(.{"+limitBegin+"}).+(.{"+limitEnd+"})", "$1…$2");
+            return t;
         }
 
         public String getUrl() {
@@ -232,16 +231,17 @@ public class SimpleM3UParser {
     ////
     ///  Examples
     //
+/*
     public static class Examples {
         public static List<M3U_Entry> example() {
-            SimpleM3UParser simpleM3UParser = new SimpleM3UParser();
+            OpocSimplePlaylistParser simpleM3UParser = new OpocSimplePlaylistParser();
             File moviesFolder = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_MOVIES);
             return simpleM3UParser.parse(new File(moviesFolder, "streams.m3u"));
         }
 
         public static List<M3U_Entry> exampleWithLogoRewrite() {
             List<M3U_Entry> playlist = new ArrayList<>();
-            SimpleM3UParser simpleM3UParser = new SimpleM3UParser();
+            OpocSimplePlaylistParser simpleM3UParser = new OpocSimplePlaylistParser();
             File moviesFolder = new File(new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_MOVIES), "liveStreams");
             File logosFolder = new File(moviesFolder, "Senderlogos");
             File streams = new File(moviesFolder, "streams.m3u");
@@ -262,4 +262,5 @@ public class SimpleM3UParser {
             activity.startActivity(intent);
         }
     }
+*/
 }

@@ -46,6 +46,7 @@ public abstract class TextConverter {
     protected static final String TOKEN_FONT = "{{ app.text_font }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME = "{{ app.token_bw_inverse_of_theme }}";
     protected static final String TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE = "{{ app.token_headline_underline_inverse_of_theme }}";
+    protected static final String TOKEN_COLOR_GREY_OF_THEME = "{{ app.token_color_grey_inverse_of_theme }}";
     protected static final String TOKEN_LINK_COLOR = "{{ app.token_link_color }}";
     protected static final String TOKEN_ACCENT_COLOR = "{{ app.token_accent_color }}";
     protected static final String TOKEN_TEXT_CONVERTER_CSS_CLASS = "{{ post.text_converter_name }}";
@@ -174,6 +175,7 @@ public abstract class TextConverter {
         html = html
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
+                .replace(TOKEN_COLOR_GREY_OF_THEME, ContextUtils.colorToHexString(ContextCompat.getColor(context, darkTheme ? R.color.grey : R.color.lighter_grey)))
                 .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
                 .replace(TOKEN_ACCENT_COLOR, ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
