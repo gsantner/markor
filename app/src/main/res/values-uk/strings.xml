@@ -440,4 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поділитися у форматі - Формат</string>
     <string name="auto_format">Автоматичний формат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="document_error_exit">Помилка: Не вдалося відкрити.</string>
+    <string name="document_error_clip">Помилка виявлення: текст скопійовано до буфера обміну.</string>
 </resources>
