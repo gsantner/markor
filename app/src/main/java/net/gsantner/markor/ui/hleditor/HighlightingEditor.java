@@ -259,13 +259,6 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    // We don't want to save instance state - will be re-created anew
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public Parcelable onSaveInstanceState() {
-        return new Bundle();
-    }
-
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);

@@ -214,6 +214,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
+    }
+
+    // We do these things _after_ restore so that the restore doesn't clobber them
+    @Override
+    public void onViewStateRestored(final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
         final Bundle args = getArguments();
 
         _document.resetChangeTracking(); // force next reload
@@ -227,8 +233,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             setViewModeVisibility(startInPreview);
         }
 
-        // Set initial wrap state
-        initDocState();
+        _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
+        _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
+
+        _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
+        _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
+        updateMenuToggleStates(0);
+
+        setHorizontalScrollMode(_wrapText);
+        _hlEditor.setHighlightingEnabled(_highlightText);
 
         final Runnable debounced = StringUtils.makeDebounced(500, () -> {
             checkTextChangeState();
@@ -278,6 +291,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+
+        // Don't save contents - will be reloaded from file
+        _hlEditor.setHighlightingEnabled(false);
+        _hlEditor.setAutoFormatEnabled(false);
+        _hlEditor.setText("");
+
         super.onSaveInstanceState(outState);
     }
 
@@ -359,7 +378,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public boolean loadDocument() {
-        isStateGood();
+        if (!isSdStatusGood() || !isStateGood()) {
+            errorClipText();
+            return false;
+        }
 
         // Only trigger the load process if constructing or file updated
         if (_document.hasFileChangedSinceLastLoad()) {
@@ -607,18 +629,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         updateMenuToggleStates(textFormatId);
     }
 
-    private void initDocState() {
-        _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
-        _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
-
-        _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
-        _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
-        updateMenuToggleStates(0);
-
-        setHorizontalScrollMode(_wrapText);
-        _hlEditor.setHighlightingEnabled(_highlightText);
-    }
-
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         SubMenu su;
@@ -694,11 +704,11 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     // Checks document state if things aren't in a good state
     public boolean isStateGood() {
-        return (_document == null ||
-                _hlEditor == null ||
-                _appSettings == null ||
-                !_document.testCreateParent() ||
-                !_shareUtil.canWriteFile(_document.getFile(), false, true));
+        return (_document != null &&
+                _hlEditor != null &&
+                _appSettings != null &&
+                _document.testCreateParent() &&
+                _shareUtil.canWriteFile(_document.getFile(), false, true));
     }
 
     // Save the file
