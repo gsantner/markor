@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Rekursiv sökning i aktuell katalog.</string>
     <string name="always_open_with_this_app">Öppna alltid med denna app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer med filtyperna i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webbfiler och filer utan filändelse.</string>
+    <string name="open_file_with">Öppna fil med</string>
     <string name="rotate">Rotera</string>
     <string name="template">Mall</string>
     <string name="send_debug_log">Skicka felsökningslogg</string>
