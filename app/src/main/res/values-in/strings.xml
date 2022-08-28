@@ -200,8 +200,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Atas</string>
     <string name="bottom">Bawah</string>
     <string name="center">Tengah</string>
-
-
     <string name="center_text">Teks tengah</string>
     <string name="edit_text_in_center_of_screen">Edit teks di tengah layar</string>
     <string name="clipboard">Papan klip</string>
@@ -242,8 +240,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematika</string>
     <string name="table_of_contents">Daftar Isi</string>
     <string name="miscellaneous">Lain-lain</string>
-
-
     <string name="prefer_view">Lebih suka tampilan</string>
     <string name="no_calendar_app_is_installed">Tidak ada aplikasi kalender yang diinstal!</string>
     <string name="popular_documents">Dokumen populer</string>
