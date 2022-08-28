@@ -175,7 +175,7 @@ public abstract class TextConverter {
         html = html
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
-                .replace(TOKEN_COLOR_GREY_OF_THEME, ContextUtils.colorToHexString(ContextCompat.getColor(context, darkTheme ? R.color.grey : R.color.lighter_grey)))
+                .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
                 .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
                 .replace(TOKEN_ACCENT_COLOR, ContextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
