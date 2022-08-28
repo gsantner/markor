@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
+    <string name="open_file_with">Aberi su documentu cun</string>
     <string name="rotate">Ròdia</string>
     <string name="template">Modellu</string>
     <string name="send_debug_log">Imbia unu registru de depuratzione (debug)</string>
