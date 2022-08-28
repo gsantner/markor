@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import androidx.annotation.NonNull;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.binary.EmbedBinaryConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownAutoFormat;
@@ -49,12 +50,16 @@ public class TextFormat {
     public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
     public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
+    public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
+
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
     public final static ZimWikiTextConverter CONVERTER_ZIMWIKI = new ZimWikiTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueConverter CONVERTER_KEYVALUE = new KeyValueConverter();
     public final static PlaintextConverter CONVERTER_PLAINTEXT = new PlaintextConverter();
+    public final static EmbedBinaryConverter CONVERTER_EMBEDBINARY = new EmbedBinaryConverter();
+
 
     // Order here is used to **determine** format by it's file extension and/or content heading
     private final static TextConverter[] CONVERTERS = new TextConverter[]{
@@ -63,6 +68,7 @@ public class TextFormat {
             CONVERTER_ZIMWIKI,
             CONVERTER_KEYVALUE,
             CONVERTER_PLAINTEXT,
+            CONVERTER_EMBEDBINARY,
     };
 
     public static boolean isTextFile(final String absolutePath) {
@@ -119,6 +125,12 @@ public class TextFormat {
                 format._textActions = new ZimWikiTextActions(context, document);
                 format._autoFormatInputFilter = new ZimWikiAutoFormat();
                 format._autoFormatTextWatcher = new ListHandler(ZimWikiAutoFormat.getPrefixPatterns());
+                break;
+            }
+            case FORMAT_EMBEDBINARY: {
+                format._converter = CONVERTER_EMBEDBINARY;
+                format._highlighter = new PlaintextHighlighter(as);
+                format._textActions = new PlaintextTextActions(context, document);
                 break;
             }
             default:

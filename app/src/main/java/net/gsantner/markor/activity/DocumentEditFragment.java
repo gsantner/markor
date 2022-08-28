@@ -32,12 +32,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.gsantner.markor.App;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverter;
@@ -92,7 +92,6 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     private HighlightingEditor _hlEditor;
     private ViewGroup _textActionsBar;
-    private TextView _textSdWarning;
     private WebView _webView;
     private DraggableScrollbarScrollView _primaryScrollView;
 
@@ -105,9 +104,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
-    private OpocWebViewChromeClient _webChromeClient;
     private boolean _nextConvertToPrintMode = false;
-    private long _loadModTime = 0;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -115,10 +112,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
     // Toggling the wrap state option will set and save the new value, but the file will always
     // open wrapped in the main activity.
-    private boolean wrapTextSetting;
-    private boolean wrapText;
-    private boolean highlightText;
-    private boolean autoFormat;
+    private boolean _wrapTextSetting;
+    private boolean _wrapText;
+    private boolean _highlightText;
+    private boolean _autoFormat;
 
     public DocumentEditFragment() {
         super();
@@ -128,14 +125,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-        // Create the document as soon as possible
         if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
             _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
         } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
             _document = (Document) args.get(Document.EXTRA_DOCUMENT);
-        } else {
-            // We must have a document
-            _document = Document.getDefault(getContext());
         }
     }
 
@@ -150,21 +143,28 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
         _appSettings = new AppSettings(activity);
+
+        _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
+        _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
+        _webView = view.findViewById(R.id.document__fragment_view_webview);
+        _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
+        _shareUtil = new ShareUtil(activity);
+
+        // Using `if (_document != null)` everywhere is dangerous
+        // It may cause reads or writes to _silently fail_
+        // Instead we try to create it, and exit if that isn't possible
+        if (!isStateGood()) {
+            Toast.makeText(activity, R.string.document_error_exit, Toast.LENGTH_LONG).show();
+            activity.finish();
+            return;
+        }
+
         if (_appSettings.getSetWebViewFulldrawing() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             WebView.enableSlowWholeDocumentDraw();
         }
 
-        _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
-        _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
-        _textSdWarning = view.findViewById(R.id.document__fragment__edit__content_editor__permission_warning);
-        _webView = view.findViewById(R.id.document__fragment_view_webview);
-        _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
-
-        _shareUtil = new ShareUtil(activity);
-
         _webViewClient = new MarkorWebViewClient(activity);
-        _webChromeClient = new OpocWebViewChromeClient(_webView, getActivity(), view.findViewById(R.id.document__fragment_fullscreen_overlay));
-        _webView.setWebChromeClient(_webChromeClient);
+        _webView.setWebChromeClient(new OpocWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
         WebSettings webSettings = _webView.getSettings();
@@ -215,16 +215,34 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
 
         _webView.setBackgroundColor(Color.TRANSPARENT);
-        final Bundle args = getArguments();
-        setViewModeVisibility(args.getBoolean(START_PREVIEW, _appSettings.getDocumentPreviewState(_document.getPath())));
+    }
 
-        _loadModTime = 0; // force next load
+    // We do these things _after_ restore so that the restore doesn't clobber them
+    @Override
+    public void onViewStateRestored(final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        final Bundle args = getArguments();
+
+        _document.resetChangeTracking(); // force next reload
         loadDocument();
 
-        _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+        // Start preview _after_ text load
+        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
+        if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
+            setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview));
+        } else {
+            setViewModeVisibility(startInPreview);
+        }
 
-        // Set initial wrap state
-        initDocState();
+        _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
+        _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
+
+        _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
+        _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
+        updateMenuToggleStates(0);
+
+        setHorizontalScrollMode(_wrapText);
+        _hlEditor.setHighlightingEnabled(_highlightText);
 
         final Runnable debounced = StringUtils.makeDebounced(500, () -> {
             checkTextChangeState();
@@ -237,17 +255,15 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void onFragmentFirstTimeVisible() {
 
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
-        final Bundle args = getArguments();
 
         // First start - overwrite start position if needed
         if (_savedInstanceState == null) {
-            if (isDisplayedAtMainActivity() || _appSettings.isEditorStartOnBotttom()) {
-                startPos = _hlEditor.length();
-            } else if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+            final Bundle args = getArguments();
+            if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
                 final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
                 if (lno >= 0) {
                     startPos = StringUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-                } else {
+                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
                     startPos = _hlEditor.length();
                 }
             }
@@ -256,50 +272,33 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         StringUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
-    public void resume() {
+    @Override
+    public void onResume() {
         loadDocument();
-        if (_hlEditor != null) {
-            _hlEditor.onResume();
-        }
-        if (_webView != null) {
-            _webView.onResume();
-        }
+        _webView.onResume();
+        super.onResume();
     }
 
     @Override
-    public void onResume() {
-        resume();
-        super.onResume();
+    public void onPause() {
+        saveDocument(false);
+        _webView.onPause();
+        _appSettings.addRecentDocument(_document.getFile());
+        _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
+        _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        super.onPause();
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+
+        // Don't save contents - will be reloaded from file
+        _hlEditor.setHighlightingEnabled(false);
+        _hlEditor.setAutoFormatEnabled(false);
+        _hlEditor.setText("");
+
         super.onSaveInstanceState(outState);
-    }
-
-    public void pause() {
-        saveDocument(false);
-        if (_hlEditor != null) {
-            _hlEditor.onPause();
-        }
-        if (_webView != null) {
-            _webView.onPause();
-        }
-
-        if (_appSettings != null && _document != null) {
-            _appSettings.addRecentDocument(_document.getFile());
-            _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
-            if (_hlEditor != null) {
-                _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
-            }
-        }
-    }
-
-    @Override
-    public void onPause() {
-        pause();
-        super.onPause();
     }
 
     @Override
@@ -310,24 +309,29 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         cu.tintMenuItems(menu, true, Color.WHITE);
         cu.setSubMenuIconsVisiblity(menu, true);
 
-        menu.findItem(R.id.action_undo).setVisible(_appSettings.isEditorHistoryEnabled());
-        menu.findItem(R.id.action_redo).setVisible(_appSettings.isEditorHistoryEnabled());
+        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
+        final boolean isText = !_document.isBinaryFileNoTextLoading();
+
+        menu.findItem(R.id.action_undo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
+        menu.findItem(R.id.action_redo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
 
-        final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
-        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(!_isPreviewVisible);
-        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(!_isPreviewVisible);
-        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(!_isPreviewVisible);
+        _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
+        _redoMenuItem = menu.findItem(R.id.action_redo).setVisible(isText && !_isPreviewVisible);
+        _saveMenuItem = menu.findItem(R.id.action_save).setVisible(isText && !_isPreviewVisible);
 
         // Edit / Preview switch
-        menu.findItem(R.id.action_edit).setVisible(_isPreviewVisible);
+        menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
         menu.findItem(R.id.submenu_attach).setVisible(false);
-        menu.findItem(R.id.action_preview).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search).setVisible(!_isPreviewVisible);
-        menu.findItem(R.id.action_search_view).setVisible(_isPreviewVisible);
-        menu.findItem(R.id.submenu_format_selection).setVisible(!_isPreviewVisible);
+        menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
+        menu.findItem(R.id.submenu_format_selection).setVisible(isText && !_isPreviewVisible);
+        menu.findItem(R.id.submenu_share).setVisible(isText);
+        menu.findItem(R.id.submenu_tools).setVisible(isText);
+        menu.findItem(R.id.submenu_per_file_settings).setVisible(isText);
 
         menu.findItem(R.id.action_share_pdf).setVisible(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT);
         menu.findItem(R.id.action_share_image).setVisible(true);
@@ -379,12 +383,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         }
     }
 
-    public void loadDocument() {
-        //Only trigger the load process if constructing or file updated
-        final long modTime = _document != null ? _document.lastModified() : Long.MIN_VALUE;
-        if (modTime > _loadModTime) {
+    public boolean loadDocument() {
+        if (!isSdStatusGood() || !isStateGood()) {
+            errorClipText();
+            return false;
+        }
 
-            _loadModTime = modTime;
+        // Only trigger the load process if constructing or file updated
+        if (_document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
             if (!_document.isContentSame(_hlEditor.getText())) {
@@ -393,18 +399,30 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 sel[0] = Math.min(sel[0], content.length());
                 sel[1] = Math.min(sel[1], content.length());
 
+                if (_editTextUndoRedoHelper != null) {
+                    _editTextUndoRedoHelper.disconnect();
+                    _editTextUndoRedoHelper.clearHistory();
+                }
+
                 _hlEditor.withAutoFormatDisabled(() -> _hlEditor.setText(content));
+
+                if (_editTextUndoRedoHelper == null) {
+                    _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+                } else {
+                    _editTextUndoRedoHelper.setTextView(_hlEditor);
+                }
 
                 _hlEditor.setSelection(sel[0], sel[1]);
                 StringUtils.showSelection(_hlEditor);
             }
-
             checkTextChangeState();
 
             if (_isPreviewVisible) {
                 updateViewModeText();
             }
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -414,6 +432,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             return true;
         }
         _shareUtil.setContext(activity);
+
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
@@ -435,10 +454,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_reload: {
-                final long oldModTime = _loadModTime;
-                loadDocument();
-                // Use modtime to show toast if document updated
-                if (_loadModTime != oldModTime) {
+                if (loadDocument()) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -457,7 +473,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             }
             case R.id.action_share_text: {
                 if (saveDocument(false)) {
-                    _shareUtil.shareText(_hlEditor.getText().toString(), "text/plain");
+                    _shareUtil.shareText(getTextString(), "text/plain");
                 }
                 return true;
             }
@@ -471,14 +487,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.id.action_share_html_source: {
                 if (saveDocument(false)) {
                     TextConverter converter = TextFormat.getFormat(_document.getFormat(), activity, _document).getConverter();
-                    _shareUtil.shareText(converter.convertMarkup(_hlEditor.getText().toString(), _hlEditor.getContext(), false, _document.getFile()),
+                    _shareUtil.shareText(converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
                 }
                 return true;
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument(false)) {
-                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), _hlEditor.getText().toString(), null)) {
+                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), getTextString(), null)) {
                         Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -494,7 +510,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document, _hlEditor.getText().toString().contains("beamer\n"));
+                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                         } else if (item.getItemId() != R.id.action_share_pdf) {
                             _shareUtil.shareImage(net.gsantner.opoc.util.ShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
                         }
@@ -508,11 +524,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
             case R.string.action_format_todotxt:
             case R.string.action_format_plaintext:
             case R.string.action_format_markdown: {
-                if (_document != null) {
-                    _document.setFormat(itemId);
-                    applyTextFormat(itemId);
-                    _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
-                }
+                _document.setFormat(itemId);
+                applyTextFormat(itemId);
+                _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
                 return true;
             }
             case R.id.action_search: {
@@ -521,7 +535,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                 return true;
             }
             case R.id.action_send_debug_log: {
-                final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + Document.getMaskedContent(_hlEditor.getText().toString());
+                final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + Document.getMaskedContent(getTextString());
                 _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
@@ -554,41 +568,40 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
                                                            public void onFsViewerConfig(FilesystemViewerData.Options dopt) {
                                                                dopt.titleText = R.string.select;
                                                            }
-                                                       }, getFragmentManager(), activity,
+                                                       }, getParentFragmentManager(), activity,
                         input -> input != null && input.getAbsolutePath().toLowerCase().endsWith(".epub")
                 );
                 return true;
             }
             case R.id.action_speed_read: {
-                CoolExperimentalStuff.showSpeedReadDialog(activity, _hlEditor.getText().toString());
+                CoolExperimentalStuff.showSpeedReadDialog(activity, getTextString());
                 return true;
             }
             case R.id.action_wrap_words: {
-                wrapText = !wrapText;
-                wrapTextSetting = wrapText;
-                _appSettings.setDocumentWrapState(_document.getPath(), wrapTextSetting);
-                setHorizontalScrollMode(wrapText);
+                _wrapText = !_wrapText;
+                _wrapTextSetting = _wrapText;
+                _appSettings.setDocumentWrapState(_document.getPath(), _wrapTextSetting);
+                setHorizontalScrollMode(_wrapText);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_highlighting: {
-                highlightText = !highlightText;
-                _hlEditor.setHighlightingEnabled(highlightText);
-                _appSettings.setDocumentHighlightState(_document.getPath(), highlightText);
+                _highlightText = !_highlightText;
+                _hlEditor.setHighlightingEnabled(_highlightText);
+                _appSettings.setDocumentHighlightState(_document.getPath(), _highlightText);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_auto_format: {
-                autoFormat = !autoFormat;
-                _hlEditor.setAutoFormatEnabled(autoFormat);
-                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), autoFormat);
+                _autoFormat = !_autoFormat;
+                _hlEditor.setAutoFormatEnabled(_autoFormat);
+                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), _autoFormat);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_info: {
-                if (_document != null) {
-                    saveDocument(false); // In order to have the correct info displayed
-                    FileInfoDialog.show(_document.getFile(), getFragmentManager());
+                if (saveDocument(false)) { // In order to have the correct info displayed
+                    FileInfoDialog.show(_document.getFile(), getParentFragmentManager());
                 }
                 return true;
             }
@@ -627,36 +640,22 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         updateMenuToggleStates(textFormatId);
     }
 
-    private void initDocState() {
-        wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
-        wrapText = isDisplayedAtMainActivity() || wrapTextSetting;
-
-        highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
-        autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
-        updateMenuToggleStates(0);
-
-        setHorizontalScrollMode(wrapText);
-        _hlEditor.setHighlightingEnabled(highlightText);
-    }
-
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
-            mi.setChecked(wrapText);
+            mi.setChecked(_wrapText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
-            mi.setChecked(highlightText);
+            mi.setChecked(_highlightText);
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
-            mi.setChecked(autoFormat);
+            mi.setChecked(_autoFormat);
         }
 
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
             for (int i = 0; i < su.size(); i++) {
-                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
-                    mi.setChecked(true);
-                }
+                mi.setChecked(true);
             }
         }
     }
@@ -694,32 +693,50 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         return FRAGMENT_TAG;
     }
 
-    public boolean checkPermissions() {
-
-        if (_document != null) {
-            final File file = _document.getFile();
-
-            if (_shareUtil.isUnderStorageAccessFolder(file, false) && _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
-                _shareUtil.showMountSdDialog(getActivity());
-            }
-
-            final boolean permok = _document.testCreateParent() && _shareUtil.canWriteFile(file, false, true);
-            _textSdWarning.setVisibility(permok ? View.GONE : View.VISIBLE);
-            return permok;
+    public void errorClipText() {
+        final String text = getTextString();
+        if (!TextUtils.isEmpty(text)) {
+            Context context = getContext();
+            context = context == null ? App.get().getApplicationContext() : context;
+            new ShareUtil(context).setClipboard(text);
+            Toast.makeText(getContext(), R.string.document_error_clip, Toast.LENGTH_LONG).show();
         }
-        return false;
+    }
+
+    public boolean isSdStatusGood() {
+        if (_shareUtil.isUnderStorageAccessFolder(_document.getFile(), false) &&
+            _shareUtil.getStorageAccessFrameworkTreeUri() == null)
+        {
+            _shareUtil.showMountSdDialog(getActivity());
+            return false;
+        }
+        return true;
+    }
+
+    // Checks document state if things aren't in a good state
+    public boolean isStateGood() {
+        return (_document != null &&
+                _hlEditor != null &&
+                _appSettings != null &&
+                _document.testCreateParent() &&
+                _shareUtil.canWriteFile(_document.getFile(), false, true));
     }
 
     // Save the file
-    // Only supports java.io.File. TODO: Android Content
     public boolean saveDocument(final boolean forceSaveEmpty) {
+        if (!isSdStatusGood() || !isStateGood()) {
+            errorClipText();
+            return false;
+        }
+
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
-        if (_document != null && !_document.isContentSame(text) && checkPermissions() && isAdded()) {
+        if (!_document.isContentSame(text)) {
             if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
+                errorClipText();
                 return false; // Failure only if saveContent somehow fails
             }
         } else {
@@ -732,11 +749,14 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     }
 
     public void updateViewModeText() {
-        _textFormat.getConverter().convertMarkupShowInWebView(_document, _hlEditor.getText().toString(), _webView, _nextConvertToPrintMode);
+        final String text = getTextString();
+        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, _webView, _nextConvertToPrintMode);
     }
 
-    public void setViewModeVisibility(final boolean show) {
+    public void setViewModeVisibility(boolean show) {
         final Activity activity = getActivity();
+        show |= _document.isBinaryFileNoTextLoading();
+
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
@@ -761,6 +781,9 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
     public void webViewJavascriptCallback(final String[] jsArgs) {
         final String[] args = (jsArgs == null || jsArgs.length == 0 || jsArgs[0] == null) ? new String[0] : jsArgs;
         final String type = args.length == 0 || TextUtils.isEmpty(args[0]) ? "" : args[0];
+        if (type.equalsIgnoreCase("toast") && args.length == 2) {
+            Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static boolean fadeInOut(final View in, final View out) {
@@ -787,17 +810,12 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
 
     @Override
     protected boolean onToolbarLongClicked(View v) {
-        if (getUserVisibleHint()) {
+        if (isVisible() && isResumed()) {
             _textFormat.getTextActions().runJumpBottomTopAction(_isPreviewVisible ? TextActions.ActionItem.DisplayMode.VIEW : TextActions.ActionItem.DisplayMode.EDIT);
             return true;
         }
         return false;
     }
-
-    //
-    //
-    //
-    //
 
     public Document getDocument() {
         return _document;
@@ -822,5 +840,10 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
         } catch (Exception ignored) {
         }
         super.onDestroy();
+    }
+
+    public String getTextString() {
+        final CharSequence text = _hlEditor != null ? _hlEditor.getText() : null;
+        return text != null ? text.toString() : "";
     }
 }

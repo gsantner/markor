@@ -33,7 +33,7 @@ public class WrProportionalHeaderSpanCreator {
         return new LargerHeaderSpan(_color, _textSize, proportion);
     }
 
-    public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout, Highlighter.ShiftY {
+    public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout {
 
         final @ColorInt int _color;
         final float _headerSize;
@@ -55,11 +55,6 @@ public class WrProportionalHeaderSpanCreator {
         @Override
         public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3, Paint.FontMetricsInt fontMetricsInt) {
             fontMetricsInt.ascent -= _offset;
-        }
-
-        @Override
-        public float yShift(CharSequence text, int spanStart, int spanEnd, int index) {
-            return index >= spanStart ? _offset : 0;
         }
     }
 }
