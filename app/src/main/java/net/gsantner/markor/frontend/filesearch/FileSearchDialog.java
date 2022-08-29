@@ -43,7 +43,7 @@ public class FileSearchDialog {
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
-        final int dp4px = new GsContextUtils(dialogLayout.getContext()).convertDpToPx(activity, 4);
+        final int dp4px = GsContextUtils.instance.convertDpToPx(activity, 4);
         final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
 
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

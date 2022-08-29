@@ -218,7 +218,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
-                new ShareUtil(getActivity()).applySpecialLaunchersVisibility(getActivity(), extraLaunchersEnabled).freeContextRef();
+                new ShareUtil(getActivity()).applySpecialLaunchersVisibility(getActivity(), extraLaunchersEnabled);
             } else if (eq(key, R.string.pref_key__file_description_format)) {
                 try {
                     new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());

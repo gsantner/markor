@@ -18,6 +18,7 @@ import android.print.PrintJob;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
@@ -33,9 +34,10 @@ import net.gsantner.opoc.util.GsShareUtil;
 import java.io.File;
 
 public class ShareUtil extends GsShareUtil {
-    public ShareUtil(Context context) {
-        super(context);
-        setChooserTitle(context.getString(R.string.share_to_arrow));
+    public ShareUtil(@Nullable final Context context) {
+        if (context != null) {
+            setChooserTitle(context.getString(R.string.share_to_arrow));
+        }
     }
 
     public GsShareUtil applySpecialLaunchersVisibility(final Context context, boolean extraLaunchersEnabled) {

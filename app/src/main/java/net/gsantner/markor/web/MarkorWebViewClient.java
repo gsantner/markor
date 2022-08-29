@@ -74,7 +74,7 @@ public class MarkorWebViewClient extends WebViewClient {
                 ShareUtil su = new ShareUtil(_activity);
                 AppSettings settings = new AppSettings(_activity.getApplicationContext());
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
-                    su.openWebpageInExternalBrowser(context, url).freeContextRef();
+                    su.openWebpageInExternalBrowser(context, url);
                     return true;
                 }
             }

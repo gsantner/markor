@@ -27,9 +27,8 @@ public class GsPermissionChecker {
     }
 
     public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        GsShareUtil shareUtil = new GsShareUtil(_activity);
+        GsShareUtil shareUtil = new GsShareUtil();
         final boolean ret = shareUtil.checkExternalStoragePermission(_activity, true, optionalToastMessageForKnowingWhyNeeded);
-        shareUtil.freeContextRef();
         return ret;
     }
 

@@ -167,7 +167,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
             showedShareInto = showShareInto(intent);
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = new GsShareUtil(this).extractFileFromIntent(this, intent);
+            file = new GsShareUtil().extractFileFromIntent(this, intent);
         }
 
         if (file != null) {
@@ -233,7 +233,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        GsShareUtil shu = new GsShareUtil(this);
+        GsShareUtil shu = new GsShareUtil();
         shu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 

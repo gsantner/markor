@@ -91,6 +91,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -107,12 +108,6 @@ public class GsContextUtils {
     // Members, Constructors
     //
     public GsContextUtils() {
-    }
-
-    public GsContextUtils(Context context) {
-    }
-
-    public void freeContextRef() {
     }
 
     public <T extends GsContextUtils> T setLauncherActivityEnabled(final Context context, Class activityClass, boolean enable) {
@@ -1143,6 +1138,23 @@ public class GsContextUtils {
             context.finish();
         }
         return thisp();
+    }
+
+    /**
+     * Generate a filename based off current datetime in filename (year, month, day, hour, minute, second)
+     * Examples: Screenshot_20210208-184301_Trebuchet.png IMG_20190511-230845.jpg
+     *
+     * @param A0prefixA1postfixA2ext All arguments are optional and default values are taken for null
+     *                               [0] = Prefix [Screenshot/IMG]
+     *                               [1] = Postfix [Trebuchet]
+     *                               [2] = File extensions [jpg/png/txt]
+     * @return Filename
+     */
+    public String getFilenameWithTimestamp(String... A0prefixA1postfixA2ext) {
+        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
+        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
+        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
+        return String.format("%s%s%s.%s", prefix.trim(), DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
     }
 }
 

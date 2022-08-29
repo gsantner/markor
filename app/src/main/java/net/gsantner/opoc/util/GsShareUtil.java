@@ -87,7 +87,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -101,12 +100,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
 public class GsShareUtil extends GsContextUtils {
 
-    public GsShareUtil(final Context context) {
-        super(context);
-        _chooserTitle = "➥";
-    }
-
-    public void setContext(final Context c) {
+    public GsShareUtil() {
     }
 
     public String getFileProviderAuthority(final Context context) {
@@ -384,23 +378,6 @@ public class GsShareUtil extends GsContextUtils {
         } catch (Exception ignored) {
         }
         return false;
-    }
-
-    /**
-     * Generate a filename based off current datetime in filename (year, month, day, hour, minute, second)
-     * Examples: Screenshot_20210208-184301_Trebuchet.png IMG_20190511-230845.jpg
-     *
-     * @param A0prefixA1postfixA2ext All arguments are optional and default values are taken for null
-     *                               [0] = Prefix [Screenshot/IMG]
-     *                               [1] = Postfix [Trebuchet]
-     *                               [2] = File extensions [jpg/png/txt]
-     * @return Filename
-     */
-    public static String getFilenameWithTimestamp(String... A0prefixA1postfixA2ext) {
-        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
-        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
-        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
-        return String.format("%s%s%s.%s", prefix.trim(), DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
     }
 
     /**

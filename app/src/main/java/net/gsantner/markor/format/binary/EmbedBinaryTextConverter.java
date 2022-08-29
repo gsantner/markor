@@ -56,7 +56,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS;
         converted = HTML100_BODY_BEGIN;
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
-        final GsShareUtil shu = new GsShareUtil(context);
+        final GsShareUtil shu = new GsShareUtil();
 
         // Sticky header with content depending on type
         if (true) {
@@ -137,7 +137,6 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         }
 
         converted += HTML101_BODY_END;
-        shu.setContext(null);
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 

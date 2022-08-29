@@ -25,7 +25,7 @@ public class ColorUnderlineSpan extends UnderlineSpan implements UpdateAppearanc
     private final float _thickness;
 
     public ColorUnderlineSpan(String colorHexString, Float thickness) {
-        this(new GsContextUtils(null).parseHexColorString(colorHexString), thickness);
+        this(GsContextUtils.instance.parseHexColorString(colorHexString), thickness);
     }
 
     public ColorUnderlineSpan(int color, Float thickness) {

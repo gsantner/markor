@@ -56,7 +56,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         super(context);
         _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = context.getSharedPreferences("history", Context.MODE_PRIVATE);
-        _contextUtils = new GsContextUtils(context);
+        _contextUtils = GsContextUtils.instance;
         if (_isDeviceGoodHardware == null) {
             _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware(context);
         }

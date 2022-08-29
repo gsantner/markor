@@ -66,13 +66,8 @@ public class GsBackupUtils {
      * @return The {@link File} that should be created
      */
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
-        final GsContextUtils cu = new GsContextUtils(context);
-        try {
-            final String appName = cu.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
-            return new File(targetFolder, GsShareUtil.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
-        } finally {
-            cu.freeContextRef();
-        }
+        final String appName = GsContextUtils.instance.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
+        return new File(targetFolder, new GsShareUtil().getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
     }
 
     public static String getPrefName(final Context context, final String raw) {
@@ -102,7 +97,7 @@ public class GsBackupUtils {
      * @param targetJsonFile    Target json file to write to, overwritten if already exists
      */
     public static void makeBackup(final Context context, final List<String> prefNamesToBackup, final File targetJsonFile) {
-        final GsContextUtils cu = new GsContextUtils(context);
+        final GsContextUtils cu = GsContextUtils.instance;
         try {
             final JSONObject jsonRoot = new JSONObject();
 
@@ -165,8 +160,6 @@ public class GsBackupUtils {
             }
             Log.e(LOG_PREFIX, e.getMessage());
             Toast.makeText(context, cu.rstr(context, "failed_to_create_backup", true), Toast.LENGTH_SHORT).show();
-        } finally {
-            cu.freeContextRef();
         }
     }
 
@@ -221,9 +214,7 @@ public class GsBackupUtils {
             }
             System.exit(0);
         } catch (Exception e) {
-            final GsContextUtils cu = new GsContextUtils(context);
-            Toast.makeText(context, cu.rstr(context, "failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
-            cu.freeContextRef();
+            Toast.makeText(context, GsContextUtils.instance.rstr(context, "failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
         }
     }
 }

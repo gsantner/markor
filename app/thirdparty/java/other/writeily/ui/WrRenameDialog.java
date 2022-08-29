@@ -96,7 +96,6 @@ public class WrRenameDialog extends DialogFragment {
                 if (_callback != null) {
                     _callback.callback(file);
                 }
-                shareUtil.freeContextRef();
                 _dialog.dismiss();
             }
         });

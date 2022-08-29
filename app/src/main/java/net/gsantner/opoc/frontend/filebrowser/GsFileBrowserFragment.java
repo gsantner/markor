@@ -472,7 +472,6 @@ public class GsFileBrowserFragment extends GsFragmentBase
                 s.shareStreamMultiple(getContext(), _filesystemViewerAdapter.getCurrentSelection(), "*/*");
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
-                s.freeContextRef();
                 return true;
             }
 

@@ -33,8 +33,8 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     protected GsActivityUtils _activityUtils;
     private int m_initialToolbarHeight = 0;
 
-    private final GsCallback.a0 m_setActivityBackgroundColor = () -> _activityUtils.setActivityBackgroundColor(GsActivityBase.this, getNewActivityBackgroundColor()).freeContextRef();
-    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> _activityUtils.setActivityNavigationBarBackgroundColor(GsActivityBase.this, getNewNavigationBarColor()).freeContextRef();
+    private final GsCallback.a0 m_setActivityBackgroundColor = () -> _activityUtils.setActivityBackgroundColor(GsActivityBase.this, getNewActivityBackgroundColor());
+    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> _activityUtils.setActivityNavigationBarBackgroundColor(GsActivityBase.this, getNewNavigationBarColor());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
         _savedInstanceState = savedInstanceState;
         _appSettings = createAppSettingsInstance(this);
-        _activityUtils = new GsActivityUtils(this);
+        _activityUtils = new GsActivityUtils();
     }
 
     public AS createAppSettingsInstance(Context applicationContext) {

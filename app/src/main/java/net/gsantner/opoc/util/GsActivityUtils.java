@@ -57,13 +57,8 @@ public class GsActivityUtils extends GsShareUtil {
     //########################
     //## Members, Constructors
     //########################
-    public GsActivityUtils(final Activity activity) {
-        super(null);
-    }
-
-    @Override
-    public void freeContextRef() {
-        super.freeContextRef();
+    public GsActivityUtils() {
+        super();
     }
 
     //########################

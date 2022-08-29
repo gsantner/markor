@@ -149,7 +149,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         Activity activity = getActivity();
         _appSettings = getAppSettings(activity);
-        _cu = new GsContextUtils(activity);
+        _cu = GsContextUtils.instance;
         getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
         addPreferencesFromResource(getPreferenceResourceForInflation());
 
@@ -542,13 +542,11 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     }
 
     public Integer getDividerColor() {
-        GsActivityUtils au = new GsActivityUtils(getActivity());
+        GsActivityUtils au = new GsActivityUtils();
         try {
             return Color.parseColor(au.shouldColorOnTopBeLight(au.getActivityBackgroundColor(getActivity())) ? "#3d3d3d" : "#d1d1d1");
         } catch (Exception ignored) {
             return null;
-        } finally {
-            au.freeContextRef();
         }
     }
 

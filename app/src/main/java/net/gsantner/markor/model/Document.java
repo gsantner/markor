@@ -378,6 +378,6 @@ public class Document implements Serializable {
     // Convenient wrapper
     private static String getFileNameWithTimestamp(final boolean includeExt) {
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
-        return ShareUtil.getFilenameWithTimestamp("", "", ext);
+        return ShareUtil.instance.getFilenameWithTimestamp("", "", ext);
     }
 }

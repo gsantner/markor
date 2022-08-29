@@ -23,7 +23,7 @@ public class GsAndroidSupportMeWrapper extends GsActivityUtils {
     private LocalSettingsImpl _localSettingsImpl;
 
     public GsAndroidSupportMeWrapper(Activity activity) {
-        super(activity);
+        super();
         _localSettingsImpl = new LocalSettingsImpl(activity.getApplicationContext());
     }
 

@@ -60,7 +60,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
     @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         Activity activity = getActivity();
-        GsActivityUtils au = new GsActivityUtils(getActivity());
+        GsActivityUtils au = new GsActivityUtils();
         if (isAdded() && preference.hasKey()) {
             switch (keyResId) {
                 case R.string.pref_key__more_info__app: {
@@ -126,7 +126,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
-                    new GsShareUtil(getContext()).setClipboard(getContext(), preference.getSummary());
+                    new GsShareUtil().setClipboard(getContext(), preference.getSummary());
                     GsSimpleMarkdownParser smp = new GsSimpleMarkdownParser();
                     try {
                         String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();

@@ -423,7 +423,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         if (activity == null) {
             return true;
         }
-        _shareUtil.setContext(activity);
 
         final int itemId = item.getItemId();
         switch (itemId) {
@@ -756,9 +755,9 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            new GsActivityUtils(null).hideSoftKeyboard(activity);
+            new GsActivityUtils().hideSoftKeyboard(activity);
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> new GsActivityUtils(null).hideSoftKeyboard(activity), 300);
+            _hlEditor.postDelayed(() -> new GsActivityUtils().hideSoftKeyboard(activity), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());

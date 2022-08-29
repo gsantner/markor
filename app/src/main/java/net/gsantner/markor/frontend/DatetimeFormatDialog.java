@@ -86,7 +86,7 @@ public class DatetimeFormatDialog {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
-        final GsContextUtils cu = new GsContextUtils(viewRoot.getContext());
+        final GsContextUtils cu = new GsContextUtils();
         final AppSettings as = new AppSettings(viewRoot.getContext());
 
         final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);

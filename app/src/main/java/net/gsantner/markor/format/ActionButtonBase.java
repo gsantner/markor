@@ -44,8 +44,8 @@ import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class ActionButtonBase {
     private Activity m_activity;
-    private GsActivityUtils m_au;
+    private ShareUtil m_au;
     private final int _textActionSidePadding;
     private String _lastSnip;
 
@@ -520,12 +520,7 @@ public abstract class ActionButtonBase {
         m_activity = activity;
         _hlEditor = hlEditor;
         m_webView = webview;
-        if (m_au != null) {
-            m_au.freeContextRef();
-        }
-        if (activity != null) {
-            m_au = new GsActivityUtils(activity);
-        }
+        m_au = new ShareUtil(m_activity);
         return this;
     }
 
@@ -546,7 +541,7 @@ public abstract class ActionButtonBase {
         return m_activity != null ? m_activity : _appSettings.getContext();
     }
 
-    public GsActivityUtils getAndroidUtils() {
+    public ShareUtil getAndroidUtils() {
         return m_au;
     }
 
@@ -681,7 +676,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
-                getAndroidUtils().nextScreenRotationSetting(getActivity());
+                //TODO: getAndroidUtils().nextScreenRotationSetting(getActivity());
                 return true;
             }
         }
