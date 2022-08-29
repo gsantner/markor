@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Πάνω</string>
     <string name="bottom">Κάτω</string>
     <string name="center">Κέντρο</string>
+    <string name="actionbutton_spacing">Απόσταση ActionButton</string>
+    <string name="horizontal_space_between_actionbuttons">Οριζόντιο διάστημα μεταξύ ActionButtons</string>
     <string name="center_text">Κεντραρισμένο κείμενο</string>
     <string name="edit_text_in_center_of_screen">Επεξεργασία κειμένου στο κέντρο της οθόνης</string>
     <string name="clipboard">Πρόχειρο</string>

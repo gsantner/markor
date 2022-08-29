@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">上部</string>
     <string name="bottom">下部</string>
     <string name="center">中央</string>
+    <string name="actionbutton_spacing">ActionButton spacing</string>
+    <string name="horizontal_space_between_actionbuttons">ActionButtonsの水平方向のスペース</string>
     <string name="center_text">テキストの中央揃え</string>
     <string name="edit_text_in_center_of_screen">画面の中央にテキストを編集します</string>
     <string name="clipboard">クリップボード</string>

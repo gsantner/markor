@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">По верхнему краю</string>
     <string name="bottom">Снизу</string>
     <string name="center">Центр</string>
+    <string name="actionbutton_spacing">Интервал действия кнопки</string>
+    <string name="horizontal_space_between_actionbuttons">Горизонтальное пространство между кнопками действий</string>
     <string name="center_text">Центрировать текст</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>

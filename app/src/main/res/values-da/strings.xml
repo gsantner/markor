@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Øverste</string>
     <string name="bottom">Bund</string>
     <string name="center">Centrer</string>
+    <string name="actionbutton_spacing">ActionButton afstand</string>
+    <string name="horizontal_space_between_actionbuttons">Vandret mellemrum mellem ActionButtons</string>
     <string name="center_text">Centrér tekst</string>
     <string name="edit_text_in_center_of_screen">Redigér tekst i centrum af skærmen</string>
     <string name="clipboard">Udklipsholder</string>
