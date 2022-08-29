@@ -139,7 +139,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.title.setText("????");
             return;
         }
-        GsContextUtils.instance.setLocale(_context, Locale.getDefault());
+        GsContextUtils.instance.setAppLocale(_context, Locale.getDefault());
         final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         final String filename = file_pre.getName();
         if (_virtualMapping.containsKey(file_pre)) {

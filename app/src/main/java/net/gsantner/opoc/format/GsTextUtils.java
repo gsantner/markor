@@ -164,4 +164,15 @@ public class GsTextUtils {
         Collections.addAll(list, array);
         return list;
     }
+
+    /**
+     * Convert an int color to a hex string. Optionally including alpha value.
+     *
+     * @param intColor  The color coded in int
+     * @param withAlpha Optional; Set first bool parameter to true to also include alpha value
+     */
+    public static String colorToHexString(final int intColor, final boolean... withAlpha) {
+        boolean a = withAlpha != null && withAlpha.length >= 1 && withAlpha[0];
+        return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
+    }
 }

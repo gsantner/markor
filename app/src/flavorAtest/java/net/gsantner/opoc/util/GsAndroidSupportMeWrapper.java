@@ -27,7 +27,7 @@ public class GsAndroidSupportMeWrapper extends GsActivityUtils {
     }
 
     public void openPayPalDonationPage(final Context context) {
-        String id = getPackageIdManifest(context);
+        String id = getAppIdUsedAtManifest(context);
         String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TVV24QBGMN23C&source=self.gsantner.net%2F" + id;
         openWebpageInExternalBrowser(context, url);
     }

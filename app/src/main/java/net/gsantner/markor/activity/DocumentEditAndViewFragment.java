@@ -14,6 +14,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -505,7 +506,8 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             _shareUtil.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                         } else if (item.getItemId() != R.id.action_share_pdf) {
-                            _shareUtil.shareImage(getContext(), GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
+                            Bitmap bmp = GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image);
+                            _shareUtil.shareImage(getContext(), bmp, null);
                         }
                     }, 7000);
                 }

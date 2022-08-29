@@ -105,7 +105,7 @@ public class GsBackupUtils {
             final Date now = new Date();
             final JSONObject jsonMetadata = new JSONObject(new GsHashMap<String, String>().load(
                     "BACKUP_DATE", String.format("%s ::: %d", now.toString(), now.getTime()),
-                    "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(context),
+                    "APPLICATION_ID_MANIFEST", cu.getAppIdUsedAtManifest(context),
                     "EXPORT_ANDROID_DEVICE_VERSION", GsContextUtils.getAndroidVersion(),
                     "ISOURCE", cu.getAppInstallationSource(context),
                     "BACKUP_REVISION", "1"
