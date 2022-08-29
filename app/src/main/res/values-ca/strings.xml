@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Superior</string>
     <string name="bottom">Inferior</string>
     <string name="center">Centre</string>
+    <string name="actionbutton_spacing">Espaiat de l\'ActionButton</string>
+    <string name="horizontal_space_between_actionbuttons">Espai horitzontal entre ActionButtons</string>
     <string name="center_text">Centra el text</string>
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
@@ -313,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Cerca recursiva al directori actual.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Obre sempre els fitxers amb aquesta aplicació quan la llista conté l\'extensió del fitxer. Utilitzeu «None, .html, .css , .js» per exemple, si voleu editar fitxers web i aquells que no tinguin extensió de fitxer.</string>
+    <string name="open_file_with">Obre fitxer amb</string>
     <string name="rotate">Gira</string>
     <string name="template">Plantilla</string>
     <string name="send_debug_log">Envia registre de depuració</string>
@@ -435,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Comparteix en - Format</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
+    <string name="document_error_exit">Error: no s\'ha pogut obrir.</string>
+    <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
 </resources>
