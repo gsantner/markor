@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -55,77 +57,35 @@ public class GsActivityUtils extends GsShareUtil {
     //########################
     //## Members, Constructors
     //########################
-    protected Activity _activity;
-
     public GsActivityUtils(final Activity activity) {
-        super(activity);
-        _activity = activity;
+        super(null);
     }
 
     @Override
     public void freeContextRef() {
         super.freeContextRef();
-        _activity = null;
     }
 
     //########################
     //##     Methods
     //########################
 
-    /**
-     * Animate to specified Activity
-     *
-     * @param to                 The class of the activity
-     * @param finishFromActivity true: Finish the current activity
-     * @param requestCode        Request code for stating the activity, not waiting for result if null
-     */
-    public GsActivityUtils animateToActivity(Class to, Boolean finishFromActivity, Integer requestCode) {
-        return animateToActivity(new Intent(_activity, to), finishFromActivity, requestCode);
-    }
-
-    /**
-     * Animate to Activity specified in intent
-     * Requires animation resources
-     *
-     * @param intent             Intent to open start an activity
-     * @param finishFromActivity true: Finish the current activity
-     * @param requestCode        Request code for stating the activity, not waiting for result if null
-     */
-    public GsActivityUtils animateToActivity(Intent intent, Boolean finishFromActivity, Integer requestCode) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        if (requestCode != null) {
-            _activity.startActivityForResult(intent, requestCode);
-        } else {
-            _activity.startActivity(intent);
-
-        }
-        _activity.overridePendingTransition(getResId(ResType.DIMEN, "fadein"), getResId(ResType.DIMEN, "fadeout"));
-        if (finishFromActivity != null && finishFromActivity) {
-            _activity.finish();
-        }
-        return this;
-    }
-
-
-    public Snackbar showSnackBar(@StringRes int stringResId, boolean showLong) {
-        Snackbar s = Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT);
+    public Snackbar showSnackBar(final Activity context, @StringRes int stringResId, boolean showLong) {
+        final Snackbar s = Snackbar.make(context.findViewById(android.R.id.content), stringResId, (showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT));
         s.show();
         return s;
     }
 
-    public void showSnackBar(@StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
-        Snackbar.make(_activity.findViewById(android.R.id.content), stringResId,
-                        showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT)
+    public void showSnackBar(final Activity context, @StringRes int stringResId, boolean showLong, @StringRes int actionResId, View.OnClickListener listener) {
+        Snackbar.make(context.findViewById(android.R.id.content), stringResId, (showLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT))
                 .setAction(actionResId, listener)
                 .show();
     }
 
-    public GsActivityUtils setSoftKeyboardVisibile(boolean visible, View... editView) {
-        final Activity activity = _activity;
-        if (activity != null) {
-            final View v = (editView != null && editView.length > 0) ? (editView[0]) : (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null ? activity.getCurrentFocus() : null);
-            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    public GsActivityUtils setSoftKeyboardVisibile(final Activity context, boolean visible, View... editView) {
+        if (context != null) {
+            final View v = (editView != null && editView.length > 0) ? (editView[0]) : (context.getCurrentFocus() != null && context.getCurrentFocus().getWindowToken() != null ? context.getCurrentFocus() : null);
+            final InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (v != null && imm != null) {
                 Runnable r = () -> {
                     if (visible) {
@@ -144,30 +104,30 @@ public class GsActivityUtils extends GsShareUtil {
         return this;
     }
 
-    public GsActivityUtils hideSoftKeyboard() {
-        if (_activity != null) {
-            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(_activity.getCurrentFocus().getWindowToken(), 0);
+    public GsActivityUtils hideSoftKeyboard(final Activity context) {
+        if (context != null) {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (imm != null && context.getCurrentFocus() != null && context.getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
             }
         }
         return this;
     }
 
-    public GsActivityUtils showSoftKeyboard() {
-        if (_activity != null) {
-            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
-                showSoftKeyboard(_activity.getCurrentFocus());
+    public GsActivityUtils showSoftKeyboard(final Activity activity) {
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (imm != null && activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null) {
+                showSoftKeyboard(activity, activity.getCurrentFocus());
             }
         }
         return this;
     }
 
 
-    public GsActivityUtils showSoftKeyboard(View textInputView) {
-        if (_activity != null) {
-            InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+    public GsActivityUtils showSoftKeyboard(final Activity activity, View textInputView) {
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && textInputView != null) {
                 imm.showSoftInput(textInputView, InputMethodManager.SHOW_FORCED);
             }
@@ -175,14 +135,14 @@ public class GsActivityUtils extends GsShareUtil {
         return this;
     }
 
-    public void showDialogWithHtmlTextView(@StringRes int resTitleId, String html) {
-        showDialogWithHtmlTextView(resTitleId, html, true, null);
+    public void showDialogWithHtmlTextView(final Activity context, @StringRes int resTitleId, String html) {
+        showDialogWithHtmlTextView(context, resTitleId, html, true, null);
     }
 
-    public void showDialogWithHtmlTextView(@StringRes int resTitleId, String text, boolean isHtml, DialogInterface.OnDismissListener dismissedListener) {
-        ScrollView scroll = new ScrollView(_context);
-        AppCompatTextView textView = new AppCompatTextView(_context);
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, _context.getResources().getDisplayMetrics());
+    public void showDialogWithHtmlTextView(final Activity context, @StringRes int resTitleId, String text, boolean isHtml, DialogInterface.OnDismissListener dismissedListener) {
+        ScrollView scroll = new ScrollView(context);
+        AppCompatTextView textView = new AppCompatTextView(context);
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
 
         scroll.setPadding(padding, 0, padding, 0);
         scroll.addView(textView);
@@ -190,7 +150,7 @@ public class GsActivityUtils extends GsShareUtil {
         textView.setText(isHtml ? new SpannableString(Html.fromHtml(text)) : text);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context)
                 .setPositiveButton(android.R.string.ok, null).setOnDismissListener(dismissedListener)
                 .setView(scroll);
         if (resTitleId != 0) {
@@ -199,10 +159,10 @@ public class GsActivityUtils extends GsShareUtil {
         dialogFullWidth(dialog.show(), true, false);
     }
 
-    public void showDialogWithRawFileInWebView(String fileInRaw, @StringRes int resTitleId) {
-        WebView wv = new WebView(_context);
+    public void showDialogWithRawFileInWebView(final Activity context, String fileInRaw, @StringRes int resTitleId) {
+        final WebView wv = new WebView(context);
         wv.loadUrl("file:///android_res/raw/" + fileInRaw);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(_context)
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context)
                 .setPositiveButton(android.R.string.ok, null)
                 .setTitle(resTitleId)
                 .setView(wv);
@@ -210,8 +170,8 @@ public class GsActivityUtils extends GsShareUtil {
     }
 
     // Toggle with no param, else set visibility according to first bool
-    public GsActivityUtils toggleStatusbarVisibility(boolean... optionalForceVisible) {
-        WindowManager.LayoutParams attrs = _activity.getWindow().getAttributes();
+    public GsActivityUtils toggleStatusbarVisibility(final Activity context, boolean... optionalForceVisible) {
+        WindowManager.LayoutParams attrs = context.getWindow().getAttributes();
         int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (optionalForceVisible.length == 0) {
             attrs.flags ^= flag;
@@ -220,69 +180,67 @@ public class GsActivityUtils extends GsShareUtil {
         } else {
             attrs.flags |= flag;
         }
-        _activity.getWindow().setAttributes(attrs);
+        context.getWindow().setAttributes(attrs);
         return this;
     }
 
-    public GsActivityUtils showGooglePlayEntryForThisApp() {
-        String pkgId = "details?id=" + _activity.getPackageName();
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                (Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) |
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+    public GsActivityUtils showGooglePlayEntryForThisApp(final Context context) {
+        String pkgId = "details?id=" + context.getPackageName();
         try {
-            _activity.startActivity(goToMarket);
+            final Intent gplay = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
+            gplay.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            gplay.addFlags((Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
+            context.startActivity(gplay);
         } catch (ActivityNotFoundException e) {
-            _activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/" + pkgId)));
+            openWebpageInExternalBrowser(context, "https://play.google.com/store/apps/" + pkgId);
         }
         return this;
     }
 
-    public GsActivityUtils setStatusbarColor(int color, boolean... fromRes) {
+    public GsActivityUtils setStatusbarColor(final Activity context, int color, boolean... fromRes) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (fromRes != null && fromRes.length > 0 && fromRes[0]) {
-                color = ContextCompat.getColor(_context, color);
+                color = ContextCompat.getColor(context, color);
             }
 
-            _activity.getWindow().setStatusBarColor(color);
+            context.getWindow().setStatusBarColor(color);
         }
         return this;
     }
 
-    public boolean isLauncherEnabled(Class activityClass) {
+    public boolean isLauncherEnabled(final Context context, final Class activityClass) {
         try {
-            ComponentName component = new ComponentName(_context, activityClass);
-            return _context.getPackageManager().getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+            ComponentName component = new ComponentName(context, activityClass);
+            return context.getPackageManager().getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         } catch (Exception ignored) {
         }
         return false;
     }
 
     @ColorInt
-    public Integer getCurrentPrimaryColor() {
+    public Integer getCurrentPrimaryColor(final Context context) {
         TypedValue typedValue = new TypedValue();
-        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorPrimary"), typedValue, true);
+        context.getTheme().resolveAttribute(getResId(context, ResType.ATTR, "colorPrimary"), typedValue, true);
         return typedValue.data;
     }
 
     @ColorInt
-    public Integer getCurrentPrimaryDarkColor() {
+    public Integer getCurrentPrimaryDarkColor(final Context context) {
         TypedValue typedValue = new TypedValue();
-        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorPrimaryDark"), typedValue, true);
+        context.getTheme().resolveAttribute(getResId(context, ResType.ATTR, "colorPrimaryDark"), typedValue, true);
         return typedValue.data;
     }
 
     @ColorInt
-    public Integer getCurrentAccentColor() {
+    public Integer getCurrentAccentColor(final Context context) {
         TypedValue typedValue = new TypedValue();
-        _context.getTheme().resolveAttribute(getResId(ResType.ATTR, "colorAccent"), typedValue, true);
+        context.getTheme().resolveAttribute(getResId(context, ResType.ATTR, "colorAccent"), typedValue, true);
         return typedValue.data;
     }
 
     @ColorInt
-    public Integer getActivityBackgroundColor() {
-        TypedArray array = _activity.getTheme().obtainStyledAttributes(new int[]{
+    public Integer getActivityBackgroundColor(final Activity activity) {
+        TypedArray array = activity.getTheme().obtainStyledAttributes(new int[]{
                 android.R.attr.colorBackground,
         });
         int c = array.getColor(0, 0xFF0000);
@@ -290,21 +248,21 @@ public class GsActivityUtils extends GsShareUtil {
         return c;
     }
 
-    public GsActivityUtils setActivityBackgroundColor(@ColorInt Integer color) {
+    public GsActivityUtils setActivityBackgroundColor(final Activity activity, @ColorInt Integer color) {
         if (color != null) {
             try {
-                ((ViewGroup) _activity.findViewById(android.R.id.content)).getChildAt(0).setBackgroundColor(color);
+                ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0).setBackgroundColor(color);
             } catch (Exception ignored) {
             }
         }
         return this;
     }
 
-    public GsActivityUtils setActivityNavigationBarBackgroundColor(@ColorInt Integer color) {
+    public GsActivityUtils setActivityNavigationBarBackgroundColor(final Activity context, @ColorInt Integer color) {
         if (color != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    _activity.getWindow().setNavigationBarColor(color);
+                    context.getWindow().setNavigationBarColor(color);
                 }
             } catch (Exception ignored) {
             }
@@ -312,21 +270,22 @@ public class GsActivityUtils extends GsShareUtil {
         return this;
     }
 
-    public GsActivityUtils startCalendarApp() {
+    public GsActivityUtils startCalendarApp(final Context context) {
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
         builder.appendPath(Long.toString(System.currentTimeMillis()));
         Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
-        _activity.startActivity(intent);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK); // = works without Activity context
+        context.startActivity(intent);
         return this;
     }
 
     /**
      * Detect if the activity is currently in splitscreen/multiwindow mode
      */
-    public boolean isInSplitScreenMode() {
+    public boolean isInSplitScreenMode(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return _activity.isInMultiWindowMode();
+            return activity.isInMultiWindowMode();
         }
         return false;
     }
@@ -352,9 +311,9 @@ public class GsActivityUtils extends GsShareUtil {
     }
 
     // Make activity/app not show up in the recents history - call before finish / System.exit
-    public GsActivityUtils removeActivityFromHistory() {
+    public GsActivityUtils removeActivityFromHistory(final Context activity) {
         try {
-            ActivityManager am = (ActivityManager) _activity.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager am = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
             if (am != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                 List<ActivityManager.AppTask> tasks = am.getAppTasks();
                 if (tasks != null && !tasks.isEmpty()) {
@@ -389,10 +348,11 @@ public class GsActivityUtils extends GsShareUtil {
     }
 
 
-    public void nextScreenRotationSetting() {
+    @SuppressLint("SwitchIntDef")
+    public void nextScreenRotationSetting(final Activity context) {
         String text = "";
         int nextOrientation;
-        switch (_activity.getRequestedOrientation()) {
+        switch (context.getRequestedOrientation()) {
             case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE: {
                 nextOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                 text = "Portrait";
@@ -414,9 +374,9 @@ public class GsActivityUtils extends GsShareUtil {
                 break;
             }
         }
-        int resId = getResId(ResType.STRING, text);
-        text = (resId != 0 ? _context.getString(resId) : text);
-        Toast.makeText(_context, text, Toast.LENGTH_SHORT).show();
-        _activity.setRequestedOrientation(nextOrientation);
+        int resId = getResId(context, ResType.STRING, text);
+        text = (resId != 0 ? context.getString(resId) : text);
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        context.setRequestedOrientation(nextOrientation);
     }
 }

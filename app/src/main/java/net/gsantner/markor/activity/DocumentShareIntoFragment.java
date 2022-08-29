@@ -84,7 +84,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         super.onViewCreated(view, savedInstanceState);
         final Context context = view.getContext();
         final AppSettings as = new AppSettings(context);
-        _cu.setAppLanguage(as.getLanguage());
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
@@ -194,7 +193,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
-            final Context context = getContext();
+            final Activity context = getActivity();
             final Document document = new Document(file);
             final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
@@ -284,7 +283,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             boolean close = false;
             switch (keyId) {
                 case R.string.pref_key__share_into__clipboard: {
-                    shu.setClipboard(_sharedText);
+                    shu.setClipboard(getContext(), _sharedText);
                     close = true;
                     break;
                 }
@@ -323,18 +322,18 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
                     if ((tmps = GsTextUtils.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
-                        _cu.openWebpageInExternalBrowser(tmps);
+                        _cu.openWebpageInExternalBrowser(getActivity(), tmps);
                         close = true;
                     }
                     break;
                 }
                 case R.string.pref_key__share_into__reshare: {
-                    shu.shareText(_sharedText, null);
+                    shu.shareText(getActivity(), _sharedText, null);
                     close = true;
                     break;
                 }
                 case R.string.pref_key__share_into__calendar_event: {
-                    if (shu.createCalendarAppointment(null, _sharedText, null)) {
+                    if (shu.createCalendarAppointment(getActivity(), null, _sharedText, null)) {
                         close = true;
                     } else {
                         Toast.makeText(getContext(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();

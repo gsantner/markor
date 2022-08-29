@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,8 +54,8 @@ public abstract class GsFragmentBase extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _cu = new GsContextUtils(inflater.getContext());
-        _cu.setAppLanguage(getAppLanguage());
+        _cu = GsContextUtils.instance;
+        _cu.setAppLanguage(getActivity(), getAppLanguage());
         _savedInstanceState = savedInstanceState;
         if (getLayoutResId() == 0) {
             Log.e(getClass().getCanonicalName(), "Error: GsFragmentbase.onCreateview: Returned 0 for getLayoutResId");
@@ -165,7 +166,8 @@ public abstract class GsFragmentBase extends Fragment {
     @SuppressWarnings("ConstantConditions")
     protected Toolbar getToolbar() {
         try {
-            return (Toolbar) getActivity().findViewById(new GsContextUtils(getActivity()).getResId(GsContextUtils.ResType.ID, "toolbar"));
+            Activity a = getActivity();
+            return (Toolbar) a.findViewById(_cu.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
         } catch (Exception e) {
             return null;
         }

@@ -100,41 +100,19 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused", "deprecation", "ConstantConditions", "ObsoleteSdkInt", "SpellCheckingInspection", "JavadocReference", "ConstantLocale", "ComparatorCombinators"})
 public class GsShareUtil extends GsContextUtils {
-    public final static String EXTRA_FILEPATH = "real_file_path_2";
-    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
-    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
-    public final static String MIME_TEXT_PLAIN = "text/plain";
-    public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
-    public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
-
-    public final static int REQUEST_CAMERA_PICTURE = 50001;
-    public final static int REQUEST_PICK_PICTURE = 50002;
-    public final static int REQUEST_SAF = 50003;
-    public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
-    public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
-
-    public final static int MIN_OVERWRITE_LENGTH = 2;
-
-    protected static String _lastCameraPictureFilepath;
-    private static Pair<File, List<Pair<String, String>>> CACHE_LAST_EXTRACT_FILE_METADATA;
-
-    protected Context _context;
-    protected String _chooserTitle;
 
     public GsShareUtil(final Context context) {
         super(context);
-        _context = context;
         _chooserTitle = "➥";
     }
 
     public void setContext(final Context c) {
-        _context = c;
     }
 
-    public String getFileProviderAuthority() {
-        final String provider = getFileProvider();
+    public String getFileProviderAuthority(final Context context) {
+        final String provider = getFileProvider(context);
         if (TextUtils.isEmpty(provider)) {
-            throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(): No FileProvider authority provided");
+            throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(context): No FileProvider authority provided");
         }
         return provider;
     }
@@ -151,8 +129,8 @@ public class GsShareUtil extends GsContextUtils {
      * @param file the file
      * @return Uri for this file
      */
-    public Uri getUriByFileProviderAuthority(final File file) {
-        return FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+    public Uri getUriByFileProviderAuthority(final Context context, final File file) {
+        return FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
     }
 
     /**
@@ -161,10 +139,11 @@ public class GsShareUtil extends GsContextUtils {
      * @param intent      Thing to be shared
      * @param chooserText The title text for the chooser, or null for default
      */
-    public void showChooser(final Intent intent, final String chooserText) {
+    public void showChooser(final Context context, final Intent intent, final String chooserText) {
         try {
-            _context.startActivity(Intent.createChooser(intent, chooserText != null ? chooserText : _chooserTitle));
-        } catch (Exception ignored) {
+            context.startActivity(Intent.createChooser(intent, chooserText != null ? chooserText : _chooserTitle));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -177,20 +156,20 @@ public class GsShareUtil extends GsContextUtils {
      * @param iconRes Icon resource for the item
      * @param title   Title of the item
      */
-    public void createLauncherDesktopShortcut(final Intent intent, @DrawableRes final int iconRes, final String title) {
+    public void createLauncherDesktopShortcut(final Context context, final Intent intent, @DrawableRes final int iconRes, final String title) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (intent.getAction() == null) {
             intent.setAction(Intent.ACTION_VIEW);
         }
 
-        ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(_context, Long.toString(new Random().nextLong()))
+        ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(context, Long.toString(new Random().nextLong()))
                 .setIntent(intent)
-                .setIcon(IconCompat.createWithResource(_context, iconRes))
+                .setIcon(IconCompat.createWithResource(context, iconRes))
                 .setShortLabel(title)
                 .setLongLabel(title)
                 .build();
-        ShortcutManagerCompat.requestPinShortcut(_context, shortcut, null);
+        ShortcutManagerCompat.requestPinShortcut(context, shortcut, null);
     }
 
     /**
@@ -202,7 +181,7 @@ public class GsShareUtil extends GsContextUtils {
      * @param iconRes Icon resource for the item
      * @param title   Title of the item
      */
-    public void createLauncherDesktopShortcutLegacy(final Intent intent, @DrawableRes final int iconRes, final String title) {
+    public void createLauncherDesktopShortcutLegacy(final Context context, final Intent intent, @DrawableRes final int iconRes, final String title) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if (intent.getAction() == null) {
@@ -213,8 +192,8 @@ public class GsShareUtil extends GsContextUtils {
         creationIntent.putExtra("duplicate", true);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
         creationIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
-        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(_context, iconRes));
-        _context.sendBroadcast(creationIntent);
+        creationIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(context, iconRes));
+        context.sendBroadcast(creationIntent);
     }
 
     /**
@@ -223,11 +202,11 @@ public class GsShareUtil extends GsContextUtils {
      * @param text     The text to share
      * @param mimeType MimeType or null (uses text/plain)
      */
-    public void shareText(final String text, @Nullable final String mimeType) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
+    public void shareText(final Context context, final String text, @Nullable final String mimeType) {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType(mimeType != null ? mimeType : MIME_TEXT_PLAIN);
-        showChooser(intent, null);
+        showChooser(context, intent, null);
     }
 
     /**
@@ -236,19 +215,19 @@ public class GsShareUtil extends GsContextUtils {
      * @param file     The file to share
      * @param mimeType The files mime type
      */
-    public boolean shareStream(final File file, final String mimeType) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
+    public boolean shareStream(final Context context, final File file, final String mimeType) {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         intent.setType(mimeType);
 
         try {
-            Uri fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+            Uri fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            showChooser(intent, null);
+            showChooser(context, intent, null);
             return true;
         } catch (Exception ignored) { // FileUriExposed(API24) / IllegalArgument
+            return false;
         }
-        return false;
     }
 
     /**
@@ -257,18 +236,19 @@ public class GsShareUtil extends GsContextUtils {
      * @param files    The files to share
      * @param mimeType The files mime type. Usally * / * is the best option
      */
-    public boolean shareStreamMultiple(final Collection<File> files, final String mimeType) {
+    public boolean shareStreamMultiple(final Context context, final Collection<File> files, final String mimeType) {
         ArrayList<Uri> uris = new ArrayList<>();
         for (File file : files) {
             File uri = new File(file.toString());
-            uris.add(FileProvider.getUriForFile(_context, getFileProviderAuthority(), file));
+            uris.add(FileProvider.getUriForFile(context, getFileProviderAuthority(context), file));
         }
 
         try {
-            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            final Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             intent.setType(mimeType);
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-            showChooser(intent, null);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // = works without Activity context
+            showChooser(context, intent, null);
             return true;
         } catch (Exception e) { // FileUriExposed(API24) / IllegalArgument
             return false;
@@ -278,8 +258,8 @@ public class GsShareUtil extends GsContextUtils {
     /**
      * Start calendar application to add new event, with given details prefilled
      */
-    public boolean createCalendarAppointment(@Nullable final String title, @Nullable final String description, @Nullable final String location, @Nullable final Long... startAndEndTime) {
-        Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
+    public boolean createCalendarAppointment(final Context context, @Nullable final String title, @Nullable final String description, @Nullable final String location, @Nullable final Long... startAndEndTime) {
+        final Intent intent = new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI);
         if (title != null) {
             intent.putExtra(CalendarContract.Events.TITLE, title);
         }
@@ -299,7 +279,7 @@ public class GsShareUtil extends GsContextUtils {
         }
 
         try {
-            _context.startActivity(intent);
+            startActivity(context, intent);
             return true;
         } catch (ActivityNotFoundException e) {
             return false;
@@ -307,15 +287,29 @@ public class GsShareUtil extends GsContextUtils {
     }
 
     /**
+     * Start activity specified by Intent. Add FLAG_ACTIVITY_NEW_TASK in case passed context is not a {@link Activity}
+     * (when a non-Activity {@link Context} is passed a Exception is thrown othersise)
+     *
+     * @param context Context, preferably a Activity
+     * @param intent  Intent
+     */
+    public void startActivity(final Context context, final Intent intent) {
+        if (context instanceof Context && !(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
+
+    /**
      * Open a View intent for given file
      *
      * @param file The file to share
      */
-    public boolean viewFileInOtherApp(final File file, @Nullable final String type) {
+    public boolean viewFileInOtherApp(final Context context, final File file, @Nullable final String type) {
         // On some specific devices the first won't work
         Uri fileUri = null;
         try {
-            fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+            fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
         } catch (Exception ignored) {
             try {
                 fileUri = Uri.fromFile(file);
@@ -324,14 +318,14 @@ public class GsShareUtil extends GsContextUtils {
         }
 
         if (fileUri != null) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(fileUri, (TextUtils.isEmpty(type) ? getMimeType(_context, file) : type));
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(fileUri, (TextUtils.isEmpty(type) ? getMimeType(context, file) : type));
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             intent.setClipData(ClipData.newRawUri(file.getName(), fileUri));
             intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
             intent.putExtra(Intent.EXTRA_TITLE, file.getName());
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            showChooser(intent, null);
+            showChooser(context, intent, null);
             return true;
         }
         return false;
@@ -345,14 +339,14 @@ public class GsShareUtil extends GsContextUtils {
      *
      * @param file The apk file to install
      */
-    public boolean requestApkInstallation(final File file) {
+    public boolean requestApkInstallation(final Context context, final File file) {
         if (file == null || !file.getName().toLowerCase().endsWith(".apk")) {
             return false;
         }
 
         Uri fileUri = null;
         try {
-            fileUri = FileProvider.getUriForFile(_context, getFileProviderAuthority(), file);
+            fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
         } catch (Exception ignored) {
             try {
                 fileUri = Uri.fromFile(file);
@@ -364,7 +358,7 @@ public class GsShareUtil extends GsContextUtils {
             final Intent intent = new Intent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.ACTION_INSTALL_PACKAGE : Intent.ACTION_VIEW)
                     .setFlags(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.FLAG_GRANT_READ_URI_PERMISSION : Intent.FLAG_ACTIVITY_NEW_TASK)
                     .setDataAndType(fileUri, "application/vnd.android.package-archive");
-            _context.startActivity(intent);
+            context.startActivity(intent);
             return true;
         }
         return false;
@@ -379,12 +373,12 @@ public class GsShareUtil extends GsContextUtils {
      * @param quality   Quality of the exported image [0-100]
      * @return if success, true
      */
-    public boolean shareImage(final Bitmap bitmap, final Integer... quality) {
+    public boolean shareImage(final Context context, final Bitmap bitmap, final Integer... quality) {
         try {
-            File file = new File(_context.getCacheDir(), getFilenameWithTimestamp());
+            File file = new File(context.getCacheDir(), getFilenameWithTimestamp());
             if (bitmap != null && writeImageToFile(file, bitmap, quality)) {
                 String x = GsFileUtils.getMimeType(file);
-                shareStream(file, GsFileUtils.getMimeType(file));
+                shareStream(context, file, GsFileUtils.getMimeType(file));
                 return true;
             }
         } catch (Exception ignored) {
@@ -418,9 +412,10 @@ public class GsShareUtil extends GsContextUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public PrintJob print(final WebView webview, final String jobName, final boolean... landscape) {
+        final Context context = webview.getContext();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final PrintDocumentAdapter printAdapter;
-            final PrintManager printManager = (PrintManager) _context.getSystemService(Context.PRINT_SERVICE);
+            final PrintManager printManager = (PrintManager) context.getSystemService(Context.PRINT_SERVICE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 printAdapter = webview.createPrintDocumentAdapter(jobName);
             } else {
@@ -493,17 +488,17 @@ public class GsShareUtil extends GsContextUtils {
      * Replace (primary) clipboard contents with given {@code text}
      * @param text Text to be set
      */
-    public boolean setClipboard(final CharSequence text) {
+    public boolean setClipboard(final Context context, final CharSequence text) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
                 cm.setText(text);
                 return true;
             }
         } else {
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null) {
-                ClipData clip = ClipData.newPlainText(_context.getPackageName(), text);
+                ClipData clip = ClipData.newPlainText(context.getPackageName(), text);
                 try {
                     cm.setPrimaryClip(clip);
                 } catch (Exception ignored) {
@@ -517,15 +512,15 @@ public class GsShareUtil extends GsContextUtils {
     /**
      * Get clipboard contents, very failsafe and compat to older android versions
      */
-    public List<String> getClipboard() {
+    public List<String> getClipboard(final Context context) {
         List<String> clipper = new ArrayList<>();
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager cm = ((android.text.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null && !TextUtils.isEmpty(cm.getText())) {
                 clipper.add(cm.getText().toString());
             }
         } else {
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager) _context.getSystemService(Context.CLIPBOARD_SERVICE));
+            android.content.ClipboardManager cm = ((android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
             if (cm != null && cm.hasPrimaryClip()) {
                 ClipData data = cm.getPrimaryClip();
                 for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
@@ -571,8 +566,8 @@ public class GsShareUtil extends GsContextUtils {
      * @param body    Body (content) text to be prefilled in the mail
      * @param to      recipients to be prefilled in the mail
      */
-    public void draftEmail(final String subject, final String body, final String... to) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
+    public void draftEmail(final Context context, final String subject, final String body, final String... to) {
+        final Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
         if (subject != null) {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -583,7 +578,7 @@ public class GsShareUtil extends GsContextUtils {
         if (to != null && to.length > 0 && to[0] != null) {
             intent.putExtra(Intent.EXTRA_EMAIL, to);
         }
-        showChooser(intent, null);
+        showChooser(context, intent, null);
     }
 
     /**
@@ -593,7 +588,7 @@ public class GsShareUtil extends GsContextUtils {
      * @return A file or null if extraction did not succeed
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public File extractFileFromIntent(final Intent receivingIntent) {
+    public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
         String action = receivingIntent.getAction();
         String type = receivingIntent.getType();
         String tmps;
@@ -687,7 +682,7 @@ public class GsShareUtil extends GsContextUtils {
             }
 
             // Scan MediaStore.MediaColumns
-            sarr = contentColumnData(_context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
+            sarr = contentColumnData(context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
             if (sarr[0] != null) {
                 probeFiles.add(sarr[0]);
             }
@@ -701,15 +696,15 @@ public class GsShareUtil extends GsContextUtils {
         if (probeFiles.isEmpty()) {
             try {
                 // Try detect content file & filename in Intent
-                Uri uri = new ShareCompat.IntentReader(_context, receivingIntent).getStream();
+                Uri uri = new ShareCompat.IntentReader(context, receivingIntent).getStream();
                 uri = (uri != null ? uri : receivingIntent.getData());
-                sarr = contentColumnData(_context, receivingIntent, OpenableColumns.DISPLAY_NAME);
+                sarr = contentColumnData(context, receivingIntent, OpenableColumns.DISPLAY_NAME);
                 tmps = sarr != null && !TextUtils.isEmpty(sarr[0]) ? sarr[0] : uri.getLastPathSegment();
 
                 // Proxy file to app-private storage (= java.io.File)
-                File f = new File(_context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
+                File f = new File(context.getCacheDir(), CONTENT_RESOLVER_FILE_PROXY_SEGMENT + "/" + tmps);
                 f.getParentFile().mkdirs();
-                byte[] data = GsFileUtils.readCloseBinaryStream(_context.getContentResolver().openInputStream(uri));
+                byte[] data = GsFileUtils.readCloseBinaryStream(context.getContentResolver().openInputStream(uri));
                 GsFileUtils.writeFile(f, data, null);
                 f.setReadable(true);
                 f.setWritable(true);
@@ -748,20 +743,17 @@ public class GsShareUtil extends GsContextUtils {
      * It will return the path to the image if locally stored. If retrieved from e.g. a cloud
      * service, the image will get copied to app-cache folder and it's path returned.
      */
-    public void requestGalleryPicture() {
-        if (!(_context instanceof Activity)) {
-            throw new RuntimeException("Error: ShareUtil.requestGalleryPicture needs an Activity Context.");
-        }
+    public void requestGalleryPicture(final Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         try {
-            ((Activity) _context).startActivityForResult(intent, REQUEST_PICK_PICTURE);
+            activity.startActivityForResult(intent, REQUEST_PICK_PICTURE);
         } catch (Exception ex) {
-            Toast.makeText(_context, "No gallery app installed!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public String extractFileFromIntentStr(final Intent receivingIntent) {
-        File f = extractFileFromIntent(receivingIntent);
+    public String extractFileFromIntentStr(final Context context, final Intent receivingIntent) {
+        File f = extractFileFromIntent(context, receivingIntent);
         return f != null ? f.getAbsolutePath() : null;
     }
 
@@ -776,16 +768,13 @@ public class GsShareUtil extends GsContextUtils {
      * @param target Path to file to write to, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
      */
     @SuppressWarnings("RegExpRedundantEscape")
-    public String requestCameraPicture(final File target) {
-        if (!(_context instanceof Activity)) {
-            throw new RuntimeException("Error: ShareUtil.requestCameraPicture needs an Activity Context.");
-        }
+    public String requestCameraPicture(final Activity context, final File target) {
         final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         final String timestampedFilename = getFilenameWithTimestamp("IMG", "", "jpg");
         final File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
 
         String cameraPictureFilepath = null;
-        if (takePictureIntent.resolveActivity(_context.getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
             File photoFile;
             try {
                 // Create an image file name
@@ -810,11 +799,11 @@ public class GsShareUtil extends GsContextUtils {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(_context, getFileProviderAuthority(), photoFile));
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, getFileProviderAuthority(context), photoFile));
                 } else {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                ((Activity) _context).startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
+                context.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
             }
         }
         _lastCameraPictureFilepath = cameraPictureFilepath;
@@ -823,17 +812,16 @@ public class GsShareUtil extends GsContextUtils {
 
     /**
      * Extract result data from {@link Activity#onActivityResult(int, int, Intent)}.
-     * Forward all arguments from activity. Only requestCodes from {@link GsShareUtil} get analyzed.
+     * Forward all arguments from context. Only requestCodes from {@link GsShareUtil} get analyzed.
      * Also may forward results via local broadcast
      */
     @SuppressLint("ApplySharedPref")
-    public Object extractResultFromActivityResult(final int requestCode, final int resultCode, final Intent data, final Activity... activityOrNull) {
-        Activity activity = greedyGetActivity(activityOrNull);
+    public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent data) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
                 String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
                 if (picturePath != null) {
-                    sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                    sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 }
                 return picturePath;
             }
@@ -843,7 +831,7 @@ public class GsShareUtil extends GsContextUtils {
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     String picturePath = null;
 
-                    Cursor cursor = _context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     if (cursor != null && cursor.moveToFirst()) {
                         for (String column : filePathColumn) {
                             int curColIndex = cursor.getColumnIndex(column);
@@ -860,18 +848,18 @@ public class GsShareUtil extends GsContextUtils {
 
                     // Try to grab via file extraction method
                     data.setAction(Intent.ACTION_VIEW);
-                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(data);
+                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(context, data);
 
                     // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
                     if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         try {
-                            ParcelFileDescriptor parcelFileDescriptor = _context.getContentResolver().openFileDescriptor(selectedImage, "r");
+                            ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(selectedImage, "r");
                             if (parcelFileDescriptor != null) {
                                 FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
                                 FileInputStream input = new FileInputStream(fileDescriptor);
 
                                 // Create temporary file in cache directory
-                                picturePath = File.createTempFile("image", "tmp", _context.getCacheDir()).getAbsolutePath();
+                                picturePath = File.createTempFile("image", "tmp", context.getCacheDir()).getAbsolutePath();
                                 GsFileUtils.writeFile(new File(picturePath), GsFileUtils.readCloseBinaryStream(input), null);
                             }
                         } catch (IOException ignored) {
@@ -881,7 +869,7 @@ public class GsShareUtil extends GsContextUtils {
 
                     // Return path to picture on success, else null
                     if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                        sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                     }
                     return picturePath;
                 }
@@ -891,9 +879,9 @@ public class GsShareUtil extends GsContextUtils {
             case REQUEST_SAF: {
                 if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                     Uri treeUri = data.getData();
-                    PreferenceManager.getDefaultSharedPreferences(_context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
+                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        activity.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        context.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
                     return treeUri;
                 }
@@ -902,7 +890,7 @@ public class GsShareUtil extends GsContextUtils {
 
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
-                return checkExternalStoragePermission(false);
+                return checkExternalStoragePermission(context, false);
             }
         }
         return null;
@@ -912,10 +900,10 @@ public class GsShareUtil extends GsContextUtils {
      * Send a local broadcast (to receive within app), with given action and string-extra+value.
      * This is a convenience method for quickly sending just one thing.
      */
-    public void sendLocalBroadcastWithStringExtra(final String action, final String extra, final CharSequence value) {
+    public void sendLocalBroadcastWithStringExtra(final Context context, final String action, final String extra, final CharSequence value) {
         Intent intent = new Intent(action);
         intent.putExtra(extra, value);
-        LocalBroadcastManager.getInstance(_context).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     /**
@@ -926,7 +914,7 @@ public class GsShareUtil extends GsContextUtils {
      * @param filterActions  All {@link IntentFilter} actions to filter for
      * @return The created instance. Has to be unregistered on {@link Activity} lifecycle events.
      */
-    public BroadcastReceiver receiveResultFromLocalBroadcast(final GsCallback.a2<Intent, BroadcastReceiver> callback, final boolean autoUnregister, final String... filterActions) {
+    public BroadcastReceiver receiveResultFromLocalBroadcast(final Context context, final GsCallback.a2<Intent, BroadcastReceiver> callback, final boolean autoUnregister, final String... filterActions) {
         IntentFilter intentFilter = new IntentFilter();
         for (String filterAction : filterActions) {
             intentFilter.addAction(filterAction);
@@ -936,7 +924,7 @@ public class GsShareUtil extends GsContextUtils {
             public void onReceive(Context context, Intent intent) {
                 if (intent != null) {
                     if (autoUnregister) {
-                        LocalBroadcastManager.getInstance(_context).unregisterReceiver(this);
+                        LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
                     }
                     try {
                         callback.callback(intent, this);
@@ -945,7 +933,7 @@ public class GsShareUtil extends GsContextUtils {
                 }
             }
         };
-        LocalBroadcastManager.getInstance(_context).registerReceiver(br, intentFilter);
+        LocalBroadcastManager.getInstance(context).registerReceiver(br, intentFilter);
         return br;
     }
 
@@ -954,14 +942,14 @@ public class GsShareUtil extends GsContextUtils {
      *
      * @param file File that should be edited
      */
-    public void requestPictureEdit(final File file) {
-        Uri uri = getUriByFileProviderAuthority(file);
+    public void requestPictureEdit(final Context context, final File file) {
+        Uri uri = getUriByFileProviderAuthority(context, file);
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setDataAndType(uri, "image/*");
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        _context.startActivity(Intent.createChooser(intent, null));
+        startActivity(context, Intent.createChooser(intent, null));
     }
 
     /**
@@ -972,13 +960,13 @@ public class GsShareUtil extends GsContextUtils {
      * @return Media URI
      */
     @SuppressWarnings("TryFinallyCanBeTryWithResources")
-    public Uri getMediaUri(final File file, final int mode) {
+    public Uri getMediaUri(final Context context, final File file, final int mode) {
         Uri uri = MediaStore.Files.getContentUri("external");
         uri = (mode != 0) ? (mode == 1 ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Video.Media.EXTERNAL_CONTENT_URI) : uri;
 
         Cursor cursor = null;
         try {
-            cursor = _context.getContentResolver().query(uri, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[]{file.getAbsolutePath()}, null);
+            cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "= ?", new String[]{file.getAbsolutePath()}, null);
             if (cursor != null && cursor.moveToFirst()) {
                 @SuppressLint("Range")
                 int mediaid = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
@@ -999,7 +987,7 @@ public class GsShareUtil extends GsContextUtils {
      * which implement the Chrome Custom Tab interface. This method changes
      * the customtab intent to use an available compatible browser, if available.
      */
-    public void enableChromeCustomTabsForOtherBrowsers(final Intent customTabIntent) {
+    public void enableChromeCustomTabsForOtherBrowsers(final Context context, final Intent customTabIntent) {
         String[] checkpkgs = new String[]{
                 "com.android.chrome", "com.chrome.beta", "com.chrome.dev", "com.google.android.apps.chrome", "org.chromium.chrome",
                 "org.mozilla.fennec_fdroid", "org.mozilla.firefox", "org.mozilla.firefox_beta", "org.mozilla.fennec_aurora",
@@ -1007,7 +995,7 @@ public class GsShareUtil extends GsContextUtils {
         };
 
         // Get all intent handlers for web links
-        PackageManager pm = _context.getPackageManager();
+        PackageManager pm = context.getPackageManager();
         Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.example.com"));
         List<String> browsers = new ArrayList<>();
         for (ResolveInfo ri : pm.queryIntentActivities(urlIntent, 0)) {
@@ -1046,19 +1034,19 @@ public class GsShareUtil extends GsContextUtils {
         }
     }
 
-    public boolean openWebpageInChromeCustomTab(final String url) {
+    public boolean openWebpageInChromeCustomTab(final Context context, final String url) {
         boolean ok = false;
         try {
             // Use a CustomTabsIntent.Builder to configure CustomTabsIntent.
             // Once ready, call CustomTabsIntent.Builder.build() to create a CustomTabsIntent
             // and launch the desired Url with CustomTabsIntent.launchUrl()
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(ContextCompat.getColor(_context, getResId(GsContextUtils.ResType.COLOR, "primary")));
-            builder.setSecondaryToolbarColor(ContextCompat.getColor(_context, getResId(GsContextUtils.ResType.COLOR, "primary_dark")));
+            builder.setToolbarColor(ContextCompat.getColor(context, getResId(context, GsContextUtils.ResType.COLOR, "primary")));
+            builder.setSecondaryToolbarColor(ContextCompat.getColor(context, getResId(context, GsContextUtils.ResType.COLOR, "primary_dark")));
             builder.addDefaultShareMenuItem();
             CustomTabsIntent customTabsIntent = builder.build();
-            enableChromeCustomTabsForOtherBrowsers(customTabsIntent.intent);
-            customTabsIntent.launchUrl(_context, Uri.parse(url));
+            enableChromeCustomTabsForOtherBrowsers(context, customTabsIntent.intent);
+            customTabsIntent.launchUrl(context, Uri.parse(url));
             ok = true;
         } catch (Exception ignored) {
         }
@@ -1067,18 +1055,17 @@ public class GsShareUtil extends GsContextUtils {
 
     /***
      * Request storage access. The user needs to press "Select storage" at the correct storage.
-     * @param activity The activity which will receive the result from startActivityForResult
+     * @param context The {@link Activity} which will receive the result from startActivityForResult
      */
-    public void requestStorageAccessFramework(final Activity... activity) {
-        Activity a = greedyGetActivity(activity);
-        if (a != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+    public void requestStorageAccessFramework(final Activity context) {
+        if (context != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                     | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
                     | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
             );
-            a.startActivityForResult(intent, REQUEST_SAF);
+            context.startActivityForResult(intent, REQUEST_SAF);
         }
     }
 
@@ -1087,8 +1074,8 @@ public class GsShareUtil extends GsContextUtils {
      *
      * @return Uri or null if not granted yet
      */
-    public Uri getStorageAccessFrameworkTreeUri() {
-        String treeStr = PreferenceManager.getDefaultSharedPreferences(_context).getString(PREF_KEY__SAF_TREE_URI, null);
+    public Uri getStorageAccessFrameworkTreeUri(final Context context) {
+        String treeStr = PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_KEY__SAF_TREE_URI, null);
         if (!TextUtils.isEmpty(treeStr)) {
             try {
                 return Uri.parse(treeStr);
@@ -1103,11 +1090,11 @@ public class GsShareUtil extends GsContextUtils {
      *
      * @return File or null if SD not mounted
      */
-    public File getStorageAccessFolder() {
-        Uri safUri = getStorageAccessFrameworkTreeUri();
+    public File getStorageAccessFolder(final Context context) {
+        Uri safUri = getStorageAccessFrameworkTreeUri(context);
         if (safUri != null) {
             String safUriStr = safUri.toString();
-            for (Pair<File, String> storage : getStorages(false, true)) {
+            for (Pair<File, String> storage : getStorages(context, false, true)) {
                 @SuppressWarnings("ConstantConditions") String storageFolderName = storage.first.getName();
                 if (safUriStr.contains(storageFolderName)) {
                     return storage.first;
@@ -1123,14 +1110,14 @@ public class GsShareUtil extends GsContextUtils {
      * @param file The file object (file/folder)
      * @return Wether or not the file is under storage access folder
      */
-    public boolean isUnderStorageAccessFolder(final File file, boolean isDir) {
+    public boolean isUnderStorageAccessFolder(final Context context, final File file, boolean isDir) {
         if (file != null) {
             isDir = isDir || (file.exists() && file.isDirectory());
             // When file writeable as is, it's the fastest way to learn SAF isn't required
-            if (canWriteFile(file, isDir, false)) {
+            if (canWriteFile(context, file, isDir, false)) {
                 return false;
             }
-            for (Pair<File, String> storage : getStorages(false, true)) {
+            for (Pair<File, String> storage : getStorages(context, false, true)) {
                 if (file.getAbsolutePath().startsWith(storage.first.getAbsolutePath())) {
                     return true;
                 }
@@ -1144,19 +1131,6 @@ public class GsShareUtil extends GsContextUtils {
     }
 
     /**
-     * Greedy extract Activity from parameter or convert context if it's a activity
-     */
-    private Activity greedyGetActivity(final Activity... activity) {
-        if (activity != null && activity.length != 0 && activity[0] != null) {
-            return activity[0];
-        }
-        if (_context instanceof Activity) {
-            return (Activity) _context;
-        }
-        return null;
-    }
-
-    /**
      * Check whether or not a file can be written.
      * Requires storage access framework permission for external storage (SD)
      *
@@ -1165,7 +1139,7 @@ public class GsShareUtil extends GsContextUtils {
      * @return Wether or not the file can be written
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public boolean canWriteFile(final File file, final boolean isDir, final boolean trySaf) {
+    public boolean canWriteFile(final Context context, final File file, final boolean isDir, final boolean trySaf) {
         if (file == null) {
             return false;
         }
@@ -1188,8 +1162,8 @@ public class GsShareUtil extends GsContextUtils {
         };
 
         //  Own AppData directories do not require any special permission or handling
-        final ArrayList<File> appCacheDirs = new ArrayList<>(Arrays.asList(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? _context.getExternalCacheDirs() : new File[]{_context.getExternalCacheDir()}));
-        appCacheDirs.add(_context.getCacheDir());
+        final ArrayList<File> appCacheDirs = new ArrayList<>(Arrays.asList(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? context.getExternalCacheDirs() : new File[]{context.getExternalCacheDir()}));
+        appCacheDirs.add(context.getCacheDir());
         appCacheDirs.removeAll(Collections.singleton(null));
         for (File dir : appCacheDirs) {
             if (realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
@@ -1205,7 +1179,7 @@ public class GsShareUtil extends GsContextUtils {
         }
 
         // Try with SAF
-        DocumentFile dof = getDocumentFile(file, isDir);
+        DocumentFile dof = getDocumentFile(context, file, isDir);
         if (trySaf && dof != null && dof.canWrite()) {
             return true;
         }
@@ -1222,14 +1196,14 @@ public class GsShareUtil extends GsContextUtils {
      * @return A {@link DocumentFile} object or null if file cannot be converted
      */
     @SuppressWarnings("RegExpRedundantEscape")
-    public DocumentFile getDocumentFile(final File file, final boolean isDir) {
+    public DocumentFile getDocumentFile(final Context context, final File file, final boolean isDir) {
         // On older versions use fromFile
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             return DocumentFile.fromFile(file);
         }
 
         // Get ContextUtils to find storageRootFolder
-        File baseFolderFile = getStorageRootFolder(file);
+        File baseFolderFile = getStorageRootFolder(context, file);
         String baseFolder = baseFolderFile == null ? null : baseFolderFile.getAbsolutePath();
         boolean originalDirectory = false;
         if (baseFolder == null) {
@@ -1250,10 +1224,10 @@ public class GsShareUtil extends GsContextUtils {
             originalDirectory = true;
         }
         Uri treeUri;
-        if ((treeUri = getStorageAccessFrameworkTreeUri()) == null) {
+        if ((treeUri = getStorageAccessFrameworkTreeUri(context)) == null) {
             return null;
         }
-        DocumentFile dof = DocumentFile.fromTreeUri(_context, treeUri);
+        DocumentFile dof = DocumentFile.fromTreeUri(context, treeUri);
         if (originalDirectory) {
             return dof;
         }
@@ -1272,29 +1246,24 @@ public class GsShareUtil extends GsContextUtils {
         return dof;
     }
 
-    public void showMountSdDialog(@StringRes final int title, @StringRes final int description, @DrawableRes final int mountDescriptionGraphic, final Activity... activityOrNull) {
-        Activity activity = greedyGetActivity(activityOrNull);
-        if (activity == null) {
-            return;
-        }
-
+    public void showMountSdDialog(final Activity context, @StringRes final int title, @StringRes final int description, @DrawableRes final int mountDescriptionGraphic) {
         // Image viewer
-        ImageView imv = new ImageView(activity);
+        ImageView imv = new ImageView(context);
         imv.setImageResource(mountDescriptionGraphic);
         imv.setAdjustViewBounds(true);
 
-        AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setView(imv);
         dialog.setTitle(title);
-        dialog.setMessage(_context.getString(description) + "\n\n");
+        dialog.setMessage(context.getString(description) + "\n\n");
         dialog.setNegativeButton(android.R.string.cancel, null);
-        dialog.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> requestStorageAccessFramework(activity));
+        dialog.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> requestStorageAccessFramework(context));
         AlertDialog dialogi = dialog.create();
         dialogi.show();
     }
 
     @SuppressWarnings({"ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
-    public void writeFile(final File file, final boolean isDirectory, final GsCallback.a2<Boolean, OutputStream> writeFileCallback) {
+    public void writeFile(final Activity context, final File file, final boolean isDirectory, final GsCallback.a2<Boolean, OutputStream> writeFileCallback) {
         try {
             OutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
@@ -1303,10 +1272,10 @@ public class GsShareUtil extends GsContextUtils {
             if (isContentResolverProxyFile(file)) {
                 // File initially read from Activity, Intent & ContentResolver -> write back to it
                 try {
-                    Intent intent = greedyGetActivity().getIntent();
-                    Uri uri = new ShareCompat.IntentReader(_context, intent).getStream();
+                    Intent intent = context.getIntent();
+                    Uri uri = new ShareCompat.IntentReader(context, intent).getStream();
                     uri = (uri != null ? uri : intent.getData());
-                    fileOutputStream = _context.getContentResolver().openOutputStream(uri, "rwt");
+                    fileOutputStream = context.getContentResolver().openOutputStream(uri, "rwt");
                 } catch (Exception ignored) {
                 }
             } else if (existingEmptyFile || nonExistingCreatableFile) {
@@ -1316,12 +1285,12 @@ public class GsShareUtil extends GsContextUtils {
                     fileOutputStream = new FileOutputStream(file);
                 }
             } else {
-                DocumentFile dof = getDocumentFile(file, isDirectory);
+                DocumentFile dof = getDocumentFile(context, file, isDirectory);
                 if (dof != null && dof.getUri() != null && dof.canWrite()) {
                     if (isDirectory) {
                         // Nothing to do
                     } else {
-                        pfd = _context.getContentResolver().openFileDescriptor(dof.getUri(), "rwt");
+                        pfd = context.getContentResolver().openFileDescriptor(dof.getUri(), "rwt");
                         fileOutputStream = new FileOutputStream(pfd.getFileDescriptor());
                     }
                 }
@@ -1354,23 +1323,19 @@ public class GsShareUtil extends GsContextUtils {
      * @param directCall Direct call number if possible
      */
     @SuppressWarnings("SimplifiableConditionalExpression")
-    public void callTelephoneNumber(final String telNo, final boolean... directCall) {
-        Activity activity = greedyGetActivity();
-        if (activity == null) {
-            throw new RuntimeException("Error: ShareUtil::callTelephoneNumber needs to be contstructed with activity context");
-        }
+    public void callTelephoneNumber(final Activity context, String telNo, final boolean... directCall) {
         boolean ldirectCall = (directCall != null && directCall.length > 0) ? directCall[0] : true;
+        telNo = telNo.replaceAll("(?i)(tel:?)+", "");
 
-
-        if (android.os.Build.VERSION.SDK_INT >= 23 && ldirectCall && activity != null) {
-            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 4001);
+        if (android.os.Build.VERSION.SDK_INT >= 23 && ldirectCall && context != null) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.CALL_PHONE}, 4001);
                 ldirectCall = false;
             } else {
                 try {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:" + telNo));
-                    activity.startActivity(callIntent);
+                    context.startActivity(callIntent);
                 } catch (Exception ignored) {
                     ldirectCall = false;
                 }
@@ -1379,7 +1344,7 @@ public class GsShareUtil extends GsContextUtils {
         // Show dialer up with telephone number pre-inserted
         if (!ldirectCall) {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
-            activity.startActivity(intent);
+            context.startActivity(intent);
         }
     }
 
@@ -1406,8 +1371,7 @@ public class GsShareUtil extends GsContextUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public boolean checkExternalStoragePermission(final boolean doRequest, String... optionalDescription) {
-        final Activity activity = greedyGetActivity();
+    public boolean checkExternalStoragePermission(final Activity context, final boolean doRequest, String... optionalDescription) {
         final int v = android.os.Build.VERSION.SDK_INT;
         final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
 
@@ -1415,27 +1379,27 @@ public class GsShareUtil extends GsContextUtils {
         if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
             permissionRequest.set(() -> {
                 try {
-                    Uri uri = Uri.parse("package:" + getPackageIdReal());
+                    Uri uri = Uri.parse("package:" + getPackageIdReal(context));
                     Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 } catch (Exception ex) {
                     Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 }
             });
         }
 
         // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionRequest.set(() -> ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
+        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionRequest.set(() -> ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
         }
 
         if (doRequest && permissionRequest.get() != null) {
             if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
                 permissionRequest.get().callback();
             } else {
-                final AlertDialog d = new AlertDialog.Builder(activity)
+                final AlertDialog d = new AlertDialog.Builder(context)
                         .setMessage(optionalDescription[0])
                         .setCancelable(false)
                         .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
@@ -1452,7 +1416,7 @@ public class GsShareUtil extends GsContextUtils {
 
         // Android M permissions
         if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R) {
-            return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         }
 
         // In case unsure, check if anything is writable at external storage
@@ -1464,7 +1428,7 @@ public class GsShareUtil extends GsContextUtils {
         return false;
     }
 
-    public List<Pair<String, String>> extractFileMetadata(Context context, File file, boolean withHtml) {
+    public List<Pair<String, String>> extractFileMetadata(final Context context, File file, boolean withHtml) {
         if (CACHE_LAST_EXTRACT_FILE_METADATA != null && CACHE_LAST_EXTRACT_FILE_METADATA.first.equals(file)) {
             return CACHE_LAST_EXTRACT_FILE_METADATA.second;
         }
@@ -1473,7 +1437,7 @@ public class GsShareUtil extends GsContextUtils {
 
         // "Last modified" -> R.string.last_modified
         final GsCallback.a2<String, String> append = (key, value) -> {
-            final int resId = getResId(GsContextUtils.ResType.STRING, key);
+            final int resId = getResId(context, GsContextUtils.ResType.STRING, key);
             extracted.add(new Pair<>((resId != 0 ? context.getString(resId) : key), value));
         };
 

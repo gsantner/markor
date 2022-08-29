@@ -183,7 +183,7 @@ public class NewFileDialog extends DialogFragment {
                     final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
                     final File f = new File(basedir, Document.normalizeFilename(usedFilename.trim()) + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
-                    shareUtil.writeFile(f, false, (arg_ok, arg_fos) -> {
+                    shareUtil.writeFile(getActivity(), f, false, (arg_ok, arg_fos) -> {
                         try {
                             if (appSettings.getNewFileDialogLastUsedUtf8Bom()) {
                                 arg_fos.write(0xEF);
@@ -205,8 +205,8 @@ public class NewFileDialog extends DialogFragment {
                     }
                     final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
                     File f = new File(basedir, usedFoldername);
-                    if (shareUtil.isUnderStorageAccessFolder(f, true)) {
-                        DocumentFile dof = shareUtil.getDocumentFile(f, true);
+                    if (shareUtil.isUnderStorageAccessFolder(getContext(), f, true)) {
+                        DocumentFile dof = shareUtil.getDocumentFile(getContext(), f, true);
                         callback(dof != null && dof.exists(), f);
                     } else {
                         callback(f.mkdirs() || f.exists(), f);

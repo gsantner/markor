@@ -23,7 +23,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
             getWindow().setEnterTransition(null);
             getWindow().setExitTransition(null);
         }
-        _activityUtils.setAppLanguage(_appSettings.getLanguage()).freeContextRef(); // invalidates actvity references
+        _activityUtils.setAppLanguage(this, _appSettings.getLanguage());
         if (_appSettings.isHideSystemStatusbar()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }

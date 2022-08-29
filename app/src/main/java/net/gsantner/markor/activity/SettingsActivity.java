@@ -69,7 +69,7 @@ public class SettingsActivity extends MarkorBaseActivity {
 
         // Custom code
         GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
-        iconColor = _activityUtils.rcolor(R.color.primary_text);
+        iconColor = _activityUtils.rcolor(this, R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
@@ -218,7 +218,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
-                new ShareUtil(getActivity()).applySpecialLaunchersVisibility(extraLaunchersEnabled).freeContextRef();
+                new ShareUtil(getActivity()).applySpecialLaunchersVisibility(getActivity(), extraLaunchersEnabled).freeContextRef();
             } else if (eq(key, R.string.pref_key__file_description_format)) {
                 try {
                     new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());

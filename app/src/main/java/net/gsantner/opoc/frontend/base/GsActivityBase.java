@@ -33,8 +33,8 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     protected GsActivityUtils _activityUtils;
     private int m_initialToolbarHeight = 0;
 
-    private final GsCallback.a0 m_setActivityBackgroundColor = () -> new GsActivityUtils(GsActivityBase.this).setActivityBackgroundColor(getNewActivityBackgroundColor()).freeContextRef();
-    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> new GsActivityUtils(GsActivityBase.this).setActivityNavigationBarBackgroundColor(getNewNavigationBarColor()).freeContextRef();
+    private final GsCallback.a0 m_setActivityBackgroundColor = () -> _activityUtils.setActivityBackgroundColor(GsActivityBase.this, getNewActivityBackgroundColor()).freeContextRef();
+    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> _activityUtils.setActivityNavigationBarBackgroundColor(GsActivityBase.this, getNewNavigationBarColor()).freeContextRef();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     public void setTitle(CharSequence title) {
         super.setTitle(title);
         try {
-            final Toolbar t = findViewById(_activityUtils.getResId(GsContextUtils.ResType.ID, "toolbar"));
+            final Toolbar t = findViewById(_activityUtils.getResId(this, GsContextUtils.ResType.ID, "toolbar"));
             if (t != null) {
                 t.setTitle(title);
             }
@@ -113,7 +113,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
      */
     public void setToolbarVisible(boolean visible) {
         try {
-            final int toolbarResId = _activityUtils.getResId(GsContextUtils.ResType.ID, "toolbar");
+            final int toolbarResId = _activityUtils.getResId(this, GsContextUtils.ResType.ID, "toolbar");
             LinearLayout appBarLayout = ((LinearLayout) findViewById(toolbarResId).getParent());
             if (!visible && m_initialToolbarHeight == 0) {
                 m_initialToolbarHeight = appBarLayout.getMeasuredHeight();

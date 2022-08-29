@@ -96,30 +96,32 @@ import java.util.Locale;
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "ObsoleteSdkInt", "deprecation", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources", "UnusedAssignment", "UnusedReturnValue"})
 public class GsContextUtils {
+    public static final GsContextUtils instance = new GsContextUtils();
+
+    protected <T extends GsContextUtils> T thisp() {
+        //noinspection unchecked
+        return (T) this;
+    }
+
     //
     // Members, Constructors
     //
-    protected Context _context;
-
-    public GsContextUtils(Context context) {
-        _context = context;
+    public GsContextUtils() {
     }
 
-    public Context context() {
-        return _context;
+    public GsContextUtils(Context context) {
     }
 
     public void freeContextRef() {
-        _context = null;
     }
 
-    public GsContextUtils setLauncherActivityEnabled(Class activityClass, boolean enable) {
+    public <T extends GsContextUtils> T setLauncherActivityEnabled(final Context context, Class activityClass, boolean enable) {
         try {
-            ComponentName component = new ComponentName(_context, activityClass);
-            _context.getPackageManager().setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+            ComponentName component = new ComponentName(context, activityClass);
+            context.getPackageManager().setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         } catch (Exception ignored) {
         }
-        return this;
+        return thisp();
     }
 
     //
@@ -135,10 +137,11 @@ public class GsContextUtils {
      *
      * @return A valid id if the id could be found, else 0
      */
-    public int getResId(final ResType resType, String name) {
+    @SuppressLint("DiscouragedApi")
+    public int getResId(final Context context, final ResType resType, String name) {
         try {
             name = name.toLowerCase(Locale.ROOT).replace("#", "no").replaceAll("[^A-Za-z0-9_]", "_");
-            return _context.getResources().getIdentifier(name, resType.name().toLowerCase(Locale.ENGLISH), _context.getPackageName());
+            return context.getResources().getIdentifier(name, resType.name().toLowerCase(Locale.ENGLISH), context.getPackageName());
         } catch (Exception e) {
             return 0;
         }
@@ -147,9 +150,9 @@ public class GsContextUtils {
     /**
      * Get String by given string ressource id (nuermic)
      */
-    public String rstr(@StringRes final int strResId) {
+    public String rstr(Context context, @StringRes final int strResId) {
         try {
-            return _context.getString(strResId);
+            return context.getString(strResId);
         } catch (Exception e) {
             return null;
         }
@@ -158,9 +161,9 @@ public class GsContextUtils {
     /**
      * Get String by given string ressource identifier (textual)
      */
-    public String rstr(final String strResKey, Object... a0getResKeyAsFallback) {
+    public String rstr(final Context context, final String strResKey, Object... a0getResKeyAsFallback) {
         try {
-            return rstr(getResId(ResType.STRING, strResKey));
+            return rstr(context, getResId(context, ResType.STRING, strResKey));
         } catch (Resources.NotFoundException e) {
             return a0getResKeyAsFallback != null && a0getResKeyAsFallback.length > 0 ? strResKey : null;
         }
@@ -169,9 +172,9 @@ public class GsContextUtils {
     /**
      * Get drawable from given ressource identifier
      */
-    public Drawable rdrawable(@DrawableRes final int resId) {
+    public Drawable rdrawable(final Context context, @DrawableRes final int resId) {
         try {
-            return ContextCompat.getDrawable(_context, resId);
+            return ContextCompat.getDrawable(context, resId);
         } catch (Exception e) {
             return null;
         }
@@ -180,12 +183,12 @@ public class GsContextUtils {
     /**
      * Get color by given color ressource id
      */
-    public int rcolor(@ColorRes final int resId) {
+    public int rcolor(final Context context, @ColorRes final int resId) {
         if (resId == 0) {
             Log.e(getClass().getName(), "ContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
         }
-        return ContextCompat.getColor(_context, resId);
+        return ContextCompat.getColor(context, resId);
     }
 
     /**
@@ -195,9 +198,9 @@ public class GsContextUtils {
      * @param resIdsTextual A (textual) identifier to be awaited at R.restype.resIdsTextual
      * @return True if all given ids are available
      */
-    public boolean areRessourcesAvailable(final ResType resType, final String... resIdsTextual) {
+    public boolean areRessourcesAvailable(final Context context, final ResType resType, final String... resIdsTextual) {
         for (String name : resIdsTextual) {
-            if (getResId(resType, name) == 0) {
+            if (getResId(context, resType, name) == 0) {
                 return false;
             }
         }
@@ -219,14 +222,14 @@ public class GsContextUtils {
         return Build.VERSION.RELEASE + " (" + Build.VERSION.SDK_INT + ")";
     }
 
-    public String getAppVersionName() {
-        PackageManager manager = _context.getPackageManager();
+    public String getAppVersionName(final Context context) {
+        final PackageManager manager = context.getPackageManager();
         try {
-            PackageInfo info = manager.getPackageInfo(getPackageIdReal(), 0);
+            PackageInfo info = manager.getPackageInfo(getPackageIdReal(context), 0);
             return info.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             try {
-                PackageInfo info = manager.getPackageInfo(getPackageIdManifest(), 0);
+                PackageInfo info = manager.getPackageInfo(getPackageIdManifest(context), 0);
                 return info.versionName;
             } catch (PackageManager.NameNotFoundException ignored) {
             }
@@ -234,13 +237,13 @@ public class GsContextUtils {
         return "?";
     }
 
-    public String getAppInstallationSource() {
+    public String getAppInstallationSource(final Context context) {
         String src = null;
         try {
-            src = _context.getPackageManager().getInstallerPackageName(getPackageIdReal());
+            src = context.getPackageManager().getInstallerPackageName(getPackageIdReal(context));
         } catch (Exception ignored) {
             try {
-                src = _context.getPackageManager().getInstallerPackageName(getPackageIdManifest());
+                src = context.getPackageManager().getInstallerPackageName(getPackageIdManifest(context));
             } catch (Exception ignored2) {
             }
         }
@@ -275,31 +278,31 @@ public class GsContextUtils {
      * Send a {@link Intent#ACTION_VIEW} Intent with given paramter
      * If the parameter is an string a browser will get triggered
      */
-    public GsContextUtils openWebpageInExternalBrowser(final String url) {
+    public <T extends GsContextUtils> T openWebpageInExternalBrowser(final Context context, final String url) {
         try {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-            _context.startActivity(intent);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK); // = works without Activity context
+            context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this;
+        return thisp();
     }
 
     /**
      * Get the apps base packagename, which is equal with all build flavors and variants
      */
-    public String getPackageIdManifest() {
-        String pkg = rstr("manifest_package_id");
-        return !TextUtils.isEmpty(pkg) ? pkg : _context.getPackageName();
+    public String getPackageIdManifest(final Context context) {
+        String pkg = rstr(context, "manifest_package_id");
+        return !TextUtils.isEmpty(pkg) ? pkg : context.getPackageName();
     }
 
     /**
      * Get this apps package name, returns the flavor specific package name.
      */
-    public String getPackageIdReal() {
-        return _context.getPackageName();
+    public String getPackageIdReal(final Context context) {
+        return context.getPackageName();
     }
 
     /**
@@ -310,8 +313,8 @@ public class GsContextUtils {
      * of the package set in manifest (root element).
      * Falls back to applicationId of the app which may differ from manifest.
      */
-    public Object getBuildConfigValue(final String fieldName) {
-        final String pkg = getPackageIdManifest() + ".BuildConfig";
+    public Object getBuildConfigValue(final Context context, final String fieldName) {
+        final String pkg = getPackageIdManifest(context) + ".BuildConfig";
         try {
             Class<?> c = Class.forName(pkg);
             return c.getField(fieldName).get(null);
@@ -321,8 +324,8 @@ public class GsContextUtils {
         return null;
     }
 
-    public List<String> getBuildConfigFields() {
-        final String pkg = getPackageIdManifest() + ".BuildConfig";
+    public List<String> getBuildConfigFields(final Context context) {
+        final String pkg = getPackageIdManifest(context) + ".BuildConfig";
         final List<String> fields = new ArrayList<>();
         try {
             for (Field f : Class.forName(pkg).getFields()) {
@@ -337,8 +340,8 @@ public class GsContextUtils {
     /**
      * Get a BuildConfig bool value
      */
-    public Boolean bcbool(final String fieldName, final Boolean defaultValue) {
-        Object field = getBuildConfigValue(fieldName);
+    public Boolean bcbool(final Context context, final String fieldName, final Boolean defaultValue) {
+        Object field = getBuildConfigValue(context, fieldName);
         if (field instanceof Boolean) {
             return (Boolean) field;
         }
@@ -348,8 +351,8 @@ public class GsContextUtils {
     /**
      * Get a BuildConfig string value
      */
-    public String bcstr(final String fieldName, final String defaultValue) {
-        Object field = getBuildConfigValue(fieldName);
+    public String bcstr(final Context context, final String fieldName, final String defaultValue) {
+        Object field = getBuildConfigValue(context, fieldName);
         if (field instanceof String) {
             return (String) field;
         }
@@ -359,8 +362,8 @@ public class GsContextUtils {
     /**
      * Get a BuildConfig string value
      */
-    public Integer bcint(final String fieldName, final int defaultValue) {
-        Object field = getBuildConfigValue(fieldName);
+    public Integer bcint(final Context context, final String fieldName, final int defaultValue) {
+        Object field = getBuildConfigValue(context, fieldName);
         if (field instanceof Integer) {
             return (Integer) field;
         }
@@ -370,38 +373,38 @@ public class GsContextUtils {
     /**
      * Check if this is a gplay build (requires BuildConfig field)
      */
-    public boolean isGooglePlayBuild() {
-        return bcbool("IS_GPLAY_BUILD", true);
+    public boolean isGooglePlayBuild(final Context context) {
+        return bcbool(context, "IS_GPLAY_BUILD", true);
     }
 
     /**
      * Check if this is a foss build (requires BuildConfig field)
      */
-    public boolean isFossBuild() {
-        return bcbool("IS_FOSS_BUILD", false);
+    public boolean isFossBuild(final Context context) {
+        return bcbool(context, "IS_FOSS_BUILD", false);
     }
 
     /**
      * Request a bitcoin donation with given details.
      * All parameters are awaited as string resource ids
      */
-    public void showDonateBitcoinRequest(@StringRes final int srBitcoinId, @StringRes final int srBitcoinAmount, @StringRes final int srBitcoinMessage, @StringRes final int srAlternativeDonateUrl) {
-        if (!isGooglePlayBuild()) {
+    public void showDonateBitcoinRequest(final Context context, @StringRes final int srBitcoinId, @StringRes final int srBitcoinAmount, @StringRes final int srBitcoinMessage, @StringRes final int srAlternativeDonateUrl) {
+        if (!isGooglePlayBuild(context)) {
             String btcUri = String.format("bitcoin:%s?amount=%s&label=%s&message=%s",
-                    rstr(srBitcoinId), rstr(srBitcoinAmount),
-                    rstr(srBitcoinMessage), rstr(srBitcoinMessage));
+                    rstr(context, srBitcoinId), rstr(context, srBitcoinAmount),
+                    rstr(context, srBitcoinMessage), rstr(context, srBitcoinMessage));
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(btcUri));
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK); // = works without Activity context
             try {
-                _context.startActivity(intent);
+                context.startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                openWebpageInExternalBrowser(rstr(srAlternativeDonateUrl));
+                openWebpageInExternalBrowser(context, rstr(context, srAlternativeDonateUrl));
             }
         }
     }
 
-    public String readTextfileFromRawRes(@RawRes int rawResId, String linePrefix, String linePostfix) {
+    public String readTextfileFromRawRes(final Context context, @RawRes int rawResId, String linePrefix, String linePostfix) {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;
         String line;
@@ -410,7 +413,7 @@ public class GsContextUtils {
         linePostfix = linePostfix == null ? "" : linePostfix;
 
         try {
-            br = new BufferedReader(new InputStreamReader(_context.getResources().openRawResource(rawResId)));
+            br = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(rawResId)));
             while ((line = br.readLine()) != null) {
                 sb.append(linePrefix);
                 sb.append(line);
@@ -434,11 +437,11 @@ public class GsContextUtils {
      *
      * @return True if internet connection available
      */
-    public boolean isConnectedToInternet() {
+    @SuppressLint("MissingPermission")
+    public boolean isConnectedToInternet(final Context context) {
         try {
-            ConnectivityManager con = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            @SuppressLint("MissingPermission") NetworkInfo activeNetInfo =
-                    con == null ? null : con.getActiveNetworkInfo();
+            ConnectivityManager con = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetInfo = con == null ? null : con.getActiveNetworkInfo();
             return activeNetInfo != null && activeNetInfo.isConnectedOrConnecting();
         } catch (Exception ignored) {
             throw new RuntimeException("Error: Developer forgot to declare a permission");
@@ -448,9 +451,9 @@ public class GsContextUtils {
     /**
      * Check if app with given {@code packageName} is installed
      */
-    public boolean isAppInstalled(String packageName) {
+    public boolean isAppInstalled(final Context context, String packageName) {
         try {
-            PackageManager pm = _context.getApplicationContext().getPackageManager();
+            PackageManager pm = context.getApplicationContext().getPackageManager();
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
@@ -461,22 +464,23 @@ public class GsContextUtils {
     /**
      * Restart the current app. Supply the class to start on startup
      */
-    public void restartApp(Class classToStart) {
-        final Intent intent = new Intent(_context, classToStart);
+    @SuppressWarnings("rawtypes")
+    public void restartApp(final Context context, Class classToStart) {
+        final Intent intent = new Intent(context, classToStart);
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             flags |= PendingIntent.FLAG_IMMUTABLE;
         }
-        final PendingIntent pendi = PendingIntent.getActivity(_context, 555, intent, flags);
-        final AlarmManager mgr = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
-        if (_context instanceof Activity) {
-            ((Activity) _context).finish();
+        final PendingIntent pendi = PendingIntent.getActivity(context, 555, intent, flags);
+        final AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (context instanceof Activity) {
+            ((Activity) context).finish();
         }
         if (mgr != null) {
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendi);
         } else {
             intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-            _context.startActivity(intent);
+            context.startActivity(intent);
         }
         Runtime.getRuntime().exit(0);
     }
@@ -485,12 +489,11 @@ public class GsContextUtils {
      * Load a markdown file from a {@link RawRes}, prepend each line with {@code prepend} text
      * and convert markdown to html using {@link GsSimpleMarkdownParser}
      */
-    public String loadMarkdownForTextViewFromRaw(@RawRes int rawMdFile, String prepend) {
+    public String loadMarkdownForTextViewFromRaw(final Context context, @RawRes int rawMdFile, String prepend) {
         try {
             return new GsSimpleMarkdownParser()
-                    .parse(_context.getResources().openRawResource(rawMdFile),
-                            prepend, GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
-                    .replaceColor("#000001", rcolor(getResId(ResType.COLOR, "accent")))
+                    .parse(context.getResources().openRawResource(rawMdFile), prepend, GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW)
+                    .replaceColor("#000001", rcolor(context, getResId(context, ResType.COLOR, "accent")))
                     .removeMultiNewlines().replaceBulletCharacter("*").getHtml();
         } catch (IOException e) {
             e.printStackTrace();
@@ -502,7 +505,7 @@ public class GsContextUtils {
      * Load html into a {@link Spanned} object and set the
      * {@link TextView}'s text using {@link TextView#setText(CharSequence)}
      */
-    public void setHtmlToTextView(TextView textView, String html) {
+    public void setHtmlToTextView(final TextView textView, final String html) {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(new SpannableString(htmlToSpanned(html)));
     }
@@ -510,8 +513,8 @@ public class GsContextUtils {
     /**
      * Estimate this device's screen diagonal size in inches
      */
-    public double getEstimatedScreenSizeInches() {
-        DisplayMetrics dm = _context.getResources().getDisplayMetrics();
+    public double getEstimatedScreenSizeInches(final Context context) {
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
 
         double calc = dm.density * 160d;
         double x = Math.pow(dm.widthPixels / calc, 2);
@@ -523,8 +526,8 @@ public class GsContextUtils {
     /**
      * Check if the device is currently in portrait orientation
      */
-    public boolean isInPortraitMode() {
-        return _context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    public boolean isInPortraitMode(final Context context) {
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     /**
@@ -545,19 +548,19 @@ public class GsContextUtils {
      * {@code androidLC} may be in any of the forms: en, de, de-rAt
      * If given an empty string, the default (system) locale gets loaded
      */
-    public GsContextUtils setAppLanguage(final String androidLC) {
+    public <T extends GsContextUtils> T setAppLanguage(final Context context, final String androidLC) {
         Locale locale = getLocaleByAndroidCode(androidLC);
         locale = (locale != null && !androidLC.isEmpty()) ? locale : Resources.getSystem().getConfiguration().locale;
-        setLocale(locale);
-        return this;
+        setLocale(context, locale);
+        return thisp();
     }
 
-    public GsContextUtils setLocale(final Locale locale) {
-        Configuration config = _context.getResources().getConfiguration();
+    public <T extends GsContextUtils> T setLocale(final Context context, final Locale locale) {
+        Configuration config = context.getResources().getConfiguration();
         config.locale = (locale != null ? locale : Resources.getSystem().getConfiguration().locale);
-        _context.getResources().updateConfiguration(config, null);
+        context.getResources().updateConfiguration(config, null);
         Locale.setDefault(locale);
-        return this;
+        return thisp();
     }
 
     /**
@@ -586,27 +589,27 @@ public class GsContextUtils {
     /**
      * Convert pixel unit do android dp unit
      */
-    public float convertPxToDp(final float px) {
-        return px / _context.getResources().getDisplayMetrics().density;
+    public float convertPxToDp(final Context context, final float px) {
+        return px / context.getResources().getDisplayMetrics().density;
     }
 
     /**
      * Convert android dp unit to pixel unit
      */
-    public float convertDpToPx(final float dp) {
-        return dp * _context.getResources().getDisplayMetrics().density;
+    public int convertDpToPx(final Context context, final float dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
     /**
      * Get the private directory for the current package (usually /data/data/package.name/)
      */
     @SuppressWarnings("StatementWithEmptyBody")
-    public File getAppDataPrivateDir() {
+    public File getAppDataPrivateDir(final Context context) {
         File filesDir;
         try {
-            filesDir = new File(new File(_context.getPackageManager().getPackageInfo(getPackageIdReal(), 0).applicationInfo.dataDir), "files");
+            filesDir = new File(new File(context.getPackageManager().getPackageInfo(getPackageIdReal(context), 0).applicationInfo.dataDir), "files");
         } catch (PackageManager.NameNotFoundException e) {
-            filesDir = _context.getFilesDir();
+            filesDir = context.getFilesDir();
         }
         if (!filesDir.exists() && filesDir.mkdirs()) ;
         return filesDir;
@@ -616,9 +619,9 @@ public class GsContextUtils {
      * Get public (accessible) appdata folders
      */
     @SuppressWarnings("StatementWithEmptyBody")
-    public List<Pair<File, String>> getAppDataPublicDirs(boolean internalStorageFolder, boolean sdcardFolders, boolean storageNameWithoutType) {
+    public List<Pair<File, String>> getAppDataPublicDirs(final Context context, boolean internalStorageFolder, boolean sdcardFolders, boolean storageNameWithoutType) {
         List<Pair<File, String>> dirs = new ArrayList<>();
-        for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+        for (File externalFileDir : ContextCompat.getExternalFilesDirs(context, null)) {
             if (externalFileDir == null || Environment.getExternalStorageDirectory() == null) {
                 continue;
             }
@@ -643,9 +646,9 @@ public class GsContextUtils {
         }
     }
 
-    public List<Pair<File, String>> getStorages(final boolean internalStorageFolder, final boolean sdcardFolders) {
+    public List<Pair<File, String>> getStorages(final Context context, final boolean internalStorageFolder, final boolean sdcardFolders) {
         List<Pair<File, String>> storages = new ArrayList<>();
-        for (Pair<File, String> pair : getAppDataPublicDirs(internalStorageFolder, sdcardFolders, true)) {
+        for (Pair<File, String> pair : getAppDataPublicDirs(context, internalStorageFolder, sdcardFolders, true)) {
             if (pair.first != null && pair.first.getAbsolutePath().lastIndexOf("/Android/data") > 0) {
                 try {
                     storages.add(new Pair<>(new File(pair.first.getCanonicalPath().replaceFirst("/Android/data.*", "")), pair.second));
@@ -656,15 +659,14 @@ public class GsContextUtils {
         return storages;
     }
 
-    public File getStorageRootFolder(final File file) {
+    public File getStorageRootFolder(final Context context, final File file) {
         String filepath;
         try {
             filepath = file.getCanonicalPath();
         } catch (Exception ignored) {
             return null;
         }
-        for (Pair<File, String> storage : getStorages(false, true)) {
-            //noinspection ConstantConditions
+        for (Pair<File, String> storage : getStorages(context, false, true)) {
             if (filepath.startsWith(storage.first.getAbsolutePath())) {
                 return storage.first;
             }
@@ -677,16 +679,16 @@ public class GsContextUtils {
      *
      * @param files Files and folders to scan
      */
-    public void mediaScannerScanFile(final File... files) {
+    public void mediaScannerScanFile(final Context context, final File... files) {
         if (android.os.Build.VERSION.SDK_INT > 19) {
             String[] paths = new String[files.length];
             for (int i = 0; i < files.length; i++) {
                 paths[i] = files[i].getAbsolutePath();
             }
-            MediaScannerConnection.scanFile(_context, paths, null, null);
+            MediaScannerConnection.scanFile(context, paths, null, null);
         } else {
             for (File file : files) {
-                _context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+                context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
             }
         }
     }
@@ -712,8 +714,7 @@ public class GsContextUtils {
                 drawable = (DrawableCompat.wrap(drawable)).mutate();
             }
 
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
@@ -726,9 +727,9 @@ public class GsContextUtils {
     /**
      * Get a {@link Bitmap} out of a {@link DrawableRes}
      */
-    public Bitmap drawableToBitmap(@DrawableRes final int drawableId) {
+    public Bitmap drawableToBitmap(final Context context, @DrawableRes final int drawableId) {
         try {
-            return drawableToBitmap(ContextCompat.getDrawable(_context, drawableId));
+            return drawableToBitmap(ContextCompat.getDrawable(context, drawableId));
         } catch (Exception e) {
             return null;
         }
@@ -820,10 +821,10 @@ public class GsContextUtils {
      * Draw text in the center of the given {@link DrawableRes}
      * This may be useful for e.g. badge counts
      */
-    public Bitmap drawTextOnDrawable(@DrawableRes final int drawableRes, final String text, final int textSize) {
-        Resources resources = _context.getResources();
+    public Bitmap drawTextOnDrawable(final Context context, @DrawableRes final int drawableRes, final String text, final int textSize) {
+        Resources resources = context.getResources();
         float scale = resources.getDisplayMetrics().density;
-        Bitmap bitmap = drawableToBitmap(drawableRes);
+        Bitmap bitmap = drawableToBitmap(context, drawableRes);
 
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
@@ -862,8 +863,8 @@ public class GsContextUtils {
     /**
      * Loads {@link Drawable} by given {@link DrawableRes} and applies a color
      */
-    public Drawable tintDrawable(@DrawableRes final int drawableRes, @ColorInt final int color) {
-        return tintDrawable(rdrawable(drawableRes), color);
+    public Drawable tintDrawable(final Context context, @DrawableRes final int drawableRes, @ColorInt final int color) {
+        return tintDrawable(rdrawable(context, drawableRes), color);
     }
 
     /**
@@ -897,16 +898,16 @@ public class GsContextUtils {
     }
 
 
-    public String getLocalizedDateFormat() {
-        return ((SimpleDateFormat) android.text.format.DateFormat.getDateFormat(_context)).toPattern();
+    public String getLocalizedDateFormat(final Context context) {
+        return ((SimpleDateFormat) android.text.format.DateFormat.getDateFormat(context)).toPattern();
     }
 
-    public String getLocalizedTimeFormat() {
-        return ((SimpleDateFormat) android.text.format.DateFormat.getTimeFormat(_context)).toPattern();
+    public String getLocalizedTimeFormat(final Context context) {
+        return ((SimpleDateFormat) android.text.format.DateFormat.getTimeFormat(context)).toPattern();
     }
 
-    public String getLocalizedDateTimeFormat() {
-        return getLocalizedDateFormat() + " " + getLocalizedTimeFormat();
+    public String getLocalizedDateTimeFormat(final Context context) {
+        return getLocalizedDateFormat(context) + " " + getLocalizedTimeFormat(context);
     }
 
     /**
@@ -935,16 +936,17 @@ public class GsContextUtils {
      * Example: new Handler().postDelayed(new DoTouchView(editView), 200);
      */
     public static class DoTouchView implements Runnable {
-        View _view;
+        private View m_view;
 
         public DoTouchView(View view) {
-            _view = view;
+            m_view = view;
         }
 
         @Override
         public void run() {
-            _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0, 0, 0));
-            _view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0, 0, 0));
+            m_view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 0, 0, 0));
+            m_view.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, 0, 0, 0));
+            m_view = null;
         }
     }
 
@@ -1023,9 +1025,9 @@ public class GsContextUtils {
         }
     }
 
-    public boolean isDeviceGoodHardware() {
+    public boolean isDeviceGoodHardware(final Context context) {
         try {
-            ActivityManager activityManager = (ActivityManager) _context.getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             return !ActivityManagerCompat.isLowRamDevice(activityManager) &&
                     Runtime.getRuntime().availableProcessors() >= 4 &&
                     activityManager.getMemoryClass() >= 128;
@@ -1038,9 +1040,9 @@ public class GsContextUtils {
     // Requires <uses-permission android:name="android.permission.VIBRATE" /> in AndroidManifest to work
     @SuppressWarnings("UnnecessaryReturnStatement")
     @SuppressLint("MissingPermission")
-    public void vibrate(final int... ms) {
+    public void vibrate(final Context context, final int... ms) {
         int ms_v = ms != null && ms.length > 0 ? ms[0] : 50;
-        Vibrator vibrator = ((Vibrator) _context.getSystemService(VIBRATOR_SERVICE));
+        Vibrator vibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE));
         if (vibrator == null) {
             return;
         } else if (Build.VERSION.SDK_INT >= 26) {
@@ -1056,37 +1058,91 @@ public class GsContextUtils {
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
      */
     @SuppressLint("MissingPermission")
-    public boolean isWifiConnected(boolean... enabledOnly) {
+    public boolean isWifiConnected(final Context context, boolean... enabledOnly) {
         final boolean doEnabledCheckOnly = enabledOnly != null && enabledOnly.length > 0 && enabledOnly[0];
-        final ConnectivityManager connectivityManager = (ConnectivityManager) _context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         return wifiInfo != null && (doEnabledCheckOnly ? wifiInfo.isAvailable() : wifiInfo.isConnected());
     }
 
     // Returns if the device is currently in portrait orientation (landscape=false)
-    public boolean isDeviceOrientationPortrait() {
-        final int rotation = ((WindowManager) _context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+    public boolean isDeviceOrientationPortrait(final Context context) {
+        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
         return (rotation == Surface.ROTATION_0) || (rotation == Surface.ROTATION_180);
     }
 
     // Get all of providers of the current app
-    public List<ProviderInfo> getProvidersInfos() {
+    public List<ProviderInfo> getProvidersInfos(final Context context) {
         final List<ProviderInfo> providers = new ArrayList<>();
-        for (final ProviderInfo info : _context.getPackageManager().queryContentProviders(null, 0, 0)) {
-            if (info.applicationInfo.uid == _context.getApplicationInfo().uid) {
+        for (final ProviderInfo info : context.getPackageManager().queryContentProviders(null, 0, 0)) {
+            if (info.applicationInfo.uid == context.getApplicationInfo().uid) {
                 providers.add(info);
             }
         }
         return providers;
     }
 
-    public String getFileProvider() {
-        for (final ProviderInfo info : getProvidersInfos()) {
+    public String getFileProvider(final Context context) {
+        for (final ProviderInfo info : getProvidersInfos(context)) {
             if (info.name.toLowerCase(Locale.ENGLISH).contains("fileprovider")) {
                 return info.authority;
             }
         }
         return null;
+    }
+
+    public final static String EXTRA_FILEPATH = "real_file_path_2";
+    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
+    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
+    public final static String MIME_TEXT_PLAIN = "text/plain";
+    public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
+    public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
+
+    public final static int REQUEST_CAMERA_PICTURE = 50001;
+    public final static int REQUEST_PICK_PICTURE = 50002;
+    public final static int REQUEST_SAF = 50003;
+    public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
+    public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
+
+    public final static int MIN_OVERWRITE_LENGTH = 2;
+
+    protected static String _lastCameraPictureFilepath;
+    protected static Pair<File, List<Pair<String, String>>> CACHE_LAST_EXTRACT_FILE_METADATA;
+    protected String _chooserTitle = "➥";
+
+
+    /**
+     * Animate to specified Activity
+     *
+     * @param to                 The class of the activity
+     * @param finishFromActivity true: Finish the current activity
+     * @param requestCode        Request code for stating the activity, not waiting for result if null
+     */
+    public <T extends GsContextUtils> T animateToActivity(final Activity context, final Class to, final Boolean finishFromActivity, final Integer requestCode) {
+        return animateToActivity(context, new Intent(context, to), finishFromActivity, requestCode);
+    }
+
+    /**
+     * Animate to Activity specified in intent
+     * Requires animation resources
+     *
+     * @param intent             Intent to open start an activity
+     * @param finishFromActivity true: Finish the current activity
+     * @param requestCode        Request code for stating the activity, not waiting for result if null
+     */
+    public <T extends GsContextUtils> T animateToActivity(final Activity context, final Intent intent, final Boolean finishFromActivity, final Integer requestCode) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        if (requestCode != null) {
+            context.startActivityForResult(intent, requestCode);
+        } else {
+            context.startActivity(intent);
+
+        }
+        context.overridePendingTransition(getResId(context, ResType.DIMEN, "fadein"), getResId(context, ResType.DIMEN, "fadeout"));
+        if (finishFromActivity != null && finishFromActivity) {
+            context.finish();
+        }
+        return thisp();
     }
 }
 

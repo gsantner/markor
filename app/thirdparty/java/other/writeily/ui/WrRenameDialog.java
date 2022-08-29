@@ -78,8 +78,8 @@ public class WrRenameDialog extends DialogFragment {
             if (filenameChanged) {
                 _filenameClash = optShowFilenameClashDialog(file, newFileName);
             }
-            if (shareUtil.isUnderStorageAccessFolder(file, file.isDirectory())) {
-                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+            if (shareUtil.isUnderStorageAccessFolder(getContext(), file, file.isDirectory())) {
+                DocumentFile dof = shareUtil.getDocumentFile(getContext(), file, file.isDirectory());
                 if (dof != null) {
                     if (!_filenameClash) {
                         renamed = dof.renameTo(newFileName);

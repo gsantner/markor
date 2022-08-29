@@ -646,7 +646,7 @@ public abstract class ActionButtonBase {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
-                    getAndroidUtils().openWebpageInExternalBrowser(url);
+                    getAndroidUtils().openWebpageInExternalBrowser(getContext(), url);
                 }
                 return true;
             }
@@ -677,11 +677,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
-                getAndroidUtils().viewFileInOtherApp(_document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
+                getAndroidUtils().viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
-                getAndroidUtils().nextScreenRotationSetting();
+                getAndroidUtils().nextScreenRotationSetting(getActivity());
                 return true;
             }
         }

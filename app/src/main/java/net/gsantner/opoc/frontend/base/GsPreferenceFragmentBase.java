@@ -208,7 +208,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
      */
     protected int keyToStringResId(Preference preference) {
         if (preference != null && !TextUtils.isEmpty(preference.getKey())) {
-            return _cu.getResId(GsContextUtils.ResType.STRING, preference.getKey());
+            return _cu.getResId(getContext(), GsContextUtils.ResType.STRING, preference.getKey());
         }
         return 0;
     }
@@ -218,7 +218,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
      * This only works if the key is only defined once and value=key
      */
     protected int keyToStringResId(String keyAsString) {
-        return _cu.getResId(GsContextUtils.ResType.STRING, keyAsString);
+        return _cu.getResId(getContext(), GsContextUtils.ResType.STRING, keyAsString);
     }
 
 
@@ -232,15 +232,15 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
                 ViewGroup.LayoutParams lpg = view.getLayoutParams();
                 if (lpg instanceof LinearLayout.LayoutParams) {
                     LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) lpg;
-                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(view.getContext(), 16);
                     view.setLayoutParams(lp);
                 } else if (lpg instanceof FrameLayout.LayoutParams) {
                     FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) lpg;
-                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(view.getContext(), 16);
                     view.setLayoutParams(lp);
                 } else if (lpg instanceof RelativeLayout.LayoutParams) {
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lpg;
-                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(16);
+                    lp.rightMargin = lp.leftMargin = (int) _cu.convertDpToPx(view.getContext(), 16);
                     view.setLayoutParams(lp);
                 }
             }, 10);
@@ -391,7 +391,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
             }
             if (iconRes != null && iconRes != 0) {
                 if (isAllowedToTint(pref)) {
-                    pref.setIcon(_cu.tintDrawable(iconRes, getIconTintColor()));
+                    pref.setIcon(_cu.tintDrawable(getContext(), iconRes, getIconTintColor()));
                 } else {
                     pref.setIcon(iconRes);
                 }
@@ -544,7 +544,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     public Integer getDividerColor() {
         GsActivityUtils au = new GsActivityUtils(getActivity());
         try {
-            return Color.parseColor(au.shouldColorOnTopBeLight(au.getActivityBackgroundColor()) ? "#3d3d3d" : "#d1d1d1");
+            return Color.parseColor(au.shouldColorOnTopBeLight(au.getActivityBackgroundColor(getActivity())) ? "#3d3d3d" : "#d1d1d1");
         } catch (Exception ignored) {
             return null;
         } finally {

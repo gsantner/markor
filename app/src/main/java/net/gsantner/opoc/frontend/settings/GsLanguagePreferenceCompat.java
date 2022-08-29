@@ -99,7 +99,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
     public boolean callChangeListener(Object newValue) {
         if (newValue instanceof String) {
             // Does not apply to existing UI, use recreate()
-            new GsContextUtils(getContext()).setAppLanguage((String) newValue);
+            GsContextUtils.instance.setAppLanguage(getContext(), (String) newValue);
         }
         return super.callChangeListener(newValue);
     }
@@ -115,7 +115,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
         // Fetch readable details
         GsContextUtils contextUtils = new GsContextUtils(context);
         List<String> languages = new ArrayList<>();
-        Object bcof = contextUtils.getBuildConfigValue("DETECTED_ANDROID_LOCALES");
+        Object bcof = contextUtils.getBuildConfigValue(getContext(), "DETECTED_ANDROID_LOCALES");
         if (bcof instanceof String[]) {
             for (String langId : (String[]) bcof) {
                 Locale locale = contextUtils.getLocaleByAndroidCode(langId);

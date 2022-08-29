@@ -252,9 +252,9 @@ public class GsFileBrowserFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
-            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder(), true));
-            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder(), true));
-            _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
@@ -346,7 +346,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         }
 
 
-        List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(false, true, true);
+        List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
             item = menu.findItem(sdcardResIds[i]);
@@ -370,7 +370,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         switch (_id) {
             case R.id.action_create_shortcut: {
                 final File file = _filesystemViewerAdapter.getCurrentSelection().iterator().next();
-                _shareUtil.createLauncherDesktopShortcut(file);
+                _shareUtil.createLauncherDesktopShortcut(getContext(), file);
                 return true;
             }
             case R.id.action_sort_by_name: {
@@ -469,7 +469,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
 
             case R.id.action_share_files: {
                 ShareUtil s = new ShareUtil(getContext());
-                s.shareStreamMultiple(_filesystemViewerAdapter.getCurrentSelection(), "*/*");
+                s.shareStreamMultiple(getContext(), _filesystemViewerAdapter.getCurrentSelection(), "*/*");
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
                 s.freeContextRef();
@@ -497,7 +497,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     if (FormatRegistry.isTextFile(file)) {
-                        _shareUtil.setClipboard(GsFileUtils.readTextFileFast(file).first);
+                        _shareUtil.setClipboard(getContext(), GsFileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
                     }

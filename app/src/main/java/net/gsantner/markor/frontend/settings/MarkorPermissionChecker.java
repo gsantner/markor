@@ -31,7 +31,7 @@ public class MarkorPermissionChecker extends GsPermissionChecker {
     public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
         boolean val = super.checkPermissionResult(requestCode, permissions, grantResults);
         if (!val) {
-            new GsActivityUtils(_activity).showSnackBar(R.string.error_need_storage_permission_to_save_documents, true);
+            new GsActivityUtils(_activity).showSnackBar(_activity, R.string.error_need_storage_permission_to_save_documents, true);
         }
         return val;
     }

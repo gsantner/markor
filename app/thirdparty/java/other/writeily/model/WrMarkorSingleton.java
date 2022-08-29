@@ -108,8 +108,8 @@ public class WrMarkorSingleton {
         }
 
         final ShareUtil shareUtil = new ShareUtil(context);
-        if (context != null && shareUtil.isUnderStorageAccessFolder(file, file.isDirectory())) {
-            final DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+        if (context != null && shareUtil.isUnderStorageAccessFolder(context, file, file.isDirectory())) {
+            final DocumentFile dof = shareUtil.getDocumentFile(context, file, file.isDirectory());
             shareUtil.freeContextRef();
             return dof == null ? false : (dof.delete() || !dof.exists());
         } else {

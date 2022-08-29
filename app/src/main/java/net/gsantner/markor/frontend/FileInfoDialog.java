@@ -87,7 +87,7 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
         tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
         tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
-            new GsShareUtil(v.getContext()).setClipboard(file.getAbsolutePath());
+            new GsShareUtil(v.getContext()).setClipboard(getContext(), file.getAbsolutePath());
             Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
             return true;
         });

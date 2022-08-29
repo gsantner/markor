@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -274,12 +275,12 @@ public class Document implements Serializable {
         }
     }
 
-    public boolean saveContent(final Context context, final CharSequence content) {
+    public boolean saveContent(final Activity context, final CharSequence content) {
         return saveContent(context, content, null, false);
     }
 
     @SuppressWarnings("ConstantConditions")
-    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, final boolean isManualSave) {
+    public synchronized boolean saveContent(final Activity context, final CharSequence content, ShareUtil shareUtil, final boolean isManualSave) {
         if (isBinaryFileNoTextLoading()) {
             return true;
         }
@@ -308,8 +309,8 @@ public class Document implements Serializable {
 
             shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
             final boolean isContentResolverProxyFile = shareUtil.isContentResolverProxyFile(_file);
-            if (shareUtil.isUnderStorageAccessFolder(_file, false) || isContentResolverProxyFile) {
-                shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
+            if (shareUtil.isUnderStorageAccessFolder(context, _file, false) || isContentResolverProxyFile) {
+                shareUtil.writeFile(context, _file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {
                             fos.write(0xEF);

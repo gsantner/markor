@@ -67,7 +67,7 @@ public class MarkorFileBrowserFactory {
 
         opts.titleText = R.string.select;
 
-        opts.mountedStorageFolder = shareUtil.getStorageAccessFolder();
+        opts.mountedStorageFolder = shareUtil.getStorageAccessFolder(context);
 
         shareUtil.freeContextRef();
         return opts;

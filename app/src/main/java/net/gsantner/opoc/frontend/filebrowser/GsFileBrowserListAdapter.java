@@ -97,18 +97,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _recyclerView = recyclerView;
         _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 
-        GsContextUtils cu = new GsContextUtils(context);
+        GsContextUtils cu = GsContextUtils.instance;
         if (_dopt.primaryColor == 0) {
-            _dopt.primaryColor = cu.getResId(GsContextUtils.ResType.COLOR, "primary");
+            _dopt.primaryColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "primary");
         }
         if (_dopt.accentColor == 0) {
-            _dopt.accentColor = cu.getResId(GsContextUtils.ResType.COLOR, "accent");
+            _dopt.accentColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "accent");
         }
         if (_dopt.primaryTextColor == 0) {
-            _dopt.primaryTextColor = cu.getResId(GsContextUtils.ResType.COLOR, "primary_text");
+            _dopt.primaryTextColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "primary_text");
         }
         if (_dopt.secondaryTextColor == 0) {
-            _dopt.secondaryTextColor = cu.getResId(GsContextUtils.ResType.COLOR, "secondary_text");
+            _dopt.secondaryTextColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "secondary_text");
         }
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
@@ -139,7 +139,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.title.setText("????");
             return;
         }
-        new GsContextUtils(_context).setLocale(Locale.getDefault()).freeContextRef();
+        GsContextUtils.instance.setLocale(_context, Locale.getDefault());
         final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         final String filename = file_pre.getName();
         if (_virtualMapping.containsKey(file_pre)) {

@@ -33,7 +33,7 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new GsContextUtils(this).setAppLanguage(AppSettings.get().getLanguage());
+        GsContextUtils.instance.setAppLanguage(this, AppSettings.get().getLanguage());
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest

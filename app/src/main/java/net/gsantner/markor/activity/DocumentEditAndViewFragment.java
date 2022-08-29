@@ -465,13 +465,13 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             }
             case R.id.action_share_text: {
                 if (saveDocument(false)) {
-                    _shareUtil.shareText(getTextString(), "text/plain");
+                    _shareUtil.shareText(getActivity(), getTextString(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_file: {
                 if (saveDocument(false)) {
-                    _shareUtil.shareStream(_document.getFile(), "text/plain");
+                    _shareUtil.shareStream(getActivity(), _document.getFile(), "text/plain");
                 }
                 return true;
             }
@@ -479,14 +479,16 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             case R.id.action_share_html_source: {
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
-                    _shareUtil.shareText(converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
-                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
+                    _shareUtil.shareText(getActivity(),
+                            converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
+                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
+                    );
                 }
                 return true;
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument(false)) {
-                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), getTextString(), null)) {
+                    if (!_shareUtil.createCalendarAppointment(getActivity(), _document.getTitle(), getTextString(), null)) {
                         Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -504,7 +506,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             _shareUtil.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                         } else if (item.getItemId() != R.id.action_share_pdf) {
-                            _shareUtil.shareImage(GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
+                            _shareUtil.shareImage(getContext(), GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
                         }
                     }, 7000);
                 }
@@ -528,7 +530,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             }
             case R.id.action_send_debug_log: {
                 final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + Document.getMaskedContent(getTextString());
-                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
+                _shareUtil.draftEmail(getActivity(), "Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
 
@@ -693,14 +695,14 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         if (!TextUtils.isEmpty(text)) {
             Context context = getContext();
             context = context == null ? ApplicationObject.get().getApplicationContext() : context;
-            new net.gsantner.markor.util.ShareUtil(context).setClipboard(text);
+            new net.gsantner.markor.util.ShareUtil(context).setClipboard(getContext(), text);
             Toast.makeText(getContext(), R.string.document_error_clip, Toast.LENGTH_LONG).show();
         }
     }
 
     public boolean isSdStatusBad() {
-        if (_shareUtil.isUnderStorageAccessFolder(_document.getFile(), false) &&
-                _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
+        if (_shareUtil.isUnderStorageAccessFolder(getContext(), _document.getFile(), false) &&
+                _shareUtil.getStorageAccessFrameworkTreeUri(getContext()) == null) {
             _shareUtil.showMountSdDialog(getActivity());
             return true;
         }
@@ -713,7 +715,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                 _hlEditor == null ||
                 _appSettings == null ||
                 !_document.testCreateParent() ||
-                !_shareUtil.canWriteFile(_document.getFile(), false, true));
+                !_shareUtil.canWriteFile(getContext(), _document.getFile(), false, true));
     }
 
     // Save the file
@@ -754,9 +756,9 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef();
+            new GsActivityUtils(null).hideSoftKeyboard(activity);
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            _hlEditor.postDelayed(() -> new GsActivityUtils(null).hideSoftKeyboard(activity), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
