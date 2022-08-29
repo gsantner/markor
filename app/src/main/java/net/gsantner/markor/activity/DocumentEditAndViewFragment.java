@@ -208,6 +208,8 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
 
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
 
+        _hlEditor.setSaveInstanceState(false); // We will reload from disk
+
         // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
@@ -291,12 +293,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putSerializable(SAVESTATE_DOCUMENT, _document);
-
-        // Don't save contents - will be reloaded from file
-        _hlEditor.setHighlightingEnabled(false);
-        _hlEditor.setAutoFormatEnabled(false);
-        _hlEditor.setText("");
-
         super.onSaveInstanceState(outState);
     }
 
