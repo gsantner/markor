@@ -35,7 +35,7 @@ import net.gsantner.markor.format.todotxt.TodoTxtParser;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
@@ -171,7 +171,7 @@ public class NewFileDialog extends DialogFragment {
         dialogBuilder.setView(root);
         fileNameEdit.requestFocus();
 
-        final ShareUtil shareUtil = new ShareUtil(getContext());
+        final MarkorContextUtils cu = new MarkorContextUtils(getContext());
         dialogBuilder
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
@@ -183,14 +183,14 @@ public class NewFileDialog extends DialogFragment {
                     final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
                     final File f = new File(basedir, Document.normalizeFilename(usedFilename.trim()) + fileExtEdit.getText().toString().trim());
                     final byte[] templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
-                    shareUtil.writeFile(getActivity(), f, false, (arg_ok, arg_fos) -> {
+                    cu.writeFile(getActivity(), f, false, (arg_ok, arg_fos) -> {
                         try {
                             if (appSettings.getNewFileDialogLastUsedUtf8Bom()) {
                                 arg_fos.write(0xEF);
                                 arg_fos.write(0xBB);
                                 arg_fos.write(0xBF);
                             }
-                            if (templateContents != null && (!f.exists() || f.length() < ShareUtil.MIN_OVERWRITE_LENGTH)) {
+                            if (templateContents != null && (!f.exists() || f.length() < MarkorContextUtils.MIN_OVERWRITE_LENGTH)) {
                                 arg_fos.write(templateContents);
                             }
                         } catch (Exception ignored) {
@@ -205,8 +205,8 @@ public class NewFileDialog extends DialogFragment {
                     }
                     final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
                     File f = new File(basedir, usedFoldername);
-                    if (shareUtil.isUnderStorageAccessFolder(getContext(), f, true)) {
-                        DocumentFile dof = shareUtil.getDocumentFile(getContext(), f, true);
+                    if (cu.isUnderStorageAccessFolder(getContext(), f, true)) {
+                        DocumentFile dof = cu.getDocumentFile(getContext(), f, true);
                         callback(dof != null && dof.exists(), f);
                     } else {
                         callback(f.mkdirs() || f.exists(), f);

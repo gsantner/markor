@@ -13,8 +13,8 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.opoc.format.GsSimplePlaylistParser;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +56,6 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS;
         converted = HTML100_BODY_BEGIN;
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
-        final GsShareUtil shu = new GsShareUtil();
 
         // Sticky header with content depending on type
         if (true) {
@@ -108,7 +107,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
             // Add file info table below content
             StringBuilder table = new StringBuilder("");
             table.append(String.format("%s | %s\n-----|-----\n", context.getString(R.string.type), context.getString(R.string.info)));
-            for (Pair<String, String> metaPair : shu.extractFileMetadata(context, file, true)) {
+            for (Pair<String, String> metaPair : GsContextUtils.instance.extractFileMetadata(context, file, true)) {
                 table.append(String.format("%s | %s\n", metaPair.first.replace("|", "/"), metaPair.second.replace("|", "/")));
             }
             converted += MarkdownTextConverter.flexmarkRenderer.render(MarkdownTextConverter.flexmarkParser.parse(table.toString()));

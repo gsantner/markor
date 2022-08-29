@@ -75,7 +75,6 @@ import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -542,12 +541,7 @@ public abstract class GsPreferenceFragmentBase<AS extends GsSharedPreferencesPro
     }
 
     public Integer getDividerColor() {
-        GsActivityUtils au = new GsActivityUtils();
-        try {
-            return Color.parseColor(au.shouldColorOnTopBeLight(au.getActivityBackgroundColor(getActivity())) ? "#3d3d3d" : "#d1d1d1");
-        } catch (Exception ignored) {
-            return null;
-        }
+        return _cu.getListDividerColor(getActivity());
     }
 
     GsCallback.b1<Integer> _flatPosIsPreferenceCategoryCallback = position -> {

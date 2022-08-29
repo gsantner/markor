@@ -66,8 +66,9 @@ public class GsBackupUtils {
      * @return The {@link File} that should be created
      */
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
-        final String appName = GsContextUtils.instance.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
-        return new File(targetFolder, new GsShareUtil().getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
+        final GsContextUtils cu = GsContextUtils.instance;
+        final String appName = cu.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
+        return new File(targetFolder, cu.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
     }
 
     public static String getPrefName(final Context context, final String raw) {

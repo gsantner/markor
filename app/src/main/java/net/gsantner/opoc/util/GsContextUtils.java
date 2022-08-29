@@ -1164,7 +1164,7 @@ public class GsContextUtils {
     public String getFileProviderAuthority(final Context context) {
         final String provider = getFileProvider(context);
         if (TextUtils.isEmpty(provider)) {
-            throw new RuntimeException("Error at ShareUtil.getFileProviderAuthority(context): No FileProvider authority provided");
+            throw new RuntimeException("Error at GsContextUtils::getFileProviderAuthority(context): No FileProvider authority setup");
         }
         return provider;
     }
@@ -1506,7 +1506,7 @@ public class GsContextUtils {
      * @return A {@link Bitmap} or null
      */
     @Nullable
-    public static Bitmap getBitmapFromWebView(final WebView webView, final boolean... a0fullpage) {
+    public Bitmap getBitmapFromWebView(final WebView webView, final boolean... a0fullpage) {
         try {
             //Measure WebView's content
             if (a0fullpage != null && a0fullpage.length > 0 && a0fullpage[0]) {
@@ -1863,7 +1863,7 @@ public class GsContextUtils {
 
     /**
      * Extract result data from {@link Activity}.onActivityResult.
-     * Forward all arguments from context. Only requestCodes from {@link GsShareUtil} get analyzed.
+     * Forward all arguments from context. Only requestCodes as implemented in {@link GsContextUtils} are analyzed.
      * Also may forward results via local broadcast
      */
     @SuppressLint("ApplySharedPref")
@@ -2406,7 +2406,7 @@ public class GsContextUtils {
      * @param fallback {@link String} default fallback value. If the format is incorrect and a default is not provided, return the specified format
      * @return formatted string
      */
-    public static String formatDateTime(@Nullable final Locale locale, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... fallback) {
+    public String formatDateTime(@Nullable final Locale locale, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... fallback) {
         try {
             final Locale l = locale != null ? locale : Locale.getDefault();
             final long t = datetime != null ? datetime : System.currentTimeMillis();
@@ -2416,7 +2416,7 @@ public class GsContextUtils {
         }
     }
 
-    public static String formatDateTime(@NonNull final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
+    public String formatDateTime(@NonNull final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
         final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
         return formatDateTime(locale, format, datetime, def);
     }
@@ -2747,6 +2747,19 @@ public class GsContextUtils {
         return c;
     }
 
+    @ColorInt
+    public int getListDividerColor(@Nullable final Activity activity) {
+        GsContextUtils cu = GsContextUtils.instance;
+        final String forBlackBg = "#d1d1d1", forWhiteBg = "#3d3d3d";
+        boolean isWhiteBg = true;
+        try {
+            //noinspection ConstantConditions
+            isWhiteBg = shouldColorOnTopBeLight(getActivityBackgroundColor(activity));
+        } catch (Exception ignored) {
+        }
+        return Color.parseColor(isWhiteBg ? forWhiteBg : forBlackBg);
+    }
+
     public <T extends GsContextUtils> T setActivityBackgroundColor(final Activity activity, @ColorInt Integer color) {
         if (color != null) {
             try {
@@ -2831,7 +2844,7 @@ public class GsContextUtils {
      * @param pref one out of system (daynight toggle), auto (daynight hour), autocompat (hour 5-17), light (fixed), dark (fixed)
      */
     @SuppressLint("WrongConstant")
-    public static void applyDayNightTheme(final String pref) {
+    public void applyDayNightTheme(final String pref) {
         final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
         final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
 

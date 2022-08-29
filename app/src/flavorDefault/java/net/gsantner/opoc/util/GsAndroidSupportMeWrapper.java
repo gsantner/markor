@@ -19,7 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
-public class GsAndroidSupportMeWrapper extends GsActivityUtils {
+public class GsAndroidSupportMeWrapper extends GsContextUtils {
     private LocalSettingsImpl _localSettingsImpl;
 
     public GsAndroidSupportMeWrapper(Activity activity) {
@@ -28,7 +28,7 @@ public class GsAndroidSupportMeWrapper extends GsActivityUtils {
     }
 
     public void openPayPalDonationPage(final Context context) {
-        String id = getPackageIdManifest(context);
+        String id = getAppIdUsedAtManifest(context);
         String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TVV24QBGMN23C&source=self.gsantner.net%2F" + id;
         openWebpageInExternalBrowser(context, url);
     }

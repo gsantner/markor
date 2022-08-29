@@ -32,9 +32,9 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsContextUtils;
-import net.gsantner.opoc.util.GsShareUtil;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
@@ -98,7 +98,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (openInThisApp) {
                 DocumentActivity.launch(activity, file, null, null, null);
             } else {
-                new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(activity, file, null);
+                new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
             }
         };
 
@@ -167,7 +167,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
             showedShareInto = showShareInto(intent);
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = new GsShareUtil().extractFileFromIntent(this, intent);
+            file = _cu.extractFileFromIntent(this, intent);
         }
 
         if (file != null) {
@@ -194,7 +194,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
         new AlertDialog.Builder(this)
                 .setMessage(Html.fromHtml(notSupportedMessage))
-                .setNegativeButton(R.string.more_info, (di, i) -> _activityUtils.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
+                .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
                 .create().show();
@@ -211,7 +211,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _activityUtils.convertDpToPx(this, 8)) & event.getY() < (activityVisibleSize.bottom - _activityUtils.convertDpToPx(this, 52))) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _cu.convertDpToPx(this, 8)) & event.getY() < (activityVisibleSize.bottom - _cu.convertDpToPx(this, 52))) {
                     point.set(event.getX(), event.getY(), 0, 0);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     point.set(point.left, point.top, event.getX(), event.getY());
@@ -233,8 +233,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        GsShareUtil shu = new GsShareUtil();
-        shu.extractResultFromActivityResult(this, requestCode, resultCode, data);
+        _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
     public void setDocumentTitle(final String title) {

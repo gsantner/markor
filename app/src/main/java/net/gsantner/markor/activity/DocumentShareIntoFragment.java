@@ -36,7 +36,7 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
@@ -195,7 +195,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             final Activity context = getActivity();
             final Document document = new Document(file);
-            final String shareIntoFormat = ShareUtil.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
+            final String shareIntoFormat = _cu.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
             final String newContent = document.loadContent(context).replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
@@ -277,7 +277,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
             final Activity activity = getActivity();
             AppSettings appSettings = new AppSettings(activity);
             MarkorPermissionChecker permc = new MarkorPermissionChecker(activity);
-            ShareUtil shu = new ShareUtil(activity);
+            MarkorContextUtils shu = new MarkorContextUtils(activity);
             String tmps;
 
             boolean close = false;

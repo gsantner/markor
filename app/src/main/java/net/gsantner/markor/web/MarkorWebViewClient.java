@@ -20,7 +20,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -47,7 +47,7 @@ public class MarkorWebViewClient extends WebViewClient {
             if (url.startsWith("file:///android_asset/")) {
                 return false;
             } else if (url.startsWith("file://")) {
-                ShareUtil su = new ShareUtil(view.getContext());
+                MarkorContextUtils su = new MarkorContextUtils(view.getContext());
                 File file = new File(URLDecoder.decode(url.replace("file://", "")));
                 String mimetype;
                 for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
@@ -71,7 +71,7 @@ public class MarkorWebViewClient extends WebViewClient {
                     su.viewFileInOtherApp(context, file, null);
                 }
             } else {
-                ShareUtil su = new ShareUtil(_activity);
+                MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = new AppSettings(_activity.getApplicationContext());
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
                     su.openWebpageInExternalBrowser(context, url);

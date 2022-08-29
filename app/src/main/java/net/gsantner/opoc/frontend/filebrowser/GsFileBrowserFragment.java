@@ -45,7 +45,7 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -91,7 +91,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
     private boolean firstResume = true;
     private AppSettings _appSettings;
     private Menu _fragmentMenu;
-    private ShareUtil _shareUtil;
+    private MarkorContextUtils _cu;
 
     //########################
     //## Methods
@@ -110,7 +110,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         _emptyHint = root.findViewById(R.id.empty_hint);
 
         _appSettings = new AppSettings(root.getContext());
-        _shareUtil = new ShareUtil(root.getContext());
+        _cu = new MarkorContextUtils(root.getContext());
 
         if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
             throw new RuntimeException("Error: " + getActivity().getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
@@ -252,9 +252,9 @@ public class GsFileBrowserFragment extends GsFragmentBase
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
             _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
-            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
-            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
-            _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_shareUtil.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
@@ -370,7 +370,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         switch (_id) {
             case R.id.action_create_shortcut: {
                 final File file = _filesystemViewerAdapter.getCurrentSelection().iterator().next();
-                _shareUtil.createLauncherDesktopShortcut(getContext(), file);
+                _cu.createLauncherDesktopShortcut(getContext(), file);
                 return true;
             }
             case R.id.action_sort_by_name: {
@@ -468,7 +468,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
             }
 
             case R.id.action_share_files: {
-                ShareUtil s = new ShareUtil(getContext());
+                MarkorContextUtils s = new MarkorContextUtils(getContext());
                 s.shareStreamMultiple(getContext(), _filesystemViewerAdapter.getCurrentSelection(), "*/*");
                 _filesystemViewerAdapter.unselectAll();
                 _filesystemViewerAdapter.reloadCurrentFolder();
@@ -496,7 +496,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     if (FormatRegistry.isTextFile(file)) {
-                        _shareUtil.setClipboard(getContext(), GsFileUtils.readTextFileFast(file).first);
+                        _cu.setClipboard(getContext(), GsFileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();
                     }

@@ -28,26 +28,26 @@ import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.File;
 
-public class ShareUtil extends GsShareUtil {
-    public ShareUtil(@Nullable final Context context) {
+public class MarkorContextUtils extends GsContextUtils {
+    public MarkorContextUtils(@Nullable final Context context) {
         if (context != null) {
             setChooserTitle(context.getString(R.string.share_to_arrow));
         }
     }
 
-    public GsShareUtil applySpecialLaunchersVisibility(final Context context, boolean extraLaunchersEnabled) {
+    public <T extends GsContextUtils> T applySpecialLaunchersVisibility(final Context context, boolean extraLaunchersEnabled) {
         setLauncherActivityEnabled(context, OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
         setLauncherActivityEnabled(context, OpenEditorTodoActivity.class, extraLaunchersEnabled);
         setLauncherActivityEnabled(context, OpenShareIntoActivity.class, extraLaunchersEnabled);
-        return this;
+        return thisp();
     }
 
-    public void createLauncherDesktopShortcut(final Context context, final File file) {
+    public <T extends GsContextUtils> T createLauncherDesktopShortcut(final Context context, final File file) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
@@ -60,6 +60,7 @@ public class ShareUtil extends GsShareUtil {
             createLauncherDesktopShortcut(context, intent, iconRes, title);
             // Toast.makeText(context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
+        return thisp();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -69,7 +70,8 @@ public class ShareUtil extends GsShareUtil {
         return super.print(webview, jobName, landscape);
     }
 
-    public void showMountSdDialog(final Activity activity) {
+    public <T extends GsContextUtils> T showMountSdDialog(final Activity activity) {
         showMountSdDialog(activity, R.string.mount_storage, R.string.application_needs_access_to_storage_mount_it, R.drawable.mount_sdcard_help);
+        return thisp();
     }
 }

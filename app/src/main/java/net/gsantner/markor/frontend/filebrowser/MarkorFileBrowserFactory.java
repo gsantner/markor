@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -32,7 +32,7 @@ public class MarkorFileBrowserFactory {
 
     public static GsFileBrowserOptions.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, GsFileBrowserOptions.SelectionListener listener) {
         GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
-        ShareUtil shareUtil = new ShareUtil(context);
+        MarkorContextUtils cu = new MarkorContextUtils(context);
         AppSettings appSettings = new AppSettings(context);
 
         if (listener != null) {
@@ -67,7 +67,7 @@ public class MarkorFileBrowserFactory {
 
         opts.titleText = R.string.select;
 
-        opts.mountedStorageFolder = shareUtil.getStorageAccessFolder(context);
+        opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
         return opts;
     }
 

@@ -23,8 +23,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
-import net.gsantner.opoc.util.GsActivityUtils;
-import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -60,7 +58,6 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
     @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
         Activity activity = getActivity();
-        GsActivityUtils au = new GsActivityUtils();
         if (isAdded() && preference.hasKey()) {
             switch (keyResId) {
                 case R.string.pref_key__more_info__app: {
@@ -72,7 +69,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__rate_app: {
-                    au.showGooglePlayEntryForThisApp(getContext());
+                    _cu.showGooglePlayEntryForThisApp(getContext());
                     return true;
                 }
 
@@ -102,12 +99,12 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__project_license: {
-                    au.showDialogWithRawFileInWebView(getActivity(), "license.txt", R.string.project_license);
+                    _cu.showDialogWithRawFileInWebView(getActivity(), "license.txt", R.string.project_license);
                     return true;
                 }
                 case R.string.pref_key__more_info__open_source_licenses: {
                     try {
-                        au.showDialogWithHtmlTextView(getActivity(), R.string.licenses, new GsSimpleMarkdownParser().parse(
+                        _cu.showDialogWithHtmlTextView(getActivity(), R.string.licenses, new GsSimpleMarkdownParser().parse(
                                 getResources().openRawResource(R.raw.licenses_3rd_party),
                                 "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
                     } catch (IOException e) {
@@ -117,7 +114,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                 }
                 case R.string.pref_key__more_info__contributors_public_info: {
                     try {
-                        au.showDialogWithHtmlTextView(getActivity(), R.string.contributors, new GsSimpleMarkdownParser().parse(
+                        _cu.showDialogWithHtmlTextView(getActivity(), R.string.contributors, new GsSimpleMarkdownParser().parse(
                                 getResources().openRawResource(R.raw.contributors),
                                 "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml());
                     } catch (IOException e) {
@@ -126,11 +123,11 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
-                    new GsShareUtil().setClipboard(getContext(), preference.getSummary());
+                    _cu.setClipboard(getContext(), preference.getSummary());
                     GsSimpleMarkdownParser smp = new GsSimpleMarkdownParser();
                     try {
                         String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();
-                        au.showDialogWithHtmlTextView(getActivity(), R.string.changelog, html);
+                        _cu.showDialogWithHtmlTextView(getActivity(), R.string.changelog, html);
                     } catch (Exception ex) {
 
                     }

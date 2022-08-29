@@ -32,7 +32,6 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
@@ -585,7 +584,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void applyAppTheme() {
-        GsActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
+        GsContextUtils.instance.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
     }
 
     public String getAppThemeName() {

@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -30,11 +29,11 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
 
     protected AS _appSettings;
     protected Bundle _savedInstanceState;
-    protected GsActivityUtils _activityUtils;
+    protected GsContextUtils _cu;
     private int m_initialToolbarHeight = 0;
 
-    private final GsCallback.a0 m_setActivityBackgroundColor = () -> _activityUtils.setActivityBackgroundColor(GsActivityBase.this, getNewActivityBackgroundColor());
-    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> _activityUtils.setActivityNavigationBarBackgroundColor(GsActivityBase.this, getNewNavigationBarColor());
+    private final GsCallback.a0 m_setActivityBackgroundColor = () -> _cu.setActivityBackgroundColor(GsActivityBase.this, getNewActivityBackgroundColor());
+    private final GsCallback.a0 m_setActivityNavigationBarColor = () -> _cu.setActivityNavigationBarBackgroundColor(GsActivityBase.this, getNewNavigationBarColor());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +59,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
         _savedInstanceState = savedInstanceState;
         _appSettings = createAppSettingsInstance(this);
-        _activityUtils = new GsActivityUtils();
+        _cu = new GsContextUtils();
     }
 
     public AS createAppSettingsInstance(Context applicationContext) {
@@ -98,7 +97,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     public void setTitle(CharSequence title) {
         super.setTitle(title);
         try {
-            final Toolbar t = findViewById(_activityUtils.getResId(this, GsContextUtils.ResType.ID, "toolbar"));
+            final Toolbar t = findViewById(_cu.getResId(this, GsContextUtils.ResType.ID, "toolbar"));
             if (t != null) {
                 t.setTitle(title);
             }
@@ -113,7 +112,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
      */
     public void setToolbarVisible(boolean visible) {
         try {
-            final int toolbarResId = _activityUtils.getResId(this, GsContextUtils.ResType.ID, "toolbar");
+            final int toolbarResId = _cu.getResId(this, GsContextUtils.ResType.ID, "toolbar");
             LinearLayout appBarLayout = ((LinearLayout) findViewById(toolbarResId).getParent());
             if (!visible && m_initialToolbarHeight == 0) {
                 m_initialToolbarHeight = appBarLayout.getMeasuredHeight();

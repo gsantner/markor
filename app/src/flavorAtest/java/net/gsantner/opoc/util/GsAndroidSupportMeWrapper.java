@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
-public class GsAndroidSupportMeWrapper extends GsActivityUtils {
+public class GsAndroidSupportMeWrapper extends GsContextUtils {
     private LocalSettingsImpl _localSettingsImpl;
 
     public GsAndroidSupportMeWrapper(final Activity activity) {

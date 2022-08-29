@@ -48,7 +48,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     GsFileUtils.writeFile(file, "", new GsFileUtils.FileInfo().withBom(new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom()));
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
-                _activityUtils.animateToActivity(this, openIntent, true, 1);
+                _cu.animateToActivity(this, openIntent, true, 1);
             }
         } catch (Exception ignored) {
             finish();

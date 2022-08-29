@@ -41,7 +41,7 @@ import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
@@ -67,14 +67,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private FloatingActionButton _fab;
 
     private boolean _doubleBackToExitPressedOnce;
-    private ShareUtil _shareUtil;
+    private MarkorContextUtils _cu;
 
     @SuppressLint("SdCardPath")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
-        _shareUtil = new ShareUtil(this);
+        _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);
         _bottomNav = findViewById(R.id.bottom_navigation_bar);
         _viewPager = findViewById(R.id.main__view_pager_container);
@@ -103,7 +103,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
         }
 
-        _shareUtil.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
+        _cu.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
 
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
@@ -150,7 +150,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(() -> _activityUtils.showGooglePlayEntryForThisApp(MainActivity.this))
+                .setFeedbackAction(() -> _cu.showGooglePlayEntryForThisApp(MainActivity.this))
                 .build().count().showRequest();
     }
 
@@ -159,7 +159,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         permc.checkPermissionResult(requestCode, permissions, grantResults);
 
-        if (_shareUtil.checkExternalStoragePermission(this, false)) {
+        if (_cu.checkExternalStoragePermission(this, false)) {
             restartMainActivity();
         }
     }
@@ -168,7 +168,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
-            _activityUtils.animateToActivity(this, SettingsActivity.class, false, null);
+            _cu.animateToActivity(this, SettingsActivity.class, false, null);
             return true;
         }
         return false;
@@ -179,8 +179,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         getMenuInflater().inflate(R.menu.main__menu, menu);
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
-        _activityUtils.tintMenuItems(menu, true, Color.WHITE);
-        _activityUtils.setSubMenuIconsVisiblity(menu, true);
+        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.setSubMenuIconsVisiblity(menu, true);
         return true;
     }
 
@@ -216,7 +216,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-                _activityUtils.showDialogWithHtmlTextView(this, 0, html);
+                _cu.showDialogWithHtmlTextView(this, 0, html);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -238,10 +238,10 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onActivityResult(requestCode, resultCode, data);
 
         // Determine some results and forward using Local Broadcast
-        Object result = _shareUtil.extractResultFromActivityResult(this, requestCode, resultCode, data);
+        Object result = _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
 
-        boolean restart = (requestCode == ShareUtil.REQUEST_STORAGE_PERMISSION_R && ((boolean) result));
-        restart |= requestCode == IntroActivity.REQ_CODE_APPINTRO && _shareUtil.checkExternalStoragePermission(this, false);
+        boolean restart = (requestCode == MarkorContextUtils.REQUEST_STORAGE_PERMISSION_R && ((boolean) result));
+        restart |= requestCode == IntroActivity.REQ_CODE_APPINTRO && _cu.checkExternalStoragePermission(this, false);
         if (restart) {
             restartMainActivity();
         }
@@ -277,8 +277,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         if (permc.mkdirIfStoragePermissionGranted() && view.getId() == R.id.fab_add_new_item) {
-            if (_shareUtil.isUnderStorageAccessFolder(this, fsFrag.getCurrentFolder(), true) && _shareUtil.getStorageAccessFrameworkTreeUri(this) == null) {
-                _shareUtil.showMountSdDialog(this);
+            if (_cu.isUnderStorageAccessFolder(this, fsFrag.getCurrentFolder(), true) && _cu.getStorageAccessFrameworkTreeUri(this) == null) {
+                _cu.showMountSdDialog(this);
                 return;
             }
 
@@ -316,7 +316,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // Confirm exit with back / snackbar
         _doubleBackToExitPressedOnce = true;
-        _activityUtils.showSnackBar(this, R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
+        _cu.showSnackBar(this, R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 
@@ -383,7 +383,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     dopt.startFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
-                    dopt.mountedStorageFolder = _shareUtil.getStorageAccessFolder(MainActivity.this);
+                    dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                     dopt.showDotFiles = _appSettings.isShowDotFiles();
                     dopt.fileComparable = GsFileBrowserFragment.sortFolder(null);
 
@@ -408,7 +408,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     if (FormatRegistry.isTextFile(file)) {
                         DocumentActivity.launch(MainActivity.this, file, null, null, lineNumber);
                     } else if (file.getName().toLowerCase().endsWith(".apk")) {
-                        _shareUtil.requestApkInstallation(MainActivity.this, file);
+                        _cu.requestApkInstallation(MainActivity.this, file);
                     } else {
                         DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
                     }
