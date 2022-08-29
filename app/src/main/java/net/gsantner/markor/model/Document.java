@@ -279,7 +279,7 @@ public class Document implements Serializable {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil1, boolean isManualSave) {
+    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil, final boolean isManualSave) {
         if (isBinaryFileNoTextLoading()) {
             return true;
         }
@@ -306,8 +306,7 @@ public class Document implements Serializable {
                 contentAsBytes = content.toString().getBytes();
             }
 
-
-            final ShareUtil shareUtil = (shareUtil1 != null ? shareUtil1 : new ShareUtil(context));
+            shareUtil = shareUtil != null ? shareUtil : new ShareUtil(context);
             final boolean isContentResolverProxyFile = shareUtil.isContentResolverProxyFile(_file);
             if (shareUtil.isUnderStorageAccessFolder(_file, false) || isContentResolverProxyFile) {
                 shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
