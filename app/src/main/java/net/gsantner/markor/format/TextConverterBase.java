@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.format;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -91,8 +92,7 @@ public abstract class TextConverterBase {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, String content, WebView webView, boolean isExportInLightMode) {
-        Context context = webView.getContext();
+    public String convertMarkupShowInWebView(Document document, String content, Activity context, WebView webView, boolean isExportInLightMode) {
         String html;
         try {
             html = convertMarkup(content, context, isExportInLightMode, document.getFile());

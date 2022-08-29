@@ -2757,6 +2757,14 @@ public class GsContextUtils {
         return false;
     }
 
+    public void setKeepScreenOn(final Activity activity, Boolean keepOn) {
+        if (keepOn) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
     /**
      * Show dialog in full width / show keyboard
      *

@@ -21,7 +21,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -198,14 +197,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             startActivity(intent);
         }
 
+        _cu.setKeepScreenOn(this, _appSettings.isKeepScreenOn());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
-        }
-
-        if (_appSettings.isKeepScreenOn()) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
 
         boolean firstStart = IntroActivity.optStart(this);

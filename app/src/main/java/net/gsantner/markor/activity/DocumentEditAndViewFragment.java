@@ -481,7 +481,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _cu.shareText(getActivity(),
-                            converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
+                            converter.convertMarkup(getTextString(), getActivity(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
                     );
                 }
@@ -748,7 +748,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
 
     public void updateViewModeText() {
         final String text = getTextString();
-        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, _webView, _nextConvertToPrintMode);
+        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode);
     }
 
     public void setViewModeVisibility(boolean show) {
