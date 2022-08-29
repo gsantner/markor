@@ -9,12 +9,14 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
+import android.content.Context;
 import android.os.Environment;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
-import androidx.arch.core.util.Function;
+
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.io.Serializable;
@@ -69,7 +71,7 @@ public class GsFileBrowserOptions {
                 okButtonEnable = true;
 
         public Comparator<File> fileComparable = null;
-        public Function<File, Boolean> fileOverallFilter = input -> true;
+        public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
         @StringRes
         public int cancelButtonText = android.R.string.cancel;

@@ -48,7 +48,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -133,7 +133,7 @@ public class GsSearchOrCustomTextDialog {
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            ContextUtils cu = new ContextUtils(context);
+            GsContextUtils cu = new GsContextUtils(context);
             _layoutHeight = (int) cu.convertDpToPx(36);
             cu.freeContextRef();
         }
@@ -225,8 +225,8 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        ContextUtils cu = new ContextUtils(activity);
-        final int dialogStyle = cu.getResId(ContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
+        GsContextUtils cu = new GsContextUtils(activity);
+        final int dialogStyle = cu.getResId(GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
 
         final Adapter listAdapter = Adapter.create(activity, dopt);
@@ -385,7 +385,7 @@ public class GsSearchOrCustomTextDialog {
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {
-        final ContextUtils cu = new ContextUtils(context);
+        final GsContextUtils cu = new GsContextUtils(context);
         final int paddingSide = (int) cu.convertDpToPx(16);
         final int paddingBetween = (int) cu.convertDpToPx(4);
         cu.freeContextRef();
@@ -415,7 +415,7 @@ public class GsSearchOrCustomTextDialog {
     }
 
     private static View makeSearchView(final Context context, final DialogOptions dopt) {
-        final ContextUtils cu = new ContextUtils(context);
+        final GsContextUtils cu = new GsContextUtils(context);
         final int margin = (int) cu.convertDpToPx(8);
         cu.freeContextRef();
 

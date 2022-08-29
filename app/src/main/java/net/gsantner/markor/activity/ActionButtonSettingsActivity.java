@@ -35,7 +35,6 @@ import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
-import net.gsantner.markor.util.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -85,10 +84,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        final ContextUtils cu = ContextUtils.get();
-        cu.tintMenuItems(menu, true, Color.WHITE);
-        cu.freeContextRef();
-
+        _activityUtils.tintMenuItems(menu, true, Color.WHITE);
         return true;
     }
 

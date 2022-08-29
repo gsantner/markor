@@ -13,12 +13,13 @@ package net.gsantner.opoc.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import androidx.appcompat.app.AlertDialog;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
-public class GsAndroidSupportMeWrapper extends ActivityUtils {
+public class GsAndroidSupportMeWrapper extends GsActivityUtils {
     private LocalSettingsImpl _localSettingsImpl;
 
     public GsAndroidSupportMeWrapper(Activity activity) {

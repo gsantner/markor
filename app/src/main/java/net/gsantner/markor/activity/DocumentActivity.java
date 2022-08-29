@@ -28,13 +28,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ActivityUtils;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsActivityUtils;
+import net.gsantner.opoc.util.GsShareUtil;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
@@ -70,7 +70,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
-        new ActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
+        new GsActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -166,7 +166,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
             showedShareInto = showShareInto(intent);
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = new ShareUtil(this).extractFileFromIntent(intent);
+            file = new GsShareUtil(this).extractFileFromIntent(intent);
         }
 
         if (file != null) {
@@ -232,7 +232,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ShareUtil shu = new ShareUtil(this);
+        GsShareUtil shu = new GsShareUtil(this);
         shu.extractResultFromActivityResult(requestCode, resultCode, data);
     }
 

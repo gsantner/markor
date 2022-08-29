@@ -21,7 +21,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class FileSearchResultSelectorDialog {
         final ExpandableListView expandableListView = new ExpandableListView(activity);
         final AppCompatEditText searchEditText = new AppCompatEditText(activity);
 
-        final int dp4px = (int) (new ContextUtils(dialogLayout.getContext()).convertDpToPx(4));
+        final int dp4px = (int) (new GsContextUtils(dialogLayout.getContext()).convertDpToPx(4));
         final int textColor = ContextCompat.getColor(activity, R.color.primary_text);
         final LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         margins.setMargins(dp4px * 5, dp4px, dp4px * 5, dp4px);

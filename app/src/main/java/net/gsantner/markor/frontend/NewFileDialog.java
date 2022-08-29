@@ -33,10 +33,10 @@ import androidx.fragment.app.DialogFragment;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtParser;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -110,9 +110,9 @@ public class NewFileDialog extends DialogFragment {
         utf8BomCheckbox.setVisibility(appSettings.isExperimentalFeaturesEnabled() ? View.VISIBLE : View.GONE);
         fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
         fileNameEdit.requestFocus();
-        new Handler().postDelayed(new ContextUtils.DoTouchView(fileNameEdit), 200);
+        new Handler().postDelayed(new GsContextUtils.DoTouchView(fileNameEdit), 200);
 
-        fileNameEdit.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
+        fileNameEdit.setFilters(new InputFilter[]{GsContextUtils.INPUTFILTER_FILENAME});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
 
         loadTemplatesIntoSpinner(appSettings, templateSpinner);

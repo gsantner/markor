@@ -51,17 +51,16 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
-import net.gsantner.opoc.util.ActivityUtils;
+import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsShareUtil;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -299,9 +298,8 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.document__edit__menu, menu);
-        ContextUtils cu = ContextUtils.get();
-        cu.tintMenuItems(menu, true, Color.WHITE);
-        cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.setSubMenuIconsVisiblity(menu, true);
 
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
         final boolean isText = !_document.isBinaryFileNoTextLoading();
@@ -506,7 +504,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             _shareUtil.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                         } else if (item.getItemId() != R.id.action_share_pdf) {
-                            _shareUtil.shareImage(ShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
+                            _shareUtil.shareImage(GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
                         }
                     }, 7000);
                 }
@@ -563,7 +561,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                                                                 dopt.titleText = R.string.select;
                                                             }
                                                         }, getParentFragmentManager(), activity,
-                        input -> input != null && input.getAbsolutePath().toLowerCase().endsWith(".epub")
+                        (context, file) -> file != null && file.getAbsolutePath().toLowerCase().endsWith(".epub")
                 );
                 return true;
             }
@@ -756,9 +754,9 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            new ActivityUtils(activity).hideSoftKeyboard().freeContextRef();
+            new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef();
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> new ActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            _hlEditor.postDelayed(() -> new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());

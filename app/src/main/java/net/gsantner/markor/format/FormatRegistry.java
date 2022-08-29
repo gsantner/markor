@@ -36,8 +36,8 @@ import net.gsantner.markor.format.wikitext.WikitextSyntaxHighlighter;
 import net.gsantner.markor.format.wikitext.WikitextTextConverter;
 import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;

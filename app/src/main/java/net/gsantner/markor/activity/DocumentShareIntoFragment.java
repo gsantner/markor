@@ -32,11 +32,10 @@ import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtParser;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -85,8 +84,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         super.onViewCreated(view, savedInstanceState);
         final Context context = view.getContext();
         final AppSettings as = new AppSettings(context);
-        final ContextUtils cu = new ContextUtils(context);
-        cu.setAppLanguage(as.getLanguage());
+        _cu.setAppLanguage(as.getLanguage());
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
@@ -325,7 +323,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
                     if ((tmps = GsTextUtils.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
-                        new ContextUtils(getActivity()).openWebpageInExternalBrowser(tmps);
+                        _cu.openWebpageInExternalBrowser(tmps);
                         close = true;
                     }
                     break;

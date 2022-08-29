@@ -39,9 +39,8 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -104,7 +103,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
         }
 
-        (new ActivityUtils(this)).applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
+        _shareUtil.applySpecialLaunchersVisibility(_appSettings.isSpecialFileLaunchersEnabled());
 
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
@@ -151,7 +150,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         new Rate.Builder(this)
                 .setTriggerCount(4)
                 .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(() -> new ActivityUtils(this).showGooglePlayEntryForThisApp())
+                .setFeedbackAction(() -> _activityUtils.showGooglePlayEntryForThisApp())
                 .build().count().showRequest();
     }
 
@@ -169,7 +168,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
-            new ActivityUtils(this).animateToActivity(SettingsActivity.class, false, null).freeContextRef();
+            _activityUtils.animateToActivity(SettingsActivity.class, false, null).freeContextRef();
             return true;
         }
         return false;
@@ -217,8 +216,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
                 html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-                ActivityUtils _au = new ActivityUtils(this);
-                _au.showDialogWithHtmlTextView(0, html);
+                _activityUtils.showDialogWithHtmlTextView(0, html);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -318,7 +316,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // Confirm exit with back / snackbar
         _doubleBackToExitPressedOnce = true;
-        new ActivityUtils(this).showSnackBar(R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
+        _activityUtils.showSnackBar(R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 

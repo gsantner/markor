@@ -66,10 +66,10 @@ public class GsBackupUtils {
      * @return The {@link File} that should be created
      */
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
-        final ContextUtils cu = new ContextUtils(context);
+        final GsContextUtils cu = new GsContextUtils(context);
         try {
             final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
-            return new File(targetFolder, ShareUtil.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
+            return new File(targetFolder, GsShareUtil.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
         } finally {
             cu.freeContextRef();
         }
@@ -102,7 +102,7 @@ public class GsBackupUtils {
      * @param targetJsonFile    Target json file to write to, overwritten if already exists
      */
     public static void makeBackup(final Context context, final List<String> prefNamesToBackup, final File targetJsonFile) {
-        final ContextUtils cu = new ContextUtils(context);
+        final GsContextUtils cu = new GsContextUtils(context);
         try {
             final JSONObject jsonRoot = new JSONObject();
 
@@ -111,7 +111,7 @@ public class GsBackupUtils {
             final JSONObject jsonMetadata = new JSONObject(new GsHashMap<String, String>().load(
                     "BACKUP_DATE", String.format("%s ::: %d", now.toString(), now.getTime()),
                     "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
-                    "EXPORT_ANDROID_DEVICE_VERSION", ContextUtils.getAndroidVersion(),
+                    "EXPORT_ANDROID_DEVICE_VERSION", GsContextUtils.getAndroidVersion(),
                     "ISOURCE", cu.getAppInstallationSource(),
                     "BACKUP_REVISION", "1"
             ).data());
@@ -221,7 +221,7 @@ public class GsBackupUtils {
             }
             System.exit(0);
         } catch (Exception e) {
-            final ContextUtils cu = new ContextUtils(context);
+            final GsContextUtils cu = new GsContextUtils(context);
             Toast.makeText(context, cu.rstr("failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
             cu.freeContextRef();
         }

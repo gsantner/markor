@@ -43,9 +43,8 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
-import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -91,7 +90,6 @@ public class GsFileBrowserFragment extends GsFragmentBase
     private GsFileBrowserOptions.SelectionListener _callback;
     private boolean firstResume = true;
     private AppSettings _appSettings;
-    private ContextUtils _contextUtils;
     private Menu _fragmentMenu;
     private ShareUtil _shareUtil;
 
@@ -112,7 +110,6 @@ public class GsFileBrowserFragment extends GsFragmentBase
         _emptyHint = root.findViewById(R.id.empty_hint);
 
         _appSettings = new AppSettings(root.getContext());
-        _contextUtils = new ContextUtils(root.getContext());
         _shareUtil = new ShareUtil(root.getContext());
 
         if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
@@ -326,9 +323,8 @@ public class GsFileBrowserFragment extends GsFragmentBase
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
-        ContextUtils cu = ContextUtils.get();
-        cu.tintMenuItems(menu, true, Color.WHITE);
-        cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.tintMenuItems(menu, true, Color.WHITE);
+        _cu.setSubMenuIconsVisiblity(menu, true);
 
         MenuItem item;
         if ((item = menu.findItem(R.id.action_folder_first)) != null) {
@@ -350,7 +346,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         }
 
 
-        List<Pair<File, String>> sdcardFolders = _contextUtils.getAppDataPublicDirs(false, true, true);
+        List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
         for (int i = 0; i < sdcardResIds.length && i < sdcardFolders.size(); i++) {
             item = menu.findItem(sdcardResIds[i]);
@@ -609,7 +605,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
                 for (final File f : files) {
                     selSet.add(f.getAbsolutePath());
                 }
-                _doptMoC.fileOverallFilter = (test) -> !selSet.contains(test.getAbsolutePath());
+                _doptMoC.fileOverallFilter = (context, test) -> !selSet.contains(test.getAbsolutePath());
             }
 
             @SuppressLint("SetTextI18n")

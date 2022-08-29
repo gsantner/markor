@@ -30,10 +30,9 @@ import androidx.preference.PreferenceScreen;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.util.ActivityUtils;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.util.ShareUtil;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -219,8 +218,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 _as.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__is_launcher_for_special_files_enabled)) {
                 boolean extraLaunchersEnabled = prefs.getBoolean(key, false);
-                ActivityUtils au = new ActivityUtils(getActivity());
-                au.applySpecialLaunchersVisibility(extraLaunchersEnabled);
+                new ShareUtil(getActivity()).applySpecialLaunchersVisibility(extraLaunchersEnabled).freeContextRef();
             } else if (eq(key, R.string.pref_key__file_description_format)) {
                 try {
                     new SimpleDateFormat(prefs.getString(key, ""), Locale.getDefault());

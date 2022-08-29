@@ -13,7 +13,7 @@ import android.text.TextPaint;
 import android.text.style.UnderlineSpan;
 import android.text.style.UpdateAppearance;
 
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
@@ -25,7 +25,7 @@ public class ColorUnderlineSpan extends UnderlineSpan implements UpdateAppearanc
     private final float _thickness;
 
     public ColorUnderlineSpan(String colorHexString, Float thickness) {
-        this(new ContextUtils(null).parseHexColorString(colorHexString), thickness);
+        this(new GsContextUtils(null).parseHexColorString(colorHexString), thickness);
     }
 
     public ColorUnderlineSpan(int color, Float thickness) {

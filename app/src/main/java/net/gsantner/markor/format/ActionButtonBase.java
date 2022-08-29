@@ -42,10 +42,10 @@ import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ActivityUtils;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class ActionButtonBase {
     private Activity m_activity;
-    private ActivityUtils m_au;
+    private GsActivityUtils m_au;
     private final int _textActionSidePadding;
     private String _lastSnip;
 
@@ -524,7 +524,7 @@ public abstract class ActionButtonBase {
             m_au.freeContextRef();
         }
         if (activity != null) {
-            m_au = new ActivityUtils(activity);
+            m_au = new GsActivityUtils(activity);
         }
         return this;
     }
@@ -546,7 +546,7 @@ public abstract class ActionButtonBase {
         return m_activity != null ? m_activity : _appSettings.getContext();
     }
 
-    public ActivityUtils getAndroidUtils() {
+    public GsActivityUtils getAndroidUtils() {
         return m_au;
     }
 

@@ -27,7 +27,7 @@ import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.util.ShareUtil;
-import net.gsantner.opoc.util.ContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -67,7 +67,7 @@ public class WrRenameDialog extends DialogFragment {
 
         EditText newNameField = _dialog.findViewById(R.id.new_name);
         addFilenameClashTextWatcher(newNameField);
-        newNameField.setFilters(new InputFilter[]{ContextUtils.INPUTFILTER_FILENAME});
+        newNameField.setFilters(new InputFilter[]{GsContextUtils.INPUTFILTER_FILENAME});
 
         _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             View root = inflater.inflate(R.layout.rename__dialog, null);

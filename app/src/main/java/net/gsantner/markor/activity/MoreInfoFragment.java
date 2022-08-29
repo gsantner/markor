@@ -22,8 +22,8 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
-import net.gsantner.opoc.util.ActivityUtils;
-import net.gsantner.opoc.util.ShareUtil;
+import net.gsantner.opoc.util.GsActivityUtils;
+import net.gsantner.opoc.util.GsShareUtil;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -58,7 +58,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
     @Override
     @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
     public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
-        ActivityUtils au = new ActivityUtils(getActivity());
+        GsActivityUtils au = new GsActivityUtils(getActivity());
         if (isAdded() && preference.hasKey()) {
             switch (keyResId) {
                 case R.string.pref_key__more_info__app: {
@@ -124,7 +124,7 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                     return true;
                 }
                 case R.string.pref_key__more_info__copy_build_information: {
-                    new ShareUtil(getContext()).setClipboard(preference.getSummary());
+                    new GsShareUtil(getContext()).setClipboard(preference.getSummary());
                     GsSimpleMarkdownParser smp = new GsSimpleMarkdownParser();
                     try {
                         String html = smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW).getHtml();

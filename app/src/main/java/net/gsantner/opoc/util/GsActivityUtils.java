@@ -51,13 +51,13 @@ import java.util.List;
 
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "rawtypes", "UnusedReturnValue"})
-public class ActivityUtils extends ShareUtil {
+public class GsActivityUtils extends GsShareUtil {
     //########################
     //## Members, Constructors
     //########################
     protected Activity _activity;
 
-    public ActivityUtils(final Activity activity) {
+    public GsActivityUtils(final Activity activity) {
         super(activity);
         _activity = activity;
     }
@@ -79,7 +79,7 @@ public class ActivityUtils extends ShareUtil {
      * @param finishFromActivity true: Finish the current activity
      * @param requestCode        Request code for stating the activity, not waiting for result if null
      */
-    public ActivityUtils animateToActivity(Class to, Boolean finishFromActivity, Integer requestCode) {
+    public GsActivityUtils animateToActivity(Class to, Boolean finishFromActivity, Integer requestCode) {
         return animateToActivity(new Intent(_activity, to), finishFromActivity, requestCode);
     }
 
@@ -91,7 +91,7 @@ public class ActivityUtils extends ShareUtil {
      * @param finishFromActivity true: Finish the current activity
      * @param requestCode        Request code for stating the activity, not waiting for result if null
      */
-    public ActivityUtils animateToActivity(Intent intent, Boolean finishFromActivity, Integer requestCode) {
+    public GsActivityUtils animateToActivity(Intent intent, Boolean finishFromActivity, Integer requestCode) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         if (requestCode != null) {
             _activity.startActivityForResult(intent, requestCode);
@@ -121,7 +121,7 @@ public class ActivityUtils extends ShareUtil {
                 .show();
     }
 
-    public ActivityUtils setSoftKeyboardVisibile(boolean visible, View... editView) {
+    public GsActivityUtils setSoftKeyboardVisibile(boolean visible, View... editView) {
         final Activity activity = _activity;
         if (activity != null) {
             final View v = (editView != null && editView.length > 0) ? (editView[0]) : (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null ? activity.getCurrentFocus() : null);
@@ -144,7 +144,7 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils hideSoftKeyboard() {
+    public GsActivityUtils hideSoftKeyboard() {
         if (_activity != null) {
             InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
@@ -154,7 +154,7 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils showSoftKeyboard() {
+    public GsActivityUtils showSoftKeyboard() {
         if (_activity != null) {
             InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && _activity.getCurrentFocus() != null && _activity.getCurrentFocus().getWindowToken() != null) {
@@ -165,7 +165,7 @@ public class ActivityUtils extends ShareUtil {
     }
 
 
-    public ActivityUtils showSoftKeyboard(View textInputView) {
+    public GsActivityUtils showSoftKeyboard(View textInputView) {
         if (_activity != null) {
             InputMethodManager imm = (InputMethodManager) _activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             if (imm != null && textInputView != null) {
@@ -210,7 +210,7 @@ public class ActivityUtils extends ShareUtil {
     }
 
     // Toggle with no param, else set visibility according to first bool
-    public ActivityUtils toggleStatusbarVisibility(boolean... optionalForceVisible) {
+    public GsActivityUtils toggleStatusbarVisibility(boolean... optionalForceVisible) {
         WindowManager.LayoutParams attrs = _activity.getWindow().getAttributes();
         int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (optionalForceVisible.length == 0) {
@@ -224,7 +224,7 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils showGooglePlayEntryForThisApp() {
+    public GsActivityUtils showGooglePlayEntryForThisApp() {
         String pkgId = "details?id=" + _activity.getPackageName();
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
@@ -239,22 +239,13 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils setStatusbarColor(int color, boolean... fromRes) {
+    public GsActivityUtils setStatusbarColor(int color, boolean... fromRes) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (fromRes != null && fromRes.length > 0 && fromRes[0]) {
                 color = ContextCompat.getColor(_context, color);
             }
 
             _activity.getWindow().setStatusBarColor(color);
-        }
-        return this;
-    }
-
-    public ActivityUtils setLauncherActivityEnabled(Class activityClass, boolean enable) {
-        try {
-            ComponentName component = new ComponentName(_context, activityClass);
-            _context.getPackageManager().setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        } catch (Exception ignored) {
         }
         return this;
     }
@@ -299,7 +290,7 @@ public class ActivityUtils extends ShareUtil {
         return c;
     }
 
-    public ActivityUtils setActivityBackgroundColor(@ColorInt Integer color) {
+    public GsActivityUtils setActivityBackgroundColor(@ColorInt Integer color) {
         if (color != null) {
             try {
                 ((ViewGroup) _activity.findViewById(android.R.id.content)).getChildAt(0).setBackgroundColor(color);
@@ -309,7 +300,7 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils setActivityNavigationBarBackgroundColor(@ColorInt Integer color) {
+    public GsActivityUtils setActivityNavigationBarBackgroundColor(@ColorInt Integer color) {
         if (color != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -321,7 +312,7 @@ public class ActivityUtils extends ShareUtil {
         return this;
     }
 
-    public ActivityUtils startCalendarApp() {
+    public GsActivityUtils startCalendarApp() {
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
         builder.appendPath(Long.toString(System.currentTimeMillis()));
@@ -361,7 +352,7 @@ public class ActivityUtils extends ShareUtil {
     }
 
     // Make activity/app not show up in the recents history - call before finish / System.exit
-    public ActivityUtils removeActivityFromHistory() {
+    public GsActivityUtils removeActivityFromHistory() {
         try {
             ActivityManager am = (ActivityManager) _activity.getSystemService(Context.ACTIVITY_SERVICE);
             if (am != null && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

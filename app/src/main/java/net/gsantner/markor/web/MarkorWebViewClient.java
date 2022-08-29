@@ -17,9 +17,8 @@ import android.webkit.WebViewClient;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ContextUtils;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.ShareUtil;
 
 import java.io.File;
@@ -63,17 +62,16 @@ public class MarkorWebViewClient extends WebViewClient {
                             .putExtra(Document.EXTRA_PATH, file));
                 } else if (file.getName().toLowerCase().endsWith(".apk")) {
                     su.requestApkInstallation(file);
-                } else if ((mimetype = ContextUtils.getMimeType(url)) != null) {
+                } else if ((mimetype = su.getMimeType(_activity, url)) != null) {
                     su.viewFileInOtherApp(file, mimetype);
                 } else {
                     su.viewFileInOtherApp(file, null);
                 }
             } else {
-                ContextUtils cu = new ContextUtils(_activity.getApplicationContext());
-                ShareUtil su = new ShareUtil(view.getContext());
+                ShareUtil su = new ShareUtil(_activity);
                 AppSettings settings = new AppSettings(_activity.getApplicationContext());
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(url))) {
-                    cu.openWebpageInExternalBrowser(url).freeContextRef();
+                    su.openWebpageInExternalBrowser(url).freeContextRef();
                     return true;
                 }
             }
