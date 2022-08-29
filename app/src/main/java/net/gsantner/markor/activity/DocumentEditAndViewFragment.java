@@ -299,7 +299,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.document__edit__menu, menu);
         _cu.tintMenuItems(menu, true, Color.WHITE);
-        _cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.setSubMenuIconsVisibility(menu, true);
 
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
         final boolean isText = !_document.isBinaryFileNoTextLoading();

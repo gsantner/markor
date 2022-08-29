@@ -28,6 +28,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -284,7 +285,7 @@ public class Document implements Serializable {
         if (isBinaryFileNoTextLoading()) {
             return true;
         }
-        if (!isManualSave && TextUtils.getTrimmedLength(content) < MarkorContextUtils.MIN_OVERWRITE_LENGTH) {
+        if (!isManualSave && TextUtils.getTrimmedLength(content) < GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
             return false;
         }
 

@@ -180,7 +180,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         menu.findItem(R.id.action_settings).setVisible(_appSettings.isShowSettingsOptionInMainToolbar());
 
         _cu.tintMenuItems(menu, true, Color.WHITE);
-        _cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.setSubMenuIconsVisibility(menu, true);
         return true;
     }
 

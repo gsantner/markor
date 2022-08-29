@@ -234,56 +234,6 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
     /**
-     * Convert escape sequences in string to escaped special characters
-     * <p>
-     * For example, convert
-     * <p>
-     * A\tB -> A    B
-     * <p>
-     * A\nB -> A
-     * B
-     *
-     * @param input Input string
-     * @return String with escaped sequences converted
-     */
-    public static String unescapeString(final String input) {
-        final StringBuilder builder = new StringBuilder();
-        boolean isEscaped = false;
-        for (int i = 0; i < input.length(); i++) {
-            char current = input.charAt(i);
-            if (isEscaped) {
-                if (current == 't') {
-                    builder.append('\t');
-                } else if (current == 'b') {
-                    builder.append('\b');
-                } else if (current == 'r') {
-                    builder.append('\r');
-                } else if (current == 'n') {
-                    builder.append('\n');
-                } else if (current == 'f') {
-                    builder.append('\f');
-                } else {
-                    // Replace anything else with the literal pattern
-                    builder.append('\\');
-                    builder.append(current);
-                }
-                isEscaped = false;
-            } else if (current == '\\') {
-                isEscaped = true;
-            } else {
-                builder.append(current);
-            }
-        }
-
-        // Handle trailing slash
-        if (isEscaped) {
-            builder.append('\\');
-        }
-
-        return builder.toString();
-    }
-
-    /**
      * Select the given indices.
      * Case 1: Only one index -> Put cursor on that line
      * Case 2: Contiguous indices -> Select lines

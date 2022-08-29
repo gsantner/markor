@@ -9,9 +9,6 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
-import static android.app.Activity.RESULT_OK;
-import static android.content.Context.VIBRATOR_SERVICE;
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
@@ -23,6 +20,7 @@ import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -56,7 +54,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
@@ -128,10 +125,8 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
-import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.web.GsNetworkUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.BufferedReader;
@@ -148,6 +143,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -170,6 +166,31 @@ public class GsContextUtils {
         //noinspection unchecked
         return (T) this;
     }
+
+    //########################
+    //## Static fields & members
+    //########################
+    @SuppressLint("ConstantLocale")
+    public final static Locale INITIAL_LOCALE = Locale.getDefault();
+
+    public final static String EXTRA_FILEPATH = "real_file_path_2";
+    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
+    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
+    public final static String MIME_TEXT_PLAIN = "text/plain";
+    public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
+    public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
+
+    public final static int REQUEST_CAMERA_PICTURE = 50001;
+    public final static int REQUEST_PICK_PICTURE = 50002;
+    public final static int REQUEST_SAF = 50003;
+    public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
+    public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
+
+    public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
+    protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
+    protected static String m_lastCameraPictureFilepath;
+    protected static String m_chooserTitle = "➥";
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //########################
@@ -292,17 +313,12 @@ public class GsContextUtils {
         }
         if (src == null || src.trim().isEmpty()) {
             return "Sideloaded";
-        } else if (src.toLowerCase(Locale.ENGLISH).contains(".amazon.")) {
-            return "Amazon Appstore";
         }
+        src = src.replaceAll("(?i).*amazon.*", "Amazon Appstore").replaceAll("(?i).*fdroid.*", "F-Droid");
         switch (src) {
             case "com.android.vending":
             case "com.google.android.feedback": {
                 return "Google Play";
-            }
-            case "org.fdroid.fdroid.privileged":
-            case "org.fdroid.fdroid": {
-                return "F-Droid";
             }
             case "com.github.yeriomin.yalpstore": {
                 return "Yalp Store";
@@ -475,7 +491,7 @@ public class GsContextUtils {
         if (mgr != null) {
             mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendi);
         } else {
-            intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
         Runtime.getRuntime().exit(0);
@@ -561,7 +577,7 @@ public class GsContextUtils {
     }
 
     /**
-     * Send a {@link Intent#ACTION_VIEW} Intent with given paramter
+     * Send a {@link Intent#ACTION_VIEW} Intent with given parameter
      * If the parameter is an string a browser will get triggered
      */
     public <T extends GsContextUtils> T openWebpageInExternalBrowser(final Context context, final String url) {
@@ -880,7 +896,7 @@ public class GsContextUtils {
      * Try to make icons in Toolbar/ActionBars SubMenus visible
      * This may not work on some devices and it maybe won't work on future android updates
      */
-    public void setSubMenuIconsVisiblity(final Menu menu, final boolean visible) {
+    public void setSubMenuIconsVisibility(final Menu menu, final boolean visible) {
         if (TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL) {
             return;
         }
@@ -890,7 +906,7 @@ public class GsContextUtils {
                 m.setAccessible(true);
                 m.invoke(menu, visible);
             } catch (Exception ignored) {
-                Log.d(getClass().getName(), "Error: 'setSubMenuIconsVisiblity' not supported on this device");
+                Log.d(getClass().getName(), "Error: 'setSubMenuIconsVisibility' not supported on this device");
             }
         }
     }
@@ -959,7 +975,7 @@ public class GsContextUtils {
      * Hence use custom map for some file extensions
      */
     public String getMimeType(final Context context, String uri) {
-        String mimeType = null;
+        String mimeType;
         uri = uri.replaceFirst("\\.jenc$", "");
         if (uri.startsWith(ContentResolver.SCHEME_CONTENT + "://")) {
             ContentResolver cr = context.getContentResolver();
@@ -1040,7 +1056,7 @@ public class GsContextUtils {
     @SuppressLint("MissingPermission")
     public void vibrate(final Context context, final int... ms) {
         int ms_v = ms != null && ms.length > 0 ? ms[0] : 50;
-        Vibrator vibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE));
+        Vibrator vibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
         if (vibrator == null) {
             return;
         } else if (Build.VERSION.SDK_INT >= 26) {
@@ -1064,6 +1080,7 @@ public class GsContextUtils {
     }
 
     // Returns if the device is currently in portrait orientation (landscape=false)
+    @SuppressWarnings("deprecation")
     public boolean isDeviceOrientationPortrait(final Context context) {
         final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
         return (rotation == Surface.ROTATION_0) || (rotation == Surface.ROTATION_180);
@@ -1082,32 +1099,12 @@ public class GsContextUtils {
 
     public String getFileProvider(final Context context) {
         for (final ProviderInfo info : getProvidersInfos(context)) {
-            if (info.name.toLowerCase(Locale.ENGLISH).contains("fileprovider")) {
+            if (info.name.matches("(?i).*fileprovider.*")) {
                 return info.authority;
             }
         }
         return null;
     }
-
-    public final static String EXTRA_FILEPATH = "real_file_path_2";
-    public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.getDefault());
-    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()); //20190511-230845
-    public final static String MIME_TEXT_PLAIN = "text/plain";
-    public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
-    public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
-
-    public final static int REQUEST_CAMERA_PICTURE = 50001;
-    public final static int REQUEST_PICK_PICTURE = 50002;
-    public final static int REQUEST_SAF = 50003;
-    public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
-    public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
-
-    public final static int MIN_OVERWRITE_LENGTH = 2;
-
-    protected static String _lastCameraPictureFilepath;
-    protected static Pair<File, List<Pair<String, String>>> CACHE_LAST_EXTRACT_FILE_METADATA;
-    protected String _chooserTitle = "➥";
-
 
     /**
      * Animate to specified Activity
@@ -1171,7 +1168,7 @@ public class GsContextUtils {
 
 
     public <T extends GsContextUtils> T setChooserTitle(final String title) {
-        _chooserTitle = title;
+        m_chooserTitle = title;
         return thisp();
     }
 
@@ -1193,7 +1190,7 @@ public class GsContextUtils {
      */
     public void showChooser(final Context context, final Intent intent, final String chooserText) {
         try {
-            context.startActivity(Intent.createChooser(intent, chooserText != null ? chooserText : _chooserTitle));
+            startActivity(context, Intent.createChooser(intent, chooserText != null ? chooserText : m_chooserTitle));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1349,13 +1346,13 @@ public class GsContextUtils {
 
     /**
      * Start activity specified by Intent. Add FLAG_ACTIVITY_NEW_TASK in case passed context is not a {@link Activity}
-     * (when a non-Activity {@link Context} is passed a Exception is thrown othersise)
+     * (when a non-Activity {@link Context} is passed a Exception is thrown otherwise)
      *
      * @param context Context, preferably a Activity
      * @param intent  Intent
      */
     public void startActivity(final Context context, final Intent intent) {
-        if (context instanceof Context && !(context instanceof Activity)) {
+        if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
@@ -1419,7 +1416,7 @@ public class GsContextUtils {
             final Intent intent = new Intent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.ACTION_INSTALL_PACKAGE : Intent.ACTION_VIEW)
                     .setFlags(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.FLAG_GRANT_READ_URI_PERMISSION : Intent.FLAG_ACTIVITY_NEW_TASK)
                     .setDataAndType(fileUri, "application/vnd.android.package-archive");
-            context.startActivity(intent);
+            startActivity(context, intent);
             return true;
         }
         return false;
@@ -1540,24 +1537,14 @@ public class GsContextUtils {
      * @param text Text to be set
      */
     public boolean setClipboard(final Context context, final CharSequence text) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null) {
-                cm.setText(text);
-                return true;
-            }
-        } else {
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null) {
-                ClipData clip = ClipData.newPlainText(context.getPackageName(), text);
-                try {
-                    cm.setPrimaryClip(clip);
-                } catch (Exception ignored) {
-                }
-                return true;
-            }
+        try {
+            final ClipboardManager cm = ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
+            ClipData clip = ClipData.newPlainText(context.getPackageName(), text);
+            cm.setPrimaryClip(clip);
+            return true;
+        } catch (Exception ignored) {
+            return false;
         }
-        return false;
     }
 
     /**
@@ -1565,48 +1552,17 @@ public class GsContextUtils {
      */
     public List<String> getClipboard(final Context context) {
         List<String> clipper = new ArrayList<>();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            android.text.ClipboardManager cm = ((android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null && !TextUtils.isEmpty(cm.getText())) {
-                clipper.add(cm.getText().toString());
-            }
-        } else {
-            android.content.ClipboardManager cm = ((android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
-            if (cm != null && cm.hasPrimaryClip()) {
-                ClipData data = cm.getPrimaryClip();
-                for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
-                    ClipData.Item item = data.getItemAt(i);
-                    if (item != null && !TextUtils.isEmpty(item.getText())) {
-                        clipper.add(data.getItemAt(i).getText().toString());
-                    }
+        ClipboardManager cm = ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE));
+        if (cm != null && cm.hasPrimaryClip()) {
+            ClipData data = cm.getPrimaryClip();
+            for (int i = 0; data != null && i < data.getItemCount() && i < data.getItemCount(); i++) {
+                ClipData.Item item = data.getItemAt(i);
+                if (item != null && !TextUtils.isEmpty(item.getText())) {
+                    clipper.add(data.getItemAt(i).getText().toString());
                 }
             }
         }
         return clipper;
-    }
-
-    /**
-     * Share given text on a hastebin compatible server
-     * (https://github.com/seejohnrun/haste-server)
-     * Permission needed: Internet
-     * Pastes will be deleted after 30 days without access
-     *
-     * @param text            The text to paste
-     * @param callback        Callback after paste try
-     * @param serverOrNothing Supply one or no hastebin server. If empty, the default gets taken
-     */
-    public void pasteOnHastebin(final String text, final GsCallback.a2<Boolean, String> callback, final String... serverOrNothing) {
-        final Handler handler = new Handler();
-        final String server = (serverOrNothing != null && serverOrNothing.length > 0 && serverOrNothing[0] != null)
-                ? serverOrNothing[0] : "https://hastebin.com";
-        new Thread() {
-            public void run() {
-                // Returns a simple result, handleable without json parser {"key":"feediyujiq"}
-                String ret = GsNetworkUtils.performCall(server + "/documents", GsNetworkUtils.POST, text);
-                final String key = (ret.length() > 15) ? ret.split("\"")[3] : "";
-                handler.post(() -> callback.callback(!key.isEmpty(), server + "/" + key));
-            }
-        }.start();
     }
 
     /**
@@ -1638,7 +1594,7 @@ public class GsContextUtils {
      * @param receivingIntent The intent from {@link Activity#getIntent()}
      * @return A file or null if extraction did not succeed
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
         String action = receivingIntent.getAction();
         String type = receivingIntent.getType();
@@ -1662,7 +1618,7 @@ public class GsContextUtils {
         };
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
-            // Markor, S.M.T FileManager
+            // Màrkor, SimpleMobileTools FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
                 probeFiles.add(receivingIntent.getStringExtra(tmps));
             }
@@ -1743,7 +1699,7 @@ public class GsContextUtils {
         }
         filterNe.callback();
 
-        // Try build proxy by contentresolver if no file found
+        // Try build proxy by ContentResolver if no file found
         if (probeFiles.isEmpty()) {
             try {
                 // Try detect content file & filename in Intent
@@ -1833,13 +1789,14 @@ public class GsContextUtils {
                     photoFile = target;
                 } else {
                     photoFile = new File(storageDir, timestampedFilename);
-                    if (!photoFile.getParentFile().exists() && !photoFile.getParentFile().mkdirs()) {
+                    if (photoFile.getParentFile() != null && !photoFile.getParentFile().exists() && !photoFile.getParentFile().mkdirs()) {
                         photoFile = File.createTempFile(timestampedFilename.replace(".jpg", "_"), ".jpg", storageDir);
                     }
                 }
 
                 //noinspection StatementWithEmptyBody
-                if (!photoFile.getParentFile().exists() && photoFile.getParentFile().mkdirs()) ;
+                if (photoFile.getParentFile() != null && !photoFile.getParentFile().exists() && photoFile.getParentFile().mkdirs())
+                    ;
 
                 // Save a file: path for use with ACTION_VIEW intents
                 cameraPictureFilepath = photoFile.getAbsolutePath();
@@ -1848,16 +1805,14 @@ public class GsContextUtils {
             }
 
             // Continue only if the File was successfully created
-            if (photoFile != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, getFileProviderAuthority(context), photoFile));
-                } else {
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                }
-                context.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, getFileProviderAuthority(context), photoFile));
+            } else {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
             }
+            context.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
         }
-        _lastCameraPictureFilepath = cameraPictureFilepath;
+        m_lastCameraPictureFilepath = cameraPictureFilepath;
         return cameraPictureFilepath;
     }
 
@@ -1870,14 +1825,14 @@ public class GsContextUtils {
     public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent data) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
-                String picturePath = (resultCode == RESULT_OK) ? _lastCameraPictureFilepath : null;
+                String picturePath = (resultCode == Activity.RESULT_OK) ? m_lastCameraPictureFilepath : null;
                 if (picturePath != null) {
                     sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 }
                 return picturePath;
             }
             case REQUEST_PICK_PICTURE: {
-                if (resultCode == RESULT_OK && data != null) {
+                if (resultCode == Activity.RESULT_OK && data != null) {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     String picturePath = null;
@@ -1928,7 +1883,7 @@ public class GsContextUtils {
             }
 
             case REQUEST_SAF: {
-                if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+                if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
                     Uri treeUri = data.getData();
                     PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -1961,7 +1916,7 @@ public class GsContextUtils {
      * Receive broadcast results via a callback method
      *
      * @param callback       Function to call with received {@link Intent}
-     * @param autoUnregister wether or not to automatically unregister receiver after first match
+     * @param autoUnregister Whether or not to automatically unregister receiver after first match
      * @param filterActions  All {@link IntentFilter} actions to filter for
      * @return The created instance. Has to be unregistered on {@link Activity} lifecycle events.
      */
@@ -2063,20 +2018,18 @@ public class GsContextUtils {
 
         // Select which browser to use out of all installed customtab supporting browsers
         String pkg = null;
-        if (browsers.isEmpty()) {
-            pkg = null;
-        } else if (browsers.size() == 1) {
+        if (browsers.size() == 1) {
             pkg = browsers.get(0);
         } else if (!TextUtils.isEmpty(userDefaultBrowser) && browsers.contains(userDefaultBrowser)) {
             pkg = userDefaultBrowser;
-        } else {
+        } else if (!browsers.isEmpty()) {
             for (String checkpkg : checkpkgs) {
                 if (browsers.contains(checkpkg)) {
                     pkg = checkpkg;
                     break;
                 }
             }
-            if (pkg == null && !browsers.isEmpty()) {
+            if (pkg == null) {
                 pkg = browsers.get(0);
             }
         }
@@ -2085,6 +2038,7 @@ public class GsContextUtils {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public boolean openWebpageInChromeCustomTab(final Context context, final String url) {
         boolean ok = false;
         try {
@@ -2146,7 +2100,7 @@ public class GsContextUtils {
         if (safUri != null) {
             String safUriStr = safUri.toString();
             for (Pair<File, String> storage : getStorages(context, false, true)) {
-                @SuppressWarnings("ConstantConditions") String storageFolderName = storage.first.getName();
+                String storageFolderName = storage.first.getName();
                 if (safUriStr.contains(storageFolderName)) {
                     return storage.first;
                 }
@@ -2159,7 +2113,7 @@ public class GsContextUtils {
      * Check whether or not a file is under a storage access folder (external storage / SD)
      *
      * @param file The file object (file/folder)
-     * @return Wether or not the file is under storage access folder
+     * @return Whether or not the file is under storage access folder
      */
     public boolean isUnderStorageAccessFolder(final Context context, final File file, boolean isDir) {
         if (file != null) {
@@ -2178,7 +2132,7 @@ public class GsContextUtils {
     }
 
     public boolean isContentResolverProxyFile(final File file) {
-        return file != null && CONTENT_RESOLVER_FILE_PROXY_SEGMENT.equals(file.getParentFile().getName());
+        return file != null && file.getParentFile() != null && CONTENT_RESOLVER_FILE_PROXY_SEGMENT.equals(file.getParentFile().getName());
     }
 
     /**
@@ -2186,8 +2140,8 @@ public class GsContextUtils {
      * Requires storage access framework permission for external storage (SD)
      *
      * @param file  The file object (file/folder)
-     * @param isDir Wether or not the given file parameter is a directory
-     * @return Wether or not the file can be written
+     * @param isDir Whether or not the given file parameter is a directory
+     * @return Whether or not the file can be written
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public boolean canWriteFile(final Context context, final File file, final boolean isDir, final boolean trySaf) {
@@ -2200,6 +2154,7 @@ public class GsContextUtils {
         GsCallback.a2<File, Boolean> tryMkdirs = (f, isDir1) -> {
             try {
                 File target = (isDir1 ? f : f.getParentFile());
+                //noinspection ConstantConditions
                 target.mkdirs();
                 target.setWritable(true);
             } catch (Exception ignored) {
@@ -2217,7 +2172,7 @@ public class GsContextUtils {
         appCacheDirs.add(context.getCacheDir());
         appCacheDirs.removeAll(Collections.singleton(null));
         for (File dir : appCacheDirs) {
-            if (realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
+            if (dir.getParentFile() != null && realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
                 tryMkdirs.callback(file.getAbsoluteFile(), false);
                 return true;
             }
@@ -2231,6 +2186,7 @@ public class GsContextUtils {
 
         // Try with SAF
         DocumentFile dof = getDocumentFile(context, file, isDir);
+        //noinspection RedundantIfStatement
         if (trySaf && dof != null && dof.canWrite()) {
             return true;
         }
@@ -2243,7 +2199,7 @@ public class GsContextUtils {
      * first to get access. Otherwise this will fail.
      *
      * @param file  The file/folder to convert
-     * @param isDir Wether or not file is a directory. For non-existing (to be created) files this info is not known hence required.
+     * @param isDir Whether or not file is a directory. For non-existing (to be created) files this info is not known hence required.
      * @return A {@link DocumentFile} object or null if file cannot be converted
      */
     @SuppressWarnings("RegExpRedundantEscape")
@@ -2284,12 +2240,12 @@ public class GsContextUtils {
         }
         String[] parts = relPath.split("\\/");
         for (int i = 0; i < parts.length; i++) {
+            @SuppressWarnings("ConstantConditions")
             DocumentFile nextDof = dof.findFile(parts[i]);
             if (nextDof == null) {
                 try {
                     nextDof = ((i < parts.length - 1) || isDir) ? dof.createDirectory(parts[i]) : dof.createFile("image", parts[i]);
                 } catch (Exception ignored) {
-                    nextDof = null;
                 }
             }
             dof = nextDof;
@@ -2318,8 +2274,8 @@ public class GsContextUtils {
         try {
             OutputStream fileOutputStream = null;
             ParcelFileDescriptor pfd = null;
-            final boolean existingEmptyFile = file.canWrite() && file.length() < MIN_OVERWRITE_LENGTH;
-            final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile().canWrite();
+            final boolean existingEmptyFile = file.canWrite() && file.length() < TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
+            final boolean nonExistingCreatableFile = !file.exists() && file.getParentFile() != null && file.getParentFile().canWrite();
             if (isContentResolverProxyFile(file)) {
                 // File initially read from Activity, Intent & ContentResolver -> write back to it
                 try {
@@ -2337,7 +2293,7 @@ public class GsContextUtils {
                 }
             } else {
                 DocumentFile dof = getDocumentFile(context, file, isDirectory);
-                if (dof != null && dof.getUri() != null && dof.canWrite()) {
+                if (dof != null && dof.canWrite()) {
                     if (isDirectory) {
                         // Nothing to do
                     } else {
@@ -2386,7 +2342,7 @@ public class GsContextUtils {
                 try {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:" + telNo));
-                    context.startActivity(callIntent);
+                    startActivity(context, callIntent);
                 } catch (Exception ignored) {
                     ldirectCall = false;
                 }
@@ -2394,8 +2350,7 @@ public class GsContextUtils {
         }
         // Show dialer up with telephone number pre-inserted
         if (!ldirectCall) {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null));
-            context.startActivity(intent);
+            startActivity(context, new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", telNo, null)));
         }
     }
 
@@ -2410,7 +2365,7 @@ public class GsContextUtils {
         try {
             final Locale l = locale != null ? locale : Locale.getDefault();
             final long t = datetime != null ? datetime : System.currentTimeMillis();
-            return new SimpleDateFormat(TextViewUtils.unescapeString(format), l).format(t);
+            return new SimpleDateFormat(GsTextUtils.unescapeString(format), l).format(t);
         } catch (Exception err) {
             return (fallback != null && fallback.length > 0) ? fallback[0] : format;
         }
@@ -2480,8 +2435,8 @@ public class GsContextUtils {
     }
 
     public List<Pair<String, String>> extractFileMetadata(final Context context, File file, boolean withHtml) {
-        if (CACHE_LAST_EXTRACT_FILE_METADATA != null && CACHE_LAST_EXTRACT_FILE_METADATA.first.equals(file)) {
-            return CACHE_LAST_EXTRACT_FILE_METADATA.second;
+        if (m_cacheLastExtractFileMetadata != null && m_cacheLastExtractFileMetadata.first.equals(file)) {
+            return m_cacheLastExtractFileMetadata.second;
         }
         final Uri fileUri = Uri.fromFile(file.getAbsoluteFile());
         final ArrayList<Pair<String, String>> extracted = new ArrayList<>();
@@ -2503,13 +2458,14 @@ public class GsContextUtils {
             String prefix = "METADATA_KEY_";
             String name = field.getName();
             if (name.startsWith(prefix)) {
-                prefix = TextViewUtils.toTitleCase(name.replace(prefix, "").replace("_", " ").replaceAll("\\s*(?i)num(ber)?\\s*", " No. "));
+                prefix = GsTextUtils.toTitleCase(name.replace(prefix, "").replace("_", " ").replaceAll("\\s*(?i)num(ber)?\\s*", " No. "));
                 try {
                     mmrfields.add(new Pair<>(field.getInt(null), prefix));
                 } catch (Exception ignored) {
                 }
             }
         }
+        //noinspection ComparatorCombinators
         Collections.sort(mmrfields, (sortO1, sortO2) -> sortO1.first - sortO2.first);
 
         // Extractor for generic multimedia file metadata like title/artist
@@ -2558,7 +2514,7 @@ public class GsContextUtils {
             mmr.release();
         } catch (Exception ignored) {
         }
-        CACHE_LAST_EXTRACT_FILE_METADATA = new Pair<>(file, extracted);
+        m_cacheLastExtractFileMetadata = new Pair<>(file, extracted);
         return extracted;
     }
 
@@ -2581,7 +2537,7 @@ public class GsContextUtils {
                 .show();
     }
 
-    public <T extends GsContextUtils> T setSoftKeyboardVisibile(final Activity context, boolean visible, View... editView) {
+    public <T extends GsContextUtils> T setSoftKeyboardVisible(final Activity context, boolean visible, View... editView) {
         if (context != null) {
             final View v = (editView != null && editView.length > 0) ? (editView[0]) : (context.getCurrentFocus() != null && context.getCurrentFocus().getWindowToken() != null ? context.getCurrentFocus() : null);
             final InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -2689,7 +2645,7 @@ public class GsContextUtils {
             final Intent gplay = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + pkgId));
             gplay.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             gplay.addFlags((Build.VERSION.SDK_INT >= 21 ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET));
-            context.startActivity(gplay);
+            startActivity(context, gplay);
         } catch (ActivityNotFoundException e) {
             openWebpageInExternalBrowser(context, "https://play.google.com/store/apps/" + pkgId);
         }
@@ -2787,8 +2743,7 @@ public class GsContextUtils {
         builder.appendPath("time");
         builder.appendPath(Long.toString(System.currentTimeMillis()));
         Intent intent = new Intent(Intent.ACTION_VIEW, builder.build());
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK); // = works without Activity context
-        context.startActivity(intent);
+        startActivity(context, intent);
         return thisp();
     }
 
@@ -2845,8 +2800,8 @@ public class GsContextUtils {
      */
     @SuppressLint("WrongConstant")
     public void applyDayNightTheme(final String pref) {
-        final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
-        final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !GsSharedPreferencesPropertyBackend.isCurrentHourOfDayBetween(9, 17));
+        final boolean prefLight = pref.contains("light") || ("autocompat".equals(pref) && isCurrentHourOfDayBetween(9, 17));
+        final boolean prefDark = pref.contains("dark") || ("autocompat".equals(pref) && !isCurrentHourOfDayBetween(9, 17));
 
         if (prefLight) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -2855,14 +2810,26 @@ public class GsContextUtils {
         } else if ("system".equals(pref)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         } else if ("auto".equals(pref)) {
+            //noinspection deprecation
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         }
+    }
+
+    /**
+     * A method to determine if current hour is between begin and end.
+     * This is especially useful for time-based light/dark mode
+     */
+    public boolean isCurrentHourOfDayBetween(int begin, int end) {
+        begin = (begin >= 23 || begin < 0) ? 0 : begin;
+        end = (end >= 23 || end < 0) ? 0 : end;
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return h >= begin && h <= end;
     }
 
 
     @SuppressLint("SwitchIntDef")
     public void nextScreenRotationSetting(final Activity context) {
-        String text = "";
+        String text;
         int nextOrientation;
         switch (context.getRequestedOrientation()) {
             case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE: {

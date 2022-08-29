@@ -190,7 +190,7 @@ public class NewFileDialog extends DialogFragment {
                                 arg_fos.write(0xBB);
                                 arg_fos.write(0xBF);
                             }
-                            if (templateContents != null && (!f.exists() || f.length() < MarkorContextUtils.MIN_OVERWRITE_LENGTH)) {
+                            if (templateContents != null && (!f.exists() || f.length() < GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH)) {
                                 arg_fos.write(templateContents);
                             }
                         } catch (Exception ignored) {
