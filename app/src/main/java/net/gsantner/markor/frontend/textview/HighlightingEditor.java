@@ -59,6 +59,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
+    private boolean _saveInstanceState = true;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -241,6 +242,16 @@ public class HighlightingEditor extends AppCompatEditText {
 
     // Various overrides
     // ---------------------------------------------------------------------------------------------
+    public void setSaveInstanceState(final boolean save) {
+        _saveInstanceState = save;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        // Call is always required
+        final Parcelable state = super.onSaveInstanceState();
+        return _saveInstanceState ? state : null;
+    }
 
     @Override
     public void beginBatchEdit() {
@@ -252,15 +263,6 @@ public class HighlightingEditor extends AppCompatEditText {
     public void endBatchEdit() {
         super.endBatchEdit();
         _accessibilityEnabled = true;
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        if (_hl != null && _hlEnabled) {
-            _hl.clear(); // Don't save spans
-        }
-        return super.onSaveInstanceState();
-        // return null; // Don't save any state - rely on recreation
     }
 
     @Override
