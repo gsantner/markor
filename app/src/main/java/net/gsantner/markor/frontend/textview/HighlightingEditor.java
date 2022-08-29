@@ -61,7 +61,6 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _autoFormatEnabled;
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
-
         super(context, attrs);
         final AppSettings as = new AppSettings(context);
 
@@ -124,7 +123,7 @@ public class HighlightingEditor extends AppCompatEditText {
             getLocalVisibleRect(rect);
 
             // Don't highlight unless shifted sufficiently or a recompute is required
-            if (recompute || isScrollSignificant(rect)) {
+            if (recompute || (_hl.hasSpans() && isScrollSignificant(rect))) {
 
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
@@ -176,9 +175,10 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_hl != null) {
             initHighlighter();
-            final Runnable update = () -> updateHighlighting(true);
-            _hlDebounced = TextViewUtils.makeDebounced(_hl.getHighlightingDelay(), update);
-            updateHighlighting(true);
+            _hlDebounced = TextViewUtils.makeDebounced(_hl.getHighlightingDelay(), () -> updateHighlighting(true));
+            _hlDebounced.run();
+        } else {
+            _hlDebounced = null;
         }
     }
 
@@ -186,7 +186,7 @@ public class HighlightingEditor extends AppCompatEditText {
         final Paint paint = getPaint();
         _hlShiftThreshold = Math.round(paint.getTextSize() * HIGHLIGHT_SHIFT_LINES);
         if (_hl != null) {
-            _hl.setSpannable(getText()).configure(paint).reflow();
+            _hl.setSpannable(getText()).configure(paint);
         }
     }
 
@@ -199,7 +199,9 @@ public class HighlightingEditor extends AppCompatEditText {
         if (enable && !_hlEnabled) {
             _hlEnabled = true;
             initHighlighter();
-            updateHighlighting(true);
+            if (_hlDebounced != null) {
+                _hlDebounced.run();
+            }
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
@@ -257,8 +259,8 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_hl != null && _hlEnabled) {
             _hl.clear(); // Don't save spans
         }
-        super.onSaveInstanceState();
-        return null; // Don't save any state - rely on recreation
+        return super.onSaveInstanceState();
+        // return null; // Don't save any state - rely on recreation
     }
 
     @Override
@@ -295,25 +297,21 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        if (Math.abs(oldh - h) > _hlShiftThreshold) {
-            updateHighlighting(false);
-        }
-    }
-
-    @Override
     public void setTextSize(float size) {
         super.setTextSize(size);
         initHighlighter();
-        updateHighlighting(true);
+        if (_hlDebounced != null) {
+            _hlDebounced.run();
+        }
     }
 
     @Override
     public void setText(final CharSequence text, final BufferType type) {
         super.setText(text, type);
         initHighlighter();
-        updateHighlighting(true);
+        if (_hlDebounced != null) {
+            _hlDebounced.run();
+        }
     }
 
     @Override
