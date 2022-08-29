@@ -99,7 +99,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
     public boolean callChangeListener(Object newValue) {
         if (newValue instanceof String) {
             // Does not apply to existing UI, use recreate()
-            new GsContextUtils(getContext()).setAppLanguage((String) newValue);
+            GsContextUtils.instance.setAppLanguage(getContext(), (String) newValue);
         }
         return super.callChangeListener(newValue);
     }
@@ -113,9 +113,9 @@ public class GsLanguagePreferenceCompat extends ListPreference {
         setDefaultValue(SYSTEM_LANGUAGE_CODE);
 
         // Fetch readable details
-        GsContextUtils contextUtils = new GsContextUtils(context);
+        GsContextUtils contextUtils = GsContextUtils.instance;
         List<String> languages = new ArrayList<>();
-        Object bcof = contextUtils.getBuildConfigValue("DETECTED_ANDROID_LOCALES");
+        Object bcof = contextUtils.getBuildConfigValue(getContext(), "DETECTED_ANDROID_LOCALES");
         if (bcof instanceof String[]) {
             for (String langId : (String[]) bcof) {
                 Locale locale = contextUtils.getLocaleByAndroidCode(langId);
@@ -174,7 +174,7 @@ public class GsLanguagePreferenceCompat extends ListPreference {
     // Add current language to summary
     @Override
     public CharSequence getSummary() {
-        Locale locale = new GsContextUtils(getContext()).getLocaleByAndroidCode(getValue());
+        Locale locale = GsContextUtils.instance.getLocaleByAndroidCode(getValue());
         String prefix = TextUtils.isEmpty(super.getSummary())
                 ? "" : super.getSummary() + "\n\n";
         return prefix + summarizeLocale(locale, getValue());

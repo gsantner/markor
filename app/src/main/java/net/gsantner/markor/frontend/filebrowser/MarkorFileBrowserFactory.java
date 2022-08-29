@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -25,14 +25,14 @@ import java.io.File;
 import java.util.List;
 
 public class MarkorFileBrowserFactory {
-    public static GsCallback.b2<Context, File> IsMimeText = (context, file) -> file != null && new GsContextUtils(null).getMimeType(context, file).startsWith("text/");
-    public static GsCallback.b2<Context, File> IsMimeImage = (context, file) -> file != null && new GsContextUtils(null).getMimeType(context, file).startsWith("image/");
-    public static GsCallback.b2<Context, File> IsMimeAudio = (context, file) -> file != null && new GsContextUtils(null).getMimeType(context, file).startsWith("audio/");
-    public static GsCallback.b2<Context, File> IsMimeVideo = (context, file) -> file != null && new GsContextUtils(null).getMimeType(context, file).startsWith("video/");
+    public static GsCallback.b2<Context, File> IsMimeText = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("text/");
+    public static GsCallback.b2<Context, File> IsMimeImage = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("image/");
+    public static GsCallback.b2<Context, File> IsMimeAudio = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("audio/");
+    public static GsCallback.b2<Context, File> IsMimeVideo = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("video/");
 
     public static GsFileBrowserOptions.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, GsFileBrowserOptions.SelectionListener listener) {
         GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
-        ShareUtil shareUtil = new ShareUtil(context);
+        MarkorContextUtils cu = new MarkorContextUtils(context);
         AppSettings appSettings = new AppSettings(context);
 
         if (listener != null) {
@@ -67,9 +67,7 @@ public class MarkorFileBrowserFactory {
 
         opts.titleText = R.string.select;
 
-        opts.mountedStorageFolder = shareUtil.getStorageAccessFolder();
-
-        shareUtil.freeContextRef();
+        opts.mountedStorageFolder = cu.getStorageAccessFolder(context);
         return opts;
     }
 

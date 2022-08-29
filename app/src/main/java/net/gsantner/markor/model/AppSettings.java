@@ -28,10 +28,10 @@ import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.util.ShortcutUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
@@ -52,13 +52,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
-    public AppSettings(Context _context) {
-        super(_context);
-        _prefCache = _context.getSharedPreferences("cache", Context.MODE_PRIVATE);
-        _prefHistory = _context.getSharedPreferences("history", Context.MODE_PRIVATE);
-        _contextUtils = new GsContextUtils(_context);
+    public AppSettings(final Context context) {
+        super(context);
+        _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
+        _prefHistory = context.getSharedPreferences("history", Context.MODE_PRIVATE);
+        _contextUtils = GsContextUtils.instance;
         if (_isDeviceGoodHardware == null) {
-            _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware();
+            _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware(context);
         }
 
         if (getInt(R.string.pref_key__editor_basic_color_scheme__bg, -999) == -999) {
@@ -420,7 +420,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return _default;
         } else {
             final String value = getString(PREF_PREFIX_FILE_FORMAT + path, null);
-            final int sid = _contextUtils.getResId(GsContextUtils.ResType.STRING, value);
+            final int sid = _contextUtils.getResId(_context, GsContextUtils.ResType.STRING, value);
             // Note TextFormat.FORMAT_UNKNOWN also == 0
             return sid != 0 ? sid : _default;
         }
@@ -584,7 +584,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void applyAppTheme() {
-        GsActivityUtils.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
+        GsContextUtils.instance.applyDayNightTheme(getString(R.string.pref_key__app_theme, getAppThemeName()));
     }
 
     public String getAppThemeName() {
@@ -702,7 +702,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getFolderToLoadByMenuId(int itemId) {
-        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(false, true, false);
+        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(_context, false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
                 return getNotebookDirectory();
@@ -717,7 +717,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
             case R.id.action_go_to_appdata_private: {
-                return _contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir(_context);
             }
             case R.id.action_go_to_storage: {
                 return Environment.getExternalStorageDirectory();
@@ -735,11 +735,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return Environment.getExternalStorageDirectory();
             }
             case R.id.action_go_to_appdata_public: {
-                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(true, false, false);
+                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(_context, true, false, false);
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;
                 }
-                return _contextUtils.getAppDataPrivateDir();
+                return _contextUtils.getAppDataPrivateDir(_context);
             }
         }
         return getNotebookDirectory();
@@ -819,7 +819,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public String getViewModeLinkColor() {
-        return GsContextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));
+        return GsTextUtils.colorToHexString(getInt(R.string.pref_key__view_mode_link_color, Color.parseColor("#388E3C")));
     }
 
     public String getUnorderedListCharacter() {

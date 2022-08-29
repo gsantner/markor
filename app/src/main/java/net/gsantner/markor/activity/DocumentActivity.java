@@ -32,9 +32,9 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
-import net.gsantner.opoc.util.GsActivityUtils;
-import net.gsantner.opoc.util.GsShareUtil;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
@@ -70,8 +70,9 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
-        new GsActivityUtils(activity).animateToActivity(intent, false, null).freeContextRef();
+        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
+
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
@@ -91,13 +92,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         Object[] fret = checkIfLikelyTextfileAndGetExt(file);
         boolean isLikelyTextfile = (boolean) fret[0];
         String ext = (String) fret[1];
-        boolean isYes = new AppSettings(activity).isExtOpenWithThisApp(ext);
+        boolean isYes = new AppSettings(activity.getApplicationContext()).isExtOpenWithThisApp(ext);
 
         GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
                 DocumentActivity.launch(activity, file, null, null, null);
             } else {
-                new net.gsantner.markor.util.ShareUtil(activity).viewFileInOtherApp(file, null);
+                new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
             }
         };
 
@@ -166,7 +167,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
             showedShareInto = showShareInto(intent);
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = new GsShareUtil(this).extractFileFromIntent(intent);
+            file = _cu.extractFileFromIntent(this, intent);
         }
 
         if (file != null) {
@@ -193,7 +194,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
         new AlertDialog.Builder(this)
                 .setMessage(Html.fromHtml(notSupportedMessage))
-                .setNegativeButton(R.string.more_info, (di, i) -> _activityUtils.openWebpageInExternalBrowser(getString(R.string.sync_client_support_issue_url)))
+                .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
                 .create().show();
@@ -210,7 +211,7 @@ public class DocumentActivity extends MarkorBaseActivity {
                 Rect activityVisibleSize = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(activityVisibleSize);
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _activityUtils.convertDpToPx(8)) & event.getY() < (activityVisibleSize.bottom - _activityUtils.convertDpToPx(52))) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > (_toolbar.getBottom() + _cu.convertDpToPx(this, 8)) & event.getY() < (activityVisibleSize.bottom - _cu.convertDpToPx(this, 52))) {
                     point.set(event.getX(), event.getY(), 0, 0);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     point.set(point.left, point.top, event.getX(), event.getY());
@@ -232,8 +233,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        GsShareUtil shu = new GsShareUtil(this);
-        shu.extractResultFromActivityResult(requestCode, resultCode, data);
+        _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
     public void setDocumentTitle(final String title) {

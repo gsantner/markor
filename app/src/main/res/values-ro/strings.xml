@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Sus</string>
     <string name="bottom">Jos</string>
     <string name="center">Centru</string>
+    <string name="actionbutton_spacing">Spațiere buton de acțiune</string>
+    <string name="horizontal_space_between_actionbuttons">Spaţiu orizontal între butoanele de acţiune</string>
     <string name="center_text">Text centru</string>
     <string name="edit_text_in_center_of_screen">Editează textul în centrul ecranului</string>
     <string name="clipboard">Clipboard</string>

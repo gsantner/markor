@@ -66,13 +66,9 @@ public class GsBackupUtils {
      * @return The {@link File} that should be created
      */
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
-        final GsContextUtils cu = new GsContextUtils(context);
-        try {
-            final String appName = cu.rstr("app_name_real").toLowerCase().replaceAll("\\s", "");
-            return new File(targetFolder, GsShareUtil.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
-        } finally {
-            cu.freeContextRef();
-        }
+        final GsContextUtils cu = GsContextUtils.instance;
+        final String appName = cu.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
+        return new File(targetFolder, cu.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
     }
 
     public static String getPrefName(final Context context, final String raw) {
@@ -102,7 +98,7 @@ public class GsBackupUtils {
      * @param targetJsonFile    Target json file to write to, overwritten if already exists
      */
     public static void makeBackup(final Context context, final List<String> prefNamesToBackup, final File targetJsonFile) {
-        final GsContextUtils cu = new GsContextUtils(context);
+        final GsContextUtils cu = GsContextUtils.instance;
         try {
             final JSONObject jsonRoot = new JSONObject();
 
@@ -110,15 +106,15 @@ public class GsBackupUtils {
             final Date now = new Date();
             final JSONObject jsonMetadata = new JSONObject(new GsHashMap<String, String>().load(
                     "BACKUP_DATE", String.format("%s ::: %d", now.toString(), now.getTime()),
-                    "APPLICATION_ID_MANIFEST", cu.getPackageIdManifest(),
+                    "APPLICATION_ID_MANIFEST", cu.getAppIdUsedAtManifest(context),
                     "EXPORT_ANDROID_DEVICE_VERSION", GsContextUtils.getAndroidVersion(),
-                    "ISOURCE", cu.getAppInstallationSource(),
+                    "ISOURCE", cu.getAppInstallationSource(context),
                     "BACKUP_REVISION", "1"
             ).data());
-            for (final String field : cu.getBuildConfigFields()) {
-                final Object v = cu.getBuildConfigValue(field);
+            for (final String field : cu.getBuildConfigFields(context)) {
+                final Object v = cu.getBuildConfigValue(context, field);
                 if (v != null && !v.getClass().isArray()) {
-                    jsonMetadata.put(field, cu.getBuildConfigValue(field));
+                    jsonMetadata.put(field, cu.getBuildConfigValue(context, field));
                 }
             }
 
@@ -164,9 +160,7 @@ public class GsBackupUtils {
                 targetJsonFile.delete();
             }
             Log.e(LOG_PREFIX, e.getMessage());
-            Toast.makeText(context, cu.rstr("failed_to_create_backup", true), Toast.LENGTH_SHORT).show();
-        } finally {
-            cu.freeContextRef();
+            Toast.makeText(context, cu.rstr(context, "failed_to_create_backup", true), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -221,9 +215,7 @@ public class GsBackupUtils {
             }
             System.exit(0);
         } catch (Exception e) {
-            final GsContextUtils cu = new GsContextUtils(context);
-            Toast.makeText(context, cu.rstr("failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
-            cu.freeContextRef();
+            Toast.makeText(context, GsContextUtils.instance.rstr(context, "failed_to_restore_settings_from_backup", true), Toast.LENGTH_SHORT).show();
         }
     }
 }

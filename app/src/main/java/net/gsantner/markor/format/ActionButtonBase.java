@@ -44,8 +44,8 @@ import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class ActionButtonBase {
     private Activity m_activity;
-    private GsActivityUtils m_au;
+    private MarkorContextUtils m_cu;
     private final int _textActionSidePadding;
     private String _lastSnip;
 
@@ -520,12 +520,7 @@ public abstract class ActionButtonBase {
         m_activity = activity;
         _hlEditor = hlEditor;
         m_webView = webview;
-        if (m_au != null) {
-            m_au.freeContextRef();
-        }
-        if (activity != null) {
-            m_au = new GsActivityUtils(activity);
-        }
+        m_cu = new MarkorContextUtils(m_activity);
         return this;
     }
 
@@ -546,8 +541,8 @@ public abstract class ActionButtonBase {
         return m_activity != null ? m_activity : _appSettings.getContext();
     }
 
-    public GsActivityUtils getAndroidUtils() {
-        return m_au;
+    public MarkorContextUtils getCu() {
+        return m_cu;
     }
 
     /**
@@ -646,7 +641,7 @@ public abstract class ActionButtonBase {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
-                    getAndroidUtils().openWebpageInExternalBrowser(url);
+                    getCu().openWebpageInExternalBrowser(getContext(), url);
                 }
                 return true;
             }
@@ -677,11 +672,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
-                getAndroidUtils().viewFileInOtherApp(_document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
+                getCu().viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
-                getAndroidUtils().nextScreenRotationSetting();
+                getCu().nextScreenRotationSetting(getActivity());
                 return true;
             }
         }

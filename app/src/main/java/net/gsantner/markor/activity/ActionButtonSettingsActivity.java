@@ -84,7 +84,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_order__menu, menu);
 
-        _activityUtils.tintMenuItems(menu, true, Color.WHITE);
+        _cu.tintMenuItems(menu, true, Color.WHITE);
         return true;
     }
 

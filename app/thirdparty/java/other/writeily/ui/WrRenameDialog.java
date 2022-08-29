@@ -26,7 +26,7 @@ import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -72,14 +72,14 @@ public class WrRenameDialog extends DialogFragment {
         _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             View root = inflater.inflate(R.layout.rename__dialog, null);
             String newFileName = newNameField.getText().toString();
-            ShareUtil shareUtil = new ShareUtil(root.getContext());
+            MarkorContextUtils cu = new MarkorContextUtils(root.getContext());
             boolean renamed = false;
             boolean filenameChanged = !file.getName().equals(newFileName);
             if (filenameChanged) {
                 _filenameClash = optShowFilenameClashDialog(file, newFileName);
             }
-            if (shareUtil.isUnderStorageAccessFolder(file, file.isDirectory())) {
-                DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
+            if (cu.isUnderStorageAccessFolder(getContext(), file, file.isDirectory())) {
+                DocumentFile dof = cu.getDocumentFile(getContext(), file, file.isDirectory());
                 if (dof != null) {
                     if (!_filenameClash) {
                         renamed = dof.renameTo(newFileName);
@@ -96,7 +96,6 @@ public class WrRenameDialog extends DialogFragment {
                 if (_callback != null) {
                     _callback.callback(file);
                 }
-                shareUtil.freeContextRef();
                 _dialog.dismiss();
             }
         });

@@ -10,6 +10,7 @@
 package net.gsantner.markor.web;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,7 +20,7 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 
 import java.io.File;
 import java.net.URLDecoder;
@@ -37,6 +38,8 @@ public class MarkorWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         try {
+            Context context = view.getContext();
+
             if (url.equals("about:blank")) {
                 view.reload();
                 return true;
@@ -44,7 +47,7 @@ public class MarkorWebViewClient extends WebViewClient {
             if (url.startsWith("file:///android_asset/")) {
                 return false;
             } else if (url.startsWith("file://")) {
-                ShareUtil su = new ShareUtil(view.getContext());
+                MarkorContextUtils su = new MarkorContextUtils(view.getContext());
                 File file = new File(URLDecoder.decode(url.replace("file://", "")));
                 String mimetype;
                 for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
@@ -61,17 +64,17 @@ public class MarkorWebViewClient extends WebViewClient {
                     _activity.startActivity(new Intent(_activity, DocumentActivity.class)
                             .putExtra(Document.EXTRA_PATH, file));
                 } else if (file.getName().toLowerCase().endsWith(".apk")) {
-                    su.requestApkInstallation(file);
+                    su.requestApkInstallation(context, file);
                 } else if ((mimetype = su.getMimeType(_activity, url)) != null) {
-                    su.viewFileInOtherApp(file, mimetype);
+                    su.viewFileInOtherApp(context, file, mimetype);
                 } else {
-                    su.viewFileInOtherApp(file, null);
+                    su.viewFileInOtherApp(context, file, null);
                 }
             } else {
-                ShareUtil su = new ShareUtil(_activity);
+                MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = new AppSettings(_activity.getApplicationContext());
-                if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(url))) {
-                    su.openWebpageInExternalBrowser(url).freeContextRef();
+                if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
+                    su.openWebpageInExternalBrowser(context, url);
                     return true;
                 }
             }

@@ -16,7 +16,7 @@ import androidx.documentfile.provider.DocumentFile;
 
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -107,13 +107,11 @@ public class WrMarkorSingleton {
             }
         }
 
-        final ShareUtil shareUtil = new ShareUtil(context);
-        if (context != null && shareUtil.isUnderStorageAccessFolder(file, file.isDirectory())) {
-            final DocumentFile dof = shareUtil.getDocumentFile(file, file.isDirectory());
-            shareUtil.freeContextRef();
+        final MarkorContextUtils cu = new MarkorContextUtils(context);
+        if (context != null && cu.isUnderStorageAccessFolder(context, file, file.isDirectory())) {
+            final DocumentFile dof = cu.getDocumentFile(context, file, file.isDirectory());
             return dof == null ? false : (dof.delete() || !dof.exists());
         } else {
-            shareUtil.freeContextRef();
             return file.delete();
         }
     }

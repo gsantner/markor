@@ -133,9 +133,7 @@ public class GsSearchOrCustomTextDialog {
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            GsContextUtils cu = new GsContextUtils(context);
-            _layoutHeight = (int) cu.convertDpToPx(36);
-            cu.freeContextRef();
+            _layoutHeight = (int) GsContextUtils.instance.convertDpToPx(context, 36);
         }
 
         @NonNull
@@ -225,8 +223,7 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        GsContextUtils cu = new GsContextUtils(activity);
-        final int dialogStyle = cu.getResId(GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
+        final int dialogStyle = GsContextUtils.instance.getResId(activity, GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
 
         final Adapter listAdapter = Adapter.create(activity, dopt);
@@ -385,10 +382,8 @@ public class GsSearchOrCustomTextDialog {
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {
-        final GsContextUtils cu = new GsContextUtils(context);
-        final int paddingSide = (int) cu.convertDpToPx(16);
-        final int paddingBetween = (int) cu.convertDpToPx(4);
-        cu.freeContextRef();
+        final int paddingSide = GsContextUtils.instance.convertDpToPx(context, 16);
+        final int paddingBetween = GsContextUtils.instance.convertDpToPx(context, 4);
 
         final LinearLayout titleLayout = new LinearLayout(context);
         titleLayout.setOrientation(LinearLayout.VERTICAL);
@@ -415,9 +410,7 @@ public class GsSearchOrCustomTextDialog {
     }
 
     private static View makeSearchView(final Context context, final DialogOptions dopt) {
-        final GsContextUtils cu = new GsContextUtils(context);
-        final int margin = (int) cu.convertDpToPx(8);
-        cu.freeContextRef();
+        final int margin = GsContextUtils.instance.convertDpToPx(context, 8);
 
         // Main layout
         final LinearLayout searchLayout = new LinearLayout(context);

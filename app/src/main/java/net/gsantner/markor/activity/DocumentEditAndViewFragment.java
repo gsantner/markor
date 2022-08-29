@@ -14,6 +14,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -53,14 +54,13 @@ import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
-import net.gsantner.opoc.util.GsActivityUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
-import net.gsantner.opoc.util.GsShareUtil;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -99,7 +99,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _textFormat;
-    private net.gsantner.markor.util.ShareUtil _shareUtil;
+    private MarkorContextUtils _cu;
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
@@ -136,7 +136,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         return R.layout.document__fragment__edit;
     }
 
-    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface"})
+    @SuppressLint({"SetJavaScriptEnabled", "WrongConstant", "AddJavascriptInterface", "JavascriptInterface"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -147,12 +147,12 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);
         _webView = view.findViewById(R.id.document__fragment_view_webview);
         _primaryScrollView = view.findViewById(R.id.document__fragment__edit__content_editor__scrolling_parent);
-        _shareUtil = new net.gsantner.markor.util.ShareUtil(activity);
+        _cu = new MarkorContextUtils(activity);
 
         // Using `if (_document != null)` everywhere is dangerous
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
-        if (!isStateGood()) {
+        if (isStateBad()) {
             Toast.makeText(activity, R.string.document_error_exit, Toast.LENGTH_LONG).show();
             activity.finish();
             return;
@@ -378,7 +378,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     }
 
     public boolean loadDocument() {
-        if (!isSdStatusGood() || !isStateGood()) {
+        if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
@@ -425,7 +425,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         if (activity == null) {
             return true;
         }
-        _shareUtil.setContext(activity);
 
         final int itemId = item.getItemId();
         switch (itemId) {
@@ -467,13 +466,13 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             }
             case R.id.action_share_text: {
                 if (saveDocument(false)) {
-                    _shareUtil.shareText(getTextString(), "text/plain");
+                    _cu.shareText(getActivity(), getTextString(), "text/plain");
                 }
                 return true;
             }
             case R.id.action_share_file: {
                 if (saveDocument(false)) {
-                    _shareUtil.shareStream(_document.getFile(), "text/plain");
+                    _cu.shareStream(getActivity(), _document.getFile(), "text/plain");
                 }
                 return true;
             }
@@ -481,14 +480,16 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             case R.id.action_share_html_source: {
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
-                    _shareUtil.shareText(converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
-                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain"));
+                    _cu.shareText(getActivity(),
+                            converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
+                            "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
+                    );
                 }
                 return true;
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument(false)) {
-                    if (!_shareUtil.createCalendarAppointment(_document.getTitle(), getTextString(), null)) {
+                    if (!_cu.createCalendarAppointment(getActivity(), _document.getTitle(), getTextString(), null)) {
                         Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -504,9 +505,10 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                            _shareUtil.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                            _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
                         } else if (item.getItemId() != R.id.action_share_pdf) {
-                            _shareUtil.shareImage(GsShareUtil.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image));
+                            Bitmap bmp = _cu.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image);
+                            _cu.shareImage(getContext(), bmp, null);
                         }
                     }, 7000);
                 }
@@ -530,7 +532,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             }
             case R.id.action_send_debug_log: {
                 final String text = AppSettings.getDebugLog() + "\n\n------------------------\n\n\n\n" + Document.getMaskedContent(getTextString());
-                _shareUtil.draftEmail("Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
+                _cu.draftEmail(getActivity(), "Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
 
@@ -636,7 +638,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
-        SubMenu su;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
             mi.setChecked(_wrapText);
         }
@@ -647,9 +648,13 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
             mi.setChecked(_autoFormat);
         }
 
+        final SubMenu su;
         if (selectedFormatActionId != 0 && (mi = _fragmentMenu.findItem(R.id.submenu_format_selection)) != null && (su = mi.getSubMenu()) != null) {
             for (int i = 0; i < su.size(); i++) {
-                mi.setChecked(true);
+                if ((mi = su.getItem(i)).getItemId() == selectedFormatActionId) {
+                    mi.setChecked(true);
+                    break;
+                }
             }
         }
     }
@@ -692,32 +697,32 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         if (!TextUtils.isEmpty(text)) {
             Context context = getContext();
             context = context == null ? ApplicationObject.get().getApplicationContext() : context;
-            new net.gsantner.markor.util.ShareUtil(context).setClipboard(text);
+            new MarkorContextUtils(context).setClipboard(getContext(), text);
             Toast.makeText(getContext(), R.string.document_error_clip, Toast.LENGTH_LONG).show();
         }
     }
 
-    public boolean isSdStatusGood() {
-        if (_shareUtil.isUnderStorageAccessFolder(_document.getFile(), false) &&
-                _shareUtil.getStorageAccessFrameworkTreeUri() == null) {
-            _shareUtil.showMountSdDialog(getActivity());
-            return false;
+    public boolean isSdStatusBad() {
+        if (_cu.isUnderStorageAccessFolder(getContext(), _document.getFile(), false) &&
+                _cu.getStorageAccessFrameworkTreeUri(getContext()) == null) {
+            _cu.showMountSdDialog(getActivity());
+            return true;
         }
-        return true;
+        return false;
     }
 
     // Checks document state if things aren't in a good state
-    public boolean isStateGood() {
-        return (_document != null &&
-                _hlEditor != null &&
-                _appSettings != null &&
-                _document.testCreateParent() &&
-                _shareUtil.canWriteFile(_document.getFile(), false, true));
+    public boolean isStateBad() {
+        return (_document == null ||
+                _hlEditor == null ||
+                _appSettings == null ||
+                !_document.testCreateParent() ||
+                !_cu.canWriteFile(getContext(), _document.getFile(), false, true));
     }
 
     // Save the file
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        if (!isSdStatusGood() || !isStateGood()) {
+        if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
@@ -725,7 +730,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
-            if (_document.saveContent(getActivity(), text, _shareUtil, forceSaveEmpty)) {
+            if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
@@ -753,9 +758,9 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef();
+            _cu.hideSoftKeyboard(activity);
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> new GsActivityUtils(activity).hideSoftKeyboard().freeContextRef(), 300);
+            _hlEditor.postDelayed(() -> _cu.hideSoftKeyboard(activity), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());

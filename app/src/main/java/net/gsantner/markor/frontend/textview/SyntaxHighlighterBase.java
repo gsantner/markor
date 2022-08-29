@@ -177,6 +177,16 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
+    // Get currently attached spannable
+    public Spannable getSpannable() {
+        return _spannable;
+    }
+
+    public boolean hasSpans() {
+        return _spannable != null && _groups.size() > 0;
+    }
+
+
     /**
      * Helper to change spans in 'onTextChanged'
      */
@@ -206,11 +216,6 @@ public abstract class SyntaxHighlighterBase {
             }
         }
         return this;
-    }
-
-    // Get currently attached spannable
-    public Spannable getSpannable() {
-        return _spannable;
     }
 
     public SyntaxHighlighterBase apply() {

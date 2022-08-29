@@ -16,14 +16,14 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
-        super.onPreCreate(savedInstanceState); // _appSettings, _activityUtils gets available
+        super.onPreCreate(savedInstanceState); // _appSettings, _cu gets available
         setTheme(R.style.AppTheme_Unified);
         _appSettings.applyAppTheme();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);
             getWindow().setExitTransition(null);
         }
-        _activityUtils.setAppLanguage(_appSettings.getLanguage()).freeContextRef(); // invalidates actvity references
+        _cu.setAppLanguage(this, _appSettings.getLanguage());
         if (_appSettings.isHideSystemStatusbar()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -31,7 +31,7 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 
     @Override
     public Integer getNewNavigationBarColor() {
-        return _activityUtils.parseHexColorString(_appSettings.getNavigationBarColor());
+        return _cu.parseHexColorString(_appSettings.getNavigationBarColor());
     }
 
     @Override

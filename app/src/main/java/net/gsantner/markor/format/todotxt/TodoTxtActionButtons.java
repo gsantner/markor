@@ -174,7 +174,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                         doneFileContents += TodoTxtParser.tasksToString(move) + "\n";
 
                         // Write to done file
-                        if (new Document(doneFile).saveContent(getContext(), doneFileContents)) {
+                        if (new Document(doneFile).saveContent(getActivity(), doneFileContents)) {
                             final String tasksString = TodoTxtParser.tasksToString(keep);
                             _hlEditor.setText(tasksString);
                             _hlEditor.setSelection(

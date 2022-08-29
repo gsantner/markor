@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -26,7 +27,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -274,16 +275,16 @@ public class Document implements Serializable {
         }
     }
 
-    public boolean saveContent(final Context context, final CharSequence content) {
+    public boolean saveContent(final Activity context, final CharSequence content) {
         return saveContent(context, content, null, false);
     }
 
     @SuppressWarnings("ConstantConditions")
-    public synchronized boolean saveContent(final Context context, final CharSequence content, ShareUtil shareUtil1, boolean isManualSave) {
+    public synchronized boolean saveContent(final Activity context, final CharSequence content, MarkorContextUtils cu, final boolean isManualSave) {
         if (isBinaryFileNoTextLoading()) {
             return true;
         }
-        if (!isManualSave && TextUtils.getTrimmedLength(content) < ShareUtil.MIN_OVERWRITE_LENGTH) {
+        if (!isManualSave && TextUtils.getTrimmedLength(content) < MarkorContextUtils.MIN_OVERWRITE_LENGTH) {
             return false;
         }
 
@@ -306,11 +307,10 @@ public class Document implements Serializable {
                 contentAsBytes = content.toString().getBytes();
             }
 
-
-            final ShareUtil shareUtil = (shareUtil1 != null ? shareUtil1 : new ShareUtil(context));
-            final boolean isContentResolverProxyFile = shareUtil.isContentResolverProxyFile(_file);
-            if (shareUtil.isUnderStorageAccessFolder(_file, false) || isContentResolverProxyFile) {
-                shareUtil.writeFile(_file, false, (fileOpened, fos) -> {
+            cu = cu != null ? cu : new MarkorContextUtils(context);
+            final boolean isContentResolverProxyFile = cu.isContentResolverProxyFile(_file);
+            if (cu.isUnderStorageAccessFolder(context, _file, false) || isContentResolverProxyFile) {
+                cu.writeFile(context, _file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {
                             fos.write(0xEF);
@@ -378,6 +378,6 @@ public class Document implements Serializable {
     // Convenient wrapper
     private static String getFileNameWithTimestamp(final boolean includeExt) {
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
-        return ShareUtil.getFilenameWithTimestamp("", "", ext);
+        return MarkorContextUtils.instance.getFilenameWithTimestamp("", "", ext);
     }
 }

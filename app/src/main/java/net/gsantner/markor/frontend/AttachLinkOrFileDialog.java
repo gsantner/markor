@@ -29,7 +29,7 @@ import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.ShareUtil;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -179,14 +179,14 @@ public class AttachLinkOrFileDialog {
         };
 
         // Request camera / gallery picture button handling
-        final ShareUtil shu = new ShareUtil(activity);
-        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast((intent, lbr_ref) -> {
-                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(ShareUtil.EXTRA_FILEPATH)), null);
+        final MarkorContextUtils shu = new MarkorContextUtils(activity);
+        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast(activity, (intent, lbr_ref) -> {
+                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH)), null);
                 },
-                false, ShareUtil.REQUEST_CAMERA_PICTURE + "", ShareUtil.REQUEST_PICK_PICTURE + "");
+                false, MarkorContextUtils.REQUEST_CAMERA_PICTURE + "", MarkorContextUtils.REQUEST_PICK_PICTURE + "");
         final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
-        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(targetFolder));
-        buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture());
+        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(activity, targetFolder));
+        buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture(activity));
 
         buttonBrowseFilesystem.setOnClickListener(button -> {
             if (activity instanceof AppCompatActivity) {
@@ -206,7 +206,7 @@ public class AttachLinkOrFileDialog {
             }
             File file = new File(filepath);
             if (file.exists() && file.isFile()) {
-                shu.requestPictureEdit(file);
+                shu.requestPictureEdit(activity, file);
             }
         });
 
@@ -240,7 +240,7 @@ public class AttachLinkOrFileDialog {
     }
 
     public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final GsCallback.a2<Boolean, File> copyFileFinishedCallback) {
-        final GsCallback.a1<File> copyToDirInvocation = cbValTargetFile -> new ShareUtil(activity).writeFile(cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
+        final GsCallback.a1<File> copyToDirInvocation = cbValTargetFile -> new MarkorContextUtils(activity).writeFile(activity, cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
             if (wfCbValOpened && GsFileUtils.copyFile(srcFile, wfCbValStream)) {
                 copyFileFinishedCallback.callback(true, cbValTargetFile);
             }

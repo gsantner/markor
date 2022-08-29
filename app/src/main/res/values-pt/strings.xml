@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Cima</string>
     <string name="bottom">Baixo</string>
     <string name="center">Centro</string>
+    <string name="actionbutton_spacing">Espaçamento ActionButton</string>
+    <string name="horizontal_space_between_actionbuttons">Espaço horizontal entre ActionButtons</string>
     <string name="center_text">Centrar texto</string>
     <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
     <string name="clipboard">Área de transferência</string>
