@@ -36,6 +36,7 @@ import com.flask.colorpicker.Utils;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
@@ -82,7 +83,7 @@ public abstract class ActionButtonBase {
 
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
-        _appSettings = new AppSettings(context.getApplicationContext());
+        _appSettings = ApplicationObject.settings();
         _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * context.getResources().getDisplayMetrics().density);
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }

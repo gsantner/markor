@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.FileInfoDialog;
@@ -47,6 +48,8 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -62,8 +65,7 @@ import other.writeily.model.WrMarkorSingleton;
 import other.writeily.ui.WrConfirmDialog;
 import other.writeily.ui.WrRenameDialog;
 
-public class GsFileBrowserFragment extends GsFragmentBase
-        implements GsFileBrowserOptions.SelectionListener {
+public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPropertyBackend, GsContextUtils> implements GsFileBrowserOptions.SelectionListener {
     //########################
     //## Static
     //########################
@@ -109,7 +111,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
 
-        _appSettings = new AppSettings(root.getContext());
+        _appSettings = ApplicationObject.settings();
         _cu = new MarkorContextUtils(root.getContext());
 
         if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
@@ -523,8 +525,8 @@ public class GsFileBrowserFragment extends GsFragmentBase
     }
 
     public static Comparator<File> sortFolder(List<File> filesToSort) {
-        final int sortMethod = AppSettings.get().getSortMethod();
-        final boolean sortReverse = AppSettings.get().isSortReverse();
+        final int sortMethod = ApplicationObject.settings().getSortMethod();
+        final boolean sortReverse = ApplicationObject.settings().isSortReverse();
 
         final Comparator<File> comparator = (current, other) -> {
             if (sortReverse) {

@@ -8,11 +8,13 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
 
-public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
+public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +43,12 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings> {
 
     @Override
     public AppSettings createAppSettingsInstance(Context applicationContext) {
-        return new AppSettings(applicationContext);
+        return ApplicationObject.settings();
+    }
+
+    @Override
+    public MarkorContextUtils createContextUtilsInstance(Context applicationContext) {
+        return new MarkorContextUtils(applicationContext);
     }
 
     @Override

@@ -16,7 +16,6 @@ import androidx.core.text.TextUtilsCompat;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -57,7 +56,6 @@ public class PlaintextTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        AppSettings appSettings = AppSettings.get();
-        return EXT.contains(extWithDot) || appSettings.isExtOpenWithThisApp(extWithDot);
+        return EXT.contains(extWithDot) || _appSettings.isExtOpenWithThisApp(extWithDot);
     }
 }

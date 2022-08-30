@@ -13,6 +13,7 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -31,9 +32,9 @@ public class MarkorFileBrowserFactory {
     public static GsCallback.b2<Context, File> IsMimeVideo = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("video/");
 
     public static GsFileBrowserOptions.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, GsFileBrowserOptions.SelectionListener listener) {
-        GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
-        MarkorContextUtils cu = new MarkorContextUtils(context);
-        AppSettings appSettings = new AppSettings(context);
+        final GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
+        final MarkorContextUtils cu = new MarkorContextUtils(context);
+        final AppSettings appSettings = ApplicationObject.settings();
 
         if (listener != null) {
             opts.listener = listener;

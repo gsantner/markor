@@ -5,10 +5,10 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsBackupUtils;
 
@@ -25,7 +25,7 @@ public class BackupUtils extends GsBackupUtils {
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
+                            dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
                             dopt.titleText = R.string.select;
                         }
 
@@ -47,7 +47,7 @@ public class BackupUtils extends GsBackupUtils {
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = new AppSettings(context).getNotebookDirectory();
+                            dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
                             dopt.titleText = R.string.select_folder;
                         }
 

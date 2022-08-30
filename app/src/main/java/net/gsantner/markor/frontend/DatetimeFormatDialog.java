@@ -27,6 +27,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.ConfigurationCompat;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
@@ -86,7 +87,7 @@ public class DatetimeFormatDialog {
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
         final GsContextUtils cu = new GsContextUtils();
-        final AppSettings as = new AppSettings(viewRoot.getContext());
+        final AppSettings appSettings = ApplicationObject.settings();
 
         final Locale locale = ConfigurationCompat.getLocales(activity.getResources().getConfiguration()).get(0);
 
@@ -154,7 +155,7 @@ public class DatetimeFormatDialog {
 
         // Get most recent, falling back to lastusedformat if necessary
         final String LAST_USED_PREF = DatetimeFormatDialog.class.getCanonicalName() + ".lastusedformat";
-        final String lastUsed = (recentFormats.size() > 0) ? recentFormats.get(0) : as.getString(LAST_USED_PREF, "");
+        final String lastUsed = (recentFormats.size() > 0) ? recentFormats.get(0) : appSettings.getString(LAST_USED_PREF, "");
 
         formatEditText.setText(lastUsed);
         viewRoot.findViewById(R.id.time_format_last_used).setEnabled(recentFormats.size() > 0);

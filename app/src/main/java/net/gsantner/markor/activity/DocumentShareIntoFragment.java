@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
@@ -38,7 +39,6 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -47,7 +47,7 @@ import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 import java.io.File;
 import java.util.regex.Matcher;
 
-public class DocumentShareIntoFragment extends GsFragmentBase {
+public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
 
@@ -83,7 +83,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
     public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Context context = view.getContext();
-        final AppSettings as = new AppSettings(context);
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
@@ -98,9 +97,9 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         }
 
         _hlEditor.setText(sharedText);
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, as.getFontSize());
-        _hlEditor.setTypeface(Typeface.create(as.getFontFamily(), Typeface.NORMAL));
-        _hlEditor.setHighlighter(new PlaintextSyntaxHighlighter(as));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
+        _hlEditor.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
+        _hlEditor.setHighlighter(new PlaintextSyntaxHighlighter(_appSettings));
         _hlEditor.setHighlightingEnabled(true);
 
         if (sharedText.isEmpty()) {
@@ -161,7 +160,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
 
         @Override
         protected AppSettings getAppSettings(Context context) {
-            return new AppSettings(context);
+            return ApplicationObject.settings();
         }
 
         @Override
@@ -275,7 +274,6 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             final Activity activity = getActivity();
-            AppSettings appSettings = new AppSettings(activity);
             MarkorPermissionChecker permc = new MarkorPermissionChecker(activity);
             MarkorContextUtils shu = new MarkorContextUtils(activity);
             String tmps;
@@ -304,7 +302,7 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 }
                 case R.string.pref_key__share_into__quicknote: {
                     if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(_appSettings.getQuickNoteFile(), "\n", false);
+                        appendToExistingDocument(this._appSettings.getQuickNoteFile(), "\n", false);
                         close = true;
                     }
                     break;
@@ -312,10 +310,10 @@ public class DocumentShareIntoFragment extends GsFragmentBase {
                 case R.string.pref_key__share_into__todo: {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
-                        if (appSettings.getDocumentAutoFormatEnabled(_appSettings.getTodoFile().getAbsolutePath())) {
+                        if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
                             sep += TodoTxtParser.getToday() + " ";
                         }
-                        appendToExistingDocument(_appSettings.getTodoFile(), sep, false);
+                        appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
                         close = true;
                     }
                     break;

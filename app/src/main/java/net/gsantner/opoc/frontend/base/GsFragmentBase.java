@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsMenuItemDummy;
 
@@ -32,11 +33,12 @@ import net.gsantner.opoc.wrapper.GsMenuItemDummy;
  * A common base fragment to extend from
  */
 @SuppressWarnings("unused")
-public abstract class GsFragmentBase extends Fragment {
+public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBackend, CU extends GsContextUtils> extends Fragment {
     private boolean _fragmentFirstTimeVisible = true;
     private final Object _fragmentFirstTimeVisibleSync = new Object();
 
-    protected GsContextUtils _cu;
+    protected AS _appSettings;
+    protected CU _cu;
     protected Bundle _savedInstanceState = null;
     protected Menu _fragmentMenu = new GsMenuItemDummy.Menu();
 
@@ -54,8 +56,9 @@ public abstract class GsFragmentBase extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        _cu = GsContextUtils.instance;
-        _cu.setAppLanguage(getActivity(), getAppLanguage());
+        _cu = createContextUtilsInstance(inflater.getContext().getApplicationContext());
+        _appSettings = createAppSettingsInstance(inflater.getContext().getApplicationContext());
+        GsContextUtils.instance.setAppLanguage(getActivity(), getAppLanguage());
         _savedInstanceState = savedInstanceState;
         if (getLayoutResId() == 0) {
             Log.e(getClass().getCanonicalName(), "Error: GsFragmentbase.onCreateview: Returned 0 for getLayoutResId");
@@ -75,6 +78,16 @@ public abstract class GsFragmentBase extends Fragment {
             }
             attachToolbarClickListenersToFragment();
         }, 1);
+    }
+
+    @Nullable
+    public AS createAppSettingsInstance(Context applicationContext) {
+        return null;
+    }
+
+    @Nullable
+    public CU createContextUtilsInstance(Context applicationContext) {
+        return null;
     }
 
     protected void attachToolbarClickListenersToFragment() {
@@ -167,7 +180,7 @@ public abstract class GsFragmentBase extends Fragment {
     protected Toolbar getToolbar() {
         try {
             Activity a = getActivity();
-            return (Toolbar) a.findViewById(_cu.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
+            return (Toolbar) a.findViewById(GsContextUtils.instance.getResId(a, GsContextUtils.ResType.ID, "toolbar"));
         } catch (Exception e) {
             return null;
         }

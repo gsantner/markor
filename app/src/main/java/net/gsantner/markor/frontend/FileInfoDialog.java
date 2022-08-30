@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -113,7 +114,7 @@ public class FileInfoDialog extends DialogFragment {
         });
 
         // Hide checkbox
-        final AppSettings appSettings = new AppSettings(inflater.getContext());
+        final AppSettings appSettings = ApplicationObject.settings();
         CheckBox checkHideInRecents = root.findViewById(R.id.ui__fileinfodialog__recents);
         checkHideInRecents.setChecked(appSettings.listFileInRecents(file));
         checkHideInRecents.setOnCheckedChangeListener((buttonView, isChecked) -> appSettings.setListFileInRecents(file, isChecked));
