@@ -267,39 +267,23 @@ public abstract class ActionButtonBase {
     protected void appendTextActionToBar(ViewGroup barLayout, @NonNull ActionItem action) {
         final ImageView btn = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
-        btn.setContentDescription(rstr(action.stringId));
-        TooltipCompat.setTooltipText(btn, rstr(action.stringId));
-        final AtomicBoolean showTooltip = new AtomicBoolean(false);
-
-        // show the android tooltip text popup (which only can be shown through longClick)
-        final GsCallback.a1<Integer> triggerTooltip = stringId -> {
-            showTooltip.set(true);
-            btn.setContentDescription(rstr(stringId));
-            TooltipCompat.setTooltipText(btn, rstr(stringId));
-            btn.postDelayed(btn::performLongClick, 100);
-        };
+        final String desc = rstr(action.stringId);
+        btn.setContentDescription(desc);
+        TooltipCompat.setTooltipText(btn, desc);
 
         btn.setOnClickListener(v -> {
             try {
                 // run action
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                if (onActionClick(action.keyId)) {
-                    triggerTooltip.callback(action.stringId);
-                }
+                onActionClick(action.keyId);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
         btn.setOnLongClickListener(v -> {
             try {
-                if (showTooltip.getAndSet(false)) {
-                    return false;
-                }
                 v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                if (onActionLongClick(action.keyId)) {
-                    triggerTooltip.callback(action.stringId); // replace in future with separate description stringId for longClick
-                    return true;
-                }
+                return onActionLongClick(action.keyId);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
