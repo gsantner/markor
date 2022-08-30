@@ -205,7 +205,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">底端</string>
     <string name="center">居中</string>
     <string name="actionbutton_spacing">ActionButton 间距</string>
-    <string name="horizontal_space_between_actionbuttons">ActionButtons 之间的水平间距</string>
+    <string name="horizontal_space_between_actionbuttons">ActionButton 之间的水平间距</string>
     <string name="center_text">居中文字</string>
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
@@ -439,5 +439,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
     <string name="document_error_exit">错误：无法打开。</string>
-    <string name="document_error_clip">发生错误：文本已复制到剪贴板。</string>
+    <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
 </resources>
