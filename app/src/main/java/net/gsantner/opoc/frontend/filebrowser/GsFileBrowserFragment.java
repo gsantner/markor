@@ -324,7 +324,7 @@ public class GsFileBrowserFragment extends GsFragmentBase
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.filesystem__menu, menu);
         _cu.tintMenuItems(menu, true, Color.WHITE);
-        _cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.setSubMenuIconsVisibility(menu, true);
 
         MenuItem item;
         if ((item = menu.findItem(R.id.action_folder_first)) != null) {

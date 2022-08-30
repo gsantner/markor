@@ -6,6 +6,7 @@
 #########################################################*/
 package net.gsantner.markor.format.binary;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Pair;
 
@@ -91,6 +92,10 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
 
                 // Add file itself as first item to playlist
                 onLoadJs += "document.avAddToPlaylist('" + TOKEN_FILEURI_VIEWED_FILE + "', '" + TOKEN_FILEURI_VIEWED_FILE + "');";
+
+                if (context instanceof Activity) {
+                    GsContextUtils.instance.setKeepScreenOn((Activity) context, true);
+                }
             }
             if (converted.contains("rotatable")) {
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";

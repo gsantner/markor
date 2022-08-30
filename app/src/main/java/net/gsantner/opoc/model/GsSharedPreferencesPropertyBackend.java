@@ -567,17 +567,6 @@ public class GsSharedPreferencesPropertyBackend implements GsPropertyBackend<Str
     }
 
     /**
-     * A method to determine if current hour is between begin and end.
-     * This is especially useful for time-based light/dark mode
-     */
-    public static boolean isCurrentHourOfDayBetween(int begin, int end) {
-        begin = (begin >= 23 || begin < 0) ? 0 : begin;
-        end = (end >= 23 || end < 0) ? 0 : end;
-        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return h >= begin && h <= end;
-    }
-
-    /**
      * Substract current datetime by given amount of days
      */
     public Date getDateOfDaysAgo(int days) {

@@ -34,6 +34,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 
 public class MarkorContextUtils extends GsContextUtils {
+
     public MarkorContextUtils(@Nullable final Context context) {
         if (context != null) {
             setChooserTitle(context.getString(R.string.share_to_arrow));

@@ -301,7 +301,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.document__edit__menu, menu);
         _cu.tintMenuItems(menu, true, Color.WHITE);
-        _cu.setSubMenuIconsVisiblity(menu, true);
+        _cu.setSubMenuIconsVisibility(menu, true);
 
         final boolean isExperimentalFeaturesEnabled = _appSettings.isExperimentalFeaturesEnabled();
         final boolean isText = !_document.isBinaryFileNoTextLoading();
@@ -481,7 +481,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _cu.shareText(getActivity(),
-                            converter.convertMarkup(getTextString(), _hlEditor.getContext(), false, _document.getFile()),
+                            converter.convertMarkup(getTextString(), getActivity(), false, _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
                     );
                 }
@@ -748,7 +748,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
 
     public void updateViewModeText() {
         final String text = getTextString();
-        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, _webView, _nextConvertToPrintMode);
+        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode);
     }
 
     public void setViewModeVisibility(boolean show) {

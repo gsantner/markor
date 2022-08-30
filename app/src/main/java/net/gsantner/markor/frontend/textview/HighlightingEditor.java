@@ -266,15 +266,6 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
-    public Parcelable onSaveInstanceState() {
-        if (_hl != null && _hlEnabled) {
-            _hl.clear(); // Don't save spans
-        }
-        return super.onSaveInstanceState();
-        // return null; // Don't save any state - rely on recreation
-    }
-
-    @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == View.VISIBLE) {

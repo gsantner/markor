@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -270,11 +269,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (_appSettings.isKeepScreenOn()) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
+        _cu.setKeepScreenOn(this, _appSettings.isKeepScreenOn());
     }
 
     @Override
