@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -60,7 +61,7 @@ public class FileSearchDialog {
         final CheckBox searchInContentCheckBox = new CheckBox(activity);
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
-        final AppSettings appSettings = new AppSettings(activity);
+        final AppSettings appSettings = ApplicationObject.settings();
         final GsCallback.a0 submit = () -> {
             final String query = searchEditText.getText().toString();
             if (dialogCallback != null && !TextUtils.isEmpty(query)) {

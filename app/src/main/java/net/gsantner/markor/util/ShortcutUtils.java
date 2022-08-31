@@ -19,6 +19,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
@@ -61,7 +62,7 @@ public class ShortcutUtils {
             final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             final List<ShortcutInfo> newShortcuts = new ArrayList<>();
 
-            final AppSettings appSettings = new AppSettings(context);
+            final AppSettings appSettings = ApplicationObject.settings();
 
             // Create the to-do shortcut
             final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
@@ -92,8 +93,7 @@ public class ShortcutUtils {
             newShortcuts.add(shortcutQuickNote);
 
             // Generate shortcuts for the most recent documents. Maximum of MAX_RECENT_DOCUMENTS.
-            final AppSettings settings = new AppSettings(context);
-            final List<String> recentDocuments = settings.getRecentDocuments();
+            final List<String> recentDocuments = appSettings.getRecentDocuments();
 
             for (int i = 0; i < Math.min(MAX_RECENT_DOCUMENTS, recentDocuments.size()); i++) {
                 final File file = new File(recentDocuments.get(i));

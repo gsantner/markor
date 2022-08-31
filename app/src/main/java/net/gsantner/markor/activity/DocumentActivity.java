@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -63,7 +64,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (doPreview != null) {
             intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && new AppSettings(activity).isMultiWindowEnabled()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && ApplicationObject.settings().isMultiWindowEnabled()) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         } else {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -91,7 +92,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         Object[] fret = checkIfLikelyTextfileAndGetExt(file);
         boolean isLikelyTextfile = (boolean) fret[0];
         String ext = (String) fret[1];
-        boolean isYes = new AppSettings(activity.getApplicationContext()).isExtOpenWithThisApp(ext);
+        boolean isYes = ApplicationObject.settings().isExtOpenWithThisApp(ext);
 
         GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {

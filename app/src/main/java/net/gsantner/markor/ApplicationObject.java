@@ -13,6 +13,8 @@ import android.webkit.WebView;
 
 import androidx.multidex.MultiDexApplication;
 
+import net.gsantner.markor.model.AppSettings;
+
 public class ApplicationObject extends MultiDexApplication {
     // Make resources not marked as unused
     @SuppressWarnings("unused")
@@ -24,15 +26,21 @@ public class ApplicationObject extends MultiDexApplication {
     };
 
     private volatile static ApplicationObject _app;
+    private volatile static AppSettings _appSettings;
 
     public static ApplicationObject get() {
         return _app;
+    }
+
+    public static AppSettings settings() {
+        return _appSettings;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         _app = this;
+        _appSettings = new AppSettings().init(getApplicationContext());
 
         // Per https://stackoverflow.com/a/54191884/4717438
         try {

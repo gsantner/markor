@@ -11,8 +11,8 @@ package net.gsantner.markor.frontend.settings;
 
 import android.app.Activity;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
 import net.gsantner.opoc.util.GsContextUtils;
 
@@ -37,6 +37,6 @@ public class MarkorPermissionChecker extends GsPermissionChecker {
     }
 
     public boolean mkdirIfStoragePermissionGranted() {
-        return super.mkdirIfStoragePermissionGranted(AppSettings.get().getNotebookDirectory());
+        return super.mkdirIfStoragePermissionGranted(ApplicationObject.settings().getNotebookDirectory());
     }
 }

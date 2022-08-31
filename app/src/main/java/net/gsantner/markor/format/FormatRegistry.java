@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 
 import androidx.annotation.NonNull;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueSyntaxHighlighter;
@@ -95,12 +96,12 @@ public class FormatRegistry {
 
     public static FormatRegistry getFormat(int formatId, @NonNull final Context context, final Document document) {
         final FormatRegistry format = new FormatRegistry();
-        final AppSettings as = new AppSettings(context.getApplicationContext());
+        final AppSettings appSettings = ApplicationObject.settings();
 
         switch (formatId) {
             case FORMAT_PLAIN: {
                 format._converter = CONVERTER_PLAINTEXT;
-                format._highlighter = new PlaintextSyntaxHighlighter(as);
+                format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 format._autoFormatInputFilter = new MarkdownAutoTextFormatter(); // Using the markdown syntax for plain text
                 format._autoFormatTextWatcher = new ListHandler(MarkdownAutoTextFormatter.getPrefixPatterns());
@@ -108,20 +109,20 @@ public class FormatRegistry {
             }
             case FORMAT_TODOTXT: {
                 format._converter = CONVERTER_TODOTXT;
-                format._highlighter = new TodoTxtSyntaxHighlighter(as);
+                format._highlighter = new TodoTxtSyntaxHighlighter(appSettings);
                 format._textActions = new TodoTxtActionButtons(context, document);
                 format._autoFormatInputFilter = new TodoTxtAutoTextFormatter();
                 break;
             }
             case FORMAT_KEYVALUE: {
                 format._converter = CONVERTER_KEYVALUE;
-                format._highlighter = new KeyValueSyntaxHighlighter(as);
+                format._highlighter = new KeyValueSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 break;
             }
             case FORMAT_WIKITEXT: {
                 format._converter = CONVERTER_WIKITEXT;
-                format._highlighter = new WikitextSyntaxHighlighter(as);
+                format._highlighter = new WikitextSyntaxHighlighter(appSettings);
                 format._textActions = new WikitextActionButtons(context, document);
                 format._autoFormatInputFilter = new WikitextAutoTextFormatter();
                 format._autoFormatTextWatcher = new ListHandler(WikitextAutoTextFormatter.getPrefixPatterns());
@@ -129,14 +130,14 @@ public class FormatRegistry {
             }
             case FORMAT_EMBEDBINARY: {
                 format._converter = CONVERTER_EMBEDBINARY;
-                format._highlighter = new PlaintextSyntaxHighlighter(as);
+                format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 break;
             }
             default:
             case FORMAT_MARKDOWN: {
                 format._converter = CONVERTER_MARKDOWN;
-                format._highlighter = new MarkdownSyntaxHighlighter(as);
+                format._highlighter = new MarkdownSyntaxHighlighter(appSettings);
                 format._textActions = new MarkdownActionButtons(context, document);
                 format._autoFormatInputFilter = new MarkdownAutoTextFormatter();
                 format._autoFormatTextWatcher = new ListHandler(MarkdownAutoTextFormatter.getPrefixPatterns());

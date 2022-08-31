@@ -18,8 +18,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import net.gsantner.markor.R;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
+import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.util.GsContextUtils;
 
-public class MoreFragment extends GsFragmentBase {
+public class MoreFragment extends GsFragmentBase<GsSharedPreferencesPropertyBackend, GsContextUtils> {
     public static final String FRAGMENT_TAG = "MoreFragment";
 
     public static MoreFragment newInstance() {

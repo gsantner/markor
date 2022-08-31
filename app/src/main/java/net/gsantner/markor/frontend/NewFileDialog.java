@@ -30,6 +30,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtParser;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
@@ -89,7 +90,7 @@ public class NewFileDialog extends DialogFragment {
     private AlertDialog.Builder makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
         View root;
         AlertDialog.Builder dialogBuilder;
-        final AppSettings appSettings = new AppSettings(inflater.getContext());
+        final AppSettings appSettings = ApplicationObject.settings();
         dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
         root = inflater.inflate(R.layout.new_file_dialog, null);
 
@@ -302,8 +303,7 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             default: {
-                AppSettings as = new AppSettings(getContext());
-                Map<String, File> snippets = MarkorDialogFactory.getSnippets(as);
+                Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
                     t = GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
                     break;
@@ -316,7 +316,7 @@ public class NewFileDialog extends DialogFragment {
         t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtParser.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final char[] pass = new AppSettings(getContext()).getDefaultPassword();
+            final char[] pass = ApplicationObject.settings().getDefaultPassword();
             bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(t, pass);
         } else {
             bytes = t.getBytes();

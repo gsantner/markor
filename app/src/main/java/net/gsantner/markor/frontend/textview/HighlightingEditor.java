@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.frontend.DraggableScrollbarScrollView;
 import net.gsantner.markor.model.AppSettings;
@@ -63,7 +64,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
-        final AppSettings as = new AppSettings(context);
+        final AppSettings as = ApplicationObject.settings();
 
         setAutoFormatters(null, null);
 

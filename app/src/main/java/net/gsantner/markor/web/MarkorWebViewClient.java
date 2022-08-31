@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.format.FormatRegistry;
@@ -72,7 +73,7 @@ public class MarkorWebViewClient extends WebViewClient {
                 }
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
-                AppSettings settings = new AppSettings(_activity.getApplicationContext());
+                AppSettings settings = ApplicationObject.settings();
                 if (!settings.isOpenLinksWithChromeCustomTabs() || (settings.isOpenLinksWithChromeCustomTabs() && !su.openWebpageInChromeCustomTab(context, url))) {
                     su.openWebpageInExternalBrowser(context, url);
                     return true;

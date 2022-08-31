@@ -18,10 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
@@ -69,7 +69,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.titleText = R.string.select_folder;
-                    dopt.rootFolder = AppSettings.get().getNotebookDirectory();
+                    dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
                 }
             }, fragManager, this);
         }
@@ -100,7 +100,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
         }
 
         // Fallback
-        return new AppSettings(context).getNotebookDirectory();
+        return ApplicationObject.settings().getNotebookDirectory();
     }
 
     public static void setWidgetDirectory(final Context context, int id, final File dir) {

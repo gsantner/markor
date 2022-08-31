@@ -13,6 +13,7 @@ import android.content.Context;
 
 import androidx.arch.core.util.Function;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -134,7 +135,7 @@ public class WikitextTextConverter extends TextConverterBase {
     }
 
     private String convertLink(String group, Context context, File file) {
-        AppSettings settings = new AppSettings(context);
+        AppSettings settings = ApplicationObject.settings();
         File notebookDir = settings.getNotebookDirectory();
         WikitextLinkResolver resolver = WikitextLinkResolver.resolve(group, notebookDir, file, settings.isWikitextDynamicNotebookRootEnabled());
 

@@ -26,7 +26,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -194,7 +193,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                         final List<TodoTxtParser> tasks = TodoTxtParser.getAllTasks(_hlEditor.getText());
                         TodoTxtParser.sortTasks(tasks, orderBy, descending);
                         setEditorTextAsync(TodoTxtParser.tasksToString(tasks));
-                        new AppSettings(getContext()).setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
+                        _appSettings.setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
                     }
                 }.start());
                 return true;
@@ -218,7 +217,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {
-                final List<String> last = new AppSettings(getContext()).getStringList(LAST_SORT_ORDER_KEY);
+                final List<String> last = _appSettings.getStringList(LAST_SORT_ORDER_KEY);
                 if (last != null && last.size() == 2) {
                     final List<TodoTxtParser> tasks = TodoTxtParser.getAllTasks(_hlEditor.getText());
                     TodoTxtParser.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));

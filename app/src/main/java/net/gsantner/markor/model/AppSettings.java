@@ -23,10 +23,10 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.util.ShortcutUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
@@ -45,30 +45,29 @@ import other.de.stanetz.jpencconverter.PasswordStore;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "FieldCanBeLocal"})
 public class AppSettings extends GsSharedPreferencesPropertyBackend {
-    private final SharedPreferences _prefCache;
-    private final SharedPreferences _prefHistory;
+    private SharedPreferences _prefCache;
+    private SharedPreferences _prefHistory;
     public static Boolean _isDeviceGoodHardware = null;
-    private final GsContextUtils _contextUtils;
+    private MarkorContextUtils _cu;
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
-    public AppSettings(final Context context) {
-        super(context);
+    public AppSettings() {
+    }
+
+    public <T extends AppSettings> T init(final Context context) {
+        super.init(context);
         _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = context.getSharedPreferences("history", Context.MODE_PRIVATE);
-        _contextUtils = GsContextUtils.instance;
-        if (_isDeviceGoodHardware == null) {
-            _isDeviceGoodHardware = _contextUtils.isDeviceGoodHardware(context);
-        }
+        _cu = new MarkorContextUtils(context);
+        _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
         if (getInt(R.string.pref_key__editor_basic_color_scheme__bg, -999) == -999) {
             setEditorBasicColor(true, R.color.white, R.color.dark_grey);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
-    }
-
-    public static AppSettings get() {
-        return new AppSettings(ApplicationObject.get());
+        //noinspection unchecked
+        return (T) this;
     }
 
     public boolean isDarkThemeEnabled() {
@@ -420,7 +419,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return _default;
         } else {
             final String value = getString(PREF_PREFIX_FILE_FORMAT + path, null);
-            final int sid = _contextUtils.getResId(_context, GsContextUtils.ResType.STRING, value);
+            final int sid = _cu.getResId(_context, GsContextUtils.ResType.STRING, value);
             // Note TextFormat.FORMAT_UNKNOWN also == 0
             return sid != 0 ? sid : _default;
         }
@@ -702,7 +701,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getFolderToLoadByMenuId(int itemId) {
-        List<Pair<File, String>> appDataPublicDirs = _contextUtils.getAppDataPublicDirs(_context, false, true, false);
+        List<Pair<File, String>> appDataPublicDirs = _cu.getAppDataPublicDirs(_context, false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
                 return getNotebookDirectory();
@@ -717,7 +716,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
             }
             case R.id.action_go_to_appdata_private: {
-                return _contextUtils.getAppDataPrivateDir(_context);
+                return _cu.getAppDataPrivateDir(_context);
             }
             case R.id.action_go_to_storage: {
                 return Environment.getExternalStorageDirectory();
@@ -735,11 +734,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return Environment.getExternalStorageDirectory();
             }
             case R.id.action_go_to_appdata_public: {
-                appDataPublicDirs = _contextUtils.getAppDataPublicDirs(_context, true, false, false);
+                appDataPublicDirs = _cu.getAppDataPublicDirs(_context, true, false, false);
                 if (appDataPublicDirs.size() > 0) {
                     return appDataPublicDirs.get(0).first;
                 }
-                return _contextUtils.getAppDataPrivateDir(_context);
+                return _cu.getAppDataPrivateDir(_context);
             }
         }
         return getNotebookDirectory();
