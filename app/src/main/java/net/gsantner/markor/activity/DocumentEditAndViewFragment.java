@@ -56,7 +56,6 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.web.MarkorWebViewClient;
-import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
@@ -68,7 +67,7 @@ import java.io.File;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
-public class DocumentEditAndViewFragment extends GsFragmentBase implements FormatRegistry.TextFormatApplier {
+public class DocumentEditAndViewFragment extends MarkorBaseFragment implements FormatRegistry.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
@@ -94,7 +93,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     private WebView _webView;
     private DraggableScrollbarScrollView _primaryScrollView;
 
-    private AppSettings _appSettings;
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
@@ -141,7 +139,6 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements Forma
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
-        _appSettings = new AppSettings(activity);
 
         _hlEditor = view.findViewById(R.id.document__fragment__edit__highlighting_editor);
         _textActionsBar = view.findViewById(R.id.document__fragment__edit__text_actions_bar);

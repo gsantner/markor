@@ -76,14 +76,17 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, +1);\"/>⏭️</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
+                converted += "<p id='avCurrentPlayedTitleP' style='margin: 0px; margin-bottom: 2px;" + (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST) ? "" : "display:none;") +  "'></p>";
+
                 onLoadJs += "document.playlist = []; document.playlistTitles = []; document.playlistIndex = -1;";
                 onLoadJs += "document.avLoopToggle = function()      { var o=document.getElementsByClassName('htmlav')[0]; o.loop = !o.loop; };";
                 onLoadJs += "document.avSeek           = function(delta)    { var o=document.getElementsByClassName('htmlav')[0]; o.currentTime +=delta; o.play(); };";
-                onLoadJs += "document.avSetPlaylistPos = function(i, delta) { " +
-                        "i = i!=null ? i : document.playlistIndex; delta = delta!=null ? delta : 0;" +
+                onLoadJs += "document.avSetPlaylistPos = function(i, delta, byUserSelection) { " +
+                        "i = i!=null ? i : document.playlistIndex; delta = delta!=null ? delta : 0; byUserSelection = byUserSelection!=null ? byUserSelection : false;" +
                         "document.playlistIndex = (i+delta)%document.playlist.length;" +
                         "document.avSetUrl(document.playlist[document.playlistIndex]);" +
-                        "Android.webViewJavascriptCallback(['toast', document.playlistTitles[document.playlistIndex] ]);" +
+                        "document.getElementById('avCurrentPlayedTitleP').innerText = document.playlistTitles[document.playlistIndex];" +
+                        "if (!byUserSelection) { document.location.hash = 'playlistbtn'+(document.playlistIndex-6);}" +
                         "};";
                 onLoadJs += "document.avPause          = function()         { var o=document.getElementsByClassName('htmlav')[0]; if(o.paused){o.play();} else{o.pause();}; };";
                 onLoadJs += "document.avSetUrl         = function(u)        { var o=document.getElementsByClassName('htmlav')[0]; o.src = u; o.play(); };";
@@ -126,8 +129,9 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
                 for (GsSimplePlaylistParser.Item line : new GsSimplePlaylistParser().parse(GsFileUtils.readTextFileFast(file).first)) {
                     onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '" + line.getUrl() + "');";
                     table.append(line.getName(80)).append(" | ");
-                    table.append("<button type='button' onclick=\"javascript:document.avSetPlaylistPos(");
-                    table.append(i + 1).append(");\"/>&#10132;</button>\n");
+                    table.append("<button type='button' id='playlistbtn").append(i);
+                    table.append("' onclick=\"javascript:document.avSetPlaylistPos(");
+                    table.append(i + 1).append(", 0, true);\"/>&#10132;</button>\n");
                     i++;
                 }
                 if (i > 0) {

@@ -14,7 +14,6 @@ import android.content.Intent;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.frontend.settings.GsPermissionChecker;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -39,13 +38,13 @@ public class OpenEditorActivity extends MarkorBaseActivity {
         try {
             GsPermissionChecker permc = new GsPermissionChecker(this);
             if (permc.doIfExtStoragePermissionGranted(getString(R.string.error_need_storage_permission_to_save_documents))) {
-                file = (file != null ? file : new AppSettings(getApplicationContext()).getNotebookDirectory());
+                file = (file != null ? file : _appSettings.getNotebookDirectory());
                 if (!file.getParentFile().exists()) {
                     //noinspection ResultOfMethodCallIgnored
                     file.getParentFile().mkdirs();
                 }
                 if (!file.exists() && !file.isDirectory()) {
-                    GsFileUtils.writeFile(file, "", new GsFileUtils.FileInfo().withBom(new AppSettings(getApplicationContext()).getNewFileDialogLastUsedUtf8Bom()));
+                    GsFileUtils.writeFile(file, "", new GsFileUtils.FileInfo().withBom(_appSettings.getNewFileDialogLastUsedUtf8Bom()));
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 _cu.animateToActivity(this, openIntent, true, 1);

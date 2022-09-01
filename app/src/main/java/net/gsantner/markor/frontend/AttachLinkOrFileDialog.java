@@ -23,6 +23,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
@@ -45,7 +46,7 @@ public class AttachLinkOrFileDialog {
 
     @SuppressWarnings("RedundantCast")
     public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
-        final AppSettings _appSettings = new AppSettings(activity);
+        final AppSettings _appSettings = ApplicationObject.settings();
         final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
@@ -246,7 +247,7 @@ public class AttachLinkOrFileDialog {
             }
         });
 
-        final File tarFileInAssetsDir = new File(new AppSettings(activity).getNotebookDirectory(), tarFile.getName());
+        final File tarFileInAssetsDir = new File(ApplicationObject.settings().getNotebookDirectory(), tarFile.getName());
 
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)

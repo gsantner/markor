@@ -42,7 +42,6 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
-import net.gsantner.markor.model.AppSettings;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -156,7 +155,6 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        AppSettings appSettings = new AppSettings(context);
         String converted = "", onLoadJs = "", head = "";
 
         MutableDataSet options = new MutableDataSet();
@@ -194,7 +192,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         // Frontmatter
         String fmaText = "";
-        final List<String> fmaAllowedAttributes = appSettings.getMarkdownShownYamlFrontMatterKeys();
+        final List<String> fmaAllowedAttributes = _appSettings.getMarkdownShownYamlFrontMatterKeys();
         Map<String, List<String>> fma = Collections.EMPTY_MAP;
         if (!enablePresentationBeamer && markup.startsWith("---")) {
             Matcher hasTokens = YAML_FRONTMATTER_TOKEN_PATTERN.matcher(markup);
@@ -223,7 +221,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         final String parentFolderName = file != null && file.getParentFile() != null && !TextUtils.isEmpty(file.getParentFile().getName()) ? file.getParentFile().getName() : "";
         final boolean isInBlogFolder = parentFolderName.equals("_posts") || parentFolderName.equals("blog") || parentFolderName.equals("post");
         if (!enablePresentationBeamer) {
-            if (!markup.contains("[TOC]: #") && (isInBlogFolder || appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
+            if (!markup.contains("[TOC]: #") && (isInBlogFolder || _appSettings.isMarkdownTableOfContentsEnabled()) && (markup.contains("#") || markup.contains("<h"))) {
                 final String tocToken = "[TOC]: # ''\n  \n";
                 if (markup.startsWith("---") && !markup.contains("[TOC]")) {
                     // 1st group: match opening YAML block delimiter ('---'), optionally followed by whitespace, excluding newline
@@ -238,7 +236,7 @@ public class MarkdownTextConverter extends TextConverterBase {
             }
 
             head += CSS_TOC_STYLE;
-            options.set(TocExtension.LEVELS, TocOptions.getLevels(appSettings.getMarkdownTableOfContentLevels()))
+            options.set(TocExtension.LEVELS, TocOptions.getLevels(_appSettings.getMarkdownTableOfContentLevels()))
                     .set(TocExtension.TITLE, context.getString(R.string.table_of_contents))
                     .set(TocExtension.DIV_CLASS, "markor-table-of-contents toc")
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
@@ -246,7 +244,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable Math / KaTex
-        if (appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
+        if (_appSettings.isMarkdownMathEnabled() && markup.contains("$")) {
             head += HTML_KATEX_INCLUDE;
             head += CSS_KATEX;
         }
@@ -263,7 +261,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes(context, (appSettings.isDarkThemeEnabled() ? "-tomorrow" : ""));
+        final String xt = getViewHlPrismIncludes(context, (_appSettings.isDarkThemeEnabled() ? "-tomorrow" : ""));
         head += xt;
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
@@ -272,7 +270,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Notable: They use a home brewed syntax for referencing attachments: @attachment/f.png = ../attachements/f.jpg -- https://github.com/gsantner/markor/issues/1252
         markup = markup.replace("](@attachment/", "](../attachements/");
 
-        if (appSettings.isMarkdownNewlineNewparagraphEnabled()) {
+        if (_appSettings.isMarkdownNewlineNewparagraphEnabled()) {
             markup = markup.replace("\n", "  \n");
         }
 

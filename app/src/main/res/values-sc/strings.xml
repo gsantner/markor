@@ -204,6 +204,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">In artu</string>
     <string name="bottom">In bassu</string>
     <string name="center">Tzentru</string>
+    <string name="actionbutton_spacing">Ispatziadura de sos butones de atzione</string>
+    <string name="horizontal_space_between_actionbuttons">Ispàtziu orizontale intre sos butones de atzione</string>
     <string name="center_text">Tzentra su testu</string>
     <string name="edit_text_in_center_of_screen">Èdita su testu in su tzentru de s\'ischermu</string>
     <string name="clipboard">Punta de billete</string>
@@ -436,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Cumpartzi in - Formadu</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
+    <string name="document_error_exit">Errore: No at fatu a abèrrere.</string>
+    <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
 </resources>

@@ -18,6 +18,7 @@ import android.webkit.WebView;
 
 import androidx.core.content.ContextCompat;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -84,6 +85,11 @@ public abstract class TextConverterBase {
     //########################
     //## Methods
     //########################
+    protected final AppSettings _appSettings;
+
+    public TextConverterBase() {
+        _appSettings = ApplicationObject.settings();
+    }
 
     /**
      * Convert markup to target format and show the result in a WebView
@@ -100,7 +106,7 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e.toString();
         }
 
-        String baseFolder = new AppSettings(context).getNotebookDirectoryAsStr();
+        String baseFolder = ApplicationObject.settings().getNotebookDirectoryAsStr();
         if (document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }
@@ -134,23 +140,22 @@ public abstract class TextConverterBase {
 
     protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, File file, String onLoadJs, String head) {
         final String contentLower = content.toLowerCase();
-        AppSettings appSettings = new AppSettings(context);
-        boolean darkTheme = appSettings.isDarkThemeEnabled() && !isExportInLightMode;
+        boolean darkTheme = _appSettings.isDarkThemeEnabled() && !isExportInLightMode;
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE.replace(TOKEN_POST_LANG, Locale.getDefault().getLanguage()) + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");
         }
         html += HTML004_HEAD_META_VIEWPORT_MOBILE + CSS_TABLE_STYLE + CSS_CLASS_FLOAT + CSS_BUTTON_STYLE_MATERIAL + CSS_BUTTON_STYLE_EMOJIBTN + CSS_CLASS_STICKY;
-        if (appSettings.isRenderRtl()) {
+        if (_appSettings.isRenderRtl()) {
             html += HTML003_RIGHT_TO_LEFT;
         }
 
-        html += head + appSettings.getInjectedHeader();
+        html += head + _appSettings.getInjectedHeader();
 
         html += HTML_ON_PAGE_LOAD_S + onLoadJs + HTML_ON_PAGE_LOAD_E;
 
         // Add custom font css if font is a filepath, swap path with new font-family
-        String font = appSettings.getFontFamily();
+        String font = _appSettings.getFontFamily();
         if (font.startsWith("/")) {
             html += CSS_S + "@font-face { font-family: customfont; src: url('file://" + font + "'); }" + CSS_E;
             font = "customfont";
@@ -168,7 +173,7 @@ public abstract class TextConverterBase {
 
         // Load content
         html += HTML500_BODY;
-        html += appSettings.getInjectedBody();
+        html += _appSettings.getInjectedBody();
         html += content;
         html += HTML990_BODY_END;
 
@@ -177,9 +182,9 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_BW_INVERSE_OF_THEME, darkTheme ? "white" : "black")
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
                 .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
-                .replace(TOKEN_LINK_COLOR, appSettings.getViewModeLinkColor())
+                .replace(TOKEN_LINK_COLOR, _appSettings.getViewModeLinkColor())
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
-                .replace(TOKEN_TEXT_DIRECTION, appSettings.isRenderRtl() ? "right" : "left")
+                .replace(TOKEN_TEXT_DIRECTION, _appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))

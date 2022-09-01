@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 
 import com.vladsch.flexmark.util.collection.OrderedMap;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
@@ -61,6 +62,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class MarkorDialogFactory {
+    public static AppSettings as() {
+        return ApplicationObject.settings();
+    }
+
     public static void showSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
@@ -106,9 +111,8 @@ public class MarkorDialogFactory {
 
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, GsCallback.a2<Integer, Boolean> callback) {
         final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
-        final AppSettings as = new AppSettings(activity);
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
-        final int lastUsedTableSize = as.getInt(PREF_LAST_USED_TABLE_SIZE, 3);
+        final int lastUsedTableSize = as().getInt(PREF_LAST_USED_TABLE_SIZE, 3);
         final List<String> availableData = new ArrayList<>();
         for (int i = 2; i <= 5; i++) {
             availableData.add(Integer.toString(i));
@@ -121,7 +125,7 @@ public class MarkorDialogFactory {
         dopt.messageText += "| id | name | info |\n|-----|-----------|--------|\n| 1  | John   | text |\n| 2  | Anna   | text |\n";
 
         dopt.callback = colsStr -> {
-            as.setInt(PREF_LAST_USED_TABLE_SIZE, Integer.parseInt(colsStr));
+            as().setInt(PREF_LAST_USED_TABLE_SIZE, Integer.parseInt(colsStr));
             callback.callback(Integer.parseInt(colsStr), isHeader);
         };
         dopt.data = availableData;
@@ -152,7 +156,7 @@ public class MarkorDialogFactory {
         availableData.add("todo.done.txt");
         availableData.add("archive.txt");
         availableData.add("done.txt");
-        String hl = new AppSettings(activity).getLastTodoUsedArchiveFilename();
+        String hl = as().getLastTodoUsedArchiveFilename();
         if (!TextUtils.isEmpty(hl)) {
             highlightedData.add(hl);
             if (!availableData.contains(hl)) {
@@ -174,7 +178,6 @@ public class MarkorDialogFactory {
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
 
-        final AppSettings appSettings = new AppSettings(activity);
         final String o_context = activity.getString(R.string.context);
         final String o_project = activity.getString(R.string.project);
         final String o_prio = activity.getString(R.string.priority);
@@ -187,7 +190,7 @@ public class MarkorDialogFactory {
         final String optLastSelected = "showSttSortDialogue.last_selected";
 
         dopt.callback = arg1 -> {
-            appSettings.setString(optLastSelected, arg1);
+            as().setString(optLastSelected, arg1);
             String[] values = arg1
                     .replace(o_context, BY_CONTEXT)
                     .replace(o_project, BY_PROJECT)
@@ -215,7 +218,7 @@ public class MarkorDialogFactory {
         addToList.callback(o_textline, R.drawable.ic_text_fields_black_24dp);
 
         dopt.data = availableData;
-        dopt.highlightData = Collections.singletonList(appSettings.getString(optLastSelected, o_context + d_desc));
+        dopt.highlightData = Collections.singletonList(as().getString(optLastSelected, o_context + d_desc));
         dopt.iconsForData = availableDataToIconMap;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 530;
@@ -434,8 +437,7 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.search;
         dopt.extraFilter = "[^\\s]+"; // Line must have one or more non-whitespace to display
         dopt.isMultiSelectEnabled = true;
-        final AppSettings as = new AppSettings(activity);
-        dopt.highlighter = as.isHighlightingEnabled() ? getSttHighlighter(as) : null;
+        dopt.highlighter = as().isHighlightingEnabled() ? getSttHighlighter() : null;
         dopt.positionCallback = (posns) -> {
             final List<Integer> selIndices = new ArrayList<>();
             for (final Integer p : posns) {
@@ -505,8 +507,8 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private static GsCallback.a1<Spannable> getSttHighlighter(final AppSettings as) {
-        final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as).configure();
+    private static GsCallback.a1<Spannable> getSttHighlighter() {
+        final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as()).configure();
         return s -> h.setSpannable(s).recompute().apply();
     }
 
@@ -635,17 +637,16 @@ public class MarkorDialogFactory {
 
     public static void showSetPasswordDialog(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final AppSettings as = new AppSettings(activity.getApplicationContext());
             final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
-            final boolean hasPassword = as.isDefaultPasswordSet();
+            final boolean hasPassword = as().isDefaultPasswordSet();
             dopt.messageText = hasPassword ? activity.getString(R.string.password_already_set_setting_a_new_password_will_overwrite) : "";
             dopt.searchHintText = hasPassword ? R.string.hidden_password : R.string.empty_string;
             dopt.callback = password -> {
                 if (!TextUtils.isEmpty(password)) {
-                    AppSettings.get().setDefaultPassword(password);
+                    as().setDefaultPassword(password);
                     Toast.makeText(activity, "✔️", Toast.LENGTH_SHORT).show();
                 }
             };
@@ -680,22 +681,20 @@ public class MarkorDialogFactory {
         final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
-        final AppSettings as = new AppSettings(activity);
-        final Map<String, File> texts = getSnippets(as);
+        final Map<String, File> texts = getSnippets(as());
 
         final List<String> data = new ArrayList<>(texts.keySet());
         Collections.sort(data);
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
-        dopt.messageText = Html.fromHtml("<small><small>" + as.getSnippetsFolder().getAbsolutePath() + "</small></small>");
+        dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsFolder().getAbsolutePath() + "</small></small>");
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     public static void baseConf(Activity activity, GsSearchOrCustomTextDialog.DialogOptions dopt) {
-        AppSettings as = new AppSettings(activity);
-        dopt.isDarkDialog = as.isDarkThemeEnabled();
+        dopt.isDarkDialog = as().isDarkThemeEnabled();
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
         dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
