@@ -61,7 +61,7 @@ public class GsAndroidSupportMeWrapper extends GsContextUtils {
         private final SharedPreferences _prefCache;
 
         public LocalSettingsImpl(final Context context) {
-            super.init(context, "AndroidSupportMeWrapper.LocalSettingsImpl");
+            super(context, "AndroidSupportMeWrapper.LocalSettingsImpl");
             _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         }
 
