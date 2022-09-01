@@ -19,7 +19,7 @@ public class MarkdownAutoTextFormatter implements InputFilter {
     private final AutoTextFormatter _autoFormatter;
 
     public MarkdownAutoTextFormatter() {
-        _autoFormatter = new AutoTextFormatter(getPrefixPatterns(), ' ');
+        _autoFormatter = new AutoTextFormatter(getPrefixPatterns());
     }
 
     // TODO: write tests

@@ -22,7 +22,7 @@ public class WikitextAutoTextFormatter implements InputFilter {
     private final AutoTextFormatter _autoFormatter;
 
     public WikitextAutoTextFormatter() {
-        _autoFormatter = new AutoTextFormatter(getPrefixPatterns(), '\t');
+        _autoFormatter = new AutoTextFormatter(getPrefixPatterns());
     }
 
     // TODO: write tests

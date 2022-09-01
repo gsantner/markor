@@ -517,10 +517,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.string.action_format_todotxt:
             case R.string.action_format_plaintext:
             case R.string.action_format_markdown: {
-                _document.setFormat(itemId);
-                applyTextFormat(itemId);
-                _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
-                return true;
+                if (itemId != _document.getFormat()) {
+                    _document.setFormat(itemId);
+                    applyTextFormat(itemId);
+                    _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
+                    return true;
+                }
             }
             case R.id.action_search: {
                 setViewModeVisibility(false);
@@ -623,13 +625,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity == null) {
             return;
         }
-        _textActionsBar.removeAllViews();
         _textFormat = FormatRegistry.getFormat(textFormatId, activity, _document);
         _hlEditor.setHighlighter(_textFormat.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
-        _textFormat.getTextActions().setUiReferences(activity, _hlEditor, _webView);
+        _textFormat.getTextActions()
+                .setUiReferences(activity, _hlEditor, _webView)
+                .recreateTextActionBarButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(textFormatId);
     }
 

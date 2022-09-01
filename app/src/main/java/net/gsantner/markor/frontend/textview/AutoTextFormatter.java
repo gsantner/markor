@@ -9,9 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
-import android.annotation.SuppressLint;
 import android.text.Editable;
-import android.text.Spanned;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -21,14 +19,12 @@ import java.util.regex.Pattern;
 public class AutoTextFormatter {
 
     private final PrefixPatterns _prefixPatterns;
-    private final char _indentCharacter;
 
-    public AutoTextFormatter(PrefixPatterns prefixPatterns, char indentCharacter) {
+    public AutoTextFormatter(PrefixPatterns prefixPatterns) {
         _prefixPatterns = prefixPatterns;
-        _indentCharacter = indentCharacter;
     }
 
-    public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
+    public CharSequence filter(final CharSequence source, final int start, final int end, final CharSequence dest, final int dstart, final int dend) {
 
         try {
             if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
@@ -41,12 +37,11 @@ public class AutoTextFormatter {
         return source;
     }
 
-    @SuppressLint("DefaultLocale")
-    private CharSequence autoIndent(final CharSequence source, final Spanned dest, final int dstart, final int dend) {
+    private CharSequence autoIndent(final CharSequence source, final CharSequence dest, final int dstart, final int dend) {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
-        final String indent = source + TextViewUtils.repeatChars(_indentCharacter, oLine.indent);
+        final String indent = source + oLine.line.substring(0, oLine.lineStart); // Copy indent from previous line
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -239,7 +234,7 @@ public class AutoTextFormatter {
     /**
      * Find the topmost orderd list item which is a parent of the current
      *
-     * @param text     Editable
+     * @param text     CharSequence
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
