@@ -422,14 +422,6 @@ public final class TextViewUtils extends GsTextUtils {
         return new int[]{ds + start, dn - end, ss + start, sn - end};
     }
 
-    // Compute the line indent, counting each tab as tabSize spaces
-    public static int getLineIndent(final CharSequence text, final int posn, final int tabSize) {
-        final int lineStart = getLineStart(text, posn);
-        final int indentEnd = getNextNonWhitespace(text, lineStart);
-        final int[] counts = countChars(text, lineStart, indentEnd, ' ', '\t');
-        return counts[0] + tabSize * counts[1];
-    }
-
     /**
      * Allows convenient chunking of actions on an editable.
      * This works by maintaining a _reference_ to an editable to which all operations are passed.

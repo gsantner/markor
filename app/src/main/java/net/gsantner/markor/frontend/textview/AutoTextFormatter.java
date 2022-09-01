@@ -41,7 +41,7 @@ public class AutoTextFormatter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
-        final String indent = source + oLine.line.substring(0, oLine.lineStart); // Copy indent from previous line
+        final String indent = source + oLine.line.substring(0, oLine.indentEnd); // Copy indent from previous line
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -75,7 +75,7 @@ public class AutoTextFormatter {
         protected final PrefixPatterns prefixPatterns;
         protected final CharSequence text;
 
-        public final int lineStart, lineEnd;
+        public final int lineStart, lineEnd, indentEnd;
         public final String line;
         public final int indent;
         public final boolean isEmpty;
@@ -88,7 +88,9 @@ public class AutoTextFormatter {
             lineStart = TextViewUtils.getLineStart(text, position);
             lineEnd = TextViewUtils.getLineEnd(text, position);
             line = text.subSequence(lineStart, lineEnd).toString();
-            indent = TextViewUtils.getLineIndent(text, lineStart, TAB_SPACES);
+            indentEnd = TextViewUtils.getNextNonWhitespace(text, lineStart);
+            final int[] counts = TextViewUtils.countChars(text, lineStart, indentEnd, ' ', '\t');
+            indent = counts[0] + TAB_SPACES * counts[1];
             isEmpty = (lineEnd - lineStart) == indent;
             isTopLevel = indent <= INDENT_DELTA;
         }

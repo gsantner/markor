@@ -183,8 +183,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                 updateSummary(R.string.pref_key__set_encryption_password, getString(R.string.hidden_password));
             }
 
-
-            final int[] experimentalKeys = new int[]{
+            final int[] experimentalKeys = new int[] {
                     R.string.pref_key__swipe_to_change_mode,
                     R.string.pref_key__todotxt__hl_delay,
                     R.string.pref_key__markdown__hl_delay_v2,
