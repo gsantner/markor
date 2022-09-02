@@ -14,15 +14,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@RunWith(Parameterized.class)
 public class MarkdownHighlighterPatternTest {
 
     // {index}: {0} should find text {1} {2} times
