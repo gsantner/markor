@@ -51,7 +51,7 @@ public class WikitextFileTests {
 
         @Test
         public void zimHeaderAtBeginningOfTheFileShouldMatch() {
-            pattern = WikitextSyntaxHighlighter.Patterns.ZIMHEADER.pattern;
+            pattern = WikitextSyntaxHighlighter.ZIMHEADER;
             Matcher matcher = pattern.matcher("Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06+02:00\nOther content...");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06+02:00");
@@ -59,7 +59,7 @@ public class WikitextFileTests {
 
         @Test
         public void zimHeaderNotAtBeginningOfTheFileShouldNotMatch() {
-            pattern = WikitextSyntaxHighlighter.Patterns.ZIMHEADER.pattern;
+            pattern = WikitextSyntaxHighlighter.ZIMHEADER;
             Matcher matcher = pattern.matcher("Blabla\nContent-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-03-31T14:48:06+02:00");
             assertThat(matcher.find()).isFalse();
         }

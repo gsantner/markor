@@ -213,6 +213,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     @Override
     protected void renumberOrderedList(final int position) {
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownAutoTextFormatter.getPrefixPatterns());
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownReplacePatternGenerator.formatPatterns);
     }
 }

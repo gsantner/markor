@@ -11,101 +11,93 @@ package other.writeily;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
+import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RunWith(Parameterized.class)
 public class MarkdownHighlighterPatternTest {
 
+    // {index}: {0} should find text {1} {2} times
+    public static List<Object[]> tests = Arrays.asList(new Object[][]
+    {
+            { MarkdownSyntaxHighlighter.HEADING, " # Hi", 0},
+            { MarkdownSyntaxHighlighter.HEADING, "# Hi\n", 1},
+            { MarkdownSyntaxHighlighter.HEADING, "#Hi\n", 0},
+            { MarkdownSyntaxHighlighter.HEADING, "## Hi\n", 1},
+            { MarkdownSyntaxHighlighter.HEADING, "####### Hi\n", 0},
+            { MarkdownSyntaxHighlighter.HEADING, "# Hi\n#Hi again\n", 1},
+            { MarkdownSyntaxHighlighter.HEADING, "# Hi\nWhatever\n# Hi again\n", 2},
+            { MarkdownSyntaxHighlighter.HEADING, "# Hi\n======", 1},
+            { MarkdownSyntaxHighlighter.HEADING, "# Hi\n--------", 1},
+            { MarkdownSyntaxHighlighter.LINK, "[sometext](some://url.com)", 1},
+            { MarkdownSyntaxHighlighter.LINK, "[some text ]( some://url.com)", 1},
+            { MarkdownSyntaxHighlighter.LINK, "[sometext] some://url.com)", 0},
+            { MarkdownSyntaxHighlighter.LINK, "[sometext]( some://url.com )", 1},
+            { MarkdownSyntaxHighlighter.LINK, "[sometext] ( some://url.com )", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~s~~", 1},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~ s 4 ~~df~~", 1},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~ s 4 ~~df ~~", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~ s 4 ~~d\n\nf ~~", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~ s 4 ~\n~d\n\nf ~~", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~ s 4 ~~df ~\n ff ~~", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~~s~", 0},
+            { MarkdownSyntaxHighlighter.STRIKETHROUGH, "~s~~", 0},
+            { MarkdownSyntaxHighlighter.CODE, "`s`", 1},
+            { MarkdownSyntaxHighlighter.CODE, "``s`", 1},
+            { MarkdownSyntaxHighlighter.CODE, "`s``", 1},
+            { MarkdownSyntaxHighlighter.CODE, "`s`", 1},
+            { MarkdownSyntaxHighlighter.CODE, "`s\n\n`", 0},
+            { MarkdownSyntaxHighlighter.QUOTATION, "> asdfasdfas\n> sadfasdfasdf", 2},
+            { MarkdownSyntaxHighlighter.QUOTATION, "> asdfa > sdfas\n", 1},
+            { MarkdownSyntaxHighlighter.QUOTATION, ">> sdfas", 1},
+            { MarkdownSyntaxHighlighter.QUOTATION, "\n> sdfas", 1},
+            { MarkdownSyntaxHighlighter.LIST_UNORDERED, "* asdfasdfas\n* sadfasdfasdf", 2},
+            { MarkdownSyntaxHighlighter.LIST_UNORDERED, "* asdfa > sdfas\n", 1},
+            { MarkdownSyntaxHighlighter.LIST_UNORDERED, "\n* sdfas", 1},
+            { MarkdownSyntaxHighlighter.LIST_ORDERED, "1. asdfasdfas\n2. sadfasdfasdf", 2},
+            { MarkdownSyntaxHighlighter.LIST_ORDERED, "1. asdfa 2. sdfas\n", 1},
+            { MarkdownSyntaxHighlighter.LIST_ORDERED, "\n99. sdfas", 1},
+            { MarkdownSyntaxHighlighter.LIST_UNORDERED, "- [ ] item 1", 1},
+            { MarkdownSyntaxHighlighter.LIST_UNORDERED, "- [x] item 2", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "**s**", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "****s**", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "**s****", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "**s**", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "**s\n\n**", 0},
+            { MarkdownSyntaxHighlighter.BOLD, "__s__", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "____s__", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "__s____", 1},
+            { MarkdownSyntaxHighlighter.BOLD, "__s\n\n__", 0},
+            { MarkdownSyntaxHighlighter.ITALICS, "*s*", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "*s**", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "*s*", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "*s\n\n*", 0},
+            { MarkdownSyntaxHighlighter.ITALICS, "_s_", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "_s__", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "_s_", 1},
+            { MarkdownSyntaxHighlighter.ITALICS, "_s\n\n_", 0},
+    });
 
-    @Parameterized.Parameters(name = "{index}: {0} should find text {1} {2} times")
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {MarkdownHighlighterPattern.HEADING, " # Hi", 0},
-                {MarkdownHighlighterPattern.HEADING, "# Hi\n", 1},
-                {MarkdownHighlighterPattern.HEADING, "#Hi\n", 0},
-                {MarkdownHighlighterPattern.HEADING, "## Hi\n", 1},
-                {MarkdownHighlighterPattern.HEADING, "####### Hi\n", 0},
-                {MarkdownHighlighterPattern.HEADING, "# Hi\n#Hi again\n", 1},
-                {MarkdownHighlighterPattern.HEADING, "# Hi\nWhatever\n# Hi again\n", 2},
-                {MarkdownHighlighterPattern.HEADING, "# Hi\n======", 1},
-                {MarkdownHighlighterPattern.HEADING, "# Hi\n--------", 1},
-                {MarkdownHighlighterPattern.LINK, "[sometext](some://url.com)", 1},
-                {MarkdownHighlighterPattern.LINK, "[some text ]( some://url.com)", 1},
-                {MarkdownHighlighterPattern.LINK, "[sometext] some://url.com)", 0},
-                {MarkdownHighlighterPattern.LINK, "[sometext]( some://url.com )", 1},
-                {MarkdownHighlighterPattern.LINK, "[sometext] ( some://url.com )", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~s~~", 1},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~ s 4 ~~df~~", 1},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~ s 4 ~~df ~~", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~ s 4 ~~d\n\nf ~~", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~ s 4 ~\n~d\n\nf ~~", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~ s 4 ~~df ~\n ff ~~", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~~s~", 0},
-                {MarkdownHighlighterPattern.STRIKETHROUGH, "~s~~", 0},
-                {MarkdownHighlighterPattern.CODE, "`s`", 1},
-                {MarkdownHighlighterPattern.CODE, "``s`", 1},
-                {MarkdownHighlighterPattern.CODE, "`s``", 1},
-                {MarkdownHighlighterPattern.CODE, "`s`", 1},
-                {MarkdownHighlighterPattern.CODE, "`s\n\n`", 0},
-                {MarkdownHighlighterPattern.QUOTATION, "> asdfasdfas\n> sadfasdfasdf", 2},
-                {MarkdownHighlighterPattern.QUOTATION, "> asdfa > sdfas\n", 1},
-                {MarkdownHighlighterPattern.QUOTATION, ">> sdfas", 1},
-                {MarkdownHighlighterPattern.QUOTATION, "\n> sdfas", 1},
-                {MarkdownHighlighterPattern.LIST_UNORDERED, "* asdfasdfas\n* sadfasdfasdf", 2},
-                {MarkdownHighlighterPattern.LIST_UNORDERED, "* asdfa > sdfas\n", 1},
-                {MarkdownHighlighterPattern.LIST_UNORDERED, "\n* sdfas", 1},
-                {MarkdownHighlighterPattern.LIST_ORDERED, "1. asdfasdfas\n2. sadfasdfasdf", 2},
-                {MarkdownHighlighterPattern.LIST_ORDERED, "1. asdfa 2. sdfas\n", 1},
-                {MarkdownHighlighterPattern.LIST_ORDERED, "\n99. sdfas", 1},
-                {MarkdownHighlighterPattern.LIST_UNORDERED, "- [ ] item 1", 1},
-                {MarkdownHighlighterPattern.LIST_UNORDERED, "- [x] item 2", 1},
-                {MarkdownHighlighterPattern.BOLD, "**s**", 1},
-                {MarkdownHighlighterPattern.BOLD, "****s**", 1},
-                {MarkdownHighlighterPattern.BOLD, "**s****", 1},
-                {MarkdownHighlighterPattern.BOLD, "**s**", 1},
-                {MarkdownHighlighterPattern.BOLD, "**s\n\n**", 0},
-                {MarkdownHighlighterPattern.BOLD, "__s__", 1},
-                {MarkdownHighlighterPattern.BOLD, "____s__", 1},
-                {MarkdownHighlighterPattern.BOLD, "__s____", 1},
-                {MarkdownHighlighterPattern.BOLD, "__s\n\n__", 0},
-                {MarkdownHighlighterPattern.ITALICS, "*s*", 1},
-                {MarkdownHighlighterPattern.ITALICS, "*s**", 1},
-                {MarkdownHighlighterPattern.ITALICS, "*s*", 1},
-                {MarkdownHighlighterPattern.ITALICS, "*s\n\n*", 0},
-                {MarkdownHighlighterPattern.ITALICS, "_s_", 1},
-                {MarkdownHighlighterPattern.ITALICS, "_s__", 1},
-                {MarkdownHighlighterPattern.ITALICS, "_s_", 1},
-                {MarkdownHighlighterPattern.ITALICS, "_s\n\n_", 0},
-        });
-    }
-
-    private final Pattern pattern;
-    private final String string;
-    private final int foundCount;
-
-    public MarkdownHighlighterPatternTest(MarkdownHighlighterPattern pattern, String string, int foundCount) {
-        this.string = string;
-        this.foundCount = foundCount;
-        this.pattern = pattern.pattern;
+    public static int countMatcher(final Matcher m) {
+        int count = 0;
+        while (m.find()) {
+            count++;
+        }
+        return count;
     }
 
     @Test
     public void testHighlightPattern() {
-        int count = 0;
-
-        for (Matcher m = pattern.matcher(string); m.find(); ) {
-            count++;
+        for (final Object[] test : tests) {
+            assertThat(countMatcher(((Pattern) test[0]).matcher((String) test[1]))).isEqualTo((Integer) test[2]);
         }
-
-        assertThat(count).isEqualTo(foundCount);
     }
 }

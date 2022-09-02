@@ -47,7 +47,7 @@ public class WikitextTextConverter extends TextConverterBase {
      */
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        String contentWithoutHeader = markup.replaceFirst(WikitextSyntaxHighlighter.Patterns.ZIMHEADER.pattern.toString(), "");
+        String contentWithoutHeader = markup.replaceFirst(WikitextSyntaxHighlighter.ZIMHEADER.toString(), "");
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
@@ -64,26 +64,26 @@ public class WikitextTextConverter extends TextConverterBase {
         final AtomicReference<String> currentLine = new AtomicReference<>(wikitextLine);
 
         // Headings
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.HEADING.pattern, this::convertHeading);
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.HEADING, this::convertHeading);
 
         // bold syntax is the same as for markdown
-        replaceAllMatchesInLinePartially(currentLine, WikitextSyntaxHighlighter.Patterns.ITALICS.pattern, "^/+|/+$", "*");
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.HIGHLIGHTED.pattern, match -> convertHighlighted(match, isExportInLightMode));
+        replaceAllMatchesInLinePartially(currentLine, WikitextSyntaxHighlighter.ITALICS, "^/+|/+$", "*");
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.HIGHLIGHTED, match -> convertHighlighted(match, isExportInLightMode));
         // strikethrough syntax is the same as for markdown
 
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.PREFORMATTED_INLINE.pattern, fullMatch -> "`$1`");
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.PREFORMATTED_INLINE, fullMatch -> "`$1`");
         replaceAllMatchesInLine(currentLine, Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
 
         // unordered list syntax is compatible with markdown
         replaceAllMatchesInLinePartially(currentLine, LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.CHECKLIST.pattern, this::convertChecklist);
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.CHECKLIST, this::convertChecklist);
 
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.SUPERSCRIPT.pattern, fullMatch -> String.format("<sup>%s</sup>",
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.SUPERSCRIPT, fullMatch -> String.format("<sup>%s</sup>",
                 fullMatch.replaceAll("^\\^\\{|\\}$", "")));
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.SUBSCRIPT.pattern, fullMatch -> String.format("<sub>%s</sub>",
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.SUBSCRIPT, fullMatch -> String.format("<sub>%s</sub>",
                 fullMatch.replaceAll("^_\\{|\\}$", "")));
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.LINK.pattern, fullMatch -> convertLink(fullMatch, context, file));
-        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.Patterns.IMAGE.pattern, fullMatch -> convertImage(file, fullMatch));
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.LINK, fullMatch -> convertLink(fullMatch, context, file));
+        replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.IMAGE, fullMatch -> convertImage(file, fullMatch));
 
         return currentLine.getAndSet("");
     }
@@ -173,7 +173,7 @@ public class WikitextTextConverter extends TextConverterBase {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new FileReader(new File(filepath)));
-                return WikitextSyntaxHighlighter.Patterns.ZIMHEADER_CONTENT_TYPE_ONLY.pattern.matcher(reader.readLine()).find();
+                return WikitextSyntaxHighlighter.ZIMHEADER_CONTENT_TYPE_ONLY.matcher(reader.readLine()).find();
             } catch (Exception ignored) {
             } finally {
                 try {

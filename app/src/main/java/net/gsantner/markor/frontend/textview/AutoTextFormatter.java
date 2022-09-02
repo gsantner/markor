@@ -10,22 +10,24 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AutoTextFormatter {
+public class AutoTextFormatter implements InputFilter {
 
-    private final PrefixPatterns _prefixPatterns;
+    private final FormatPatterns _patterns;
 
-    public AutoTextFormatter(PrefixPatterns prefixPatterns) {
-        _prefixPatterns = prefixPatterns;
+    public AutoTextFormatter(FormatPatterns patterns) {
+        _patterns = patterns;
     }
 
-    public CharSequence filter(final CharSequence source, final int start, final int end, final CharSequence dest, final int dstart, final int dend) {
-
+    @Override
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
             if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);
@@ -39,9 +41,9 @@ public class AutoTextFormatter {
 
     private CharSequence autoIndent(final CharSequence source, final CharSequence dest, final int dstart, final int dend) {
 
-        final OrderedListLine oLine = new OrderedListLine(dest, dstart, _prefixPatterns);
-        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _prefixPatterns);
-        final String indent = source + oLine.line.substring(0, oLine.indentEnd); // Copy indent from previous line
+        final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
+        final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
+        final String indent = source + oLine.line.substring(0, oLine.indent); // Copy indent from previous line
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
@@ -56,52 +58,52 @@ public class AutoTextFormatter {
         return result;
     }
 
-    public static class PrefixPatterns {
+    public static class FormatPatterns {
         public final Pattern prefixUnorderedList;
         public final Pattern prefixCheckBoxList;
         public final Pattern prefixOrderedList;
+        public final int indentSlack;
 
-        public PrefixPatterns(Pattern prefixUnorderedList, Pattern prefixCheckBoxList, Pattern prefixOrderedList) {
+        public FormatPatterns(final Pattern prefixUnorderedList,
+                              final Pattern prefixCheckBoxList,
+                              final Pattern prefixOrderedList,
+                              final int indentSlack) {
             this.prefixUnorderedList = prefixUnorderedList;
             this.prefixCheckBoxList = prefixCheckBoxList;
             this.prefixOrderedList = prefixOrderedList;
+            this.indentSlack = indentSlack;
         }
     }
 
     public static class ListLine {
-        protected static final int INDENT_DELTA = 2;
-        private static final int TAB_SPACES = 4;
-
-        protected final PrefixPatterns prefixPatterns;
+        protected final FormatPatterns patterns;
         protected final CharSequence text;
 
-        public final int lineStart, lineEnd, indentEnd;
+        public final int lineStart, lineEnd;
         public final String line;
         public final int indent;
         public final boolean isEmpty;
         public final boolean isTopLevel;
 
-        public ListLine(CharSequence text, int position, PrefixPatterns patterns) {
-
+        public ListLine(CharSequence text, int position, FormatPatterns patterns) {
             this.text = text;
-            prefixPatterns = patterns;
+            this.patterns = patterns;
+
             lineStart = TextViewUtils.getLineStart(text, position);
             lineEnd = TextViewUtils.getLineEnd(text, position);
+            indent = TextViewUtils.getNextNonWhitespace(text, lineStart) - lineStart;
             line = text.subSequence(lineStart, lineEnd).toString();
-            indentEnd = TextViewUtils.getNextNonWhitespace(text, lineStart);
-            final int[] counts = TextViewUtils.countChars(text, lineStart, indentEnd, ' ', '\t');
-            indent = counts[0] + TAB_SPACES * counts[1];
             isEmpty = (lineEnd - lineStart) == indent;
-            isTopLevel = indent <= INDENT_DELTA;
+            isTopLevel = indent <= patterns.indentSlack;
         }
 
         // Empty lines are children of any line level
         public boolean isParentLevelOf(final ListLine line) {
-            return line.isEmpty || (!isEmpty && (line.indent - indent) > INDENT_DELTA);
+            return line.isEmpty || (!isEmpty && (line.indent - indent) > patterns.indentSlack);
         }
 
         public boolean isChildLevelOf(final ListLine line) {
-            return isEmpty || (!line.isEmpty && (indent - line.indent) > INDENT_DELTA);
+            return isEmpty || (!line.isEmpty && (indent - line.indent) > patterns.indentSlack);
         }
 
         public boolean isSiblingLevelOf(final ListLine line) {
@@ -130,10 +132,10 @@ public class AutoTextFormatter {
         public final int groupStart, groupEnd;
         public final String value;
 
-        public OrderedListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
-            super(text, position, prefixPatterns);
+        public OrderedListLine(CharSequence text, int position, FormatPatterns patterns) {
+            super(text, position, patterns);
 
-            final Matcher match = prefixPatterns.prefixOrderedList.matcher(line);
+            final Matcher match = patterns.prefixOrderedList.matcher(line);
             isOrderedList = match.find();
             if (isOrderedList) {
                 delimiter = match.group(DELIM_GROUP).charAt(0);
@@ -150,23 +152,23 @@ public class AutoTextFormatter {
         }
 
         public boolean isMatchingList(final OrderedListLine line) {
-            return isOrderedList && line.isOrderedList && delimiter == line.delimiter && Math.abs(indent - line.indent) <= INDENT_DELTA;
+            return isOrderedList && line.isOrderedList && delimiter == line.delimiter && Math.abs(indent - line.indent) <= patterns.indentSlack;
         }
 
         public OrderedListLine getLevelStart() {
             OrderedListLine listStart = this;
 
-            if (lineStart > INDENT_DELTA) {
+            if (lineStart > patterns.indentSlack) {
                 boolean matching;
                 OrderedListLine line = this;
                 do {
                     int position = line.lineStart - 1;
-                    line = new OrderedListLine(text, position, prefixPatterns);
+                    line = new OrderedListLine(text, position, patterns);
                     matching = isMatchingList(line);
                     if (matching) {
                         listStart = line;
                     }
-                } while (line.lineStart > INDENT_DELTA && (matching || isParentLevelOf(line)));
+                } while (line.lineStart > patterns.indentSlack && (matching || isParentLevelOf(line)));
             }
 
             return listStart;
@@ -177,7 +179,7 @@ public class AutoTextFormatter {
             if ((lineStart > 0) && (isEmpty || !isTopLevel)) {
                 int position = lineStart - 1;
                 do {
-                    line = new OrderedListLine(text, position, prefixPatterns);
+                    line = new OrderedListLine(text, position, patterns);
                     position = line.lineStart - 1;
                 } while (position > 0 && !line.isParentLevelOf(this));
             }
@@ -187,13 +189,13 @@ public class AutoTextFormatter {
         public OrderedListLine getNext() {
             final int nextLineStart = lineEnd + 1;
             if (nextLineStart < text.length()) {
-                return new OrderedListLine(text, nextLineStart, prefixPatterns);
+                return new OrderedListLine(text, nextLineStart, patterns);
             }
             return null;
         }
 
         public OrderedListLine recreate() {
-            return new OrderedListLine(text, (lineEnd + lineStart) / 2, prefixPatterns);
+            return new OrderedListLine(text, (lineEnd + lineStart) / 2, patterns);
         }
     }
 
@@ -209,11 +211,11 @@ public class AutoTextFormatter {
         public final String newItemPrefix;
         public final int groupStart, groupEnd;
 
-        public UnOrderedOrCheckListLine(CharSequence text, int position, PrefixPatterns prefixPatterns) {
-            super(text, position, prefixPatterns);
+        public UnOrderedOrCheckListLine(CharSequence text, int position, FormatPatterns patterns) {
+            super(text, position, patterns);
 
-            final Matcher checklistMatcher = prefixPatterns.prefixCheckBoxList.matcher(line);
-            final Matcher unorderedListMatcher = prefixPatterns.prefixUnorderedList.matcher(line);
+            final Matcher checklistMatcher = patterns.prefixCheckBoxList.matcher(line);
+            final Matcher unorderedListMatcher = patterns.prefixUnorderedList.matcher(line);
 
             final boolean isChecklist = checklistMatcher.find();
             isUnorderedOrCheckList = isChecklist || unorderedListMatcher.find();  // prefer checklist pattern to avoid spurious unordered list match
@@ -240,9 +242,9 @@ public class AutoTextFormatter {
      * @param position Position within current line
      * @return OrderedListLine corresponding to top of current list
      */
-    private static OrderedListLine getOrderedListStart(final CharSequence text, int position, final PrefixPatterns prefixPatterns) {
+    private static OrderedListLine getOrderedListStart(final CharSequence text, int position, final FormatPatterns patterns) {
         position = Math.max(Math.min(position, text.length() - 1), 0);
-        OrderedListLine listStart = new OrderedListLine(text, position, prefixPatterns);
+        OrderedListLine listStart = new OrderedListLine(text, position, patterns);
 
         OrderedListLine line = listStart;
         do {
@@ -265,12 +267,12 @@ public class AutoTextFormatter {
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable edit, final int cursorPosition, final PrefixPatterns prefixPatterns) {
+    public static void renumberOrderedList(final Editable edit, final int cursorPosition, final FormatPatterns patterns) {
 
         final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
 
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, prefixPatterns);
+        final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, patterns);
         if (!firstLine.isOrderedList) {
             return;
         }

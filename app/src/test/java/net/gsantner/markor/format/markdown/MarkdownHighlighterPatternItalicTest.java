@@ -23,7 +23,7 @@ public class MarkdownHighlighterPatternItalicTest {
 
     @Before
     public void before() {
-        pattern = MarkdownHighlighterPattern.ITALICS.pattern;
+        pattern = MarkdownSyntaxHighlighter.ITALICS;
     }
 
     @Test

@@ -23,7 +23,7 @@ public class MarkdownHighlighterPatternBoldTest {
 
     @Before
     public void before() {
-        pattern = MarkdownHighlighterPattern.BOLD.pattern;
+        pattern = MarkdownSyntaxHighlighter.BOLD;
     }
 
     @Test

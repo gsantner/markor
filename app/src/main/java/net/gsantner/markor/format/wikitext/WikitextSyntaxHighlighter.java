@@ -24,41 +24,34 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
     //
     // Statics
     //
-    public enum Patterns {
-        BOLD(Pattern.compile("(?<=(\\n|^|\\s|\\*))(\\*{2})[^*\\s](?=\\S)(.*?)[^*\\s]?\\2(?=(\\n|$|\\s|\\*))")),
-        ITALICS(Pattern.compile("(?<=(\\n|^|\\s|/))(/{2})[^/\\s](.*?)[^/\\s]?\\2(?=(\\n|$|\\s|/))")),
-        HIGHLIGHTED(Pattern.compile("(?<=(\\n|^|\\s|_))(_{2})[^_\\s](.*?)[^_\\s]?\\2(?=(\\n|$|\\s|_))")),
-        STRIKETHROUGH(Pattern.compile("(?<=(\\n|^|\\s|~))(~{2})[^~\\s](.*?)[^~\\s]?\\2(?=(\\n|$|\\s|~))")),
-        HEADING(Pattern.compile("(?<=(\\n|^|\\s))(==+)[ \\t]+(.*?)[ \\t]\\2(?=(\\n|$|\\s))")),
-        PREFORMATTED_INLINE(Pattern.compile("''(?!')(.+?)''")),
-        PREFORMATTED_MULTILINE(Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])")),
-        LIST_UNORDERED(Pattern.compile("(?<=((\\n|^)\\s{0,10}))\\*(?= )")),
-        LIST_ORDERED(Pattern.compile("(?<=((\\n|^)(\\s{0,10})))(\\d+|[a-zA-Z])(\\.)(?= )")),
-        LINK(WikitextLinkResolver.Patterns.LINK.pattern),
-        IMAGE(Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})")),
-        CHECKLIST(Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*>])(])(?= )")),
-        CHECKLIST_UNCHECKED(Pattern.compile("(?<=(\\n|^))\t*(\\[)( )(])(?= )")),
-        CHECKLIST_CHECKED(Pattern.compile("(?<=(\\n|^))\t*(\\[)(\\*)(])(?= )")),
-        CHECKLIST_CROSSED(Pattern.compile("(?<=(\\n|^))\t*(\\[)(x)(])(?= )")),
-        CHECKLIST_ARROW(Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )")),
-        SUBSCRIPT(Pattern.compile("(_\\{(?!~)(.+?)\\})")),
-        SUPERSCRIPT(Pattern.compile("(\\^\\{(?!~)(.+?)\\})")),
-        ZIMHEADER_CONTENT_TYPE_ONLY(Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki")),
-        ZIMHEADER(Pattern.compile("^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
-                "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
-                "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+"));
+    public final static Pattern BOLD = Pattern.compile("(?<=(\\n|^|\\s|\\*))(\\*{2})[^*\\s](?=\\S)(.*?)[^*\\s]?\\2(?=(\\n|$|\\s|\\*))");
+    public final static Pattern ITALICS = Pattern.compile("(?<=(\\n|^|\\s|/))(/{2})[^/\\s](.*?)[^/\\s]?\\2(?=(\\n|$|\\s|/))");
+    public final static Pattern HIGHLIGHTED = Pattern.compile("(?<=(\\n|^|\\s|_))(_{2})[^_\\s](.*?)[^_\\s]?\\2(?=(\\n|$|\\s|_))");
+    public final static Pattern STRIKETHROUGH = Pattern.compile("(?<=(\\n|^|\\s|~))(~{2})[^~\\s](.*?)[^~\\s]?\\2(?=(\\n|$|\\s|~))");
+    public final static Pattern HEADING = Pattern.compile("(?<=(\\n|^|\\s))(==+)[ \\t]+(.*?)[ \\t]\\2(?=(\\n|$|\\s))");
+    public final static Pattern PREFORMATTED_INLINE = Pattern.compile("''(?!')(.+?)''");
+    public final static Pattern PREFORMATTED_MULTILINE = Pattern.compile("(?s)(?<=[\\n^])'''[\\n$](.*?)[\\n^]'''(?=[\\n$])");
+    public final static Pattern LIST_UNORDERED = Pattern.compile("(?<=((\\n|^)\\s{0,10}))\\*(?= )");
+    public final static Pattern LIST_ORDERED = Pattern.compile("(?<=((\\n|^)(\\s{0,10})))(\\d+|[a-zA-Z])(\\.)(?= )");
+    public final static Pattern LINK = WikitextLinkResolver.Patterns.LINK.pattern;
+    public final static Pattern IMAGE = Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})");
+    public final static Pattern CHECKLIST = Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*>])(])(?= )");
+    public final static Pattern CHECKLIST_UNCHECKED = Pattern.compile("(?<=(\\n|^))\t*(\\[)( )(])(?= )");
+    public final static Pattern CHECKLIST_CHECKED = Pattern.compile("(?<=(\\n|^))\t*(\\[)(\\*)(])(?= )");
+    public final static Pattern CHECKLIST_CROSSED = Pattern.compile("(?<=(\\n|^))\t*(\\[)(x)(])(?= )");
+    public final static Pattern CHECKLIST_ARROW = Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )");
+    public final static Pattern SUBSCRIPT = Pattern.compile("(_\\{(?!~)(.+?)\\})");
+    public final static Pattern SUPERSCRIPT = Pattern.compile("(\\^\\{(?!~)(.+?)\\})");
+    public final static Pattern ZIMHEADER_CONTENT_TYPE_ONLY = Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki");
+    public final static Pattern ZIMHEADER = Pattern.compile(
+            "^Content-Type: text/x-zim-wiki(\r\n|\r|\n)" +
+            "Wiki-Format: zim \\d+\\.\\d+(\r\n|\r|\n)" +
+            "Creation-Date: \\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[.+:\\d]+");
 
-        // groups for matching individual parts of the checklist regex
-        public static final int CHECKBOX_LEFT_BRACKET_GROUP = 2;
-        public static final int CHECKBOX_SYMBOL_GROUP = 3;
-        public static final int CHECKBOX_RIGHT_BRACKET_GROUP = 4;
-
-        public final Pattern pattern;
-
-        Patterns(Pattern pattern) {
-            this.pattern = pattern;
-        }
-    }
+    // groups for matching individual parts of the checklist regex
+    public static final int CHECKBOX_LEFT_BRACKET_GROUP = 2;
+    public static final int CHECKBOX_SYMBOL_GROUP = 3;
+    public static final int CHECKBOX_RIGHT_BRACKET_GROUP = 4;
 
     public static class Colors {
         private static final int COLOR_HEADING = 0xff4e9a06;
@@ -73,7 +66,6 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
         private static final int ZIMHEADER_COLOR = 0xff808080;
         private static final int CODEBLOCK_COLOR = 0xff8c8c8c;
     }
-
 
     //
     // Members
@@ -105,57 +97,56 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
         createUnderlineHexColorsSpans();
 
         if (_isWikitextBiggerHeadings) {
-            createSpanForMatches(Patterns.HEADING.pattern,
-                    new WrWikitextHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _textSize));
+            createSpanForMatches(HEADING, new WrWikitextHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _textSize));
         } else {
-            createColorSpanForMatches(Patterns.HEADING.pattern, Colors.COLOR_HEADING);
+            createColorSpanForMatches(HEADING, Colors.COLOR_HEADING);
         }
 
-        createStyleSpanForMatches(Patterns.BOLD.pattern, Typeface.BOLD);
+        createStyleSpanForMatches(BOLD, Typeface.BOLD);
 
-        createStyleSpanForMatches(Patterns.ITALICS.pattern, Typeface.ITALIC);
+        createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
 
-        createColorBackgroundSpan(Patterns.HIGHLIGHTED.pattern, Colors.HIGHLIGHT_BACKGROUND_COLOR);
+        createColorBackgroundSpan(HIGHLIGHTED, Colors.HIGHLIGHT_BACKGROUND_COLOR);
 
-        createStrikeThroughSpanForMatches(Patterns.STRIKETHROUGH.pattern);
+        createStrikeThroughSpanForMatches(STRIKETHROUGH);
 
         if (_isHighlightCodeMonospace) {
-            createMonospaceSpanForMatches(Patterns.PREFORMATTED_INLINE.pattern);
-            createMonospaceSpanForMatches(Patterns.PREFORMATTED_MULTILINE.pattern);
+            createMonospaceSpanForMatches(PREFORMATTED_INLINE);
+            createMonospaceSpanForMatches(PREFORMATTED_MULTILINE);
         }
 
         if (_isHighlightCodeBlock) {
-            createColorBackgroundSpan(Patterns.PREFORMATTED_INLINE.pattern, Colors.CODEBLOCK_COLOR);
-            createColorBackgroundSpan(Patterns.PREFORMATTED_MULTILINE.pattern, Colors.CODEBLOCK_COLOR);
+            createColorBackgroundSpan(PREFORMATTED_INLINE, Colors.CODEBLOCK_COLOR);
+            createColorBackgroundSpan(PREFORMATTED_MULTILINE, Colors.CODEBLOCK_COLOR);
         }
 
-        createColorSpanForMatches(Patterns.LIST_UNORDERED.pattern, Colors.UNORDERED_LIST_BULLET_COLOR);
+        createColorSpanForMatches(LIST_UNORDERED, Colors.UNORDERED_LIST_BULLET_COLOR);
 
-        createColorSpanForMatches(Patterns.LIST_ORDERED.pattern, Colors.ORDERED_LIST_NUMBER_COLOR);
+        createColorSpanForMatches(LIST_ORDERED, Colors.ORDERED_LIST_NUMBER_COLOR);
 
         createSmallBlueLinkSpans();
-        createColorSpanForMatches(Patterns.LINK.pattern, Colors.LINK_COLOR);
+        createColorSpanForMatches(LINK, Colors.LINK_COLOR);
 
-        createSuperscriptStyleSpanForMatches(Patterns.SUPERSCRIPT.pattern);
+        createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
 
-        createSubscriptStyleSpanForMatches(Patterns.SUBSCRIPT.pattern);
+        createSubscriptStyleSpanForMatches(SUBSCRIPT);
 
         createCheckboxSpansForAllCheckStates();
 
-        createColorSpanForMatches(Patterns.ZIMHEADER.pattern, Colors.ZIMHEADER_COLOR);
+        createColorSpanForMatches(ZIMHEADER, Colors.ZIMHEADER_COLOR);
 
     }
 
     private void createCheckboxSpansForAllCheckStates() {
-        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_UNCHECKED.pattern, 0xffffffff);
-        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_CHECKED.pattern, Colors.CHECKLIST_CHECKED_COLOR);
-        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_CROSSED.pattern, Colors.CHECKLIST_CROSSED_COLOR);
-        createCheckboxSpanWithDifferentColors(Patterns.CHECKLIST_ARROW.pattern, Colors.CHECKLIST_ARROW_COLOR);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_UNCHECKED, 0xffffffff);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_CHECKED, Colors.CHECKLIST_CHECKED_COLOR);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_CROSSED, Colors.CHECKLIST_CROSSED_COLOR);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_ARROW, Colors.CHECKLIST_ARROW_COLOR);
     }
 
     private void createCheckboxSpanWithDifferentColors(final Pattern checkboxPattern, final int symbolColor) {
-        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_LEFT_BRACKET_GROUP);
-        createColorSpanForMatches(checkboxPattern, symbolColor, Patterns.CHECKBOX_SYMBOL_GROUP);
-        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, Patterns.CHECKBOX_RIGHT_BRACKET_GROUP);
+        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, CHECKBOX_LEFT_BRACKET_GROUP);
+        createColorSpanForMatches(checkboxPattern, symbolColor, CHECKBOX_SYMBOL_GROUP);
+        createColorSpanForMatches(checkboxPattern, Colors.CHECKLIST_BASE_COLOR, CHECKBOX_RIGHT_BRACKET_GROUP);
     }
 }

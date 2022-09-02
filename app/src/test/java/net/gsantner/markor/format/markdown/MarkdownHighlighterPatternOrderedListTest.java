@@ -23,7 +23,7 @@ public class MarkdownHighlighterPatternOrderedListTest {
 
     @Before
     public void before() {
-        pattern = MarkdownHighlighterPattern.LIST_ORDERED.pattern;
+        pattern = MarkdownSyntaxHighlighter.LIST_ORDERED;
     }
 
     @Test

@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.wikitext;
 
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
@@ -27,6 +28,13 @@ public class WikitextReplacePatternGenerator {
     public static final Pattern PREFIX_CROSSED_LIST = Pattern.compile("^(\\s*)(\\[(x)]\\s)");
     public static final Pattern PREFIX_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(>)]\\s)");
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
+    public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^(\\s*)((\\[)[\\sx*>](]\\s))");
+
+    public static AutoTextFormatter.FormatPatterns formatPatterns = new AutoTextFormatter.FormatPatterns(
+            WikitextReplacePatternGenerator.PREFIX_UNORDERED_LIST,
+            PREFIX_CHECKBOX_LIST,
+            WikitextReplacePatternGenerator.PREFIX_ORDERED_LIST,
+            0);
 
     public static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
