@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:gravity="center_vertical">
@@ -13,7 +14,7 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/name"
         android:src="@drawable/ic_format_indent_increase_black_24dp"
-        android:tint="@color/textActionIconColor" />
+        app:tint="@color/textActionIconColor" />
 
     <TextView
         android:id="@+id/action_text"
@@ -29,7 +30,7 @@
         android:paddingEnd="@dimen/appbar_padding_top"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/enabled_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
