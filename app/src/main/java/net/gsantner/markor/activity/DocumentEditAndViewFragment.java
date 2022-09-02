@@ -196,35 +196,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         _hlEditor.setScrollView(_primaryScrollView);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
-
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
-
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
-
-        // Do not need to send contents to accessibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-
         _webView.setBackgroundColor(Color.TRANSPARENT);
-    }
-
-    // We do these things _after_ restore so that the restore doesn't clobber them
-    @Override
-    public void onViewStateRestored(final Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        final Bundle args = getArguments();
 
         _document.resetChangeTracking(); // force next reload
         loadDocument();
 
         // Start preview _after_ text load
+        final Bundle args = getArguments();
         final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
         if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
             setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview));
@@ -232,13 +220,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview);
         }
 
+        // Various settings
         _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
         _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
-
         _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
         _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
         updateMenuToggleStates(0);
-
         setHorizontalScrollMode(_wrapText);
         _hlEditor.setHighlightingEnabled(_highlightText);
 
