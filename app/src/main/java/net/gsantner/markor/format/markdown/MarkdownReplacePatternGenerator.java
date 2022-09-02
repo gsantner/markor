@@ -10,6 +10,7 @@
 package net.gsantner.markor.format.markdown;
 
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ReplacePatternGeneratorHelper;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
@@ -30,7 +31,13 @@ public class MarkdownReplacePatternGenerator {
     public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^(\\s*)((-|\\*|\\+)\\s)");
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
-    static final Pattern[] PREFIX_PATTERNS = {
+    public static final AutoTextFormatter.FormatPatterns formatPatterns = new AutoTextFormatter.FormatPatterns(
+            MarkdownReplacePatternGenerator.PREFIX_UNORDERED_LIST,
+            MarkdownReplacePatternGenerator.PREFIX_CHECKBOX_LIST,
+            MarkdownReplacePatternGenerator.PREFIX_ORDERED_LIST,
+            2);
+
+    public static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
             PREFIX_ATX_HEADING,
             PREFIX_QUOTE,

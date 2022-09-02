@@ -15,9 +15,25 @@ import android.graphics.Typeface;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
+import java.util.regex.Pattern;
+
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
 public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
+
+    public final static Pattern BOLD = Pattern.compile("(?<=(\\n|^|\\s|\\[|\\{|\\())(([*_]){2,3})(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\]|\\}|\\)))");
+    public final static Pattern ITALICS = Pattern.compile("(?<=(\\n|^|\\s|\\[|\\{|\\())([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\]|\\}|\\)))");
+    public final static Pattern HEADING = Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))");
+    public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(#{1,6}\\s.*$)");
+    public final static Pattern LINK = Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)");
+    public final static Pattern LIST_UNORDERED = Pattern.compile("(\\n|^)\\s{0,16}([*+-])( \\[[ xX]\\])?(?= )");
+    public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^\\s{0,16}(\\d+)(:?\\.|\\))\\s");
+    public final static Pattern QUOTATION = Pattern.compile("(\\n|^)>");
+    public final static Pattern STRIKETHROUGH = Pattern.compile("~{2}(.*?)\\S~{2}");
+    public final static Pattern CODE = Pattern.compile("(?m)(`(?!`)(.*?)`)|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)");
+    public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n");
+    public final static Pattern ACTION_LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
+    public final static Pattern ACTION_IMAGE_PATTERN = Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)");
 
     private static final int MD_COLOR_HEADING = 0xffef6D00;
     private static final int MD_COLOR_LINK = 0xff1ea3fe;
@@ -52,31 +68,30 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         createSmallBlueLinkSpans();
 
         if (_highlightBiggerHeadings) {
-            createSpanForMatches(MarkdownHighlighterPattern.HEADING.pattern,
-                    new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
+            createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
         } else {
-            createColorSpanForMatches(MarkdownHighlighterPattern.HEADING_SIMPLE.pattern, MD_COLOR_HEADING);
+            createColorSpanForMatches(HEADING_SIMPLE, MD_COLOR_HEADING);
         }
 
-        createColorSpanForMatches(MarkdownHighlighterPattern.LINK.pattern, MD_COLOR_LINK);
-        createColorSpanForMatches(MarkdownHighlighterPattern.LIST_UNORDERED.pattern, MD_COLOR_LIST);
-        createColorSpanForMatches(MarkdownHighlighterPattern.LIST_ORDERED.pattern, MD_COLOR_LIST);
+        createColorSpanForMatches(LINK, MD_COLOR_LINK);
+        createColorSpanForMatches(LIST_UNORDERED, MD_COLOR_LIST);
+        createColorSpanForMatches(LIST_ORDERED, MD_COLOR_LIST);
 
         if (_highlightLineEnding) {
-            createColorBackgroundSpan(MarkdownHighlighterPattern.DOUBLESPACE_LINE_ENDING.pattern, MD_COLOR_CODEBLOCK);
+            createColorBackgroundSpan(DOUBLESPACE_LINE_ENDING, MD_COLOR_CODEBLOCK);
         }
 
-        createStyleSpanForMatches(MarkdownHighlighterPattern.BOLD.pattern, Typeface.BOLD);
-        createStyleSpanForMatches(MarkdownHighlighterPattern.ITALICS.pattern, Typeface.ITALIC);
-        createColorSpanForMatches(MarkdownHighlighterPattern.QUOTATION.pattern, MD_COLOR_QUOTE);
-        createStrikeThroughSpanForMatches(MarkdownHighlighterPattern.STRIKETHROUGH.pattern);
+        createStyleSpanForMatches(BOLD, Typeface.BOLD);
+        createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
+        createColorSpanForMatches(QUOTATION, MD_COLOR_QUOTE);
+        createStrikeThroughSpanForMatches(STRIKETHROUGH);
 
         if (_highlightCodeChangeFont) {
-            createMonospaceSpanForMatches(MarkdownHighlighterPattern.CODE.pattern);
+            createMonospaceSpanForMatches(CODE);
         }
 
         if (_highlightCodeBlock) {
-            createColorBackgroundSpan(MarkdownHighlighterPattern.CODE.pattern, MD_COLOR_CODEBLOCK);
+            createColorBackgroundSpan(CODE, MD_COLOR_CODEBLOCK);
         }
     }
 }

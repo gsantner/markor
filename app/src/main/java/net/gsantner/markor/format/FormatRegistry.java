@@ -21,7 +21,7 @@ import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueSyntaxHighlighter;
 import net.gsantner.markor.format.keyvalue.KeyValueTextConverter;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
-import net.gsantner.markor.format.markdown.MarkdownAutoTextFormatter;
+import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
@@ -32,9 +32,10 @@ import net.gsantner.markor.format.todotxt.TodoTxtAutoTextFormatter;
 import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTextConverter;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
-import net.gsantner.markor.format.wikitext.WikitextAutoTextFormatter;
+import net.gsantner.markor.format.wikitext.WikitextReplacePatternGenerator;
 import net.gsantner.markor.format.wikitext.WikitextSyntaxHighlighter;
 import net.gsantner.markor.format.wikitext.WikitextTextConverter;
+import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
@@ -103,8 +104,8 @@ public class FormatRegistry {
                 format._converter = CONVERTER_PLAINTEXT;
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
-                format._autoFormatInputFilter = new MarkdownAutoTextFormatter(); // Using the markdown syntax for plain text
-                format._autoFormatTextWatcher = new ListHandler(MarkdownAutoTextFormatter.getPrefixPatterns());
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
             case FORMAT_TODOTXT: {
@@ -124,8 +125,8 @@ public class FormatRegistry {
                 format._converter = CONVERTER_WIKITEXT;
                 format._highlighter = new WikitextSyntaxHighlighter(appSettings);
                 format._textActions = new WikitextActionButtons(context, document);
-                format._autoFormatInputFilter = new WikitextAutoTextFormatter();
-                format._autoFormatTextWatcher = new ListHandler(WikitextAutoTextFormatter.getPrefixPatterns());
+                format._autoFormatInputFilter = new AutoTextFormatter(WikitextReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(WikitextReplacePatternGenerator.formatPatterns);
                 break;
             }
             case FORMAT_EMBEDBINARY: {
@@ -139,8 +140,8 @@ public class FormatRegistry {
                 format._converter = CONVERTER_MARKDOWN;
                 format._highlighter = new MarkdownSyntaxHighlighter(appSettings);
                 format._textActions = new MarkdownActionButtons(context, document);
-                format._autoFormatInputFilter = new MarkdownAutoTextFormatter();
-                format._autoFormatTextWatcher = new ListHandler(MarkdownAutoTextFormatter.getPrefixPatterns());
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
         }

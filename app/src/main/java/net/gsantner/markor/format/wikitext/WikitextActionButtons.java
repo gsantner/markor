@@ -235,7 +235,7 @@ public class WikitextActionButtons extends ActionButtonBase {
         CharSequence line = text.subSequence(lineStart, lineEnd);
         int cursorPosInLine = cursorPos - lineStart;
 
-        Matcher m = WikitextSyntaxHighlighter.Patterns.LINK.pattern.matcher(line);
+        Matcher m = WikitextSyntaxHighlighter.LINK.matcher(line);
         while (m.find()) {
             if (m.start() < cursorPosInLine && m.end() > cursorPosInLine) {
                 return m.group();
@@ -249,7 +249,7 @@ public class WikitextActionButtons extends ActionButtonBase {
         runRegexReplaceAction(WikitextReplacePatternGenerator.setOrUnsetHeadingWithLevel(headingLevel));
 
         final int[] lineSelection = TextViewUtils.getLineSelection(_hlEditor);
-        Matcher m = WikitextSyntaxHighlighter.Patterns.HEADING.pattern.matcher(text.subSequence(lineSelection[0], lineSelection[1]));
+        Matcher m = WikitextSyntaxHighlighter.HEADING.matcher(text.subSequence(lineSelection[0], lineSelection[1]));
         if (m.find()) {
             final int afterHeadingTextOffset = m.end(3);
             final int lineStart = TextViewUtils.getLineStart(text, TextViewUtils.getSelection(_hlEditor)[0]);
@@ -287,12 +287,12 @@ public class WikitextActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
-        MarkorDialogFactory.showHeadlineDialog(WikitextSyntaxHighlighter.Patterns.HEADING.pattern.toString(), getActivity(), _hlEditor);
+        MarkorDialogFactory.showHeadlineDialog(WikitextSyntaxHighlighter.HEADING.toString(), getActivity(), _hlEditor);
         return true;
     }
 
     @Override
     protected void renumberOrderedList(final int position) {
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, WikitextAutoTextFormatter.getPrefixPatterns());
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, WikitextReplacePatternGenerator.formatPatterns);
     }
 }

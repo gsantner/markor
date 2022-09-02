@@ -16,7 +16,7 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
-import net.gsantner.markor.format.markdown.MarkdownAutoTextFormatter;
+import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.model.Document;
 
@@ -64,6 +64,6 @@ public class PlaintextActionButtons extends ActionButtonBase {
     @Override
     protected void renumberOrderedList(final int position) {
         // Use markdown format for plain text too
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownAutoTextFormatter.getPrefixPatterns());
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownReplacePatternGenerator.formatPatterns);
     }
 }

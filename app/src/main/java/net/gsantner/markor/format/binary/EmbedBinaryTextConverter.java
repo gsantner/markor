@@ -76,7 +76,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, +1);\"/>⏭️</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
-                converted += "<p id='avCurrentPlayedTitleP' style='margin: 0px; margin-bottom: 2px;" + (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST) ? "" : "display:none;") +  "'></p>";
+                converted += "<p id='avCurrentPlayedTitleP' style='margin: 0px; margin-bottom: 2px;" + (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST) ? "" : "display:none;") + "'></p>";
 
                 onLoadJs += "document.playlist = []; document.playlistTitles = []; document.playlistIndex = -1;";
                 onLoadJs += "document.avLoopToggle = function()      { var o=document.getElementsByClassName('htmlav')[0]; o.loop = !o.loop; };";

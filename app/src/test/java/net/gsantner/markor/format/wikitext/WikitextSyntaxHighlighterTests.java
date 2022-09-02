@@ -25,7 +25,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.HEADING.pattern;
+            pattern = WikitextSyntaxHighlighter.HEADING;
         }
 
         @Test
@@ -72,7 +72,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.BOLD.pattern;
+            pattern = WikitextSyntaxHighlighter.BOLD;
         }
 
         @Test
@@ -125,38 +125,38 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void uncheckedItem() {
-            pattern = WikitextSyntaxHighlighter.Patterns.CHECKLIST_UNCHECKED.pattern;
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_UNCHECKED;
             Matcher m = pattern.matcher("[ ] Unchecked Item");
             assertCorrectCheckboxWithInnerSymbol(m, " ");
         }
 
         @Test
         public void checkedItem() {
-            pattern = WikitextSyntaxHighlighter.Patterns.CHECKLIST_CHECKED.pattern;
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_CHECKED;
             Matcher m = pattern.matcher("[*] Checked Item");
             assertCorrectCheckboxWithInnerSymbol(m, "*");
         }
 
         @Test
         public void crossedItem() {
-            pattern = WikitextSyntaxHighlighter.Patterns.CHECKLIST_CROSSED.pattern;
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_CROSSED;
             Matcher m = pattern.matcher("[x] Crossed Item");
             assertCorrectCheckboxWithInnerSymbol(m, "x");
         }
 
         @Test
         public void itemWithArrow() {
-            pattern = WikitextSyntaxHighlighter.Patterns.CHECKLIST_ARROW.pattern;
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_ARROW;
             Matcher m = pattern.matcher("[>] Marked Item with a yellow arrow");
             assertCorrectCheckboxWithInnerSymbol(m, ">");
         }
 
         @Test
         public void roundBracesDoNotMatch() {
-            Pattern[] checklistPatterns = {WikitextSyntaxHighlighter.Patterns.CHECKLIST.pattern,
-                    WikitextSyntaxHighlighter.Patterns.CHECKLIST_CHECKED.pattern,
-                    WikitextSyntaxHighlighter.Patterns.CHECKLIST_CROSSED.pattern,
-                    WikitextSyntaxHighlighter.Patterns.CHECKLIST_ARROW.pattern};
+            Pattern[] checklistPatterns = {WikitextSyntaxHighlighter.CHECKLIST,
+                    WikitextSyntaxHighlighter.CHECKLIST_CHECKED,
+                    WikitextSyntaxHighlighter.CHECKLIST_CROSSED,
+                    WikitextSyntaxHighlighter.CHECKLIST_ARROW};
             for (Pattern checklistPattern : checklistPatterns) {
                 Matcher m = checklistPattern.matcher("( ) invalid item");
                 assertThat(m.find()).isFalse();
@@ -166,9 +166,9 @@ public class WikitextSyntaxHighlighterTests {
         private void assertCorrectCheckboxWithInnerSymbol(Matcher m, String symbol) {
             assertThat(m.find()).isTrue();
             assertThat(m.group()).isEqualTo("[" + symbol + "]");
-            assertThat(m.group(WikitextSyntaxHighlighter.Patterns.CHECKBOX_LEFT_BRACKET_GROUP)).isEqualTo("[");
-            assertThat(m.group(WikitextSyntaxHighlighter.Patterns.CHECKBOX_SYMBOL_GROUP)).isEqualTo(symbol);
-            assertThat(m.group(WikitextSyntaxHighlighter.Patterns.CHECKBOX_RIGHT_BRACKET_GROUP)).isEqualTo("]");
+            assertThat(m.group(WikitextSyntaxHighlighter.CHECKBOX_LEFT_BRACKET_GROUP)).isEqualTo("[");
+            assertThat(m.group(WikitextSyntaxHighlighter.CHECKBOX_SYMBOL_GROUP)).isEqualTo(symbol);
+            assertThat(m.group(WikitextSyntaxHighlighter.CHECKBOX_RIGHT_BRACKET_GROUP)).isEqualTo("]");
         }
     }
 
@@ -179,7 +179,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.ITALICS.pattern;
+            pattern = WikitextSyntaxHighlighter.ITALICS;
         }
 
         @Test
@@ -295,7 +295,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_UNORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_UNORDERED;
         }
 
         @Test
@@ -364,7 +364,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_ORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_ORDERED;
         }
 
         @Test
@@ -396,7 +396,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Before
         public void before() {
-            pattern = WikitextSyntaxHighlighter.Patterns.STRIKETHROUGH.pattern;
+            pattern = WikitextSyntaxHighlighter.STRIKETHROUGH;
         }
 
         @Test
@@ -456,7 +456,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void boldWordInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.BOLD.pattern;
+            pattern = WikitextSyntaxHighlighter.BOLD;
             Matcher matcher = pattern.matcher("The following **word** is bold.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("**word**");
@@ -464,7 +464,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void italicsWordInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.ITALICS.pattern;
+            pattern = WikitextSyntaxHighlighter.ITALICS;
             Matcher matcher = pattern.matcher("The following //word// is in italics.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("//word//");
@@ -472,7 +472,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void highlightedWordInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.HIGHLIGHTED.pattern;
+            pattern = WikitextSyntaxHighlighter.HIGHLIGHTED;
             Matcher matcher = pattern.matcher("The following __word__ is marked (highlighted).");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("__word__");
@@ -480,7 +480,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void struckThroughWordInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.STRIKETHROUGH.pattern;
+            pattern = WikitextSyntaxHighlighter.STRIKETHROUGH;
             Matcher matcher = pattern.matcher("The following ~~word~~ is struck through.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("~~word~~");
@@ -488,7 +488,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void preformattedWordInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.PREFORMATTED_INLINE.pattern;
+            pattern = WikitextSyntaxHighlighter.PREFORMATTED_INLINE;
             Matcher matcher = pattern.matcher("The following ''word'' is struck through.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("''word''");
@@ -496,7 +496,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void preformattedTextBlock() {
-            pattern = WikitextSyntaxHighlighter.Patterns.PREFORMATTED_MULTILINE.pattern;
+            pattern = WikitextSyntaxHighlighter.PREFORMATTED_MULTILINE;
             Matcher matcher = pattern.matcher("Some text before\n" +
                     "'''\n" +
                     "some\n" +
@@ -510,7 +510,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void unorderedListHighlightings() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_UNORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_UNORDERED;
             Matcher matcher = pattern.matcher("some text...\n* first item\n\t* item 11\n* item 2");
             for (int i = 0; i < 3; i++) {
                 assertThat(matcher.find());
@@ -521,7 +521,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void orderedListHighlightingsNumbers() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_ORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_ORDERED;
             Matcher matcher = pattern.matcher("\n1. first item\n\t2. second item\n");
             String[] expectedMatches = {"1.", "2."};
             for (String expectedMatch : expectedMatches) {
@@ -532,7 +532,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void orderedListHighlightingsCharacters() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_ORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_ORDERED;
             Matcher matcher = pattern.matcher("\na. first item\nb. second item\n");
             String[] expectedMatches = {"a.", "b."};
             for (String expectedMatch : expectedMatches) {
@@ -543,7 +543,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void orderedListHighlightingsNumbersAndCharacters() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LIST_ORDERED.pattern;
+            pattern = WikitextSyntaxHighlighter.LIST_ORDERED;
             Matcher matcher = pattern.matcher("\n1. first item\n2. second item\n\ta. item 2a\n\tb. item 2b\n");
             String[] expectedMatches = {"1.", "2.", "a.", "b."};
             for (String expectedMatch : expectedMatches) {
@@ -554,7 +554,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void webLinkInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LINK.pattern;
+            pattern = WikitextSyntaxHighlighter.LINK;
             Matcher matcher = pattern.matcher("Visit [[https://github.com/gsantner/markor|Markor on Github]] now!");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("[[https://github.com/gsantner/markor|Markor on Github]]");
@@ -562,7 +562,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void crossWikiLink() {
-            pattern = WikitextSyntaxHighlighter.Patterns.LINK.pattern;
+            pattern = WikitextSyntaxHighlighter.LINK;
             Matcher matcher = pattern.matcher("Go to another page [[Page Name]] in the same notebook.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("[[Page Name]]");
@@ -570,7 +570,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void linkToLocalImage() {
-            pattern = WikitextSyntaxHighlighter.Patterns.IMAGE.pattern;
+            pattern = WikitextSyntaxHighlighter.IMAGE;
             Matcher matcher = pattern.matcher("Some text.\nSome more text.\n{{.pasted_image.png}}\nMore text.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("{{.pasted_image.png}}");
@@ -578,7 +578,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void superscriptTextInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.SUPERSCRIPT.pattern;
+            pattern = WikitextSyntaxHighlighter.SUPERSCRIPT;
             Matcher matcher = pattern.matcher("We also have _{subscript} and ^{superscript}.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("^{superscript}");
@@ -586,7 +586,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void subscriptTextInSentence() {
-            pattern = WikitextSyntaxHighlighter.Patterns.SUBSCRIPT.pattern;
+            pattern = WikitextSyntaxHighlighter.SUBSCRIPT;
             Matcher matcher = pattern.matcher("We also have _{subscript} and ^{superscript}.");
             assertThat(matcher.find()).isTrue();
             assertThat(matcher.group()).isEqualTo("_{subscript}");
@@ -595,7 +595,7 @@ public class WikitextSyntaxHighlighterTests {
 
         @Test
         public void checkListOverMultipleLines() {
-            pattern = WikitextSyntaxHighlighter.Patterns.CHECKLIST.pattern;
+            pattern = WikitextSyntaxHighlighter.CHECKLIST;
             Matcher matcher = pattern.matcher("Some text before...\n" +
                     "[ ] unchecked item\n" +
                     "[*] checked item\n" +

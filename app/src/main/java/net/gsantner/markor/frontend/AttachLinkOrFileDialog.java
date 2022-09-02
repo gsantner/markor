@@ -26,7 +26,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.format.markdown.MarkdownHighlighterPattern;
+import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
@@ -118,7 +118,7 @@ public class AttachLinkOrFileDialog {
                 }
 
                 final String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-                Matcher m = (action == FILE_OR_LINK_ACTION ? MarkdownHighlighterPattern.ACTION_LINK_PATTERN : MarkdownHighlighterPattern.ACTION_IMAGE_PATTERN).pattern.matcher(line);
+                Matcher m = (action == FILE_OR_LINK_ACTION ? MarkdownSyntaxHighlighter.ACTION_LINK_PATTERN : MarkdownSyntaxHighlighter.ACTION_IMAGE_PATTERN).matcher(line);
                 if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
                     int stat = lineStartidx + m.start();
                     int en = lineStartidx + m.end();

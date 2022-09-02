@@ -63,7 +63,6 @@ public class GsSharedPreferencesPropertyBackend implements GsPropertyBackend<Str
     public static final String SHARED_PREF_APP = "app";
     private static String _debugLog = "";
 
-
     //
     // Members, Constructors
     //
@@ -71,17 +70,15 @@ public class GsSharedPreferencesPropertyBackend implements GsPropertyBackend<Str
     protected String _prefAppName;
     protected Context _context;
 
-    public GsSharedPreferencesPropertyBackend() {
+    public GsSharedPreferencesPropertyBackend init(final Context context) {
+        return init(context, SHARED_PREF_APP);
     }
 
-    public <T extends GsSharedPreferencesPropertyBackend> T init(final Context context, final String... prefAppName) {
-        if (_context == null) {
-            _context = context;
-            _prefAppName = (prefAppName != null && prefAppName.length > 0 && !TextUtils.isEmpty(prefAppName[0])) ? prefAppName[0] : (_context.getPackageName() + "_preferences");
-            _prefApp = _context.getSharedPreferences(_prefAppName, Context.MODE_PRIVATE);
-        }
-        //noinspection unchecked
-        return (T) this;
+    public GsSharedPreferencesPropertyBackend init(final Context context, final String prefAppName) {
+        _context = context;
+        _prefAppName = !TextUtils.isEmpty(prefAppName) ? prefAppName : (_context.getPackageName() + "_preferences");
+        _prefApp = _context.getSharedPreferences(_prefAppName, Context.MODE_PRIVATE);
+        return this;
     }
 
     //

@@ -20,10 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -159,7 +159,7 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
         }
 
         private void bindModel(final ActionButtonBase.ActionItem action, final String key, final Set<String> disabled) {
-            final Switch enabled = _row.findViewById(R.id.enabled_switch);
+            final SwitchCompat enabled = _row.findViewById(R.id.enabled_switch);
             enabled.setOnCheckedChangeListener(null);
 
             enabled.setChecked(!disabled.contains(key));

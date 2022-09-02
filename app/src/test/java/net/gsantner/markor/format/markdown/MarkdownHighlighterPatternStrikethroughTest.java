@@ -23,7 +23,7 @@ public class MarkdownHighlighterPatternStrikethroughTest {
 
     @Before
     public void before() {
-        pattern = MarkdownHighlighterPattern.STRIKETHROUGH.pattern;
+        pattern = MarkdownSyntaxHighlighter.STRIKETHROUGH;
     }
 
     @Test

@@ -52,10 +52,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     private static final File LOCAL_TESTFOLDER_FILEPATH = new File("/storage/emulated/0/00_sync/documents/special");
 
-    public AppSettings() {
-    }
-
-    public <T extends AppSettings> T init(final Context context) {
+    @Override
+    public AppSettings init(final Context context) {
         super.init(context);
         _prefCache = context.getSharedPreferences("cache", Context.MODE_PRIVATE);
         _prefHistory = context.getSharedPreferences("history", Context.MODE_PRIVATE);
@@ -66,8 +64,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             setEditorBasicColor(true, R.color.white, R.color.dark_grey);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
-        //noinspection unchecked
-        return (T) this;
+        return this;
     }
 
     public boolean isDarkThemeEnabled() {

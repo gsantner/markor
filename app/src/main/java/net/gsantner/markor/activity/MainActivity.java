@@ -107,7 +107,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
         if (startTab != R.id.nav_notebook && savedInstanceState == null && getIntentDir(getIntent(), null) == null) {
-            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(startTab), 10);
+            _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
         }
     }
 

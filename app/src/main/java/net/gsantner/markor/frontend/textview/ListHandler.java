@@ -20,9 +20,9 @@ public class ListHandler implements TextWatcher {
     private boolean alreadyRunning = false; // Prevent this instance from triggering itself
     private Pair<Integer, Integer> _deleteRegion;
 
-    private final AutoTextFormatter.PrefixPatterns _prefixPatterns;
+    private final AutoTextFormatter.FormatPatterns _prefixPatterns;
 
-    public ListHandler(final AutoTextFormatter.PrefixPatterns prefixPatterns) {
+    public ListHandler(final AutoTextFormatter.FormatPatterns prefixPatterns) {
         super();
         _prefixPatterns = prefixPatterns;
     }
