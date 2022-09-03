@@ -141,7 +141,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return true;
             }
             default: {
-                return runCommonTextAction(action);
+                return runCommonAction(action);
             }
         }
     }
@@ -170,7 +170,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return true;
             }
             default: {
-                return runCommonLongPressTextActions(action);
+                return runCommonLongPressAction(action);
             }
         }
     }

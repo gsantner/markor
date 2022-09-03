@@ -96,7 +96,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
-    private FormatRegistry _textFormat;
+    private FormatRegistry _format;
     private MarkorContextUtils _cu;
     private TextViewUndoRedo _editTextUndoRedoHelper;
     private boolean _isPreviewVisible;
@@ -188,7 +188,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Here we replace it with the last saved format.
         _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
         applyTextFormat(_document.getFormat());
-        _textFormat.getTextActions().setDocument(_document);
+        _format.getActions().setDocument(_document);
 
         if (activity instanceof DocumentActivity) {
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
@@ -513,7 +513,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_search: {
                 setViewModeVisibility(false);
-                _textFormat.getTextActions().onSearch();
+                _format.getActions().onSearch();
                 return true;
             }
             case R.id.action_send_debug_log: {
@@ -523,7 +523,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
 
             case R.id.action_attach_color: {
-                _textFormat.getTextActions().showColorPickerDialog();
+                _format.getActions().showColorPickerDialog();
                 return true;
             }
             case R.id.action_attach_date: {
@@ -612,15 +612,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (activity == null) {
             return;
         }
-        _textFormat = FormatRegistry.getFormat(textFormatId, activity, _document);
-        _hlEditor.setHighlighter(_textFormat.getHighlighter());
+        _format = FormatRegistry.getFormat(textFormatId, activity, _document);
+        _document.setFormat(_format.getFormatId());
+        _hlEditor.setHighlighter(_format.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
-        _hlEditor.setAutoFormatters(_textFormat.getAutoFormatInputFilter(), _textFormat.getAutoFormatTextWatcher());
+        _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
-        _textFormat.getTextActions()
+        _format.getActions()
                 .setUiReferences(activity, _hlEditor, _webView)
-                .recreateTextActionBarButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
-        updateMenuToggleStates(textFormatId);
+                .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+        updateMenuToggleStates(_format.getFormatId());
     }
 
     private void updateMenuToggleStates(final int selectedFormatActionId) {
@@ -735,14 +736,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void updateViewModeText() {
         final String text = getTextString();
-        _textFormat.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode);
+        _format.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode);
     }
 
     public void setViewModeVisibility(boolean show) {
         final Activity activity = getActivity();
         show |= _document.isBinaryFileNoTextLoading();
 
-        _textFormat.getTextActions().recreateTextActionBarButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+        _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
             _cu.hideSoftKeyboard(activity);
@@ -796,7 +797,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     @Override
     protected boolean onToolbarLongClicked(View v) {
         if (isVisible() && isResumed()) {
-            _textFormat.getTextActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
+            _format.getActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
             return true;
         }
         return false;
@@ -812,8 +813,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onToolbarClicked(View v) {
-        if (!_isPreviewVisible && _textFormat != null) {
-            _textFormat.getTextActions().runTitleClick();
+        if (!_isPreviewVisible && _format != null) {
+            _format.getActions().runTitleClick();
         }
     }
 

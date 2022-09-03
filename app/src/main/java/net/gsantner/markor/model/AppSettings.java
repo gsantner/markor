@@ -311,7 +311,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_start_editing_in_center, false);
     }
 
-    public int getEditorTextActionItemPadding() {
+    public int getEditorActionButtonItemPadding() {
         return getInt(R.string.pref_key__editor_textaction_bar_item_padding, 8);
     }
 

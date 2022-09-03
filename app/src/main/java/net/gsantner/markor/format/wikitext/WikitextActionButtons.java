@@ -165,7 +165,7 @@ public class WikitextActionButtons extends ActionButtonBase {
                 return true;
             }
             default: {
-                return runCommonTextAction(action);
+                return runCommonAction(action);
             }
         }
     }
@@ -199,7 +199,7 @@ public class WikitextActionButtons extends ActionButtonBase {
                 return true;
             }
             default: {
-                return runCommonLongPressTextActions(action);
+                return runCommonLongPressAction(action);
             }
         }
     }
@@ -210,7 +210,7 @@ public class WikitextActionButtons extends ActionButtonBase {
 
         if (fullWikitextLink == null) {
             // the link under the cursor is not a wikitext link, probably just a plain url
-            runCommonTextAction(R.string.abid_common_open_link_browser);
+            runCommonAction(R.string.abid_common_open_link_browser);
             return;
         }
 

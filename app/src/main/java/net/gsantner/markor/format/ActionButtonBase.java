@@ -66,7 +66,7 @@ import java.util.regex.Pattern;
 public abstract class ActionButtonBase {
     private Activity m_activity;
     private MarkorContextUtils m_cu;
-    private final int _textActionSidePadding;
+    private final int _buttonHorizontalMargin;
     private String _lastSnip;
 
     protected HighlightingEditor _hlEditor;
@@ -82,18 +82,18 @@ public abstract class ActionButtonBase {
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
         _appSettings = ApplicationObject.settings();
-        _textActionSidePadding = (int) (_appSettings.getEditorTextActionItemPadding() * context.getResources().getDisplayMetrics().density);
+        _buttonHorizontalMargin = (int) (_appSettings.getEditorActionButtonItemPadding() * context.getResources().getDisplayMetrics().density);
         _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
     }
 
     // Override to implement custom onClick
     public boolean onActionClick(final @StringRes int action) {
-        return runCommonTextAction(action);
+        return runCommonAction(action);
     }
 
     // Override to implement custom onLongClick
     public boolean onActionLongClick(final @StringRes int action) {
-        return runCommonLongPressTextActions(action);
+        return runCommonLongPressAction(action);
     }
 
     // Override to implement custom search action
@@ -248,7 +248,7 @@ public abstract class ActionButtonBase {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void recreateTextActionBarButtons(ViewGroup barLayout, ActionItem.DisplayMode displayMode) {
+    public void recreateActionButtons(ViewGroup barLayout, ActionItem.DisplayMode displayMode) {
         barLayout.removeAllViews();
         setBarVisible(barLayout, true);
 
@@ -258,12 +258,12 @@ public abstract class ActionButtonBase {
         for (final String key : orderedKeys) {
             final ActionItem action = map.get(key);
             if (!disabledKeys.contains(key) && (action.displayMode == displayMode || action.displayMode == ActionItem.DisplayMode.ANY)) {
-                appendTextActionToBar(barLayout, action);
+                appendActionButtonToBar(barLayout, action);
             }
         }
     }
 
-    protected void appendTextActionToBar(ViewGroup barLayout, @NonNull ActionItem action) {
+    protected void appendActionButtonToBar(ViewGroup barLayout, @NonNull ActionItem action) {
         final ImageView btn = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
         final String desc = rstr(action.stringId);
@@ -288,7 +288,7 @@ public abstract class ActionButtonBase {
             }
             return false;
         });
-        final int sidePadding = _textActionSidePadding + btn.getPaddingLeft(); // Left and right are symmetrical
+        final int sidePadding = _buttonHorizontalMargin + btn.getPaddingLeft(); // Left and right are symmetrical
         btn.setPadding(sidePadding, btn.getPaddingTop(), sidePadding, btn.getPaddingBottom());
         barLayout.addView(btn);
     }
@@ -547,7 +547,7 @@ public abstract class ActionButtonBase {
 
     // Some actions common to multiple file types
     // Can be called _explicitly_ by a derived class
-    protected final boolean runCommonTextAction(final @StringRes int action) {
+    protected final boolean runCommonAction(final @StringRes int action) {
         switch (action) {
             case R.string.abid_common_unordered_list_char: {
                 runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
@@ -669,7 +669,7 @@ public abstract class ActionButtonBase {
     // Some long-press actions common to multiple file types
     // Can be called _explicitly_ by a derived class
     @SuppressLint("NonConstantResourceId")
-    protected final boolean runCommonLongPressTextActions(@StringRes int action) {
+    protected final boolean runCommonLongPressAction(@StringRes int action) {
         switch (action) {
             case R.string.abid_common_deindent:
             case R.string.abid_common_indent: {

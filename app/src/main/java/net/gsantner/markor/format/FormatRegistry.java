@@ -137,6 +137,7 @@ public class FormatRegistry {
             }
             default:
             case FORMAT_MARKDOWN: {
+                formatId = FORMAT_MARKDOWN;
                 format._converter = CONVERTER_MARKDOWN;
                 format._highlighter = new MarkdownSyntaxHighlighter(appSettings);
                 format._textActions = new MarkdownActionButtons(context, document);
@@ -145,6 +146,7 @@ public class FormatRegistry {
                 break;
             }
         }
+        format._formatId = formatId;
         return format;
     }
 
@@ -153,8 +155,9 @@ public class FormatRegistry {
     private TextConverterBase _converter;
     private InputFilter _autoFormatInputFilter;
     private TextWatcher _autoFormatTextWatcher;
+    private int _formatId;
 
-    public ActionButtonBase getTextActions() {
+    public ActionButtonBase getActions() {
         return _textActions;
     }
 
@@ -172,5 +175,9 @@ public class FormatRegistry {
 
     public TextConverterBase getConverter() {
         return _converter;
+    }
+
+    public int getFormatId() {
+        return _formatId;
     }
 }
