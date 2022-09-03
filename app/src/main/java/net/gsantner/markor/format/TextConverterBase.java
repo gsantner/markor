@@ -23,6 +23,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -140,7 +141,7 @@ public abstract class TextConverterBase {
 
     protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, File file, String onLoadJs, String head) {
         final String contentLower = content.toLowerCase();
-        boolean darkTheme = _appSettings.isDarkThemeEnabled() && !isExportInLightMode;
+        boolean darkTheme = GsContextUtils.instance.isDarkModeEnabled(context) && !isExportInLightMode;
         String html = HTML_DOCTYPE + HTML001_HEAD_WITH_BASESTYLE.replace(TOKEN_POST_LANG, Locale.getDefault().getLanguage()) + (darkTheme ? HTML002_HEAD_WITH_STYLE_DARK : HTML002_HEAD_WITH_STYLE_LIGHT);
         if (isExportInLightMode) {
             html = html.replace("html,body{color:#303030;}", "html,body{color: black !important; background-color: white !important;}");

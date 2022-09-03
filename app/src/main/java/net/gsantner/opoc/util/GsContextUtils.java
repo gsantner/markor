@@ -2866,4 +2866,27 @@ public class GsContextUtils {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
         context.setRequestedOrientation(nextOrientation);
     }
+
+    /**
+     * Check if the Dark theme mode is enable in this app currently (or at system if system theme is set)
+     *
+     * @param context {@link Context}
+     * @return true if the dark theme/mode is currently enabled in this app
+     */
+    public boolean isDarkModeEnabled(final Context context) {
+        final int state = AppCompatDelegate.getDefaultNightMode();
+        if (state == AppCompatDelegate.MODE_NIGHT_YES) {
+            return true;
+        } else if (state == AppCompatDelegate.MODE_NIGHT_NO) {
+            return false;
+        } else {
+            switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    return true;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    return false;
+            }
+        }
+        return false;
+    }
 }

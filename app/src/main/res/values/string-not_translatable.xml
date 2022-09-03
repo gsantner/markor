@@ -188,20 +188,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown_newline_newparagraph" translatable="false">pref_key__markdown_newline_newparagraph</string>
     <string name="pref_key__markdown_table_of_contents_enabled_levels" translatable="false">pref_key__markdown_table_of_contents_enabled_levels</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
-    <string name="pref_key__editor_basic_color_scheme__bg" translatable="false">@string/pref_key__editor_basic_color_scheme__bg_light</string>
-    <string name="pref_key__editor_basic_color_scheme__fg" translatable="false">@string/pref_key__editor_basic_color_scheme__fg_light</string>
-    <string name="pref_key__editor_basic_color_scheme__bg_light" translatable="false">pref_key__editor_basic_color_scheme__bg_light</string>
-    <string name="pref_key__editor_basic_color_scheme__fg_light" translatable="false">pref_key__editor_basic_color_scheme__fg_light</string>
-    <string name="pref_key__editor_basic_color_scheme__bg_dark" translatable="false">pref_key__editor_basic_color_scheme__bg_dark</string>
-    <string name="pref_key__editor_basic_color_scheme__fg_dark" translatable="false">pref_key__editor_basic_color_scheme__fg_dark</string>
-    <string name="pref_key__editor_basic_color_scheme_solarized" translatable="false">pref_key__editor_basic_color_scheme_solarized</string>
-    <string name="pref_key__editor_basic_color_scheme_nord" translatable="false">pref_key__editor_basic_color_scheme_nord</string>
-    <string name="pref_key__editor_basic_color_scheme_blackorwhite" translatable="false">pref_key__editor_basic_color_scheme_blackorwhite</string>
-    <string name="pref_key__editor_basic_color_scheme_amoled" translatable="false">pref_key__editor_basic_color_scheme_amoled</string>
-    <string name="pref_key__editor_basic_color_scheme_markor" translatable="false">pref_key__editor_basic_color_scheme_markor</string>
-    <string name="pref_key__editor_basic_color_scheme_gruvbox" translatable="false">pref_key__editor_basic_color_scheme_gruvbox</string>
-    <string name="pref_key__editor_basic_color_scheme_greenscale" translatable="false">pref_key__editor_basic_color_scheme_greenscale</string>
-    <string name="pref_key__editor_basic_color_scheme_sepia" translatable="false">pref_key__editor_basic_color_scheme_sepia</string>
+    <string name="pref_key__basic_color_scheme__bg_light" translatable="false">pref_key__basic_color_scheme__bg_light</string>
+    <string name="pref_key__basic_color_scheme__fg_light" translatable="false">pref_key__basic_color_scheme__fg_light</string>
+    <string name="pref_key__basic_color_scheme__bg_dark" translatable="false">pref_key__basic_color_scheme__bg_dark</string>
+    <string name="pref_key__basic_color_scheme__fg_dark" translatable="false">pref_key__basic_color_scheme__fg_dark</string>
+    <string name="pref_key__basic_color_scheme_solarized" translatable="false">pref_key__basic_color_scheme_solarized</string>
+    <string name="pref_key__basic_color_scheme_nord" translatable="false">pref_key__basic_color_scheme_nord</string>
+    <string name="pref_key__basic_color_scheme_blackorwhite" translatable="false">pref_key__basic_color_scheme_blackorwhite</string>
+    <string name="pref_key__basic_color_scheme_amoled" translatable="false">pref_key__basic_color_scheme_amoled</string>
+    <string name="pref_key__basic_color_scheme_markor" translatable="false">pref_key__basic_color_scheme_markor</string>
+    <string name="pref_key__basic_color_scheme_gruvbox" translatable="false">pref_key__basic_color_scheme_gruvbox</string>
+    <string name="pref_key__basic_color_scheme_greenscale" translatable="false">pref_key__basic_color_scheme_greenscale</string>
+    <string name="pref_key__basic_color_scheme_sepia" translatable="false">pref_key__basic_color_scheme_sepia</string>
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
     <string name="pref_key__is_disallow_screenshots" translatable="false">pref_key__is_disallow_screenshots</string>
 
@@ -306,7 +304,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="accordion" translatable="false">Accordion</string>
     <string name="pref_key__default_encryption_password" translatable="false">pref_key__default_encryption_password</string>
     <string name="pref_key__set_encryption_password" translatable="false">pref_key__set_encryption_password</string>
-    <string name="empty_string" translatable="false"/>
+    <string name="empty_string" translatable="false" />
     <string name="pref_key__new_file_dialog_lastused_encryption" translatable="false">pref_key__new_file_dialog_lastused_encryption</string>
     <string name="pref_key__new_file_dialog_lastused_extension" translatable="false">pref_key__new_file_dialog_lastused_extension</string>
     <string name="pref_key__new_file_dialog_lastused_type" translatable="false">pref_key__new_file_dialog_lastused_type</string>

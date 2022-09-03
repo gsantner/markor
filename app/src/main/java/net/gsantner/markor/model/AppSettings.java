@@ -11,7 +11,6 @@ package net.gsantner.markor.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
@@ -21,7 +20,6 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -60,28 +58,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         _cu = new MarkorContextUtils(context);
         _isDeviceGoodHardware = _cu.isDeviceGoodHardware(context);
 
-        if (getInt(R.string.pref_key__editor_basic_color_scheme__bg, -999) == -999) {
+        if (getInt(R.string.pref_key__basic_color_scheme__bg_light, -999) == -999) {
             setEditorBasicColor(true, R.color.white, R.color.dark_grey);
             setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
         }
         return this;
-    }
-
-    public boolean isDarkThemeEnabled() {
-        final int currentState = AppCompatDelegate.getDefaultNightMode();
-        if (currentState == AppCompatDelegate.MODE_NIGHT_YES) {
-            return true;
-        } else if (currentState == AppCompatDelegate.MODE_NIGHT_NO) {
-            return false;
-        } else {
-            switch (_context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-                case Configuration.UI_MODE_NIGHT_YES:
-                    return true;
-                case Configuration.UI_MODE_NIGHT_NO:
-                    return false;
-            }
-        }
-        return false;
     }
 
     public boolean isLoadLastDirectoryAtStartup() {
@@ -568,11 +549,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public int getEditorForegroundColor() {
-        return getInt(R.string.pref_key__editor_basic_color_scheme__fg, rcolor(R.color.primary_text));
+        final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
+        return getInt(night ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light, rcolor(R.color.primary_text));
     }
 
     public int getEditorBackgroundColor() {
-        int c = getInt(R.string.pref_key__editor_basic_color_scheme__bg, rcolor(R.color.background));
+        final boolean night = GsContextUtils.instance.isDarkModeEnabled(_context);
+        int c = getInt(night ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light, rcolor(R.color.background));
         if (getAppThemeName().contains("black")) {
             c = Color.BLACK;
         }
@@ -588,8 +571,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
-        int resIdFg = forDarkMode ? R.string.pref_key__editor_basic_color_scheme__fg_dark : R.string.pref_key__editor_basic_color_scheme__fg_light;
-        int resIdBg = forDarkMode ? R.string.pref_key__editor_basic_color_scheme__bg_dark : R.string.pref_key__editor_basic_color_scheme__bg_light;
+        int resIdFg = forDarkMode ? R.string.pref_key__basic_color_scheme__fg_dark : R.string.pref_key__basic_color_scheme__fg_light;
+        int resIdBg = forDarkMode ? R.string.pref_key__basic_color_scheme__bg_dark : R.string.pref_key__basic_color_scheme__bg_light;
         setInt(resIdFg, rcolor(fgColor));
         setInt(resIdBg, rcolor(bgColor));
     }

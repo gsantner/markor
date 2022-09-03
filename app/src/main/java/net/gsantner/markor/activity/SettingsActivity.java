@@ -303,37 +303,37 @@ public class SettingsActivity extends MarkorBaseActivity {
                     }
                     return true;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_markor: {
+                case R.string.pref_key__basic_color_scheme_markor: {
                     _appSettings.setEditorBasicColor(true, R.color.white, R.color.dark_grey);
                     _appSettings.setEditorBasicColor(false, R.color.dark_grey, R.color.light__background);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_blackorwhite: {
+                case R.string.pref_key__basic_color_scheme_blackorwhite: {
                     _appSettings.setEditorBasicColor(true, R.color.white, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.black, R.color.white);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_solarized: {
+                case R.string.pref_key__basic_color_scheme_solarized: {
                     _appSettings.setEditorBasicColor(true, R.color.solarized_fg, R.color.solarized_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.solarized_fg, R.color.solarized_bg_light);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_gruvbox: {
+                case R.string.pref_key__basic_color_scheme_gruvbox: {
                     _appSettings.setEditorBasicColor(true, R.color.gruvbox_fg_dark, R.color.gruvbox_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.gruvbox_fg_light, R.color.gruvbox_bg_light);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_nord: {
+                case R.string.pref_key__basic_color_scheme_nord: {
                     _appSettings.setEditorBasicColor(true, R.color.nord_fg_dark, R.color.nord_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.nord_fg_light, R.color.nord_bg_light);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_greenscale: {
+                case R.string.pref_key__basic_color_scheme_greenscale: {
                     _appSettings.setEditorBasicColor(true, R.color.green_dark, R.color.black);
                     _appSettings.setEditorBasicColor(false, R.color.green_light, R.color.white);
                     break;
                 }
-                case R.string.pref_key__editor_basic_color_scheme_sepia: {
+                case R.string.pref_key__basic_color_scheme_sepia: {
                     _appSettings.setEditorBasicColor(true, R.color.sepia_bg_light__fg_dark, R.color.sepia_fg_light__bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.sepia_fg_light__bg_dark, R.color.sepia_bg_light__fg_dark);
                     break;

@@ -42,6 +42,7 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -261,7 +262,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes(context, (_appSettings.isDarkThemeEnabled() ? "-tomorrow" : ""));
+        final String xt = getViewHlPrismIncludes(context, (GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
         head += xt;
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder

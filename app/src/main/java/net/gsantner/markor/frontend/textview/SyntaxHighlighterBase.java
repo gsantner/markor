@@ -35,6 +35,7 @@ import androidx.annotation.Nullable;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public abstract class SyntaxHighlighterBase {
      * @return Highlighter
      */
     public SyntaxHighlighterBase configure(@Nullable final Paint paint) {
-        _isDarkMode = _appSettings.isDarkThemeEnabled();
+        _isDarkMode = GsContextUtils.instance.isDarkModeEnabled(_appSettings.getContext());
         _fontFamily = _appSettings.getFontFamily();
         _textColor = _appSettings.getEditorForegroundColor();
         if (paint != null) {

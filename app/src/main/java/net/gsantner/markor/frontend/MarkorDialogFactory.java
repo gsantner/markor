@@ -48,6 +48,7 @@ import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -694,7 +695,7 @@ public class MarkorDialogFactory {
     }
 
     public static void baseConf(Activity activity, GsSearchOrCustomTextDialog.DialogOptions dopt) {
-        dopt.isDarkDialog = as().isDarkThemeEnabled();
+        dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
         dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);

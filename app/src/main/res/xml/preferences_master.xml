@@ -193,56 +193,56 @@
                 <other.com.flask.colorpicker.ColorPickerPreference
                     android:defaultValue="@color/background"
                     android:icon="@drawable/ic_border_outer_black_24dp"
-                    android:key="@string/pref_key__editor_basic_color_scheme__bg_light"
+                    android:key="@string/pref_key__basic_color_scheme__bg_light"
                     android:title="BG Light" />
 
                 <other.com.flask.colorpicker.ColorPickerPreference
                     android:defaultValue="@color/dark_grey"
                     android:icon="@drawable/ic_text_fields_black_24dp"
-                    android:key="@string/pref_key__editor_basic_color_scheme__fg_light"
+                    android:key="@string/pref_key__basic_color_scheme__fg_light"
                     android:title="FG Light" />
 
                 <other.com.flask.colorpicker.ColorPickerPreference
                     android:defaultValue="@color/dark_grey"
                     android:icon="@drawable/ic_border_outer_black_24dp"
-                    android:key="@string/pref_key__editor_basic_color_scheme__bg_dark"
+                    android:key="@string/pref_key__basic_color_scheme__bg_dark"
                     android:title="BG Dark" />
 
 
                 <other.com.flask.colorpicker.ColorPickerPreference
                     android:defaultValue="@color/white"
                     android:icon="@drawable/ic_text_fields_black_24dp"
-                    android:key="@string/pref_key__editor_basic_color_scheme__fg_dark"
+                    android:key="@string/pref_key__basic_color_scheme__fg_dark"
                     android:title="FG Dark" />
 
                 <PreferenceCategory android:title="@string/preset">
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_markor"
+                        android:key="@string/pref_key__basic_color_scheme_markor"
                         android:title="@string/editor_basic_color_scheme_markor" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_blackorwhite"
+                        android:key="@string/pref_key__basic_color_scheme_blackorwhite"
                         android:title="@string/editor_basic_color_scheme_black_or_white" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_solarized"
+                        android:key="@string/pref_key__basic_color_scheme_solarized"
                         android:title="@string/editor_basic_color_scheme_solarized" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_gruvbox"
+                        android:key="@string/pref_key__basic_color_scheme_gruvbox"
                         android:title="@string/editor_basic_color_scheme_gruvbox" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_greenscale"
+                        android:key="@string/pref_key__basic_color_scheme_greenscale"
                         android:title="@string/editor_basic_color_scheme_greenscale" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_sepia"
+                        android:key="@string/pref_key__basic_color_scheme_sepia"
                         android:title="@string/editor_basic_color_scheme_sepia" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
-                        android:key="@string/pref_key__editor_basic_color_scheme_nord"
+                        android:key="@string/pref_key__basic_color_scheme_nord"
                         android:title="@string/editor_basic_color_scheme_nord" />
                 </PreferenceCategory>
 
