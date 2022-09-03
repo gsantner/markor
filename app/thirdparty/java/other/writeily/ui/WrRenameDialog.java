@@ -67,7 +67,7 @@ public class WrRenameDialog extends DialogFragment {
 
         EditText newNameField = _dialog.findViewById(R.id.new_name);
         addFilenameClashTextWatcher(newNameField);
-        newNameField.setFilters(new InputFilter[]{GsContextUtils.INPUTFILTER_FILENAME});
+        newNameField.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
 
         _dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             View root = inflater.inflate(R.layout.rename__dialog, null);

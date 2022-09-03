@@ -113,7 +113,7 @@ public class NewFileDialog extends DialogFragment {
         fileNameEdit.requestFocus();
         new Handler().postDelayed(new GsContextUtils.DoTouchView(fileNameEdit), 200);
 
-        fileNameEdit.setFilters(new InputFilter[]{GsContextUtils.INPUTFILTER_FILENAME});
+        fileNameEdit.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
         fileExtEdit.setFilters(fileNameEdit.getFilters());
 
         loadTemplatesIntoSpinner(appSettings, templateSpinner);

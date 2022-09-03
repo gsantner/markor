@@ -146,7 +146,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -927,21 +926,19 @@ public class GsContextUtils {
     /**
      * A {@link InputFilter} for filenames
      */
-    @SuppressWarnings("Convert2Lambda")
-    public static final InputFilter INPUTFILTER_FILENAME = new InputFilter() {
-        public CharSequence filter(final CharSequence src, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
-            if (src != null && src.length() > 0) {
-                for (char disallowed : "|\\?*<\":>[]/'".toCharArray()) {
-                    for (int i = start; i < end; i++) {
-                        if (src.charAt(i) == disallowed) {
-                            return "";
-                        }
-                    }
+    @SuppressWarnings({"UnnecessaryLocalVariable", "RedundantSuppression"})
+    public InputFilter makeFilenameInputFilter() {
+        return (filterSrc, filterStart, filterEnd, filterDest, filterDstart, filterDend) -> {
+            if (filterSrc != null && filterSrc.length() > 0) {
+                final String newInput = filterSrc.subSequence(filterStart, filterEnd).toString().replace(" ", "");
+                final String newInputFiltered = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(newInput);
+                if (!newInput.equals(newInputFiltered)) {
+                    return "";
                 }
             }
             return null;
-        }
-    };
+        };
+    }
 
     /**
      * A simple {@link Runnable} which does a touch event on a view.
@@ -1138,23 +1135,6 @@ public class GsContextUtils {
             context.finish();
         }
         return thisp();
-    }
-
-    /**
-     * Generate a filename based off current datetime in filename (year, month, day, hour, minute, second)
-     * Examples: Screenshot_20210208-184301_Trebuchet.png IMG_20190511-230845.jpg
-     *
-     * @param A0prefixA1postfixA2ext All arguments are optional and default values are taken for null
-     *                               [0] = Prefix [Screenshot/IMG]
-     *                               [1] = Postfix [Trebuchet]
-     *                               [2] = File extensions [jpg/png/txt]
-     * @return Filename
-     */
-    public String getFilenameWithTimestamp(String... A0prefixA1postfixA2ext) {
-        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
-        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
-        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
-        return String.format("%s%s%s.%s", prefix.trim(), DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
     }
 
 
@@ -1431,7 +1411,7 @@ public class GsContextUtils {
      */
     public <T extends GsContextUtils> T shareImage(final Context context, final Bitmap bitmap, final GsCallback.a1<Boolean> okCallback, final Integer... quality) {
         try {
-            File file = new File(context.getCacheDir(), getFilenameWithTimestamp());
+            File file = new File(context.getCacheDir(), GsFileUtils.getFilenameWithTimestamp());
             if (bitmap != null) {
                 writeImageToFile(file, bitmap, (ok) -> {
                     if (ok) {
@@ -1777,7 +1757,7 @@ public class GsContextUtils {
     @SuppressWarnings("RegExpRedundantEscape")
     public String requestCameraPicture(final Activity context, final File target) {
         final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        final String timestampedFilename = getFilenameWithTimestamp("IMG", "", "jpg");
+        final String timestampedFilename = GsFileUtils.getFilenameWithTimestamp("IMG", "", "jpg");
         final File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
 
         String cameraPictureFilepath = null;

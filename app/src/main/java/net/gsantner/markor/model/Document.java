@@ -359,7 +359,7 @@ public class Document implements Serializable {
         if (TextUtils.isEmpty(name.trim())) {
             return getFileNameWithTimestamp(false);
         } else {
-            return name.replaceAll("[\\\\/:\"´`'*$?<>\n\r@|#]+", "").trim();
+            return GsFileUtils.getFilteredFilenameWithoutDisallowedChars(name);
         }
     }
 
@@ -379,6 +379,6 @@ public class Document implements Serializable {
     // Convenient wrapper
     private static String getFileNameWithTimestamp(final boolean includeExt) {
         final String ext = includeExt ? MarkdownTextConverter.EXT_MARKDOWN__TXT : "";
-        return MarkorContextUtils.instance.getFilenameWithTimestamp("", "", ext);
+        return GsFileUtils.getFilenameWithTimestamp("", "", ext);
     }
 }

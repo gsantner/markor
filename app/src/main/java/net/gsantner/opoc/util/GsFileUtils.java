@@ -33,6 +33,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -608,5 +609,33 @@ public class GsFileUtils {
         final String name = file.getName();
         final int doti = name.lastIndexOf(".");
         return (doti < 0) ? "" : name.substring(doti).toLowerCase();
+    }
+
+    public static String getFilteredFilenameWithoutDisallowedChars(String str, final boolean... a1NoRCEguard) {
+        final boolean noRCEguard = a1NoRCEguard != null && a1NoRCEguard.length > 0 && a1NoRCEguard[0];
+        final String disallowedChars = "<|[\\?*:\"\n\r\t\0]/>" + (noRCEguard ? "" : "`$%;=&#@");
+        for (char disallowed : disallowedChars.toCharArray()) {
+            str = str.replace(String.valueOf(disallowed), "");
+        }
+        return str.trim();
+    }
+
+    /**
+     * Generate a filename based off current datetime in filename (year, month, day, hour, minute, second)
+     * Examples: Screenshot_20210208-184301_Trebuchet.png IMG_20190511-230845.jpg
+     *
+     * @param A0prefixA1postfixA2ext All arguments are optional and default values are taken for null
+     *                               [0] = Prefix [Screenshot/IMG]
+     *                               [1] = Postfix [Trebuchet]
+     *                               [2] = File extensions [jpg/png/txt]
+     * @return Filename
+     */
+    public static String getFilenameWithTimestamp(final String... A0prefixA1postfixA2ext) {
+        final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
+        final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
+        final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
+        String filename = String.format("%s%s%s.%s", prefix.trim(), GsContextUtils.DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
+        filename = getFilteredFilenameWithoutDisallowedChars(filename);
+        return filename;
     }
 }

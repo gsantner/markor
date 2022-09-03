@@ -68,7 +68,7 @@ public class GsBackupUtils {
     public static File generateBackupFilepath(final Context context, final File targetFolder) {
         final GsContextUtils cu = GsContextUtils.instance;
         final String appName = cu.rstr(context, "app_name_real").toLowerCase().replaceAll("\\s", "");
-        return new File(targetFolder, cu.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
+        return new File(targetFolder, GsFileUtils.getFilenameWithTimestamp("BACKUP_" + appName, null, ".json"));
     }
 
     public static String getPrefName(final Context context, final String raw) {
