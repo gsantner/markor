@@ -235,9 +235,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         Object result = _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
 
         boolean restart = (requestCode == MarkorContextUtils.REQUEST_STORAGE_PERMISSION_R && ((boolean) result));
-        restart |= requestCode == IntroActivity.REQ_CODE_APPINTRO && _cu.checkExternalStoragePermission(this, false);
         if (restart) {
             restartMainActivity();
+        }
+
+        if (requestCode == IntroActivity.REQ_CODE_APPINTRO) {
+            return;
         }
 
         try {
@@ -261,7 +264,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public void onClickFab(View view) {
         final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         final GsFileBrowserFragment fsFrag = getNotebook();
-        if (fsFrag == null) {
+        if (fsFrag == null || !permc.doIfExtStoragePermissionGranted()) {
             return;
         }
 
