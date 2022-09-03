@@ -16,7 +16,7 @@
     android:background="@android:color/transparent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
-    tools:context="web.gsantner.markor.activity.DocumentEditFragment"
+    tools:context="web.gsantner.markor.activity.DocumentEditAndViewFragment"
     tools:showIn="@layout/document__activity">
 
     <net.gsantner.markor.frontend.DraggableScrollbarScrollView

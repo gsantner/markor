@@ -68,7 +68,7 @@ import java.io.File;
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditAndViewFragment extends MarkorBaseFragment implements FormatRegistry.TextFormatApplier {
-    public static final String FRAGMENT_TAG = "DocumentEditFragment";
+    public static final String FRAGMENT_TAG = "DocumentEditAndViewFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 

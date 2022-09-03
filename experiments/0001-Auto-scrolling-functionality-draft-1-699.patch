@@ -5,7 +5,7 @@ Subject: [PATCH] Auto scrolling functionality, draft 1 (#699)
 
 ---
  .../markor/activity/DocumentActivity.java     |  7 ++++
- .../markor/activity/DocumentEditFragment.java | 17 ++++++++++
+ .../markor/activity/DocumentEditAndViewFragment.java | 17 ++++++++++
  .../opoc/util/CoolExperimentalStuff.java      | 34 +++++++++++++++++++
  .../main/res/menu/document__edit__menu.xml    |  6 ++++
  app/src/main/res/values/strings.xml           |  1 +
@@ -38,11 +38,11 @@ index eca0ab1f..b9d95876 100644
      @Override
      @SuppressWarnings("StatementWithEmptyBody")
      public void onBackPressed() {
-diff --git a/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java b/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
+diff --git a/app/src/main/java/net/gsantner/markor/activity/DocumentEditAndViewFragment.java b/app/src/main/java/net/gsantner/markor/activity/DocumentEditAndViewFragment.java
 index c0ad2d1f..23af187d 100644
---- a/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
-+++ b/app/src/main/java/net/gsantner/markor/activity/DocumentEditFragment.java
-@@ -250,6 +250,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+--- a/app/src/main/java/net/gsantner/markor/activity/DocumentEditAndViewFragment.java
++++ b/app/src/main/java/net/gsantner/markor/activity/DocumentEditAndViewFragment.java
+@@ -250,6 +250,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements TextFormat.T
          menu.findItem(R.id.submenu_tools).setVisible(isExpimentalFeaturesEnabled);
          menu.findItem(R.id.action_load_epub).setVisible(isExpimentalFeaturesEnabled);
          menu.findItem(R.id.action_speed_read).setVisible(isExpimentalFeaturesEnabled);
@@ -50,7 +50,7 @@ index c0ad2d1f..23af187d 100644
      }
  
      public void loadDocumentIntoUi() {
-@@ -416,6 +417,21 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+@@ -416,6 +417,21 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements TextFormat.T
                  CoolExperimentalStuff.showSpeedReadDialog(getActivity(), _document.getContent());
                  return true;
              }
@@ -72,7 +72,7 @@ index c0ad2d1f..23af187d 100644
          }
          return super.onOptionsItemSelected(item);
      }
-@@ -617,6 +633,7 @@ public class DocumentEditFragment extends GsFragmentBase implements TextFormat.T
+@@ -617,6 +633,7 @@ public class DocumentEditAndViewFragment extends GsFragmentBase implements TextFormat.T
              _webView.animate().setDuration(150).alpha(1.0f).setListener(null);
          }
          _isPreviewVisible = show;
