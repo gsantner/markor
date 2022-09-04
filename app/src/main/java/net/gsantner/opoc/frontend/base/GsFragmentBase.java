@@ -68,10 +68,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.postDelayed(() -> {
-            checkRunFirstTimeVisible();
-            attachToolbarClickListenersToFragment();
-        }, 1);
+        view.postDelayed(this::checkRunFirstTimeVisible, 200);
     }
 
     @Nullable
@@ -82,19 +79,6 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Nullable
     public CU createContextUtilsInstance(Context applicationContext) {
         return null;
-    }
-
-    protected void attachToolbarClickListenersToFragment() {
-        final Toolbar toolbar;
-        final boolean visibleHint = isVisible() && isResumed();
-        if ((toolbar = getToolbar()) != null && visibleHint) {
-            toolbar.setOnLongClickListener(clickView -> visibleHint && onToolbarLongClicked(clickView));
-            toolbar.setOnClickListener(clickView -> {
-                if (visibleHint) {
-                    onToolbarClicked(clickView);
-                }
-            });
-        }
     }
 
     /**
@@ -148,6 +132,19 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         if (_fragmentFirstTimeVisible && isVisible() && isResumed()) {
             _fragmentFirstTimeVisible = false;
             onFragmentFirstTimeVisible();
+            attachToolbarClickListenersToFragment();
+        }
+    }
+
+    protected void attachToolbarClickListenersToFragment() {
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnLongClickListener(clickView -> isVisible() && isResumed() && onToolbarLongClicked(clickView));
+            toolbar.setOnClickListener(clickView -> {
+                if (isVisible() && isResumed()) {
+                    onToolbarClicked(clickView);
+                }
+            });
         }
     }
 
@@ -156,7 +153,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         super.onResume();
         final View view = getView();
         if (view != null) {
-            view.postDelayed(this::checkRunFirstTimeVisible, 1);
+            view.postDelayed(this::checkRunFirstTimeVisible, 200);
         }
     }
 
