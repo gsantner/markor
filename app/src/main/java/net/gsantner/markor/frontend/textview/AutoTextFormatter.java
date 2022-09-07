@@ -270,20 +270,20 @@ public class AutoTextFormatter implements InputFilter {
      */
     public static void renumberOrderedList(final Editable edit, final FormatPatterns patterns) {
 
-        final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
-
-        final int cursorPosition = TextViewUtils.getSelection(edit)[0];
-        if (!TextViewUtils.isValidIndex(edit, cursorPosition)) {
+        final int[] sel = TextViewUtils.getSelection(edit);
+        if (!TextViewUtils.inRange(0, edit.length(), sel)) {
             return;
         }
 
+        final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
+
+        final int[] shifts = new int[] {0, 0};
+
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, patterns);
+        final OrderedListLine firstLine = getOrderedListStart(chunked, sel[0], patterns);
         if (!firstLine.isOrderedList) {
             return;
         }
-
-        final int[] offset = TextViewUtils.getLineOffsetFromIndex(edit, cursorPosition);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
@@ -325,6 +325,14 @@ public class AutoTextFormatter implements InputFilter {
                     final OrderedListLine peek = levels.peek();
                     final String newValue = getNextOrderedValue(peek.value, line.equals(peek));
                     if (!newValue.equals(line.value)) {
+                        final int delta = newValue.length() - line.value.length();
+                        if (line.numEnd < sel[0]) {
+                            shifts[0] += delta;
+                        }
+                        if (line.numEnd < sel[1]) {
+                            shifts[1] += delta;
+                        }
+
                         chunked.replace(line.numStart, line.numEnd, newValue);
                         line = line.recreate(); // Recreate as line has changed
                     }
@@ -336,10 +344,9 @@ public class AutoTextFormatter implements InputFilter {
 
             chunked.applyChanges();
 
-            // Restore cursor position
-            final int newPos = TextViewUtils.getIndexFromLineOffset(edit, offset);
-            if (TextViewUtils.isValidIndex(edit, newPos)) {
-                Selection.setSelection(edit, newPos);
+            final int[] newSel = new int[] {sel[0] + shifts[0], sel[1] + shifts[1]};
+            if (TextViewUtils.inRange(0, edit.length(), newSel)) {
+                Selection.setSelection(edit, newSel[0], newSel[1]);
             }
 
         } catch (EmptyStackException ex) {
