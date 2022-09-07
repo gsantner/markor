@@ -292,7 +292,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    protected void renumberOrderedList(final int position) {
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, WikitextReplacePatternGenerator.formatPatterns);
+    protected void renumberOrderedList() {
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), WikitextReplacePatternGenerator.formatPatterns);
     }
 }

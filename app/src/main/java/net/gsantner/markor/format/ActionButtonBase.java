@@ -596,7 +596,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_ordered_list_renumber: {
-                renumberOrderedList(TextViewUtils.getSelection(_hlEditor)[0]);
+                renumberOrderedList();
                 return true;
             }
             case R.string.abid_common_move_text_one_line_up:
@@ -765,7 +765,7 @@ public abstract class ActionButtonBase {
     }
 
     // Derived classes should override this to implement format-specific renumber logic
-    protected void renumberOrderedList(final int cursorPosition) {
+    protected void renumberOrderedList() {
         // No-op in base class
     }
 
@@ -775,7 +775,7 @@ public abstract class ActionButtonBase {
 
     public final void runRenumberOrderedListIfRequired(final boolean force) {
         if (force || _hlEditor.getAutoFormatEnabled()) {
-            _hlEditor.withAutoFormatDisabled(() -> renumberOrderedList(TextViewUtils.getSelection(_hlEditor)[0]));
+            _hlEditor.withAutoFormatDisabled(this::renumberOrderedList);
         }
     }
 

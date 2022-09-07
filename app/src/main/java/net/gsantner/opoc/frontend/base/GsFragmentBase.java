@@ -35,7 +35,6 @@ import net.gsantner.opoc.wrapper.GsMenuItemDummy;
 @SuppressWarnings("unused")
 public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBackend, CU extends GsContextUtils> extends Fragment {
     private boolean _fragmentFirstTimeVisible = true;
-    private final Object _fragmentFirstTimeVisibleSync = new Object();
 
     protected AS _appSettings;
     protected CU _cu;
@@ -69,15 +68,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.postDelayed(() -> {
-            synchronized (_fragmentFirstTimeVisibleSync) {
-                if (getUserVisibleHint() && isVisible() && _fragmentFirstTimeVisible) {
-                    _fragmentFirstTimeVisible = false;
-                    onFragmentFirstTimeVisible();
-                }
-            }
-            attachToolbarClickListenersToFragment();
-        }, 1);
+        view.postDelayed(this::checkRunFirstTimeVisible, 200);
     }
 
     @Nullable
@@ -88,18 +79,6 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     @Nullable
     public CU createContextUtilsInstance(Context applicationContext) {
         return null;
-    }
-
-    protected void attachToolbarClickListenersToFragment() {
-        final Toolbar toolbar;
-        if ((toolbar = getToolbar()) != null && getUserVisibleHint()) {
-            toolbar.setOnLongClickListener(clickView -> getUserVisibleHint() && onToolbarLongClicked(clickView));
-            toolbar.setOnClickListener(clickView -> {
-                if (getUserVisibleHint()) {
-                    onToolbarClicked(clickView);
-                }
-            });
-        }
     }
 
     /**
@@ -149,17 +128,39 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     public void onFragmentFirstTimeVisible() {
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        synchronized (_fragmentFirstTimeVisibleSync) {
-            if (isVisibleToUser && _fragmentFirstTimeVisible) {
-                _fragmentFirstTimeVisible = false;
-                onFragmentFirstTimeVisible();
-            }
+    private synchronized void checkRunFirstTimeVisible() {
+        if (_fragmentFirstTimeVisible && isVisible() && isResumed()) {
+            _fragmentFirstTimeVisible = false;
+            onFragmentFirstTimeVisible();
+            attachToolbarClickListenersToFragment();
         }
+    }
 
-        attachToolbarClickListenersToFragment();
+    protected void attachToolbarClickListenersToFragment() {
+        final Toolbar toolbar = getToolbar();
+        if (toolbar != null) {
+            toolbar.setOnLongClickListener(clickView -> {
+                if (isVisible() && isResumed()) {
+                    return onToolbarLongClicked(clickView);
+                }
+                return false;
+            });
+            toolbar.setOnClickListener(clickView -> {
+                if (isVisible() && isResumed()) {
+                    onToolbarClicked(clickView);
+                }
+            });
+
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final View view = getView();
+        if (view != null) {
+            view.postDelayed(this::checkRunFirstTimeVisible, 200);
+        }
     }
 
     @Override

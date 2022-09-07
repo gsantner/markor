@@ -41,7 +41,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
-    final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 250; // Block auto-scrolling for time after highlighing (hack)
+    final static long BRING_CURSOR_INTO_VIEW_DELAY_MS = 200; // Block auto-scrolling for time after highlighing (hack)
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
@@ -55,8 +55,10 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _isDynamicHighlightingEnabled = true;
     private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
     private boolean _hlEnabled;           // Whether highlighting is enabled
-    private Rect _hlRect = null;          // Rect highlighting was previously applied to
+    private final Rect _olhHlRect;        // Rect highlighting was previously applied to
+    private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
+    private volatile boolean _hlPostQueued = false;
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
@@ -75,6 +77,8 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _hlEnabled = false;
+        _olhHlRect = new Rect();
+        _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
             @Override
@@ -95,7 +99,7 @@ public class HighlightingEditor extends AppCompatEditText {
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnScrollChangedListener(this::updateDynamicHighlighting);
-        observer.addOnGlobalLayoutListener(this::updateDynamicHighlighting);
+        observer.addOnGlobalLayoutListener(this::postUpdateDynamicHighlighting);
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -104,10 +108,9 @@ public class HighlightingEditor extends AppCompatEditText {
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
-    private boolean isScrollSignificant(final Rect rect) {
-        return _hlRect == null ||
-                Math.abs(rect.top - _hlRect.top) > _hlShiftThreshold ||
-                Math.abs(rect.bottom - _hlRect.bottom) > _hlShiftThreshold;
+    private boolean isScrollSignificant() {
+        return Math.abs(_hlRect.top - _olhHlRect.top) > _hlShiftThreshold ||
+                Math.abs(_hlRect.bottom - _olhHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateDynamicHighlighting() {
@@ -116,24 +119,33 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    private synchronized void postUpdateDynamicHighlighting() {
+        if (!_hlPostQueued) {
+            _hlPostQueued = true;
+            post(() -> {
+                updateDynamicHighlighting();
+                _hlPostQueued = false;
+            });
+        }
+    }
+
     private void updateHighlighting(final boolean recompute) {
         final Layout layout;
         if (!_isUpdatingDynamicHighlighting && _hlEnabled && _hl != null && (layout = getLayout()) != null) {
             _isUpdatingDynamicHighlighting = true;
 
-            final Rect rect = new Rect();
-            getLocalVisibleRect(rect);
+            final boolean visible = getLocalVisibleRect(_hlRect);
 
             // Don't highlight unless shifted sufficiently or a recompute is required
-            if (recompute || (_hl.hasSpans() && isScrollSignificant(rect))) {
+            if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
 
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user
-                final int shiftTestLine = layout.getLineForVertical(rect.centerY());
+                final int shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
                 final int oldOffset = layout.getLineBaseline(shiftTestLine);
 
-                final int[] newHlRegion = hlRegion(rect); // Compute this _before_ clear
+                final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
                 try {
                     beginBatchEdit();
                     blockBringPointIntoView(); // Hack to block bring point into view
@@ -147,7 +159,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     endBatchEdit();
                 }
 
-                _hlRect = rect;
+                _olhHlRect.set(_hlRect);
 
                 final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
                 if (_scrollView != null && Math.abs(shift) > 1) {

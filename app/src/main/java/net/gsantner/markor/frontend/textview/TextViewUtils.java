@@ -15,6 +15,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
+import android.text.Selection;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -108,7 +109,7 @@ public final class TextViewUtils extends GsTextUtils {
         return -1;
     }
 
-    public static boolean isNullOrWhitespace(String str) {
+    public static boolean isNullOrWhitespace(final String str) {
         if (str == null || str.isEmpty()) {
             return true;
         }
@@ -124,16 +125,20 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
     public static int[] getSelection(final TextView text) {
+        return getSelection(text.getText());
+    }
 
-        int selectionStart = text.getSelectionStart();
-        int selectionEnd = text.getSelectionEnd();
+    // CharSequence must be an instance of _Spanned_
+    public static int[] getSelection(final CharSequence text) {
 
-        if (selectionEnd < selectionStart) {
-            selectionEnd = text.getSelectionStart();
-            selectionStart = text.getSelectionEnd();
+        final int selectionStart = Selection.getSelectionStart(text);
+        final int selectionEnd = Selection.getSelectionEnd(text);
+
+        if (selectionEnd >= selectionStart) {
+            return new int[]{selectionStart, selectionEnd};
+        } else {
+            return new int[]{selectionEnd, selectionStart};
         }
-
-        return new int[]{selectionStart, selectionEnd};
     }
 
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {

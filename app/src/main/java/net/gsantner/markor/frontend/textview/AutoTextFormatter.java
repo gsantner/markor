@@ -11,6 +11,7 @@ package net.gsantner.markor.frontend.textview;
 
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Selection;
 import android.text.Spanned;
 
 import java.util.EmptyStackException;
@@ -267,12 +268,19 @@ public class AutoTextFormatter implements InputFilter {
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable edit, final int cursorPosition, final FormatPatterns patterns) {
+    public static void renumberOrderedList(final Editable edit, final FormatPatterns patterns) {
+
+        final int[] sel = TextViewUtils.getSelection(edit);
+        if (!TextViewUtils.inRange(0, edit.length(), sel)) {
+            return;
+        }
 
         final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
 
+        final int[] shifts = new int[]{0, 0};
+
         // Top of list
-        final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, patterns);
+        final OrderedListLine firstLine = getOrderedListStart(chunked, sel[0], patterns);
         if (!firstLine.isOrderedList) {
             return;
         }
@@ -317,6 +325,14 @@ public class AutoTextFormatter implements InputFilter {
                     final OrderedListLine peek = levels.peek();
                     final String newValue = getNextOrderedValue(peek.value, line.equals(peek));
                     if (!newValue.equals(line.value)) {
+                        final int delta = newValue.length() - line.value.length();
+                        if (line.numEnd < sel[0]) {
+                            shifts[0] += delta;
+                        }
+                        if (line.numEnd < sel[1]) {
+                            shifts[1] += delta;
+                        }
+
                         chunked.replace(line.numStart, line.numEnd, newValue);
                         line = line.recreate(); // Recreate as line has changed
                     }
@@ -327,6 +343,12 @@ public class AutoTextFormatter implements InputFilter {
             }
 
             chunked.applyChanges();
+
+            final int[] newSel = new int[]{sel[0] + shifts[0], sel[1] + shifts[1]};
+            if (TextViewUtils.inRange(0, edit.length(), newSel)) {
+                Selection.setSelection(edit, newSel[0], newSel[1]);
+            }
+
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();

@@ -62,8 +62,8 @@ public class PlaintextActionButtons extends ActionButtonBase {
     }
 
     @Override
-    protected void renumberOrderedList(final int position) {
+    protected void renumberOrderedList() {
         // Use markdown format for plain text too
-        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), position, MarkdownReplacePatternGenerator.formatPatterns);
+        AutoTextFormatter.renumberOrderedList(_hlEditor.getText(), MarkdownReplacePatternGenerator.formatPatterns);
     }
 }
