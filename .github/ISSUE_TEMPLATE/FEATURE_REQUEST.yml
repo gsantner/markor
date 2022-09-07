@@ -12,7 +12,7 @@ body:
       label: "⚠️ This issue respects the following points: ⚠️"
       description: All conditions are **required**. Your issue can be closed if these are checked incorrectly.
       options:
-        - label: This is a **enhancement/feature request**. Not a [bug](https://github.com/gsantner/markor/issues/new/choose) or [question](https://github.com/gsantner/markor/issues/95).
+        - label: This is a **enhancement/feature request**. Not a [bug or question](https://github.com/gsantner/markor/issues/new/choose).
           required: true
         - label: The topic is **not** already reported at [Issues](https://github.com/gsantner/markor/issues?q=#js-issues-search). _(I've searched it)_.
           required: true
