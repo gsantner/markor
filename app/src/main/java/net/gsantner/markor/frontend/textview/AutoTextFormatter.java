@@ -196,7 +196,7 @@ public class AutoTextFormatter implements InputFilter {
         }
 
         public OrderedListLine recreate() {
-            return new OrderedListLine(text, (lineEnd + lineStart) / 2, patterns);
+            return new OrderedListLine(text, lineStart, patterns);
         }
     }
 
@@ -361,10 +361,10 @@ public class AutoTextFormatter implements InputFilter {
         final Pattern capitalLetterPattern = Pattern.compile("[A-z]");
 
         if (numberPattern.matcher(currentValue).find()) {
-            int intValue = Integer.parseInt(currentValue);
+            final int intValue = TextViewUtils.tryParseInt(currentValue, 0);
             return restart ? "1" : Integer.toString(intValue + 1);
         } else {
-            char charValue = currentValue.charAt(0);
+            final char charValue = currentValue.charAt(0);
             if (lowercaseLetterPattern.matcher(currentValue).find()) {
                 return (restart || charValue >= 'z') ? "a" : String.valueOf(charValue + 1);
             } else if (capitalLetterPattern.matcher(currentValue).find()) {
