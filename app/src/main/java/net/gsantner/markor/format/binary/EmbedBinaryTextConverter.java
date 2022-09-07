@@ -35,6 +35,10 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
     private static final String HTML101_BODY_END = "\n\n</div>";
     private static final String CSS_EMBED_STYLE = CSS_S + "html,body{padding: 0px; margin:0px;}" + CSS_E;
     private static final String CSS_EMBED_TABLE_LIMITS = CSS_S + "table {word-break: break-word;} thead tr th:first-child, tbody tr td:first-child {word-break:keep-all; min-width: 100px;} thead {display:none;}  table tr:nth-child(odd) td{ background: " + TOKEN_COLOR_GREY_OF_THEME + "; color: " + TOKEN_BW_INVERSE_OF_THEME + "; }" + CSS_E;
+    private static final String CSS_EMBED_STICKY_STYLE = CSS_S + ".sticky-blackbox{top: 0px; border-top-width:0.1px; width: 100%; max-width: 100%; background: black; color: lightgrey; word-break: break-word;}" + CSS_E;
+
+    private static final String PLAYLIST_BUTTON_TEMPLATE = "<button type='button' id='playlistbtn%d' onclick=\"javascript:document.avSetPlaylistPos(%d, 0, true);\"/>&#10132;</button>";
+
 
     static {
         EXT.addAll(EXT_IMAGE);
@@ -54,17 +58,17 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         if (file == null) {
             return "";
         }
-        head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS;
+        head = CSS_EMBED_STYLE + CSS_EMBED_TABLE_LIMITS + CSS_EMBED_STICKY_STYLE;
         converted = HTML100_BODY_BEGIN;
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
 
         // Sticky header with content depending on type
         if (true) {
-            converted += "\n<div class='sticky' style='top: 0px; border-top-width:0.1px; width: 100%; background: black;'>\n";
+            converted += "\n<div class='sticky sticky-blackbox'>\n";
             if (EXT_IMAGE.contains(extWithDot)) {
                 converted += "<img class='' src='" + TOKEN_FILEURI_VIEWED_FILE + "' alt='Your Android device does not support the file format.'/>";
             } else if (EXT_VIDEO.contains(extWithDot) || extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST)) {
-                converted += "<video class='htmlav' autoplay controls loop style='max-height: 85vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
+                converted += "<video class='htmlav' autoplay controls loop style='max-height: 45vh; width: 100%; max-width: 100%;' srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'/>Your Android device does not support the video tag or the file format.</video>";
             } else if (EXT_AUDIO.contains(extWithDot)) {
                 converted += " <audio class='htmlav' title='" + file.getName() + "' autoplay loop controls loop='0' style='width: 100%;'><source srcx='" + TOKEN_FILEURI_VIEWED_FILE + "'>Your Android device does not support the audio tag or the file format.</audio>";
             }
@@ -73,33 +77,38 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, -1);\"/>⏮️️</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏪</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avPause();\"/>⏯️</button>";
-                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(-30);\"/>⏩</button>";
+                converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSeek(30);\"/>⏩</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avSetPlaylistPos(null, +1);\"/>⏭️</button>";
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.avLoopToggle();\"/>&#128257;</button>";
-                converted += "<p id='avCurrentPlayedTitleP' style='margin: 0px; margin-bottom: 2px;" + (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST) ? "" : "display:none;") + "'></p>";
+                converted += "<p id='avCurrentPlayedTitleP' style='margin: 0px; margin-bottom: 2px; white-space:nowrap; overflow:hidden;" + (extWithDot.matches(EXT_MATCHES_M3U_PLAYLIST) ? "" : "display:none;") + "'></p>";
 
+                // Audio/Video playback & playlist js functions
                 onLoadJs += "document.playlist = []; document.playlistTitles = []; document.playlistIndex = -1;";
-                onLoadJs += "document.avLoopToggle = function()      { var o=document.getElementsByClassName('htmlav')[0]; o.loop = !o.loop; };";
-                onLoadJs += "document.avSeek           = function(delta)    { var o=document.getElementsByClassName('htmlav')[0]; o.currentTime +=delta; o.play(); };";
+                onLoadJs += "document.av               = function(){ return document.getElementsByClassName('htmlav')[0]; };";
+                onLoadJs += "document.avLoopToggle     = function(){ var av=document.av(); av.loop = !av.loop; };";
+                onLoadJs += "document.avPause          = function(){ var av=document.av(); if(av.paused){av.play();} else{av.pause();}; };";
+                onLoadJs += "document.avSetUrl         = function(u){ var av=document.av(); av.src = u; av.play(); };";
+                onLoadJs += "document.avAddToPlaylist  = function(t, u){ var av=document.av(); document.playlist.push(u); document.playlistTitles.push(t); if (document.playlistIndex < 0){ document.avSetPlaylistPos(null, 1);} };";
+                onLoadJs += "document.avSeek           = function(delta){ var av=document.av(); av.currentTime +=delta; av.play(); };";
+                onLoadJs += "document.av().addEventListener('ended', ()=>{ console.error('ended'); document.avSetPlaylistPos(null, +1); });";
                 onLoadJs += "document.avSetPlaylistPos = function(i, delta, byUserSelection) { " +
-                        "i = i!=null ? i : document.playlistIndex; delta = delta!=null ? delta : 0; byUserSelection = byUserSelection!=null ? byUserSelection : false;" +
-                        "document.playlistIndex = (i+delta)%document.playlist.length;" +
-                        "document.avSetUrl(document.playlist[document.playlistIndex]);" +
-                        "document.getElementById('avCurrentPlayedTitleP').innerText = document.playlistTitles[document.playlistIndex];" +
-                        "if (!byUserSelection) { document.location.hash = 'playlistbtn'+(document.playlistIndex-6);}" +
-                        "};";
-                onLoadJs += "document.avPause          = function()         { var o=document.getElementsByClassName('htmlav')[0]; if(o.paused){o.play();} else{o.pause();}; };";
-                onLoadJs += "document.avSetUrl         = function(u)        { var o=document.getElementsByClassName('htmlav')[0]; o.src = u; o.play(); };";
-                onLoadJs += "document.avAddToPlaylist  = function(t, u)     { var o=document.getElementsByClassName('htmlav')[0]; document.playlist.push(u); document.playlistTitles.push(t); if (document.playlistIndex < 0){ document.avSetPlaylistPos(null, 1);} };";
-                onLoadJs += "document.getElementsByClassName('htmlav')[0].addEventListener('ended', ()=>{ console.error('ended'); document.avSetPlaylistPos(null, +1); });";
+                        "        i = i!=null ? i : document.playlistIndex; delta = delta!=null ? delta : 0; byUserSelection = byUserSelection!=null ? byUserSelection : false;" +
+                        "        document.playlistIndex = (i+delta)%document.playlist.length;" +
+                        "        document.avSetUrl(document.playlist[document.playlistIndex]);" +
+                        "        document.getElementById('avCurrentPlayedTitleP').innerText = document.playlistTitles[document.playlistIndex].substring(0, 120);" +
+                        "        if (!byUserSelection) { document.location.hash = 'playlistbtn'+(document.playlistIndex-6);}" +
+                        "    };";
 
                 // Add file itself as first item to playlist
                 onLoadJs += "document.avAddToPlaylist('" + TOKEN_FILEURI_VIEWED_FILE + "', '" + TOKEN_FILEURI_VIEWED_FILE + "');";
 
+                // Don't turn screen automatically off during playback
                 if (context instanceof Activity) {
                     GsContextUtils.instance.setKeepScreenOn((Activity) context, true);
                 }
             }
+
+            // Rotation sticky button
             if (converted.contains("rotatable")) {
                 converted += "<button type='button floatl' class='fa' onclick=\"javascript:document.rotate();\"/>&#128260️</button>";
                 onLoadJs += "document.rotation = 0;";
@@ -109,7 +118,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         }
 
 
-        // div width side margins
+        // content area with side margins
         if (true) {
             converted += "\n\n<div style='margin: 16px; margin-top: 0px;'><br/>\n";
             // Add file info table below content
@@ -126,12 +135,10 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
                 table.append(String.format("%s | %s\n-----|-----\n", context.getString(R.string.name), context.getString(R.string.info)));
 
                 int i = 0;
-                for (GsSimplePlaylistParser.Item line : new GsSimplePlaylistParser().parse(GsFileUtils.readTextFileFast(file).first)) {
-                    onLoadJs += "\ndocument.avAddToPlaylist('" + line.getName() + "', '" + line.getUrl() + "');";
-                    table.append(line.getName(80)).append(" | ");
-                    table.append("<button type='button' id='playlistbtn").append(i);
-                    table.append("' onclick=\"javascript:document.avSetPlaylistPos(");
-                    table.append(i + 1).append(", 0, true);\"/>&#10132;</button>\n");
+                for (final GsSimplePlaylistParser.Item playlistItem : new GsSimplePlaylistParser().parse(GsFileUtils.readTextFileFast(file).first)) {
+                    onLoadJs += "\ndocument.avAddToPlaylist('" + playlistItem.getName() + "', '" + playlistItem.getUrl() + "');";
+                    table.append(playlistItem.getName(80)).append(" | ");
+                    table.append(String.format(PLAYLIST_BUTTON_TEMPLATE, i, i + 1)).append("\n");
                     i++;
                 }
                 if (i > 0) {
