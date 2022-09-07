@@ -14,7 +14,6 @@ import android.text.TextWatcher;
 import android.util.Pair;
 
 public class ListHandler implements TextWatcher {
-    private int reorderPosition;
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
     private boolean alreadyRunning = false; // Prevent this instance from triggering itself
@@ -45,8 +44,6 @@ public class ListHandler implements TextWatcher {
                 _deleteRegion = Pair.create(oMatch.lineStart, oMatch.lineEnd + 1);
             } else if (uMatch.isUnorderedOrCheckList && beforeLineEnd == uMatch.groupEnd) {
                 _deleteRegion = Pair.create(oMatch.lineStart, oMatch.lineEnd + 1);
-            } else {
-                reorderPosition = start;
             }
         }
         beforeLineEnd = null;
@@ -63,8 +60,8 @@ public class ListHandler implements TextWatcher {
                 e.delete(_deleteRegion.first, _deleteRegion.second);
                 _deleteRegion = null;
             }
-            if (triggerReorder && reorderPosition > 0 && reorderPosition < e.length()) {
-                AutoTextFormatter.renumberOrderedList(e, reorderPosition, _prefixPatterns);
+            if (triggerReorder) {
+                AutoTextFormatter.renumberOrderedList(e, _prefixPatterns);
             }
         } finally {
             alreadyRunning = false;
@@ -78,7 +75,6 @@ public class ListHandler implements TextWatcher {
         }
 
         triggerReorder = containsNewline(s, start, count);
-        reorderPosition = start;
         beforeLineEnd = TextViewUtils.getLineEnd(s, start);
     }
 

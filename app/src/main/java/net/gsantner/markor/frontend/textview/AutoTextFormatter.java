@@ -11,6 +11,7 @@ package net.gsantner.markor.frontend.textview;
 
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Selection;
 import android.text.Spanned;
 
 import java.util.EmptyStackException;
@@ -267,15 +268,22 @@ public class AutoTextFormatter implements InputFilter {
      * <p>
      * This is an unfortunately complex + complicated function. Tweak at your peril and test a *lot* :)
      */
-    public static void renumberOrderedList(final Editable edit, final int cursorPosition, final FormatPatterns patterns) {
+    public static void renumberOrderedList(final Editable edit, final FormatPatterns patterns) {
 
         final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
+
+        final int cursorPosition = TextViewUtils.getSelection(edit)[0];
+        if (!TextViewUtils.isValidIndex(edit, cursorPosition)) {
+            return;
+        }
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(chunked, cursorPosition, patterns);
         if (!firstLine.isOrderedList) {
             return;
         }
+
+        final int[] offset = TextViewUtils.getLineOffsetFromIndex(edit, cursorPosition);
 
         // Stack represents each level in the list up from current
         final Stack<OrderedListLine> levels = new Stack<>();
@@ -327,6 +335,13 @@ public class AutoTextFormatter implements InputFilter {
             }
 
             chunked.applyChanges();
+
+            // Restore cursor position
+            final int newPos = TextViewUtils.getIndexFromLineOffset(edit, offset);
+            if (TextViewUtils.isValidIndex(edit, newPos)) {
+                Selection.setSelection(edit, newPos);
+            }
+
         } catch (EmptyStackException ex) {
             // Usually means that indents and de-indents did not match up
             ex.printStackTrace();
