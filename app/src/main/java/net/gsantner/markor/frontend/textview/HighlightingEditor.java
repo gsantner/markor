@@ -110,7 +110,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private boolean isScrollSignificant() {
         return Math.abs(_hlRect.top - _olhHlRect.top) > _hlShiftThreshold ||
-               Math.abs(_hlRect.bottom - _olhHlRect.bottom) > _hlShiftThreshold;
+                Math.abs(_hlRect.bottom - _olhHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateDynamicHighlighting() {

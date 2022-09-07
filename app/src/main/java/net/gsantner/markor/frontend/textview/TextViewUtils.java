@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
-import android.text.Spannable;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;

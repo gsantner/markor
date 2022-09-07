@@ -277,7 +277,7 @@ public class AutoTextFormatter implements InputFilter {
 
         final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(edit);
 
-        final int[] shifts = new int[] {0, 0};
+        final int[] shifts = new int[]{0, 0};
 
         // Top of list
         final OrderedListLine firstLine = getOrderedListStart(chunked, sel[0], patterns);
@@ -344,7 +344,7 @@ public class AutoTextFormatter implements InputFilter {
 
             chunked.applyChanges();
 
-            final int[] newSel = new int[] {sel[0] + shifts[0], sel[1] + shifts[1]};
+            final int[] newSel = new int[]{sel[0] + shifts[0], sel[1] + shifts[1]};
             if (TextViewUtils.inRange(0, edit.length(), newSel)) {
                 Selection.setSelection(edit, newSel[0], newSel[1]);
             }
