@@ -401,7 +401,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             link = link.replaceAll("(?m)(?<=&|\\?)(utm_|source|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
 
             formattedLink = String.format("[%s](%s )",
-                    text.trim().replace("[", "\\[").replace("]", "\\]"),
+                    text.trim().replace("[", "\\[").replace("]", "\\]").replace("|", "/"),
                     link.trim().replace("(", "\\(").replace(")", "\\)")
             );
         } else {
@@ -411,6 +411,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private static String formatOrPrefixSharedText(final String format, final String value) {
-        return (format + (format.contains("%s") ? "" : " %s")).replace("%s", value);
+        return (format + (format.contains("{{text}}") ? "" : "{{text}}")).replace("{{text}}", value).replace("\\n", "\n");
     }
 }

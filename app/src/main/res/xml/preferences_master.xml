@@ -161,7 +161,7 @@
                 android:title="@string/disallow_screenshots" />
 
             <androidx.preference.EditTextPreference
-                android:defaultValue="\\n----\\n"
+                android:defaultValue="\\n----\\n{{text}}"
                 android:dialogMessage="@string/share_into_format_prefix_for_text_shared"
                 android:icon="@drawable/ic_share_black_24dp"
                 android:key="@string/pref_key__share_into_format"

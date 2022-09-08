@@ -888,6 +888,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public String getShareIntoPrefix() {
-        return getString(R.string.pref_key__share_into_format, "\n----\n");
+        return getString(R.string.pref_key__share_into_format, "\\n----\\n{{text}}");
     }
 }
