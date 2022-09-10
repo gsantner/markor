@@ -55,7 +55,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _isDynamicHighlightingEnabled = true;
     private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
     private boolean _hlEnabled;           // Whether highlighting is enabled
-    private final Rect _olhHlRect;        // Rect highlighting was previously applied to
+    private final Rect _oldHlRect;        // Rect highlighting was previously applied to
     private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
     private volatile boolean _hlPostQueued = false;
@@ -77,7 +77,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _hlEnabled = false;
-        _olhHlRect = new Rect();
+        _oldHlRect = new Rect();
         _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
@@ -109,8 +109,8 @@ public class HighlightingEditor extends AppCompatEditText {
     // ---------------------------------------------------------------------------------------------
 
     private boolean isScrollSignificant() {
-        return Math.abs(_hlRect.top - _olhHlRect.top) > _hlShiftThreshold ||
-                Math.abs(_hlRect.bottom - _olhHlRect.bottom) > _hlShiftThreshold;
+        return (_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
+                (_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateDynamicHighlighting() {
@@ -143,7 +143,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user.
                 int shiftTestLine = -1, oldOffset = -1;
-                if (_scrollView != null && _hlRect.height() == _olhHlRect.height()) {
+                if (_scrollView != null && _hlRect.height() == _oldHlRect.height()) {
                     shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
                     oldOffset = layout.getLineBaseline(shiftTestLine);
                 }
@@ -167,7 +167,7 @@ public class HighlightingEditor extends AppCompatEditText {
                     _scrollView.slowScrollShift(shift);
                 }
 
-                _olhHlRect.set(_hlRect);
+                _oldHlRect.set(_hlRect);
             }
 
             _isUpdatingDynamicHighlighting = false;
