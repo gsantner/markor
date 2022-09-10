@@ -141,9 +141,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
-                // the experience smooth for the user
-                final int shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
-                final int oldOffset = layout.getLineBaseline(shiftTestLine);
+                // the experience smooth for the user.
+                int shiftTestLine = -1, oldOffset = -1;
+                if (_scrollView != null && _hlRect.height() == _olhHlRect.height()) {
+                    shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
+                    oldOffset = layout.getLineBaseline(shiftTestLine);
+                }
 
                 final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
                 try {
@@ -159,13 +162,12 @@ public class HighlightingEditor extends AppCompatEditText {
                     endBatchEdit();
                 }
 
-                _olhHlRect.set(_hlRect);
-
-                final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
-                if (_scrollView != null && Math.abs(shift) > 1) {
-                    // Only apply the shift when not flicking or drag-scrolling
+                if (shiftTestLine >= 0) {
+                    final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
                     _scrollView.slowScrollShift(shift);
                 }
+
+                _olhHlRect.set(_hlRect);
             }
 
             _isUpdatingDynamicHighlighting = false;
@@ -464,7 +466,7 @@ public class HighlightingEditor extends AppCompatEditText {
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
-                setSelection(sel[0] + newCursorPos);
+                TextViewUtils.setSelectionAndShow(this, sel[0] + newCursorPos);
             }
         }
     }
