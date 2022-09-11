@@ -31,7 +31,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
-import com.pixplicity.generate.Rate;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
@@ -146,11 +145,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     private void optShowRate() {
-        new Rate.Builder(this)
-                .setTriggerCount(4)
-                .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
-                .setFeedbackAction(() -> _cu.showGooglePlayEntryForThisApp(MainActivity.this))
-                .build().count().showRequest();
+        try {
+            new com.pixplicity.generate.Rate.Builder(this)
+                    .setTriggerCount(4)
+                    .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
+                    .setFeedbackAction(() -> _cu.showGooglePlayEntryForThisApp(MainActivity.this))
+                    .build().count().showRequest();
+        } catch (Exception ignored){
+        }
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
