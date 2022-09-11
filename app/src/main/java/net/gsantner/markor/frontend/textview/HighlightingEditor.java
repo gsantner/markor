@@ -460,13 +460,13 @@ public class HighlightingEditor extends AppCompatEditText {
     public void insertOrReplaceTextOnCursor(final String newText) {
         final Editable edit = getText();
         if (edit != null && newText != null) {
-            int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
+            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
             final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
             final int[] sel = TextViewUtils.getSelection(this);
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
-                TextViewUtils.setSelectionAndShow(this, sel[0] + newCursorPos);
+                setSelection(sel[0] + newCursorPos);
             }
         }
     }
