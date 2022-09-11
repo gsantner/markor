@@ -151,7 +151,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     .setMinimumInstallTime((int) TimeUnit.MINUTES.toMillis(30))
                     .setFeedbackAction(() -> _cu.showGooglePlayEntryForThisApp(MainActivity.this))
                     .build().count().showRequest();
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 
@@ -380,15 +380,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
                     dopt.startFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
-                    dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
-                    dopt.showDotFiles = _appSettings.isShowDotFiles();
-                    dopt.fileComparable = GsFileBrowserFragment.sortFolder(null);
-
-                    dopt.favouriteFiles = _appSettings.getFavouriteFiles();
-                    dopt.recentFiles = _appSettings.getAsFileList(_appSettings.getRecentDocuments());
-                    dopt.popularFiles = _appSettings.getAsFileList(_appSettings.getPopularDocuments());
                 }
 
                 @Override

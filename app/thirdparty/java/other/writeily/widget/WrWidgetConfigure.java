@@ -42,7 +42,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
         }
 
         if (_appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-            showSelectionDialog();
+            showWidgetSelectFolderDialog();
         }
     }
 
@@ -54,7 +54,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
     }
 
     // only runs for a valid id
-    private void showSelectionDialog() {
+    private void showWidgetSelectFolderDialog() {
         final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         if (permc.mkdirIfStoragePermissionGranted()) {
             final FragmentManager fragManager = getSupportFragmentManager();
@@ -78,7 +78,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
-            showSelectionDialog();
+            showWidgetSelectFolderDialog();
         } else {
             finish();
         }

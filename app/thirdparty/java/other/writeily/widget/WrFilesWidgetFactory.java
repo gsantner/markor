@@ -17,11 +17,11 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,11 +59,14 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             _widgetFilesList.addAll(Arrays.asList(MarkorFileBrowserFactory.strlistToArray(ApplicationObject.settings().getRecentDocuments())));
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
             _widgetFilesList.addAll(Arrays.asList(MarkorFileBrowserFactory.strlistToArray(ApplicationObject.settings().getPopularDocuments())));
+        } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
+            _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {
-            final File[] all = dir.listFiles(file -> !file.isDirectory() && FormatRegistry.isTextFile(file));
+            final File[] all = dir.listFiles(file -> true);
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
-            GsFileBrowserFragment.sortFolder(_widgetFilesList); // Sort only if actual folder
         }
+        AppSettings as = ApplicationObject.settings();
+        GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse()); // Sort only if actual folder
     }
 
     @Override
@@ -85,6 +88,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             final Intent fillInIntent = new Intent().putExtra(Document.EXTRA_PATH, file);
             rowView.setTextViewText(R.id.widget_note_title, file.getName());
             rowView.setOnClickFillInIntent(R.id.widget_note_title, fillInIntent);
+            rowView.setTextViewCompoundDrawables(R.id.widget_note_title, file.isDirectory() ? R.drawable.ic_folder_gray_24dp : R.drawable.ic_file_gray_24dp, 0, 0, 0);
         }
         return rowView;
     }

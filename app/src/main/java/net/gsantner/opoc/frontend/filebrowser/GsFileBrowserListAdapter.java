@@ -43,7 +43,6 @@ import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +50,7 @@ import java.util.Locale;
 import java.util.Set;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowserListAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, Comparator<File>, FilenameFilter {
+public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowserListAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, FilenameFilter {
     //########################
     //## Static
     //########################
@@ -355,7 +354,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
                             _currentSelection.toArray(new File[_currentSelection.size()]));
-                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || _currentFolder.equals(VIRTUAL_STORAGE_RECENTS) || _currentFolder.equals(VIRTUAL_STORAGE_POPULAR) || _currentFolder.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE))) {
+                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || isCurrentFolderVirtual())) {
                     _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }
                 return;
@@ -567,10 +566,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         _adapterData.add(i, at >= 0 ? oldAdapterData.get(at) : new GsFileWithMetadataCache(o));
                     }
 
-                    try {
-                        Collections.sort(_adapterData, GsFileBrowserListAdapter.this);
-                    } catch (IllegalArgumentException ignored) {
-                    }
+                    GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
 
                     if (canGoUp(_currentFolder)) {
                         _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
@@ -600,7 +596,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
         final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
-        final boolean dotYes = _dopt.showDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
+        final boolean dotYes = _dopt.filterShowDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;
     }
@@ -615,27 +611,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return _dopt;
     }
 
-    // Sort adapterData
-    @Override
-    public int compare(File o1, File o2) {
-        if (o1 == null || o2 == null) {
-            return 0;
-        }
-        if (o1.isDirectory() && _dopt.folderFirst)
-            return o2.isDirectory() ? o1.getName().compareToIgnoreCase(o2.getName()) : -1;
-        else if (!canWrite(o2))
-            return -1;
-        else if (o2.isDirectory() && _dopt.folderFirst)
-            return 1;
-        else if (_dopt.fileComparable != null) {
-            int v = _dopt.fileComparable.compare(o1, o2);
-            if (v != 0) {
-                return v;
-            }
-        }
-        return o1.getName().compareToIgnoreCase(o2.getName());
-    }
-
     public boolean isCurrentFolderHome() {
         return _currentFolder != null && _dopt.rootFolder != null && _dopt.rootFolder.getAbsolutePath().equals(_currentFolder.getAbsolutePath());
     }
@@ -644,8 +619,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
                 VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
                 VIRTUAL_STORAGE_POPULAR.equals(file) ||
-                VIRTUAL_STORAGE_RECENTS.equals(file)
-                ;
+                VIRTUAL_STORAGE_RECENTS.equals(file);
     }
 
     //########################

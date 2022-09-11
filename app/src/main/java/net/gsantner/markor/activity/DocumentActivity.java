@@ -57,6 +57,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         if (path != null) {
             intent.putExtra(Document.EXTRA_PATH, path);
+        } else {
+            path = intent.hasExtra(Document.EXTRA_PATH) ? ((File) intent.getSerializableExtra(Document.EXTRA_PATH)) : null;
         }
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
@@ -68,6 +70,9 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         } else {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+        if (path != null && path.isDirectory()) {
+            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_PATH, path);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
