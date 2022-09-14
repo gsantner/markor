@@ -85,7 +85,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return new Object[]{true, ""};
         }
         String ext = fn.substring(fn.lastIndexOf("."));
-        for (String ce : new String[]{".py", ".cpp", ".h", ".js", ".html", ".css", ".java", ".qml", ".go", ".sh", ".rb", ".tex", ".json", ".xml", ".ini", ".yaml", ".yml", ".csv", ".xlf"}) {
+        for (String ce : new String[]{".dummy"}) {
             if (ext.equals(ce)) {
                 return new Object[]{true, ext};
             }
