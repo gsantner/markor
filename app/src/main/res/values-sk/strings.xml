@@ -62,6 +62,27 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">Vybrať</string>
     <string name="create">Vytvoriť</string>
     <string name="select_entries">Vybrať položky</string>
+    <string name="one_item_selected">Vybral si jednu položku</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d položiek vybraných</string>
+    <string name="hide_statusbar_at_this_view">Schovať status bar v tomto režime</string>
+    <string name="hide_statusbar">Schovať status bar</string>
+    <string name="name">Názov</string>
+    <string name="url_or_path">URL / Cesta k súboru</string>
+    <string name="insert_link">Vložiť link</string>
+    <string name="insert_image">Vložiť obrázok</string>
+    <string name="contributors">Prispievatelia</string>
+    <string name="save_location">Miesto uloženia súborov</string>
+    <string name="select_storage_folder">Vybrať zložku pre uloženie</string>
+    <string name="licenses">Licencie</string>
+    <string name="changelog">Záznam zmien</string>
+    <string name="more_info">Viac informácií</string>
+    <string name="show_license_of_the_app">Zobraziť licenciu aplikácie</string>
+    <string name="show_third_party_licenses">Zobraziť licencie tretích strán</string>
+    <string name="language_change_restart_description">Zmeniť jazyk aplikácie. Reštartujte aplikáciu aby sa zmeny uložili</string>
+    <string name="language">Jazyk</string>
+    <string name="error_need_storage_permission_to_save_documents">Potrebujem povolenie prístupu k úložisku pre ukladanie dokumentov</string>
+    <string name="open_with">Otvoriť použitím</string>
+    <string name="sort_by">Zoradiť podľa</string>
     <string name="add_task">Pridaj ulohu</string>
     <string name="add_x_witharg">Pridaj %s</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
