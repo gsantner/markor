@@ -17,6 +17,9 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,6 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Observer;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
@@ -277,29 +281,27 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
-    }
+    public static @NonNull Rect getRegionRect(final TextView text, final int start, final int end) {
 
-    public static void showSelection(final TextView text, final int start, final int end) {
+        final Rect region = new Rect();
 
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
         if (layout == null) {
-            return;
+            return region;
         }
 
         final int _start = Math.min(start, end);
         final int _end = Math.max(start, end);
         if (start < 0 || end > text.length()) {
-            return;
+            return region;
         }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
         if (!text.getLocalVisibleRect(viewSize)) {
-            return;
+            return region;
         }
 
         // Region in Y
@@ -308,8 +310,6 @@ public final class TextViewUtils extends GsTextUtils {
         final int lineStartLine = layout.getLineForOffset(lineStart);
         final int selStartLineTop = layout.getLineTop(selStartLine);
         final int lineStartLineTop = layout.getLineTop(lineStartLine);
-
-        final Rect region = new Rect();
 
         if ((selStartLine - lineStartLine) <= 3) {
             // good to see the start of the line if close enough
@@ -327,23 +327,94 @@ public final class TextViewUtils extends GsTextUtils {
         final int startLeft = (int) layout.getPrimaryHorizontal(_start);
         final int halfWidth = viewSize.width() / 2;
         // Push the start to the middle of the screen
-        region.left = startLeft - halfWidth;
-        region.right = startLeft + halfWidth;
+        region.left = Math.max(startLeft - halfWidth, 0);
+        region.right = Math.min(startLeft + halfWidth, viewSize.width());
 
-        // Call in post to try to make sure we run after any pending actions
-        text.post(() -> text.requestRectangleOnScreen(region));
+        return region;
     }
 
-    public static void setSelectionAndShow(final EditText edit, final int start, final int... end) {
-        final int _end = end != null && end.length > 0 ? end[0] : start;
-        if (inRange(0, edit.length(), start, _end)) {
+    // Due to dynamic highlighting we can't just requestRectangleOnScreen as
+    // when we scroll to the rect, the rect may no longer represent the ROI (layout changes).
+    // So we adopt an iterative scheme - scroll to the rect, check if rect is good and then
+    // repeat until we are satisfied
+    private static class SelectionShower implements ViewTreeObserver.OnScrollChangedListener {
+        final @NonNull TextView _text;
+        final ViewTreeObserver _observer;
+        final int _start, _end;
+        int _iterCount;
+
+        public SelectionShower(@NonNull TextView text, int start, int end, int iterCount) {
+            _text = text;
+            _observer = text.getViewTreeObserver();
+            _start = start;
+            _end = end;
+            _iterCount = iterCount;
+        }
+
+        public void run() {
+            final Rect region = getRegionRect(_text, _start, _end);
+            if (!region.isEmpty()) {
+                if (_observer != null && _iterCount > 0) {
+                    _observer.addOnScrollChangedListener(this);
+                }
+                _text.post(() -> _text.requestRectangleOnScreen(region));
+            }
+        }
+
+        @Override
+        public void onScrollChanged() {
+            final Rect region;
+            if (--_iterCount <= 0 || (region = getRegionRect(_text, _start, _end)).isEmpty()) {
+                _observer.removeOnScrollChangedListener(this);
+                return;
+            }
+
+            if (!regionVisible(_text, region)) {
+                _text.post(() -> _text.requestRectangleOnScreen(region));
+            }
+        }
+    }
+
+    public static void showSelection(final TextView text, final int ... sel) {
+        if (sel != null && sel.length > 0) {
+            new SelectionShower(text, sel[0], sel.length > 1 ? sel[1] : sel[0], 5).run();
+        }
+    }
+
+    // Check if rect is visible
+    public static boolean regionVisible(final View view, final Rect region) {
+        if (region == null || region.isEmpty()) {
+            return true;
+        }
+
+        final Rect visible = new Rect();
+        if (!view.getLocalVisibleRect(visible) || visible.isEmpty()) {
+            return true;
+        }
+
+        if (region.height() >= visible.height()) {
+            return visible.contains(region.left, region.top);
+        } else {
+            return visible.contains(region);
+        }
+    }
+
+    public static void setSelectionAndShow(final EditText edit, final int ... sel) {
+        if (sel == null || sel.length == 0) {
+            return;
+        }
+
+        final int start = sel[0];
+        final int end = sel.length > 1 ? sel[1] : start;
+
+        if (inRange(0, edit.length(), start, end)) {
             edit.post(() -> {
                 if (!edit.hasFocus()) {
                     edit.requestFocus();
                 }
 
-                edit.setSelection(start, _end);
-                edit.post(() -> showSelection(edit, start, _end));
+                edit.setSelection(start, end);
+                edit.post(() -> showSelection(edit, start, end));
             });
         }
     }

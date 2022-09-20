@@ -37,6 +37,8 @@ public class TodoTxtFilter {
     private static final String KEYS = "keys";
     private static final String TYPE = "type";
 
+    private static final String NULL_SENTINEL = "NULL SENTINEL"; // As this has a space, it isn't a valid context etc
+
     // For any type, return a function which maps a task -> a list of string keys
     public static GsCallback.r1<List<String>, TodoTxtParser> keyGetter(final Context context, final String type) {
         switch (type) {
@@ -109,7 +111,7 @@ public class TodoTxtFilter {
             obj.put(IS_AND, isAnd);
             final JSONArray keysArray = new JSONArray();
             for (final String key : selKeys) {
-                keysArray.put(key);
+                keysArray.put(key != null ? key : NULL_SENTINEL);
             }
             obj.put(KEYS, keysArray);
 
@@ -166,9 +168,9 @@ public class TodoTxtFilter {
     }
 
     public static List<Group> loadSavedFilters(final Context context) {
+        final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         try {
             final List<Group> loadedViews = new ArrayList<>();
-            final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = pref.getString(SAVED_TODO_VIEWS, "[]");
             final JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
@@ -180,13 +182,15 @@ public class TodoTxtFilter {
                 gp.keys = new ArrayList<>();
                 final JSONArray keysArray = obj.getJSONArray(KEYS);
                 for (int j = 0; j < keysArray.length(); j++) {
-                    gp.keys.add(keysArray.getString(j));
+                    final String key = keysArray.getString(i);
+                    gp.keys.add(NULL_SENTINEL.equals(key) ? null : key);
                 }
                 loadedViews.add(gp);
             }
             return loadedViews;
         } catch (JSONException e) {
             e.printStackTrace();
+            pref.edit().remove(SAVED_TODO_VIEWS).apply();
         }
         return Collections.emptyList();
     }

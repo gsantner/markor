@@ -655,6 +655,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
 
+            final boolean hlEnabled = _hlEditor.getHighlightingEnabled();
+            _hlEditor.setHighlightingEnabled(false);
+
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -670,8 +673,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _primaryScrollView.addView(_hlEditor);
             }
 
+            _hlEditor.setHighlightingEnabled(hlEnabled);
+
             // Run after layout() of immediate parent completes
-            (wrap ? _primaryScrollView : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel[0], sel[1]));
+            (wrap ? _primaryScrollView : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
         }
     }
 

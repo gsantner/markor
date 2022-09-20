@@ -210,6 +210,10 @@ public class HighlightingEditor extends AppCompatEditText {
         return _hl;
     }
 
+    public boolean getHighlightingEnabled() {
+        return _hlEnabled;
+    }
+
     public boolean setHighlightingEnabled(final boolean enable) {
         final boolean prev = _hlEnabled;
         if (enable && !_hlEnabled) {
