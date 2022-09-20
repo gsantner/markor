@@ -57,6 +57,8 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         if (path != null) {
             intent.putExtra(Document.EXTRA_PATH, path);
+        } else {
+            path = intent.hasExtra(Document.EXTRA_PATH) ? ((File) intent.getSerializableExtra(Document.EXTRA_PATH)) : null;
         }
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
@@ -69,6 +71,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         } else {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
+        if (path != null && path.isDirectory()) {
+            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_PATH, path);
+        }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
@@ -80,7 +85,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return new Object[]{true, ""};
         }
         String ext = fn.substring(fn.lastIndexOf("."));
-        for (String ce : new String[]{".py", ".cpp", ".h", ".js", ".html", ".css", ".java", ".qml", ".go", ".sh", ".rb", ".tex", ".json", ".xml", ".ini", ".yaml", ".yml", ".csv", ".xlf"}) {
+        for (String ce : new String[]{".dummy"}) {
             if (ext.equals(ce)) {
                 return new Object[]{true, ext};
             }

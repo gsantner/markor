@@ -16,11 +16,11 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
+import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -46,6 +46,7 @@ public class GsFileBrowserOptions {
                 mountedStorageFolder = null,
                 startFolder = null;
         public String requestId = "show_dialog";
+        public String sortByType = GsFileUtils.SORT_BY_NAME;
 
         // Dialog type
         public boolean
@@ -54,9 +55,10 @@ public class GsFileBrowserOptions {
                 doSelectMultiple = false;
 
         public boolean mustStartWithRootFolder = true,
-                folderFirst = true,
+                sortFolderFirst = true,
+                sortReverse = false,
                 descModtimeInsteadOfParent = false,
-                showDotFiles = true;
+                filterShowDotFiles = true;
 
         public int itemSidePadding = 16; // dp
 
@@ -70,7 +72,6 @@ public class GsFileBrowserOptions {
                 cancelButtonEnable = true,
                 okButtonEnable = true;
 
-        public Comparator<File> fileComparable = null;
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
         @StringRes

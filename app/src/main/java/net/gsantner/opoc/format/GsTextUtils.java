@@ -11,6 +11,10 @@ package net.gsantner.opoc.format;
 
 import android.util.Base64;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -221,5 +225,17 @@ public class GsTextUtils {
             builder.append('\\');
         }
         return builder.toString();
+    }
+
+    public static String jsonPrettyPrint(final String input) {
+        try {
+            if (new JSONTokener(input).nextValue() instanceof JSONObject) {
+                return new JSONObject(input).toString(2);
+            } else {
+                return new JSONArray(input).toString(2);
+            }
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 }

@@ -27,10 +27,10 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.util.ShortcutUtils;
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -231,21 +231,31 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return ret;
     }
 
-    public void setSortMethod(int value) {
-        setInt(R.string.pref_key__sort_method, value);
+    public String setFileBrowserSortByType(String v) {
+        setString(R.string.pref_key__file_browser__sort_by_type, v);
+        return v;
     }
 
-
-    public int getSortMethod() {
-        return getInt(R.string.pref_key__sort_method, GsFileBrowserFragment.SORT_BY_NAME);
+    public String getFileBrowserSortByType() {
+        return getString(R.string.pref_key__file_browser__sort_by_type, GsFileUtils.SORT_BY_NAME);
     }
 
-    public void setSortReverse(boolean value) {
+    public boolean setFileBrowserSortReverse(boolean value) {
         setBool(R.string.pref_key__sort_reverse, value);
+        return value;
     }
 
-    public boolean isSortReverse() {
+    public boolean isFileBrowserSortReverse() {
         return getBool(R.string.pref_key__sort_reverse, false);
+    }
+
+    public boolean setFileBrowserFilterShowDotFiles(boolean v) {
+        setBool(R.string.pref_key__show_dot_files_v2, v);
+        return v;
+    }
+
+    public boolean isFileBrowserFilterShowDotFiles() {
+        return getBool(R.string.pref_key__show_dot_files_v2, true);
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
@@ -648,12 +658,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__swipe_to_change_mode, false);
     }
 
-    public void setFilesystemListFolderFirst(boolean checked) {
-        setBool(R.string.pref_key__filesystem_folder_first, checked);
+    public boolean setFileBrowserSortFolderFirst(boolean v) {
+        setBool(R.string.pref_key__filesystem_folder_first, v);
+        return v;
     }
 
 
-    public boolean isFilesystemListFolderFirst() {
+    public boolean isFileBrowserSortFolderFirst() {
         return getBool(R.string.pref_key__filesystem_folder_first, true);
     }
 
@@ -722,14 +733,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             }
         }
         return getNotebookDirectory();
-    }
-
-    public void setShowDotFiles(boolean value) {
-        setBool(R.string.pref_key__show_dot_files_v2, value);
-    }
-
-    public boolean isShowDotFiles() {
-        return getBool(R.string.pref_key__show_dot_files_v2, true);
     }
 
     public int getTabWidth() {

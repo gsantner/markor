@@ -53,6 +53,11 @@ public class MarkorFileBrowserFactory {
         opts.contentDescriptionSelected = R.string.selected;
         opts.contentDescriptionFile = R.string.file;
 
+        opts.sortFolderFirst = appSettings.isFileBrowserSortFolderFirst();
+        opts.sortByType = appSettings.getFileBrowserSortByType();
+        opts.sortReverse = appSettings.isFileBrowserSortReverse();
+        opts.filterShowDotFiles = appSettings.isFileBrowserFilterShowDotFiles();
+
         opts.accentColor = R.color.accent;
         opts.primaryColor = R.color.primary;
         opts.primaryTextColor = R.color.primary_text;

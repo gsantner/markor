@@ -141,7 +141,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__theming_hide_system_statusbar" translatable="false">pref_key__theming_hide_system_statusbar</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
-    <string name="pref_key__sort_method" translatable="false">pref_key__sort_method</string>
+    <string name="pref_key__file_browser__sort_by_type" translatable="false">pref_key__file_browser__sort_by_type</string>
     <string name="pref_key__sort_reverse" translatable="false">pref_key__sort_reverse</string>
     <string name="pref_key__is_highlighting_for_hexcolor_activated" translatable="false">pref_key__is_highlighting_for_hexcolor_activated</string>
     <string name="pref_key__app_first_start_current_version" translatable="false">pref_key__app_first_start_current_version</string>

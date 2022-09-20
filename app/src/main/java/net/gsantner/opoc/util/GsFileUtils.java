@@ -33,6 +33,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -637,5 +639,55 @@ public class GsFileUtils {
         String filename = String.format("%s%s%s.%s", prefix.trim(), GsContextUtils.DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
         filename = getFilteredFilenameWithoutDisallowedChars(filename);
         return filename;
+    }
+
+
+    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME";
+
+    public static Comparator<File> sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
+        final Comparator<File> detailComparator = (current, other) -> {
+            if (sortReverse) {
+                File swap = current;
+                current = other;
+                other = swap;
+            }
+
+            switch (sortBy) {
+                case SORT_BY_MTIME: {
+                    return Long.compare(other.lastModified(), current.lastModified());
+                }
+                case SORT_BY_FILESIZE: {
+                    return Long.compare(other.length(), current.length());
+                }
+                case SORT_BY_NAME: {
+                    return current.getName().compareToIgnoreCase(other.getName());
+                }
+            }
+            return current.compareTo(other);
+        };
+
+        final Comparator<File> mainComparator = (current, other) -> {
+            if (current == null || other == null) {
+                return 0;
+            } else if (current.isDirectory() && sortFolderFirst) {
+                return other.isDirectory() ? detailComparator.compare(current, other) : -1;
+            } else if (other.isDirectory() && sortFolderFirst) {
+                return 1;
+            }
+            int v = detailComparator.compare(current, other);
+            if (v != 0) {
+                return v;
+            }
+            return current.getName().compareToIgnoreCase(other.getName());
+        };
+
+        if (filesToSort != null) {
+            try {
+                Collections.sort(filesToSort, mainComparator);
+            } catch (Exception ignored) {
+            }
+        }
+
+        return mainComparator;
     }
 }

@@ -55,8 +55,6 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -330,23 +328,22 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         MenuItem item;
         if ((item = menu.findItem(R.id.action_folder_first)) != null) {
-            item.setChecked(_appSettings.isFilesystemListFolderFirst());
+            item.setChecked(_dopt.sortFolderFirst);
         }
         if ((item = menu.findItem(R.id.action_sort_reverse)) != null) {
-            item.setChecked(_appSettings.isSortReverse());
+            item.setChecked(_dopt.sortReverse);
         }
         if ((item = menu.findItem(R.id.action_show_dotfiles)) != null) {
-            item.setChecked(_appSettings.isShowDotFiles());
-        }
-        MenuItem[] sortBy = new MenuItem[]{menu.findItem(R.id.action_sort_by_name), menu.findItem(R.id.action_sort_by_date), menu.findItem(R.id.action_sort_by_filesize),};
-        for (int i = 0; i < sortBy.length; i++) {
-            if (sortBy[i] != null) {
-                if (_appSettings.getSortMethod() == i) {
-                    sortBy[i].setChecked(true);
-                }
-            }
+            item.setChecked(_dopt.filterShowDotFiles);
         }
 
+        if ((item = menu.findItem(R.id.action_sort_by_name)) != null && GsFileUtils.SORT_BY_NAME.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        } else if ((item = menu.findItem(R.id.action_sort_by_date)) != null && GsFileUtils.SORT_BY_MTIME.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        } else if ((item = menu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
+            item.setChecked(true);
+        }
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
         int[] sdcardResIds = {R.id.action_go_to_appdata_sdcard_1, R.id.action_go_to_appdata_sdcard_2};
@@ -377,32 +374,31 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_sort_by_name: {
                 item.setChecked(true);
-                _appSettings.setSortMethod(SORT_BY_NAME);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_NAME);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_date: {
                 item.setChecked(true);
-                _appSettings.setSortMethod(SORT_BY_DATE);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MTIME);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_by_filesize: {
                 item.setChecked(true);
-                _appSettings.setSortMethod(SORT_BY_FILESIZE);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_FILESIZE);
                 sortAdapter();
                 return true;
             }
             case R.id.action_sort_reverse: {
                 item.setChecked(!item.isChecked());
-                _appSettings.setSortReverse(item.isChecked());
+                _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(item.isChecked());
                 sortAdapter();
                 return true;
             }
             case R.id.action_show_dotfiles: {
                 item.setChecked(!item.isChecked());
-                _appSettings.setShowDotFiles(item.isChecked());
-                _dopt.showDotFiles = item.isChecked();
+                _dopt.filterShowDotFiles = _appSettings.setFileBrowserFilterShowDotFiles(item.isChecked());
                 reloadCurrentFolder();
                 return true;
             }
@@ -414,13 +410,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_search: {
                 executeSearchAction();
-
                 return true;
             }
             case R.id.action_folder_first: {
                 item.setChecked(!item.isChecked());
-                _appSettings.setFilesystemListFolderFirst(item.isChecked());
-                _filesystemViewerAdapter.reloadCurrentFolder();
+                _dopt.sortFolderFirst = _appSettings.setFileBrowserSortFolderFirst(item.isChecked());
                 sortAdapter();
                 return true;
             }
@@ -524,41 +518,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
     }
 
-    public static Comparator<File> sortFolder(List<File> filesToSort) {
-        final int sortMethod = ApplicationObject.settings().getSortMethod();
-        final boolean sortReverse = ApplicationObject.settings().isSortReverse();
-
-        final Comparator<File> comparator = (current, other) -> {
-            if (sortReverse) {
-                File swap = current;
-                current = other;
-                other = swap;
-            }
-
-            switch (sortMethod) {
-                case SORT_BY_NAME:
-                    return current.getName().compareToIgnoreCase(other.getName());
-                case SORT_BY_DATE:
-                    return Long.compare(other.lastModified(), current.lastModified());
-                case SORT_BY_FILESIZE:
-                    return Long.compare(other.length(), current.length());
-            }
-            return current.compareTo(other);
-        };
-
-        if (filesToSort != null) {
-            try {
-                Collections.sort(filesToSort, comparator);
-            } catch (Exception ignored) {
-            }
-        }
-
-        return comparator;
-    }
-
     public void sortAdapter() {
-        _dopt.fileComparable = sortFolder(null);
-        _dopt.folderFirst = _appSettings.isFilesystemListFolderFirst();
         reloadCurrentFolder();
     }
 
