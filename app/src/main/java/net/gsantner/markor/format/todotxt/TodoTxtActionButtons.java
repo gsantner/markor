@@ -82,13 +82,13 @@ public class TodoTxtActionButtons extends ActionButtonBase {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onActionClick(final @StringRes int action) {
-        final List<TodoTxtParser> selTasks = TodoTxtParser.getSelectedTasks(_hlEditor);
+        final List<TodoTxtTask> selTasks = TodoTxtTask.getSelectedTasks(_hlEditor);
 
         switch (action) {
             case R.string.abid_todotxt_toggle_done: {
-                final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtParser.getToday()) : "") + " ";
+                final String doneMark = "x" + (_appSettings.isTodoAddCompletionDateEnabled() ? (" " + TodoTxtTask.getToday()) : "") + " ";
                 final String bodyWithPri = "(.*)(\\spri:([A-Z])(?=\\s|$))(.*)"; // +1 = pre, +2 = full tag, +3 = pri, +4 = post
-                final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtParser.PT_DATE + "\\s)?)";
+                final String doneWithDate = "^([Xx]\\s(?:" + TodoTxtTask.PT_DATE + "\\s)?)";
                 final String startingPriority = "^\\(([A-Z])\\)\\s";
                 runRegexReplaceAction(
                         // If task not done and starts with a priority and contains a pri tag
@@ -106,8 +106,8 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_add_context: {
                 final List<String> contexts = new ArrayList<>();
-                contexts.addAll(TodoTxtParser.getContexts(TodoTxtParser.getAllTasks(_hlEditor.getText())));
-                contexts.addAll(new TodoTxtParser(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
+                contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
                 MarkorDialogFactory.showSttContextDialog(getActivity(), contexts, (context) -> {
                     insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
                 });
@@ -115,8 +115,8 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_add_project: {
                 final List<String> projects = new ArrayList<>();
-                projects.addAll(TodoTxtParser.getProjects(TodoTxtParser.getAllTasks(_hlEditor.getText())));
-                projects.addAll(new TodoTxtParser(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
+                projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+                projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
                 MarkorDialogFactory.showSttProjectDialog(getActivity(), projects, (project) -> {
                     insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
                 });
@@ -126,10 +126,10 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 MarkorDialogFactory.showPriorityDialog(getActivity(), selTasks.get(0).getPriority(), (priority) -> {
                     ArrayList<ReplacePattern> patterns = new ArrayList<>();
                     if (priority.length() > 1) {
-                        patterns.add(new ReplacePattern(TodoTxtParser.PATTERN_PRIORITY_ANY, ""));
+                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
                     } else if (priority.length() == 1) {
                         final String _priority = String.format("(%c) ", priority.charAt(0));
-                        patterns.add(new ReplacePattern(TodoTxtParser.PATTERN_PRIORITY_ANY, _priority));
+                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, _priority));
                         patterns.add(new ReplacePattern("^\\s*", _priority));
                     }
                     runRegexReplaceAction(patterns);
@@ -145,9 +145,9 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 MarkorDialogFactory.showSttArchiveDialog(getActivity(), (callbackPayload) -> {
                     callbackPayload = Document.normalizeFilename(callbackPayload);
 
-                    final ArrayList<TodoTxtParser> keep = new ArrayList<>();
-                    final ArrayList<TodoTxtParser> move = new ArrayList<>();
-                    final List<TodoTxtParser> allTasks = TodoTxtParser.getAllTasks(_hlEditor.getText());
+                    final ArrayList<TodoTxtTask> keep = new ArrayList<>();
+                    final ArrayList<TodoTxtTask> move = new ArrayList<>();
+                    final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
 
                     final int[] sel = TextViewUtils.getSelection(_hlEditor);
                     final CharSequence text = _hlEditor.getText();
@@ -155,7 +155,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
                     for (int i = 0; i < allTasks.size(); i++) {
-                        final TodoTxtParser task = allTasks.get(i);
+                        final TodoTxtTask task = allTasks.get(i);
                         if (task.isDone()) {
                             move.add(task);
                             if (i <= selStart[0]) selStart[0]--;
@@ -170,11 +170,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                         if (doneFile.exists() && doneFile.canRead()) {
                             doneFileContents = GsFileUtils.readTextFileFast(doneFile).first.trim() + "\n";
                         }
-                        doneFileContents += TodoTxtParser.tasksToString(move) + "\n";
+                        doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
 
                         // Write to done file
                         if (new Document(doneFile).saveContent(getActivity(), doneFileContents)) {
-                            final String tasksString = TodoTxtParser.tasksToString(keep);
+                            final String tasksString = TodoTxtTask.tasksToString(keep);
                             _hlEditor.setText(tasksString);
                             _hlEditor.setSelection(
                                     TextViewUtils.getIndexFromLineOffset(tasksString, selStart),
@@ -190,9 +190,9 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 MarkorDialogFactory.showSttSortDialogue(getActivity(), (orderBy, descending) -> new Thread() {
                     @Override
                     public void run() {
-                        final List<TodoTxtParser> tasks = TodoTxtParser.getAllTasks(_hlEditor.getText());
-                        TodoTxtParser.sortTasks(tasks, orderBy, descending);
-                        setEditorTextAsync(TodoTxtParser.tasksToString(tasks));
+                        final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                        TodoTxtTask.sortTasks(tasks, orderBy, descending);
+                        setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                         _appSettings.setStringList(LAST_SORT_ORDER_KEY, Arrays.asList(orderBy, Boolean.toString(descending)));
                     }
                 }.start());
@@ -219,9 +219,9 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             case R.string.abid_todotxt_sort_todo: {
                 final List<String> last = _appSettings.getStringList(LAST_SORT_ORDER_KEY);
                 if (last != null && last.size() == 2) {
-                    final List<TodoTxtParser> tasks = TodoTxtParser.getAllTasks(_hlEditor.getText());
-                    TodoTxtParser.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
-                    setEditorTextAsync(TodoTxtParser.tasksToString(tasks));
+                    final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
+                    TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
+                    setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
                 }
                 return true;
             }
@@ -289,13 +289,13 @@ public class TodoTxtActionButtons extends ActionButtonBase {
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
-        if (dateString == null || dateString.length() != TodoTxtParser.DATEF_YYYY_MM_DD_LEN) {
+        if (dateString == null || dateString.length() != TodoTxtTask.DATEF_YYYY_MM_DD_LEN) {
             return fallback;
         }
 
         try {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(TodoTxtParser.DATEF_YYYY_MM_DD.parse(dateString));
+            calendar.setTime(TodoTxtTask.DATEF_YYYY_MM_DD.parse(dateString));
             return calendar;
         } catch (ParseException e) {
             return fallback;
@@ -311,7 +311,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDate = TodoTxtParser.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDate = TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
             text.replace(sel[0], sel[1], newDate);
         };
 
@@ -324,24 +324,24 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
 
     private void setDueDate(final int offset) {
-        final String dueString = TodoTxtParser.getSelectedTasks(_hlEditor).get(0).getDueDate();
+        final String dueString = TodoTxtTask.getSelectedTasks(_hlEditor).get(0).getDueDate();
         Calendar initDate = parseDateString(dueString, Calendar.getInstance());
         initDate.add(Calendar.DAY_OF_MONTH, (dueString == null || dueString.isEmpty()) ? offset : 0);
 
         final DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
-            final String newDue = "due:" + TodoTxtParser.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
+            final String newDue = "due:" + TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
             runRegexReplaceAction(
                     // Replace due date
-                    new ReplacePattern(TodoTxtParser.PATTERN_DUE_DATE, "$1" + newDue + "$4"),
+                    new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$1" + newDue + "$4"),
                     // Add due date to end if none already exists. Will correctly handle trailing whitespace.
                     new ReplacePattern("\\s*$", " " + newDue)
             );
         };
 
         final DatePickerDialog.OnClickListener clear = (dialog, which) -> {
-            runRegexReplaceAction(new ReplacePattern(TodoTxtParser.PATTERN_DUE_DATE, "$4"));
+            runRegexReplaceAction(new ReplacePattern(TodoTxtTask.PATTERN_DUE_DATE, "$4"));
         };
 
         new DateFragment()

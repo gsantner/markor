@@ -29,24 +29,24 @@ public class TodoTxtBasicSyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     public void generateSpans() {
         createSmallBlueLinkSpans();
-        createColorSpanForMatches(TodoTxtParser.PATTERN_CONTEXTS, COLOR_CONTEXT);
-        createColorSpanForMatches(TodoTxtParser.PATTERN_PROJECTS, COLOR_CATEGORY);
-        createStyleSpanForMatches(TodoTxtParser.PATTERN_KEY_VALUE_PAIRS, Typeface.ITALIC);
+        createColorSpanForMatches(TodoTxtTask.PATTERN_CONTEXTS, COLOR_CONTEXT);
+        createColorSpanForMatches(TodoTxtTask.PATTERN_PROJECTS, COLOR_CATEGORY);
+        createStyleSpanForMatches(TodoTxtTask.PATTERN_KEY_VALUE_PAIRS, Typeface.ITALIC);
 
         // Priorities
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_A, new HighlightSpan().setForeColor(COLOR_PRIORITY_A).setBold(true));
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_B, new HighlightSpan().setForeColor(COLOR_PRIORITY_B).setBold(true));
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_C, new HighlightSpan().setForeColor(COLOR_PRIORITY_C).setBold(true));
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_D, new HighlightSpan().setForeColor(COLOR_PRIORITY_D).setBold(true));
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_E, new HighlightSpan().setForeColor(COLOR_PRIORITY_E).setBold(true));
-        createSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_F, new HighlightSpan().setForeColor(COLOR_PRIORITY_F).setBold(true));
-        createStyleSpanForMatches(TodoTxtParser.PATTERN_PRIORITY_G_TO_Z, Typeface.BOLD);
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_A, new HighlightSpan().setForeColor(COLOR_PRIORITY_A).setBold(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_B, new HighlightSpan().setForeColor(COLOR_PRIORITY_B).setBold(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_C, new HighlightSpan().setForeColor(COLOR_PRIORITY_C).setBold(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_D, new HighlightSpan().setForeColor(COLOR_PRIORITY_D).setBold(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_E, new HighlightSpan().setForeColor(COLOR_PRIORITY_E).setBold(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_F, new HighlightSpan().setForeColor(COLOR_PRIORITY_F).setBold(true));
+        createStyleSpanForMatches(TodoTxtTask.PATTERN_PRIORITY_G_TO_Z, Typeface.BOLD);
 
-        createColorSpanForMatches(TodoTxtParser.PATTERN_CREATION_DATE, _isDarkMode ? COLOR_DATE_DARK : COLOR_DATE_LIGHT, 1);
-        createColorSpanForMatches(TodoTxtParser.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
+        createColorSpanForMatches(TodoTxtTask.PATTERN_CREATION_DATE, _isDarkMode ? COLOR_DATE_DARK : COLOR_DATE_LIGHT, 1);
+        createColorSpanForMatches(TodoTxtTask.PATTERN_DUE_DATE, COLOR_PRIORITY_A, 2, 3);
 
         // Strike out done tasks
         // Note - as we now sort by start, projects, contexts, tags and due date will be highlighted for done tasks
-        createSpanForMatches(TodoTxtParser.PATTERN_DONE, new HighlightSpan().setForeColor(_isDarkMode ? COLOR_DONE_DARK : COLOR_DONE_LIGHT).setStrike(true));
+        createSpanForMatches(TodoTxtTask.PATTERN_DONE, new HighlightSpan().setForeColor(_isDarkMode ? COLOR_DONE_DARK : COLOR_DONE_LIGHT).setStrike(true));
     }
 }

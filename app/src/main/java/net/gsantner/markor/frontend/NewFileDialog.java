@@ -32,7 +32,7 @@ import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.todotxt.TodoTxtParser;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -143,7 +143,7 @@ public class NewFileDialog extends DialogFragment {
             String prefix = null;
 
             if (pos == 3) { // Jekyll
-                prefix = TodoTxtParser.DATEF_YYYY_MM_DD.format(new Date()) + "-";
+                prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
             } else if (pos == 9) { //ZettelKasten
                 prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
             }
@@ -313,7 +313,7 @@ public class NewFileDialog extends DialogFragment {
                 return null;
             }
         }
-        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtParser.DATEF_YYYY_MM_DD.format(new Date()));
+        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final char[] pass = ApplicationObject.settings().getDefaultPassword();

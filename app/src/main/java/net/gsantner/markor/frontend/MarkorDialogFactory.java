@@ -9,13 +9,13 @@
 #########################################################*/
 package net.gsantner.markor.frontend;
 
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_CONTEXT;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_CREATION_DATE;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_DESCRIPTION;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_DUE_DATE;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_LINE;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_PRIORITY;
-import static net.gsantner.markor.format.todotxt.TodoTxtParser.SttTaskSimpleComparator.BY_PROJECT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CONTEXT;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_CREATION_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DESCRIPTION;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_DUE_DATE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_LINE;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PRIORITY;
+import static net.gsantner.markor.format.todotxt.TodoTxtTask.SttTaskSimpleComparator.BY_PROJECT;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,7 +40,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
-import net.gsantner.markor.format.todotxt.TodoTxtParser;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
@@ -275,7 +275,7 @@ public class MarkorDialogFactory {
         options.add(activity.getString(R.string.completed));
         icons.add(R.drawable.ic_check_black_24dp);
         callbacks.add(() -> {
-            final GsSearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtParser::isDone);
+            final GsSearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
             dopt2.highlighter = null; // Don't need the grey + strikeout highlighting. Makes it harder to see.
             dopt2.titleText = R.string.completed;
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
@@ -339,12 +339,12 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
 
-        final GsCallback.r1<List<String>, TodoTxtParser> getKeys = TodoTxtFilter.keyGetter(activity, queryType);
-        final List<TodoTxtParser> allTasks = TodoTxtParser.getAllTasks(text.getText());
+        final GsCallback.r1<List<String>, TodoTxtTask> getKeys = TodoTxtFilter.keyGetter(activity, queryType);
+        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
 
         final List<String> keys = new ArrayList<>();
         final int[] noneCount = {0}; // Using an array as we need a final var
-        for (final TodoTxtParser task : allTasks) {
+        for (final TodoTxtTask task : allTasks) {
             if (!task.isDone()) {
                 final List<String> taskKeys = getKeys.callback(task);
                 noneCount[0] += (taskKeys.size() == 0) ? 1 : 0;
@@ -395,7 +395,9 @@ public class MarkorDialogFactory {
             for (int i = noneIncluded ? 1 : 0; i < keyIndices.size(); i++) {
                 selKeys.add(data.get(keyIndices.get(i)));
             }
-            selKeys.addAll(noneIncluded ? Collections.singletonList(null) : Collections.emptyList());
+            if (noneIncluded) {
+                selKeys.add(null);
+            }
 
             final GsSearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
             doptSel.messageText = activity.getString(title);
@@ -422,10 +424,10 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static GsSearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final GsCallback.b1<TodoTxtParser> filter) {
+    public static GsSearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final GsCallback.b1<TodoTxtTask> filter) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        final List<TodoTxtParser> allTasks = TodoTxtParser.getAllTasks(text.getText());
+        final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
         final List<Integer> lineIndices = new ArrayList<>();
         for (int i = 0; i < allTasks.size(); i++) {
@@ -589,7 +591,7 @@ public class MarkorDialogFactory {
             availableData.add(Character.toString((char) i));
         }
         highlightedData.add(none);
-        if (selectedPriority != TodoTxtParser.PRIORITY_NONE) {
+        if (selectedPriority != TodoTxtTask.PRIORITY_NONE) {
             highlightedData.add(Character.toString(selectedPriority));
         }
 

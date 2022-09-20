@@ -30,7 +30,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
-import net.gsantner.markor.format.todotxt.TodoTxtParser;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
@@ -311,7 +311,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
-                            sep += TodoTxtParser.getToday() + " ";
+                            sep += TodoTxtTask.getToday() + " ";
                         }
                         appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
                         close = true;

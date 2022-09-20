@@ -51,6 +51,6 @@ public class TodoTxtTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return TodoTxtParser.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+        return TodoTxtTask.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
     }
 }
