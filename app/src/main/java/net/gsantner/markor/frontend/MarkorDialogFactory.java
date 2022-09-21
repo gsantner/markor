@@ -399,7 +399,8 @@ public class MarkorDialogFactory {
                 selKeys.add(null);
             }
 
-            final GsSearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
+            final GsSearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(
+                    activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
             doptSel.messageText = activity.getString(title);
 
             // Callback to save view

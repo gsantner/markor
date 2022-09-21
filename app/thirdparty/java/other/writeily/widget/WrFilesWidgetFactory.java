@@ -54,6 +54,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
     private void updateFiles() {
         _widgetFilesList.clear();
         final File dir = WrWidgetConfigure.getWidgetDirectory(_context, _appWidgetId);
+        final AppSettings as = ApplicationObject.settings();
 
         if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
             _widgetFilesList.addAll(Arrays.asList(MarkorFileBrowserFactory.strlistToArray(ApplicationObject.settings().getRecentDocuments())));
@@ -62,11 +63,11 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
             _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {
-            final File[] all = dir.listFiles(file -> true);
+            final boolean showDot = as.isFileBrowserFilterShowDotFiles();
+            final File[] all = dir.listFiles(file -> !showDot || !file.getName().startsWith("."));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
+            GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse()); // Sort only if actual folder
         }
-        AppSettings as = ApplicationObject.settings();
-        GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse()); // Sort only if actual folder
     }
 
     @Override

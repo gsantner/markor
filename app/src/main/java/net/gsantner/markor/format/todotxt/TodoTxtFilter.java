@@ -185,7 +185,7 @@ public class TodoTxtFilter {
                 gp.keys = new ArrayList<>();
                 final JSONArray keysArray = obj.getJSONArray(KEYS);
                 for (int j = 0; j < keysArray.length(); j++) {
-                    final String key = keysArray.getString(i);
+                    final String key = keysArray.getString(j);
                     gp.keys.add(NULL_SENTINEL.equals(key) ? null : key);
                 }
                 loadedViews.add(gp);
