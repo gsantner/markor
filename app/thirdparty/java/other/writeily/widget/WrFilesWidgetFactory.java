@@ -64,10 +64,10 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {
             final boolean showDot = as.isFileBrowserFilterShowDotFiles();
-            final File[] all = dir.listFiles(file -> !showDot || !file.getName().startsWith("."));
+            final File[] all = dir.listFiles(file -> showDot || !file.getName().startsWith("."));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
-            GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse()); // Sort only if actual folder
         }
+        GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse());
     }
 
     @Override
