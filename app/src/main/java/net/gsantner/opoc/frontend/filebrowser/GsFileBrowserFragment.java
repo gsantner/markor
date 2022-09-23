@@ -343,6 +343,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             item.setChecked(true);
         } else if ((item = menu.findItem(R.id.action_sort_by_filesize)) != null && GsFileUtils.SORT_BY_FILESIZE.equals(_dopt.sortByType)) {
             item.setChecked(true);
+        } else if ((item = menu.findItem(R.id.action_sort_by_mimetype)) != null && GsFileUtils.SORT_BY_MIMETYPE.equals(_dopt.sortByType)) {
+            item.setChecked(true);
         }
 
         List<Pair<File, String>> sdcardFolders = _cu.getAppDataPublicDirs(getContext(), false, true, true);
@@ -387,6 +389,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_sort_by_filesize: {
                 item.setChecked(true);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_FILESIZE);
+                sortAdapter();
+                return true;
+            }
+            case R.id.action_sort_by_mimetype: {
+                item.setChecked(true);
+                _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MIMETYPE);
                 sortAdapter();
                 return true;
             }

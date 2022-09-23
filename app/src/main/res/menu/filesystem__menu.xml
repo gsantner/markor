@@ -168,6 +168,11 @@
                     android:icon="@drawable/ic_sort_black_24dp"
                     android:title="@string/size"
                     app:showAsAction="never" />
+                <item
+                    android:id="@+id/action_sort_by_mimetype"
+                    android:icon="@drawable/ic_extension_black_24dp"
+                    android:title="@string/mime_type"
+                    app:showAsAction="never" />
             </group>
             <group
                 android:id="@+id/action_grp_sort2"

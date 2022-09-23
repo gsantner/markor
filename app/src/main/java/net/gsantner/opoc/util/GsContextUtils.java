@@ -172,10 +172,8 @@ public class GsContextUtils {
     //########################
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
-
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
-    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
     public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
@@ -967,8 +965,6 @@ public class GsContextUtils {
 
     /**
      * Detect MimeType of given file
-     * Android/Java's own MimeType map is very very small and detection barely works at all
-     * Hence use custom map for some file extensions
      */
     public String getMimeType(final Context context, String uri) {
         String mimeType;
@@ -979,34 +975,14 @@ public class GsContextUtils {
         } else {
             String ext = MimeTypeMap.getFileExtensionFromUrl(uri);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
-
-            // Try to guess if the recommended methods fail
-            if (TextUtils.isEmpty(mimeType)) {
-                switch (ext) {
-                    case "md":
-                    case "markdown":
-                    case "mkd":
-                    case "mdown":
-                    case "mkdn":
-                    case "mdwn":
-                    case "rmd":
-                        mimeType = "text/markdown";
-                        break;
-                    case "yaml":
-                    case "yml":
-                        mimeType = "text/yaml";
-                        break;
-                    case "json":
-                        mimeType = "text/json";
-                        break;
-                    case "txt":
-                        mimeType = "text/plain";
-                        break;
-                }
-            }
         }
 
-        if (TextUtils.isEmpty(mimeType)) {
+        // Try to guess if the recommended methods fail
+        if (GsTextUtils.ne(mimeType) && new File(uri).exists()) {
+            mimeType = GsFileUtils.getMimeType(new File(uri));
+        }
+
+        if (GsTextUtils.ne((mimeType))) {
             mimeType = "*/*";
         }
         return mimeType.toLowerCase(Locale.ROOT);

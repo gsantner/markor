@@ -169,6 +169,11 @@ public class GsTextUtils {
         return list;
     }
 
+    // Not null, not empty, not spaces only
+    public static boolean ne(final String str) {
+        return str != null && !str.trim().isEmpty();
+    }
+
     /**
      * Convert an int color to a hex string. Optionally including alpha value.
      *
