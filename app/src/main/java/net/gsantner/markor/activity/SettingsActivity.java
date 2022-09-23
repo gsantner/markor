@@ -35,6 +35,7 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
@@ -117,12 +118,12 @@ public class SettingsActivity extends MarkorBaseActivity {
         }
 
         @Override
+        @SuppressWarnings("rawtypes")
         protected void onPreferenceScreenChanged(PreferenceFragmentCompat preferenceFragmentCompat, PreferenceScreen preferenceScreen) {
             super.onPreferenceScreenChanged(preferenceFragmentCompat, preferenceScreen);
             if (!TextUtils.isEmpty(preferenceScreen.getTitle())) {
-                SettingsActivity a = (SettingsActivity) getActivity();
-                if (a != null) {
-                    a.toolbar.setTitle(preferenceScreen.getTitle());
+                if (getActivity() instanceof GsActivityBase && ((GsActivityBase) getActivity()).getToolbar() != null) {
+                    ((GsActivityBase) getActivity()).getToolbar().setTitle(preferenceScreen.getTitle());
                 }
             }
         }

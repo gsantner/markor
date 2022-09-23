@@ -16,6 +16,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -254,7 +255,7 @@ public class GsContextUtils {
     @ColorInt
     public int rcolor(final Context context, @ColorRes final int resId) {
         if (resId == 0) {
-            Log.e(getClass().getName(), "ContextUtils::rcolor: resId is 0!");
+            Log.e(getClass().getName(), "GsContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
         }
         return ContextCompat.getColor(context, resId);
@@ -310,26 +311,24 @@ public class GsContextUtils {
             } catch (Exception ignored2) {
             }
         }
-        if (src == null || src.trim().isEmpty()) {
-            return "Sideloaded";
-        }
-        src = src.replaceAll("(?i).*amazon.*", "Amazon Appstore").replaceAll("(?i).*fdroid.*", "F-Droid");
-        switch (src) {
-            case "com.android.vending":
-            case "com.google.android.feedback": {
-                return "Google Play";
-            }
-            case "com.github.yeriomin.yalpstore": {
-                return "Yalp Store";
-            }
-            case "cm.aptoide.pt": {
-                return "Aptoide";
-            }
-            case "com.android.packageinstaller": {
-                return "Package Installer";
-            }
-        }
+
+        src = TextUtils.isEmpty(src) ? "" : src;
+        src = src.replaceAll("^\\s*$", "Sideloaded")
+                .replaceAll("(?i).*(vending)|(google).*", "Google Play")
+                .replaceAll("(?i).*fdroid.*", "F-Droid")
+                .replaceAll("(?i).*amazon.*", "Amazon Appstore")
+                .replaceAll("(?i).*yalp.*", "Yalp Store").replaceAll("(?i).*aptoide.*", "Aptoide")
+                .replaceAll("(?i).*package.*installer.*", "Package Installer");
         return src;
+    }
+
+    @SuppressLint("PrivateApi")
+    public Application getApplicationObject() {
+        try {
+            return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -2189,7 +2188,7 @@ public class GsContextUtils {
             return DocumentFile.fromFile(file);
         }
 
-        // Get ContextUtils to find storageRootFolder
+        // Find storage root folder
         File baseFolderFile = getStorageRootFolder(context, file);
         String baseFolder = baseFolderFile == null ? null : baseFolderFile.getAbsolutePath();
         boolean originalDirectory = false;
