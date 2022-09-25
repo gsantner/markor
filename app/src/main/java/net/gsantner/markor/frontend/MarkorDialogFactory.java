@@ -698,17 +698,6 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showConfirmationDialog(final Activity activity, @StringRes final int message, final GsCallback.a1<Boolean> callback) {
-        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
-        baseConf(activity, dopt);
-
-        dopt.titleText = R.string.confirm;
-        dopt.messageText = activity.getString(message);
-        dopt.callback = (s) -> callback.callback(true);
-        dopt.negativeButtonCallback = () -> callback.callback(false);
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
     public static void baseConf(Activity activity, GsSearchOrCustomTextDialog.DialogOptions dopt) {
         dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
