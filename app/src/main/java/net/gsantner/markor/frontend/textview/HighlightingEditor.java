@@ -28,6 +28,7 @@ import android.view.accessibility.AccessibilityEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
@@ -37,7 +38,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 @SuppressWarnings("UnusedReturnValue")
-public class HighlightingEditor extends AppCompatEditText {
+public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
 
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
@@ -139,26 +140,33 @@ public class HighlightingEditor extends AppCompatEditText {
             // Don't highlight unless shifted sufficiently or a recompute is required
             if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
 
+                final boolean heightSame = _hlRect.height() == _oldHlRect.height();
+
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user.
                 int shiftTestLine = -1, oldOffset = -1;
-                if (_scrollView != null && _hlRect.height() == _oldHlRect.height()) {
+                if (_scrollView != null && heightSame) {
                     shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
                     oldOffset = layout.getLineBaseline(shiftTestLine);
+                }
+
+                if (heightSame) {
+                    // Hack to block bring point into view
+                    // We don't call this when height is changing
+                    blockBringPointIntoView();
                 }
 
                 final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
                 try {
                     beginBatchEdit();
-                    blockBringPointIntoView(); // Hack to block bring point into view
                     _hl.clear();
                     if (recompute) {
                         _hl.recompute();
                     }
                     _hl.apply(newHlRegion);
                 } finally {
-                    blockBringPointIntoView(); // Hack to block bring point into view
+                    blockBringPointIntoView();
                     endBatchEdit();
                 }
 
@@ -191,7 +199,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_hl != null) {
             initHighlighter();
-            _hlDebounced = TextViewUtils.makeDebounced(_hl.getHighlightingDelay(), () -> updateHighlighting(true));
+            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), () -> updateHighlighting(true));
             _hlDebounced.run();
         } else {
             _hlDebounced = null;

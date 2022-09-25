@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -68,6 +69,10 @@ public class GsSearchOrCustomTextDialog {
         // Callback for search text or text of single item
         @Nullable
         public GsCallback.a1<String> callback = null;
+
+        // Callback for search text or text of single item
+        @Nullable
+        public GsCallback.a0 negativeButtonCallback = null;
 
         // Callback for indices of selected items.
         // List will contain single item if isMultiSelectEnabled == false;
@@ -258,9 +263,13 @@ public class GsSearchOrCustomTextDialog {
         listLayout.weight = 1;
         mainLayout.addView(listView, listLayout);
 
-        dialogBuilder.setView(mainLayout)
-                .setOnCancelListener(null)
-                .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
+        dialogBuilder.setView(mainLayout).setOnCancelListener(null)
+                .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> {
+                    if (dopt.negativeButtonCallback != null) {
+                        dopt.negativeButtonCallback.callback();
+                    }
+                    dialogInterface.dismiss();
+                });
 
         // =========================================================================================
 

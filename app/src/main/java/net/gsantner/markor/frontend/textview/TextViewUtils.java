@@ -19,7 +19,6 @@ import android.text.Selection;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -33,7 +32,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Observer;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
@@ -281,9 +279,19 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static @NonNull Rect getRegionRect(final TextView text, final int start, final int end) {
+    public static @NonNull Rect getSelRect(final TextView text, final int ... sel) {
 
         final Rect region = new Rect();
+
+        if (sel == null || sel.length == 0) {
+            return region;
+        }
+
+        final int _start = Math.min(sel[0], sel.length > 1 ? sel[1] : sel[0]);
+        final int _end = Math.max(sel[0], sel.length > 1 ? sel[1] : sel[0]);
+        if (!inRange(0, text.length(), _start, _end)) {
+            return region;
+        }
 
         // Get view info
         // ------------------------------------------------------------
@@ -292,11 +300,6 @@ public final class TextViewUtils extends GsTextUtils {
             return region;
         }
 
-        final int _start = Math.min(start, end);
-        final int _end = Math.max(start, end);
-        if (start < 0 || end > text.length()) {
-            return region;
-        }
         final int lineStart = TextViewUtils.getLineStart(text.getText(), _start);
 
         final Rect viewSize = new Rect();
@@ -352,7 +355,7 @@ public final class TextViewUtils extends GsTextUtils {
         }
 
         public void run() {
-            final Rect region = getRegionRect(_text, _start, _end);
+            final Rect region = getSelRect(_text, _start, _end);
             if (!region.isEmpty()) {
                 if (_observer != null && _iterCount > 0) {
                     _observer.addOnScrollChangedListener(this);
@@ -364,7 +367,7 @@ public final class TextViewUtils extends GsTextUtils {
         @Override
         public void onScrollChanged() {
             final Rect region;
-            if (--_iterCount <= 0 || (region = getRegionRect(_text, _start, _end)).isEmpty()) {
+            if (--_iterCount <= 0 || (region = getSelRect(_text, _start, _end)).isEmpty()) {
                 _observer.removeOnScrollChangedListener(this);
                 return;
             }

@@ -102,6 +102,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private boolean _isPreviewVisible;
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
+    private boolean _isExitWithoutSave = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
     // Wrap text setting and wrap text state are separated as the wrap text state may depend on
@@ -266,7 +267,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onPause() {
-        saveDocument(false);
+        if (!_isExitWithoutSave) {
+            saveDocument(false);
+        }
         _webView.onPause();
         _appSettings.addRecentDocument(_document.getFile());
         _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
@@ -371,6 +374,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (_document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
+            if (_document.fileBytes() - content.getBytes().length > 3)  {
+                errorClipText();
+                return false;
+            }
+
             if (!_document.isContentSame(_hlEditor.getText())) {
 
                 final int[] sel = TextViewUtils.getSelection(_hlEditor);

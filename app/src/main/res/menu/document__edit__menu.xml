@@ -251,4 +251,9 @@
         android:icon="@drawable/ic_redo_black_24dp"
         android:title="@string/reload"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_exit_without_save"
+        android:icon="@drawable/ic_baseline_error_outline_24"
+        android:title="@string/exit_without_save"
+        app:showAsAction="never" />
 </menu>

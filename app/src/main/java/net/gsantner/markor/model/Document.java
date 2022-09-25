@@ -147,6 +147,16 @@ public class Document implements Serializable {
         return _file.lastModified();
     }
 
+    public long fileBytes() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).size();
+            }
+        } catch (IOException ignored) {
+        }
+        return _file.length();
+    }
+
     public String getTitle() {
         return _title;
     }
