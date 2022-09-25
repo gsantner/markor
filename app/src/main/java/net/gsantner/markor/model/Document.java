@@ -19,6 +19,7 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
@@ -206,15 +207,15 @@ public class Document implements Serializable {
     }
 
     private void setContentHash(final CharSequence s) {
-        _lastLength = s.length();
-        _lastHash = GsFileUtils.crc32(s);
+        _lastLength = s != null ? s.length() : 0;
+        _lastHash = s != null ? GsFileUtils.crc32(s) : 0;
     }
 
     public boolean isContentSame(final CharSequence s) {
         return s != null && s.length() == _lastLength && _lastHash == GsFileUtils.crc32(s);
     }
 
-    public synchronized String loadContent(final Context context) {
+    public synchronized @Nullable String loadContent(final Context context) {
         String content;
         final char[] pw;
 
@@ -237,7 +238,11 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            final Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
+            // We try to load 2x. If both times fail, we return null
+            Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
+            if (result.second.ioError) {
+                result = GsFileUtils.readTextFileFast(_file);
+            }
             content = result.first;
             _fileInfo = result.second;
         }
@@ -248,16 +253,22 @@ public class Document implements Serializable {
                             + getName().replaceAll(".*\\.", "-")
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
-                            "). Language >" + Locale.getDefault().toString()
+                            "). Language >" + Locale.getDefault()
                             + "<, Language override >" + ApplicationObject.settings().getLanguage() + "<");
         }
 
         // Also set hash and time on load - should prevent unnecessary saves
         setContentHash(content);
-        _modTime = fileModTime();
-        setGlobalTouchTime();
 
-        return content;
+        if (_fileInfo.ioError) {
+            // Force next load on failure
+            resetChangeTracking();
+            return null;
+        } else {
+            _modTime = fileModTime();
+            setGlobalTouchTime();
+            return content;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

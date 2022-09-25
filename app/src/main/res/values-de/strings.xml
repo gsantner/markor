@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Teilen in - Format</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
-    <string name="document_error_exit">Fehler: Konnte nicht öffnen.</string>
+    <string name="document_error">Fehler: Konnte nicht öffnen.</string>
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
 </resources>

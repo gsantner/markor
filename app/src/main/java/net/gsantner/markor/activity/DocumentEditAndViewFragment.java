@@ -150,7 +150,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
         if (isStateBad()) {
-            Toast.makeText(activity, R.string.document_error_exit, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.document_error, Toast.LENGTH_LONG).show();
             activity.finish();
             return;
         }
@@ -362,16 +362,20 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public boolean loadDocument() {
+        return loadDocument(false);
+    }
+
+    public boolean loadDocument(final boolean forceReload) {
         if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
 
-        // Only trigger the load process if constructing or file updated
-        if (_document.hasFileChangedSinceLastLoad()) {
+        // Only trigger the load process if constructing or file updated or force reload
+        if (forceReload || _document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
-            if (_document.fileBytes() - content.getBytes().length > 3)  {
+            if (content == null) {
                 errorClipText();
                 return false;
             }
@@ -436,7 +440,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_reload: {
-                if (loadDocument()) {
+                if (loadDocument(true)) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -696,8 +700,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             Context context = getContext();
             context = context == null ? ApplicationObject.get().getApplicationContext() : context;
             new MarkorContextUtils(context).setClipboard(getContext(), text);
-            Toast.makeText(getContext(), R.string.document_error_clip, Toast.LENGTH_LONG).show();
         }
+        // Always show error message
+        Toast.makeText(getContext(), R.string.document_error, Toast.LENGTH_LONG).show();
     }
 
     public boolean isSdStatusBad() {

@@ -197,10 +197,15 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final String shareIntoFormat = _cu.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
-            final String newContent = document.loadContent(context).replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
-                    + separator
-                    + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
-            document.saveContent(context, newContent);
+            final String oldContent = document.loadContent(context);
+            if (oldContent != null) {
+                final String newContent = oldContent.replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
+                        + separator
+                        + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
+                document.saveContent(context, newContent);
+            } else {
+                Toast.makeText(context, R.string.document_error, Toast.LENGTH_LONG).show();
+            }
 
             if (showEditor) {
                 showInDocumentActivity(document);

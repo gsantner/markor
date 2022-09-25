@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Chyba: Nelze otevřít.</string>
+    <string name="document_error">Chyba: Nelze otevřít.</string>
     <string name="document_error_clip">Došlo k chybě: Text zkopírován do schránky.</string>
 </resources>
