@@ -257,14 +257,14 @@ public class Document implements Serializable {
                             + "<, Language override >" + ApplicationObject.settings().getLanguage() + "<");
         }
 
-        // Also set hash and time on load - should prevent unnecessary saves
-        setContentHash(content);
-
-        if (_fileInfo.ioError) {
+        if (_fileInfo != null && _fileInfo.ioError) {
             // Force next load on failure
+            setContentHash(null);
             resetChangeTracking();
             return null;
         } else {
+            // Also set hash and time on load - should prevent unnecessary saves
+            setContentHash(content);
             _modTime = fileModTime();
             setGlobalTouchTime();
             return content;
