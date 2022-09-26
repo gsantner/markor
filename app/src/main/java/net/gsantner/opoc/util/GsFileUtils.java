@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.BufferedInputStream;
@@ -442,7 +443,7 @@ public class GsFileUtils {
 
         String t;
         try {
-            if (GsTextUtils.ne(t = Files.probeContentType(file.toPath()))) {
+            if (!TextViewUtils.isNullOrWhitespace(t = Files.probeContentType(file.toPath()))) {
                 return t;
             }
         } catch (Exception ignored) {
@@ -450,7 +451,7 @@ public class GsFileUtils {
 
         if (file.exists() && file.isFile()) {
             try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-                if (GsTextUtils.ne(t = Files.probeContentType(file.toPath()))) {
+                if (!TextViewUtils.isNullOrWhitespace(t = Files.probeContentType(file.toPath()))) {
                     return t;
                 }
             } catch (Exception ignored) {
@@ -458,7 +459,7 @@ public class GsFileUtils {
         }
 
         t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", ""));
-        return GsTextUtils.ne(t) ? "*/*" : t;
+        return !TextViewUtils.isNullOrWhitespace(t) ? "*/*" : t;
     }
 
     public static boolean isTextFile(File file) {

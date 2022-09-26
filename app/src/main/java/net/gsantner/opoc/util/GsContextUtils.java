@@ -126,6 +126,7 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -978,11 +979,11 @@ public class GsContextUtils {
         }
 
         // Try to guess if the recommended methods fail
-        if (GsTextUtils.ne(mimeType) && new File(uri).exists()) {
+        if (!TextViewUtils.isNullOrWhitespace(mimeType) && new File(uri).exists()) {
             mimeType = GsFileUtils.getMimeType(new File(uri));
         }
 
-        if (GsTextUtils.ne((mimeType))) {
+        if (!TextViewUtils.isNullOrWhitespace((mimeType))) {
             mimeType = "*/*";
         }
         return mimeType.toLowerCase(Locale.ROOT);

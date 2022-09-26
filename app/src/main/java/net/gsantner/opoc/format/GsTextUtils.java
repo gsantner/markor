@@ -17,6 +17,7 @@ import org.json.JSONTokener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
@@ -163,17 +164,6 @@ public class GsTextUtils {
         }
     }
 
-    public static <T> ArrayList<T> toArrayList(T... array) {
-        ArrayList<T> list = new ArrayList<>();
-        Collections.addAll(list, array);
-        return list;
-    }
-
-    // Not null, not empty, not spaces only
-    public static boolean ne(final String str) {
-        return str != null && !str.trim().isEmpty();
-    }
-
     /**
      * Convert an int color to a hex string. Optionally including alpha value.
      *
@@ -184,7 +174,6 @@ public class GsTextUtils {
         boolean a = withAlpha != null && withAlpha.length >= 1 && withAlpha[0];
         return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
     }
-
 
     /**
      * Convert escape sequences in string to escaped special characters. For example, convert
