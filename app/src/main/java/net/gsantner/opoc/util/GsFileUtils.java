@@ -9,8 +9,11 @@
 #########################################################*/
 package net.gsantner.opoc.util;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Pair;
+
+import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -27,10 +30,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,8 +48,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
 
-@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection", "TryFinallyCanBeTryWithResources"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue", "SpellCheckingInspection"})
 public class GsFileUtils {
+    @SuppressLint("ConstantLocale")
+    public final static Locale INITIAL_LOCALE = Locale.getDefault();
+    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
+
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
 
@@ -405,61 +414,51 @@ public class GsFileUtils {
 
     /**
      * Try to detect MimeType by backwards compatible methods
+     * Android/Java's own MimeType mapping support is small and detection barely works at all
+     * Hence use custom map for some file extensions
      */
+    @SuppressLint("NewApi")
     public static String getMimeType(File file) {
-        String guess = null;
-        if (file != null) {
-            if (file.exists() && file.isFile()) {
-                InputStream is = null;
-                try {
-                    is = new BufferedInputStream(new FileInputStream(file));
-                    guess = URLConnection.guessContentTypeFromStream(is);
-                } catch (Exception ignored) {
-                } finally {
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
+        if (file == null) {
+            return "*/*";
+        }
 
-            String filename = file.getName().replace(".jenc", "");
-            int dot = filename.lastIndexOf(".") + 1;
-            if (dot > 0 && dot < filename.length()) {
-                switch (filename.substring(dot)) {
-                    case "md":
-                    case "markdown":
-                    case "mkd":
-                    case "mdown":
-                    case "mkdn":
-                    case "mdwn":
-                    case "rmd":
-                        guess = "text/markdown";
-                        break;
-                    case "txt":
-                        guess = "text/plain";
-                        break;
-                    case "webp":
-                        guess = "image/webp";
-                        break;
-                    case "jpg":
-                    case "jpeg":
-                        guess = "image/jpeg";
-                        break;
-                    case "png":
-                        guess = "image/png";
-                        break;
-                }
-            }
+        String ext = getFilenameExtension(file).replace(".", "");
+        if (ext.matches("ya?ml")) {
+            return "text/yaml";
+        } else if (ext.matches("json.*")) {
+            return "text/json";
+        } else if (ext.matches("((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(mdwn)|(mdx)|(rmd))")) {
+            return "text/markdown";
+        } else if (ext.matches("te?xt")) {
+            return "text/plain";
+        } else if (ext.matches("webp")) {
+            return "image/webp";
+        } else if (ext.matches("jpe?g")) {
+            return "image/jpeg";
+        } else if (ext.matches("png")) {
+            return "image/png";
+        }
 
-            if (TextUtils.isEmpty(guess)) {
-                guess = URLConnection.guessContentTypeFromName(filename);
+        String t;
+        try {
+            if (GsTextUtils.ne(t = Files.probeContentType(file.toPath()))) {
+                return t;
+            }
+        } catch (Exception ignored) {
+        }
+
+        if (file.exists() && file.isFile()) {
+            try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
+                if (GsTextUtils.ne(t = Files.probeContentType(file.toPath()))) {
+                    return t;
+                }
+            } catch (Exception ignored) {
             }
         }
 
-        return TextUtils.isEmpty(guess) ? "*/*" : guess;
+        t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", ""));
+        return GsTextUtils.ne(t) ? "*/*" : t;
     }
 
     public static boolean isTextFile(File file) {
@@ -604,7 +603,7 @@ public class GsFileUtils {
 
     /// Get the file extension of the file
     public static String getFilenameExtension(final File file) {
-        final String name = file.getName();
+        final String name = file.getName().replace(".jenc", "");
         final int doti = name.lastIndexOf(".");
         return (doti < 0) ? "" : name.substring(doti).toLowerCase();
     }
@@ -632,13 +631,13 @@ public class GsFileUtils {
         final String prefix = (((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 0 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[0])) ? A0prefixA1postfixA2ext[0] : "Screenshot") + "_").trim().replaceFirst("^_$", "");
         final String postfix = ("_" + ((A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 1 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[1])) ? A0prefixA1postfixA2ext[1] : "")).trim().replaceFirst("^_$", "");
         final String ext = (A0prefixA1postfixA2ext != null && A0prefixA1postfixA2ext.length > 2 && !TextUtils.isEmpty(A0prefixA1postfixA2ext[2])) ? A0prefixA1postfixA2ext[2] : "jpg";
-        String filename = String.format("%s%s%s.%s", prefix.trim(), GsContextUtils.DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
+        String filename = String.format("%s%s%s.%s", prefix.trim(), DATEFORMAT_IMG.format(new Date()), postfix.trim(), ext.toLowerCase().replace(".", "").replace("jpeg", "jpg"));
         filename = getFilteredFilenameWithoutDisallowedChars(filename);
         return filename;
     }
 
 
-    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME";
+    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     public static Comparator<File> sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
         final Comparator<File> detailComparator = (current, other) -> {
@@ -657,6 +656,10 @@ public class GsFileUtils {
                 }
                 case SORT_BY_NAME: {
                     return current.getName().compareToIgnoreCase(other.getName());
+                }
+                case SORT_BY_MIMETYPE: {
+                    String m1 = getMimeType(current), m2 = getMimeType(other);
+                    return m1.equalsIgnoreCase(m2) ? current.getName().compareToIgnoreCase(other.getName()) : m1.compareToIgnoreCase(m2);
                 }
             }
             return current.compareTo(other);

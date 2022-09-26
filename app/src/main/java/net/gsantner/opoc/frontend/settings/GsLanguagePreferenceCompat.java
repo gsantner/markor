@@ -11,7 +11,7 @@
 /*
  * Requires:
       The BuildConfig field "APPLICATION_LANGUAGES" which is a array of all available languages
-      opoc/ContextUtils
+      opoc/GsContextUtils
  * BuildConfig field can be defined by using the method below
 
 buildConfigField "String[]", "APPLICATION_LANGUAGES", "${getUsedAndroidLanguages()}"

@@ -116,8 +116,7 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
      */
     public void setToolbarVisible(boolean visible) {
         try {
-            final int toolbarResId = GsContextUtils.instance.getResId(this, GsContextUtils.ResType.ID, "toolbar");
-            LinearLayout appBarLayout = ((LinearLayout) findViewById(toolbarResId).getParent());
+            LinearLayout appBarLayout = ((LinearLayout) getToolbar().getParent());
             if (!visible && m_initialToolbarHeight == 0) {
                 m_initialToolbarHeight = appBarLayout.getMeasuredHeight();
             }
@@ -125,6 +124,15 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
             lp.height = visible ? m_initialToolbarHeight : 0;
             appBarLayout.setLayoutParams(lp);
         } catch (Exception ignored) {
+        }
+    }
+
+    public Toolbar getToolbar() {
+        try {
+            final int toolbarResId = GsContextUtils.instance.getResId(this, GsContextUtils.ResType.ID, "toolbar");
+            return findViewById(toolbarResId);
+        } catch (Exception ignored) {
+            return null;
         }
     }
 }

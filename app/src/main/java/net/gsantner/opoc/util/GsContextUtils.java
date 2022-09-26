@@ -16,6 +16,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -171,10 +172,8 @@ public class GsContextUtils {
     //########################
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
-
     public final static String EXTRA_FILEPATH = "real_file_path_2";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
-    public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
     public final static String CONTENT_RESOLVER_FILE_PROXY_SEGMENT = "CONTENT_RESOLVER_FILE_PROXY_SEGMENT";
@@ -254,7 +253,7 @@ public class GsContextUtils {
     @ColorInt
     public int rcolor(final Context context, @ColorRes final int resId) {
         if (resId == 0) {
-            Log.e(getClass().getName(), "ContextUtils::rcolor: resId is 0!");
+            Log.e(getClass().getName(), "GsContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
         }
         return ContextCompat.getColor(context, resId);
@@ -310,26 +309,24 @@ public class GsContextUtils {
             } catch (Exception ignored2) {
             }
         }
-        if (src == null || src.trim().isEmpty()) {
-            return "Sideloaded";
-        }
-        src = src.replaceAll("(?i).*amazon.*", "Amazon Appstore").replaceAll("(?i).*fdroid.*", "F-Droid");
-        switch (src) {
-            case "com.android.vending":
-            case "com.google.android.feedback": {
-                return "Google Play";
-            }
-            case "com.github.yeriomin.yalpstore": {
-                return "Yalp Store";
-            }
-            case "cm.aptoide.pt": {
-                return "Aptoide";
-            }
-            case "com.android.packageinstaller": {
-                return "Package Installer";
-            }
-        }
+
+        src = TextUtils.isEmpty(src) ? "" : src;
+        src = src.replaceAll("^\\s*$", "Sideloaded")
+                .replaceAll("(?i).*(vending)|(google).*", "Google Play")
+                .replaceAll("(?i).*fdroid.*", "F-Droid")
+                .replaceAll("(?i).*amazon.*", "Amazon Appstore")
+                .replaceAll("(?i).*yalp.*", "Yalp Store").replaceAll("(?i).*aptoide.*", "Aptoide")
+                .replaceAll("(?i).*package.*installer.*", "Package Installer");
         return src;
+    }
+
+    @SuppressLint("PrivateApi")
+    public Application getApplicationObject() {
+        try {
+            return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -968,8 +965,6 @@ public class GsContextUtils {
 
     /**
      * Detect MimeType of given file
-     * Android/Java's own MimeType map is very very small and detection barely works at all
-     * Hence use custom map for some file extensions
      */
     public String getMimeType(final Context context, String uri) {
         String mimeType;
@@ -980,34 +975,14 @@ public class GsContextUtils {
         } else {
             String ext = MimeTypeMap.getFileExtensionFromUrl(uri);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
-
-            // Try to guess if the recommended methods fail
-            if (TextUtils.isEmpty(mimeType)) {
-                switch (ext) {
-                    case "md":
-                    case "markdown":
-                    case "mkd":
-                    case "mdown":
-                    case "mkdn":
-                    case "mdwn":
-                    case "rmd":
-                        mimeType = "text/markdown";
-                        break;
-                    case "yaml":
-                    case "yml":
-                        mimeType = "text/yaml";
-                        break;
-                    case "json":
-                        mimeType = "text/json";
-                        break;
-                    case "txt":
-                        mimeType = "text/plain";
-                        break;
-                }
-            }
         }
 
-        if (TextUtils.isEmpty(mimeType)) {
+        // Try to guess if the recommended methods fail
+        if (GsTextUtils.ne(mimeType) && new File(uri).exists()) {
+            mimeType = GsFileUtils.getMimeType(new File(uri));
+        }
+
+        if (GsTextUtils.ne((mimeType))) {
             mimeType = "*/*";
         }
         return mimeType.toLowerCase(Locale.ROOT);
@@ -2189,7 +2164,7 @@ public class GsContextUtils {
             return DocumentFile.fromFile(file);
         }
 
-        // Get ContextUtils to find storageRootFolder
+        // Find storage root folder
         File baseFolderFile = getStorageRootFolder(context, file);
         String baseFolder = baseFolderFile == null ? null : baseFolderFile.getAbsolutePath();
         boolean originalDirectory = false;
