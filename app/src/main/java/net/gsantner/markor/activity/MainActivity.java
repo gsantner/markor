@@ -64,7 +64,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private SectionsPagerAdapter _viewPagerAdapter;
     private FloatingActionButton _fab;
 
-    private boolean _isNewIntent = false;
     private boolean _doubleBackToExitPressedOnce;
     private MarkorContextUtils _cu;
 
@@ -114,8 +113,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);
-        _isNewIntent = true;
+        final File dir = getIntentDir(intent, null);
+        final GsFileBrowserFragment frag = getNotebook();
+        if (frag != null && dir != null) {
+            frag.post(() -> frag.getAdapter().setCurrentFolder(dir, false));
+            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
+        }
     }
 
     private static File getIntentDir(final Intent intent, final File fallback) {
@@ -215,16 +218,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        if (_isNewIntent) {
-            final File dir = getIntentDir(getIntent(), null);
-            final GsFileBrowserFragment frag = getNotebook();
-            if (frag != null && dir != null) {
-                frag.getAdapter().setCurrentFolder(dir, false);
-                _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
-            }
-        }
-        _isNewIntent = false;
     }
 
     private void restartMainActivity() {
