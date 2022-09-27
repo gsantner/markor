@@ -241,6 +241,7 @@ public class Document implements Serializable {
             // We try to load 2x. If both times fail, we return null
             Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
             if (result.second.ioError) {
+                Log.i(Document.class.getName(), "Read error, trying again");
                 result = GsFileUtils.readTextFileFast(_file);
             }
             content = result.first;
@@ -261,6 +262,7 @@ public class Document implements Serializable {
             // Force next load on failure
             setContentHash(null);
             resetChangeTracking();
+            Log.i(Document.class.getName(), "Read error, could not load file");
             return null;
         } else {
             // Also set hash and time on load - should prevent unnecessary saves
@@ -345,13 +347,17 @@ public class Document implements Serializable {
                         if (isContentResolverProxyFile) {
                             GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Log.i(Document.class.toString(), e.getMessage());
                     }
                 });
                 success = true;
             } else {
                 success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
             }
+
+            success &= fileBytes() >= contentAsBytes.length;
+
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
@@ -362,6 +368,8 @@ public class Document implements Serializable {
             setContentHash(content);
             _modTime = fileModTime();
             setGlobalTouchTime();
+        } else {
+            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes());
         }
 
         return success;

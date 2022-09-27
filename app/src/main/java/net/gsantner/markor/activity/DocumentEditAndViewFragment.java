@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -703,6 +704,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         // Always show error message
         Toast.makeText(getContext(), R.string.document_error, Toast.LENGTH_LONG).show();
+        Log.i(DocumentEditAndViewFragment.class.getName(), "Triggering error text clipping");
     }
 
     public boolean isSdStatusBad() {
