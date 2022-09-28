@@ -279,7 +279,8 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static @NonNull Rect getSelRect(final TextView text, final int ... sel) {
+    public static @NonNull
+    Rect getSelRect(final TextView text, final int... sel) {
 
         final Rect region = new Rect();
 
@@ -341,7 +342,8 @@ public final class TextViewUtils extends GsTextUtils {
     // So we adopt an iterative scheme - scroll to the rect, check if rect is good and then
     // repeat until we are satisfied
     private static class SelectionShower implements ViewTreeObserver.OnScrollChangedListener {
-        final @NonNull TextView _text;
+        final @NonNull
+        TextView _text;
         final ViewTreeObserver _observer;
         final int _start, _end;
         int _iterCount;
@@ -378,7 +380,7 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static void showSelection(final TextView text, final int ... sel) {
+    public static void showSelection(final TextView text, final int... sel) {
         if (sel != null && sel.length > 0) {
             new SelectionShower(text, sel[0], sel.length > 1 ? sel[1] : sel[0], 5).run();
         }
@@ -402,7 +404,7 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static void setSelectionAndShow(final EditText edit, final int ... sel) {
+    public static void setSelectionAndShow(final EditText edit, final int... sel) {
         if (sel == null || sel.length == 0) {
             return;
         }

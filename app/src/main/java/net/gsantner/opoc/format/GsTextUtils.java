@@ -17,7 +17,6 @@ import org.json.JSONTokener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
@@ -162,6 +161,17 @@ public class GsTextUtils {
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    }
+
+    public static <T> ArrayList<T> toArrayList(T... array) {
+        ArrayList<T> list = new ArrayList<>();
+        Collections.addAll(list, array);
+        return list;
+    }
+
+    // Not null, not empty, not spaces only
+    public static boolean isNullOrEmpty(final CharSequence str) {
+        return str == null || str.toString().trim().isEmpty();
     }
 
     /**

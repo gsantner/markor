@@ -215,7 +215,8 @@ public class Document implements Serializable {
         return s != null && s.length() == _lastLength && _lastHash == GsFileUtils.crc32(s);
     }
 
-    public synchronized @Nullable String loadContent(final Context context) {
+    public synchronized @Nullable
+    String loadContent(final Context context) {
         String content;
         final char[] pw;
 

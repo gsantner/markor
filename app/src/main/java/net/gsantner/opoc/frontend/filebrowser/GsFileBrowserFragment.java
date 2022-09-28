@@ -69,10 +69,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
-    public static final int SORT_BY_NAME = 0;
-    public static final int SORT_BY_DATE = 1;
-    public static final int SORT_BY_FILESIZE = 2;
-
     public static GsFileBrowserFragment newInstance(GsFileBrowserOptions.Options options) {
         return new GsFileBrowserFragment();
     }

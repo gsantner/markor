@@ -13,8 +13,9 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -57,6 +58,7 @@ public class GsFileUtils {
 
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
+    private static final GsHashMap<String, String> MIME_TYPE_CACHE = new GsHashMap<>();
 
     /**
      * Info of various types about a file
@@ -413,25 +415,23 @@ public class GsFileUtils {
         }
     }
 
-    /**
-     * Try to detect MimeType by backwards compatible methods
-     * Android/Java's own MimeType mapping support is small and detection barely works at all
-     * Hence use custom map for some file extensions
-     */
+    @SuppressWarnings("StatementWithEmptyBody")
     @SuppressLint("NewApi")
-    public static String getMimeType(File file) {
+    private final static GsCallback.s1<File> gatherMimeType = file -> {
         if (file == null) {
             return "*/*";
         }
 
         String ext = getFilenameExtension(file).replace(".", "");
-        if (ext.matches("ya?ml")) {
+        if (file.isDirectory()) {
+            return "inode/directory";
+        } else if (ext.matches("ya?ml")) {
             return "text/yaml";
         } else if (ext.matches("json.*")) {
             return "text/json";
         } else if (ext.matches("((md)|(markdown)|(mkd)|(mdown)|(mkdn)|(mdwn)|(mdx)|(rmd))")) {
             return "text/markdown";
-        } else if (ext.matches("te?xt")) {
+        } else if (ext.matches("(te?xt)|(taskpaper)")) {
             return "text/plain";
         } else if (ext.matches("webp")) {
             return "image/webp";
@@ -439,11 +439,13 @@ public class GsFileUtils {
             return "image/jpeg";
         } else if (ext.matches("png")) {
             return "image/png";
+        } else if (ext.matches("a(sciidoc)?doc")) {
+            return "text/asciidoc";
         }
 
         String t;
         try {
-            if (!TextViewUtils.isNullOrWhitespace(t = Files.probeContentType(file.toPath()))) {
+            if (!GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
                 return t;
             }
         } catch (Exception ignored) {
@@ -451,15 +453,54 @@ public class GsFileUtils {
 
         if (file.exists() && file.isFile()) {
             try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-                if (!TextViewUtils.isNullOrWhitespace(t = Files.probeContentType(file.toPath()))) {
+                if (!GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
                     return t;
                 }
             } catch (Exception ignored) {
             }
         }
 
-        t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", ""));
-        return TextViewUtils.isNullOrWhitespace(t) ? "*/*" : t;
+        if (!GsTextUtils.isNullOrEmpty(t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", "")))) {
+            return t;
+        }
+
+        // Try extracting by running shell file -b on the file - for textfiles this very often results in "ASCII text"
+        try {
+            final String cmd = "file -b " + file.getAbsolutePath().replace(" ", "\\ ").replace(";", "").replace("&", "").replace("$", "");
+            final Process p = Runtime.getRuntime().exec(cmd);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            t = reader.readLine().trim().toLowerCase(Locale.ROOT);
+            try {
+                p.destroy();
+                reader.close();
+            } catch (Exception ignored) {
+            }
+            if (GsTextUtils.isNullOrEmpty(t) || t.contains("not found")) {
+            } else if (t.equals("ascii text")) {
+                return "text/plain";
+            } else if (t.contains("text") || t.contains("script")) {
+                return "text/" + t.replace(" ", "-");
+            }
+        } catch (Exception ignored) {
+        }
+        return "*/*";
+    };
+
+    /**
+     * Try to detect MimeType by backwards compatible methods
+     * Android/Java's own MimeType mapping support is small and detection barely works at all
+     * Hence use custom map for some file extensions
+     */
+    public static String getMimeType(File file) {
+        MIME_TYPE_CACHE.limitSizeByRemovingOldest(350);
+        final String fp = file.getAbsolutePath();
+        String mime = MIME_TYPE_CACHE.getOrDefault(fp, null);
+        if (mime == null) {
+            System.out.println("get mimetype" + fp);
+            mime = gatherMimeType.callback(file);
+            MIME_TYPE_CACHE.add(fp, mime);
+        }
+        return mime;
     }
 
     public static boolean isTextFile(File file) {
@@ -659,8 +700,8 @@ public class GsFileUtils {
                     return current.getName().compareToIgnoreCase(other.getName());
                 }
                 case SORT_BY_MIMETYPE: {
-                    String m1 = getMimeType(current), m2 = getMimeType(other);
-                    return m1.equalsIgnoreCase(m2) ? current.getName().compareToIgnoreCase(other.getName()) : m1.compareToIgnoreCase(m2);
+                    String mic = getMimeType(current), mio = getMimeType(other);
+                    return !mic.equalsIgnoreCase(mio) ? mic.compareToIgnoreCase(mio) : current.getName().compareToIgnoreCase(other.getName());
                 }
             }
             return current.compareTo(other);
@@ -685,6 +726,7 @@ public class GsFileUtils {
             try {
                 Collections.sort(filesToSort, mainComparator);
             } catch (Exception ignored) {
+                ignored.printStackTrace();
             }
         }
 

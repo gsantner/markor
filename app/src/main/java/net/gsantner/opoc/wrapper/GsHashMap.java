@@ -11,6 +11,7 @@
 package net.gsantner.opoc.wrapper;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings({"unchecked", "UnusedReturnValue", "WeakerAccess", "unused"})
@@ -57,5 +58,19 @@ public class GsHashMap<K, V> {
 
     public Set<K> keySet() {
         return _data.keySet();
+    }
+
+    public void limitSizeByRemovingOldest(int limit) {
+        limit = Math.max(0, limit);
+        while (_data.size() > limit) {
+            K removal = null;
+            for (Map.Entry<K, V> kvEntry : _data.entrySet()) {
+                removal = kvEntry.getKey();
+                break;
+            }
+            if (removal != null) {
+                _data.remove(removal);
+            }
+        }
     }
 }

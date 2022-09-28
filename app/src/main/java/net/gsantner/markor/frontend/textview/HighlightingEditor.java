@@ -27,7 +27,6 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 
 import net.gsantner.markor.ApplicationObject;

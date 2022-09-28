@@ -29,7 +29,6 @@ import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsMenuItemDummy;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -161,7 +160,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
 
     public void post(final Runnable action) {
         final View view = getView();
-        if (isResumed() && view != null)  {
+        if (isResumed() && view != null) {
             view.post(action);
         } else {
             _postTasks.add(action);
