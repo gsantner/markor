@@ -200,6 +200,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Vrh</string>
     <string name="bottom">Dno</string>
     <string name="center">Sredina</string>
+    <string name="actionbutton_spacing">ActionButton razmak</string>
+    <string name="horizontal_space_between_actionbuttons">Vodoravni razmak između ActionButtons</string>
     <string name="center_text">Tekst u sredini</string>
     <string name="edit_text_in_center_of_screen">Obrađuj tekst na sredini ekrana</string>
     <string name="clipboard">Kopirani sadržaj</string>
