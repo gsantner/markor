@@ -500,7 +500,6 @@ public class GsFileUtils {
         final String fp = file.getAbsolutePath();
         String mime = MIME_TYPE_CACHE.getOrDefault(fp, null);
         if (mime == null) {
-            System.out.println("get mimetype" + fp);
             mime = gatherMimeType.callback(file);
             MIME_TYPE_CACHE.add(fp, mime);
         }
