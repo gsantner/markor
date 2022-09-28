@@ -90,6 +90,10 @@ public class PlaintextTextConverter extends TextConverterBase {
 
     @Override
     protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return EXT.contains(extWithDot) || _appSettings.isExtOpenWithThisApp(extWithDot);
+        boolean ok = EXT.contains(extWithDot) || _appSettings.isExtOpenWithThisApp(extWithDot);
+        if (!ok) {
+            ok = GsFileUtils.getMimeType(new File(filepath)).startsWith("text/");
+        }
+        return ok;
     }
 }

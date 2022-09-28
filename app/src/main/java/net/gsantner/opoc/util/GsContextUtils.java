@@ -977,12 +977,12 @@ public class GsContextUtils {
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
         }
 
-        // Try to guess if the recommended methods fail
-        if (GsTextUtils.ne(mimeType) && new File(uri).exists()) {
+        // Next-best try if other methods fail
+        if (GsTextUtils.isNullOrEmpty(mimeType) && new File(uri).exists()) {
             mimeType = GsFileUtils.getMimeType(new File(uri));
         }
 
-        if (GsTextUtils.ne((mimeType))) {
+        if (GsTextUtils.isNullOrEmpty((mimeType))) {
             mimeType = "*/*";
         }
         return mimeType.toLowerCase(Locale.ROOT);

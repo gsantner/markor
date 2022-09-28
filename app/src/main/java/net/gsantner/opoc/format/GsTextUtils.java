@@ -170,8 +170,8 @@ public class GsTextUtils {
     }
 
     // Not null, not empty, not spaces only
-    public static boolean ne(final String str) {
-        return str != null && !str.trim().isEmpty();
+    public static boolean isNullOrEmpty(final CharSequence str) {
+        return str == null || str.toString().trim().isEmpty();
     }
 
     /**
