@@ -459,7 +459,7 @@ public class GsFileUtils {
         }
 
         t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", ""));
-        return !TextViewUtils.isNullOrWhitespace(t) ? "*/*" : t;
+        return TextViewUtils.isNullOrWhitespace(t) ? "*/*" : t;
     }
 
     public static boolean isTextFile(File file) {

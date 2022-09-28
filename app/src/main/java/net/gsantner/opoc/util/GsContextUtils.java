@@ -979,11 +979,11 @@ public class GsContextUtils {
         }
 
         // Try to guess if the recommended methods fail
-        if (!TextViewUtils.isNullOrWhitespace(mimeType) && new File(uri).exists()) {
+        if (TextViewUtils.isNullOrWhitespace(mimeType) && new File(uri).exists()) {
             mimeType = GsFileUtils.getMimeType(new File(uri));
         }
 
-        if (!TextViewUtils.isNullOrWhitespace((mimeType))) {
+        if (TextViewUtils.isNullOrWhitespace(mimeType)) {
             mimeType = "*/*";
         }
         return mimeType.toLowerCase(Locale.ROOT);

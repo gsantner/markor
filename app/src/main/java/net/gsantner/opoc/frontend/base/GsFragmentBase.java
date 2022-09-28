@@ -174,6 +174,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         final View view = getView();
         if (view != null) {
             view.postDelayed(this::checkRunFirstTimeVisible, 200);
+            // Add any remaining tasks
             while (!_postTasks.isEmpty()) {
                 view.post(_postTasks.remove());
             }
