@@ -294,7 +294,7 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
     @Override
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        if (visibility == View.VISIBLE) {
+        if (changedView == this && visibility == View.VISIBLE) {
             updateHighlighting(true);
         }
     }

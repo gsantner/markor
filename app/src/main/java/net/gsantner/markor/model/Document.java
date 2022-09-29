@@ -354,10 +354,18 @@ public class Document implements Serializable {
                 });
                 success = true;
             } else {
+                // Try write 2x
                 success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                if (!success || fileBytes() < contentAsBytes.length) {
+                    success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                }
             }
 
-            success &= fileBytes() >= contentAsBytes.length;
+            final long size = fileBytes();
+            if (fileBytes() < contentAsBytes.length) {
+                success = false;
+                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length);
+            }
 
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
