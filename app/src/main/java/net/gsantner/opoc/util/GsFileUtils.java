@@ -422,7 +422,7 @@ public class GsFileUtils {
             return "*/*";
         }
 
-        String ext = getFilenameExtension(file).replace(".", "");
+        final String ext = getFilenameExtension(file).replace(".", "");
         if (file.isDirectory()) {
             return "inode/directory";
         } else if (ext.matches("ya?ml")) {

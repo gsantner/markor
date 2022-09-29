@@ -111,21 +111,6 @@ public final class TextViewUtils extends GsTextUtils {
         return -1;
     }
 
-    public static boolean isNullOrWhitespace(final String str) {
-        if (str == null || str.isEmpty()) {
-            return true;
-        }
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (!Character.isWhitespace(ch)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public static int[] getSelection(final TextView text) {
         return getSelection(text.getText());
     }

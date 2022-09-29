@@ -60,6 +60,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class MarkorDialogFactory {
@@ -661,7 +662,7 @@ public class MarkorDialogFactory {
     // Read all files in snippets folder with appropriate extension
     // Create a map of sippet title -> text
     public static Map<String, File> getSnippets(final AppSettings as) {
-        final Map<String, File> texts = new OrderedMap<>();
+        final Map<String, File> texts = new TreeMap<>();
         final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
         if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
             if (!folder.mkdirs()) {
@@ -688,7 +689,6 @@ public class MarkorDialogFactory {
         final Map<String, File> texts = getSnippets(as());
 
         final List<String> data = new ArrayList<>(texts.keySet());
-        Collections.sort(data);
         dopt.data = data;
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
