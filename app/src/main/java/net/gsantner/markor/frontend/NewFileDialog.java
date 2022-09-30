@@ -10,6 +10,7 @@
 package net.gsantner.markor.frontend;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
 
@@ -34,6 +34,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -292,7 +293,7 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             case 8: {
-                t = "---\ntags: []\ncreated: '{{ template.timestamp_date_yyyy_mm_dd }}'\ntitle: ''\n---\n\n";
+                t = TextViewUtils.interpolateEscapedDateTime("---\ntags: []\ncreated: '`yyyy-MM-dd`'\ntitle: ''\n---\n\n");
                 if (basedir != null && new File(basedir.getParentFile(), ".notabledir").exists()) {
                     t = t.replace("created:", "modified:");
                 }
@@ -303,9 +304,9 @@ public class NewFileDialog extends DialogFragment {
                 break;
             }
             default: {
-                Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
+                final Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
-                    t = GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
+                    t = TextViewUtils.interpolateEscapedDateTime(GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first);
                     break;
                 }
 
@@ -313,7 +314,6 @@ public class NewFileDialog extends DialogFragment {
                 return null;
             }
         }
-        t = t.replace("{{ template.timestamp_date_yyyy_mm_dd }}", TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()));
 
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final char[] pass = ApplicationObject.settings().getDefaultPassword();
@@ -321,6 +321,7 @@ public class NewFileDialog extends DialogFragment {
         } else {
             bytes = t.getBytes();
         }
+
         return bytes;
     }
 }
