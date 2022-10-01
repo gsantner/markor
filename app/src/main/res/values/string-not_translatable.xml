@@ -121,9 +121,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown__reorder_actions" translatable="false">pref_key__markdown__reorder_actions</string>
     <string name="pref_key__todotxt__reorder_actions" translatable="false">pref_key__todotxt__reorder_actions</string>
     <string name="pref_key__plaintext__reorder_actions" translatable="false">pref_key__plaintext__reorder_actions</string>
+    <string name="pref_key__asciidoc__reorder_actions" translatable="false">pref_key__asciidoc__reorder_actions</string>
     <string name="pref_key__markdown__action_keys" translatable="false">pref_key__markdown__action_keys</string>
     <string name="pref_key__todotxt__action_keys" translatable="false">pref_key__todotxt__action_keys</string>
     <string name="pref_key__plaintext__action_keys" translatable="false">pref_key__plaintext__action_keys</string>
+    <string name="pref_key__asciidoc__action_keys" translatable="false">pref_key__asciidoc__action_keys</string>
     <string name="pref_key__todotxt__hl_delay" translatable="false">pref_key__todotxt__hl_delay</string>
     <string name="pref_key__todo_filepath" translatable="false">pref_key__todo_filepath</string>
     <string name="pref_key__todotxt__add_completion_date_for_todos" translatable="false">pref_key__todotxt__add_completion_date_for_todos</string>
@@ -289,6 +291,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
+    <string name="asciidoc" translatable="false">AsciiDoc</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
     <string name="debug" translatable="false">Debug</string>
@@ -329,6 +332,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
     <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
     <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>
+    <string name="action_format_asciidoc" translatable="false">action_format_asciidoc</string>
     <string name="action_format_embedbinary" translatable="false">action_format_embedbinary</string>
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>

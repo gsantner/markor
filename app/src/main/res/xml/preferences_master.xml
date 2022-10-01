@@ -583,6 +583,20 @@
 
         </PreferenceScreen>
 
+        <!-- asciidoc Screen -->
+        <!-- TODO: use AsciiDoc icon -->
+        <PreferenceScreen
+            android:icon="@drawable/ic_text_fields_black_24dp"
+            android:title="@string/asciidoc">
+
+            <PreferenceCategory android:title="@string/actionbutton">
+                <Preference
+                    android:icon="@drawable/ic_reorder_black_24dp"
+                    android:key="@string/pref_key__asciidoc__reorder_actions"
+                    android:title="@string/action_order" />
+            </PreferenceCategory>
+
+        </PreferenceScreen>
     </PreferenceCategory>
 
     <!-- Most important settings -->

@@ -1,0 +1,54 @@
+{
+	"files": [
+		{
+			"path": "app/src/main/res/menu/document__edit__menu.xml",
+			"bookmarks": [
+				{
+					"line": 152,
+					"column": 1,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/res/values/string-not_translatable.xml",
+			"bookmarks": [
+				{
+					"line": 232,
+					"column": 1,
+					"label": ""
+				},
+				{
+					"line": 333,
+					"column": 21,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/activity/DocumentEditAndViewFragment.java",
+			"bookmarks": [
+				{
+					"line": 504,
+					"column": 49,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/res/xml/preferences_master.xml",
+			"bookmarks": [
+				{
+					"line": 571,
+					"column": 0,
+					"label": ""
+				},
+				{
+					"line": 585,
+					"column": 0,
+					"label": ""
+				}
+			]
+		}
+	]
+}
