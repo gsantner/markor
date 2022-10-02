@@ -28,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -35,6 +36,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
@@ -76,6 +78,18 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+    }
+
+    public static void handleFileClick(Activity activity, File file, Integer lineNumber) {
+        if (activity != null && file != null) {
+            if (FormatRegistry.isFileSupported(file)) {
+                launch(activity, file, null, null, lineNumber);
+            } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+                GsContextUtils.instance.requestApkInstallation(activity, file);
+            } else {
+                askUserIfWantsToOpenFileInThisApp(activity, file);
+            }
+        }
     }
 
 
@@ -175,7 +189,12 @@ public class DocumentActivity extends MarkorBaseActivity {
             file = _cu.extractFileFromIntent(this, intent);
         }
 
-        if (file != null) {
+        if (file != null && (file.isDirectory() || !FormatRegistry.isFileSupported(file))) {
+            // File readable but is not a text-file (and not a supported binary-embed type)
+            handleFileClick(this, file, null);
+            finish();
+        } else if (file != null) {
+            // Open in editor/viewer
             final Document doc = new Document(file);
             Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {

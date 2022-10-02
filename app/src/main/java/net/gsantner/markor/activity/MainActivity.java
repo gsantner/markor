@@ -34,7 +34,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
@@ -398,13 +397,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    if (FormatRegistry.isTextFile(file)) {
-                        DocumentActivity.launch(MainActivity.this, file, null, null, lineNumber);
-                    } else if (file.getName().toLowerCase().endsWith(".apk")) {
-                        _cu.requestApkInstallation(MainActivity.this, file);
-                    } else {
-                        DocumentActivity.askUserIfWantsToOpenFileInThisApp(MainActivity.this, file);
-                    }
+                    DocumentActivity.handleFileClick(MainActivity.this, file, lineNumber);
                 }
             });
         }
