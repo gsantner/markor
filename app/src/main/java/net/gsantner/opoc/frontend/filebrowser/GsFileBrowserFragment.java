@@ -238,7 +238,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
         }
         for (final File f : _filesystemViewerAdapter.getCurrentSelection()) {
-            selTextFilesOnly &= FormatRegistry.isTextFile(f);
+            selTextFilesOnly &= FormatRegistry.isFileSupported(f, true);
             selWritable &= f.canWrite();
             selDirectoriesOnly &= f.isDirectory();
         }
@@ -495,7 +495,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_fs_copy_to_clipboard: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    if (FormatRegistry.isTextFile(file)) {
+                    if (FormatRegistry.isFileSupported(file, true)) {
                         _cu.setClipboard(getContext(), GsFileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
                         _filesystemViewerAdapter.unselectAll();

@@ -225,7 +225,7 @@ public class FileSearchEngine {
                         }
 
                         if (_config.isSearchInContent) {
-                            if (!FormatRegistry.isTextFile(f.getName())) {
+                            if (!FormatRegistry.isFileSupported(f, true)) {
                                 continue;
                             }
                             List<Pair<String, Integer>> contentMatches = getContentMatches(f, _config.isOnlyFirstContentMatch);

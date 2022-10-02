@@ -40,7 +40,6 @@ import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.Locale;
@@ -73,22 +72,20 @@ public class FormatRegistry {
             CONVERTER_EMBEDBINARY,
     };
 
-    public static boolean isTextFile(final String absolutePath) {
-        return isTextFile(new File(absolutePath));
-    }
-
-    public static boolean isTextFile(final File file) {
-        if (file == null) {
-            return false;
-        }
-        final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
-        for (TextConverterBase converter : CONVERTERS) {
-            if (converter.isFileOutOfThisFormat(filepath)) {
-                return true;
+    public static boolean isFileSupported(final File file, final boolean... textOnly) {
+        boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
+        if (file != null) {
+            final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
+            for (TextConverterBase converter : CONVERTERS) {
+                if (textonly && converter instanceof EmbedBinaryTextConverter) {
+                    continue;
+                }
+                if (converter.isFileOutOfThisFormat(filepath)) {
+                    return true;
+                }
             }
         }
-
-        return GsFileUtils.isTextFile(file);
+        return false;
     }
 
     public interface TextFormatApplier {

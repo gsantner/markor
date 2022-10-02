@@ -646,7 +646,7 @@ public class GsFileUtils {
         return (doti < 0) ? name : name.substring(0, doti);
     }
 
-    /// Get the file extension of the file
+    /// Get the file extension of the file, including dot
     public static String getFilenameExtension(final File file) {
         final String name = file.getName().replace(".jenc", "");
         final int doti = name.lastIndexOf(".");
