@@ -14,7 +14,6 @@ import android.content.Context;
 
 import androidx.documentfile.provider.DocumentFile;
 
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -123,10 +122,7 @@ public class WrMarkorSingleton {
     }
 
     private enum ConflictResolution {
-        KEEP_BOTH,
-        OVERWRITE,
-        SKIP,
-        ASK
+        KEEP_BOTH, OVERWRITE, SKIP, ASK
     }
 
     public void moveOrCopySelected(final List<File> files, final File destDir, final Activity activity, final boolean isMove) {
@@ -145,14 +141,7 @@ public class WrMarkorSingleton {
         }
     }
 
-    private void _moveOrCopySelected(
-            final Stack<File> files,
-            final File destDir,
-            final Activity activity,
-            final boolean isMove,
-            ConflictResolution resolution,
-            boolean preserveResolution
-    ) {
+    private void _moveOrCopySelected(final Stack<File> files, final File destDir, final Activity activity, final boolean isMove, ConflictResolution resolution, boolean preserveResolution) {
         while (!files.empty()) {
             final File file = files.pop();
             final File dest = new File(destDir, file.getName());
@@ -167,18 +156,17 @@ public class WrMarkorSingleton {
                 } else if (resolution == ConflictResolution.ASK) {
                     // Put the file back in
                     files.push(file);
-                    MarkorDialogFactory.showCopyMoveConflictDialog(
-                            activity, file.getName(), destDir.getName(), files.size() > 1, (option) -> {
-                                ConflictResolution res = ConflictResolution.ASK;
-                                if (option == 0 || option == 3) {
-                                    res = ConflictResolution.KEEP_BOTH;
-                                } else if (option == 1 || option == 4) {
-                                    res = ConflictResolution.OVERWRITE;
-                                } else if (option == 2 || option == 5) {
-                                    res = ConflictResolution.SKIP;
-                                }
-                                _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
-                            });
+                    MarkorDialogFactory.showCopyMoveConflictDialog(activity, file.getName(), destDir.getName(), files.size() > 1, (option) -> {
+                        ConflictResolution res = ConflictResolution.ASK;
+                        if (option == 0 || option == 3) {
+                            res = ConflictResolution.KEEP_BOTH;
+                        } else if (option == 1 || option == 4) {
+                            res = ConflictResolution.OVERWRITE;
+                        } else if (option == 2 || option == 5) {
+                            res = ConflictResolution.SKIP;
+                        }
+                        _moveOrCopySelected(files, destDir, activity, isMove, res, option > 2);
+                    });
                     return; // Process will be continued by callback
                 }
                 resolution = preserveResolution ? resolution : ConflictResolution.ASK;
@@ -229,7 +217,7 @@ public class WrMarkorSingleton {
             if (!f.getName().startsWith(".")) {
                 if (f.isDirectory()) {
                     files.add(f);
-                } else if (FormatRegistry.isTextFile(f)) {
+                } else {
                     addedFiles.add(f);
                 }
             }
