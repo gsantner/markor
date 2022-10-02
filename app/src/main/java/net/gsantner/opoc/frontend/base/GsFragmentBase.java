@@ -29,6 +29,9 @@ import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsMenuItemDummy;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * A common base fragment to extend from
  */
@@ -40,6 +43,7 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     protected CU _cu;
     protected Bundle _savedInstanceState = null;
     protected Menu _fragmentMenu = new GsMenuItemDummy.Menu();
+    protected Queue<Runnable> _postTasks = new LinkedList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,13 +158,27 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         }
     }
 
+    public void post(final Runnable action) {
+        final View view = getView();
+        if (isResumed() && view != null) {
+            view.post(action);
+        } else {
+            _postTasks.add(action);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         final View view = getView();
         if (view != null) {
             view.postDelayed(this::checkRunFirstTimeVisible, 200);
+            // Add any remaining tasks
+            while (!_postTasks.isEmpty()) {
+                view.post(_postTasks.remove());
+            }
         }
+        _postTasks.clear();
     }
 
     @Override

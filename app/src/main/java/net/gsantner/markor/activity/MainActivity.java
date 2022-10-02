@@ -116,7 +116,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final File dir = getIntentDir(intent, null);
         final GsFileBrowserFragment frag = getNotebook();
         if (frag != null && dir != null) {
-            frag.getAdapter().setCurrentFolder(dir, false);
+            frag.post(() -> frag.getAdapter().setCurrentFolder(dir, false));
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
@@ -189,6 +189,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onResume() {
         //new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
+
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
             final Intent intent = getIntent();
