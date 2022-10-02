@@ -480,7 +480,7 @@ public class GsFileUtils {
             } catch (Exception ignored) {
             }
             if (GsTextUtils.isNullOrEmpty(t) || t.contains("not found")) {
-            } else if (t.equals("ascii text")) {
+            } else if (t.equals("ascii text") || t.contains("empty")) {
                 return "text/plain";
             } else if (t.contains("text") || t.contains("script")) {
                 return "text/" + t.replace(" ", "-");
