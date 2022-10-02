@@ -257,24 +257,22 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_asciidoc_bold" translatable="false">abid_asciidoc_bold</string>
     <string name="abid_asciidoc_italic" translatable="false">abid_asciidoc_italic</string>
     <string name="abid_asciidoc_monospace" translatable="false">abid_asciidoc_monospace</string>
-<!--    https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/-->
+
     <string name="abid_asciidoc_underline" translatable="false">abid_asciidoc_underline</string>
     <string name="abid_asciidoc_overline" translatable="false">abid_asciidoc_overline</string>
     <string name="abid_asciidoc_linethrough" translatable="false">abid_asciidoc_linethrough</string>
     <string name="abid_asciidoc_nobreak" translatable="false">abid_asciidoc_nobreak</string>
     <string name="abid_asciidoc_nowrap" translatable="false">abid_asciidoc_nowrap</string>
     <string name="abid_asciidoc_prewrap" translatable="false">abid_asciidoc_prewrap</string>
-<!--    <string name="abid_asciidoc_strikeout" translatable="false">abid_asciidoc_strikeout</string>-->
-<!--    https://docs.asciidoctor.org/asciidoc/latest/text/highlight/-->
+
     <string name="abid_asciidoc_highlight" translatable="false">abid_asciidoc_highlight</string>
-<!--    https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/-->
+
     <string name="abid_asciidoc_subscript" translatable="false">abid_asciidoc_subscript</string>
     <string name="abid_asciidoc_superscript" translatable="false">abid_asciidoc_superscript</string>
-<!--    https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks-->
-    <string name="abid_asciidoc_thematic_break" translatable="false">abid_asciidoc_thematic_break</string>
-    <string name="abid_asciidoc_page_break" translatable="false">abid_asciidoc_page_break</string>
 
-<!--    https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/-->
+    <string name="abid_asciidoc_break_thematic" translatable="false">abid_asciidoc_break_thematic</string>
+    <string name="abid_asciidoc_break_page" translatable="false">abid_asciidoc_break_page</string>
+
     <string name="abid_asciidoc_block_comment" translatable="false">abid_asciidoc_block_comment</string>
     <string name="abid_asciidoc_block_example" translatable="false">abid_asciidoc_block_example</string>
     <string name="abid_asciidoc_block_listing" translatable="false">abid_asciidoc_block_listing</string>
@@ -285,13 +283,45 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_asciidoc_block_pass" translatable="false">abid_asciidoc_block_pass</string>
     <string name="abid_asciidoc_block_quote" translatable="false">abid_asciidoc_block_quote</string>
 
-
-    <string name="abid_asciidoc_quote" translatable="false">abid_asciidoc_quote</string>
-
-
     <string name="abid_asciidoc_insert_image" translatable="false">abid_asciidoc_insert_image</string>
     <string name="abid_asciidoc_insert_link" translatable="false">abid_asciidoc_insert_link</string>
     <string name="abid_asciidoc_table_insert_columns" translatable="false">abid_asciidoc_table_insert_columns</string>
+
+    <string name="abid_asciidoc_special_key" translatable="false">abid_asciidoc_special_key</string>
+
+    <!-- used in runAsciidocSpecialKeyAction -->
+
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/ -->
+    <string name="asciidoc_underline"      translatable="false">AsciiDoc role underline</string>
+    <string name="asciidoc_overline"       translatable="false">AsciiDoc role overline</string>
+    <string name="asciidoc_linethrough"    translatable="false">AsciiDoc role linethrough</string>
+    <string name="asciidoc_nobreak"        translatable="false">AsciiDoc role nobreak</string>
+    <string name="asciidoc_nowrap"         translatable="false">AsciiDoc role nowrap</string>
+    <string name="asciidoc_prewrap"        translatable="false">AsciiDoc role prewrap</string>
+
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/text/highlight/ -->
+    <string name="asciidoc_highlight"      translatable="false">AsciiDoc inline highlight</string>
+
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/ -->
+    <string name="asciidoc_subscript"      translatable="false">AsciiDoc inline subscript</string>
+    <string name="asciidoc_superscript"    translatable="false">AsciiDoc inline superscript</string>
+    
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks -->
+    <string name="asciidoc_break_thematic" translatable="false">AsciiDoc break thematic</string>
+    <string name="asciidoc_break_page"     translatable="false">AsciiDoc break page</string>
+
+
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/ -->
+    <string name="asciidoc_block_comment" translatable="false">AsciiDoc block - comment</string>
+    <string name="asciidoc_block_example" translatable="false">AsciiDoc block - example</string>
+    <string name="asciidoc_block_listing" translatable="false">AsciiDoc block - listing</string>
+    <string name="asciidoc_block_literal" translatable="false">AsciiDoc block - literal</string>
+    <string name="asciidoc_block_open"    translatable="false">AsciiDoc block - open</string>
+    <string name="asciidoc_block_sidebar" translatable="false">AsciiDoc block - sidebar</string>
+    <string name="asciidoc_block_table"   translatable="false">AsciiDoc block - table</string>
+    <string name="asciidoc_block_pass"    translatable="false">AsciiDoc block - pass</string>
+    <string name="asciidoc_block_quote"   translatable="false">AsciiDoc block - quote</string>
+
 
     <string name="abid_wikitext_h1" translatable="false">abid_wikitext_h1</string>
     <string name="abid_wikitext_h2" translatable="false">abid_wikitext_h2</string>

@@ -70,11 +70,27 @@
         <item translatable="false">@string/select_current_line</item>
     </string-array>
 
+    <string-array name="asciidoc_textactions_press_key__text" translatable="false">
+        <item translatable="false">@string/asciidoc_block_quote</item>
+        <item translatable="false">@string/asciidoc_block_comment</item>
+        <item translatable="false">@string/asciidoc_block_example</item>
+        <item translatable="false">@string/asciidoc_block_listing</item>
+        <item translatable="false">@string/asciidoc_block_literal</item>
+        <item translatable="false">@string/asciidoc_block_open</item>
+        <item translatable="false">@string/asciidoc_block_sidebar</item>
+        <item translatable="false">@string/asciidoc_block_table</item>
+        <item translatable="false">@string/asciidoc_block_pass</item>
+        
+        <!-- <item translatable="false">@string/asciidoc_break_thematic</item> -->
+        <!-- <item translatable="false">@string/asciidoc_break_page</item> -->
+    </string-array>
+
     <string-array name="new_file_types" translatable="false">
         <item translatable="false">@string/markdown</item>
         <item translatable="false">@string/plaintext</item>
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/wikitext</item>
+        <item translatable="false">@string/asciidoc</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
@@ -96,6 +112,7 @@
         <item translatable="false">.txt</item>
         <item translatable="false">.todo.txt</item>
         <item translatable="false">.txt</item>
+        <item translatable="false">.adoc</item>
         <item translatable="false" />
     </string-array>
 

@@ -27,13 +27,15 @@ public class AsciidocReplacePatternGenerator {
     //you can copy and paste from here, \\ will be automatically transformed into \
     // standard asciidoc section
     // https://docs.asciidoctor.org/asciidoc/latest/sections/titles-and-levels/
-    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(={1,6}\\s)");
+    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^(={1,6} {1})");
     //not yet adapted for asciidoc
-    public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^((\\*{1,6})\\s\\[(\\s|\\*|x|X)]\\s)");
-    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^((\\*{1,6})\\s\\[(\\*|x|X)]\\s)");
-    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^((\\*{1,6})\\s\\[(\\s)]\\s)");
-    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^((\\*{1,6})\\s)");
-    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^((\\.{1,6}))(\\s)");
+    public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^( *)((\\*{1,6}) \\[( |\\*|x|X)] {1,})");
+    public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^( *)((\\*{1,6}) \\[(\\*|x|X)] {1,})");
+    public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^( *)((\\*{1,6}) \\[( )] {1,})");
+    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^( *)((\\*{1,6}) {1,})");
+    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^( *)((\\.{1,6}) {1,})");
+    //required as replacablePattern \s - any whitespace character: [\r\n\t\f\v ]
+    public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 //    TODO: to be removed
     // public static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
     // public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
@@ -46,7 +48,7 @@ public class AsciidocReplacePatternGenerator {
             AsciidocReplacePatternGenerator.PREFIX_CHECKBOX_LIST,
             AsciidocReplacePatternGenerator.PREFIX_ORDERED_LIST,
             2);
-
+    // these patterns will be replaced, when we toggle Header, ordered or unordered list, checkbox
     public static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
             PREFIX_ATX_HEADING,
@@ -55,7 +57,7 @@ public class AsciidocReplacePatternGenerator {
             PREFIX_UNCHECKED_LIST,
             // Unordered has to be after checked list. Otherwise checklist will match as an unordered list.
             PREFIX_UNORDERED_LIST,
-//            PREFIX_LEADING_SPACE,
+            PREFIX_LEADING_SPACE,
     };
 
     private final static String ORDERED_LIST_REPLACEMENT = "$11. ";
@@ -97,19 +99,20 @@ public class AsciidocReplacePatternGenerator {
 
         return patterns;
     }
+    // TODO: works correctly only for the first level, lower levels are removed but downgraded
     public static List<ActionButtonBase.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(String listChar) {
         final String unchecked = "$1" + listChar + " [ ] ";
         final String checked = "$1" + listChar + " [x] ";
         return ReplacePatternGeneratorHelper.replaceWithTargetPatternOrAlternative(PREFIX_PATTERNS, PREFIX_UNCHECKED_LIST, unchecked, checked);
     }
 
-    // TODO: adapt from markdown to asciidoc, markdown uses indent, asciidoc uses multiple characters
+    // TODO: works correctly only for the first level, lower levels are removed but downgraded on new insert
     public static List<ActionButtonBase.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix(String listChar) {
         final String unorderedListReplacement = "$1" + listChar + " ";
         return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
-    // TODO: adapt from markdown to asciidoc, markdown uses indent, asciidoc uses multiple characters
+    // TODO: works correctly only for the first level, lower levels are removed but downgraded on new insert
     public static List<ActionButtonBase.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix(String listChar) {
         final String orderedListReplacement = "$1" + listChar + " ";
         return ReplacePatternGeneratorHelper.replaceWithTargetPrefixOrRemove(PREFIX_PATTERNS, PREFIX_ORDERED_LIST, orderedListReplacement);

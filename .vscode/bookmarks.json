@@ -31,6 +31,26 @@
 			]
 		},
 		{
+			"path": "app/src/main/java/net/gsantner/markor/format/ActionButtonBase.java",
+			"bookmarks": [
+				{
+					"line": 630,
+					"column": 19,
+					"label": ""
+				},
+				{
+					"line": 684,
+					"column": 21,
+					"label": ""
+				},
+				{
+					"line": 785,
+					"column": 17,
+					"label": ""
+				}
+			]
+		},
+		{
 			"path": "app/src/main/res/menu/document__edit__menu.xml",
 			"bookmarks": [
 				{
@@ -49,8 +69,13 @@
 					"label": ""
 				},
 				{
-					"line": 348,
+					"line": 378,
 					"column": 21,
+					"label": ""
+				},
+				{
+					"line": 275,
+					"column": 1,
 					"label": ""
 				}
 			]
@@ -81,11 +106,56 @@
 			]
 		},
 		{
+			"path": "app/src/main/java/net/gsantner/markor/frontend/MarkorDialogFactory.java",
+			"bookmarks": [
+				{
+					"line": 73,
+					"column": 14,
+					"label": ""
+				},
+				{
+					"line": 84,
+					"column": 8,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/activity/DocumentShareIntoFragment.java",
+			"bookmarks": [
+				{
+					"line": 386,
+					"column": 66,
+					"label": ""
+				}
+			]
+		},
+		{
 			"path": "app/src/main/java/net/gsantner/markor/model/Document.java",
 			"bookmarks": [
 				{
 					"line": 92,
 					"column": 3,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/res/values/arrays.xml",
+			"bookmarks": [
+				{
+					"line": 72,
+					"column": 21,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/frontend/textview/SyntaxHighlighterBase.java",
+			"bookmarks": [
+				{
+					"line": 391,
+					"column": 21,
 					"label": ""
 				}
 			]
