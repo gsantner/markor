@@ -301,7 +301,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         super.onResume();
         if (!_appSettings.getNotebookDirectoryAsStr().equals(_previousNotebookDirectory)) {
             _dopt.rootFolder = _appSettings.getNotebookDirectory();
-            _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder, false);
+            _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder);
         }
 
         if (!firstResume) {
@@ -432,7 +432,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_go_to_appdata_sdcard_2:
             case R.id.action_go_to_appdata_public: {
                 final File folder = _appSettings.getFolderToLoadByMenuId(_id);
-                _filesystemViewerAdapter.setCurrentFolder(folder, true);
+                _filesystemViewerAdapter.setCurrentFolder(folder);
                 Toast.makeText(getContext(), folder.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 return true;
             }

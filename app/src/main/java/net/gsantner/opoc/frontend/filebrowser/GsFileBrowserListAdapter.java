@@ -257,11 +257,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         restoreSavedInstanceState(saveInstanceState(null));
     }
 
-    public void setCurrentFolder(File folder, boolean reload) {
+    public void setCurrentFolder(final File folder) {
         _currentFolder = folder;
-        if (reload) {
-            reloadCurrentFolder();
-        }
+        reloadCurrentFolder();
     }
 
     public void reconfigure() {
