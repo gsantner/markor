@@ -1,0 +1,20 @@
+[
+    {
+        "type": "Directory",
+        "name": "d:\\Repos\\GitHub\\aisbergde\\markor-asciidoc\\app\\thirdparty\\res\\drawable",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\GitHub\\aisbergde\\markor-asciidoc\\app\\thirdparty\\res\\drawable",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "M5YucgWqZSkCjnUm"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repos\\GitHub\\aisbergde\\markor-asciidoc\\app\\src\\main\\res\\drawable",
+        "parent_id": null,
+        "fsPath": "d:\\Repos\\GitHub\\aisbergde\\markor-asciidoc\\app\\src\\main\\res\\drawable",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "Vd5PcD4hBMxqnb7y"
+    }
+]

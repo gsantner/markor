@@ -13,7 +13,6 @@ import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 
 public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
-
     public AsciidocSyntaxHighlighter(AppSettings as) {
         super(as);
     }
@@ -22,7 +21,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     protected void generateSpans() {
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        createSmallBlueLinkSpans();
+        // TODO: find a better solution to show links
+        // createSmallBlueLinkSpans();
     }
 
 }

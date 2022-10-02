@@ -83,6 +83,8 @@ public class Document implements Serializable {
             setFormat(FormatRegistry.FORMAT_KEYVALUE);
         } else if (FormatRegistry.CONVERTER_MARKDOWN.isFileOutOfThisFormat(fnlower)) {
             setFormat(FormatRegistry.FORMAT_MARKDOWN);
+        } else if (FormatRegistry.CONVERTER_ASCIIDOC.isFileOutOfThisFormat(fnlower)) {
+            setFormat(FormatRegistry.FORMAT_ASCIIDOC);
         } else if (FormatRegistry.CONVERTER_WIKITEXT.isFileOutOfThisFormat(getPath())) {
             setFormat(FormatRegistry.FORMAT_WIKITEXT);
         } else if (FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {

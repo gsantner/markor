@@ -1,10 +1,40 @@
 {
 	"files": [
 		{
+			"path": "app/src/main/java/net/gsantner/markor/format/asciidoc/AsciidocActionButtons.java",
+			"bookmarks": [
+				{
+					"line": 44,
+					"column": 0,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/format/asciidoc/AsciidocSyntaxHighlighter.java",
+			"bookmarks": [
+				{
+					"line": 14,
+					"column": 0,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/format/asciidoc/AsciidocTextConverter.java",
+			"bookmarks": [
+				{
+					"line": 29,
+					"column": 0,
+					"label": ""
+				}
+			]
+		},
+		{
 			"path": "app/src/main/res/menu/document__edit__menu.xml",
 			"bookmarks": [
 				{
-					"line": 152,
+					"line": 151,
 					"column": 1,
 					"label": ""
 				}
@@ -14,12 +44,12 @@
 			"path": "app/src/main/res/values/string-not_translatable.xml",
 			"bookmarks": [
 				{
-					"line": 232,
+					"line": 245,
 					"column": 1,
 					"label": ""
 				},
 				{
-					"line": 333,
+					"line": 348,
 					"column": 21,
 					"label": ""
 				}
@@ -46,6 +76,16 @@
 				{
 					"line": 585,
 					"column": 0,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "app/src/main/java/net/gsantner/markor/model/Document.java",
+			"bookmarks": [
+				{
+					"line": 92,
+					"column": 3,
 					"label": ""
 				}
 			]

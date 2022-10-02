@@ -243,6 +243,56 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_markdown_insert_link" translatable="false">abid_markdown_insert_link</string>
     <string name="abid_markdown_table_insert_columns" translatable="false">abid_markdown_table_insert_columns</string>
 
+    <string name="abid_asciidoc_h1" translatable="false">abid_asciidoc_h1</string>
+    <string name="abid_asciidoc_h2" translatable="false">abid_asciidoc_h2</string>
+    <string name="abid_asciidoc_h3" translatable="false">abid_asciidoc_h3</string>
+    <string name="abid_asciidoc_h4" translatable="false">abid_asciidoc_h4</string>
+    <string name="abid_asciidoc_h5" translatable="false">abid_asciidoc_h5</string>
+    <string name="abid_asciidoc_h6" translatable="false">abid_asciidoc_h6</string>
+    <string name="abid_asciidoc_checkbox_list" translatable="false">abid_asciidoc_checkbox_list</string>
+    <string name="abid_asciidoc_unordered_list_char" translatable="false">abid_asciidoc_unordered_list_char</string>
+    <string name="abid_asciidoc_ordered_list_char" translatable="false">abid_asciidoc_ordered_list_char</string>
+    <string name="abid_asciidoc_indent" translatable="false">abid_asciidoc_indent</string>
+    <string name="abid_asciidoc_deindent" translatable="false">abid_asciidoc_deindent</string>
+    <string name="abid_asciidoc_bold" translatable="false">abid_asciidoc_bold</string>
+    <string name="abid_asciidoc_italic" translatable="false">abid_asciidoc_italic</string>
+    <string name="abid_asciidoc_monospace" translatable="false">abid_asciidoc_monospace</string>
+<!--    https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/-->
+    <string name="abid_asciidoc_underline" translatable="false">abid_asciidoc_underline</string>
+    <string name="abid_asciidoc_overline" translatable="false">abid_asciidoc_overline</string>
+    <string name="abid_asciidoc_linethrough" translatable="false">abid_asciidoc_linethrough</string>
+    <string name="abid_asciidoc_nobreak" translatable="false">abid_asciidoc_nobreak</string>
+    <string name="abid_asciidoc_nowrap" translatable="false">abid_asciidoc_nowrap</string>
+    <string name="abid_asciidoc_prewrap" translatable="false">abid_asciidoc_prewrap</string>
+<!--    <string name="abid_asciidoc_strikeout" translatable="false">abid_asciidoc_strikeout</string>-->
+<!--    https://docs.asciidoctor.org/asciidoc/latest/text/highlight/-->
+    <string name="abid_asciidoc_highlight" translatable="false">abid_asciidoc_highlight</string>
+<!--    https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/-->
+    <string name="abid_asciidoc_subscript" translatable="false">abid_asciidoc_subscript</string>
+    <string name="abid_asciidoc_superscript" translatable="false">abid_asciidoc_superscript</string>
+<!--    https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks-->
+    <string name="abid_asciidoc_thematic_break" translatable="false">abid_asciidoc_thematic_break</string>
+    <string name="abid_asciidoc_page_break" translatable="false">abid_asciidoc_page_break</string>
+
+<!--    https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/-->
+    <string name="abid_asciidoc_block_comment" translatable="false">abid_asciidoc_block_comment</string>
+    <string name="abid_asciidoc_block_example" translatable="false">abid_asciidoc_block_example</string>
+    <string name="abid_asciidoc_block_listing" translatable="false">abid_asciidoc_block_listing</string>
+    <string name="abid_asciidoc_block_literal" translatable="false">abid_asciidoc_block_literal</string>
+    <string name="abid_asciidoc_block_open" translatable="false">abid_asciidoc_block_open</string>
+    <string name="abid_asciidoc_block_sidebar" translatable="false">abid_asciidoc_block_sidebar</string>
+    <string name="abid_asciidoc_block_table" translatable="false">abid_asciidoc_block_table</string>
+    <string name="abid_asciidoc_block_pass" translatable="false">abid_asciidoc_block_pass</string>
+    <string name="abid_asciidoc_block_quote" translatable="false">abid_asciidoc_block_quote</string>
+
+
+    <string name="abid_asciidoc_quote" translatable="false">abid_asciidoc_quote</string>
+
+
+    <string name="abid_asciidoc_insert_image" translatable="false">abid_asciidoc_insert_image</string>
+    <string name="abid_asciidoc_insert_link" translatable="false">abid_asciidoc_insert_link</string>
+    <string name="abid_asciidoc_table_insert_columns" translatable="false">abid_asciidoc_table_insert_columns</string>
+
     <string name="abid_wikitext_h1" translatable="false">abid_wikitext_h1</string>
     <string name="abid_wikitext_h2" translatable="false">abid_wikitext_h2</string>
     <string name="abid_wikitext_h3" translatable="false">abid_wikitext_h3</string>

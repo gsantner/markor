@@ -584,9 +584,8 @@
         </PreferenceScreen>
 
         <!-- asciidoc Screen -->
-        <!-- TODO: use AsciiDoc icon -->
         <PreferenceScreen
-            android:icon="@drawable/ic_text_fields_black_24dp"
+            android:icon="@drawable/asciidoc_icon_black_24dp"
             android:title="@string/asciidoc">
 
             <PreferenceCategory android:title="@string/actionbutton">

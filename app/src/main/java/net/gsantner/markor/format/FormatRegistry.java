@@ -24,12 +24,12 @@ import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
-import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
-import net.gsantner.markor.format.plaintext.PlaintextTextConverter;
 import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.asciidoc.AsciidocSyntaxHighlighter;
 import net.gsantner.markor.format.asciidoc.AsciidocTextConverter;
+import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
+import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
+import net.gsantner.markor.format.plaintext.PlaintextTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtAutoTextFormatter;
 import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
@@ -74,8 +74,8 @@ public class FormatRegistry {
             CONVERTER_TODOTXT,
             CONVERTER_WIKITEXT,
             CONVERTER_KEYVALUE,
-            CONVERTER_PLAINTEXT,
             CONVERTER_ASCIIDOC,
+            CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
     };
 

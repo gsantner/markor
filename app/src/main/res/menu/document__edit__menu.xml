@@ -148,10 +148,9 @@
                             android:id="@string/action_format_keyvalue"
                             android:icon="@drawable/ic_file_white_24dp"
                             android:title="@string/key_value" />
-                        <!-- TODO: find and use Asciidoc icon -->
                         <item
                             android:id="@string/action_format_plaintext"
-                            android:icon="@drawable/ic_file_white_24dp"
+                            android:icon="@drawable/asciidoc_icon_black_24dp"
                             android:title="@string/plaintext" />
                         <item
                             android:id="@string/action_format_asciidoc"
