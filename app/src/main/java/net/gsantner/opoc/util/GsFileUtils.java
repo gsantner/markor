@@ -13,6 +13,8 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
+
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
@@ -737,7 +739,7 @@ public class GsFileUtils {
         return mainComparator;
     }
 
-    public static List<File> replaceFilesWithCachedVariants(final File[] files) {
+    public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
         ArrayList<File> list = new ArrayList<>(Arrays.asList(files != null ? files : new File[0]));
         return replaceFilesWithCachedVariants(list);
     }
@@ -746,7 +748,9 @@ public class GsFileUtils {
      * Optimization: convert {@link File}s to FileWithCachedData
      * For example sorting invokes a lot of filesystem i/o calls which comes with performance penalty
      */
-    public static List<File> replaceFilesWithCachedVariants(final List<File> files) {
+    public static List<File> replaceFilesWithCachedVariants(@Nullable List<File> files) {
+        files = (files == null ? new ArrayList<>() : files);
+
         for (int i = 0; i < files.size(); i++) {
             if (files.get(i) instanceof GsFileWithMetadataCache) {
                 continue;
