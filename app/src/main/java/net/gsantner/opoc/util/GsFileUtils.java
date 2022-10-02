@@ -15,6 +15,7 @@ import android.util.Pair;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
@@ -734,5 +735,26 @@ public class GsFileUtils {
         }
 
         return mainComparator;
+    }
+
+    public static List<File> replaceFilesWithCachedVariants(final File[] files) {
+        ArrayList<File> list = new ArrayList<>(Arrays.asList(files != null ? files : new File[0]));
+        return replaceFilesWithCachedVariants(list);
+    }
+
+    /**
+     * Optimization: convert {@link File}s to FileWithCachedData
+     * For example sorting invokes a lot of filesystem i/o calls which comes with performance penalty
+     */
+    public static List<File> replaceFilesWithCachedVariants(final List<File> files) {
+        for (int i = 0; i < files.size(); i++) {
+            if (files.get(i) instanceof GsFileWithMetadataCache) {
+                continue;
+            }
+            final File o = files.remove(i);
+            final int at = files.indexOf(o);
+            files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
+        }
+        return files;
     }
 }
