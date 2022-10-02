@@ -13,8 +13,11 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
+
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
@@ -455,17 +458,11 @@ public class GsFileUtils {
         } catch (Exception ignored) {
         }
 
-        if (file.exists() && file.isFile()) {
-            try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-                if (!GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
-                    return t;
-                }
-            } catch (Exception ignored) {
+        try {
+            if (!GsTextUtils.isNullOrEmpty(t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", "")))) {
+                return t;
             }
-        }
-
-        if (!GsTextUtils.isNullOrEmpty(t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", "")))) {
-            return t;
+        } catch (Exception ignored) {
         }
 
         // Try extracting by running shell file -b on the file - for textfiles this very often results in "ASCII text"
@@ -480,10 +477,10 @@ public class GsFileUtils {
             } catch (Exception ignored) {
             }
             if (GsTextUtils.isNullOrEmpty(t) || t.contains("not found")) {
-            } else if (t.equals("ascii text") || t.contains("empty")) {
+            } else if (t.contains("ascii text") || t.contains("empty")) {
                 return "text/plain";
             } else if (t.contains("text") || t.contains("script")) {
-                return "text/" + t.replace(" ", "-");
+                return "text/x-" + t.replaceAll("(\\s|-)*script(\\s|-)*", "").replace(" ", "-");
             }
         } catch (Exception ignored) {
         }
@@ -734,5 +731,28 @@ public class GsFileUtils {
         }
 
         return mainComparator;
+    }
+
+    public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
+        ArrayList<File> list = new ArrayList<>(Arrays.asList(files != null ? files : new File[0]));
+        return replaceFilesWithCachedVariants(list);
+    }
+
+    /**
+     * Optimization: convert {@link File}s to FileWithCachedData
+     * For example sorting invokes a lot of filesystem i/o calls which comes with performance penalty
+     */
+    public static List<File> replaceFilesWithCachedVariants(@Nullable List<File> files) {
+        files = (files == null ? new ArrayList<>() : files);
+
+        for (int i = 0; i < files.size(); i++) {
+            if (files.get(i) instanceof GsFileWithMetadataCache) {
+                continue;
+            }
+            final File o = files.remove(i);
+            final int at = files.indexOf(o);
+            files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
+        }
+        return files;
     }
 }

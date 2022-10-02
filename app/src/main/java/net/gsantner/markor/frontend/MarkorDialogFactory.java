@@ -667,12 +667,10 @@ public class MarkorDialogFactory {
         }
 
         // Read all files in snippets folder with appropriate extension
-        // Create a map of sippet title -> text
-        final String[] ls = folder.list();
-        for (final String name : ls == null ? new String[]{} : ls) {
-            final File item = new File(folder, name);
-            if (item.exists() && item.canRead() && GsFileUtils.isTextFile(item)) {
-                texts.put(name, item);
+        // Create a map of snippet title -> text
+        for (final File f : GsFileUtils.replaceFilesWithCachedVariants(folder.listFiles())) {
+            if (f.exists() && f.canRead() && GsFileUtils.isTextFile(f)) {
+                texts.put(f.getName(), f);
             }
         }
         return texts;
