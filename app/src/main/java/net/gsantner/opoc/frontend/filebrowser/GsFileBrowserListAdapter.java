@@ -36,7 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -555,15 +554,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         }
                     }
 
-                    // Optimization - convert found File's to FileWithCachedData
-                    // Sorting invokes a lot of filesystem i/o calls which do consume much time
-                    // Changing sort order: Reuse information if available
-                    for (int i = 0; i < _adapterData.size(); i++) {
-                        final File o = _adapterData.remove(i);
-                        final int at = oldAdapterData.indexOf(o);
-                        _adapterData.add(i, at >= 0 ? oldAdapterData.get(at) : new GsFileWithMetadataCache(o));
-                    }
+                    // Convert found File's to FileWithCachedData to optimize performance
+                    GsFileUtils.replaceFilesWithCachedVariants(_adapterData);
 
+                    // Sort files
                     GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
 
                     if (canGoUp(_currentFolder)) {

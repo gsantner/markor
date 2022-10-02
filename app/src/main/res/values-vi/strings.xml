@@ -99,6 +99,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Trợ giúp</string>
     <string name="todo_list">Danh sách công việc</string>
     <string name="task">Công việc</string>
+    <string name="context">Bối cảnh</string>
     <string name="list">Danh sách</string>
     <string name="priority">Ưu tiên</string>
     <string name="history">Lịch sử</string>

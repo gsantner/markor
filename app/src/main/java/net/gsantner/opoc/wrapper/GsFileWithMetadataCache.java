@@ -20,7 +20,7 @@ public class GsFileWithMetadataCache extends File {
     private Integer cHashCode;
     private Boolean cCanRead, cCanWrite, cExists, cIsAbsolute, cIsDirectory, cIsFile;
     private Long cLastModified, cLength;
-    private String cAbsolutePath;
+    private String cAbsolutePath, cName;
     private File cAbsoluteFile;
     private String[] cList;
 
@@ -44,7 +44,6 @@ public class GsFileWithMetadataCache extends File {
         super(f.getPath());
     }
 
-
     @NonNull
     @Override
     public synchronized String getAbsolutePath() {
@@ -52,6 +51,15 @@ public class GsFileWithMetadataCache extends File {
             cAbsolutePath = super.getAbsolutePath();
         }
         return cAbsolutePath;
+    }
+
+    @NonNull
+    @Override
+    public String getName() {
+        if (cName == null) {
+            cName = super.getName();
+        }
+        return cName;
     }
 
     @NonNull

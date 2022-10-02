@@ -347,16 +347,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateUndoRedoIconStates() {
-        if (_editTextUndoRedoHelper == null) {
-            return;
-        }
-
-        final boolean canUndo = _editTextUndoRedoHelper.getCanUndo();
+        final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
         if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo) {
             _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
         }
 
-        final boolean canRedo = _editTextUndoRedoHelper.getCanRedo();
+        final boolean canRedo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo();
         if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo) {
             _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
         }
@@ -423,14 +419,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         final int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_undo: {
-                if (_editTextUndoRedoHelper.getCanUndo()) {
+                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
                     _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
                     updateUndoRedoIconStates();
                 }
                 return true;
             }
             case R.id.action_redo: {
-                if (_editTextUndoRedoHelper.getCanRedo()) {
+                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
                     _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
                     updateUndoRedoIconStates();
                 }
