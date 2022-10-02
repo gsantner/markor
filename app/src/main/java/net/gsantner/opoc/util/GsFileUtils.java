@@ -724,8 +724,8 @@ public class GsFileUtils {
         if (filesToSort != null) {
             try {
                 Collections.sort(filesToSort, mainComparator);
-            } catch (Exception ignored) {
-                ignored.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
