@@ -36,7 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 
 import java.io.File;
 import java.io.FilenameFilter;

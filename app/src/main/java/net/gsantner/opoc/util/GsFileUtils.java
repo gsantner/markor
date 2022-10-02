@@ -458,17 +458,11 @@ public class GsFileUtils {
         } catch (Exception ignored) {
         }
 
-        if (file.exists() && file.isFile()) {
-            try (InputStream is = new BufferedInputStream(new FileInputStream(file))) {
-                if (!GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
-                    return t;
-                }
-            } catch (Exception ignored) {
+        try {
+            if (!GsTextUtils.isNullOrEmpty(t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", "")))) {
+                return t;
             }
-        }
-
-        if (!GsTextUtils.isNullOrEmpty(t = URLConnection.guessContentTypeFromName(file.getName().replace(".jenc", "")))) {
-            return t;
+        } catch (Exception ignored) {
         }
 
         // Try extracting by running shell file -b on the file - for textfiles this very often results in "ASCII text"
@@ -483,10 +477,10 @@ public class GsFileUtils {
             } catch (Exception ignored) {
             }
             if (GsTextUtils.isNullOrEmpty(t) || t.contains("not found")) {
-            } else if (t.equals("ascii text") || t.contains("empty")) {
+            } else if (t.contains("ascii text") || t.contains("empty")) {
                 return "text/plain";
             } else if (t.contains("text") || t.contains("script")) {
-                return "text/" + t.replace(" ", "-");
+                return "text/x-" + t.replaceAll("(\\s|-)*script(\\s|-)*", "").replace(" ", "-");
             }
         } catch (Exception ignored) {
         }
