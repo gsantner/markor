@@ -126,6 +126,7 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -969,11 +970,11 @@ public class GsContextUtils {
     public String getMimeType(final Context context, String uri) {
         String mimeType;
         uri = uri.replaceFirst("\\.jenc$", "");
+        final String ext = MimeTypeMap.getFileExtensionFromUrl(uri);
         if (uri.startsWith(ContentResolver.SCHEME_CONTENT + "://")) {
             ContentResolver cr = context.getContentResolver();
             mimeType = cr.getType(Uri.parse(uri));
         } else {
-            String ext = MimeTypeMap.getFileExtensionFromUrl(uri);
             mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase());
         }
 
@@ -982,9 +983,16 @@ public class GsContextUtils {
             mimeType = GsFileUtils.getMimeType(new File(uri));
         }
 
+        // Detect extensions which open in this app at plain text
+        // Done only if all other tests fail
+        if (GsTextUtils.isNullOrEmpty(mimeType) && new AppSettings().init(context).isExtOpenWithThisApp(ext)) {
+            mimeType = "text/plain";
+        }
+
         if (GsTextUtils.isNullOrEmpty((mimeType))) {
             mimeType = "*/*";
         }
+
         return mimeType.toLowerCase(Locale.ROOT);
     }
 
