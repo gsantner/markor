@@ -139,18 +139,16 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
             // Don't highlight unless shifted sufficiently or a recompute is required
             if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
 
-                final boolean heightSame = _hlRect.height() == _oldHlRect.height();
+                final boolean heightSame = _oldHlRect.isEmpty() || Math.abs(_hlRect.height() - _oldHlRect.height()) <= 2;
 
                 // Addition of spans which require reflow can shift text on re-application of spans
                 // we compute the resulting shift and scroll the view to compensate in order to make
                 // the experience smooth for the user.
                 int shiftTestLine = -1, oldOffset = -1;
-                if (_scrollView != null && heightSame) {
+                if (heightSame) {
                     shiftTestLine = layout.getLineForVertical(_hlRect.centerY());
                     oldOffset = layout.getLineBaseline(shiftTestLine);
-                }
 
-                if (heightSame) {
                     // Hack to block bring point into view
                     // We don't call this when height is changing
                     blockBringPointIntoView();
@@ -169,7 +167,7 @@ public class HighlightingEditor extends AppCompatMultiAutoCompleteTextView {
                     endBatchEdit();
                 }
 
-                if (shiftTestLine >= 0) {
+                if (_scrollView != null && shiftTestLine >= 0) {
                     final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
                     _scrollView.slowScrollShift(shift);
                 }
