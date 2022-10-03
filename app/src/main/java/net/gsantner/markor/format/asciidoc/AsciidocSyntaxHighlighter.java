@@ -22,7 +22,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
         // TODO: font is very small, where to set font size?
-        // also it uses private static String formatLink(String text, String link), which is adapted for Markdown
+        // also it uses private static String formatLink(String text, String link), which is
+        // adapted for Markdown
         // needs to be adapted for AsciiDoc
         createSmallBlueLinkSpans();
     }

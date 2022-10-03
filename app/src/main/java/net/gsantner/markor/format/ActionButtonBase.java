@@ -58,6 +58,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -494,10 +495,85 @@ public abstract class ActionButtonBase {
         }
     }
 
-    //
-    //
-    //
-    //
+
+    protected void runAsciidocInlineAction(String _action, String _prefix) {
+        if (_hlEditor.getText() == null) {
+            return;
+        }
+        if (_hlEditor.hasSelection()) {
+            //Condition for non empty Selection
+            String text = _hlEditor.getText().toString();
+            int selectionStart = _hlEditor.getSelectionStart();
+            int selectionEnd = _hlEditor.getSelectionEnd();
+            int selectionLength = selectionEnd - selectionStart;
+            // // TODO: this does not seem to exist
+            // String selectedText =  _hlEditor.getSelectedText();
+            String selectedText = text.substring(selectionStart, selectionEnd);
+            String comparingText = _prefix + _action + selectedText + _action;
+            //possible exception, if we try to assign a value here:
+            String selectedTextWithSurrounding = "";
+            // String selectedTextWithSurrounding =  text.substring(selectionStart - _prefix
+            // .length()- _action.length(), selectionEnd + _action.length());
+            //if the selected text is surrounded by _prefix + _action ... _action
+            //then remove surrounded content
+            if ((selectionStart >= _prefix.length() + _action.length()) &&
+                    (selectionEnd <= (_hlEditor.length() - _action.length()))) {
+                selectedTextWithSurrounding = text.substring(
+                        selectionStart - _prefix.length() - _action.length(),
+                        selectionEnd + _action.length());
+            }
+            if (Objects.equals(selectedTextWithSurrounding, comparingText)) {
+                //remove outer surrounding
+                _hlEditor.getText()
+                        .replace(selectionStart - _prefix.length() - _action.length(),
+                                selectionEnd + _action.length(), selectedText);
+                _hlEditor.setSelection(selectionStart - _prefix.length() - _action.length(),
+                        selectionStart - _prefix.length() - _action.length() + selectionLength);
+            } else if (Objects.equals(text.substring(selectionStart,
+                    selectionStart + _prefix.length() + _action.length()), _prefix + _action)) {
+                if ((_prefix.length() + _action.length() + _action.length() <= selectionLength)
+                        && (Objects.equals(
+                        text.substring(selectionEnd - _action.length(), selectionEnd), _action))) {
+                    //remove inner surrounding
+                    //does this happen at the same time? Or do we have to cut off the end first and
+                    // then the beginning?
+                    _hlEditor.getText().replace(selectionStart,
+                                    selectionStart + _prefix.length() + _action.length(), "")
+                            .replace(selectionEnd - _action.length(), selectionEnd, "");
+                    //TODO: check remaining selection
+
+                } else {
+                    //add surrounding
+                    // insert _prefix + _action before and _action after selection
+                    _hlEditor.getText().insert(selectionStart, _prefix + _action);
+                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
+                    //keep selection, which has been moved now to the right
+                    _hlEditor.setSelection(selectionStart + _action.length() + _prefix.length(),
+                            selectionEnd + _action.length() + _prefix.length());
+                }
+            } else {
+                //add surrounding
+                // insert _prefix + _action before and _action after selection
+                _hlEditor.getText().insert(selectionStart, _prefix + _action);
+                _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
+                //keep selection, which has been moved now to the right
+                _hlEditor.setSelection(selectionStart + _action.length() + _prefix.length(),
+                        selectionEnd + _action.length() + _prefix.length());
+            }
+
+        } else {
+            //Condition for empty Selection
+            // insert _prefix + _action before and _action after current cursor (empty
+            // selection)
+            _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _prefix + _action)
+                    .insert(_hlEditor.getSelectionEnd(), _action);
+            _hlEditor.setSelection(
+                    _hlEditor.getSelectionStart() - _prefix.length() - _action.length(),
+                    _hlEditor.getSelectionStart() - _prefix.length() - _action.length());
+        }
+    }
+
+
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         m_activity = activity;

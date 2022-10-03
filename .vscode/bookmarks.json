@@ -34,18 +34,28 @@
 			"path": "app/src/main/java/net/gsantner/markor/format/ActionButtonBase.java",
 			"bookmarks": [
 				{
-					"line": 630,
-					"column": 19,
+					"line": 712,
+					"column": 11,
 					"label": ""
 				},
 				{
-					"line": 684,
+					"line": 782,
 					"column": 21,
 					"label": ""
 				},
 				{
-					"line": 785,
-					"column": 17,
+					"line": 805,
+					"column": 19,
+					"label": ""
+				},
+				{
+					"line": 848,
+					"column": 26,
+					"label": ""
+				},
+				{
+					"line": 859,
+					"column": 21,
 					"label": ""
 				}
 			]
@@ -69,7 +79,7 @@
 					"label": ""
 				},
 				{
-					"line": 378,
+					"line": 381,
 					"column": 21,
 					"label": ""
 				},

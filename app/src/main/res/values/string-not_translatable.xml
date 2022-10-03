@@ -273,6 +273,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_asciidoc_break_thematic" translatable="false">abid_asciidoc_break_thematic</string>
     <string name="abid_asciidoc_break_page" translatable="false">abid_asciidoc_break_page</string>
 
+    <string name="abid_asciidoc_squarebrackets" translatable="false">abid_asciidoc_squarebrackets</string>
+
     <string name="abid_asciidoc_block_comment" translatable="false">abid_asciidoc_block_comment</string>
     <string name="abid_asciidoc_block_example" translatable="false">abid_asciidoc_block_example</string>
     <string name="abid_asciidoc_block_listing" translatable="false">abid_asciidoc_block_listing</string>
@@ -305,22 +307,25 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/ -->
     <string name="asciidoc_subscript"      translatable="false">AsciiDoc inline subscript</string>
     <string name="asciidoc_superscript"    translatable="false">AsciiDoc inline superscript</string>
-    
-    <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks -->
-    <string name="asciidoc_break_thematic" translatable="false">AsciiDoc break thematic</string>
-    <string name="asciidoc_break_page"     translatable="false">AsciiDoc break page</string>
 
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/ -->
-    <string name="asciidoc_block_comment" translatable="false">AsciiDoc block - comment</string>
-    <string name="asciidoc_block_example" translatable="false">AsciiDoc block - example</string>
-    <string name="asciidoc_block_listing" translatable="false">AsciiDoc block - listing</string>
-    <string name="asciidoc_block_literal" translatable="false">AsciiDoc block - literal</string>
-    <string name="asciidoc_block_open"    translatable="false">AsciiDoc block - open</string>
-    <string name="asciidoc_block_sidebar" translatable="false">AsciiDoc block - sidebar</string>
-    <string name="asciidoc_block_table"   translatable="false">AsciiDoc block - table</string>
-    <string name="asciidoc_block_pass"    translatable="false">AsciiDoc block - pass</string>
-    <string name="asciidoc_block_quote"   translatable="false">AsciiDoc block - quote</string>
+    <string name="asciidoc_block_comment"     translatable="false">AsciiDoc block - comment</string>
+    <string name="asciidoc_block_example"     translatable="false">AsciiDoc block - example</string>
+    <string name="asciidoc_block_listing"     translatable="false">AsciiDoc block - listing</string>
+    <string name="asciidoc_block_literal"     translatable="false">AsciiDoc block - literal</string>
+    <string name="asciidoc_block_open"        translatable="false">AsciiDoc block - open</string>
+    <string name="asciidoc_block_sidebar"     translatable="false">AsciiDoc block - sidebar</string>
+    <string name="asciidoc_block_table"       translatable="false">AsciiDoc block - table</string>
+    <string name="asciidoc_block_pass"        translatable="false">AsciiDoc block - pass</string>
+    <string name="asciidoc_block_quote"       translatable="false">AsciiDoc block - quote</string>
+
+    <string name="asciidoc_block_code"        translatable="false">AsciiDoc block - code</string>
+    <string name="asciidoc_block_collapsible" translatable="false">AsciiDoc block - collapsible</string>
+
+    <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks -->
+    <string name="asciidoc_break_thematic" translatable="false">AsciiDoc break thematic</string>
+    <string name="asciidoc_break_page"     translatable="false">AsciiDoc break page</string>
 
 
     <string name="abid_wikitext_h1" translatable="false">abid_wikitext_h1</string>
@@ -380,6 +385,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="char_punctation_mark_arrows" translatable="false">Punctuation mark (»«)</string>
     <string name="indent" translatable="false">Indent</string>
     <string name="deindent" translatable="false">De-indent</string>
+    <string name="indent_level" translatable="false">Indent Level</string>
+    <string name="deindent_level" translatable="false">De-indent Level</string>
     <string name="assets" translatable="false">Assets</string>
     <string name="audio" translatable="false">Audio</string>
     <string name="screenshot" translatable="false">Screenshot</string>
@@ -418,4 +425,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
     <string name="action_format_wikitext" translatable="false">action_format_wikitext</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
+    <string name="squarebrackets" translatable="false">Square Brackets</string>
 </resources>

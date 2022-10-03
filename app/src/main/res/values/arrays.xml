@@ -80,9 +80,23 @@
         <item translatable="false">@string/asciidoc_block_sidebar</item>
         <item translatable="false">@string/asciidoc_block_table</item>
         <item translatable="false">@string/asciidoc_block_pass</item>
-        
-        <!-- <item translatable="false">@string/asciidoc_break_thematic</item> -->
-        <!-- <item translatable="false">@string/asciidoc_break_page</item> -->
+
+        <item translatable="false">@string/asciidoc_block_code</item>
+        <item translatable="false">@string/asciidoc_block_collapsible</item>
+
+        <item translatable="false">@string/asciidoc_highlight</item>
+        <item translatable="false">@string/asciidoc_underline</item>
+        <item translatable="false">@string/asciidoc_linethrough</item>
+        <item translatable="false">@string/asciidoc_overline</item>
+        <item translatable="false">@string/asciidoc_subscript</item>
+        <item translatable="false">@string/asciidoc_superscript</item>
+
+        <item translatable="false">@string/asciidoc_nobreak</item>
+        <item translatable="false">@string/asciidoc_nowrap</item>
+        <item translatable="false">@string/asciidoc_prewrap</item>
+
+        <item translatable="false">@string/asciidoc_break_thematic</item>
+        <item translatable="false">@string/asciidoc_break_page</item>
     </string-array>
 
     <string-array name="new_file_types" translatable="false">
