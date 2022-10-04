@@ -11,16 +11,12 @@ package net.gsantner.markor.web;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 
 import java.io.File;
@@ -50,27 +46,14 @@ public class MarkorWebViewClient extends WebViewClient {
             } else if (url.startsWith("file://")) {
                 MarkorContextUtils su = new MarkorContextUtils(view.getContext());
                 File file = new File(URLDecoder.decode(url.replace("file://", "")));
-                String mimetype;
                 for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
                     File f = new File(str);
-                    if (f.exists() && FormatRegistry.isTextFile(f)) {
+                    if (f.exists()) {
                         file = f;
                         break;
                     }
                 }
-                if (file.isDirectory()) {
-                    _activity.startActivity(new Intent(_activity, MainActivity.class)
-                            .putExtra(Document.EXTRA_PATH, file));
-                } else if (FormatRegistry.isTextFile(file)) {
-                    _activity.startActivity(new Intent(_activity, DocumentActivity.class)
-                            .putExtra(Document.EXTRA_PATH, file));
-                } else if (file.getName().toLowerCase().endsWith(".apk")) {
-                    su.requestApkInstallation(context, file);
-                } else if ((mimetype = su.getMimeType(_activity, url)) != null) {
-                    su.viewFileInOtherApp(context, file, mimetype);
-                } else {
-                    su.viewFileInOtherApp(context, file, null);
-                }
+                DocumentActivity.handleFileClick(_activity, file, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = ApplicationObject.settings();

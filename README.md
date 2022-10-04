@@ -41,7 +41,7 @@ Markor is openly developed free software that accepts community contributions.
 <br/>📚 Notebook: Store all documents on a common filesystem folder
 <br/>📓 QuickNote: Fast accessible for keeping notes
 <br/>☑️ To-Do: Write down your to-do
-<br/>🖍 Formats: Markdown, todo.txt, csv, ics, ini, json, toml, txt, vcf, yaml  
+<br/>🖍 Formats: Markdown, todo.txt, Zim/WikiText, Plaintext, csv, ics, ini, json, toml, vcf, yaml
 <br/>📋 Copy to clipboard: Copy any text, including text shared into Markor
 <br/>💡 Notebook is the root folder of documents and can be changed to any location on the filesystem. QuickNote and To-Do are textfiles
 <br/>
@@ -75,13 +75,17 @@ Example: `make all install run`.
 The project code style is the [AOSP Java Code Style](https://source.android.com/source/code-style#follow-field-naming-conventions). Use the _auto reformat_ menu option of Android Studio before commiting or before you create the pull request.
 
 ### Technologies / Dependencies
-* Java, Android SDK, AppCompat
+* Java, Android SDK, AndroidX
+* No dependency on NDK, 1 APK = all Android supported Architectures
 * Editor: Advanced component based on Android EditText
 * Preview: Android WebView
+* Editor syntax highlighting: Custom implementation for all supported formats
 * Markdown parser: [flexmark-java](https://github.com/vsch/flexmark-java/wiki/Extensions)
-* Zim & todo.txt parser: Custom implementation
+* Zim/WikiText parser: Custom implementation, transpiling to Markdown
+* todo.txt parser: Custom implementation
+* Binary support: WebView html img/audio/video with support for most common formats
 * CI/CD: GitHub Actions
-* Build system: Gradle & Makefile
+* Build system: Gradle, Makefile
 
 ### Resources
 * Project repository: [Changelog](CHANGELOG.md) | [Issues](https://github.com/gsantner/markor/issues?q=is%3Aissue+is%3Aopen) | [Discussions](https://github.com/gsantner/markor/discussions) | [License](/LICENSE.txt) | [GitHub Releases](https://github.com/gsantner/markor/releases) | [Makefile](Makefile)
