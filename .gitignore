@@ -104,3 +104,4 @@ app/flavor*
 
 /.favorites.json
 /.vscode/bookmarks.json
+.vscode/settings.json
