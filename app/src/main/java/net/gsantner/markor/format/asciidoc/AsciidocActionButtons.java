@@ -42,9 +42,9 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_ordered_list_char,
                         R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
 
-                new ActionItem(R.string.abid_asciidoc_indent_level, R.drawable.arrowhead_right,
+                new ActionItem(R.string.abid_asciidoc_indent_level, R.drawable.keyboard_double_arrow_right_24px,
                         R.string.indent_level),
-                new ActionItem(R.string.abid_asciidoc_deindent_level, R.drawable.arrowhead_left,
+                new ActionItem(R.string.abid_asciidoc_deindent_level, R.drawable.keyboard_double_arrow_left_24px,
                         R.string.deindent_level),
 
                 new ActionItem(R.string.abid_common_indent,
@@ -52,7 +52,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent,
                         R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_asciidoc_squarebrackets,
-                        R.drawable.brackets_square_icon_24dp, R.string.squarebrackets),
+                        R.drawable.data_array_24px, R.string.squarebrackets),
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp,
                         R.string.special_key),
                 // similar to abid_common_special_key, but separate menu
@@ -87,12 +87,13 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_linethrough,
                         R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
                 new ActionItem(
-                        R.string.abid_asciidoc_overline, R.drawable.overline_24,
+                        R.string.abid_asciidoc_overline, R.drawable.format_overline_24px,
                         R.string.inline_code),
-                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.superscript_icon_24,
+                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.superscript_24px,
                         R.string.inline_code),
                 new ActionItem(R.string.abid_asciidoc_subscript,
-                        R.drawable.subscript_icon_24dp, R.string.inline_code),
+                        R.drawable.subscript_24px
+                        , R.string.inline_code),
                 new ActionItem(
                         R.string.abid_asciidoc_break_thematic, R.drawable.ic_more_horiz_black_24dp,
                         R.string.horizontal_line),
