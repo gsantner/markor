@@ -103,7 +103,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.string.horizontal_line),
                 new ActionItem(R.string.abid_asciidoc_block_quote,
                         R.drawable.ic_format_quote_black_24dp, R.string.quote),
-//                // TODO: collapsible? use block in
+//                // TODO: collapsible? use block
 //                new ActionItem(R.string.abid_common_accordion,
 //                        R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion),
                 // TODO: Implement later
@@ -144,7 +144,8 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom,
                         R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom,
-                        ActionItem.DisplayMode.VIEW),
+//                        ActionItem.DisplayMode.VIEW),
+                        ActionItem.DisplayMode.ANY),
                 new ActionItem(
                         R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp,
                         R.string.rotate, ActionItem.DisplayMode.ANY),

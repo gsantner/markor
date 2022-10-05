@@ -96,7 +96,7 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case AUDIO_ACTION: {
-                // TODO: AsciiDoc audio
+                // TODO: AsciiDoc audio link?
                 formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
                 actionTitle = R.string.audio;
                 break;
