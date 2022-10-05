@@ -177,7 +177,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
     @Override
     public boolean onActionClick(final @StringRes int action) {
         switch (action) {
-            // TODO: still issues with setOrUnsetHeadingWithLevel
             case R.string.abid_asciidoc_h1: {
                 runRegexReplaceAction(
                         AsciidocReplacePatternGenerator.setOrUnsetHeadingWithLevel(1));
@@ -204,7 +203,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return true;
             }
 
-            // TODO: still issues
+            // TODO: could be improved to keep level
             case R.string.abid_asciidoc_checkbox_list: {
                 final String listChar = "*";
                 runRegexReplaceAction(
@@ -212,7 +211,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                                 listChar));
                 return true;
             }
-            // TODO: still issues
             case R.string.abid_asciidoc_unordered_list_char: {
                 final String listChar = "*";
                 runRegexReplaceAction(
@@ -220,7 +218,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                                 listChar));
                 return true;
             }
-            // TODO: still issues
             case R.string.abid_asciidoc_ordered_list_char: {
                 final String listChar = ".";
                 runRegexReplaceAction(
@@ -233,12 +230,12 @@ public class AsciidocActionButtons extends ActionButtonBase {
             // runAsciidocInlineAction works fine
             // TODO: consider additional _suffix to allow "[" as _prefix and "]" as suffix
             case R.string.abid_asciidoc_squarebrackets: {
-                runAsciidocInlineAction("", "[]");
+                runAsciidocInlineAction("", "[", "]");
                 return true;
             }
             // https://docs.asciidoctor.org/asciidoc/latest/text/bold/
             case R.string.abid_asciidoc_bold: {
-                runAsciidocInlineAction("**", "");
+                runAsciidocInlineAction("**", "", "");
                 return true;
             }
             // __ vs _
@@ -246,67 +243,67 @@ public class AsciidocActionButtons extends ActionButtonBase {
             // we use single and not double, because Markdown action buton also use single and
             // runInlineAction is adapted for this
             case R.string.abid_asciidoc_italic: {
-                runAsciidocInlineAction("_", "");
+                runAsciidocInlineAction("_", "", "");
                 return true;
             }
             // https://docs.asciidoctor.org/asciidoc/latest/text/monospace/
             // we use single and not double, because Markdown action buton also use single and
             // runInlineAction is adapted for this
             case R.string.abid_asciidoc_monospace: {
-                runAsciidocInlineAction("`", "");
+                runAsciidocInlineAction("`", "", "");
                 return true;
             }
             // https://docs.asciidoctor.org/asciidoc/latest/text/highlight/
             case R.string.abid_asciidoc_highlight: {
-                runAsciidocInlineAction("#", "");
+                runAsciidocInlineAction("#", "", "");
                 return true;
             }
 
             // https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/
             // roles are like highlight, but with a prefix like: [.underline]#underline me#
             case R.string.abid_asciidoc_underline: {
-                runAsciidocInlineAction("#", "[.underline]");
+                runAsciidocInlineAction("#", "[.underline]", "");
                 return true;
             }
             case R.string.abid_asciidoc_overline: {
-                runAsciidocInlineAction("#", "[.overline]");
+                runAsciidocInlineAction("#", "[.overline]", "");
                 return true;
             }
             case R.string.abid_asciidoc_linethrough: {
-                runAsciidocInlineAction("#", "[.line-through]");
+                runAsciidocInlineAction("#", "[.line-through]", "");
                 return true;
             }
             case R.string.abid_asciidoc_nobreak: {
-                runAsciidocInlineAction("#", "[.nobreak]");
+                runAsciidocInlineAction("#", "[.nobreak]", "");
                 return true;
             }
             case R.string.abid_asciidoc_nowrap: {
-                runAsciidocInlineAction("#", "[.nowrap]");
+                runAsciidocInlineAction("#", "[.nowrap]", "");
                 return true;
             }
             case R.string.abid_asciidoc_prewrap: {
-                runAsciidocInlineAction("#", "[.pre-wrap]");
+                runAsciidocInlineAction("#", "[.pre-wrap]", "");
                 return true;
             }
 
             // https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/
             // ~ ^
             case R.string.abid_asciidoc_subscript: {
-                runAsciidocInlineAction("~", "");
+                runAsciidocInlineAction("~", "", "");
                 return true;
             }
             case R.string.abid_asciidoc_superscript: {
-                runAsciidocInlineAction("^", "");
+                runAsciidocInlineAction("^", "", "");
                 return true;
             }
 
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks
             case R.string.abid_asciidoc_break_thematic: {
-                runAsciidocInlineAction("'''\n", "");
+                runAsciidocInlineAction("'''\n", "", "");
                 return true;
             }
             case R.string.abid_asciidoc_break_page: {
-                runAsciidocInlineAction("<<<\n", "");
+                runAsciidocInlineAction("<<<\n", "", "");
                 return true;
             }
 
@@ -359,56 +356,56 @@ public class AsciidocActionButtons extends ActionButtonBase {
             // https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/
             // AsciiDoc actions
             if (callbackPayload.equals(rstr(R.string.asciidoc_block_comment))) {
-                runAsciidocInlineAction("\n////\n", "");
+                runAsciidocInlineAction("\n////\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_example))) {
-                runAsciidocInlineAction("\n====\n", "");
+                runAsciidocInlineAction("\n====\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_listing))) {
-                runAsciidocInlineAction("\n----\n", "");
+                runAsciidocInlineAction("\n----\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_literal))) {
-                runAsciidocInlineAction("\n....\n", "");
+                runAsciidocInlineAction("\n....\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_open))) {
-                runAsciidocInlineAction("\n--\n", "");
+                runAsciidocInlineAction("\n--\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_sidebar))) {
-                runAsciidocInlineAction("\n****\n", "");
+                runAsciidocInlineAction("\n****\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_table))) {
-                runAsciidocInlineAction("\n|===\n", "");
+                runAsciidocInlineAction("\n|===\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_pass))) {
-                runAsciidocInlineAction("\n++++\n", "");
+                runAsciidocInlineAction("\n++++\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_quote))) {
-                runAsciidocInlineAction("\n____\n", "");
+                runAsciidocInlineAction("\n____\n", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_code))) {
-                runAsciidocInlineAction("\n----\n", "[source,sql]");
+                runAsciidocInlineAction("\n----\n", "[source,sql]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_block_collapsible))) {
-                runAsciidocInlineAction("\n====\n", "[%collapsible]");
+                runAsciidocInlineAction("\n====\n", "[%collapsible]", "");
                 // TODO: How to insert visual row delimiter?
                 // inline roles
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_highlight))) {
-                runAsciidocInlineAction("#", "");
+                runAsciidocInlineAction("#", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_underline))) {
-                runAsciidocInlineAction("#", "[.underline]");
+                runAsciidocInlineAction("#", "[.underline]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_linethrough))) {
-                runAsciidocInlineAction("#", "[.line-through]");
+                runAsciidocInlineAction("#", "[.line-through]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_overline))) {
-                runAsciidocInlineAction("#", "[.overline]");
+                runAsciidocInlineAction("#", "[.overline]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_subscript))) {
-                runAsciidocInlineAction("~", "");
+                runAsciidocInlineAction("~", "", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_superscript))) {
-                runAsciidocInlineAction("^", "");
+                runAsciidocInlineAction("^", "", "");
 
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_nobreak))) {
-                runAsciidocInlineAction("#", "[.nobreak]");
+                runAsciidocInlineAction("#", "[.nobreak]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_nowrap))) {
-                runAsciidocInlineAction("#", "[.nowrap]");
+                runAsciidocInlineAction("#", "[.nowrap]", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_prewrap))) {
-                runAsciidocInlineAction("#", "[.pre-wrap]");
+                runAsciidocInlineAction("#", "[.pre-wrap]", "");
 
                 // TODO: How to insert visual row delimiter?
                 // breaks
                 // https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_break_thematic))) {
-                runAsciidocInlineAction("", "\n---\n");
+                runAsciidocInlineAction("", "\n---\n", "");
             } else if (callbackPayload.equals(rstr(R.string.asciidoc_break_page))) {
-                runAsciidocInlineAction("", "\n<<<\n");
+                runAsciidocInlineAction("", "\n<<<\n", "");
             }
         });
     }
