@@ -150,11 +150,11 @@
                             android:title="@string/key_value" />
                         <item
                             android:id="@string/action_format_plaintext"
-                            android:icon="@drawable/asciidoc_icon_black_24dp"
+                            android:icon="@drawable/ic_file_white_24dp"
                             android:title="@string/plaintext" />
                         <item
                             android:id="@string/action_format_asciidoc"
-                            android:icon="@drawable/ic_file_white_24dp"
+                            android:icon="@drawable/asciidoc_icon_black_24dp"
                             android:title="@string/asciidoc" />
                         <item
                             android:id="@string/action_format_markdown"

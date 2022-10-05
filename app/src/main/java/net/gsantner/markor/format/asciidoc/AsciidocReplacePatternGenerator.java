@@ -128,7 +128,9 @@ example: for level = 1
         return patterns;
     }
 
-    // TODO: works correctly only for the first level, lower levels are removed but downgraded
+    // TODO: works correctly only for the first level "* [ ]",
+    //  other levels like "** [ ]" are upgraded to "* [x]"
+    // Think about ways to keep the level
     public static List<ActionButtonBase.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(
             String listChar) {
         final String unchecked = "$1" + listChar + " [ ] ";
@@ -137,8 +139,9 @@ example: for level = 1
                 PREFIX_UNCHECKED_LIST, unchecked, checked);
     }
 
-    // TODO: works correctly only for the first level, lower levels are removed but downgraded on
-    //  new insert
+    // works fine for the first level "* ",
+    // other levels like "** " are only removed
+    // but they can't be restored, because how we should know the previous level?
     public static List<ActionButtonBase.ReplacePattern> replaceWithUnorderedListPrefixOrRemovePrefix(
             String listChar) {
         final String unorderedListReplacement = "$1" + listChar + " ";
@@ -146,8 +149,9 @@ example: for level = 1
                 PREFIX_UNORDERED_LIST, unorderedListReplacement);
     }
 
-    // TODO: works correctly only for the first level, lower levels are removed but downgraded on
-    //  new insert
+    // works fine for the first level "* ",
+    // other levels like "** " are only removed
+    // but they can't be restored, because how we should know the previous level?
     public static List<ActionButtonBase.ReplacePattern> replaceWithOrderedListPrefixOrRemovePrefix(
             String listChar) {
         final String orderedListReplacement = "$1" + listChar + " ";
