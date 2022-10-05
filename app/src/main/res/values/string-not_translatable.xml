@@ -294,38 +294,38 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <!-- used in runAsciidocSpecialKeyAction -->
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/text/text-span-built-in-roles/ -->
-    <string name="asciidoc_underline"      translatable="false">AsciiDoc role underline</string>
-    <string name="asciidoc_overline"       translatable="false">AsciiDoc role overline</string>
-    <string name="asciidoc_linethrough"    translatable="false">AsciiDoc role linethrough</string>
-    <string name="asciidoc_nobreak"        translatable="false">AsciiDoc role nobreak</string>
-    <string name="asciidoc_nowrap"         translatable="false">AsciiDoc role nowrap</string>
-    <string name="asciidoc_prewrap"        translatable="false">AsciiDoc role prewrap</string>
+    <string name="asciidoc_underline"      translatable="false">role - underline</string>
+    <string name="asciidoc_overline"       translatable="false">role - overline</string>
+    <string name="asciidoc_linethrough"    translatable="false">role - linethrough</string>
+    <string name="asciidoc_nobreak"        translatable="false">role - nobreak</string>
+    <string name="asciidoc_nowrap"         translatable="false">role - nowrap</string>
+    <string name="asciidoc_prewrap"        translatable="false">role - prewrap</string>
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/text/highlight/ -->
-    <string name="asciidoc_highlight"      translatable="false">AsciiDoc inline highlight</string>
+    <string name="asciidoc_highlight"      translatable="false">inline - highlight</string>
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/text/subscript-and-superscript/ -->
-    <string name="asciidoc_subscript"      translatable="false">AsciiDoc inline subscript</string>
-    <string name="asciidoc_superscript"    translatable="false">AsciiDoc inline superscript</string>
+    <string name="asciidoc_subscript"      translatable="false">inline - subscript</string>
+    <string name="asciidoc_superscript"    translatable="false">inline - superscript</string>
 
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/delimited/ -->
-    <string name="asciidoc_block_comment"     translatable="false">AsciiDoc block - comment</string>
-    <string name="asciidoc_block_example"     translatable="false">AsciiDoc block - example</string>
-    <string name="asciidoc_block_listing"     translatable="false">AsciiDoc block - listing</string>
-    <string name="asciidoc_block_literal"     translatable="false">AsciiDoc block - literal</string>
-    <string name="asciidoc_block_open"        translatable="false">AsciiDoc block - open</string>
-    <string name="asciidoc_block_sidebar"     translatable="false">AsciiDoc block - sidebar</string>
-    <string name="asciidoc_block_table"       translatable="false">AsciiDoc block - table</string>
-    <string name="asciidoc_block_pass"        translatable="false">AsciiDoc block - pass</string>
-    <string name="asciidoc_block_quote"       translatable="false">AsciiDoc block - quote</string>
+    <string name="asciidoc_block_comment"     translatable="false">block - comment</string>
+    <string name="asciidoc_block_example"     translatable="false">block - example</string>
+    <string name="asciidoc_block_listing"     translatable="false">block - listing</string>
+    <string name="asciidoc_block_literal"     translatable="false">block - literal</string>
+    <string name="asciidoc_block_open"        translatable="false">block - open</string>
+    <string name="asciidoc_block_sidebar"     translatable="false">block - sidebar</string>
+    <string name="asciidoc_block_table"       translatable="false">block - table</string>
+    <string name="asciidoc_block_pass"        translatable="false">block - pass</string>
+    <string name="asciidoc_block_quote"       translatable="false">block - quote</string>
 
-    <string name="asciidoc_block_code"        translatable="false">AsciiDoc block - code</string>
-    <string name="asciidoc_block_collapsible" translatable="false">AsciiDoc block - collapsible</string>
+    <string name="asciidoc_block_code"        translatable="false">block - code</string>
+    <string name="asciidoc_block_collapsible" translatable="false">block - collapsible</string>
 
     <!-- https://docs.asciidoctor.org/asciidoc/latest/blocks/breaks/#page-breaks -->
-    <string name="asciidoc_break_thematic" translatable="false">AsciiDoc break thematic</string>
-    <string name="asciidoc_break_page"     translatable="false">AsciiDoc break page</string>
+    <string name="asciidoc_break_thematic" translatable="false">break - thematic</string>
+    <string name="asciidoc_break_page"     translatable="false">break - page</string>
 
 
     <string name="abid_wikitext_h1" translatable="false">abid_wikitext_h1</string>
