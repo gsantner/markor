@@ -70,6 +70,15 @@ public class AttachLinkOrFileDialog {
                 actionTitle = R.string.insert_link;
                 formatTemplate = new GsHashMap<Integer, String>().load(
                         FormatRegistry.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
+                        // TODO: AsciiDoc - Distinction between different link types
+                        // maybe you can get and use other properties besides actionTitle
+                        // Autolink http https ftp irc mailto
+                        // https://docs.asciidoctor.org/asciidoc/latest/macros/autolinks/
+                        // link link:<target>[<attrlist>]
+                        // https://docs.asciidoctor.org/asciidoc/latest/macros/link-macro/
+                        // xref cross references
+                        // https://docs.asciidoctor.org/asciidoc/latest/macros/xref/
+                        FormatRegistry.FORMAT_ASCIIDOC, "link:{{ template.link }}[{{ template.title }}]",
                         FormatRegistry.FORMAT_WIKITEXT, "[[{{ template.link }}|{{ template.title }}]]"
                 ).getOrDefault(textFormatId, "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 break;
@@ -78,11 +87,16 @@ public class AttachLinkOrFileDialog {
                 actionTitle = R.string.insert_image;
                 formatTemplate = new GsHashMap<Integer, String>().load(
                         FormatRegistry.FORMAT_MARKDOWN, "![{{ template.title }}]({{ template.link }})",
+                        // TODO: Considering imagesdir
+                        // Use setting for imagesdir? => Replace, ...
+                        // https://docs.asciidoctor.org/asciidoc/latest/macros/images-directory/
+                        FormatRegistry.FORMAT_ASCIIDOC, "image::{{ template.link }}[\"{{ template.title }}\"]",
                         FormatRegistry.FORMAT_WIKITEXT, "{{{{ template.link }}}}"
                 ).getOrDefault(textFormatId, "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 break;
             }
             case AUDIO_ACTION: {
+                // TODO: AsciiDoc audio
                 formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
                 actionTitle = R.string.audio;
                 break;
