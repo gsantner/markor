@@ -572,7 +572,7 @@ public abstract class ActionButtonBase {
                             selectionEnd + _action.length() + _prefix.length());
                 }
             } else {
-                // TODO: consider to implement a similar logic to remove matching surrounding 
+                // TODO: consider to implement a similar logic to remove matching surrounding
                 //  _prefix and _suffix
                 // currently the _suffix is used only for square brackets, they can be easily
                 // removed directly

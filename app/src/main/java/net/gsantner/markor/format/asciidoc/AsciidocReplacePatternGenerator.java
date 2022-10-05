@@ -28,16 +28,27 @@ public class AsciidocReplacePatternGenerator {
     // automatically transformed into \
     // standard asciidoc section
     // https://docs.asciidoctor.org/asciidoc/latest/sections/titles-and-levels/
-    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^( {0})(={1,6} {1})");
-    //not yet adapted for asciidoc
+    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^( {0})(=)(={0,5})( {1})");
+    // Level greater than 1, minimum 2 ==
+    // we use {1,6} isteda of {1,5} to be able to deindent also this level
+    public static final Pattern PREFIX_ATX_HEADING_GT1 = Pattern.compile(
+            "^( {0})(=)(={1,6})( {1})");
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile(
-            "^( *)((\\*{1,6}) \\[( |\\*|x|X)] {1,})");
+            "^( *)(\\*{1,6})( \\[( |\\*|x|X)] {1,})");
     public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile(
-            "^( *)((\\*{1,6}) \\[(\\*|x|X)] {1,})");
+            "^( *)(\\*{1,6})( \\[(\\*|x|X)] {1,})");
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile(
-            "^( *)((\\*{1,6}) \\[( )] {1,})");
-    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile("^( *)((\\*{1,6}) {1,})");
-    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile("^( *)((\\.{1,6}) {1,})");
+            "^( *)(\\*{1,6})( \\[( )] {1,})");
+    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile(
+            "^( *)(\\*)(\\*{0,5})( {1,})");
+    // Level greater than 1, minimum 2 **
+    public static final Pattern PREFIX_UNORDERED_LIST_GT1 = Pattern.compile(
+            "^( *)(\\*)(\\*{1,6})( {1,})");
+    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile(
+            "^( *)(\\.)(\\.{0,5})( {1,})");
+    // Level greater than 1, minimum 2 ..
+    public static final Pattern PREFIX_ORDERED_LIST_GT1 = Pattern.compile(
+            "^( *)(\\.)(\\.{1,6})( {1,})");
     //required as replacablePattern \s - any whitespace character: [\r\n\t\f\v ]
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^( *)");
     //    TODO: to be removed
@@ -64,6 +75,12 @@ public class AsciidocReplacePatternGenerator {
             PREFIX_LEADING_SPACE,
     };
 
+    // these patterns are used to identify lines for indent_level and deindent_level
+    public static final Pattern[] PREFIX_LEVEL_PATTERNS = {
+            PREFIX_ATX_HEADING,
+            PREFIX_ORDERED_LIST,
+            PREFIX_UNORDERED_LIST,
+    };
     private final static String ORDERED_LIST_REPLACEMENT = "$11. ";
 
     /**
@@ -105,7 +122,8 @@ public class AsciidocReplacePatternGenerator {
         // pattern no 3 to 8:
         // Replace all other prefixes with heading
         // this list PREFIX_PATTERNS contains everything which should now be replaced by heading
-        // + "$1 ", which could be " ", "  ", "   " and so on, if the list character doesn't start at first column
+        // + "$1 ", which could be " ", "  ", "   " and so on, if the list character doesn't
+        // start at first column
         // But why 'heading + "$1 "' and not 'heading + " $1"'?
 
         for (final Pattern pp : AsciidocReplacePatternGenerator.PREFIX_PATTERNS) {
@@ -128,9 +146,45 @@ example: for level = 1
         return patterns;
     }
 
+    public static List<ActionButtonBase.ReplacePattern> indentLevel() {
+
+        // Create a new list in which patterns are inserted, which are then processed in order -
+        // Replacements are performed.
+        List<ActionButtonBase.ReplacePattern> patterns = new ArrayList<>();
+
+        // we could also use PREFIX_LEVEL_PATTERNS, instead of 3 direct statements
+
+        // insert one (1) level: duplicate $2, which is "=" or "*" or "."
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ATX_HEADING, "$1$2$2$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ORDERED_LIST, "$1$2$2$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_UNORDERED_LIST, "$1$2$2$3$4"));
+
+        return patterns;
+    }
+
+    public static List<ActionButtonBase.ReplacePattern> deindentLevel() {
+
+        // Create a new list in which patterns are inserted, which are then processed in order -
+        // Replacements are performed.
+        List<ActionButtonBase.ReplacePattern> patterns = new ArrayList<>();
+
+        // we could also use PREFIX_LEVEL_PATTERNS, instead of 3 direct statements
+
+        // remove one (1) level: remove $2, which is the first "=" or "*" or "."
+        // $3 contains minimum one (1) "=" or "*" or "."
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ATX_HEADING_GT1, "$1$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ORDERED_LIST_GT1, "$1$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_UNORDERED_LIST_GT1, "$1$3$4"));
+
+        return patterns;
+    }
+
     // TODO: works correctly only for the first level "* [ ]",
     //  other levels like "** [ ]" are upgraded to "* [x]"
     // Think about ways to keep the level
+    // I tried, but it didn't work:
+    // unchecked = "$1$2" + " [ ] ";
+    // checked = "$1$2" + " [x] ";
     public static List<ActionButtonBase.ReplacePattern> toggleToCheckedOrUncheckedListPrefix(
             String listChar) {
         final String unchecked = "$1" + listChar + " [ ] ";

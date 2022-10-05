@@ -252,8 +252,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_asciidoc_checkbox_list" translatable="false">abid_asciidoc_checkbox_list</string>
     <string name="abid_asciidoc_unordered_list_char" translatable="false">abid_asciidoc_unordered_list_char</string>
     <string name="abid_asciidoc_ordered_list_char" translatable="false">abid_asciidoc_ordered_list_char</string>
-    <string name="abid_asciidoc_indent" translatable="false">abid_asciidoc_indent</string>
-    <string name="abid_asciidoc_deindent" translatable="false">abid_asciidoc_deindent</string>
+    <string name="abid_asciidoc_indent_level" translatable="false">abid_asciidoc_indent</string>
+    <string name="abid_asciidoc_deindent_level" translatable="false">abid_asciidoc_deindent</string>
     <string name="abid_asciidoc_bold" translatable="false">abid_asciidoc_bold</string>
     <string name="abid_asciidoc_italic" translatable="false">abid_asciidoc_italic</string>
     <string name="abid_asciidoc_monospace" translatable="false">abid_asciidoc_monospace</string>

@@ -70,10 +70,9 @@ public class AttachLinkOrFileDialog {
                 actionTitle = R.string.insert_link;
                 formatTemplate = new GsHashMap<Integer, String>().load(
                         FormatRegistry.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
-                        // TODO: AsciiDoc - Distinction between different link types
-                        // maybe you can get and use other properties besides actionTitle
-                        // Autolink http https ftp irc mailto
-                        // https://docs.asciidoctor.org/asciidoc/latest/macros/autolinks/
+                        // TODO: AsciiDoc - link vs xref
+                        // consider to use xref, if the linked document is .adoc
+                        // maybe use a setting for preferred link macro
                         // link link:<target>[<attrlist>]
                         // https://docs.asciidoctor.org/asciidoc/latest/macros/link-macro/
                         // xref cross references

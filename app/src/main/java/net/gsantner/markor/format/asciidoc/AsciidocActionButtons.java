@@ -42,20 +42,15 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_ordered_list_char,
                         R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
 
-                // TODO: indent and deindent for lists are different in AsciiDoc than in Markor
-                // TODO: missing action
-                new ActionItem(R.string.abid_asciidoc_indent, R.drawable.arrowhead_right,
+                new ActionItem(R.string.abid_asciidoc_indent_level, R.drawable.arrowhead_right,
                         R.string.indent_level),
-                // TODO: missing action
-                new ActionItem(R.string.abid_asciidoc_deindent, R.drawable.arrowhead_left,
+                new ActionItem(R.string.abid_asciidoc_deindent_level, R.drawable.arrowhead_left,
                         R.string.deindent_level),
-                // TODO: missing action
+
                 new ActionItem(R.string.abid_common_indent,
                         R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
-                // TODO: missing action
                 new ActionItem(R.string.abid_common_deindent,
                         R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
-                // TODO: missing action
                 new ActionItem(R.string.abid_asciidoc_squarebrackets,
                         R.drawable.brackets_square_icon_24dp, R.string.squarebrackets),
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp,
@@ -68,14 +63,14 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
                 new ActionItem(R.string.abid_asciidoc_h1, R.drawable.format_header_1,
                         R.string.heading_1),
-                new ActionItem(R.string.abid_asciidoc_h2,
-                        R.drawable.format_header_2, R.string.heading_2),
-                new ActionItem(
-                        R.string.abid_asciidoc_h3, R.drawable.format_header_3, R.string.heading_3),
+                new ActionItem(R.string.abid_asciidoc_h2, R.drawable.format_header_2,
+                        R.string.heading_2),
+                new ActionItem(R.string.abid_asciidoc_h3, R.drawable.format_header_3,
+                        R.string.heading_3),
                 new ActionItem(R.string.abid_asciidoc_h4, R.drawable.format_header_4,
                         R.string.heading_4),
-                new ActionItem(R.string.abid_asciidoc_h5,
-                        R.drawable.format_header_5, R.string.heading_5),
+                new ActionItem(R.string.abid_asciidoc_h5, R.drawable.format_header_5,
+                        R.string.heading_5),
 
                 new ActionItem(R.string.abid_asciidoc_bold, R.drawable.ic_format_bold_black_24dp,
                         R.string.bold),
@@ -203,6 +198,17 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return true;
             }
 
+            case R.string.abid_asciidoc_indent_level: {
+                runRegexReplaceAction(
+                        AsciidocReplacePatternGenerator.indentLevel());
+                return true;
+            }
+            case R.string.abid_asciidoc_deindent_level: {
+                runRegexReplaceAction(
+                        AsciidocReplacePatternGenerator.deindentLevel());
+                return true;
+            }
+
             // TODO: could be improved to keep level
             case R.string.abid_asciidoc_checkbox_list: {
                 final String listChar = "*";
@@ -228,7 +234,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
             }
 
             // runAsciidocInlineAction works fine
-            // TODO: consider additional _suffix to allow "[" as _prefix and "]" as suffix
             case R.string.abid_asciidoc_squarebrackets: {
                 runAsciidocInlineAction("", "[", "]");
                 return true;
