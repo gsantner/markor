@@ -103,5 +103,4 @@ app/flavor*
 !gradle-wrapper.jar
 
 /.favorites.json
-/.vscode/bookmarks.json
-.vscode/settings.json
+/.vscode
