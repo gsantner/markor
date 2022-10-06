@@ -95,7 +95,8 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case AUDIO_ACTION: {
-                // TODO: AsciiDoc audio link?
+                // TODO: AsciiDoc audio link? This format is invalid in AsciiDoc. Which would be
+                // the right?
                 formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
                 actionTitle = R.string.audio;
                 break;

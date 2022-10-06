@@ -100,14 +100,11 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.string.horizontal_line),
                 new ActionItem(R.string.abid_asciidoc_block_quote,
                         R.drawable.ic_format_quote_black_24dp, R.string.quote),
-//                // TODO: collapsible? use block
-//                new ActionItem(R.string.abid_common_accordion,
-//                        R.drawable.ic_arrow_drop_down_black_24dp, R.string.accordion),
                 // TODO: Implement later
 //                new ActionItem(R.string.abid_common_web_jump_to_table_of_contents,
 //                        R.drawable.ic_list_black_24dp, R.string.table_of_contents,
 //                        ActionItem.DisplayMode.VIEW),
-                // TODO: Implement Table Generator a little later
+                // TODO: Implement Table Generator later
                 // new ActionItem(R.string.abid_asciidoc_table_insert_columns, R.drawable
                 // .ic_view_module_black_24dp, R.string.table),
 
@@ -153,23 +150,25 @@ public class AsciidocActionButtons extends ActionButtonBase {
     }
 
     /*
-        TODO: indent deindent
-
-        Maybe two different indent deindent
-
-        * a "normal" one for blank characters only
-        ** If the pattern is not filled:
-        *** indent: blank as prefix
-        *** deindent: remove a blank
-        * another one that will change the level of headers and lists +
-        Pseudologics for the level changer:
-        ** If the pattern is satisfied for headers or lists: leading #, *, . with the following
-        blank
-        *** indent: the first character is added as a prefix
-        *** deindent: the first character is removed, but only if something remains after it: '===
-         ' => '== ' => '= ' => '= ' (no further removal)
-
-    */
+     * DONE: indent deindent
+     * 
+     * Maybe two different indent deindent
+     * 
+     * a "normal" one for blank characters only
+     ** If the pattern is not filled:
+     *** indent: blank as prefix
+     *** deindent: remove a blank
+     * another one that will change the level of headers and lists +
+     * Pseudologics for the level changer:
+     ** If the pattern is satisfied for headers or lists: leading #, *, . with the
+     * following
+     * blank
+     *** indent: the first character is added as a prefix
+     *** deindent: the first character is removed, but only if something remains after
+     * it: '===
+     * ' => '== ' => '= ' => '= ' (no further removal)
+     * 
+     */
 
     @Override
     public boolean onActionClick(final @StringRes int action) {
@@ -314,13 +313,12 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return true;
             }
 
-//            // TODO: Implement Table Generator a little later
+            // // TODO: Implement Table Generator later
 //            case R.string.abid_asciidoc_table_insert_columns: {
 //                MarkorDialogFactory.showInsertTableRowDialog(getActivity(), false,
 //                        this::insertTableRow);
 //                return true;
-//        }
-            // TODO: AsciiDoc has a different syntax than Markdown
+// }
             case R.string.abid_asciidoc_insert_link:
             case R.string.abid_asciidoc_insert_image: {
                 AttachLinkOrFileDialog.showInsertImageOrLinkDialog(
@@ -418,7 +416,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
     }
 
     // taken from markdown, because it was used above
-    // TODO: must be changed or out
+    // TODO: must be adapted for AsciiDoc, or comment out
     private void insertTableRow(int cols, boolean isHeaderEnabled) {
         StringBuilder sb = new StringBuilder();
         _hlEditor.requestFocus();
@@ -459,7 +457,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
             int selectionStart = _hlEditor.getSelectionStart();
             int selectionEnd = _hlEditor.getSelectionEnd();
             int selectionLength = selectionEnd - selectionStart;
-            // // TODO: this does not seem to exist
+            // // NOTE: this does not seem to exist
             // String selectedText =  _hlEditor.getSelectedText();
             String selectedText = text.substring(selectionStart, selectionEnd);
             String comparingText = _prefix + _action + selectedText + _action + _suffix;

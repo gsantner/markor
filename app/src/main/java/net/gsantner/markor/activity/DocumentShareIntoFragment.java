@@ -384,7 +384,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
      * @param link Link url
      * @return formatted URL of format [text](url)
      */
-    // TODO: parameter for AsciiDoc or separate function for AsciiDoc
+    // TODO: understand, where and how this is used, which effect it has on AsciiDoc
+    // formatting and what needs to be done, to work fine with AsciiDoc
     private static String formatLink(String text, String link) {
         link = link == null ? "" : link;
         text = text == null ? "" : text;

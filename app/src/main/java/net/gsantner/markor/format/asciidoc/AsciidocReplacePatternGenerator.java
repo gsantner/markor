@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class AsciidocReplacePatternGenerator {
 
     // TODO: write tests
-    //adapted for asciidoc
+    // How to automate test in Java developement?
 
     //check on https://regex101.com/
     // in Android Studio (not in VSC), you can copy and paste from here, \\ will be
@@ -51,13 +51,7 @@ public class AsciidocReplacePatternGenerator {
             "^( *)(\\.)(\\.{1,6})( {1,})");
     //required as replacablePattern \s - any whitespace character: [\r\n\t\f\v ]
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^( *)");
-    //    TODO: to be removed
-    // public static final Pattern PREFIX_QUOTE = Pattern.compile("^(>\\s)");
-    // public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
 
-    //    public static final Pattern BLOCK_DELIMITER_COMMENT = Pattern.compile("^////");
-
-    //    TODO: verstehen, wofür das gebraucht wird
     public static final AutoTextFormatter.FormatPatterns formatPatterns =
             new AutoTextFormatter.FormatPatterns(
                     AsciidocReplacePatternGenerator.PREFIX_UNORDERED_LIST,

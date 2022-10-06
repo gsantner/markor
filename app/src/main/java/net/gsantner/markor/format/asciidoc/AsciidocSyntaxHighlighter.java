@@ -21,10 +21,13 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     protected void generateSpans() {
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        // TODO: font is very small, where to set font size?
+        // TODO: font is very small, currently general setting: 85% of common size
+        // hard to read on dark thema, but this is a general question for all formats,
+        // not AsciiDoc specific
         // also it uses private static String formatLink(String text, String link), which is
         // adapted for Markdown
-        // needs to be adapted for AsciiDoc
+        // maybe, needs to be adapted for AsciiDoc?
+        // but not in the current Pull Request
         createSmallBlueLinkSpans();
     }
 
