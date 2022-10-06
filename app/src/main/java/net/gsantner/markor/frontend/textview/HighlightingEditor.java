@@ -84,8 +84,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
                 }
-                // Direct call to super as we block bringPointIntoView otherwise
-                HighlightingEditor.super.bringPointIntoView(getSelectionStart());
+                _bringPointIntoView(getSelectionStart());
             }
 
             @Override
@@ -111,7 +110,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean wasCursorPreviouslyVisible() {
         final int sel = getSelectionStart();
         final Layout layout = getLayout();
-        if (layout == null || !indexesValid(sel)) {
+        if (_oldVisRect.isEmpty() || layout == null || !indexesValid(sel)) {
             return false;
         }
         final int line = layout.getLineForOffset(sel);
@@ -126,25 +125,14 @@ public class HighlightingEditor extends AppCompatEditText {
         return max != 0 && ((max - min) / max) > 0.10;
     }
 
-    private void showCursorIfNecessary() {
-        if (isHeightChangeSignificant()) {
-            if (wasCursorPreviouslyVisible()) {
-                final int sel = getSelectionStart();
-                post(() -> {
-                    // Direct call to super as we block bringPointIntoView otherwise
-                    super.bringPointIntoView(sel);
-                    // Double call to handle case where changing hl moves sel
-                    post(() -> super.bringPointIntoView(sel));
-                });
-            }
-        }
-    }
-
     private void onRegionChangeListener() {
         if (getLocalVisibleRect(_visRect) && !_visRect.equals(_oldVisRect)) {
             updateHighlighting(false);
 
-            showCursorIfNecessary();
+            // Heuristic for sip shown etc
+            if (isHeightChangeSignificant() && wasCursorPreviouslyVisible()) {
+                _bringPointIntoView(getSelectionStart());
+            }
         }
 
         _oldVisRect.set(_visRect);
@@ -312,11 +300,14 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    // Hack to prevent auto-scroll
-    // Calls to super.bringPointIntoView are performed whenever necessary
+    // We block bringPointIntoView as it is called by the system when not needed
     @Override
     public boolean bringPointIntoView(int cursor) {
         return false;
+    }
+
+    private boolean _bringPointIntoView(int cursor) {
+        return super.bringPointIntoView(cursor);
     }
 
     @Override
@@ -407,10 +398,10 @@ public class HighlightingEditor extends AppCompatEditText {
             // Bring appropriate piece into view
             if (indexesValid(_prevSelStart, selStart) && _prevSelStart != selStart) {
                 // Start dragged
-                super.bringPointIntoView(selStart);
+                _bringPointIntoView(selStart);
             } else if (indexesValid(_prevSelEnd, selEnd) && _prevSelEnd != selEnd) {
                 // End dragged
-                super.bringPointIntoView(selEnd);
+                _bringPointIntoView(selEnd);
             }
         }
         _prevSelStart = selStart;
