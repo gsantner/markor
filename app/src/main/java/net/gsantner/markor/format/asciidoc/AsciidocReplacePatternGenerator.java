@@ -34,21 +34,21 @@ public class AsciidocReplacePatternGenerator {
     public static final Pattern PREFIX_ATX_HEADING_GT1 = Pattern.compile(
             "^( {0})(=)(={1,6})( {1})");
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile(
-            "^( *)(\\*{1,6})( \\[( |\\*|x|X)] {1,})");
+            "^( {0})(\\*{1,6})( \\[( |\\*|x|X)] {1,})");
     public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile(
-            "^( *)(\\*{1,6})( \\[(\\*|x|X)] {1,})");
+            "^( {0})(\\*{1,6})( \\[(\\*|x|X)] {1,})");
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile(
-            "^( *)(\\*{1,6})( \\[( )] {1,})");
+            "^( {0})(\\*{1,6})( \\[( )] {1,})");
     public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile(
-            "^( *)(\\*)(\\*{0,5})( {1,})");
+            "^( {0})(\\*)(\\*{0,5})( {1,})");
     // Level greater than 1, minimum 2 **
     public static final Pattern PREFIX_UNORDERED_LIST_GT1 = Pattern.compile(
-            "^( *)(\\*)(\\*{1,6})( {1,})");
+            "^( {0})(\\*)(\\*{1,6})( {1,})");
     public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile(
-            "^( *)(\\.)(\\.{0,5})( {1,})");
+            "^( {0})(\\.)(\\.{0,5})( {1,})");
     // Level greater than 1, minimum 2 ..
     public static final Pattern PREFIX_ORDERED_LIST_GT1 = Pattern.compile(
-            "^( *)(\\.)(\\.{1,6})( {1,})");
+            "^( {0})(\\.)(\\.{1,6})( {1,})");
     //required as replacablePattern \s - any whitespace character: [\r\n\t\f\v ]
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^( *)");
 
