@@ -264,8 +264,7 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static @NonNull
-    Rect getSelRect(final TextView text, final int... sel) {
+    public static @NonNull Rect getSelRect(final TextView text, final int... sel) {
 
         final Rect region = new Rect();
 
@@ -403,8 +402,10 @@ public final class TextViewUtils extends GsTextUtils {
                     edit.requestFocus();
                 }
 
-                edit.setSelection(start, end);
-                edit.post(() -> showSelection(edit, start, end));
+                edit.post(() -> {
+                    showSelection(edit, start, end);
+                    edit.setSelection(start, end);
+                });
             });
         }
     }
@@ -678,20 +679,10 @@ public final class TextViewUtils extends GsTextUtils {
         return () -> {
             synchronized (sync) {
                 _handler.removeCallbacks(callback);
-                _handler.postDelayed(callback, delayMs);
-            }
-        };
-    }
-
-    public static Runnable blockReentry(final Runnable callback) {
-        final boolean[] block = new boolean[]{false};
-        return () -> {
-            if (!block[0]) {
-                try {
-                    block[0] = true;
-                    callback.run();
-                } finally {
-                    block[0] = false;
+                if (delayMs > 0) {
+                    _handler.postDelayed(callback, delayMs);
+                } else {
+                    _handler.post(callback);
                 }
             }
         };

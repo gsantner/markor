@@ -43,17 +43,19 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
+    private int _prevSelStart = -1, _prevSelEnd = -1;
+    boolean _inSetSelection = false;
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private SyntaxHighlighterBase _hl;
     private DraggableScrollbarScrollView _scrollView;
     private boolean _isDynamicHighlightingEnabled = true;
-    private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
-    private boolean _hlEnabled;           // Whether highlighting is enabled
-    private final Rect _oldHlRect;        // Rect highlighting was previously applied to
-    private final Rect _oldVisRect;       // Rect highlighting was previously applied to
-    private final Rect _visRect;          // Current rect
-    private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
+    private Runnable _hlDebounced;       // Debounced runnable which recomputes highlighting
+    private boolean _hlEnabled;          // Whether highlighting is enabled
+    private final Rect _oldHlRect;       // Rect highlighting was previously applied to
+    private final Rect _oldVisRect;      // Rect highlighting was previously applied to
+    private final Rect _visRect;         // Current rect
+    private int _hlShiftThreshold = -1;  // How much to scroll before re-apply highlight
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
@@ -82,6 +84,8 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
                 }
+                // Direct call to super as we block bringPointIntoView otherwise
+                HighlightingEditor.super.bringPointIntoView(getSelectionStart());
             }
 
             @Override
@@ -101,16 +105,46 @@ public class HighlightingEditor extends AppCompatEditText {
         setEmojiCompatEnabled(false);
     }
 
+    //
+    // ---------------------------------------------------------------------------------------------
+
+    private boolean wasCursorPreviouslyVisible() {
+        final int sel = getSelectionStart();
+        final Layout layout = getLayout();
+        if (layout == null || !indexesValid(sel)) {
+            return false;
+        }
+        final int line = layout.getLineForOffset(sel);
+        final int Y = Math.round(0.5f * (layout.getLineTop(line) + layout.getLineBottom(line)));
+        final int X = Math.round(layout.getPrimaryHorizontal(sel));
+        return _oldVisRect.contains(X, Y);
+    }
+
+    private boolean isHeightChangeSignificant() {
+        final int ha = _oldVisRect.height(), hb = _visRect.height();
+        final float min = Math.min(ha, hb), max = Math.max(ha, hb);
+        return max != 0 && ((max - min) / max) > 0.10;
+    }
+
+    private void showCursorIfNecessary() {
+        if (isHeightChangeSignificant()) {
+            if (wasCursorPreviouslyVisible()) {
+                final int sel = getSelectionStart();
+                post(() -> {
+                    // Direct call to super as we block bringPointIntoView otherwise
+                    super.bringPointIntoView(sel);
+                    // Double call to handle case where changing hl moves sel
+                    post(() -> super.bringPointIntoView(sel));
+                });
+            }
+        }
+    }
+
     private void onRegionChangeListener() {
         if (getLocalVisibleRect(_visRect) && !_visRect.equals(_oldVisRect)) {
             updateHighlighting(false);
 
-            // Significant change not due to overscroll
-            if (Math.abs(_oldVisRect.height() - _visRect.height()) >= 2
-                    && _visRect.top > 0
-                    && _visRect.bottom < getHeight()) {
-                post(() -> super.bringPointIntoView(getSelectionStart()));
-            }
+            showCursorIfNecessary();
         }
 
         _oldVisRect.set(_visRect);
@@ -139,11 +173,16 @@ public class HighlightingEditor extends AppCompatEditText {
                 final int oldOffset = heightSame ? layout.getLineBaseline(shiftTestLine) : 0;
 
                 final int[] newHlRegion = hlRegion(_visRect); // Compute this _before_ clear
-                _hl.clear();
-                if (recompute) {
-                    _hl.recompute();
+                try {
+                    beginBatchEdit();
+                    _hl.clear();
+                    if (recompute) {
+                        _hl.recompute();
+                    }
+                    _hl.apply(newHlRegion);
+                } finally {
+                    endBatchEdit();
                 }
-                _hl.apply(newHlRegion);
 
                 if (_scrollView != null && shiftTestLine >= 0) {
                     final int shift = layout.getLineBaseline(shiftTestLine) - oldOffset;
@@ -274,6 +313,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Hack to prevent auto-scroll
+    // Calls to super.bringPointIntoView are performed whenever necessary
     @Override
     public boolean bringPointIntoView(int cursor) {
         return false;
@@ -341,21 +381,40 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public void setSelection(int start, int stop) {
-        if (indexesValid(start, stop)) {
-            super.setSelection(start, stop);
-        } else if (indexesValid(start, stop - 1)) {
-            super.setSelection(start, stop - 1);
-        } else if (indexesValid(start + 1, stop)) {
-            super.setSelection(start + 1, stop);
+        try {
+            _inSetSelection = true;
+            if (indexesValid(start, stop)) {
+                super.setSelection(start, stop);
+            } else if (indexesValid(start, stop - 1)) {
+                super.setSelection(start, stop - 1);
+            } else if (indexesValid(start + 1, stop)) {
+                super.setSelection(start + 1, stop);
+            }
+        } finally {
+            _inSetSelection = false;
         }
     }
 
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         super.onSelectionChanged(selStart, selEnd);
+
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
         }
+
+        if (!_inSetSelection) {
+            // Bring appropriate piece into view
+            if (indexesValid(_prevSelStart, selStart) && _prevSelStart != selStart) {
+                // Start dragged
+                super.bringPointIntoView(selStart);
+            } else if (indexesValid(_prevSelEnd, selEnd) && _prevSelEnd != selEnd) {
+                // End dragged
+                super.bringPointIntoView(selEnd);
+            }
+        }
+        _prevSelStart = selStart;
+        _prevSelEnd = selEnd;
     }
 
     // Auto-format
