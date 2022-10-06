@@ -190,6 +190,7 @@
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
                 <action android:name="android.intent.action.PROCESS_TEXT"/>
                 <data android:mimeType="text/plain" />
+                <data android:mimeType="text/*" />
             </intent-filter>
 
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -198,6 +199,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
+                <data android:mimeType="text/*" />
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/plain+md" />
                 <data android:mimeType="text/markdown" />
@@ -220,6 +222,7 @@
                   -->
                 <data android:scheme="content" />
                 <data android:scheme="file" />
+                <data android:mimeType="text/*" />
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/plain+md" />
                 <data android:mimeType="text/markdown" />
