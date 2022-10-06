@@ -30,7 +30,7 @@ public class AsciidocReplacePatternGenerator {
     // https://docs.asciidoctor.org/asciidoc/latest/sections/titles-and-levels/
     public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^( {0})(=)(={0,5})( {1})");
     // Level greater than 1, minimum 2 ==
-    // we use {1,6} isteda of {1,5} to be able to deindent also this level
+    // we use {1,6} instead of {1,5} to be able to deindent also this level
     public static final Pattern PREFIX_ATX_HEADING_GT1 = Pattern.compile(
             "^( {0})(=)(={1,6})( {1})");
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile(
