@@ -43,8 +43,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
 
-    private int _prevSelStart = -1, _prevSelEnd = -1;
-    boolean _inSetSelection = false;
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private SyntaxHighlighterBase _hl;
@@ -372,40 +370,13 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public void setSelection(int start, int stop) {
-        try {
-            _inSetSelection = true;
-            if (indexesValid(start, stop)) {
-                super.setSelection(start, stop);
-            } else if (indexesValid(start, stop - 1)) {
-                super.setSelection(start, stop - 1);
-            } else if (indexesValid(start + 1, stop)) {
-                super.setSelection(start + 1, stop);
-            }
-        } finally {
-            _inSetSelection = false;
+        if (indexesValid(start, stop)) {
+            super.setSelection(start, stop);
+        } else if (indexesValid(start, stop - 1)) {
+            super.setSelection(start, stop - 1);
+        } else if (indexesValid(start + 1, stop)) {
+            super.setSelection(start + 1, stop);
         }
-    }
-
-    @Override
-    protected void onSelectionChanged(int selStart, int selEnd) {
-        super.onSelectionChanged(selStart, selEnd);
-
-        if (MainActivity.IS_DEBUG_ENABLED) {
-            AppSettings.appendDebugLog("Selection changed: " + selStart + "->" + selEnd);
-        }
-
-        if (!_inSetSelection) {
-            // Bring appropriate piece into view
-            if (indexesValid(_prevSelStart, selStart) && _prevSelStart != selStart) {
-                // Start dragged
-                _bringPointIntoView(selStart);
-            } else if (indexesValid(_prevSelEnd, selEnd) && _prevSelEnd != selEnd) {
-                // End dragged
-                _bringPointIntoView(selEnd);
-            }
-        }
-        _prevSelStart = selStart;
-        _prevSelEnd = selEnd;
     }
 
     // Auto-format
