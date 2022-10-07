@@ -33,22 +33,33 @@ public class AsciidocReplacePatternGenerator {
     // we use {1,6} instead of {1,5} to be able to deindent also this level
     public static final Pattern PREFIX_ATX_HEADING_GT1 = Pattern.compile(
             "^( {0})(=)(={1,6})( {1})");
+
+    // simplified syntax for all lists: In fact, leading spaces are also possible
+    // This can be changed with ^( *) or ^( {0,16}) or similar.
+    // But then syntax highlighting would have to be adjusted as well
+    // This would conflict with formatting of "code", using indent .
+    // You would have to parse the previous line
+    // And Syntax Highlight doesn't have to do everything, but should only support it.
+    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile(
+            "^( {0})(\\*)(\\*{0,5})( {1,})");
+    // Level greater than 1, minimum 2 **
+    // we use {1,6} instead of {1,5} to be able to deindent also this level
+    public static final Pattern PREFIX_UNORDERED_LIST_GT1 = Pattern.compile(
+            "^( {0})(\\*)(\\*{1,6})( {1,})");
+    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile(
+            "^( {0})(\\.)(\\.{0,5})( {1,})");
+    // Level greater than 1, minimum 2 ..
+    // we use {1,6} instead of {1,5} to be able to deindent also this level
+    public static final Pattern PREFIX_ORDERED_LIST_GT1 = Pattern.compile(
+            "^( {0})(\\.)(\\.{1,6})( {1,})");
+
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile(
             "^( {0})(\\*{1,6})( \\[( |\\*|x|X)] {1,})");
     public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile(
             "^( {0})(\\*{1,6})( \\[(\\*|x|X)] {1,})");
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile(
             "^( {0})(\\*{1,6})( \\[( )] {1,})");
-    public static final Pattern PREFIX_UNORDERED_LIST = Pattern.compile(
-            "^( {0})(\\*)(\\*{0,5})( {1,})");
-    // Level greater than 1, minimum 2 **
-    public static final Pattern PREFIX_UNORDERED_LIST_GT1 = Pattern.compile(
-            "^( {0})(\\*)(\\*{1,6})( {1,})");
-    public static final Pattern PREFIX_ORDERED_LIST = Pattern.compile(
-            "^( {0})(\\.)(\\.{0,5})( {1,})");
-    // Level greater than 1, minimum 2 ..
-    public static final Pattern PREFIX_ORDERED_LIST_GT1 = Pattern.compile(
-            "^( {0})(\\.)(\\.{1,6})( {1,})");
+
     //required as replacablePattern \s - any whitespace character: [\r\n\t\f\v ]
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^( *)");
 
@@ -69,13 +80,13 @@ public class AsciidocReplacePatternGenerator {
             PREFIX_LEADING_SPACE,
     };
 
-    // these patterns are used to identify lines for indent_level and deindent_level
-    public static final Pattern[] PREFIX_LEVEL_PATTERNS = {
-            PREFIX_ATX_HEADING,
-            PREFIX_ORDERED_LIST,
-            PREFIX_UNORDERED_LIST,
-    };
-    private final static String ORDERED_LIST_REPLACEMENT = "$11. ";
+//    // these patterns could be used to identify lines for indent_level and deindent_level
+//    public static final Pattern[] PREFIX_LEVEL_PATTERNS = {
+//            PREFIX_ATX_HEADING,
+//            PREFIX_ORDERED_LIST,
+//            PREFIX_UNORDERED_LIST,
+//    };
+//    private final static String ORDERED_LIST_REPLACEMENT = "$11. ";
 
     /**
      * Set/unset ATX heading level on each selected line

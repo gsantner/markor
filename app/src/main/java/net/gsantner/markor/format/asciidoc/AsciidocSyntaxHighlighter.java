@@ -43,8 +43,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             .compile(
                     "(?m)(`(?!`)\\b(.*?)`(?!`))|(`(?!`)_(.*?)_`(?!`))|(`(?!`)\\*(.*?)\\*`(?!`))|(``(?!`)(.*?)``)");
     public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
+    // simplified syntax: In fact, leading spaces are also possible
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^(\\.{1,6})( {1})");
     public final static Pattern LIST_UNORDERED = Pattern.compile("^\\*{1,6}( \\[[ xX]\\])? {1}");
+    // TODO: use later for highlighting checklists.
     // public final static Pattern LIST_CHECKLIST = Pattern.compile("^\\*{1,6}( \\[[ xX]\\]) {1}");
 
     // simplified, OK for basic examples
@@ -59,11 +61,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             "(?m)(?<=\\S)([^\\S\\r\\n]{1})\\+[\\r\\n]");
 
     // simplified, OK for basic examples
-    public final static Pattern LINK = Pattern.compile("link:\\S*?\\[([^\\[]*)\\]");
-    public final static Pattern XREF = Pattern.compile("xref:\\S*?\\[([^\\[]*)\\]");
-    public final static Pattern ACTION_IMAGE_PATTERN = Pattern.compile(
-            "image:\\S*?\\[([^\\[]*)\\]");
-    // TODO: include
+    public final static Pattern LINK_PATTERN = Pattern.compile("link:\\S*?\\[([^\\[]*)\\]");
+    public final static Pattern XREF_PATTERN = Pattern.compile("xref:\\S*?\\[([^\\[]*)\\]");
+    public final static Pattern IMAGE_PATTERN = Pattern.compile("image:\\S*?\\[([^\\[]*)\\]");
+    public final static Pattern INCLUDE_PATTERN = Pattern.compile("include:\\S*?\\[([^\\[]*)\\]");
 
     // block syntax
     // simplified, contains only the most common case, like "____", "....", "----", ...
@@ -152,8 +153,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             createColorSpanForMatches(HEADING_SIMPLE, AD_COLOR_HEADING);
         }
 
-        createColorSpanForMatches(LINK, AD_COLOR_LINK);
-        createColorSpanForMatches(XREF, AD_COLOR_LINK);
+        createColorSpanForMatches(LINK_PATTERN, AD_COLOR_LINK);
+        createColorSpanForMatches(XREF_PATTERN, AD_COLOR_LINK);
+        createColorSpanForMatches(IMAGE_PATTERN, AD_COLOR_LINK);
+        createColorSpanForMatches(INCLUDE_PATTERN, AD_COLOR_LINK);
         createColorSpanForMatches(LIST_UNORDERED, AD_COLOR_LIST);
         createColorSpanForMatches(LIST_ORDERED, AD_COLOR_LIST);
 
