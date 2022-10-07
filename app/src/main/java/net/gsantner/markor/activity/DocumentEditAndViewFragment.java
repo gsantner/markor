@@ -195,7 +195,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
-        _hlEditor.setScrollView(_primaryScrollView);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));

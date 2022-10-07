@@ -34,8 +34,6 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
-import com.vladsch.flexmark.util.collection.OrderedMap;
-
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
@@ -514,7 +512,7 @@ public class MarkorDialogFactory {
 
     private static GsCallback.a1<Spannable> getSttHighlighter() {
         final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as()).configure();
-        return s -> h.setSpannable(s).recompute().apply();
+        return s -> h.setSpannable(s).recompute().applyAll();
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {
