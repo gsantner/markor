@@ -333,8 +333,8 @@ public final class TextViewUtils extends GsTextUtils {
                     edit.requestFocus();
                 }
 
-                showSelection(edit, start, end);
                 edit.setSelection(start, end);
+                edit.post(() -> showSelection(edit, start, end));
             });
         }
     }

@@ -133,7 +133,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setHighlighter(final SyntaxHighlighterBase newHighlighter) {
         if (_hl != null) {
-            _hl.clearDynamic();
+            _hl.clearAll();
         }
 
         _hl = newHighlighter;
@@ -174,7 +174,7 @@ public class HighlightingEditor extends AppCompatEditText {
         } else if (!enable && _hlEnabled) {
             _hlEnabled = false;
             if (_hl != null) {
-                _hl.clearDynamic();
+                _hl.clearAll();
             }
         }
         return prev;
