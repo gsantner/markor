@@ -9,6 +9,7 @@ package net.gsantner.markor.format.asciidoc;
  *
 #########################################################*/
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
@@ -70,10 +71,14 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // simplified, contains only the most common case, like "____", "....", "----", ...
     public final static Pattern BLOCK_DELIMITED_QUOTATION = Pattern.compile(
             "(?m)^\\_{4}[\\r\\n]([\\s\\S]+?(?=^\\_{4}[\\r\\n]))\\_{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_EXAMPLE = Pattern.compile(
+            "(?m)^\\={4}[\\r\\n]([\\s\\S]+?(?=^\\={4}[\\r\\n]))\\={4}[\\r\\n]");
     public final static Pattern BLOCK_DELIMITED_LISTING = Pattern.compile(
             "(?m)^\\-{4}[\\r\\n]([\\s\\S]+?(?=^\\-{4}[\\r\\n]))\\-{4}[\\r\\n]");
     public final static Pattern BLOCK_DELIMITED_LITERAL = Pattern.compile(
             "(?m)^\\.{4}[\\r\\n]([\\s\\S]+?(?=^\\.{4}[\\r\\n]))\\.{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_SIDEBAR = Pattern.compile(
+            "(?m)^\\*{4}[\\r\\n]([\\s\\S]+?(?=^\\*{4}[\\r\\n]))\\*{4}[\\r\\n]");
 
     // original
     // issues with content, created in Windows and directly copied to android
@@ -86,23 +91,85 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 //    public final static Pattern ACTION_LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
 //
 
-    // TODO better colors for red green color weakness
-    // TODO I don't understand the coding system, is it RGBA? Then why is something else displayed?
-    // Example: AD_COLORBACKGROUND_HIGHLIGHT
-    // or use settings and predefined color sets for "normal" users and handicapped
-    // users
-    // 0xba3925ff; AsciiDoc header read
-    // 0x2156a5ff; AsciiDoc link blue
+    /*
+https://personal.sron.nl/~pault/[Paul Tol's Notes, Colour schemes and templates, 18 August 2021]
 
-    private static final int AD_COLOR_HEADING = 0xffef6D00;
-    private static final int AD_COLOR_LINK = 0xff1ea3fe;
-    private static final int AD_COLOR_LIST = 0xffdaa521;
-    private static final int AD_COLOR_QUOTE = 0xff88b04c;
-    private static final int AD_COLORBACKGROUND_CODEBLOCK = 0xff8c8c8c;
-    // new:
-    private static final int AD_COLOR_UNDERLINE = 0xff8c8ce0;
-    // Todo: should be yellow, but looks different
-    private static final int AD_COLORBACKGROUND_HIGHLIGHT = 0xffff00ff;
+= INTRODUCTION TO COLOUR SCHEMES
+
+distinct for all people, including colour-blind readers;
+
+#default# colour scheme for qualitative data is the _bright_ scheme in https://personal.sron.nl/~pault/#fig:scheme_bright[Fig. 1]
+
+image::https://personal.sron.nl/~pault/images/scheme_bright.png[Figure 1]
+
+Colours in default order: '#4477AA', '#EE6677', '#228833', '#CCBB44', '#66CCEE', '#AA3377', '#BBBBBB'.
+
+BLUE, CYAN, GREEN, YELLOW, RED, PURPLE, GRAY
+
+blue, cyan, green, yellow, red, purple, gray
+
+Figure 6: #_Pale_ and _dark_# qualitative colour schemes where the colours are not very distinct in either normal or colour-blind vision;
+they are not meant for lines or maps, #but for marking text#. Use the *pale* colours for the *background of black text*,
+for example to highlight cells in a table.
+One of the *dark colours* can be chosen *for text itself on a white background*,
+for example when a large block of text has to be marked.
+In both cases, the text remains easily readable (see https://personal.sron.nl/~pault/#fig:orbits[Fig. 10]).
+
+image::https://personal.sron.nl/~pault/images/scheme_pale.png[]
+
+Colours: '#BBCCEE', '#CCEEFF', '#CCDDAA', '#EEEEBB', '#FFCCCC', '#DDDDDD'.
+
+
+image:https://personal.sron.nl/~pault/images/scheme_dark.png[Dark scheme]
+
+Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
+
+
+
+TODO: test on dark and black theme, maybe need to adapt
+white text on areas with changed background is hard to read
+use explicit text color, when background changes?
+
+*/
+
+    private static final int TOL_BLUE        = Color.parseColor("#4477AA");
+    private static final int TOL_CYAN        = Color.parseColor("#EE6677");
+    private static final int TOL_GREEN       = Color.parseColor("#228833");
+    private static final int TOL_YELLOW      = Color.parseColor("#CCBB44");
+    private static final int TOL_RED         = Color.parseColor("#EE6677");
+    private static final int TOL_PURPLE      = Color.parseColor("#AA3377");
+    private static final int TOL_GRAY        = Color.parseColor("#BBBBBB");
+
+    private static final int TOL_PALE_BLUE   = Color.parseColor("#BBCCEE");
+    private static final int TOL_PALE_CYAN   = Color.parseColor("#CCEEFF");
+    private static final int TOL_PALE_GREEN  = Color.parseColor("#CCDDAA");
+    private static final int TOL_PALE_YELLOW = Color.parseColor("#EEEEBB");
+    private static final int TOL_PALE_RED    = Color.parseColor("#FFCCCC");
+    private static final int TOL_PALE_GRAY   = Color.parseColor("#DDDDDD");
+
+    private static final int TOL_DARK_BLUE   = Color.parseColor("#222255");
+    private static final int TOL_DARK_CYAN   = Color.parseColor("#225555");
+    private static final int TOL_DARK_GREEN  = Color.parseColor("#225522");
+    private static final int TOL_DARK_YELLOW = Color.parseColor("#666633");
+    private static final int TOL_DARK_RED    = Color.parseColor("#663333");
+    private static final int TOL_DARK_GRAY   = Color.parseColor("#555555");
+
+
+
+    private static final int AD_COLOR_HEADING = TOL_RED;
+    private static final int AD_COLOR_LINK = TOL_BLUE;
+    private static final int AD_COLOR_LIST = TOL_YELLOW;
+    private static final int AD_COLOR_UNDERLINE = TOL_PURPLE;
+
+    private static final int AD_COLORBACKGROUND_CODEBLOCK = TOL_PALE_GRAY;
+    private static final int AD_COLORBACKGROUND_QUOTE = TOL_PALE_GREEN;
+    private static final int AD_COLORBACKGROUND_EXAMPLE = TOL_PALE_CYAN;
+    private static final int AD_COLORBACKGROUND_SIDEBAR = TOL_PALE_RED;
+    private static final int AD_COLORBACKGROUND_HIGHLIGHT = TOL_PALE_YELLOW;
+    // can still be used: TOL_PALE_BLUE, maybe for table
+
+    // TODO: consider different AD_COLOR_TEXT_ON_COLORBACKGROUND instead of only one
+    private static final int AD_COLOR_TEXT_ON_COLORBACKGROUND = TOL_DARK_GRAY;
 
 
     private boolean _highlightLineEnding;
@@ -168,7 +235,16 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
         createStyleSpanForMatches(BOLD, Typeface.BOLD);
         createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
-        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_QUOTE);
+
+        //        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_QUOTE);
+        createColorBackgroundSpan(HIGHLIGHT, AD_COLORBACKGROUND_HIGHLIGHT);
+        createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION, AD_COLORBACKGROUND_QUOTE);
+        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+        createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE, AD_COLORBACKGROUND_EXAMPLE);
+        createColorSpanForMatches(BLOCK_DELIMITED_EXAMPLE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+        createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR, AD_COLORBACKGROUND_SIDEBAR);
+        createColorSpanForMatches(BLOCK_DELIMITED_SIDEBAR, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+
         createStrikeThroughSpanForMatches(STRIKETHROUGH);
         createSubscriptStyleSpanForMatches(SUBSCRIPT);
         createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
@@ -184,9 +260,11 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             createColorBackgroundSpan(CODE, AD_COLORBACKGROUND_CODEBLOCK);
             createColorBackgroundSpan(BLOCK_DELIMITED_LISTING, AD_COLORBACKGROUND_CODEBLOCK);
             createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL, AD_COLORBACKGROUND_CODEBLOCK);
+            createColorSpanForMatches(CODE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorSpanForMatches(BLOCK_DELIMITED_LISTING, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorSpanForMatches(BLOCK_DELIMITED_LITERAL, AD_COLOR_TEXT_ON_COLORBACKGROUND);
         }
 
-        createColorBackgroundSpan(HIGHLIGHT, AD_COLORBACKGROUND_HIGHLIGHT);
     }
 }
 
