@@ -588,6 +588,29 @@
             android:icon="@drawable/asciidoc_icon_black_24dp"
             android:title="@string/asciidoc">
 
+            <PreferenceCategory android:title="@string/syntax_highlighting">
+                <androidx.preference.SeekBarPreference
+                    android:defaultValue="650"
+                    android:icon="@drawable/ic_highlight_black_24dp"
+                    android:key="@string/pref_key__asciidoc__hl_delay"
+                    android:max="3000"
+                    android:summary="@string/highlighting_delay_lower_value_more_battery_drain_description__appspecific"
+                    android:title="@string/highlighting_delay"
+                    app:min="50"
+                    app:showSeekBarValue="true" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:icon="@drawable/ic_space_bar_black_24dp"
+                    android:key="@string/pref_key__asciidoc__highlight_lineending_hard_line_break"
+                    android:summary="@string/highlight_line_ending_if_two_or_more_spaces"
+                    android:title="@string/highlight_line_ending" />
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:icon="@drawable/ic_format_size_black_24dp"
+                    android:key="@string/pref_key__asciidoc_bigger_headings"
+                    android:summary="@string/increase_text_size_of_headings_according_to_level"
+                    android:title="@string/bigger_headings" />
+            </PreferenceCategory>
             <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"

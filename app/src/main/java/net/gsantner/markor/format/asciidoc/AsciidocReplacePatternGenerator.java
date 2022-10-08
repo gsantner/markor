@@ -28,10 +28,10 @@ public class AsciidocReplacePatternGenerator {
     // automatically transformed into \
     // standard asciidoc section
     // https://docs.asciidoctor.org/asciidoc/latest/sections/titles-and-levels/
-    public static final Pattern PREFIX_ATX_HEADING = Pattern.compile("^( {0})(=)(={0,5})( {1})");
+    public static final Pattern PREFIX_HEADING = Pattern.compile("^( {0})(=)(={0,5})( {1})");
     // Level greater than 1, minimum 2 ==
     // we use {1,6} instead of {1,5} to be able to deindent also this level
-    public static final Pattern PREFIX_ATX_HEADING_GT1 = Pattern.compile(
+    public static final Pattern PREFIX_HEADING_GT1 = Pattern.compile(
             "^( {0})(=)(={1,6})( {1})");
 
     // simplified syntax for all lists: In fact, leading spaces are also possible
@@ -71,7 +71,7 @@ public class AsciidocReplacePatternGenerator {
     // these patterns will be replaced, when we toggle Header, ordered or unordered list, checkbox
     public static final Pattern[] PREFIX_PATTERNS = {
             PREFIX_ORDERED_LIST,
-            PREFIX_ATX_HEADING,
+            PREFIX_HEADING,
             PREFIX_CHECKED_LIST,
             PREFIX_UNCHECKED_LIST,
             // Unordered has to be after checked list. Otherwise checklist will match as an
@@ -122,7 +122,7 @@ public class AsciidocReplacePatternGenerator {
 //        patterns.add(new ActionButtonBase.ReplacePattern(
 //                AsciidocReplacePatternGenerator.PREFIX_ATX_HEADING, "$1" + heading + " "));
         patterns.add(new ActionButtonBase.ReplacePattern(
-                AsciidocReplacePatternGenerator.PREFIX_ATX_HEADING, heading + " "));
+                AsciidocReplacePatternGenerator.PREFIX_HEADING, heading + " "));
 
         // pattern no 3 to 8:
         // Replace all other prefixes with heading
@@ -160,7 +160,7 @@ example: for level = 1
         // we could also use PREFIX_LEVEL_PATTERNS, instead of 3 direct statements
 
         // insert one (1) level: duplicate $2, which is "=" or "*" or "."
-        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ATX_HEADING, "$1$2$2$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_HEADING, "$1$2$2$3$4"));
         patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ORDERED_LIST, "$1$2$2$3$4"));
         patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_UNORDERED_LIST, "$1$2$2$3$4"));
 
@@ -177,7 +177,7 @@ example: for level = 1
 
         // remove one (1) level: remove $2, which is the first "=" or "*" or "."
         // $3 contains minimum one (1) "=" or "*" or "."
-        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ATX_HEADING_GT1, "$1$3$4"));
+        patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_HEADING_GT1, "$1$3$4"));
         patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_ORDERED_LIST_GT1, "$1$3$4"));
         patterns.add(new ActionButtonBase.ReplacePattern(PREFIX_UNORDERED_LIST_GT1, "$1$3$4"));
 

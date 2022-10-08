@@ -46,10 +46,14 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
     // simplified syntax: In fact, leading spaces are also possible
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^(\\.{1,6})( {1})");
-    public final static Pattern LIST_UNORDERED = Pattern.compile("^\\*{1,6}( \\[[ xX]\\])? {1}");
+    public final static Pattern LIST_UNORDERED = Pattern.compile(
+            "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
     // TODO: use later for highlighting checklists.
     // public final static Pattern LIST_CHECKLIST = Pattern.compile("^\\*{1,6}( \\[[ xX]\\]) {1}");
 
+    public final static Pattern ATTRIBUTE_DEFINITION = Pattern.compile("(?m)^:\\S+:");
+    public final static Pattern ATTRIBUTE_REFERENCE = Pattern.compile("(?m)\\{\\S+\\}");
+    public final static Pattern LINE_COMMENT = Pattern.compile("(?m)^\\/{2}(?!\\/).*$");
     // simplified, OK for basic examples
     public final static Pattern HIGHLIGHT = Pattern.compile(
             "(?m)(?<!])((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
@@ -79,6 +83,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             "(?m)^\\.{4}[\\r\\n]([\\s\\S]+?(?=^\\.{4}[\\r\\n]))\\.{4}[\\r\\n]");
     public final static Pattern BLOCK_DELIMITED_SIDEBAR = Pattern.compile(
             "(?m)^\\*{4}[\\r\\n]([\\s\\S]+?(?=^\\*{4}[\\r\\n]))\\*{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_COMMENT = Pattern.compile(
+            "(?m)^\\/{4}[\\r\\n]([\\s\\S]+?(?=^\\/{4}[\\r\\n]))\\/{4}[\\r\\n]");
 
     // original
     // issues with content, created in Windows and directly copied to android
@@ -132,44 +138,46 @@ use explicit text color, when background changes?
 
 */
 
-    private static final int TOL_BLUE        = Color.parseColor("#4477AA");
-    private static final int TOL_CYAN        = Color.parseColor("#EE6677");
-    private static final int TOL_GREEN       = Color.parseColor("#228833");
-    private static final int TOL_YELLOW      = Color.parseColor("#CCBB44");
-    private static final int TOL_RED         = Color.parseColor("#EE6677");
-    private static final int TOL_PURPLE      = Color.parseColor("#AA3377");
-    private static final int TOL_GRAY        = Color.parseColor("#BBBBBB");
+    private static final int TOL_BLUE = Color.parseColor("#4477AA");
+    private static final int TOL_CYAN = Color.parseColor("#EE6677");
+    private static final int TOL_GREEN = Color.parseColor("#228833");
+    private static final int TOL_YELLOW = Color.parseColor("#CCBB44");
+    private static final int TOL_RED = Color.parseColor("#EE6677");
+    private static final int TOL_PURPLE = Color.parseColor("#AA3377");
+    private static final int TOL_GRAY = Color.parseColor("#BBBBBB");
 
-    private static final int TOL_PALE_BLUE   = Color.parseColor("#BBCCEE");
-    private static final int TOL_PALE_CYAN   = Color.parseColor("#CCEEFF");
-    private static final int TOL_PALE_GREEN  = Color.parseColor("#CCDDAA");
+    private static final int TOL_PALE_BLUE = Color.parseColor("#BBCCEE");
+    private static final int TOL_PALE_CYAN = Color.parseColor("#CCEEFF");
+    private static final int TOL_PALE_GREEN = Color.parseColor("#CCDDAA");
     private static final int TOL_PALE_YELLOW = Color.parseColor("#EEEEBB");
-    private static final int TOL_PALE_RED    = Color.parseColor("#FFCCCC");
-    private static final int TOL_PALE_GRAY   = Color.parseColor("#DDDDDD");
+    private static final int TOL_PALE_RED = Color.parseColor("#FFCCCC");
+    private static final int TOL_PALE_GRAY = Color.parseColor("#DDDDDD");
 
-    private static final int TOL_DARK_BLUE   = Color.parseColor("#222255");
-    private static final int TOL_DARK_CYAN   = Color.parseColor("#225555");
-    private static final int TOL_DARK_GREEN  = Color.parseColor("#225522");
+    private static final int TOL_DARK_BLUE = Color.parseColor("#222255");
+    private static final int TOL_DARK_CYAN = Color.parseColor("#225555");
+    private static final int TOL_DARK_GREEN = Color.parseColor("#225522");
     private static final int TOL_DARK_YELLOW = Color.parseColor("#666633");
-    private static final int TOL_DARK_RED    = Color.parseColor("#663333");
-    private static final int TOL_DARK_GRAY   = Color.parseColor("#555555");
-
+    private static final int TOL_DARK_RED = Color.parseColor("#663333");
+    private static final int TOL_DARK_GRAY = Color.parseColor("#555555");
 
 
     private static final int AD_COLOR_HEADING = TOL_RED;
     private static final int AD_COLOR_LINK = TOL_BLUE;
-    private static final int AD_COLOR_LIST = TOL_YELLOW;
+    private static final int AD_COLOR_LIST = TOL_CYAN;
     private static final int AD_COLOR_UNDERLINE = TOL_PURPLE;
+    private static final int AD_COLOR_ATTRIBUTE = TOL_CYAN;
 
     private static final int AD_COLORBACKGROUND_CODEBLOCK = TOL_PALE_GRAY;
     private static final int AD_COLORBACKGROUND_QUOTE = TOL_PALE_GREEN;
-    private static final int AD_COLORBACKGROUND_EXAMPLE = TOL_PALE_CYAN;
+    private static final int AD_COLORBACKGROUND_EXAMPLE = TOL_PALE_BLUE;
     private static final int AD_COLORBACKGROUND_SIDEBAR = TOL_PALE_RED;
     private static final int AD_COLORBACKGROUND_HIGHLIGHT = TOL_PALE_YELLOW;
-    // can still be used: TOL_PALE_BLUE, maybe for table
+    private static final int AD_COLORBACKGROUND_COMMENT = TOL_PALE_GRAY;
+    private static final int AD_COLORBACKGROUND_ATTRIBUTE = TOL_PALE_CYAN;
 
     // TODO: consider different AD_COLOR_TEXT_ON_COLORBACKGROUND instead of only one
     private static final int AD_COLOR_TEXT_ON_COLORBACKGROUND = TOL_DARK_GRAY;
+    private static final int AD_COLOR_TEXT_ON_COLORBACKGROUND_COMMENT = TOL_DARK_YELLOW;
 
 
     private boolean _highlightLineEnding;
@@ -184,18 +192,12 @@ use explicit text color, when background changes?
 
     @Override
     public SyntaxHighlighterBase configure(Paint paint) {
-// TODO: It's not intuitive to get this from Markdown Settings.
-// is needed separately in AsciiDoc Settings, or common settings
-        _highlightLineEnding = _appSettings.isMarkdownHighlightLineEnding();
-// TODO: It's not intuitive to get this from Markdown Settings.
-// is needed separately in AsciiDoc Settings, or common settings
-// but does not work yet anyway
-        _highlightBiggerHeadings = _appSettings.isMarkdownBiggerHeadings();
+        _highlightLineEnding = _appSettings.isAsciidocHighlightLineEnding();
+// TODO: does not work yet
+        _highlightBiggerHeadings = _appSettings.isAsciidocBiggerHeadings();
         _highlightCodeChangeFont = _appSettings.isHighlightCodeMonospaceFont();
         _highlightCodeBlock = _appSettings.isHighlightCodeBlock();
-// TODO: It's not intuitive to get this from Markdown Settings.
-// is needed separately in AsciiDoc Settings, or common settings
-        _delay = _appSettings.getMarkdownHighlightingDelay();
+        _delay = _appSettings.getAsciidocHighlightingDelay();
         return super.configure(paint);
     }
 
@@ -203,14 +205,14 @@ use explicit text color, when background changes?
     protected void generateSpans() {
         createTabSpans(_tabSize);
         createUnderlineHexColorsSpans();
-        // TODO: font is very small, currently general setting: 85% of common size
+        // TODO: createSmallBlueLinkSpans() - font is very small, currently general setting: 85% of common size
         // hard to read on dark theme, but this is a general question for all formats,
         // not AsciiDoc specific
         // also it uses private static String formatLink(String text, String link), which is
         // adapted for Markdown
         // maybe, needs to be adapted for AsciiDoc?
         // but not in the current Pull Request
-        createSmallBlueLinkSpans();
+        // createSmallBlueLinkSpans();
 
         //TODO: doesn't yet work, but it is called
         if (_highlightBiggerHeadings) {
@@ -220,12 +222,34 @@ use explicit text color, when background changes?
             createColorSpanForMatches(HEADING_SIMPLE, AD_COLOR_HEADING);
         }
 
+        // TODO: Attribute definitions and usage
+
+        //        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_QUOTE);
+
         createColorSpanForMatches(LINK_PATTERN, AD_COLOR_LINK);
         createColorSpanForMatches(XREF_PATTERN, AD_COLOR_LINK);
         createColorSpanForMatches(IMAGE_PATTERN, AD_COLOR_LINK);
         createColorSpanForMatches(INCLUDE_PATTERN, AD_COLOR_LINK);
         createColorSpanForMatches(LIST_UNORDERED, AD_COLOR_LIST);
         createColorSpanForMatches(LIST_ORDERED, AD_COLOR_LIST);
+        createColorSpanForMatches(ATTRIBUTE_DEFINITION, AD_COLOR_ATTRIBUTE);
+
+        createStrikeThroughSpanForMatches(STRIKETHROUGH);
+        createSubscriptStyleSpanForMatches(SUBSCRIPT);
+        createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
+        createColoredUnderlineSpanForMatches(UNDERLINE, AD_COLOR_UNDERLINE);
+
+        createStyleSpanForMatches(BOLD, Typeface.BOLD);
+        createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
+
+        if (_highlightCodeChangeFont) {
+            createMonospaceSpanForMatches(CODE);
+            createMonospaceSpanForMatches(BLOCK_DELIMITED_LISTING);
+            createMonospaceSpanForMatches(BLOCK_DELIMITED_LITERAL);
+            createMonospaceSpanForMatches(LIST_UNORDERED);
+            createMonospaceSpanForMatches(LIST_ORDERED);
+            createMonospaceSpanForMatches(ATTRIBUTE_DEFINITION);
+        }
 
         if (_highlightLineEnding) {
             createColorBackgroundSpan(HARD_LINE_BREAK, AD_COLORBACKGROUND_CODEBLOCK);
@@ -233,38 +257,29 @@ use explicit text color, when background changes?
 //            createColorBackgroundSpan(DOUBLESPACE_LINE_ENDING, AD_COLOR_CODEBLOCK);
         }
 
-        createStyleSpanForMatches(BOLD, Typeface.BOLD);
-        createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
-
-        //        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_QUOTE);
-        createColorBackgroundSpan(HIGHLIGHT, AD_COLORBACKGROUND_HIGHLIGHT);
-        createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION, AD_COLORBACKGROUND_QUOTE);
-        createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_TEXT_ON_COLORBACKGROUND);
-        createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE, AD_COLORBACKGROUND_EXAMPLE);
-        createColorSpanForMatches(BLOCK_DELIMITED_EXAMPLE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
-        createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR, AD_COLORBACKGROUND_SIDEBAR);
-        createColorSpanForMatches(BLOCK_DELIMITED_SIDEBAR, AD_COLOR_TEXT_ON_COLORBACKGROUND);
-
-        createStrikeThroughSpanForMatches(STRIKETHROUGH);
-        createSubscriptStyleSpanForMatches(SUBSCRIPT);
-        createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
-        createColoredUnderlineSpanForMatches(UNDERLINE, AD_COLOR_UNDERLINE);
-
-        if (_highlightCodeChangeFont) {
-            createMonospaceSpanForMatches(CODE);
-            createMonospaceSpanForMatches(BLOCK_DELIMITED_LISTING);
-            createMonospaceSpanForMatches(BLOCK_DELIMITED_LITERAL);
-        }
-
         if (_highlightCodeBlock) {
             createColorBackgroundSpan(CODE, AD_COLORBACKGROUND_CODEBLOCK);
-            createColorBackgroundSpan(BLOCK_DELIMITED_LISTING, AD_COLORBACKGROUND_CODEBLOCK);
-            createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL, AD_COLORBACKGROUND_CODEBLOCK);
             createColorSpanForMatches(CODE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_LISTING, AD_COLORBACKGROUND_CODEBLOCK);
             createColorSpanForMatches(BLOCK_DELIMITED_LISTING, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL, AD_COLORBACKGROUND_CODEBLOCK);
             createColorSpanForMatches(BLOCK_DELIMITED_LITERAL, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION, AD_COLORBACKGROUND_QUOTE);
+            createColorSpanForMatches(BLOCK_DELIMITED_QUOTATION, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE, AD_COLORBACKGROUND_EXAMPLE);
+            createColorSpanForMatches(BLOCK_DELIMITED_EXAMPLE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR, AD_COLORBACKGROUND_SIDEBAR);
+            createColorSpanForMatches(BLOCK_DELIMITED_SIDEBAR, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+            createColorBackgroundSpan(BLOCK_DELIMITED_COMMENT, AD_COLORBACKGROUND_COMMENT);
+            createColorSpanForMatches(BLOCK_DELIMITED_COMMENT, AD_COLOR_TEXT_ON_COLORBACKGROUND_COMMENT);
         }
 
+        createColorBackgroundSpan(LINE_COMMENT, AD_COLORBACKGROUND_COMMENT);
+        createColorSpanForMatches(LINE_COMMENT, AD_COLOR_TEXT_ON_COLORBACKGROUND_COMMENT);
+        createColorBackgroundSpan(HIGHLIGHT, AD_COLORBACKGROUND_HIGHLIGHT);
+        createColorSpanForMatches(HIGHLIGHT, AD_COLOR_TEXT_ON_COLORBACKGROUND);
+        createColorBackgroundSpan(ATTRIBUTE_REFERENCE, AD_COLORBACKGROUND_ATTRIBUTE);
+        createColorSpanForMatches(ATTRIBUTE_REFERENCE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
     }
 }
 

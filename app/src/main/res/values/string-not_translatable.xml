@@ -115,8 +115,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
         Preference keys
      -->
     <string name="pref_key__markdown__hl_delay_v2" translatable="false">pref_key__markdown__hl_delay_v2</string>
+    <string name="pref_key__asciidoc__hl_delay" translatable="false">pref_key__asciidoc__hl_delay</string>
     <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
+    <string name="pref_key__asciidoc__highlight_lineending_hard_line_break" translatable="false">pref_key__asciidoc__highlight_lineending_hard_line_break</string>
     <string name="pref_key__markdown__auto_renumber_ordered_list" translatable="false">pref_key__markdown__auto_renumber_ordered_list</string>
     <string name="pref_key__markdown__reorder_actions" translatable="false">pref_key__markdown__reorder_actions</string>
     <string name="pref_key__todotxt__reorder_actions" translatable="false">pref_key__todotxt__reorder_actions</string>
@@ -403,6 +405,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
     <string name="pref_key__wikitext_bigger_headings" translatable="false">pref_key__wikitext_bigger_headings</string>
+    <string name="pref_key__asciidoc_bigger_headings" translatable="false">pref_key__asciidoc_bigger_headings</string>
     <string name="pref_key__wikitext_reorder_actions" translatable="false">pref_key__wikitext_reorder_actions</string>
     <string name="pref_key__wikitext_action_keys" translatable="false">pref_key__wikitext_action_keys</string>
     <string name="pref_key__wikitext_dynamic_notebook_root" translatable="false">pref_key__wikitext_dynamic_notebook_root</string>
