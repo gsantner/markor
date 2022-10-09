@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Comparteix en - Format</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
-    <string name="document_error">Error: no s\'ha pogut obrir.</string>
+    <string name="error_could_not_open_file">Error: no s\'ha pogut obrir.</string>
     <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
 </resources>

@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Dela till - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error">Fel: Kunde inte öppna.</string>
+    <string name="error_could_not_open_file">Fel: Kunde inte öppna.</string>
     <string name="document_error_clip">Ett fel uppstod: Text kopierad till urklipp.</string>
 </resources>

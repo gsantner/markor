@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
-    <string name="document_error">错误：无法打开。</string>
+    <string name="error_could_not_open_file">错误：无法打开。</string>
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
 </resources>
