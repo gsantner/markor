@@ -101,8 +101,8 @@ public class HighlightingEditor extends AppCompatEditText {
     // ---------------------------------------------------------------------------------------------
 
     private boolean isScrollSignificant() {
-        return ( _oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
-                (_hlRect.bottom -  _oldHlRect.bottom) > _hlShiftThreshold;
+        return (_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
+                (_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateHighlighting(final boolean recompute) {
