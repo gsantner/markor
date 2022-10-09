@@ -53,7 +53,6 @@ public class DraggableScrollbarScrollView extends ScrollView {
             }
             return true;
         }
-
         return super.onInterceptTouchEvent(ev);
     }
 
