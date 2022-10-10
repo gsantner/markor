@@ -26,6 +26,7 @@ import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -47,6 +48,7 @@ import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -55,10 +57,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -68,7 +68,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
@@ -97,7 +97,7 @@ public class MarkorDialogFactory {
         addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
         addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
 
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
         dopt.data = availableData;
@@ -111,7 +111,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, GsCallback.a2<Integer, Boolean> callback) {
-        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        final DialogOptions dopt = new DialogOptions();
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
         final int lastUsedTableSize = as().getInt(PREF_LAST_USED_TABLE_SIZE, 3);
         final List<String> availableData = new ArrayList<>();
@@ -148,7 +148,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttArchiveDialog(Activity activity, GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         List<String> highlightedData = new ArrayList<>();
@@ -174,7 +174,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttSortDialogue(Activity activity, final GsCallback.a2<String, Boolean> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         final List<String> availableData = new ArrayList<>();
         final List<Integer> availableDataToIconMap = new ArrayList<>();
@@ -234,7 +234,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttContextDialog(Activity activity, List<String> availableData, GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -249,7 +249,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttFilteringDialog(final Activity activity, final EditText text) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
         final List<String> options = new ArrayList<>();
@@ -258,49 +258,54 @@ public class MarkorDialogFactory {
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, TodoTxtFilter.PRIORITY));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, TodoTxtFilter.TYPE.PRIORITY));
 
         options.add(activity.getString(R.string.due_date));
         icons.add(R.drawable.ic_date_range_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, TodoTxtFilter.DUE));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, TodoTxtFilter.TYPE.DUE));
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, TodoTxtFilter.TYPE.PROJECT));
 
         options.add(activity.getString(R.string.context));
         icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, TodoTxtFilter.TYPE.CONTEXT));
 
-        options.add(activity.getString(R.string.completed));
-        icons.add(R.drawable.ic_check_black_24dp);
+        options.add(activity.getString(R.string.query));
+        icons.add(R.drawable.ic_extension_black_24dp);
         callbacks.add(() -> {
-            final GsSearchOrCustomTextDialog.DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, TodoTxtTask::isDone);
-            dopt2.highlighter = null; // Don't need the grey + strikeout highlighting. Makes it harder to see.
-            dopt2.titleText = R.string.completed;
+            final DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, t -> true);
+            dopt2.titleText = R.string.query;
+            final String[] queryHolder = new String[1];
+            dopt2.searchFunction = (query, line) -> {
+                queryHolder[0] = query.toString();
+                return TodoTxtFilter.isMatchQuery(new TodoTxtTask(line), query);
+            };
+            addSaveQuery(activity, dopt2, () -> queryHolder[0]);
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
 
         // Add saved views
-        final List<TodoTxtFilter.Group> savedViews = TodoTxtFilter.loadSavedFilters(activity);
+        final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
         for (int i = 0; i < savedViews.size(); i++) {
             final int finalI = i; // Final so we can use it in callback
-            final TodoTxtFilter.Group gp = savedViews.get(i);
             // No icon for the saved searches
-            options.add(gp.title);
+            final String title = savedViews.get(i).first;
+            final String query = savedViews.get(i).second;
+            options.add(title);
             callbacks.add(() -> {
-                final GsSearchOrCustomTextDialog.DialogOptions doptView = makeSttLineSelectionDialog(
-                        activity, text, TodoTxtFilter.taskSelector(gp.keys, TodoTxtFilter.keyGetter(activity, gp.queryType), gp.isAnd));
+                final DialogOptions doptView = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
                 doptView.titleText = R.string.search;
-                doptView.messageText = gp.title;
+                doptView.messageText = title + ": " + query;
 
                 // Delete view
                 doptView.neutralButtonText = R.string.delete;
                 doptView.neutralButtonCallback = viewDialog -> {
-                    final GsSearchOrCustomTextDialog.DialogOptions confirmDopt = new GsSearchOrCustomTextDialog.DialogOptions();
+                    final DialogOptions confirmDopt = new DialogOptions();
                     baseConf(activity, confirmDopt);
                     confirmDopt.titleText = R.string.confirm_delete;
-                    confirmDopt.messageText = gp.title;
+                    confirmDopt.messageText = title;
                     confirmDopt.isSearchEnabled = false;
                     confirmDopt.callback = (s) -> {
                         viewDialog.dismiss();
@@ -329,47 +334,40 @@ public class MarkorDialogFactory {
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity  Context activity
-     * @param text      Edit Text with todos
-     * @param title     Dialog title
-     * @param queryType Key used with TodoTxtFilter
+     * @param activity      Context activity
+     * @param text          Edit Text with todos
+     * @param title         Dialog title
+     * @param enableSearch  Whether key search is enabled
+     * @param enableSearch  Whether 'and' keys makes sense / is enabled
+     * @param queryType     Key used with TodoTxtFilter
      */
-    public static void showSttKeySearchDialog(final Activity activity, final EditText text, final int title, final boolean enableSearch, final boolean enableAnd, final String queryType) {
+    public static void showSttKeySearchDialog(
+            final Activity activity,
+            final EditText text,
+            final int title,
+            final boolean enableSearch,
+            final boolean enableAnd,
+            final TodoTxtFilter.TYPE queryType
+    ) {
 
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
-        final GsCallback.r1<List<String>, TodoTxtTask> getKeys = TodoTxtFilter.keyGetter(activity, queryType);
+        // Populate options
+        // -------------------------------------
+
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
-
-        final List<String> keys = new ArrayList<>();
-        final int[] noneCount = {0}; // Using an array as we need a final var
-        for (final TodoTxtTask task : allTasks) {
-            if (!task.isDone()) {
-                final List<String> taskKeys = getKeys.callback(task);
-                noneCount[0] += (taskKeys.size() == 0) ? 1 : 0;
-                keys.addAll(taskKeys);
-            }
-        }
-
-        final List<String> options = new ArrayList<>(), data = new ArrayList<>();
-        final String countFormat = "%s (%d)";
-
-        // Add none case
-        final String noneString = "—";
-        if (noneCount[0] > 0) {
-            final String noneWithCount = String.format(countFormat, noneString, noneCount[0]);
-            options.add(noneWithCount);
-            dopt.highlightData = Collections.singletonList(noneWithCount);
-            data.add(""); // Dummy to make options match data
-        }
+        final List<TodoTxtFilter.SttFilterKey> keys = TodoTxtFilter.getKeys(activity, allTasks, queryType);
 
         // Add other cases
-        for (final String k : new TreeSet<>(keys)) {
-            options.add(String.format(countFormat, k, Collections.frequency(keys, k)));
-            data.add(k);
+        final List<String> data = new ArrayList<>();
+        for (final TodoTxtFilter.SttFilterKey k : keys) {
+            data.add(String.format("%s (%d)", k.key, k.count));
         }
-        dopt.data = options;
+        dopt.data = data;
+
+        // Set up _and_ key
+        // -------------------------------------
 
         final boolean[] useAnd = {false};
         if (enableAnd) {
@@ -383,50 +381,67 @@ public class MarkorDialogFactory {
             };
         }
 
+        // Other options
+        // -------------------------------------
         dopt.titleText = title;
         dopt.isSearchEnabled = enableSearch;
         dopt.searchHintText = R.string.search;
         dopt.isMultiSelectEnabled = true;
 
+        // Callback to actually show tasks
+        // -------------------------------------
         dopt.positionCallback = (keyIndices) -> {
 
-            final boolean noneIncluded = (noneCount[0] > 0) && keyIndices.size() > 0 && keyIndices.get(0) == 0;
-            final Set<String> selKeys = new HashSet<>();
-            for (int i = noneIncluded ? 1 : 0; i < keyIndices.size(); i++) {
-                selKeys.add(data.get(keyIndices.get(i)));
-            }
-            if (noneIncluded) {
-                selKeys.add(null);
+            // Build a query
+            final List<String> queryKeys = new ArrayList<>();
+            for (final Integer index : keyIndices) {
+                queryKeys.add(keys.get(index).query);
             }
 
-            final GsSearchOrCustomTextDialog.DialogOptions doptSel = makeSttLineSelectionDialog(
-                    activity, text, TodoTxtFilter.taskSelector(selKeys, getKeys, useAnd[0]));
-            doptSel.messageText = activity.getString(title);
+            final String query = TodoTxtFilter.makeQuery(queryKeys, useAnd[0], queryType);
 
-            // Callback to save view
-            doptSel.neutralButtonText = R.string.save;
-            doptSel.neutralButtonCallback = (dialog) -> {
-                // Get save name
-                final GsSearchOrCustomTextDialog.DialogOptions doptSave = new GsSearchOrCustomTextDialog.DialogOptions();
-                baseConf(activity, doptSave);
-                doptSave.titleText = R.string.name;
-                doptSave.searchHintText = R.string.empty_string;
-                doptSave.callback = saveTitle -> {
-                    if (!TextUtils.isEmpty(saveTitle)) {
-                        TodoTxtFilter.saveFilter(activity, saveTitle, queryType, selKeys, useAnd[0]);
-                    }
-                };
-                // Note that we do not dismiss the existing view
-                GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSave);
-            };
+            final DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
+            doptSel.messageText = activity.getString(title) + ": " + query;
+            addSaveQuery(activity, doptSel, () -> query);
 
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSel);
         };
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static GsSearchOrCustomTextDialog.DialogOptions makeSttLineSelectionDialog(final Activity activity, final EditText text, final GsCallback.b1<TodoTxtTask> filter) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+    private static void addSaveQuery(final Activity activity, final DialogOptions dopt, final GsCallback.s0 getQuery) {
+        // Callback to save view
+        dopt.neutralButtonText = R.string.save;
+        dopt.neutralButtonCallback = (dialog) -> {
+            final String query = getQuery.callback();
+            // Get save name
+            final DialogOptions doptSave = new DialogOptions();
+            baseConf(activity, doptSave);
+            doptSave.titleText = R.string.name;
+            doptSave.searchHintText = R.string.empty_string;
+            doptSave.callback = saveTitle -> {
+                if (!TextUtils.isEmpty(saveTitle)) {
+                    TodoTxtFilter.saveFilter(activity, saveTitle, query);
+                }
+            };
+            // Note that we do not dismiss the existing view
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSave);
+        };
+    }
+
+    /**
+     * Make a dialog for searching and selecting lines of a todo-txt file
+     * @param activity Activity
+     * @param text     EditText containing the todo.txt file
+     * @param filter   Filter selecting certain todos (by context, project etc etc)
+     * @return Dialogoptions for the dialog. Can be further modified by the caller
+     */
+    public static DialogOptions makeSttLineSelectionDialog(
+            final Activity activity,
+            final EditText text,
+            final GsCallback.b1<TodoTxtTask> filter
+    ) {
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();
@@ -454,23 +469,21 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
-        final GsSearchOrCustomTextDialog.DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
+        final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.neutralButtonCallback = (dialog) -> {
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), TextViewUtils.getSelection(text));
         };
-
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
-
 
     /**
      * Allow to choose between Hexcolor / foreground / background color, pass back stringid
      */
     public static void showColorSelectionModeDialog(Activity activity, GsCallback.a1<Integer> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
 
         final String hexcode = activity.getString(R.string.hexcode);
         final String fg = activity.getString(R.string.foreground);
@@ -496,7 +509,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSttProjectDialog(Activity activity, List<String> availableData, GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(availableData));
         dopt.callback = callback;
@@ -517,7 +530,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showSearchDialog(final Activity activity, final EditText text) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt2 = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt2 = new DialogOptions();
         baseConf(activity, dopt2);
         final Editable edit = text.getText();
         dopt2.data = Arrays.asList(edit.toString().split("\n", -1)); // Do not ignore empty lines
@@ -534,7 +547,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt2 = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt2 = new DialogOptions();
         baseConf(activity, dopt2);
         dopt2.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
         dopt2.data = Arrays.asList(text.getText().toString().split("\n", -1));
@@ -542,13 +555,12 @@ public class MarkorDialogFactory {
         dopt2.searchHintText = R.string.search;
         dopt2.extraFilter = headlineFilterPattern;
         dopt2.isSearchEnabled = true;
-        dopt2.searchIsRegex = false;
         dopt2.gravity = Gravity.TOP;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
     }
 
     public static void showIndentSizeDialog(final Activity activity, final int indent, final GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         dopt.data = Arrays.asList("1", "2", "4", "8");
@@ -561,7 +573,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showFontSizeDialog(final Activity activity, final int currentSize, final GsCallback.a1<Integer> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
         final int minFontSize = 1;
@@ -580,7 +592,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showPriorityDialog(Activity activity, char selectedPriority, GsCallback.a1<String> callback) {
-        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
 
@@ -616,7 +628,7 @@ public class MarkorDialogFactory {
 
     @SuppressLint("StringFormatMatches")
     public static void showCopyMoveConflictDialog(final Activity activity, final String fileName, final String destName, final boolean multiple, final GsCallback.a1<Integer> callback) {
-        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.positionCallback = (result) -> callback.callback(result.get(0));
         final List<String> data = new ArrayList<>();
@@ -641,7 +653,7 @@ public class MarkorDialogFactory {
 
     public static void showSetPasswordDialog(final Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+            final DialogOptions dopt = new DialogOptions();
             baseConf(activity, dopt);
             dopt.isSearchEnabled = true;
             dopt.titleText = R.string.file_encryption_password;
@@ -680,7 +692,7 @@ public class MarkorDialogFactory {
     }
 
     public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
-        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
         final Map<String, File> texts = getSnippets(as());
@@ -694,7 +706,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void baseConf(Activity activity, GsSearchOrCustomTextDialog.DialogOptions dopt) {
+    public static void baseConf(Activity activity, DialogOptions dopt) {
         dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);

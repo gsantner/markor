@@ -171,7 +171,7 @@ public class GsTextUtils {
 
     // Not null, not empty, not spaces only
     public static boolean isNullOrEmpty(final CharSequence str) {
-        return str == null || str.toString().trim().isEmpty();
+        return str == null || str.length() == 0 || str.toString().trim().isEmpty();
     }
 
     /**

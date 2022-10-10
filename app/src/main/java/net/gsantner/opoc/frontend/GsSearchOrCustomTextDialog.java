@@ -86,10 +86,13 @@ public class GsSearchOrCustomTextDialog {
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public boolean searchIsRegex = false;
         public GsCallback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
         public List<Integer> preSelected = null;
+        // Constraint, item to test
+        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
+        // Check if constraint is valid
+        public GsCallback.b1<CharSequence> queryValidator = null;
 
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
 
@@ -199,15 +202,11 @@ public class GsSearchOrCustomTextDialog {
                     final List<Integer> resList = new ArrayList<>();
 
                     if (_dopt.data != null) {
-                        final String fil = constraint.toString();
-                        final boolean emptySearch = fil.isEmpty();
+                        final boolean emptySearch = constraint.length() == 0;
                         for (int i = 0; i < _dopt.data.size(); i++) {
                             final String str = _dopt.data.get(i).toString();
                             final boolean matchExtra = (_extraPattern == null) || _extraPattern.matcher(str).find();
-                            final Locale locale = Locale.getDefault();
-                            final boolean matchNormal = str.toLowerCase(locale).contains(fil.toLowerCase(locale));
-                            final boolean matchRegex = _dopt.searchIsRegex && (str.matches(fil));
-                            if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
+                            if (matchExtra && (emptySearch || _dopt.searchFunction.callback(constraint, str))) {
                                 resList.add(i);
                             }
                         }
@@ -220,6 +219,11 @@ public class GsSearchOrCustomTextDialog {
                 }
             };
         }
+    }
+
+    public static boolean standardSearch(final CharSequence constraint, final CharSequence text) {
+        final Locale locale = Locale.getDefault();
+        return text.toString().toLowerCase(locale).contains(constraint.toString().toLowerCase(locale));
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
