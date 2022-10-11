@@ -48,9 +48,12 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // simplified syntax: In fact, leading spaces are also possible
 
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^(\\.{1,6})( {1})");
-    public final static Pattern LIST_UNORDERED = Pattern.compile(
-            "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
-    public final static Pattern LIST_DESCRIPTION = Pattern.compile("(?m)^(.+\\S(:{2,4}|;{2,2}))( {1}|[\\r\\n])");
+    // don't include checklist markers, they get squarebracket background color
+//    public final static Pattern LIST_UNORDERED = Pattern.compile(
+//            "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
+    public final static Pattern LIST_UNORDERED = Pattern.compile("(?m)^\\*{1,6} {1}");
+    public final static Pattern LIST_DESCRIPTION = Pattern.compile(
+            "(?m)^(.+\\S(:{2,4}|;{2,2}))( {1}|[\\r\\n])");
     // TODO: use later for highlighting checklists.
     // public final static Pattern LIST_CHECKLIST = Pattern.compile("^\\*{1,6}( \\[[ xX]\\]) {1}");
 
@@ -155,7 +158,7 @@ use explicit text color, when background changes?
 */
 
     private static final int TOL_BLUE = Color.parseColor("#4477AA");
-    private static final int TOL_CYAN = Color.parseColor("#EE6677");
+    private static final int TOL_CYAN = Color.parseColor("#66CCEE");
     private static final int TOL_GREEN = Color.parseColor("#228833");
     private static final int TOL_YELLOW = Color.parseColor("#CCBB44");
     private static final int TOL_RED = Color.parseColor("#EE6677");
@@ -178,15 +181,14 @@ use explicit text color, when background changes?
 
     private static final int AD_COLOR_HEADING = TOL_BLUE;
     private static final int AD_COLOR_LINK = TOL_BLUE;
-    private static final int AD_COLOR_LIST = TOL_GREEN;
-    private static final int AD_COLOR_LIST_DESCRIPTION = TOL_CYAN;
+    private static final int AD_COLOR_LIST = TOL_PURPLE;
+    private static final int AD_COLOR_LIST_DESCRIPTION = TOL_PURPLE;
     private static final int AD_COLOR_UNDERLINE_ROLE_UNDERLINE = TOL_GRAY;
     private static final int AD_COLOR_ROLE_GENERAL = TOL_PURPLE;
     private static final int AD_COLOR_ADMONITION = TOL_RED;
 //    private static final int AD_COLOR_ATTRIBUTE = TOL_CYAN;
 
-    private static final int AD_COLORBACK_LIGHT_MONOSPACE = TOL_PALE_GRAY;
-    private static final int AD_COLORBACK_DARK_MONOSPACE = TOL_DARK_GRAY;
+    // DONE: or _isDarkMode
     private static final int AD_COLORBACK_LIGHT_QUOTE = TOL_PALE_GREEN;
     private static final int AD_COLORBACK_DARK_QUOTE = TOL_DARK_GREEN;
     private static final int AD_COLORBACK_LIGHT_EXAMPLE = TOL_PALE_BLUE;
@@ -194,24 +196,33 @@ use explicit text color, when background changes?
     private static final int AD_COLORBACK_LIGHT_SIDEBAR = TOL_PALE_RED;
     private static final int AD_COLORBACK_DARK_SIDEBAR = TOL_DARK_RED;
     private static final int AD_COLORBACK_LIGHT_TABLE = TOL_PALE_YELLOW;
-    private static final int AD_COLORBACK_DARK_TABLE = TOL_PALE_YELLOW;
-    private static final int AD_COLORBACK_LIGHT_HIGHLIGHT = Color.YELLOW;
-    private static final int AD_COLORBACK_DARK_HIGHLIGHT = Color.YELLOW;
-//    private static final int AD_COLORBACK_LIGHT_COMMENT = TOL_PALE_GRAY;
-//    private static final int AD_COLORBACK_DARK_COMMENT = TOL_DARK_GRAY;
+    private static final int AD_COLORBACK_DARK_TABLE = TOL_DARK_YELLOW;
     private static final int AD_COLORBACK_LIGHT_ATTRIBUTE = TOL_PALE_CYAN;
     private static final int AD_COLORBACK_DARK_ATTRIBUTE = TOL_DARK_CYAN;
-
+    // we use gray for miscellaneous to avoid too much variety
+    private static final int AD_COLORBACK_LIGHT_MONOSPACE = TOL_PALE_GRAY;
+    private static final int AD_COLORBACK_DARK_MONOSPACE = TOL_DARK_GRAY;
     private static final int AD_COLORBACK_LIGHT_SQUAREBRACKETS = TOL_PALE_GRAY;
     private static final int AD_COLORBACK_DARK_SQUAREBRACKETS = TOL_DARK_GRAY;
     private static final int AD_COLORBACK_LIGHT_BLOCKTITLE = TOL_PALE_GRAY;
     private static final int AD_COLORBACK_DARK_BLOCKTITLE = TOL_DARK_GRAY;
 
-    // TODO: consider different AD_COLOR_TEXT_ON_COLORBACKGROUND instead of only one
-    // TODO: or use _isDarkMode
-//    private static final int AD_COLOR_TEXT_ON_COLORBACKGROUND = TOL_DARK_GRAY;
-    private static final int AD_COLOR_COMMENT = TOL_GRAY;
+    // use the same highlight for light and dark theme
+    private static final int AD_COLORBACK_LIGHT_HIGHLIGHT = Color.YELLOW;
+    private static final int AD_COLORBACK_DARK_HIGHLIGHT = Color.YELLOW;
+    // black on yellow
     private static final int AD_COLOR_HIGHLIGHT = Color.BLACK;
+
+    // ..._COLOR_LIGHT_... = Color for light theme
+    // TODO: too little contrast to normal font with the TOL_ colors
+//    private static final int AD_COLOR_LIGHT_COMMENT = TOL_DARK_GRAY;
+//    private static final int AD_COLOR_DARK_COMMENT = TOL_PALE_GRAY;
+//    // https://docs.oracle.com/javase/9/docs/api/javafx/scene/paint/Color.html
+//    // use Color.GRAY instead of TOL_GRAY, because Color.GRAY is the middle between white and black: #808080
+//    // alternative: TOL_PALE_GRAY vs. TOL_DARK_GRAY
+//    private static final int AD_COLOR_COMMENT = Color.GRAY; //TOL_GRAY;
+    private static final int AD_COLOR_LIGHT_COMMENT = Color.GRAY;
+    private static final int AD_COLOR_DARK_COMMENT = Color.GRAY;
 
 
     private boolean _highlightLineEnding;
@@ -263,8 +274,11 @@ use explicit text color, when background changes?
             createMonospaceSpanForMatches(BLOCK_DELIMITED_LITERAL);
             createMonospaceSpanForMatches(LIST_UNORDERED);
             createMonospaceSpanForMatches(LIST_ORDERED);
+            createMonospaceSpanForMatches(LIST_DESCRIPTION);
             createMonospaceSpanForMatches(ATTRIBUTE_DEFINITION);
+            createMonospaceSpanForMatches(ATTRIBUTE_REFERENCE);
             createMonospaceSpanForMatches(ADMONITION);
+            createMonospaceSpanForMatches(SQUAREBRACKETS);
         }
 
         createStyleSpanForMatches(BOLD, Typeface.BOLD);
@@ -279,51 +293,59 @@ use explicit text color, when background changes?
         createColorSpanForMatches(LIST_ORDERED, AD_COLOR_LIST);
         createColorSpanForMatches(LIST_DESCRIPTION, AD_COLOR_LIST_DESCRIPTION);
         //TODO: test for interfernce with other role like underline, line-through => interference
-        createColorSpanForMatches(ROLE_GENERAL, AD_COLOR_ROLE_GENERAL);
+        // to aggressive
+        // createColorSpanForMatches(ROLE_GENERAL, AD_COLOR_ROLE_GENERAL);
 //        createColorSpanForMatches(ATTRIBUTE_DEFINITION, AD_COLOR_ATTRIBUTE);
 
         createStyleSpanForMatches(ADMONITION, Typeface.BOLD);
         createColorSpanForMatches(ADMONITION, AD_COLOR_ADMONITION);
 
-        createColorBackgroundSpan(SQUAREBRACKETS, _isDarkMode ? AD_COLORBACK_DARK_SQUAREBRACKETS : AD_COLORBACK_LIGHT_SQUAREBRACKETS);
-        createColorBackgroundSpan(BLOCKTITLE, _isDarkMode ? AD_COLORBACK_DARK_BLOCKTITLE : AD_COLORBACK_LIGHT_BLOCKTITLE);
+        createColorBackgroundSpan(SQUAREBRACKETS,
+                _isDarkMode ? AD_COLORBACK_DARK_SQUAREBRACKETS : AD_COLORBACK_LIGHT_SQUAREBRACKETS);
+        createColorBackgroundSpan(BLOCKTITLE,
+                _isDarkMode ? AD_COLORBACK_DARK_BLOCKTITLE : AD_COLORBACK_LIGHT_BLOCKTITLE);
+        createColorBackgroundSpan(MONOSPACE,
+                _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
 
 
         if (_highlightLineEnding) {
-            createColorBackgroundSpan(HARD_LINE_BREAK, _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
+            createColorBackgroundSpan(HARD_LINE_BREAK,
+                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
 //            //test markdown original pattern, same issues, when content is created in windows
 //            createColorBackgroundSpan(DOUBLESPACE_LINE_ENDING, AD_COLOR_CODEBLOCK);
         }
 
         if (_highlightCodeBlock) {
-            createColorBackgroundSpan(MONOSPACE, _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
-//            createColorSpanForMatches(CODE, AD_COLOR_TEXT_ON_COLORBACKGROUND);
-            createColorBackgroundSpan(BLOCK_DELIMITED_LISTING, _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE
-                    : AD_COLORBACK_LIGHT_MONOSPACE);
-            createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL, _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE
-                    : AD_COLORBACK_LIGHT_MONOSPACE);
-            createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION, _isDarkMode ? AD_COLORBACK_DARK_QUOTE : AD_COLORBACK_LIGHT_QUOTE);
-            createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE, _isDarkMode ? AD_COLORBACK_DARK_EXAMPLE : AD_COLORBACK_LIGHT_EXAMPLE);
-            createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR, _isDarkMode ? AD_COLORBACK_DARK_SIDEBAR : AD_COLORBACK_LIGHT_SIDEBAR);
-            createColorBackgroundSpan(BLOCK_DELIMITED_TABLE, _isDarkMode ? AD_COLORBACK_DARK_TABLE : AD_COLORBACK_LIGHT_TABLE);
-//            createColorSpanForMatches(BLOCK_DELIMITED_SIDEBAR, AD_COLOR_TEXT_ON_COLORBACKGROUND);
-
-//            createColorBackgroundSpan(BLOCK_DELIMITED_COMMENT, _isDarkMode ? AD_COLORBACK_DARK_COMMENT : AD_COLORBACK_LIGHT_COMMENT);
-            createColorSpanForMatches(BLOCK_DELIMITED_COMMENT, AD_COLOR_COMMENT);
+            createColorBackgroundSpan(BLOCK_DELIMITED_LISTING,
+                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
+            createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL,
+                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
+            createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION,
+                    _isDarkMode ? AD_COLORBACK_DARK_QUOTE : AD_COLORBACK_LIGHT_QUOTE);
+            createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE,
+                    _isDarkMode ? AD_COLORBACK_DARK_EXAMPLE : AD_COLORBACK_LIGHT_EXAMPLE);
+            createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR,
+                    _isDarkMode ? AD_COLORBACK_DARK_SIDEBAR : AD_COLORBACK_LIGHT_SIDEBAR);
+            createColorBackgroundSpan(BLOCK_DELIMITED_TABLE,
+                    _isDarkMode ? AD_COLORBACK_DARK_TABLE : AD_COLORBACK_LIGHT_TABLE);
+            // Comment: change text color, but not background
+            createColorSpanForMatches(BLOCK_DELIMITED_COMMENT, _isDarkMode ? AD_COLOR_DARK_COMMENT : AD_COLOR_LIGHT_COMMENT);
         }
 
-//        createColorBackgroundSpan(LINE_COMMENT, _isDarkMode ? AD_COLORBACK_DARK_COMMENT : AD_COLORBACK_LIGHT_COMMENT);
-        createColorSpanForMatches(LINE_COMMENT, AD_COLOR_COMMENT);
-        createColorBackgroundSpan(HIGHLIGHT, _isDarkMode ? AD_COLORBACK_DARK_HIGHLIGHT : AD_COLORBACK_LIGHT_HIGHLIGHT);
+        createColorSpanForMatches(LINE_COMMENT, _isDarkMode ? AD_COLOR_DARK_COMMENT : AD_COLOR_LIGHT_COMMENT);
+        createColorBackgroundSpan(HIGHLIGHT,
+                _isDarkMode ? AD_COLORBACK_DARK_HIGHLIGHT : AD_COLORBACK_LIGHT_HIGHLIGHT);
         createColorSpanForMatches(HIGHLIGHT, AD_COLOR_HIGHLIGHT);
-        createColorBackgroundSpan(ATTRIBUTE_DEFINITION, _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
-        createColorBackgroundSpan(ATTRIBUTE_REFERENCE, _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
+        createColorBackgroundSpan(ATTRIBUTE_DEFINITION,
+                _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
+        createColorBackgroundSpan(ATTRIBUTE_REFERENCE,
+                _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
 
         createSubscriptStyleSpanForMatches(SUBSCRIPT);
         createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
         createStrikeThroughSpanForMatches(ROLE_STRIKETHROUGH);
-        // TODO: ist nur ganz dünn und kaum zu sehen
-        createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
+//        // TODO: is only very thin and hardly visible
+//        createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
 
     }
 }
