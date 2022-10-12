@@ -257,7 +257,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
             fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
-                            ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS);
+                    ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS);
         }
         return true;
     }

@@ -204,7 +204,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
                 document.saveContent(context, newContent);
             } else {
-                Toast.makeText(context, R.string.document_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
             if (showEditor) {

@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Cumpartzi in - Formadu</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
-    <string name="document_error">Errore: No at fatu a abèrrere.</string>
+    <string name="error_could_not_open_file">Errore: No at fatu a abèrrere.</string>
     <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
 </resources>

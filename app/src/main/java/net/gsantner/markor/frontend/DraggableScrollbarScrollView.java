@@ -9,8 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
-import net.gsantner.opoc.wrapper.GsCallback;
-
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarScrollView extends ScrollView {
 
@@ -55,7 +53,6 @@ public class DraggableScrollbarScrollView extends ScrollView {
             }
             return true;
         }
-
         return super.onInterceptTouchEvent(ev);
     }
 

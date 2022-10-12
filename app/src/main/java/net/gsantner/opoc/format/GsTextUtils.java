@@ -185,6 +185,7 @@ public class GsTextUtils {
         return String.format(a ? "#%08X" : "#%06X", (a ? 0xFFFFFFFF : 0xFFFFFF) & intColor);
     }
 
+
     /**
      * Convert escape sequences in string to escaped special characters. For example, convert
      * A\tB -> A    B
