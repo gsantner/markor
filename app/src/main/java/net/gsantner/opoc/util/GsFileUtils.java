@@ -500,7 +500,7 @@ public class GsFileUtils {
     }
 
     public static boolean isTextFile(File file) {
-        String mime = getMimeType(file);
+        final String mime = getMimeType(file);
         return mime != null && mime.startsWith("text/");
     }
 

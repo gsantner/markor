@@ -38,7 +38,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/editor_bottom_margin"
             android:scrollbars="none"
             android:textCursorDrawable="@drawable/cursor_accent" />
 

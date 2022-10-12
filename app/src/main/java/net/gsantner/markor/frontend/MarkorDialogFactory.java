@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -671,7 +672,7 @@ public class MarkorDialogFactory {
         // Read all files in snippets folder with appropriate extension
         // Create a map of snippet title -> text
         for (final File f : GsFileUtils.replaceFilesWithCachedVariants(folder.listFiles())) {
-            if (f.exists() && f.canRead() && GsFileUtils.isTextFile(f)) {
+            if (f.exists() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
                 texts.put(f.getName(), f);
             }
         }
