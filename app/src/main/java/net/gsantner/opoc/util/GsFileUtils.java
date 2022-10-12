@@ -10,6 +10,7 @@
 package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -419,7 +420,6 @@ public class GsFileUtils {
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @SuppressLint("NewApi")
     private final static GsCallback.s1<File> gatherMimeType = file -> {
         if (file == null) {
             return "*/*";
@@ -447,8 +447,9 @@ public class GsFileUtils {
         }
 
         String t;
+
         try {
-            if (!GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !GsTextUtils.isNullOrEmpty(t = Files.probeContentType(file.toPath()))) {
                 return t;
             }
         } catch (Exception ignored) {
