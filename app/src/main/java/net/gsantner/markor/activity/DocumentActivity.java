@@ -203,12 +203,14 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = TextViewUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
-            final boolean startInPreview = (startLine == null) && (false
-                    || intent.getBooleanExtra(EXTRA_DO_PREVIEW, false)
-                    || _appSettings.getDocumentPreviewState(doc.getPath())
-                    || file.getName().startsWith("index.")
-            );
+            Boolean startInPreview = null;
+            if (startLine == null && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index."))) {
+                // Start in edit mode if required. Otherwise let the fragment decide
+                startInPreview = true;
+            }
+
             showTextEditor(doc, startLine, startInPreview);
+
         } else if (!showedShareInto) {
             showNotSupportedMessage();
         }

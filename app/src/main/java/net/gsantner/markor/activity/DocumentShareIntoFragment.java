@@ -267,10 +267,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }, getFragmentManager(), getActivity());
         }
 
-        private void showInDocumentActivity(Document document) {
+        private void showInDocumentActivity(final Document document) {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
-                a.showTextEditor(document, null, false);
+                a.showTextEditor(document, null, null);
             }
         }
 
