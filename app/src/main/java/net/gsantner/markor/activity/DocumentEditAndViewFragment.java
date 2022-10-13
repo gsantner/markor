@@ -73,20 +73,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
-    public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
+    public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
         DocumentEditAndViewFragment f = new DocumentEditAndViewFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
         if (lineNumber != null) {
             args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
-        args.putBoolean(START_PREVIEW, preview);
+        if (preview != null) {
+            args.putBoolean(START_PREVIEW, preview);
+        }
         f.setArguments(args);
         return f;
-    }
-
-    public static DocumentEditAndViewFragment newInstance(final @NonNull File path, final Integer lineNumber) {
-        return newInstance(new Document(path), lineNumber, false);
     }
 
     private HighlightingEditor _hlEditor;
