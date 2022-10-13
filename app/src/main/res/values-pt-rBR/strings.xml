@@ -18,8 +18,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">Renomear</string>
     <string name="confirm_delete">Confirmar exclusão</string>
     <string name="do_you_really_want_to_delete_this_witharg">Você realmente deseja excluir essa %s?</string>
-    <string name="confirm_overwrite">O arquivo já existe. Sobrescrever?</string>
-    <string name="file_already_exists_overwerite">O arquivo já existe. Sobrescrever?</string>
+    <string name="confirm_overwrite">O arquivo já existe. Deseja substituí-lo?</string>
+    <string name="file_already_exists_overwerite">O arquivo já existe. Deseja substituí-lo?</string>
     <string name="browse_filesystem">Navegar no SD</string>
     <string name="title">Título</string>
     <string name="empty_directory">Pasta vazia</string>
@@ -55,7 +55,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">Imagem</string>
     <string name="font_size">Tamanho da fonte</string>
     <string name="render_rtl_language">Renderizar para línguas de escrita da direita à esquerda</string>
-    <string name="error_cannot_create_notebook_dir__appspecific">Erro: Impossível criar pasta de becape</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Erro: Impossível criar pasta para cópia de segurança</string>
     <string name="last_modified_witharg">Últimas modificações: %s</string>
     <string name="last_modified">Última modificação</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
@@ -384,7 +384,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">Adicionar data de conclusão</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">Adicionar data de conclusão das tarefas ao marcá-las como concluídas</string>
     <string name="file_description_format">Formato da descrição do arquivo</string>
-    <string name="file_description_format_dialog">Formato da descrição em cada arquivo no navegador de arquivos. Segue as regras SimpleDateFormat do Android, com a adição de FS para mostrar o tamanho do arquivo. Deixe em branco para usar o formato padrão para a sua localidade.\n\nExemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de saída:\n30KB 2020 Mar 20 11:24:52 PM</string>
+    <string name="file_description_format_dialog">Formato da descrição em cada arquivo no navegador de arquivos. Segue as regras Data e Hora do Android, com a adição de FS para mostrar o tamanho do arquivo. Deixe em branco para usar o formato padrão para a sua localidade.\n\nExemplo de entrada:\nFS yyyy MMM dd hh:mm:ss aa\nFormato de saída:\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Carregando valor padrão</string>
     <string name="file_settings">Configurações do arquivo</string>
     <string name="search_and_replace">Buscar / Substituir</string>
@@ -406,7 +406,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ignore_list">Lista de Ignorados</string>
     <string name="do_not_search_specified_files_and_folders">Não procure por arquivos e pastas especificadas.\nUse nova linha como separador.\nUse aspas para nomes exatamente diretórios: \"Testar\".\nOu use Regex \'^[.].*\'\nExemplos: ├..*\n\"teste\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">Busca por Regex</string>
-    <string name="case_sensitive">Sensível ao caso</string>
+    <string name="case_sensitive">Considerar maiúsculo e minúsculo</string>
     <string name="stop_search_after_first_match">Parar pesquisa após primeira correspondência</string>
     <string name="regex_can_not_be_compiled">Regex não pode ser compilado</string>
     <string name="keep_both">Manter ambos</string>
@@ -422,7 +422,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_by_project">Navegar por projeto</string>
     <string name="browse_by_context">Procurar por contexto</string>
     <string name="insert_project">Inserir projetos</string>
-    <string name="insert_context">Insert contexts</string>
+    <string name="insert_context">Inserir contexto</string>
     <string name="browse_todo">Procurar tarefa</string>
     <string name="browse_by_priority">Navegar por prioridade</string>
     <string name="browse_by_due_date">Procurar por data de vencimento</string>
@@ -434,7 +434,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Combinar todos</string>
     <string name="dynamic_notebook_root_links">Busca dinâmica pela raiz de notebook</string>
     <string name="search_dynamically_for_notebook_root">Para seguir os links da wiki, procure dinamicamente o arquivo notebook.zim para identificar o diretório raiz do caderno atual. Verifique se você utiliza vários blocos de anotações zím ou o diretório de anotações definido no app não corresponde ao seu caderno zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Formato/Prefixo para texto compartilhado no Markor. Segue as regras de SimpleDateFormat do Android.\n\nUse o espaço reservado \'%s\' (cercado por aspas simples) para posicionar o texto compartilhado. Se não for especificado, o texto compartilhado é anexado e o formato usado como prefixo.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/Prefixo para texto compartilhado no Markor. Segue as regras de Formato de Data do Android.\n\nUse o espaço reservado \'%s\' (cercado por aspas simples) para posicionar o texto compartilhado. Se não for especificado, o texto compartilhado é anexado e o formato usado como prefixo.</string>
     <string name="share_into_format">Compartilhar em - Formato</string>
     <string name="auto_format">Auto-formatar</string>
     <string name="insert_snippet">Insert snippet</string>
