@@ -138,8 +138,9 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom,
                         R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom,
-//                        ActionItem.DisplayMode.VIEW),
-                        ActionItem.DisplayMode.ANY),
+                        // doesn't work in editor:
+                        // ActionItem.DisplayMode.ANY),
+                        ActionItem.DisplayMode.VIEW),
                 new ActionItem(
                         R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp,
                         R.string.rotate, ActionItem.DisplayMode.ANY),

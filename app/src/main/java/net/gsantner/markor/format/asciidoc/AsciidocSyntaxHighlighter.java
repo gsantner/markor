@@ -179,14 +179,16 @@ use explicit text color, when background changes?
     private static final int TOL_DARK_RED = Color.parseColor("#663333");
     private static final int TOL_DARK_GRAY = Color.parseColor("#555555");
 
-    private static final int AD_COLOR_HEADING = TOL_BLUE;
-    private static final int AD_COLOR_LINK = TOL_BLUE;
-    private static final int AD_COLOR_LIST = TOL_PURPLE;
-    private static final int AD_COLOR_LIST_DESCRIPTION = TOL_PURPLE;
-    private static final int AD_COLOR_UNDERLINE_ROLE_UNDERLINE = TOL_GRAY;
-    private static final int AD_COLOR_ROLE_GENERAL = TOL_PURPLE;
-    private static final int AD_COLOR_ADMONITION = TOL_RED;
-//    private static final int AD_COLOR_ATTRIBUTE = TOL_CYAN;
+    //Here the concrete use of the colors for AsciiDoc:
+    private static final int AD_COLOR_LIGHT_HEADING = TOL_RED;
+    private static final int AD_COLOR_DARK_HEADING = TOL_RED;
+    //TODO: TOL_BLUE link on background (attributes reference, squarebrackets) problematic
+    //Test TOL_CYAN, better
+    private static final int AD_COLOR_LIGHT_LINK = TOL_DARK_CYAN;
+    private static final int AD_COLOR_DARK_LINK = TOL_CYAN;
+    private static final int AD_COLOR_LIGHT_LIST = TOL_DARK_YELLOW;
+    private static final int AD_COLOR_DARK_LIST = TOL_YELLOW; //OK
+    private static final int AD_COLOR_ADMONITION = TOL_RED; //OK
 
     // DONE: or _isDarkMode
     private static final int AD_COLORBACK_LIGHT_QUOTE = TOL_PALE_GREEN;
@@ -263,9 +265,9 @@ use explicit text color, when background changes?
         //TODO: doesn't yet work, but it is called
         if (_highlightBiggerHeadings) {
             createSpanForMatches(HEADING_SIMPLE,
-                    new WrMarkdownHeaderSpanCreator(_spannable, AD_COLOR_HEADING, _textSize));
+                    new WrMarkdownHeaderSpanCreator(_spannable, _isDarkMode ? AD_COLOR_DARK_HEADING : AD_COLOR_LIGHT_HEADING , _textSize));
         } else {
-            createColorSpanForMatches(HEADING_SIMPLE, AD_COLOR_HEADING);
+            createColorSpanForMatches(HEADING_SIMPLE, _isDarkMode ? AD_COLOR_DARK_HEADING : AD_COLOR_LIGHT_HEADING);
         }
 
         if (_highlightCodeChangeFont) {
@@ -284,14 +286,14 @@ use explicit text color, when background changes?
         createStyleSpanForMatches(BOLD, Typeface.BOLD);
         createStyleSpanForMatches(ITALICS, Typeface.ITALIC);
 
-        createColorSpanForMatches(LINK_PATTERN, AD_COLOR_LINK);
-        createColorSpanForMatches(XREF_PATTERN, AD_COLOR_LINK);
-        createColorSpanForMatches(IMAGE_PATTERN, AD_COLOR_LINK);
-        createColorSpanForMatches(INCLUDE_PATTERN, AD_COLOR_LINK);
+        createColorSpanForMatches(LINK_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
+        createColorSpanForMatches(XREF_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
+        createColorSpanForMatches(IMAGE_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
+        createColorSpanForMatches(INCLUDE_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
 
-        createColorSpanForMatches(LIST_UNORDERED, AD_COLOR_LIST);
-        createColorSpanForMatches(LIST_ORDERED, AD_COLOR_LIST);
-        createColorSpanForMatches(LIST_DESCRIPTION, AD_COLOR_LIST_DESCRIPTION);
+        createColorSpanForMatches(LIST_UNORDERED, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
+        createColorSpanForMatches(LIST_ORDERED, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
+        createColorSpanForMatches(LIST_DESCRIPTION, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
         //TODO: test for interfernce with other role like underline, line-through => interference
         // to aggressive
         // createColorSpanForMatches(ROLE_GENERAL, AD_COLOR_ROLE_GENERAL);
