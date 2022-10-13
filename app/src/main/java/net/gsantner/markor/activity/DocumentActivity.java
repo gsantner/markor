@@ -166,7 +166,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         handleLaunchingIntent(intent);
     }
 
-    @SuppressWarnings("PointlessBooleanExpression")
     private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
@@ -203,9 +202,12 @@ public class DocumentActivity extends MarkorBaseActivity {
                 startLine = TextViewUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
             }
 
+            // Start in a specific mode if required. Otherwise let the fragment decide
             Boolean startInPreview = null;
-            if (startLine == null && (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index."))) {
-                // Start in edit mode if required. Otherwise let the fragment decide
+            if (startLine != null) {
+                // If a line is requested, open in edit mode so the line is shown
+                startInPreview = false;
+            } else if (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index.")) {
                 startInPreview = true;
             }
 
