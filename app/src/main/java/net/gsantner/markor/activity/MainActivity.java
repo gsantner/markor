@@ -426,7 +426,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             if (id == R.id.nav_quicknote) {
                 frag = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_todo) {
-                frag = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                frag = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getTodoFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_more) {
                 frag = MoreFragment.newInstance();
             } else {
