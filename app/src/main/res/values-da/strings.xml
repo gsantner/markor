@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Del på - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Fejl: Kunne ikke åbne.</string>
     <string name="document_error_clip">Der opstod en fejl: Tekst kopieret til udklipsholder.</string>
 </resources>
