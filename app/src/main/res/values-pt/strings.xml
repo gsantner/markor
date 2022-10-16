@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Compartilhar em - Formato</string>
     <string name="auto_format">Auto-formatar</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Erro: Não foi possível abrir.</string>
     <string name="document_error_clip">Erro encontrado: Texto copiado para área de transferência.</string>
 </resources>
