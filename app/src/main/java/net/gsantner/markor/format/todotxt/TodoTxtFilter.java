@@ -37,31 +37,36 @@ public class TodoTxtFilter {
     private static final String KEYS = "keys";
     private static final String TYPE = "type";
 
+    private static final String NULL_SENTINEL = "NULL SENTINEL"; // As this has a space, it isn't a valid context etc
+
     // For any type, return a function which maps a task -> a list of string keys
-    public static GsCallback.r1<List<String>, TodoTxtParser> keyGetter(final Context context, final String type) {
+    public static GsCallback.r1<List<String>, TodoTxtTask> keyGetter(final Context context, final String type) {
         switch (type) {
             case PROJECT:
-                return TodoTxtParser::getProjects;
+                return TodoTxtTask::getProjects;
             case CONTEXT:
-                return TodoTxtParser::getContexts;
+                return TodoTxtTask::getContexts;
             case PRIORITY:
-                return task -> task.getPriority() == TodoTxtParser.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()));
+                return task -> task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()));
             case DUE:
-                final Map<TodoTxtParser.TodoDueState, String> statusMap = new HashMap<>();
-                statusMap.put(TodoTxtParser.TodoDueState.TODAY, context.getString(R.string.due_today));
-                statusMap.put(TodoTxtParser.TodoDueState.OVERDUE, context.getString(R.string.due_overdue));
-                statusMap.put(TodoTxtParser.TodoDueState.FUTURE, context.getString(R.string.due_future));
-                return task -> task.getDueStatus() == TodoTxtParser.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()));
+                final Map<TodoTxtTask.TodoDueState, String> statusMap = new HashMap<>();
+                statusMap.put(TodoTxtTask.TodoDueState.TODAY, context.getString(R.string.due_today));
+                statusMap.put(TodoTxtTask.TodoDueState.OVERDUE, context.getString(R.string.due_overdue));
+                statusMap.put(TodoTxtTask.TodoDueState.FUTURE, context.getString(R.string.due_future));
+                return task -> task.getDueStatus() == TodoTxtTask.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()));
         }
 
         return null;
     }
 
     // For a list of keys and a task -> key mapping, return a function which selects tasks
-    public static GsCallback.b1<TodoTxtParser> taskSelector(final Collection<String> keys, final GsCallback.r1<List<String>, TodoTxtParser> keyGetter, final boolean isAnd) {
+    public static GsCallback.b1<TodoTxtTask> taskSelector(
+            final Collection<String> keys,
+            final GsCallback.r1<List<String>, TodoTxtTask> keyGetter,
+            final boolean isAnd) {
 
-        final boolean noneIncluded = keys.remove(null);
-        final Set<String> searchSet = (keys instanceof HashSet) ? (HashSet) keys : new HashSet<>(keys);
+        final Set<String> searchSet = new HashSet<>(keys);
+        final boolean noneIncluded = searchSet.remove(null);
 
         return (task) -> {
             final List<String> taskKeys = keyGetter.callback(task);
@@ -109,7 +114,7 @@ public class TodoTxtFilter {
             obj.put(IS_AND, isAnd);
             final JSONArray keysArray = new JSONArray();
             for (final String key : selKeys) {
-                keysArray.put(key);
+                keysArray.put(key != null ? key : NULL_SENTINEL);
             }
             obj.put(KEYS, keysArray);
 
@@ -166,9 +171,9 @@ public class TodoTxtFilter {
     }
 
     public static List<Group> loadSavedFilters(final Context context) {
+        final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         try {
             final List<Group> loadedViews = new ArrayList<>();
-            final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final String jsonString = pref.getString(SAVED_TODO_VIEWS, "[]");
             final JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
@@ -180,13 +185,15 @@ public class TodoTxtFilter {
                 gp.keys = new ArrayList<>();
                 final JSONArray keysArray = obj.getJSONArray(KEYS);
                 for (int j = 0; j < keysArray.length(); j++) {
-                    gp.keys.add(keysArray.getString(j));
+                    final String key = keysArray.getString(j);
+                    gp.keys.add(NULL_SENTINEL.equals(key) ? null : key);
                 }
                 loadedViews.add(gp);
             }
             return loadedViews;
         } catch (JSONException e) {
             e.printStackTrace();
+            pref.edit().remove(SAVED_TODO_VIEWS).apply();
         }
         return Collections.emptyList();
     }

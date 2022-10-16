@@ -69,11 +69,7 @@ public class GsFileUtils {
      */
     public static class FileInfo implements Serializable {
         public boolean hasBom = false;
-
-        public FileInfo withBom(boolean bom) {
-            hasBom = bom;
-            return this;
-        }
+        public boolean ioError = false;
     }
 
     public static Pair<String, FileInfo> readTextFileFast(final File file) {
@@ -84,11 +80,10 @@ public class GsFileUtils {
 
             final byte[] bomBuffer = new byte[3];
             final int bomReadLength = inputStream.read(bomBuffer);
-            info.withBom(bomReadLength == 3 &&
+            info.hasBom = bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
-                    bomBuffer[2] == (byte) 0xBF
-            );
+                    bomBuffer[2] == (byte) 0xBF;
 
             if (!info.hasBom && bomReadLength > 0) {
                 result.write(bomBuffer, 0, bomReadLength);
@@ -106,6 +101,7 @@ public class GsFileUtils {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {
             e.printStackTrace();
+            info.ioError = true;
         }
 
         return new Pair<>("", info);
@@ -429,7 +425,7 @@ public class GsFileUtils {
             return "*/*";
         }
 
-        String ext = getFilenameExtension(file).replace(".", "");
+        final String ext = getFilenameExtension(file).replace(".", "");
         if (file.isDirectory()) {
             return "inode/directory";
         } else if (ext.matches("ya?ml")) {
@@ -505,7 +501,7 @@ public class GsFileUtils {
     }
 
     public static boolean isTextFile(File file) {
-        String mime = getMimeType(file);
+        final String mime = getMimeType(file);
         return mime != null && mime.startsWith("text/");
     }
 

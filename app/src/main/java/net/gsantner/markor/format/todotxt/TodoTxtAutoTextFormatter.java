@@ -31,6 +31,6 @@ public class TodoTxtAutoTextFormatter implements InputFilter {
     }
 
     private CharSequence autoIndent(CharSequence source) {
-        return source + TodoTxtParser.DATEF_YYYY_MM_DD.format(new Date()) + " ";
+        return source + TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + " ";
     }
 }

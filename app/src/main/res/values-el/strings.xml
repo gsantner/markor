@@ -439,6 +439,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
     <string name="insert_snippet">Εισαγωγή αποσπάσματος κώδικα</string>
-    <string name="document_error_exit">Σφάλμα: Αδύνατο το άνοιγμα.</string>
+    <string name="error_could_not_open_file">Σφάλμα: Αδύνατο το άνοιγμα.</string>
     <string name="document_error_clip">Αντιμετώπιση σφάλματος: Το κείμενο αντιγράφηκε στο πρόχειρο.</string>
 </resources>

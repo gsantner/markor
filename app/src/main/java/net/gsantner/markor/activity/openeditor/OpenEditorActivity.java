@@ -44,7 +44,9 @@ public class OpenEditorActivity extends MarkorBaseActivity {
                     file.getParentFile().mkdirs();
                 }
                 if (!file.exists() && !file.isDirectory()) {
-                    GsFileUtils.writeFile(file, "", new GsFileUtils.FileInfo().withBom(_appSettings.getNewFileDialogLastUsedUtf8Bom()));
+                    final GsFileUtils.FileInfo info = new GsFileUtils.FileInfo();
+                    info.hasBom = _appSettings.getNewFileDialogLastUsedUtf8Bom();
+                    GsFileUtils.writeFile(file, "", info);
                 }
                 openIntent.putExtra(Document.EXTRA_PATH, openIntent.hasExtra(Document.EXTRA_PATH) ? openIntent.getSerializableExtra(Document.EXTRA_PATH) : file);
                 _cu.animateToActivity(this, openIntent, true, 1);

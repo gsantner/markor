@@ -115,7 +115,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final File dir = getIntentDir(intent, null);
         final GsFileBrowserFragment frag = getNotebook();
         if (frag != null && dir != null) {
-            frag.post(() -> frag.getAdapter().setCurrentFolder(dir, false));
+            frag.post(() -> frag.getAdapter().setCurrentFolder(dir));
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
@@ -257,8 +257,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         GsFileBrowserFragment fsFrag = getNotebook();
         if (fsFrag != null && permc.mkdirIfStoragePermissionGranted()) {
             fsFrag.getAdapter().setCurrentFolder(fsFrag.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
-                            ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS
-                    , true);
+                    ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS);
         }
         return true;
     }
@@ -425,9 +424,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final GsFragmentBase frag;
             final int id = _bottomNav.getMenu().getItem(pos).getItemId();
             if (id == R.id.nav_quicknote) {
-                frag = DocumentEditAndViewFragment.newInstance(_appSettings.getQuickNoteFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+                frag = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_todo) {
-                frag = DocumentEditAndViewFragment.newInstance(_appSettings.getTodoFile(), Document.EXTRA_FILE_LINE_NUMBER_LAST);
+                frag = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getTodoFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_more) {
                 frag = MoreFragment.newInstance();
             } else {

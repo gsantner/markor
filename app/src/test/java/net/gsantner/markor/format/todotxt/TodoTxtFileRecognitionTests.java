@@ -20,7 +20,7 @@ public class TodoTxtFileRecognitionTests {
 
     @Test
     public void checkTodoTxtFileRecognition() {
-        Pattern p = TodoTxtParser.TODOTXT_FILE_PATTERN;
+        Pattern p = TodoTxtTask.TODOTXT_FILE_PATTERN;
         assertThat(ispm(p, "todo.txt")).isEqualTo(true);
         assertThat(ispm(p, "ToDO.txt")).isEqualTo(true);
         assertThat(ispm(p, "todo.archive.txt")).isEqualTo(true);

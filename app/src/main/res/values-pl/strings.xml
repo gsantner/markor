@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Udostępnij - Format</string>
     <string name="auto_format">Automatyczny format</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Błąd: Nie można otworzyć.</string>
+    <string name="error_could_not_open_file">Błąd: Nie można otworzyć.</string>
     <string name="document_error_clip">Wystąpił błąd: Tekst skopiowany do schowka.</string>
 </resources>
