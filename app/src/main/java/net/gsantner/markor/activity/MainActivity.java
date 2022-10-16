@@ -265,7 +265,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public void onClickFab(View view) {
         final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
         final GsFileBrowserFragment fsFrag = getNotebook();
-        if (fsFrag == null || !permc.doIfExtStoragePermissionGranted()) {
+        if (fsFrag == null || !permc.doIfExtStoragePermissionGranted() || fsFrag.getAdapter() == null) {
             return;
         }
 
