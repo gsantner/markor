@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Avslutt</string>
     <string name="undo">Angre</string>
     <string name="redo">Gjenta</string>
-    <string name="more">Mer</string>
+    <string name="more">Mor</string>
     <string name="notebook">Notatblokk</string>
     <string name="help">Hjelp</string>
     <string name="todo_list">Gjøremålsliste</string>
@@ -210,15 +210,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Rediger tekst i midten av skjermen</string>
     <string name="clipboard">Utklippstavle</string>
     <string name="select_existing_document">Velg eksisterende dokument</string>
-    <string name="open_source_licenses">Åpen kildekode-lisenser</string>
-    <string name="rate_this_app">Ranger denne appen</string>
+    <string name="open_source_licenses">Friprog-lisenser</string>
+    <string name="rate_this_app">Vurder dette programmet</string>
     <string name="translate">Oversett</string>
-    <string name="more_info_and_help">Mer informasjon og hjelp</string>
+    <string name="more_info_and_help">Mer informasjon om dette programmet</string>
     <string name="report_bugs">Rapporter feil</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer info om donering til utvikleren eller bidra til dette prosjektet.</string>
-    <string name="join_community">Bli med i fellesskapet</string>
+    <string name="join_community">Ta del i gemenskapen</string>
     <string name="bug_reports_suggest_improvements">Gi tilbakemelding, rapporter feil eller foreslå forbedringer</string>
-    <string name="help_translating_this_app">Oversett denne appen til andre språk</string>
+    <string name="help_translating_this_app">Oversett dette programmet til andre språk</string>
     <string name="source_code">Kildekode</string>
     <string name="project_license">Prosjektlisens</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Bidra med kode til prosjektet. Alle kan ta del i dugnaden, inkludert nybegynnere</string>
@@ -237,7 +237,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Detaljer</string>
     <string name="calendar">Kalender</string>
     <string name="warning_disallowed_sd_access">Advarsel! Programmet har ikke tillatelse til å lagre denne filen, alle endringer vil gå tapt. Det er ingen mulighet for å løse problemet eller å bekrefte noe, Android nekter noen tilgang her.</string>
-    <string name="error_picture_selection">Inget bilde valgt, tatt, eller lagret.</string>
+    <string name="error_picture_selection">Inget bilde valgt, tatt eller lagret.</string>
     <string name="gallery_picture">Galleribilde</string>
     <string name="camera_picture">Kamerabilde</string>
     <string name="enable_undo_and_redo_be_patient">Skru på angre og gjentakelsesfunksjoner. Kun tiltenkt avansert bruk, vær tålmodig slik at du ikke sletter noe viktig. Lukk og åpne tekstbehandler for å tømme historikk.</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Del inn - format</string>
     <string name="auto_format">Autokoformater</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Feil: kunne ikke åpne.</string>
     <string name="document_error_clip">Oppnådd tekst: kopiert til utklippstavlen.</string>
 </resources>
