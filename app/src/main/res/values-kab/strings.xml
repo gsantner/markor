@@ -44,7 +44,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="html_as_plaintext">HTML (aḍris arewway)</string>
     <string name="document_editor_font">Tasefsit n umaẓrag</string>
     <string name="theme">Asentel</string>
-    <string name="about">Ɣef</string>
+    <string name="about">Γef</string>
     <string name="plaintext">Aḍris arewway</string>
     <string name="file">Afaylu</string>
     <string name="image">Tugna</string>
@@ -63,10 +63,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL / Abrid</string>
     <string name="insert_link">Ger aseɣwen</string>
     <string name="insert_image">Ger tugna</string>
-    <string name="contributors">Imttekkiyen</string>
+    <string name="contributors">Iwiziwen</string>
     <string name="select_storage_folder">Fren akaram ara tesqedceḍ i usekles</string>
     <string name="licenses">Iselkinen</string>
-    <string name="changelog">Amaynut n usnas</string>
+    <string name="changelog">Amaynut</string>
     <string name="more_info">Ugar n telɣut</string>
     <string name="show_license_of_the_app">Sken aselkin n uḍris</string>
     <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
@@ -86,7 +86,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Ffeɣ</string>
     <string name="undo">Sefsex</string>
     <string name="redo">Err-d</string>
-    <string name="more">Ugar</string>
+    <string name="more">Timerna</string>
     <string name="notebook">Imedlis n tizmilin</string>
     <string name="help">Aide</string>
     <string name="todo_list">Tabdart ara yettwagen</string>

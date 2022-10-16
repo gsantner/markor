@@ -68,14 +68,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL / पथ</string>
     <string name="insert_link">लिंक सम्मिलित करें</string>
     <string name="insert_image">चित्र डालें</string>
-    <string name="contributors">योगदानकर्ता</string>
+    <string name="contributors">योगदान कर्ता</string>
     <string name="save_location">सहेजने का स्थान</string>
     <string name="select_storage_folder">स्टोरेज फोल्डर चुनें</string>
     <string name="licenses">लाइसेंस</string>
-    <string name="changelog">परिवर्तन खाता</string>
+    <string name="changelog">बदलाव लॉग</string>
     <string name="more_info">अधिक जानकारी</string>
     <string name="show_license_of_the_app">एप का लाइसेंस दिखाएं</string>
-    <string name="show_third_party_licenses">तीसरे पक्ष के लाइसेंस दिखाएं</string>
+    <string name="show_third_party_licenses">तृतीय पार्टी के लाइसेंस दिखाएं</string>
     <string name="language_change_restart_description">इस ऐप की भाषा बदलें परिवर्तन प्रभावी होने के लिए ऐप को पुन: प्रारंभ करें</string>
     <string name="language">भाषा</string>
     <string name="error_need_storage_permission_to_save_documents">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>

@@ -40,7 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">Condividi</string>
     <string name="search">Cerca</string>
     <string name="display_converted_markup">Mostra il markup convertito</string>
-    <string name="editor">Editor</string>
+    <string name="editor">Modifica</string>
     <string name="folders">Cartelle</string>
     <string name="files">File</string>
     <string name="document">Documento</string>
@@ -74,7 +74,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Percorso di salvataggio</string>
     <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
     <string name="licenses">Licenze</string>
-    <string name="changelog">Changelog</string>
+    <string name="changelog">Log delle modifiche</string>
     <string name="more_info">Informazioni aggiuntive</string>
     <string name="show_license_of_the_app">Mostra la licenza dell\'applicazione</string>
     <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
@@ -85,9 +85,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_by">Ordina per</string>
     <string name="date">Ordina per data</string>
     <string name="deleteme____1">Ordina per nome</string>
-    <string name="size">Dimensione</string>
+    <string name="size">Spessore</string>
     <string name="reverse_order">Ordine inverso</string>
-    <string name="contribute">Collabora</string>
+    <string name="contribute">Contribuire</string>
     <string name="donate">Dona</string>
     <string name="project_page">Pagina del progetto</string>
     <string name="press_back_again_to_exit">Premere \'indietro\' di nuovo per uscire</string>
@@ -218,17 +218,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su come donare allo sviluppatore, o su come contribuire a questo progetto.</string>
     <string name="join_community">Unisciti alla comunità</string>
     <string name="bug_reports_suggest_improvements">Dai un riscontro, segnala bug o suggerisci miglioramenti</string>
-    <string name="help_translating_this_app">Traduci l\'applicazione in altre lingue</string>
+    <string name="help_translating_this_app">Traduci l\'applicazoine in altre lingue</string>
     <string name="source_code">Codice sorgente</string>
     <string name="project_license">Licenza del progetto</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Contribuisci al codice del progetto. Tutti sono invitati a farlo, anche i nuovi arrivati</string>
     <string name="project_team">Team del progetto</string>
-    <string name="contributors_public_add_yourself_description">Mostra le informazioni sui collaboratori. Essi possono essere aggiunti in questa lista per loro scelta dopo aver collaborato</string>
+    <string name="contributors_public_add_yourself_description">Mostra informazioni sui contributori.
+
+  I contributori possono fornire informazioni per essere mostrati qui (opt-in) dopo aver contribuito</string>
     <string name="descending">discendente</string>
     <string name="ascending">ascendente</string>
     <string name="disable_spelling_underline">Disabilita la sottolineatura dell\'ortografia</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">I suggerimenti della tastiera rimangono, mentre le sottolineature rosse scompaiono</string>
-    <string name="location">Posizione</string>
+    <string name="location">Ubicazione</string>
     <string name="text_lines">Linee del testo</string>
     <string name="text_characters">Caratteri del testo</string>
     <string name="text_words">Parole di testo</string>
@@ -237,7 +239,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Dettagli</string>
     <string name="calendar">Calendario</string>
     <string name="warning_disallowed_sd_access">Attenzione! L\'app non ha il permesso di salvare questo file, tutte le modifiche andranno perse. Non c\'è possibilità di risolvere il problema o di confermare qualcosa, Android nega qualsiasi accesso qui.</string>
-    <string name="error_picture_selection">Nessuna immagine selezionata, acquisita o salvata.</string>
+    <string name="error_picture_selection">Nessuna immagine selezionata.</string>
     <string name="gallery_picture">Immagini dalla galleria</string>
     <string name="camera_picture">Immagini dalla fotocamera</string>
     <string name="enable_undo_and_redo_be_patient">Abilita l\'annullamento e la ripetizione delle azioni. Per utenti esperti: attenzione a non cancellare nulla di importante. Chiudere e aprire l\'editor per cancellare la cronologia.</string>
@@ -246,7 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matematica</string>
     <string name="enter_yaml_front_matter_attributes_to_show">Visualizza gli attributi YAML Front Matter inseriti in cima ai documenti visualizzati. Inserisci le chiavi separate da virgole. Lascia vuoto per nessuno o usa \'*\' per tutti. \n\nSe un attributo è definito nel documento (es. title: \'Ciao\') e nel tuo documento c\'è {{ post.title }}, esso verrà sostituito. Puoi fare un\'intestazione personalizzata di Front Matter in questo modo.</string>
     <string name="table_of_contents">Indice</string>
-    <string name="miscellaneous">Varie</string>
+    <string name="miscellaneous">Vario</string>
     <string name="prefer_view">Vista preferita</string>
     <string name="no_calendar_app_is_installed">Nessuna app calendario installata!</string>
     <string name="popular_documents">Documenti popolari</string>
@@ -263,7 +265,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_is_created_without_extension">- La cartella è creata senza estensione</string>
     <string name="keep_existing_file">- File e cartelle non saranno sovrascritti</string>
     <string name="multiple_windows">Finestre multiple</string>
-    <string name="font">Font</string>
+    <string name="font">Carattere</string>
     <string name="open_new_documents_always_in_new_window">Apri sempre i documenti in finestre separate. Spostati usando il tasto \'recenti\' del dispositivo.</string>
     <string name="enter_or_select_format">Inserisci o seleziona il formato</string>
     <string name="pick_date">Scegli la data</string>
@@ -438,6 +440,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Condividi in - Formato</string>
     <string name="auto_format">Autoformattazione</string>
     <string name="insert_snippet">Inserisci estratto</string>
-    <string name="error_could_not_open_file">Errore: impossibile aprire.</string>
     <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
 </resources>

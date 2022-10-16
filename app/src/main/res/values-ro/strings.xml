@@ -74,7 +74,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Salvează locația</string>
     <string name="select_storage_folder">Selectați dosarul de stocare</string>
     <string name="licenses">Licențe</string>
-    <string name="changelog">Istoricul modificărilor</string>
+    <string name="changelog">Jurnalul modificărilor</string>
     <string name="more_info">Mai multe informații</string>
     <string name="show_license_of_the_app">Arată licența aplicației</string>
     <string name="show_third_party_licenses">Afișează licenţe terţi</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partajare în - Format</string>
     <string name="auto_format">Format automat</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="error_could_not_open_file">Eroare: Nu s-a putut deschide.</string>
     <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
 </resources>

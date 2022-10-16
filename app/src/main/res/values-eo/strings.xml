@@ -18,6 +18,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rename">Alinomi</string>
     <string name="confirm_delete">Konfirmi forigon</string>
     <string name="do_you_really_want_to_delete_this_witharg">Ĉu vi vere volas forigi ĉi tiun %sn?</string>
+    <string name="file_already_exists_overwerite">Dosiero jam ekzistas, ĉu rekonservi?</string>
     <string name="title">Titolo</string>
     <string name="empty_directory">Malplena dosierujo</string>
     <string name="enter_name_of_folder">Entajpu la nomon de via dosierujo</string>

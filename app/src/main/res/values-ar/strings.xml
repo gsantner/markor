@@ -10,7 +10,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">الإعدادات</string>
+    <string name="settings">إعدادات</string>
     <string name="light">فاتح</string>
     <string name="dark">داكن</string>
     <string name="delete">حذف</string>
@@ -212,7 +212,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_existing_document">اختيار مستند موجود</string>
     <string name="open_source_licenses">تراخيص البرامج مفتوحة المصدر</string>
     <string name="rate_this_app">قيّم هذا التطبيق</string>
-    <string name="translate">الترجمة</string>
+    <string name="translate">ترجمة</string>
     <string name="more_info_and_help">المزيد من المعلومات والمساعدة</string>
     <string name="report_bugs">إبلاغ عن علة</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">مزيد من المعلومات عن التبرع للمطور، أو المساهمة في هذا المشروع.</string>
@@ -228,7 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ascending">تصاعدي</string>
     <string name="disable_spelling_underline">تعطيل التدقيق الإملائي</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">اقتراحات لوحة المفاتيح، اختفت سطر أحمر</string>
-    <string name="location">الموقع</string>
+    <string name="location">موقع</string>
     <string name="text_lines">خطوط النص</string>
     <string name="text_characters">حروف النص</string>
     <string name="text_words">كلمات النص</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">المشاركة في - التنسيق</string>
     <string name="auto_format">تنسيق تلقائي</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="error_could_not_open_file">خطأ: تعذر الفتح.</string>
     <string name="document_error_clip">حدث خطأ: تم نسخ النص إلى الحافظة.</string>
 </resources>

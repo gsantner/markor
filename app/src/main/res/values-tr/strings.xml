@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Belgeleri ara</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
-    <string name="search">Ara</string>
+    <string name="search">Arama</string>
     <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
     <string name="editor">Düzenleyici</string>
     <string name="folders">Klasörler</string>
@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
     <string name="open_existing_files_in_view_mode">Varolan dosyaları görünüm modunda aç</string>
-    <string name="about">Markor Hakkında</string>
+    <string name="about">Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
     <string name="image">Resim</string>
@@ -74,10 +74,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Kayıt konumu</string>
     <string name="select_storage_folder">Depolama klasörünü seç</string>
     <string name="licenses">Lisanslar</string>
-    <string name="changelog">Değişiklik Günlüğü</string>
+    <string name="changelog">Değişme Günlüğü</string>
     <string name="more_info">Daha fazla bilgi</string>
     <string name="show_license_of_the_app">Uygulamanın lisansını göster</string>
-    <string name="show_third_party_licenses">3. parti lisanslarını göster</string>
+    <string name="show_third_party_licenses">Üçüncü parti lisansları göster</string>
     <string name="language_change_restart_description">Uygulamanın dilini değiştir. Değişikliklerin etkili olması için uygulamayı yeniden başlat</string>
     <string name="language">Dil</string>
     <string name="error_need_storage_permission_to_save_documents">Belgeleri kaydetmek için depolama izni gerekiyor</string>
@@ -85,16 +85,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="sort_by">Sırala</string>
     <string name="date">Tarihe göre sırala</string>
     <string name="deleteme____1">Ada göre sırala</string>
-    <string name="size">Boyuta göre sırala</string>
+    <string name="size">Boyut</string>
     <string name="reverse_order">Sıralamayı ters çevir</string>
     <string name="contribute">Katkıda Bulun</string>
-    <string name="donate">Bağış Yap</string>
+    <string name="donate">Bağış yap</string>
     <string name="project_page">Proje sayfası</string>
     <string name="press_back_again_to_exit">Çıkmak için geriye tekrar basın</string>
-    <string name="exit">Çık</string>
+    <string name="exit">Çıkış</string>
     <string name="undo">Geri Al</string>
     <string name="redo">İleri Al</string>
-    <string name="more">Daha Fazla</string>
+    <string name="more">Dahası</string>
     <string name="notebook">Not Defteri</string>
     <string name="help">Yardım</string>
     <string name="todo_list">Yapılacaklar Listesi</string>
@@ -209,7 +209,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_existing_document">Mevcut belegeyi seç</string>
     <string name="open_source_licenses">Açık Kaynak Lisansları</string>
     <string name="rate_this_app">Bu uygulamayı değerlendir</string>
-    <string name="translate">Çeviri yap</string>
+    <string name="translate">Çeviri</string>
     <string name="more_info_and_help">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="report_bugs">Hataları bildir</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Geliştiriciye bağış yapma veya bu projeye katkıda bulunma hakkında daha fazla bilgi alın.</string>
@@ -220,7 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_license">Proje Lisansı</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projeye kod yazarak katkıda bulunun. Yeni gelenler de dahil olmak üzere herkes kabul edilir</string>
     <string name="project_team">Proje Ekibi</string>
-    <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
+    <string name="contributors_public_add_yourself_description">Katkıda bulunanlarla ilgili bilgileri gösterin. Katkıda bulunanlar, katkıdan bulunduktan sonra burada gösterilmeleri için bilgilerini sağlayabilir</string>
     <string name="descending">azalan</string>
     <string name="ascending">artan</string>
     <string name="disable_spelling_underline">Yazım denetimini kapat</string>
