@@ -69,10 +69,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL / මාර්ගය</string>
     <string name="insert_link">සබැඳිය ඇතුළු කරන්න</string>
     <string name="insert_image">රූපය ඇතුළු කරන්න</string>
-    <string name="contributors">සහ දායකයින්</string>
+    <string name="contributors">සහදායකයින්</string>
     <string name="save_location">ස්ථානය සුරකින්න</string>
     <string name="select_storage_folder">ගබඩා ෆෝල්ඩරය තෝරන්න</string>
-    <string name="licenses">බලපත්ර</string>
+    <string name="licenses">බලපත්‍ර</string>
     <string name="changelog">චේන්ජ්ලොග්</string>
     <string name="more_info">වැඩි විස්තර</string>
     <string name="show_license_of_the_app">යෙදුමේ බලපත්‍රය පෙන්වන්න</string>
