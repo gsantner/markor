@@ -38,7 +38,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_documents">Belgeleri ara</string>
     <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Şununla paylaş…</string>
     <string name="share">Paylaş</string>
-    <string name="search">Ara</string>
+    <string name="search">Arama</string>
     <string name="display_converted_markup">Dönüştürülmüş markup biçiminde görüntüleyin</string>
     <string name="editor">Düzenleyici</string>
     <string name="folders">Klasörler</string>
@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Belge Düzenleyicisi Yazı Tipi</string>
     <string name="theme">Tema</string>
     <string name="open_existing_files_in_view_mode">Varolan dosyaları görünüm modunda aç</string>
-    <string name="about">Markor Hakkında</string>
+    <string name="about">Hakkında</string>
     <string name="plaintext">Düz Metin</string>
     <string name="file">Dosya</string>
     <string name="image">Resim</string>
