@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Шрифт редактора нотаток</string>
     <string name="theme">Тема</string>
     <string name="open_existing_files_in_view_mode">Відкривати наявні файли в режимі перегляду</string>
-    <string name="about">Про Markor</string>
+    <string name="about">Про нас</string>
     <string name="plaintext">Звичайний текст</string>
     <string name="file">Файл</string>
     <string name="image">Зображення</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поділитися у форматі - Формат</string>
     <string name="auto_format">Автоматичний формат</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Помилка: Не вдалося відкрити.</string>
     <string name="document_error_clip">Помилка виявлення: текст скопійовано до буфера обміну.</string>
 </resources>
