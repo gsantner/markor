@@ -77,8 +77,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Änderungen</string>
     <string name="more_info">Mehr Informationen</string>
     <string name="show_license_of_the_app">Lizenzen der App anzeigen</string>
-    <string name="show_third_party_licenses">Drittanbieter-Lizenzen anzeigen</string>
-    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich, um die Einstellung zu übernehmen</string>
+    <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
+    <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
     <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystemberechtigung um Dokumente zu speichern</string>
     <string name="open_with">Öffnen mit</string>
@@ -210,7 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
     <string name="select_existing_document">Bestehendes Dokument auswählen</string>
-    <string name="open_source_licenses">Open-Source-Lizenzen</string>
+    <string name="open_source_licenses">Open Source Lizenzen</string>
     <string name="rate_this_app">App bewerten</string>
     <string name="translate">Übersetzen</string>
     <string name="more_info_and_help">Mehr Infos und Hilfe zu dieser App</string>
@@ -220,7 +220,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bug_reports_suggest_improvements">Feedback geben, Fehler melden, Verbesserungen vorschlagen</string>
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
     <string name="source_code">Quellcode</string>
-    <string name="project_license">Projektlizenz</string>
+    <string name="project_license">Projekt Lizenz</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Projekt mit Code unterstützen. Alle sind eingeladen das zu tun, auch Newcomer</string>
     <string name="project_team">Projekt Team</string>
     <string name="contributors_public_add_yourself_description">Zeige Informationen über Mitwirkende. Mitwirkende können Informationen bereitstellen die hier angezeigt werden (Opt-in), nach der Mitwirkung.</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Teilen in - Format</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
-    <string name="document_error_exit">Fehler: Konnte nicht öffnen.</string>
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
 </resources>
