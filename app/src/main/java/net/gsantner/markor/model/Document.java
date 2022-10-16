@@ -153,7 +153,7 @@ public class Document implements Serializable {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).size();
             }
-        } catch (IOException ignored) {
+        } catch (Exception ignored) {
         }
         return _file.length();
     }
@@ -242,7 +242,7 @@ public class Document implements Serializable {
             // We try to load 2x. If both times fail, we return null
             Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
             if (result.second.ioError) {
-                Log.i(Document.class.getName(), "Read error, trying again");
+                Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, trying again.");
                 result = GsFileUtils.readTextFileFast(_file);
             }
             content = result.first;
@@ -263,7 +263,7 @@ public class Document implements Serializable {
             // Force next load on failure
             setContentHash(null);
             resetChangeTracking();
-            Log.i(Document.class.getName(), "Read error, could not load file");
+            Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, could not load file.");
             return null;
         } else {
             // Also set hash and time on load - should prevent unnecessary saves
@@ -364,7 +364,7 @@ public class Document implements Serializable {
             final long size = fileBytes();
             if (fileBytes() < contentAsBytes.length) {
                 success = false;
-                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length);
+                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length + "; file=" + _file);
             }
 
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
@@ -378,7 +378,7 @@ public class Document implements Serializable {
             _modTime = fileModTime();
             setGlobalTouchTime();
         } else {
-            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes());
+            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes() + "; file=" + _file);
         }
 
         return success;
