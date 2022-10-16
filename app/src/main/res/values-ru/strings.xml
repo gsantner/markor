@@ -70,7 +70,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL/путь</string>
     <string name="insert_link">Вставить ссылку</string>
     <string name="insert_image">Вставить изображение</string>
-    <string name="contributors">Участники</string>
+    <string name="contributors">Разработчики</string>
     <string name="save_location">Сохранить расположение</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="licenses">Лицензии</string>
@@ -88,7 +88,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Размер</string>
     <string name="reverse_order">В обратном порядке</string>
     <string name="contribute">Внести свой вклад</string>
-    <string name="donate">Пожертвовать</string>
+    <string name="donate">Поддержать проект</string>
     <string name="project_page">Страница проекта</string>
     <string name="press_back_again_to_exit">Нажмите «Назад» ещё раз, чтобы выйти</string>
     <string name="exit">Выход</string>
@@ -151,7 +151,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project">Проект</string>
     <string name="projects">Проекты</string>
     <string name="none">Нет</string>
-    <string name="other">Другие</string>
+    <string name="other">Другое</string>
     <string name="empty_file">Пустой файл</string>
     <string name="break_page_pdf_print">Новая страница (PDF/печать)</string>
     <string name="underline">Подчёркивание</string>
@@ -210,20 +210,20 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
-    <string name="open_source_licenses">Лицензии открытого ПО</string>
+    <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
     <string name="rate_this_app">Оценить приложение</string>
-    <string name="translate">Перевести</string>
+    <string name="translate">Перевод</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Информация о том, как сделать пожертвование или внести вклад в проект.</string>
     <string name="join_community">Присоединиться к сообществу</string>
-    <string name="bug_reports_suggest_improvements">Оставьте отзыв, сообщите об ошибках или предложите улучшения</string>
+    <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
     <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
     <string name="source_code">Исходный код</string>
     <string name="project_license">Лицензия проекта</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Внести вклад в код проекта. Все желающие могут сделать это, в том числе и новички</string>
     <string name="project_team">Команда проекта</string>
-    <string name="contributors_public_add_yourself_description">Показать информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
+    <string name="contributors_public_add_yourself_description">Показ информации об участниках. Предоставьте информацию о себе, если вы внесли свой вклад в проект</string>
     <string name="descending">по убыванию</string>
     <string name="ascending">по возрастанию</string>
     <string name="disable_spelling_underline">Отключить подчёркивание ошибок</string>
@@ -237,12 +237,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Подробности</string>
     <string name="calendar">Календарь</string>
     <string name="warning_disallowed_sd_access">Внимание! У приложения нет разрешения на сохранение этого файла, все изменения будут потеряны. Нет возможности разрешить проблему или подтвердить что-то, Android отказывает в доступе здесь.</string>
-    <string name="error_picture_selection">Изображение не выбрано.</string>
+    <string name="error_picture_selection">Изображение не выбранно.</string>
     <string name="gallery_picture">Выбрать в галерее</string>
     <string name="camera_picture">Сделать фотографию</string>
     <string name="enable_undo_and_redo_be_patient">Включение отмены и повтора действий. Подходит только для продвинутого использования, проявите терпение, чтобы не удалить что нибудь важное. Закройте и откройте редактор, для очистки истории.</string>
     <string name="description">Описание</string>
-    <string name="edit_picture">Редактировать изображение</string>
+    <string name="edit_picture">Изменить изображение</string>
     <string name="math">Формулы</string>
     <string name="enter_yaml_front_matter_attributes_to_show">Отображать введенные атрибуты YAML Front Matter в верхней части просматриваемых документов. Введите имена атрибутов, разделенные запятыми. Если пусто - ничего не отобразится. Если \'*\' - будут отображены все. \n\nЕсли атрибут определен в документе (т.е. title: \'Hi\'), и в документе также есть {{ post.title }} то произойдёт замена. Так вы можете сделать свой заголовок Front Matter.</string>
     <string name="table_of_contents">Оглавление</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поделиться - Формат</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Ошибка: не удалось открыть.</string>
     <string name="document_error_clip">Произошла ошибка: текст скопирован в буфер обмена.</string>
 </resources>
