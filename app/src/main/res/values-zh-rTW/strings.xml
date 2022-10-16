@@ -93,7 +93,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">離開</string>
     <string name="undo">恢復</string>
     <string name="redo">重做</string>
-    <string name="more">更多</string>
+    <string name="more">再來</string>
     <string name="notebook">筆記本</string>
     <string name="help">幫助</string>
     <string name="todo_list">待辦清單</string>
@@ -213,7 +213,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">關於如何贊助開發或支持這個專案的更多資訊</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
-    <string name="help_translating_this_app">翻譯這個App的語文界面</string>
+    <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
     <string name="source_code">原始碼</string>
     <string name="project_license">專案許可證</string>
     <string name="contribute_code_to_this_project_anybody_welcome">歡迎每個人都來提供程式碼</string>
@@ -257,7 +257,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_is_created_without_extension">- 建立資料夾時不會有副檔名</string>
     <string name="keep_existing_file">- 不會覆寫檔案與資料夾</string>
     <string name="multiple_windows">多重視窗</string>
-    <string name="font">字型</string>
+    <string name="font">字體</string>
     <string name="open_new_documents_always_in_new_window">總是在單獨的視窗開啟文件。您可以使用裝置的「最近」按鈕或手勢在視窗之間互相切換。</string>
     <string name="enter_or_select_format">輸入或選擇格式</string>
     <string name="pick_date">選擇日期</string>
