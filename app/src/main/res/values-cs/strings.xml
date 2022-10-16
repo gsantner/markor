@@ -74,11 +74,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Umístění pro ukládání</string>
     <string name="select_storage_folder">Vyberte složku úložiště</string>
     <string name="licenses">Licence</string>
-    <string name="changelog">Historie</string>
+    <string name="changelog">Seznam změn</string>
     <string name="more_info">Více informací</string>
     <string name="show_license_of_the_app">Zobrazit GNU GPLv3 licenci</string>
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
-    <string name="language_change_restart_description">Pokud chcete změnit jazyk této aplikace, bude vyžadován její restart</string>
+    <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
     <string name="language">Jazyk</string>
     <string name="error_need_storage_permission_to_save_documents">Pro ukládání dokumentů je třeba oprávnění úložiště</string>
     <string name="open_with">Otevřít pomocí</string>
@@ -309,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="amount_of_space_for_tab">Počet mezer jako zobrazení tabulátoru</string>
     <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Vybraný soubor může být prostý soubor. Chcete jej otevřít v editoru nebo v jiné aplikaci?\n\nNepokoušejte se otevírat binární soubory. Pokud si nejste jistí, otevřete soubor jinou aplikací.</string>
     <string name="list_in_recent_files">Zobrazit v posledních souborech</string>
-    <string name="reload">Obnovit</string>
+    <string name="reload">Aktualizovat</string>
     <string name="wrap_words">Zalamování slov</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
     <string name="recursive_search_in_current_directory">Rekurentní vyhledávání v aktuální složce.</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="error_could_not_open_file">Chyba: Nelze otevřít.</string>
     <string name="document_error_clip">Došlo k chybě: Text zkopírován do schránky.</string>
 </resources>
