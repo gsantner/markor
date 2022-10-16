@@ -14,7 +14,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="light">浅色</string>
     <string name="dark">深色</string>
     <string name="delete">删除</string>
-    <string name="appearance">外观样式</string>
+    <string name="appearance">外观</string>
     <string name="rename">重命名</string>
     <string name="confirm_delete">确认删除</string>
     <string name="do_you_really_want_to_delete_this_witharg">您确定要删除 %s 吗？</string>
@@ -73,7 +73,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
     <string name="select_storage_folder">选择存储文件夹</string>
-    <string name="licenses">许可协议</string>
+    <string name="licenses">开源协议</string>
     <string name="changelog">更新日志</string>
     <string name="more_info">更多信息</string>
     <string name="show_license_of_the_app">显示应用的开源许可协议</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
-    <string name="document_error_exit">错误：无法打开。</string>
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
 </resources>
