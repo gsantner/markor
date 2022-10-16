@@ -10,7 +10,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Inställningar</string>
+    <string name="settings">Inställning</string>
     <string name="light">Ljust</string>
     <string name="dark">Mörkt</string>
     <string name="delete">Radera</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Dela till - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Fel: Kunde inte öppna.</string>
     <string name="document_error_clip">Ett fel uppstod: Text kopierad till urklipp.</string>
 </resources>
