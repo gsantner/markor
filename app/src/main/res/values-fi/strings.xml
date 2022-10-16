@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Jaa - Muoto</string>
     <string name="auto_format">Automaattimuotoilu</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Virhe: Ei voitu avata.</string>
     <string name="document_error_clip">Tapahtui virhe: Teksti kopioitu leikepöydälle.</string>
 </resources>
