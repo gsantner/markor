@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.opoc.format;
 
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Base64;
 
 import org.json.JSONArray;

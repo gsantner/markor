@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -89,12 +90,9 @@ public class GsSearchOrCustomTextDialog {
         public GsCallback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
         public List<Integer> preSelected = null;
-        // Constraint, item to test
-        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
-        // Check if constraint is valid
-        public GsCallback.b1<CharSequence> queryValidator = null;
-
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
+        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
+        public GsCallback.a1<DialogInterface> dismissCallback = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -262,6 +260,10 @@ public class GsSearchOrCustomTextDialog {
         listLayout.weight = 1;
         mainLayout.addView(listView, listLayout);
 
+        if (dopt.dismissCallback != null) {
+            dialogBuilder.setOnDismissListener(dopt.dismissCallback::callback);
+        }
+
         dialogBuilder.setView(mainLayout)
                 .setOnCancelListener(null)
                 .setNegativeButton(dopt.cancelButtonText, (dialogInterface, i) -> dialogInterface.dismiss());
@@ -393,19 +395,20 @@ public class GsSearchOrCustomTextDialog {
         titleLayout.setOrientation(LinearLayout.VERTICAL);
         titleLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         titleLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        titleLayout.setPadding(paddingSide, paddingSide, paddingSide, paddingBetween);
+        titleLayout.setPadding(paddingSide, 2 * paddingBetween, paddingSide, paddingBetween);
 
         if (dopt.titleText != 0) {
             final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
             title.setSingleLine();
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setText(dopt.titleText);
+            title.setPadding(0, 0, 0, 0);
             titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         if (!TextUtils.isEmpty(dopt.messageText)) {
             final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
-            subTitle.setPadding(0, paddingBetween, 0, 0);
+            subTitle.setPadding(0, dopt.titleText == 0 ? 0 : paddingBetween, 0, 0);
             subTitle.setText(dopt.messageText);
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
@@ -443,10 +446,10 @@ public class GsSearchOrCustomTextDialog {
         TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
+        clearButton.setPadding(margin, 0, margin, 0);
 
         final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
         searchLayout.addView(clearButton, clearLp);
 
         return searchLayout;

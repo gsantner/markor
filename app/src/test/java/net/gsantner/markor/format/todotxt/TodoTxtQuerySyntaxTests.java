@@ -18,22 +18,24 @@ public class TodoTxtQuerySyntaxTests {
     }
 
     @Test
-    public void EvaluateExpression() {
-        assertThat(TodoTxtFilter.shuntingYard(strip("T"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("F"))).isEqualTo(false);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!T"))).isEqualTo(false);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!F"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!(F)"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("(!F)"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("(!(F))"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!(!(F))"))).isEqualTo(false);
-        assertThat(TodoTxtFilter.shuntingYard(strip("T | F"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("T & F"))).isEqualTo(false);
-        assertThat(TodoTxtFilter.shuntingYard(strip("T | T | T | T | F"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("F | F | F | F | T"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!(T | F) & (T | F)"))).isEqualTo(false);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!(T | F) | (T | F)"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!(T | F | F) & (T | F) | (F & (!T) | T)"))).isEqualTo(true);
-        assertThat(TodoTxtFilter.shuntingYard(strip("!!!!!!F"))).isEqualTo(false);
+    public void EvaluateExpressionTest() {
+        assertThat(TodoTxtFilter.evaluateExpression(strip("T"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("F"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!T"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!F"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!(F)"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("(!F)"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("(!(F))"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!(!(F))"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("T | F"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("T & F"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("T | T | T | T | F"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("F | F | F | F | T"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!(T | F) & (T | F)"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!(T | F) | (T | F)"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!(T | F | F) & (T | F) | (F & (!T) | T)"))).isEqualTo(true);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("!!!!!!F"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("T | T | T & F"))).isEqualTo(false);
+        assertThat(TodoTxtFilter.evaluateExpression(strip("F & F & F | T & T"))).isEqualTo(true);
     }
 }

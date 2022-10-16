@@ -141,7 +141,8 @@ public class TodoTxtFilter {
             }
         }
 
-        return String.join(isAnd ? " & " : " | ", adjusted);
+        // We don't include done tasks by default
+        return String.join(isAnd ? " and " : " or ", adjusted) + " and not done";
     }
 
     public static void saveFilter(final Context context, final String title, final String query) {
@@ -225,7 +226,7 @@ public class TodoTxtFilter {
         try {
             final String processed = preProcess(query);
             final CharSequence expression = parseQuery(task, processed);
-            final boolean accept = shuntingYard(expression);
+            final boolean accept = evaluateExpression(expression);
             return accept;
         } catch (EmptyStackException e) {
             return false;
@@ -241,8 +242,10 @@ public class TodoTxtFilter {
                 .replace(" OR ", " | ")
                 .replace(" or ", " | ")
                 .replace("||", "|")
-                .replaceAll("([( ])NOT ", "$1| ")
-                .replaceAll("([( ])not ", "$1| ")
+                .replaceAll("(\\(|\\s)NOT ", "$1! ")
+                .replaceAll("(\\(|\\s)not ", "$1! ")
+                .replace(" NOT ", " ! ")
+                .replace(" not ", " ! ")
                 .replace(" ", "");
     }
 
@@ -317,69 +320,60 @@ public class TodoTxtFilter {
         return result ? 'T' : 'F';
     }
 
-    // Shunting yard expression evaluator
+    // Expression evaluator
     // ---------------------------------------------------------------------------------------------
 
-    // Is the top operation in the stack higher precedence that op
-    private static boolean stackIsHigher(final Stack<Character> ops, final char op) {
-        if (ops.isEmpty()) {
-            return false;
-        }
-
-        if (op == '!') {
-            return false;
-        } else if (op == '&') {
-            return ops.peek() == '!';
-        } else {
-            return ops.peek() != '('; // Everything is higher than OR
-        }
+    private static boolean isStart(final Stack<Character> stack) {
+        return stack.isEmpty() || stack.peek() == '(';
     }
 
-    // Evaluate the top operator in the stack, pushing the result back into the stack
-    private static void evalTop(final Stack<Character> ops, final Stack<Boolean> values) {
-        // Remove operands from stack
-        final char op = ops.pop();
-        if (op == '!') {
-            values.push(!values.pop());
-        } else if (op == '|') {
-            values.push(values.pop() | values.pop());
-        } else if (op == '&') {
-            values.push(values.pop() & values.pop());
+    public static boolean isValue(final Stack<Character> stack) {
+        if (!stack.isEmpty()) {
+            final char top = stack.peek();
+            return top == 'T' || top == 'F';
         }
+        return false;
     }
 
-    /**
-     * An implementation of the shunting yard expression evaluator for boolean expressions
-     * i.e. evaluate expressions of the form `T | F & !(T | F)` etc etc
-     *
-     * @param expression String expression to evaluate
-     * @return whether the expression evaluates to True or False (error = false)
-     */
-    @VisibleForTesting
-    public static boolean shuntingYard(final CharSequence expression) {
-        final Stack<Character> ops = new Stack<>();
-        final Stack<Boolean> values = new Stack<>();
-        for (int i = 0; i < expression.length(); i++) {
-            final char symbol = expression.charAt(i);
+    private static char toChar(final boolean v) {
+        return v ? 'T' : 'F';
+    }
 
-            if (symbol == '(') {
-                ops.push(symbol);
-            } else if (isOperator(symbol)) {
-                // Evaluate per precedence
-                while (stackIsHigher(ops, symbol)) evalTop(ops, values);
-                ops.push(symbol);
-            } else if (symbol == 'T' || symbol == 'F') {
-                values.push(symbol == 'T');
-            } else if (symbol == ')') {
-                while (!ops.isEmpty() && ops.peek() != '(') evalTop(ops, values);
-                if (!ops.isEmpty() && ops.pop() != '(') {
-                    return false; // Should be at beginning or open paren
-                }
+    public static void evaluateOperations(final Stack<Character> stack) {
+        while (!isStart(stack) && isValue(stack)) {
+            final char rhs = stack.pop();
+            if (isStart(stack)) {
+                stack.push(rhs);
+                return;
+            }
+            final char op = stack.pop();
+            if (op == '|') {
+                stack.push(toChar(stack.pop() == 'T' | rhs == 'T'));
+            } else if (op == '&') {
+                stack.push(toChar(stack.pop() == 'T' & rhs == 'T'));
+            } else if (op == '!') {
+                stack.push(toChar(rhs == 'F'));
             } else {
-                return false; // We have an unexpected symbol
+                return;
             }
         }
-        while (!ops.isEmpty()) evalTop(ops, values);
-        return (values.size() == 1) && values.pop();
+    }
+
+    public static boolean evaluateExpression(final CharSequence expression) {
+        final Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < expression.length(); i++) {
+            final char c = expression.charAt(i);
+            if (c == ')') {
+                final char value = stack.pop();
+                if (stack.pop() != '(') {
+                    return false; // Bad expression
+                }
+                stack.push(value);
+            } else {
+                stack.push(c);
+            }
+            evaluateOperations(stack);
+        }
+        return stack.size() == 1 && stack.pop() == 'T';
     }
 }
