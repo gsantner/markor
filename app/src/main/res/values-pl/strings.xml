@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Czcionka edytora</string>
     <string name="theme">Motyw</string>
     <string name="open_existing_files_in_view_mode">Otwieraj pliki w trybie podglądu</string>
-    <string name="about">Informacje</string>
+    <string name="about">O aplikacji</string>
     <string name="plaintext">Zwykły tekst</string>
     <string name="file">Plik</string>
     <string name="image">Obraz</string>
@@ -78,7 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">Więcej informacji</string>
     <string name="show_license_of_the_app">Pokaż licencje aplikacji</string>
     <string name="show_third_party_licenses">Pokaż licencje dzieł osób trzecich</string>
-    <string name="language_change_restart_description">Zmienia język aplikacji. Zrestartuj żeby wprowadzić zmiany</string>
+    <string name="language_change_restart_description">Zmień język aplikacji. Uruchom ponownie aplikację, aby zobaczyć zmiany</string>
     <string name="language">Język</string>
     <string name="error_need_storage_permission_to_save_documents">Potrzebuję dostępu do pamięci, żeby zapisywać dokumenty</string>
     <string name="open_with">Otwórz za pomocą</string>
@@ -211,14 +211,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="clipboard">Schowek</string>
     <string name="select_existing_document">Wybierz istniejący dokument</string>
     <string name="open_source_licenses">Otwarto Źródłowo Bibloteki</string>
-    <string name="rate_this_app">Oceń tę aplikację</string>
-    <string name="translate">Tłumacz</string>
+    <string name="rate_this_app">Oceń tą aplikację</string>
+    <string name="translate">Przetłumacz</string>
     <string name="more_info_and_help">Więcej informacji i pomoc</string>
     <string name="report_bugs">Zgłoś błąd</string>
     <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Więcej informacji o wspomaganiu dewelopera, lub współtworzeniu do tego projektu.</string>
     <string name="join_community">Dołącz do Społeczności</string>
     <string name="bug_reports_suggest_improvements">Zostaw ocenę, zgłoś błędy lub zaproponuj poprawki</string>
-    <string name="help_translating_this_app">Przetłumacz tę aplikację na inne języki</string>
+    <string name="help_translating_this_app">Przetłumacz tą aplikację na inne języki</string>
     <string name="source_code">Kod Źródłowy</string>
     <string name="project_license">Licencja Projektu</string>
     <string name="contribute_code_to_this_project_anybody_welcome">Współtwórz kod projektu. Każdy może to zrobić w tym nowicjusze</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Udostępnij - Format</string>
     <string name="auto_format">Automatyczny format</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="error_could_not_open_file">Błąd: Nie można otworzyć.</string>
     <string name="document_error_clip">Wystąpił błąd: Tekst skopiowany do schowka.</string>
 </resources>
