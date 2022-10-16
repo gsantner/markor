@@ -438,6 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partajare în - Format</string>
     <string name="auto_format">Format automat</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Eroare: Nu s-a putut deschide.</string>
+    <string name="error_could_not_open_file">Eroare: Nu s-a putut deschide.</string>
     <string name="document_error_clip">Eroare întâlnită: textul a fost copiat în clipboard.</string>
 </resources>

@@ -20,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -72,20 +73,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
-    public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final boolean preview) {
+    public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
         DocumentEditAndViewFragment f = new DocumentEditAndViewFragment();
         Bundle args = new Bundle();
         args.putSerializable(Document.EXTRA_DOCUMENT, document);
         if (lineNumber != null) {
             args.putInt(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
-        args.putBoolean(START_PREVIEW, preview);
+        if (preview != null) {
+            args.putBoolean(START_PREVIEW, preview);
+        }
         f.setArguments(args);
         return f;
-    }
-
-    public static DocumentEditAndViewFragment newInstance(final @NonNull File path, final Integer lineNumber) {
-        return newInstance(new Document(path), lineNumber, false);
     }
 
     private HighlightingEditor _hlEditor;
@@ -150,7 +149,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // It may cause reads or writes to _silently fail_
         // Instead we try to create it, and exit if that isn't possible
         if (isStateBad()) {
-            Toast.makeText(activity, R.string.document_error_exit, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             activity.finish();
             return;
         }
@@ -194,7 +193,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
-        _hlEditor.setScrollView(_primaryScrollView);
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
@@ -234,6 +232,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+
     }
 
     @Override
@@ -358,15 +357,24 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public boolean loadDocument() {
+        return loadDocument(false);
+    }
+
+    public boolean loadDocument(final boolean forceReload) {
         if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
 
-        // Only trigger the load process if constructing or file updated
-        if (_document.hasFileChangedSinceLastLoad()) {
+        // Only trigger the load process if constructing or file updated or force reload
+        if (forceReload || _document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
+            if (content == null) {
+                errorClipText();
+                return false;
+            }
+
             if (!_document.isContentSame(_hlEditor.getText())) {
 
                 final int[] sel = TextViewUtils.getSelection(_hlEditor);
@@ -427,7 +435,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_reload: {
-                if (loadDocument()) {
+                if (loadDocument(true)) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -652,6 +660,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
 
+            final boolean hlEnabled = _hlEditor.getHighlightingEnabled();
+            _hlEditor.setHighlightingEnabled(false);
+
             _primaryScrollView.removeAllViews();
             if (_hsView != null) {
                 _hsView.removeAllViews();
@@ -667,8 +678,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _primaryScrollView.addView(_hlEditor);
             }
 
+            _hlEditor.setHighlightingEnabled(hlEnabled);
+
             // Run after layout() of immediate parent completes
-            (wrap ? _primaryScrollView : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel[0], sel[1]));
+            (wrap ? _primaryScrollView : _hsView).post(() -> TextViewUtils.setSelectionAndShow(_hlEditor, sel));
         }
     }
 
@@ -683,8 +696,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             Context context = getContext();
             context = context == null ? ApplicationObject.get().getApplicationContext() : context;
             new MarkorContextUtils(context).setClipboard(getContext(), text);
-            Toast.makeText(getContext(), R.string.document_error_clip, Toast.LENGTH_LONG).show();
         }
+        // Always show error message
+        Toast.makeText(getContext(), R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+        Log.i(DocumentEditAndViewFragment.class.getName(), "Triggering error text clipping");
     }
 
     public boolean isSdStatusBad() {

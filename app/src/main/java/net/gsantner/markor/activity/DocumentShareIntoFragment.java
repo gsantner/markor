@@ -30,7 +30,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
-import net.gsantner.markor.format.todotxt.TodoTxtParser;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
@@ -197,10 +197,15 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final String shareIntoFormat = _cu.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
 
-            final String newContent = document.loadContent(context).replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
-                    + separator
-                    + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
-            document.saveContent(context, newContent);
+            final String oldContent = document.loadContent(context);
+            if (oldContent != null) {
+                final String newContent = oldContent.replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
+                        + separator
+                        + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
+                document.saveContent(context, newContent);
+            } else {
+                Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+            }
 
             if (showEditor) {
                 showInDocumentActivity(document);
@@ -262,10 +267,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }, getFragmentManager(), getActivity());
         }
 
-        private void showInDocumentActivity(Document document) {
+        private void showInDocumentActivity(final Document document) {
             if (getActivity() instanceof DocumentActivity) {
                 DocumentActivity a = (DocumentActivity) getActivity();
-                a.showTextEditor(document, null, false);
+                a.showTextEditor(document, null, null);
             }
         }
 
@@ -311,7 +316,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     if (permc.doIfExtStoragePermissionGranted()) {
                         String sep = "\n";
                         if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
-                            sep += TodoTxtParser.getToday() + " ";
+                            sep += TodoTxtTask.getToday() + " ";
                         }
                         appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
                         close = true;

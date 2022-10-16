@@ -26,7 +26,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TodoTxtParser {
+public class TodoTxtTask {
 
     //
     // Static memebers
@@ -69,63 +69,63 @@ public class TodoTxtParser {
                 || TODOTXT_FILE_PATTERN.matcher(filepath).matches() && (filepath.endsWith(".txt") || filepath.endsWith(".text")));
     }
 
-    public static List<TodoTxtParser> getTasks(final CharSequence text, final int selStart, final int selEnd) {
+    public static List<TodoTxtTask> getTasks(final CharSequence text, final int selStart, final int selEnd) {
         final String[] lines = text.subSequence(
                 TextViewUtils.getLineStart(text, selStart),
                 TextViewUtils.getLineEnd(text, selEnd)
         ).toString().split("\n");
 
-        final List<TodoTxtParser> tasks = new ArrayList<>();
+        final List<TodoTxtTask> tasks = new ArrayList<>();
         for (final String line : lines) {
-            tasks.add(new TodoTxtParser(line));
+            tasks.add(new TodoTxtTask(line));
         }
         return tasks;
     }
 
-    public static List<TodoTxtParser> getSelectedTasks(final TextView view) {
+    public static List<TodoTxtTask> getSelectedTasks(final TextView view) {
         final int[] sel = TextViewUtils.getSelection(view);
         return getTasks(view.getText(), sel[0], sel[1]);
     }
 
-    public static List<TodoTxtParser> getAllTasks(final CharSequence text) {
+    public static List<TodoTxtTask> getAllTasks(final CharSequence text) {
         return getTasks(text, 0, text.length());
     }
 
-    public static List<String> getProjects(final List<TodoTxtParser> tasks) {
+    public static List<String> getProjects(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
-        for (final TodoTxtParser task : tasks) {
+        for (final TodoTxtTask task : tasks) {
             set.addAll(task.getProjects());
         }
         return new ArrayList<>(set);
     }
 
-    public static List<String> getContexts(final List<TodoTxtParser> tasks) {
+    public static List<String> getContexts(final List<TodoTxtTask> tasks) {
         final TreeSet<String> set = new TreeSet<>();
-        for (final TodoTxtParser task : tasks) {
+        for (final TodoTxtTask task : tasks) {
             set.addAll(task.getContexts());
         }
         return new ArrayList<>(set);
     }
 
-    public static List<Character> getPriorities(final List<TodoTxtParser> tasks) {
+    public static List<Character> getPriorities(final List<TodoTxtTask> tasks) {
         final TreeSet<Character> set = new TreeSet<>();
-        for (final TodoTxtParser task : tasks) {
+        for (final TodoTxtTask task : tasks) {
             set.add(task.getPriority());
         }
         return new ArrayList<>(set);
     }
 
-    public static List<TodoDueState> getDueStates(final List<TodoTxtParser> tasks) {
+    public static List<TodoDueState> getDueStates(final List<TodoTxtTask> tasks) {
         final TreeSet<TodoDueState> set = new TreeSet<>();
-        for (final TodoTxtParser task : tasks) {
+        for (final TodoTxtTask task : tasks) {
             set.add(task.getDueStatus());
         }
         return new ArrayList<>(set);
     }
 
-    public static String tasksToString(final List<TodoTxtParser> tasks) {
+    public static String tasksToString(final List<TodoTxtTask> tasks) {
         StringBuilder builder = new StringBuilder();
-        for (TodoTxtParser task : tasks) {
+        for (TodoTxtTask task : tasks) {
             builder.append(task.getLine());
             builder.append('\n');
         }
@@ -150,7 +150,7 @@ public class TodoTxtParser {
     private String description = null;
     private TodoDueState dueStatus = null;
 
-    public TodoTxtParser(final String line) {
+    public TodoTxtTask(final String line) {
         this.line = line;
     }
 
@@ -276,12 +276,12 @@ public class TodoTxtParser {
     }
 
     // Sort tasks array and return it. Changes input array.
-    public static List<TodoTxtParser> sortTasks(List<TodoTxtParser> tasks, final String orderBy, final boolean descending) {
+    public static List<TodoTxtTask> sortTasks(List<TodoTxtTask> tasks, final String orderBy, final boolean descending) {
         Collections.sort(tasks, new SttTaskSimpleComparator(orderBy, descending));
         return tasks;
     }
 
-    public static class SttTaskSimpleComparator implements Comparator<TodoTxtParser> {
+    public static class SttTaskSimpleComparator implements Comparator<TodoTxtTask> {
         private final String _orderBy;
         private final boolean _descending;
 
@@ -299,7 +299,7 @@ public class TodoTxtParser {
         }
 
         @Override
-        public int compare(final TodoTxtParser x, final TodoTxtParser y) {
+        public int compare(final TodoTxtTask x, final TodoTxtTask y) {
 
             // Always push done tasks to the bottom. Note ascending is small -> big.
             final int doneCompare = Integer.compare(x.isDone() ? 1 : 0, y.isDone() ? 1 : 0);
@@ -360,7 +360,7 @@ public class TodoTxtParser {
             return Integer.compare(xi, yi);
         }
 
-        private int compareDone(final TodoTxtParser a, TodoTxtParser b) {
+        private int compareDone(final TodoTxtTask a, TodoTxtTask b) {
             return Integer.compare(a.isDone() ? 1 : 0, b.isDone() ? 1 : 0);
         }
 

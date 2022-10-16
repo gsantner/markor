@@ -107,11 +107,13 @@ public abstract class SyntaxHighlighterBase {
     public static class SpanGroup implements Comparable<SpanGroup> {
         int start, end;
         final Object span;
+        final boolean isStatic;
 
         SpanGroup(Object o, int s, int e) {
             span = o;
             start = s;
             end = e;
+            isStatic = o instanceof UpdateLayout;
         }
 
         @Override
@@ -127,7 +129,8 @@ public abstract class SyntaxHighlighterBase {
     private final ForceUpdateLayout _layoutUpdater;
 
     private final List<SpanGroup> _groups;
-    private final NavigableSet<Integer> _applied;
+    private final NavigableSet<Integer> _appliedDynamic;
+    private boolean _staticApplied = false;
 
     protected Spannable _spannable;
     protected final AppSettings _appSettings;
@@ -135,28 +138,54 @@ public abstract class SyntaxHighlighterBase {
     public SyntaxHighlighterBase(final AppSettings as) {
         _appSettings = as;
         _groups = new ArrayList<>();
-        _applied = new TreeSet<>();
+        _appliedDynamic = new TreeSet<>();
 
         _layoutUpdater = new ForceUpdateLayout();
     }
 
     // ---------------------------------------------------------------------------------------------
 
+    public SyntaxHighlighterBase clearAll() {
+        return clearDynamic().clearStatic();
+    }
+
     /**
-     * Removes all spans applied by this highlighter to the currently set spannable
+     * Removes all dynamic spans applied by this highlighter to the currently set spannable
      *
      * @return this
      */
-    public synchronized SyntaxHighlighterBase clear() {
+    public synchronized SyntaxHighlighterBase clearDynamic() {
         if (_spannable == null) {
             return this;
         }
 
-        final Iterator<Integer> it = _applied.descendingIterator();
+        final Iterator<Integer> it = _appliedDynamic.descendingIterator();
         while (it.hasNext()) {
             _spannable.removeSpan(_groups.get(it.next()).span);
         }
-        _applied.clear();
+        _appliedDynamic.clear();
+
+        return this;
+    }
+
+    /**
+     * Removes all static spans applied by this highlighter to the currently set spannable
+     *
+     * @return this
+     */
+    public synchronized SyntaxHighlighterBase clearStatic() {
+        if (_spannable == null) {
+            return this;
+        }
+
+        for (int i = _groups.size() - 1; i >= 0; i--) {
+            final SpanGroup group = _groups.get(i);
+            if (group.isStatic) {
+                _spannable.removeSpan(group.span);
+            }
+        }
+
+        _staticApplied = false;
 
         return this;
     }
@@ -171,7 +200,7 @@ public abstract class SyntaxHighlighterBase {
     public synchronized SyntaxHighlighterBase setSpannable(@Nullable final Spannable spannable) {
         if (spannable != _spannable) {
             _groups.clear();
-            _applied.clear();
+            _appliedDynamic.clear();
             _spannable = spannable;
         }
 
@@ -186,7 +215,6 @@ public abstract class SyntaxHighlighterBase {
     public boolean hasSpans() {
         return _spannable != null && _groups.size() > 0;
     }
-
 
     /**
      * Helper to change spans in 'onTextChanged'
@@ -219,8 +247,12 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
-    public SyntaxHighlighterBase apply() {
-        return apply(new int[]{0, _spannable.length()});
+    public SyntaxHighlighterBase applyAll() {
+        return applyDynamic().applyStatic();
+    }
+
+    public SyntaxHighlighterBase applyDynamic() {
+        return applyDynamic(new int[]{0, _spannable.length()});
     }
 
     /**
@@ -228,7 +260,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public synchronized SyntaxHighlighterBase apply(final int[] range) {
+    public synchronized SyntaxHighlighterBase applyDynamic(final int[] range) {
         if (_spannable == null) {
             return this;
         }
@@ -241,17 +273,38 @@ public abstract class SyntaxHighlighterBase {
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
+            if (group.isStatic) {
+                continue;
+            }
+
             if (group.start >= range[1]) {
                 // As we are sorted on start, we can break out after the first group.start > end
                 break;
             }
 
             final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
-            if (valid && !_applied.contains(i)) {
+            if (valid && !_appliedDynamic.contains(i)) {
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                _applied.add(i);
+                _appliedDynamic.add(i);
             }
         }
+
+        return this;
+    }
+
+    public synchronized SyntaxHighlighterBase applyStatic() {
+        if (_spannable == null || _staticApplied) {
+            return this;
+        }
+
+        for (int i = 0; i < _groups.size(); i++) {
+            final SpanGroup group = _groups.get(i);
+            if (group.isStatic) {
+                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+
+        _staticApplied = true;
 
         return this;
     }
@@ -277,7 +330,8 @@ public abstract class SyntaxHighlighterBase {
      */
     public synchronized final SyntaxHighlighterBase recompute() {
         _groups.clear();
-        _applied.clear();
+        _appliedDynamic.clear();
+        _staticApplied = false;
 
         if (TextUtils.isEmpty(_spannable)) {
             return this;

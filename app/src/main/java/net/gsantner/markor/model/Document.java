@@ -19,6 +19,7 @@ import android.util.Pair;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
@@ -149,6 +150,16 @@ public class Document implements Serializable {
         return _file.lastModified();
     }
 
+    public long fileBytes() {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).size();
+            }
+        } catch (Exception ignored) {
+        }
+        return _file.length();
+    }
+
     public String getTitle() {
         return _title;
     }
@@ -198,15 +209,16 @@ public class Document implements Serializable {
     }
 
     private void setContentHash(final CharSequence s) {
-        _lastLength = s.length();
-        _lastHash = GsFileUtils.crc32(s);
+        _lastLength = s != null ? s.length() : 0;
+        _lastHash = s != null ? GsFileUtils.crc32(s) : 0;
     }
 
     public boolean isContentSame(final CharSequence s) {
         return s != null && s.length() == _lastLength && _lastHash == GsFileUtils.crc32(s);
     }
 
-    public synchronized String loadContent(final Context context) {
+    public synchronized @Nullable
+    String loadContent(final Context context) {
         String content;
         final char[] pw;
 
@@ -229,7 +241,12 @@ public class Document implements Serializable {
                 content = "";
             }
         } else {
-            final Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
+            // We try to load 2x. If both times fail, we return null
+            Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
+            if (result.second.ioError) {
+                Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, trying again.");
+                result = GsFileUtils.readTextFileFast(_file);
+            }
             content = result.first;
             _fileInfo = result.second;
         }
@@ -240,16 +257,23 @@ public class Document implements Serializable {
                             + getName().replaceAll(".*\\.", "-")
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
-                            "). Language >" + Locale.getDefault().toString()
+                            "). Language >" + Locale.getDefault()
                             + "<, Language override >" + ApplicationObject.settings().getLanguage() + "<");
         }
 
-        // Also set hash and time on load - should prevent unnecessary saves
-        setContentHash(content);
-        _modTime = fileModTime();
-        setGlobalTouchTime();
-
-        return content;
+        if (_fileInfo != null && _fileInfo.ioError) {
+            // Force next load on failure
+            setContentHash(null);
+            resetChangeTracking();
+            Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, could not load file.");
+            return null;
+        } else {
+            // Also set hash and time on load - should prevent unnecessary saves
+            setContentHash(content);
+            _modTime = fileModTime();
+            setGlobalTouchTime();
+            return content;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -326,13 +350,25 @@ public class Document implements Serializable {
                         if (isContentResolverProxyFile) {
                             GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        Log.i(Document.class.toString(), e.getMessage());
                     }
                 });
                 success = true;
             } else {
+                // Try write 2x
                 success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                if (!success || fileBytes() < contentAsBytes.length) {
+                    success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                }
             }
+
+            final long size = fileBytes();
+            if (fileBytes() < contentAsBytes.length) {
+                success = false;
+                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length + "; file=" + _file);
+            }
+
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
             Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
@@ -343,6 +379,8 @@ public class Document implements Serializable {
             setContentHash(content);
             _modTime = fileModTime();
             setGlobalTouchTime();
+        } else {
+            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes() + "; file=" + _file);
         }
 
         return success;

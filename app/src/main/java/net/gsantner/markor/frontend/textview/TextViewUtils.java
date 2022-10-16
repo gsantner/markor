@@ -109,21 +109,6 @@ public final class TextViewUtils extends GsTextUtils {
         return -1;
     }
 
-    public static boolean isNullOrWhitespace(final String str) {
-        if (str == null || str.isEmpty()) {
-            return true;
-        }
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (!Character.isWhitespace(ch)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public static int[] getSelection(final TextView text) {
         return getSelection(text.getText());
     }
@@ -334,16 +319,22 @@ public final class TextViewUtils extends GsTextUtils {
         text.post(() -> text.requestRectangleOnScreen(region));
     }
 
-    public static void setSelectionAndShow(final EditText edit, final int start, final int... end) {
-        final int _end = end != null && end.length > 0 ? end[0] : start;
-        if (inRange(0, edit.length(), start, _end)) {
+    public static void setSelectionAndShow(final EditText edit, final int... sel) {
+        if (sel == null || sel.length == 0) {
+            return;
+        }
+
+        final int start = sel[0];
+        final int end = sel.length > 1 ? sel[1] : start;
+
+        if (inRange(0, edit.length(), start, end)) {
             edit.post(() -> {
                 if (!edit.hasFocus()) {
                     edit.requestFocus();
                 }
 
-                edit.setSelection(start, _end);
-                edit.post(() -> showSelection(edit, start, _end));
+                edit.setSelection(start, end);
+                edit.post(() -> showSelection(edit, start, end));
             });
         }
     }
@@ -617,20 +608,10 @@ public final class TextViewUtils extends GsTextUtils {
         return () -> {
             synchronized (sync) {
                 _handler.removeCallbacks(callback);
-                _handler.postDelayed(callback, delayMs);
-            }
-        };
-    }
-
-    public static Runnable blockReentry(final Runnable callback) {
-        final boolean[] block = new boolean[]{false};
-        return () -> {
-            if (!block[0]) {
-                try {
-                    block[0] = true;
-                    callback.run();
-                } finally {
-                    block[0] = false;
+                if (delayMs > 0) {
+                    _handler.postDelayed(callback, delayMs);
+                } else {
+                    _handler.post(callback);
                 }
             }
         };

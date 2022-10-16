@@ -38,7 +38,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="120dp"
+            android:paddingBottom="@dimen/editor_bottom_margin"
             android:scrollbars="none"
             android:textCursorDrawable="@drawable/cursor_accent" />
 
@@ -59,19 +59,6 @@
             android:background="@color/textActionBarColor"
             android:orientation="horizontal" />
     </HorizontalScrollView>
-
-    <TextView
-        android:id="@+id/document__fragment__edit__content_editor__permission_warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#F8D507"
-        android:minHeight="@dimen/textactions_bar_height"
-        android:padding="12dp"
-        android:text="@string/warning_disallowed_sd_access"
-        android:textColor="@color/primary_text"
-        android:textStyle="bold"
-        android:visibility="gone" />
 
     <net.gsantner.markor.web.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
