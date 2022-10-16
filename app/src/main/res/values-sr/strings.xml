@@ -21,10 +21,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="info">Инфо</string>
     <string name="share">Подели</string>
     <string name="search">тражи</string>
-    <string name="editor">Уређивач</string>
+    <string name="editor">Uređivač</string>
     <string name="about">О програму</string>
     <string name="image">Слика</string>
-    <string name="create">Направи</string>
+    <string name="create">Napravi</string>
     <string name="contributors">Сарадници</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Дневник измена</string>
