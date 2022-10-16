@@ -49,7 +49,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_editor_font">Шрифт редактора нотаток</string>
     <string name="theme">Тема</string>
     <string name="open_existing_files_in_view_mode">Відкривати наявні файли в режимі перегляду</string>
-    <string name="about">Про Markor</string>
+    <string name="about">Про нас</string>
     <string name="plaintext">Звичайний текст</string>
     <string name="file">Файл</string>
     <string name="image">Зображення</string>
@@ -70,11 +70,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="url_or_path">URL / Шлях</string>
     <string name="insert_link">Вставити посилання</string>
     <string name="insert_image">Вставити зображення</string>
-    <string name="contributors">Автори</string>
+    <string name="contributors">Учасники</string>
     <string name="save_location">Розташування сховища</string>
     <string name="select_storage_folder">Обрати робочу директорію</string>
     <string name="licenses">Ліцензії</string>
-    <string name="changelog">Перелік змін</string>
+    <string name="changelog">Журнал змін</string>
     <string name="more_info">Детальніше</string>
     <string name="show_license_of_the_app">Показати ліцензію додатку</string>
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
@@ -94,7 +94,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Вийти</string>
     <string name="undo">Скасувати</string>
     <string name="redo">Повернути</string>
-    <string name="more">Ще</string>
+    <string name="more">Більше</string>
     <string name="notebook">Записник</string>
     <string name="help">Допомога</string>
     <string name="todo_list">Список завдань</string>
@@ -220,10 +220,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
     <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
     <string name="source_code">Вихідний код</string>
-    <string name="project_license">Ліцензія проєкту</string>
-    <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проєкту. Запрошуются всі охочі, разом із новачками</string>
-    <string name="project_team">Команда проєкту</string>
-    <string name="contributors_public_add_yourself_description">Показати інформацію про учасників. Ви можете додати сюди інформацію про себе, якщо зробили внесок до проєкту</string>
+    <string name="project_license">Ліцензія проекту</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Зробити внесок у код проекту. Запрошуются всі охочі, разом із новачками</string>
+    <string name="project_team">Команда проекту</string>
+    <string name="contributors_public_add_yourself_description">Показати інформацію про учасників проекту, що зробили внесок та побажали бути доданими до цього списку</string>
     <string name="descending">за спаданням</string>
     <string name="ascending">за зростанням</string>
     <string name="disable_spelling_underline">Вимкнути перевірку орфографії</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поділитися у форматі - Формат</string>
     <string name="auto_format">Автоматичний формат</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="error_could_not_open_file">Помилка: Не вдалося відкрити.</string>
     <string name="document_error_clip">Помилка виявлення: текст скопійовано до буфера обміну.</string>
 </resources>

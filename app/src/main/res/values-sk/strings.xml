@@ -83,6 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_need_storage_permission_to_save_documents">Potrebujem povolenie prístupu k úložisku pre ukladanie dokumentov</string>
     <string name="open_with">Otvoriť použitím</string>
     <string name="sort_by">Zoradiť podľa</string>
+    <string name="deleteme____1">Názov</string>
     <string name="add_task">Pridaj ulohu</string>
     <string name="add_x_witharg">Pridaj %s</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>

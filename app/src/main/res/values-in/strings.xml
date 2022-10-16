@@ -10,7 +10,7 @@ You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="settings">Setelan</string>
+    <string name="settings">Preferensi</string>
     <string name="light">Terang</string>
     <string name="dark">Gelap</string>
     <string name="delete">Hapus</string>
@@ -40,7 +40,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share">Bagikan</string>
     <string name="search">Cari</string>
     <string name="display_converted_markup">Tampilkan markup terkonversi</string>
-    <string name="editor">Editor</string>
+    <string name="editor">Laman Pengubahan</string>
     <string name="folders">Folder</string>
     <string name="files">File</string>
     <string name="document">Dokumen</string>
@@ -231,7 +231,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="details">Detail</string>
     <string name="calendar">Kalender</string>
     <string name="warning_disallowed_sd_access">Peringatan! Aplikasi ini tidak memiliki izin untuk menyimpan file ini, semua perubahan akan hilang. Tidak ada kemungkinan untuk menyelesaikan masalah atau untuk mengonfirmasi sesuatu, Android menolak akses apa pun di sini.</string>
-    <string name="error_picture_selection">Tidak ada gambar yang dipilih, diambil atau disimpan.</string>
+    <string name="error_picture_selection">Tidak ada gambar yang dipilih.</string>
     <string name="gallery_picture">Gambar galeri</string>
     <string name="camera_picture">Foto kamera</string>
     <string name="enable_undo_and_redo_be_patient">Aktifkan tindakan undo dan redo. Hanya cocok untuk penggunaan lanjutan, bersabarlah untuk tidak menghapus sesuatu yang penting. Tutup dan buka editor untuk menghapus riwayat.</string>
