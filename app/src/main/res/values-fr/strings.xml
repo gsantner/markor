@@ -74,7 +74,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="save_location">Enregistrer la localisation</string>
     <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
     <string name="licenses">Licences</string>
-    <string name="changelog">Nouveautés de l\'application</string>
+    <string name="changelog">Nouveautés</string>
     <string name="more_info">Plus d\'informations</string>
     <string name="show_license_of_the_app">Afficher la licence de l\'application</string>
     <string name="show_third_party_licenses">Montrer les licences tierces</string>
@@ -228,7 +228,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="ascending">croissant</string>
     <string name="disable_spelling_underline">Désactiver le soulignement des fautes</string>
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Les suggestions du clavier restent, les soulignements rouges disparaissent</string>
-    <string name="location">Stocké dans</string>
+    <string name="location">Emplacement</string>
     <string name="text_lines">Nombre de lignes</string>
     <string name="text_characters">Nombre de caractères</string>
     <string name="text_words">Mots de texte</string>
@@ -438,6 +438,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partager dans - Format</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_exit">Erreur: Impossible d\'ouvrir.</string>
     <string name="document_error_clip">Erreur rencontrée: Texte copié dans le presse-papiers.</string>
 </resources>
