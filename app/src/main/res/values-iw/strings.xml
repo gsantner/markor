@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">תייצג עבור שפות ימין-לשמאל</string>
     <string name="error_cannot_create_notebook_dir__appspecific">שגיאה: לא ניתן ליצור תיקיה</string>
     <string name="last_modified_witharg">עדכון אחרון: %s</string>
+    <string name="last_modified">Last updated</string>
     <string name="select_this_folder">בחר תיקיה זו</string>
     <string name="select">בחר</string>
     <string name="create">צור</string>
