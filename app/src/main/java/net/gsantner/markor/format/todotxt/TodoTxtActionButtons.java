@@ -29,8 +29,6 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsFileUtils;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,7 +37,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
 
-//TODO
 public class TodoTxtActionButtons extends ActionButtonBase {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtActionButtons.class.getCanonicalName() + "_last_sort_order_key";

@@ -12,10 +12,7 @@ package net.gsantner.markor.format.todotxt;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import androidx.annotation.VisibleForTesting;
-
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.opoc.format.GsTextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,10 +20,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Stack;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,21 +57,7 @@ public class TodoTxtTask {
     public static final char PRIORITY_NONE = '~';
 
     public enum TodoDueState {
-        NONE("nodue"),
-        OVERDUE("overdue"),
-        TODAY("today"),
-        FUTURE("future")
-        ;
-
-        private final String value;
-        TodoDueState(final String text) {
-            value = text;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
+        NONE, OVERDUE, TODAY, FUTURE
     }
 
     public static String getToday() {
@@ -245,7 +226,7 @@ public class TodoTxtTask {
     public TodoDueState getDueStatus() {
         if (dueStatus == null) {
             final String date = getDueDate();
-            if (GsTextUtils.isNullOrEmpty(date)) {
+            if (TextUtils.isEmpty(date)) {
                 dueStatus = TodoDueState.NONE;
             } else {
                 final int comp = date.compareTo(getToday());
@@ -373,31 +354,31 @@ public class TodoTxtTask {
             return difference;
         }
 
-        private static int compareNull(final String x, final String y) {
-            final int xi = GsTextUtils.isNullOrEmpty(x) ? 1 : 0;
-            final int yi = GsTextUtils.isNullOrEmpty(y) ? 1 : 0;
+        private int compareNull(final String x, final String y) {
+            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
+            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 
-        private static int compareDone(final TodoTxtTask a, TodoTxtTask b) {
+        private int compareDone(final TodoTxtTask a, TodoTxtTask b) {
             return Integer.compare(a.isDone() ? 1 : 0, b.isDone() ? 1 : 0);
         }
 
-        private static int compare(final char x, final char y) {
+        private int compare(final char x, final char y) {
             return compare(Character.toString(x), Character.toString(y));
         }
 
-        private static int compare(final String[] x, final String[] y) {
+        private int compare(final String[] x, final String[] y) {
             return compare(Arrays.asList(x), Arrays.asList(y));
         }
 
-        private static int compare(final List<String> x, final List<String> y) {
+        private int compare(final List<String> x, final List<String> y) {
             Collections.sort(x);
             Collections.sort(y);
             return compare(TextUtils.join("", x), TextUtils.join("", y));
         }
 
-        private static int compare(final String x, final String y) {
+        private int compare(final String x, final String y) {
             final int n = compareNull(x, y);
             if (n != 0) {
                 return n;
@@ -405,141 +386,5 @@ public class TodoTxtTask {
                 return x.trim().toLowerCase().compareTo(y.trim().toLowerCase());
             }
         }
-
-    }
-
-    // Query matching
-    // -------------------------------------------------------------------------------------------
-
-    public boolean isMatchQuery(final CharSequence query) {
-        try {
-            final CharSequence expression = parseQuery(query);
-            return shuntingYard(expression);
-        } catch (EmptyStackException e) {
-            return false;
-        }
-    }
-
-    private static boolean isOperator(final char c) {
-        return c == '&' || c == '|' || c == '!';
-    }
-
-    private static boolean isSyntax(final char c) {
-        return c == ' ' || c == '(' || c == ')' || isOperator(c);
-    }
-
-    public static boolean stackIsHigher(final Stack<Character> ops, final char op) {
-        if (ops.isEmpty()) {
-            return false;
-        }
-
-        if (op == '!') {
-            return false;
-        } else if (op == '&') {
-            return ops.peek() == '!';
-        } else {
-            return ops.peek() != '('; // Everything is higher than OR
-        }
-    }
-
-    public static void evalTop(final Stack<Character> ops, final Stack<Boolean> values) {
-        // Remove operands from stack
-        final char op = ops.pop();
-        if (op == '!') {
-            values.push(!values.pop());
-        } else if (op == '|') {
-            values.push(values.pop() | values.pop());
-        } else if (op == '&') {
-            values.push(values.pop() & values.pop());
-        }
-    }
-
-    /**
-     * An implementation of the shunting yard expression evaluator for boolean expressions
-     * i.e. evaluate expressions of the form `T | F & !(T | F)` etc etc
-     *
-     * @param expression String expression to evaluate
-     * @return whether the expression evaluates to True or False (error = false)
-     */
-    @VisibleForTesting
-    public static boolean shuntingYard(final CharSequence expression) {
-        final Stack<Character> ops = new Stack<>();
-        final Stack<Boolean> values = new Stack<>();
-        for (int i = 0; i < expression.length(); i++) {
-            final char symbol = expression.charAt(i);
-            if (symbol == '(') {
-                ops.push(symbol);
-            } else if (isOperator(symbol)) {
-                // Evaluate per precedence
-                while (stackIsHigher(ops, symbol)) evalTop(ops, values);
-                ops.push(symbol);
-            } else if (symbol == 'T' || symbol == 'F') {
-                values.push(symbol == 'T');
-            } else if (symbol == ')') {
-                while(!ops.isEmpty() && ops.peek() != '(') evalTop(ops, values);
-                if (!ops.isEmpty() && ops.pop() != '(') {
-                    return false; // Should be at end or paren
-                }
-            } else {
-                return false; // We have an unexpected symbol
-            }
-        }
-        while(!ops.isEmpty()) evalTop(ops, values);
-        return (values.size() == 1) && values.pop();
-    }
-
-    @VisibleForTesting
-    public String parseQuery(final CharSequence query) {
-        final StringBuilder expression = new StringBuilder();
-        final StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < query.length(); i++) {
-            final char c = query.charAt(i);
-            if (isSyntax(c)) {
-                if (buffer.length() > 0) {
-                    expression.append(evalElement(buffer.toString()) ? 'T' : 'F');
-                    buffer.setLength(0);
-                }
-                expression.append(c);
-            } else {
-                buffer.append(c);
-            }
-        }
-
-        if (buffer.length() > 0) {
-            expression.append(evalElement(buffer.toString()) ? 'T' : 'F');
-        }
-
-        return expression.toString();
-    }
-
-    @VisibleForTesting
-    public boolean evalElement(final String element) {
-
-        // Prioritiy
-        if ((element.length() == 1) && element.matches("[A-Z]")) {
-            return (getPriority() == element.charAt(0));
-        } else if (element.equals("~") || element.equals("nopri") || element.equals("nopriority")) {
-            return getPriority() == PRIORITY_NONE;
-        } else if (element.equals("today") || element.equals("due")) {
-            return getDueStatus() == TodoDueState.TODAY;
-        } else if (element.equals("past") || element.equals("overdue")) {
-            return getDueStatus() == TodoDueState.OVERDUE;
-        } else if (element.equals("future")) {
-            return getDueStatus() == TodoDueState.FUTURE;
-        } else if (element.equals("nodue")) {
-            return getDueStatus() == TodoDueState.NONE;
-        } else if (element.equals("done")) {
-            return isDone();
-        } else if (element.startsWith("@")) {
-            return getContexts().contains(element.substring(1));
-        } else if (element.startsWith("+")) {
-            return getProjects().contains(element.substring(1));
-        } else if (element.equals("nocontext") || element.equals("nocontexts")) {
-            return getContexts().isEmpty();
-        } else if (element.equals("noproject") || element.equals("noprojects")) {
-            return getProjects().isEmpty();
-        }
-
-        return false;
     }
 }

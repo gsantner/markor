@@ -232,6 +232,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+
     }
 
     @Override
