@@ -289,14 +289,6 @@ use explicit text color, when background changes?
         createSpanForMatches(BOLD, new HighlightSpan().setBold(true));
         createSpanForMatches(ITALICS, new HighlightSpan().setItalic(true));
 
-//        createColorSpanForMatches(LINK_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
-//        createColorSpanForMatches(XREF_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
-//        createColorSpanForMatches(IMAGE_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
-//        createColorSpanForMatches(INCLUDE_PATTERN, _isDarkMode ? AD_COLOR_DARK_LINK : AD_COLOR_LIGHT_LINK);
-//        createColorSpanForMatches(LIST_UNORDERED, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
-//        createColorSpanForMatches(LIST_ORDERED, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
-//        createColorSpanForMatches(LIST_DESCRIPTION, _isDarkMode ? AD_COLOR_DARK_LIST : AD_COLOR_LIGHT_LIST);
-
         createSpanForMatches(LINK_PATTERN,
                 new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
                         : AD_FORECOLOR_LIGHT_LINK));
@@ -333,12 +325,6 @@ use explicit text color, when background changes?
                 AD_FORECOLOR_ADMONITION));
         createMonospaceSpanForMatches(ADMONITION);
 
-//        createColorBackgroundSpan(SQUAREBRACKETS,
-//                _isDarkMode ? AD_COLORBACK_DARK_SQUAREBRACKETS : AD_COLORBACK_LIGHT_SQUAREBRACKETS);
-//        createColorBackgroundSpan(BLOCKTITLE,
-//                _isDarkMode ? AD_COLORBACK_DARK_BLOCKTITLE : AD_COLORBACK_LIGHT_BLOCKTITLE);
-//        createColorBackgroundSpan(MONOSPACE,
-//                _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
         createSpanForMatches(SQUAREBRACKETS,
                 new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SQUAREBRACKETS
                         : AD_BACKCOLOR_LIGHT_SQUAREBRACKETS));
@@ -352,69 +338,49 @@ use explicit text color, when background changes?
 
 
         if (_highlightLineEnding) {
-//            createColorBackgroundSpan(HARD_LINE_BREAK,
-//                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
             createSpanForMatches(HARD_LINE_BREAK,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
                             : AD_BACKCOLOR_LIGHT_MONOSPACE));
         }
 
         if (_highlightCodeBlock) {
-//            createColorBackgroundSpan(BLOCK_DELIMITED_LISTING,
-//                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
-//            createColorBackgroundSpan(BLOCK_DELIMITED_LITERAL,
-//                    _isDarkMode ? AD_COLORBACK_DARK_MONOSPACE : AD_COLORBACK_LIGHT_MONOSPACE);
             createSpanForMatches(BLOCK_DELIMITED_LISTING,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
                             : AD_BACKCOLOR_LIGHT_MONOSPACE));
             createSpanForMatches(BLOCK_DELIMITED_LITERAL,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
                             : AD_BACKCOLOR_LIGHT_MONOSPACE));
-//            createColorBackgroundSpan(BLOCK_DELIMITED_QUOTATION,
-//                    _isDarkMode ? AD_COLORBACK_DARK_QUOTE : AD_COLORBACK_LIGHT_QUOTE);
             createSpanForMatches(BLOCK_DELIMITED_QUOTATION,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_QUOTE
                             : AD_BACKCOLOR_LIGHT_QUOTE));
-//            createColorBackgroundSpan(BLOCK_DELIMITED_EXAMPLE,
-//                    _isDarkMode ? AD_COLORBACK_DARK_EXAMPLE : AD_COLORBACK_LIGHT_EXAMPLE);
             createSpanForMatches(BLOCK_DELIMITED_EXAMPLE,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_EXAMPLE
                             : AD_BACKCOLOR_LIGHT_EXAMPLE));
-//            createColorBackgroundSpan(BLOCK_DELIMITED_SIDEBAR,
-//                    _isDarkMode ? AD_COLORBACK_DARK_SIDEBAR : AD_COLORBACK_LIGHT_SIDEBAR);
             createSpanForMatches(BLOCK_DELIMITED_SIDEBAR,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SIDEBAR
                             : AD_BACKCOLOR_LIGHT_SIDEBAR));
-//            createColorBackgroundSpan(BLOCK_DELIMITED_TABLE,
-//                    _isDarkMode ? AD_COLORBACK_DARK_TABLE : AD_COLORBACK_LIGHT_TABLE);
             createSpanForMatches(BLOCK_DELIMITED_TABLE,
                     new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_TABLE
                             : AD_BACKCOLOR_LIGHT_TABLE));
             // Comment: change text color, but not background
-//            createColorSpanForMatches(BLOCK_DELIMITED_COMMENT, _isDarkMode ? AD_COLOR_DARK_COMMENT : AD_COLOR_LIGHT_COMMENT);
             createSpanForMatches(BLOCK_DELIMITED_COMMENT,
                     new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT
                             : AD_FORECOLOR_LIGHT_COMMENT));
         }
 
-//        createColorSpanForMatches(LINE_COMMENT, _isDarkMode ? AD_COLOR_DARK_COMMENT : AD_COLOR_LIGHT_COMMENT);
         createSpanForMatches(LINE_COMMENT,
                 new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT
                         : AD_FORECOLOR_LIGHT_COMMENT));
 //        createColorBackgroundSpan(HIGHLIGHT,
 //                _isDarkMode ? AD_COLORBACK_DARK_HIGHLIGHT : AD_COLORBACK_LIGHT_HIGHLIGHT);
-        createSpanForMatches(LINE_COMMENT,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_HIGHLIGHT
-                        : AD_BACKCOLOR_LIGHT_HIGHLIGHT));
 //        createColorSpanForMatches(HIGHLIGHT, AD_COLOR_HIGHLIGHT);
-        createSpanForMatches(HIGHLIGHT, new HighlightSpan().setForeColor(AD_FORECOLOR_HIGHLIGHT));
-//        createColorBackgroundSpan(ATTRIBUTE_DEFINITION,
-//                _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
+        createSpanForMatches(HIGHLIGHT,
+                new HighlightSpan().setForeColor(AD_FORECOLOR_HIGHLIGHT).setBackColor(
+                        _isDarkMode ? AD_BACKCOLOR_DARK_HIGHLIGHT
+                                : AD_BACKCOLOR_LIGHT_HIGHLIGHT));
         createSpanForMatches(ATTRIBUTE_DEFINITION,
                 new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE
                         : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
-//        createColorBackgroundSpan(ATTRIBUTE_REFERENCE,
-//                _isDarkMode ? AD_COLORBACK_DARK_ATTRIBUTE : AD_COLORBACK_LIGHT_ATTRIBUTE);
         createSpanForMatches(ATTRIBUTE_REFERENCE,
                 new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE
                         : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
