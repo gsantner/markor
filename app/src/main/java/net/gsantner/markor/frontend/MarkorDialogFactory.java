@@ -407,8 +407,10 @@ public class MarkorDialogFactory {
     }
 
     private static void setQueryTitle(final DialogOptions dopt, final String subTitle, final String query) {
+        // Remove the actual title
         dopt.titleText = 0;
-        dopt.messageText = Html.fromHtml(String.format("<h2>%s</h2><small>%s</small>", subTitle, query));
+        // Use a message text with 2 lines and a bold name
+        dopt.messageText = Html.fromHtml(String.format("<b>%s</b><br><small>%s</small>", subTitle, query));
     }
 
     // Add the save query dialog
@@ -483,10 +485,12 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    // Restore the keyboard when dialog closes if keyboard is open when dialog was called
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit) {
         addRestoreKeyboard(activity, options, edit, TextViewUtils.isImeOpen(edit));
     }
 
+    // Restore the keyboard when dialog closes if required
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit, final Boolean restore) {
         if (restore != null && restore) {
             options.dismissCallback = (d) -> GsContextUtils.instance.setSoftKeyboardVisible(activity, true, edit);

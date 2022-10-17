@@ -228,7 +228,8 @@ public class TodoTxtFilter {
             final CharSequence expression = parseQuery(task, processed);
             final boolean accept = evaluateExpression(expression);
             return accept;
-        } catch (EmptyStackException e) {
+        } catch (EmptyStackException | IllegalArgumentException e) {
+            // TODO - display a useful message somehow
             return false;
         }
     }
@@ -354,7 +355,7 @@ public class TodoTxtFilter {
             } else if (op == '!') {
                 stack.push(toChar(rhs == 'F'));
             } else {
-                return;
+                throw new IllegalArgumentException("Unexpected character");
             }
         }
     }
@@ -366,7 +367,7 @@ public class TodoTxtFilter {
             if (c == ')') {
                 final char value = stack.pop();
                 if (stack.pop() != '(') {
-                    return false; // Bad expression
+                    throw new IllegalArgumentException("Mismatched parenthesis");
                 }
                 stack.push(value);
             } else {
@@ -374,6 +375,9 @@ public class TodoTxtFilter {
             }
             evaluateOperations(stack);
         }
-        return stack.size() == 1 && stack.pop() == 'T';
+        if (stack.size() == 1 && isValue(stack)) {
+            return stack.pop() == 'T';
+        }
+        throw new IllegalArgumentException("Malformed expression");
     }
 }
