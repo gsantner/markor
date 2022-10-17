@@ -473,6 +473,7 @@ public class MarkorDialogFactory {
         return dopt;
     }
 
+    // Search dialog for todo.txt
     public static void showSttSearchDialog(final Activity activity, final EditText text) {
         final DialogOptions dopt = makeSttLineSelectionDialog(activity, text, t -> true);
         dopt.titleText = R.string.search_documents;
@@ -526,33 +527,19 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSttContextDialog(Activity activity, List<String> availableData, GsCallback.a1<String> callback) {
-        DialogOptions dopt = new DialogOptions();
-        baseConf(activity, dopt);
-        dopt.data = new ArrayList<>(new TreeSet<>(availableData));
-        dopt.callback = callback;
-        dopt.titleText = R.string.insert_context;
-        dopt.isMultiSelectEnabled = true;
-        dopt.positionCallback = (result) -> {
-            for (final Integer i : result) {
-                callback.callback(dopt.data.get(i).toString());
-            }
-        };
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
+    // Insert items
     public static void showInsertItemsDialog(
             final Activity activity,
             final @StringRes int title,
             final List<String> data,
-            final @Nullable EditText text,
+            final @Nullable EditText text,              // Passed in here for keyboard restore
             final GsCallback.a1<String> insertCallback
     ) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(new TreeSet<>(data));
         dopt.callback = insertCallback;
-        dopt.titleText = R.string.insert_project;
+        dopt.titleText = title;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
         dopt.positionCallback = (result) -> {
@@ -566,11 +553,13 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    // Get a callback which applies highligting spans to a todo.txt line
     private static GsCallback.a1<Spannable> getSttHighlighter() {
         final SyntaxHighlighterBase h = new TodoTxtBasicSyntaxHighlighter(as()).configure();
         return s -> h.setSpannable(s).recompute().applyAll();
     }
 
+    // Basic search dialog
     public static void showSearchDialog(final Activity activity, final EditText text) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
