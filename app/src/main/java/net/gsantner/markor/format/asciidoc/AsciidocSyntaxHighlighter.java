@@ -253,6 +253,7 @@ use explicit text color, when background changes?
         // TODO: understand: what happens here?
         createUnderlineHexColorsSpans();
         // TODO: createSmallBlueLinkSpans() - font is very small, currently general setting: 85% of common size
+        // TODO: implement some kind of AsciiDoc link later
         // hard to read on dark theme, but this is a general question for all formats,
         // not AsciiDoc specific
         // also it uses private static String formatLink(String text, String link), which is
@@ -275,6 +276,10 @@ use explicit text color, when background changes?
         }
 
         if (_highlightCodeChangeFont) {
+            // TODO: How to use setTypeface in createSpanForMatches to set MONOSPACE?
+            // setTypeface(Typeface.MONOSPACE) - invalid
+            // setTypeface(0) - doesn't work
+            // but the current solution works fine and allows to use MONOSPACE based on settings
             createMonospaceSpanForMatches(MONOSPACE);
             createMonospaceSpanForMatches(BLOCK_DELIMITED_LISTING);
             createMonospaceSpanForMatches(BLOCK_DELIMITED_LITERAL);
@@ -283,6 +288,8 @@ use explicit text color, when background changes?
             createMonospaceSpanForMatches(LIST_DESCRIPTION);
             createMonospaceSpanForMatches(ATTRIBUTE_DEFINITION);
             createMonospaceSpanForMatches(ATTRIBUTE_REFERENCE);
+            createMonospaceSpanForMatches(ADMONITION);
+            createMonospaceSpanForMatches(SQUAREBRACKETS);
         }
 
 //        createStyleSpanForMatches(BOLD, Typeface.BOLD);
@@ -314,21 +321,16 @@ use explicit text color, when background changes?
         //TODO: test for interference with other role like underline, line-through => interference
         // to aggressive
         // createColorSpanForMatches(ROLE_GENERAL, AD_COLOR_ROLE_GENERAL);
-//        createColorSpanForMatches(ATTRIBUTE_DEFINITION, AD_COLOR_ATTRIBUTE);
 
-//        createStyleSpanForMatches(ADMONITION, Typeface.BOLD);
-//        createColorSpanForMatches(ADMONITION, AD_COLOR_ADMONITION);
-        // TODO: How to use setTypeface to set MONOSPACE?
-        // setTypeface(Typeface.MONOSPACE) - invalid
-        // setTypeface(0) - doesn't work
+        // DONE: use createSpanForMatches() to change multiple settings in one call
+        // createStyleSpanForMatches(ADMONITION, Typeface.BOLD);
+        // createColorSpanForMatches(ADMONITION, AD_COLOR_ADMONITION);
         createSpanForMatches(ADMONITION, new HighlightSpan().setBold(true).setForeColor(
                 AD_FORECOLOR_ADMONITION));
-        createMonospaceSpanForMatches(ADMONITION);
 
         createSpanForMatches(SQUAREBRACKETS,
                 new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SQUAREBRACKETS
                         : AD_BACKCOLOR_LIGHT_SQUAREBRACKETS));
-        createMonospaceSpanForMatches(SQUAREBRACKETS);
         createSpanForMatches(BLOCKTITLE,
                 new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_BLOCKTITLE
                         : AD_BACKCOLOR_LIGHT_BLOCKTITLE));
@@ -371,9 +373,6 @@ use explicit text color, when background changes?
         createSpanForMatches(LINE_COMMENT,
                 new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT
                         : AD_FORECOLOR_LIGHT_COMMENT));
-//        createColorBackgroundSpan(HIGHLIGHT,
-//                _isDarkMode ? AD_COLORBACK_DARK_HIGHLIGHT : AD_COLORBACK_LIGHT_HIGHLIGHT);
-//        createColorSpanForMatches(HIGHLIGHT, AD_COLOR_HIGHLIGHT);
         createSpanForMatches(HIGHLIGHT,
                 new HighlightSpan().setForeColor(AD_FORECOLOR_HIGHLIGHT).setBackColor(
                         _isDarkMode ? AD_BACKCOLOR_DARK_HIGHLIGHT
@@ -388,7 +387,7 @@ use explicit text color, when background changes?
         createSubscriptStyleSpanForMatches(SUBSCRIPT);
         createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
         createStrikeThroughSpanForMatches(ROLE_STRIKETHROUGH);
-//        // TODO: is only very thin and hardly visible
+//        // TODO: is only very thin and hardly visible; try to understand, why
 //        createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
 
     }
