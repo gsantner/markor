@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
@@ -244,5 +245,29 @@ public class GsTextUtils {
         } catch (Exception ignored) {
         }
         return null;
+    }
+
+    public static List<Integer> range(final int ... ops) {
+        int start = 0, end = 0, step = 1;
+        if (ops != null) {
+            if (ops.length == 1) {
+                end = ops[0];
+            } else if (ops.length == 2) {
+                start = ops[0];
+                end = ops[1];
+            } else if (ops.length >= 3) {
+                start = ops[0];
+                end = ops[1];
+                step = ops[2];
+            }
+        }
+
+        final List<Integer> values = new ArrayList<>();
+        while (start < end) {
+            values.add(start);
+            start += step;
+        }
+
+        return values;
     }
 }

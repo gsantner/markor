@@ -237,16 +237,10 @@ public class TodoTxtFilter {
     // Pre-process the query to simplify the syntax
     private static String preProcess(final CharSequence query) {
         return query.toString()
-                .replace(" AND ", " & ")
                 .replace(" and ", " & ")
-                .replace("&&", "&")
-                .replace(" OR ", " | ")
                 .replace(" or ", " | ")
-                .replace("||", "|")
-                .replaceAll("(\\(|\\s)NOT ", "$1! ")
-                .replaceAll("(\\(|\\s)not ", "$1! ")
-                .replace(" NOT ", " ! ")
-                .replace(" not ", " ! ")
+                .replaceAll("([( ])not ", "$1! ")
+                .replaceAll("^not ", "! ")
                 .replace(" ", "");
     }
 

@@ -49,6 +49,7 @@ import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -277,8 +278,10 @@ public class MarkorDialogFactory {
 
         // Add saved views
         final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
-        for (int i = 0; i < savedViews.size(); i++) {
-            final int finalI = i; // Final so we can use it in callback
+        final List<Integer> indices = GsTextUtils.range(savedViews.size());
+        Collections.sort(indices, (a, b) -> savedViews.get(a).first.compareTo(savedViews.get(b).first));
+
+        for (final int i : indices) {
             // No icon for the saved searches
             final String title = savedViews.get(i).first;
             final String query = savedViews.get(i).second;
@@ -297,7 +300,7 @@ public class MarkorDialogFactory {
                     confirmDopt.isSearchEnabled = false;
                     confirmDopt.callback = (s) -> {
                         viewDialog.dismiss();
-                        TodoTxtFilter.deleteFilterIndex(activity, finalI);
+                        TodoTxtFilter.deleteFilterIndex(activity, i);
                     };
                     GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, confirmDopt);
                 };
