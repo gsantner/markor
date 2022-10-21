@@ -262,14 +262,16 @@ public class TodoTxtFilter {
         final StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < query.length(); i++) {
             final char c = query.charAt(i);
-            if (isSyntax(c)) {
-                if (buffer.length() > 0) {
-                    expression.append(evalElement(task, buffer.toString()));
-                    buffer.setLength(0);
+            if (!Character.isSpaceChar(c)) {
+                if (isSyntax(c)) {
+                    if (buffer.length() > 0) {
+                        expression.append(evalElement(task, buffer.toString()));
+                        buffer.setLength(0);
+                    }
+                    expression.append(c);
+                } else {
+                    buffer.append(c);
                 }
-                expression.append(c);
-            } else {
-                buffer.append(c);
             }
         }
 
