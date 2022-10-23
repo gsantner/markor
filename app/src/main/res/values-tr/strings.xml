@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hata: Not defteri dizini oluşturulamıyor</string>
     <string name="last_modified_witharg">Son düzenleme: %s</string>
-    <string name="last_modified">Son düzenleme</string>
+    <string name="last_modified">Son düzenlenme</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
     <string name="create">Oluştur</string>
@@ -205,6 +205,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
     <string name="actionbutton_spacing">ActionButton aralığı</string>
+    <string name="horizontal_space_between_actionbuttons">ActionButtons arasındaki yatay boşluk</string>
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
@@ -314,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">geçerl dizinde tekrarlayan arama</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
+    <string name="open_file_with">İle aç</string>
     <string name="rotate">Döndür</string>
     <string name="template">Şablon</string>
     <string name="send_debug_log">Hata Ayıklama Günlüğü Gönder</string>
@@ -374,6 +376,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Dosya şifreleme parolası</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Parola ayarlanmadı, şifrelenemiyor veya şifre çözülemiyor.\nParola ayarlamak için Ayarlar -&gt; Genel -&gt; Parola menüsüne gidin.</string>
     <string name="encrypt_file_content">Dosya içeriğini şifrele</string>
+    <string name="utf8_with_bom">BOM ile UTF-8</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Dosya içeriği şifrelenemedi. Dosya kaydedilmedi.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Dosya içeriğinin şifresi çözülemedi. Yanl parola mı kullandınız? Dosya geekten Markors AES şifrelemesi ile şifrelenmiş mi?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Parola zaten ayarlanmış. Yeni bir parola belirlemek mevcut parolanın üzerine yazacaktır ve parolayı unutmanız durumunda dosyalara artık erişemeyebilirsiniz.</string>
@@ -435,4 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
     <string name="auto_format">Otomatik biçim</string>
     <string name="insert_snippet">Kod parçacığı ekle</string>
+    <string name="error_could_not_open_file">Hata: Dosya açılamadı.</string>
+    <string name="document_error_clip">Karşılaşılan hata: Metin panoya kopyalandı.</string>
 </resources>
