@@ -139,7 +139,7 @@ public class TodoTxtFilter {
         }
 
         // We don't include done tasks by default
-        return String.join(isAnd ? " & " : " | ", adjusted) + " & !done";
+        return String.join(isAnd ? " & " : " | ", adjusted) + " & !" + QUERY_DONE;
     }
 
     public static void saveFilter(final Context context, final String title, final String query) {
