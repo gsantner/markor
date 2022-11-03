@@ -11,10 +11,16 @@ public class TodoTxtQuerySyntaxTests {
 
     @Test
     public void ParseQuery() {
-        final String query = "(A | B | C) & !+work & overdue & future";
-        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(A) 2000-01-01 go to +work"), query)).isEqualTo(strip("(T | F | F) & !T & F & F"));
-        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(B) 2000-01-01 go to +work due:2000-01-01"), query)).isEqualTo(strip("(F | T | F) & !T & T & F"));
-        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(D) 2000-01-01 go to work due:9999-01-01"), query)).isEqualTo(strip("(F | F | F) & !F & F & T"));
+        final String query = "(A | B | C) & !+work & due< & due> | !+ | @";
+
+        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(A) 2000-01-01 go to +work"), query))
+                .isEqualTo(strip("(T | F | F) & !T & F & F | !T | F"));
+
+        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(B) 2000-01-01 go to +work due:2000-01-01"), query))
+                .isEqualTo(strip("(F | T | F) & !T & T & F | !T | F"));
+
+        assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(D) 2000-01-01 go to @work due:9999-01-01"), query))
+                .isEqualTo(strip("(F | F | F) & !F & F & T| !F | T"));
     }
 
     @Test

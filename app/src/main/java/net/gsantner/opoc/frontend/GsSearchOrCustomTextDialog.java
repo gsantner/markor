@@ -410,6 +410,7 @@ public class GsSearchOrCustomTextDialog {
             final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
             subTitle.setPadding(0, dopt.titleText == 0 ? 0 : paddingBetween, 0, 0);
             subTitle.setText(dopt.messageText);
+            subTitle.setTextIsSelectable(true);
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 

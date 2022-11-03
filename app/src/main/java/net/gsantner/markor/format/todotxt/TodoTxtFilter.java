@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EmptyStackException;
@@ -31,14 +30,12 @@ public class TodoTxtFilter {
     // Special query keywords
     // ----------------------------------------------------------------------------------------
 
-    public final static String[] QUERY_PRIORITY_NONE = {"nopriority", "nopri", Character.toString(TodoTxtTask.PRIORITY_NONE)};
-    public final static String[] QUERY_DUE_TODAY = {"today", "due"};
-    public final static String[] QUERY_DUE_OVERDUE = {"overdue", "past"};
-    public final static String[] QUERY_DUE_FUTURE = {"future"};
-    public final static String[] QUERY_DUE_NONE = {"nodue"};
-    public final static String[] QUERY_DONE = {"done"};
-    public final static String[] QUERY_CONTEXT_NONE = {"nocontext", "nocontexts"};
-    public final static String[] QUERY_PROJECT_NONE = {"noproject", "noprojects"};
+    public final static String QUERY_PRIORITY_NONE = Character.toString(TodoTxtTask.PRIORITY_NONE);
+    public final static String QUERY_DUE_TODAY = "due=";
+    public final static String QUERY_DUE_OVERDUE = "due<";
+    public final static String QUERY_DUE_FUTURE = "due>";
+    public final static String QUERY_DUE_ANY = "due";
+    public final static String QUERY_DONE = "x";
 
     // ----------------------------------------------------------------------------------------
 
@@ -119,16 +116,16 @@ public class TodoTxtFilter {
         final String prefix;
         final String nullKey;
         if (type == TYPE.CONTEXT) {
-            nullKey = QUERY_CONTEXT_NONE[0];
+            nullKey = "!@";
             prefix = "@";
         } else if (type == TYPE.PROJECT) {
-            nullKey = QUERY_PROJECT_NONE[0];
+            nullKey = "!+";
             prefix = "+";
         } else if (type == TYPE.PRIORITY) {
-            nullKey = QUERY_PRIORITY_NONE[0];
+            nullKey = QUERY_PRIORITY_NONE;
             prefix = "";
         } else { // type due
-            nullKey = QUERY_DUE_NONE[0];
+            nullKey = "!" + QUERY_DUE_ANY;
             prefix = "";
         }
 
@@ -142,7 +139,7 @@ public class TodoTxtFilter {
         }
 
         // We don't include done tasks by default
-        return String.join(isAnd ? " and " : " or ", adjusted) + " and not done";
+        return String.join(isAnd ? " & " : " | ", adjusted) + " & !done";
     }
 
     public static void saveFilter(final Context context, final String title, final String query) {
@@ -224,10 +221,8 @@ public class TodoTxtFilter {
 
     public static boolean isMatchQuery(final TodoTxtTask task, final CharSequence query) {
         try {
-            final String processed = preProcess(query);
-            final CharSequence expression = parseQuery(task, processed);
-            final boolean accept = evaluateExpression(expression);
-            return accept;
+            final CharSequence expression = parseQuery(task, query);
+            return evaluateExpression(expression);
         } catch (EmptyStackException | IllegalArgumentException e) {
             // TODO - display a useful message somehow
             return false;
@@ -236,22 +231,14 @@ public class TodoTxtFilter {
 
     // Pre-process the query to simplify the syntax
     private static String preProcess(final CharSequence query) {
-        return query.toString()
-                .replace(" and ", " & ")
-                .replace(" or ", " | ")
-                .replaceAll("([( ])not ", "$1! ")
-                .replaceAll("^not ", "! ")
-                .replace(" ", "");
+        return String.format(" %s ", query)                  // Leading and trailing spaces
+                .replace(" !", " ! ")    // Add space after exclamation mark
+                .replace(" (", " ( ")    // Add space before opening paren
+                .replace(") ", " ) ");   // Add space after closing paren
     }
 
-    // Is this char an operator
-    private static boolean isOperator(final char c) {
-        return c == '&' || c == '|' || c == '!';
-    }
-
-    // Is this char an a syntax element
     private static boolean isSyntax(final char c) {
-        return c == ' ' || c == '(' || c == ')' || isOperator(c);
+        return c == '!' || c == '|' || c == '&' || c == '(' || c == ')';
     }
 
     // Parse a query into an expression.
@@ -259,27 +246,14 @@ public class TodoTxtFilter {
     @VisibleForTesting
     public static String parseQuery(final TodoTxtTask task, final CharSequence query) {
         final StringBuilder expression = new StringBuilder();
-        final StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < query.length(); i++) {
-            final char c = query.charAt(i);
-            if (!Character.isSpaceChar(c)) {
-                if (isSyntax(c)) {
-                    if (buffer.length() > 0) {
-                        expression.append(evalElement(task, buffer.toString()));
-                        buffer.setLength(0);
-                    }
-                    expression.append(c);
-                } else {
-                    buffer.append(c);
-                }
+        final String[] parts = preProcess(query).split(" ");
+        for (final String part : parts) {
+            if (part.length() == 1 && isSyntax(part.charAt(0))) {
+                expression.append(part);
+            } else if (!part.isEmpty()) {
+                expression.append(evalElement(task, part));
             }
         }
-
-        // Add the last element
-        if (buffer.length() > 0) {
-            expression.append(evalElement(task, buffer.toString()));
-        }
-
         return expression.toString();
     }
 
@@ -290,26 +264,26 @@ public class TodoTxtFilter {
         final boolean result;
         if ((element.length() == 1) && element.matches("[A-Z]")) {
             result = Character.toLowerCase(task.getPriority()) == Character.toLowerCase(element.charAt(0));
-        } else if (Arrays.asList(QUERY_PRIORITY_NONE).contains(element)) {
+        } else if (QUERY_PRIORITY_NONE.equals(element)) {
             result = task.getPriority() == TodoTxtTask.PRIORITY_NONE;
-        } else if (Arrays.asList(QUERY_DUE_TODAY).contains(element)) {
+        } else if (QUERY_DUE_TODAY.equals(element)) {
             result = task.getDueStatus() == TodoDueState.TODAY;
-        } else if (Arrays.asList(QUERY_DUE_OVERDUE).contains(element)) {
+        } else if (QUERY_DUE_OVERDUE.equals(element)) {
             result = task.getDueStatus() == TodoDueState.OVERDUE;
-        } else if (Arrays.asList(QUERY_DUE_FUTURE).contains(element)) {
+        } else if (QUERY_DUE_FUTURE.equals(element)) {
             result = task.getDueStatus() == TodoDueState.FUTURE;
-        } else if (Arrays.asList(QUERY_DUE_NONE).contains(element)) {
-            result = task.getDueStatus() == TodoDueState.NONE;
-        } else if (Arrays.asList(QUERY_DONE).contains(element)) {
+        } else if (QUERY_DUE_ANY.equals(element)) {
+            result = task.getDueStatus() != TodoDueState.NONE;
+        } else if (QUERY_DONE.equals(element)) {
             result = task.isDone();
+        } else if (element.equals("@")) {
+            result = !task.getContexts().isEmpty();
+        } else if (element.equals("+")) {
+            result = !task.getProjects().isEmpty();
         } else if (element.startsWith("@")) {
             result = task.getContexts().contains(element.substring(1));
         } else if (element.startsWith("+")) {
             result = task.getProjects().contains(element.substring(1));
-        } else if (Arrays.asList(QUERY_CONTEXT_NONE).contains(element)) {
-            result = task.getContexts().isEmpty();
-        } else if (Arrays.asList(QUERY_PROJECT_NONE).contains(element)) {
-            result = task.getProjects().isEmpty();
         } else {
             result = false;
         }
