@@ -24,18 +24,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
 
 public class TodoTxtFilter {
 
     // Special query keywords
     // ----------------------------------------------------------------------------------------
 
-    public final static String QUERY_PRIORITY_NONE = Character.toString(TodoTxtTask.PRIORITY_NONE);
+    public final static String QUERY_PRIORITY_ANY = "pri";
     public final static String QUERY_DUE_TODAY = "due=";
     public final static String QUERY_DUE_OVERDUE = "due<";
     public final static String QUERY_DUE_FUTURE = "due>";
     public final static String QUERY_DUE_ANY = "due";
-    public final static String QUERY_DONE = "x";
+    public final static String QUERY_DONE = "done";
 
     // ----------------------------------------------------------------------------------------
 
@@ -122,8 +123,8 @@ public class TodoTxtFilter {
             nullKey = "!+";
             prefix = "+";
         } else if (type == TYPE.PRIORITY) {
-            nullKey = QUERY_PRIORITY_NONE;
-            prefix = "";
+            nullKey = "!" + QUERY_PRIORITY_ANY;
+            prefix = "pri:";
         } else { // type due
             nullKey = "!" + QUERY_DUE_ANY;
             prefix = "";
@@ -258,14 +259,18 @@ public class TodoTxtFilter {
     }
 
     // Evaluate a word (element) for truthyness or falsiness
+    // Step through all the possible conditions
     private static char evalElement(final TodoTxtTask task, final String element) {
 
-        // Prioritiy
         final boolean result;
-        if ((element.length() == 1) && element.matches("[A-Z]")) {
-            result = Character.toLowerCase(task.getPriority()) == Character.toLowerCase(element.charAt(0));
-        } else if (QUERY_PRIORITY_NONE.equals(element)) {
-            result = task.getPriority() == TodoTxtTask.PRIORITY_NONE;
+        if (element.startsWith(QUERY_PRIORITY_ANY)) {
+            if (QUERY_PRIORITY_ANY.equals(element)) {
+                result = task.getPriority() != TodoTxtTask.PRIORITY_NONE;
+            } else if (element.length() == 5 && element.charAt(3) == ':') {
+                result = task.getPriority() == element.charAt(4);
+            } else {
+                result = false;
+            }
         } else if (QUERY_DUE_TODAY.equals(element)) {
             result = task.getDueStatus() == TodoDueState.TODAY;
         } else if (QUERY_DUE_OVERDUE.equals(element)) {

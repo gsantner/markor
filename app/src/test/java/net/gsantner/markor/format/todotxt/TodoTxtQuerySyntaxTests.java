@@ -11,7 +11,7 @@ public class TodoTxtQuerySyntaxTests {
 
     @Test
     public void ParseQuery() {
-        final String query = "(A | B | C) & !+work & due< & due> | !+ | @";
+        final String query = "(pri:A | pri:B | pri:C) & !+work & due< & due> | !+ | @";
 
         assertThat(TodoTxtFilter.parseQuery(new TodoTxtTask("(A) 2000-01-01 go to +work"), query))
                 .isEqualTo(strip("(T | F | F) & !T & F & F | !T | F"));
