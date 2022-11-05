@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
 
 public class TodoTxtFilter {
 

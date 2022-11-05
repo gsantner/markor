@@ -325,13 +325,13 @@ public class MarkorDialogFactory {
      * Will display a list of keys. The user can select multiple keys and a list of todos which match the keys will be displayed.
      * The user can then search and select one or more (filtered) todos.
      *
-     * @param activity      Context activity
-     * @param text          Edit Text with todos
-     * @param title         Dialog title
-     * @param enableSearch  Whether key search is enabled
-     * @param enableAnd     Whether 'and' keys makes sense / is enabled
-     * @param showIme       Whether to show IME when done (if == true)
-     * @param queryType     Key used with TodoTxtFilter
+     * @param activity     Context activity
+     * @param text         Edit Text with todos
+     * @param title        Dialog title
+     * @param enableSearch Whether key search is enabled
+     * @param enableAnd    Whether 'and' keys makes sense / is enabled
+     * @param showIme      Whether to show IME when done (if == true)
+     * @param queryType    Key used with TodoTxtFilter
      */
     public static void showSttKeySearchDialog(
             final Activity activity,
@@ -439,6 +439,7 @@ public class MarkorDialogFactory {
 
     /**
      * Make a dialog for searching and selecting lines of a todo-txt file
+     *
      * @param activity Activity
      * @param text     EditText containing the todo.txt file
      * @param filter   Filter selecting certain todos (by context, project etc etc)

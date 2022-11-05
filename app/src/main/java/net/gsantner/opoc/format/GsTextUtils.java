@@ -9,8 +9,6 @@
 #########################################################*/
 package net.gsantner.opoc.format;
 
-import android.text.Html;
-import android.text.Spanned;
 import android.util.Base64;
 
 import org.json.JSONArray;
@@ -247,7 +245,7 @@ public class GsTextUtils {
         return null;
     }
 
-    public static List<Integer> range(final int ... ops) {
+    public static List<Integer> range(final int... ops) {
         int start = 0, end = 0, step = 1;
         if (ops != null) {
             if (ops.length == 1) {
