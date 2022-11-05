@@ -18,7 +18,7 @@
     android:background="@color/background"
     android:fitsSystemWindows="true"
     android:theme="@style/AppTheme.Unified"
-    tools:context="web.gsantner.markor.activity.MainActivity">
+    tools:context="net.gsantner.markor.activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
