@@ -30,18 +30,13 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // Italic syntax (_) is always the innermost formatting pair.
 
     // simplified, OK for basic examples
-    public final static Pattern BOLD = Pattern
-            .compile(
-                    "(?m)(\\*\\S(?!\\*)(.*?)\\S\\*(?!\\*))");
+    public final static Pattern BOLD = Pattern.compile("(?m)(\\*\\S(?!\\*)(.*?)\\S\\*(?!\\*))");
     // simplified, OK for basic examples
-    public final static Pattern ITALICS = Pattern.compile(
-            "(?m)(_\\S(?!_)(.*?)\\S_(?!_))");
+    public final static Pattern ITALICS = Pattern.compile("(?m)(_\\S(?!_)(.*?)\\S_(?!_))");
     // simplified, OK for basic examples, contains only inline code
     public final static Pattern SUBSCRIPT = Pattern.compile("(?m)(~(?!~)(.*?)~(?!~))");
     public final static Pattern SUPERSCRIPT = Pattern.compile("(?m)(\\^(?!\\^)(.*?)\\^(?!\\^))");
-    public final static Pattern MONOSPACE = Pattern
-            .compile(
-                    "(?m)(`(?!`)(.*?)`(?!`))");
+    public final static Pattern MONOSPACE = Pattern.compile("(?m)(`(?!`)(.*?)`(?!`))");
 
     public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
     // simplified syntax: In fact, leading spaces are also possible
@@ -51,33 +46,26 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 //    public final static Pattern LIST_UNORDERED = Pattern.compile(
 //            "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
     public final static Pattern LIST_UNORDERED = Pattern.compile("(?m)^\\*{1,6} {1}");
-    public final static Pattern LIST_DESCRIPTION = Pattern.compile(
-            "(?m)^(.+\\S(:{2,4}|;{2,2}))( {1}|[\\r\\n])");
+    public final static Pattern LIST_DESCRIPTION = Pattern.compile("(?m)^(.+\\S(:{2,4}|;{2,2}))( {1}|[\\r\\n])");
     // TODO: use later for highlighting checklists.
     // public final static Pattern LIST_CHECKLIST = Pattern.compile("^\\*{1,6}( \\[[ xX]\\]) {1}");
 
     public final static Pattern ATTRIBUTE_DEFINITION = Pattern.compile("(?m)^:\\S+:");
     public final static Pattern ATTRIBUTE_REFERENCE = Pattern.compile("(?m)\\{\\S+\\}");
     public final static Pattern LINE_COMMENT = Pattern.compile("(?m)^\\/{2}(?!\\/).*$");
-    public final static Pattern ADMONITION = Pattern.compile(
-            "(?m)^(NOTE: |TIP: |IMPORTANT: |CAUTION: |WARNING: )");
+    public final static Pattern ADMONITION = Pattern.compile("(?m)^(NOTE: |TIP: |IMPORTANT: |CAUTION: |WARNING: )");
 
 
     public final static Pattern SQUAREBRACKETS = Pattern.compile("\\[([^\\[]*)\\]");
     //TODO: issues with:
     // The *[red]##c##[green]##o##[purple]##l##[fuchsia]##o##[blue]##r##* brings contrast to the text.
-    public final static Pattern HIGHLIGHT = Pattern.compile(
-            "(?m)(?<!])((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
-    public final static Pattern ROLE_GENERAL = Pattern
-            .compile("(?m)\\[([^\\[]*)\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    public final static Pattern HIGHLIGHT = Pattern.compile("(?m)(?<!])((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    public final static Pattern ROLE_GENERAL = Pattern.compile("(?m)\\[([^\\[]*)\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
 
-    public final static Pattern ROLE_UNDERLINE = Pattern
-            .compile("(?m)\\[\\.underline\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
-    public final static Pattern ROLE_STRIKETHROUGH = Pattern
-            .compile("(?m)\\[\\.line-through\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    public final static Pattern ROLE_UNDERLINE = Pattern.compile("(?m)\\[\\.underline\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
+    public final static Pattern ROLE_STRIKETHROUGH = Pattern.compile("(?m)\\[\\.line-through\\]((#(?!#)(.*?)#(?!#))|(##(?!#)(.*?)##))");
 
-    public final static Pattern HARD_LINE_BREAK = Pattern.compile(
-            "(?m)(?<=\\S)([^\\S\\r\\n]{1})\\+[\\r\\n]");
+    public final static Pattern HARD_LINE_BREAK = Pattern.compile("(?m)(?<=\\S)([^\\S\\r\\n]{1})\\+[\\r\\n]");
 
     // simplified, OK for basic examples
     public final static Pattern LINK_PATTERN = Pattern.compile("link:\\S*?\\[([^\\[]*)\\]");
@@ -89,27 +77,19 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
     // block syntax
     // simplified, contains only the most common case, like "____", "....", "----", ...
-    public final static Pattern BLOCK_DELIMITED_QUOTATION = Pattern.compile(
-            "(?m)^\\_{4}[\\r\\n]([\\s\\S]+?(?=^\\_{4}[\\r\\n]))^\\_{4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_EXAMPLE = Pattern.compile(
-            "(?m)^\\={4}[\\r\\n]([\\s\\S]+?(?=^\\={4}[\\r\\n]))^\\={4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_LISTING = Pattern.compile(
-            "(?m)^\\-{4}[\\r\\n]([\\s\\S]+?(?=^\\-{4}[\\r\\n]))^\\-{4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_LITERAL = Pattern.compile(
-            "(?m)^\\.{4}[\\r\\n]([\\s\\S]+?(?=^\\.{4}[\\r\\n]))^\\.{4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_SIDEBAR = Pattern.compile(
-            "(?m)^\\*{4}[\\r\\n]([\\s\\S]+?(?=^\\*{4}[\\r\\n]))^\\*{4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_COMMENT = Pattern.compile(
-            "(?m)^\\/{4}[\\r\\n]([\\s\\S]+?(?=^\\/{4}[\\r\\n]))^\\/{4}[\\r\\n]");
-    public final static Pattern BLOCK_DELIMITED_TABLE = Pattern.compile(
-            "(?m)^\\|\\={3}[\\r\\n]([\\s\\S]+?(?=^\\|\\={3}[\\r\\n]))^\\|={3}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_QUOTATION = Pattern.compile("(?m)^\\_{4}[\\r\\n]([\\s\\S]+?(?=^\\_{4}[\\r\\n]))^\\_{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_EXAMPLE = Pattern.compile("(?m)^\\={4}[\\r\\n]([\\s\\S]+?(?=^\\={4}[\\r\\n]))^\\={4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_LISTING = Pattern.compile("(?m)^\\-{4}[\\r\\n]([\\s\\S]+?(?=^\\-{4}[\\r\\n]))^\\-{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_LITERAL = Pattern.compile("(?m)^\\.{4}[\\r\\n]([\\s\\S]+?(?=^\\.{4}[\\r\\n]))^\\.{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_SIDEBAR = Pattern.compile("(?m)^\\*{4}[\\r\\n]([\\s\\S]+?(?=^\\*{4}[\\r\\n]))^\\*{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_COMMENT = Pattern.compile("(?m)^\\/{4}[\\r\\n]([\\s\\S]+?(?=^\\/{4}[\\r\\n]))^\\/{4}[\\r\\n]");
+    public final static Pattern BLOCK_DELIMITED_TABLE = Pattern.compile("(?m)^\\|\\={3}[\\r\\n]([\\s\\S]+?(?=^\\|\\={3}[\\r\\n]))^\\|={3}[\\r\\n]");
 
     // original
     // issues with content, created in Windows and directly copied to android
     // public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n");
     // corrected:
-    public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile(
-            "(?m)(?<=\\S)([^\\S\\r\\n]{2,})[\\r\\n]");
+    public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\r\\n]{2,})[\\r\\n]");
 //
 //    // TODO: still markdown, but it is not used
 //    public final static Pattern ACTION_LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
@@ -264,15 +244,10 @@ use explicit text color, when background changes?
 
         //TODO: doesn't yet work, but it is called
         if (_highlightBiggerHeadings) {
-            createSpanForMatches(HEADING_SIMPLE,
-                    new WrMarkdownHeaderSpanCreator(_spannable,
-                            _isDarkMode ? AD_FORECOLOR_DARK_HEADING
-                                    : AD_FORECOLOR_LIGHT_HEADING, _textSize));
+            createSpanForMatches(HEADING_SIMPLE, new WrMarkdownHeaderSpanCreator(_spannable, _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING, _textSize));
         } else {
-//            createColorSpanForMatches(HEADING_SIMPLE, _isDarkMode ? AD_COLOR_DARK_HEADING : AD_COLOR_LIGHT_HEADING);
-            createSpanForMatches(HEADING_SIMPLE,
-                    new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_HEADING
-                            : AD_FORECOLOR_LIGHT_HEADING));
+//          createColorSpanForMatches(HEADING_SIMPLE, _isDarkMode ? AD_COLOR_DARK_HEADING : AD_COLOR_LIGHT_HEADING);
+            createSpanForMatches(HEADING_SIMPLE, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING));
         }
 
         if (_highlightCodeChangeFont) {
@@ -292,31 +267,17 @@ use explicit text color, when background changes?
             createMonospaceSpanForMatches(SQUAREBRACKETS);
         }
 
-//        createStyleSpanForMatches(BOLD, Typeface.BOLD);
+//      createStyleSpanForMatches(BOLD, Typeface.BOLD);
         createSpanForMatches(BOLD, new HighlightSpan().setBold(true));
         createSpanForMatches(ITALICS, new HighlightSpan().setItalic(true));
 
-        createSpanForMatches(LINK_PATTERN,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(XREF_PATTERN,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(IMAGE_PATTERN,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(INCLUDE_PATTERN,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(LIST_UNORDERED,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(LIST_ORDERED,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
-        createSpanForMatches(LIST_DESCRIPTION,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK
-                        : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(LINK_PATTERN, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(XREF_PATTERN, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(IMAGE_PATTERN, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(INCLUDE_PATTERN, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(LIST_UNORDERED, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(LIST_ORDERED, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
+        createSpanForMatches(LIST_DESCRIPTION, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_LINK : AD_FORECOLOR_LIGHT_LINK));
 
         //TODO: test for interference with other role like underline, line-through => interference
         // to aggressive
@@ -325,70 +286,38 @@ use explicit text color, when background changes?
         // DONE: use createSpanForMatches() to change multiple settings in one call
         // createStyleSpanForMatches(ADMONITION, Typeface.BOLD);
         // createColorSpanForMatches(ADMONITION, AD_COLOR_ADMONITION);
-        createSpanForMatches(ADMONITION, new HighlightSpan().setBold(true).setForeColor(
-                AD_FORECOLOR_ADMONITION));
+        createSpanForMatches(ADMONITION, new HighlightSpan().setBold(true).setForeColor(AD_FORECOLOR_ADMONITION));
 
-        createSpanForMatches(SQUAREBRACKETS,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SQUAREBRACKETS
-                        : AD_BACKCOLOR_LIGHT_SQUAREBRACKETS));
-        createSpanForMatches(BLOCKTITLE,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_BLOCKTITLE
-                        : AD_BACKCOLOR_LIGHT_BLOCKTITLE));
-        createSpanForMatches(MONOSPACE,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
-                        : AD_BACKCOLOR_LIGHT_MONOSPACE));
+        createSpanForMatches(SQUAREBRACKETS, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SQUAREBRACKETS : AD_BACKCOLOR_LIGHT_SQUAREBRACKETS));
+        createSpanForMatches(BLOCKTITLE, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_BLOCKTITLE : AD_BACKCOLOR_LIGHT_BLOCKTITLE));
+        createSpanForMatches(MONOSPACE, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE : AD_BACKCOLOR_LIGHT_MONOSPACE));
 
 
         if (_highlightLineEnding) {
-            createSpanForMatches(HARD_LINE_BREAK,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
-                            : AD_BACKCOLOR_LIGHT_MONOSPACE));
+            createSpanForMatches(HARD_LINE_BREAK, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE : AD_BACKCOLOR_LIGHT_MONOSPACE));
         }
 
         if (_highlightCodeBlock) {
-            createSpanForMatches(BLOCK_DELIMITED_LISTING,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
-                            : AD_BACKCOLOR_LIGHT_MONOSPACE));
-            createSpanForMatches(BLOCK_DELIMITED_LITERAL,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE
-                            : AD_BACKCOLOR_LIGHT_MONOSPACE));
-            createSpanForMatches(BLOCK_DELIMITED_QUOTATION,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_QUOTE
-                            : AD_BACKCOLOR_LIGHT_QUOTE));
-            createSpanForMatches(BLOCK_DELIMITED_EXAMPLE,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_EXAMPLE
-                            : AD_BACKCOLOR_LIGHT_EXAMPLE));
-            createSpanForMatches(BLOCK_DELIMITED_SIDEBAR,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SIDEBAR
-                            : AD_BACKCOLOR_LIGHT_SIDEBAR));
-            createSpanForMatches(BLOCK_DELIMITED_TABLE,
-                    new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_TABLE
-                            : AD_BACKCOLOR_LIGHT_TABLE));
+            createSpanForMatches(BLOCK_DELIMITED_LISTING, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE : AD_BACKCOLOR_LIGHT_MONOSPACE));
+            createSpanForMatches(BLOCK_DELIMITED_LITERAL, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_MONOSPACE : AD_BACKCOLOR_LIGHT_MONOSPACE));
+            createSpanForMatches(BLOCK_DELIMITED_QUOTATION, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_QUOTE : AD_BACKCOLOR_LIGHT_QUOTE));
+            createSpanForMatches(BLOCK_DELIMITED_EXAMPLE, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_EXAMPLE : AD_BACKCOLOR_LIGHT_EXAMPLE));
+            createSpanForMatches(BLOCK_DELIMITED_SIDEBAR, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_SIDEBAR : AD_BACKCOLOR_LIGHT_SIDEBAR));
+            createSpanForMatches(BLOCK_DELIMITED_TABLE, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_TABLE : AD_BACKCOLOR_LIGHT_TABLE));
             // Comment: change text color, but not background
-            createSpanForMatches(BLOCK_DELIMITED_COMMENT,
-                    new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT
-                            : AD_FORECOLOR_LIGHT_COMMENT));
+            createSpanForMatches(BLOCK_DELIMITED_COMMENT, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT : AD_FORECOLOR_LIGHT_COMMENT));
         }
 
-        createSpanForMatches(LINE_COMMENT,
-                new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT
-                        : AD_FORECOLOR_LIGHT_COMMENT));
-        createSpanForMatches(HIGHLIGHT,
-                new HighlightSpan().setForeColor(AD_FORECOLOR_HIGHLIGHT).setBackColor(
-                        _isDarkMode ? AD_BACKCOLOR_DARK_HIGHLIGHT
-                                : AD_BACKCOLOR_LIGHT_HIGHLIGHT));
-        createSpanForMatches(ATTRIBUTE_DEFINITION,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE
-                        : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
-        createSpanForMatches(ATTRIBUTE_REFERENCE,
-                new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE
-                        : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
+        createSpanForMatches(LINE_COMMENT, new HighlightSpan().setForeColor(_isDarkMode ? AD_FORECOLOR_DARK_COMMENT : AD_FORECOLOR_LIGHT_COMMENT));
+        createSpanForMatches(HIGHLIGHT, new HighlightSpan().setForeColor(AD_FORECOLOR_HIGHLIGHT).setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_HIGHLIGHT : AD_BACKCOLOR_LIGHT_HIGHLIGHT));
+        createSpanForMatches(ATTRIBUTE_DEFINITION, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
+        createSpanForMatches(ATTRIBUTE_REFERENCE, new HighlightSpan().setBackColor(_isDarkMode ? AD_BACKCOLOR_DARK_ATTRIBUTE : AD_BACKCOLOR_LIGHT_ATTRIBUTE));
 
         createSubscriptStyleSpanForMatches(SUBSCRIPT);
         createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
         createStrikeThroughSpanForMatches(ROLE_STRIKETHROUGH);
-//        // TODO: is only very thin and hardly visible; try to understand, why
-//        createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
+//      TODO: is only very thin and hardly visible; try to understand, why
+//      createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
 
     }
 }

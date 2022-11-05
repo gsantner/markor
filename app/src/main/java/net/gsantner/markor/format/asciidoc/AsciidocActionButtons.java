@@ -152,9 +152,9 @@ public class AsciidocActionButtons extends ActionButtonBase {
 
     /*
      * DONE: indent deindent
-     * 
+     *
      * Maybe two different indent deindent
-     * 
+     *
      * a "normal" one for blank characters only
      ** If the pattern is not filled:
      *** indent: blank as prefix
@@ -168,7 +168,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
      *** deindent: the first character is removed, but only if something remains after
      * it: '===
      * ' => '== ' => '= ' => '= ' (no further removal)
-     * 
+     *
      */
 
     @Override
@@ -478,7 +478,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 //remove outer surrounding
                 _hlEditor.getText()
                         .replace(selectionStart - _prefix.length() - _action.length(),
-                                selectionEnd + _action.length()  + _suffix.length(), selectedText);
+                                selectionEnd + _action.length() + _suffix.length(), selectedText);
                 _hlEditor.setSelection(selectionStart - _prefix.length() - _action.length(),
                         selectionStart - _prefix.length() - _action.length() + selectionLength);
             } else if (Objects.equals(text.substring(selectionStart,

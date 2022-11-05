@@ -80,6 +80,7 @@ public class MarkorDialogFactory {
         dopt.okButtonText = 0;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
+
     // TODO: this is just a copy of showSpecialKeyDialog, to make minimal invasive changes
     // but one procedure could be used and an additional paramater, to distinguish between "normal" usage and additional asciidoc usage
     // TODO: Clarify if the function should stay here or be moved to one of the

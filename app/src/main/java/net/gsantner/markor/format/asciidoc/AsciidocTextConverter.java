@@ -37,8 +37,7 @@ public class AsciidocTextConverter extends TextConverterBase {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode,
-            File file) {
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
         String tmp;

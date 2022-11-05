@@ -31,11 +31,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
-import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 
 import java.util.ArrayList;
 import java.util.HashSet;
