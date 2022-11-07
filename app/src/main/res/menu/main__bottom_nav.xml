@@ -11,7 +11,7 @@
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="web.gsantner.markor.activity.MainActivity">
+    tools:context="net.gsantner.markor.activity.MainActivity">
 
     <item
         android:id="@+id/nav_notebook"
