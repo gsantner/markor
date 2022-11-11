@@ -62,6 +62,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="changelog">Ŝanĝoprotokolo</string>
     <string name="more_info">Pli da informo</string>
     <string name="show_license_of_the_app">Montri permesilon de la apo</string>
+    <string name="show_third_party_licenses">Montri 3-partiajn permesilojn</string>
+    <string name="language_change_restart_description">Ŝanĝu lingvon de ĉi tiu app. Restart-app por ŝanĝoj por efiki</string>
     <string name="language">Lingvo</string>
     <string name="open_with">Malfermi per</string>
     <string name="sort_by">Ordigi laŭ</string>
@@ -69,7 +71,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="deleteme____1">Dosiernomo</string>
     <string name="size">Grandeco</string>
     <string name="contribute">Kontribui</string>
-    <string name="donate">Donacu</string>
+    <string name="donate">Donaci</string>
     <string name="exit">Eliri</string>
     <string name="undo">Malfari</string>
     <string name="redo">Refari</string>
