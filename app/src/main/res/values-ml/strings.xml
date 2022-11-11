@@ -62,6 +62,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select_entries">ഘടകങ്ങൾ തിരഞ്ഞെടുക്കുക</string>
     <string name="one_item_selected">ഒരെണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d എണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
+    <string name="hide_statusbar">സ്റ്റാറ്റസ്ബാർ മറയ്ക്കുക</string>
     <string name="name">പേര്</string>
     <string name="insert_link">ലിങ്ക് ചേർക്കുക</string>
     <string name="insert_image">ചിത്രം ചേർക്കുക</string>
@@ -150,11 +151,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="project_team">പ്രോജക്റ്റ് ടീം</string>
     <string name="contributors_public_add_yourself_description">സംഭാവക വിവരം കാണിക്കുക. സംഭാവന ചെയ്തതിനുശേഷം ഒരു ഓപ്റ്റ്-ഇൻ അടിസ്ഥാനത്തിൽ ഇത് ഇവിടെ കാണിക്കുന്നതിന് നൽകുക</string>
     <string name="error_picture_selection">ചിത്രം തിരഞ്ഞെടുക്കുകയോ സംരക്ഷിക്കുകയോ ചെയ്തിട്ടില്ല.</string>
+    <string name="edit_picture">ചിത്രം എഡിറ്റുചെയ്യുക</string>
     <string name="miscellaneous">പലവക</string>
     <string name="background">പശ്ചാത്തലം</string>
     <string name="font">ഫോണ്ട്</string>
     <string name="close">അടയ്ക്കുക</string>
     <string name="cancel">റദ്ദാക്കുക</string>
+    <string name="favourite">പ്രിയപ്പെട്ടവ</string>
     <string name="reload">വീണ്ടും ലോഡ് ചെയ്യുക</string>
     <string name="rotate">തിരിക്കുക</string>
 </resources>
