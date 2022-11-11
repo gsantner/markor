@@ -208,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourite">Омилен</string>
     <string name="favourites">Омилени</string>
     <string name="please_wait">Почекајте</string>
+    <string name="rotate">Ротирај</string>
     <string name="print_pdf">Принтај како PDF</string>
     <string name="record_audio">Снимај Аудио</string>
     <string name="attach">Придонеси</string>
