@@ -63,9 +63,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">ପ୍ରତିଛବି ସନ୍ନିବେଶ କରନ୍ତୁ</string>
     <string name="contributors">ଯୋଗଦାନକାରୀ</string>
     <string name="select_storage_folder">ଷ୍ଟୋରେଜ୍ ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
+    <string name="licenses">ଲାଇସେନ୍ସ</string>
     <string name="changelog">ପରିବର୍ତ୍ତନ ଲଗ୍</string>
     <string name="more_info">ଅଧିକ ସୂଚନା</string>
     <string name="show_license_of_the_app">ଆପ୍ ର ଲାଇସେନ୍ସ ଦେଖାନ୍ତୁ</string>
+    <string name="show_third_party_licenses">ତୃତୀୟ ପକ୍ଷ ଲାଇସେନ୍ସ ଦେଖାନ୍ତୁ |</string>
     <string name="language_change_restart_description">ଏହି ଆପ୍ ର ଭାଷା ବଦଳାନ୍ତୁ। ପରିବର୍ତ୍ତନଗୁଡ଼ିକ କାର୍ଯ୍ୟକାରୀ ହେବା ପାଇଁ ଆପ୍ ପୁନଃଆରମ୍ଭ କରନ୍ତୁ</string>
     <string name="language">ଭାଷା</string>
     <string name="error_need_storage_permission_to_save_documents">ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ ସଞ୍ଚୟ କରିବା ପାଇଁ ଷ୍ଟୋରେଜ୍ ଅନୁମତି ଆବଶ୍ୟକ</string>
@@ -150,6 +152,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="join_community">ସମ୍ପ୍ରଦାୟରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
     <string name="bug_reports_suggest_improvements">ମତାମତ ଦିଅନ୍ତୁ, ବଗ୍ ରିପୋର୍ଟ୍ କରନ୍ତୁ କିମ୍ୱା ଉନ୍ନତି ପରାମର୍ଶ ଦିଅନ୍ତୁ</string>
     <string name="help_translating_this_app">ଏହି ଆପକୁ ଅନ୍ୟ ଭାଷାରେ ଅନୁବାଦ କରନ୍ତୁ</string>
+    <string name="source_code">ଉତ୍ସ କୋଡ୍</string>
+    <string name="project_license">ପ୍ରୋଜେକ୍ଟ ଲାଇସେନ୍ସ |</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">ପ୍ରୋଜେକ୍ଟରେ କୋଡ୍ ଯୋଗଦାନ କରନ୍ତୁ |. ନବାଗତଙ୍କ ସମେତ ସମସ୍ତେ ଏହା କରିବାକୁ ସ୍ୱାଗତ |</string>
+    <string name="project_team">ପ୍ରୋଜେକ୍ଟ ଟିମ୍ |</string>
+    <string name="contributors_public_add_yourself_description">ଯୋଗଦାନକାରୀ ସୂଚନା ଦେଖାନ୍ତୁ |. ଯୋଗଦାନ ପରେ ଏହାକୁ ଏକ ଅପ୍ଟ-ଇନ୍ ଆଧାରରେ ଏଠାରେ ଦେଖାଇବାକୁ ପ୍ରଦାନ କରନ୍ତୁ |</string>
     <string name="descending">ଅବରୋହଣ</string>
     <string name="ascending">ଆରୋହଣ</string>
     <string name="location">ଅବସ୍ଥାନ</string>
@@ -157,12 +164,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recently_viewed_documents">ନିକଟରେ ଦେଖାଯାଇଥିବା ଡକ୍ୟୁମେଣ୍ଟଗୁଡ଼ିକ</string>
     <string name="details">ବିବରଣୀ</string>
     <string name="calendar">କ୍ୟାଲେଣ୍ଡର୍</string>
-    <string name="error_picture_selection">କୌଣସି ଛବି ଚୟନ ହୋଇନି, ଉଠାଯାଇନି କି ସଞ୍ଚିତ ହୋଇନାହିଁ।</string>
+    <string name="error_picture_selection">କୌଣସି ଛଵି ଚୟନ ହୋଇନି, ଉଠାଯାଇନି କି ସଞ୍ଚିତ ହୋଇନାହିଁ।</string>
     <string name="gallery_picture">ଗ୍ୟାଲେରୀ ଛବି</string>
     <string name="camera_picture">କ୍ୟାମେରା ଛବି</string>
     <string name="enable_undo_and_redo_be_patient">ପୂର୍ବବତ୍ ଏବଂ ପୁନଃକରଣ ସକ୍ଷମ କରନ୍ତୁ। କେବଳ ଉନ୍ନତ ବ୍ୟବହାର ପାଇଁ ଉପଯୁକ୍ତ। କିଛି ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ବିଲୋପ ନକରିବା ପାଇଁ ସଚେତନ ରୁହନ୍ତୁ। ଇତିବୃତ୍ତି ସଫା କରିବାକୁ ସମ୍ପାଦକ ବନ୍ଦ କରି ଖୋଲନ୍ତୁ।</string>
     <string name="description">ବର୍ଣ୍ଣନା</string>
-    <string name="edit_picture">ଛବି ସମ୍ପାଦନା</string>
+    <string name="edit_picture">ଛଵି ସମ୍ପାଦନା</string>
     <string name="math">ଗଣିତ</string>
     <string name="table_of_contents">ସୂଚୀପତ୍ର</string>
     <string name="miscellaneous">ଵିଵିଧ</string>
@@ -170,6 +177,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="popular_documents">ଲୋକପ୍ରିୟ ଡକ୍ୟୁମେଣ୍ଟ୍</string>
     <string name="color">ରଙ୍ଗ</string>
     <string name="basic_color_scheme">ମୌଳିକ ରଙ୍ଗ ଯୋଜନା</string>
+    <string name="background">ପୃଷ୍ଠଭୂମି</string>
     <string name="type">ପ୍ରକାର</string>
     <string name="folder">ଫୋଲ୍ଡର୍</string>
     <string name="font">ଫଣ୍ଟ</string>
