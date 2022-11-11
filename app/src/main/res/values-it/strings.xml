@@ -432,6 +432,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Scade oggi</string>
     <string name="due_future">Scadenza in futuro</string>
     <string name="completed">Completato</string>
+    <string name="advanced_filtering">Filtraggio avanzato</string>
     <string name="match_any">Trova alcuni</string>
     <string name="match_all">Corrisponde tutto</string>
     <string name="dynamic_notebook_root_links">Ricerca dinamica della radice del notebook</string>
