@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,6 +19,7 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -636,5 +639,16 @@ public final class TextViewUtils extends GsTextUtils {
 
     public static boolean checkRange(final int length, final int... indices) {
         return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
+    }
+
+    public static void blink(final View view, final long duration) {
+        if (view != null && duration > 0) {
+            view.animate().setDuration(duration).alpha(0.10f).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(@NonNull Animator animation) {
+                    view.animate().setDuration(duration).alpha(1.0f).start();
+                }
+            }).start();
+        }
     }
 }

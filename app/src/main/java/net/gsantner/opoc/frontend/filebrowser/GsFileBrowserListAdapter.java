@@ -9,6 +9,8 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -22,6 +24,7 @@ import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -34,6 +37,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -460,10 +464,21 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
+    // Get the position of a file in the current view
+    // -1 if file is not a child of the current directory
+    public int getFilePosition(final File file) {
+        if (file != null) {
+            for (int i = 0; i < _adapterData.size(); i++) {
+                if (_adapterData.get(i).equals(file)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 
     // Switch to folder and show the file
-    public void showFile(final File file) {
+    public void showFile(final File file, boolean blink) {
         if (file != null && file.exists()) {
             final File dir = file.getParentFile();
             if (dir != null) {
@@ -472,11 +487,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     final int filePos = getFilePosition(file);
                     if (filePos >= 0) {
                         _recyclerView.scrollToPosition(filePos);
+                        if (blink) {
+                            _recyclerView.postDelayed(() -> TextViewUtils.blink(_recyclerView.getChildAt(filePos), 250), 100);
+                        }
                     }
                 }, 250);
+
             }
         }
     }
+
+    private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     public void loadFolder(final File folder) {
         final Handler handler = new Handler();
@@ -621,23 +642,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean isCurrentFolderHome() {
         return _currentFolder != null && _dopt.rootFolder != null && _dopt.rootFolder.getAbsolutePath().equals(_currentFolder.getAbsolutePath());
-    }
-
-    public RecyclerView getRecyclerView() {
-        return _recyclerView;
-    }
-
-    // Get the position of a file in the current view
-    // -1 if file is not a child of the current directory
-    public int getFilePosition(final File file) {
-        if (file != null) {
-            for (int i = 0; i < _adapterData.size(); i++) {
-                if (_adapterData.get(i).equals(file)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
     }
 
     public static boolean isVirtualStorage(File file) {
