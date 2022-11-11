@@ -9,4 +9,32 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Настройки</string>
+    <string name="appearance">Външен вид</string>
+    <string name="editor">Редактор</string>
+    <string name="about">Относно</string>
+    <string name="create">Създаване</string>
+    <string name="contributors">Сътрудници</string>
+    <string name="licenses">Лицензи</string>
+    <string name="changelog">Преглед на измененията</string>
+    <string name="show_license_of_the_app">Показване на лиценза на приложението</string>
+    <string name="show_third_party_licenses">Показване на лицензи на трети страни</string>
+    <string name="language_change_restart_description">Промяна на езика на това приложение. Рестартирайте приложението, за да влязат в сила промените</string>
+    <string name="language">Език</string>
+    <string name="size">Размер</string>
+    <string name="contribute">Дайте своя принос</string>
+    <string name="donate">Дарение</string>
+    <string name="exit">Изход</string>
+    <string name="more">Още</string>
+    <string name="help">Помощ</string>
+    <string name="main_view">Основен изглед</string>
+    <string name="other">Друга</string>
+    <string name="general">Общи</string>
+    <string name="open_source_licenses">Лицензи за отворен код</string>
+    <string name="rate_this_app">Оценете приложението</string>
+    <string name="translate">Преведи</string>
+    <string name="more_info_and_help">Повече информация и помощ</string>
+    <string name="report_bugs">Докладване на грешки</string>
+    <string name="join_community">Присъединете се към Общността</string>
+</resources>
