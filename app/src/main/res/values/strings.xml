@@ -449,6 +449,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Due today</string>
     <string name="due_future">Due in future</string>
     <string name="completed">Completed</string>
+    <string name="advanced_filtering">Advanced filtering</string>
     <string name="match_any">Match Any</string>
     <string name="match_all">Match All</string>
     <string name="dynamic_notebook_root_links">Dynamic search for notebook root</string>

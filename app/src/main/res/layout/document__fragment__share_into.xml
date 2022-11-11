@@ -17,7 +17,7 @@
     android:focusableInTouchMode="true"
     android:weightSum="100"
     tools:background="@color/background"
-    tools:context="web.gsantner.markor.activity.DocumentShareIntoFragment">
+    tools:context="net.gsantner.markor.activity.DocumentShareIntoFragment">
 
     <ScrollView
         android:id="@+id/document__fragment__edit__content_editor__scrolling_parent"

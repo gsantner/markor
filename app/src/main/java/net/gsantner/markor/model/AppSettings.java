@@ -294,10 +294,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__editor_line_spacing, 100) / 100f;
     }
 
-    public void setLastTodoUsedArchiveFilename(String value) {
-        setString(R.string.pref_key__todotxt__last_used_archive_filename, value);
-    }
-
     public String getLastTodoUsedArchiveFilename() {
         return getString(R.string.pref_key__todotxt__last_used_archive_filename, "todo.archive.txt");
     }
@@ -363,6 +359,22 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_AUTO_FORMAT = "PREF_PREFIX_AUTO_FORMAT";
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
+    private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
+
+    public void setLastTodoDoneName(final String path, final String name) {
+        if (fexists(path)) {
+            setString(PREF_PREFIX_TODO_DONE_NAME + path, name);
+        }
+    }
+
+    public String getLastTodoDoneName(final String path) {
+        final String def = getLastTodoUsedArchiveFilename();
+        if (!fexists(path)) {
+            return def;
+        } else {
+            return getString(PREF_PREFIX_TODO_DONE_NAME + path, def);
+        }
+    }
 
     public void setLastEditPosition(final String path, final int pos) {
         if (fexists(path)) {

@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -150,8 +151,8 @@ public class TodoTxtTask {
     private String description = null;
     private TodoDueState dueStatus = null;
 
-    public TodoTxtTask(final String line) {
-        this.line = line;
+    public TodoTxtTask(final CharSequence line) {
+        this.line = line.toString();
     }
 
     public String getLine() {
@@ -226,7 +227,7 @@ public class TodoTxtTask {
     public TodoDueState getDueStatus() {
         if (dueStatus == null) {
             final String date = getDueDate();
-            if (TextUtils.isEmpty(date)) {
+            if (GsTextUtils.isNullOrEmpty(date)) {
                 dueStatus = TodoDueState.NONE;
             } else {
                 final int comp = date.compareTo(getToday());
@@ -355,8 +356,8 @@ public class TodoTxtTask {
         }
 
         private int compareNull(final String x, final String y) {
-            final int xi = TextUtils.isEmpty(x) ? 1 : 0;
-            final int yi = TextUtils.isEmpty(y) ? 1 : 0;
+            final int xi = GsTextUtils.isNullOrEmpty(x) ? 1 : 0;
+            final int yi = GsTextUtils.isNullOrEmpty(y) ? 1 : 0;
             return Integer.compare(xi, yi);
         }
 

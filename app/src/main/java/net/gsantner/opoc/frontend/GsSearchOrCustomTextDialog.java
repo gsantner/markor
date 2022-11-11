@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -86,12 +87,12 @@ public class GsSearchOrCustomTextDialog {
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public boolean searchIsRegex = false;
         public GsCallback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
         public List<Integer> preSelected = null;
-
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
+        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
+        public GsCallback.a1<DialogInterface> dismissCallback = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -199,15 +200,11 @@ public class GsSearchOrCustomTextDialog {
                     final List<Integer> resList = new ArrayList<>();
 
                     if (_dopt.data != null) {
-                        final String fil = constraint.toString();
-                        final boolean emptySearch = fil.isEmpty();
+                        final boolean emptySearch = constraint.length() == 0;
                         for (int i = 0; i < _dopt.data.size(); i++) {
                             final String str = _dopt.data.get(i).toString();
                             final boolean matchExtra = (_extraPattern == null) || _extraPattern.matcher(str).find();
-                            final Locale locale = Locale.getDefault();
-                            final boolean matchNormal = str.toLowerCase(locale).contains(fil.toLowerCase(locale));
-                            final boolean matchRegex = _dopt.searchIsRegex && (str.matches(fil));
-                            if (matchExtra && (matchNormal || matchRegex || emptySearch)) {
+                            if (matchExtra && (emptySearch || _dopt.searchFunction.callback(constraint, str))) {
                                 resList.add(i);
                             }
                         }
@@ -220,6 +217,11 @@ public class GsSearchOrCustomTextDialog {
                 }
             };
         }
+    }
+
+    public static boolean standardSearch(final CharSequence constraint, final CharSequence text) {
+        final Locale locale = Locale.getDefault();
+        return text.toString().toLowerCase(locale).contains(constraint.toString().toLowerCase(locale));
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
@@ -257,6 +259,10 @@ public class GsSearchOrCustomTextDialog {
         final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         listLayout.weight = 1;
         mainLayout.addView(listView, listLayout);
+
+        if (dopt.dismissCallback != null) {
+            dialogBuilder.setOnDismissListener(dopt.dismissCallback::callback);
+        }
 
         dialogBuilder.setView(mainLayout)
                 .setOnCancelListener(null)
@@ -389,20 +395,22 @@ public class GsSearchOrCustomTextDialog {
         titleLayout.setOrientation(LinearLayout.VERTICAL);
         titleLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         titleLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        titleLayout.setPadding(paddingSide, paddingSide, paddingSide, paddingBetween);
+        titleLayout.setPadding(paddingSide, 2 * paddingBetween, paddingSide, paddingBetween);
 
         if (dopt.titleText != 0) {
             final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
             title.setSingleLine();
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setText(dopt.titleText);
+            title.setPadding(0, 0, 0, 0);
             titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         if (!TextUtils.isEmpty(dopt.messageText)) {
             final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
-            subTitle.setPadding(0, paddingBetween, 0, 0);
+            subTitle.setPadding(0, dopt.titleText == 0 ? 0 : paddingBetween, 0, 0);
             subTitle.setText(dopt.messageText);
+            subTitle.setTextIsSelectable(true);
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
@@ -439,10 +447,10 @@ public class GsSearchOrCustomTextDialog {
         TooltipCompat.setTooltipText(clearButton, context.getString(android.R.string.cancel));
         clearButton.setColorFilter(dopt.isDarkDialog ? Color.WHITE : Color.parseColor("#ff505050"));
         clearButton.setOnClickListener((v) -> searchEditText.setText(""));
+        clearButton.setPadding(margin, 0, margin, 0);
 
         final LinearLayout.LayoutParams clearLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
         clearLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        clearLp.setMargins(margin, 0, (int) (margin * 1.5), 0);
         searchLayout.addView(clearButton, clearLp);
 
         return searchLayout;

@@ -37,7 +37,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Pattern;
 
-//TODO
 public class TodoTxtActionButtons extends ActionButtonBase {
 
     private static final String LAST_SORT_ORDER_KEY = TodoTxtActionButtons.class.getCanonicalName() + "_last_sort_order_key";
@@ -108,18 +107,14 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 final List<String> contexts = new ArrayList<>();
                 contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
                 contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
-                MarkorDialogFactory.showSttContextDialog(getActivity(), contexts, (context) -> {
-                    insertUniqueItem((context.charAt(0) == '@') ? context : "@" + context);
-                });
+                MarkorDialogFactory.showInsertItemsDialog(getActivity(), R.string.insert_context, contexts, _hlEditor, context -> insertUniqueItem(context, "@"));
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
                 final List<String> projects = new ArrayList<>();
                 projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
                 projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
-                MarkorDialogFactory.showSttProjectDialog(getActivity(), projects, (project) -> {
-                    insertUniqueItem((project.charAt(0) == '+') ? project : "+" + project);
-                });
+                MarkorDialogFactory.showInsertItemsDialog(getActivity(), R.string.insert_project, projects, _hlEditor, project -> insertUniqueItem(project, "+"));
                 return true;
             }
             case R.string.abid_todotxt_priority: {
@@ -142,7 +137,8 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_archive_done_tasks: {
-                MarkorDialogFactory.showSttArchiveDialog(getActivity(), (callbackPayload) -> {
+                final String last = _appSettings.getLastTodoDoneName(_document.getPath());
+                MarkorDialogFactory.showSttArchiveDialog(getActivity(), last, (callbackPayload) -> {
                     callbackPayload = Document.normalizeFilename(callbackPayload);
 
                     final ArrayList<TodoTxtTask> keep = new ArrayList<>();
@@ -182,7 +178,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                             );
                         }
                     }
-                    _appSettings.setLastTodoUsedArchiveFilename(callbackPayload);
+                    _appSettings.setLastTodoDoneName(_document.getPath(), callbackPayload);
                 });
                 return true;
             }
@@ -209,11 +205,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         switch (action) {
             case R.string.abid_todotxt_add_context: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, TodoTxtFilter.CONTEXT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, TextViewUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.CONTEXT);
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, TodoTxtFilter.PROJECT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, TextViewUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.PROJECT);
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {
@@ -247,8 +243,13 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         return true;
     }
 
-    private void insertUniqueItem(String item) {
+    private void insertUniqueItem(String item, final String prefix) {
+        // Prepare item
+        if (prefix != null) {
+            item = item.startsWith(prefix) ? item : prefix + item;
+        }
         item = item.trim().replace(" ", "_");
+
         // Pattern to match <space><literal string><space OR end of line>
         // i.e. to check if a word is present in the line
         final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));

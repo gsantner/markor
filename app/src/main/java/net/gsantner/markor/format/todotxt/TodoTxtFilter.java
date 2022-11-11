@@ -2,9 +2,13 @@ package net.gsantner.markor.format.todotxt;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Pair;
 import android.widget.Toast;
 
+import androidx.annotation.VisibleForTesting;
+
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.todotxt.TodoTxtTask.TodoDueState;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -15,114 +19,141 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.EmptyStackException;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
 
 public class TodoTxtFilter {
 
+    // Special query keywords
+    // ----------------------------------------------------------------------------------------
+
+    public final static String QUERY_PRIORITY_ANY = "pri";
+    public final static String QUERY_DUE_TODAY = "due=";
+    public final static String QUERY_DUE_OVERDUE = "due<";
+    public final static String QUERY_DUE_FUTURE = "due>";
+    public final static String QUERY_DUE_ANY = "due";
+    public final static String QUERY_DONE = "done";
+
+    // ----------------------------------------------------------------------------------------
+
     public static final String SAVED_TODO_VIEWS = "todo_txt__saved_todo_views";
-    public static final int MAX_RECENT_VIEWS = 5;
+    public static final String STRING_NONE = "-";
+    private static final String TITLE = "TITLE";
+    private static final String QUERY = "QUERY";
+    private static final String NULL_SENTINEL = "NULL SENTINEL";
 
-    // Used as enum for type
-    public static final String PROJECT = "todo_txt__view_type_project";
-    public static final String CONTEXT = "todo_txt__view_type_context";
-    public static final String PRIORITY = "todo_txt__view_type_priority";
-    public static final String DUE = "todo_txt__view_type_due-date";
 
-    private static final String TITLE = "title";
-    private static final String IS_AND = "is_and";
-    private static final String KEYS = "keys";
-    private static final String TYPE = "type";
+    public static final int MAX_RECENT_VIEWS = 10;
 
-    private static final String NULL_SENTINEL = "NULL SENTINEL"; // As this has a space, it isn't a valid context etc
+    public enum TYPE {
+        PROJECT, CONTEXT, PRIORITY, DUE
+    }
 
-    // For any type, return a function which maps a task -> a list of string keys
-    public static GsCallback.r1<List<String>, TodoTxtTask> keyGetter(final Context context, final String type) {
-        switch (type) {
-            case PROJECT:
-                return TodoTxtTask::getProjects;
-            case CONTEXT:
-                return TodoTxtTask::getContexts;
-            case PRIORITY:
-                return task -> task.getPriority() == TodoTxtTask.PRIORITY_NONE ? Collections.emptyList() : Collections.singletonList(Character.toString(task.getPriority()));
-            case DUE:
-                final Map<TodoTxtTask.TodoDueState, String> statusMap = new HashMap<>();
-                statusMap.put(TodoTxtTask.TodoDueState.TODAY, context.getString(R.string.due_today));
-                statusMap.put(TodoTxtTask.TodoDueState.OVERDUE, context.getString(R.string.due_overdue));
-                statusMap.put(TodoTxtTask.TodoDueState.FUTURE, context.getString(R.string.due_future));
-                return task -> task.getDueStatus() == TodoTxtTask.TodoDueState.NONE ? Collections.emptyList() : Collections.singletonList(statusMap.get(task.getDueStatus()));
+    public static class SttFilterKey {
+        public final String key;    // Name
+        public final int count;     // How many exist
+        public final String query;  // What to stick in the query
+
+        private SttFilterKey(String k, int c, String q) {
+            key = k;
+            count = c;
+            query = q;
+        }
+    }
+
+    public static List<SttFilterKey> getKeys(final Context context, final List<TodoTxtTask> tasks, final TYPE type) {
+        if (type == TYPE.PROJECT) {
+            return getStringListKeys(tasks, TodoTxtTask::getProjects);
+        } else if (type == TYPE.CONTEXT) {
+            return getStringListKeys(tasks, TodoTxtTask::getContexts);
+        } else if (type == TYPE.PRIORITY) {
+            return getStringListKeys(tasks, t -> t.getPriority() == TodoTxtTask.PRIORITY_NONE ? null : Collections.singletonList(Character.toString(Character.toUpperCase(t.getPriority()))));
+        } else if (type == TYPE.DUE) {
+            return getDueKeys(context, tasks);
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private static List<SttFilterKey> getStringListKeys(final List<TodoTxtTask> tasks, final GsCallback.r1<List<String>, TodoTxtTask> keyGetter) {
+        final List<String> all = new ArrayList<>();
+        for (final TodoTxtTask task : tasks) {
+            final List<String> tKeys = keyGetter.callback(task);
+            all.addAll(tKeys == null || tKeys.isEmpty() ? Collections.singletonList(NULL_SENTINEL) : tKeys);
         }
 
-        return null;
+        final List<SttFilterKey> keys = new ArrayList<>();
+        final Set<String> unique = new TreeSet<>(all);
+        if (unique.remove(NULL_SENTINEL)) {
+            keys.add(new SttFilterKey(STRING_NONE, Collections.frequency(all, NULL_SENTINEL), null));
+        }
+        for (final String key : unique) {
+            keys.add(new SttFilterKey(key, Collections.frequency(all, key), key));
+        }
+
+        return keys;
     }
 
-    // For a list of keys and a task -> key mapping, return a function which selects tasks
-    public static GsCallback.b1<TodoTxtTask> taskSelector(
-            final Collection<String> keys,
-            final GsCallback.r1<List<String>, TodoTxtTask> keyGetter,
-            final boolean isAnd) {
+    public static List<SttFilterKey> getDueKeys(final Context context, final List<TodoTxtTask> tasks) {
+        final List<TodoTxtTask.TodoDueState> all = new ArrayList<>();
+        for (final TodoTxtTask task : tasks) {
+            all.add(task.getDueStatus());
+        }
+        final List<SttFilterKey> keys = new ArrayList<>();
+        keys.add(new SttFilterKey(context.getString(R.string.due_future), Collections.frequency(all, TodoDueState.FUTURE), TodoDueState.FUTURE.toString()));
+        keys.add(new SttFilterKey(context.getString(R.string.due_today), Collections.frequency(all, TodoDueState.TODAY), TodoDueState.TODAY.toString()));
+        keys.add(new SttFilterKey(context.getString(R.string.due_overdue), Collections.frequency(all, TodoDueState.OVERDUE), TodoDueState.OVERDUE.toString()));
+        keys.add(new SttFilterKey(STRING_NONE, Collections.frequency(all, TodoDueState.NONE), TodoDueState.NONE.toString()));
 
-        final Set<String> searchSet = new HashSet<>(keys);
-        final boolean noneIncluded = searchSet.remove(null);
+        return keys;
+    }
 
-        return (task) -> {
-            final List<String> taskKeys = keyGetter.callback(task);
-            if (task.isDone()) {
-                return false;
-            } else if (isAnd) {
-                return (taskKeys.isEmpty() && noneIncluded) || taskKeys.containsAll(searchSet);
+    // Convert a set of querty keys into a formatted query
+    public static String makeQuery(final Collection<String> keys, final boolean isAnd, final TodoTxtFilter.TYPE type) {
+        final String prefix;
+        final String nullKey;
+        if (type == TYPE.CONTEXT) {
+            nullKey = "!@";
+            prefix = "@";
+        } else if (type == TYPE.PROJECT) {
+            nullKey = "!+";
+            prefix = "+";
+        } else if (type == TYPE.PRIORITY) {
+            nullKey = "!" + QUERY_PRIORITY_ANY;
+            prefix = "pri:";
+        } else { // type due
+            nullKey = "!" + QUERY_DUE_ANY;
+            prefix = "";
+        }
+
+        final List<String> adjusted = new ArrayList<>();
+        for (final String key : keys) {
+            if (key != null) {
+                adjusted.add(prefix + key);
             } else {
-                return (taskKeys.isEmpty() && noneIncluded) || (!Collections.disjoint(searchSet, taskKeys));
+                adjusted.add(nullKey);
             }
-        };
+        }
+
+        // We don't include done tasks by default
+        return String.join(isAnd ? " & " : " | ", adjusted) + " & !" + QUERY_DONE;
     }
 
-    public static class Group {
-        public String title;
-        public String queryType;
-        public List<String> keys;
-        public boolean isAnd;
-    }
-
-    /**
-     * Save a 'filter view' - Filters are saved as a json string in SAVED_TODO_VIEWS as array of objects
-     *
-     * @param context   context
-     * @param saveTitle title
-     * @param queryType query type (one of PRIORITY, CONTEXT, PRIORITY or DUE)
-     * @param selKeys   List of keys
-     * @param isAnd     Whether task should have ALL the keys or ANY
-     */
-    public static void saveFilter(final Context context, final String saveTitle, final String queryType, final Collection<String> selKeys, final boolean isAnd) {
-        /*
-         [{
-             TITLE: (string) tile string,
-             TYPE: (string) query type,
-             IS_AND: (boolean) if query is AND or ANY
-             KEYS: [ key1, key2, key3 ... ]
-          },
-          {.... }, {.... }]
-         */
+    public static void saveFilter(final Context context, final String title, final String query) {
         try {
             // Create the view dict
             final JSONObject obj = new JSONObject();
-            obj.put(TITLE, saveTitle);
-            obj.put(TYPE, queryType);
-            obj.put(IS_AND, isAnd);
-            final JSONArray keysArray = new JSONArray();
-            for (final String key : selKeys) {
-                keysArray.put(key != null ? key : NULL_SENTINEL);
-            }
-            obj.put(KEYS, keysArray);
+            obj.put(TITLE, title);
+            obj.put(QUERY, query);
 
-            // Load the existing list of views
+            // This oldArray / newArray approach needed as array.remove is api 19+
             final JSONArray newArray = new JSONArray();
             newArray.put(obj);
 
-            // This oldArray / newArray approach needed as array.remove is api 19+
+            // Load the existing list of views and append the required number to the newArray
             final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
             final JSONArray oldArray = new JSONArray(pref.getString(SAVED_TODO_VIEWS, "[]"));
             final int addCount = Math.min(MAX_RECENT_VIEWS - 1, oldArray.length());
@@ -137,11 +168,8 @@ public class TodoTxtFilter {
             e.printStackTrace();
             Toast.makeText(context, "𐄂", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(context, String.format("✔ %s️", saveTitle), Toast.LENGTH_SHORT).show();
-    }
 
-    public static void saveFilter(final Context context, final Group gp) {
-        saveFilter(context, gp.title, gp.queryType, gp.keys, gp.isAnd);
+        Toast.makeText(context, String.format("✔ %s️", title), Toast.LENGTH_SHORT).show();
     }
 
     public static boolean deleteFilterIndex(final Context context, int index) {
@@ -170,25 +198,15 @@ public class TodoTxtFilter {
         }
     }
 
-    public static List<Group> loadSavedFilters(final Context context) {
+    public static List<Pair<String, String>> loadSavedFilters(final Context context) {
         final SharedPreferences pref = context.getSharedPreferences(GsSharedPreferencesPropertyBackend.SHARED_PREF_APP, Context.MODE_PRIVATE);
         try {
-            final List<Group> loadedViews = new ArrayList<>();
+            final List<Pair<String, String>> loadedViews = new ArrayList<>();
             final String jsonString = pref.getString(SAVED_TODO_VIEWS, "[]");
             final JSONArray array = new JSONArray(jsonString);
             for (int i = 0; i < array.length(); i++) {
                 final JSONObject obj = array.getJSONObject(i);
-                final Group gp = new Group();
-                gp.isAnd = obj.optBoolean(IS_AND, false);
-                gp.title = obj.optString(TITLE, "UNTITLED");
-                gp.queryType = obj.getString(TYPE);
-                gp.keys = new ArrayList<>();
-                final JSONArray keysArray = obj.getJSONArray(KEYS);
-                for (int j = 0; j < keysArray.length(); j++) {
-                    final String key = keysArray.getString(j);
-                    gp.keys.add(NULL_SENTINEL.equals(key) ? null : key);
-                }
-                loadedViews.add(gp);
+                loadedViews.add(Pair.create(obj.getString(TITLE), obj.getString(QUERY)));
             }
             return loadedViews;
         } catch (JSONException e) {
@@ -196,5 +214,144 @@ public class TodoTxtFilter {
             pref.edit().remove(SAVED_TODO_VIEWS).apply();
         }
         return Collections.emptyList();
+    }
+
+    // Query matching
+    // -------------------------------------------------------------------------------------------
+
+    public static boolean isMatchQuery(final TodoTxtTask task, final CharSequence query) {
+        try {
+            final CharSequence expression = parseQuery(task, query);
+            return evaluateExpression(expression);
+        } catch (EmptyStackException | IllegalArgumentException e) {
+            // TODO - display a useful message somehow
+            return false;
+        }
+    }
+
+    // Pre-process the query to simplify the syntax
+    private static String preProcess(final CharSequence query) {
+        return String.format(" %s ", query)                  // Leading and trailing spaces
+                .replace(" !", " ! ")    // Add space after exclamation mark
+                .replace(" (", " ( ")    // Add space before opening paren
+                .replace(") ", " ) ");   // Add space after closing paren
+    }
+
+    private static boolean isSyntax(final char c) {
+        return c == '!' || c == '|' || c == '&' || c == '(' || c == ')';
+    }
+
+    // Parse a query into an expression.
+    // i.e. evaluate the elements in the query to true or false
+    @VisibleForTesting
+    public static String parseQuery(final TodoTxtTask task, final CharSequence query) {
+        final StringBuilder expression = new StringBuilder();
+        final String[] parts = preProcess(query).split(" ");
+        for (final String part : parts) {
+            if (part.length() == 1 && isSyntax(part.charAt(0))) {
+                expression.append(part);
+            } else if (!part.isEmpty()) {
+                expression.append(evalElement(task, part));
+            }
+        }
+        return expression.toString();
+    }
+
+    // Evaluate a word (element) for truthyness or falsiness
+    // Step through all the possible conditions
+    private static char evalElement(final TodoTxtTask task, final String element) {
+
+        final boolean result;
+        if (element.startsWith(QUERY_PRIORITY_ANY)) {
+            if (QUERY_PRIORITY_ANY.equals(element)) {
+                result = task.getPriority() != TodoTxtTask.PRIORITY_NONE;
+            } else if (element.length() == 5 && element.charAt(3) == ':') {
+                result = task.getPriority() == element.charAt(4);
+            } else {
+                result = false;
+            }
+        } else if (QUERY_DUE_TODAY.equals(element)) {
+            result = task.getDueStatus() == TodoDueState.TODAY;
+        } else if (QUERY_DUE_OVERDUE.equals(element)) {
+            result = task.getDueStatus() == TodoDueState.OVERDUE;
+        } else if (QUERY_DUE_FUTURE.equals(element)) {
+            result = task.getDueStatus() == TodoDueState.FUTURE;
+        } else if (QUERY_DUE_ANY.equals(element)) {
+            result = task.getDueStatus() != TodoDueState.NONE;
+        } else if (QUERY_DONE.equals(element)) {
+            result = task.isDone();
+        } else if (element.equals("@")) {
+            result = !task.getContexts().isEmpty();
+        } else if (element.equals("+")) {
+            result = !task.getProjects().isEmpty();
+        } else if (element.startsWith("@")) {
+            result = task.getContexts().contains(element.substring(1));
+        } else if (element.startsWith("+")) {
+            result = task.getProjects().contains(element.substring(1));
+        } else {
+            result = false;
+        }
+
+        return result ? 'T' : 'F';
+    }
+
+    // Expression evaluator
+    // ---------------------------------------------------------------------------------------------
+
+    private static boolean isStart(final Stack<Character> stack) {
+        return stack.isEmpty() || stack.peek() == '(';
+    }
+
+    public static boolean isValue(final Stack<Character> stack) {
+        if (!stack.isEmpty()) {
+            final char top = stack.peek();
+            return top == 'T' || top == 'F';
+        }
+        return false;
+    }
+
+    private static char toChar(final boolean v) {
+        return v ? 'T' : 'F';
+    }
+
+    public static void evaluateOperations(final Stack<Character> stack) {
+        while (!isStart(stack) && isValue(stack)) {
+            final char rhs = stack.pop();
+            if (isStart(stack)) {
+                stack.push(rhs);
+                return;
+            }
+            final char op = stack.pop();
+            if (op == '|') {
+                stack.push(toChar(stack.pop() == 'T' | rhs == 'T'));
+            } else if (op == '&') {
+                stack.push(toChar(stack.pop() == 'T' & rhs == 'T'));
+            } else if (op == '!') {
+                stack.push(toChar(rhs == 'F'));
+            } else {
+                throw new IllegalArgumentException("Unexpected character");
+            }
+        }
+    }
+
+    public static boolean evaluateExpression(final CharSequence expression) {
+        final Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < expression.length(); i++) {
+            final char c = expression.charAt(i);
+            if (c == ')') {
+                final char value = stack.pop();
+                if (stack.pop() != '(') {
+                    throw new IllegalArgumentException("Mismatched parenthesis");
+                }
+                stack.push(value);
+            } else {
+                stack.push(c);
+            }
+            evaluateOperations(stack);
+        }
+        if (stack.size() == 1 && isValue(stack)) {
+            return stack.pop() == 'T';
+        }
+        throw new IllegalArgumentException("Malformed expression");
     }
 }

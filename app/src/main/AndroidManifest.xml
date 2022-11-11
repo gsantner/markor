@@ -179,7 +179,7 @@
             tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="web.gsantner.markor.activity.MainActivity" />
+                android:value="net.gsantner.markor.activity.MainActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
