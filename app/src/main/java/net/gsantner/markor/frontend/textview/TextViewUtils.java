@@ -10,6 +10,7 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -17,6 +18,8 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.WindowInsets;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -636,5 +639,13 @@ public final class TextViewUtils extends GsTextUtils {
 
     public static boolean checkRange(final int length, final int... indices) {
         return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
+    }
+
+    // Check if keyboard open. Only available after android 11 :(
+    public static Boolean isImeOpen(final View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
+        }
+        return null; // Uncertain
     }
 }
