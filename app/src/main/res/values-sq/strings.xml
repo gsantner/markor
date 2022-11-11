@@ -9,4 +9,26 @@ to the public domain.
 You should have received a copy of the CC0 legalcode along with this
 work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
-<resources xmlns:tools="http://schemas.android.com/tools"></resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Parametrat</string>
+    <string name="appearance">Pamja</string>
+    <string name="editor">Redaktori</string>
+    <string name="about">Rreth</string>
+    <string name="create">Krijo</string>
+    <string name="contributors">Kontribuesit</string>
+    <string name="licenses">Licensa</string>
+    <string name="changelog">Ndryshim</string>
+    <string name="show_license_of_the_app">Shfaq licencën e aplikacionit</string>
+    <string name="show_third_party_licenses">Shfaq licencat e palës së tretë</string>
+    <string name="language_change_restart_description">Ndrysho gjuhën e këtij aplikacioni. Rinisni aplikacionin që ndryshimet të hyjnë në fuqi</string>
+    <string name="language">Gjuha</string>
+    <string name="size">Madhësia</string>
+    <string name="contribute">Kontribuoj</string>
+    <string name="donate">Dhuroni</string>
+    <string name="exit">Dil</string>
+    <string name="more">Më tepër</string>
+    <string name="help">Ndihmë</string>
+    <string name="main_view">Pamja kryesore</string>
+    <string name="other">TJERA</string>
+    <string name="general">Gjeneral</string>
+</resources>
