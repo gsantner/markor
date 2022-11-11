@@ -114,6 +114,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_browser">ഡോക്യുമെന്റ് തിരച്ചിൽസംവിധാനം</string>
     <string name="file_browser">ഫയൽ തിരച്ചിൽസംവിധാനം</string>
     <string name="back_to_previous_folder" needed="false">മുൻപത്തെ ഫോൾഡറിലേക്കു പോവുക</string>
+    <string name="main_view">പ്രധാന കാഴ്ച</string>
+    <string name="other">മറ്റുള്ളവ</string>
     <string name="general">പൊതു</string>
     <string name="key_page_down">പേജ് താഴേക്ക് (Page Down)</string>
     <string name="key_pos_1">വരിയുടെ തുടക്കം (Pos Home)</string>
