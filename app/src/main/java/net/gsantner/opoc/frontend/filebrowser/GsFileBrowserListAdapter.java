@@ -257,8 +257,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void setCurrentFolder(final File folder) {
-        _currentFolder = folder;
-        reloadCurrentFolder();
+        if (!folder.equals(_currentFolder)) {
+            _currentFolder = folder;
+            reloadCurrentFolder();
+        }
     }
 
     public void reconfigure() {
@@ -460,6 +462,22 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
+    // Switch to folder and show the file
+    public void showFile(final File file) {
+        if (file != null && file.exists()) {
+            final File dir = file.getParentFile();
+            if (dir != null) {
+                setCurrentFolder(dir);
+                _recyclerView.postDelayed(() -> {
+                    final int filePos = getFilePosition(file);
+                    if (filePos >= 0) {
+                        _recyclerView.scrollToPosition(filePos);
+                    }
+                }, 250);
+            }
+        }
+    }
+
     public void loadFolder(final File folder) {
         final Handler handler = new Handler();
         _currentSelection.clear();
@@ -468,8 +486,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             @Override
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
-                    ArrayList<File> oldAdapterData = new ArrayList<>();
-                    Collections.copy(_adapterData, oldAdapterData);
                     _currentFolder = folder;
                     _adapterData.clear();
                     _virtualMapping.clear();
@@ -607,6 +623,23 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return _currentFolder != null && _dopt.rootFolder != null && _dopt.rootFolder.getAbsolutePath().equals(_currentFolder.getAbsolutePath());
     }
 
+    public RecyclerView getRecyclerView() {
+        return _recyclerView;
+    }
+
+    // Get the position of a file in the current view
+    // -1 if file is not a child of the current directory
+    public int getFilePosition(final File file) {
+        if (file != null) {
+            for (int i = 0; i < _adapterData.size(); i++) {
+                if (_adapterData.get(i).equals(file)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static boolean isVirtualStorage(File file) {
         return VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
                 VIRTUAL_STORAGE_APP_DATA_PRIVATE.equals(file) ||
@@ -615,10 +648,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     //########################
-//##
-//## StringFilter
-//##
-//########################
+    //##
+    //## StringFilter
+    //##
+    //########################
     private static class StringFilter extends Filter {
         private GsFileBrowserListAdapter _adapter;
         private final List<File> _originalList;
