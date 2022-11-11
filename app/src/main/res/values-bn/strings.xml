@@ -76,6 +76,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="more_info">আরো তথ্য</string>
     <string name="show_license_of_the_app">অ্যাপের অনুমতিপত্র দেখান</string>
     <string name="show_third_party_licenses">৩য় পক্ষের অনুমতিপত্র দেখান</string>
+    <string name="language_change_restart_description">এই অ্যাপের ভাষা পরিবর্তন করুন। পরিবর্তনগুলি কার্যকর করার জন্য অ্যাপ্লিকেশন পুনরায় চালু করুন৷</string>
     <string name="language">ভাষা</string>
     <string name="error_need_storage_permission_to_save_documents">নথিগুলো সংরক্ষণ করতে স্টোরেজের অনুমতি প্রয়োজন</string>
     <string name="open_with">খুলতে ব্যবহার করুন</string>
