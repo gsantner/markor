@@ -309,6 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">වත්මන් නාමාවලියෙහි පුනරාවර්තන සෙවුම.</string>
     <string name="always_open_with_this_app">මෙම යෙදුම සමඟ සැමවිටම විවෘත කරන්න</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">ලැයිස්තුවේ ගොනු දිගුව ඇති විට සෑම විටම මෙම යෙදුම සමඟ ගොනු විවෘත කරන්න. ඔබට වෙබ් ගොනු සහ ගොනු දිගුවක් නොමැති ඒවා සංස්කරණය කිරීමට අවශ්‍ය නම් උදාහරණයක් ලෙස \'None, .html, .css , .js\' භාවිතා කරන්න.</string>
+    <string name="rotate">කරකවන්න</string>
     <string name="template">සැකිල්ල</string>
     <string name="send_debug_log">දෝශ නිරාකරණ ලොගය යවන්න</string>
     <string name="print_pdf">මුද්‍රණය / PDF</string>
