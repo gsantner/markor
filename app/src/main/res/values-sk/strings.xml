@@ -65,7 +65,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="one_item_selected">Vybral si jednu položku</string>
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d položiek vybraných</string>
     <string name="hide_statusbar_at_this_view">Schovať status bar v tomto režime</string>
-    <string name="hide_statusbar">Schovať status bar</string>
+    <string name="hide_statusbar">Skryť stavový riadok</string>
     <string name="name">Názov</string>
     <string name="url_or_path">URL / Cesta k súboru</string>
     <string name="insert_link">Vložiť link</string>
@@ -108,8 +108,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="contribute_code_to_this_project_anybody_welcome">Prispejte kódom do projektu. Všetci sú vítaní, vrátane nováčikov</string>
     <string name="project_team">Projektová skupina</string>
     <string name="contributors_public_add_yourself_description">Zobraziť informácie o prispievateľovi. Poskytnite ho, aby sa tu zobrazoval na základe prihlásenia po príspevku</string>
+    <string name="error_picture_selection">Nie je vybratý, nasnímaný ani uložený žiadny obrázok.</string>
+    <string name="edit_picture">Upraviť obrázok</string>
+    <string name="miscellaneous">Rôzne</string>
+    <string name="background">Pozadie</string>
+    <string name="font">Písmo</string>
     <string name="always_use_current_date_and_time">Vzdycky vyuzivaj sucasny datum a cas</string>
+    <string name="close">Zavrieť</string>
+    <string name="favourite">Obľúbené</string>
     <string name="amount_of_space_for_tab">Pocet medzier po pouzity tabulatora</string>
     <string name="always_open_with_this_app">Vzdycky otvaraj touto aplikaciou</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vzdycky otvaraj subory touto aplikaciou</string>
+    <string name="rotate">Otočenie</string>
 </resources>
