@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今日到期</string>
     <string name="due_future">将来到期</string>
     <string name="completed">已完成</string>
+    <string name="advanced_filtering">高级筛选</string>
     <string name="match_any">任何匹配</string>
     <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">动态搜索笔记本根目录</string>
