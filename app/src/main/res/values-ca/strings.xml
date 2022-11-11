@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Venç avui</string>
     <string name="due_future">Venciment en el futur</string>
     <string name="completed">Completat</string>
+    <string name="advanced_filtering">Filtrat avançat</string>
     <string name="match_any">Coincideix amb qualsevol</string>
     <string name="match_all">Coincideix amb tots</string>
     <string name="dynamic_notebook_root_links">Cerca dinàmica de l\'arrel del quadern</string>
