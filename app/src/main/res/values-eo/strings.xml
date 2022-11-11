@@ -54,6 +54,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="select">Elekti</string>
     <string name="create">Krei</string>
     <string name="select_entries">Elekti elementojn</string>
+    <string name="hide_statusbar">Kaŝu statbreton</string>
     <string name="name">Dosiernomo</string>
     <string name="insert_link">Enmeti Ligilon</string>
     <string name="insert_image">Enmeti Bildon</string>
@@ -129,11 +130,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="rate_this_app">Taksi ĉi tiun apon</string>
     <string name="translate">Traduku</string>
     <string name="more_info_and_help">Pli da informo kaj helpo</string>
+    <string name="report_bugs">Raporti erarojn</string>
     <string name="join_community">Aliĝi la komunumon</string>
+    <string name="bug_reports_suggest_improvements">Donu retrosciigon, raportu erarojn aŭ sugestu plibonigojn</string>
     <string name="help_translating_this_app">Traduku ĉi tiun apon al aliaj lingvoj</string>
     <string name="source_code">Fontkodo</string>
     <string name="project_license">Projekta permesilo</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Kontribuu kodon al la projekto. Ĉiuj bonvenas fari tion, inkluzive de novuloj</string>
     <string name="project_team">Projekta teamo</string>
+    <string name="contributors_public_add_yourself_description">Montri informojn pri kontribuanto. Provizu ĝin montri ĉi tie sur elektebla bazo post kontribuado</string>
     <string name="ascending">ascenda</string>
     <string name="location">Loko</string>
     <string name="text_lines">Tekstaj Linioj</string>
@@ -142,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="directory">Dosierujo</string>
     <string name="details">Detaloj</string>
     <string name="calendar">Kalendaro</string>
+    <string name="error_picture_selection">Neniu bildo elektita, prenita aŭ konservita.</string>
     <string name="gallery_picture">Galeria bildo</string>
     <string name="camera_picture">Fotila bildo</string>
     <string name="enable_undo_and_redo_be_patient">Ebligi malfari kaj refari agojn. Nur taŭgaj por sperta uzado, paciencu por ne forigi gravan ion. Fermu kaj malfermu la redaktilon por viŝi la historion.</string>
