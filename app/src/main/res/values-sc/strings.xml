@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Iscadit oe</string>
     <string name="due_future">Iscadèntzia in su tempus benidore</string>
     <string name="completed">Cumpridu</string>
+    <string name="advanced_filtering">Filtràgiu avantzadu</string>
     <string name="match_any">Currispondet a cale si siat</string>
     <string name="match_all">Currispondet totu</string>
     <string name="dynamic_notebook_root_links">Chirca dinàmica de sa raighina de sas notas</string>
