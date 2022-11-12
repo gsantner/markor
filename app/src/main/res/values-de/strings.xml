@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Heute fällig</string>
     <string name="due_future">Künftig fällig</string>
     <string name="completed">Abgeschlossen</string>
+    <string name="advanced_filtering">Komplexer Filter</string>
     <string name="match_any">Jegliche Übereinstimmung</string>
     <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch-Wurzelverzeichnis</string>
@@ -438,5 +439,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Teilen in - Format</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
+    <string name="error_could_not_open_file">Fehler: Datei konnte nicht geöffnet werden.</string>
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
 </resources>
