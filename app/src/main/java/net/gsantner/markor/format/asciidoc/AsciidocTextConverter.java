@@ -9,18 +9,14 @@
 #########################################################*/
 package net.gsantner.markor.format.asciidoc;
 
-import android.content.Context;
+import net.gsantner.markor.format.plaintext.PlaintextTextConverter;
 
-import net.gsantner.markor.format.TextConverterBase;
-import net.gsantner.opoc.util.GsFileUtils;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class AsciidocTextConverter extends TextConverterBase {
+public class AsciidocTextConverter extends PlaintextTextConverter {
     //########################
     //## Extensions
     //########################
@@ -30,25 +26,6 @@ public class AsciidocTextConverter extends TextConverterBase {
 
     static {
         EXT.addAll(EXT_ASCIIDOC);
-    }
-
-    //########################
-    //## Methods
-    //########################
-
-    @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
-        String converted = "", onLoadJs = "", head = "";
-        final String extWithDot = GsFileUtils.getFilenameExtension(file);
-        String tmp;
-
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs,
-                head);
-    }
-
-    @Override
-    protected String getContentType() {
-        return CONTENT_TYPE_HTML;
     }
 
     @Override
