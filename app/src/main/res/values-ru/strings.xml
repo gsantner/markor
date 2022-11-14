@@ -288,7 +288,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">AppData (private)</string>
     <string name="appdata_sdcard">AppData (SD-карта)</string>
     <string name="internal_storage">Внутренняя память</string>
-    <string name="open_the_document_from_main_view">Вы можете открыть документ из главного окна внизу, из файлового браузера или из лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
+    <string name="open_the_document_from_main_view">Вы можете открыть документ из главного вида внизу, файлового браузера или лаунчера. Также есть возможность добавить текст, разделенный в Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Блокнот — это папка, которую Markor открывает в обозревателе файлов при запуске. Это папка по умолчанию для ваших файлов.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote помогает быстро делать заметки. Это файл в формате Markdown, путь по умолчанию: &gt;Notebook/QuickNote.md&lt;. Вы можете изменить путь в настройках.</string>
     <string name="todo_is_the_easiest_way_">Управляйте задачами с помощью ToDo. Это файл в формате todo.txt, путь по умолчанию: &gt;Notebook/todo.txt&lt;. Вы можете изменить путь в настройках.</string>
@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Срок сдачи сегодня</string>
     <string name="due_future">Выполнить в будущем</string>
     <string name="completed">Выполнено</string>
+    <string name="advanced_filtering">Продвинутая фильтрация</string>
     <string name="match_any">Совпадение любой</string>
     <string name="match_all">Совпадение всех</string>
     <string name="dynamic_notebook_root_links">Динамический поиск корня блокнота</string>
@@ -438,5 +439,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Поделиться - Формат</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="error_could_not_open_file">Ошибка: Не удалось открыть файл.</string>
     <string name="document_error_clip">Произошла ошибка: текст скопирован в буфер обмена.</string>
 </resources>
