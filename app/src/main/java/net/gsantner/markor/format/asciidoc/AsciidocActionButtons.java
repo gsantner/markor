@@ -10,7 +10,6 @@
 package net.gsantner.markor.format.asciidoc;
 
 import android.content.Context;
-import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -43,9 +42,11 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_ordered_list_char,
                         R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
 
-                new ActionItem(R.string.abid_asciidoc_indent_level, R.drawable.keyboard_double_arrow_right_24px,
+                new ActionItem(R.string.abid_asciidoc_indent_level,
+                        R.drawable.keyboard_double_arrow_right_24px,
                         R.string.indent_level),
-                new ActionItem(R.string.abid_asciidoc_deindent_level, R.drawable.keyboard_double_arrow_left_24px,
+                new ActionItem(R.string.abid_asciidoc_deindent_level,
+                        R.drawable.keyboard_double_arrow_left_24px,
                         R.string.deindent_level),
 
                 new ActionItem(R.string.abid_common_indent,
@@ -138,8 +139,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom,
                         R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom,
-                        // doesn't work in editor:
-                        // ActionItem.DisplayMode.ANY),
                         ActionItem.DisplayMode.VIEW),
                 new ActionItem(
                         R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp,
@@ -150,26 +149,16 @@ public class AsciidocActionButtons extends ActionButtonBase {
         return Arrays.asList(TMA_ACTIONS);
     }
 
-    /*
-     * DONE: indent deindent
-     *
-     * Maybe two different indent deindent
-     *
-     * a "normal" one for blank characters only
-     ** If the pattern is not filled:
-     *** indent: blank as prefix
-     *** deindent: remove a blank
-     * another one that will change the level of headers and lists +
-     * Pseudologics for the level changer:
-     ** If the pattern is satisfied for headers or lists: leading #, *, . with the
-     * following
-     * blank
-     *** indent: the first character is added as a prefix
-     *** deindent: the first character is removed, but only if something remains after
-     * it: '===
-     * ' => '== ' => '= ' => '= ' (no further removal)
-     *
-     */
+// indent deindent:
+
+// implemented two different indent deindent
+
+// a "normal" one for blank characters only
+// another one that will change the level of headers and lists
+// Pseudologics for the level changer:
+// * indent level: the first character is added as a prefix
+// * deindent level: the first character is removed, but only if something remains after
+// '===' => '== ' => '= ' => '= ' (no further removal)
 
     @Override
     public boolean onActionClick(final @StringRes int action) {
@@ -211,7 +200,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return true;
             }
 
-            // TODO: could be improved to keep level
+            // TODO: could be improved to keep level, will be done only on request to keep it simple for now
             case R.string.abid_asciidoc_checkbox_list: {
                 final String listChar = "*";
                 runRegexReplaceAction(
@@ -231,7 +220,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 runRegexReplaceAction(
                         AsciidocReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix(
                                 listChar));
-//                runRenumberOrderedListIfRequired();
                 return true;
             }
 
@@ -314,12 +302,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 return true;
             }
 
-            // // TODO: Implement Table Generator later
-//            case R.string.abid_asciidoc_table_insert_columns: {
-//                MarkorDialogFactory.showInsertTableRowDialog(getActivity(), false,
-//                        this::insertTableRow);
-//                return true;
-// }
             case R.string.abid_asciidoc_insert_link:
             case R.string.abid_asciidoc_insert_image: {
                 AttachLinkOrFileDialog.showInsertImageOrLinkDialog(
@@ -416,38 +398,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
         });
     }
 
-    // taken from markdown, because it was used above
-    // TODO: must be adapted for AsciiDoc, or comment out
-    private void insertTableRow(int cols, boolean isHeaderEnabled) {
-        StringBuilder sb = new StringBuilder();
-        _hlEditor.requestFocus();
-
-        // Append if current line empty
-        final int[] sel = TextViewUtils.getLineSelection(_hlEditor);
-        if (sel[0] != -1 && sel[0] == sel[1]) {
-            sb.append("\n");
-        }
-
-        for (int i = 0; i < cols - 1; i++) {
-            sb.append("  | ");
-        }
-        if (isHeaderEnabled) {
-            sb.append("\n");
-            for (int i = 0; i < cols; i++) {
-                sb.append("---");
-                if (i < cols - 1) {
-                    sb.append("|");
-                }
-            }
-        }
-        _hlEditor.moveCursorToEndOfLine(0);
-        _hlEditor.insertOrReplaceTextOnCursor(sb.toString());
-        _hlEditor.moveCursorToBeginOfLine(0);
-        if (isHeaderEnabled) {
-            _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_DPAD_UP);
-        }
-    }
-
     protected void runAsciidocInlineAction(String _action, String _prefix, String _suffix) {
         if (_hlEditor.getText() == null) {
             return;
@@ -482,17 +432,20 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 _hlEditor.setSelection(selectionStart - _prefix.length() - _action.length(),
                         selectionStart - _prefix.length() - _action.length() + selectionLength);
             } else if (Objects.equals(text.substring(selectionStart,
-                    selectionStart + _prefix.length() + _action.length()), _prefix + _action + _suffix)) {
-                if ((_prefix.length() + _action.length() + _action.length() + _suffix.length() <= selectionLength)
+                            selectionStart + _prefix.length() + _action.length()),
+                    _prefix + _action + _suffix)) {
+                if ((_prefix.length() + _action.length() + _action.length() + _suffix.length()
+                        <= selectionLength)
                         && (Objects.equals(
-                        text.substring(selectionEnd - _suffix.length() - _action.length(), selectionEnd), _action))) {
+                        text.substring(selectionEnd - _suffix.length() - _action.length(),
+                                selectionEnd), _action))) {
                     //remove inner surrounding
                     //does this happen at the same time? Or do we have to cut off the end first and
                     // then the beginning?
                     _hlEditor.getText().replace(selectionStart,
                                     selectionStart + _prefix.length() + _action.length(), "")
-                            .replace(selectionEnd - _suffix.length() - _action.length(), selectionEnd, "");
-                    //TODO: check remaining selection
+                            .replace(selectionEnd - _suffix.length() - _action.length(),
+                                    selectionEnd, "");
 
                 } else {
                     //add surrounding
