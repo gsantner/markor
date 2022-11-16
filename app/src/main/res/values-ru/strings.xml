@@ -142,7 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Задержка подсветки</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Задержка в мс перед обновлением подсветки синтаксиса. Меньше - быстрее обновление и больше расход энергии, а старые устройства - медленнее.</string>
     <string name="highlighting_enabled_or_not__appspecific">Подсвечивать введённый текст</string>
-    <string name="dynamic_highlighting_effect">Динамическая подсветка увеличивает производительность. Может вызвать рендеринг артефактов.</string>
+    <string name="dynamic_highlighting_effect">Динамическая подсветка увеличивает производительность. Может вызвать артефакты рендеринга.</string>
     <string name="control_font_size_in_editor">Выбрать размер шрифта в редакторе</string>
     <string name="textactions_show_useful_actions_description__appspecific">Показывать внизу панель с кнопками. Они изменяют текст или запускают действия.</string>
     <string name="load_last_opened_folder_at_startup">При запуске загружать последнюю открытую папку</string>
