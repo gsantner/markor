@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Süresi bugün dolanlar</string>
     <string name="due_future">Süresi ileride dolanlar</string>
     <string name="completed">Tamamlananlar</string>
+    <string name="advanced_filtering">Gelişmiş filtreleme</string>
     <string name="match_any">Herhangi Birini Eşleştir</string>
     <string name="match_all">Tümünü Eşleştir</string>
     <string name="dynamic_notebook_root_links">Not defteri kaynağında dinamik arama yap</string>
