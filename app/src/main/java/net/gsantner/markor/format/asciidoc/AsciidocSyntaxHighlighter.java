@@ -17,7 +17,9 @@ import net.gsantner.markor.model.AppSettings;
 
 import java.util.regex.Pattern;
 
+import other.writeily.format.markdown.WrAsciidocHeaderSpanCreator;
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
+import other.writeily.format.wikitext.WrWikitextHeaderSpanCreator;
 
 public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
@@ -38,7 +40,10 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern SUPERSCRIPT = Pattern.compile("(?m)(\\^(?!\\^)(.*?)\\^(?!\\^))");
     public final static Pattern MONOSPACE = Pattern.compile("(?m)(`(?!`)(.*?)`(?!`))");
 
-    public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
+//    public final static Pattern HEADING_ASCIIDOC = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
+    public final static Pattern HEADING = Pattern.compile("(?m)(^(={1,6}|#{1,6})[^\\S\\n][^\\n]+)");
+    public final static Pattern HEADING_ASCIIDOC = Pattern.compile("(?m)(^={1,6}[^\\S\\n][^\\n]+)");
+    public final static Pattern HEADING_MD = Pattern.compile("(?m)(^#{1,6}[^\\S\\n][^\\n]+)");
     // simplified syntax: In fact, leading spaces are also possible
     // could be extended, if users will request. But for now it is a good starting point
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^(\\.{1,6})( {1})");
@@ -217,7 +222,6 @@ Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
     @Override
     public SyntaxHighlighterBase configure(Paint paint) {
         _highlightLineEnding = _appSettings.isAsciidocHighlightLineEnding();
-// TODO: BiggerHeadings does not work yet, try to explore, why
         _highlightBiggerHeadings = _appSettings.isAsciidocBiggerHeadings();
         _highlightCodeChangeFont = _appSettings.isHighlightCodeMonospaceFont();
         _highlightCodeBlock = _appSettings.isHighlightCodeBlock();
@@ -239,14 +243,15 @@ Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
         // but not in the current Pull Request
         createSmallBlueLinkSpans();
 
-        //TODO: doesn't yet work, but it is called
         if (_highlightBiggerHeadings) {
-            createSpanForMatches(HEADING_SIMPLE, new WrMarkdownHeaderSpanCreator(_spannable,
+            createSpanForMatches(HEADING_ASCIIDOC, new WrAsciidocHeaderSpanCreator(_spannable,
+                    _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING,
+                    _textSize));
+            createSpanForMatches(HEADING_MD, new WrMarkdownHeaderSpanCreator(_spannable,
                     _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING,
                     _textSize));
         } else {
-//          createColorSpanForMatches(HEADING_SIMPLE, _isDarkMode ? AD_COLOR_DARK_HEADING : AD_COLOR_LIGHT_HEADING);
-            createSpanForMatches(HEADING_SIMPLE, new HighlightSpan().setForeColor(
+            createSpanForMatches(HEADING, new HighlightSpan().setForeColor(
                     _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING));
         }
 
