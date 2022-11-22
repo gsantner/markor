@@ -478,21 +478,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     // Switch to folder and show the file
-    public void showFile(final File file, boolean blink) {
+    public void showFile(final File file) {
         if (file != null && file.exists()) {
             final File dir = file.getParentFile();
             if (dir != null) {
                 setCurrentFolder(dir);
-                _recyclerView.postDelayed(() -> {
-                    final int filePos = getFilePosition(file);
-                    if (filePos >= 0) {
-                        _recyclerView.scrollToPosition(filePos);
-                        if (blink) {
-                            _recyclerView.postDelayed(() -> TextViewUtils.blink(_recyclerView.getChildAt(filePos), 250), 100);
+                _recyclerView.post(() -> {
+                    synchronized (LOAD_FOLDER_SYNC_OBJECT) { // We wait until load folder is done
+                        final int filePos = getFilePosition(file);
+                        if (filePos >= 0 && filePos < _recyclerView.getChildCount()) {
+                            _recyclerView.smoothScrollToPosition(filePos);
+                            _recyclerView.post(() -> TextViewUtils.blinkView(_recyclerView.getChildAt(filePos)));
                         }
                     }
-                }, 250);
-
+                });
             }
         }
     }

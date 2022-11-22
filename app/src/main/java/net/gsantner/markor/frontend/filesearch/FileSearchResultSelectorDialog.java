@@ -121,7 +121,7 @@ public class FileSearchResultSelectorDialog {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
                     final String path = ((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(group)).path;
                     final GsFileBrowserListAdapter fileAdapter = ((MainActivity) activity).getNotebook().getAdapter();
-                    fileAdapter.showFile(new File(fileAdapter.getCurrentFolder(), path), true);
+                    fileAdapter.showFile(new File(fileAdapter.getCurrentFolder(), path));
                     if (dialog != null && dialog.get() != null) {
                         dialog.get().dismiss();
                     }

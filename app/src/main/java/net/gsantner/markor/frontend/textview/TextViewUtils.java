@@ -11,6 +11,9 @@ package net.gsantner.markor.frontend.textview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
@@ -21,6 +24,7 @@ import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.WindowInsets;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -643,18 +647,21 @@ public final class TextViewUtils extends GsTextUtils {
         return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
     }
 
-    public static void blink(final View view, final long duration) {
-        if (view != null && duration > 0) {
-            view.animate().setDuration(duration).alpha(0.10f).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(@NonNull Animator animation) {
-                    view.animate().setDuration(duration).alpha(1.0f).start();
-                }
-            }).start();
+    public static void blinkView(final View view) {
+        if (view == null) {
+            return;
         }
+
+        final long duration = 500;
+        final float init = view.getAlpha();
+        view.animate().setDuration(duration).alpha(0.10f).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.animate().setDuration(duration).alpha(init).start();
+            }
+        }).start();
     }
 
-        
     // Check if keyboard open. Only available after android 11 :(
     public static Boolean isImeOpen(final View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
