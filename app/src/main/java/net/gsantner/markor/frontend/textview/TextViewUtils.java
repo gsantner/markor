@@ -9,11 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -26,7 +22,6 @@ import android.text.Selection;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewPropertyAnimator;
 import android.view.WindowInsets;
 import android.widget.EditText;
 import android.widget.TextView;
