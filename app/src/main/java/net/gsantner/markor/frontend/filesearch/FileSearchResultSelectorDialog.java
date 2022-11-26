@@ -120,8 +120,7 @@ public class FileSearchResultSelectorDialog {
                 if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
                     final String path = ((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(group)).path;
-                    final GsFileBrowserListAdapter fileAdapter = ((MainActivity) activity).getNotebook().getAdapter();
-                    fileAdapter.showFile(new File(fileAdapter.getCurrentFolder(), path));
+                    ((MainActivity) activity).getNotebook().showPathRelative(path);
                     if (dialog != null && dialog.get() != null) {
                         dialog.get().dismiss();
                     }

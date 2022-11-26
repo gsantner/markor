@@ -14,6 +14,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.WindowInsets;
@@ -202,6 +204,10 @@ public final class TextViewUtils extends GsTextUtils {
             }
         }
         return i;
+    }
+
+    public static int[] countChars(final CharSequence s, final char... chars) {
+        return countChars(s, 0, s.length(), chars);
     }
 
     /**
@@ -648,18 +654,21 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
     public static void blinkView(final View view) {
-        if (view == null) {
-            return;
+        if (view != null) {
+            final float init = view.getAlpha();
+            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
         }
+    }
 
-        final long duration = 500;
-        final float init = view.getAlpha();
-        view.animate().setDuration(duration).alpha(0.10f).setListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                view.animate().setDuration(duration).alpha(init).start();
-            }
-        }).start();
+    public static boolean isViewVisible(final View view) {
+        if (view == null || !view.isShown()) {
+            return false;
+        }
+        final Rect actualPosition = new Rect();
+        boolean isGlobalVisible = view.getGlobalVisibleRect(actualPosition);
+        final DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        final Rect screen = new Rect(0, 0, metrics.widthPixels, metrics.heightPixels);
+        return isGlobalVisible && Rect.intersects(actualPosition, screen);
     }
 
     // Check if keyboard open. Only available after android 11 :(
