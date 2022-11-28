@@ -812,16 +812,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_enable_experimental_features, BuildConfig.IS_TEST_BUILD);
     }
 
-    public boolean isMarkdownBiggerHeadings() {
+    public boolean isHighlightBiggerHeadings() {
         return getBool(R.string.pref_key__editor_markdown_bigger_headings_2, false);
-    }
-
-    public boolean isAsciidocBiggerHeadings() {
-        return getBool(R.string.pref_key__asciidoc_bigger_headings, false);
-    }
-
-    public boolean isWikitextBiggerHeadings() {
-        return getBool(R.string.pref_key__wikitext_bigger_headings, false);
     }
 
     public String getViewModeLinkColor() {
