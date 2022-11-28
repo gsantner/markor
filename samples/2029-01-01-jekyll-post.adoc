@@ -1,7 +1,7 @@
 = My Title
 :page-subtitle: This is a subtitle
 :page-last-updated: 2029-01-01
-:page-tags: ["AsciiDoc", "Markor", "open source"]
+:page-tags: ['AsciiDoc', 'Markor', 'open source']
 :toc: auto
 :toclevels: 2
 // :page-description: the optional description
