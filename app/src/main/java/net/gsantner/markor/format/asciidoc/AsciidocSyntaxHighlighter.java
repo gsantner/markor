@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 
 import other.writeily.format.markdown.WrAsciidocHeaderSpanCreator;
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
-import other.writeily.format.wikitext.WrWikitextHeaderSpanCreator;
 
 public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
@@ -40,7 +39,7 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern SUPERSCRIPT = Pattern.compile("(?m)(\\^(?!\\^)(.*?)\\^(?!\\^))");
     public final static Pattern MONOSPACE = Pattern.compile("(?m)(`(?!`)(.*?)`(?!`))");
 
-//    public final static Pattern HEADING_ASCIIDOC = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
+    //    public final static Pattern HEADING_ASCIIDOC = Pattern.compile("(?m)^(={1,6} {1}\\S.*$)");
     public final static Pattern HEADING = Pattern.compile("(?m)(^(={1,6}|#{1,6})[^\\S\\n][^\\n]+)");
     public final static Pattern HEADING_ASCIIDOC = Pattern.compile("(?m)(^={1,6}[^\\S\\n][^\\n]+)");
     public final static Pattern HEADING_MD = Pattern.compile("(?m)(^#{1,6}[^\\S\\n][^\\n]+)");
