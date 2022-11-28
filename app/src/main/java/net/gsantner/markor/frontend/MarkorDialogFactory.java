@@ -83,16 +83,11 @@ public class MarkorDialogFactory {
         dopt.okButtonText = 0;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
-
-    // TODO: this is just a copy of showSpecialKeyDialog, to make minimal invasive changes
-    // but one procedure could be used and an additional paramater, to distinguish between "normal" usage and additional asciidoc usage
-    // TODO: Clarify if the function should stay here or be moved to one of the
-    // AsciiDoc files. Leave here for now
     public static void showAsciidocSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
-        // this is the only difference:
+        // this is the only difference to showSpecialKeyDialog:
         // R.array.asciidoc_textactions_press_key__text is used instead of R.array.textactions_press_key__text
         String[] actions = activity.getResources().getStringArray(R.array.asciidoc_textactions_press_key__text);
         dopt.data = new ArrayList<>(Arrays.asList(actions));
