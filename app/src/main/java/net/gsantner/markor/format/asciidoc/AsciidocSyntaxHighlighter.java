@@ -17,7 +17,7 @@ import net.gsantner.markor.model.AppSettings;
 
 import java.util.regex.Pattern;
 
-import other.writeily.format.markdown.WrAsciidocHeaderSpanCreator;
+import other.writeily.format.asciidoc.WrAsciidocHeaderSpanCreator;
 import other.writeily.format.markdown.WrMarkdownHeaderSpanCreator;
 
 public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {

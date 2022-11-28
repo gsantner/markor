@@ -7,7 +7,7 @@
  * You can get a copy of the license text here:
  *   https://opensource.org/licenses/MIT
 ###########################################################*/
-package other.writeily.format.markdown;
+package other.writeily.format.asciidoc;
 
 import net.gsantner.opoc.wrapper.GsCallback;
 
