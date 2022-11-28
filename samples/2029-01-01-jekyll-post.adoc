@@ -1,0 +1,30 @@
+= My Title
+:page-subtitle: This is a subtitle
+:page-last-updated: 2029-01-01
+:page-tags: ['AsciiDoc', 'Markor', 'open source']
+:toc: auto
+:toclevels: 2
+// :page-description: the optional description
+// This should match the structure on the jekyll server:
+:imagesdir: ../assets/img/blog
+
+ifndef::env-site[]
+
+// on the jekyll server, the :page-subtitle: is displayed below the title.
+// but it is not shown, when rendered in html5, and the site is rendered in html5, when working locally
+// so we show it additionally only, when we work locally
+// https://docs.asciidoctor.org/asciidoc/latest/document/subtitle/
+
+[discrete] 
+=== {page-subtitle}
+
+endif::env-site[]
+
+// local testing:
+:imagesdir: ../app/src/main/assets/img
+
+image::flowerfield.jpg[]
+
+image::schindelpattern.jpg[Schindelpattern,200]
+
+before inline picture image:schindelpattern.jpg[Schindelpattern,50] and after inline picture

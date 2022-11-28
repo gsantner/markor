@@ -186,6 +186,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Move done tasks to specified file in same folder</string>
     <string name="sort_tasks_by_selected_order">Sort tasks by selected order</string>
     <string name="special_key">Special Key</string>
+    <string name="asciidoc_special_key">Special AsciiDoc Content</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
     <string name="move_text_one_line_up">Move text one line up</string>

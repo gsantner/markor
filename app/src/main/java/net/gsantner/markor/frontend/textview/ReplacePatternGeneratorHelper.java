@@ -25,7 +25,8 @@ public class ReplacePatternGeneratorHelper {
      */
     public static List<ActionButtonBase.ReplacePattern> replaceWithTargetPatternOrAlternative(
             final Pattern[] replaceablePatterns,
-            final Pattern targetPattern, final String targetReplacement,
+            final Pattern targetPattern,
+            final String targetReplacement,
             final String alternativeReplacement
     ) {
         final List<ActionButtonBase.ReplacePattern> replacePatterns = new ArrayList<>();
@@ -47,7 +48,11 @@ public class ReplacePatternGeneratorHelper {
      * a way that the targeted prefix is achieved.
      * 2. In Strings which already contain the targeted prefix, this prefix is removed.
      */
-    public static List<ActionButtonBase.ReplacePattern> replaceWithTargetPrefixOrRemove(final Pattern[] replaceablePrefixPatterns, final Pattern targetPrefixPattern, final String targetPrefixReplacement) {
+    public static List<ActionButtonBase.ReplacePattern> replaceWithTargetPrefixOrRemove(
+            final Pattern[] replaceablePrefixPatterns,
+            final Pattern targetPrefixPattern,
+            final String targetPrefixReplacement
+    ) {
         String removePrefixReplacement = "$1";  // only keep whitespaces before prefix
         return replaceWithTargetPatternOrAlternative(replaceablePrefixPatterns,
                 targetPrefixPattern, targetPrefixReplacement, removePrefixReplacement);

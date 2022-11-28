@@ -70,6 +70,7 @@ public class AttachLinkOrFileDialog {
                 actionTitle = R.string.insert_link;
                 formatTemplate = new GsHashMap<Integer, String>().load(
                         FormatRegistry.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
+                        FormatRegistry.FORMAT_ASCIIDOC, "link:{{ template.link }}[{{ template.title }}]",
                         FormatRegistry.FORMAT_WIKITEXT, "[[{{ template.link }}|{{ template.title }}]]"
                 ).getOrDefault(textFormatId, "<a href='{{ template.link }}'>{{ template.title }}</a>");
                 break;
@@ -78,6 +79,7 @@ public class AttachLinkOrFileDialog {
                 actionTitle = R.string.insert_image;
                 formatTemplate = new GsHashMap<Integer, String>().load(
                         FormatRegistry.FORMAT_MARKDOWN, "![{{ template.title }}]({{ template.link }})",
+                        FormatRegistry.FORMAT_ASCIIDOC, "image::{{ template.link }}[\"{{ template.title }}\"]",
                         FormatRegistry.FORMAT_WIKITEXT, "{{{{ template.link }}}}"
                 ).getOrDefault(textFormatId, "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
                 break;
