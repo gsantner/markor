@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
@@ -136,6 +137,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
             _textActions = new TodoTxtActionButtons(this, null);
         } else if (documentType == R.string.pref_key__wikitext_reorder_actions) {
             _textActions = new WikitextActionButtons(this, null);
+        } else if (documentType == R.string.pref_key__asciidoc__reorder_actions) {
+            _textActions = new AsciidocActionButtons(this, null);
         } else { // Default to Plaintext
             _textActions = new PlaintextActionButtons(this, null);
         }
