@@ -43,10 +43,10 @@ public class AsciidocActionButtons extends ActionButtonBase {
                         R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
 
                 new ActionItem(R.string.abid_asciidoc_indent_level,
-                        R.drawable.keyboard_double_arrow_right_24px,
+                        R.drawable.ic_baseline_keyboard_double_arrow_right_24,
                         R.string.indent_level),
                 new ActionItem(R.string.abid_asciidoc_deindent_level,
-                        R.drawable.keyboard_double_arrow_left_24px,
+                        R.drawable.ic_baseline_keyboard_double_arrow_left_24,
                         R.string.deindent_level),
 
                 new ActionItem(R.string.abid_common_indent,
@@ -54,7 +54,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent,
                         R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_asciidoc_squarebrackets,
-                        R.drawable.data_array_24px, R.string.squarebrackets),
+                        R.drawable.ic_baseline_data_array_24, R.string.squarebrackets),
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp,
                         R.string.special_key),
                 // similar to abid_common_special_key, but separate menu
@@ -89,12 +89,12 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_asciidoc_linethrough,
                         R.drawable.ic_format_strikethrough_black_24dp, R.string.strikeout),
                 new ActionItem(
-                        R.string.abid_asciidoc_overline, R.drawable.format_overline_24px,
+                        R.string.abid_asciidoc_overline, R.drawable.ic_baseline_format_overline_24,
                         R.string.inline_code),
-                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.superscript_24px,
+                new ActionItem(R.string.abid_asciidoc_superscript, R.drawable.ic_baseline_superscript_24,
                         R.string.inline_code),
                 new ActionItem(R.string.abid_asciidoc_subscript,
-                        R.drawable.subscript_24px
+                        R.drawable.ic_baseline_subscript_24
                         , R.string.inline_code),
                 new ActionItem(
                         R.string.abid_asciidoc_break_thematic, R.drawable.ic_more_horiz_black_24dp,
@@ -119,7 +119,7 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 // a different icon was used than in other formats, so that you can distinguish
                 // it from opening in the browser
                 new ActionItem(R.string.abid_common_view_file_in_other_app,
-                        R.drawable.in_open_new_ic_icon_24dp, R.string.open_with,
+                        R.drawable.ic_baseline_open_in_new_24, R.string.open_with,
                         ActionItem.DisplayMode.ANY),
                 new ActionItem(
                         R.string.abid_common_attach_something, R.drawable.ic_attach_file_black_24dp,
