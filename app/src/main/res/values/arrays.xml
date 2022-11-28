@@ -70,11 +70,41 @@
         <item translatable="false">@string/select_current_line</item>
     </string-array>
 
+    <string-array name="asciidoc_textactions_press_key__text" translatable="false">
+        <item translatable="false">@string/asciidoc_block_quote</item>
+        <item translatable="false">@string/asciidoc_block_comment</item>
+        <item translatable="false">@string/asciidoc_block_example</item>
+        <item translatable="false">@string/asciidoc_block_listing</item>
+        <item translatable="false">@string/asciidoc_block_literal</item>
+        <item translatable="false">@string/asciidoc_block_open</item>
+        <item translatable="false">@string/asciidoc_block_sidebar</item>
+        <item translatable="false">@string/asciidoc_block_table</item>
+        <item translatable="false">@string/asciidoc_block_pass</item>
+
+        <item translatable="false">@string/asciidoc_block_code</item>
+        <item translatable="false">@string/asciidoc_block_collapsible</item>
+
+        <item translatable="false">@string/asciidoc_highlight</item>
+        <item translatable="false">@string/asciidoc_underline</item>
+        <item translatable="false">@string/asciidoc_linethrough</item>
+        <item translatable="false">@string/asciidoc_overline</item>
+        <item translatable="false">@string/asciidoc_subscript</item>
+        <item translatable="false">@string/asciidoc_superscript</item>
+
+        <item translatable="false">@string/asciidoc_nobreak</item>
+        <item translatable="false">@string/asciidoc_nowrap</item>
+        <item translatable="false">@string/asciidoc_prewrap</item>
+
+        <item translatable="false">@string/asciidoc_break_thematic</item>
+        <item translatable="false">@string/asciidoc_break_page</item>
+    </string-array>
+
     <string-array name="new_file_types" translatable="false">
         <item translatable="false">@string/markdown</item>
         <item translatable="false">@string/plaintext</item>
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/wikitext</item>
+        <item translatable="false">@string/asciidoc</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
@@ -89,6 +119,7 @@
         <item translatable="false">@string/file_template__zim_wiki_empty</item>
         <item translatable="false">@string/file_template__md_hugo_post_front_matter</item>
         <item translatable="false">@string/file_template__md_zettelkasten</item>
+        <item translatable="false">@string/file_template__ad_jekyll_post</item>
     </string-array>
 
     <string-array name="new_file_types__file_extension" translatable="false">
@@ -96,6 +127,7 @@
         <item translatable="false">.txt</item>
         <item translatable="false">.todo.txt</item>
         <item translatable="false">.txt</item>
+        <item translatable="false">.adoc</item>
         <item translatable="false" />
     </string-array>
 

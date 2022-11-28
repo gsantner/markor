@@ -494,10 +494,6 @@ public abstract class ActionButtonBase {
         }
     }
 
-    //
-    //
-    //
-    //
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         m_activity = activity;

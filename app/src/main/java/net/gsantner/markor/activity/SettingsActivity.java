@@ -340,6 +340,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                     break;
                 }
                 case R.string.pref_key__plaintext__reorder_actions:
+                case R.string.pref_key__asciidoc__reorder_actions:
                 case R.string.pref_key__markdown__reorder_actions:
                 case R.string.pref_key__wikitext_reorder_actions:
                 case R.string.pref_key__todotxt__reorder_actions: {

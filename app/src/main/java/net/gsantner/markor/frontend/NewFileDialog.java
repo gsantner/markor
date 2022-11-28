@@ -307,6 +307,10 @@ public class NewFileDialog extends DialogFragment {
                 t = "source:\ncategory:\ntag:\n------------\n";
                 break;
             }
+            case 10: {
+                t = "= My Title\n:page-subtitle: This is a subtitle\n:page-last-updated: 2029-01-01\n:page-tags: ['AsciiDoc', 'Markor', 'open source']\n:toc: auto\n:toclevels: 2\n// :page-description: the optional description\n// This should match the structure on the jekyll server:\n:imagesdir: ../assets/img/blog\n\nifndef::env-site[]\n\n// on the jekyll server, the :page-subtitle: is displayed below the title.\n// but it is not shown, when rendered in html5, and the site is rendered in html5, when working locally\n// so we show it additionally only, when we work locally\n// https://docs.asciidoctor.org/asciidoc/latest/document/subtitle/\n\n[discrete] \n=== {page-subtitle}\n\nendif::env-site[]\n\n// local testing:\n:imagesdir: ../app/src/main/assets/img\n\nimage::flowerfield.jpg[]\n\nimage::schindelpattern.jpg[Schindelpattern,200]\n\nbefore inline picture image:schindelpattern.jpg[Schindelpattern,50] and after inline picture\n";
+                break;
+            }
             default: {
                 final Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {

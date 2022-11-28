@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
+import net.gsantner.markor.format.asciidoc.AsciidocSyntaxHighlighter;
+import net.gsantner.markor.format.asciidoc.AsciidocTextConverter;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueSyntaxHighlighter;
 import net.gsantner.markor.format.keyvalue.KeyValueTextConverter;
@@ -49,6 +52,7 @@ public class FormatRegistry {
     public static final int FORMAT_WIKITEXT = R.string.action_format_wikitext;
     public static final int FORMAT_MARKDOWN = R.string.action_format_markdown;
     public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
+    public static final int FORMAT_ASCIIDOC = R.string.action_format_asciidoc;
     public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
     public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
@@ -59,6 +63,7 @@ public class FormatRegistry {
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueTextConverter CONVERTER_KEYVALUE = new KeyValueTextConverter();
     public final static PlaintextTextConverter CONVERTER_PLAINTEXT = new PlaintextTextConverter();
+    public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
     public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
 
 
@@ -68,6 +73,7 @@ public class FormatRegistry {
             CONVERTER_TODOTXT,
             CONVERTER_WIKITEXT,
             CONVERTER_KEYVALUE,
+            CONVERTER_ASCIIDOC,
             CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
     };
@@ -101,6 +107,14 @@ public class FormatRegistry {
                 format._converter = CONVERTER_PLAINTEXT;
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
+                break;
+            }
+            case FORMAT_ASCIIDOC: {
+                format._converter = CONVERTER_ASCIIDOC;
+                format._highlighter = new AsciidocSyntaxHighlighter(appSettings);
+                format._textActions = new AsciidocActionButtons(context, document);
                 format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
