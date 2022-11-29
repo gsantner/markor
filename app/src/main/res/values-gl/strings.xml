@@ -106,6 +106,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="tasks_with_todays_date">Tarefas con data de hoxe</string>
     <string name="append_contexts_and_projects">Engadir contextos e proxectos</string>
     <string name="general">Xeral</string>
+    <string name="asciidoc_special_key">Contido especial AsciiDoc</string>
     <string name="default_">Por omisión</string>
     <string name="open_source_licenses">Licenzas de código aberto</string>
     <string name="rate_this_app">Avalía esta aplicación</string>
