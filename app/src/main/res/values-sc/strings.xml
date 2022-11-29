@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Moe sas fainas acabadas in su documentu dislindadu in sa matessi cartella</string>
     <string name="sort_tasks_by_selected_order">Òrdina sas fainas sighende s\'òrdine ischertadu</string>
     <string name="special_key">Tecla ispetziale</string>
+    <string name="asciidoc_special_key">Cuntenutu ispetziale AsciiDoc</string>
     <string name="key_page_up">Pàgina in subra (Page Up)</string>
     <string name="key_page_down">Pàgina in suta (Page Down)</string>
     <string name="move_text_one_line_up">Tràmuda su testu de una riga cara a susu</string>
