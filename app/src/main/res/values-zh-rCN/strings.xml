@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">将完成的任务移动至同目录下的指定文件</string>
     <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
+    <string name="asciidoc_special_key">特殊 AsciiDoc 内容</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
     <string name="move_text_one_line_up">上移一行</string>
