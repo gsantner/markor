@@ -597,7 +597,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public String getAppThemeName() {
-        return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_auto));
+        return getString(R.string.pref_key__app_theme, _context.getString(R.string.app_theme_system));
     }
 
     public void setEditorBasicColor(boolean forDarkMode, @ColorRes int fgColor, @ColorRes int bgColor) {
