@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Bitirilen görevleri aynı klasöre belirtilen dosyaya taşı</string>
     <string name="sort_tasks_by_selected_order">Görevleri seçilen düzene göre sırala</string>
     <string name="special_key">Özel Tuş</string>
+    <string name="asciidoc_special_key">Özel AsciiDoc İçeriği</string>
     <string name="key_page_up">Sayfa Yukarı (Page Up)</string>
     <string name="key_page_down">Sayfa Aşağı (Page Down)</string>
     <string name="move_text_one_line_up">Metni bir satır yukarı taşı</string>
