@@ -418,7 +418,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' existe déjà dans %s</string>
     <string name="additional_contexts_and_projects">Contextes et projets supplémentaires</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Entrez les @contexts séparés par des espaces et +projets. Ils seront toujours visibles dans les boîtes de dialogue d\'insertion todo.txt.</string>
-    <string name="infinite">Infini</string>
+    <string name="infinite">Infinie</string>
     <string name="browse_by_project">Parcourir par projet</string>
     <string name="browse_by_context">Naviguer par contexte</string>
     <string name="insert_project">Insérer des projets</string>
@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">À faire aujourd\'hui</string>
     <string name="due_future">Échéance dans le futur</string>
     <string name="completed">Terminé</string>
+    <string name="advanced_filtering">Filtrage avancé</string>
     <string name="match_any">Correspondre à n\'importe quel</string>
     <string name="match_all">Tout faire correspondre</string>
     <string name="dynamic_notebook_root_links">Recherche dynamique de la racine du bloc-notes</string>
@@ -438,5 +439,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Partager dans - Format</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="error_could_not_open_file">Impossible d\'ouvrir le fichier.</string>
     <string name="document_error_clip">Erreur rencontrée: Texte copié dans le presse-papiers.</string>
 </resources>

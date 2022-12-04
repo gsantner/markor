@@ -432,6 +432,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Scade oggi</string>
     <string name="due_future">Scadenza in futuro</string>
     <string name="completed">Completato</string>
+    <string name="advanced_filtering">Filtraggio avanzato</string>
     <string name="match_any">Trova alcuni</string>
     <string name="match_all">Corrisponde tutto</string>
     <string name="dynamic_notebook_root_links">Ricerca dinamica della radice del notebook</string>
@@ -440,5 +441,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Condividi in - Formato</string>
     <string name="auto_format">Autoformattazione</string>
     <string name="insert_snippet">Inserisci estratto</string>
+    <string name="error_could_not_open_file">Errore: impossibile aprire il file.</string>
     <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
 </resources>

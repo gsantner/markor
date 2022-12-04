@@ -156,10 +156,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Asuqel</string>
     <string name="more_info_and_help">Ugar n isallan akked tallalt</string>
     <string name="report_bugs">Azen ibugen</string>
+    <string name="join_community">Qeddem ɣer tmeddurt</string>
+    <string name="bug_reports_suggest_improvements">Efk-d tikkelt nniḍen, ssenfeṛ-d tuccḍiwin neɣ ssenfeṛ-d ameqqran</string>
     <string name="help_translating_this_app">Suqqel asnas-agi ɣer tutlayin-nniḍen</string>
     <string name="source_code">Tangalt taɣbalut</string>
     <string name="project_license">Turagt n usenfaṛ</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Ɛeddet amsukkel i usenfar. Anṣuf yes-sen akk ad xedmen aya, ama d wid i d-yusan d imaynuten</string>
     <string name="project_team">Tarbaɛt n usenfaṛ</string>
+    <string name="contributors_public_add_yourself_description">Ssken tilɣa n umeddakel. Efk-it-id ad d-tbanen dagi deg yiwen n opt-in deffir n uddukkel</string>
     <string name="location">Asun</string>
     <string name="text_lines">Izirigen n uḍris</string>
     <string name="text_characters">Isekkilen n uḍris</string>

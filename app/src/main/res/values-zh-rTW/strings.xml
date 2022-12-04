@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">顯現由右至左的語言</string>
     <string name="error_cannot_create_notebook_dir__appspecific">錯誤：不能建立筆記本目錄</string>
     <string name="last_modified_witharg">最近修改： %s</string>
+    <string name="last_modified">上次修改時間</string>
     <string name="select_this_folder">選擇當前資料夾</string>
     <string name="select">選擇</string>
     <string name="create">建立</string>
@@ -201,6 +202,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">頂端</string>
     <string name="bottom">底端</string>
     <string name="center">中央</string>
+    <string name="actionbutton_spacing">ActionButtons 間距</string>
+    <string name="horizontal_space_between_actionbuttons">ActionButtons 之間的水平間距</string>
     <string name="center_text">文件中央</string>
     <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
@@ -309,6 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">在目前目錄中遞迴搜尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">當列表的項目裡包含副檔名時，總是以這個程式開啟檔案。如果您要編輯網頁檔案或其他不含附檔名的檔案時，可以使用 \'None, .html, .css , .js\' 等。</string>
+    <string name="open_file_with">開啟檔案</string>
     <string name="rotate">旋轉</string>
     <string name="template">範本</string>
     <string name="send_debug_log">傳送偵錯日誌</string>
@@ -421,10 +425,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今天到期</string>
     <string name="due_future">未來到期</string>
     <string name="completed">已完成</string>
+    <string name="advanced_filtering">進階篩選</string>
     <string name="match_any">任意匹配</string>
     <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">動態搜尋筆記本根目錄</string>
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自動格式化</string>
     <string name="insert_snippet">插入片段</string>
+    <string name="error_could_not_open_file">錯誤：無法開啟檔案。</string>
 </resources>

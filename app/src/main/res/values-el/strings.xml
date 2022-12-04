@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Μετακίνηση εργασιών σε καθορισμένο αρχείο στον ίδιο φάκελο</string>
     <string name="sort_tasks_by_selected_order">Ταξινόμηση εργασιών με βάση την επιλεγμένη σειρά</string>
     <string name="special_key">Ειδικό πλήκτρο</string>
+    <string name="asciidoc_special_key">Περιεχόμενο AsciiDoc</string>
     <string name="key_page_up">Σελίδα Επάνω (Page Up)</string>
     <string name="key_page_down">Σελίδα Κάτω (Page Down)</string>
     <string name="move_text_one_line_up">Μετακίνηση κειμένου μία γραμμή πάνω</string>
@@ -431,6 +432,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Λήξη σήμερα</string>
     <string name="due_future">Εξόφληση στο μέλλον</string>
     <string name="completed">Ολοκληρώθηκε</string>
+    <string name="advanced_filtering">Προηγμένα φίλτρα</string>
     <string name="match_any">Ταίριασμα Οποιοδήποτε</string>
     <string name="match_all">Ταίριασμα Όλων</string>
     <string name="dynamic_notebook_root_links">Δυναμική αναζήτηση αρχής σημειωματάριου</string>
@@ -439,5 +441,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
     <string name="insert_snippet">Εισαγωγή αποσπάσματος κώδικα</string>
+    <string name="error_could_not_open_file">Αδυναμία ανοίγματος του αρχείου.</string>
     <string name="document_error_clip">Αντιμετώπιση σφάλματος: Το κείμενο αντιγράφηκε στο πρόχειρο.</string>
 </resources>
