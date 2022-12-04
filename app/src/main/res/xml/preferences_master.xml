@@ -328,6 +328,12 @@
                 android:icon="@drawable/ic_code_black_24dp"
                 android:key="@string/pref_key__hightlight_code_block_disabled"
                 android:title="@string/disable_code_block_highlight" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_format_size_black_24dp"
+                android:key="@string/pref_key__editor_markdown_bigger_headings_2"
+                android:summary="@string/increase_text_size_of_headings_according_to_level"
+                android:title="@string/bigger_headings" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/miscellaneous">
@@ -454,12 +460,6 @@
                     android:title="@string/highlight_line_ending" />
                 <CheckBoxPreference
                     android:defaultValue="false"
-                    android:icon="@drawable/ic_format_size_black_24dp"
-                    android:key="@string/pref_key__editor_markdown_bigger_headings_2"
-                    android:summary="@string/increase_text_size_of_headings_according_to_level"
-                    android:title="@string/bigger_headings" />
-                <CheckBoxPreference
-                    android:defaultValue="false"
                     android:icon="@drawable/ic_baseline_keyboard_return_24"
                     android:key="@string/pref_key__markdown_newline_newparagraph"
                     android:title="@string/newline_is_new_paragraph" />
@@ -546,15 +546,6 @@
         <PreferenceScreen
             android:icon="@drawable/fountain_pen"
             android:title="@string/wikitext">
-
-            <PreferenceCategory android:title="@string/syntax_highlighting">
-                <CheckBoxPreference
-                    android:defaultValue="false"
-                    android:icon="@drawable/ic_format_size_black_24dp"
-                    android:key="@string/pref_key__wikitext_bigger_headings"
-                    android:summary="@string/increase_text_size_of_headings_according_to_level"
-                    android:title="@string/bigger_headings" />
-            </PreferenceCategory>
             <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
                     android:icon="@drawable/ic_reorder_black_24dp"
@@ -604,12 +595,6 @@
                     android:key="@string/pref_key__asciidoc__highlight_lineending_hard_line_break"
                     android:summary="@string/highlight_line_ending_if_two_or_more_spaces"
                     android:title="@string/highlight_line_ending" />
-                <CheckBoxPreference
-                    android:defaultValue="false"
-                    android:icon="@drawable/ic_format_size_black_24dp"
-                    android:key="@string/pref_key__asciidoc_bigger_headings"
-                    android:summary="@string/increase_text_size_of_headings_according_to_level"
-                    android:title="@string/bigger_headings" />
             </PreferenceCategory>
             <PreferenceCategory android:title="@string/actionbutton">
                 <Preference
@@ -624,7 +609,7 @@
     <!-- Most important settings -->
     <PreferenceCategory android:title="@string/essential">
         <ListPreference
-            android:defaultValue="@string/app_theme_auto"
+            android:defaultValue="@string/app_theme_system"
             android:dialogTitle="@string/theme"
             android:entries="@array/pref_arrdisp__app_themes"
             android:entryValues="@array/pref_arrkeys__app_themes"

@@ -221,7 +221,7 @@ Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
     @Override
     public SyntaxHighlighterBase configure(Paint paint) {
         _highlightLineEnding = _appSettings.isAsciidocHighlightLineEnding();
-        _highlightBiggerHeadings = _appSettings.isAsciidocBiggerHeadings();
+        _highlightBiggerHeadings = _appSettings.isHighlightBiggerHeadings();
         _highlightCodeChangeFont = _appSettings.isHighlightCodeMonospaceFont();
         _highlightCodeBlock = _appSettings.isHighlightCodeBlock();
         _delay = _appSettings.getAsciidocHighlightingDelay();

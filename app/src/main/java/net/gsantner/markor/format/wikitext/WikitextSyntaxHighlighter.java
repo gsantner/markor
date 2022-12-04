@@ -83,7 +83,7 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     public SyntaxHighlighterBase configure(final Paint paint) {
         _delay = _appSettings.getMarkdownHighlightingDelay();
-        _isWikitextBiggerHeadings = _appSettings.isWikitextBiggerHeadings();
+        _isWikitextBiggerHeadings = _appSettings.isHighlightBiggerHeadings();
         _fontFamily = _appSettings.getFontFamily();
         _isHighlightCodeMonospace = _appSettings.isHighlightCodeMonospaceFont();
         _isHighlightCodeBlock = _appSettings.isHighlightCodeBlock();
