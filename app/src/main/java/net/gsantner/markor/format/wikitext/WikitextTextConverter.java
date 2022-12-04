@@ -34,8 +34,6 @@ import java.util.regex.Pattern;
  */
 @SuppressWarnings("WeakerAccess")
 public class WikitextTextConverter extends TextConverterBase {
-    private static final Pattern LIST_ORDERED_LETTERS = Pattern.compile("^\t*([\\d]+\\.|[a-zA-Z]+\\.) ");
-
     /**
      * First, convert Wikitext to regular Markor markdown. Then, calls the regular converter.
      *
@@ -75,7 +73,7 @@ public class WikitextTextConverter extends TextConverterBase {
         replaceAllMatchesInLine(currentLine, Pattern.compile("^'''$"), fullMatch -> "```");  // preformatted multiline
 
         // unordered list syntax is compatible with markdown
-        replaceAllMatchesInLinePartially(currentLine, LIST_ORDERED_LETTERS, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
+        replaceAllMatchesInLinePartially(currentLine, WikitextSyntaxHighlighter.LIST_ORDERED, "[0-9a-zA-Z]+\\.", "1.");    // why does this work?
         replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.CHECKLIST, this::convertChecklist);
 
         replaceAllMatchesInLine(currentLine, WikitextSyntaxHighlighter.SUPERSCRIPT, fullMatch -> String.format("<sup>%s</sup>",
