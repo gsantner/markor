@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Mou les tasques realitzades a un fitxer especificat de la mateixa carpeta</string>
     <string name="sort_tasks_by_selected_order">Ordena les tasques per l\'ordre seleccionat</string>
     <string name="special_key">Tecla especial</string>
+    <string name="asciidoc_special_key">Contingut AsciiDoc especial</string>
     <string name="key_page_up">Pàgina anterior (Page Up)</string>
     <string name="key_page_down">Pàgina següent (Page Down)</string>
     <string name="move_text_one_line_up">Mou el text una línia cap amunt</string>
@@ -430,6 +431,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Venç avui</string>
     <string name="due_future">Venciment en el futur</string>
     <string name="completed">Completat</string>
+    <string name="advanced_filtering">Filtrat avançat</string>
     <string name="match_any">Coincideix amb qualsevol</string>
     <string name="match_all">Coincideix amb tots</string>
     <string name="dynamic_notebook_root_links">Cerca dinàmica de l\'arrel del quadern</string>
@@ -438,5 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Comparteix en - Format</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
+    <string name="error_could_not_open_file">Error: no s\'ha pogut obrir el fitxer.</string>
     <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
 </resources>

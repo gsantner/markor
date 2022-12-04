@@ -205,7 +205,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">Dół</string>
     <string name="center">Wyśrodkuj</string>
     <string name="actionbutton_spacing">Odstęp przycisków akcji</string>
-    <string name="horizontal_space_between_actionbuttons">Przestrzeń pozioma między przyciskami akcji</string>
+    <string name="horizontal_space_between_actionbuttons">Odstęp pomiędzy ActionButtons</string>
     <string name="center_text">Wyśrodkuj tekst</string>
     <string name="edit_text_in_center_of_screen">Edytuj tekst na środku ekranu</string>
     <string name="clipboard">Schowek</string>
@@ -438,5 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Udostępnij - Format</string>
     <string name="auto_format">Automatyczny format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="error_could_not_open_file">Błąd: nie można otworzyć pliku.</string>
     <string name="document_error_clip">Wystąpił błąd: Tekst skopiowany do schowka.</string>
 </resources>

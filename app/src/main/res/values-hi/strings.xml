@@ -152,6 +152,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help_translating_this_app">इस ऐप का अन्य भाषाओं में अनुवाद करें</string>
     <string name="source_code">सोर्स कोड</string>
     <string name="project_license">परियोजना लाइसेंस</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">परियोजना में कोड योगदान करें। ऐसा करने के लिए सभी का स्वागत है, जिसमें नवागंतुक भी शामिल हैं</string>
+    <string name="project_team">परियोजना दल</string>
+    <string name="contributors_public_add_yourself_description">योगदानकर्ता जानकारी दिखाएं। योगदान करने के बाद इसे यहां ऑप्ट-इन आधार पर दिखाने के लिए प्रदान करें</string>
     <string name="descending">घटते क्रम में</string>
     <string name="ascending">बढ़ते क्रम में</string>
     <string name="location">स्थान</string>

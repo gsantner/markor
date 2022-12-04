@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Moe sas fainas acabadas in su documentu dislindadu in sa matessi cartella</string>
     <string name="sort_tasks_by_selected_order">Òrdina sas fainas sighende s\'òrdine ischertadu</string>
     <string name="special_key">Tecla ispetziale</string>
+    <string name="asciidoc_special_key">Cuntenutu ispetziale AsciiDoc</string>
     <string name="key_page_up">Pàgina in subra (Page Up)</string>
     <string name="key_page_down">Pàgina in suta (Page Down)</string>
     <string name="move_text_one_line_up">Tràmuda su testu de una riga cara a susu</string>
@@ -430,6 +431,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Iscadit oe</string>
     <string name="due_future">Iscadèntzia in su tempus benidore</string>
     <string name="completed">Cumpridu</string>
+    <string name="advanced_filtering">Filtràgiu avantzadu</string>
     <string name="match_any">Currispondet a cale si siat</string>
     <string name="match_all">Currispondet totu</string>
     <string name="dynamic_notebook_root_links">Chirca dinàmica de sa raighina de sas notas</string>
@@ -438,5 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Cumpartzi in - Formadu</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
+    <string name="error_could_not_open_file">Errore: No at fatu a abèrrere su documentu.</string>
     <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
 </resources>

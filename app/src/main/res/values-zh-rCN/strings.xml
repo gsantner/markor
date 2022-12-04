@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">将完成的任务移动至同目录下的指定文件</string>
     <string name="sort_tasks_by_selected_order">按所选顺序对任务进行排序</string>
     <string name="special_key">特殊按键</string>
+    <string name="asciidoc_special_key">特殊 AsciiDoc 内容</string>
     <string name="key_page_up">上一页 (Page Up)</string>
     <string name="key_page_down">下一页 (Page Down)</string>
     <string name="move_text_one_line_up">上移一行</string>
@@ -430,6 +431,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">今日到期</string>
     <string name="due_future">将来到期</string>
     <string name="completed">已完成</string>
+    <string name="advanced_filtering">高级筛选</string>
     <string name="match_any">任何匹配</string>
     <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">动态搜索笔记本根目录</string>
@@ -438,5 +440,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">分享到 - 格式</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
+    <string name="error_could_not_open_file">错误：无法打开文件。</string>
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
 </resources>
