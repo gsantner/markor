@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -222,19 +223,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void restoreSavedInstanceState(Bundle savedInstanceStateArg) {
         final Bundle savedInstanceState = savedInstanceStateArg == null ? new Bundle() : savedInstanceStateArg;
-        File f;
-        String s;
 
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
-            //noinspection ConstantConditions
-            f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
-            s = f.getAbsolutePath();
+            final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
+            final String path = f.getAbsolutePath();
 
             final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
-                    || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(s)
-                    || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(s)
-                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(s)
-                    || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(s);
+                    || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(path)
+                    || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(path)
+                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(path)
+                    || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(path);
 
             if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                 _dopt.listener.onFsViewerConfig(_dopt);
@@ -257,8 +255,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void setCurrentFolder(final File folder) {
-        _currentFolder = folder;
-        reloadCurrentFolder();
+        if (!folder.equals(_currentFolder)) {
+            _currentFolder = folder;
+            reloadCurrentFolder();
+        }
     }
 
     public void reconfigure() {
@@ -458,6 +458,19 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
+    // Get the position of a file in the current view
+    // -1 if file is not a child of the current directory
+    public int getFilePosition(final File file) {
+        if (file != null) {
+            for (int i = 0; i < _adapterData.size(); i++) {
+                if (_adapterData.get(i).equals(file)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     public void loadFolder(final File folder) {
@@ -469,7 +482,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
                     ArrayList<File> oldAdapterData = new ArrayList<>();
-                    Collections.copy(_adapterData, oldAdapterData);
                     _currentFolder = folder;
                     _adapterData.clear();
                     _virtualMapping.clear();
@@ -535,18 +547,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         }
                     }
 
-                    for (File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+                    for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                         for (int i = 0; i < _adapterData.size(); i++) {
                             file = _adapterData.get(i);
                             if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
-                                int c = 0;
-                                for (char ch : file.getAbsolutePath().toCharArray()) {
-                                    if (ch == '/') {
-                                        c++;
-                                    }
-                                }
-                                if (c < 3) {
-                                    File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
+                                final int depth = TextViewUtils.countChars(file.getAbsolutePath(), '/')[0];
+                                if (depth < 3) {
+                                    final File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
                                     _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
                                     _adapterData.add(remap);
                                 }
@@ -615,10 +622,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     //########################
-//##
-//## StringFilter
-//##
-//########################
+    //##
+    //## StringFilter
+    //##
+    //########################
     private static class StringFilter extends Filter {
         private GsFileBrowserListAdapter _adapter;
         private final List<File> _originalList;

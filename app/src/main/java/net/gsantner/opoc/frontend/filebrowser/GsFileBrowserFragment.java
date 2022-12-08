@@ -45,6 +45,7 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
@@ -642,6 +643,57 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (isVisibleToUser && getCurrentFolder() != null && !TextUtils.isEmpty(getCurrentFolder().getName()) && getToolbar() != null) {
             getToolbar().setTitle(getCurrentFolder().getName());
             reloadCurrentFolder();
+        }
+    }
+
+    private void showAndBlink(final File file) {
+        final int pos = getAdapter().getFilePosition(file);
+        final LinearLayoutManager manager = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        if (manager != null && pos >= 0) {
+            manager.scrollToPositionWithOffset(pos, 1);
+            _recyclerList.postDelayed(() -> {
+                final RecyclerView.ViewHolder holder = _recyclerList.findViewHolderForLayoutPosition(pos);
+                if (holder != null) {
+                    TextViewUtils.blinkView(holder.itemView);
+                }
+            }, 250);
+        }
+    }
+
+    // Switch to folder and show the file
+    public void showPathRelative(final String path) {
+        final GsFileBrowserListAdapter adapter = getAdapter();
+        if (adapter == null) {
+            return;
+        }
+
+        final File current = adapter.getCurrentFolder();
+        final File file = new File(current, path);
+        if (!file.exists()) {
+            return;
+        }
+
+        final File dir = file.getParentFile();
+        if (dir == null) {
+            return;
+        }
+
+        if (!current.equals(dir)) {
+            // Wait up to 2s for the folder to load
+            final long init = System.currentTimeMillis();
+            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    super.onChanged();
+                    if ((System.currentTimeMillis() - init) < 2000) {
+                        _recyclerList.postDelayed(() -> showAndBlink(file), 250);
+                    }
+                    adapter.unregisterAdapterDataObserver(this);
+                }
+            });
+            adapter.setCurrentFolder(dir);
+        } else {
+            showAndBlink(file);
         }
     }
 }

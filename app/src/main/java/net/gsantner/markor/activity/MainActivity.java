@@ -446,7 +446,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
-    private GsFileBrowserFragment getNotebook() {
+    public GsFileBrowserFragment getNotebook() {
         return (GsFileBrowserFragment) _viewPagerAdapter.get(tabIdToPos(R.id.nav_notebook));
     }
 
