@@ -65,5 +65,6 @@ files:
         or: or # Odia/Oriya (India)
         hr: hr # Croatia
         bg: bg # Bulgarian
+        et: et # Estonian
         th: th # Thai
     translate_attributes: 0
