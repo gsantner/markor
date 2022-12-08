@@ -69,7 +69,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__load_last_directory_at_startup, false);
     }
 
-    public boolean isPreviewFirst() {
+    public boolean isPreferViewMode() {
         return getBool(R.string.pref_key__is_preview_first, false);
     }
 
@@ -478,13 +478,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
     }
 
-    public void setDocumentPreviewState(final String path, final boolean state) {
-        setBool(PREF_PREFIX_PREVIEW_STATE + path, state);
+    public void setDocumentPreviewState(final String path, final boolean isViewMode) {
+        setBool(PREF_PREFIX_PREVIEW_STATE + path, isViewMode);
     }
 
     public boolean getDocumentPreviewState(final String path) {
         // Use global setting as default
-        final boolean _default = isPreviewFirst();
+        final boolean _default = isPreferViewMode();
         if (_default || !fexists(path)) {
             return _default;
         } else {

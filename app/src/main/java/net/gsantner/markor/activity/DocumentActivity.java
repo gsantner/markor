@@ -54,6 +54,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     private static boolean nextLaunchTransparentBg = false;
 
     public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
+        final AppSettings as = ApplicationObject.settings();
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
@@ -75,6 +76,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         if (path != null && path.isDirectory()) {
             intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_PATH, path);
+        }
+        if (path != null && path.isFile() && as.isPreferViewMode()) {
+            as.setDocumentPreviewState(path.getAbsolutePath(), true);
         }
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
