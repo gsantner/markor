@@ -1,5 +1,6 @@
 package net.gsantner.markor.format.wikitext;
 
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import org.apache.commons.io.FilenameUtils;
@@ -74,7 +75,7 @@ public class WikitextLinkResolver {
 
         // inner page references are not yet supported - for compatibility just get the page
         wikitextPath = stripInnerPageReference(wikitextPath);
-        if ("".equals(wikitextPath)) {
+        if (GsTextUtils.isNullOrEmpty(wikitextPath)) {
             return null;
         }
 
