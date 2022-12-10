@@ -50,6 +50,7 @@ import java.util.regex.Matcher;
 public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
+    public static final String TEXT_TOKEN = "{{text}}";
 
     public static DocumentShareIntoFragment newInstance(Intent intent) {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
@@ -194,14 +195,19 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             final Activity context = getActivity();
             final Document document = new Document(file);
-            final String shareIntoFormat = _cu.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
+            final String prefix = _appSettings.getShareIntoPrefix();
+
+            final String formatted;
+            if (!isTodoTxt && GsTextUtils.countSubstrings(prefix, TEXT_TOKEN) == 1) {
+                formatted = _cu.formatDateTime(context, prefix, System.currentTimeMillis()).replace(TEXT_TOKEN, _sharedText);
+            } else {
+                formatted = _sharedText;
+            }
 
             final String oldContent = document.loadContent(context);
             if (oldContent != null) {
-                final String newContent = oldContent.replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
-                        + separator
-                        + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
+                final String newContent = oldContent + separator + formatted;
                 document.saveContent(context, newContent);
             } else {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
@@ -413,9 +419,5 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             formattedLink = text + " " + link;
         }
         return formattedLink;
-    }
-
-    private static String formatOrPrefixSharedText(final String format, final String value) {
-        return (format + (format.contains("{{text}}") ? "" : "{{text}}")).replace("{{text}}", value).replace("\\n", "\n");
     }
 }
