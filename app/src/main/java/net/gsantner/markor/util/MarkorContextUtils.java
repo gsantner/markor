@@ -23,7 +23,7 @@ import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
@@ -55,7 +55,7 @@ public class MarkorContextUtils extends GsContextUtils {
         final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
             final boolean isDir = file.isDirectory();
-            final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
+            final Class<?> klass = isDir ? MainActivity.class : OpenFromShortcutOrWidgetActivity.class;
             final Intent intent = new Intent(context, klass).setData(Uri.fromFile(file));
             final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
             createLauncherDesktopShortcut(context, intent, iconRes, title);

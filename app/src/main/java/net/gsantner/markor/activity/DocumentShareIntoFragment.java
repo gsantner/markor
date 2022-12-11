@@ -45,7 +45,11 @@ import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
@@ -196,14 +200,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final Activity context = getActivity();
             final Document document = new Document(file);
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
-            final String prefix = _appSettings.getShareIntoPrefix();
-
-            final String formatted;
-            if (!isTodoTxt && GsTextUtils.countSubstrings(prefix, TEXT_TOKEN) == 1) {
-                formatted = _cu.formatDateTime(context, prefix, System.currentTimeMillis()).replace(TEXT_TOKEN, _sharedText);
-            } else {
-                formatted = _sharedText;
-            }
+            final String formatted = isTodoTxt ? _sharedText : formatShare(_sharedText);
 
             final String oldContent = document.loadContent(context);
             if (oldContent != null) {
@@ -217,6 +214,23 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 showInDocumentActivity(document);
             }
             _appSettings.addRecentDocument(file);
+        }
+
+        private String formatShare(final String shared) {
+            final Context context = getContext();
+            final String prefix = _appSettings.getShareIntoPrefix();
+            final List<String> parts = new ArrayList<>(Arrays.asList(prefix.split(Pattern.quote(TEXT_TOKEN))));
+
+            // Interpolate parts
+            final long time = System.currentTimeMillis();
+            for (int i = 0 ; i < parts.size(); i++) {
+                parts.set(i, _cu.formatDateTime(context, parts.get(i), time));
+            }
+
+            // Put the shared text in the right place
+            parts.add(1, shared);
+
+            return String.join("", parts);
         }
 
         private void showAppendDialog(int keyId) {

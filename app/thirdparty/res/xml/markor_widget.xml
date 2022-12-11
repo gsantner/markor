@@ -16,6 +16,8 @@
     android:initialLayout="@layout/widget_layout"
     android:minWidth="100dp"
     android:minHeight="200dp"
+    android:targetCellHeight="2"
+    android:targetCellWidth="2"
     android:minResizeWidth="60dp"
     android:minResizeHeight="80dp"
     android:previewImage="@drawable/widget_preview"
