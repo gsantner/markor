@@ -54,12 +54,9 @@ public class MarkorContextUtils extends GsContextUtils {
         // in private/restricted space won't work - because of missing permission grant when re-launching
         final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
-            final boolean isDir = file.isDirectory();
-            final Class<?> klass = isDir ? MainActivity.class : OpenFromShortcutOrWidgetActivity.class;
-            final Intent intent = new Intent(context, klass).setData(Uri.fromFile(file));
-            final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            final int iconRes = file.isDirectory() ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
             createLauncherDesktopShortcut(context, intent, iconRes, title);
-            // Toast.makeText(context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
         return thisp();
     }

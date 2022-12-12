@@ -10,12 +10,14 @@
 package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.Nullable;
 
+import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
@@ -752,4 +754,32 @@ public class GsFileUtils {
         }
         return files;
     }
+
+    // Get intent file
+    public static File getIntentFile(final Intent intent, final File fallback) {
+        if (intent == null) {
+            return fallback;
+        }
+
+        // By extra path
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        if (file != null) {
+            return file;
+        }
+
+        // By url in data
+        try {
+            return new File(intent.getData().getPath());
+        } catch (NullPointerException ignored) {
+        }
+
+        return fallback;
+    }
+
+    public static File getValidIntentDir(final Intent intent, final File fallback) {
+        final File f = getIntentFile(intent, null);
+        return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
+    }
+
+
 }
