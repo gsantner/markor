@@ -281,6 +281,7 @@ public class MarkorDialogFactory {
         callbacks.add(() -> {
             final DialogOptions dopt2 = makeSttLineSelectionDialog(activity, text, t -> true);
             dopt2.titleText = R.string.advanced_filtering;
+            dopt2.messageText = Html.fromHtml(activity.getString(R.string.advanced_filtering_help));
             final String[] queryHolder = new String[1];
             dopt2.searchFunction = (query, line) -> {
                 queryHolder[0] = query.toString();
