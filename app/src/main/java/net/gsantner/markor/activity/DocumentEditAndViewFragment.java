@@ -60,6 +60,7 @@ import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -722,7 +723,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     // Save the file
     public boolean saveDocument(final boolean forceSaveEmpty) {
-        if (isSdStatusBad() || isStateBad()) {
+        final Activity activity = getActivity();
+        if (activity == null || isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
@@ -730,7 +732,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Document is written iff writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
-            if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
+            final int minLength = GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
+            if (!forceSaveEmpty && text != null && text.length() < minLength) {
+                final String message = activity.getString(R.string.wont_save_min_length, minLength);
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                return true;
+            } if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {
