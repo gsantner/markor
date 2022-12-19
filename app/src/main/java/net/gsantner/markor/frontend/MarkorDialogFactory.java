@@ -744,11 +744,12 @@ public class MarkorDialogFactory {
         return texts;
     }
 
-    public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
+    public static void showInsertSnippetDialog(final Activity activity, @Nullable final EditText edit, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
         final Map<String, File> texts = getSnippets(as());
+        final Boolean showIme = edit != null ? TextViewUtils.isImeOpen(edit) : null;
 
         final List<String> data = new ArrayList<>(texts.keySet());
         dopt.data = data;
@@ -756,6 +757,7 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsFolder().getAbsolutePath() + "</small></small>");
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
+        addRestoreKeyboard(activity, dopt, edit, showIme);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

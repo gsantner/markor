@@ -22,6 +22,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -411,6 +412,7 @@ public class GsSearchOrCustomTextDialog {
             subTitle.setPadding(0, dopt.titleText == 0 ? 0 : paddingBetween, 0, 0);
             subTitle.setText(dopt.messageText);
             subTitle.setTextIsSelectable(true);
+            subTitle.setMovementMethod(LinkMovementMethod.getInstance()); // Allow links to be shown and followed
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
