@@ -129,11 +129,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             touchSlopField.setAccessible(true);
             final int touchSlop = (int) touchSlopField.get(recyclerView);
             touchSlopField.set(recyclerView, touchSlop * SLOP_MULTIPLIER);
-        } catch(NoSuchFieldException e) {
-            Log.d(MainActivity.class.getName(), e.getMessage());
-        } catch(IllegalAccessException e) {
-            Log.d(MainActivity.class.getName(), e.getMessage());
-        } catch (NullPointerException e) {
+        } catch(Exception e) {
             Log.d(MainActivity.class.getName(), e.getMessage());
         }
     }

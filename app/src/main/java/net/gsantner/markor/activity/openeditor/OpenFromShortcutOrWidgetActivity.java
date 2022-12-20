@@ -6,6 +6,7 @@ import android.os.Bundle;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class OpenFromShortcutOrWidgetActivity extends MarkorBaseActivity {
 
     private void launchActivityAndFinish(Intent intent) {
         final Intent newIntent = new Intent(intent);
-        final File intentFile = GsFileUtils.getIntentFile(intent, null);
+        final File intentFile = MarkorContextUtils.getIntentFile(intent, null);
         if (intentFile != null) {
             if (intentFile.isDirectory()) {
                 newIntent.setClass(this, MainActivity.class);
