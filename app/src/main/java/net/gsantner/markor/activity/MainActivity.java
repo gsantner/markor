@@ -109,7 +109,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
-        if (startTab != R.id.nav_notebook && savedInstanceState == null && GsFileUtils.getValidIntentDir(getIntent(), null) == null) {
+        if (startTab != R.id.nav_notebook && savedInstanceState == null && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
             _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
         }
     }
@@ -141,7 +141,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        final File dir = GsFileUtils.getValidIntentDir(intent, null);
+        final File dir = MarkorContextUtils.getValidIntentDir(intent, null);
         final GsFileBrowserFragment frag = getNotebook();
         if (frag != null && dir != null) {
             frag.post(() -> frag.getAdapter().setCurrentFolder(dir));
@@ -384,7 +384,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
-                    dopt.startFolder = GsFileUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
+                    dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }

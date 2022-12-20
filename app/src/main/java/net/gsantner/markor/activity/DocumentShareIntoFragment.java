@@ -230,7 +230,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             // Put the shared text in the right place
             parts.add(1, shared);
 
-            return String.join("", parts);
+            return TextUtils.join("", parts);
         }
 
         private void showAppendDialog(int keyId) {

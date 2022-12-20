@@ -72,4 +72,30 @@ public class MarkorContextUtils extends GsContextUtils {
         showMountSdDialog(activity, R.string.mount_storage, R.string.application_needs_access_to_storage_mount_it, R.drawable.mount_sdcard_help);
         return thisp();
     }
+
+    // Get intent file
+    public static File getIntentFile(final Intent intent, final File fallback) {
+        if (intent == null) {
+            return fallback;
+        }
+
+        // By extra path
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        if (file != null) {
+            return file;
+        }
+
+        // By url in data
+        try {
+            return new File(intent.getData().getPath());
+        } catch (NullPointerException ignored) {
+        }
+
+        return fallback;
+    }
+
+    public static File getValidIntentDir(final Intent intent, final File fallback) {
+        final File f = getIntentFile(intent, null);
+        return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
+    }
 }
