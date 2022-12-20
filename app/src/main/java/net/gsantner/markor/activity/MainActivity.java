@@ -115,6 +115,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     // Reduces swipe sensitivity
+    // Inspired by https://stackoverflow.com/a/72067439
     private void reduceViewpagerSwipeSensitivity() {
         final int SLOP_MULTIPLIER = 4;
         try
@@ -122,7 +123,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final Field ff = ViewPager2.class.getDeclaredField("mRecyclerView");
             ff.setAccessible(true);
             final RecyclerView recyclerView = (RecyclerView) ff.get(_viewPager);
-
             // Set a constant so we don't continuously reduce this value with every call
             recyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING);
             final Field touchSlopField = RecyclerView.class.getDeclaredField("mTouchSlop");
