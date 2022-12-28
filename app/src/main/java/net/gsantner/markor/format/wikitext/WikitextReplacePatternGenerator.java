@@ -26,7 +26,8 @@ public class WikitextReplacePatternGenerator {
     public static final Pattern PREFIX_UNCHECKED_LIST = Pattern.compile("^(\\s*)(\\[\\s]\\s)");
     public static final Pattern PREFIX_CHECKED_LIST = Pattern.compile("^(\\s*)(\\[(\\*)]\\s)");
     public static final Pattern PREFIX_CROSSED_LIST = Pattern.compile("^(\\s*)(\\[(x)]\\s)");
-    public static final Pattern PREFIX_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(>)]\\s)");
+    public static final Pattern PREFIX_RIGHT_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(>)]\\s)");
+    public static final Pattern PREFIX_LEFT_ARROW_LIST = Pattern.compile("^(\\s*)(\\[(<)]\\s)");
     public static final Pattern PREFIX_LEADING_SPACE = Pattern.compile("^(\\s*)");
     public static final Pattern PREFIX_CHECKBOX_LIST = Pattern.compile("^(\\s*)((\\[)[\\sx*>](]\\s))");
 
@@ -41,7 +42,8 @@ public class WikitextReplacePatternGenerator {
             PREFIX_CHECKED_LIST,
             PREFIX_UNCHECKED_LIST,
             PREFIX_CROSSED_LIST,
-            PREFIX_ARROW_LIST,
+            PREFIX_RIGHT_ARROW_LIST,
+            PREFIX_LEFT_ARROW_LIST,
             PREFIX_UNORDERED_LIST,
             PREFIX_LEADING_SPACE,
     };
@@ -49,7 +51,8 @@ public class WikitextReplacePatternGenerator {
     private static final String uncheckedReplacement = "$1[ ] ";
     private static final String checkedReplacement = "$1[*] ";
     private static final String crossedReplacement = "$1[x] ";
-    private static final String arrowReplacement = "$1[>] ";
+    private static final String rightArrowReplacement = "$1[>] ";
+    private static final String leftArrowReplacement = "$1[<] ";
     private static final String unorderedListReplacement = "$1* ";
     private static final String orderedListReplacement = "$11. ";
 
@@ -109,7 +112,7 @@ public class WikitextReplacePatternGenerator {
     }
 
     public static List<ActionButtonBase.ReplacePattern> removeCheckbox() {
-        Pattern anyCheckboxItem = Pattern.compile("^(\\s*)(\\[([ x*>])]\\s)");
+        Pattern anyCheckboxItem = Pattern.compile("^(\\s*)(\\[([ x*><])]\\s)");
         return Collections.singletonList(new ActionButtonBase.ReplacePattern(anyCheckboxItem, "$1"));
     }
 
@@ -117,8 +120,9 @@ public class WikitextReplacePatternGenerator {
         return Arrays.asList(
                 new ActionButtonBase.ReplacePattern(PREFIX_UNCHECKED_LIST, checkedReplacement),
                 new ActionButtonBase.ReplacePattern(PREFIX_CHECKED_LIST, crossedReplacement),
-                new ActionButtonBase.ReplacePattern(PREFIX_CROSSED_LIST, arrowReplacement),
-                new ActionButtonBase.ReplacePattern(PREFIX_ARROW_LIST, uncheckedReplacement));
+                new ActionButtonBase.ReplacePattern(PREFIX_CROSSED_LIST, rightArrowReplacement),
+                new ActionButtonBase.ReplacePattern(PREFIX_RIGHT_ARROW_LIST, leftArrowReplacement),
+                new ActionButtonBase.ReplacePattern(PREFIX_LEFT_ARROW_LIST, uncheckedReplacement));
     }
 
     private static List<ActionButtonBase.ReplacePattern> replaceOtherPrefixesWithUncheckedBox() {
