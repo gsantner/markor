@@ -128,7 +128,7 @@ public class WikitextReplacePatternGeneratorTests {
         @Test
         public void changePrefixToOrderedListOrRemoveItAlreadyPresent() {
             replacePatterns = WikitextReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
-            String[] otherPrefixes = {"[>]","[<]", "*", "[ ]"};
+            String[] otherPrefixes = {"[>]", "[<]", "*", "[ ]"};
             for (String otherPrefix : otherPrefixes) {
                 String originalLine = otherPrefix + " some item";
                 assertCorrectReplacement(originalLine, "1. some item");
