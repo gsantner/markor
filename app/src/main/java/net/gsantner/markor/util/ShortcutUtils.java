@@ -21,7 +21,7 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 
@@ -65,7 +65,7 @@ public class ShortcutUtils {
             final AppSettings appSettings = ApplicationObject.settings();
 
             // Create the to-do shortcut
-            final Intent openTodo = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+            final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getTodoFile()))
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
@@ -79,7 +79,7 @@ public class ShortcutUtils {
             newShortcuts.add(shortcutToDo);
 
             // Create the QuickNote shortcut
-            final Intent openQuickNote = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+            final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
                     .setData(Uri.fromFile(appSettings.getQuickNoteFile()))
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
@@ -98,7 +98,7 @@ public class ShortcutUtils {
             for (int i = 0; i < Math.min(MAX_RECENT_DOCUMENTS, recentDocuments.size()); i++) {
                 final File file = new File(recentDocuments.get(i));
 
-                final Intent openFile = new Intent(context, OpenEditorFromShortcutOrWidgetActivity.class)
+                final Intent openFile = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                         .setAction(Intent.ACTION_EDIT)
                         .setData(Uri.fromFile(file));
 

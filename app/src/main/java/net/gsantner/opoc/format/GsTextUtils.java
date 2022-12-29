@@ -245,6 +245,12 @@ public class GsTextUtils {
         return null;
     }
 
+    /**
+     * Get a list of values (like np.arange())
+     *
+     * @param ops start, stop and step (all optional)
+     * @return List of integers with values
+     */
     public static List<Integer> range(final int... ops) {
         int start = 0, end = 0, step = 1;
         if (ops != null) {
@@ -267,5 +273,21 @@ public class GsTextUtils {
         }
 
         return values;
+    }
+
+    /**
+     * Count number of instances of 'find' in 'text'
+     *
+     * @param text Text to search
+     * @param find Substring to match
+     * @return count
+     */
+    public static int countSubstrings(final String text, final String find) {
+        int index = 0, count = 0;
+        while ((index = text.indexOf(find, index)) != -1) {
+            index += find.length();
+            count++;
+        }
+        return count;
     }
 }

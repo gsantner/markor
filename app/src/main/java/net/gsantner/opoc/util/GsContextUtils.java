@@ -2326,8 +2326,11 @@ public class GsContextUtils {
         }
     }
 
-    public String formatDateTime(@NonNull final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
-        final Locale locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
+    public String formatDateTime(@Nullable final Context context, @NonNull final String format, @Nullable final Long datetime, @Nullable final String... def) {
+        Locale locale = null;
+        if (context != null) {
+            locale = ConfigurationCompat.getLocales(context.getResources().getConfiguration()).get(0);
+        }
         return formatDateTime(locale, format, datetime, def);
     }
 
