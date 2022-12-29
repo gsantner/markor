@@ -437,7 +437,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Ταίριασμα Όλων</string>
     <string name="dynamic_notebook_root_links">Δυναμική αναζήτηση αρχής σημειωματάριου</string>
     <string name="search_dynamically_for_notebook_root">Για να ακολουθήσετε τους συνδέσμους wiki, αναζητήστε δυναμικά το αρχείο notebook.zim για να εντοπίσετε τον αρχικό κατάλογο για το τρέχον σημειωματάριο. Ενεργοποιήστε αυτή την επιλογή αν χρησιμοποιείτε πολλά σημειωματάρια, ή τον κατάλογο σημειωματαρίων που έχει οριστεί στην εφαρμογή δεν αντιστοιχεί στο zim σημειωματάριο σας.</string>
-    <string name="share_into_format_prefix_for_text_shared">Μορφοποίηση/Πρόθεμα για κείμενο που μοιράζεται στο Markor. Ακολουθεί τους κανόνες SimpleDateFormat του Android.\n\nΧρησιμοποιήστε το σύμβολο κράτησης θέσης \'%s\' (περιβάλλεται από μονά εισαγωγικά) για να τοποθετήσετε το κοινόχρηστο κείμενο. Αν δεν καθοριστεί, το κοινόχρηστο κείμενο προστίθεται και η μορφή που χρησιμοποιείται ως πρόθεμα.</string>
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
     <string name="insert_snippet">Εισαγωγή αποσπάσματος κώδικα</string>
