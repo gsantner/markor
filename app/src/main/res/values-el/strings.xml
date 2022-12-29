@@ -437,9 +437,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Ταίριασμα Όλων</string>
     <string name="dynamic_notebook_root_links">Δυναμική αναζήτηση αρχής σημειωματάριου</string>
     <string name="search_dynamically_for_notebook_root">Για να ακολουθήσετε τους συνδέσμους wiki, αναζητήστε δυναμικά το αρχείο notebook.zim για να εντοπίσετε τον αρχικό κατάλογο για το τρέχον σημειωματάριο. Ενεργοποιήστε αυτή την επιλογή αν χρησιμοποιείτε πολλά σημειωματάρια, ή τον κατάλογο σημειωματαρίων που έχει οριστεί στην εφαρμογή δεν αντιστοιχεί στο zim σημειωματάριο σας.</string>
+    <string name="share_into_format_prefix_for_text_shared">Φορμάτ/Πρόθεμα για κείμενο που διαμοιράζεται στο Markor. Ακολουθεί τους κανόνες του Android SimpleDateFormat.\n\nΧρησιμοποιήστε το {{text}} για τη θέση του κειμένου. Αν δεν δοθεί, το κείμενο επικολλείται και το φορμάτ χρησιμοποιείται σαν πρόθεμα.</string>
     <string name="share_into_format">Κοινή χρήση σε - Μορφή</string>
     <string name="auto_format">Αυτόματη διαμόρφωση</string>
     <string name="insert_snippet">Εισαγωγή αποσπάσματος κώδικα</string>
     <string name="error_could_not_open_file">Αδυναμία ανοίγματος του αρχείου.</string>
     <string name="document_error_clip">Αντιμετώπιση σφάλματος: Το κείμενο αντιγράφηκε στο πρόχειρο.</string>
+    <string name="wont_save_min_length">Αρχεία με λιγότερους από %d χαρακτήρες, δεν αποθηκεύονται αυτόματα για να αποφευχθεί η απώλεια δεδομένων.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Προχωρημένη σύνταξη φίλτρων</a></small>]]></string>
 </resources>
