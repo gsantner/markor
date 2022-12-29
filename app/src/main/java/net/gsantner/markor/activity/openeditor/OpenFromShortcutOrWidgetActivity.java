@@ -7,7 +7,6 @@ import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.util.MarkorContextUtils;
-import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 

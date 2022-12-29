@@ -737,7 +737,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final String message = activity.getString(R.string.wont_save_min_length, minLength);
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                 return true;
-            } if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
+            }
+            if (_document.saveContent(getActivity(), text, _cu, forceSaveEmpty)) {
                 checkTextChangeState();
                 return true;
             } else {

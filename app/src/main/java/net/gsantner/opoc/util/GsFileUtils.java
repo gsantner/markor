@@ -10,14 +10,12 @@
 package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
 import androidx.annotation.Nullable;
 
-import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;

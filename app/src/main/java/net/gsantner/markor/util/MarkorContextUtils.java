@@ -22,10 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsContextUtils;

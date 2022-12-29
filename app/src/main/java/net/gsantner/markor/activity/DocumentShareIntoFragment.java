@@ -223,7 +223,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
             // Interpolate parts
             final long time = System.currentTimeMillis();
-            for (int i = 0 ; i < parts.size(); i++) {
+            for (int i = 0; i < parts.size(); i++) {
                 parts.set(i, _cu.formatDateTime(context, parts.get(i), time));
             }
 

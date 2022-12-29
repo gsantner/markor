@@ -83,6 +83,7 @@ public class MarkorDialogFactory {
         dopt.okButtonText = 0;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
+
     public static void showAsciidocSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);

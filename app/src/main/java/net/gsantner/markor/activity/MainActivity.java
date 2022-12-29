@@ -46,7 +46,6 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
-import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,8 +117,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     // Inspired by https://stackoverflow.com/a/72067439
     private void reduceViewpagerSwipeSensitivity() {
         final int SLOP_MULTIPLIER = 4;
-        try
-        {
+        try {
             final Field ff = ViewPager2.class.getDeclaredField("mRecyclerView");
             ff.setAccessible(true);
             final RecyclerView recyclerView = (RecyclerView) ff.get(_viewPager);
@@ -129,7 +127,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             touchSlopField.setAccessible(true);
             final int touchSlop = (int) touchSlopField.get(recyclerView);
             touchSlopField.set(recyclerView, touchSlop * SLOP_MULTIPLIER);
-        } catch(Exception e) {
+        } catch (Exception e) {
             Log.d(MainActivity.class.getName(), e.getMessage());
         }
     }
