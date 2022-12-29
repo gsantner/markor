@@ -77,6 +77,12 @@ public class WikitextLinkResolverTests {
     }
 
     @Test
+    public void resolvesSubPageLinkDirectSubpageIgnoringInnerPageReference() {
+        assertResolvedLinkAndDescription("My_page/Another_page.txt", null,
+                "[[+Another page#some-reference]]", "My_page.txt");
+    }
+
+    @Test
     public void resolvesSubPageLinkSubpageWithDescription() {
         assertResolvedLinkAndDescription("My_page/Yet_another_page/Strange_page.txt", "This link leads to a strange page",
                 "[[+Yet another page:Strange page|This link leads to a strange page]]", "My_page.txt");
@@ -89,6 +95,12 @@ public class WikitextLinkResolverTests {
     }
 
     @Test
+    public void resolvesTopLevelLinkIgnoringInnerPageReference() {
+        assertResolvedLinkAndDescription("Your_page/The_coolest_page.txt", null,
+                "[[:Your page:The coolest page#my-marker]]", "My_page/Yet_another_page.txt");
+    }
+
+    @Test
     public void resolvesTopLevelLinkWithDescription() {
         assertResolvedLinkAndDescription("My_page/Yet_another_page/Interesting_page.txt", "Some description",
                 "[[:My page:Yet another page:Interesting page|Some description]]", "My_page.txt");
@@ -98,6 +110,12 @@ public class WikitextLinkResolverTests {
     public void resolvesRelativeLinkFromParent() {
         assertResolvedLinkAndDescription("My_page/Yet_another_page/Interesting_page.txt", "This is a relative link.",
                 "[[Yet another page:Interesting page|This is a relative link.]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void resolvesRelativeLinkFromParentIgnoringInnerPageReference() {
+        assertResolvedLinkAndDescription("My_page/Yet_another_page/Interesting_page.txt", "This is a relative link.",
+                "[[Yet another page:Interesting page#some-heading-in-the-page|This is a relative link.]]", "My_page/Another_page.txt");
     }
 
     @Test
@@ -122,7 +140,17 @@ public class WikitextLinkResolverTests {
     @Test
     public void returnsNullIfRelativePageCannotBeFound() {
         assertResolvedLinkAndDescription(null, null,
-                "[[Non_existing_page.txt]]", "My_page/Another_page.txt");
+                "[[Non existing page]]", "My_page/Another_page.txt");
+    }
+
+    @Test
+    public void returnsNullIfRelativePageCannotBeFoundWithUnreachableRoot() {
+        // if the notebook root directory cannot be reached by traversing up,
+        // make sure that no NullPointerException is thrown - null should be returned as resolved link
+        Path currentPage = notebookRoot.resolve("My_page/Another_page.txt");
+        Path unreachableRoot = notebookRoot.resolve("Your page");
+        WikitextLinkResolver resolver = WikitextLinkResolver.resolve("[[The coolest page]]", unreachableRoot.toFile(), currentPage.toFile(), false);
+        assertNull(resolver.getResolvedLink());
     }
 
     @Test
@@ -147,6 +175,12 @@ public class WikitextLinkResolverTests {
         WikitextLinkResolver resolver = WikitextLinkResolver.resolve("[[:Your page:The coolest page]]", null, notebookRoot.resolve("My_page/Yet_another_page.txt").toFile(), true);
         assertNull(resolver.getNotebookRootDir());
         assertNull(resolver.getResolvedLink());
+    }
+
+    @Test
+    public void doesNotResolveInnerPageReference() {
+        assertResolvedLinkAndDescription(null, null,
+                "[[#some-anchor-reference]]", "My_page/Another_page.txt");
     }
 
     private void assertResolvedLinkAndDescription(String expectedLinkRelativeToRoot, String expectedDescription, String wikitextLink, String currentPageRelativeToRoot) {

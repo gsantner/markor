@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -47,6 +49,7 @@ import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -94,6 +97,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         _viewPager.setAdapter(_viewPagerAdapter);
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnItemSelectedListener(this);
+        reduceViewpagerSwipeSensitivity();
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
@@ -104,43 +108,39 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
-        if (startTab != R.id.nav_notebook && savedInstanceState == null && getIntentDir(getIntent(), null) == null) {
+        if (startTab != R.id.nav_notebook && savedInstanceState == null && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
             _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
+        }
+    }
+
+    // Reduces swipe sensitivity
+    // Inspired by https://stackoverflow.com/a/72067439
+    private void reduceViewpagerSwipeSensitivity() {
+        final int SLOP_MULTIPLIER = 4;
+        try {
+            final Field ff = ViewPager2.class.getDeclaredField("mRecyclerView");
+            ff.setAccessible(true);
+            final RecyclerView recyclerView = (RecyclerView) ff.get(_viewPager);
+            // Set a constant so we don't continuously reduce this value with every call
+            recyclerView.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING);
+            final Field touchSlopField = RecyclerView.class.getDeclaredField("mTouchSlop");
+            touchSlopField.setAccessible(true);
+            final int touchSlop = (int) touchSlopField.get(recyclerView);
+            touchSlopField.set(recyclerView, touchSlop * SLOP_MULTIPLIER);
+        } catch (Exception e) {
+            Log.d(MainActivity.class.getName(), e.getMessage());
         }
     }
 
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        final File dir = getIntentDir(intent, null);
+        final File dir = MarkorContextUtils.getValidIntentDir(intent, null);
         final GsFileBrowserFragment frag = getNotebook();
         if (frag != null && dir != null) {
             frag.post(() -> frag.getAdapter().setCurrentFolder(dir));
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
-    }
-
-    private static File getIntentDir(final Intent intent, final File fallback) {
-        if (intent == null) {
-            return fallback;
-        }
-
-        // By extra path
-        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
-        if (file != null && file.isDirectory()) {
-            return (File) intent.getSerializableExtra(Document.EXTRA_PATH);
-        }
-
-        // By url in data
-        try {
-            final File dir = new File(intent.getData().getPath());
-            if (dir.exists() && dir.isDirectory()) {
-                return dir;
-            }
-        } catch (NullPointerException ignored) {
-        }
-
-        return fallback;
     }
 
     private void optShowRate() {
@@ -378,7 +378,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
-                    dopt.startFolder = getIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
+                    dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }
@@ -446,7 +446,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
-    private GsFileBrowserFragment getNotebook() {
+    public GsFileBrowserFragment getNotebook() {
         return (GsFileBrowserFragment) _viewPagerAdapter.get(tabIdToPos(R.id.nav_notebook));
     }
 

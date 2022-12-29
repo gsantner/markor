@@ -167,7 +167,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean isHighlightCodeBlock() {
-        return !getBool(R.string.pref_key__hightlight_code_block_disabled, false);
+        return !getBool(R.string.pref_key__highlight_code_block_disabled, false);
     }
 
     public int getHighlightingDelayTodoTxt() {

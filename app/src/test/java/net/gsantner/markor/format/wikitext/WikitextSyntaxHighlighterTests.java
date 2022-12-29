@@ -145,10 +145,17 @@ public class WikitextSyntaxHighlighterTests {
         }
 
         @Test
-        public void itemWithArrow() {
-            pattern = WikitextSyntaxHighlighter.CHECKLIST_ARROW;
-            Matcher m = pattern.matcher("[>] Marked Item with a yellow arrow");
+        public void itemWithRightArrow() {
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_RIGHT_ARROW;
+            Matcher m = pattern.matcher("[>] Marked Item with a right arrow");
             assertCorrectCheckboxWithInnerSymbol(m, ">");
+        }
+
+        @Test
+        public void itemWithLeftArrow() {
+            pattern = WikitextSyntaxHighlighter.CHECKLIST_LEFT_ARROW;
+            Matcher m = pattern.matcher("[<] Marked Item with a left arrow");
+            assertCorrectCheckboxWithInnerSymbol(m, "<");
         }
 
         @Test
@@ -156,7 +163,8 @@ public class WikitextSyntaxHighlighterTests {
             Pattern[] checklistPatterns = {WikitextSyntaxHighlighter.CHECKLIST,
                     WikitextSyntaxHighlighter.CHECKLIST_CHECKED,
                     WikitextSyntaxHighlighter.CHECKLIST_CROSSED,
-                    WikitextSyntaxHighlighter.CHECKLIST_ARROW};
+                    WikitextSyntaxHighlighter.CHECKLIST_RIGHT_ARROW,
+                    WikitextSyntaxHighlighter.CHECKLIST_LEFT_ARROW};
             for (Pattern checklistPattern : checklistPatterns) {
                 Matcher m = checklistPattern.matcher("( ) invalid item");
                 assertThat(m.find()).isFalse();

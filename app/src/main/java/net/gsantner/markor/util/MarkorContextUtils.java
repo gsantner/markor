@@ -22,10 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.openeditor.OpenEditorFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
+import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -54,12 +53,9 @@ public class MarkorContextUtils extends GsContextUtils {
         // in private/restricted space won't work - because of missing permission grant when re-launching
         final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
-            final boolean isDir = file.isDirectory();
-            final Class<?> klass = isDir ? MainActivity.class : OpenEditorFromShortcutOrWidgetActivity.class;
-            final Intent intent = new Intent(context, klass).setData(Uri.fromFile(file));
-            final int iconRes = isDir ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            final int iconRes = file.isDirectory() ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
             createLauncherDesktopShortcut(context, intent, iconRes, title);
-            // Toast.makeText(context, R.string.tried_to_create_shortcut_for_this_notice, Toast.LENGTH_LONG).show();
         }
         return thisp();
     }
@@ -74,5 +70,31 @@ public class MarkorContextUtils extends GsContextUtils {
     public <T extends GsContextUtils> T showMountSdDialog(final Activity activity) {
         showMountSdDialog(activity, R.string.mount_storage, R.string.application_needs_access_to_storage_mount_it, R.drawable.mount_sdcard_help);
         return thisp();
+    }
+
+    // Get intent file
+    public static File getIntentFile(final Intent intent, final File fallback) {
+        if (intent == null) {
+            return fallback;
+        }
+
+        // By extra path
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        if (file != null) {
+            return file;
+        }
+
+        // By url in data
+        try {
+            return new File(intent.getData().getPath());
+        } catch (NullPointerException ignored) {
+        }
+
+        return fallback;
+    }
+
+    public static File getValidIntentDir(final Intent intent, final File fallback) {
+        final File f = getIntentFile(intent, null);
+        return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
 }

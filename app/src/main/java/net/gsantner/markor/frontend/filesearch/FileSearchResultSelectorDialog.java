@@ -21,6 +21,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -42,7 +43,12 @@ public class FileSearchResultSelectorDialog {
         }
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final List<FileSearchEngine.FitFile> searchResults, final GsCallback.a2<String, Integer> dialogCallback) {
+    private static AlertDialog.Builder buildDialog(
+            final Activity activity,
+            final AtomicReference<AlertDialog> dialog,
+            final List<FileSearchEngine.FitFile> searchResults,
+            final GsCallback.a2<String, Integer> dialogCallback
+    ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
         final LinearLayout dialogLayout = new LinearLayout(activity);
@@ -103,16 +109,20 @@ public class FileSearchResultSelectorDialog {
             return false;
         });
 
-        // Long click on file name takes us to the top of the file
+        // Long click on file name takes us to the file's location
         expandableListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            final long pos = expandableListView.getExpandableListPosition(position);
-            final int type = ExpandableListView.getPackedPositionType(pos);
-            if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-                final int groupPosition = ExpandableListView.getPackedPositionGroup(position);
-                // Start on end of first line
-                dialogCallback.callback(((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(groupPosition)).path, 0);
+            try {
+                final long packed = expandableListView.getExpandableListPosition(position);
+                if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    final int group = ExpandableListView.getPackedPositionGroup(packed);
+                    final String path = ((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(group)).path;
+                    ((MainActivity) activity).getNotebook().showPathRelative(path);
+                    if (dialog != null && dialog.get() != null) {
+                        dialog.get().dismiss();
+                    }
+                }
+            } catch (ClassCastException | NullPointerException ignored) {
             }
-            ;
             return true;
         });
 

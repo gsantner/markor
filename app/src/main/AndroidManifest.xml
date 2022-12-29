@@ -163,7 +163,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.openeditor.OpenEditorFromShortcutOrWidgetActivity"
+            android:name=".activity.openeditor.OpenFromShortcutOrWidgetActivity"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity

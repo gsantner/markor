@@ -35,11 +35,12 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern LIST_ORDERED = Pattern.compile("(?<=((\\n|^)(\\s{0,10})))(\\d+|[a-zA-Z])(\\.)(?= )");
     public final static Pattern LINK = WikitextLinkResolver.Patterns.LINK.pattern;
     public final static Pattern IMAGE = Pattern.compile("(\\{\\{(?!\\{)(.*?)\\}\\})");
-    public final static Pattern CHECKLIST = Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*>])(])(?= )");
+    public final static Pattern CHECKLIST = Pattern.compile("(?<=(\\n|^))\t*(\\[)([ x*><])(])(?= )");
     public final static Pattern CHECKLIST_UNCHECKED = Pattern.compile("(?<=(\\n|^))\t*(\\[)( )(])(?= )");
     public final static Pattern CHECKLIST_CHECKED = Pattern.compile("(?<=(\\n|^))\t*(\\[)(\\*)(])(?= )");
     public final static Pattern CHECKLIST_CROSSED = Pattern.compile("(?<=(\\n|^))\t*(\\[)(x)(])(?= )");
-    public final static Pattern CHECKLIST_ARROW = Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )");
+    public final static Pattern CHECKLIST_RIGHT_ARROW = Pattern.compile("(?<=(\\n|^))\t*(\\[)(>)(])(?= )");
+    public final static Pattern CHECKLIST_LEFT_ARROW = Pattern.compile("(?<=(\\n|^))\t*(\\[)(<)(])(?= )");
     public final static Pattern SUBSCRIPT = Pattern.compile("(_\\{(?!~)(.+?)\\})");
     public final static Pattern SUPERSCRIPT = Pattern.compile("(\\^\\{(?!~)(.+?)\\})");
     public final static Pattern ZIMHEADER_CONTENT_TYPE_ONLY = Pattern.compile("^\\s*Content-Type:\\s*text/x-zim-wiki");
@@ -141,7 +142,8 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
         createCheckboxSpanWithDifferentColors(CHECKLIST_UNCHECKED, 0xffffffff);
         createCheckboxSpanWithDifferentColors(CHECKLIST_CHECKED, Colors.CHECKLIST_CHECKED_COLOR);
         createCheckboxSpanWithDifferentColors(CHECKLIST_CROSSED, Colors.CHECKLIST_CROSSED_COLOR);
-        createCheckboxSpanWithDifferentColors(CHECKLIST_ARROW, Colors.CHECKLIST_ARROW_COLOR);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_RIGHT_ARROW, Colors.CHECKLIST_ARROW_COLOR);
+        createCheckboxSpanWithDifferentColors(CHECKLIST_LEFT_ARROW, Colors.CHECKLIST_ARROW_COLOR);
     }
 
     private void createCheckboxSpanWithDifferentColors(final Pattern checkboxPattern, final int symbolColor) {

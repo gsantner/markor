@@ -45,11 +45,16 @@ import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
+    public static final String TEXT_TOKEN = "{{text}}";
 
     public static DocumentShareIntoFragment newInstance(Intent intent) {
         DocumentShareIntoFragment f = new DocumentShareIntoFragment();
@@ -194,14 +199,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
             final Activity context = getActivity();
             final Document document = new Document(file);
-            final String shareIntoFormat = _cu.formatDateTime(context, _appSettings.getShareIntoPrefix(), System.currentTimeMillis());
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
+            final String formatted = isTodoTxt ? _sharedText : formatShare(_sharedText);
 
             final String oldContent = document.loadContent(context);
             if (oldContent != null) {
-                final String newContent = oldContent.replaceAll("(^[\\r\\n]+|[\\r\\n]+$)", "")
-                        + separator
-                        + (isTodoTxt ? _sharedText : formatOrPrefixSharedText(shareIntoFormat, _sharedText));
+                final String newContent = oldContent + separator + formatted;
                 document.saveContent(context, newContent);
             } else {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
@@ -211,6 +214,23 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 showInDocumentActivity(document);
             }
             _appSettings.addRecentDocument(file);
+        }
+
+        private String formatShare(final String shared) {
+            final Context context = getContext();
+            final String prefix = _appSettings.getShareIntoPrefix();
+            final List<String> parts = new ArrayList<>(Arrays.asList(prefix.split(Pattern.quote(TEXT_TOKEN))));
+
+            // Interpolate parts
+            final long time = System.currentTimeMillis();
+            for (int i = 0; i < parts.size(); i++) {
+                parts.set(i, _cu.formatDateTime(context, parts.get(i), time));
+            }
+
+            // Put the shared text in the right place
+            parts.add(1, shared);
+
+            return TextUtils.join("", parts);
         }
 
         private void showAppendDialog(int keyId) {
@@ -413,9 +433,5 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             formattedLink = text + " " + link;
         }
         return formattedLink;
-    }
-
-    private static String formatOrPrefixSharedText(final String format, final String value) {
-        return (format + (format.contains("{{text}}") ? "" : "{{text}}")).replace("{{text}}", value).replace("\\n", "\n");
     }
 }

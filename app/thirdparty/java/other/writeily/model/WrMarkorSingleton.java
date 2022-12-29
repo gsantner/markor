@@ -19,7 +19,6 @@ import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,17 +48,13 @@ public class WrMarkorSingleton {
         WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
-    // Returns true if b is not a child of a. A file is not a child of itself
-    private boolean notChild(final File a, final File b) {
-        try {
-            return b.equals(a) || !b.getParentFile().getCanonicalPath().startsWith(a.getCanonicalPath());
-        } catch (IOException e) {
-            return false; // Not sure, return false for safety
-        }
+    // Returns true if test is a child of parent. A file is not a child of itself
+    private boolean isChild(final File parent, final File test) {
+        return !parent.equals(test) && test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
     }
 
     private boolean saneCopy(final File file, final File dest) {
-        return file != null && dest != null && file.exists() && notChild(file, dest);
+        return file != null && dest != null && file.exists() && !isChild(file, dest);
     }
 
     private boolean saneMove(final File file, final File dest) {

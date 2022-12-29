@@ -1,5 +1,6 @@
 package net.gsantner.markor.format.wikitext;
 
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import org.apache.commons.io.FilenameUtils;
@@ -29,7 +30,8 @@ public class WikitextLinkResolver {
 
         SUBPAGE_PATH(Pattern.compile("\\+(.*)")),
         TOPLEVEL_PATH(Pattern.compile(":(.*)")),
-        RELATIVE_PATH(Pattern.compile("[^/]+")), // do not match weblinks
+        RELATIVE_PATH(Pattern.compile("[^#/]+")), // no weblinks, no inner page references
+        PATH_WITH_INNER_PAGE_REFERENCE(Pattern.compile("(.*)#(.+)")),
         WEBLINK(Pattern.compile("^[a-z]+://.+"));
         // TODO: external file links
         // TODO: interwiki links
@@ -71,6 +73,12 @@ public class WikitextLinkResolver {
             _isWebLink = false;
         }
 
+        // inner page references are not yet supported - for compatibility just get the page
+        wikitextPath = stripInnerPageReference(wikitextPath);
+        if (GsTextUtils.isNullOrEmpty(wikitextPath)) {
+            return null;
+        }
+
         Matcher subpageMatcher = Patterns.SUBPAGE_PATH.pattern.matcher(wikitextPath);
         if (subpageMatcher.matches()) {
             String folderForSubpagesOfCurrentPage = _currentPage.getPath().replace(".txt", "");
@@ -102,6 +110,15 @@ public class WikitextLinkResolver {
         return wikitextPath; // just return the original path in case the link cannot be resolved (might be a URL)
     }
 
+    private String stripInnerPageReference(String wikitextPath) {
+        Matcher pathWithInnerPageReferenceMatcher = Patterns.PATH_WITH_INNER_PAGE_REFERENCE.pattern.matcher(wikitextPath);
+        if (pathWithInnerPageReferenceMatcher.matches()) {
+            String pagePath = pathWithInnerPageReferenceMatcher.group(1);
+            return pagePath;
+        }
+        return wikitextPath;
+    }
+
     private File findNotebookRootDir(File currentPage) {
         if (currentPage != null && currentPage.exists()) {
             if (GsFileUtils.join(currentPage, "notebook.zim").exists()) {
@@ -114,7 +131,9 @@ public class WikitextLinkResolver {
     }
 
     private String findFirstPageTraversingUpToRoot(File currentPage, String relativeLinkToCheck) {
-        if (currentPage.equals(_notebookRootDir)) {
+        // if the notebook directory is set incorrectly/cannot be reached,
+        // dynamic traversal can go up to the root of the filesystem - thus the null-check
+        if (currentPage == null || currentPage.equals(_notebookRootDir)) {
             return null;
         }
 

@@ -326,7 +326,7 @@
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_code_black_24dp"
-                android:key="@string/pref_key__hightlight_code_block_disabled"
+                android:key="@string/pref_key__highlight_code_block_disabled"
                 android:title="@string/disable_code_block_highlight" />
             <CheckBoxPreference
                 android:defaultValue="false"
