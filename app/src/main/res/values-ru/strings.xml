@@ -435,7 +435,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Совпадение всех</string>
     <string name="dynamic_notebook_root_links">Динамический поиск корня блокнота</string>
     <string name="search_dynamically_for_notebook_root">Чтобы перейти по вики-ссылкам, необходимо динамически искать файл notebook.zim для определения корневого каталога текущей записной книжки. Установите флажок, если вы используете несколько цим-блокнотов или установленный в приложении каталог блокнота не соответствует вашему блокноту zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Формат/Префикс для текста, отправленного в Markor. Следуйте правилам SimpleDateFormat Android.\n\nИспользуйте переменную \'%s\' (с одинарными кавычками) для размещения отправленного текста. Если не указано, отправленный текст добавляется и формат используется в качестве префикса.</string>
     <string name="share_into_format">Поделиться - Формат</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
