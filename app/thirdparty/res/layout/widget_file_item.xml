@@ -10,6 +10,7 @@
 ###########################################################*/
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,12 +30,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:drawableStart="@drawable/ic_file_gray_24dp"
-        android:drawableLeft="@drawable/ic_file_gray_24dp"
         android:ellipsize="end"
         android:gravity="center|start"
         android:minHeight="19sp"
         android:singleLine="true"
         android:textColor="@color/primary_text"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:drawablePadding="4dp"
+        app:drawableStartCompat="@drawable/ic_file_gray_24dp"
+        app:drawableLeftCompat="@drawable/ic_file_gray_24dp" />
 </LinearLayout>

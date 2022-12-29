@@ -311,6 +311,7 @@ public class Document implements Serializable {
         if (isBinaryFileNoTextLoading()) {
             return true;
         }
+
         if (!isManualSave && TextUtils.getTrimmedLength(content) < GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
             return false;
         }

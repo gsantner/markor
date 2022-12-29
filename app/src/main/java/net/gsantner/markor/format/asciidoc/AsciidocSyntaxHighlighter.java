@@ -47,8 +47,8 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
     // could be extended, if users will request. But for now it is a good starting point
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^(\\.{1,6})( {1})");
     // don't include checklist markers, they get squarebracket background color
-//    public final static Pattern LIST_UNORDERED = Pattern.compile(
-//            "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
+    // public final static Pattern LIST_UNORDERED = Pattern.compile(
+    // "(?m)^\\*{1,6}( \\[[ xX]\\]){0,1} {1}");
     public final static Pattern LIST_UNORDERED = Pattern.compile("(?m)^\\*{1,6} {1}");
     public final static Pattern LIST_DESCRIPTION = Pattern.compile(
             "(?m)^(.+\\S(:{2,4}|;{2,2}))( {1}|[\\r\\n])");
@@ -108,39 +108,39 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
             "(?m)(?<=\\S)([^\\S\\r\\n]{2,})[\\r\\n]");
 
     /*
-https://personal.sron.nl/~pault/[Paul Tol's Notes, Colour schemes and templates, 18 August 2021]
+    https://personal.sron.nl/~pault/[Paul Tol's Notes, Colour schemes and templates, 18 August 2021]
 
-= INTRODUCTION TO COLOUR SCHEMES
+    = INTRODUCTION TO COLOUR SCHEMES
 
-distinct for all people, including colour-blind readers;
+    distinct for all people, including colour-blind readers;
 
-#default# colour scheme for qualitative data is the _bright_ scheme in https://personal.sron.nl/~pault/#fig:scheme_bright[Fig. 1]
+    #default# colour scheme for qualitative data is the _bright_ scheme in https://personal.sron.nl/~pault/#fig:scheme_bright[Fig. 1]
 
-image::https://personal.sron.nl/~pault/images/scheme_bright.png[Figure 1]
+    image::https://personal.sron.nl/~pault/images/scheme_bright.png[Figure 1]
 
-Colours in default order: '#4477AA', '#EE6677', '#228833', '#CCBB44', '#66CCEE', '#AA3377', '#BBBBBB'.
+    Colours in default order: '#4477AA', '#EE6677', '#228833', '#CCBB44', '#66CCEE', '#AA3377', '#BBBBBB'.
 
-BLUE, CYAN, GREEN, YELLOW, RED, PURPLE, GRAY
+    BLUE, CYAN, GREEN, YELLOW, RED, PURPLE, GRAY
 
-blue, cyan, green, yellow, red, purple, gray
+    blue, cyan, green, yellow, red, purple, gray
 
-Figure 6: #_Pale_ and _dark_# qualitative colour schemes where the colours are not very distinct in either normal or colour-blind vision;
-they are not meant for lines or maps, #but for marking text#. Use the *pale* colours for the *background of black text*,
-for example to highlight cells in a table.
-One of the *dark colours* can be chosen *for text itself on a white background*,
-for example when a large block of text has to be marked.
-In both cases, the text remains easily readable (see https://personal.sron.nl/~pault/#fig:orbits[Fig. 10]).
+    Figure 6: #_Pale_ and _dark_# qualitative colour schemes where the colours are not very distinct in either normal or colour-blind vision;
+    they are not meant for lines or maps, #but for marking text#. Use the *pale* colours for the *background of black text*,
+    for example to highlight cells in a table.
+    One of the *dark colours* can be chosen *for text itself on a white background*,
+    for example when a large block of text has to be marked.
+    In both cases, the text remains easily readable (see https://personal.sron.nl/~pault/#fig:orbits[Fig. 10]).
 
-image::https://personal.sron.nl/~pault/images/scheme_pale.png[]
+    image::https://personal.sron.nl/~pault/images/scheme_pale.png[]
 
-Colours: '#BBCCEE', '#CCEEFF', '#CCDDAA', '#EEEEBB', '#FFCCCC', '#DDDDDD'.
+    Colours: '#BBCCEE', '#CCEEFF', '#CCDDAA', '#EEEEBB', '#FFCCCC', '#DDDDDD'.
 
 
-image:https://personal.sron.nl/~pault/images/scheme_dark.png[Dark scheme]
+    image:https://personal.sron.nl/~pault/images/scheme_dark.png[Dark scheme]
 
-Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
+    Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
 
-*/
+    */
 
     private static final int TOL_BLUE = Color.parseColor("#4477AA");
     private static final int TOL_CYAN = Color.parseColor("#66CCEE");
@@ -201,9 +201,9 @@ Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
 
     // ..._COLOR_LIGHT_... = Color for light theme
     // too little contrast to normal font with the TOL_ colors
-//    private static final int AD_COLOR_LIGHT_COMMENT = TOL_DARK_GRAY;
-//    private static final int AD_COLOR_DARK_COMMENT = TOL_PALE_GRAY;
-//    private static final int AD_COLOR_COMMENT = Color.GRAY; //TOL_GRAY;
+    // private static final int AD_COLOR_LIGHT_COMMENT = TOL_DARK_GRAY;
+    // private static final int AD_COLOR_DARK_COMMENT = TOL_PALE_GRAY;
+    // private static final int AD_COLOR_COMMENT = Color.GRAY; //TOL_GRAY;
     private static final int AD_FORECOLOR_LIGHT_COMMENT = Color.GRAY;
     private static final int AD_FORECOLOR_DARK_COMMENT = Color.GRAY;
 
@@ -339,9 +339,9 @@ Colours: '#222255', '#225555', '#225522', '#666633', '#663333', '#555555'.
         createSubscriptStyleSpanForMatches(SUBSCRIPT);
         createSuperscriptStyleSpanForMatches(SUPERSCRIPT);
         createStrikeThroughSpanForMatches(ROLE_STRIKETHROUGH);
-//      TODO: is only very thin and hardly visible; try to understand, why
-//      createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
 
+        // TODO: is only very thin and hardly visible; try to understand, why
+        // createColoredUnderlineSpanForMatches(ROLE_UNDERLINE, AD_COLOR_UNDERLINE_ROLE_UNDERLINE);
     }
 }
 
