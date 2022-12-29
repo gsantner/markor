@@ -427,7 +427,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">සියල්ල ගලපන්න</string>
     <string name="dynamic_notebook_root_links">නෝට්බුක් මූල සඳහා ගතික සෙවීම</string>
     <string name="search_dynamically_for_notebook_root">විකි සබැඳි අනුගමනය කිරීම සඳහා, වත්මන් සටහන් පොත සඳහා මූල නාමාවලිය හඳුනා ගැනීමට notebook.zim ගොනුව සඳහා ගතිකව සොයන්න. ඔබ zim සටහන් පොත් කිහිපයක් භාවිතා කරන්නේ නම් හෝ යෙදුමේ ඇති සටහන් පොත් නාමාවලිය ඔබගේ zim සටහන් පොතට අනුරූප නොවේ නම් මෙය පරීක්ෂා කරන්න.</string>
-    <string name="share_into_format_prefix_for_text_shared">Markor වෙත බෙදාගත් පෙළ සඳහා ආකෘතිය/උපසර්ගය. Android හි SimpleDateFormat නීති අනුගමනය කරයි.\n\nබෙදාගත් පෙළ ස්ථානගත කිරීම සඳහා \'%s\' (තනි උද්ධෘත වලින් වට කර ඇති) ස්ථාන දරන්න භාවිතා කරන්න. නිශ්චිතව දක්වා නොමැති නම්, බෙදාගත් පෙළ අමුණා ඇති අතර ආකෘතිය උපසර්ගයක් ලෙස භාවිතා කරයි.</string>
     <string name="share_into_format">- ආකෘතියට බෙදා ගන්න</string>
     <string name="auto_format">ස්වයංක්‍රීය ආකෘතිය</string>
     <string name="insert_snippet">ස්නිපට් ඇතුළු කරන්න</string>
