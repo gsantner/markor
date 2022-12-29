@@ -76,7 +76,7 @@ public class WikitextReplacePatternGeneratorTests {
         @Test
         public void toggleCheckBoxInCorrectOrder() {
             replacePatterns = WikitextReplacePatternGenerator.replaceWithNextStateCheckbox();
-            String[] orderedCheckboxStates = {" ", "*", "x", ">"};
+            String[] orderedCheckboxStates = {" ", "*", "x", ">", "<"};
             // create checkbox
             String currentLine = "some item";
             currentLine = replaceWithFirstMatchingPattern(replacePatterns, currentLine);
@@ -106,7 +106,7 @@ public class WikitextReplacePatternGeneratorTests {
         @Test
         public void removeCheckboxForAllCheckStates() {
             replacePatterns = WikitextReplacePatternGenerator.removeCheckbox();
-            String[] originals = {"\t\t[x] bla", "\t\t[ ] bla", "\t\t[*] bla", "\t\t[>] bla"};
+            String[] originals = {"\t\t[x] bla", "\t\t[ ] bla", "\t\t[*] bla", "\t\t[>] bla", "\t\t[<] bla"};
             for (String original : originals) {
                 assertCorrectReplacement(original, "\t\tbla");
             }
@@ -128,7 +128,7 @@ public class WikitextReplacePatternGeneratorTests {
         @Test
         public void changePrefixToOrderedListOrRemoveItAlreadyPresent() {
             replacePatterns = WikitextReplacePatternGenerator.replaceWithOrderedListPrefixOrRemovePrefix();
-            String[] otherPrefixes = {"[>]", "*", "[ ]"};
+            String[] otherPrefixes = {"[>]", "[<]", "*", "[ ]"};
             for (String otherPrefix : otherPrefixes) {
                 String originalLine = otherPrefix + " some item";
                 assertCorrectReplacement(originalLine, "1. some item");

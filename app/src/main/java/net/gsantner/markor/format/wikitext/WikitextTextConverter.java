@@ -123,7 +123,8 @@ public class WikitextTextConverter extends TextConverterBase {
 
     private String convertChecklist(String fullMatch) {
         // TODO: convert to more than two checkstates
-        Matcher matcher = Pattern.compile("\\[([ *x>])]").matcher(fullMatch);
+        // TODO: use a single global regex for zim checkbox expression
+        Matcher matcher = Pattern.compile("\\[([ *x><])]").matcher(fullMatch);
         matcher.find();
         String checkboxContent = matcher.group(1);
         if ("*".equals(checkboxContent)) {
