@@ -442,4 +442,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="error_could_not_open_file">Fehler: Datei konnte nicht geöffnet werden.</string>
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
 </resources>
