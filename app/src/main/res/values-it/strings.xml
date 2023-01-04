@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Muovi le attività terminate nel file specificato nella stessa cartella</string>
     <string name="sort_tasks_by_selected_order">Ordina i task secondo l\'ordine selezionato</string>
     <string name="special_key">Tasto speciale</string>
+    <string name="asciidoc_special_key">Contenuto speciale AsciiDoc</string>
     <string name="key_page_up">Pagina superiore (tasto Up)</string>
     <string name="key_page_down">Pagina inferiore (tasto Down)</string>
     <string name="move_text_one_line_up">Sposta il testo una riga in su</string>
@@ -434,13 +435,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Completato</string>
     <string name="advanced_filtering">Filtraggio avanzato</string>
     <string name="match_any">Trova alcuni</string>
-    <string name="match_all">Corrisponde tutto</string>
+    <string name="match_all">Trova tutti</string>
     <string name="dynamic_notebook_root_links">Ricerca dinamica della radice del notebook</string>
     <string name="search_dynamically_for_notebook_root">Per seguire i collegamenti wiki, cerca dinamicamente il file notebook.zim per identificare la directory radice per il notebook corrente. Spunta questa opzione se usi più notebook zim o la directory del notebook impostata nell\'app non corrisponde al tuo notebook zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formato/Prefisso per il testo condiviso in Markor. Segue le regole SimpleDateFormat di Android.\n\nUsa il segnaposto {{text}} per posizionare il testo condiviso. Se non specificato, il testo condiviso è aggiunto alla fine e il formato usato come prefisso.</string>
     <string name="share_into_format">Condividi in - Formato</string>
     <string name="auto_format">Autoformattazione</string>
-    <string name="insert_snippet">Inserisci estratto</string>
+    <string name="insert_snippet">Inserisci snippet</string>
     <string name="error_could_not_open_file">Errore: impossibile aprire il file.</string>
     <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
     <string name="wont_save_min_length">I file di meno di %d caratteri non sono salvati automaticamente, per evitare perdita di dati.</string>
