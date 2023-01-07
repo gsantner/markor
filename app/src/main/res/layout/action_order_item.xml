@@ -49,7 +49,7 @@
         android:layout_toStartOf="@id/enabled_switch"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         android:alpha="0.3"
         android:maxHeight="32dp"
         android:visibility="invisible"
