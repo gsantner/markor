@@ -45,7 +45,7 @@ public class WrProportionalHeaderSpanCreator {
         }
 
         @Override
-        public void updateDrawState(TextPaint textPaint) {
+        public void updateDrawState(final TextPaint textPaint) {
             textPaint.setFakeBoldText(true);
             textPaint.setColor(_color);
             textPaint.setTextSize(_headerSize);
@@ -53,7 +53,7 @@ public class WrProportionalHeaderSpanCreator {
 
         @Override
         public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3, Paint.FontMetricsInt fontMetricsInt) {
-            fontMetricsInt.ascent -= _offset;
+            fontMetricsInt.descent += _offset;
         }
     }
 }
