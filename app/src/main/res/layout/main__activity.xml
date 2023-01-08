@@ -53,7 +53,8 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="72dp"
         android:contentDescription="@string/create_new_file_or_folder"
-        android:src="@drawable/ic_add_white_24dp" />
+        android:src="@drawable/ic_add_white_24dp"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_bar"

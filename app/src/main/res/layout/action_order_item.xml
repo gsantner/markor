@@ -6,29 +6,55 @@
     android:gravity="center_vertical">
 
     <ImageView
-        android:id="@+id/start_icon"
+        android:id="@+id/action_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/name"
         android:src="@drawable/ic_format_indent_increase_black_24dp"
-        app:tint="@color/textActionIconColor" />
+        app:tint="@color/textActionIconColor"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/action_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/action_icon"
         android:layout_toStartOf="@id/enabled_switch"
-        android:layout_toLeftOf="@id/enabled_switch"
-        android:layout_toEndOf="@id/start_icon"
-        android:layout_toRightOf="@id/start_icon"
         android:color="@color/primary_text"
         android:paddingStart="@dimen/appbar_padding_top"
         android:paddingEnd="@dimen/appbar_padding_top"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+
+    <ImageView
+        android:id="@+id/is_view_mode_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/is_edit_mode_action"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="5dp"
+        android:alpha="0.3"
+        android:maxHeight="32dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_visibility_black_24dp"
+        android:tint="@color/textActionIconColor" />
+
+    <ImageView
+        android:id="@+id/is_edit_mode_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/enabled_switch"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:alpha="0.3"
+        android:maxHeight="32dp"
+        android:visibility="invisible"
+        android:src="@drawable/ic_edit_black_24dp"
+        android:tint="@color/textActionIconColor" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/enabled_switch"
@@ -36,17 +62,14 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_toStartOf="@id/end_icon"
-        android:layout_toLeftOf="@id/end_icon"
+        android:layout_toStartOf="@id/drag_handle"
         android:tooltipText="@string/toggle_action_visibility" />
 
     <ImageView
-        android:id="@+id/end_icon"
+        android:id="@+id/drag_handle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
         android:alpha="0.3"

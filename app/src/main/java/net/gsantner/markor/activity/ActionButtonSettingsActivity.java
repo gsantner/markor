@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
+import net.gsantner.markor.format.ActionButtonBase.ActionItem.DisplayMode;
 import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
@@ -174,8 +175,14 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
                 }
             });
 
-            ((ImageView) _row.findViewById(R.id.start_icon)).setImageResource(action.iconId);
+            ((ImageView) _row.findViewById(R.id.action_icon)).setImageResource(action.iconId);
             ((TextView) _row.findViewById(R.id.action_text)).setText(action.stringId);
+
+            _row.findViewById(R.id.is_edit_mode_action).setVisibility(
+                action.displayMode == DisplayMode.ANY || action.displayMode == DisplayMode.EDIT ? View.VISIBLE : View.INVISIBLE);
+
+            _row.findViewById(R.id.is_view_mode_action).setVisibility(
+                action.displayMode == DisplayMode.ANY || action.displayMode == DisplayMode.VIEW ? View.VISIBLE : View.INVISIBLE);
         }
 
         public void setHighlight() {
