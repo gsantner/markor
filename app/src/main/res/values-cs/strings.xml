@@ -434,7 +434,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Odpovídat vše</string>
     <string name="dynamic_notebook_root_links">Dynamické hledání kořene sešitu</string>
     <string name="search_dynamically_for_notebook_root">Chcete-li sledovat wiki odkazy, dynamicky vyhledat notebook.zim soubor pro identifikaci kořenového adresáře pro aktuální notebook. Zaškrtněte, pokud používáte více sešitů zim nebo nastavený adresář sešitu v aplikaci, neodpovídá Vašemu sešitu zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Formát/Předpona pro text sdílený na značce. Postupujte podle pravidel SimpleDateFormat Androidu.\n\nPoužijte zástupný znak \'%s\' (obklopený jednoduchými uvozovkami) pro umístění sdíleného textu. Pokud není specifikováno, sdílený text je připojen a formát se používá jako prefix.</string>
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
     <string name="insert_snippet">Insert snippet</string>

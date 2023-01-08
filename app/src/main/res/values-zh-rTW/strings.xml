@@ -138,6 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
     <string name="syntax_highlighting">同步標記</string>
+    <string name="dynamic_highlighting">同步標記</string>
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>

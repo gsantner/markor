@@ -436,10 +436,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Coincideix amb tots</string>
     <string name="dynamic_notebook_root_links">Cerca dinàmica de l\'arrel del quadern</string>
     <string name="search_dynamically_for_notebook_root">Per seguir els enllaços wiki, cerqueu dinàmicament el fitxer notebook.zim per identificar el directori arrel del quadern actual. Marqueu-ho si feu servir diversos quaderns zim o el directori de quaderns establert a l\'aplicació no es correspon amb el vostre quadern zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Format/Prefix per al text compartit al Markor. Segueix les regles SimpleDateFormat d\'Android.\n\nUtilitzeu el marcador de posició \'%s\' (envoltat de cometes simples) per posicionar el text compartit. Si no s\'especifica, s\'afegeix el text compartit i el format s\'utilitza com a prefix.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix per al text compartit al Markor. Segueix les regles SimpleDateFormat d\'Android.\n\nUtilitzeu el marcador de posició {{text}} per posicionar el text compartit. Si no s\'especifica, s\'afegeix el text compartit i el format s\'utilitza com a prefix.</string>
     <string name="share_into_format">Comparteix en - Format</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
     <string name="error_could_not_open_file">Error: no s\'ha pogut obrir el fitxer.</string>
     <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
+    <string name="wont_save_min_length">Els fitxers amb menys de %d caràcters no es desaran automàticament per evitar la pèrdua de dades.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxi de filtratge avançat</a></small>]]></string>
 </resources>

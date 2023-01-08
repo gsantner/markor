@@ -435,7 +435,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Tout faire correspondre</string>
     <string name="dynamic_notebook_root_links">Recherche dynamique de la racine du bloc-notes</string>
     <string name="search_dynamically_for_notebook_root">Afin de suivre les liens du wiki, recherchez dynamiquement le fichier notebook.zim pour identifier le répertoire racine du cahier actuel. Cochez cette case si vous utilisez plusieurs blocs-notes zim ou si le répertoire de bloc-notes défini dans l\'application ne correspond pas à votre bloc-notes zim.</string>
-    <string name="share_into_format_prefix_for_text_shared">Format/Préfixe pour le texte partagé dans Markor. Suit les règles SimpleDateFormat d\'Android.\n\nUtilisez l\'espace réservé \'%s\' (entouré de guillemets simples) pour positionner le texte partagé. Si non spécifié, le texte partagé est ajouté et le format utilisé comme préfixe.</string>
     <string name="share_into_format">Partager dans - Format</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>

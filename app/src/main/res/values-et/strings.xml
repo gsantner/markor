@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+A project by Gregor Santner (https://gsantner.net)
+
+To the extent possible under law, the person who associated CC0 with
+this file has waived all copyright and related or neighboring rights
+to the public domain.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="settings">Seaded</string>
+    <string name="appearance">Välimus</string>
+    <string name="editor">Redigeerija</string>
+    <string name="about">Teave</string>
+    <string name="create">Loo</string>
+    <string name="hide_statusbar">Peida olekuriba</string>
+    <string name="contributors">Toetajad</string>
+    <string name="licenses">Litsentsid</string>
+    <string name="changelog">Muuda logi</string>
+    <string name="show_license_of_the_app">Kuva rakenduse litsents</string>
+    <string name="show_third_party_licenses">Kuva kolmanda osapoole litsentsid</string>
+    <string name="language_change_restart_description">Muutke selle rakenduse keelt. Muudatuste jõustumiseks taaskäivitage rakendus</string>
+    <string name="language">Keel</string>
+    <string name="size">Suurus</string>
+    <string name="contribute">Andke oma panus</string>
+    <string name="donate">Anneta</string>
+    <string name="exit">Välju</string>
+    <string name="more">Lisaks</string>
+    <string name="help">Abiinfo</string>
+    <string name="main_view">Põhivaade</string>
+    <string name="other">Muud</string>
+    <string name="general">Üldine</string>
+    <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
+    <string name="rate_this_app">Hinda seda rakendust</string>
+    <string name="translate">Tõlgi</string>
+    <string name="more_info_and_help">Rohkem infot ja abi</string>
+    <string name="report_bugs">Teata veast</string>
+    <string name="join_community">Liitu kogukonnaga</string>
+    <string name="bug_reports_suggest_improvements">Andke tagasisidet, teatage vigadest või soovitage parandusi</string>
+    <string name="help_translating_this_app">Tõlgi see rakendus teistesse keeltesse</string>
+    <string name="source_code">Lähtekood</string>
+    <string name="project_license">Projekti litsents</string>
+    <string name="contribute_code_to_this_project_anybody_welcome">Lisage projekti kood. Kõik on oodatud seda tegema, ka uued tulijad</string>
+    <string name="project_team">Projekti tiim</string>
+    <string name="contributors_public_add_yourself_description">Kuva kaastöötajateave. Esitage see, et see kuvatakse siin pärast panuse andmist, kui soovite</string>
+    <string name="error_picture_selection">Ühtegi pilti pole valitud, tehtud ega salvestatud.</string>
+    <string name="edit_picture">Redigeeri pilti</string>
+    <string name="miscellaneous">Mitmesugune</string>
+    <string name="background">Taust</string>
+    <string name="font">Kirjatüüp</string>
+    <string name="close">Sulge</string>
+    <string name="favourite">Lemmik</string>
+    <string name="rotate">Pööra</string>
+</resources>
