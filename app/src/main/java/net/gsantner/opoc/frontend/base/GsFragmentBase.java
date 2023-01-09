@@ -45,6 +45,9 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
     protected Menu _fragmentMenu = new GsMenuItemDummy.Menu();
     protected Queue<Runnable> _postTasks = new LinkedList<>();
 
+    private final static String EXTRA_IDENTIFIER_KEY = "GS_FRAGMENT_BASE_EXTRA_IDENTIFIER";
+    private String _extraIdentifier = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,5 +224,27 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
      */
     protected boolean onToolbarLongClicked(final View v) {
         return false;
+    }
+
+    public final void setExtraIdentifier(final String identfier) {
+        _extraIdentifier = identfier;
+    }
+
+    public final String getExtraIdentifier() {
+        return _extraIdentifier;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(EXTRA_IDENTIFIER_KEY, _extraIdentifier);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            _extraIdentifier = savedInstanceState.getString(EXTRA_IDENTIFIER_KEY);
+        }
     }
 }
