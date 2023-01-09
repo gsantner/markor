@@ -1368,10 +1368,23 @@ public class GsContextUtils {
         }
 
         if (fileUri != null) {
-            final Intent intent = new Intent(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.ACTION_INSTALL_PACKAGE : Intent.ACTION_VIEW)
-                    .setFlags(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Intent.FLAG_GRANT_READ_URI_PERMISSION : Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .setDataAndType(fileUri, "application/vnd.android.package-archive");
-            startActivity(context, intent);
+            final String MIME_TYPE_APK = "application/vnd.android.package-archive";
+
+            boolean hasRequestInstallPackagesPermission = true;
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.getPackageManager().canRequestPackageInstalls();
+                }
+            } catch (Exception ignored) {
+                hasRequestInstallPackagesPermission = false;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !hasRequestInstallPackagesPermission) {
+                shareStream(context, file, MIME_TYPE_APK);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                startActivity(context, new Intent(Intent.ACTION_INSTALL_PACKAGE).setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION).setDataAndType(fileUri, MIME_TYPE_APK));
+            } else {
+                startActivity(context, new Intent(Intent.ACTION_VIEW).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setDataAndType(fileUri, MIME_TYPE_APK));
+            }
             return true;
         }
         return false;
