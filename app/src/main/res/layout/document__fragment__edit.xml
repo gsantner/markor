@@ -30,8 +30,9 @@
         <net.gsantner.markor.frontend.textview.HighlightingEditor
             android:id="@+id/document__fragment__edit__highlighting_editor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/background"
+            android:minHeight="1dp"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textCapSentences"

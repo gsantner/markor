@@ -111,27 +111,33 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save references to fragments
+        final FragmentManager manager = getSupportFragmentManager();
+        manager.putFragment(outState, Integer.toString(R.id.nav_notebook), _notebook);
+        manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
+        manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
+        manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
+    }
+
     @Override
     public void onRestoreInstanceState(final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
         if (savedInstanceState == null) {
             return;
         }
 
         // Get back references to fragments
-        _notebook = (GsFileBrowserFragment) findFragmentByIdentifier(Integer.toString(R.id.nav_notebook));
-        _quicknote = (DocumentEditAndViewFragment) findFragmentByIdentifier(Integer.toString(R.id.nav_quicknote));
-        _todo = (DocumentEditAndViewFragment) findFragmentByIdentifier(Integer.toString(R.id.nav_todo));
-        _more = (MoreFragment) findFragmentByIdentifier(Integer.toString(R.id.nav_more));
-    }
-
-    public GsFragmentBase<?, ?> findFragmentByIdentifier(final String id) {
-        for (final Fragment frag : getSupportFragmentManager().getFragments()) {
-            if (frag instanceof GsFragmentBase && id.equals(((GsFragmentBase<?, ?>) frag).getExtraIdentifier())) {
-                return (GsFragmentBase<?, ?>) frag;
-            }
-        }
-        return null;
+        final FragmentManager manager = getSupportFragmentManager();
+        _notebook = (GsFileBrowserFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_notebook));
+        _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
+        _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
+        _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
     }
 
     // Reduces swipe sensitivity
@@ -454,7 +460,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 frag = _notebook = GsFileBrowserFragment.newInstance(getFilesystemFragmentOptions(null));
             }
             frag.setMenuVisibility(false);
-            frag.setExtraIdentifier(Integer.toString(id));
             return frag;
         }
 
