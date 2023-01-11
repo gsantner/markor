@@ -430,6 +430,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Vence hoy</string>
     <string name="due_future">Vence en el futuro</string>
     <string name="completed">Completado</string>
+    <string name="advanced_filtering">Filtrado avanzado</string>
     <string name="match_any">Coincidir cualquiera</string>
     <string name="match_all">Coincidir todos</string>
     <string name="dynamic_notebook_root_links">Búsqueda dinámica de la raíz del cuaderno</string>
@@ -437,5 +438,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Compartir en - Formato</string>
     <string name="auto_format">Auto-formato</string>
     <string name="insert_snippet">Insertar fragmento</string>
+    <string name="error_could_not_open_file">Error: No se puede abrir el archivo.</string>
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
 </resources>
