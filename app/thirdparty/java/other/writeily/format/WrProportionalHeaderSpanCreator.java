@@ -9,51 +9,48 @@
 #########################################################*/
 package other.writeily.format;
 
-import android.graphics.Paint;
 import android.text.TextPaint;
-import android.text.style.CharacterStyle;
-import android.text.style.LineHeightSpan;
-import android.text.style.UpdateLayout;
+import android.text.style.MetricAffectingSpan;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 
 public class WrProportionalHeaderSpanCreator {
 
     private final float _textSize;
     private final int _color;
 
-    public WrProportionalHeaderSpanCreator(float textSize, int color) {
+    public WrProportionalHeaderSpanCreator(final float textSize, final int color) {
         _textSize = textSize;
         _color = color;
     }
 
     public Object createHeaderSpan(final float proportion) {
-        return new LargerHeaderSpan(_color, _textSize, proportion);
+        return new LargerHeaderSpan(_color, _textSize * proportion);
     }
 
-    public static class LargerHeaderSpan extends CharacterStyle implements LineHeightSpan, UpdateLayout {
+    public static class LargerHeaderSpan extends MetricAffectingSpan {
 
-        final @ColorInt
-        int _color;
-        final float _headerSize;
-        final float _offset;
+        final @ColorInt int _color;
+        final float _textSize;
 
-        public LargerHeaderSpan(final @ColorInt int color, final float textSize, final float proportion) {
+        public LargerHeaderSpan(final @ColorInt int color, final float textSize) {
             _color = color;
-            _headerSize = textSize * proportion;
-            _offset = _headerSize - textSize;
+            _textSize = textSize;
         }
 
         @Override
-        public void updateDrawState(TextPaint textPaint) {
+        public void updateMeasureState(@NonNull TextPaint textPaint) {
             textPaint.setFakeBoldText(true);
             textPaint.setColor(_color);
-            textPaint.setTextSize(_headerSize);
+            textPaint.setTextSize(_textSize);
         }
 
         @Override
-        public void chooseHeight(CharSequence charSequence, int i, int i1, int i2, int i3, Paint.FontMetricsInt fontMetricsInt) {
-            fontMetricsInt.ascent -= _offset;
+        public void updateDrawState(@NonNull TextPaint textPaint) {
+            textPaint.setFakeBoldText(true);
+            textPaint.setColor(_color);
+            textPaint.setTextSize(_textSize);
         }
     }
 }

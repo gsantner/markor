@@ -70,7 +70,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         if (_highlightBiggerHeadings) {
             createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
         } else {
-            createColorSpanForMatches(HEADING_SIMPLE, MD_COLOR_HEADING);
+            createColorSpanForMatches(HEADING, MD_COLOR_HEADING);
         }
 
         createColorSpanForMatches(LINK, MD_COLOR_LINK);
