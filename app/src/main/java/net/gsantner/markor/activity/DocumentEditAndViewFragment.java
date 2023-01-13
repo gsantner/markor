@@ -104,16 +104,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
 
-    // Wrap text setting and wrap text state are separated as the wrap text state may depend on
-    // if the file is in the main activity (quicknote and todotxt). Documents in mainactivity
-    // will _always_ open wrapped, but can be explicitly be set to unwrapped through the menu.
-    // Toggling the wrap state option will set and save the new value, but the file will always
-    // open wrapped in the main activity.
-    private boolean _wrapTextSetting;
-    private boolean _wrapText;
-    private boolean _highlightText;
-    private boolean _autoFormat;
-
     public DocumentEditAndViewFragment() {
         super();
     }
@@ -194,21 +184,30 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
+        _hlEditor.setSaveInstanceState(false); // We will reload from disk
+        _document.resetChangeTracking(); // force next reload
+        loadDocument();
+
+        // Configure the editor. Doing so after load helps prevent some errors
+        // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-        _hlEditor.setSaveInstanceState(false); // We will reload from disk
+        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText()));
+        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
         _webView.setBackgroundColor(Color.TRANSPARENT);
 
-        _document.resetChangeTracking(); // force next reload
-        loadDocument();
+        // Various settings
+        setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.getPath()));
+        updateMenuToggleStates(0);
+        // ---------------------------------------------------------
 
         // Start preview _after_ text load
         final Bundle args = getArguments();
@@ -219,26 +218,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview);
         }
 
-        // Various settings
-        _wrapTextSetting = _appSettings.getDocumentWrapState(_document.getPath());
-        _wrapText = isDisplayedAtMainActivity() || _wrapTextSetting;
-        _highlightText = _appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText());
-        _autoFormat = _appSettings.getDocumentAutoFormatEnabled(_document.getPath());
-        updateMenuToggleStates(0);
-        setHorizontalScrollMode(_wrapText);
-        _hlEditor.setHighlightingEnabled(_highlightText);
-
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
-        _hlEditor.requestLayout();
     }
 
     @Override
     public void onFragmentFirstTimeVisible() {
-
+        _primaryScrollView.invalidate();
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
 
         // First start - overwrite start position if needed
@@ -293,7 +282,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         menu.findItem(R.id.action_undo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_redo).setVisible(isText && _appSettings.isEditorHistoryEnabled());
         menu.findItem(R.id.action_send_debug_log).setVisible(MainActivity.IS_DEBUG_ENABLED && !isDisplayedAtMainActivity() && !_isPreviewVisible);
-
 
         // Undo / Redo / Save (keep visible, but deactivated and tinted grey if not executable)
         _undoMenuItem = menu.findItem(R.id.action_undo).setVisible(isText && !_isPreviewVisible);
@@ -358,17 +346,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public boolean loadDocument() {
-        return loadDocument(false);
-    }
-
-    public boolean loadDocument(final boolean forceReload) {
         if (isSdStatusBad() || isStateBad()) {
             errorClipText();
             return false;
         }
 
         // Only trigger the load process if constructing or file updated or force reload
-        if (forceReload || _document.hasFileChangedSinceLastLoad()) {
+        if (_document.hasFileChangedSinceLastLoad()) {
 
             final String content = _document.loadContent(getContext());
             if (content == null) {
@@ -436,7 +420,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_reload: {
-                if (loadDocument(true)) {
+                _document.resetChangeTracking(); // Force next load
+                if (loadDocument()) {
                     Toast.makeText(activity, "✔", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -566,24 +551,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_wrap_words: {
-                _wrapText = !_wrapText;
-                _wrapTextSetting = _wrapText;
-                _appSettings.setDocumentWrapState(_document.getPath(), _wrapTextSetting);
-                setHorizontalScrollMode(_wrapText);
+                final boolean newState = !isWrapped();
+                _appSettings.setDocumentWrapState(_document.getPath(), newState);
+                setHorizontalScrollMode(newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_highlighting: {
-                _highlightText = !_highlightText;
-                _hlEditor.setHighlightingEnabled(_highlightText);
-                _appSettings.setDocumentHighlightState(_document.getPath(), _highlightText);
+                final boolean newState = !_hlEditor.getHighlightingEnabled();
+                _hlEditor.setHighlightingEnabled(newState);
+                _appSettings.setDocumentHighlightState(_document.getPath(), newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_auto_format: {
-                _autoFormat = !_autoFormat;
-                _hlEditor.setAutoFormatEnabled(_autoFormat);
-                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), _autoFormat);
+                final boolean newState = !_hlEditor.getAutoFormatEnabled();
+                _hlEditor.setAutoFormatEnabled(newState);
+                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), newState);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -633,13 +617,13 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private void updateMenuToggleStates(final int selectedFormatActionId) {
         MenuItem mi;
         if ((mi = _fragmentMenu.findItem(R.id.action_wrap_words)) != null) {
-            mi.setChecked(_wrapText);
+            mi.setChecked(isWrapped());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
-            mi.setChecked(_highlightText);
+            mi.setChecked(_hlEditor.getHighlightingEnabled());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {
-            mi.setChecked(_autoFormat);
+            mi.setChecked(_hlEditor.getAutoFormatEnabled());
         }
 
         final SubMenu su;
@@ -653,11 +637,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    private boolean isWrapped() {
+        return _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
+    }
+
     private void setHorizontalScrollMode(final boolean wrap) {
 
         final Context context = getContext();
-        final boolean isCurrentlyWrap = _hsView == null || (_hlEditor.getParent() == _primaryScrollView);
-        if (context != null && _hlEditor != null && isCurrentlyWrap != wrap) {
+        if (context != null && _hlEditor != null && isWrapped() != wrap) {
 
             final int[] sel = TextViewUtils.getSelection(_hlEditor);
 

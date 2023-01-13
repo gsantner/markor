@@ -221,7 +221,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return outState;
     }
 
-    public void restoreSavedInstanceState(Bundle savedInstanceStateArg) {
+    public void restoreSavedInstanceState(final Bundle savedInstanceStateArg) {
         final Bundle savedInstanceState = savedInstanceStateArg == null ? new Bundle() : savedInstanceStateArg;
 
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {

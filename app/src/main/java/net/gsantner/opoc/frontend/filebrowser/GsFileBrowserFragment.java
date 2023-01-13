@@ -129,13 +129,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             swipe.setRefreshing(false);
         });
 
-        _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
-
         if (FileSearchEngine.isSearchExecuting) {
             FileSearchEngine.activity.set(new WeakReference<>(getActivity()));
         }
     }
-
 
     @Override
     public String getFragmentTag() {
@@ -293,6 +290,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState = _filesystemViewerAdapter.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
     private static String _previousNotebookDirectory;
