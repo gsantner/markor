@@ -67,6 +67,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private boolean _doubleBackToExitPressedOnce;
     private MarkorContextUtils _cu;
+    private MarkorPermissionChecker _permc;
 
     @SuppressLint("SdCardPath")
     @Override
@@ -74,6 +75,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onCreate(savedInstanceState);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _cu = new MarkorContextUtils(this);
+        _permc = new MarkorPermissionChecker(this);
         setContentView(R.layout.main__activity);
         _bottomNav = findViewById(R.id.bottom_navigation_bar);
         _viewPager = findViewById(R.id.main__view_pager_container);
@@ -103,17 +105,16 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         _cu.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
+    }
 
-        // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
-        final int startTab = _appSettings.getAppStartupTab();
-        if (startTab != R.id.nav_notebook && savedInstanceState == null && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
-            _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
-        }
+    @Override
+    public void on() {
+        super.onActiv
     }
 
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save references to fragments
@@ -182,9 +183,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
-        permc.checkPermissionResult(requestCode, permissions, grantResults);
-
+        _permc.checkPermissionResult(requestCode, permissions, grantResults);
         if (_cu.checkExternalStoragePermission(this, false)) {
             restartMainActivity();
         }
@@ -232,7 +231,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         boolean firstStart = IntroActivity.optStart(this);
         try {
-            if (!firstStart && new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
+            if (!firstStart && _permc.doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
                 GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
                 String html = "";
                 html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
@@ -279,17 +278,15 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public boolean onLongClickFab(View view) {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
-        if (_notebook != null && permc.mkdirIfStoragePermissionGranted()) {
+        if (_notebook != null && _permc.mkdirIfStoragePermissionGranted()) {
             _notebook.getAdapter().setCurrentFolder(_notebook.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
                     ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS);
         }
         return true;
     }
 
-    public void onClickFab(View view) {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
-        if (_notebook == null || !permc.doIfExtStoragePermissionGranted() || _notebook.getAdapter() == null) {
+    public void onClickFab(final View view) {
+        if (_notebook == null || !_permc.doIfExtStoragePermissionGranted() || _notebook.getAdapter() == null) {
             return;
         }
 
@@ -298,7 +295,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             return;
         }
 
-        if (permc.mkdirIfStoragePermissionGranted() && view.getId() == R.id.fab_add_new_item) {
+        if (view.getId() == R.id.fab_add_new_item) {
             if (_cu.isUnderStorageAccessFolder(this, _notebook.getCurrentFolder(), true) && _cu.getStorageAccessFrameworkTreeUri(this) == null) {
                 _cu.showMountSdDialog(this);
                 return;
@@ -308,7 +305,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 return;
             }
 
-            NewFileDialog dialog = NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, (ok, f) -> {
+            final NewFileDialog dialog = NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, (ok, f) -> {
                 if (ok) {
                     if (f.isFile()) {
                         DocumentActivity.launch(MainActivity.this, f, false, null, null);

@@ -13,6 +13,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_SECURE;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -25,8 +26,11 @@ import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBackend, CU extends GsContextUtils> extends AppCompatActivity {
 
+    private AtomicBoolean _activityFirstTimeVisible = new AtomicBoolean(true);
     protected AS _appSettings;
     protected Bundle _savedInstanceState;
     protected GsContextUtils _cu;
@@ -81,6 +85,20 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
         super.onResume();
         m_setActivityBackgroundColor.callback();
         m_setActivityNavigationBarColor.callback();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (_activityFirstTimeVisible.getAndSet(false)) {
+            new Handler(getMainLooper()).post(this::onActivityFirstTimeVisible);
+        }
+    }
+
+    /**
+     * This will be called when this activity gets the first time visible
+     */
+    public void onActivityFirstTimeVisible() {
     }
 
     @ColorInt

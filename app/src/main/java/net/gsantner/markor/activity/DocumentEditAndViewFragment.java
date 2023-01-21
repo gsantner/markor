@@ -227,6 +227,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onFragmentFirstTimeVisible() {
+        super.onFragmentFirstTimeVisible();
         _primaryScrollView.invalidate();
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
 

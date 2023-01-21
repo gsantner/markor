@@ -30,7 +30,7 @@ public class GsPermissionChecker {
         return GsContextUtils.instance.checkExternalStoragePermission(_activity, true, optionalToastMessageForKnowingWhyNeeded);
     }
 
-    public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    public boolean checkPermissionResult(final int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0) {
             switch (requestCode) {
                 case CODE_PERMISSION_EXTERNAL_STORAGE: {

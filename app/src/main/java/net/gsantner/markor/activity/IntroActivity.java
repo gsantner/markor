@@ -20,9 +20,9 @@ public class IntroActivity extends AppIntro {
     private static final String PREF_KEY_WAS_SHOWN = IntroActivity.class.getCanonicalName() + "was_shown";
     public static final int REQ_CODE_APPINTRO = 61234;
 
-    public static boolean optStart(Activity activeActivity) {
-        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
-        boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
+    public static boolean optStart(final Activity activeActivity) {
+        final SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
+        final boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
         if (!wasShownYet) {
             activeActivity.startActivityForResult(new Intent(activeActivity, IntroActivity.class), REQ_CODE_APPINTRO);
         }
@@ -45,7 +45,6 @@ public class IntroActivity extends AppIntro {
 
         // Permissions -- takes a permission and slide number
         setSkipButtonEnabled(false);
-        setNextPageSwipeLock(false);
         setSwipeLock(false);
     }
 

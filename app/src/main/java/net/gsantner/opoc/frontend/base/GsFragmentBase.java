@@ -37,8 +37,8 @@ import java.util.Queue;
  */
 @SuppressWarnings("unused")
 public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBackend, CU extends GsContextUtils> extends Fragment {
-    private boolean _fragmentFirstTimeVisible = true;
 
+    private boolean _fragmentFirstTimeVisible = true;
     protected AS _appSettings;
     protected CU _cu;
     protected Bundle _savedInstanceState = null;

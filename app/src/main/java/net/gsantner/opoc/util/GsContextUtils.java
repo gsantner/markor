@@ -2347,39 +2347,43 @@ public class GsContextUtils {
         return formatDateTime(locale, format, datetime, def);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public boolean checkExternalStoragePermission(final Activity context, final boolean doRequest, String... optionalDescription) {
+    private void requestExternalStoragePermission(final Activity activity) {
         final int v = android.os.Build.VERSION.SDK_INT;
-        final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
 
         // On Android R+ - check externalStorageManager is granted, otherwise request it
         if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            permissionRequest.set(() -> {
-                try {
-                    Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(context));
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                } catch (Exception ex) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                }
-            });
+            try {
+                final Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(activity));
+                final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+            } catch (Exception ex) {
+                final Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+            }
+        } else if (v >= android.os.Build.VERSION_CODES.M &&
+                   v < android.os.Build.VERSION_CODES.R &&
+                   ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M);
         }
 
-        // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionRequest.set(() -> ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
-        }
+    }
 
-        if (doRequest && permissionRequest.get() != null) {
-            if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
-                permissionRequest.get().callback();
+    @SuppressWarnings("ConstantConditions")
+    public boolean checkExternalStoragePermission(final Activity activity, final boolean doRequest, String... optionalDescription) {
+        final int v = android.os.Build.VERSION.SDK_INT;
+
+        if (doRequest) {
+            if (optionalDescription == null ||
+                optionalDescription.length == 0 ||
+                TextUtils.isEmpty(optionalDescription[0])
+            ) {
+                requestExternalStoragePermission(activity);
             } else {
-                final AlertDialog d = new AlertDialog.Builder(context)
+                final AlertDialog d = new AlertDialog.Builder(activity)
                         .setMessage(optionalDescription[0])
                         .setCancelable(false)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> requestExternalStoragePermission(activity))
                         .setNegativeButton(android.R.string.no, null)
                         .show();
                 d.setCanceledOnTouchOutside(false);
@@ -2392,8 +2396,8 @@ public class GsContextUtils {
         }
 
         // Android M permissions
-        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R) {
-            return ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        if (v >= Build.VERSION_CODES.M) {
+            return ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         }
 
         // In case unsure, check if anything is writable at external storage
