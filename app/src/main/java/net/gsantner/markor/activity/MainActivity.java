@@ -108,37 +108,46 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     @Override
-    public void on() {
-        super.onActiv
+    public void onActivityFirstTimeVisible() {
+        super.onActivityFirstTimeVisible();
+        // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
+        final int startTab = _appSettings.getAppStartupTab();
+        if (startTab != R.id.nav_notebook && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
+            _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
+        }
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save references to fragments
-        final FragmentManager manager = getSupportFragmentManager();
-        manager.putFragment(outState, Integer.toString(R.id.nav_notebook), _notebook);
-        manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
-        manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
-        manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
+        try {
+            final FragmentManager manager = getSupportFragmentManager();
+            // Put and get notebook first. Most important for correct operation.
+            manager.putFragment(outState, Integer.toString(R.id.nav_notebook), _notebook);
+            manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
+            manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
+            manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
+        } catch (NullPointerException | IllegalStateException ignored) {}
     }
 
     @Override
-    public void onRestoreInstanceState(final Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public void onRestoreInstanceState(final Bundle state) {
+        super.onRestoreInstanceState(state);
 
-        if (savedInstanceState == null) {
+        if (state == null) {
             return;
         }
 
         // Get back references to fragments
-        final FragmentManager manager = getSupportFragmentManager();
-        _notebook = (GsFileBrowserFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_notebook));
-        _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
-        _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
-        _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
+        try {
+            final FragmentManager manager = getSupportFragmentManager();
+            _notebook = (GsFileBrowserFragment) manager.getFragment(state, Integer.toString(R.id.nav_notebook));
+            _quicknote = (DocumentEditAndViewFragment) manager.getFragment(state, Integer.toString(R.id.nav_quicknote));
+            _todo = (DocumentEditAndViewFragment) manager.getFragment(state, Integer.toString(R.id.nav_todo));
+            _more = (MoreFragment) manager.getFragment(state, Integer.toString(R.id.nav_more));
+        } catch (NullPointerException | IllegalStateException ignored) {}
     }
 
     // Reduces swipe sensitivity
@@ -211,7 +220,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     protected void onResume() {
-        //new AndroidSupportMeWrapper(this).mainOnResume();
         super.onResume();
 
         if (_appSettings.isRecreateMainRequired()) {

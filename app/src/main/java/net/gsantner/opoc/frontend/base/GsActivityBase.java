@@ -90,7 +90,8 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if (_activityFirstTimeVisible.getAndSet(false)) {
+        // Only do this when not being restored
+        if (_activityFirstTimeVisible.getAndSet(false) && _savedInstanceState == null) {
             new Handler(getMainLooper()).post(this::onActivityFirstTimeVisible);
         }
     }
