@@ -193,7 +193,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         _permc.checkPermissionResult(requestCode, permissions, grantResults);
-        if (_cu.checkExternalStoragePermission(this, false)) {
+        if (_cu.checkExternalStoragePermission(this)) {
             restartMainActivity();
         }
     }

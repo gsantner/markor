@@ -1864,7 +1864,7 @@ public class GsContextUtils {
 
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
-                return checkExternalStoragePermission(context, false);
+                return checkExternalStoragePermission(context);
             }
         }
         return null;
@@ -2347,44 +2347,49 @@ public class GsContextUtils {
         return formatDateTime(locale, format, datetime, def);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public boolean checkExternalStoragePermission(final Activity context, final boolean doRequest, String... optionalDescription) {
+    public void requestExternalStoragePermission(final Activity activity, final String description) {
         final int v = android.os.Build.VERSION.SDK_INT;
         final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
 
         // On Android R+ - check externalStorageManager is granted, otherwise request it
-        if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+        if (v >= Build.VERSION_CODES.R) {
             permissionRequest.set(() -> {
                 try {
-                    Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(context));
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                    final Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(activity));
+                    final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 } catch (Exception ex) {
-                    Intent intent = new Intent();
+                    final Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
                 }
             });
+        } else if (v >= Build.VERSION_CODES.M) {
+            permissionRequest.set(() ->
+                    ActivityCompat.requestPermissions(activity,
+                        new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        REQUEST_STORAGE_PERMISSION_M));
+        } else {
+            // Don't need permission ?
+            return;
         }
 
-        // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionRequest.set(() -> ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
+        if (TextUtils.isEmpty(description)) {
+            permissionRequest.get().callback();
+        } else {
+            final AlertDialog d = new AlertDialog.Builder(activity)
+                    .setMessage(description)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
+            d.setCanceledOnTouchOutside(false);
         }
+    }
 
-        if (doRequest && permissionRequest.get() != null) {
-            if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
-                permissionRequest.get().callback();
-            } else {
-                final AlertDialog d = new AlertDialog.Builder(context)
-                        .setMessage(optionalDescription[0])
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
-                        .setNegativeButton(android.R.string.no, null)
-                        .show();
-                d.setCanceledOnTouchOutside(false);
-            }
-        }
+    @SuppressWarnings("ConstantConditions")
+    public boolean checkExternalStoragePermission(final Activity context) {
+        final int v = android.os.Build.VERSION.SDK_INT;
 
         // Android R Manage-All-Files permission
         if (v >= android.os.Build.VERSION_CODES.R) {
@@ -2402,6 +2407,7 @@ public class GsContextUtils {
                 return true;
             }
         }
+
         return false;
     }
 

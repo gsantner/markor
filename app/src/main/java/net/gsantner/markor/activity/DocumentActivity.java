@@ -173,30 +173,41 @@ public class DocumentActivity extends MarkorBaseActivity {
     private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
-        String intentAction = intent.getAction();
-        Uri intentData = intent.getData();
+        final String intentAction = intent.getAction();
+        final Uri intentData = intent.getData();
 
+        // Pull the file from the intent
+        // -----------------------------------------------------------------------
         File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
 
-        boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
-        boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
-        boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
-        boolean showedShareInto = false;
+        final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
+        final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
+        final boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
         if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            showedShareInto = showShareInto(intent);
+            showShareInto(intent);
+            return;
         } else if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
-            showedShareInto = showShareInto(intent);
+            showShareInto(intent);
+            return;
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
             file = _cu.extractFileFromIntent(this, intent);
         }
 
-        if (file != null && (file.isDirectory() || !FormatRegistry.isFileSupported(file))) {
+        // Decide what to do with the file
+        // -----------------------------------------------------------------------
+
+        if (file == null) {
+            final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
+            showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
+        } else if (!file.exists()) {
+            showErrorMessage(getString(R.string.file_does_not_exist));
+        } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);
             finish();
-        } else if (file != null) {
+        } else {
             // Open in editor/viewer
             final Document doc = new Document(file);
             Integer startLine = null;
@@ -216,16 +227,12 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
 
             showTextEditor(doc, startLine, startInPreview);
-
-        } else if (!showedShareInto) {
-            showNotSupportedMessage();
         }
     }
 
-    private void showNotSupportedMessage() {
-        final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
+    private void showErrorMessage(final CharSequence message) {
         new AlertDialog.Builder(this)
-                .setMessage(Html.fromHtml(notSupportedMessage))
+                .setMessage(message)
                 .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
@@ -287,11 +294,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public boolean showShareInto(Intent intent) {
+    public void showShareInto(Intent intent) {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
-        return true;
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
