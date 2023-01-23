@@ -232,7 +232,9 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private boolean canFileBeEdited(final File file) {
         final File parent = file == null ? null : file.getParentFile();
-        return (file != null && file.exists() && file.canWrite()) || (parent != null && parent.exists() && parent.canWrite());
+        final boolean exists = file != null && file.exists() && file.canRead();
+        final boolean canCreate = parent != null && parent.exists() && parent.canWrite();
+        return exists || canCreate;
     }
 
     private void showErrorMessage(final CharSequence message) {
