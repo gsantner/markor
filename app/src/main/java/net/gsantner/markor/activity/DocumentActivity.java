@@ -192,10 +192,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             showShareInto(intent);
             return;
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = MarkorContextUtils.getIntentFile(intent, null);
-            if (file == null) {
-                file = _cu.extractFileFromIntent(this, intent);
-            }
+            file = MarkorContextUtils.getIntentFile(intent, _cu.extractFileFromIntent(this, intent));
         }
 
         // Decide what to do with the file
