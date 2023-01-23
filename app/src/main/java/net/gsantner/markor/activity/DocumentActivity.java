@@ -192,7 +192,10 @@ public class DocumentActivity extends MarkorBaseActivity {
             showShareInto(intent);
             return;
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
-            file = _cu.extractFileFromIntent(this, intent);
+            file = MarkorContextUtils.getIntentFile(intent, null);
+            if (file == null) {
+                file = _cu.extractFileFromIntent(this, intent);
+            }
         }
 
         // Decide what to do with the file
@@ -201,7 +204,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (file == null) {
             final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
             showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
-        } else if (!file.exists()) {
+        } else if (!canFileBeEdited(file)) {
             showErrorMessage(getString(R.string.file_does_not_exist));
         } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
@@ -228,6 +231,11 @@ public class DocumentActivity extends MarkorBaseActivity {
 
             showTextEditor(doc, startLine, startInPreview);
         }
+    }
+
+    private boolean canFileBeEdited(final File file) {
+        final File parent = file == null ? null : file.getParentFile();
+        return (file != null && file.exists() && file.canWrite()) || (parent != null && parent.exists() && parent.canWrite());
     }
 
     private void showErrorMessage(final CharSequence message) {

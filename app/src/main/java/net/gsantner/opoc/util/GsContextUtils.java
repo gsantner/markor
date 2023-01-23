@@ -1556,6 +1556,7 @@ public class GsContextUtils {
         showChooser(context, intent, null);
     }
 
+
     /**
      * Try to force extract a absolute filepath from an intent
      *
@@ -1564,8 +1565,9 @@ public class GsContextUtils {
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
-        String action = receivingIntent.getAction();
-        String type = receivingIntent.getType();
+        final String action = receivingIntent.getAction();
+        final String type = receivingIntent.getType();
+        final String extPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         String tmps;
         String fileStr;
         String[] sarr;
@@ -1618,7 +1620,7 @@ public class GsContextUtils {
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
                     for (String prefix : new String[]{"external/", "media/", "storage_root/", "external-path/"}) {
                         if (fileStr.startsWith((tmps = prefix))) {
-                            probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                            probeFiles.add(Uri.decode(extPath + "/" + fileStr.substring(tmps.length())));
                         }
                     }
 
@@ -1628,20 +1630,21 @@ public class GsContextUtils {
                             probeFiles.add(Uri.decode("/storage/" + fileStr.substring(tmps.length()).trim()));
                         }
                     }
+
                     // AOSP File Manager/Documents
                     if (fileProvider.equals("com.android.externalstorage.documents") && fileStr.startsWith(tmps = "/primary%3A")) {
-                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                        probeFiles.add(Uri.decode(extPath + "/" + fileStr.substring(tmps.length())));
                     }
+
                     // Mi File Explorer
                     if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
-                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
+                        probeFiles.add(Uri.decode(extPath + fileStr.substring(tmps.length())));
                     }
 
                     if (fileStr.startsWith(tmps = "external_files/")) {
-                        for (String prefix : new String[]{Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
+                        for (String prefix : new String[]{extPath, "/storage", ""}) {
                             probeFiles.add(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
                         }
-
                     }
 
                     // URI Encoded paths with full path after content://package/
@@ -1651,6 +1654,7 @@ public class GsContextUtils {
                     }
                 }
             }
+
             fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
             if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/")) {
                 probeFiles.add(tmps);
@@ -1661,6 +1665,7 @@ public class GsContextUtils {
             if (sarr[0] != null) {
                 probeFiles.add(sarr[0]);
             }
+
             if (sarr[1] != null) {
                 probeFiles.add(Environment.getExternalStorageDirectory() + "/" + sarr[1]);
             }
