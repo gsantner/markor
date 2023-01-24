@@ -753,11 +753,9 @@ public class GsFileUtils {
         return files;
     }
 
-    // Check if a file can be read or created (parent exists and can be written)
-    public static boolean canViewOrCreate(final File file) {
+    // Check if a file can be created (parent exists and can be written)
+    public static boolean canCreate(final File file) {
         final File parent = file == null ? null : file.getParentFile();
-        final boolean exists = file != null && file.exists() && file.canRead();
-        final boolean canCreate = parent != null && parent.exists() && parent.canWrite();
-        return exists || canCreate;
+        return parent != null && parent.canWrite();
     }
 }

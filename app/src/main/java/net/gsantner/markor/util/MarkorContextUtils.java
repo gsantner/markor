@@ -98,11 +98,4 @@ public class MarkorContextUtils extends GsContextUtils {
         final File f = getIntentFile(intent, null);
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
-
-    public static boolean canReadOrCreate(final File file) {
-        final File parent = file == null ? null : file.getParentFile();
-        final boolean canRead = file != null && file.canRead();
-        final boolean canCreate = parent != null && parent.canWrite();
-        return canRead || canCreate;
-    }
 }
