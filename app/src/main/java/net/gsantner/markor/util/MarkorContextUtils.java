@@ -26,6 +26,7 @@ import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -79,7 +80,7 @@ public class MarkorContextUtils extends GsContextUtils {
         }
 
         // By extra path
-        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
         if (file != null) {
             return file;
         }
@@ -96,5 +97,12 @@ public class MarkorContextUtils extends GsContextUtils {
     public static File getValidIntentDir(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
+    }
+
+    public static boolean canReadOrCreate(final File file) {
+        final File parent = file == null ? null : file.getParentFile();
+        final boolean canRead = file != null && file.canRead();
+        final boolean canCreate = parent != null && parent.canWrite();
+        return canRead || canCreate;
     }
 }
