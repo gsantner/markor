@@ -335,7 +335,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             loadFolder(file);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
-                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
+                        } else if (isVirtualStorage(file)) {
                             loadFolder(file);
                         }
                     }
@@ -564,8 +564,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     // Convert found File's to FileWithCachedData to optimize performance
                     GsFileUtils.replaceFilesWithCachedVariants(_adapterData);
 
-                    // Sort files
-                    GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                    if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                        // Default to sorting recents by recency
+                        GsFileUtils.sortFiles(_adapterData, GsFileUtils.SORT_BY_MTIME, false, false);
+                    } else {
+                        GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                    }
 
                     if (canGoUp(_currentFolder)) {
                         _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());

@@ -67,7 +67,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private boolean _doubleBackToExitPressedOnce;
     private MarkorContextUtils _cu;
-    private MarkorPermissionChecker _permc;
+    private boolean _hasFilePermissions = false;
+    private File _quickSwitchPrevFolder = null;
 
     @SuppressLint("SdCardPath")
     @Override
@@ -285,10 +286,24 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
+    // Cycle between recent, favourite, and current
     public boolean onLongClickFab(View view) {
-        if (_notebook != null && _permc.mkdirIfStoragePermissionGranted()) {
-            _notebook.getAdapter().setCurrentFolder(_notebook.getCurrentFolder().equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)
-                    ? GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE : GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS);
+        if (_notebook != null) {
+            final File current = _notebook.getCurrentFolder();
+            final File dest;
+            if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS.equals(current)) {
+                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
+            } else if (GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE.equals(current)) {
+                if (_quickSwitchPrevFolder != null) {
+                    dest = _quickSwitchPrevFolder;
+                } else {
+                    dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
+                }
+            } else {
+                _quickSwitchPrevFolder = current;
+                dest = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
+            }
+            _notebook.getAdapter().setCurrentFolder(dest);
         }
         return true;
     }

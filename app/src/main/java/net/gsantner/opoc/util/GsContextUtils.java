@@ -104,6 +104,7 @@ import androidx.annotation.RawRes;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -128,6 +129,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.BufferedReader;
@@ -2344,6 +2346,33 @@ public class GsContextUtils {
         }
         return formatDateTime(locale, format, datetime, def);
     }
+
+    /*
+    public static class PermissionRequestActivity extends AppCompatActivity {
+        final GsCallback.a0 _callback;
+        final String _description;
+
+        public PermissionRequestActivity(final String desc, final GsCallback.a0 callback) {
+            _description = desc;
+            _callback = callback;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            if (_callback != null) {
+                final AlertDialog d = new AlertDialog.Builder(this)
+                        .setMessage(_description)
+                        .setCancelable(false)
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> _callback.callback())
+                        .setOnDismissListener((dialog) -> finish())
+                        .show();
+                d.setCanceledOnTouchOutside(false);
+            }
+        }
+    }
+    */
 
     public void requestExternalStoragePermission(final Activity activity, final String description) {
         final int v = android.os.Build.VERSION.SDK_INT;

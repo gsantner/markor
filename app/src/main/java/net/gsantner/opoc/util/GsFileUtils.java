@@ -678,8 +678,8 @@ public class GsFileUtils {
 
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = (current, other) -> {
+    public static Comparator<File> makeComparator(final String sortBy, final boolean sortReverse) {
+        return (current, other) -> {
             if (sortReverse) {
                 File swap = current;
                 current = other;
@@ -703,6 +703,10 @@ public class GsFileUtils {
             }
             return current.compareTo(other);
         };
+    }
+
+    public static void sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
+        final Comparator<File> detailComparator = makeComparator(sortBy, sortReverse);
 
         final Comparator<File> mainComparator = (current, other) -> {
             if (current == null || other == null) {
@@ -726,8 +730,6 @@ public class GsFileUtils {
                 e.printStackTrace();
             }
         }
-
-        return mainComparator;
     }
 
     public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
