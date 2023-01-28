@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Etter størrelse</string>
     <string name="reverse_order">Motsatt rekkefølge</string>
     <string name="contribute">Bidra</string>
-    <string name="donate">Doner</string>
     <string name="project_page">Prosjektside</string>
     <string name="press_back_again_to_exit">Trykk \'Tilbake\' igjen for å avslutte</string>
     <string name="exit">Avslutt</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Oversett</string>
     <string name="more_info_and_help">Mer informasjon om dette programmet</string>
     <string name="report_bugs">Rapporter feil</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer info om donering til utvikleren eller bidra til dette prosjektet.</string>
     <string name="join_community">Ta del i gemenskapen</string>
     <string name="bug_reports_suggest_improvements">Gi tilbakemelding, rapporter feil eller foreslå forbedringer</string>
     <string name="help_translating_this_app">Oversett dette programmet til andre språk</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">min_lapp</string>
     <string name="close">Lukk</string>
     <string name="cancel">Avbryt</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Liker du dette prosjektet? Ønsker du å støtte ytterligere forbedringer og feilrettinger?\n\nUtvikle apper og skrive relaterte blogginnlegg tar mye tid! Hvis du vil hjelpe prosjektet med å fortsette, kan du vurdere en liten donasjon!\n\nDette prosjektet er utviklet på fritid, helt gratis og uten reklamer!</string>
     <string name="app_start_tab">Start fane</string>
     <string name="tab_to_select_at_start">Fane du vil velge når du starter appen</string>
     <string name="swipe_to_change_mode">Dra for å endre modus</string>

@@ -1,6 +1,6 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2022-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2022-2023 Gregor Santner <https://gsantner.net/>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/

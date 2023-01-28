@@ -86,7 +86,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">크기</string>
     <string name="reverse_order">역순으로 정렬</string>
     <string name="contribute">기여</string>
-    <string name="donate">후원하기</string>
     <string name="project_page">프로젝트 페이지</string>
     <string name="press_back_again_to_exit">뒤로가기 버튼을 한번 더 눌러서 종료하세요</string>
     <string name="exit">나가기</string>
@@ -203,7 +202,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">번역하기</string>
     <string name="more_info_and_help">도움말</string>
     <string name="report_bugs">버그 신고</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Markor 앱에 기여하거나 개발자에게 기부하는 것에 대한 상세 정보</string>
     <string name="join_community">커뮤니티에 참여</string>
     <string name="bug_reports_suggest_improvements">피드백을 주고, 버그를 신고하거나 개선점을 알려주기</string>
     <string name="help_translating_this_app">이 앱을 다른 언어로 번역하기</string>
@@ -264,7 +262,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">나의_노트</string>
     <string name="close">닫기</string>
     <string name="cancel">취소</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">이 앱을 잘 사용하고 계신가요? 기능 향상과 버그 제거에 기여하고 싶으십니까? \n\n앱 개발 및 관련 블로그 관리는 많은 시간을 필요로 합니다! 이 앱 프로젝트를 지속하는데 도움이 되도록 작은 기부를 해보시는건 어떨까요?\n\n이 앱은 광고 없이 완전히 무료로 제공되며, 자투리 시간을 활용해 개발되고 있습니다!</string>
     <string name="app_start_tab">앱 시작 탭</string>
     <string name="tab_to_select_at_start">앱을 시작할 때 선택할 탭</string>
     <string name="swipe_to_change_mode">보기 모드를 밀어서 전환</string>

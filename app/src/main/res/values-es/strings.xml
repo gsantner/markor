@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Tamaño</string>
     <string name="reverse_order">Invertir orden</string>
     <string name="contribute">Contribuir</string>
-    <string name="donate">Donar</string>
     <string name="project_page">Página del proyecto</string>
     <string name="press_back_again_to_exit">Pulsa de nuevo atrás para salir</string>
     <string name="exit">Salir</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traducir</string>
     <string name="more_info_and_help">Ayuda y más información sobre esta aplicación</string>
     <string name="report_bugs">Informar de fallos</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Más información sobre donar al desarrollador, o contribuir a este proyecto.</string>
     <string name="join_community">Únete a la comunidad</string>
     <string name="bug_reports_suggest_improvements">Da tu opinión, reporta errores o sugiere mejoras</string>
     <string name="help_translating_this_app">Traduce esta aplicación a otros idiomas</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mi_nota</string>
     <string name="close">Cerrar</string>
     <string name="cancel">Cancelar</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">¿Te gusta este proyecto? ¿Quieres que se mejore y se corrijan problemas?\n\nEl desarrollo de aplicaciones y la escritura de entradas relacionadas del blog cuesta mucho tiempo. Si quieres ayudar a que el proyecto pueda continuar, por favor considera una pequeña donación!\n\nEste proyecto se desarrolla en tiempo de ocio, completamente gratis y sin publicidad!</string>
     <string name="app_start_tab">Pestaña de inicio</string>
     <string name="tab_to_select_at_start">Pestaña para seleccionar al iniciar la aplicación</string>
     <string name="swipe_to_change_mode">Deslizar para cambiar el modo</string>
@@ -430,12 +427,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Vence hoy</string>
     <string name="due_future">Vence en el futuro</string>
     <string name="completed">Completado</string>
+    <string name="advanced_filtering">Filtrado avanzado</string>
     <string name="match_any">Coincidir cualquiera</string>
     <string name="match_all">Coincidir todos</string>
     <string name="dynamic_notebook_root_links">Búsqueda dinámica de la raíz del cuaderno</string>
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'{{text}}\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido es añadido y el formato utilizado es el de prefijo.</string>
     <string name="share_into_format">Compartir en - Formato</string>
     <string name="auto_format">Auto-formato</string>
     <string name="insert_snippet">Insertar fragmento</string>
+    <string name="error_could_not_open_file">Error: No se puede abrir el archivo.</string>
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
+    <string name="wont_save_min_length">Archivos con menos de %d caracteres no guardados automáticamente, para prevenir la perdida de datos.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxis de filtrado avanzado</a></small>]]></string>
 </resources>

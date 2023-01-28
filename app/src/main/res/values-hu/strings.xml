@@ -87,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Méret</string>
     <string name="reverse_order">Fordított sorrend</string>
     <string name="contribute">Közreműködés</string>
-    <string name="donate">Adományozás</string>
     <string name="project_page">Projekt oldala</string>
     <string name="press_back_again_to_exit">Kilépéshez nyomd meg újra a vissza gombot</string>
     <string name="exit">Kilépés</string>
@@ -209,7 +208,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Fordít</string>
     <string name="more_info_and_help">Több információ és segítség</string>
     <string name="report_bugs">Hibajelentés</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">További információ az adományozásról és a projekthez való hozzájárulásról.</string>
     <string name="join_community">Csatlakozzon a közösséghez</string>
     <string name="bug_reports_suggest_improvements">Adj visszajelzést, jelents be hibákat, vagy javasolj fejlesztést</string>
     <string name="help_translating_this_app">Fordítsd le az alkalmazást más nyelvekre</string>
@@ -269,7 +267,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">jegyzet</string>
     <string name="close">Bezárás</string>
     <string name="cancel">Mégse</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Tetszik ez a projekt? Szeretnéd segíteni a további fejlesztést és hibajavítást?\n\nAlkalmazások fejlesztése és a hozzájuk kapcsolódó blogbejegyzések írása sok időt vesz igénybe. Ha szeretnéd segíteni a folytatást, kérlek fontold meg az adományozást.\n\nEz a projekt szabadidőnkben készül, teljesen ingyen és reklám nélkül.</string>
     <string name="app_start_tab">Kezdőlap</string>
     <string name="tab_to_select_at_start">Az alkalmazás megnyitásakor melyik lap látszódjon</string>
     <string name="swipe_to_change_mode">Módok közötti váltás kézmozdulattal</string>

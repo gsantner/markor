@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Розмір</string>
     <string name="reverse_order">У зворотному порядку</string>
     <string name="contribute">Допомогти вдосконалити</string>
-    <string name="donate">Пожертвувати</string>
     <string name="project_page">Сторінка проєкту</string>
     <string name="press_back_again_to_exit">Натисніть Назад ще раз щоб вийти</string>
     <string name="exit">Вийти</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перекласти</string>
     <string name="more_info_and_help">Додаткова інформація та допомога</string>
     <string name="report_bugs">Повідомити про помилку</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Детальніше про фінансову підтримку розробника або участь у проєкті.</string>
     <string name="join_community">Приєднатися до спільноти</string>
     <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
     <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">моя_нотатка</string>
     <string name="close">Закрити</string>
     <string name="cancel">Скасувати</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам подобається цей проєкт? Бажаєте підтримати подальший розвиток та виправлення помилок?\n\nРозробка програм і написання супровідних записів до блогу займає чимало часу! Якщо ви хочете допомогти розвитку проєкту, зробіть, будь ласка, невелике пожертвування!\n\nЦей проєкт розробляється у вільний час, абсолютно безкоштовно та без жодної реклами!</string>
     <string name="app_start_tab">Вкладка запуску програми</string>
     <string name="tab_to_select_at_start">Вибрати стартову сторінку програми</string>
     <string name="swipe_to_change_mode">Зміна режиму змахуванням</string>

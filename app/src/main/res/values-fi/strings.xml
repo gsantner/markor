@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Koko</string>
     <string name="reverse_order">Käänteinen järjestys</string>
     <string name="contribute">Osallistu</string>
-    <string name="donate">Lahjoita</string>
     <string name="project_page">Projektisivu</string>
     <string name="press_back_again_to_exit">Paina \'takaisin\' uudelleen poistuaksesi</string>
     <string name="exit">Poistu</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Käännä</string>
     <string name="more_info_and_help">Lisätietoja ja apua</string>
     <string name="report_bugs">Ilmoita virheistä</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Lisätietoja kehittäjälle lahjoittamisesta tai osallistumisesta tähän projektiin.</string>
     <string name="join_community">Liity yhteisöön</string>
     <string name="bug_reports_suggest_improvements">Anna palautetta, ilmoita virheistä tai ehdota parannuksia</string>
     <string name="help_translating_this_app">Käännä tämä sovellus muille kielille</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">my_huomio</string>
     <string name="close">Sulje</string>
     <string name="cancel">Peruuta</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Nauttitko tästä projektista? Haluatko tukea lisäparannuksia ja korjauksia?\n\nSovellusten kehittäminen ja niihin liittyvien blogiviestien kirjoittaminen vie paljon aikaa! Jos haluat auttaa projektia jatkamaan, ota huomioon pieni lahjoitus!\n\nTämä projekti on kehitetty vapaa-ajalla, täysin ilmaiseksi ja ilman mainoksia!</string>
     <string name="app_start_tab">Aloitusvälilehti</string>
     <string name="tab_to_select_at_start">Valittava välilehti sovelluksen käynnistyessä</string>
     <string name="swipe_to_change_mode">Pyyhkäise vaihtaaksesi tilaa</string>

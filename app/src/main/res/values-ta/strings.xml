@@ -86,7 +86,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">அளவு</string>
     <string name="reverse_order">தலைகீழ் ஒழுங்கு</string>
     <string name="contribute">பங்கேற்க்க</string>
-    <string name="donate">நன்கொடை</string>
     <string name="project_page">இந்த திட்டத்தின் வலைப்பக்கம்</string>
     <string name="press_back_again_to_exit">வெளியேற மீண்டும் அழுத்தவும்</string>
     <string name="exit">வெளியேறு</string>
@@ -206,7 +205,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">மொழிபெயர்ப்பு</string>
     <string name="more_info_and_help">மேலும் தகவல் மற்றும் உதவி</string>
     <string name="report_bugs">பிழைகளை தெரிவியுங்கள்</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">இந்த செயலியின் நிரலை எழுதியவருக்கு நன்கொடை தருவது, அல்லது இந்த திட்டத்தில் பங்களிப்பது தொடர்பாக மேலும் தகவலுக்கு.</string>
     <string name="join_community">சமூகத்தில் சேர்க</string>
     <string name="bug_reports_suggest_improvements">இந்த செயலி குறித்த கருத்துக்கள் மற்றும் பிழைகளை தெரிவிக்கவும் அல்லது மேம்படுத்தத்தல்களை பரிந்துரைக்கவும்</string>
     <string name="help_translating_this_app">மற்ற மொழிகளில் இந்த செயலியை மொழிபெயர்க்கவும்</string>
@@ -267,7 +265,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">என்_குறிப்பு</string>
     <string name="close">மூடவும்</string>
     <string name="cancel">ரத்து செய்</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">இந்த செயலியை மகிழ்ச்சியாக அனுபவிக்கிறீர்களா? மேலும் முன்னேற்றங்களுக்கு மற்றும் பிழை நீக்கங்களுக்கு ஆதரவளிக்க விரும்புகிறீர்களா?\n\nசெயலிகளை உருவாக்குதல் மற்றும் வலைப்பக்கங்களை எழுதுவதற்கு அதிக நேரம் தேவைப்படுகிறது. இந்த செயலி தொடர்ச்சியாக இயங்க, தயவு செய்து ஒரு சிறிய நன்கொடையை வழங்குங்கள்!\n\nஇந்த செயலி ஓய்வு நேரங்களில் உருவாக்கப்படுகிறது, முற்றிலும் இலவசமாக மற்றும் எந்த விளம்பரங்களும் இல்லாமல்!</string>
     <string name="app_start_tab">செயலியின் தொடக்க தாவல்</string>
     <string name="tab_to_select_at_start">பயன்பாட்டைத் தொடங்கும்போது தேர்ந்தெடுக்க வேண்டிய தாவல்</string>
     <string name="swipe_to_change_mode">பயன்முறையை மாற்ற தேய்</string>

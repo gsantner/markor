@@ -84,7 +84,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">വലിപ്പം</string>
     <string name="reverse_order">വിപരീത ക്രമം</string>
     <string name="contribute">സംഭാവന</string>
-    <string name="donate">സംഭാവനചെയ്യുക</string>
     <string name="project_page">പ്രൊജക്റ്റ് പേജ്</string>
     <string name="press_back_again_to_exit">പുറത്തുകടക്കാൻ വീണ്ടും \"പുറകോട്ട്\" അമർത്തുക</string>
     <string name="exit">പുറത്തുകടക്കുക</string>

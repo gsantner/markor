@@ -94,7 +94,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Size</string>
     <string name="reverse_order">Reverse order</string>
     <string name="contribute">Contribute</string>
-    <string name="donate">Donate</string>
     <string name="project_page">Project page</string>
     <string name="press_back_again_to_exit">Press \'Back\' again to exit</string>
     <string name="exit">Exit</string>
@@ -227,7 +226,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Translate</string>
     <string name="more_info_and_help">More info and help</string>
     <string name="report_bugs">Report bugs</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project.</string>
 
 
     <string name="join_community">Join the Community</string>
@@ -295,7 +293,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">my_note</string>
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Do you enjoy this project? Do you want to support further improvements and bug fixes?\n\nDeveloping apps and writing related blog posts take a lot of time! If you want to help the project to continue, please consider a small donation!\n\nThis project is developed in spare time, completely for free and without any advertisements!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>
