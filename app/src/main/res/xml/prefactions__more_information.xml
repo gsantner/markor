@@ -44,12 +44,6 @@
     <PreferenceCategory android:title="@string/contribute">
 
         <Preference
-            android:icon="@drawable/ic_favorite_black_24dp"
-            android:key="@string/pref_key__more_info__donate"
-            android:summary="@string/more_info_on_how_to_donate_or_otherwise_support_this_project"
-            android:title="@string/donate_" />
-
-        <Preference
             android:icon="@drawable/ic_bug_report_black_24dp"
             android:key="@string/pref_key__more_info__bug_reports"
             android:summary="@string/bug_reports_suggest_improvements"

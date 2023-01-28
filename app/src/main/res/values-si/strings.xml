@@ -87,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">ප්‍රමාණය</string>
     <string name="reverse_order">ප්‍රතිලෝම අනුපිළිවෙල</string>
     <string name="contribute">දායක වන්න</string>
-    <string name="donate">පරිත්‍යාග</string>
     <string name="project_page">ව්යාපෘති පිටුව</string>
     <string name="press_back_again_to_exit">පිටවීමට නැවත \'ආපසු\' ඔබන්න</string>
     <string name="exit">පිටවෙන්න</string>
@@ -209,7 +208,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">පරිවර්තනය</string>
     <string name="more_info_and_help">වැඩි විස්තර සහ උදව්</string>
     <string name="report_bugs">දෝෂ වාර්තා කරන්න</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">සංවර්ධකයාට පරිත්‍යාග කිරීම හෝ මෙම ව්‍යාපෘතියට දායක වීම පිළිබඳ වැඩි විස්තර.</string>
     <string name="join_community">ප්‍රජාවට එක්වන්න</string>
     <string name="bug_reports_suggest_improvements">ප්‍රතිපෝෂණ දෙන්න, දෝෂ වාර්තා කරන්න හෝ වැඩිදියුණු කිරීම් යෝජනා කරන්න</string>
     <string name="help_translating_this_app">මෙම යෙදුම වෙනත් භාෂාවලට පරිවර්තනය කරන්න</string>
@@ -271,7 +269,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">මගේ_සටහන</string>
     <string name="close">වසන්න</string>
     <string name="cancel">අවලංගු</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">ඔබ මෙම ව්‍යාපෘතිය භුක්ති විඳිනවාද? ඔබට තවදුරටත් වැඩිදියුණු කිරීම් සහ දෝෂ නිවැරදි කිරීම් සඳහා සහාය වීමට අවශ්‍යද?\n\nයෙදුම් සංවර්ධනය කිරීමට සහ අදාළ බ්ලොග් සටහන් ලිවීමට බොහෝ කාලයක් ගතවේ! ඔබට ව්‍යාපෘතිය දිගටම කරගෙන යාමට උදවු කිරීමට අවශ්‍ය නම්, කරුණාකර කුඩා පරිත්‍යාගයක් සලකා බලන්න!\n\nමෙම ව්‍යාපෘතිය සම්පූර්ණයෙන්ම නොමිලේ සහ කිසිදු වෙළඳ ප්‍රචාරණයකින් තොරව විවේක කාලය තුළ සංවර්ධනය කර ඇත!</string>
     <string name="app_start_tab">යෙදුම් ආරම්භක පටිත්ත</string>
     <string name="tab_to_select_at_start">යෙදුම ආරම්භ කරන විට තේරීමට ටැබ් කරන්න</string>
     <string name="swipe_to_change_mode">මාදිලිය වෙනස් කිරීමට ස්වයිප් කරන්න</string>

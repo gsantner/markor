@@ -87,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Ukuran</string>
     <string name="reverse_order">Urutan terbalik</string>
     <string name="contribute">Berkontribusi</string>
-    <string name="donate">Donasi</string>
     <string name="project_page">Halaman proyek</string>
     <string name="press_back_again_to_exit">Tekan \'kembali\' lagi untuk keluar</string>
     <string name="exit">Keluar</string>
@@ -209,7 +208,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Terjemahkan</string>
     <string name="more_info_and_help">Info dan bantuan lebih lanjut</string>
     <string name="report_bugs">Laporkan Bug</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Info tentang donasi untuk developer atau kontribusi untuk proyek ini.</string>
     <string name="join_community">Bergabung ke Komunitas</string>
     <string name="bug_reports_suggest_improvements">Memberikan umpan balik, melaporkan bug atau menyarankan perbaikan</string>
     <string name="help_translating_this_app">Terjemahkan aplikasi ini ke bahasa lain</string>
@@ -270,7 +268,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">nama_catatan</string>
     <string name="close">Tutup</string>
     <string name="cancel">Batal</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Apakah Anda menikmati proyek ini? Apakah Anda ingin mendukung perbaikan lebih lanjut dan perbaikan bug? \n\nMendeveloping aplikasi dan menulis posting blog terkait membutuhkan banyak waktu! Jika Anda ingin membantu proyek untuk melanjutkan, silakan pertimbangkan sumbangan kecil! \n\n Proyek ini dikembangkan di waktu luang, sepenuhnya gratis dan tanpa iklan!</string>
     <string name="app_start_tab">Tab memulai aplikasi</string>
     <string name="tab_to_select_at_start">Tab untuk dipilih saat memulai aplikasi</string>
     <string name="swipe_to_change_mode">Gesek untuk mengubah mode</string>
