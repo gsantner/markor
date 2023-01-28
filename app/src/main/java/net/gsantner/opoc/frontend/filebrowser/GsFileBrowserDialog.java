@@ -89,7 +89,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     @Override
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        Context context = getContext();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title);
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
@@ -142,7 +141,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, getActivity());
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);

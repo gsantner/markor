@@ -101,7 +101,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        Context context = getContext();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
@@ -119,7 +118,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _recyclerList.addItemDecoration(dividerItemDecoration);
         _previousNotebookDirectory = _appSettings.getNotebookDirectoryAsStr();
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context, _recyclerList);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, getActivity(), _recyclerList);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -364,8 +363,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(getActivity());
-
         final int _id = item.getItemId();
 
         switch (_id) {
@@ -411,9 +408,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 return true;
             }
             case R.id.action_import: {
-                if (permc.mkdirIfStoragePermissionGranted()) {
-                    showImportDialog();
-                }
+                showImportDialog();
                 return true;
             }
             case R.id.action_search: {
@@ -518,7 +513,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
                 File load = new File(currentFolder, relFilePath);
                 if (load.isDirectory()) {
-                    _filesystemViewerAdapter.loadFolder(load);
+                    _filesystemViewerAdapter.setCurrentFolder(load);
                 } else {
                     onFsViewerSelected("", load, lineNumber);
                 }
@@ -547,7 +542,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
-        confirmDialog.show(getActivity().getSupportFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getParentFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void askForMoveOrCopy(final boolean isMove) {

@@ -2415,7 +2415,7 @@ public class GsContextUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public boolean checkExternalStoragePermission(final Activity context) {
+    public boolean checkExternalStoragePermission(final Context context) {
         final int v = android.os.Build.VERSION.SDK_INT;
 
         // Android R Manage-All-Files permission

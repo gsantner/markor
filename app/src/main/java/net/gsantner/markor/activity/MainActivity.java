@@ -75,7 +75,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StoragePermissionActivity.request(this);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);
@@ -239,19 +238,20 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        // final boolean firstStart = IntroActivity.optStart(this);
-        // try {
-        //     if (!firstStart && _cu.checkExternalStoragePermission(this) && _appSettings.isAppCurrentVersionFirstStart(true)) {
-        //         GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-        //         String html = "";
-        //         html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
-        //         html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-        //         html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-        //         _cu.showDialogWithHtmlTextView(this, 0, html);
-        //     }
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+        // Intro dialog and show changelog etc
+        final boolean firstStart = IntroActivity.optStart(this);
+        try {
+            if (!firstStart && _appSettings.isAppCurrentVersionFirstStart(true)) {
+                GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                String html = "";
+                html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
+                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+                html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+                _cu.showDialogWithHtmlTextView(this, 0, html);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void restartMainActivity() {
@@ -315,7 +315,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         if (_notebook.getAdapter().isCurrentFolderVirtual()) {
-            _notebook.getAdapter().loadFolder(_appSettings.getNotebookDirectory());
+            _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookDirectory());
             return;
         }
 

@@ -206,7 +206,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available documents and does not support file managers that do not provide the full file path.</string>
-    <string name="file_does_not_exist">File or directory does not exist</string>
+    <string name="file_does_not_exist_and_cant_be_created">File or directory does not exist and can not be created</string>
     <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders. Open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="vertical_alignment">Vertical alignment</string>
     <string name="horizontal_alignment">Horizontal alignment</string>
