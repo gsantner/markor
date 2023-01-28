@@ -1,4 +1,4 @@
-Copyright 2017-2022 Gregor Santner
+Copyright 2017-2023 Gregor Santner
 <https://gsantner.net/>
 
 Licensed under either of:
