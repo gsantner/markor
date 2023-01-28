@@ -50,6 +50,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">Bildo</string>
     <string name="font_size">Tipara Grando</string>
     <string name="last_modified_witharg">Laste modifita: %s</string>
+    <string name="last_modified">Laste modifita</string>
     <string name="select_this_folder">Elekti ĉi tiun dosierujon</string>
     <string name="select">Elekti</string>
     <string name="create">Krei</string>
