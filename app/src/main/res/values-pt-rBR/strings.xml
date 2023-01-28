@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderizar para línguas de escrita da direita à esquerda</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erro: Impossível criar pasta de becape</string>
     <string name="last_modified_witharg">Últimas modificações: %s</string>
-    <string name="last_modified">Última modificação</string>
+    <string name="last_modified">Últimas modificações</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
     <string name="create">Criar</string>
