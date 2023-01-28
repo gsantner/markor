@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">ডান থেকে বামের ভাষার জন্য প্রক্রিয়া করো</string>
     <string name="error_cannot_create_notebook_dir__appspecific">ত্রুটি: নোটবই এর ডাইরেক্টরি তৈরি করা যায়নি</string>
     <string name="last_modified_witharg">শেষ পরিবর্তিত: %s</string>
+    <string name="last_modified">শেষ পরিবর্তিত</string>
     <string name="select_this_folder">ফোল্ডার নির্বাচন করো</string>
     <string name="select">নির্বাচন</string>
     <string name="create">তৈরি</string>
