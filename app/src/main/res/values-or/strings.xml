@@ -50,6 +50,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="image">ପ୍ରତିଛବି</string>
     <string name="font_size">ଫଣ୍ଟ ଆକାର</string>
     <string name="last_modified_witharg">ଶେଷ ସଂଶୋଧିତ: %s</string>
+    <string name="last_modified">ଶେଷ ସଂଶୋଧିତ</string>
     <string name="select_this_folder">ଏହି ଫୋଲ୍ଡର୍ ଚୟନ କରନ୍ତୁ</string>
     <string name="select">ଚୟନ କରନ୍ତୁ</string>
     <string name="create">ସୃଷ୍ଟି କରନ୍ତୁ</string>
