@@ -36,7 +36,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -759,5 +762,15 @@ public class GsFileUtils {
     public static boolean canCreate(final File file) {
         final File parent = file == null ? null : file.getParentFile();
         return parent != null && parent.canWrite();
+    }
+
+    // Returns true if test is a child of parent. A file is not a child of itself
+    public static boolean isChild(final File parent, File test) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return !parent.equals(test) && test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
+        } else {
+            // Can fail is parent dest name contains test. Not a good method
+            return !parent.equals(test) && test.getAbsolutePath().startsWith(parent.getAbsolutePath());
+        }
     }
 }

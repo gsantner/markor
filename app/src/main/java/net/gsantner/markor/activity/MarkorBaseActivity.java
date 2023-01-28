@@ -6,15 +6,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
+
+    protected MarkorPermissionChecker _permc;
 
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (_appSettings.isHideSystemStatusbar()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
+        _permc = new MarkorPermissionChecker(this);
     }
 
     @Override

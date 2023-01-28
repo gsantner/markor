@@ -159,7 +159,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
-        new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted();
+        _permc.doIfExtStoragePermissionGranted();
 
         handleLaunchingIntent(getIntent());
     }

@@ -46,6 +46,7 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,9 +75,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StoragePermissionActivity.request(this);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _cu = new MarkorContextUtils(this);
-        _permc = new MarkorPermissionChecker(this);
         setContentView(R.layout.main__activity);
         _bottomNav = findViewById(R.id.bottom_navigation_bar);
         _viewPager = findViewById(R.id.main__view_pager_container);
@@ -238,19 +239,19 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.app_name)));
         }
 
-        boolean firstStart = IntroActivity.optStart(this);
-        try {
-            if (!firstStart && _permc.doIfExtStoragePermissionGranted() && _appSettings.isAppCurrentVersionFirstStart(true)) {
-                GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-                String html = "";
-                html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
-                html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
-                html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
-                _cu.showDialogWithHtmlTextView(this, 0, html);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // final boolean firstStart = IntroActivity.optStart(this);
+        // try {
+        //     if (!firstStart && _cu.checkExternalStoragePermission(this) && _appSettings.isAppCurrentVersionFirstStart(true)) {
+        //         GsSimpleMarkdownParser smp = GsSimpleMarkdownParser.get().setDefaultSmpFilter(GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+        //         String html = "";
+        //         html += smp.parse(getString(R.string.copyright_license_text_official).replace("\n", "  \n"), "").getHtml();
+        //         html += "<br/><br/><br/><big><big>" + getString(R.string.changelog) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.changelog), "", GsSimpleMarkdownParser.FILTER_ANDROID_TEXTVIEW);
+        //         html += "<br/><br/><br/><big><big>" + getString(R.string.licenses) + "</big></big><br/>" + smp.parse(getResources().openRawResource(R.raw.licenses_3rd_party), "").getHtml();
+        //         _cu.showDialogWithHtmlTextView(this, 0, html);
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     private void restartMainActivity() {

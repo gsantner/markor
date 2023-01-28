@@ -23,7 +23,7 @@ public class MarkorPermissionChecker extends GsPermissionChecker {
     }
 
     @Override
-    public boolean doIfExtStoragePermissionGranted(final String whyNeeded) {
+    public boolean doIfExtStoragePermissionGranted() {
         return super.doIfExtStoragePermissionGranted(_activity.getString(R.string.error_need_storage_permission_to_save_documents));
     }
 

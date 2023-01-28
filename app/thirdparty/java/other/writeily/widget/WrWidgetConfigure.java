@@ -15,18 +15,18 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 
-public class WrWidgetConfigure extends AppCompatActivity {
+public class WrWidgetConfigure extends MarkorBaseActivity {
     private int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     private static final String WIDGET_PREF_NAME = "MARKOR_WIDGET_PREF";
@@ -55,8 +55,7 @@ public class WrWidgetConfigure extends AppCompatActivity {
 
     // only runs for a valid id
     private void showWidgetSelectFolderDialog() {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
-        if (permc.mkdirIfStoragePermissionGranted()) {
+        if (_permc.mkdirIfStoragePermissionGranted()) {
             final FragmentManager fragManager = getSupportFragmentManager();
             MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override

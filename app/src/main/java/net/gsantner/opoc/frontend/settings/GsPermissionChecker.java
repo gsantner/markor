@@ -26,7 +26,7 @@ public class GsPermissionChecker {
         _activity = activity;
     }
 
-    public final boolean doIfExtStoragePermissionGranted() {
+    public boolean doIfExtStoragePermissionGranted() {
         return doIfExtStoragePermissionGranted(null);
     }
 

@@ -565,7 +565,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     GsFileUtils.replaceFilesWithCachedVariants(_adapterData);
 
                     if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        // Default to sorting recents by recency
+                        // Default to sorting recent by recency
                         GsFileUtils.sortFiles(_adapterData, GsFileUtils.SORT_BY_MTIME, false, false);
                     } else {
                         GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);

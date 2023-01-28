@@ -74,6 +74,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.StoragePermissionActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity" />
