@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Tampilkan untuk bahasa dari kanan ke kiri</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Tidak dapat membuat direktori notebook</string>
     <string name="last_modified_witharg">Modifikasi terakhir: %s</string>
+    <string name="last_modified">Modifikasi terakhir</string>
     <string name="select_this_folder">Pilih folder ini</string>
     <string name="select">Pilih</string>
     <string name="create">Buat Baru</string>
