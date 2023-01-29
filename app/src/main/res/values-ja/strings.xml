@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">右から左に言語を描画</string>
     <string name="error_cannot_create_notebook_dir__appspecific">エラー: ノートディレクトリーを作成できません</string>
     <string name="last_modified_witharg">最終更新: %s</string>
-    <string name="last_modified">最終更新日時</string>
+    <string name="last_modified">最終更新</string>
     <string name="select_this_folder">このフォルダーを選択</string>
     <string name="select">選択</string>
     <string name="create">作成</string>
