@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Jobbról balra író nyelvekhez</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hiba: A jegyzetfüzet mappa létrehozása sikertelen</string>
     <string name="last_modified_witharg">Utoljára módosítva: %s</string>
+    <string name="last_modified">Utoljára módosítva</string>
     <string name="select_this_folder">Mappa választása</string>
     <string name="select">Kiválaszt</string>
     <string name="create">Létrehoz</string>
