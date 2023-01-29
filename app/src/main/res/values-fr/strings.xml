@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
     <string name="last_modified_witharg">Dernière modification : %s</string>
-    <string name="last_modified">Dernière modification</string>
+    <string name="last_modified">Dernière modification </string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
     <string name="create">Créer</string>
