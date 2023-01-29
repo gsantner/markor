@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Rendern von rechts-zu-links Sprachen</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fehler: Konnte Speicher-Verzeichnis nicht erstellen</string>
     <string name="last_modified_witharg">Zuletzt bearbeitet: %s</string>
-    <string name="last_modified">Zuletzt geändert</string>
+    <string name="last_modified">Zuletzt bearbeitet</string>
     <string name="select_this_folder">Ordner auswählen</string>
     <string name="select">Auswählen</string>
     <string name="create">Erstellen</string>
