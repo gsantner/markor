@@ -56,6 +56,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">(아랍어처럼) 오른쪽에서 왼쪽으로 작성하는 언어 지원</string>
     <string name="error_cannot_create_notebook_dir__appspecific">오류: 노트북 폴더를 만들 수 없습니다</string>
     <string name="last_modified_witharg">마지막 변경: %s</string>
+    <string name="last_modified">마지막 변경</string>
     <string name="select_this_folder">이 폴더 선택</string>
     <string name="select">선택</string>
     <string name="create">만들기</string>
