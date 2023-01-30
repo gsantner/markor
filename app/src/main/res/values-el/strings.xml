@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Μέγεθος</string>
     <string name="reverse_order">Αντίστροφη σειρά</string>
     <string name="contribute">Συνεισφέρετε</string>
-    <string name="donate">Δωρεά</string>
     <string name="project_page">Σελίδα έργου</string>
     <string name="press_back_again_to_exit">Πατήστε ξανά \'Πίσω\' για έξοδο</string>
     <string name="exit">Έξοδος</string>
@@ -216,7 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Μετάφραση</string>
     <string name="more_info_and_help">Περισσότερες πληροφορίες και βοήθεια</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Περισσότερες πληροφορίες σχετικά με τη δωρεά στον προγραμματιστή ή τη συμβολή σε αυτό το έργο.</string>
     <string name="join_community">Γίνετε μέλος της Κοινότητας</string>
     <string name="bug_reports_suggest_improvements">Δώστε σχόλια, αναφορά σφαλμάτων ή προτείνετε βελτιώσεις</string>
     <string name="help_translating_this_app">Μετάφραση αυτής της εφαρμογής σε άλλες γλώσσες</string>
@@ -279,7 +277,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">η_σημείωση_μου</string>
     <string name="close">Κλείσιμο</string>
     <string name="cancel">Ακύρωση</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Σας αρέσει αυτό το έργο? Θέλετε να υποστηρίξετε περαιτέρω βελτιώσεις και διορθώσεις σφαλμάτων?\n\nΗ ανάπτυξη εφαρμογών και η εγγραφή σχετικών δημοσιεύσεων ιστολογίου απαιτούν πολύ χρόνο! Αν θέλετε να βοηθήσετε το έργο να συνεχιστεί, παρακαλώ σκεφτείτε μια μικρή δωρεά!\n\nΑυτό το έργο αναπτύσσεται στον ελεύθερο χρόνο, εντελώς δωρεάν και χωρίς διαφημίσεις!</string>
     <string name="app_start_tab">Εκκίνηση καρτέλας εφαρμογής</string>
     <string name="tab_to_select_at_start">Καρτέλα που θα επιλεγεί κατά την εκκίνηση της εφαρμογής</string>
     <string name="swipe_to_change_mode">Σύρετε για αλλαγή λειτουργίας</string>

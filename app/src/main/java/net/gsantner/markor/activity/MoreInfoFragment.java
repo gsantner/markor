@@ -83,10 +83,6 @@ public class MoreInfoFragment extends GsPreferenceFragmentBase<AppSettings> {
                             String.format("https://gsantner.net/project/%s.html?source=inapp_more_help_faq", getString(R.string.app_name_real).toLowerCase()));
                     return true;
                 }
-                case R.string.pref_key__more_info__donate: {
-                    _cu.openWebpageInExternalBrowser(getContext(), getString(R.string.app_donate_url));
-                    return true;
-                }
                 case R.string.pref_key__more_info__bug_reports: {
                     _cu.openWebpageInExternalBrowser(getContext(), getString(R.string.app_bugreport_url));
                     return true;

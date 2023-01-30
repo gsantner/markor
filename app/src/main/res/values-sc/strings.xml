@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Mannària</string>
     <string name="reverse_order">Òrdine furriadu</string>
     <string name="contribute">Collàbora</string>
-    <string name="donate">Dona</string>
     <string name="project_page">Pàgina de su progetu</string>
     <string name="press_back_again_to_exit">Incarca torra \'In segus\' pro essire</string>
     <string name="exit">Essi</string>
@@ -216,7 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Tradui</string>
     <string name="more_info_and_help">Àteras informatziones e agiudu</string>
     <string name="report_bugs">Sinnala errores</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Àteras informatziones a pitzu de comente fàghere donatziones o suportare custu progetu</string>
     <string name="join_community">Auni·ti a sa comunidade</string>
     <string name="bug_reports_suggest_improvements">Lassa·nos s\'opinione tua, sinnala faddinas o cussìgia megiorias</string>
     <string name="help_translating_this_app">Borta custa aplicatzione in àteras limbas</string>
@@ -278,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">nota_mea</string>
     <string name="close">Serra</string>
     <string name="cancel">Annulla</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">T\'agradat custu progetu? Cheres chi bèngiat megioradu e chi sos problemas bèngiant isortos?\n\nS\'isvilupu de aplicatziones e s\'iscritura de publicatziones curreladas in sos blogs pigat unu muntone de tempus! Si cheres agiudare, pro fàghere in modu chi su progetu potzat sighire, pro praghere piga in cunsìderu s\'idea de fàghere una donatzione, fintzas si minore!\n\nCustu progetu est isvilupadu in su tempus lìberu, totu de badas e chene annùntzios publitzitàrios!</string>
     <string name="app_start_tab">Ischeda de allughìngiu de s\'aplicatzione</string>
     <string name="tab_to_select_at_start">Ischeda de ischertare cando benit alluta s\'aplicatzione</string>
     <string name="swipe_to_change_mode">Trìsina pro cambiare sa modalidade</string>
@@ -436,9 +433,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Currispondet totu</string>
     <string name="dynamic_notebook_root_links">Chirca dinàmica de sa raighina de sas notas</string>
     <string name="search_dynamically_for_notebook_root">Pro sighire sos ligàmenes wiki chirca in manera dinàmica su documentu notebook.zim pro identificare sa cartella de raighina pro sas notas atuales. Marca·lu si impreas prus blocos de notas zim o si sa cartella de su blocu de notas impostada in s\'aplicatzione non currispondet a su blocu de notas zim tuo.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formadu/Prefissu pro su testu cumpartzidu in Markor. Sighit sas règulas SimpleDateFormat de Android.\n\nImprea su sinnapostu {{text}} pro pònnere in logu su testu cumpartzidu. Si no est dislindadu su testu cumpartzidu benit postu in fundu e su formadu s\'impreat comente prefissu.</string>
     <string name="share_into_format">Cumpartzi in - Formadu</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
     <string name="error_could_not_open_file">Errore: No at fatu a abèrrere su documentu.</string>
     <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
+    <string name="wont_save_min_length">Documentos cun prus pagu de %d caràteres non benint sarvados in automàticu pro prevenire pèrdidas de datos.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintassi de filtràgiu avantzada</a></small>]]></string>
 </resources>

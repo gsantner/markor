@@ -87,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Laki</string>
     <string name="reverse_order">Pabaligtad na ayos</string>
     <string name="contribute">Mag-ambag</string>
-    <string name="donate">Mag-donate</string>
     <string name="project_page">Pahina ng Proyekto</string>
     <string name="press_back_again_to_exit">Pindutin ang \'Back\' muli para umalis</string>
     <string name="exit">Umalis</string>
@@ -209,7 +208,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Magsalin</string>
     <string name="more_info_and_help">Karagdagang impormasyon at tulong</string>
     <string name="report_bugs">Mag-ulat ng mga bug</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Karagdagang impormasyon sa pagdo-donate sa developer, o sa pag-aambag sa proyektong ito.</string>
     <string name="join_community">Sumali sa Komunidad</string>
     <string name="bug_reports_suggest_improvements">Magbigay ng feedback, mag-ulat ng mga bug o mag-suggest ng mga pagpapahusay</string>
     <string name="help_translating_this_app">Isalin itong app sa ibang mga wika</string>
@@ -270,7 +268,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">aking_tala</string>
     <string name="close">Isara</string>
     <string name="cancel">Ikansela</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Nag-e-enjoy ka ba sa proyektong ito? Gusto mo bang suportahan ang lalo pang mga pagpapahusay at pagsasaayos sa mga bug?\n\nKumakain kaya ng malaking oras ang pagde-develop ng mga app at pagsusulat ng mga kaugnay na mga blog post! Kung gusto mong tumulong para magpatuloy pa ang proyekto, mangyaring ikonsidera ang maliit na donasyon!\n\nDine-develop ang proyektong ito sa bakanteng oras, ganap na walang bayad at walang kahit anong mga patalastas!</string>
     <string name="app_start_tab">Panimulang tab ng app</string>
     <string name="tab_to_select_at_start">Pipiliing tab kapag nagbukas ang app</string>
     <string name="swipe_to_change_mode">Mag-swipe para magpalit ng mode</string>
