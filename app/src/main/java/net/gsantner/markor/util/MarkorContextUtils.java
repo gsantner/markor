@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
@@ -30,8 +31,11 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
+
+import javax.security.auth.callback.Callback;
 
 public class MarkorContextUtils extends GsContextUtils {
 
@@ -97,5 +101,12 @@ public class MarkorContextUtils extends GsContextUtils {
     public static File getValidIntentDir(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
+    }
+
+    public static boolean testFilePermission(final Activity activity, final File file, final GsCallback.a0 cb) {
+        if (activity instanceof MarkorBaseActivity) {
+            return ((MarkorBaseActivity) activity).testFilePermission(file, cb);
+        }
+        return true;
     }
 }

@@ -16,7 +16,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -31,7 +30,6 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -70,7 +68,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         toolbar = findViewById(R.id.toolbar);
 
         // Custom code
-        GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookDirectory(), ".app/fonts");
+        GsFontPreferenceCompat.additionalyCheckedFolder = new File(_appSettings.getNotebookFile(), ".app/fonts");
         iconColor = _cu.rcolor(this, R.color.primary_text);
         toolbar.setTitle(R.string.settings);
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -156,7 +154,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         public void doUpdatePreferences() {
             String remove = "/storage/emulated/0/";
             updateSummary(R.string.pref_key__notebook_directory,
-                    _cu.htmlToSpanned("<small><small>" + _appSettings.getNotebookDirectoryAsStr().replace(remove, "") + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _appSettings.getNotebookFile().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__quicknote_filepath,
                     _cu.htmlToSpanned("<small><small>" + _appSettings.getQuickNoteFile().getAbsolutePath().replace(remove, "") + "</small></small>")
@@ -246,7 +244,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                     MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                            _appSettings.setSaveDirectory(file.getAbsolutePath());
+                            _appSettings.setNotebookFile(file);
                             _appSettings.setRecreateMainRequired(true);
                             doUpdatePreferences();
                         }
@@ -254,7 +252,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.select_storage_folder;
-                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.rootFolder = _appSettings.getNotebookFile();
                         }
                     }, fragManager, getActivity());
                     return true;
@@ -272,7 +270,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.quicknote;
-                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.rootFolder = _appSettings.getNotebookFile();
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
@@ -290,7 +288,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.todo;
-                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.rootFolder = _appSettings.getNotebookFile();
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;

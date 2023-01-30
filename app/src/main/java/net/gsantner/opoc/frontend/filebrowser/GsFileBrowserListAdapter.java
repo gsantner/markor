@@ -30,15 +30,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.StoragePermissionActivity;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -64,6 +69,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
+    public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
 
     //########################
     //## Members
@@ -94,7 +100,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         _adapterDataFiltered = new ArrayList<>();
         _currentSelection = new HashSet<>();
         _activity = activity;
-        loadFolder((options.startFolder != null) ? options.startFolder : options.rootFolder);
         _recyclerView = recyclerView;
         _prefApp = _activity.getSharedPreferences("app", Context.MODE_PRIVATE);
 
@@ -114,6 +119,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
         }
+
+        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder);
     }
 
     @NonNull
@@ -212,7 +219,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public Bundle saveInstanceState(Bundle outState) {
         outState = outState == null ? new Bundle() : outState;
         if (_currentFolder != null) {
-            outState.putString(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
+            outState.putSerializable(EXTRA_CURRENT_FOLDER, _currentFolder);
         }
 
         if (_recyclerView != null) {
@@ -223,14 +230,22 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return outState;
     }
 
+    private File getReqFolder(final Bundle bundle) {
+        final File req = (File) bundle.getSerializable(EXTRA_REQ_FOLDER);
+        if (req != null && req.canWrite()) {
+            return req;
+        }
+        return (File) bundle.getSerializable(EXTRA_CURRENT_FOLDER);
+    }
+
     public void restoreSavedInstanceState(final Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             return;
         }
 
-        if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
-            final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
-            final String path = f.getAbsolutePath();
+        final File req = getReqFolder(savedInstanceState);
+        if (req != null) {
+            final String path = req.getAbsolutePath();
 
             final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
                     || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(path)
@@ -241,8 +256,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                 _dopt.listener.onFsViewerConfig(_dopt);
             }
-            if (f.isDirectory() || isVirtualDirectory) {
-                loadFolder(f);
+            if (req.isDirectory() || isVirtualDirectory) {
+                loadFolder(req);
             }
         }
 
@@ -473,21 +488,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return -1;
     }
 
-    private @Nullable File checkPermissionsReroute(@NonNull final File folder) {
-        if (folder.canWrite()) {
-            return folder;
-        }
-        if (!GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
-            GsContextUtils.instance.requestExternalStoragePermission(_activity, null);
-        }
-        return null; // Don't navigate to this folder
-    }
-
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
-    private void loadFolder(final File folderArg) {
-        final File folder;
-        if ((folder = checkPermissionsReroute(folderArg)) == null) {
+    private void loadFolder(final File folder) {
+        if (!MarkorContextUtils.testFilePermission(_activity, folder, () -> {
+            if (folder.canWrite()) {
+                loadFolder(folder);
+            } else if (_currentFolder == null)  {
+                loadFolder(ApplicationObject.settings().getDefaultNotebookFile());
+            }
+        })) {
             return;
         }
 

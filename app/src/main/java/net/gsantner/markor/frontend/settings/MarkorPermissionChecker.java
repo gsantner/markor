@@ -37,6 +37,6 @@ public class MarkorPermissionChecker extends GsPermissionChecker {
     }
 
     public boolean mkdirIfStoragePermissionGranted() {
-        return super.mkdirIfStoragePermissionGranted(ApplicationObject.settings().getNotebookDirectory());
+        return super.mkdirIfStoragePermissionGranted(ApplicationObject.settings().getNotebookFile());
     }
 }

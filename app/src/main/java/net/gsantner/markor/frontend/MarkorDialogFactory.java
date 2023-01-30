@@ -728,7 +728,7 @@ public class MarkorDialogFactory {
     // Create a map of snippet title -> text
     public static Map<String, File> getSnippets(final AppSettings as) {
         final Map<String, File> texts = new TreeMap<>();
-        final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
+        final File folder = new File(as.getNotebookFile(), ".app/snippets");
         if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
             if (!folder.mkdirs()) {
                 return texts;

@@ -38,7 +38,6 @@ import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
@@ -46,7 +45,6 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
-import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -315,7 +313,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         if (_notebook.getAdapter().isCurrentFolderVirtual()) {
-            _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookDirectory());
+            _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookFile());
             return;
         }
 
@@ -347,7 +345,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Exit confirmed with 2xBack
         if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookDirectory());
+            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookFile());
             return;
         }
 
@@ -372,7 +370,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public String getFileBrowserTitle() {
         final File file = _appSettings.getFileBrowserLastBrowsedFolder();
         String title = getString(R.string.app_name);
-        if (!_appSettings.getNotebookDirectory().getAbsolutePath().equals(file.getAbsolutePath())) {
+        if (!_appSettings.getNotebookFile().getAbsolutePath().equals(file.getAbsolutePath())) {
             title = "> " + file.getName();
         }
         return title;
@@ -434,7 +432,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
-                    dopt.rootFolder = _appSettings.getNotebookDirectory();
+                    dopt.rootFolder = _appSettings.getNotebookFile();
                     dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);

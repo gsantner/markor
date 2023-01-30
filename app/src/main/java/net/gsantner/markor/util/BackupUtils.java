@@ -25,7 +25,7 @@ public class BackupUtils extends GsBackupUtils {
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
+                            dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
                             dopt.titleText = R.string.select;
                         }
 
@@ -47,7 +47,7 @@ public class BackupUtils extends GsBackupUtils {
                     new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                            dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
+                            dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
                             dopt.titleText = R.string.select_folder;
                         }
 

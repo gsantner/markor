@@ -73,56 +73,51 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_preview_first, false);
     }
 
-    public void setSaveDirectory(String value) {
-        setString(R.string.pref_key__notebook_directory, value);
+    public void setNotebookFile(final File file) {
+        setString(R.string.pref_key__notebook_directory, file.getAbsolutePath());
     }
 
-
-    public File getNotebookDirectory() {
-        return new File(getNotebookDirectoryAsStr());
+    public File getNotebookFile() {
+        return new File(getString(R.string.pref_key__notebook_directory, getDefaultNotebookFile().getAbsolutePath()));
     }
 
-    public String getNotebookDirectoryAsStr() {
-        String dir = getString(R.string.pref_key__notebook_directory, "");
-        if (dir.isEmpty() && LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
-            dir = LOCAL_TESTFOLDER_FILEPATH.getParentFile().getParent();
-            setSaveDirectory(dir);
+    public File getDefaultNotebookFile() {
+        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
+            return LOCAL_TESTFOLDER_FILEPATH.getParentFile().getParentFile();
         }
-        if (dir.isEmpty()) {
-            dir = new File(new File(Environment.getExternalStorageDirectory(), "/Documents")
-                    , rstr(R.string.app_name).toLowerCase(Locale.ROOT))
-                    .getAbsolutePath();
-            setSaveDirectory(dir);
-        }
-        return dir;
+
+        return GsFileUtils.join(
+                Environment.getExternalStorageDirectory(),
+                "/Documents",
+                rstr(R.string.app_name).toLowerCase(Locale.ROOT));
     }
 
     public File getQuickNoteFile() {
-        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.quicknote_default_filename)).getAbsolutePath();
-        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
-            defaultValue = new File(LOCAL_TESTFOLDER_FILEPATH, rstr(R.string.quicknote_default_filename)).getAbsolutePath();
-        }
-        return new File(getString(R.string.pref_key__quicknote_filepath, defaultValue));
+        return new File(getString(R.string.pref_key__quicknote_filepath, getDefaultQuickNoteFile().getAbsolutePath()));
     }
 
     public void setQuickNoteFile(final File file) {
         setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
     }
 
-    public File getTodoFile() {
-        String defaultValue = new File(getNotebookDirectoryAsStr(), rstr(R.string.todo_default_filename)).getAbsolutePath();
-        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
-            defaultValue = new File(LOCAL_TESTFOLDER_FILEPATH, rstr(R.string.todo_default_filename)).getAbsolutePath();
-        }
-        return new File(getString(R.string.pref_key__todo_filepath, defaultValue));
+    public File getDefaultQuickNoteFile() {
+        return new File(getDefaultNotebookFile(), rstr(R.string.quicknote_default_filename));
     }
 
-    public void setTodoFile(File file) {
+    public File getTodoFile() {
+        return new File(getString(R.string.pref_key__todo_filepath, getDefaultTodoFile().getAbsolutePath()));
+    }
+
+    public void setTodoFile(final File file) {
         setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
     }
 
+    public File getDefaultTodoFile() {
+        return new File(getDefaultNotebookFile(), rstr(R.string.todo_default_filename));
+    }
+
     public File getSnippetsFolder() {
-        return new File(getNotebookDirectory(), ".app/snippets");
+        return new File(getNotebookFile(), ".app/snippets");
     }
 
     public String getFontFamily() {
@@ -715,7 +710,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         List<Pair<File, String>> appDataPublicDirs = _cu.getAppDataPublicDirs(_context, false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
-                return getNotebookDirectory();
+                return getNotebookFile();
             }
             case R.id.action_go_to_popular_files: {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
@@ -752,7 +747,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return _cu.getAppDataPrivateDir(_context);
             }
         }
-        return getNotebookDirectory();
+        return getNotebookFile();
     }
 
     public int getTabWidth() {
@@ -877,7 +872,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getFileBrowserLastBrowsedFolder() {
-        return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookDirectoryAsStr()));
+        return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookFile().getAbsolutePath()));
     }
 
     public boolean getSetWebViewFulldrawing(boolean... setValue) {

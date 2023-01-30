@@ -11,6 +11,9 @@ package net.gsantner.opoc.util;
 
 import static android.graphics.Bitmap.CompressFormat;
 
+import static androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions.EXTRA_PERMISSIONS;
+import static androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions.EXTRA_PERMISSION_GRANT_RESULTS;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -95,6 +98,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCaller;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -121,12 +128,14 @@ import androidx.core.os.ConfigurationCompat;
 import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.documentfile.provider.DocumentFile;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import net.gsantner.markor.ApplicationObject;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
@@ -138,6 +147,7 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilePermission;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -2347,71 +2357,114 @@ public class GsContextUtils {
         return formatDateTime(locale, format, datetime, def);
     }
 
-    /*
-    public static class PermissionRequestActivity extends AppCompatActivity {
-        final GsCallback.a0 _callback;
-        final String _description;
-
-        public PermissionRequestActivity(final String desc, final GsCallback.a0 callback) {
-            _description = desc;
-            _callback = callback;
-        }
+    private static class FilePermissionContract extends ActivityResultContract<GsCallback.a0, GsCallback.a0> {
+        protected GsCallback.a0 _cb = null;
 
         @Override
-        public void onResume() {
-            super.onResume();
-            if (_callback != null) {
-                final AlertDialog d = new AlertDialog.Builder(this)
-                        .setMessage(_description)
-                        .setCancelable(false)
-                        .setNegativeButton(android.R.string.no, null)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> _callback.callback())
-                        .setOnDismissListener((dialog) -> finish())
-                        .show();
-                d.setCanceledOnTouchOutside(false);
-            }
+        public final GsCallback.a0 parseResult (int resultCode, @Nullable Intent intent) {
+            return _cb;
+        }
+
+        @NonNull
+        @Override
+        public Intent createIntent (@NonNull Context context, final GsCallback.a0 cb) {
+            _cb = cb;
+            return new Intent(ActivityResultContracts.RequestMultiplePermissions.ACTION_REQUEST_PERMISSIONS)
+                    .putExtra(EXTRA_PERMISSIONS, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE });
         }
     }
-    */
+
+    public GsCallback.a1<GsCallback.a0> createFilePermissionCallback(final ActivityResultCaller caller) {
+        // We return a callback which takes a callback and calls it when the permission request returns
+
+        // Pull activity out
+        final Activity activity;
+        if (caller instanceof Activity) {
+            activity = (Activity) caller;
+        } else if (caller instanceof Fragment) {
+            activity = ((Fragment) caller).getActivity();
+        } else {
+            return null;
+        }
+
+        if (activity == null) {
+            return null;
+        }
+
+        final GsCallback.a1<GsCallback.a0> handleCb = (cb) -> {
+            if (cb != null) {
+                cb.callback();
+            }
+        };
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+            // As we have to try each we create
+            final ActivityResultLauncher<GsCallback.a0> first = caller.registerForActivityResult(new FilePermissionContract() {
+                @NonNull
+                @Override
+                public Intent createIntent (@NonNull Context context, final GsCallback.a0 cb) {
+                    _cb = cb;
+                    final Uri uri = Uri.parse("package:" + ApplicationObject.get().getPackageName());
+                    return new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                }
+            }, handleCb::callback);
+
+            final ActivityResultLauncher<GsCallback.a0> second = caller.registerForActivityResult(new FilePermissionContract()
+            {
+                @NonNull
+                @Override
+                public Intent createIntent(@NonNull Context context, final GsCallback.a0 cb) {
+                    _cb = cb;
+                    return new Intent().setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                }
+            }, handleCb::callback);
+
+            return (cb) -> {
+                try {
+                    first.launch(cb);
+                } catch (Exception ex) {
+                    second.launch(cb);
+                }
+            };
+        }
+
+        // Default tro
+
+        final ActivityResultLauncher<GsCallback.a0> res = caller.registerForActivityResult(new FilePermissionContract(), handleCb::callback);
+        return res::launch;
+    }
+
+    public void requestExternalStoragePermission(final Activity activity) {
+        final int v = android.os.Build.VERSION.SDK_INT;
+
+        if (v >= Build.VERSION_CODES.R) {
+            try {
+                final Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(activity));
+                final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+            } catch (final Exception ex) {
+                final Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+            }
+        }
+
+        ActivityCompat.requestPermissions(activity, new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_STORAGE_PERMISSION_M);
+    }
+
+    public void requestExternalStoragePermission(final Activity activity, @StringRes int description) {
+        requestExternalStoragePermission(activity, activity.getString(description));
+    }
 
     public void requestExternalStoragePermission(final Activity activity, final String description) {
-        final int v = android.os.Build.VERSION.SDK_INT;
-        final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
-
-        // On Android R+ - check externalStorageManager is granted, otherwise request it
-        if (v >= Build.VERSION_CODES.R) {
-            permissionRequest.set(() -> {
-                try {
-                    final Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(activity));
-                    final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                } catch (Exception ex) {
-                    final Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                }
-            });
-        } else if (v >= Build.VERSION_CODES.M) {
-            permissionRequest.set(() ->
-                    ActivityCompat.requestPermissions(activity,
-                        new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                        REQUEST_STORAGE_PERMISSION_M));
-        } else {
-            // Don't need permission ?
-            return;
-        }
-
-        if (TextUtils.isEmpty(description)) {
-            permissionRequest.get().callback();
-        } else {
-            final AlertDialog d = new AlertDialog.Builder(activity)
-                    .setMessage(description)
-                    .setCancelable(false)
-                    .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
-                    .setNegativeButton(android.R.string.no, null)
-                    .show();
-            d.setCanceledOnTouchOutside(false);
-        }
+        final AlertDialog d = new AlertDialog.Builder(activity)
+                .setMessage(description)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> requestExternalStoragePermission(activity))
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+        d.setCanceledOnTouchOutside(false);
     }
 
     @SuppressWarnings("ConstantConditions")

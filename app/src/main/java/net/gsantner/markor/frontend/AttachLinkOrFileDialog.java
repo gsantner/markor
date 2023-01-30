@@ -136,9 +136,9 @@ public class AttachLinkOrFileDialog {
         final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                final String saveDir = _appSettings.getNotebookDirectoryAsStr();
+                final File saveDir = _appSettings.getNotebookFile();
                 String text = null;
-                boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
+                boolean isInSaveDir = GsFileUtils.isChild(saveDir, file) && GsFileUtils.isChild(saveDir, currentWorkingFile);
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
                     text = GsFileUtils.relativePath(currentWorkingFile, file);
@@ -187,7 +187,7 @@ public class AttachLinkOrFileDialog {
                     fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH)), null);
                 },
                 false, MarkorContextUtils.REQUEST_CAMERA_PICTURE + "", MarkorContextUtils.REQUEST_PICK_PICTURE + "");
-        final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
+        final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookFile();
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(activity, targetFolder));
         buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture(activity));
 
@@ -249,7 +249,7 @@ public class AttachLinkOrFileDialog {
             }
         });
 
-        final File tarFileInAssetsDir = new File(ApplicationObject.settings().getNotebookDirectory(), tarFile.getName());
+        final File tarFileInAssetsDir = new File(ApplicationObject.settings().getNotebookFile(), tarFile.getName());
 
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)

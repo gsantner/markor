@@ -36,10 +36,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -772,5 +769,17 @@ public class GsFileUtils {
             // Can fail is parent dest name contains test. Not a good method
             return !parent.equals(test) && test.getAbsolutePath().startsWith(parent.getAbsolutePath());
         }
+    }
+
+    public static File join(final File ... files) {
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File result = files[0];
+        for (int i = 1; i < files.length; i++) {
+            result = new File(result, files[i].getAbsolutePath());
+        }
+        return result;
     }
 }

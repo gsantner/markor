@@ -38,7 +38,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
         try {
             GsPermissionChecker permc = new GsPermissionChecker(this);
             if (permc.doIfExtStoragePermissionGranted(getString(R.string.error_need_storage_permission_to_save_documents))) {
-                file = (file != null ? file : _appSettings.getNotebookDirectory());
+                file = (file != null ? file : _appSettings.getNotebookFile());
                 if (!file.getParentFile().exists()) {
                     //noinspection ResultOfMethodCallIgnored
                     file.getParentFile().mkdirs();

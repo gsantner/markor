@@ -135,7 +135,7 @@ public class WikitextTextConverter extends TextConverterBase {
 
     private String convertLink(String group, Context context, File file) {
         AppSettings settings = ApplicationObject.settings();
-        File notebookDir = settings.getNotebookDirectory();
+        File notebookDir = settings.getNotebookFile();
         WikitextLinkResolver resolver = WikitextLinkResolver.resolve(group, notebookDir, file, settings.isWikitextDynamicNotebookRootEnabled());
 
         String markdownLink;

@@ -87,7 +87,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     @Override
     public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Context context = view.getContext();
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
@@ -249,7 +248,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 default: {
-                    startFolder = _appSettings.getNotebookDirectory();
+                    startFolder = _appSettings.getNotebookFile();
                     break;
                 }
             }
@@ -264,7 +263,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     appendToExistingDocument(file, "\n", true);
                 }
 
-            }, getFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
+            }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
 
@@ -272,7 +271,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
+                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookFile() : workingDir;
                 }
 
                 @Override

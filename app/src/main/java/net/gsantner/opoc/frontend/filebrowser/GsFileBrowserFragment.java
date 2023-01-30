@@ -19,6 +19,7 @@ package net.gsantner.opoc.frontend.filebrowser;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -52,6 +54,7 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -116,7 +119,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
-        _previousNotebookDirectory = _appSettings.getNotebookDirectoryAsStr();
+        _previousNotebookDirectory = _appSettings.getNotebookFile();
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, getActivity(), _recyclerList);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -297,13 +300,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
-    private static String _previousNotebookDirectory;
+    private static File _previousNotebookDirectory;
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!_appSettings.getNotebookDirectoryAsStr().equals(_previousNotebookDirectory)) {
-            _dopt.rootFolder = _appSettings.getNotebookDirectory();
+        if (!_appSettings.getNotebookFile().equals(_previousNotebookDirectory)) {
+            _dopt.rootFolder = _appSettings.getNotebookFile();
             _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder);
         }
 
@@ -353,6 +356,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
         }
+
         _fragmentMenu = menu;
         updateMenuItems();
     }
@@ -562,7 +566,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 _doptMoC = dopt;
                 _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
-                _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
+                _doptMoC.rootFolder = _appSettings.getNotebookFile();
                 _doptMoC.startFolder = getCurrentFolder();
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();

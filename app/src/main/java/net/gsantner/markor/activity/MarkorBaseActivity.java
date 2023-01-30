@@ -15,10 +15,24 @@ import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
+import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
+
+import java.io.File;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
     protected MarkorPermissionChecker _permc;
+
+    private final GsCallback.a1<GsCallback.a0> _permCallback = GsContextUtils.instance.createFilePermissionCallback(this);
+
+    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 cb) {
+        if (!f.canWrite() && !GsContextUtils.instance.checkExternalStoragePermission(this)) {
+            _permCallback.callback(cb);
+            return false;
+        }
+        return true;
+    }
 
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
