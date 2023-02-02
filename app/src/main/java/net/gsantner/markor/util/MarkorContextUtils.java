@@ -103,9 +103,9 @@ public class MarkorContextUtils extends GsContextUtils {
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
 
-    public static boolean testFilePermission(final Activity activity, final File file, final GsCallback.a0 cb) {
+    public static boolean testFilePermission(final Activity activity, final File file, final GsCallback.a0 yes, final GsCallback.a0 no) {
         if (activity instanceof MarkorBaseActivity) {
-            return ((MarkorBaseActivity) activity).testFilePermission(file, cb);
+            return ((MarkorBaseActivity) activity).testFilePermission(file, yes, no);
         }
         return true;
     }

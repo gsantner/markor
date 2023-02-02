@@ -189,14 +189,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        _permc.checkPermissionResult(requestCode, permissions, grantResults);
-        if (_cu.checkExternalStoragePermission(this)) {
-            restartMainActivity();
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -261,30 +253,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }, 1);
     }
 
-    @Override
-    @SuppressWarnings("unused")
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Determine some results and forward using Local Broadcast
-        Object result = _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
-
-        boolean restart = (requestCode == MarkorContextUtils.REQUEST_STORAGE_PERMISSION_R && ((boolean) result));
-        if (restart) {
-            restartMainActivity();
-        }
-
-        if (requestCode == IntroActivity.REQ_CODE_APPINTRO) {
-            return;
-        }
-
-        try {
-            _notebook.getAdapter().reconfigure();
-        } catch (Exception ignored) {
-            recreate();
-        }
-    }
-
     // Cycle between recent, favourite, and current
     public boolean onLongClickFab(View view) {
         if (_notebook != null) {
@@ -308,7 +276,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     public void onClickFab(final View view) {
-        if (_notebook == null || !_permc.doIfExtStoragePermissionGranted() || _notebook.getAdapter() == null) {
+        if (_notebook == null || _notebook.getAdapter() == null) {
             return;
         }
 
@@ -470,9 +438,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             final GsFragmentBase<?, ?> frag;
             final int id = tabIdFromPos(pos);
             if (id == R.id.nav_quicknote) {
-                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getQuickNoteFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                File qn = _appSettings.getQuickNoteFile();
+                qn = qn.canWrite() ? qn : _appSettings.getDefaultQuickNoteFile();
+                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(qn), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_todo) {
-                frag = _todo = DocumentEditAndViewFragment.newInstance(new Document(_appSettings.getTodoFile()), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                File todo = _appSettings.getTodoFile();
+                todo = todo.canWrite() ? todo : _appSettings.getDefaultTodoFile();
+                frag = _todo = DocumentEditAndViewFragment.newInstance(new Document(todo), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_more) {
                 frag = _more = MoreFragment.newInstance();
             } else {

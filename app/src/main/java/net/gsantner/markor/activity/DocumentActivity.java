@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -159,8 +160,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
-        _permc.doIfExtStoragePermissionGranted();
-
         handleLaunchingIntent(getIntent());
     }
 
@@ -203,11 +202,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         // Decide what to do with the file
         // -----------------------------------------------------------------------
 
-        if (file == null) {
+        final File parent = file != null ? file.getParentFile() : null;
+
+        if (file == null || parent == null) {
             final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
             showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
-        } else if (!file.canRead() && !GsFileUtils.canCreate(file)) {
-            showErrorMessage(getString(R.string.file_does_not_exist_and_cant_be_created));
+        } else if (!MarkorContextUtils.testFilePermission(this, parent, () -> handleLaunchingIntent(intent), this::finish)) {
+            Toast.makeText(this, R.string.error_need_storage_permission_to_save_documents, Toast.LENGTH_LONG).show();
         } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);

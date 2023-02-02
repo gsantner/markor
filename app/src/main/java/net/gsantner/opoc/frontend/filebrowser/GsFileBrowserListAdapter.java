@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.activity.StoragePermissionActivity;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -491,7 +492,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private void loadFolder(final File folder) {
-        if (!MarkorContextUtils.testFilePermission(_activity, folder, () -> {
+        if (((MarkorBaseActivity) _activity).testFilePermission(folder, () -> {
             if (folder.canWrite()) {
                 loadFolder(folder);
             } else if (_currentFolder == null)  {

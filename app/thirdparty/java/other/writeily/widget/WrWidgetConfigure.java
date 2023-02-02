@@ -55,23 +55,21 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
 
     // only runs for a valid id
     private void showWidgetSelectFolderDialog() {
-        if (_permc.mkdirIfStoragePermissionGranted()) {
-            final FragmentManager fragManager = getSupportFragmentManager();
-            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                @Override
-                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
-                    setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId));
-                    finish();
-                }
+        final FragmentManager fragManager = getSupportFragmentManager();
+        MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+            @Override
+            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
+                setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId));
+                finish();
+            }
 
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.titleText = R.string.select_folder;
-                    dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
-                }
-            }, fragManager, this);
-        }
+            @Override
+            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                dopt.titleText = R.string.select_folder;
+                dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
+            }
+        }, fragManager, this);
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

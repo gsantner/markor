@@ -22,16 +22,24 @@ import java.io.File;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
-    protected MarkorPermissionChecker _permc;
-
     private final GsCallback.a1<GsCallback.a0> _permCallback = GsContextUtils.instance.createFilePermissionCallback(this);
 
-    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 cb) {
+    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 callback) {
         if (!f.canWrite() && !GsContextUtils.instance.checkExternalStoragePermission(this)) {
-            _permCallback.callback(cb);
+            _permCallback.callback(callback);
             return false;
         }
         return true;
+    }
+
+    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 yes, final GsCallback.a0 no) {
+        return testFilePermission(f, () -> {
+            if (GsContextUtils.instance.checkExternalStoragePermission(this) && yes != null) {
+                yes.callback();
+            } else if (no != null) {
+                no.callback();
+            }
+        });
     }
 
     @Override
@@ -47,8 +55,6 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (_appSettings.isHideSystemStatusbar()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-
-        _permc = new MarkorPermissionChecker(this);
     }
 
     @Override
