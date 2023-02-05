@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -30,7 +29,6 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -204,11 +202,12 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final File parent = file != null ? file.getParentFile() : null;
 
-        if (file == null || parent == null) {
+        if (file == null) {
             final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
             showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
-        } else if (!MarkorContextUtils.testFilePermission(this, parent, () -> handleLaunchingIntent(intent), this::finish)) {
-            Toast.makeText(this, R.string.error_need_storage_permission_to_save_documents, Toast.LENGTH_LONG).show();
+        } else if (!file.canWrite() && !(parent != null && parent.canWrite())) {
+            final String message = getString(R.string.permission_needed_to_access, file.getName());
+            MarkorContextUtils.requestFilePermission(this, message, () -> handleLaunchingIntent(intent), this::finish);
         } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);
@@ -304,11 +303,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
     }
 
     @Override

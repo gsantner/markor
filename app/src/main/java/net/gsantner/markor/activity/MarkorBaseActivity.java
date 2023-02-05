@@ -6,41 +6,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
-import net.gsantner.opoc.util.GsContextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
-
-import java.io.File;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
-
-    private final GsCallback.a1<GsCallback.a0> _permCallback = GsContextUtils.instance.createFilePermissionCallback(this);
-
-    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 callback) {
-        if (!f.canWrite() && !GsContextUtils.instance.checkExternalStoragePermission(this)) {
-            _permCallback.callback(callback);
-            return false;
-        }
-        return true;
-    }
-
-    public final boolean testFilePermission(final @NonNull File f, final GsCallback.a0 yes, final GsCallback.a0 no) {
-        return testFilePermission(f, () -> {
-            if (GsContextUtils.instance.checkExternalStoragePermission(this) && yes != null) {
-                yes.callback();
-            } else if (no != null) {
-                no.callback();
-            }
-        });
-    }
 
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {

@@ -42,6 +42,7 @@ import net.gsantner.markor.activity.StoragePermissionActivity;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -217,8 +218,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    public Bundle saveInstanceState(Bundle outState) {
-        outState = outState == null ? new Bundle() : outState;
+    public void saveInstanceState(final @NonNull Bundle outState) {
         if (_currentFolder != null) {
             outState.putSerializable(EXTRA_CURRENT_FOLDER, _currentFolder);
         }
@@ -228,7 +228,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 outState.putParcelable(EXTRA_RECYCLER_SCROLL_STATE, _recyclerView.getLayoutManager().onSaveInstanceState());
             }
         }
-        return outState;
     }
 
     private File getReqFolder(final Bundle bundle) {
@@ -275,7 +274,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void setCurrentFolder(final File folder) {
         if (!folder.equals(_currentFolder)) {
-            loadFolder(_currentFolder);
+            loadFolder(folder);
         }
     }
 
@@ -492,25 +491,27 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private void loadFolder(final File folder) {
-        if (((MarkorBaseActivity) _activity).testFilePermission(folder, () -> {
-            if (folder.canWrite()) {
-                loadFolder(folder);
-            } else if (_currentFolder == null)  {
-                loadFolder(ApplicationObject.settings().getDefaultNotebookFile());
-            }
-        })) {
+        if (!folder.canWrite() && !GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+            Toast.makeText(_activity, _activity.getString(R.string.permission_needed_to_access, folder), Toast.LENGTH_LONG).show();
+            ((GsActivityBase<?, ?>) _activity).requestStoragePermission(() -> {
+                if (GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+                    loadFolder(folder);
+                } else if (_currentFolder == null) {
+                    loadFolder(ApplicationObject.settings().getDefaultNotebookFile());
+                }
+            });
             return;
         }
 
         final Handler handler = new Handler();
         _currentSelection.clear();
+        _currentFolder = folder;
 
         new Thread() {
             @Override
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
                  ArrayList<File> oldAdapterData = new ArrayList<>();
-                 _currentFolder = folder;
                  _adapterData.clear();
                  _virtualMapping.clear();
                  File file;

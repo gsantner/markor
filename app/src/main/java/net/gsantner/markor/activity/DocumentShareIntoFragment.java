@@ -33,7 +33,6 @@ import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -298,8 +297,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             final Activity activity = getActivity();
-            MarkorPermissionChecker permc = new MarkorPermissionChecker(activity);
-            MarkorContextUtils shu = new MarkorContextUtils(activity);
+            final MarkorContextUtils shu = new MarkorContextUtils(activity);
             String tmps;
 
             boolean close = false;
@@ -310,36 +308,28 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 case R.string.pref_key__share_into__create_document: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        createNewDocument();
-                    }
+                    createNewDocument();
                     return true;
                 }
                 case R.string.pref_key__favourite_files:
                 case R.string.pref_key__popular_documents:
                 case R.string.pref_key__recent_documents:
                 case R.string.pref_key__share_into__existing_document: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        showAppendDialog(keyId);
-                    }
+                    showAppendDialog(keyId);
                     return true;
                 }
                 case R.string.pref_key__share_into__quicknote: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(this._appSettings.getQuickNoteFile(), "\n", false);
-                        close = true;
-                    }
+                    appendToExistingDocument(this._appSettings.getQuickNoteFile(), "\n", false);
+                    close = true;
                     break;
                 }
                 case R.string.pref_key__share_into__todo: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        String sep = "\n";
-                        if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
-                            sep += TodoTxtTask.getToday() + " ";
-                        }
-                        appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
-                        close = true;
+                    String sep = "\n";
+                    if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
+                        sep += TodoTxtTask.getToday() + " ";
                     }
+                    appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
+                    close = true;
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
@@ -365,10 +355,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             if (preference.getKey().startsWith("/")) {
-                if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), "\n", true);
-                    close = false;
-                }
+                appendToExistingDocument(new File(preference.getKey()), "\n", true);
+                close = false;
             }
 
             if (close) {

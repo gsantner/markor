@@ -57,11 +57,13 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.web.MarkorWebViewClient;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
+import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -695,6 +697,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _cu.getStorageAccessFrameworkTreeUri(getContext()) == null) {
             _cu.showMountSdDialog(getActivity());
             return true;
+        }
+        return false;
+    }
+
+    // Load a new file
+    public boolean setFile(final File file) {
+        if (file != null && file.canWrite() && file.isFile() && GsFileUtils.isTextFile(file)) {
+            saveDocument(false);
+            _document = new Document(file);
+            return loadDocument();
         }
         return false;
     }

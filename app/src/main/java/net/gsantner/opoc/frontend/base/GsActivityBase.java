@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -153,5 +154,18 @@ public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBacke
         } catch (Exception ignored) {
             return null;
         }
+    }
+
+    // Checking file permissions Permission checker
+    // -------------------------------------------------------------------------------------------
+
+    private final GsCallback.a1<GsCallback.a0> _permCallback = GsContextUtils.instance.createFilePermissionCallback(this);
+
+    public final boolean requestStoragePermission(final GsCallback.a0 callback) {
+        if (!_cu.checkExternalStoragePermission(this)) {
+            _permCallback.callback(callback);
+            return false;
+        }
+        return true;
     }
 }

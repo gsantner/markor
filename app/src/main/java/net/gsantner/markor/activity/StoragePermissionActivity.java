@@ -29,7 +29,6 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
                 !as.getQuickNoteFile().canWrite() ||
                 start != null && !start.canWrite())
         ) {
-
             final Intent intent = new Intent(activity, StoragePermissionActivity.class)
                     .putExtra(Document.EXTRA_PATH, start);
             activity.startActivity(intent);

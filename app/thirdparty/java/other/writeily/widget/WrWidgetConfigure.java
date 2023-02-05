@@ -21,7 +21,6 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
@@ -70,15 +69,6 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
                 dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
             }
         }, fragManager, this);
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
-            showWidgetSelectFolderDialog();
-        } else {
-            finish();
-        }
     }
 
     public static File getWidgetDirectory(final Context context, int id) {

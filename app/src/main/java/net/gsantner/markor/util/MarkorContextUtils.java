@@ -10,6 +10,8 @@
 package net.gsantner.markor.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.os.Build;
 import android.print.PrintJob;
 import android.text.TextUtils;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -29,6 +32,7 @@ import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -103,9 +107,32 @@ public class MarkorContextUtils extends GsContextUtils {
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
 
-    public static boolean testFilePermission(final Activity activity, final File file, final GsCallback.a0 yes, final GsCallback.a0 no) {
-        if (activity instanceof MarkorBaseActivity) {
-            return ((MarkorBaseActivity) activity).testFilePermission(file, yes, no);
+    public static boolean requestFilePermission(
+            final Activity activity,
+            final CharSequence message,
+            final GsCallback.a0 yes,
+            final GsCallback.a0 no
+    ) {
+        if (!GsContextUtils.instance.checkExternalStoragePermission(activity) && activity instanceof GsActivityBase<?, ?>) {
+
+            final GsCallback.a0 cb = () -> {
+                if (GsContextUtils.instance.checkExternalStoragePermission(activity)) {
+                    yes.callback();
+                } else {
+                    Toast.makeText(activity, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
+                    no.callback();
+                }
+            };
+
+            final AlertDialog d = new AlertDialog.Builder(activity)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.ok, (_d, _w) -> ((GsActivityBase<?, ?>) activity).requestStoragePermission(cb))
+                    .setOnCancelListener((_d2) -> cb.callback())
+                    .create();
+            d.setCanceledOnTouchOutside(false);
+            d.show();
+
+            return false;
         }
         return true;
     }
