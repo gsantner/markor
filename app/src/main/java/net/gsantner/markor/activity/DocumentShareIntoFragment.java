@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
@@ -193,9 +194,35 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
+            appendToExistingDocument(file, null, separator, showEditor);
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        private void appendToExistingDocument(final File file, final @Nullable File fallback, final String separator, final boolean showEditor) {
             final Activity context = getActivity();
+
+            // Handle permissions
+            // -------------------------------------------------------------------------------------
+            if (!file.canWrite() && !_cu.checkExternalStoragePermission(context)) {
+                final String message = context.getString(R.string.permission_needed_to_access, file.getName());
+                if (fallback == null) {
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                MarkorContextUtils.requestFilePermission(context, message,
+                        () -> appendToExistingDocument(file, null, separator, showEditor),
+                        () ->
+                        {
+                            Toast.makeText(context, context.getString(R.string.saved_location_to, fallback.getPath()), Toast.LENGTH_LONG).show();
+                            // Note - editor always shown in this case
+                            appendToExistingDocument(fallback, null, separator, true);
+                        }
+                );
+                return;
+            }
+            // -------------------------------------------------------------------------------------
+
             final Document document = new Document(file);
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
             final String formatted = isTodoTxt ? _sharedText : formatShare(_sharedText);
@@ -319,16 +346,16 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     return true;
                 }
                 case R.string.pref_key__share_into__quicknote: {
-                    appendToExistingDocument(this._appSettings.getQuickNoteFile(), "\n", false);
+                    appendToExistingDocument(_appSettings.getQuickNoteFile(), _appSettings.getDefaultQuickNoteFile(), "\n", false);
                     close = true;
                     break;
                 }
                 case R.string.pref_key__share_into__todo: {
                     String sep = "\n";
-                    if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
+                    if (_appSettings.getDocumentAutoFormatEnabled(_appSettings.getTodoFile().getAbsolutePath())) {
                         sep += TodoTxtTask.getToday() + " ";
                     }
-                    appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
+                    appendToExistingDocument(_appSettings.getTodoFile(), _appSettings.getDefaultTodoFile(), sep, false);
                     close = true;
                     break;
                 }
