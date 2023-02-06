@@ -93,7 +93,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
         optShowRate();
 
         // Setup viewpager
-        checkRequestPermissions();
+        setupFragmentsAndLocations();
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnItemSelectedListener(this);
         reduceViewpagerSwipeSensitivity();
@@ -113,7 +113,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
      * 4. If permissions granted re-create with correct files
      * 5. Else tell user that we had to fallback
      */
-    private void checkRequestPermissions() {
+    private void setupFragmentsAndLocations() {
         // Initialize the adapter with appropriate files
         // -----------------------------------------------------------------------------------------
         final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -148,7 +148,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
                     () -> {
                         if (fixNb) {
                             adapter._notebookFile = _appSettings.getNotebookFile();
-                            if (_notebook != null) {
+                            if (_notebook != null) { // Null check as we may not have initialized the fragment yet
                                 final GsFileBrowserListAdapter na = _notebook.getAdapter();
                                 if (na != null) {
                                     na.getFsOptions().rootFolder = adapter._notebookFile;
