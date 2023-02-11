@@ -1,7 +1,7 @@
 ### Recent changes
-- See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/news/NEWS.md) to see what is going on.
+- See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 
-### v2.10 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v210---custom-file-templates-share-into-remove-url-tracking-parameters))
+### v2.10 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v210---custom-file-templates-share-into-remove-url-tracking-parameters))
 - [Search: Keep in-files search dialog open, closes #1663, by @harshad1 (PR #1689)](https://github.com/gsantner/markor/pull/1689/files)
 - [File management: Support UTF-8 with BOM, by @tifish (PR #1693)](https://github.com/gsantner/markor/pull/1693/files)
 - [Editor: Increase performance on editables, more chunked operations, by @harshad1 (PR #1694)](https://github.com/gsantner/markor/pull/1694/files)
@@ -22,7 +22,7 @@
 - [todo.txt filter search: Disable highlighting at completed tasks, by @harshad1 (PR #1754)](https://github.com/gsantner/markor/pull/1754/files)
 - [Editor: Restore behaviour - don't overwrite newer files unless content modified, by @harshad1 (PR #1758)](https://github.com/gsantner/markor/pull/1758/files)
 
-### v2.9 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry))
+### v2.9 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry))
 - Updates are officially only available from GitHub and F-Droid as of now
 - New feature: Snippets
 - Discussion forum & questions now on Markor GitHub Discussion
@@ -45,13 +45,13 @@
 - Per-file settings - In addition to the global settings, many options are now also configurable on a file basis
 - Markdown: Display YAML fron-matter contents (like article titles and publish date)
 
-### v2.8 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs))
+### v2.8 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs))
 - Reference to GitHub discussion on More page, by @gsantner
 - Add multi-selection to todo.txt dialogs, by @harshad1 @gsantner
 - In-content search support for encrypted files, #1388 by @opensource21
 - Remove alternative todo.txt naming (tags/categories), by @gsantner
 
-### v2.7 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v27---search-in-content-backup--restore-settings))
+### v2.7 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v27---search-in-content-backup--restore-settings))
 - Recursive file search with in-content search, #1337 by @adelobosko @harshad1 @gsantner
 - Backup and restore settings, Format selection with radio buttons, #1244 by @harshad1 @gsantner
 - Per-file font size, #1332 by @harshad1
@@ -75,7 +75,7 @@
 - File Manager: Fix MB being displayed as GB at description (SI 1000 unit), #1352 by @gsantner
 - File Manager: Duplicate file / allow copy into same folder, #1345 by @harshad1- Filemanager formatter: fix MB being displayed as GB (SI 1000 unit), #1352 by @gsantner
 
-### v2.6 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v26---zim-wiki-newline--new-paragraph-save-format))
+### v2.6 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v26---zim-wiki-newline--new-paragraph-save-format))
 - Markdown: Add settings option for newlines to start new paragraphs, #1260 by @gsantner
 - Editor/Viewer: Remember last used file format, show current selected format, #1226 by @harshad1
 - Editor/Viewer: Back arrow (top menu) finish activity, #1165 by @gsantner
@@ -106,7 +106,7 @@
 - Improve encryption wording & usage, #1171 #1179 by @opensource21
 
 
-### v2.5 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v25---zim-wiki---search--replace---zettelkasten))
+### v2.5 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v25---zim-wiki---search--replace---zettelkasten))
 - Add Zim Wiki format and template #1098
 - Add search & replace (simple|regex, replace once|all) #1112
 - Add settings for current file to toolbar #1129
@@ -118,7 +118,7 @@
 - Improve license dialog readability #1119
 - General improvements, fixes and translations
 
-### v2.4 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v24---all-new-todotxt---programming-language-syntax-highlighting))
+### v2.4 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v24---all-new-todotxt---programming-language-syntax-highlighting))
 - Markdown: Correctly insert or remove list item on press enter at empty list item
 - Remove title from todo.txt date dialog, better usable on small devices
 - Fix search sometimes not working when chaging from view to edit mode
@@ -143,7 +143,7 @@
 - Save last used folder to settings, use info for titlebar
 - New File Dialog: Remember type selection
 
-### v2.3 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v23---table-of-contents-custom-action-order))
+### v2.3 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v23---table-of-contents-custom-action-order))
 - Add action to Move current selected line(s)/cursor text up/down
 - Add settings option for View-Mode link color
 - Improve table of contents - add border, disable underline
@@ -175,7 +175,7 @@
 - Markdown: Auto update ordered list numbers
 
 
-### v2.2 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v22---presentations-voice-notes-markdown-table-editor))
+### v2.2 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v22---presentations-voice-notes-markdown-table-editor))
 - Added Presentations & Slides with Markdown
 - Added audio recording dialog which allows to add voice to documents. Manual interaction required to start & stop voice recording. Voice recording permission required for this feature
 - Added editor button to create Markdown tables
@@ -196,7 +196,7 @@
 - Sepia editor theme
 
 
-### v2.1 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v21---key-value-highlighting-jsoniniyamlcsv-improved-performance))
+### v2.1 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v21---key-value-highlighting-jsoniniyamlcsv-improved-performance))
 - Improved editor, highlighting and overall performance
 - New file dialog: Templates
 - New format: KeyValue - highlighting for json, ini, csv, yaml, vcard, ics, toml and other simple key-value like syntax
@@ -222,7 +222,7 @@
 - Fix folder title not visible sometimes
 - Enable hex color highlighting for various prefix/postfixes (like colon, quote, ...)
 
-### v2.0 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v20---search-dotfiles-pdf-export))
+### v2.0 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v20---search-dotfiles-pdf-export))
 - Recursive file & folder search
 - Search button in editor, viewer and file browser
 - Always export PDF and images with light theme and white background (improves printing)
@@ -239,7 +239,7 @@
 - Add new line when archiving tasks
 
 
-### v1.8 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v18---all-new-file-browser-favourites-and-faster-markdown-preview))
+### v1.8 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v18---all-new-file-browser-favourites-and-faster-markdown-preview))
 - Show app intro at first start  
 - All new file navigation  
 - Add favourite files  
@@ -255,7 +255,7 @@
 - Add word count to document info dialog  
 
 
-### v1.7 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v17---custom-fonts-linkbox-with-markdown))
+### v1.7 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v17---custom-fonts-linkbox-with-markdown))
 - Improved app color theme for better readability  
 - Load custom fonts from file  
   - Markor bundles 5 additional open fonts  
@@ -273,7 +273,7 @@
 - Option to set app start tab (Notebook / ToDo / QuickNote / LinkBox / More)  
 
 
-### v1.6 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v16---datetime-dialog---jekyll-and-katex-improvements))
+### v1.6 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v16---datetime-dialog---jekyll-and-katex-improvements))
 **New features:**  
 - TextAction: Insert date/time  
 - Add website title when sharing into Markor, if browser supports it  
@@ -293,7 +293,7 @@
 - New file dialog: Jekyll option on older devices  
 - Title not updated when swiping  
 
-### v1.5 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v15---multiple-windows-markdown-tasks-theming))
+### v1.5 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v15---multiple-windows-markdown-tasks-theming))
 **New features:**  
 - App-wide  
   - Settings option: Keep screen on
@@ -373,7 +373,7 @@
 - App-wide
   - Special files: When app launcher was used, create file if not exists   
 
-### v1.2 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v12---markdown-with-katexmath---search-in-current-document))
+### v1.2 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v12---markdown-with-katexmath---search-in-current-document))
 **New features:**
 - General
   - Launchers to directly open LinkBox/ToDo/QuickNote (opt-in)
@@ -394,7 +394,7 @@
 - Editor
   - File saving
 
-### v1.1 ([Details](https://github.com/gsantner/markor/blob/news/NEWS.md#markor-v11---markdown-picture-import-from-gallery-and-camera))
+### v1.1 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v11---markdown-picture-import-from-gallery-and-camera))
 **New features:**  
 - Text Module Actions
   - Markdown Picture Dialog
