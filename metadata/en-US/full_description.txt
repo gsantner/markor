@@ -25,4 +25,4 @@
 
 
 <b>Support the project:</b>
-<a href="https://github.com/gsantner/markor/issues/new/choose">Report ideas and issues</a> | <a href="https://github.com/gsantner/markor/discussions">Join community discussion</a> | <a href="https://crowdin.com/project/markor/invite">Translate</a> | <a href="https://github.com/gsantner/markor#contributions">More information about contributions</a> | <a href="https://gsantner.net/blog/2018/03/19/android-contribution-guide.html?packageid=net.gsantner.markor&name=Markor&web=https://github.com/gsantner/markor&source=fdroid#logcat">Android Contribution Guide</a>
+<a href="https://github.com/gsantner/markor/issues/new/choose">Report ideas and issues</a> | <a href="https://github.com/gsantner/markor/discussions">Join community discussion</a> | <a href="https://crowdin.com/project/markor/invite">Translate</a> | <a href="https://github.com/gsantner/markor#contributions">More information about contributions</a>
