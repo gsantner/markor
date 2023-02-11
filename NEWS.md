@@ -12,7 +12,7 @@ Generally this is the recommended way to install Markor & keep it updated.
 
 ### Get informed
 * Check the [project readme](https://github.com/gsantner/markor/tree/news#readme) for general project information.
-* Check the [project news](https://github.com/gsantner/markor/blob/news/NEWS.md#readme) for more details on what is going on.
+* Check the [project news](https://github.com/gsantner/markor/blob/master/NEWS.md#readme) for more details on what is going on.
 * Check the [project git history](https://github.com/gsantner/markor/commits/master) for most recent code changes.
 
 ### The right place to ask
