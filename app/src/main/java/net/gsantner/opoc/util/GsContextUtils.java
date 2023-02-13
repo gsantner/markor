@@ -230,10 +230,13 @@ public class GsContextUtils {
      */
     public String rstr(final Context context, final String strResKey, Object... a0getResKeyAsFallback) {
         try {
-            return rstr(context, getResId(context, ResType.STRING, strResKey));
-        } catch (Resources.NotFoundException e) {
-            return a0getResKeyAsFallback != null && a0getResKeyAsFallback.length > 0 ? strResKey : null;
+            final String s = rstr(context, getResId(context, ResType.STRING, strResKey));
+            if (s != null) {
+                return s;
+            }
+        } catch (Exception ignored) {
         }
+        return a0getResKeyAsFallback != null && a0getResKeyAsFallback.length > 0 ? strResKey : null;
     }
 
     /**
