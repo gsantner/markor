@@ -25,7 +25,8 @@ import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {
-    public interface SelectionListener extends Serializable {
+
+    public interface SelectionListener {
         void onFsViewerSelected(final String request, final File file, final Integer lineNumber);
 
         void onFsViewerMultiSelected(final String request, final File... files);
@@ -39,7 +40,7 @@ public class GsFileBrowserOptions {
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
     }
 
-    public static class Options implements Serializable {
+    public static class Options {
         public SelectionListener listener = new SelectionListenerAdapter();
         public File
                 rootFolder = Environment.getExternalStorageDirectory(),

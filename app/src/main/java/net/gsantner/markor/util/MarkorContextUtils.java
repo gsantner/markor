@@ -107,20 +107,25 @@ public class MarkorContextUtils extends GsContextUtils {
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
 
-    public static boolean requestFilePermission(
+    public static void requestFilePermission(final Activity activity, final CharSequence message, final GsCallback.a0 yes) {
+        requestFilePermission(activity, message, yes, null);
+    }
+
+    public static void requestFilePermission(
             final Activity activity,
             final CharSequence message,
             final GsCallback.a0 yes,
-            final GsCallback.a0 no
+            final @Nullable GsCallback.a0 no
     ) {
         if (!GsContextUtils.instance.checkExternalStoragePermission(activity) && activity instanceof GsActivityBase<?, ?>) {
-
             final GsCallback.a0 cb = () -> {
                 if (GsContextUtils.instance.checkExternalStoragePermission(activity)) {
                     yes.callback();
                 } else {
                     Toast.makeText(activity, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
-                    no.callback();
+                    if (no != null) {
+                        no.callback();
+                    }
                 }
             };
 
@@ -131,9 +136,6 @@ public class MarkorContextUtils extends GsContextUtils {
                     .create();
             d.setCanceledOnTouchOutside(false);
             d.show();
-
-            return false;
         }
-        return true;
     }
 }

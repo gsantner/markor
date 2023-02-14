@@ -18,6 +18,7 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -69,8 +70,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
-    public static final String EXTRA_OPTIONS = "EXTRA_OPTIONS";
-
     public static GsFileBrowserFragment newInstance(GsFileBrowserOptions.Options options) {
         return new GsFileBrowserFragment().setDialogOptions(options);
     }
@@ -95,6 +94,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //## Methods
     //########################
 
+    public interface FilesystemFragmentOptionsListener {
+        GsFileBrowserOptions.Options getFilesystemFragmentOptions();
+    }
+
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
@@ -104,6 +107,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         _appSettings = ApplicationObject.settings();
         _cu = new MarkorContextUtils(root.getContext());
+
+        final Activity activity = getActivity();
+        if (activity instanceof FilesystemFragmentOptionsListener && _dopt == null) {
+            setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions());
+        }
 
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
@@ -135,7 +143,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return R.layout.opoc_filesystem_fragment;
     }
 
-    private GsFileBrowserFragment setDialogOptions(GsFileBrowserOptions.Options options) {
+    private GsFileBrowserFragment setDialogOptions(final GsFileBrowserOptions.Options options) {
         _dopt = options;
         _callback = _dopt.listener;
         if (_callback != null) {
@@ -282,16 +290,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         _filesystemViewerAdapter.saveInstanceState(outState);
-        outState.putSerializable(EXTRA_OPTIONS, _dopt);
     }
 
     @Override
     public void onViewStateRestored(final Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
-        if (savedInstanceState != null) {
-            _dopt = (GsFileBrowserOptions.Options) savedInstanceState.getSerializable(EXTRA_OPTIONS);
-        }
     }
 
     private static File _previousNotebookDirectory;
@@ -689,5 +693,15 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         } else {
             showAndBlink(file);
         }
+    }
+
+    public void setCurrentFolder(final File folder) {
+        if (folder != null && folder.canRead() && _filesystemViewerAdapter != null) {
+            _filesystemViewerAdapter.setCurrentFolder(folder);
+        }
+    }
+
+    public GsFileBrowserOptions.Options getOptions() {
+        return _dopt;
     }
 }

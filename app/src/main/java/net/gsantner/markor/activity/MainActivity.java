@@ -17,6 +17,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -46,6 +50,7 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +59,7 @@ import java.util.concurrent.TimeUnit;
 
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class MainActivity extends MarkorBaseActivity implements NavigationBarView.OnItemSelectedListener {
+public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener, NavigationBarView.OnItemSelectedListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 
@@ -63,6 +68,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
     private GsFileBrowserFragment _notebook;
     private DocumentEditAndViewFragment _quicknote, _todo;
     private MoreFragment _more;
+    private File _notebookFile, _quicknoteFile, _todoFile, _startDirFile;
     private FloatingActionButton _fab;
 
     private boolean _doubleBackToExitPressedOnce;
@@ -93,7 +99,8 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
         optShowRate();
 
         // Setup viewpager
-        setupFragmentsAndLocations();
+        checkSetFilesAndPermissions();
+        _viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
         _viewPager.setOffscreenPageLimit(4);
         _bottomNav.setOnItemSelectedListener(this);
         reduceViewpagerSwipeSensitivity();
@@ -110,87 +117,109 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
      * 1. Check if any of the standard files or the start folder require permissions
      * 2. Set fallbacks for each that do
      * 3. Ask for permissions
-     * 4. If permissions granted re-create with correct files
+     * 4. If permissions granted open correct files
      * 5. Else tell user that we had to fallback
      */
-    private void setupFragmentsAndLocations() {
+    private void checkSetFilesAndPermissions() {
+
         // Initialize the adapter with appropriate files
         // -----------------------------------------------------------------------------------------
-        final SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter._notebookFile = _appSettings.getNotebookFile();
-        adapter._qnFile = _appSettings.getQuickNoteFile();
-        adapter._todoFile = _appSettings.getTodoFile();
+        _notebookFile = _appSettings.getNotebookFile();
+        _quicknoteFile = _appSettings.getQuickNoteFile();
+        _todoFile = _appSettings.getTodoFile();
 
-        final boolean fixNb = !adapter._notebookFile.canWrite();
-        final boolean fixQn = !adapter._todoFile.canWrite();
-        final boolean fixTodo = !adapter._qnFile.canWrite();
-        String message = "";
+        _startDirFile = MarkorContextUtils.getValidIntentDir(getIntent(), null);
+        if (_startDirFile == null || !_startDirFile.exists() || _startDirFile.equals(_notebookFile)) {
+            _startDirFile = null;
+        }
+
+        final boolean fixNb = !(_notebookFile.canWrite() || _notebookFile.mkdirs());
+        final boolean fixQn = !GsFileUtils.canCreate(_todoFile);
+        final boolean fixTodo = !GsFileUtils.canCreate(_quicknoteFile);
+        final boolean fixStart = _startDirFile != null && !_startDirFile.canWrite();
+
+        final SpannableStringBuilder message = new SpannableStringBuilder(getString(R.string.permission_needed_to_access, ""));
         if (fixNb) {
-            message += "\n\n" + getString(R.string.notebook) + ": " + adapter._notebookFile.getPath();
-            adapter._notebookFile = _appSettings.getDefaultNotebookFile();
+            message.append(formatCase(R.string.notebook, _notebookFile));
+            _notebookFile = _appSettings.getDefaultNotebookFile();
+            if (_notebook != null) {
+                _notebook.setCurrentFolder(_notebookFile);
+            }
         }
         if (fixQn) {
-            message += "\n\n" + getString(R.string.quicknote) + ": " + adapter._qnFile.getPath();
-            adapter._qnFile = _appSettings.getDefaultQuickNoteFile();
+            message.append(formatCase(R.string.quicknote, _quicknoteFile));
+            _quicknoteFile = _appSettings.getDefaultQuickNoteFile();
+            if (_quicknote != null) {
+                _quicknote.setFile(_quicknoteFile);
+            }
         }
         if (fixTodo) {
-            message += "\n\n" + getString(R.string.todo) + ": " + adapter._todoFile.getPath();
-            adapter._todoFile = _appSettings.getDefaultTodoFile();
+            message.append(formatCase(R.string.todo, _todoFile));
+            _todoFile = _appSettings.getDefaultTodoFile();
+            if (_todo != null) {
+                _todo.setFile(_todoFile);
+            }
         }
-        _viewPager.setAdapter(adapter);
+        if (fixStart) {
+            message.append(formatCase(R.string.start, _startDirFile));
+            _startDirFile = null;
+        }
 
         // If files need permission, request it
         // -----------------------------------------------------------------------------------------
-        if (fixNb || fixQn || fixTodo) {
-            MarkorContextUtils.requestFilePermission(this,  getString(R.string.permission_needed_to_access, message),
-
+        if (fixNb || fixQn || fixTodo || fixStart) {
+            MarkorContextUtils.requestFilePermission(this,  message,
                     // Permissions granted - set the required folders etc
                     () -> {
-                        if (fixNb) {
-                            adapter._notebookFile = _appSettings.getNotebookFile();
+                        if (fixNb || fixStart) {
+                            _notebookFile = _appSettings.getNotebookFile();
+                            _startDirFile = MarkorContextUtils.getValidIntentDir(getIntent(), null);
                             if (_notebook != null) { // Null check as we may not have initialized the fragment yet
-                                final GsFileBrowserListAdapter na = _notebook.getAdapter();
-                                if (na != null) {
-                                    na.getFsOptions().rootFolder = adapter._notebookFile;
-                                    na.setCurrentFolder(adapter._notebookFile);
-                                }
+                                _notebook.getOptions().rootFolder = _notebookFile;
+                                _notebook.setCurrentFolder(fixStart ? _startDirFile : _notebookFile);
                             }
                         }
 
                         if (fixQn) {
-                            adapter._qnFile = _appSettings.getQuickNoteFile();
+                            _quicknoteFile = _appSettings.getQuickNoteFile();
                             if (_quicknote != null) {
-                                _quicknote.setFile(adapter._qnFile);
+                                _quicknote.setFile(_quicknoteFile);
                             }
                         }
 
                         if (fixTodo) {
-                            adapter._todoFile = _appSettings.getTodoFile();
+                            _todoFile = _appSettings.getTodoFile();
                             if (_todo != null) {
-                                _todo.setFile(adapter._todoFile);
+                                _todo.setFile(_todoFile);
                             }
                         }
                     },
 
                     // Permission not granted - let the user know that we are reverting to default files
                     () -> {
-                        String revert = getString(R.string.permission_not_granted) + "\n" + getString(R.string.loading_default_value);
-                        if (fixNb) {
-                            revert += "\n\n" + getString(R.string.notebook) + ": " + adapter._notebookFile.getPath();
-                            _appSettings.setNotebookFile(adapter._notebookFile);
+                        if (fixTodo || fixQn || fixNb) {
+                            final SpannableStringBuilder revert = new SpannableStringBuilder(getString(R.string.permission_not_granted));
+                            if (fixNb) {
+                                revert.append(formatCase(R.string.notebook, _notebookFile));
+                                _appSettings.setNotebookFile(_notebookFile);
+                            }
+                            if (fixQn) {
+                                revert.append(formatCase(R.string.quicknote, _quicknoteFile));
+                                _appSettings.setQuickNoteFile(_quicknoteFile);
+                            }
+                            if (fixTodo) {
+                                revert.append(formatCase(R.string.todo, _todoFile));
+                                _appSettings.setTodoFile(_todoFile);
+                            }
+                            new AlertDialog.Builder(this).setMessage(revert).setCancelable(true).show();
                         }
-                        if (fixQn) {
-                            revert += "\n\n" + getString(R.string.quicknote) + ": " + adapter._qnFile.getPath();
-                            _appSettings.setQuickNoteFile(adapter._qnFile);
-                        }
-                        if (fixTodo) {
-                            revert += "\n\n" + getString(R.string.todo) + ": " + adapter._todoFile.getPath();
-                            _appSettings.setTodoFile(adapter._todoFile);
-                        }
-                        new AlertDialog.Builder(this).setMessage(revert).setCancelable(true).show();
                     }
             );
         }
+    }
+
+    private Spanned formatCase(@StringRes int title, File file) {
+        return Html.fromHtml(String.format("<br/><br/><b>%s</b>: <i>%s</i>", getString(title), file.getPath()));
     }
 
     @Override
@@ -260,7 +289,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
         super.onNewIntent(intent);
         final File dir = MarkorContextUtils.getValidIntentDir(intent, null);
         if (_notebook != null && dir != null) {
-            _notebook.post(() -> _notebook.getAdapter().setCurrentFolder(dir));
+            _notebook.post(() -> _notebook.setCurrentFolder(dir));
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
@@ -329,15 +358,6 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void restartMainActivity() {
-        getWindow().getDecorView().postDelayed(() -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            finish();
-            startActivity(intent);
-        }, 1);
     }
 
     // Cycle between recent, favourite, and current
@@ -479,10 +499,6 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
     }
 
     class SectionsPagerAdapter extends FragmentStateAdapter {
-        File _notebookFile;
-        File _qnFile;
-        File _todoFile;
-        private File _startFolder;
 
         SectionsPagerAdapter(FragmentManager fragMgr) {
             super(fragMgr, MainActivity.this.getLifecycle());
@@ -494,7 +510,7 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
             final GsFragmentBase<?, ?> frag;
             final int id = tabIdFromPos(pos);
             if (id == R.id.nav_quicknote) {
-                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(_qnFile), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
+                frag = _quicknote = DocumentEditAndViewFragment.newInstance(new Document(_quicknoteFile), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_todo) {
                 frag = _todo = DocumentEditAndViewFragment.newInstance(new Document(_todoFile), Document.EXTRA_FILE_LINE_NUMBER_LAST, false);
             } else if (id == R.id.nav_more) {
@@ -511,34 +527,36 @@ public class MainActivity extends MarkorBaseActivity implements NavigationBarVie
             return _bottomNav.getMenu().size();
         }
 
-        public GsFileBrowserOptions.Options getFilesystemFragmentOptions() {
-            return MarkorFileBrowserFactory.prepareFsViewerOpts(MainActivity.this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.descModtimeInsteadOfParent = true;
-                    dopt.rootFolder = _notebookFile;
-                    dopt.startFolder = _startFolder;
-                    dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
-                    dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
-                }
+    }
 
-                @Override
-                public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
-                    if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
-                        _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
-                        if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
-                            setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
-                        }
-                        invalidateOptionsMenu();
+    @Override
+    public GsFileBrowserOptions.Options getFilesystemFragmentOptions() {
+        return MarkorFileBrowserFactory.prepareFsViewerOpts(MainActivity.this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
+            @Override
+            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                dopt.descModtimeInsteadOfParent = true;
+                dopt.rootFolder = _notebookFile;
+                dopt.startFolder = _startDirFile;
+                dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
+                dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
+            }
+
+            @Override
+            public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
+                if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
+                    _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
+                    if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
+                        setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
                     }
+                    invalidateOptionsMenu();
                 }
+            }
 
-                @Override
-                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    DocumentActivity.handleFileClick(MainActivity.this, file, lineNumber);
-                }
-            });
-        }
+            @Override
+            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                DocumentActivity.handleFileClick(MainActivity.this, file, lineNumber);
+            }
+        });
     }
 
     public GsFileBrowserFragment getNotebook() {

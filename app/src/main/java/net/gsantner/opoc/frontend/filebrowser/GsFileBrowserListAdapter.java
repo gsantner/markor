@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -214,7 +215,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void saveInstanceState(final @NonNull Bundle outState) {
         if (_currentFolder != null) {
-            outState.putSerializable(EXTRA_CURRENT_FOLDER, _currentFolder);
+            outState.putSerializable(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
         }
 
         if (_recyclerView != null) {
@@ -224,22 +225,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    private File getReqFolder(final Bundle bundle) {
-        final File req = (File) bundle.getSerializable(EXTRA_REQ_FOLDER);
-        if (req != null && req.canWrite()) {
-            return req;
-        }
-        return (File) bundle.getSerializable(EXTRA_CURRENT_FOLDER);
-    }
-
     public void restoreSavedInstanceState(final Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             return;
         }
 
-        final File req = getReqFolder(savedInstanceState);
-        if (req != null) {
-            final String path = req.getAbsolutePath();
+        if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
+            final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
+            final String path = f.getAbsolutePath();
 
             final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
                     || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(path)
@@ -250,8 +243,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                 _dopt.listener.onFsViewerConfig(_dopt);
             }
-            if (req.isDirectory() || isVirtualDirectory) {
-                loadFolder(req);
+            if (f.isDirectory() || isVirtualDirectory) {
+                loadFolder(f);
             }
         }
 
@@ -260,6 +253,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE));
             }, 200);
         }
+
     }
 
     public void reloadCurrentFolder() {
@@ -267,7 +261,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void setCurrentFolder(final File folder) {
-        if (!folder.equals(_currentFolder)) {
+        if (folder != null && !folder.equals(_currentFolder)) {
             loadFolder(folder);
         }
     }
@@ -485,17 +479,31 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private void loadFolder(final File folder) {
-        if (!folder.canWrite() && !GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+        if (folder.canWrite() || _virtualMapping.containsKey(folder)) {
+            /// The folder can be opened. Just open it
+            _loadFolder(folder);
+        } else if (folder.exists() && !GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+            /// The folder does not exist or we don't have permissions to access it
             Toast.makeText(_activity, _activity.getString(R.string.permission_needed_to_access, folder), Toast.LENGTH_LONG).show();
             ((GsActivityBase<?, ?>) _activity).requestStoragePermission(() -> {
                 if (GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
-                    loadFolder(folder);
-                } else if (_currentFolder == null) {
-                    loadFolder(ApplicationObject.settings().getDefaultNotebookFile());
+                    _loadFolder(folder);
+                } else {
+                    Toast.makeText(_activity, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
+                    if (_currentFolder == null) {
+                        // Load a default sane directory
+                        _loadFolder(GsContextUtils.instance.getAppDataPrivateDir(_activity));
+                    }
                 }
             });
-            return;
+        } else {
+            // Fallback - load a sane directory
+            Toast.makeText(_activity, R.string.file_does_not_exist_and_cant_be_created, Toast.LENGTH_LONG).show();
+            _loadFolder(GsContextUtils.instance.getAppDataPrivateDir(_activity));
         }
+    }
+
+    private void _loadFolder(final File folder) {
 
         final Handler handler = new Handler();
         _currentSelection.clear();

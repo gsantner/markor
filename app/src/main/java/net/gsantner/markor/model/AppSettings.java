@@ -82,10 +82,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getDefaultNotebookFile() {
-        if (LOCAL_TESTFOLDER_FILEPATH.exists() && !BuildConfig.IS_TEST_BUILD) {
-            return LOCAL_TESTFOLDER_FILEPATH.getParentFile().getParentFile();
-        }
-
         return GsFileUtils.join(
                 Environment.getExternalStorageDirectory(),
                 "/Documents",

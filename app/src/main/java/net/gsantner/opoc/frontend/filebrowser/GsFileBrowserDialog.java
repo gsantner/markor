@@ -49,8 +49,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerCreator";
 
-    public static GsFileBrowserDialog newInstance(GsFileBrowserOptions.Options options) {
-        GsFileBrowserDialog f = new GsFileBrowserDialog();
+    public static GsFileBrowserDialog newInstance(final GsFileBrowserOptions.Options options) {
+        final GsFileBrowserDialog f = new GsFileBrowserDialog();
         f.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         options.listener.onFsViewerConfig(options);
         f.setDialogOptions(options);
