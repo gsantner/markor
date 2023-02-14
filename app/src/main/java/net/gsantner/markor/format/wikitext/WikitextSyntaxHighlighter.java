@@ -96,7 +96,7 @@ public class WikitextSyntaxHighlighter extends SyntaxHighlighterBase {
         createUnderlineHexColorsSpans();
 
         if (_isWikitextBiggerHeadings) {
-            createSpanForMatches(HEADING, new WrWikitextHeaderSpanCreator(_spannable, Colors.COLOR_HEADING, _textSize));
+            createSpanForMatches(HEADING, new WrWikitextHeaderSpanCreator(_spannable, Colors.COLOR_HEADING));
         } else {
             createColorSpanForMatches(HEADING, Colors.COLOR_HEADING);
         }

@@ -23,9 +23,9 @@ public class WrAsciidocHeaderSpanCreator implements GsCallback.r1<Object, Matche
     private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrAsciidocHeaderSpanCreator(final CharSequence text, int color, final float textSize) {
+    public WrAsciidocHeaderSpanCreator(final CharSequence text, int color) {
         _text = text;
-        _spanCreator = new WrProportionalHeaderSpanCreator(textSize, color);
+        _spanCreator = new WrProportionalHeaderSpanCreator(color);
     }
 
     public Object callback(Matcher m) {

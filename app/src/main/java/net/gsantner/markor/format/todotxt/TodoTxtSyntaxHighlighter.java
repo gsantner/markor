@@ -69,7 +69,7 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
                 _origAscent = fm.ascent;
             }
             boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
-            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) fm. : _origAscent;
+            fm.ascent = (isFirstLineInParagraph) ? (2 * _origAscent) : _origAscent;
         }
     }
 }
