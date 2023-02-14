@@ -41,18 +41,16 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
         super.generateSpans();
 
         // Paragraph space and divider half way up the space
-        createSpanForMatches(LINE_OF_TEXT, matcher -> new ParagraphDividerSpan(_textColor, _textSize));
+        createSpanForMatches(LINE_OF_TEXT, matcher -> new ParagraphDividerSpan(_textColor));
     }
 
     // Adds spacing and divider line between paragraphs
     public static class ParagraphDividerSpan implements LineBackgroundSpan, LineHeightSpan, UpdateLayout {
         private final int _lineColor;
-        private final float _spacing;
         private Integer _origAscent = null;
 
-        public ParagraphDividerSpan(@ColorInt int lineColor, float spacing) {
+        public ParagraphDividerSpan(@ColorInt int lineColor) {
             _lineColor = lineColor;
-            _spacing = spacing;
         }
 
         @Override
@@ -60,7 +58,8 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
             if (start > 0 && text.charAt(start - 1) == '\n') {
                 paint.setColor(_lineColor);
                 paint.setStrokeWidth(0);
-                canvas.drawLine(left, top + _spacing / 2, right, top + _spacing / 2, paint);
+                final float spacing = paint.getTextSize();
+                canvas.drawLine(left, top + spacing / 2, right, top + spacing / 2, paint);
             }
         }
 
@@ -70,7 +69,7 @@ public class TodoTxtSyntaxHighlighter extends TodoTxtBasicSyntaxHighlighter {
                 _origAscent = fm.ascent;
             }
             boolean isFirstLineInParagraph = start > 0 && text.charAt(start - 1) == '\n';
-            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) _spacing : _origAscent;
+            fm.ascent = (isFirstLineInParagraph) ? fm.ascent - (int) fm. : _origAscent;
         }
     }
 }
