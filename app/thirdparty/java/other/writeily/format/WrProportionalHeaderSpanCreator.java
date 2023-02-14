@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
@@ -31,7 +29,8 @@ public class WrProportionalHeaderSpanCreator {
 
     public static class LargerHeaderSpan extends MetricAffectingSpan {
 
-        final @ColorInt int _color;
+        final @ColorInt
+        int _color;
         final float _textSize;
 
         public LargerHeaderSpan(final @ColorInt int color, final float textSize) {

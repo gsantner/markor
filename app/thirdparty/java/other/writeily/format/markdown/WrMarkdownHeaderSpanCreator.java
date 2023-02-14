@@ -8,6 +8,7 @@
  *   https://opensource.org/licenses/MIT
 ###########################################################*/
 package other.writeily.format.markdown;
+
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.regex.Matcher;
@@ -40,7 +41,7 @@ public class WrMarkdownHeaderSpanCreator implements GsCallback.r1<Object, Matche
     }
 
     private float calculateProportionForUnderlineHeader(final int end) {
-        return _text.charAt(end - 1) == '=' ? (STANDARD_PROPORTION_MAX - SIZE_STEP): 1.0f;
+        return _text.charAt(end - 1) == '=' ? (STANDARD_PROPORTION_MAX - SIZE_STEP) : 1.0f;
     }
 
     private Float calculateProportionForHashesHeader(int start) {

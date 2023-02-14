@@ -1,10 +1,8 @@
 package net.gsantner.markor.format.plaintext;
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
