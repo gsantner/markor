@@ -232,13 +232,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
             final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
-            final String path = f.getAbsolutePath();
-
-            final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
-                    || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(path);
+            final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualStorage(f);
 
             if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                 _dopt.listener.onFsViewerConfig(_dopt);
@@ -253,7 +247,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE));
             }, 200);
         }
-
     }
 
     public void reloadCurrentFolder() {
@@ -479,7 +472,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private void loadFolder(final File folder) {
-        if (folder.canWrite() || _virtualMapping.containsKey(folder)) {
+        if (folder.canWrite() || _virtualMapping.containsKey(folder) || isVirtualStorage(folder)) {
             /// The folder can be opened. Just open it
             _loadFolder(folder);
         } else if (folder.exists() && !GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
