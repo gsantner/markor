@@ -419,6 +419,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
     <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
     <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>
+    <string name="action_format_csv" translatable="false">action_format_csv</string>
     <string name="action_format_asciidoc" translatable="false">action_format_asciidoc</string>
     <string name="action_format_embedbinary" translatable="false">action_format_embedbinary</string>
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>

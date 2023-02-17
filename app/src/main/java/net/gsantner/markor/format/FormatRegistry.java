@@ -19,6 +19,8 @@ import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
 import net.gsantner.markor.format.asciidoc.AsciidocSyntaxHighlighter;
 import net.gsantner.markor.format.asciidoc.AsciidocTextConverter;
 import net.gsantner.markor.format.binary.EmbedBinaryTextConverter;
+import net.gsantner.markor.format.csv.CsvSyntaxHighlighter;
+import net.gsantner.markor.format.csv.CsvTextConverter;
 import net.gsantner.markor.format.keyvalue.KeyValueSyntaxHighlighter;
 import net.gsantner.markor.format.keyvalue.KeyValueTextConverter;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
@@ -49,6 +51,7 @@ public class FormatRegistry {
     public static final int FORMAT_UNKNOWN = 0;
     public static final int FORMAT_WIKITEXT = R.string.action_format_wikitext;
     public static final int FORMAT_MARKDOWN = R.string.action_format_markdown;
+    public static final int FORMAT_CSV = R.string.action_format_csv;
     public static final int FORMAT_PLAIN = R.string.action_format_plaintext;
     public static final int FORMAT_ASCIIDOC = R.string.action_format_asciidoc;
     public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
@@ -60,6 +63,7 @@ public class FormatRegistry {
     public final static WikitextTextConverter CONVERTER_WIKITEXT = new WikitextTextConverter();
     public final static TodoTxtTextConverter CONVERTER_TODOTXT = new TodoTxtTextConverter();
     public final static KeyValueTextConverter CONVERTER_KEYVALUE = new KeyValueTextConverter();
+    public final static CsvTextConverter CONVERTER_CSV = new CsvTextConverter();
     public final static PlaintextTextConverter CONVERTER_PLAINTEXT = new PlaintextTextConverter();
     public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
     public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
@@ -72,6 +76,7 @@ public class FormatRegistry {
             CONVERTER_WIKITEXT,
             CONVERTER_KEYVALUE,
             CONVERTER_ASCIIDOC,
+            CONVERTER_CSV,
             CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
     };
@@ -101,6 +106,16 @@ public class FormatRegistry {
         final AppSettings appSettings = ApplicationObject.settings();
 
         switch (formatId) {
+            case FORMAT_CSV: {
+                format._converter = CONVERTER_CSV;
+                format._highlighter = new CsvSyntaxHighlighter(appSettings);
+
+                // TODO k3b ????
+                format._textActions = new PlaintextActionButtons(context, document);
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
+                break;
+            }
             case FORMAT_PLAIN: {
                 format._converter = CONVERTER_PLAINTEXT;
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
