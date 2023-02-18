@@ -95,7 +95,7 @@ public class Document implements Serializable {
 
     // Get a default file
     public static Document getDefault(final Context context) {
-        final File notebook = ApplicationObject.settings().getNotebookFile();
+        final File notebook = ApplicationObject.settings().getNotebookDirectory();
         final File random = new File(notebook, getFileNameWithTimestamp(true));
         return new Document(random);
     }

@@ -23,7 +23,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.InputType;
 import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
@@ -38,8 +37,6 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
@@ -50,7 +47,6 @@ import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
-import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
@@ -730,7 +726,7 @@ public class MarkorDialogFactory {
     // Create a map of snippet title -> text
     public static Map<String, File> getSnippets(final AppSettings as) {
         final Map<String, File> texts = new TreeMap<>();
-        final File folder = new File(as.getNotebookFile(), ".app/snippets");
+        final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
         if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
             if (!folder.mkdirs()) {
                 return texts;

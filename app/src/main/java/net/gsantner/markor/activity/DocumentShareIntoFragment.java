@@ -39,7 +39,6 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
-import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
@@ -194,18 +193,18 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocumentAndClose(final File file, final String separator, final boolean showEditor) {
-            final Activity activity = getActivity();
+            final Activity context = getActivity();
 
             final Document document = new Document(file);
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
             final String formatted = isTodoTxt ? _sharedText : formatShare(_sharedText);
 
-            final String oldContent = document.loadContent(activity);
+            final String oldContent = document.loadContent(context);
             if (oldContent != null) {
                 final String newContent = oldContent + separator + formatted;
-                document.saveContent(activity, newContent);
+                document.saveContent(context, newContent);
             } else {
-                Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
             if (showEditor) {
@@ -213,7 +212,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
             _appSettings.addRecentDocument(file);
 
-            activity.finish();
+            context.finish();
         }
 
         private String formatShare(final String shared) {
@@ -249,7 +248,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 default: {
-                    startFolder = _appSettings.getNotebookFile();
+                    startFolder = _appSettings.getNotebookDirectory();
                     break;
                 }
             }
@@ -272,7 +271,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookFile() : workingDir;
+                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
                 }
 
                 @Override

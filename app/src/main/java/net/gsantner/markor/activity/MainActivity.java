@@ -271,7 +271,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         if (_notebook.getAdapter().isCurrentFolderVirtual()) {
-            _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookFile());
+            _notebook.getAdapter().setCurrentFolder(_appSettings.getNotebookDirectory());
             return;
         }
 
@@ -303,7 +303,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Exit confirmed with 2xBack
         if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookFile());
+            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookDirectory());
             return;
         }
 
@@ -328,7 +328,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public String getFileBrowserTitle() {
         final File file = _appSettings.getFileBrowserLastBrowsedFolder();
         String title = getString(R.string.app_name);
-        if (!_appSettings.getNotebookFile().getAbsolutePath().equals(file.getAbsolutePath())) {
+        if (!_appSettings.getNotebookDirectory().getAbsolutePath().equals(file.getAbsolutePath())) {
             title = "> " + file.getName();
         }
         return title;
@@ -387,7 +387,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             @Override
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 dopt.descModtimeInsteadOfParent = true;
-                dopt.rootFolder = _appSettings.getNotebookFile();
+                dopt.rootFolder = _appSettings.getNotebookDirectory();
                 dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
                 dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                 dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);

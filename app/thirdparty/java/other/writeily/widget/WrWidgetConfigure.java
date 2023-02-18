@@ -65,7 +65,7 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
             @Override
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 dopt.titleText = R.string.select_folder;
-                dopt.rootFolder = ApplicationObject.settings().getNotebookFile();
+                dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
             }
         }, fragManager, this);
     }
@@ -86,7 +86,7 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
         }
 
         // Fallback
-        return ApplicationObject.settings().getNotebookFile();
+        return ApplicationObject.settings().getNotebookDirectory();
     }
 
     public static void setWidgetDirectory(final Context context, int id, final File dir) {

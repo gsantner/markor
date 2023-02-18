@@ -71,17 +71,17 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_preview_first, false);
     }
 
-    public void setNotebookFile(final File file) {
+    public void setNotebookDirectory(final File file) {
         setString(R.string.pref_key__notebook_directory, file.getAbsolutePath());
     }
 
-    public File getNotebookFile() {
+    public File getNotebookDirectory() {
         return new File(getString(R.string.pref_key__notebook_directory, getDefaultNotebookFile().getAbsolutePath()));
     }
 
     public File getDefaultNotebookFile() {
         return GsFileUtils.join(
-                GsContextUtils.instance.getAppDataPrivateDir(_context),
+                Environment.getExternalStorageDirectory(),
                 "Documents",
                 rstr(R.string.app_name).toLowerCase(Locale.ROOT));
     }
@@ -111,7 +111,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getSnippetsFolder() {
-        return new File(getNotebookFile(), ".app/snippets");
+        return new File(getNotebookDirectory(), ".app/snippets");
     }
 
     public String getFontFamily() {
@@ -704,7 +704,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         List<Pair<File, String>> appDataPublicDirs = _cu.getAppDataPublicDirs(_context, false, true, false);
         switch (itemId) {
             case R.id.action_go_to_home: {
-                return getNotebookFile();
+                return getNotebookDirectory();
             }
             case R.id.action_go_to_popular_files: {
                 return GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
@@ -741,7 +741,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
                 return _cu.getAppDataPrivateDir(_context);
             }
         }
-        return getNotebookFile();
+        return getNotebookDirectory();
     }
 
     public int getTabWidth() {
@@ -866,7 +866,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public File getFileBrowserLastBrowsedFolder() {
-        return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookFile().getAbsolutePath()));
+        return new File(getString(R.string.pref_key__file_browser_last_browsed_folder, getNotebookDirectory().getAbsolutePath()));
     }
 
     public boolean getSetWebViewFulldrawing(boolean... setValue) {

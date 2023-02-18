@@ -116,7 +116,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
-        _previousNotebookDirectory = _appSettings.getNotebookFile();
+        _previousNotebookDirectory = _appSettings.getNotebookDirectory();
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, getActivity(), _recyclerList);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -303,8 +303,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onResume() {
         super.onResume();
-        if (!_appSettings.getNotebookFile().equals(_previousNotebookDirectory)) {
-            _dopt.rootFolder = _appSettings.getNotebookFile();
+        if (!_appSettings.getNotebookDirectory().equals(_previousNotebookDirectory)) {
+            _dopt.rootFolder = _appSettings.getNotebookDirectory();
             _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder);
         }
 
@@ -562,7 +562,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                 _doptMoC = dopt;
                 _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
-                _doptMoC.rootFolder = _appSettings.getNotebookFile();
+                _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
                 _doptMoC.startFolder = getCurrentFolder();
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();

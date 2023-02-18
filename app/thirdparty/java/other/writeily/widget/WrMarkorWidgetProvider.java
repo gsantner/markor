@@ -81,7 +81,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getNotebookFile());
+                    .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory());
             views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));
 
             // ListView

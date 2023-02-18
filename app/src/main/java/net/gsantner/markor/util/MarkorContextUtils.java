@@ -8,8 +8,6 @@
 package net.gsantner.markor.util;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,27 +15,20 @@ import android.os.Build;
 import android.print.PrintJob;
 import android.text.TextUtils;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorQuickNoteActivity;
 import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
-import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-
-import javax.security.auth.callback.Callback;
 
 public class MarkorContextUtils extends GsContextUtils {
 
@@ -86,7 +77,7 @@ public class MarkorContextUtils extends GsContextUtils {
         }
 
         // By extra path
-        File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
         if (file != null) {
             return file;
         }
