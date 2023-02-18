@@ -167,8 +167,8 @@ public class DocumentActivity extends MarkorBaseActivity {
     private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
-        final String intentAction = intent.getAction();
-        final Uri intentData = intent.getData();
+        String intentAction = intent.getAction();
+        Uri intentData = intent.getData();
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------

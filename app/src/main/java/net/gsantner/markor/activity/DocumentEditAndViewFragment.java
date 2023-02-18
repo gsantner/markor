@@ -60,7 +60,6 @@ import net.gsantner.opoc.frontend.settings.GsFontPreferenceCompat;
 import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
-import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -91,6 +90,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private ViewGroup _textActionsBar;
     private WebView _webView;
     private DraggableScrollbarScrollView _primaryScrollView;
+
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
@@ -225,7 +225,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onFragmentFirstTimeVisible() {
-        super.onFragmentFirstTimeVisible();
         _primaryScrollView.invalidate();
         int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
 
@@ -694,16 +693,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _cu.getStorageAccessFrameworkTreeUri(getContext()) == null) {
             _cu.showMountSdDialog(getActivity());
             return true;
-        }
-        return false;
-    }
-
-    // Load a new file
-    public boolean setFile(final File file) {
-        if (file != null && file.canWrite() && file.isFile() && GsFileUtils.isTextFile(file)) {
-            saveDocument(false);
-            _document = new Document(file);
-            return loadDocument();
         }
         return false;
     }
