@@ -147,7 +147,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             WebView.enableSlowWholeDocumentDraw();
         }
 
-        _webViewClient = new MarkorWebViewClient(activity);
+        _webViewClient = new MarkorWebViewClient(_webView, activity);
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
