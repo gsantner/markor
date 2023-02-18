@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
@@ -16,7 +14,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -31,7 +28,6 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.BackupUtils;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -156,7 +152,7 @@ public class SettingsActivity extends MarkorBaseActivity {
         public void doUpdatePreferences() {
             String remove = "/storage/emulated/0/";
             updateSummary(R.string.pref_key__notebook_directory,
-                    _cu.htmlToSpanned("<small><small>" + _appSettings.getNotebookDirectoryAsStr().replace(remove, "") + "</small></small>")
+                    _cu.htmlToSpanned("<small><small>" + _appSettings.getNotebookDirectory().getAbsolutePath().replace(remove, "") + "</small></small>")
             );
             updateSummary(R.string.pref_key__quicknote_filepath,
                     _cu.htmlToSpanned("<small><small>" + _appSettings.getQuickNoteFile().getAbsolutePath().replace(remove, "") + "</small></small>")
@@ -239,69 +235,60 @@ public class SettingsActivity extends MarkorBaseActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
-            MarkorPermissionChecker permc = new MarkorPermissionChecker(getActivity());
             switch (keyResId) {
 
                 case R.string.pref_key__notebook_directory: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                            @Override
-                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                _appSettings.setSaveDirectory(file.getAbsolutePath());
-                                _appSettings.setRecreateMainRequired(true);
-                                doUpdatePreferences();
-                            }
+                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
+                    MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        @Override
+                        public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                            _appSettings.setNotebookDirectory(file);
+                            _appSettings.setRecreateMainRequired(true);
+                            doUpdatePreferences();
+                        }
 
-                            @Override
-                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                                dopt.titleText = R.string.select_storage_folder;
-                                if (!permc.mkdirIfStoragePermissionGranted()) {
-                                    dopt.rootFolder = Environment.getExternalStorageDirectory();
-                                }
-                            }
-                        }, fragManager, getActivity());
-                    }
+                        @Override
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                            dopt.titleText = R.string.select_storage_folder;
+                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                        }
+                    }, fragManager, getActivity());
                     return true;
                 }
                 case R.string.pref_key__quicknote_filepath: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                            @Override
-                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                _appSettings.setQuickNoteFile(file);
-                                _appSettings.setRecreateMainRequired(true);
-                                doUpdatePreferences();
-                            }
+                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
+                    MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        @Override
+                        public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                            _appSettings.setQuickNoteFile(file);
+                            _appSettings.setRecreateMainRequired(true);
+                            doUpdatePreferences();
+                        }
 
-                            @Override
-                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                                dopt.titleText = R.string.quicknote;
-                                dopt.rootFolder = _appSettings.getNotebookDirectory();
-                            }
-                        }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
-                    }
+                        @Override
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                            dopt.titleText = R.string.quicknote;
+                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                        }
+                    }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
                 }
                 case R.string.pref_key__todo_filepath: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        FragmentManager fragManager = getActivity().getSupportFragmentManager();
-                        MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                            @Override
-                            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                                _appSettings.setTodoFile(file);
-                                _appSettings.setRecreateMainRequired(true);
-                                doUpdatePreferences();
-                            }
+                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
+                    MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        @Override
+                        public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                            _appSettings.setTodoFile(file);
+                            _appSettings.setRecreateMainRequired(true);
+                            doUpdatePreferences();
+                        }
 
-                            @Override
-                            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                                dopt.titleText = R.string.todo;
-                                dopt.rootFolder = _appSettings.getNotebookDirectory();
-                            }
-                        }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
-                    }
+                        @Override
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                            dopt.titleText = R.string.todo;
+                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                        }
+                    }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
                 }
                 case R.string.pref_key__basic_color_scheme_markor: {

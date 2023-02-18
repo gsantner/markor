@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Größe</string>
     <string name="reverse_order">Ordnung umdrehen</string>
     <string name="contribute">Beitragen</string>
-    <string name="donate">Spenden</string>
     <string name="project_page">Projektseite</string>
     <string name="press_back_again_to_exit">Nochmal zurück drücken um zu beenden</string>
     <string name="exit">Beenden</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Übersetzen</string>
     <string name="more_info_and_help">Mehr Infos und Hilfe zu dieser App</string>
     <string name="report_bugs">Fehler melden</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Weitere Informationen über eine Spende an den Entwickler oder einen Beitrag zu diesem Projekt.</string>
     <string name="join_community">Community beitreten</string>
     <string name="bug_reports_suggest_improvements">Feedback geben, Fehler melden, Verbesserungen vorschlagen</string>
     <string name="help_translating_this_app">Übersetzen dieser App in andere Sprachen</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">meine_notiz</string>
     <string name="close">Schließen</string>
     <string name="cancel">Abbrechen</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gefällt dir dieses Projekt? Möchtest du, dass es verbessert wird und Probleme behoben werden?\n\nDie Entwicklung von Apps und das schreiben von relevanten Blog-Einträgen kostet viel Zeit! Wenn du helfen möchtest, so dass das Projekt weitergehen kann, ziehe bitte eine kleine Spende in Betracht!\n\nDieses Projekt wird in der Freizeit, völlig kostenlos und ohne jegliche Werbeeinblendungen entwickelt &amp; angeboten!</string>
     <string name="app_start_tab">App-Start Tab</string>
     <string name="tab_to_select_at_start">Ausgewählter Tab beim App-Start</string>
     <string name="swipe_to_change_mode">Wischen um den Modus zu ändern</string>

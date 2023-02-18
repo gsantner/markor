@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Spessore</string>
     <string name="reverse_order">Ordine inverso</string>
     <string name="contribute">Contribuire</string>
-    <string name="donate">Dona</string>
     <string name="project_page">Pagina del progetto</string>
     <string name="press_back_again_to_exit">Premere \'indietro\' di nuovo per uscire</string>
     <string name="exit">Esci</string>
@@ -216,7 +215,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduci</string>
     <string name="more_info_and_help">Più informazioni e aiuto</string>
     <string name="report_bugs">Segnala un bug</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Più informazioni su come donare allo sviluppatore, o su come contribuire a questo progetto.</string>
     <string name="join_community">Unisciti alla comunità</string>
     <string name="bug_reports_suggest_improvements">Dai un riscontro, segnala bug o suggerisci miglioramenti</string>
     <string name="help_translating_this_app">Traduci l\'applicazoine in altre lingue</string>
@@ -280,7 +278,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mia_nota</string>
     <string name="close">Chiudi</string>
     <string name="cancel">Annulla</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Ti piace questo progetto? Vuoi vederlo ancora migliore e con i problemi risolti?\n\nSviluppare applicazioni e documentarle sul blog costa un sacco di tempo! Se vuoi aiutare lo sviluppo del progetto, puoi fare una piccola donazione!\n\nQuesto progetto è sviluppato nel tempo libero, completamente gratis e senza alcuna pubblicità!</string>
     <string name="app_start_tab">Scheda di avvio app</string>
     <string name="tab_to_select_at_start">Scheda da selezionare all\'avvio dell\'app</string>
     <string name="swipe_to_change_mode">Scorri per cambiare modalità</string>

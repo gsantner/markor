@@ -12,7 +12,7 @@ Where:
 
 ## LIST OF CONTRIBUTORS
 -->
-* **[Gregor Santner](https://gsantner.net)**<br/>~° Current developer of Markor
+* **[Gregor Santner](https://github.com/gsantner)**<br/>~° Current developer of Markor
 * **[Pedro Lafuente](https://github.com/plafue)**<br/>~° Main developer of writeily-pro
 * **[Jeff Martin](http://jeffreymartin.ca)**<br/>~° Main developer of writeily
 * **[davydsantos](https://github.com/davydsantos)**<br/>~° writeily contributor

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -35,7 +35,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Језик</string>
     <string name="size">Veličina</string>
     <string name="contribute">Допринеси</string>
-    <string name="donate">Doniraj</string>
     <string name="exit">Izadji</string>
     <string name="more">још</string>
     <string name="help">Помоћ</string>

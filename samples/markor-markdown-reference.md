@@ -177,7 +177,7 @@ Relevant for creating printable pages from the document (Print / PDF).
 ## Multimedia
 
 ### Images
-![Image](https://gsantner.net/assets/blog/img/markor/markor-v1-7-showcase-3.jpg)
+![Image](file:///android_asset/img/schindelpattern.jpg)
 
 ### Videos
 **Youtube** [Welcome to Upper Austria](https://www.youtube.com/watch?v=RJREFH7Lmm8)
@@ -227,7 +227,7 @@ Use one of these qualifiers to select the icon and the block color: abstract, su
 
 ------------------
 
-This Markdown reference file was created for the [Markor](https://gsantner.net/project/markor?source=markdownref) project by [Gregor Santner](https://gsantner.net) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 4.
+This Markdown reference file was created for the [Markor](https://github.com/gsantner/markor) project by [Gregor Santner](gsantner AT mailbox DOT org) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 4.
 
 ------------------
 

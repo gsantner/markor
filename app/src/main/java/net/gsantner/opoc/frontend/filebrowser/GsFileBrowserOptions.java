@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2017-2022 by Gregor Santner <https://gsantner.net/>
+ * Written 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -25,7 +25,8 @@ import java.util.List;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {
-    public interface SelectionListener extends Serializable {
+
+    public interface SelectionListener {
         void onFsViewerSelected(final String request, final File file, final Integer lineNumber);
 
         void onFsViewerMultiSelected(final String request, final File... files);
@@ -39,7 +40,7 @@ public class GsFileBrowserOptions {
         void onFsViewerItemLongPressed(final File file, boolean doSelectMultiple);
     }
 
-    public static class Options implements Serializable {
+    public static class Options {
         public SelectionListener listener = new SelectionListenerAdapter();
         public File
                 rootFolder = Environment.getExternalStorageDirectory(),

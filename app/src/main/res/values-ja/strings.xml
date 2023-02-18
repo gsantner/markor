@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">サイズ</string>
     <string name="reverse_order">逆順</string>
     <string name="contribute">貢献する</string>
-    <string name="donate">寄付</string>
     <string name="project_page">プロジェクトページ</string>
     <string name="press_back_again_to_exit">もう一度戻るを押すと終了します</string>
     <string name="exit">終了</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻訳</string>
     <string name="more_info_and_help">詳細情報とヘルプ</string>
     <string name="report_bugs">バグを報告</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">開発者への寄付や、このプロジェクトに対する貢献の詳細情報。</string>
     <string name="join_community">コミュニティに参加する</string>
     <string name="bug_reports_suggest_improvements">フィードバック、バグ報告、改善を提案してください</string>
     <string name="help_translating_this_app">このアプリを他の言語に翻訳してください</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">マイノート</string>
     <string name="close">閉じる</string>
     <string name="cancel">キャンセル</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">このプロジェクトを気に入っていただけましたか? 改善したい、あるいは問題を修正したいですか?\n\nアプリの開発や、関連するブログの記事を書くに多くの時間がかかります! プロジェクトを進めるために、支援をしていただける場合は、少しの寄付をご検討ください!\n\nこのプロジェクトは余暇に開発していて、完全に無料で、広告はありません!</string>
     <string name="app_start_tab">アプリ開始タブ</string>
     <string name="tab_to_select_at_start">アプリを起動する時に選択するタブ</string>
     <string name="swipe_to_change_mode">スワイプしてモードを変更</string>

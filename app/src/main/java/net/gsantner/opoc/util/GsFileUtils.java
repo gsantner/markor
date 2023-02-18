@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2022 by Gregor Santner <https://gsantner.net/>
+ * Written 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -678,8 +678,8 @@ public class GsFileUtils {
 
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = (current, other) -> {
+    public static Comparator<File> makeComparator(final String sortBy, final boolean sortReverse) {
+        return (current, other) -> {
             if (sortReverse) {
                 File swap = current;
                 current = other;
@@ -703,6 +703,10 @@ public class GsFileUtils {
             }
             return current.compareTo(other);
         };
+    }
+
+    public static void sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
+        final Comparator<File> detailComparator = makeComparator(sortBy, sortReverse);
 
         final Comparator<File> mainComparator = (current, other) -> {
             if (current == null || other == null) {
@@ -726,8 +730,6 @@ public class GsFileUtils {
                 e.printStackTrace();
             }
         }
-
-        return mainComparator;
     }
 
     public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
@@ -751,5 +753,41 @@ public class GsFileUtils {
             files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
         }
         return files;
+    }
+
+    // Check if a file can be created (parent exists and can be written)
+    public static boolean isWritable(final File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return file != null && Files.isWritable(file.toPath());
+        } else{
+            return file != null && file.canWrite();
+        }
+    }
+
+    // Check if a file can be created (parent exists and can be written)
+    public static boolean canCreate(final File file) {
+        return isWritable(file) || isWritable(file.getParentFile());
+    }
+
+    // Returns true if test is a child of parent. A file is not a child of itself
+    public static boolean isChild(final File parent, File test) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return !parent.equals(test) && test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
+        } else {
+            // Can fail is parent dest name contains test. Not a good method
+            return !parent.equals(test) && test.getAbsolutePath().startsWith(parent.getAbsolutePath());
+        }
+    }
+
+    public static File join(final File ... files) {
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File result = files[0];
+        for (int i = 1; i < files.length; i++) {
+            result = new File(result, files[i].getAbsolutePath());
+        }
+        return result;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">大小</string>
     <string name="reverse_order">反轉順序</string>
     <string name="contribute">貢獻</string>
-    <string name="donate">贊助</string>
     <string name="project_page">專案頁</string>
     <string name="press_back_again_to_exit">再按一次返回鍵以離開程式</string>
     <string name="exit">離開</string>
@@ -214,7 +213,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻譯</string>
     <string name="more_info_and_help">更多關於這個App的資訊和幫助</string>
     <string name="report_bugs">回報臭蟲</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">關於如何贊助開發或支持這個專案的更多資訊</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
     <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
@@ -275,7 +273,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">我的筆記</string>
     <string name="close">關閉</string>
     <string name="cancel">取消</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">喜歡這個專案嗎？希望它繼續改善而且問題得到解決嗎？\n\n開發應用程式以及撰寫相關部落格文章都需要很多時間！如果你想要幫忙讓專案可以繼續，請考慮小額捐款！\n\n這個專案是在閒暇時間開發的，完全免費，並且沒有任何廣告！</string>
     <string name="app_start_tab">啟動時顯示的頁面</string>
     <string name="tab_to_select_at_start">開啟應用程式時，選擇要顯示的頁面</string>
     <string name="swipe_to_change_mode">滑動以更改模式</string>

@@ -1,9 +1,6 @@
-Copyright 2017-2022 Gregor Santner
-<https://gsantner.net/>
+Copyright 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
 
-Licensed under either of:
-* Apache 2.0 (see below)
-* Commercial (request via given contact details)
+-------------------------------------------------------------------------
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

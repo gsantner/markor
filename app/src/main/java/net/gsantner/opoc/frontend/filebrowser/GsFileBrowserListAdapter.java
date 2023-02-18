@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2022 by Gregor Santner <https://gsantner.net/>
+ * Written 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -62,6 +62,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
+    public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
 
     //########################
     //## Members
@@ -112,6 +113,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
         }
+
+        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder);
     }
 
     @NonNull
@@ -207,10 +210,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    public Bundle saveInstanceState(Bundle outState) {
-        outState = outState == null ? new Bundle() : outState;
+    public void saveInstanceState(final @NonNull Bundle outState) {
         if (_currentFolder != null) {
-            outState.putString(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
+            outState.putSerializable(EXTRA_CURRENT_FOLDER, _currentFolder.getAbsolutePath());
         }
 
         if (_recyclerView != null) {
@@ -218,21 +220,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 outState.putParcelable(EXTRA_RECYCLER_SCROLL_STATE, _recyclerView.getLayoutManager().onSaveInstanceState());
             }
         }
-        return outState;
     }
 
-    public void restoreSavedInstanceState(Bundle savedInstanceStateArg) {
-        final Bundle savedInstanceState = savedInstanceStateArg == null ? new Bundle() : savedInstanceStateArg;
+    public void restoreSavedInstanceState(final Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            return;
+        }
 
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
             final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
-            final String path = f.getAbsolutePath();
-
-            final boolean isVirtualDirectory = _virtualMapping.containsKey(new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER)))
-                    || VIRTUAL_STORAGE_APP_DATA_PRIVATE.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_POPULAR.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_RECENTS.getAbsolutePath().equals(path)
-                    || VIRTUAL_STORAGE_FAVOURITE.getAbsolutePath().equals(path);
+            final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualStorage(f);
 
             if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                 _dopt.listener.onFsViewerConfig(_dopt);
@@ -247,17 +244,15 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE));
             }, 200);
         }
-
     }
 
     public void reloadCurrentFolder() {
-        restoreSavedInstanceState(saveInstanceState(null));
+        loadFolder(_currentFolder);
     }
 
     public void setCurrentFolder(final File folder) {
-        if (!folder.equals(_currentFolder)) {
-            _currentFolder = folder;
-            reloadCurrentFolder();
+        if (folder != null && !folder.equals(_currentFolder)) {
+            loadFolder(folder);
         }
     }
 
@@ -335,7 +330,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             loadFolder(file);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
-                        } else if (file.equals(VIRTUAL_STORAGE_POPULAR) || file.equals(VIRTUAL_STORAGE_RECENTS) || file.equals(VIRTUAL_STORAGE_FAVOURITE) || file.equals(VIRTUAL_STORAGE_APP_DATA_PRIVATE)) {
+                        } else if (isVirtualStorage(file)) {
                             loadFolder(file);
                         }
                     }
@@ -473,7 +468,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
-    public void loadFolder(final File folder) {
+    private void loadFolder(final File folder) {
+
         final Handler handler = new Handler();
         _currentSelection.clear();
 
@@ -564,8 +560,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     // Convert found File's to FileWithCachedData to optimize performance
                     GsFileUtils.replaceFilesWithCachedVariants(_adapterData);
 
-                    // Sort files
-                    GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                    // Don't sort recents - use the default order
+                    if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                        GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                    }
 
                     if (canGoUp(_currentFolder)) {
                         _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());

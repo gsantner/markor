@@ -1,7 +1,7 @@
 /*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2022 Gregor Santner
+ * Copyright (c) 2017-2023 Gregor Santner
  *
  * Licensed under the MIT license.
  * You can get a copy of the license text here:
@@ -26,7 +26,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-@SuppressWarnings("all")
 public class WrMarkorSingleton {
 
     private static WrMarkorSingleton markorSingletonInstance = null;
@@ -48,13 +47,8 @@ public class WrMarkorSingleton {
         WrMarkorSingleton.notesLastDirectory = notesLastDirectory;
     }
 
-    // Returns true if test is a child of parent. A file is not a child of itself
-    private boolean isChild(final File parent, final File test) {
-        return !parent.equals(test) && test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
-    }
-
     private boolean saneCopy(final File file, final File dest) {
-        return file != null && dest != null && file.exists() && !isChild(file, dest);
+        return file != null && dest != null && file.exists() && !GsFileUtils.isChild(file, dest);
     }
 
     private boolean saneMove(final File file, final File dest) {

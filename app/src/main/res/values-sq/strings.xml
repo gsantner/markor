@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -25,7 +25,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Gjuha</string>
     <string name="size">Madhësia</string>
     <string name="contribute">Kontribuoj</string>
-    <string name="donate">Dhuroni</string>
     <string name="exit">Dil</string>
     <string name="more">Më tepër</string>
     <string name="help">Ndihmë</string>

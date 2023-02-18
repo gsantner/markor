@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -86,7 +86,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">आकार</string>
     <string name="reverse_order">उल्टे क्रम</string>
     <string name="contribute">योगदान</string>
-    <string name="donate">दान करें</string>
     <string name="project_page">प्रोजेक्ट पेज</string>
     <string name="press_back_again_to_exit">बाहर निकलने के लिए वापस फिर से दबाएं</string>
     <string name="exit">बाहर जाएं</string>

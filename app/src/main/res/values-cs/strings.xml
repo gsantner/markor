@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Velikost</string>
     <string name="reverse_order">Obrátit pořadí</string>
     <string name="contribute">Přispět</string>
-    <string name="donate">Darovat</string>
     <string name="project_page">Stránka projektu</string>
     <string name="press_back_again_to_exit">Znovu stiskněte tlačítko \"Zpět\" k odchodu</string>
     <string name="exit">Odejít</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Přeložit</string>
     <string name="more_info_and_help">Více informací a pomoc</string>
     <string name="report_bugs">Nahlásit chyby</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Více informací o daru vývojáři, nebo o přispění k tomuto projektu.</string>
     <string name="join_community">Připojte se ke komunitě</string>
     <string name="bug_reports_suggest_improvements">Dejte nám zpětnou vazbu, nahlašte chyby nebo navrhněte vylepšení</string>
     <string name="help_translating_this_app">Přeložte tuto aplikaci do jiných jazyků</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">Moje poznámka</string>
     <string name="close">Zavřít</string>
     <string name="cancel">Zrušit</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Chcete-li tento projekt podpořit další vylepšení a opravy chyb?\n\nDeveloping apps and writing related blog posts take much time! Chcete-li pomoci projektu pokračovat, zvažte prosím malý dar!\n\nTento projekt je vyvíjen ve volném čase, zcela zdarma a bez reklamy!</string>
     <string name="app_start_tab">Záložka po spuštění aplikace</string>
     <string name="tab_to_select_at_start">Po startu aplikace se zobrazí tato záložka</string>
     <string name="swipe_to_change_mode">Swipe na změnu módu</string>

@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
@@ -107,7 +105,7 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e.toString();
         }
 
-        String baseFolder = ApplicationObject.settings().getNotebookDirectoryAsStr();
+        String baseFolder = ApplicationObject.settings().getNotebookDirectory().getAbsolutePath();
         if (document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }

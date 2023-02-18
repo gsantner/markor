@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
@@ -12,23 +10,21 @@ package net.gsantner.markor.web;
 import android.app.Activity;
 import android.content.Context;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.web.GsWebViewClient;
 
 import java.io.File;
 import java.net.URLDecoder;
 
-public class MarkorWebViewClient extends WebViewClient {
+public class MarkorWebViewClient extends GsWebViewClient {
+    protected final Activity _activity;
 
-    private final Activity _activity;
-    private int _restoreScrollY = 0;
-    private boolean _restoreScrollYEnabled = false;
-
-    public MarkorWebViewClient(Activity activity) {
+    public MarkorWebViewClient(final WebView webView, final Activity activity) {
+        super(webView);
         _activity = activity;
     }
 
@@ -66,22 +62,4 @@ public class MarkorWebViewClient extends WebViewClient {
         }
         return true;
     }
-
-    @Override
-    public void onPageFinished(WebView view, String url) {
-        if (_restoreScrollYEnabled) {
-            for (int dt : new int[]{50, 100, 150, 200, 250, 300}) {
-                view.postDelayed(() -> view.setScrollY(_restoreScrollY), dt);
-            }
-            _restoreScrollYEnabled = false;
-        }
-        super.onPageFinished(view, url);
-    }
-
-    public void setRestoreScrollY(int scrollY) {
-        _restoreScrollY = scrollY;
-        _restoreScrollYEnabled = true;
-    }
-
-
 }

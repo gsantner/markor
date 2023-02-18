@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2017-2022 by Gregor Santner <https://gsantner.net/>
+ * Written 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -136,9 +136,9 @@ public class AttachLinkOrFileDialog {
         final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                final String saveDir = _appSettings.getNotebookDirectoryAsStr();
+                final File saveDir = _appSettings.getNotebookDirectory();
                 String text = null;
-                boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
+                boolean isInSaveDir = GsFileUtils.isChild(saveDir, file) && GsFileUtils.isChild(saveDir, currentWorkingFile);
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
                     text = GsFileUtils.relativePath(currentWorkingFile, file);

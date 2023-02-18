@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Storlek</string>
     <string name="reverse_order">Omvänd ordning</string>
     <string name="contribute">Bidra</string>
-    <string name="donate">Donera</string>
     <string name="project_page">Projektsida</string>
     <string name="press_back_again_to_exit">Tryck bakåt igen för att avsluta</string>
     <string name="exit">Avsluta</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Översätt</string>
     <string name="more_info_and_help">Mer info och hjälp</string>
     <string name="report_bugs">Rapportera buggar</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Mer information om att donera till utvecklaren eller bidra till detta projekt.</string>
     <string name="join_community">Delta i gemenskapen</string>
     <string name="bug_reports_suggest_improvements">Återkoppla, rapportera buggar eller kom med förbättringsförslag</string>
     <string name="help_translating_this_app">Översätt appen till fler språk</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">mina anteckningar</string>
     <string name="close">Avsluta</string>
     <string name="cancel">Avbryt</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Gillar du detta projektet? Vill du att det förbättras och att buggar åtgärdas snabbt?\n\nAtt utveckla appar och skriva relaterade blogginlägg tar mycket tid! Om du vill hjälpa till så att projektet kan fortgå så kan du överväga att ge en liten donation!\n\nDetta projektet utvecklas av volontärer på fritiden och är helt utan reklam!</string>
     <string name="app_start_tab">Appens startflik</string>
     <string name="tab_to_select_at_start">Välj uppstartsflik</string>
     <string name="swipe_to_change_mode">Svep för att ändra läge</string>

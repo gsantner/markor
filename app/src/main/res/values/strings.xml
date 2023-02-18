@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -78,6 +78,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="contributors">Contributors</string>
     <string name="save_location">Save location</string>
+    <string name="saved_location_to">Saved to %s</string>
     <string name="select_storage_folder">Select storage folder</string>
     <string name="licenses">Licenses</string>
     <string name="changelog">Changelog</string>
@@ -94,7 +95,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Size</string>
     <string name="reverse_order">Reverse order</string>
     <string name="contribute">Contribute</string>
-    <string name="donate">Donate</string>
     <string name="project_page">Project page</string>
     <string name="press_back_again_to_exit">Press \'Back\' again to exit</string>
     <string name="exit">Exit</string>
@@ -206,6 +206,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor can only edit local, offline available documents and does not support file managers that do not provide the full file path.</string>
+    <string name="file_does_not_exist_and_cant_be_created">File or directory does not exist and can not be created</string>
+    <string name="permissions">Permissions</string>
+    <string name="permission_paths_revert">Revert to default paths?</string>
+    <string name="permission_not_granted">Permission not granted</string>
     <string name="sync_to_local_folder_notice">Note: Sync apps may place files in custom folders. Open them by changing Markor\'s document folder accordingly, or in another file manager.</string>
     <string name="vertical_alignment">Vertical alignment</string>
     <string name="horizontal_alignment">Horizontal alignment</string>
@@ -226,7 +230,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Translate</string>
     <string name="more_info_and_help">More info and help</string>
     <string name="report_bugs">Report bugs</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">More info on donating to the developer, or contributing to this project.</string>
 
 
     <string name="join_community">Join the Community</string>
@@ -294,7 +297,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">my_note</string>
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Do you enjoy this project? Do you want to support further improvements and bug fixes?\n\nDeveloping apps and writing related blog posts take a lot of time! If you want to help the project to continue, please consider a small donation!\n\nThis project is developed in spare time, completely for free and without any advertisements!</string>
     <string name="app_start_tab">App start tab</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>

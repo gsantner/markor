@@ -1,9 +1,7 @@
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2018-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
@@ -70,7 +68,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         if (_highlightBiggerHeadings) {
             createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
         } else {
-            createColorSpanForMatches(HEADING_SIMPLE, MD_COLOR_HEADING);
+            createColorSpanForMatches(HEADING, MD_COLOR_HEADING);
         }
 
         createColorSpanForMatches(LINK, MD_COLOR_LINK);

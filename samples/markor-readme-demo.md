@@ -20,7 +20,7 @@
 - [x] No. 1 Markdown app on Google Play
 - [x] Also available on Aptoide, F-Droid & GitHub
 
-Blog / project page: [gsantner.net](https://gsantner.net) 
+Project page: <https://github.com/gsantner/markor>
 
 ![Markor Logo](https://raw.githubusercontent.com/gsantner/markor/master/app/src/main/ic_launcher-web.png)
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -88,7 +88,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">Размер</string>
     <string name="reverse_order">В обратном порядке</string>
     <string name="contribute">Внести свой вклад</string>
-    <string name="donate">Поддержать проект</string>
     <string name="project_page">Страница проекта</string>
     <string name="press_back_again_to_exit">Нажмите «Назад» ещё раз, чтобы выйти</string>
     <string name="exit">Выход</string>
@@ -215,7 +214,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Перевод</string>
     <string name="more_info_and_help">Дополнительная информация и помощь</string>
     <string name="report_bugs">Сообщить об ошибках</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Информация о том, как сделать пожертвование или внести вклад в проект.</string>
     <string name="join_community">Присоединиться к сообществу</string>
     <string name="bug_reports_suggest_improvements">Оставить отзыв, сообщить об ошибках или предложить идеи по улучшению</string>
     <string name="help_translating_this_app">Перевести это приложение на другие языки</string>
@@ -277,7 +275,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">моя заметка</string>
     <string name="close">Закрыть</string>
     <string name="cancel">Отмена</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Вам нравится этот проект? Вы хотите поддержать дальнейшие улучшения и исправления ошибок?\n\nРазработка приложений и написание постов в блоге занимает много времени! Если вы хотите помочь проекту, пожалуйста, сделайте небольшое пожертвование!\n\nРазработчки развивают проект в свободное время без зарплаты и рекламы!</string>
     <string name="app_start_tab">Начальная вкладка</string>
     <string name="tab_to_select_at_start">Начальная вкладка при запуске приложения</string>
     <string name="swipe_to_change_mode">Смахните для изменения режима</string>

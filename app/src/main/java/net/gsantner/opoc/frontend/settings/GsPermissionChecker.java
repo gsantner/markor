@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2022 Gregor Santner <https://gsantner.net/>
+ * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2017-2022 by Gregor Santner <https://gsantner.net/>
+ * Written 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -26,11 +26,19 @@ public class GsPermissionChecker {
         _activity = activity;
     }
 
-    public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        return GsContextUtils.instance.checkExternalStoragePermission(_activity, true, optionalToastMessageForKnowingWhyNeeded);
+    public boolean doIfExtStoragePermissionGranted() {
+        return doIfExtStoragePermissionGranted(null);
     }
 
-    public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    public boolean doIfExtStoragePermissionGranted(final String whyNeeded) {
+        if (!GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+            GsContextUtils.instance.requestExternalStoragePermission(_activity, whyNeeded);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkPermissionResult(final int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0) {
             switch (requestCode) {
                 case CODE_PERMISSION_EXTERNAL_STORAGE: {
@@ -43,7 +51,7 @@ public class GsPermissionChecker {
         return false;
     }
 
-    public boolean mkdirIfStoragePermissionGranted(File dir) {
+    public boolean mkdirIfStoragePermissionGranted(final File dir) {
         return doIfExtStoragePermissionGranted() && (dir.exists() || dir.mkdirs());
     }
 }

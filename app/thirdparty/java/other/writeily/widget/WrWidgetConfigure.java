@@ -1,7 +1,7 @@
 /*#######################################################
  * Copyright (c) 2014 Jeff Martin
  * Copyright (c) 2015 Pedro Lafuente
- * Copyright (c) 2017-2022 Gregor Santner
+ * Copyright (c) 2017-2023 Gregor Santner
  *
  * Licensed under the MIT license.
  * You can get a copy of the license text here:
@@ -14,19 +14,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 
 import java.io.File;
 
-public class WrWidgetConfigure extends AppCompatActivity {
+public class WrWidgetConfigure extends MarkorBaseActivity {
     private int _appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     private static final String WIDGET_PREF_NAME = "MARKOR_WIDGET_PREF";
@@ -55,33 +53,21 @@ public class WrWidgetConfigure extends AppCompatActivity {
 
     // only runs for a valid id
     private void showWidgetSelectFolderDialog() {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(this);
-        if (permc.mkdirIfStoragePermissionGranted()) {
-            final FragmentManager fragManager = getSupportFragmentManager();
-            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-                @Override
-                public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
-                    setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId));
-                    finish();
-                }
+        final FragmentManager fragManager = getSupportFragmentManager();
+        MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+            @Override
+            public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                setWidgetDirectory(WrWidgetConfigure.this, _appWidgetId, file);
+                setResult(RESULT_OK, new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, _appWidgetId));
+                finish();
+            }
 
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.titleText = R.string.select_folder;
-                    dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
-                }
-            }, fragManager, this);
-        }
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults)) {
-            showWidgetSelectFolderDialog();
-        } else {
-            finish();
-        }
+            @Override
+            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                dopt.titleText = R.string.select_folder;
+                dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
+            }
+        }, fragManager, this);
     }
 
     public static File getWidgetDirectory(final Context context, int id) {

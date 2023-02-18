@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-A project by Gregor Santner (https://gsantner.net)
+Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -87,7 +87,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="size">مرتب‌سازی بر اساس اندازه</string>
     <string name="reverse_order">ترتیب برعکس</string>
     <string name="contribute">همکاری</string>
-    <string name="donate">کمک مالی</string>
     <string name="project_page">صفحه پروژه</string>
     <string name="press_back_again_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
     <string name="exit">خروج</string>
@@ -210,7 +209,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">ترجمه</string>
     <string name="more_info_and_help">اطّلاعات بیش‌تر و راهنمایی</string>
     <string name="report_bugs">گزارش اشکالات</string>
-    <string name="more_info_on_how_to_donate_or_otherwise_support_this_project_text">Geliştiriciye bağış yapma veya bu projeye katkıda bulunma hakkında daha fazla bilgi alın.</string>
     <string name="join_community">Приєднатися до спільноти</string>
     <string name="bug_reports_suggest_improvements">இந்த செயலி குறித்த கருத்துக்கள் மற்றும் பிழைகளை தெரிவிக்கவும் அல்லது மேம்படுத்தத்தல்களை பரிந்துரைக்கவும்</string>
     <string name="help_translating_this_app">மற்ற மொழிகளில் இந்த செயலியை மொழிபெயர்க்கவும்</string>
@@ -271,7 +269,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="my_note">my_note</string>
     <string name="close">Close</string>
     <string name="cancel">Cancel</string>
-    <string name="do_you_like_this_project_want_donate_to_keep_alive">Do you enjoy this project? Do you want to support further improvements and bug fixes?\n\nDeveloping apps and writing related blog posts take a lot of time! If you want to help the project to continue, please consider a small donation!\n\nThis project is developed in spare time, completely for free and without any advertisements!</string>
     <string name="app_start_tab">برگه شروع برنامه</string>
     <string name="tab_to_select_at_start">Tab to select when starting the app</string>
     <string name="swipe_to_change_mode">Swipe to change mode</string>

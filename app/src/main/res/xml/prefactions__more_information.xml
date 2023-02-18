@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 /*#######################################################
  *
- *   Maintained by Gregor Santner, 2017-
- *   https://gsantner.net/
- *
- *   License of this file: Apache 2.0 (Commercial upon request)
+ *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *     https://github.com/gsantner/opoc/#licensing
  *
@@ -42,12 +40,6 @@
 
 
     <PreferenceCategory android:title="@string/contribute">
-
-        <Preference
-            android:icon="@drawable/ic_favorite_black_24dp"
-            android:key="@string/pref_key__more_info__donate"
-            android:summary="@string/more_info_on_how_to_donate_or_otherwise_support_this_project"
-            android:title="@string/donate_" />
 
         <Preference
             android:icon="@drawable/ic_bug_report_black_24dp"
