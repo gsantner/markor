@@ -104,36 +104,4 @@ public class MarkorContextUtils extends GsContextUtils {
         final File f = getIntentFile(intent, null);
         return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
     }
-
-    public static void requestFilePermission(final Activity activity, final CharSequence message, final GsCallback.a0 yes) {
-        requestFilePermission(activity, message, yes, null);
-    }
-
-    public static void requestFilePermission(
-            final Activity activity,
-            final CharSequence message,
-            final GsCallback.a0 yes,
-            final @Nullable GsCallback.a0 no
-    ) {
-        if (!GsContextUtils.instance.checkExternalStoragePermission(activity) && activity instanceof GsActivityBase<?, ?>) {
-            final GsCallback.a0 cb = () -> {
-                if (GsContextUtils.instance.checkExternalStoragePermission(activity)) {
-                    yes.callback();
-                } else {
-                    Toast.makeText(activity, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
-                    if (no != null) {
-                        no.callback();
-                    }
-                }
-            };
-
-            final AlertDialog d = new AlertDialog.Builder(activity)
-                    .setMessage(message)
-                    .setPositiveButton(android.R.string.ok, (_d, _w) -> ((GsActivityBase<?, ?>) activity).requestStoragePermission(cb))
-                    .setOnCancelListener((_d2) -> cb.callback())
-                    .create();
-            d.setCanceledOnTouchOutside(false);
-            d.show();
-        }
-    }
 }

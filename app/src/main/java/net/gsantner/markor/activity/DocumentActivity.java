@@ -92,7 +92,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
         if (!fn.contains(".")) {
@@ -139,6 +138,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StoragePermissionActivity.requestPermissions(this);
         AppSettings.clearDebugLog();
         if (nextLaunchTransparentBg) {
             //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
@@ -195,16 +195,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         // Decide what to do with the file
-        // -----------------------------------------------------------------------
-
-        final File parent = file != null ? file.getParentFile() : null;
-
         if (file == null) {
             final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
             showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
-        } else if (!file.canWrite() && !(parent != null && parent.canWrite())) {
-            final String message = getString(R.string.permission_needed_to_access, file.getName());
-            MarkorContextUtils.requestFilePermission(this, message, () -> handleLaunchingIntent(intent), this::finish);
         } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);

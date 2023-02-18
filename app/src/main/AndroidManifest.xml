@@ -77,6 +77,10 @@
             android:label="@string/settings"
             android:parentActivityName=".activity.MainActivity" />
         <activity
+            android:name=".activity.StoragePermissionActivity"
+            android:label="@string/permissions"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
             android:name=".activity.ActionButtonSettingsActivity"
             android:parentActivityName=".activity.SettingsActivity">
             <meta-data

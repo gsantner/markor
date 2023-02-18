@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
@@ -196,14 +195,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @SuppressWarnings("ConstantConditions")
         private void appendToExistingDocumentAndClose(final File file, final String separator, final boolean showEditor) {
             final Activity activity = getActivity();
-
-            // Handle permissions
-            if (!GsFileUtils.canCreate(file) && !_cu.checkExternalStoragePermission(activity)) {
-                MarkorContextUtils.requestFilePermission(activity,
-                        activity.getString(R.string.permission_needed_to_access, file.getName()),
-                        () -> appendToExistingDocumentAndClose(file,  separator, showEditor));
-                return;
-            }
 
             final Document document = new Document(file);
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());

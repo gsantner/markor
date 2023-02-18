@@ -9,12 +9,10 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -35,10 +33,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
-import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -76,7 +72,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final List<File> _adapterDataFiltered; // Filtered list of current folder
     private final Set<File> _currentSelection;
     private File _currentFolder;
-    private final Activity _activity;
+    private final Context _context;
     private StringFilter _filter;
     private boolean _wasInit;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
@@ -87,31 +83,32 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //## Methods
     //########################
 
-    public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Activity activity) {
-        this(options, activity, null);
+    public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Context context) {
+        this(options, context, null);
     }
 
-    public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Activity activity, RecyclerView recyclerView) {
+    public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Context context, RecyclerView recyclerView) {
         _dopt = options;
         _adapterData = new ArrayList<>();
         _adapterDataFiltered = new ArrayList<>();
         _currentSelection = new HashSet<>();
-        _activity = activity;
+        _context = context;
+        loadFolder((options.startFolder != null) ? options.startFolder : options.rootFolder);
         _recyclerView = recyclerView;
-        _prefApp = _activity.getSharedPreferences("app", Context.MODE_PRIVATE);
+        _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 
         GsContextUtils cu = GsContextUtils.instance;
         if (_dopt.primaryColor == 0) {
-            _dopt.primaryColor = cu.getResId(activity, GsContextUtils.ResType.COLOR, "primary");
+            _dopt.primaryColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "primary");
         }
         if (_dopt.accentColor == 0) {
-            _dopt.accentColor = cu.getResId(activity, GsContextUtils.ResType.COLOR, "accent");
+            _dopt.accentColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "accent");
         }
         if (_dopt.primaryTextColor == 0) {
-            _dopt.primaryTextColor = cu.getResId(activity, GsContextUtils.ResType.COLOR, "primary_text");
+            _dopt.primaryTextColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "primary_text");
         }
         if (_dopt.secondaryTextColor == 0) {
-            _dopt.secondaryTextColor = cu.getResId(activity, GsContextUtils.ResType.COLOR, "secondary_text");
+            _dopt.secondaryTextColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "secondary_text");
         }
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
@@ -144,7 +141,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             holder.title.setText("????");
             return;
         }
-        GsContextUtils.instance.setAppLocale(_activity, Locale.getDefault());
+        GsContextUtils.instance.setAppLocale(_context, Locale.getDefault());
         final File file_pre_Parent = file_pre.getParentFile() == null ? new File("/") : file_pre.getParentFile();
         final String filename = file_pre.getName();
         if (_virtualMapping.containsKey(file_pre)) {
@@ -164,7 +161,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         holder.title.setText(isGoUp ? ".." : titleText, TextView.BufferType.SPANNABLE);
-        holder.title.setTextColor(ContextCompat.getColor(_activity, _dopt.primaryTextColor));
+        holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
         if (!isFileWriteable(file, isGoUp) && holder.title.length() > 0) {
             try {
                 ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -173,14 +170,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
-        holder.description.setTextColor(ContextCompat.getColor(_activity, _dopt.secondaryTextColor));
+        holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.postDelayed(() -> {
             holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
             holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
                     ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
         }, 60);
-        holder.image.setColorFilter(ContextCompat.getColor(_activity,
+        holder.image.setColorFilter(ContextCompat.getColor(_context,
                         isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
@@ -188,15 +185,15 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (_dopt.itemSidePadding > 0) {
-            int dp = (int) (_dopt.itemSidePadding * _activity.getResources().getDisplayMetrics().density);
+            int dp = (int) (_dopt.itemSidePadding * _context.getResources().getDisplayMetrics().density);
             holder.itemRoot.setPadding(dp, holder.itemRoot.getPaddingTop(), dp, holder.itemRoot.getPaddingBottom());
         }
 
-        holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_activity.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
+        holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
         //holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context,
         //        isSelected ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(view -> {
-            Toast.makeText(_activity, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(_context, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             return true;
         });
         holder.itemRoot.setTag(new TagContainer(file, position));
@@ -206,7 +203,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public String formatFileDescription(final File file, String format) {
         if (TextUtils.isEmpty(format)) {
-            return DateUtils.formatDateTime(_activity, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
+            return DateUtils.formatDateTime(_context, file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE));
         } else {
             format = format.replaceAll("FS(?=([^']*'[^']*')*[^']*$)", '\'' + GsFileUtils.getHumanReadableByteCountSI(file.length()) + '\'');
             return new SimpleDateFormat(format, Locale.getDefault()).format(file.lastModified());
@@ -472,41 +469,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private void loadFolder(final File folder) {
-        if (folder.canWrite() || _virtualMapping.containsKey(folder) || isVirtualStorage(folder)) {
-            /// The folder can be opened. Just open it
-            _loadFolder(folder);
-        } else if (folder.exists() && !GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
-            /// The folder does not exist or we don't have permissions to access it
-            Toast.makeText(_activity, _activity.getString(R.string.permission_needed_to_access, folder), Toast.LENGTH_LONG).show();
-            ((GsActivityBase<?, ?>) _activity).requestStoragePermission(() -> {
-                if (GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
-                    _loadFolder(folder);
-                } else {
-                    Toast.makeText(_activity, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
-                    if (_currentFolder == null) {
-                        // Load a default sane directory
-                        _loadFolder(GsContextUtils.instance.getAppDataPrivateDir(_activity));
-                    }
-                }
-            });
-        } else {
-            // Fallback - load a sane directory
-            Toast.makeText(_activity, R.string.file_does_not_exist_and_cant_be_created, Toast.LENGTH_LONG).show();
-            _loadFolder(GsContextUtils.instance.getAppDataPrivateDir(_activity));
-        }
-    }
-
-    private void _loadFolder(final File folder) {
 
         final Handler handler = new Handler();
         _currentSelection.clear();
-        _currentFolder = folder;
 
         new Thread() {
             @Override
             public void run() {
                 synchronized (LOAD_FOLDER_SYNC_OBJECT) {
                     ArrayList<File> oldAdapterData = new ArrayList<>();
+                    _currentFolder = folder;
                     _adapterData.clear();
                     _virtualMapping.clear();
                     File file;
@@ -534,7 +506,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     }
 
                     // Private AppStorage: Allow to access to files directory only (don't allow access to internals like shared_preferences & databases)
-                    if (folder.equals(_activity.getFilesDir().getParentFile())) {
+                    if (folder.equals(_context.getFilesDir().getParentFile())) {
                         _adapterData.clear();
                         _adapterData.add(new File(folder, "files"));
                     }
@@ -564,14 +536,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
                             _adapterData.add(VIRTUAL_STORAGE_FAVOURITE);
                         }
-                        File appDataFolder = _activity.getFilesDir();
+                        File appDataFolder = _context.getFilesDir();
                         if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
                             _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
                             _adapterData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                         }
                     }
 
-                    for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_activity, null)) {
+                    for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                         for (int i = 0; i < _adapterData.size(); i++) {
                             file = _adapterData.get(i);
                             if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
@@ -620,7 +592,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     @Override
     public boolean accept(File dir, String filename) {
         final File f = new File(dir, filename);
-        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_activity, f);
+        final boolean filterYes = f.isDirectory() || _dopt.fileOverallFilter == null || _dopt.fileOverallFilter.callback(_context, f);
         final boolean dotYes = _dopt.filterShowDotFiles || !filename.startsWith(".") && !isAccessoryFolder(dir, filename, f);
         final boolean selFileYes = _dopt.doSelectFile || f.isDirectory();
         return filterYes && dotYes && selFileYes;

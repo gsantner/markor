@@ -756,24 +756,17 @@ public class GsFileUtils {
     }
 
     // Check if a file can be created (parent exists and can be written)
+    public static boolean isWritable(final File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return file != null && Files.isWritable(file.toPath());
+        } else{
+            return file != null && file.canWrite();
+        }
+    }
+
+    // Check if a file can be created (parent exists and can be written)
     public static boolean canCreate(final File file) {
-        if (file == null) {
-            return false;
-        }
-
-        if (file.canWrite()) {
-            return true;
-        }
-
-        // Create the file (and delete it if successful) as the ultimate test
-        try {
-            if (file.createNewFile()) {
-                file.delete();
-                return true;
-            };
-        } catch (IOException ignored) {}
-
-        return false;
+        return isWritable(file) || isWritable(file.getParentFile());
     }
 
     // Returns true if test is a child of parent. A file is not a child of itself

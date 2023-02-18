@@ -81,8 +81,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public File getDefaultNotebookFile() {
         return GsFileUtils.join(
-                Environment.getExternalStorageDirectory(),
-                "/Documents",
+                GsContextUtils.instance.getAppDataPrivateDir(_context),
+                "Documents",
                 rstr(R.string.app_name).toLowerCase(Locale.ROOT));
     }
 
