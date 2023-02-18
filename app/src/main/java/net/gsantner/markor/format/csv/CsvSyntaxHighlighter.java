@@ -7,10 +7,11 @@
 #########################################################*/
 package net.gsantner.markor.format.csv;
 
+import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 
-public class CsvSyntaxHighlighter extends PlaintextSyntaxHighlighter {
+public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     public CsvSyntaxHighlighter(AppSettings as) {
         super(as);
     }
