@@ -18,7 +18,6 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -70,8 +69,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
-    public static GsFileBrowserFragment newInstance(GsFileBrowserOptions.Options options) {
-        return new GsFileBrowserFragment().setDialogOptions(options);
+    public static GsFileBrowserFragment newInstance() {
+        return new GsFileBrowserFragment();
     }
 
     //########################
@@ -95,12 +94,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
 
     public interface FilesystemFragmentOptionsListener {
-        GsFileBrowserOptions.Options getFilesystemFragmentOptions();
+        GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions);
     }
 
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+        Context context = getContext();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
@@ -108,17 +108,17 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _appSettings = ApplicationObject.settings();
         _cu = new MarkorContextUtils(root.getContext());
 
-        final Activity activity = getActivity();
-        if (activity instanceof FilesystemFragmentOptionsListener && _dopt == null) {
-            setDialogOptions(((FilesystemFragmentOptionsListener) activity).getFilesystemFragmentOptions());
+        if (!(getActivity() instanceof FilesystemFragmentOptionsListener)) {
+            throw new RuntimeException("Error: " + getActivity().getClass().getName() + " doesn't implement FilesystemFragmentOptionsListener");
         }
+        setDialogOptions(((FilesystemFragmentOptionsListener) getActivity()).getFilesystemFragmentOptions(_dopt));
 
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
         _previousNotebookDirectory = _appSettings.getNotebookDirectory();
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, getActivity(), _recyclerList);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context, _recyclerList);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -143,7 +143,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         return R.layout.opoc_filesystem_fragment;
     }
 
-    private GsFileBrowserFragment setDialogOptions(final GsFileBrowserOptions.Options options) {
+    private void setDialogOptions(GsFileBrowserOptions.Options options) {
         _dopt = options;
         _callback = _dopt.listener;
         if (_callback != null) {
@@ -151,7 +151,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
         _dopt.listener = this;
         checkOptions();
-        return this;
     }
 
     public void onClicked(View view) {
