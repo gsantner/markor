@@ -73,6 +73,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public static final String FRAGMENT_TAG = "DocumentEditAndViewFragment";
     public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
+    private static final String TAG = DocumentEditAndViewFragment.class.getName();
 
     public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
         DocumentEditAndViewFragment f = new DocumentEditAndViewFragment();
@@ -84,6 +85,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (preview != null) {
             args.putBoolean(START_PREVIEW, preview);
         }
+        Log.i(TAG, "newInstance(document=" +
+                document.getPath() +", lineNumber=" +
+                lineNumber+ ", preview=" + preview);
         f.setArguments(args);
         return f;
     }
@@ -700,7 +704,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
         // Always show error message
         Toast.makeText(getContext(), R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
-        Log.i(DocumentEditAndViewFragment.class.getName(), "Triggering error text clipping");
+        Log.i(TAG, "Triggering error text clipping");
     }
 
     public boolean isSdStatusBad() {
@@ -714,11 +718,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     // Checks document state if things aren't in a good state
     public boolean isStateBad() {
-        return (_document == null ||
-                _hlEditor == null ||
-                _appSettings == null ||
-                !_document.testCreateParent() ||
-                !_cu.canWriteFile(getContext(), _document.getFile(), false, true));
+        return (checkForIsStateBad(_document == null, "_document == null") ||
+                checkForIsStateBad(_hlEditor == null, "_hlEditor == null") ||
+                checkForIsStateBad(_appSettings == null, "_appSettings == null") ||
+                checkForIsStateBad(!_document.testCreateParent(), "testCreateParent " + _document.getPath()) ||
+                checkForIsStateBad(!_cu.canWriteFile(getContext(), _document.getFile(), false, true), "canWriteFile "  + _document.getPath()));
+    }
+
+    private boolean checkForIsStateBad(boolean isError, String logMessage) {
+        if (isError) {
+            Log.i(TAG, "isStateBad " + logMessage);
+        }
+        return isError;
     }
 
     // Save the file
