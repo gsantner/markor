@@ -195,9 +195,9 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
 
         // Decide what to do with the file
+        // -----------------------------------------------------------------------
         if (file == null) {
-            final String msg = getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice);
-            showErrorMessage(Html.fromHtml(msg.replace("\n", "<br/>")));
+            showNotSupportedMessage();
         } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);
@@ -225,9 +225,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    private void showErrorMessage(final CharSequence message) {
+    private void showNotSupportedMessage() {
+        final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
         new AlertDialog.Builder(this)
-                .setMessage(message)
+                .setMessage(Html.fromHtml(notSupportedMessage))
                 .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
                 .setOnDismissListener((dialogInterface) -> finish())
