@@ -19,7 +19,7 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
  * Converts csv to md and let
  * {@link  MarkdownTextConverter#convertMarkup(String, Context, boolean, File)}
  * do the rest.
- *
+ * <p>
  * This way csv columns may contain md expressions like bold text.
  */
 @SuppressWarnings("WeakerAccess")
@@ -35,6 +35,4 @@ public class CsvTextConverter extends MarkdownTextConverter {
         filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
         return filepath.toLowerCase().endsWith(".csv");
     }
-
-
 }

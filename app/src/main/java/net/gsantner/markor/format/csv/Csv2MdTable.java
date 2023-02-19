@@ -24,7 +24,7 @@ import java.io.StringReader;
 /**
  * Simple csv to md-table converter using OpenCsv implementation
  * https://opencsv.sourceforge.net/ Licensed under Appache2
- *
+ * <p>
  * This file should not have dependencies to Android
  */
 public class Csv2MdTable implements Closeable {
@@ -56,7 +56,7 @@ public class Csv2MdTable implements Closeable {
 
     public static String toMdTable(Reader csvMarkup) {
         StringBuilder mdMarkup = new StringBuilder();
-        try ( BufferedReader bufferedReader = new BufferedReader(csvMarkup, BUFFER_SIZE)) {
+        try (BufferedReader bufferedReader = new BufferedReader(csvMarkup, BUFFER_SIZE)) {
             CsvConfig csvConfig = inferCsvConfiguration(bufferedReader);
             try (Csv2MdTable toMdTable = new Csv2MdTable(csvConfig, bufferedReader)) {
                 String[] headers = toMdTable.readNextCsvColumnLine();
@@ -117,16 +117,16 @@ public class Csv2MdTable implements Closeable {
 
     private static void addColumnContainingNL(StringBuilder mdMarkup, String col) {
         // '|' is a reseved symbol and my not be content of a csv-column
-        col = col.replace('|','!');
+        col = col.replace('|', '!');
 
         String[] lines = col.split("\r?\n");
         if (lines.length > 1) {
-            addColumn(mdMarkup,lines[0]);
+            addColumn(mdMarkup, lines[0]);
             for (int i = 1; i < lines.length; i++) {
-                addColumn(mdMarkup.append("<br/>"),lines[i]);
+                addColumn(mdMarkup.append("<br/>"), lines[i]);
             }
         } else {
-            addColumn(mdMarkup,col);
+            addColumn(mdMarkup, col);
         }
 
     }

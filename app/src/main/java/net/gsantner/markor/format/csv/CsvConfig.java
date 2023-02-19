@@ -11,7 +11,7 @@ package net.gsantner.markor.format.csv;
  * Configuration for CSV file format
  */
 public class CsvConfig {
-    public static final CsvConfig DEFAULT = new CsvConfig(';','"');
+    public static final CsvConfig DEFAULT = new CsvConfig(';', '"');
 
     public static CsvConfig infer(String line) {
         char csvFieldDelimiterChar = findChar(line, DEFAULT.getFieldDelimiterChar(), ',', '\t', ':', '|');
@@ -34,7 +34,7 @@ public class CsvConfig {
     }
 
     private static char findChar(String line, char... candidates) {
-        for(char c : candidates) {
+        for (char c : candidates) {
             if (line.contains("" + c)) {
                 return c;
             }
