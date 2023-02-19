@@ -32,19 +32,19 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
     private void askForPermissions() {
         final AlertDialog d = new AlertDialog.Builder(this)
                 .setMessage(R.string.error_need_storage_permission_to_save_documents)
-                .setCancelable(true)
+                .setNegativeButton(R.string.exit, (dialog, which) -> finish())
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> GsContextUtils.instance.requestExternalStoragePermission(this))
                 .show();
         d.setCanceledOnTouchOutside(false);
     }
 
     private void processPermissionState() {
-        if (!_cu.checkExternalStoragePermission(this)) {
-            Toast.makeText(this, R.string.permission_not_granted, Toast.LENGTH_LONG).show();
-            askForPermissions();
-        } else  {
+        if (_cu.checkExternalStoragePermission(this)) {
             this.startActivity(getIntent().getParcelableExtra(EXTRA_INTENT));
             finish();
+        } else  {
+            Toast.makeText(this, R.string.permission_not_granted, Toast.LENGTH_SHORT).show();
+            askForPermissions();
         }
     }
 

@@ -116,15 +116,18 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // Save references to fragments
-        final FragmentManager manager = getSupportFragmentManager();
-        manager.putFragment(outState, Integer.toString(R.id.nav_notebook), _notebook);
-        manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
-        manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
-        manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
+        try {
+            final FragmentManager manager = getSupportFragmentManager();
+            // Put and get notebook first. Most important for correct operation.
+            manager.putFragment(outState, Integer.toString(R.id.nav_notebook), _notebook);
+            manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
+            manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
+            manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
+        } catch (NullPointerException | IllegalStateException ignored) {}
     }
 
     @Override
@@ -136,11 +139,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         // Get back references to fragments
-        final FragmentManager manager = getSupportFragmentManager();
-        _notebook = (GsFileBrowserFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_notebook));
-        _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
-        _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
-        _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
+        try {
+            final FragmentManager manager = getSupportFragmentManager();
+            _notebook = (GsFileBrowserFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_notebook));
+            _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
+            _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
+            _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
+        } catch (NullPointerException | IllegalStateException ignored) {}
     }
 
     // Reduces swipe sensitivity
