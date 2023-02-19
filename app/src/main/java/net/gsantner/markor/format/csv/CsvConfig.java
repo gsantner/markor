@@ -12,25 +12,19 @@ package net.gsantner.markor.format.csv;
  */
 public class CsvConfig {
     public static final CsvConfig DEFAULT = new CsvConfig(';', '"');
-
-    public static CsvConfig infer(String line) {
-        char csvFieldDelimiterChar = findChar(line, DEFAULT.getFieldDelimiterChar(), ',', '\t', ':', '|');
-        char csvQuoteChar = findChar(line, DEFAULT.getQuoteChar(), '\'');
-
-        return new CsvConfig(csvFieldDelimiterChar, csvQuoteChar);
-    }
+    private final char fieldDelimiterChar;
+    private final char quoteChar;
 
     public CsvConfig(char fieldDelimiterChar, char quoteChar) {
         this.fieldDelimiterChar = fieldDelimiterChar;
         this.quoteChar = quoteChar;
     }
 
-    public char getFieldDelimiterChar() {
-        return fieldDelimiterChar;
-    }
+    public static CsvConfig infer(String line) {
+        char csvFieldDelimiterChar = findChar(line, DEFAULT.getFieldDelimiterChar(), ',', '\t', ':', '|');
+        char csvQuoteChar = findChar(line, DEFAULT.getQuoteChar(), '\'');
 
-    public char getQuoteChar() {
-        return quoteChar;
+        return new CsvConfig(csvFieldDelimiterChar, csvQuoteChar);
     }
 
     private static char findChar(String line, char... candidates) {
@@ -42,7 +36,12 @@ public class CsvConfig {
         return candidates[0];
     }
 
-    private final char fieldDelimiterChar;
-    private final char quoteChar;
+    public char getFieldDelimiterChar() {
+        return fieldDelimiterChar;
+    }
+
+    public char getQuoteChar() {
+        return quoteChar;
+    }
 
 }

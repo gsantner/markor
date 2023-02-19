@@ -33,9 +33,8 @@ public class Csv2MdTable implements Closeable {
     private static final String MD_LINE_DELIMITER = "\n";
     private static final String MD_COL_DELIMITER = "|";
     private static final String MD_HEADER_LINE_DELIMITER = MD_COL_DELIMITER + ":---";
-
-    private int lineNumber = 0;
     private final CSVReader csvReader;
+    private int lineNumber = 0;
 
     private Csv2MdTable(CsvConfig csvConfig, Reader csvDataReader) {
         ICSVParser parser = new CSVParserBuilder()
