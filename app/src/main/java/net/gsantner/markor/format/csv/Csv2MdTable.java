@@ -7,12 +7,14 @@
 #########################################################*/
 package net.gsantner.markor.format.csv;
 
-import com.opencsv.CSVParser;
+import static java.lang.Math.max;
+
+import androidx.annotation.NonNull;
+
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.RFC4180Parser;
-import com.opencsv.RFC4180ParserBuilder;
+import com.opencsv.ICSVParser;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.Closeable;
@@ -30,16 +32,16 @@ public class Csv2MdTable implements Closeable {
     public static final char CSV_FIELD_DELIMITER_CHAR = ';';
     public static final String MD_LINE_DELIMITER = "\n";
     public static final String MD_COL_DELIMITER = "|";
-    public static final String MD_HEADER_LINE_DELIMITER = ":---";
+    public static final String MD_HEADER_LINE_DELIMITER = MD_COL_DELIMITER + ":---";
 
     private int lineNumber = 0;
     private final CSVReader csvReader;
 
     private Csv2MdTable(Reader csvDataReader) {
-        RFC4180Parser parser = new RFC4180ParserBuilder()
+        ICSVParser parser = new CSVParserBuilder()
                 .withSeparator(CSV_FIELD_DELIMITER_CHAR)
+                .withQuoteChar('"')
                 .build();
-
         csvReader = new CSVReaderBuilder(csvDataReader)
                 .withSkipLines(0)
                 .withCSVParser(parser)
@@ -48,7 +50,8 @@ public class Csv2MdTable implements Closeable {
     }
 
     public static String toMdTable(String csvMarkup) {
-        return toMdTable(new StringReader(csvMarkup));
+        // parser cannot handle empty lines if they are not "\r\n
+        return toMdTable(new StringReader(csvMarkup.replace("\n\n", "\n\r\n")));
     }
 
     public static String toMdTable(Reader csvMarkup) {
@@ -57,17 +60,16 @@ public class Csv2MdTable implements Closeable {
             String[] headers = toMdTable.readNextCsvColumnLine();
 
             if (headers != null && headers.length > 0) {
-                mdMarkup.append(String.join(MD_COL_DELIMITER, headers)).append(MD_LINE_DELIMITER);
-                mdMarkup.append(MD_HEADER_LINE_DELIMITER);
-                for (int i = 1; i < headers.length; i++) {
-                    mdMarkup.append(MD_COL_DELIMITER +
-                            MD_HEADER_LINE_DELIMITER);
+                addColumnsLine(mdMarkup, headers, headers.length);
+
+                for (int i = 0; i < headers.length; i++) {
+                    mdMarkup.append(MD_HEADER_LINE_DELIMITER);
                 }
-                mdMarkup.append(MD_LINE_DELIMITER);
+                mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
 
                 String[] lineColumns;
                 while (null != (lineColumns = toMdTable.readNextCsvColumnLine())) {
-                    mdMarkup.append(String.join(MD_COL_DELIMITER, lineColumns)).append(MD_LINE_DELIMITER);
+                    addColumnsLine(mdMarkup, lineColumns, headers.length);
                 }
             }
         } catch (IOException e) {
@@ -76,6 +78,42 @@ public class Csv2MdTable implements Closeable {
             e.printStackTrace();
         }
         return mdMarkup.toString();
+    }
+
+    private static void addColumnsLine(StringBuilder mdMarkup, String[] colums, int headerLength) {
+        for (int i = 0; i < max(headerLength, colums.length); i++) {
+            addColumnContainingNL(mdMarkup.append(MD_COL_DELIMITER), getCol(colums, i));
+        }
+        mdMarkup
+                .append(MD_COL_DELIMITER)
+                .append(MD_LINE_DELIMITER);
+    }
+
+    private static String getCol(String[] colums, int i) {
+        if (i >= 0 && i < colums.length) return colums[i];
+        return "";
+    }
+
+    private static void addColumnContainingNL(StringBuilder mdMarkup, String col) {
+        // '|' is a reseved symbol and my not be content of a csv-column
+        col = col.replace('|','!');
+
+        String[] lines = col.split("\r?\n");
+        if (lines.length > 1) {
+            addColumn(mdMarkup,lines[0]);
+            for (int i = 1; i < lines.length; i++) {
+                addColumn(mdMarkup.append("<br/>"),lines[i]);
+            }
+        } else {
+            addColumn(mdMarkup,col);
+        }
+
+    }
+
+    private static void addColumn(StringBuilder mdMarkup, String col) {
+        if (col != null) col = col.trim();
+        if (col == null || col.isEmpty()) col = "&nbsp;";
+        mdMarkup.append(col);
     }
 
     private String[] readNextCsvColumnLine() throws IOException, CsvValidationException {

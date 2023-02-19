@@ -107,6 +107,7 @@
         <item translatable="false">@string/none</item>
     </string-array>
 
+    <!-- arr_file_templates : add new templates always at the end and corresponding code to NewFileDialog.java : getTemplateContent() -->
     <string-array name="arr_file_templates" translatable="false">
         <item translatable="false">@string/empty_file</item>
         <item translatable="false">@string/file_template__md_markor_markdown_reference</item>
