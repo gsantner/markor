@@ -11,6 +11,8 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.RFC4180Parser;
+import com.opencsv.RFC4180ParserBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.Closeable;
@@ -34,14 +36,14 @@ public class Csv2MdTable implements Closeable {
     private final CSVReader csvReader;
 
     private Csv2MdTable(Reader csvDataReader) {
-        CSVParser parser = new CSVParserBuilder()
+        RFC4180Parser parser = new RFC4180ParserBuilder()
                 .withSeparator(CSV_FIELD_DELIMITER_CHAR)
-                .withIgnoreQuotations(true)
                 .build();
 
         csvReader = new CSVReaderBuilder(csvDataReader)
                 .withSkipLines(0)
                 .withCSVParser(parser)
+                .withKeepCarriageReturn(true)
                 .build();
     }
 
