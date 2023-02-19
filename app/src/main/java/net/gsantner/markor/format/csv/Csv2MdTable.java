@@ -9,14 +9,13 @@ package net.gsantner.markor.format.csv;
 
 import static java.lang.Math.max;
 
-import androidx.annotation.NonNull;
-
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
 import com.opencsv.exceptions.CsvValidationException;
 
+import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
@@ -29,18 +28,19 @@ import java.io.StringReader;
  * This file should not have dependencies to Android
  */
 public class Csv2MdTable implements Closeable {
-    public static final char CSV_FIELD_DELIMITER_CHAR = ';';
-    public static final String MD_LINE_DELIMITER = "\n";
-    public static final String MD_COL_DELIMITER = "|";
-    public static final String MD_HEADER_LINE_DELIMITER = MD_COL_DELIMITER + ":---";
+    public static final int BUFFER_SIZE = 8096;
+
+    private static final String MD_LINE_DELIMITER = "\n";
+    private static final String MD_COL_DELIMITER = "|";
+    private static final String MD_HEADER_LINE_DELIMITER = MD_COL_DELIMITER + ":---";
 
     private int lineNumber = 0;
     private final CSVReader csvReader;
 
-    private Csv2MdTable(Reader csvDataReader) {
+    private Csv2MdTable(CsvConfig csvConfig, Reader csvDataReader) {
         ICSVParser parser = new CSVParserBuilder()
-                .withSeparator(CSV_FIELD_DELIMITER_CHAR)
-                .withQuoteChar('"')
+                .withSeparator(csvConfig.getFieldDelimiterChar())
+                .withQuoteChar(csvConfig.getQuoteChar())
                 .build();
         csvReader = new CSVReaderBuilder(csvDataReader)
                 .withSkipLines(0)
@@ -50,26 +50,29 @@ public class Csv2MdTable implements Closeable {
     }
 
     public static String toMdTable(String csvMarkup) {
-        // parser cannot handle empty lines if they are not "\r\n
-        return toMdTable(new StringReader(csvMarkup.replace("\n\n", "\n\r\n")));
+        // parser cannot handle empty lines if they are not "\r\n"
+        return toMdTable(new StringReader(csvMarkup.replace("\n", "\r\n")));
     }
 
     public static String toMdTable(Reader csvMarkup) {
         StringBuilder mdMarkup = new StringBuilder();
-        try (Csv2MdTable toMdTable = new Csv2MdTable(csvMarkup)) {
-            String[] headers = toMdTable.readNextCsvColumnLine();
+        try ( BufferedReader bufferedReader = new BufferedReader(csvMarkup, BUFFER_SIZE)) {
+            CsvConfig csvConfig = inferCsvConfiguration(bufferedReader);
+            try (Csv2MdTable toMdTable = new Csv2MdTable(csvConfig, bufferedReader)) {
+                String[] headers = toMdTable.readNextCsvColumnLine();
 
-            if (headers != null && headers.length > 0) {
-                addColumnsLine(mdMarkup, headers, headers.length);
+                if (headers != null && headers.length > 0) {
+                    addColumnsLine(mdMarkup, headers, headers.length);
 
-                for (int i = 0; i < headers.length; i++) {
-                    mdMarkup.append(MD_HEADER_LINE_DELIMITER);
-                }
-                mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
+                    for (int i = 0; i < headers.length; i++) {
+                        mdMarkup.append(MD_HEADER_LINE_DELIMITER);
+                    }
+                    mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
 
-                String[] lineColumns;
-                while (null != (lineColumns = toMdTable.readNextCsvColumnLine())) {
-                    addColumnsLine(mdMarkup, lineColumns, headers.length);
+                    String[] lineColumns;
+                    while (null != (lineColumns = toMdTable.readNextCsvColumnLine())) {
+                        addColumnsLine(mdMarkup, lineColumns, headers.length);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -78,6 +81,24 @@ public class Csv2MdTable implements Closeable {
             e.printStackTrace();
         }
         return mdMarkup.toString();
+    }
+
+    private static CsvConfig inferCsvConfiguration(BufferedReader bufferedReader) throws IOException {
+        // remember where we started.
+        bufferedReader.mark(BUFFER_SIZE);
+        try {
+            String line;
+            while (null != (line = bufferedReader.readLine())) {
+                line = line.trim();
+                if (!line.isEmpty() && !line.startsWith("#")) {
+                    return CsvConfig.infer(line);
+                }
+            }
+            return CsvConfig.DEFAULT;
+        } finally {
+            // go back to start of csv
+            bufferedReader.reset();
+        }
     }
 
     private static void addColumnsLine(StringBuilder mdMarkup, String[] colums, int headerLength) {
