@@ -72,11 +72,11 @@ public class FormatRegistry {
     // Order here is used to **determine** format by it's file extension and/or content heading
     private final static TextConverterBase[] CONVERTERS = new TextConverterBase[]{
             CONVERTER_MARKDOWN,
+            CONVERTER_CSV,
             CONVERTER_TODOTXT,
             CONVERTER_WIKITEXT,
             CONVERTER_KEYVALUE,
             CONVERTER_ASCIIDOC,
-            CONVERTER_CSV,
             CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
     };

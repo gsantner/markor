@@ -52,6 +52,9 @@ Version 2.0, January 2004
 * Commons IO
 ~° Copyright Apache Foundation
 
+* OpenCsv
+  ~° Copyright Bytecode Pty Ltd.
+
 * gene-rate
 ~° Copyright 2017 Pixplicity
 
