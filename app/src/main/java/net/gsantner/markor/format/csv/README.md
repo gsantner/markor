@@ -29,4 +29,4 @@ can handle [csv](https://en.wikipedia.org/wiki/Comma-separated_values) files sin
 * csv must have a csv-header-line within the first 8000 chars of the csv
 * if csv uses `csv-quote-char` = **`'`** then at least one header column name must be sourrounden by `'` 
   * `#` Example: redefining  `csv-field-delimiter-char` and `csv-quote-char` through csv-header-line
-  * 'column1'|column2|column3
+  * `'`column1`'|`column2`|`column3
