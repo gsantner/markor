@@ -8,20 +8,15 @@
 package net.gsantner.markor.format.csv;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 
 public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
-    private static final GsCallback.r1[] COLORS_FOR_WHITE_BACKGROUND = {new HighlightSpan().setForeColor(Color.RED),
-            new HighlightSpan().setForeColor(Color.BLUE),
-            new HighlightSpan().setForeColor(Color.GREEN),
-            new HighlightSpan().setForeColor(Color.MAGENTA),
-            new HighlightSpan().setForeColor(Color.CYAN)};
-
-    // todo make dynamic
-    private CsvConfig csvConfig = CsvConfig.DEFAULT;
-    Pattern patternCsv = CsvMatcher.patternCsv(csvConfig);
+    private static final int[] COLORS_FOR_WHITE_BACKGROUND = {Color.RED,Color.BLUE,Color.GREEN, Color.MAGENTA, Color.CYAN};
+    public static final String TAG = CsvSyntaxHighlighter.class.getSimpleName();
+    public static boolean DEBUG_COLORING = true;
 
     public CsvSyntaxHighlighter(AppSettings as) {
         super(as);
@@ -31,35 +26,42 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     protected void generateSpans() {
         super.generateSpans();
 
+        CsvMatcher matcher = new CsvMatcher(this._spannable);
         // todo: get colors from resources
-        createSpanForMatches(patternCsv, COLORS_FOR_WHITE_BACKGROUND);
+        createSpanForColumns(matcher, COLORS_FOR_WHITE_BACKGROUND);
     }
 
-    protected final void createSpanForMatches(final Pattern pattern, GsCallback.r1<Object, Matcher>[] creators) {
-        final Matcher m = pattern.matcher(_spannable);
+    protected final void createSpanForColumns(CsvMatcher matcher, int[] colors) {
+        int colNumner = -1;
+        int from = matcher.getStartOfCol();
+        int to;
+        while (from < _spannable.length()) {
+            if (matcher.isEndOfRow()) colNumner = -1; // -1 == skip coloring
+            to = matcher.nextDelimiterPos(from);
 
-        // do not color first column
-        int colNumner = 0;
-
-        while (m.find()) {
-            String columnContent = m.group();
-            if (!columnContent.startsWith("" + csvConfig.getFieldDelimiterChar())) {
-                // first column of line is not colorated (remains black)
+            createSpanForColumn(from, to, colNumner >= 0 ? colors[colNumner] : Color.BLACK, colNumner);
+            colNumner++;
+            if (colNumner >= colors.length) {
                 colNumner = 0;
-                continue;
             }
-            final Object span = creators[colNumner].callback(m);
+            from = to+1;
+        };
+    }
+
+    protected void createSpanForColumn(int from, int to, int color, int colNumner) {
+        if (DEBUG_COLORING) {
+            Log.d(TAG, "#" + colNumner +
+                    "(" + from +
+                    "," + to +
+                    "," + color +
+                    ") = " + _spannable.subSequence(from, to));
+
+        }
+        if (colNumner >= 0 && Math.abs(to - from) > 0) {
+            HighlightSpan span = new HighlightSpan().setForeColor(color);
 
             if (span != null) {
-                final int start = m.start(0);
-                final int end = m.end(0);
-                if (Math.abs(end - start) > 0) {
-                    addSpanGroup(span, start, end);
-                }
-            }
-            colNumner++;
-            if (colNumner >= creators.length) {
-                colNumner = 0;
+                addSpanGroup(span, from, to);
             }
         }
     }
