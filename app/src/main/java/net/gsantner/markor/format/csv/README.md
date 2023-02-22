@@ -21,7 +21,7 @@ can handle [csv](https://en.wikipedia.org/wiki/Comma-separated_values) files sin
   * Example ... `;"`A column may contain a `;` char `";` ... 
 * column content may contain `csv-quote-char` : 
   * Example: `"`This text contains a `""` char`"` 
-* Markor Syntax Highlighting: Not implemented yet **TODO**. See [ticket 1987](https://github.com/gsantner/markor/issues/1987)
+* Markor Syntax Highlighting: Implementation completed. Waiting for merge .   See [ticket 1987](https://github.com/gsantner/markor/issues/1987)
 * Markor Preview/Export-html/pdf: Implementation completed. Waiting for merge .  See [ticket 1980](https://github.com/gsantner/markor/issues/1980)
 
 ### Requirements

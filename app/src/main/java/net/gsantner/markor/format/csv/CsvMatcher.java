@@ -31,21 +31,29 @@ public class CsvMatcher {
     }
 
     public int nextDelimiterPos(final int startOfColumnContent) {
-        this.endOfRow = true;
         int csvLen = csv.length();
 
         int nextDelimiter = StringUtils.indexOf(csv, csvDelimiter, startOfColumnContent);
         int nextBeginQuote = StringUtils.indexOf(csv, csvQoute, startOfColumnContent);
-        int pos = startOfColumnContent;
-        if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter) {
+
+        if (this.endOfRow) {
+            int nextComment = StringUtils.indexOf(csv, '#', startOfColumnContent);
+            if (nextComment > INDEX_NOT_FOUND && nextComment < nextDelimiter && nextComment < nextBeginQuote) {
+                return StringUtils.endOfLine(csv, nextComment); // return comment as uninterpreted comment until end of line
+            }
+        }
+
+        this.endOfRow = true;
+
+        int nextNl = StringUtils.endOfLine(csv, startOfColumnContent);
+        if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter && nextBeginQuote < nextNl ) {
             // column surrounded by qoutes
             int nextEndQuote = nextEndQuote(nextBeginQuote + 1);
             if (nextEndQuote == INDEX_NOT_FOUND) return csvLen;
 
             nextDelimiter = StringUtils.indexOf(csv, csvDelimiter, nextEndQuote);
-            pos = nextEndQuote;
+            nextNl = StringUtils.endOfLine(csv, nextEndQuote);
         }
-        int nextNl = StringUtils.endOfLine(csv, pos);
 
         if (nextNl > INDEX_NOT_FOUND && nextNl < nextDelimiter) {
             // nl comes before next delimiter
@@ -66,7 +74,7 @@ public class CsvMatcher {
         int csvLen = csv.length();
         int found;
         while (start < csvLen) {
-            found = StringUtils.indexOf(csv, start,csvQoute);
+            found = StringUtils.indexOf(csv,csvQoute, start);
 
             if (found == INDEX_NOT_FOUND) return INDEX_NOT_FOUND;
             if (found + 1 < csvLen && csv.charAt(found + 1) != csvQoute) return found;

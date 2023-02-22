@@ -14,7 +14,13 @@ import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 
 public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
-    private static final int[] COLORS_FOR_WHITE_BACKGROUND = {Color.RED,Color.BLUE,Color.GREEN, Color.MAGENTA, Color.CYAN};
+    // standard green, yellow, cyan is not readable on white background
+    // dkgray is not much different from black and not readable with black background
+    // blue is difficuilt to read on black background
+    private static final int[] COLUMN_COLORS = {
+            Color.RED,Color.BLUE,Color.MAGENTA,
+            0xff00b04c, // dark green,
+            0xffdaa500}; // brown
     public static final String TAG = CsvSyntaxHighlighter.class.getSimpleName();
     public static boolean DEBUG_COLORING = true;
 
@@ -28,7 +34,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
 
         CsvMatcher matcher = new CsvMatcher(this._spannable);
         // todo: get colors from resources
-        createSpanForColumns(matcher, COLORS_FOR_WHITE_BACKGROUND);
+        createSpanForColumns(matcher, COLUMN_COLORS);
     }
 
     protected final void createSpanForColumns(CsvMatcher matcher, int[] colors) {
@@ -57,11 +63,11 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
                     ") = " + _spannable.subSequence(from, to));
 
         }
-        if (colNumner >= 0 && Math.abs(to - from) > 0) {
+        if (colNumner >= 0 && from > 0 && Math.abs(to - from) >= 0) {
             HighlightSpan span = new HighlightSpan().setForeColor(color);
 
             if (span != null) {
-                addSpanGroup(span, from, to);
+                addSpanGroup(span, from -1, to); // -1 : also mark delimiter
             }
         }
     }
