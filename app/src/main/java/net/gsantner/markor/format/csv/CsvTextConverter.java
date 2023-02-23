@@ -16,11 +16,14 @@ import java.io.File;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 /**
+ * Part of Markor-Architecture implementing Preview/Export for csv.
+ *
  * Converts csv to md and let
  * {@link  MarkdownTextConverter#convertMarkup(String, Context, boolean, File)}
  * do the rest.
  * <p>
  * This way csv columns may contain md expressions like bold text.
+ *
  */
 @SuppressWarnings("WeakerAccess")
 public class CsvTextConverter extends MarkdownTextConverter {

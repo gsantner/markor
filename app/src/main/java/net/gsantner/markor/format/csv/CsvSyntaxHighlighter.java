@@ -13,6 +13,9 @@ import android.util.Log;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 
+/**
+ * Part of Markor-Architecture implementing SyntaxHighlighting for csv.
+ */
 public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     // standard green, yellow, cyan is not readable on white background
     // dkgray is not much different from black and not readable with black background
@@ -51,7 +54,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
                 colNumner = 0;
             }
             from = to+1;
-        };
+        }
     }
 
     protected void createSpanForColumn(int from, int to, int color, int colNumner) {

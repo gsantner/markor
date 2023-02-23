@@ -25,7 +25,7 @@ import java.io.StringReader;
  * Simple csv to md-table converter using OpenCsv implementation
  * https://opencsv.sourceforge.net/ Licensed under Appache2
  * <p>
- * This file should not have dependencies to Android
+ * This file should not have dependencies to Android or Markor-Architecture.
  */
 public class Csv2MdTable implements Closeable {
     public static final int BUFFER_SIZE = 8096;

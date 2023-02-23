@@ -7,10 +7,13 @@
 #########################################################*/
 package net.gsantner.markor.format.csv;
 
-import net.gsantner.markor.util.StringUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 
 /**
- * Configuration for CSV file format
+ * Configuration for CSV file format.
+ *
+ * Implementation detail for csv support. This file should be not have dependencies to
+ * android and to Markor-Architecture.
  */
 public class CsvConfig {
     public static final CsvConfig DEFAULT = new CsvConfig(';', '"');
@@ -25,14 +28,14 @@ public class CsvConfig {
     }
 
     public static CsvConfig infer(String line) {
-        char csvFieldDelimiterChar = findChar(line,0, CSV_DELIMITER_CANDIDATES);
-        char csvQuoteChar = findChar(line,0, CSV_QUOTE_CANDIDATES);
+        char csvFieldDelimiterChar = findChar(line, CSV_DELIMITER_CANDIDATES);
+        char csvQuoteChar = findChar(line, CSV_QUOTE_CANDIDATES);
 
         return new CsvConfig(csvFieldDelimiterChar, csvQuoteChar);
     }
 
-    private static char findChar(String line, int fromIndex, char... candidates) {
-        int pos = StringUtils.indexOfAny(line,fromIndex, line.length(), candidates);
+    private static char findChar(String line, char... candidates) {
+        int pos = GsTextUtils.indexOfAny(line,0, line.length(), candidates);
         return pos == -1 ? candidates[0] : line.charAt(pos);
     }
 
