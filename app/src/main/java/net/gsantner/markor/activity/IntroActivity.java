@@ -37,7 +37,6 @@ public class IntroActivity extends AppIntro {
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest
         addSlide(AppIntroFragment.createInstance(getString(R.string.main_view), getString(R.string.notebook_is_the_home_of_your_files), R.drawable.screen1_main_view, R.color.primary));
-        addSlide(AppIntroFragment.createInstance(getString(R.string.editor), getString(R.string.error_need_storage_permission_to_save_documents), R.drawable.screen2_editor, R.color.primary));
         addSlide(AppIntroFragment.createInstance(getString(R.string.view), "", R.drawable.screen3_view, R.color.primary));
         addSlide(AppIntroFragment.createInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, R.color.primary));
         addSlide(AppIntroFragment.createInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, R.color.primary));

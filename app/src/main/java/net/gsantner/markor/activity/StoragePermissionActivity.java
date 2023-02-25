@@ -13,6 +13,8 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
 
     final static String EXTRA_INTENT = "EXTRA_INTENT";
 
+    boolean _responseProcessed = false;
+
     // Check whether we require permissions and setup appropriate conditions
     public static void requestPermissions(final MarkorBaseActivity activity) {
         if (!GsContextUtils.instance.checkExternalStoragePermission(activity)) {
@@ -31,14 +33,24 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
 
     private void askForPermissions() {
         final AlertDialog d = new AlertDialog.Builder(this)
-                .setMessage(R.string.error_need_storage_permission_to_save_documents)
+                .setMessage(R.string.storage_permission_required)
                 .setNegativeButton(R.string.exit, (dialog, which) -> finish())
-                .setPositiveButton(android.R.string.yes, (dialog, which) -> GsContextUtils.instance.requestExternalStoragePermission(this))
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    _responseProcessed = false;
+                    GsContextUtils.instance.requestExternalStoragePermission(this);
+                })
                 .show();
         d.setCanceledOnTouchOutside(false);
     }
 
     private void processPermissionState() {
+        // We do this to make sure the response is processed 1 time per request
+        // Sometimes both onRequestPermissionResulst and onActivityResult are triggered
+        if (_responseProcessed) {
+            return;
+        }
+        _responseProcessed = true;
+
         if (_cu.checkExternalStoragePermission(this)) {
             this.startActivity(getIntent().getParcelableExtra(EXTRA_INTENT));
             finish();
@@ -47,6 +59,10 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
             askForPermissions();
         }
     }
+
+    // We implement onReuestPermissionResult and onActivityResult because
+    // there are multiple ways permissions can be requested for different
+    // android versions and phone models
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -127,7 +127,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             manager.putFragment(outState, Integer.toString(R.id.nav_quicknote), _quicknote);
             manager.putFragment(outState, Integer.toString(R.id.nav_todo), _todo);
             manager.putFragment(outState, Integer.toString(R.id.nav_more), _more);
-        } catch (NullPointerException | IllegalStateException ignored) {}
+        } catch (NullPointerException | IllegalStateException ignored) {
+            Log.d(MainActivity.class.getName(), "Child fragments null in onSaveInstanceState()");
+        }
     }
 
     @Override
@@ -145,7 +147,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
             _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
             _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
-        } catch (NullPointerException | IllegalStateException ignored) {}
+        } catch (NullPointerException | IllegalStateException ignored) {
+            Log.d(MainActivity.class.getName(), "Child fragment not found in onRestoreInstanceState()");
+        }
     }
 
     // Reduces swipe sensitivity

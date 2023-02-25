@@ -79,7 +79,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3. személytől származó könyvtárak</string>
     <string name="language_change_restart_description">Az alkalmazás nyelvének megváltoztatása. Indítsd újra az alkalmazást, hogy a módosítások érvénybe lépjenek!</string>
     <string name="language">Nyelv</string>
-    <string name="error_need_storage_permission_to_save_documents">A dokumentumok mentéséhez szükség van a tárhelyhozzáférésre</string>
     <string name="open_with">Megnyitás ezzel</string>
     <string name="sort_by">Rendezés</string>
     <string name="date">Dátum</string>

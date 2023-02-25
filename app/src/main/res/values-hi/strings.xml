@@ -78,7 +78,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">तृतीय पार्टी के लाइसेंस दिखाएं</string>
     <string name="language_change_restart_description">इस ऐप की भाषा बदलें परिवर्तन प्रभावी होने के लिए ऐप को पुन: प्रारंभ करें</string>
     <string name="language">भाषा</string>
-    <string name="error_need_storage_permission_to_save_documents">दस्तावेज़ों को सहेजने के लिए संग्रहण की अनुमति की आवश्यकता है</string>
     <string name="open_with">के साथ खोलें</string>
     <string name="sort_by">छाटना</string>
     <string name="date">दिनांक के हिसाब से छाटना</string>

@@ -87,7 +87,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Show 3rd party licenses</string>
     <string name="language_change_restart_description">Change language of this app. Restart app for changes to take effect</string>
     <string name="language">Language</string>
-    <string name="error_need_storage_permission_to_save_documents">Need permission for storage to save documents</string>
+    <string name="storage_permission_required">Storage permission required to read and write files</string>
     <string name="open_with">Open with</string>
     <string name="sort_by">Sort by</string>
     <string name="date">Date</string>

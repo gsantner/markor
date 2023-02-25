@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Librerias de terzas partes</string>
     <string name="language_change_restart_description">Càmbia sa limba de custa aplicatzione. Torra·la a allùghere pro fàghere tènnere efetu a su cambiamentu</string>
     <string name="language">Limba</string>
-    <string name="error_need_storage_permission_to_save_documents">Tenet bisòngiu de su permissu pro s\'atzessu a sa memòria pro sarvare documentos</string>
     <string name="open_with">Aberi cun</string>
     <string name="sort_by">Òrdina pro</string>
     <string name="date">Data</string>

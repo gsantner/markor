@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
     <string name="language_change_restart_description">Endre programmets språk. Omstart kreves før endringer trer i effekt</string>
     <string name="language">Språk</string>
-    <string name="error_need_storage_permission_to_save_documents">Lagringstilgang behøves for lagring av dokumenter</string>
     <string name="open_with">Åpne med</string>
     <string name="sort_by">Sorter</string>
     <string name="date">Etter dato</string>

@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Exibir licenças de terceiros</string>
     <string name="language_change_restart_description">Alterar o idioma deste aplicativo. Reinicie o aplicativo para as mudanças terem efeito</string>
     <string name="language">Idioma</string>
-    <string name="error_need_storage_permission_to_save_documents">Para salvar documentos é necessário ter permissão de acesso ao armazenamento</string>
     <string name="open_with">Abrir com</string>
     <string name="sort_by">Ordenar</string>
     <string name="date">Ordenar por Data</string>

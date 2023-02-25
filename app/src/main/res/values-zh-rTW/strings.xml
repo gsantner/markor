@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">第三方程式庫</string>
     <string name="language_change_restart_description">更改應用程式使用的語言。要重新開啟應用程式才會生效</string>
     <string name="language">語言</string>
-    <string name="error_need_storage_permission_to_save_documents">擁有權限才能儲存文件</string>
     <string name="open_with">開啟用</string>
     <string name="sort_by">排序依據</string>
     <string name="date">依日期排列</string>

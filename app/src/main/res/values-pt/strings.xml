@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Licenças de terceiros</string>
     <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
     <string name="language">Idioma</string>
-    <string name="error_need_storage_permission_to_save_documents">Tem que conceder o acesso ao armazenamento para guardar documentos</string>
     <string name="open_with">Abrir com</string>
     <string name="sort_by">Ordenar por</string>
     <string name="date">Data</string>

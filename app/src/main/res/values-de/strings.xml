@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
     <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
-    <string name="error_need_storage_permission_to_save_documents">Benötige Dateisystemberechtigung um Dokumente zu speichern</string>
     <string name="open_with">Öffnen mit</string>
     <string name="sort_by">Sortieren</string>
     <string name="date">Datum</string>
