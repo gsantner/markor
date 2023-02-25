@@ -581,6 +581,18 @@ public class GsFileUtils {
         return file;
     }
 
+    public static File join(final File ... files) {
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File result = files[0];
+        for (int i = 1; i < files.length; i++) {
+            result = new File(result, files[i].getAbsolutePath());
+        }
+        return result;
+    }
+
     private static String hash(final byte[] data, final String alg) {
         try {
             return Arrays.toString(MessageDigest.getInstance(alg).digest(data));
@@ -764,30 +776,36 @@ public class GsFileUtils {
         }
     }
 
-    // Check if a file can be created (parent exists and can be written)
+    /**
+     * Check if a file can be created (parent exists and can be writtenssssssssss
+     */
     public static boolean canCreate(final File file) {
         return isWritable(file) || isWritable(file.getParentFile());
     }
 
-    // Returns true if test is a child of parent. A file is not a child of itself
+
+    /**
+     * Check if file is child of folder. A folder is not its own child.
+     * @param parent Parent folder
+     * @param test   File to test
+     * @return if parent is a child of test
+     */
     public static boolean isChild(final File parent, File test) {
+        if (parent.equals(test)) {
+            return false;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return !parent.equals(test) && test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
-        } else {
-            // Can fail is parent dest name contains test. Not a good method
-            return !parent.equals(test) && test.getAbsolutePath().startsWith(parent.getAbsolutePath());
-        }
-    }
-
-    public static File join(final File ... files) {
-        if (files == null || files.length == 0) {
-            return null;
+            return test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
         }
 
-        File result = files[0];
-        for (int i = 1; i < files.length; i++) {
-            result = new File(result, files[i].getAbsolutePath());
-        }
-        return result;
+        do {
+            test = test.getParentFile();
+            if (parent.equals(test)) {
+                return true;
+            }
+        } while (test != null);
+
+        return false;
     }
 }
