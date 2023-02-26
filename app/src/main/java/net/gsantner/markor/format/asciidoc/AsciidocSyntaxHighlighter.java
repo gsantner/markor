@@ -242,11 +242,9 @@ public class AsciidocSyntaxHighlighter extends SyntaxHighlighterBase {
 
         if (_highlightBiggerHeadings) {
             createSpanForMatches(HEADING_ASCIIDOC, new WrAsciidocHeaderSpanCreator(_spannable,
-                    _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING,
-                    _textSize));
+                    _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING));
             createSpanForMatches(HEADING_MD, new WrMarkdownHeaderSpanCreator(_spannable,
-                    _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING,
-                    _textSize));
+                    _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING));
         } else {
             createSpanForMatches(HEADING, new HighlightSpan().setForeColor(
                     _isDarkMode ? AD_FORECOLOR_DARK_HEADING : AD_FORECOLOR_LIGHT_HEADING));
