@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class GsActivityBase<AS extends GsSharedPreferencesPropertyBackend, CU extends GsContextUtils> extends AppCompatActivity {
 
-    private AtomicBoolean _activityFirstTimeVisible = new AtomicBoolean(true);
+    protected final AtomicBoolean _activityFirstTimeVisible = new AtomicBoolean(true);
     protected AS _appSettings;
     protected Bundle _savedInstanceState;
     protected GsContextUtils _cu;
