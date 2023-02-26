@@ -68,7 +68,6 @@ public abstract class SyntaxHighlighterBase {
 
     // Configuration - to be set on a call to configure
     protected int _delay = LONG_HIGHLIGHTING_DELAY;
-    protected float _textSize = 1;
     protected int _tabSize = 1;
     protected boolean _isDarkMode = false;
     protected int _textColor = Color.BLACK;
@@ -90,7 +89,6 @@ public abstract class SyntaxHighlighterBase {
         _fontFamily = _appSettings.getFontFamily();
         _textColor = _appSettings.getEditorForegroundColor();
         if (paint != null) {
-            _textSize = paint.getTextSize();
             _tabSize = (int) (_appSettings.getTabWidth() * paint.measureText(" "));
         }
         return this;
@@ -442,7 +440,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     protected final void createSmallBlueLinkSpans() {
-        createSpanForMatches(Patterns.WEB_URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextSize(_textSize * 0.85f));
+        createSpanForMatches(Patterns.WEB_URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextScale(0.85f));
     }
 
     protected final void createUnderlineHexColorsSpans() {
@@ -456,7 +454,7 @@ public abstract class SyntaxHighlighterBase {
         public Boolean italic = null;
         public Boolean underline = null;
         public Boolean strikethrough = null;
-        public Float textSize = null;
+        public Float textScale = null;
         public @ColorInt
         Integer foregroundColor = null;
         public @ColorInt
@@ -473,8 +471,8 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
-        public HighlightSpan setTextSize(Float size) {
-            textSize = size;
+        public HighlightSpan setTextScale(Float scale) {
+            textScale = scale;
             return this;
         }
 
@@ -528,8 +526,8 @@ public abstract class SyntaxHighlighterBase {
                 tp.bgColor = backgroundColor;
             }
 
-            if (textSize != null) {
-                tp.setTextSize(textSize);
+            if (textScale != null) {
+                tp.setTextSize(tp.getTextSize() * textScale);
             }
         }
 
@@ -544,7 +542,7 @@ public abstract class SyntaxHighlighterBase {
                     .setItalic(italic)
                     .setUnderline(underline)
                     .setStrike(strikethrough)
-                    .setTextSize(textSize);
+                    .setTextScale(textScale);
         }
     }
 }

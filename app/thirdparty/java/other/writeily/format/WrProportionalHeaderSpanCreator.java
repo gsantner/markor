@@ -15,41 +15,39 @@ import androidx.annotation.NonNull;
 
 public class WrProportionalHeaderSpanCreator {
 
-    private final float _textSize;
     private final int _color;
 
-    public WrProportionalHeaderSpanCreator(final float textSize, final int color) {
-        _textSize = textSize;
+    public WrProportionalHeaderSpanCreator(final int color) {
         _color = color;
     }
 
     public Object createHeaderSpan(final float proportion) {
-        return new LargerHeaderSpan(_color, _textSize * proportion);
+        return new LargerHeaderSpan(_color, proportion);
     }
 
     public static class LargerHeaderSpan extends MetricAffectingSpan {
 
         final @ColorInt
         int _color;
-        final float _textSize;
+        final float _proportion;
 
-        public LargerHeaderSpan(final @ColorInt int color, final float textSize) {
+        public LargerHeaderSpan(final @ColorInt int color, final float proportion) {
             _color = color;
-            _textSize = textSize;
+            _proportion = proportion;
         }
 
         @Override
         public void updateMeasureState(@NonNull TextPaint textPaint) {
             textPaint.setFakeBoldText(true);
             textPaint.setColor(_color);
-            textPaint.setTextSize(_textSize);
+            textPaint.setTextSize(textPaint.getTextSize() * _proportion);
         }
 
         @Override
         public void updateDrawState(@NonNull TextPaint textPaint) {
             textPaint.setFakeBoldText(true);
             textPaint.setColor(_color);
-            textPaint.setTextSize(_textSize);
+            textPaint.setTextSize(textPaint.getTextSize() * _proportion);
         }
     }
 }

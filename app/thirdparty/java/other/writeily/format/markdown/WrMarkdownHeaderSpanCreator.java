@@ -22,9 +22,9 @@ public class WrMarkdownHeaderSpanCreator implements GsCallback.r1<Object, Matche
     private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrMarkdownHeaderSpanCreator(final CharSequence text, int color, final float textSize) {
+    public WrMarkdownHeaderSpanCreator(final CharSequence text, int color) {
         _text = text;
-        _spanCreator = new WrProportionalHeaderSpanCreator(textSize, color);
+        _spanCreator = new WrProportionalHeaderSpanCreator(color);
     }
 
     public Object callback(final Matcher m) {

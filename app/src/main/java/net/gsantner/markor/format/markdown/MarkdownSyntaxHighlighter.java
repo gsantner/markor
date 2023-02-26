@@ -66,7 +66,7 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
         createSmallBlueLinkSpans();
 
         if (_highlightBiggerHeadings) {
-            createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING, _textSize));
+            createSpanForMatches(HEADING, new WrMarkdownHeaderSpanCreator(_spannable, MD_COLOR_HEADING));
         } else {
             createColorSpanForMatches(HEADING, MD_COLOR_HEADING);
         }
