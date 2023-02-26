@@ -79,7 +79,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">තුන්වන පාර්ශ්ව බලපත්‍ර පෙන්වන්න</string>
     <string name="language_change_restart_description">මෙම යෙදුමේ භාෂාව වෙනස් කරන්න. වෙනස්කම් බලාත්මක වීමට යෙදුම නැවත ආරම්භ කරන්න</string>
     <string name="language">භාෂාව</string>
-    <string name="error_need_storage_permission_to_save_documents">ලේඛන සුරැකීමට ගබඩා කිරීම සඳහා අවසරය අවශ්‍ය වේ</string>
     <string name="open_with">සමඟ විවෘත කරන්න</string>
     <string name="sort_by">අනුව තෝරන්න</string>
     <string name="date">දිනය</string>

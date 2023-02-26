@@ -136,9 +136,9 @@ public class AttachLinkOrFileDialog {
         final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                final String saveDir = _appSettings.getNotebookDirectoryAsStr();
+                final File saveDir = _appSettings.getNotebookDirectory();
                 String text = null;
-                boolean isInSaveDir = file.getAbsolutePath().startsWith(saveDir) && currentWorkingFile.getAbsolutePath().startsWith(saveDir);
+                boolean isInSaveDir = GsFileUtils.isChild(saveDir, file) && GsFileUtils.isChild(saveDir, currentWorkingFile);
                 boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
                 if (isInCurrentDir || isInSaveDir) {
                     text = GsFileUtils.relativePath(currentWorkingFile, file);

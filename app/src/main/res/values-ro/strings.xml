@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Afișează licenţe terţi</string>
     <string name="language_change_restart_description">Schimbă limba acestei aplicații. Restartează aplicația pentru ca schimbările să ia efect</string>
     <string name="language">Limbă</string>
-    <string name="error_need_storage_permission_to_save_documents">Aveți nevoie de permisiune pentru stocare pentru a salva documente</string>
     <string name="open_with">Deschideți cu</string>
     <string name="sort_by">Sortează după</string>
     <string name="date">Data</string>

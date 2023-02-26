@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">إظهار تراخيص الطرف الثالث</string>
     <string name="language_change_restart_description">تغيير لغة التطبيق. اعد فتح التطبيق لتفعيل التغيير</string>
     <string name="language">اللّغة</string>
-    <string name="error_need_storage_permission_to_save_documents">يجب اعطاء البرنامج صلاحية استخدام التخزين لحفظ المستندات</string>
     <string name="open_with">فتح بواسطة</string>
     <string name="sort_by">فرز حسب</string>
     <string name="date">التاريخ</string>

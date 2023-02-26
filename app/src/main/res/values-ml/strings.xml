@@ -76,7 +76,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3rd പാർട്ടി അനുമതിപത്രം കാണിക്കുക</string>
     <string name="language_change_restart_description">ആപ്പിന്റെ ഭാഷ മാറ്റുക. മാറ്റം ഫലപ്രദമാകുവാൻ ആപ്പ് വീണ്ടും തുറക്കുക</string>
     <string name="language">ഭാഷ</string>
-    <string name="error_need_storage_permission_to_save_documents">ഡോക്യൂമെന്റസ് സൂക്ഷിക്കാൻ സ്റ്റോറേജിലേക്ക് അനുവാദം ആവിശ്യമുണ്ട്</string>
     <string name="open_with">തുറക്കാൻ ഇത് ഉപയോഗിക്കൂ</string>
     <string name="sort_by">ക്രമീകരിക്കൂ ഇപ്രകാരം</string>
     <string name="date">തീയതി</string>

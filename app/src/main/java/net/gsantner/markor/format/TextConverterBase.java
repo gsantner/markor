@@ -105,7 +105,7 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e.toString();
         }
 
-        String baseFolder = ApplicationObject.settings().getNotebookDirectoryAsStr();
+        String baseFolder = ApplicationObject.settings().getNotebookDirectory().getAbsolutePath();
         if (document.getFile().getParentFile() != null) {
             baseFolder = document.getFile().getParent();
         }

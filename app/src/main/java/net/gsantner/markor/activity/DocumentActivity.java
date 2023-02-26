@@ -19,7 +19,6 @@ import android.text.Html;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +26,6 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -94,7 +92,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
         String fn = file.getName().toLowerCase();
         if (!fn.contains(".")) {
@@ -141,6 +138,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StoragePermissionActivity.requestPermissions(this);
         AppSettings.clearDebugLog();
         if (nextLaunchTransparentBg) {
             //getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
@@ -157,8 +155,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         setSupportActionBar(findViewById(R.id.toolbar));
         _fragManager = getSupportFragmentManager();
 
-        new MarkorPermissionChecker(this).doIfExtStoragePermissionGranted();
-
         handleLaunchingIntent(getIntent());
     }
 
@@ -174,27 +170,39 @@ public class DocumentActivity extends MarkorBaseActivity {
         String intentAction = intent.getAction();
         Uri intentData = intent.getData();
 
+        // Pull the file from the intent
+        // -----------------------------------------------------------------------
         File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
 
-        boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
-        boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
-        boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
-        boolean showedShareInto = false;
+        final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
+        final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);
+        final boolean intentIsEdit = Intent.ACTION_EDIT.equals(intentAction);
 
         if (intentIsSend && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            showedShareInto = showShareInto(intent);
+            showShareInto(intent);
+            return;
         } else if (Intent.ACTION_PROCESS_TEXT.equals(intentAction) && intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
             intent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("android.intent.extra.PROCESS_TEXT"));
-            showedShareInto = showShareInto(intent);
+            showShareInto(intent);
+            return;
         } else if (file == null && (intentIsView || intentIsEdit || intentIsSend)) {
             file = _cu.extractFileFromIntent(this, intent);
+            if (file == null) {
+                // More permissive - file may not exist
+                // Will be filtered out in next stage
+                file = MarkorContextUtils.getIntentFile(intent, null);
+            }
         }
 
-        if (file != null && (file.isDirectory() || !FormatRegistry.isFileSupported(file))) {
+        // Decide what to do with the file
+        // -----------------------------------------------------------------------
+        if (file == null) {
+            showNotSupportedMessage();
+        } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             // File readable but is not a text-file (and not a supported binary-embed type)
             handleFileClick(this, file, null);
             finish();
-        } else if (file != null) {
+        } else {
             // Open in editor/viewer
             final Document doc = new Document(file);
             Integer startLine = null;
@@ -214,9 +222,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             }
 
             showTextEditor(doc, startLine, startInPreview);
-
-        } else if (!showedShareInto) {
-            showNotSupportedMessage();
         }
     }
 
@@ -285,16 +290,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
-    public boolean showShareInto(Intent intent) {
+    public void showShareInto(Intent intent) {
         // Disable edittext when going to shareinto
         _toolbarTitleText.setText(R.string.share_into);
         showFragment(DocumentShareIntoFragment.newInstance(intent));
-        return true;
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        new MarkorPermissionChecker(this).checkPermissionResult(requestCode, permissions, grantResults);
     }
 
     @Override

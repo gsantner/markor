@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Vis tredjeparts-licenser</string>
     <string name="language_change_restart_description">Ændre applikationens sprog. Genstart for at ændringen træder i kraft</string>
     <string name="language">Sprog</string>
-    <string name="error_need_storage_permission_to_save_documents">Giv tilladelse til at gemme dokumenter</string>
     <string name="open_with">Åbn med</string>
     <string name="sort_by">Sortér efter</string>
     <string name="date">Dato</string>

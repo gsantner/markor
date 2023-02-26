@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">3rd Party Bibliotheken</string>
     <string name="language_change_restart_description">Taal wijzigen van deze app. Opnieuw opstarten om wijzigingen te activeren</string>
     <string name="language">Taal</string>
-    <string name="error_need_storage_permission_to_save_documents">Er is toestemming nodig voor het opslaan van de documenten</string>
     <string name="open_with">Open met</string>
     <string name="sort_by">Sorteren</string>
     <string name="date">Sorteer op datum</string>

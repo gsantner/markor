@@ -44,7 +44,6 @@ import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -70,7 +69,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerFragment";
 
-    public static GsFileBrowserFragment newInstance(GsFileBrowserOptions.Options options) {
+    public static GsFileBrowserFragment newInstance() {
         return new GsFileBrowserFragment();
     }
 
@@ -117,7 +116,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
-        _previousNotebookDirectory = _appSettings.getNotebookDirectoryAsStr();
+        _previousNotebookDirectory = _appSettings.getNotebookDirectory();
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context, _recyclerList);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -288,8 +287,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState = _filesystemViewerAdapter.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
+        _filesystemViewerAdapter.saveInstanceState(outState);
     }
 
     @Override
@@ -298,12 +297,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
-    private static String _previousNotebookDirectory;
+    private static File _previousNotebookDirectory;
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!_appSettings.getNotebookDirectoryAsStr().equals(_previousNotebookDirectory)) {
+        if (!_appSettings.getNotebookDirectory().equals(_previousNotebookDirectory)) {
             _dopt.rootFolder = _appSettings.getNotebookDirectory();
             _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder);
         }
@@ -354,6 +353,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             item.setTitle(item.getTitle().toString().replaceFirst("[)]\\s*$", " " + sdcardFolders.get(i).second) + ")");
             item.setVisible(true);
         }
+
         _fragmentMenu = menu;
         updateMenuItems();
     }
@@ -364,8 +364,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final MarkorPermissionChecker permc = new MarkorPermissionChecker(getActivity());
-
         final int _id = item.getItemId();
 
         switch (_id) {
@@ -411,9 +409,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 return true;
             }
             case R.id.action_import: {
-                if (permc.mkdirIfStoragePermissionGranted()) {
-                    showImportDialog();
-                }
+                showImportDialog();
                 return true;
             }
             case R.id.action_search: {
@@ -513,17 +509,15 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     private void executeSearchAction() {
-        if (new MarkorPermissionChecker(getActivity()).doIfExtStoragePermissionGranted()) {
-            final File currentFolder = getCurrentFolder();
-            MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
-                File load = new File(currentFolder, relFilePath);
-                if (load.isDirectory()) {
-                    _filesystemViewerAdapter.loadFolder(load);
-                } else {
-                    onFsViewerSelected("", load, lineNumber);
-                }
-            });
-        }
+        final File currentFolder = getCurrentFolder();
+        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
+            File load = new File(currentFolder, relFilePath);
+            if (load.isDirectory()) {
+                _filesystemViewerAdapter.setCurrentFolder(load);
+            } else {
+                onFsViewerSelected("", load, lineNumber);
+            }
+        });
     }
 
     public void sortAdapter() {
@@ -547,7 +541,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
-        confirmDialog.show(getActivity().getSupportFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getParentFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void askForMoveOrCopy(final boolean isMove) {
@@ -698,5 +692,15 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         } else {
             showAndBlink(file);
         }
+    }
+
+    public void setCurrentFolder(final File folder) {
+        if (folder != null && folder.canRead() && _filesystemViewerAdapter != null) {
+            _filesystemViewerAdapter.setCurrentFolder(folder);
+        }
+    }
+
+    public GsFileBrowserOptions.Options getOptions() {
+        return _dopt;
     }
 }

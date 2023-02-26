@@ -126,7 +126,7 @@ public class TodoTxtTask {
 
     public static String tasksToString(final List<TodoTxtTask> tasks) {
         StringBuilder builder = new StringBuilder();
-        for (TodoTxtTask task : tasks) {
+        for (final TodoTxtTask task : tasks) {
             builder.append(task.getLine());
             builder.append('\n');
         }

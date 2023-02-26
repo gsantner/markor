@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Visa tredjeparts-licenser</string>
     <string name="language_change_restart_description">Byt språk för appen. Starta om för att fastställa ändringar</string>
     <string name="language">Språk</string>
-    <string name="error_need_storage_permission_to_save_documents">Behöver åtkomst till lagringsmedia för att spara dokument</string>
     <string name="open_with">Öppna med</string>
     <string name="sort_by">Sortera</string>
     <string name="date">Datum</string>

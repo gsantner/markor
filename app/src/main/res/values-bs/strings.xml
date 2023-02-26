@@ -79,7 +79,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Prikaži ostale licence</string>
     <string name="language_change_restart_description">Promijenite jezik programa. Iznova pokrenite program da aktivirate promjenu</string>
     <string name="language">Jezik</string>
-    <string name="error_need_storage_permission_to_save_documents">Neophodna je dozvola za pristup memoriji kako bi bilo moguće pohranjivati dokumente</string>
     <string name="open_with">Otvori pomoću</string>
     <string name="sort_by">Sortiraj</string>
     <string name="date">Datum</string>
