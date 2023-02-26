@@ -690,7 +690,7 @@ public class GsFileUtils {
 
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> makeComparator(final String sortBy, final boolean sortReverse) {
+    public static Comparator<File> makeSortFileByComparator(final String sortBy, final boolean sortReverse) {
         return (current, other) -> {
             if (sortReverse) {
                 File swap = current;
@@ -717,8 +717,8 @@ public class GsFileUtils {
         };
     }
 
-    public static void sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = makeComparator(sortBy, sortReverse);
+    public static Pair<List<File>, Comparator<File>> sortFiles(final List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
+        final Comparator<File> detailComparator = makeSortFileByComparator(sortBy, sortReverse);
 
         final Comparator<File> mainComparator = (current, other) -> {
             if (current == null || other == null) {
@@ -742,6 +742,7 @@ public class GsFileUtils {
                 e.printStackTrace();
             }
         }
+        return new Pair<>(filesToSort, mainComparator);
     }
 
     public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
@@ -768,8 +769,8 @@ public class GsFileUtils {
     }
 
     /**
-      * Check if a file can be created (parent exists and can be written)
-      */
+     * Check if a file can be created (parent exists and can be written)
+     */
     public static boolean isWritable(final File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return file != null && Files.isWritable(file.toPath());
