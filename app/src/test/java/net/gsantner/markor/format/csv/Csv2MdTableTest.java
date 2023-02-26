@@ -7,7 +7,7 @@
 #########################################################*/
 package net.gsantner.markor.format.csv;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -25,26 +25,27 @@ public class Csv2MdTableTest {
                 // empty lines are ignored/removed
                 "\n\n\n\n" +
 
-                "# comment lines are ignored/removed\n" +
+                        "# comment lines are ignored/removed\n" +
 
-                "col1;col2;col3\n" +
-                "1;2;3\n" +
+                        "col1;col2;col3\n" +
+                        "1;2;3\n" +
 
-                // missing colums will be completed
-                "1\n" +
+                        // missing colums will be completed
+                        "1\n" +
 
-                // empty lines are ignored/removed
-                "\n\n" +
+                        // empty lines are ignored/removed
+                        "\n\n" +
 
-                // newline in column will be replaced by html <br/>
-                "1;\"multi\n" +
-                "    line\";3\n" +
+                        // newline in column will be replaced by html <br/>
+                        "1;\"multi\n" +
+                        "    line\";3\n" +
 
-                //  handling special chars
-                "1;\"text with \"\" .,;!|\t:\";3\n";
+                        //  handling special chars
+                        "1;\"text with \"\" .,;!|\t:\";3\n";
         String markdown = Csv2MdTable.toMdTable(csv);
         assertEquals(expected, markdown.trim());
     }
+
     @Test
     public void toMdTableInferSeperator() {
         String expected = "|col1|col2|col3|\n" +

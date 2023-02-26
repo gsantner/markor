@@ -7,13 +7,13 @@
 #########################################################*/
 package net.gsantner.opoc.format;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
 public class GsTextUtilsTest {
     //                      012345 67890 1234567
-    String lineWithNL    = "Hello \njava\n World";
+    String lineWithNL = "Hello \njava\n World";
 
     //                      0123456789012345
     String lineWithoutNL = "Hello java World";
@@ -22,28 +22,28 @@ public class GsTextUtilsTest {
     public void getNeighbourLineEndings_bothFound() {
         int pos = lineWithNL.indexOf("av"); // inside java
         int[] result = GsTextUtils.getNeighbourLineEndings(lineWithNL, pos, pos);
-        assertArrayEquals("'java' found", new int[]{6,11},result);
+        assertArrayEquals("'java' found", new int[]{6, 11}, result);
     }
 
     @Test
     public void getNeighbourLineEndings_noEnd() {
         int pos = lineWithNL.indexOf("or"); // inside world
         int[] result = GsTextUtils.getNeighbourLineEndings(lineWithNL, pos, pos);
-        assertArrayEquals("'world' found", new int[]{11,18},result);
+        assertArrayEquals("'world' found", new int[]{11, 18}, result);
     }
 
     @Test
     public void getNeighbourLineEndings_noBegin() {
         int pos = lineWithNL.indexOf("el"); // inside Hello
         int[] result = GsTextUtils.getNeighbourLineEndings(lineWithNL, pos, pos);
-        assertArrayEquals("'hello' found", new int[]{0,6},result);
+        assertArrayEquals("'hello' found", new int[]{0, 6}, result);
     }
 
     @Test
     public void getNeighbourLineEndings_noNl() {
         int pos = lineWithNL.indexOf("av"); // inside java
         int[] result = GsTextUtils.getNeighbourLineEndings(lineWithoutNL, pos, pos);
-        assertArrayEquals("whole text returned", new int[]{0,16},result);
+        assertArrayEquals("whole text returned", new int[]{0, 16}, result);
     }
 
 }

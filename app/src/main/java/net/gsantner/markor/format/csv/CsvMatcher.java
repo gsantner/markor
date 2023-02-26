@@ -9,6 +9,7 @@ package net.gsantner.markor.format.csv;
 
 import net.gsantner.opoc.format.GsTextUtils;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -30,15 +31,47 @@ public class CsvMatcher {
         inferCsvConfig();
     }
 
+    /**
+     * Modified version of org.apache.commons.lang3.StringUtils#indexOfAny.
+     * <p>
+     * Same as {@link StringUtils#indexOfAny(CharSequence, char...)
+     * where you can specify the search intervall}
+     * License of this function is Apache2
+     */
+        public static int indexOfAny(final CharSequence cs, int csFirst, int csLen, final char... searchChars) {
+        if (StringUtils.isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return StringUtils.INDEX_NOT_FOUND;
+        }
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
+        for (int i = csFirst; i < csLen; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
+                        // ch is a supplementary character
+                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
+                            return i;
+                        }
+                    } else {
+                        return i;
+                    }
+                }
+            }
+        }
+        return StringUtils.INDEX_NOT_FOUND;
+    }
+
     private void inferCsvConfig() {
-        int posDelimiter = GsTextUtils.indexOfAny(csv, 0, csv.length(), CsvConfig.CSV_DELIMITER_CANDIDATES);
+        int posDelimiter = indexOfAny(csv, 0, csv.length(), CsvConfig.CSV_DELIMITER_CANDIDATES);
         if (posDelimiter >= 0) {
             csvDelimiter = csv.charAt(posDelimiter);
             this.startOfCol = GsTextUtils.beginOfLine(csv, posDelimiter);
 
             int posEndOfHeader = GsTextUtils.endOfLine(csv, posDelimiter);
 
-            int posQuote = GsTextUtils.indexOfAny(csv, startOfCol, posEndOfHeader, CsvConfig.CSV_QUOTE_CANDIDATES);
+            int posQuote = indexOfAny(csv, startOfCol, posEndOfHeader, CsvConfig.CSV_QUOTE_CANDIDATES);
             this.csvQoute = posQuote >= 0 ? csv.charAt(posQuote) : CsvConfig.CSV_QUOTE_CANDIDATES[0];
         }
     }
@@ -59,7 +92,7 @@ public class CsvMatcher {
         this.endOfRow = true;
 
         int nextNl = GsTextUtils.endOfLine(csv, startOfColumnContent);
-        if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter && nextBeginQuote < nextNl ) {
+        if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter && nextBeginQuote < nextNl) {
             // column surrounded by qoutes
             int nextEndQuote = nextEndQuote(nextBeginQuote + 1);
             if (nextEndQuote == INDEX_NOT_FOUND) return csvLen;
@@ -87,7 +120,7 @@ public class CsvMatcher {
         int csvLen = csv.length();
         int found;
         while (start < csvLen) {
-            found = StringUtils.indexOf(csv,csvQoute, start);
+            found = StringUtils.indexOf(csv, csvQoute, start);
 
             if (found == INDEX_NOT_FOUND) return INDEX_NOT_FOUND;
             if (found + 1 < csvLen && csv.charAt(found + 1) != csvQoute) return found;

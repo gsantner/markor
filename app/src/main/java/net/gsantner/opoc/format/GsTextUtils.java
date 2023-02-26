@@ -11,8 +11,6 @@ package net.gsantner.opoc.format;
 
 import android.util.Base64;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -60,6 +58,7 @@ public class GsTextUtils {
      * find '\n' to the right and left of text[pos] .. text[posEnd].
      * If left does not exist 0 (begin of text) is used.
      * if right does not exist text.length() (end of text) is used.
+     *
      * @return result[0] is left, result[1] is right.
      */
     public static int[] getNeighbourLineEndings(String text, int pos, int posEnd) {
@@ -94,11 +93,11 @@ public class GsTextUtils {
      * returns search for begin of line starting for startPosition down to 0
      */
     public static int beginOfLine(final String text, int startPosition) {
-        return getNeighbourLineEndings(text, startPosition,startPosition)[0];
+        return getNeighbourLineEndings(text, startPosition, startPosition)[0];
     }
 
     public static int endOfLine(final String text, int startPosition) {
-        return getNeighbourLineEndings(text, startPosition,startPosition)[1];
+        return getNeighbourLineEndings(text, startPosition, startPosition)[1];
     }
 
     public static String removeLinesOfTextAround(String text, int pos, int posEnd) {
@@ -307,37 +306,6 @@ public class GsTextUtils {
             count++;
         }
         return count;
-    }
-
-    /**
-     * Modified version of org.apache.commons.lang3.StringUtils#indexOfAny.
-     *
-     * Same as {@link org.apache.commons.lang3.StringUtils#indexOfAny(CharSequence, char...)
-     * where you can specify the search intervall}
-     */
-    public static int indexOfAny(final CharSequence cs, int csFirst, int csLen, final char... searchChars) {
-        if (StringUtils.isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
-            return StringUtils.INDEX_NOT_FOUND;
-        }
-        final int csLast = csLen - 1;
-        final int searchLen = searchChars.length;
-        final int searchLast = searchLen - 1;
-        for (int i = csFirst; i < csLen; i++) {
-            final char ch = cs.charAt(i);
-            for (int j = 0; j < searchLen; j++) {
-                if (searchChars[j] == ch) {
-                    if (i < csLast && j < searchLast && Character.isHighSurrogate(ch)) {
-                        // ch is a supplementary character
-                        if (searchChars[j + 1] == cs.charAt(i + 1)) {
-                            return i;
-                        }
-                    } else {
-                        return i;
-                    }
-                }
-            }
-        }
-        return StringUtils.INDEX_NOT_FOUND;
     }
 
 }

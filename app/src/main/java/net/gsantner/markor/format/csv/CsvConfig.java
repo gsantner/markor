@@ -7,11 +7,9 @@
 #########################################################*/
 package net.gsantner.markor.format.csv;
 
-import net.gsantner.opoc.format.GsTextUtils;
-
 /**
  * Configuration for CSV file format.
- *
+ * <p>
  * Implementation detail for csv support. This file should be not have dependencies to
  * android and to Markor-Architecture.
  */
@@ -35,7 +33,7 @@ public class CsvConfig {
     }
 
     private static char findChar(String line, char... candidates) {
-        int pos = GsTextUtils.indexOfAny(line,0, line.length(), candidates);
+        int pos = CsvMatcher.indexOfAny(line, 0, line.length(), candidates);
         return pos == -1 ? candidates[0] : line.charAt(pos);
     }
 

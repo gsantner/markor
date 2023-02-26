@@ -21,7 +21,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     // dkgray is not much different from black and not readable with black background
     // blue is difficuilt to read on black background
     private static final int[] COLUMN_COLORS = {
-            Color.RED,Color.BLUE,Color.MAGENTA,
+            Color.RED, Color.BLUE, Color.MAGENTA,
             0xff00b04c, // dark green,
             0xffdaa500}; // brown
     public static final String TAG = CsvSyntaxHighlighter.class.getSimpleName();
@@ -53,7 +53,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
             if (colNumner >= colors.length) {
                 colNumner = 0;
             }
-            from = to+1;
+            from = to + 1;
         }
     }
 
@@ -70,7 +70,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
             HighlightSpan span = new HighlightSpan().setForeColor(color);
 
             if (span != null) {
-                addSpanGroup(span, from -1, to); // -1 : also mark delimiter
+                addSpanGroup(span, from - 1, to); // -1 : also mark delimiter
             }
         }
     }
