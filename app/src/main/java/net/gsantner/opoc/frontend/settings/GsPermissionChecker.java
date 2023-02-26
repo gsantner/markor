@@ -26,11 +26,19 @@ public class GsPermissionChecker {
         _activity = activity;
     }
 
-    public boolean doIfExtStoragePermissionGranted(String... optionalToastMessageForKnowingWhyNeeded) {
-        return GsContextUtils.instance.checkExternalStoragePermission(_activity, true, optionalToastMessageForKnowingWhyNeeded);
+    public boolean doIfExtStoragePermissionGranted() {
+        return doIfExtStoragePermissionGranted(null);
     }
 
-    public boolean checkPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+    public boolean doIfExtStoragePermissionGranted(final String whyNeeded) {
+        if (!GsContextUtils.instance.checkExternalStoragePermission(_activity)) {
+            GsContextUtils.instance.requestExternalStoragePermission(_activity, whyNeeded);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkPermissionResult(final int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults.length > 0) {
             switch (requestCode) {
                 case CODE_PERMISSION_EXTERNAL_STORAGE: {
@@ -43,7 +51,7 @@ public class GsPermissionChecker {
         return false;
     }
 
-    public boolean mkdirIfStoragePermissionGranted(File dir) {
+    public boolean mkdirIfStoragePermissionGranted(final File dir) {
         return doIfExtStoragePermissionGranted() && (dir.exists() || dir.mkdirs());
     }
 }

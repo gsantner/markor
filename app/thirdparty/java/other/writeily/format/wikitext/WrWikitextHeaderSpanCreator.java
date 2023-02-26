@@ -23,9 +23,9 @@ public class WrWikitextHeaderSpanCreator implements GsCallback.r1<Object, Matche
     private final CharSequence _text;
     private final WrProportionalHeaderSpanCreator _spanCreator;
 
-    public WrWikitextHeaderSpanCreator(final CharSequence text, int color, final float fontSize) {
+    public WrWikitextHeaderSpanCreator(final CharSequence text, int color) {
         _text = text;
-        _spanCreator = new WrProportionalHeaderSpanCreator(fontSize, color);
+        _spanCreator = new WrProportionalHeaderSpanCreator(color);
     }
 
     public Object callback(final Matcher m) {

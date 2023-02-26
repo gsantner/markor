@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
     <string name="language_change_restart_description">Змінити мову цієї програмки. Перезавантажте застосунок, щоб зміни запрацювали</string>
     <string name="language">Мова</string>
-    <string name="error_need_storage_permission_to_save_documents">Потрібен дозвіл на запис для збереження документів</string>
     <string name="open_with">Відкрити в</string>
     <string name="sort_by">Сортування</string>
     <string name="date">Дата</string>

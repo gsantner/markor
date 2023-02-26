@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
     <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
     <string name="language">Jazyk</string>
-    <string name="error_need_storage_permission_to_save_documents">Pro ukládání dokumentů je třeba oprávnění úložiště</string>
     <string name="open_with">Otevřít pomocí</string>
     <string name="sort_by">Řadit podle</string>
     <string name="date">Datum</string>

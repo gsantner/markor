@@ -465,7 +465,7 @@ public class MarkorDialogFactory {
             final EditText text,
             final GsCallback.b1<TodoTxtTask> filter
     ) {
-        DialogOptions dopt = new DialogOptions();
+        final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text.getText());
         final List<String> lines = new ArrayList<>();

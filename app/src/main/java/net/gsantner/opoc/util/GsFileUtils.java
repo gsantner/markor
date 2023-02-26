@@ -581,6 +581,18 @@ public class GsFileUtils {
         return file;
     }
 
+    public static File join(final File... files) {
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        File result = files[0];
+        for (int i = 1; i < files.length; i++) {
+            result = new File(result, files[i].getAbsolutePath());
+        }
+        return result;
+    }
+
     private static String hash(final byte[] data, final String alg) {
         try {
             return Arrays.toString(MessageDigest.getInstance(alg).digest(data));
@@ -678,8 +690,8 @@ public class GsFileUtils {
 
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> sortFiles(List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = (current, other) -> {
+    public static Comparator<File> makeSortFileByComparator(final String sortBy, final boolean sortReverse) {
+        return (current, other) -> {
             if (sortReverse) {
                 File swap = current;
                 current = other;
@@ -703,6 +715,10 @@ public class GsFileUtils {
             }
             return current.compareTo(other);
         };
+    }
+
+    public static Pair<List<File>, Comparator<File>> sortFiles(final List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
+        final Comparator<File> detailComparator = makeSortFileByComparator(sortBy, sortReverse);
 
         final Comparator<File> mainComparator = (current, other) -> {
             if (current == null || other == null) {
@@ -726,8 +742,7 @@ public class GsFileUtils {
                 e.printStackTrace();
             }
         }
-
-        return mainComparator;
+        return new Pair<>(filesToSort, mainComparator);
     }
 
     public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
@@ -751,5 +766,50 @@ public class GsFileUtils {
             files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
         }
         return files;
+    }
+
+    /**
+     * Check if a file can be created (parent exists and can be written)
+     */
+    public static boolean isWritable(final File file) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return file != null && Files.isWritable(file.toPath());
+        } else {
+            return file != null && file.canWrite();
+        }
+    }
+
+    /**
+     * Check if a file can be created (parent exists and can be written)
+     */
+    public static boolean canCreate(final File file) {
+        return isWritable(file) || isWritable(file.getParentFile());
+    }
+
+
+    /**
+     * Check if file is child of folder. A folder is not its own child.
+     *
+     * @param parent Parent folder
+     * @param test   File to test
+     * @return if parent is a child of test
+     */
+    public static boolean isChild(final File parent, File test) {
+        if (parent.equals(test)) {
+            return false;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return test.toPath().toAbsolutePath().startsWith(parent.toPath().toAbsolutePath());
+        }
+
+        do {
+            test = test.getParentFile();
+            if (parent.equals(test)) {
+                return true;
+            }
+        } while (test != null);
+
+        return false;
     }
 }

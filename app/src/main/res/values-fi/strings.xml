@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Näytä 3. osapuolen lisenssit</string>
     <string name="language_change_restart_description">Vaihda tämän sovelluksen kieli. Käynnistä sovellus uudelleen, jotta muutokset tulevat voimaan</string>
     <string name="language">Kieli</string>
-    <string name="error_need_storage_permission_to_save_documents">Tallennuslupa tarvitaan asiakirjojen tallentamiseksi</string>
     <string name="open_with">Avaa sovelluksessa</string>
     <string name="sort_by">Lajitteluperuste</string>
     <string name="date">Päivämäärä</string>

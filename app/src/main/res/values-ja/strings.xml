@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">サードパーティライセンスを表示</string>
     <string name="language_change_restart_description">このアプリの言語を変更します。アプリを再起動すると変更を反映します</string>
     <string name="language">言語</string>
-    <string name="error_need_storage_permission_to_save_documents">ドキュメントを保存するにはストレージのアクセス許可が必要です</string>
     <string name="open_with">開く…</string>
     <string name="sort_by">並べ替え</string>
     <string name="date">日付</string>

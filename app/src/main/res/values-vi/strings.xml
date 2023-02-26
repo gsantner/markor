@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Hiển thị giấy phép của bên thứ ba</string>
     <string name="language_change_restart_description">Thay đổi ngôn ngữ của ứng dụng. Khởi động lại ứng dụng để các thay đổi có hiệu lực</string>
     <string name="language">Ngôn ngữ</string>
-    <string name="error_need_storage_permission_to_save_documents">Cần cấp quyền sao lưu vào bộ nhớ</string>
     <string name="open_with">Mở bằng</string>
     <string name="sort_by">Tìm theo</string>
     <string name="date">Ngày</string>

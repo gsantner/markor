@@ -72,7 +72,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Sken iselkinen nniḍen</string>
     <string name="language_change_restart_description">Snifel tutlayt n usnas-agi. Ales tanekra n usnas akken ad tbeddel tutlayt</string>
     <string name="language">Tutlayt</string>
-    <string name="error_need_storage_permission_to_save_documents">Tebɣiḍ ad tmudddeḍ tisirag i usnas akken ad yaru di tkatut n yibenk akken ad isekles arraten</string>
     <string name="open_with">Ldi s</string>
     <string name="sort_by">Smizzwer</string>
     <string name="date">Smizzwer s wazemz</string>

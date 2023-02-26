@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">显示第三方许可</string>
     <string name="language_change_restart_description">更改语言（重启应用后生效）</string>
     <string name="language">语言</string>
-    <string name="error_need_storage_permission_to_save_documents">需要存储权限才能保存文档</string>
     <string name="open_with">打开方式</string>
     <string name="sort_by">排序方式</string>
     <string name="date">日期</string>

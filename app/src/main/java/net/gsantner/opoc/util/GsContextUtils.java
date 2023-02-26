@@ -150,7 +150,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings({"UnusedReturnValue", "rawtypes", "unused"})
 public class GsContextUtils {
@@ -1559,6 +1558,11 @@ public class GsContextUtils {
         showChooser(context, intent, null);
     }
 
+    private static File checkPath(final String path) {
+        final File f;
+        return (!TextUtils.isEmpty(path) && (f = new File(path)).canRead()) ? f : null;
+    }
+
     /**
      * Try to force extract a absolute filepath from an intent
      *
@@ -1567,41 +1571,29 @@ public class GsContextUtils {
      */
     @SuppressWarnings({"ResultOfMethodCallIgnored", "ConstantConditions"})
     public File extractFileFromIntent(final Context context, final Intent receivingIntent) {
-        String action = receivingIntent.getAction();
-        String type = receivingIntent.getType();
+        final String action = receivingIntent.getAction();
+        final String type = receivingIntent.getType();
+        final String extPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         String tmps;
         String fileStr;
-        String[] sarr;
-        final ArrayList<String> probeFiles = new ArrayList<>();
-
-        // Filter non existing files out
-        GsCallback.a0 filterNe = () -> {
-            for (String fp : new ArrayList<>(probeFiles)) {
-                boolean ok = false;
-                if (!TextUtils.isEmpty(fp)) {
-                    File f = new File(fp);
-                    ok = f.exists() && f.canRead();
-                }
-                if (!ok) {
-                    probeFiles.remove(fp);
-                }
-            }
-        };
+        File result = null;
 
         if ((Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) || Intent.ACTION_SEND.equals(action)) {
+
             // Màrkor, SimpleMobileTools FileManager
             if (receivingIntent.hasExtra((tmps = EXTRA_FILEPATH))) {
-                probeFiles.add(receivingIntent.getStringExtra(tmps));
+                result = checkPath(receivingIntent.getStringExtra(tmps));
             }
 
             // Analyze data/Uri
             Uri fileUri = receivingIntent.getData();
             fileUri = (fileUri != null ? fileUri : receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM));
-            if (fileUri != null && (fileStr = fileUri.toString()) != null) {
+            if (result == null && fileUri != null && (fileStr = fileUri.toString()) != null) {
                 // Uri contains file
                 if (fileStr.startsWith("file://")) {
-                    probeFiles.add(fileUri.getPath());
+                    result = checkPath(fileUri.getPath());
                 }
+
                 if (fileStr.startsWith((tmps = "content://"))) {
                     fileStr = fileStr.substring(tmps.length());
                     String fileProvider = fileStr.substring(0, fileStr.indexOf("/"));
@@ -1620,63 +1612,69 @@ public class GsContextUtils {
 
                     // prefix for External storage (/storage/emulated/0  ///  /sdcard/) --> e.g. "content://com.amaze.filemanager/storage_root/file.txt" = "/sdcard/file.txt"
                     for (String prefix : new String[]{"external/", "media/", "storage_root/", "external-path/"}) {
-                        if (fileStr.startsWith((tmps = prefix))) {
-                            probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                        if (result == null && fileStr.startsWith((tmps = prefix))) {
+                            result = checkPath(Uri.decode(extPath + "/" + fileStr.substring(tmps.length())));
                         }
                     }
 
                     // Next/OwnCloud Fileprovider
                     for (String fp : new String[]{"org.nextcloud.files", "org.nextcloud.beta.files", "org.owncloud.files"}) {
-                        if (fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
-                            probeFiles.add(Uri.decode("/storage/" + fileStr.substring(tmps.length()).trim()));
+                        if (result == null && fileProvider.equals(fp) && fileStr.startsWith(tmps = "external_files/")) {
+                            result = checkPath(Uri.decode("/storage/" + fileStr.substring(tmps.length()).trim()));
                         }
                     }
+
                     // AOSP File Manager/Documents
-                    if (fileProvider.equals("com.android.externalstorage.documents") && fileStr.startsWith(tmps = "/primary%3A")) {
-                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileStr.substring(tmps.length())));
+                    if (result == null && fileProvider.equals("com.android.externalstorage.documents") && fileStr.startsWith(tmps = "/primary%3A")) {
+                        result = checkPath(Uri.decode(extPath + "/" + fileStr.substring(tmps.length())));
                     }
+
                     // Mi File Explorer
-                    if (fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
-                        probeFiles.add(Uri.decode(Environment.getExternalStorageDirectory().getAbsolutePath() + fileStr.substring(tmps.length())));
+                    if (result == null && fileProvider.equals("com.mi.android.globalFileexplorer.myprovider") && fileStr.startsWith(tmps = "external_files")) {
+                        result = checkPath(Uri.decode(extPath + fileStr.substring(tmps.length())));
                     }
 
-                    if (fileStr.startsWith(tmps = "external_files/")) {
-                        for (String prefix : new String[]{Environment.getExternalStorageDirectory().getAbsolutePath(), "/storage", ""}) {
-                            probeFiles.add(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
+                    if (result == null && fileStr.startsWith(tmps = "external_files/")) {
+                        for (String prefix : new String[]{extPath, "/storage", ""}) {
+                            if (result == null) {
+                                result = checkPath(Uri.decode(prefix + "/" + fileStr.substring(tmps.length())));
+                            }
                         }
-
                     }
 
                     // URI Encoded paths with full path after content://package/
-                    if (fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
-                        probeFiles.add(Uri.decode(fileStr));
-                        probeFiles.add(fileStr);
+                    if (result == null && fileStr.startsWith("/") || fileStr.startsWith("%2F")) {
+                        result = checkPath(Uri.decode(fileStr));
+                        if (result == null) {
+                            result = checkPath(fileStr);
+                        }
                     }
                 }
             }
+
             fileUri = receivingIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-            if (fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/")) {
-                probeFiles.add(tmps);
+            if (result == null && fileUri != null && !TextUtils.isEmpty(tmps = fileUri.getPath()) && tmps.startsWith("/")) {
+                result = checkPath(tmps);
             }
 
             // Scan MediaStore.MediaColumns
-            sarr = contentColumnData(context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
-            if (sarr[0] != null) {
-                probeFiles.add(sarr[0]);
+            final String[] sarr = contentColumnData(context, receivingIntent, MediaStore.MediaColumns.DATA, (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? MediaStore.MediaColumns.DATA : null));
+            if (result == null && sarr[0] != null) {
+                result = checkPath(sarr[0]);
             }
-            if (sarr[1] != null) {
-                probeFiles.add(Environment.getExternalStorageDirectory() + "/" + sarr[1]);
+
+            if (result == null && sarr[1] != null) {
+                result = checkPath(Environment.getExternalStorageDirectory() + "/" + sarr[1]);
             }
         }
-        filterNe.callback();
 
         // Try build proxy by ContentResolver if no file found
-        if (probeFiles.isEmpty()) {
+        if (result == null) {
             try {
                 // Try detect content file & filename in Intent
                 Uri uri = new ShareCompat.IntentReader(context, receivingIntent).getStream();
                 uri = (uri != null ? uri : receivingIntent.getData());
-                sarr = contentColumnData(context, receivingIntent, OpenableColumns.DISPLAY_NAME);
+                final String[] sarr = contentColumnData(context, receivingIntent, OpenableColumns.DISPLAY_NAME);
                 tmps = sarr != null && !TextUtils.isEmpty(sarr[0]) ? sarr[0] : uri.getLastPathSegment();
 
                 // Proxy file to app-private storage (= java.io.File)
@@ -1686,12 +1684,12 @@ public class GsContextUtils {
                 GsFileUtils.writeFile(f, data, null);
                 f.setReadable(true);
                 f.setWritable(true);
-                probeFiles.add(f.getAbsolutePath());
+                result = checkPath(f.getAbsolutePath());
             } catch (Exception ignored) {
             }
         }
 
-        return probeFiles.isEmpty() ? null : new File(probeFiles.get(0));
+        return result;
     }
 
     public static String[] contentColumnData(final Context context, final Intent intent, final String... columns) {
@@ -1867,7 +1865,7 @@ public class GsContextUtils {
 
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
-                return checkExternalStoragePermission(context, false);
+                return checkExternalStoragePermission(context);
             }
         }
         return null;
@@ -2350,44 +2348,41 @@ public class GsContextUtils {
         return formatDateTime(locale, format, datetime, def);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    public boolean checkExternalStoragePermission(final Activity context, final boolean doRequest, String... optionalDescription) {
+    public void requestExternalStoragePermission(final Activity activity) {
         final int v = android.os.Build.VERSION.SDK_INT;
-        final AtomicReference<GsCallback.a0> permissionRequest = new AtomicReference<>();
 
-        // On Android R+ - check externalStorageManager is granted, otherwise request it
-        if (v >= android.os.Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            permissionRequest.set(() -> {
-                try {
-                    Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(context));
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                } catch (Exception ex) {
-                    Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                    context.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
-                }
-            });
-        }
-
-        // On Android M-Q - request M permission
-        if (v >= android.os.Build.VERSION_CODES.M && v < android.os.Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionRequest.set(() -> ActivityCompat.requestPermissions(context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M));
-        }
-
-        if (doRequest && permissionRequest.get() != null) {
-            if (optionalDescription == null || optionalDescription.length == 0 || TextUtils.isEmpty(optionalDescription[0])) {
-                permissionRequest.get().callback();
-            } else {
-                final AlertDialog d = new AlertDialog.Builder(context)
-                        .setMessage(optionalDescription[0])
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.yes, (dialog, which) -> permissionRequest.get().callback())
-                        .setNegativeButton(android.R.string.no, null)
-                        .show();
-                d.setCanceledOnTouchOutside(false);
+        if (v >= Build.VERSION_CODES.R) {
+            try {
+                final Uri uri = Uri.parse("package:" + getAppIdFlavorSpecific(activity));
+                final Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
+            } catch (final Exception ex) {
+                final Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_R);
             }
         }
+
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M);
+    }
+
+    public void requestExternalStoragePermission(final Activity activity, @StringRes int description) {
+        requestExternalStoragePermission(activity, activity.getString(description));
+    }
+
+    public void requestExternalStoragePermission(final Activity activity, final String description) {
+        final AlertDialog d = new AlertDialog.Builder(activity)
+                .setMessage(description)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> requestExternalStoragePermission(activity))
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+        d.setCanceledOnTouchOutside(false);
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    public boolean checkExternalStoragePermission(final Context context) {
+        final int v = android.os.Build.VERSION.SDK_INT;
 
         // Android R Manage-All-Files permission
         if (v >= android.os.Build.VERSION_CODES.R) {
@@ -2405,6 +2400,7 @@ public class GsContextUtils {
                 return true;
             }
         }
+
         return false;
     }
 

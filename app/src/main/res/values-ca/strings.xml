@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostra les llicències de tercers</string>
     <string name="language_change_restart_description">Canvieu l\'idioma d\'aquesta aplicació. Reinicieu l\'aplicació perquè els canvis tinguin efecte</string>
     <string name="language">Idioma</string>
-    <string name="error_need_storage_permission_to_save_documents">Necessitem permís d\'emmagatzematge per desar documents</string>
     <string name="open_with">Obre amb</string>
     <string name="sort_by">Ordena per</string>
     <string name="date">Data</string>

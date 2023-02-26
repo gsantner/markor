@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Montrer les licences tierces</string>
     <string name="language_change_restart_description">Change la langue de l\'application. Redémarrez l\'application pour que les changements prennent effet</string>
     <string name="language">Langue</string>
-    <string name="error_need_storage_permission_to_save_documents">Vous devez autoriser l\'application à écrire dans le mémoire de l\'appareil pour pouvoir enregistrer des documents</string>
     <string name="open_with">Ouvrir avec</string>
     <string name="sort_by">Trier</string>
     <string name="date">Trier par date</string>

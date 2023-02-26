@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Zobraziť licencie tretích strán</string>
     <string name="language_change_restart_description">Zmeniť jazyk aplikácie. Reštartujte aplikáciu aby sa zmeny uložili</string>
     <string name="language">Jazyk</string>
-    <string name="error_need_storage_permission_to_save_documents">Potrebujem povolenie prístupu k úložisku pre ukladanie dokumentov</string>
     <string name="open_with">Otvoriť použitím</string>
     <string name="sort_by">Zoradiť podľa</string>
     <string name="deleteme____1">Názov</string>

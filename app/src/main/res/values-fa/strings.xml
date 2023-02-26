@@ -79,7 +79,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">نمایش مجوزهای شخص ثالث</string>
     <string name="language_change_restart_description">تغییر زبان برنامه. لازم است برنامه را از نو اجرا کنید تا تغییرات را ببینید</string>
     <string name="language">زبان</string>
-    <string name="error_need_storage_permission_to_save_documents">برای ذخیره پرونده‌ها دسترسی به محل ذخیره‌سازی نیاز است</string>
     <string name="open_with">باز کردن با</string>
     <string name="sort_by">مرتب‌سازی</string>
     <string name="date">مرتب‌سازی بر اساس تاریخ</string>

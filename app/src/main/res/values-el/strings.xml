@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Εμφάνιση αδειών τρίτων</string>
     <string name="language_change_restart_description">Αλλαγή γλώσσας αυτής της εφαρμογής. Επανεκκίνηση της εφαρμογής για να τεθούν σε ισχύ οι αλλαγές</string>
     <string name="language">Γλώσσα</string>
-    <string name="error_need_storage_permission_to_save_documents">Χρειάζεστε άδεια αποθήκευσης για να αποθηκεύσετε έγγραφα</string>
     <string name="open_with">Άνοιγμα με</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="date">Ημερομηνία</string>

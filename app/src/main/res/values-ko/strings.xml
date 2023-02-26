@@ -78,7 +78,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">제3자 저작권 표시</string>
     <string name="language_change_restart_description">언어 변경하기. 재시작이 필요합니다.</string>
     <string name="language">언어</string>
-    <string name="error_need_storage_permission_to_save_documents">문서를 저장하려면 저장소 접근 권한이 필요합니다</string>
     <string name="open_with">다음으로 열기:</string>
     <string name="sort_by">다음으로 정렬:</string>
     <string name="date">날짜</string>

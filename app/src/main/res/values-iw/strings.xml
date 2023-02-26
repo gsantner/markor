@@ -80,7 +80,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">הצג רשיונות צד שלישי</string>
     <string name="language_change_restart_description">שנה את שפת האפליקציה. אתחל את האפליקציה בכדי שהשינויים יכנסו לתוקף</string>
     <string name="language">שפה</string>
-    <string name="error_need_storage_permission_to_save_documents">צריך אישור עבור אחסון לשמירת המסמכים</string>
     <string name="open_with">פתח באמצעות</string>
     <string name="sort_by">מיין לפי</string>
     <string name="date">תאריך</string>

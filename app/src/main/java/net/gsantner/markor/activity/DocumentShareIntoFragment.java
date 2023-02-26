@@ -31,7 +31,6 @@ import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.settings.MarkorPermissionChecker;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
@@ -85,7 +84,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     @Override
     public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final Context context = view.getContext();
         _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
 
@@ -194,8 +192,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         @SuppressWarnings("ConstantConditions")
-        private void appendToExistingDocument(final File file, final String separator, final boolean showEditor) {
+        private void appendToExistingDocumentAndClose(final File file, final String separator, final boolean showEditor) {
             final Activity context = getActivity();
+
             final Document document = new Document(file);
             final boolean isTodoTxt = FormatRegistry.CONVERTER_TODOTXT.isFileOutOfThisFormat(file.getAbsolutePath());
             final String formatted = isTodoTxt ? _sharedText : formatShare(_sharedText);
@@ -212,6 +211,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 showInDocumentActivity(document);
             }
             _appSettings.addRecentDocument(file);
+
+            context.finish();
         }
 
         private String formatShare(final String shared) {
@@ -259,10 +260,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    appendToExistingDocument(file, "\n", true);
+                    appendToExistingDocumentAndClose(file, "\n", true);
                 }
 
-            }, getFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
+            }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
 
@@ -277,7 +278,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 public void onFsViewerSelected(String request, File dir, final Integer lineNumber) {
                     NewFileDialog dialog = NewFileDialog.newInstance(dir, false, (ok, f) -> {
                         if (ok && f.isFile()) {
-                            appendToExistingDocument(f, "\n", true);
+                            appendToExistingDocumentAndClose(f, "\n", true);
                         }
                     });
                     dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
@@ -297,8 +298,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             final Activity activity = getActivity();
-            MarkorPermissionChecker permc = new MarkorPermissionChecker(activity);
-            MarkorContextUtils shu = new MarkorContextUtils(activity);
+            final MarkorContextUtils shu = new MarkorContextUtils(activity);
             String tmps;
 
             boolean close = false;
@@ -309,36 +309,26 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 case R.string.pref_key__share_into__create_document: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        createNewDocument();
-                    }
+                    createNewDocument();
                     return true;
                 }
                 case R.string.pref_key__favourite_files:
                 case R.string.pref_key__popular_documents:
                 case R.string.pref_key__recent_documents:
                 case R.string.pref_key__share_into__existing_document: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        showAppendDialog(keyId);
-                    }
+                    showAppendDialog(keyId);
                     return true;
                 }
                 case R.string.pref_key__share_into__quicknote: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        appendToExistingDocument(this._appSettings.getQuickNoteFile(), "\n", false);
-                        close = true;
-                    }
+                    appendToExistingDocumentAndClose(_appSettings.getQuickNoteFile(), "\n", false);
                     break;
                 }
                 case R.string.pref_key__share_into__todo: {
-                    if (permc.doIfExtStoragePermissionGranted()) {
-                        String sep = "\n";
-                        if (_appSettings.getDocumentAutoFormatEnabled(this._appSettings.getTodoFile().getAbsolutePath())) {
-                            sep += TodoTxtTask.getToday() + " ";
-                        }
-                        appendToExistingDocument(this._appSettings.getTodoFile(), sep, false);
-                        close = true;
+                    String sep = "\n";
+                    if (_appSettings.getDocumentAutoFormatEnabled(_appSettings.getTodoFile().getAbsolutePath())) {
+                        sep += TodoTxtTask.getToday() + " ";
                     }
+                    appendToExistingDocumentAndClose(_appSettings.getTodoFile(), sep, false);
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
@@ -364,10 +354,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             if (preference.getKey().startsWith("/")) {
-                if (permc.doIfExtStoragePermissionGranted()) {
-                    appendToExistingDocument(new File(preference.getKey()), "\n", true);
-                    close = false;
-                }
+                appendToExistingDocumentAndClose(new File(preference.getKey()), "\n", true);
             }
 
             if (close) {

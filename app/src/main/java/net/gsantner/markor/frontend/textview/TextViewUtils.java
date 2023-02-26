@@ -370,6 +370,7 @@ public final class TextViewUtils extends GsTextUtils {
             } else if (c == '`') { // Starting a date region
                 inDate = true;
                 interpolated.append(temp);
+
                 temp.setLength(0); // clear
             } else {
                 temp.append(c);
