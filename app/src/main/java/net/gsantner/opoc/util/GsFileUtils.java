@@ -767,7 +767,9 @@ public class GsFileUtils {
         return files;
     }
 
-    // Check if a file can be created (parent exists and can be written)
+    /**
+      * Check if a file can be created (parent exists and can be written)
+      */
     public static boolean isWritable(final File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return file != null && Files.isWritable(file.toPath());
@@ -777,7 +779,7 @@ public class GsFileUtils {
     }
 
     /**
-     * Check if a file can be created (parent exists and can be writtenssssssssss
+     * Check if a file can be created (parent exists and can be written)
      */
     public static boolean canCreate(final File file) {
         return isWritable(file) || isWritable(file.getParentFile());
