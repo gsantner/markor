@@ -9,17 +9,15 @@ import androidx.appcompat.app.AlertDialog;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsContextUtils;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class StoragePermissionActivity extends MarkorBaseActivity {
-
-    final static String EXTRA_INTENT = "EXTRA_INTENT";
-
-    boolean _responseProcessed = false;
+    private final AtomicBoolean _responseProcessed = new AtomicBoolean(false);
 
     // Check whether we require permissions and setup appropriate conditions
     public static void requestPermissions(final MarkorBaseActivity activity) {
         if (!GsContextUtils.instance.checkExternalStoragePermission(activity)) {
-            final Intent intent = new Intent(activity, StoragePermissionActivity.class).putExtra(EXTRA_INTENT, activity.getIntent());
-            activity.startActivity(intent);
+            activity.startActivity(new Intent(activity, StoragePermissionActivity.class));
             activity.finish();
         }
     }
@@ -36,7 +34,7 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
                 .setMessage(R.string.storage_permission_required)
                 .setNegativeButton(R.string.exit, (dialog, which) -> finish())
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    _responseProcessed = false;
+                    _responseProcessed.set(false);
                     GsContextUtils.instance.requestExternalStoragePermission(this);
                 })
                 .show();
@@ -45,15 +43,13 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
 
     private void processPermissionState() {
         // We do this to make sure the response is processed 1 time per request
-        // Sometimes both onRequestPermissionResulst and onActivityResult are triggered
-        if (_responseProcessed) {
+        // Sometimes both onRequestPermissionResult and onActivityResult are triggered
+        if (_responseProcessed.getAndSet(true)) {
             return;
         }
-        _responseProcessed = true;
 
         if (_cu.checkExternalStoragePermission(this)) {
-            this.startActivity(getIntent().getParcelableExtra(EXTRA_INTENT));
-            finish();
+            GsContextUtils.instance.animateToActivity(this, MainActivity.class, true, 0);
         } else {
             Toast.makeText(this, R.string.permission_not_granted, Toast.LENGTH_SHORT).show();
             askForPermissions();

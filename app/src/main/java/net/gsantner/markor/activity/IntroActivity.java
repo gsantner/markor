@@ -1,6 +1,7 @@
 package net.gsantner.markor.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,12 +22,16 @@ public class IntroActivity extends AppIntro {
     public static final int REQ_CODE_APPINTRO = 61234;
 
     public static boolean optStart(final Activity activeActivity) {
-        final SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(activeActivity.getBaseContext());
-        final boolean wasShownYet = getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
-        if (!wasShownYet) {
+        final boolean firstStart = isFirstStart(activeActivity);
+        if (firstStart) {
             activeActivity.startActivityForResult(new Intent(activeActivity, IntroActivity.class), REQ_CODE_APPINTRO);
         }
-        return !wasShownYet;
+        return firstStart;
+    }
+
+    public static boolean isFirstStart(final Context context) {
+        final SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        return !getPrefs.getBoolean(PREF_KEY_WAS_SHOWN, false);
     }
 
     @Override

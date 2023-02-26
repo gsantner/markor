@@ -70,7 +70,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StoragePermissionActivity.requestPermissions(this);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);
@@ -215,6 +214,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onResume() {
         super.onResume();
+        if (!IntroActivity.isFirstStart(this)) {
+            StoragePermissionActivity.requestPermissions(this);
+        }
 
         if (_appSettings.isRecreateMainRequired()) {
             // recreate(); // does not remake fragments
