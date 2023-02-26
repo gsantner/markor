@@ -54,7 +54,7 @@ public class StoragePermissionActivity extends MarkorBaseActivity {
         if (_cu.checkExternalStoragePermission(this)) {
             this.startActivity(getIntent().getParcelableExtra(EXTRA_INTENT));
             finish();
-        } else  {
+        } else {
             Toast.makeText(this, R.string.permission_not_granted, Toast.LENGTH_SHORT).show();
             askForPermissions();
         }

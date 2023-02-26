@@ -581,7 +581,7 @@ public class GsFileUtils {
         return file;
     }
 
-    public static File join(final File ... files) {
+    public static File join(final File... files) {
         if (files == null || files.length == 0) {
             return null;
         }
@@ -771,7 +771,7 @@ public class GsFileUtils {
     public static boolean isWritable(final File file) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return file != null && Files.isWritable(file.toPath());
-        } else{
+        } else {
             return file != null && file.canWrite();
         }
     }
@@ -786,6 +786,7 @@ public class GsFileUtils {
 
     /**
      * Check if file is child of folder. A folder is not its own child.
+     *
      * @param parent Parent folder
      * @param test   File to test
      * @return if parent is a child of test

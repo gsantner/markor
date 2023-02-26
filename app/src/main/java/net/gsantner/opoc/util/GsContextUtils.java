@@ -11,9 +11,6 @@ package net.gsantner.opoc.util;
 
 import static android.graphics.Bitmap.CompressFormat;
 
-import static androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions.EXTRA_PERMISSIONS;
-import static androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions.EXTRA_PERMISSION_GRANT_RESULTS;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -98,10 +95,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCaller;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -111,7 +104,6 @@ import androidx.annotation.RawRes;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -128,17 +120,14 @@ import androidx.core.os.ConfigurationCompat;
 import androidx.core.text.TextUtilsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.documentfile.provider.DocumentFile;
-import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import net.gsantner.markor.ApplicationObject;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.frontend.base.GsActivityBase;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.BufferedReader;
@@ -147,7 +136,6 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FilePermission;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -162,7 +150,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 @SuppressWarnings({"UnusedReturnValue", "rawtypes", "unused"})
 public class GsContextUtils {
@@ -1698,7 +1685,8 @@ public class GsContextUtils {
                 f.setReadable(true);
                 f.setWritable(true);
                 result = checkPath(f.getAbsolutePath());
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         return result;
@@ -2375,7 +2363,7 @@ public class GsContextUtils {
             }
         }
 
-        ActivityCompat.requestPermissions(activity, new String[]{ Manifest.permission.WRITE_EXTERNAL_STORAGE }, REQUEST_STORAGE_PERMISSION_M);
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION_M);
     }
 
     public void requestExternalStoragePermission(final Activity activity, @StringRes int description) {
