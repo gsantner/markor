@@ -18,16 +18,16 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CsvMatcher {
     public static final int INDEX_NOT_FOUND = StringUtils.INDEX_NOT_FOUND;
-    private final String csv;
+    private final String m_csv;
 
-    private char csvDelimiter; // i.e. -;-
-    private char csvQoute; // i.e. -"-
+    private char m_csvDelimiter; // i.e. -;-
+    private char m_csvQoute; // i.e. -"-
 
-    private int startOfCol;
-    private boolean endOfRow = true;
+    private int m_startOfCol;
+    private boolean m_endOfRow = true;
 
     public CsvMatcher(CharSequence csv) {
-        this.csv = csv.toString();
+        m_csv = csv.toString();
         inferCsvConfig();
     }
 
@@ -64,51 +64,51 @@ public class CsvMatcher {
     }
 
     private void inferCsvConfig() {
-        int posDelimiter = indexOfAny(csv, 0, csv.length(), CsvConfig.CSV_DELIMITER_CANDIDATES);
+        int posDelimiter = indexOfAny(m_csv, 0, m_csv.length(), CsvConfig.CSV_DELIMITER_CANDIDATES);
         if (posDelimiter >= 0) {
-            csvDelimiter = csv.charAt(posDelimiter);
-            this.startOfCol = GsTextUtils.beginOfLine(csv, posDelimiter);
+            m_csvDelimiter = m_csv.charAt(posDelimiter);
+            m_startOfCol = GsTextUtils.beginOfLine(m_csv, posDelimiter);
 
-            int posEndOfHeader = GsTextUtils.endOfLine(csv, posDelimiter);
+            int posEndOfHeader = GsTextUtils.endOfLine(m_csv, posDelimiter);
 
-            int posQuote = indexOfAny(csv, startOfCol, posEndOfHeader, CsvConfig.CSV_QUOTE_CANDIDATES);
-            this.csvQoute = posQuote >= 0 ? csv.charAt(posQuote) : CsvConfig.CSV_QUOTE_CANDIDATES[0];
+            int posQuote = indexOfAny(m_csv, m_startOfCol, posEndOfHeader, CsvConfig.CSV_QUOTE_CANDIDATES);
+            m_csvQoute = posQuote >= 0 ? m_csv.charAt(posQuote) : CsvConfig.CSV_QUOTE_CANDIDATES[0];
         }
     }
 
     public int nextDelimiterPos(final int startOfColumnContent) {
-        int csvLen = csv.length();
+        int csvLen = m_csv.length();
 
-        int nextDelimiter = StringUtils.indexOf(csv, csvDelimiter, startOfColumnContent);
-        int nextBeginQuote = StringUtils.indexOf(csv, csvQoute, startOfColumnContent);
+        int nextDelimiter = StringUtils.indexOf(m_csv, m_csvDelimiter, startOfColumnContent);
+        int nextBeginQuote = StringUtils.indexOf(m_csv, m_csvQoute, startOfColumnContent);
 
-        if (this.endOfRow) {
-            int nextComment = StringUtils.indexOf(csv, '#', startOfColumnContent);
+        if (m_endOfRow) {
+            int nextComment = StringUtils.indexOf(m_csv, '#', startOfColumnContent);
             if (nextComment > INDEX_NOT_FOUND && nextComment < nextDelimiter && nextComment < nextBeginQuote) {
-                return GsTextUtils.endOfLine(csv, nextComment); // return comment as uninterpreted comment until end of line
+                return GsTextUtils.endOfLine(m_csv, nextComment); // return comment as uninterpreted comment until end of line
             }
         }
 
-        this.endOfRow = true;
+        m_endOfRow = true;
 
-        int nextNl = GsTextUtils.endOfLine(csv, startOfColumnContent);
+        int nextNl = GsTextUtils.endOfLine(m_csv, startOfColumnContent);
         if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter && nextBeginQuote < nextNl) {
             // column surrounded by qoutes
             int nextEndQuote = nextEndQuote(nextBeginQuote + 1);
             if (nextEndQuote == INDEX_NOT_FOUND) return csvLen;
 
-            nextDelimiter = StringUtils.indexOf(csv, csvDelimiter, nextEndQuote);
-            nextNl = GsTextUtils.endOfLine(csv, nextEndQuote);
+            nextDelimiter = StringUtils.indexOf(m_csv, m_csvDelimiter, nextEndQuote);
+            nextNl = GsTextUtils.endOfLine(m_csv, nextEndQuote);
         }
 
         if (nextNl > INDEX_NOT_FOUND && nextNl < nextDelimiter) {
             // nl comes before next delimiter
-            // this.endOfRow = true;
+            // m_endOfRow = true;
             return nextNl;
         }
         if (nextDelimiter > INDEX_NOT_FOUND) {
             // more columns exist in row
-            this.endOfRow = false;
+            m_endOfRow = false;
             return nextDelimiter;
         }
 
@@ -117,13 +117,13 @@ public class CsvMatcher {
 
     // skip double quotes -""-
     private int nextEndQuote(int start) {
-        int csvLen = csv.length();
+        int csvLen = m_csv.length();
         int found;
         while (start < csvLen) {
-            found = StringUtils.indexOf(csv, csvQoute, start);
+            found = StringUtils.indexOf(m_csv, m_csvQoute, start);
 
             if (found == INDEX_NOT_FOUND) return INDEX_NOT_FOUND;
-            if (found + 1 < csvLen && csv.charAt(found + 1) != csvQoute) return found;
+            if (found + 1 < csvLen && m_csv.charAt(found + 1) != m_csvQoute) return found;
 
             // found double quote -""- : ignore
             start = found + 2;
@@ -133,10 +133,10 @@ public class CsvMatcher {
     }
 
     public int getStartOfCol() {
-        return startOfCol;
+        return m_startOfCol;
     }
 
     public boolean isEndOfRow() {
-        return endOfRow;
+        return m_endOfRow;
     }
 }

@@ -25,7 +25,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
             0xff00b04c, // dark green,
             0xffdaa500}; // brown
     public static final String TAG = CsvSyntaxHighlighter.class.getSimpleName();
-    public static boolean DEBUG_COLORING = true;
+    public static boolean DEBUG_COLORING = false;
 
     public CsvSyntaxHighlighter(AppSettings as) {
         super(as);
@@ -35,7 +35,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
     protected void generateSpans() {
         super.generateSpans();
 
-        CsvMatcher matcher = new CsvMatcher(this._spannable);
+        CsvMatcher matcher = new CsvMatcher(_spannable);
         // todo: get colors from resources
         createSpanForColumns(matcher, COLUMN_COLORS);
     }

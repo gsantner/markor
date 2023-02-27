@@ -17,12 +17,12 @@ public class CsvConfig {
     public static final CsvConfig DEFAULT = new CsvConfig(';', '"');
     public static final char[] CSV_DELIMITER_CANDIDATES = {DEFAULT.getFieldDelimiterChar(), ',', '\t', ':', '|'};
     public static final char[] CSV_QUOTE_CANDIDATES = {DEFAULT.getQuoteChar(), '\''};
-    private final char fieldDelimiterChar;
-    private final char quoteChar;
+    private final char m_fieldDelimiterChar;
+    private final char m_quoteChar;
 
     public CsvConfig(char fieldDelimiterChar, char quoteChar) {
-        this.fieldDelimiterChar = fieldDelimiterChar;
-        this.quoteChar = quoteChar;
+        m_fieldDelimiterChar = fieldDelimiterChar;
+        m_quoteChar = quoteChar;
     }
 
     public static CsvConfig infer(String line) {
@@ -38,11 +38,11 @@ public class CsvConfig {
     }
 
     public char getFieldDelimiterChar() {
-        return fieldDelimiterChar;
+        return m_fieldDelimiterChar;
     }
 
     public char getQuoteChar() {
-        return quoteChar;
+        return m_quoteChar;
     }
 
 }

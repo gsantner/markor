@@ -125,7 +125,7 @@ dependencies {
     implementation "com.vladsch.flexmark:flexmark-ext-admonition:${version_library_flexmark}"
 
     // csv support
-    // https://opencsv.sourceforge.net/licenses.html License: Appache2
+    // https://opencsv.sourceforge.net/licenses.html License: Apache2
     implementation 'com.opencsv:opencsv:5.7.1'
 
     // UI libs

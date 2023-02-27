@@ -23,7 +23,7 @@ import java.io.StringReader;
 
 /**
  * Simple csv to md-table converter using OpenCsv implementation
- * https://opencsv.sourceforge.net/ Licensed under Appache2
+ * https://opencsv.sourceforge.net/ Licensed under Apache2
  * <p>
  * This file should not have dependencies to Android or Markor-Architecture.
  */
@@ -33,15 +33,15 @@ public class Csv2MdTable implements Closeable {
     private static final String MD_LINE_DELIMITER = "\n";
     private static final String MD_COL_DELIMITER = "|";
     private static final String MD_HEADER_LINE_DELIMITER = MD_COL_DELIMITER + ":---";
-    private final CSVReader csvReader;
-    private int lineNumber = 0;
+    private final CSVReader m_csvReader;
+    private int m_lineNumber = 0;
 
     private Csv2MdTable(CsvConfig csvConfig, Reader csvDataReader) {
         ICSVParser parser = new CSVParserBuilder()
                 .withSeparator(csvConfig.getFieldDelimiterChar())
                 .withQuoteChar(csvConfig.getQuoteChar())
                 .build();
-        csvReader = new CSVReaderBuilder(csvDataReader)
+        m_csvReader = new CSVReaderBuilder(csvDataReader)
                 .withSkipLines(0)
                 .withCSVParser(parser)
                 .withKeepCarriageReturn(true)
@@ -104,9 +104,7 @@ public class Csv2MdTable implements Closeable {
         for (int i = 0; i < max(headerLength, colums.length); i++) {
             addColumnContainingNL(mdMarkup.append(MD_COL_DELIMITER), getCol(colums, i));
         }
-        mdMarkup
-                .append(MD_COL_DELIMITER)
-                .append(MD_LINE_DELIMITER);
+        mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
     }
 
     private static String getCol(String[] colums, int i) {
@@ -139,8 +137,8 @@ public class Csv2MdTable implements Closeable {
     private String[] readNextCsvColumnLine() throws IOException, CsvValidationException {
         String[] columns;
         do {
-            lineNumber++;
-            columns = csvReader.readNext();
+            m_lineNumber++;
+            columns = m_csvReader.readNext();
         } while (columns != null && isComment(columns));
         return columns;
     }
@@ -155,6 +153,6 @@ public class Csv2MdTable implements Closeable {
 
     @Override
     public void close() throws IOException {
-        csvReader.close();
+        m_csvReader.close();
     }
 }
