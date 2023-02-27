@@ -1,6 +1,6 @@
-.../app/src/main/java/net/gsantner/markor/format/csv/README.md
+.../doc/CSV_README.md
 
-Last updated 2023-02-21 by k3b
+Last updated 2023-02-27 by k3b
 
 ## Information about csv files in markor
 

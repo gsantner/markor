@@ -465,6 +465,4 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wont_save_min_length">Files with fewer than %d characters not saved automatically in order to prevent data loss.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Advanced filtering syntax</a></small>]]></string>
 
-    <string name="csvtext">csv</string>
-
 </resources>

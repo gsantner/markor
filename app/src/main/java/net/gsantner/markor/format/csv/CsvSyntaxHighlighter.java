@@ -59,12 +59,7 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
 
     protected void createSpanForColumn(int from, int to, int color, int colNumner) {
         if (DEBUG_COLORING) {
-            Log.d(TAG, "#" + colNumner +
-                    "(" + from +
-                    "," + to +
-                    "," + color +
-                    ") = " + _spannable.subSequence(from, to));
-
+            Log.d(TAG, String.format("#%d(%d,%d,%d) = %s", colNumner, from, to, color, _spannable.subSequence(from, to)));
         }
         if (colNumner >= 0 && from > 0 && Math.abs(to - from) >= 0) {
             HighlightSpan span = new HighlightSpan().setForeColor(color);
