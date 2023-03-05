@@ -746,8 +746,7 @@ public class GsFileUtils {
     }
 
     public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
-        ArrayList<File> list = new ArrayList<>(Arrays.asList(files != null ? files : new File[0]));
-        return replaceFilesWithCachedVariants(list);
+        return replaceFilesWithCachedVariants(files == null ? Collections.emptyList(): Arrays.asList(files));
     }
 
     /**
@@ -758,12 +757,10 @@ public class GsFileUtils {
         files = (files == null ? new ArrayList<>() : files);
 
         for (int i = 0; i < files.size(); i++) {
-            if (files.get(i) instanceof GsFileWithMetadataCache) {
-                continue;
+            final File f = files.get(i);
+            if (!(f instanceof GsFileWithMetadataCache)) {
+                files.set(i, new GsFileWithMetadataCache(f));
             }
-            final File o = files.remove(i);
-            final int at = files.indexOf(o);
-            files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
         }
         return files;
     }

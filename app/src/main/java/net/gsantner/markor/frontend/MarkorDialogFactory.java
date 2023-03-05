@@ -735,7 +735,7 @@ public class MarkorDialogFactory {
 
         // Read all files in snippets folder with appropriate extension
         // Create a map of snippet title -> text
-        for (final File f : GsFileUtils.replaceFilesWithCachedVariants(folder.listFiles())) {
+        for (final File f : folder.listFiles()) {
             if (f.exists() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
                 texts.put(f.getName(), f);
             }
