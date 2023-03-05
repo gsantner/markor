@@ -43,8 +43,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -556,7 +554,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     // Don't sort recents - use the default order
                     if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        GsFileUtils.sort(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                        GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                     }
 
                     if (canGoUp(_currentFolder)) {

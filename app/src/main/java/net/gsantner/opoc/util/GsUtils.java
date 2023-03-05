@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+// Class for general utilities
 public class GsUtils {
 
     /**
@@ -18,6 +19,7 @@ public class GsUtils {
         return items == null ? Collections.emptyList(): Arrays.asList(items);
     }
 
+    @SafeVarargs
     public static <T> boolean addAll(Collection<? super T> c, T... elements) {
         return elements != null && Collections.addAll(c, elements);
     }

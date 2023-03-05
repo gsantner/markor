@@ -714,7 +714,7 @@ public class GsFileUtils {
         }
     }
 
-    public static void sort(
+    public static void sortFiles(
             final List<File> filesToSort,
             final String sortBy,
             final boolean sortFolderFirst,
