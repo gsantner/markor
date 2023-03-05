@@ -292,7 +292,8 @@ public class GsTextUtils {
         return count;
     }
 
-    public static String padLeft(final String text, final int size, final char c) {
+    public static String padLeft(final Object obj, final int size, final char c) {
+        final String text = obj.toString();
         return repeatChars(c, size - text.length()) + text;
     }
 

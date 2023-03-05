@@ -695,31 +695,23 @@ public class GsFileUtils {
                                SORT_BY_MIMETYPE = "MIMETYPE";
 
 
-    private static String getSortKeyBase(final String sortBy, final File file) {
+    private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
+        final String dirPrefix = dirFirst && file.isDirectory() ? "1" : "0";
         switch (sortBy) {
             case SORT_BY_MTIME: {
-                return Long.toString(file.lastModified());
+                return dirPrefix + GsTextUtils.padLeft(file.lastModified(), LONG_LENGTH, '0');
             }
             case SORT_BY_FILESIZE: {
-                return Long.toString(file.length());
+                return dirPrefix + GsTextUtils.padLeft(file.length(), LONG_LENGTH, '0');
             }
             case SORT_BY_MIMETYPE: {
-                return getMimeType(file).toLowerCase() + file.getName().toLowerCase();
+                return dirPrefix + getMimeType(file).toLowerCase() + file.getName().toLowerCase();
             }
             case SORT_BY_NAME:
             default: {
-                return file.getName().toLowerCase();
+                return dirPrefix + file.getName().toLowerCase();
             }
         }
-    }
-
-    private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
-        if (file != null) {
-            final String dirModifier = dirFirst && file.isDirectory() ? "1" : "0";
-            return dirModifier + GsTextUtils.padLeft(getSortKeyBase(sortBy, file), LONG_LENGTH, '0');
-        }
-
-        return "";
     }
 
     public static void sort(
