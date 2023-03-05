@@ -1,6 +1,6 @@
 package net.gsantner.opoc.util;
 
-import androidx.annotation.NonNull;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,5 +24,22 @@ public class GsUtils {
 
     public static <T> boolean addAll(Collection<? super T> c, Collection<? extends T> elements) {
         return elements != null && c.addAll(elements);
+    }
+
+    /**
+     * Replace each element with result of op. Like foo.replaceAll
+     */
+    public static <T> void replaceAll(final List<T> l, final GsCallback.r1<T, T> op) {
+        for (int i = 0; i < l.size(); i++) {
+            l.set(i, op.callback(l.get(i)));
+        }
+    }
+
+    public static <I, O> List<O> map(final Collection<? extends I> in, final GsCallback.r1<O, I> op) {
+        final List<O> out = new ArrayList<>();
+        for (final I val : in) {
+            out.add(op.callback(val));
+        }
+        return out;
     }
 }

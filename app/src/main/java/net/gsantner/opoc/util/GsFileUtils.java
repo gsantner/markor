@@ -14,11 +14,8 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import androidx.annotation.Nullable;
-
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
-import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
@@ -47,8 +44,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
@@ -63,6 +62,8 @@ public class GsFileUtils {
     // Used on methods like copyFile(src, dst)
     private static final int BUFFER_SIZE = 4096;
     private static final GsHashMap<String, String> MIME_TYPE_CACHE = new GsHashMap<>();
+
+    private static final int LONG_LENGTH = Long.bitCount(Long.MAX_VALUE);
 
     /**
      * Info of various types about a file
@@ -688,81 +689,76 @@ public class GsFileUtils {
     }
 
 
-    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
+    public static final String SORT_BY_NAME = "NAME",
+                               SORT_BY_FILESIZE = "FILESIZE",
+                               SORT_BY_MTIME = "MTIME",
+                               SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> makeSortFileByComparator(final String sortBy, final boolean sortReverse) {
-        return (current, other) -> {
-            if (sortReverse) {
-                File swap = current;
-                current = other;
-                other = swap;
+
+    private static String getSortKeyBase(final String sortBy, final File file) {
+        switch (sortBy) {
+            case SORT_BY_MTIME: {
+                return Long.toString(file.lastModified());
             }
-
-            switch (sortBy) {
-                case SORT_BY_MTIME: {
-                    return Long.compare(other.lastModified(), current.lastModified());
-                }
-                case SORT_BY_FILESIZE: {
-                    return Long.compare(other.length(), current.length());
-                }
-                case SORT_BY_NAME: {
-                    return current.getName().compareToIgnoreCase(other.getName());
-                }
-                case SORT_BY_MIMETYPE: {
-                    String mic = getMimeType(current), mio = getMimeType(other);
-                    return !mic.equalsIgnoreCase(mio) ? mic.compareToIgnoreCase(mio) : current.getName().compareToIgnoreCase(other.getName());
-                }
+            case SORT_BY_FILESIZE: {
+                return Long.toString(file.length());
             }
-            return current.compareTo(other);
-        };
-    }
-
-    public static Pair<List<File>, Comparator<File>> sortFiles(final List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = makeSortFileByComparator(sortBy, sortReverse);
-
-        final Comparator<File> mainComparator = (current, other) -> {
-            if (current == null || other == null) {
-                return 0;
-            } else if (current.isDirectory() && sortFolderFirst) {
-                return other.isDirectory() ? detailComparator.compare(current, other) : -1;
-            } else if (other.isDirectory() && sortFolderFirst) {
-                return 1;
+            case SORT_BY_MIMETYPE: {
+                return getMimeType(file).toLowerCase() + file.getName().toLowerCase();
             }
-            int v = detailComparator.compare(current, other);
-            if (v != 0) {
-                return v;
-            }
-            return current.getName().compareToIgnoreCase(other.getName());
-        };
-
-        if (filesToSort != null) {
-            try {
-                Collections.sort(filesToSort, mainComparator);
-            } catch (Exception e) {
-                e.printStackTrace();
+            case SORT_BY_NAME:
+            default: {
+                return file.getName().toLowerCase();
             }
         }
-        return new Pair<>(filesToSort, mainComparator);
     }
 
-    public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
-        return replaceFilesWithCachedVariants(files == null ? Collections.emptyList(): Arrays.asList(files));
-    }
-
-    /**
-     * Optimization: convert {@link File}s to FileWithCachedData
-     * For example sorting invokes a lot of filesystem i/o calls which comes with performance penalty
-     */
-    public static List<File> replaceFilesWithCachedVariants(@Nullable List<File> files) {
-        files = (files == null ? new ArrayList<>() : files);
-
-        for (int i = 0; i < files.size(); i++) {
-            final File f = files.get(i);
-            if (!(f instanceof GsFileWithMetadataCache)) {
-                files.set(i, new GsFileWithMetadataCache(f));
-            }
+    private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
+        if (file != null) {
+            final String dirModifier = dirFirst && file.isDirectory() ? "1" : "0";
+            return dirModifier + GsTextUtils.padLeft(getSortKeyBase(sortBy, file), LONG_LENGTH, '0');
         }
-        return files;
+
+        return "";
+    }
+
+    public static void sort(
+            final List<File> filesToSort,
+            final String sortBy,
+            final boolean sortFolderFirst,
+            final boolean sortReverse
+    ) {
+        if (filesToSort == null || filesToSort.isEmpty()) {
+            return;
+        }
+
+        try {
+
+            final Map<File, String> keyMap = new HashMap<>();
+            for (final File f : filesToSort) {
+                keyMap.put(f, getSortKey(sortBy, f, sortFolderFirst));
+            }
+
+            final Comparator<File> comparator = (current, other) -> {
+                if (current == null || other == null) {
+                    return 0;
+                }
+
+                final String ck = keyMap.get(current);
+                final String ok = keyMap.get(other);
+
+                if (ck == null || ok == null) {
+                    return 0;
+                } else {
+                    return sortReverse ? ok.compareTo(ck) : ck.compareTo(ok);
+                }
+            };
+
+            Collections.sort(filesToSort, comparator);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

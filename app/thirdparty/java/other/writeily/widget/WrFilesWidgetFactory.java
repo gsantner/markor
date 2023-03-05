@@ -64,7 +64,7 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
             final File[] all = dir.listFiles(file -> showDot || !file.getName().startsWith("."));
             _widgetFilesList.addAll(all != null ? Arrays.asList(all) : Collections.emptyList());
         }
-        GsFileUtils.sortFiles(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse());
+        GsFileUtils.sort(_widgetFilesList, as.getFileBrowserSortByType(), as.isFileBrowserSortFolderFirst(), as.isFileBrowserSortReverse());
     }
 
     @Override

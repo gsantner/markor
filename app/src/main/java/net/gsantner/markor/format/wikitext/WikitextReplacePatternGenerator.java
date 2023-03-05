@@ -10,7 +10,7 @@ package net.gsantner.markor.format.wikitext;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ReplacePatternGeneratorHelper;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +75,7 @@ public class WikitextReplacePatternGenerator {
             return patterns;
         }
 
-        String headingChars = TextViewUtils.repeatChars('=', numberOfEqualSigns);
+        String headingChars = GsTextUtils.repeatChars('=', numberOfEqualSigns);
 
         patterns.add(removeHeadingCharsForExactHeadingLevel(headingChars));
         patterns.add(replaceDifferentHeadingLevelWithThisLevel(headingChars));

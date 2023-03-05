@@ -556,7 +556,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     // Don't sort recents - use the default order
                     if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                        GsFileUtils.sort(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                     }
 
                     if (canGoUp(_currentFolder)) {

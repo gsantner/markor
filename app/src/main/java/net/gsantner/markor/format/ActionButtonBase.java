@@ -534,7 +534,7 @@ public abstract class ActionButtonBase {
             final String leadingIndentPattern = String.format("^\\s{1,%d}", _indent);
             ActionButtonBase.runRegexReplaceAction(_hlEditor, new ActionButtonBase.ReplacePattern(leadingIndentPattern, ""));
         } else {
-            final String tabString = TextViewUtils.repeatChars(' ', _indent);
+            final String tabString = GsTextUtils.repeatChars(' ', _indent);
             ActionButtonBase.runRegexReplaceAction(_hlEditor, new ActionButtonBase.ReplacePattern("^", tabString));
         }
     }

@@ -32,7 +32,6 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -143,12 +142,6 @@ public final class TextViewUtils extends GsTextUtils {
     public static String getSelectedLines(final TextView text) {
         final int[] sel = getLineSelection(text);
         return text.getText().subSequence(sel[0], sel[1]).toString();
-    }
-
-    public static String repeatChars(char character, int count) {
-        char[] stringChars = new char[count];
-        Arrays.fill(stringChars, character);
-        return new String(stringChars);
     }
 
     /**
