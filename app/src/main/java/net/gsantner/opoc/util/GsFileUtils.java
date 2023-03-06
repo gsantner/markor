@@ -688,23 +688,40 @@ public class GsFileUtils {
         return filename;
     }
 
-
     public static final String SORT_BY_NAME = "NAME",
                                SORT_BY_FILESIZE = "FILESIZE",
                                SORT_BY_MTIME = "MTIME",
                                SORT_BY_MIMETYPE = "MIMETYPE";
 
-
+    /**
+     * Get a key which can be use to sort File objects
+     *
+     * This is highly performant as each file is processed exactly once.
+     * Inspired by python's sort
+     *
+     * @param sortBy    String key of what to sort
+     * @param file      The file object to get the
+     * @param dirFirst  Whether to sort directories first
+     * @return A string key which can be used for comparisons / sorting
+     */
     private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
+        if (file == null) {
+            return "";
+        }
+
+        // If we want directories first we prefix with a 1 to increase priority
         final String dirPrefix = dirFirst && file.isDirectory() ? "1" : "0";
+
         switch (sortBy) {
             case SORT_BY_MTIME: {
+                // Padded string so we sort by actual value ("99" > "100", but "0099" < "0100")
                 return dirPrefix + GsTextUtils.padLeft(file.lastModified(), LONG_LENGTH, '0');
             }
             case SORT_BY_FILESIZE: {
                 return dirPrefix + GsTextUtils.padLeft(file.length(), LONG_LENGTH, '0');
             }
             case SORT_BY_MIMETYPE: {
+                // Sort by mime type first, then name
                 return dirPrefix + getMimeType(file).toLowerCase() + file.getName().toLowerCase();
             }
             case SORT_BY_NAME:
@@ -720,36 +737,12 @@ public class GsFileUtils {
             final boolean sortFolderFirst,
             final boolean sortReverse
     ) {
-        if (filesToSort == null || filesToSort.isEmpty()) {
-            return;
-        }
-
-        try {
-
-            final Map<File, String> keyMap = new HashMap<>();
-            for (final File f : filesToSort) {
-                keyMap.put(f, getSortKey(sortBy, f, sortFolderFirst));
+        if (filesToSort != null && !filesToSort.isEmpty()) {
+            try {
+                GsUtils.keySort(filesToSort, sortReverse, (f) -> getSortKey(sortBy, f, sortFolderFirst));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            final Comparator<File> comparator = (current, other) -> {
-                if (current == null || other == null) {
-                    return 0;
-                }
-
-                final String ck = keyMap.get(current);
-                final String ok = keyMap.get(other);
-
-                if (ck == null || ok == null) {
-                    return 0;
-                } else {
-                    return sortReverse ? ok.compareTo(ck) : ck.compareTo(ok);
-                }
-            };
-
-            Collections.sort(filesToSort, comparator);
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
