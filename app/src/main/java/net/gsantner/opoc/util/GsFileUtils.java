@@ -710,23 +710,24 @@ public class GsFileUtils {
         }
 
         // If we want directories first we prefix with a 1 to increase priority
-        final String dirPrefix = dirFirst && file.isDirectory() ? "1" : "0";
+        final String dirPrefix = dirFirst && file.isDirectory() ? "0" : "1";
+        final String name = file.getName().toLowerCase();
 
         switch (sortBy) {
             case SORT_BY_MTIME: {
                 // Padded string so we sort by actual value ("99" > "100", but "0099" < "0100")
-                return dirPrefix + GsTextUtils.padLeft(file.lastModified(), LONG_LENGTH, '0');
+                return dirPrefix + GsTextUtils.padLeft(file.lastModified(), LONG_LENGTH, '0') + name;
             }
             case SORT_BY_FILESIZE: {
-                return dirPrefix + GsTextUtils.padLeft(file.length(), LONG_LENGTH, '0');
+                return dirPrefix + GsTextUtils.padLeft(file.length(), LONG_LENGTH, '0') + name;
             }
             case SORT_BY_MIMETYPE: {
                 // Sort by mime type first, then name
-                return dirPrefix + getMimeType(file).toLowerCase() + file.getName().toLowerCase();
+                return dirPrefix + getMimeType(file).toLowerCase() + name;
             }
             case SORT_BY_NAME:
             default: {
-                return dirPrefix + file.getName().toLowerCase();
+                return dirPrefix + name;
             }
         }
     }

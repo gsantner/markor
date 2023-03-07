@@ -53,6 +53,20 @@ public class GsUtils {
         return out;
     }
 
+
+    /**
+     * Apply the opertation op on each element of in, and return the result.
+     *
+     * This version runs on lists and the callback is provided with the index
+     */
+    public static <I, O> List<O> map(final List<? extends I> in, final GsCallback.r2<O, ? super I, Integer> op) {
+        final List<O> out = new ArrayList<>();
+        for (int i = 0; i < in.size(); i++) {
+            out.add(op.callback(in.get(i), i));
+        }
+        return out;
+    }
+
     /**
      * Sort a list using a key function.
      *
@@ -75,5 +89,39 @@ public class GsUtils {
         // TODO - investigate ways of doing this sort in-place
         list.clear();
         list.addAll(map(decorated, d -> d.first));
+    }
+
+
+    /**
+     * Find the smallest single diff from source -> dest
+     *
+     * This is similar to TextViewUtils.findDiff
+     *
+     * @param dest   Into which we want to apply the diff
+     * @param source From which we want to apply the diff
+     * @return { a, b, c } s.t. setting dest[a:b] = source[a:c] will make dest == source
+     */
+    public static <T> int[] diff(final List<T> dest, final List<T> source) {
+
+        final int dl = dest.size(), sl = source.size();
+        final int minLength = Math.min(dl, sl);
+
+        int start = 0;
+        while (start < minLength && source.get(start).equals(dest.get(start))) start++;
+
+        // Handle several special cases
+        if (sl == dl && start == sl) { // Case where 2 sequences are same
+            return new int[]{0, 0, 0, 0};
+        } else if (sl < dl && start == sl) { // Pure crop
+            return new int[]{start, dl, sl, sl};
+        } else if (dl < sl && start == dl) { // Pure append
+            return new int[]{dl, dl, start, sl};
+        }
+
+        int end = 0;
+        final int maxEnd = minLength - start;
+        while (end < maxEnd && source.get(sl - end - 1).equals(dest.get(sl - end - 1))) end++;
+
+        return new int[]{start, dl - end, sl - end};
     }
 }

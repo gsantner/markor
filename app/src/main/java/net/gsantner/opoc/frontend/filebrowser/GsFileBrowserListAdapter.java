@@ -568,6 +568,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         _adapterData.addAll(newData);
                         handler.post(() -> {
                             _filter.filter(_filter._lastFilter);
+                            // TODO - add logic to notify the changed bits
                             notifyDataSetChanged();
                             if (_dopt.listener != null) {
                                 _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
