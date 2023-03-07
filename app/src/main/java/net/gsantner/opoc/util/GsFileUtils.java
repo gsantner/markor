@@ -709,7 +709,7 @@ public class GsFileUtils {
             return "";
         }
 
-        // If we want directories first we prefix with a 1 to increase priority
+        // If we want directories first we prefix with a 0 to increase priority
         final String dirPrefix = dirFirst && file.isDirectory() ? "0" : "1";
         final String name = file.getName().toLowerCase();
 
