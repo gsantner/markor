@@ -481,6 +481,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     final int oldLen = _adapterData.size();
                     final int oldHash = _adapterData.hashCode();
 
+                    _adapterData.clear();
                     if (_currentFolder.isDirectory()) {
                         GsUtils.addAll(_adapterData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
