@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 // Class for general utilities
@@ -56,7 +54,6 @@ public class GsUtils {
 
     /**
      * Apply the opertation op on each element of in, and return the result.
-     *
      * This version runs on lists and the callback is provided with the index
      */
     public static <I, O> List<O> map(final List<? extends I> in, final GsCallback.r2<O, ? super I, Integer> op) {
@@ -69,14 +66,13 @@ public class GsUtils {
 
     /**
      * Sort a list using a key function.
-     *
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
      *
-     * @param list     List to sort
-     * @param reverse  Whether to sort in reverse
-     * @param keyFn    Function to generate a self-comparable key from each list item
-     * @param <T>      List type
-     * @param <K>      Key type
+     * @param list    List to sort
+     * @param reverse Whether to sort in reverse
+     * @param keyFn   Function to generate a self-comparable key from each list item
+     * @param <T>     List type
+     * @param <K>     Key type
      */
     public static <T, K extends Comparable<K>> void keySort(
             final List<T> list,
@@ -94,7 +90,6 @@ public class GsUtils {
 
     /**
      * Find the smallest single diff from source -> dest
-     *
      * This is similar to TextViewUtils.findDiff
      *
      * @param dest   Into which we want to apply the diff

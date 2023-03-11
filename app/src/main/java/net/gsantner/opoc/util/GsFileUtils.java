@@ -41,13 +41,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
@@ -688,20 +684,16 @@ public class GsFileUtils {
         return filename;
     }
 
-    public static final String SORT_BY_NAME = "NAME",
-                               SORT_BY_FILESIZE = "FILESIZE",
-                               SORT_BY_MTIME = "MTIME",
-                               SORT_BY_MIMETYPE = "MIMETYPE";
+    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
      * Get a key which can be use to sort File objects
-     *
      * This is highly performant as each file is processed exactly once.
      * Inspired by python's sort
      *
-     * @param sortBy    String key of what to sort
-     * @param file      The file object to get the
-     * @param dirFirst  Whether to sort directories first
+     * @param sortBy   String key of what to sort
+     * @param file     The file object to get the
+     * @param dirFirst Whether to sort directories first
      * @return A string key which can be used for comparisons / sorting
      */
     private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
