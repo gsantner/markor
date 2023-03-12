@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,8 +60,13 @@ public class FileSearchDialog {
         final Spinner queryHistorySpinner = new Spinner(activity);
         final CheckBox regexCheckBox = new CheckBox(activity);
         final CheckBox caseSensitivityCheckBox = new CheckBox(activity);
-        final CheckBox searchInContentCheckBox = new CheckBox(activity);
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
+
+
+        final RadioGroup searchTypeGroup = new RadioGroup(activity);
+        final RadioButton searchTypeTitle = new RadioButton(activity);
+        final RadioButton searchTypeContent = new RadioButton(activity);
+        final RadioButton searchTypeBoth = new RadioButton(activity);
 
         final AppSettings appSettings = ApplicationObject.settings();
         final GsCallback.a0 submit = () -> {
@@ -69,7 +76,13 @@ public class FileSearchDialog {
                 opt.query = query;
                 opt.isRegexQuery = regexCheckBox.isChecked();
                 opt.isCaseSensitiveQuery = caseSensitivityCheckBox.isChecked();
-                opt.isSearchInContent = searchInContentCheckBox.isChecked();
+                if (searchTypeTitle.isChecked()) {
+                    opt.searchType = FileSearchEngine.SearchType.TITLE;
+                } else if (searchTypeContent.isChecked()) {
+                    opt.searchType = FileSearchEngine.SearchType.CONTENT;
+                } else {
+                    opt.searchType = FileSearchEngine.SearchType.BOTH;
+                }
                 opt.isOnlyFirstContentMatch = onlyFirstContentMatchCheckBox.isChecked();
                 opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
                 opt.maxSearchDepth = appSettings.getSearchMaxDepth();
@@ -78,7 +91,7 @@ public class FileSearchDialog {
                 }
                 appSettings.setSearchQueryRegexUsing(opt.isRegexQuery);
                 appSettings.setSearchQueryCaseSensitivity(opt.isCaseSensitiveQuery);
-                appSettings.setSearchInContent(opt.isSearchInContent);
+                appSettings.setSearchType(opt.searchType);
                 appSettings.setOnlyFirstContentMatch(opt.isOnlyFirstContentMatch);
                 dialogCallback.callback(opt);
             }
@@ -138,17 +151,31 @@ public class FileSearchDialog {
         dialogLayout.addView(caseSensitivityCheckBox, margins);
 
         // Checkbox: Search in content
-        searchInContentCheckBox.setText(R.string.search_in_content);
-        searchInContentCheckBox.setChecked(appSettings.isSearchInContent());
-        searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            onlyFirstContentMatchCheckBox.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
-        });
-        dialogLayout.addView(searchInContentCheckBox, margins);
+        searchTypeTitle.setText(R.string.search_in_title);
+        searchTypeContent.setText(R.string.search_in_content);
+        searchTypeBoth.setText(R.string.search_in_both);
+
+        searchTypeGroup.addView(searchTypeTitle);
+        searchTypeGroup.addView(searchTypeContent);
+        searchTypeGroup.addView(searchTypeBoth);
+
+        final FileSearchEngine.SearchType init = appSettings.getSearchType();
+        searchTypeTitle.setChecked(init == FileSearchEngine.SearchType.TITLE);
+        searchTypeContent.setChecked(init == FileSearchEngine.SearchType.CONTENT);
+        searchTypeBoth.setChecked(init == FileSearchEngine.SearchType.BOTH);
+
+        final GsCallback.a0 setOnlyFirstVisibility = () -> {
+            final boolean visible = searchTypeContent.isChecked() || searchTypeBoth.isChecked();
+            onlyFirstContentMatchCheckBox.setVisibility(visible ? View.VISIBLE : View.GONE);
+        };
+        searchTypeGroup.setOnCheckedChangeListener((buttonView, isChecked) -> setOnlyFirstVisibility.callback());
+
+        dialogLayout.addView(searchTypeGroup, margins);
 
         // Checkbox: Only first content match
         onlyFirstContentMatchCheckBox.setText(R.string.stop_search_after_first_match);
         onlyFirstContentMatchCheckBox.setChecked(appSettings.isOnlyFirstContentMatch());
-        onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
+        setOnlyFirstVisibility.callback();
         dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
 
         // ScrollView
