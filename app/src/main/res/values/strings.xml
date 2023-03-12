@@ -423,8 +423,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="failed_to_restore_settings_from_backup">Failed to restore settings from backup</string>
     <string name="newline_is_new_paragraph">Newline = new paragraph</string>
     <string name="search_in_content">Search in content</string>
-    <string name="search_in_title">Search in title</string>
-    <string name="search_in_both">Search in both</string>
     <string name="max_search_depth">Search depth</string>
     <string name="ignore_list">Ignore list</string>
     <string name="do_not_search_specified_files_and_folders">Do not search specified files and folders.\nUse new line as separator.\nUse quotes for exact dir names: \"Test\".\nOr use Regex \'^[.].*\'\nExamples: ^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>

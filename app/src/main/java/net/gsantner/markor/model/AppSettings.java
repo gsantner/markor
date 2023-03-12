@@ -22,7 +22,6 @@ import androidx.annotation.StringRes;
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.util.ShortcutUtils;
 import net.gsantner.opoc.format.GsTextUtils;
@@ -621,13 +620,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         setBool(R.string.pref_key__is_search_query_use_regex, isUseRegex);
     }
 
-    public FileSearchEngine.SearchType getSearchType() {
-        final String _default = FileSearchEngine.SearchType.TITLE.toString();
-        return FileSearchEngine.SearchType.valueOf(getString(R.string.pref_key__search_type, _default));
+    public boolean isSearchInContent() {
+        return getBool(R.string.pref_key__is_search_in_content, false);
     }
 
-    public void setSearchType(final FileSearchEngine.SearchType searchType) {
-        setString(R.string.pref_key__search_type, searchType.toString());
+    public void setSearchInContent(final boolean isSearchInContent) {
+        setBool(R.string.pref_key__is_search_in_content, isSearchInContent);
     }
 
     public boolean isOnlyFirstContentMatch() {

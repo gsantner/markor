@@ -56,18 +56,13 @@ public class FileSearchEngine {
         queryHistory.addFirst(query);
     }
 
-    public enum SearchType {
-        CONTENT, TITLE, BOTH
-    }
-
     public static class SearchOptions {
         public File rootSearchDir;
         public String query;
 
         public boolean isRegexQuery;
         public boolean isCaseSensitiveQuery;
-
-        public SearchType searchType;
+        public boolean isSearchInContent;
         public boolean isOnlyFirstContentMatch;
 
         public int maxSearchDepth;
@@ -214,8 +209,6 @@ public class FileSearchEngine {
 
                 final File[] subDirsOrFiles = currentDir.listFiles();
                 final int trimSize = _config.rootSearchDir.getCanonicalPath().length() + 1;
-                final boolean searchContent = _config.searchType == SearchType.CONTENT || _config.searchType == SearchType.BOTH;
-                final boolean searchName = _config.searchType == SearchType.TITLE || _config.searchType == SearchType.BOTH;
 
                 for (final File f : (subDirsOrFiles != null ? subDirsOrFiles : new File[0])) {
                     if (isCancelled() || _isCanceled) {
@@ -229,13 +222,13 @@ public class FileSearchEngine {
                         subQueue.add(f);
                     } else {
 
-                        final int count = _result.size();
-                        if (searchContent && FormatRegistry.isFileSupported(f, true)) {
+                        final int beforeContentCount = _result.size();
+                        if (_config.isSearchInContent && FormatRegistry.isFileSupported(f, true)) {
                             getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
                         }
 
-                        // Search name if required and if not already included due to content
-                        if (searchName && _result.size() == count) {
+                        // Search name if not already included due to content
+                        if (_result.size() == beforeContentCount) {
                             getFileIfNameMatches(f);
                         }
                     }
