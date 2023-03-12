@@ -229,11 +229,13 @@ public class FileSearchEngine {
                         subQueue.add(f);
                     } else {
 
+                        final int count = _result.size();
                         if (searchContent && FormatRegistry.isFileSupported(f, true)) {
                             getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
                         }
 
-                        if (searchName) {
+                        // Search name if required and if not already included due to content
+                        if (searchName && _result.size() == count) {
                             getFileIfNameMatches(f);
                         }
                     }
