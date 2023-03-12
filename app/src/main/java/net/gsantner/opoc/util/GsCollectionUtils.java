@@ -1,3 +1,12 @@
+/*#######################################################
+ *
+ * SPDX-FileCopyrightText: 2023 Harshad Vedartham <harshad1 AT zoho DOT com>
+ * SPDX-License-Identifier: Unlicense OR CC0-1.0
+ *
+ * Written 2023 by Harshad Vedartham <harshad1 AT zoho DOT com>
+ * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+ * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+#########################################################*/
 package net.gsantner.opoc.util;
 
 import android.util.Pair;
@@ -8,12 +17,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 // Class for general utilities
-public class GsUtils {
+public class GsCollectionUtils {
 
     /**
      * Like Arrays.asList, but supports null input (returns empty list)
@@ -43,29 +50,25 @@ public class GsUtils {
 
 
     /**
-     * Apply the opertation op on each element of in, and return the result
-     */
-    public static <I, O> List<O> map(final Collection<? extends I> in, final GsCallback.r1<O, ? super I> op) {
-        final List<O> out = new ArrayList<>();
-        for (final I val : in) {
-            out.add(op.callback(val));
-        }
-        return out;
-    }
-
-
-    /**
      * Apply the opertation op on each element of in, and return the result.
-     *
-     * This version runs on lists and the callback is provided with the index
      */
-    public static <I, O> List<O> map(final List<? extends I> in, final GsCallback.r2<O, ? super I, Integer> op) {
+    public static <I, O> List<O> map(final Collection<? extends I> in, final GsCallback.r2<O, ? super I, Integer> op) {
         final List<O> out = new ArrayList<>();
-        for (int i = 0; i < in.size(); i++) {
-            out.add(op.callback(in.get(i), i));
+
+        int index = 0;
+        for (final I val : in) {
+            out.add(op.callback(val, index));
+            index++;
         }
         return out;
     }
+
+    public static <T> void mapInplace(final List<T> in, final GsCallback.r2<? extends T, ? super T, Integer> op) {
+        final List<? extends T> res = map(in, op);
+        in.clear();
+        in.addAll(res);
+    }
+
 
     /**
      * Sort a list using a key function.
@@ -83,12 +86,12 @@ public class GsUtils {
             final boolean reverse,
             final GsCallback.r1<K, ? super T> keyFn
     ) {
-        final List<Pair<T, K>> decorated = map(list, (v) -> Pair.create(v, keyFn.callback(v)));
+        final List<Pair<T, K>> decorated = map(list, (v, i) -> Pair.create(v, keyFn.callback(v)));
         Collections.sort(decorated, (a, b) -> reverse ? b.second.compareTo(a.second) : a.second.compareTo(b.second));
 
         // TODO - investigate ways of doing this sort in-place
         list.clear();
-        list.addAll(map(decorated, d -> d.first));
+        list.addAll(map(decorated, (d, i) -> d.first));
     }
 
 
@@ -102,12 +105,13 @@ public class GsUtils {
      * @return { a, b, c } s.t. setting dest[a:b] = source[a:c] will make dest == source
      */
     public static <T> int[] diff(final List<T> dest, final List<T> source) {
-
         final int dl = dest.size(), sl = source.size();
         final int minLength = Math.min(dl, sl);
 
-        int start = 0;
-        while (start < minLength && source.get(start).equals(dest.get(start))) start++;
+        int start = 0, fromEnd = 0;
+        while (start < minLength && source.get(start).equals(dest.get(start))) {
+            start++;
+        }
 
         // Handle several special cases
         if (sl == dl && start == sl) { // Case where 2 sequences are same
@@ -118,10 +122,11 @@ public class GsUtils {
             return new int[]{dl, dl, start, sl};
         }
 
-        int end = 0;
         final int maxEnd = minLength - start;
-        while (end < maxEnd && source.get(sl - end - 1).equals(dest.get(sl - end - 1))) end++;
+        while (fromEnd < maxEnd && source.get(sl - fromEnd - 1).equals(dest.get(sl - fromEnd - 1))) {
+            fromEnd++;
+        }
 
-        return new int[]{start, dl - end, sl - end};
+        return new int[]{start, dl - fromEnd, sl - fromEnd};
     }
 }

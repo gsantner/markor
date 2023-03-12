@@ -37,7 +37,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.util.GsUtils;
+import net.gsantner.opoc.util.GsCollectionUtils;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -483,13 +483,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     _adapterData.clear();
                     if (_currentFolder.isDirectory()) {
-                        GsUtils.addAll(_adapterData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
+                        GsCollectionUtils.addAll(_adapterData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
                         _adapterData.addAll(_dopt.recentFiles);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
                         _adapterData.addAll(_dopt.popularFiles);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
-                        GsUtils.addAll(_adapterData, _dopt.favouriteFiles);
+                        GsCollectionUtils.addAll(_adapterData, _dopt.favouriteFiles);
                     }
 
                     if (folder.getAbsolutePath().equals("/storage/emulated")) {

@@ -41,13 +41,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
@@ -704,7 +700,7 @@ public class GsFileUtils {
      * @param dirFirst  Whether to sort directories first
      * @return A string key which can be used for comparisons / sorting
      */
-    private static String getSortKey(final String sortBy, final File file, final boolean dirFirst) {
+    private static String makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
         if (file == null) {
             return "";
         }
@@ -740,7 +736,7 @@ public class GsFileUtils {
     ) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
-                GsUtils.keySort(filesToSort, sortReverse, (f) -> getSortKey(sortBy, f, sortFolderFirst));
+                GsCollectionUtils.keySort(filesToSort, sortReverse, (f) -> makeSortKey(sortBy, f, sortFolderFirst));
             } catch (Exception e) {
                 e.printStackTrace();
             }
