@@ -684,20 +684,16 @@ public class GsFileUtils {
         return filename;
     }
 
-    public static final String SORT_BY_NAME = "NAME",
-                               SORT_BY_FILESIZE = "FILESIZE",
-                               SORT_BY_MTIME = "MTIME",
-                               SORT_BY_MIMETYPE = "MIMETYPE";
+    public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
      * Get a key which can be use to sort File objects
-     *
      * This is highly performant as each file is processed exactly once.
      * Inspired by python's sort
      *
-     * @param sortBy    String key of what to sort
-     * @param file      The file object to get the
-     * @param dirFirst  Whether to sort directories first
+     * @param sortBy   String key of what to sort
+     * @param file     The file object to get the
+     * @param dirFirst Whether to sort directories first
      * @return A string key which can be used for comparisons / sorting
      */
     private static String makeSortKey(final String sortBy, final File file, final boolean dirFirst) {

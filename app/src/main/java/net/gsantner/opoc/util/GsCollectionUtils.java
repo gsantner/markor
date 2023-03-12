@@ -72,14 +72,13 @@ public class GsCollectionUtils {
 
     /**
      * Sort a list using a key function.
-     *
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
      *
-     * @param list     List to sort
-     * @param reverse  Whether to sort in reverse
-     * @param keyFn    Function to generate a self-comparable key from each list item
-     * @param <T>      List type
-     * @param <K>      Key type
+     * @param list    List to sort
+     * @param reverse Whether to sort in reverse
+     * @param keyFn   Function to generate a self-comparable key from each list item
+     * @param <T>     List type
+     * @param <K>     Key type
      */
     public static <T, K extends Comparable<K>> void keySort(
             final List<T> list,
@@ -97,7 +96,6 @@ public class GsCollectionUtils {
 
     /**
      * Find the smallest single diff from source -> dest
-     *
      * This is similar to TextViewUtils.findDiff
      *
      * @param dest   Into which we want to apply the diff
