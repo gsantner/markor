@@ -106,7 +106,7 @@ public class TodoTxtFilter {
         keys.add(new SttFilterKey(context.getString(R.string.due_future), Collections.frequency(all, TodoDueState.FUTURE), QUERY_DUE_FUTURE));
         keys.add(new SttFilterKey(context.getString(R.string.due_today), Collections.frequency(all, TodoDueState.TODAY), QUERY_DUE_TODAY));
         keys.add(new SttFilterKey(context.getString(R.string.due_overdue), Collections.frequency(all, TodoDueState.OVERDUE), QUERY_DUE_OVERDUE));
-        keys.add(new SttFilterKey(STRING_NONE, Collections.frequency(all, TodoDueState.NONE), QUERY_DUE_ANY));
+        keys.add(new SttFilterKey(STRING_NONE, Collections.frequency(all, TodoDueState.NONE), null));
 
         return keys;
     }
