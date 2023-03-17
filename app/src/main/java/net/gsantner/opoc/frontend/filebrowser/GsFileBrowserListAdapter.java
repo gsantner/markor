@@ -478,32 +478,30 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     _currentFolder = folder;
                     _virtualMapping.clear();
-                    final int oldLen = _adapterData.size();
-                    final int oldHash = _adapterData.hashCode();
 
-                    _adapterData.clear();
+                    final List<File> newData = new ArrayList<>();
                     if (_currentFolder.isDirectory()) {
-                        GsCollectionUtils.addAll(_adapterData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
+                        GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        _adapterData.addAll(_dopt.recentFiles);
+                        newData.addAll(_dopt.recentFiles);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-                        _adapterData.addAll(_dopt.popularFiles);
+                        newData.addAll(_dopt.popularFiles);
                     } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
-                        GsCollectionUtils.addAll(_adapterData, _dopt.favouriteFiles);
+                        GsCollectionUtils.addAll(newData, _dopt.favouriteFiles);
                     }
 
                     if (folder.getAbsolutePath().equals("/storage/emulated")) {
-                        _adapterData.add(new File(folder, "0"));
+                        newData.add(new File(folder, "0"));
                     }
 
                     if (folder.getAbsolutePath().equals("/")) {
-                        _adapterData.add(new File(folder, "storage"));
+                        newData.add(new File(folder, "storage"));
                     }
 
                     // Private AppStorage: Allow to access to files directory only (don't allow access to internals like shared_preferences & databases)
                     if (folder.equals(_context.getFilesDir().getParentFile())) {
-                        _adapterData.clear();
-                        _adapterData.add(new File(folder, "files"));
+                        newData.clear();
+                        newData.add(new File(folder, "files"));
                     }
 
                     if (folder.getAbsolutePath().equals("/storage")) {
@@ -513,7 +511,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             if (canWrite(file)) {
                                 File remap = new File(folder, "emulated-" + i);
                                 _virtualMapping.put(remap, file);
-                                _adapterData.add(remap);
+                                newData.add(remap);
                             } else {
                                 break;
                             }
@@ -521,32 +519,32 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                         if (_dopt.recentFiles != null) {
                             _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
-                            _adapterData.add(VIRTUAL_STORAGE_RECENTS);
+                            newData.add(VIRTUAL_STORAGE_RECENTS);
                         }
                         if (_dopt.popularFiles != null) {
                             _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
-                            _adapterData.add(VIRTUAL_STORAGE_POPULAR);
+                            newData.add(VIRTUAL_STORAGE_POPULAR);
                         }
                         if (_dopt.favouriteFiles != null) {
                             _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
-                            _adapterData.add(VIRTUAL_STORAGE_FAVOURITE);
+                            newData.add(VIRTUAL_STORAGE_FAVOURITE);
                         }
                         File appDataFolder = _context.getFilesDir();
                         if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
                             _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
-                            _adapterData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
+                            newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                         }
                     }
 
                     for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
-                        for (int i = 0; i < _adapterData.size(); i++) {
-                            final File file = _adapterData.get(i);
+                        for (int i = 0; i < newData.size(); i++) {
+                            final File file = newData.get(i);
                             if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                                 final int depth = TextViewUtils.countChars(file.getAbsolutePath(), '/')[0];
                                 if (depth < 3) {
                                     final File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
                                     _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
-                                    _adapterData.add(remap);
+                                    newData.add(remap);
                                 }
                             }
                         }
@@ -554,14 +552,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     // Don't sort recents - use the default order
                     if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                        GsFileUtils.sortFiles(_adapterData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                        GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                     }
 
                     if (canGoUp(_currentFolder)) {
-                        _adapterData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
+                        newData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
                     }
 
-                    if (oldLen != _adapterData.size() || oldHash != _adapterData.hashCode()) {
+                    if (!newData.equals(_adapterData)) {
+                        _adapterData.clear();
+                        _adapterData.addAll(newData);
                         handler.post(() -> {
                             _filter.filter(_filter._lastFilter);
                             // TODO - add logic to notify the changed bits
