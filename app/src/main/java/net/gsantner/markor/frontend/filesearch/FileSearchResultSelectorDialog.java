@@ -24,6 +24,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,13 +75,13 @@ public class FileSearchResultSelectorDialog {
         }
 
         // List filling
-        final ArrayList<GroupItemsInfo> groupItemsData = filter(searchResults, "");
+        final List<FitFile> groupItemsData = filter(searchResults, "");
         final ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, groupItemsData);
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
-                ArrayList<GroupItemsInfo> filteredGroups = filter(searchResults, filterText);
+                List<FitFile> filteredGroups = filter(searchResults, filterText);
                 ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
@@ -98,7 +99,7 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setAdapter(adapter);
 
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
-            GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
+            final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
 
             if (groupItem.children.isEmpty()) {
                 if (dialog != null && dialog.get() != null) {
@@ -115,7 +116,7 @@ public class FileSearchResultSelectorDialog {
                 final long packed = expandableListView.getExpandableListPosition(position);
                 if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
-                    final String path = ((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(group)).path;
+                    final String path = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).path;
                     ((MainActivity) activity).getNotebook().showPathRelative(path);
                     if (dialog != null && dialog.get() != null) {
                         dialog.get().dismiss();
@@ -127,7 +128,7 @@ public class FileSearchResultSelectorDialog {
         });
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
+            final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
             Pair<String, Integer> childItem = (Pair<String, Integer>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
             if (childItem != null && childItem.second != null && childItem.second >= 0) {
                 dialogCallback.callback(groupItem.path, childItem.second);
@@ -146,32 +147,35 @@ public class FileSearchResultSelectorDialog {
         return dialogBuilder;
     }
 
-    @SuppressWarnings("ConstantConditions")
-    private static ArrayList<GroupItemsInfo> filter(final List<FileSearchEngine.FitFile> searchResults, String query) {
-        final ArrayList<GroupItemsInfo> groupItemsData = new ArrayList<>();
+    private static List<FitFile> filter(final List<FitFile> searchResults, String query) {
+        if (query.trim().isEmpty()) {
+            return searchResults;
+        }
+
+        final List<FitFile> groupItemsData = new ArrayList<>();
         query = query.toLowerCase();
 
         for (final FileSearchEngine.FitFile fitFile : searchResults) {
             final boolean isPathContainsQuery = query.isEmpty() || fitFile.path.toLowerCase().contains(query);
             final ArrayList<Pair<String, Integer>> groupChildItems = new ArrayList<>();
 
-            for (final Pair<String, Integer> contentMatch : fitFile.matchesWithLineNumberAndLineText) {
+            for (final Pair<String, Integer> contentMatch : fitFile.children) {
                 if (isPathContainsQuery || contentMatch.first.toLowerCase().contains(query)) {
                     groupChildItems.add(contentMatch);
                 }
             }
             if (isPathContainsQuery || !groupChildItems.isEmpty()) {
-                groupItemsData.add(new GroupItemsInfo(fitFile.path, fitFile.isDirectory, groupChildItems));
+                groupItemsData.add(new FitFile(fitFile.path, fitFile.isDirectory, groupChildItems));
             }
         }
         return groupItemsData;
     }
 
     private static class ExpandableSearchResultsListAdapter implements ExpandableListAdapter {
-        public final List<GroupItemsInfo> data;
+        public final List<FitFile> data;
         private final Context _context;
 
-        public ExpandableSearchResultsListAdapter(Context context, List<GroupItemsInfo> groupItems) {
+        public ExpandableSearchResultsListAdapter(Context context, List<FitFile> groupItems) {
             _context = context;
             data = Collections.unmodifiableList(groupItems);
         }
@@ -208,7 +212,7 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public View getGroupView(final int groupPosition, final boolean isExpanded, final View convertView, final ViewGroup parent) {
-            GroupItemsInfo groupInfo = (GroupItemsInfo) getGroup(groupPosition);
+            final FitFile groupInfo = (FitFile) getGroup(groupPosition);
             TextView textView = (TextView) convertView;
             if (convertView == null) {
                 final LayoutInflater inflater = (LayoutInflater) _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -217,11 +221,15 @@ public class FileSearchResultSelectorDialog {
             }
             textView.setText(groupInfo.toString());
 
-            final int iconResId = groupInfo.isDirectory || groupInfo.children.isEmpty() ? 0 : isExpanded
-                    ? R.drawable.ic_baseline_keyboard_arrow_up_24
-                    : R.drawable.ic_baseline_keyboard_arrow_down_24;
+            final int iconResId;
+            if (groupInfo.isDirectory || groupInfo.children.isEmpty()) {
+                iconResId = 0;
+            } else if (isExpanded) {
+                iconResId = R.drawable.ic_baseline_keyboard_arrow_up_24;
+            } else {
+                iconResId = R.drawable.ic_baseline_keyboard_arrow_down_24;
+            }
             textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
-
             return textView;
         }
 
@@ -285,23 +293,6 @@ public class FileSearchResultSelectorDialog {
 
         @Override
         public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-        }
-    }
-
-    public static class GroupItemsInfo {
-        public final String path;
-        public final boolean isDirectory;
-        public final ArrayList<Pair<String, Integer>> children;
-
-        public GroupItemsInfo(String a_path, boolean a_isDirectory, ArrayList<Pair<String, Integer>> a_children) {
-            path = a_path;
-            isDirectory = a_isDirectory;
-            children = a_children != null ? a_children : new ArrayList<>();
-        }
-
-        @Override
-        public String toString() {
-            return (children.size() > 0 ? String.format("(%s) ", children.size()) : "") + path;
         }
     }
 }

@@ -8,6 +8,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import net.gsantner.markor.R;
@@ -75,12 +77,19 @@ public class FileSearchEngine {
     public static class FitFile {
         public final String path;
         public final boolean isDirectory;
-        public final List<Pair<String, Integer>> matchesWithLineNumberAndLineText;
+        public final List<Pair<String, Integer>> children;
 
-        public FitFile(final String a_path, final boolean a_isDirectory, final List<Pair<String, Integer>> lineNumbers) {
-            path = a_path;
-            isDirectory = a_isDirectory;
-            matchesWithLineNumberAndLineText = Collections.unmodifiableList(lineNumbers != null ? lineNumbers : Collections.emptyList());
+        public FitFile(final String path, final boolean isDirectory, final List<Pair<String, Integer>> lineNumbers) {
+            // Directories have a trailing slash
+            this.path = path + (isDirectory && !path.endsWith("/") ? "/" : "");
+            this.isDirectory = isDirectory;
+            this.children = Collections.unmodifiableList(lineNumbers != null ? lineNumbers : Collections.emptyList());
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return (children.size() > 0 ? String.format("(%s) ", children.size()) : "") + path;
         }
     }
 
@@ -199,7 +208,7 @@ public class FileSearchEngine {
             return _result;
         }
 
-        private Queue<File> currentDirectoryHandler(File currentDir) {
+        private Queue<File> currentDirectoryHandler(final File currentDir) {
             final Queue<File> subQueue = new LinkedList<>();
 
             try {
@@ -211,26 +220,28 @@ public class FileSearchEngine {
                 final int trimSize = _config.rootSearchDir.getCanonicalPath().length() + 1;
 
                 for (final File f : (subDirsOrFiles != null ? subDirsOrFiles : new File[0])) {
+                    final boolean isDir = f.isDirectory();
+
                     if (isCancelled() || _isCanceled) {
                         break;
                     }
                     _countCheckedFiles++;
 
-                    if (!f.canRead() || isIgnored((f))) {
-                        continue;
-                    } else if (f.isDirectory() && !isFileContainSymbolicLinks(f, currentDir)) {
-                        subQueue.add(f);
-                    } else {
+                    if (f.canRead() && !isIgnored((f))) {
 
                         final int beforeContentCount = _result.size();
-                        if (_config.isSearchInContent && FormatRegistry.isFileSupported(f, true)) {
+                        if (!isDir && _config.isSearchInContent && FormatRegistry.isFileSupported(f, true)) {
                             getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
                         }
 
                         // Search name if not already included due to content
                         if (_result.size() == beforeContentCount) {
-                            getFileIfNameMatches(f);
+                            getFileIfNameMatches(f, trimSize);
                         }
+                    }
+
+                    if (isDir && !isFileContainSymbolicLinks(f, currentDir)) {
+                        subQueue.add(f);
                     }
 
                     publishProgress(_currentQueueLength + subQueue.size(), _currentSearchDepth, _result.size(), _countCheckedFiles);
@@ -314,17 +325,13 @@ public class FileSearchEngine {
             return true;
         }
 
-        private void getFileIfNameMatches(File file) {
+        private void getFileIfNameMatches(final File file, final int trim) {
             try {
-                String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
-                boolean isMatch = _config.isRegexQuery ? _matcher.reset(fileName).matches() : fileName.contains(_config.query);
-
-                if (isMatch) {
-                    String path = file.getCanonicalPath().replace(_config.rootSearchDir.getCanonicalPath() + "/", "");
-                    _result.add(new FitFile(path, file.isDirectory(), null));
+                final String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
+                if (_config.isRegexQuery ? _matcher.reset(fileName).matches() : fileName.contains(_config.query)) {
+                    _result.add(new FitFile(file.getCanonicalPath().substring(trim), file.isDirectory(), null));
                 }
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
 
         private int getDirectoryDepth(File parentDir, File childDir) {

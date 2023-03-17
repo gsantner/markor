@@ -77,8 +77,8 @@ public class FormatRegistry {
     };
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
-        boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
-        if (file != null) {
+        final boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
+        if (file != null && file.isFile()) {
             final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
             for (TextConverterBase converter : CONVERTERS) {
                 if (textonly && converter instanceof EmbedBinaryTextConverter) {
