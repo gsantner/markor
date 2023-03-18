@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 // Class for general utilities
@@ -70,6 +71,17 @@ public class GsCollectionUtils {
     }
 
 
+    public static <T extends Comparable<T>> int listComp(final List<T> a, final List<T> b) {
+        final int la = a.size(), lb = b.size();
+        for (int i = 0; i < Math.min(la, lb); i++) {
+            final int comp = a.get(i).compareTo(b.get(i));
+            if (comp != 0) {
+                return comp;
+            }
+        }
+        return Integer.compare(la, lb);
+    }
+
     /**
      * Sort a list using a key function.
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
@@ -80,17 +92,27 @@ public class GsCollectionUtils {
      * @param <T>     List type
      * @param <K>     Key type
      */
+    public static <T, K> void keySort(
+            final List<T> list,
+            final boolean reverse,
+            final GsCallback.r1<K, ? super T> keyFn,
+            final Comparator<K> comp
+    ) {
+        final List<Pair<T, K>> decorated = map(list, (v, i) -> Pair.create(v, keyFn.callback(v)));
+        final int mul = reverse ? -1 : 1;
+        Collections.sort(decorated, (a, b) -> comp.compare(a.second, b.second) * mul);
+
+        // TODO - investigate ways of doing this sort in-place
+        list.clear();
+        list.addAll(map(decorated, (d, i) -> d.first));
+    }
+
     public static <T, K extends Comparable<K>> void keySort(
             final List<T> list,
             final boolean reverse,
             final GsCallback.r1<K, ? super T> keyFn
     ) {
-        final List<Pair<T, K>> decorated = map(list, (v, i) -> Pair.create(v, keyFn.callback(v)));
-        Collections.sort(decorated, (a, b) -> reverse ? b.second.compareTo(a.second) : a.second.compareTo(b.second));
-
-        // TODO - investigate ways of doing this sort in-place
-        list.clear();
-        list.addAll(map(decorated, (d, i) -> d.first));
+        keySort(list, reverse, keyFn, Comparable::compareTo);
     }
 
 

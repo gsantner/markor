@@ -59,8 +59,6 @@ public class GsFileUtils {
     private static final int BUFFER_SIZE = 4096;
     private static final GsHashMap<String, String> MIME_TYPE_CACHE = new GsHashMap<>();
 
-    private static final int LONG_LENGTH = Long.bitCount(Long.MAX_VALUE);
-
     /**
      * Info of various types about a file
      */
@@ -694,32 +692,27 @@ public class GsFileUtils {
      * @param sortBy   String key of what to sort
      * @param file     The file object to get the
      * @param dirFirst Whether to sort directories first
-     * @return A string key which can be used for comparisons / sorting
+     * @return A key which can be used for comparisons / sorting
      */
-    private static String makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
-        if (file == null) {
-            return "";
-        }
-
+    private static List<String> makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
         // If we want directories first we prefix with a 0 to increase priority
-        final String dirPrefix = dirFirst && file.isDirectory() ? "0" : "1";
+        final String dirPrefix = file.isDirectory() ? "0" : "1";
+        // All sort conflicts resolved by name
         final String name = file.getName().toLowerCase();
 
         switch (sortBy) {
             case SORT_BY_MTIME: {
-                // Padded string so we sort by actual value ("99" > "100", but "0099" < "0100")
-                return dirPrefix + GsTextUtils.padLeft(file.lastModified(), LONG_LENGTH, '0') + name;
+                return Arrays.asList(dirPrefix, Long.toString(file.lastModified()), name);
             }
             case SORT_BY_FILESIZE: {
-                return dirPrefix + GsTextUtils.padLeft(file.length(), LONG_LENGTH, '0') + name;
+                return Arrays.asList(dirPrefix, Long.toString(file.length()), name);
             }
             case SORT_BY_MIMETYPE: {
-                // Sort by mime type first, then name
-                return dirPrefix + getMimeType(file).toLowerCase() + name;
+                return Arrays.asList(dirPrefix, getMimeType(file).toLowerCase(), name);
             }
             case SORT_BY_NAME:
             default: {
-                return dirPrefix + name;
+                return Arrays.asList(dirPrefix, name);
             }
         }
     }
@@ -727,12 +720,12 @@ public class GsFileUtils {
     public static void sortFiles(
             final List<File> filesToSort,
             final String sortBy,
-            final boolean sortFolderFirst,
-            final boolean sortReverse
+            final boolean folderFirst,
+            final boolean reverse
     ) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
-                GsCollectionUtils.keySort(filesToSort, sortReverse, (f) -> makeSortKey(sortBy, f, sortFolderFirst));
+                GsCollectionUtils.keySort(filesToSort, reverse, (f) -> makeSortKey(sortBy, f, folderFirst), GsCollectionUtils::listComp);
             } catch (Exception e) {
                 e.printStackTrace();
             }
