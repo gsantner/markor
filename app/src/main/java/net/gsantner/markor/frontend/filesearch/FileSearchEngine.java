@@ -230,7 +230,11 @@ public class FileSearchEngine {
                     if (f.canRead() && !isIgnored((f))) {
 
                         final int beforeContentCount = _result.size();
+<<<<<<< Updated upstream
                         if (!isDir && _config.isSearchInContent && FormatRegistry.isFileSupported(f, true)) {
+=======
+                        if (_config.isSearchInContent && GsFileUtils.isTextFile(f)) {
+>>>>>>> Stashed changes
                             getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
                         }
 
@@ -395,10 +399,6 @@ public class FileSearchEngine {
 
         private void getContentMatches(final File file, final boolean isFirstMatchOnly, final int trim) {
             List<Pair<String, Integer>> contentMatches = null;
-
-            if (!file.canRead() || file.isDirectory()) {
-                return;
-            }
 
             try (final BufferedReader br = new BufferedReader(new InputStreamReader(getInputStream(file)))) {
                 int lineNumber = 0;
