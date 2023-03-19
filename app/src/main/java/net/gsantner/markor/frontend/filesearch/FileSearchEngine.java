@@ -230,11 +230,7 @@ public class FileSearchEngine {
                     if (f.canRead() && !isIgnored((f))) {
 
                         final int beforeContentCount = _result.size();
-<<<<<<< Updated upstream
-                        if (!isDir && _config.isSearchInContent && FormatRegistry.isFileSupported(f, true)) {
-=======
                         if (_config.isSearchInContent && GsFileUtils.isTextFile(f)) {
->>>>>>> Stashed changes
                             getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
                         }
 

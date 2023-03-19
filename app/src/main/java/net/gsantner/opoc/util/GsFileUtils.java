@@ -17,12 +17,7 @@ import android.util.Pair;
 import androidx.annotation.Nullable;
 
 import net.gsantner.opoc.format.GsTextUtils;
-<<<<<<< Updated upstream
-import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
-import net.gsantner.opoc.wrapper.GsHashMap;
-=======
->>>>>>> Stashed changes
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

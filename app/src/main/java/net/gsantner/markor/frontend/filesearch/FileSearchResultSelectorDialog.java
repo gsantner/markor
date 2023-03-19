@@ -21,14 +21,9 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
-<<<<<<< Updated upstream
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
-=======
-import net.gsantner.opoc.wrapper.GsHashMap;
->>>>>>> Stashed changes
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +31,11 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchResultSelectorDialog {
-    public static void showDialog(final Activity activity, final List<FileSearchEngine.FitFile> searchResults, final GsCallback.a3<String, Integer, Boolean> dialogCallback) {
+    public static void showDialog(
+            final Activity activity,
+            final List<FileSearchEngine.FitFile> searchResults,
+            final GsCallback.a3<String, Integer, Boolean> dialogCallback
+    ) {
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         dialog.set(buildDialog(activity, dialog, searchResults, dialogCallback).create());
         if (dialog.get().getWindow() != null) {
@@ -102,19 +101,14 @@ public class FileSearchResultSelectorDialog {
         expandableListView.setGroupIndicator(null);
         expandableListView.setAdapter(adapter);
 
-<<<<<<< Updated upstream
-        expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
-            final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
-=======
         final GsCallback.a0 dismiss = () -> {
             if (dialog != null && dialog.get() != null) {
                 dialog.get().dismiss();
             }
         };
->>>>>>> Stashed changes
 
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
-            final GroupItemsInfo groupItem = (GroupItemsInfo) parent.getExpandableListAdapter().getGroup(groupPosition);
+            final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
             if (groupItem.children.isEmpty()) {
                 dismiss.callback();
                 dialogCallback.callback(groupItem.path, null, false);
@@ -128,17 +122,9 @@ public class FileSearchResultSelectorDialog {
                 final long packed = expandableListView.getExpandableListPosition(position);
                 if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
-<<<<<<< Updated upstream
                     final String path = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).path;
-                    ((MainActivity) activity).getNotebook().showPathRelative(path);
-                    if (dialog != null && dialog.get() != null) {
-                        dialog.get().dismiss();
-                    }
-=======
-                    final String path = ((GroupItemsInfo) expandableListView.getExpandableListAdapter().getGroup(group)).path;
                     dismiss.callback();
                     dialogCallback.callback(path, null, true);
->>>>>>> Stashed changes
                 }
             } catch (ClassCastException | NullPointerException ignored) {
             }
@@ -162,6 +148,7 @@ public class FileSearchResultSelectorDialog {
                 .setOnCancelListener(null)
                 .setMessage(searchResults.isEmpty() ? "     ¯\\_(ツ)_/¯     " : null)
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+
         return dialogBuilder;
     }
 
