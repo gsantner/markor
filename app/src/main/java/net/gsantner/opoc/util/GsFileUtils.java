@@ -482,7 +482,7 @@ public class GsFileUtils {
         } catch (Exception ignored) {
         }
         return "*/*";
-    };
+    }
 
     /**
      * Try to detect MimeType by backwards compatible methods

@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import com.google.android.material.snackbar.Snackbar;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -331,7 +330,8 @@ public class FileSearchEngine {
                 if (_config.isRegexQuery ? _matcher.reset(fileName).matches() : fileName.contains(_config.query)) {
                     _result.add(new FitFile(file.getCanonicalPath().substring(trim), file.isDirectory(), null));
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         private int getDirectoryDepth(File parentDir, File childDir) {

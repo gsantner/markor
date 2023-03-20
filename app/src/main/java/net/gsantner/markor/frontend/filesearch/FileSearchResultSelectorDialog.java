@@ -21,9 +21,9 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
-import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
