@@ -14,12 +14,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import androidx.annotation.Nullable;
-
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
-import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
-import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -44,12 +39,12 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
@@ -61,8 +56,8 @@ public class GsFileUtils {
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
 
     // Used on methods like copyFile(src, dst)
-    private static final int BUFFER_SIZE = 4096;
-    private static final GsHashMap<String, String> MIME_TYPE_CACHE = new GsHashMap<>();
+    private final static int BUFFER_SIZE = 4096;
+    private final static Map<String, String> MIME_TYPE_CACHE = new ConcurrentHashMap<>();
 
     /**
      * Info of various types about a file
@@ -420,7 +415,7 @@ public class GsFileUtils {
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    private final static GsCallback.s1<File> gatherMimeType = file -> {
+    private static String gatherMimeType(final File file) {
         if (file == null) {
             return "*/*";
         }
@@ -482,20 +477,19 @@ public class GsFileUtils {
         } catch (Exception ignored) {
         }
         return "*/*";
-    };
+    }
 
     /**
      * Try to detect MimeType by backwards compatible methods
      * Android/Java's own MimeType mapping support is small and detection barely works at all
      * Hence use custom map for some file extensions
      */
-    public static String getMimeType(File file) {
-        MIME_TYPE_CACHE.limitSizeByRemovingOldest(350);
+    public static String getMimeType(final File file) {
         final String fp = file.getAbsolutePath();
-        String mime = MIME_TYPE_CACHE.getOrDefault(fp, null);
+        String mime = MIME_TYPE_CACHE.get(fp);
         if (mime == null) {
-            mime = gatherMimeType.callback(file);
-            MIME_TYPE_CACHE.add(fp, mime);
+            mime = gatherMimeType(file);
+            MIME_TYPE_CACHE.put(fp, mime);
         }
         return mime;
     }
@@ -687,85 +681,54 @@ public class GsFileUtils {
         return filename;
     }
 
-
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
-    public static Comparator<File> makeSortFileByComparator(final String sortBy, final boolean sortReverse) {
-        return (current, other) -> {
-            if (sortReverse) {
-                File swap = current;
-                current = other;
-                other = swap;
-            }
+    /**
+     * Get a key which can be use to sort File objects
+     * This is highly performant as each file is processed exactly once.
+     * Inspired by python's sort
+     *
+     * @param sortBy   String key of what to sort
+     * @param file     The file object to get the
+     * @param dirFirst Whether to sort directories first
+     * @return A key which can be used for comparisons / sorting
+     */
+    private static List<String> makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
+        // If we want directories first we prefix with a 0 to increase priority
+        final String dirPrefix = file.isDirectory() ? "0" : "1";
+        // All sort conflicts resolved by name
+        final String name = file.getName().toLowerCase();
 
-            switch (sortBy) {
-                case SORT_BY_MTIME: {
-                    return Long.compare(other.lastModified(), current.lastModified());
-                }
-                case SORT_BY_FILESIZE: {
-                    return Long.compare(other.length(), current.length());
-                }
-                case SORT_BY_NAME: {
-                    return current.getName().compareToIgnoreCase(other.getName());
-                }
-                case SORT_BY_MIMETYPE: {
-                    String mic = getMimeType(current), mio = getMimeType(other);
-                    return !mic.equalsIgnoreCase(mio) ? mic.compareToIgnoreCase(mio) : current.getName().compareToIgnoreCase(other.getName());
-                }
+        switch (sortBy) {
+            case SORT_BY_MTIME: {
+                return Arrays.asList(dirPrefix, Long.toString(file.lastModified()), name);
             }
-            return current.compareTo(other);
-        };
+            case SORT_BY_FILESIZE: {
+                return Arrays.asList(dirPrefix, Long.toString(file.length()), name);
+            }
+            case SORT_BY_MIMETYPE: {
+                return Arrays.asList(dirPrefix, getMimeType(file).toLowerCase(), name);
+            }
+            case SORT_BY_NAME:
+            default: {
+                return Arrays.asList(dirPrefix, name);
+            }
+        }
     }
 
-    public static Pair<List<File>, Comparator<File>> sortFiles(final List<File> filesToSort, final String sortBy, final boolean sortFolderFirst, final boolean sortReverse) {
-        final Comparator<File> detailComparator = makeSortFileByComparator(sortBy, sortReverse);
-
-        final Comparator<File> mainComparator = (current, other) -> {
-            if (current == null || other == null) {
-                return 0;
-            } else if (current.isDirectory() && sortFolderFirst) {
-                return other.isDirectory() ? detailComparator.compare(current, other) : -1;
-            } else if (other.isDirectory() && sortFolderFirst) {
-                return 1;
-            }
-            int v = detailComparator.compare(current, other);
-            if (v != 0) {
-                return v;
-            }
-            return current.getName().compareToIgnoreCase(other.getName());
-        };
-
-        if (filesToSort != null) {
+    public static void sortFiles(
+            final List<File> filesToSort,
+            final String sortBy,
+            final boolean folderFirst,
+            final boolean reverse
+    ) {
+        if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
-                Collections.sort(filesToSort, mainComparator);
+                GsCollectionUtils.keySort(filesToSort, reverse, (f) -> makeSortKey(sortBy, f, folderFirst), GsCollectionUtils::listComp);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return new Pair<>(filesToSort, mainComparator);
-    }
-
-    public static List<File> replaceFilesWithCachedVariants(@Nullable final File[] files) {
-        ArrayList<File> list = new ArrayList<>(Arrays.asList(files != null ? files : new File[0]));
-        return replaceFilesWithCachedVariants(list);
-    }
-
-    /**
-     * Optimization: convert {@link File}s to FileWithCachedData
-     * For example sorting invokes a lot of filesystem i/o calls which comes with performance penalty
-     */
-    public static List<File> replaceFilesWithCachedVariants(@Nullable List<File> files) {
-        files = (files == null ? new ArrayList<>() : files);
-
-        for (int i = 0; i < files.size(); i++) {
-            if (files.get(i) instanceof GsFileWithMetadataCache) {
-                continue;
-            }
-            final File o = files.remove(i);
-            final int at = files.indexOf(o);
-            files.add(i, at >= 0 ? files.get(at) : new GsFileWithMetadataCache(o));
-        }
-        return files;
     }
 
     /**

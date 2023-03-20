@@ -153,7 +153,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a2<String, Integer> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a3<String, Integer, Boolean> callback) {
         if (!FileSearchEngine.isSearchExecuting) {
             GsCallback.a1<FileSearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
@@ -735,7 +735,7 @@ public class MarkorDialogFactory {
 
         // Read all files in snippets folder with appropriate extension
         // Create a map of snippet title -> text
-        for (final File f : GsFileUtils.replaceFilesWithCachedVariants(folder.listFiles())) {
+        for (final File f : folder.listFiles()) {
             if (f.exists() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
                 texts.put(f.getName(), f);
             }

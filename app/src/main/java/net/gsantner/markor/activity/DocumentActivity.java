@@ -167,8 +167,8 @@ public class DocumentActivity extends MarkorBaseActivity {
     private void handleLaunchingIntent(final Intent intent) {
         if (intent == null) return;
 
-        String intentAction = intent.getAction();
-        Uri intentData = intent.getData();
+        final String intentAction = intent.getAction();
+        final Uri intentData = intent.getData();
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
@@ -209,7 +209,10 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
                 startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
             } else if (intentData != null) {
-                startLine = TextViewUtils.tryParseInt(intentData.getQueryParameter("line"), -1);
+                final String line = intentData.getQueryParameter("line");
+                if (line != null) {
+                    startLine = TextViewUtils.tryParseInt(line, -1);
+                }
             }
 
             // Start in a specific mode if required. Otherwise let the fragment decide

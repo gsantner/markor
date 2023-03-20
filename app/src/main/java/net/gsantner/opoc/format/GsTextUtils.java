@@ -17,6 +17,7 @@ import org.json.JSONTokener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -308,4 +309,30 @@ public class GsTextUtils {
         return count;
     }
 
+
+    /**
+     * Pad string on left up to size
+     *
+     * @param obj  Converted to string
+     * @param size Total length after padding
+     * @param c    Character to pad with
+     * @return Padded string
+     */
+    public static String padLeft(final Object obj, final int size, final char c) {
+        final String text = obj.toString();
+        return repeatChars(c, size - text.length()) + text;
+    }
+
+    /**
+     * Repeat a char count times
+     *
+     * @param character Char to prepeat
+     * @param count     Times to repeat,
+     * @return String with repeated chars
+     */
+    public static String repeatChars(char character, int count) {
+        final char[] stringChars = new char[count];
+        Arrays.fill(stringChars, character);
+        return new String(stringChars);
+    }
 }
