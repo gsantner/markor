@@ -85,6 +85,7 @@ public class FileInfoDialog extends DialogFragment {
         tv(root, R.id.ui__fileinfodialog__last_modified).setText(DateUtils.formatDateTime(root.getContext(), file.lastModified(), (DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR | DateUtils.FORMAT_NUMERIC_DATE)));
         tv(root, R.id.ui__fileinfodialog__last_modified_caption).setText(getString(R.string.last_modified_witharg, "").replace(":", "").trim());
         tv(root, R.id.ui__fileinfodialog__size_description).setText(GsFileUtils.getReadableFileSize(file.length(), false));
+        tv(root, R.id.ui__fileinfodialog__mimetype_description).setText(GsFileUtils.getMimeType(file));
         tv(root, R.id.ui__fileinfodialog__location).setOnLongClickListener(v -> {
             GsContextUtils.instance.setClipboard(v.getContext(), file.getAbsolutePath());
             Toast.makeText(v.getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
