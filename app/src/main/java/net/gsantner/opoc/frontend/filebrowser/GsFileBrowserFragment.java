@@ -510,12 +510,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     private void executeSearchAction() {
         final File currentFolder = getCurrentFolder();
-        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relFilePath, lineNumber) -> {
-            File load = new File(currentFolder, relFilePath);
-            if (load.isDirectory()) {
-                _filesystemViewerAdapter.setCurrentFolder(load);
+        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relPath, lineNumber, isLong) -> {
+            final File load = new File(currentFolder, relPath);
+            if (!isLong) {
+                if (load.isDirectory()) {
+                    _filesystemViewerAdapter.setCurrentFolder(load);
+                } else {
+                    onFsViewerSelected("", load, lineNumber);
+                }
             } else {
-                onFsViewerSelected("", load, lineNumber);
+                showFile(load);
             }
         });
     }
@@ -658,15 +662,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     // Switch to folder and show the file
-    public void showPathRelative(final String path) {
+    public void showFile(final File file) {
         final GsFileBrowserListAdapter adapter = getAdapter();
-        if (adapter == null) {
-            return;
-        }
-
-        final File current = adapter.getCurrentFolder();
-        final File file = new File(current, path);
-        if (!file.exists()) {
+        if (adapter == null || !file.exists()) {
             return;
         }
 
@@ -674,6 +672,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (dir == null) {
             return;
         }
+
+        final File current = adapter.getCurrentFolder();
 
         if (!current.equals(dir)) {
             // Wait up to 2s for the folder to load

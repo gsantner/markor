@@ -153,7 +153,7 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a2<String, Integer> callback) {
+    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a3<String, Integer, Boolean> callback) {
         if (!FileSearchEngine.isSearchExecuting) {
             GsCallback.a1<FileSearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;

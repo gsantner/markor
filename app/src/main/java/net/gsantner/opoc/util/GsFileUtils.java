@@ -17,9 +17,7 @@ import android.util.Pair;
 import androidx.annotation.Nullable;
 
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
-import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -49,7 +47,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.zip.CRC32;
@@ -61,8 +61,8 @@ public class GsFileUtils {
     public final static SimpleDateFormat DATEFORMAT_IMG = new SimpleDateFormat("yyyyMMdd-HHmmss", INITIAL_LOCALE); //20190511-230845
 
     // Used on methods like copyFile(src, dst)
-    private static final int BUFFER_SIZE = 4096;
-    private static final GsHashMap<String, String> MIME_TYPE_CACHE = new GsHashMap<>();
+    private final static int BUFFER_SIZE = 4096;
+    private final static Map<String, String> MIME_TYPE_CACHE = new ConcurrentHashMap<>();
 
     /**
      * Info of various types about a file
@@ -420,7 +420,7 @@ public class GsFileUtils {
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    private final static GsCallback.s1<File> gatherMimeType = file -> {
+    private static String gatherMimeType(final File file) {
         if (file == null) {
             return "*/*";
         }
@@ -482,20 +482,19 @@ public class GsFileUtils {
         } catch (Exception ignored) {
         }
         return "*/*";
-    };
+    }
 
     /**
      * Try to detect MimeType by backwards compatible methods
      * Android/Java's own MimeType mapping support is small and detection barely works at all
      * Hence use custom map for some file extensions
      */
-    public static String getMimeType(File file) {
-        MIME_TYPE_CACHE.limitSizeByRemovingOldest(350);
+    public static String getMimeType(final File file) {
         final String fp = file.getAbsolutePath();
-        String mime = MIME_TYPE_CACHE.getOrDefault(fp, null);
+        String mime = MIME_TYPE_CACHE.get(fp);
         if (mime == null) {
-            mime = gatherMimeType.callback(file);
-            MIME_TYPE_CACHE.add(fp, mime);
+            mime = gatherMimeType(file);
+            MIME_TYPE_CACHE.put(fp, mime);
         }
         return mime;
     }
