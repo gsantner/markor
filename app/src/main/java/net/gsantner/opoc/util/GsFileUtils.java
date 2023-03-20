@@ -15,9 +15,6 @@ import android.text.TextUtils;
 import android.util.Pair;
 
 import net.gsantner.opoc.format.GsTextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
-import net.gsantner.opoc.wrapper.GsHashMap;
-import net.gsantner.opoc.wrapper.GsFileWithMetadataCache;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
