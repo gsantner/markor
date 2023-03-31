@@ -42,7 +42,7 @@ public class Csv2MdTableTest {
 
                         //  handling special chars
                         "1;\"text with \"\" .,;!|\t:\";3\n";
-        String markdown = Csv2MdTable.toMdTable(csv);
+        String markdown = CsvTextConverter.Csv2MdTable.toMdTable(csv);
         assertEquals(expected, markdown.trim());
     }
 
@@ -56,7 +56,7 @@ public class Csv2MdTableTest {
         // use -'- instead of -"- as quote char
         String csv = "'col1',col2,col3\n" +
                 "1,'2',3\n";
-        String markdown = Csv2MdTable.toMdTable(csv);
+        String markdown = CsvTextConverter.Csv2MdTable.toMdTable(csv);
         assertEquals(expected, markdown.trim());
     }
 }
