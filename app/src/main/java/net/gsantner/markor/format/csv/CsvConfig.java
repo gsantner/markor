@@ -33,7 +33,7 @@ public class CsvConfig {
     }
 
     private static char findChar(String line, char... candidates) {
-        int pos = CsvMatcher.indexOfAny(line, 0, line.length(), candidates);
+        int pos = CsvSyntaxHighlighter.indexOfAny(line, 0, line.length(), candidates);
         return pos == -1 ? candidates[0] : line.charAt(pos);
     }
 
