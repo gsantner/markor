@@ -198,7 +198,7 @@ public class GsTextUtils {
      * @param input Input string
      * @return String with escaped sequences converted
      */
-    public static String unescapeString(final CharSequence input) {
+    public static String unescapeString(final String input) {
         final StringBuilder builder = new StringBuilder();
         boolean isEscaped = false;
         for (int i = 0; i < input.length(); i++) {

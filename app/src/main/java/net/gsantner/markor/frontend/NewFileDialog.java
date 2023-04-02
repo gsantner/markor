@@ -323,8 +323,8 @@ public class NewFileDialog extends DialogFragment {
             return new Pair<>(null, -1);
         }
 
-        final int startingIndex = t.indexOf(TextViewUtils.PLACE_CURSOR_HERE_TOKEN);
-        t = t.replace(TextViewUtils.PLACE_CURSOR_HERE_TOKEN, "");
+        final int startingIndex = t.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+        t = t.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
 
         final byte[] bytes;
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

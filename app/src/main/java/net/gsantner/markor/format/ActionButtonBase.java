@@ -13,8 +13,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.Selection;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -394,33 +392,16 @@ public abstract class ActionButtonBase {
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
         if (editor instanceof HighlightingEditor) {
-            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor.getText(), patterns));
+            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns));
         } else {
-            _runRegexReplaceAction(editor.getText(), patterns);
+            _runRegexReplaceAction(editor, patterns);
         }
     }
 
-    public static void runRegexReplaceAction(final Editable edit, final ReplacePattern... patterns) {
-        runRegexReplaceAction(edit, Arrays.asList(patterns));
-    }
+    private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
 
-    public static void runRegexReplaceAction(final Editable edit, final List<ReplacePattern> patterns) {
-        InputFilter[] filters = null;
-        try {
-            filters = edit.getFilters();
-            edit.setFilters(new InputFilter[]{});
-            _runRegexReplaceAction(edit, patterns);
-        } finally {
-            if (filters != null && filters.length > 0) {
-                edit.setFilters(filters);
-            }
-        }
-    }
-
-    private static void _runRegexReplaceAction(final Editable edit, final List<ReplacePattern> patterns) {
-
-        final int[] sel = TextViewUtils.getSelection(edit);
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(edit);
+        final int[] sel = TextViewUtils.getSelection(editor);
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editor.getText());
 
         // Offset of selection start from text end - used to restore selection
         final int selEndOffset = text.length() - sel[1];
@@ -455,7 +436,7 @@ public abstract class ActionButtonBase {
 
         final int newSelEnd = text.length() - selEndOffset;
         final int newSelStart = sel[0] == sel[1] ? newSelEnd : TextViewUtils.getLineEnd(text, selStartStart) - selStartOffset;
-        Selection.setSelection(text, newSelStart, newSelEnd);
+        editor.setSelection(newSelStart, newSelEnd);
     }
 
     protected void runInlineAction(String _action) {
@@ -582,7 +563,7 @@ public abstract class ActionButtonBase {
 
             }
             case R.string.abid_common_accordion: {
-                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + TextViewUtils.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
+                _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
             case R.string.abid_common_attach_something: {

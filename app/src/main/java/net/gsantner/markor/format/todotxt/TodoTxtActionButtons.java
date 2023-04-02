@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -240,7 +239,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
     private void addRemoveItems(final String prefix, final GsCallback.r1<List<String>, List<TodoTxtTask>> keyGetter) {
         final List<String> all = new ArrayList<>(keyGetter.callback(TodoTxtTask.getAllTasks(_hlEditor.getText())));
-
         final TodoTxtTask additional = new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects());
         all.addAll(keyGetter.callback(Collections.singletonList(additional)));
 
@@ -248,36 +246,33 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         final boolean append = _appSettings.isTodoAppendProConOnEndEnabled();
 
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
         MarkorDialogFactory.showUpdateItemsDialog(getActivity(), R.string.insert_context, all, current, _hlEditor,
-                item -> insertUniqueItem(text, prefix + item, append),
-                item -> removeItem(text, prefix + item)
+                item -> insertUniqueItem(prefix + item, append),
+                item -> removeItem(prefix + item)
         );
-        text.applyChanges();
     }
 
-    private static void removeItem(final Editable text, final String item) {
+    private void removeItem(final String item) {
         // Replace with trailing space or line end, ass appropriate
-        ActionButtonBase.runRegexReplaceAction(text, new ReplacePattern(String.format("\\s\\Q%s\\E(\\s|$)", item), "$1"));
+        runRegexReplaceAction(String.format("\\s\\Q%s\\E(\\s|$)", item), "$1");
     }
 
-    private static void insertUniqueItem(final Editable text, final String item, final boolean append) {
+    private void insertUniqueItem(final String item, final boolean append) {
 
         // Pattern to match <space><literal string><space OR end of line>
         // i.e. to check if a word is present in the line
         final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));
-        final String lines = TextViewUtils.getSelectedLines(text);
+        final String lines = TextViewUtils.getSelectedLines(_hlEditor);
         // Multiline or setting
         if (append || lines.contains("\n")) {
-            ActionButtonBase.runRegexReplaceAction(
-                    text,
+            runRegexReplaceAction(
                     // Replace existing item with itself. i.e. do nothing
                     new ReplacePattern(pattern, "$0"),
                     // Append to end
                     new ReplacePattern("\\s*$", " " + item)
             );
         } else if (!pattern.matcher(lines).find()) {
-            insertInline(text, item);
+            insertInline(item);
         }
     }
 
@@ -285,8 +280,9 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         runRegexReplaceAction("^\\s*", "");
     }
 
-    private static void insertInline(final @NonNull Editable text, String thing) {
-        final int[] sel = TextViewUtils.getSelection(text);
+    private void insertInline(String thing) {
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
+        final CharSequence text = _hlEditor.getText();
         if (sel[0] > 0) {
             final char before = text.charAt(sel[0] - 1);
             if (before != ' ' && before != '\n') {
@@ -299,7 +295,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 thing = thing + " ";
             }
         }
-        TextViewUtils.insertOrReplaceTextOnCursor(text, thing);
+        _hlEditor.insertOrReplaceTextOnCursor(thing);
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {

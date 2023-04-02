@@ -30,7 +30,6 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
-import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -212,7 +211,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             } else if (intentData != null) {
                 final String line = intentData.getQueryParameter("line");
                 if (line != null) {
-                    startLine = GsTextUtils.tryParseInt(line, -1);
+                    startLine = TextViewUtils.tryParseInt(line, -1);
                 }
             }
 

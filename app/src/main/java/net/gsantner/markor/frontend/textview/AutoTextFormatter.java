@@ -12,8 +12,6 @@ import android.text.InputFilter;
 import android.text.Selection;
 import android.text.Spanned;
 
-import net.gsantner.opoc.format.GsTextUtils;
-
 import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -361,7 +359,7 @@ public class AutoTextFormatter implements InputFilter {
         final Pattern capitalLetterPattern = Pattern.compile("[A-z]");
 
         if (numberPattern.matcher(currentValue).find()) {
-            final int intValue = GsTextUtils.tryParseInt(currentValue, 0);
+            final int intValue = TextViewUtils.tryParseInt(currentValue, 0);
             return restart ? "1" : Integer.toString(intValue + 1);
         } else {
             final char charValue = currentValue.charAt(0);

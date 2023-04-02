@@ -38,9 +38,7 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class TextViewUtils {
-
-    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
+public final class TextViewUtils extends GsTextUtils {
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {
@@ -137,17 +135,13 @@ public final class TextViewUtils {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
 
-    public static int[] getLineSelection(final CharSequence text) {
-        return getLineSelection(text, getSelection(text));
-    }
-
     public static int[] getLineSelection(final TextView text) {
         return getLineSelection(text.getText(), getSelection(text));
     }
 
-    public static String getSelectedLines(final CharSequence text) {
+    public static String getSelectedLines(final TextView text) {
         final int[] sel = getLineSelection(text);
-        return text.subSequence(sel[0], sel[1]).toString();
+        return text.getText().subSequence(sel[0], sel[1]).toString();
     }
 
     /**
@@ -672,18 +666,5 @@ public final class TextViewUtils {
             return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
         }
         return null; // Uncertain
-    }
-
-    public static void insertOrReplaceTextOnCursor(final Editable edit, final String newText) {
-        if (edit != null && newText != null) {
-            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
-            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = getSelection(edit);
-            sel[0] = Math.max(sel[0], 0);
-            edit.replace(sel[0], sel[1], finalText);
-            if (newCursorPos >= 0) {
-                Selection.setSelection(edit, sel[0] + newCursorPos);
-            }
-        }
     }
 }
