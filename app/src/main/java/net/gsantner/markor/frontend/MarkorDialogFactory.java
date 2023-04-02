@@ -50,6 +50,7 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -60,6 +61,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -564,6 +566,40 @@ public class MarkorDialogFactory {
         dopt.positionCallback = (result) -> {
             for (final Integer pi : result) {
                 insertCallback.callback(dopt.data.get(pi).toString());
+            }
+        };
+        if (text != null) {
+            addRestoreKeyboard(activity, dopt, text);
+        }
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    // Insert items
+    public static void showUpdateItemsDialog(
+            final Activity activity,
+            final @StringRes int title,
+            final List<String> allKeys,
+            final List<String> currentKeys,
+            final @Nullable EditText text,              // Passed in here for keyboard restore
+            final GsCallback.a1<String> addCallback,
+            final GsCallback.a1<String> removeCallback
+    ) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(new TreeSet<>(allKeys));
+        final List<Integer> sel = GsCollectionUtils.map(currentKeys, (s, i) -> dopt.data.indexOf(s));
+        dopt.preSelected = sel;
+        dopt.callback = addCallback;
+        dopt.titleText = title;
+        dopt.searchHintText = R.string.search_or_custom;
+        dopt.isMultiSelectEnabled = true;
+        dopt.positionCallback = (newSel) -> {
+            for (final Integer pi: GsCollectionUtils.sub(sel, newSel)) {
+                removeCallback.callback(dopt.data.get(pi).toString());
+            }
+
+            for (final Integer pi : GsCollectionUtils.sub(newSel, sel)) {
+                addCallback.callback(dopt.data.get(pi).toString());
             }
         };
         if (text != null) {

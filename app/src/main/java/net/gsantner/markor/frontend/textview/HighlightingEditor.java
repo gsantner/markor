@@ -38,8 +38,6 @@ public class HighlightingEditor extends AppCompatEditText {
     final static int HIGHLIGHT_SHIFT_LINES = 8;              // Lines to scroll before hl updated
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
 
-    public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
-
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
     private SyntaxHighlighterBase _hl;
@@ -368,17 +366,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void insertOrReplaceTextOnCursor(final String newText) {
-        final Editable edit = getText();
-        if (edit != null && newText != null) {
-            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
-            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = TextViewUtils.getSelection(this);
-            sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
-            if (newCursorPos >= 0) {
-                setSelection(sel[0] + newCursorPos);
-            }
-        }
+        withAutoFormatDisabled(() -> TextViewUtils.insertOrReplaceTextOnCursor(getText(), newText));
     }
 
     public int moveCursorToEndOfLine(int offset) {

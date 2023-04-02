@@ -18,7 +18,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 // Class for general utilities
 public class GsCollectionUtils {
@@ -113,6 +115,12 @@ public class GsCollectionUtils {
             final GsCallback.r1<K, ? super T> keyFn
     ) {
         keySort(list, reverse, keyFn, Comparable::compareTo);
+    }
+
+    public static <T> Set<T> sub(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new LinkedHashSet<>(a);
+        ret.removeAll(b);
+        return ret;
     }
 
 
