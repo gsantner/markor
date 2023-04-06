@@ -20,6 +20,7 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowInsets;
@@ -30,7 +31,9 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -136,12 +139,16 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
     public static int[] getLineSelection(final TextView text) {
-        return getLineSelection(text.getText(), getSelection(text));
+        return getLineSelection(text.getText());
     }
 
-    public static String getSelectedLines(final TextView text) {
-        final int[] sel = getLineSelection(text);
-        return text.getText().subSequence(sel[0], sel[1]).toString();
+    public static int[] getLineSelection(final CharSequence seq) {
+        return getLineSelection(seq, getSelection(seq));
+    }
+
+    public static String getSelectedLines(final CharSequence seq) {
+        final int[] sel = getLineSelection(seq);
+        return seq.subSequence(sel[0], sel[1]).toString();
     }
 
     /**
@@ -435,28 +442,44 @@ public final class TextViewUtils extends GsTextUtils {
         private StringBuilder copy;
         private int _startSkip = 0;
         private int _endSkip = 0;
+        private int _selStart = -1, _selEnd = -1;
+        private int _depth = 0; // Used to chain chunked editables
 
         public static ChunkedEditable wrap(@NonNull final Editable e) {
-            return (e instanceof ChunkedEditable) ? (ChunkedEditable) e : new ChunkedEditable(e);
+            final ChunkedEditable ret;
+            if (e instanceof ChunkedEditable) {
+                ret = (ChunkedEditable) e;
+                ret._depth++;
+            } else {
+                ret = new ChunkedEditable(e);
+            }
+            return ret;
         }
 
         private ChunkedEditable(@NonNull final Editable e) {
             original = e;
+            _selStart = Selection.getSelectionStart(original);
+            _selEnd = Selection.getSelectionEnd(original);
         }
 
         // Apply changes from copy to original
-        public boolean applyChanges() {
+        public void applyChanges() {
             if (copy == null) {
-                return false;
+                return;
+            }
+
+            if (_depth > 0) {
+                _depth--;
+                return;
             }
 
             final int[] diff = TextViewUtils.findDiff(original, copy, _startSkip, Math.max(_endSkip, 0));
             final boolean hasDiff = diff[0] != diff[1] || diff[0] != diff[2];
             if (hasDiff) {
                 original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+                Selection.setSelection(original, _selStart, _selEnd);
             }
             copy = null; // Reset as we have applied all changed
-            return hasDiff;
         }
 
         // All other functions which edit the editable alias this routine
@@ -467,7 +490,6 @@ public final class TextViewUtils extends GsTextUtils {
             if (diff[0] != diff[1] || diff[2] != diff[3]) {
                 if (copy == null) {
                     // All operations will now run on copy
-                    // SpannableStringBuilder maintains spans etc
                     copy = new StringBuilder(original);
                     _startSkip = _endSkip = copy.length();
                 }
@@ -550,9 +572,20 @@ public final class TextViewUtils extends GsTextUtils {
 
         // All spannable things unsupported
         // -------------------------------------------------------------------------------
+        private void setSel(Object o, int v) {
+            if (Selection.SELECTION_START == o) _selStart = v;
+            if (Selection.SELECTION_END == o) _selEnd = v;
+        }
+
+        private int getSel(Object o) {
+            if (Selection.SELECTION_START == o) return _selStart;
+            else if (Selection.SELECTION_END == o) return _selEnd;
+            else return -1;
+        }
+
         @Override
         public void clearSpans() {
-            // Do nothing
+            _selStart = _selEnd = -1;
         }
 
         @Override
@@ -567,27 +600,27 @@ public final class TextViewUtils extends GsTextUtils {
 
         @Override
         public void setSpan(Object what, int start, int end, int flags) {
-            // Do nothing
+            setSel(what, start);
         }
 
         @Override
         public void removeSpan(Object what) {
-            // Do nothing
+            setSel(what, -1);
         }
 
         @Override
         public <T> T[] getSpans(int start, int end, Class<T> type) {
-            return null;
+            return (T[]) Array.newInstance(type, 0);
         }
 
         @Override
         public int getSpanStart(Object tag) {
-            return -1;
+            return getSel(tag);
         }
 
         @Override
         public int getSpanEnd(Object tag) {
-            return -1;
+            return getSel(tag);
         }
 
         @Override
@@ -666,5 +699,48 @@ public final class TextViewUtils extends GsTextUtils {
             return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
         }
         return null; // Uncertain
+    }
+
+    public static void insertOrReplaceTextOnCursor(final Editable edit, final String newText) {
+        if (edit != null && newText != null) {
+            final int newCursorPos = newText.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+            final String finalText = newText.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+            final int[] sel = TextViewUtils.getSelection(edit);
+            sel[0] = Math.max(sel[0], 0);
+            withAutoFormatDisabled(edit, () -> edit.replace(sel[0], sel[1], finalText));
+            if (newCursorPos >= 0) {
+                Selection.setSelection(edit, sel[0] + newCursorPos);
+            }
+        }
+    }
+
+
+    public interface MTextWatcher extends TextWatcher {
+        // Classes inheriting from this class will be disabled in withAutoFormatDisabled
+    }
+
+    public static void withAutoFormatDisabled(final Editable editable, final GsCallback.a0 callback) {
+        final InputFilter[] filters = editable.getFilters();
+        editable.setFilters(new InputFilter[0]);
+
+        // We use MTextWatcher and not TextWatcher as SpannableStringBuilder uses TextWatcher internally
+        // And we don't want to break that functionality too
+        final MTextWatcher[] watchers = editable.getSpans(0, editable.length(), MTextWatcher.class);
+        final int[][] wData = new int[watchers.length][3];
+        for (int i = 0; i < watchers.length; i++) {
+            final TextWatcher w = watchers[i];
+            wData[i][0] = editable.getSpanStart(w);
+            wData[i][1] = editable.getSpanEnd(w);
+            wData[i][2] = editable.getSpanFlags(w);
+            editable.removeSpan(w);
+        }
+
+        callback.callback();
+
+        for (int i = 0; i < watchers.length; i++) {
+            editable.setSpan(watchers[i], wData[i][0], wData[i][1], wData[i][2]);
+        }
+
+        editable.setFilters(filters);
     }
 }

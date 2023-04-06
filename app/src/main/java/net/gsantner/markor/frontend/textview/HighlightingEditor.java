@@ -334,28 +334,13 @@ public class HighlightingEditor extends AppCompatEditText {
         _autoFormatEnabled = enable;
     }
 
-    // Run some code with accessibility disabled
-    public void withAccessibilityDisabled(final GsCallback.a0 callback) {
+    // Run some code with auto formatters and accessibility disabled
+    public void withAutoFormatDisabled(final GsCallback.a0 callback) {
         try {
             _accessibilityEnabled = false;
-            callback.callback();
+            TextViewUtils.withAutoFormatDisabled(getText(), callback);
         } finally {
             _accessibilityEnabled = true;
-        }
-    }
-
-    // Run some code with auto formatters disabled
-    // Also disables accessibility
-    public void withAutoFormatDisabled(final GsCallback.a0 callback) {
-        if (getAutoFormatEnabled()) {
-            try {
-                setAutoFormatEnabled(false);
-                withAccessibilityDisabled(callback);
-            } finally {
-                setAutoFormatEnabled(true);
-            }
-        } else {
-            withAccessibilityDisabled(callback);
         }
     }
 
@@ -368,17 +353,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void insertOrReplaceTextOnCursor(final String newText) {
-        final Editable edit = getText();
-        if (edit != null && newText != null) {
-            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
-            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = TextViewUtils.getSelection(this);
-            sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
-            if (newCursorPos >= 0) {
-                setSelection(sel[0] + newCursorPos);
-            }
-        }
+        withAutoFormatDisabled(() -> TextViewUtils.insertOrReplaceTextOnCursor(getText(), newText));
     }
 
     public int moveCursorToEndOfLine(int offset) {
