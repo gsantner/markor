@@ -33,7 +33,6 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -573,14 +572,21 @@ public final class TextViewUtils extends GsTextUtils {
         // All spannable things unsupported
         // -------------------------------------------------------------------------------
         private void setSel(Object o, int v) {
-            if (Selection.SELECTION_START == o) _selStart = v;
-            if (Selection.SELECTION_END == o) _selEnd = v;
+            if (Selection.SELECTION_START == o) {
+                _selStart = v;
+            } else if (Selection.SELECTION_END == o) {
+                _selEnd = v;
+            }
         }
 
         private int getSel(Object o) {
-            if (Selection.SELECTION_START == o) return _selStart;
-            else if (Selection.SELECTION_END == o) return _selEnd;
-            else return -1;
+            if (Selection.SELECTION_START == o) {
+                return _selStart;
+            } else if (Selection.SELECTION_END == o) {
+                return _selEnd;
+            } else {
+                return -1;
+            }
         }
 
         @Override
@@ -610,7 +616,7 @@ public final class TextViewUtils extends GsTextUtils {
 
         @Override
         public <T> T[] getSpans(int start, int end, Class<T> type) {
-            return (T[]) Array.newInstance(type, 0);
+            return (T[]) (new Object[0]);
         }
 
         @Override
@@ -701,25 +707,17 @@ public final class TextViewUtils extends GsTextUtils {
         return null; // Uncertain
     }
 
-    public static void insertOrReplaceTextOnCursor(final Editable edit, final String newText) {
-        if (edit != null && newText != null) {
-            final int newCursorPos = newText.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-            final String finalText = newText.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
-            final int[] sel = TextViewUtils.getSelection(edit);
-            sel[0] = Math.max(sel[0], 0);
-            withAutoFormatDisabled(edit, () -> edit.replace(sel[0], sel[1], finalText));
-            if (newCursorPos >= 0) {
-                Selection.setSelection(edit, sel[0] + newCursorPos);
-            }
-        }
-    }
-
-
     public interface MTextWatcher extends TextWatcher {
         // Classes inheriting from this class will be disabled in withAutoFormatDisabled
     }
 
     public static void withAutoFormatDisabled(final Editable editable, final GsCallback.a0 callback) {
+        if (editable instanceof ChunkedEditable) {
+            // Optimization for chunked editabled, which do not support formatting
+            callback.callback();
+            return;
+        }
+
         final InputFilter[] filters = editable.getFilters();
         editable.setFilters(new InputFilter[0]);
 

@@ -26,7 +26,6 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsCollectionUtils;
-import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -256,10 +255,10 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             updated -> {
             if (!GsCollectionUtils.setEquals(current, updated)) {
                 final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
-                for (final String item : GsCollectionUtils.sub(current, updated)) {
+                for (final String item : GsCollectionUtils.setDiff(current, updated)) {
                     removeItem(chunk, prefix + item);
                 }
-                for (final String item : GsCollectionUtils.sub(updated, current)) {
+                for (final String item : GsCollectionUtils.setDiff(updated, current)) {
                     insertUniqueItem(chunk, prefix + item, append);
                 }
                 chunk.applyChanges();

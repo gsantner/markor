@@ -353,7 +353,17 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public void insertOrReplaceTextOnCursor(final String newText) {
-        withAutoFormatDisabled(() -> TextViewUtils.insertOrReplaceTextOnCursor(getText(), newText));
+        final Editable edit = getText();
+        if (edit != null && newText != null) {
+            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
+            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
+            final int[] sel = TextViewUtils.getSelection(this);
+            sel[0] = Math.max(sel[0], 0);
+            withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
+            if (newCursorPos >= 0) {
+                setSelection(sel[0] + newCursorPos);
+            }
+        }
     }
 
     public int moveCursorToEndOfLine(int offset) {

@@ -11,8 +11,6 @@ package net.gsantner.opoc.util;
 
 import android.util.Pair;
 
-import com.vladsch.flexmark.util.collection.OrderedSet;
-
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -123,7 +121,7 @@ public class GsCollectionUtils {
     /**
      * Return set of elements in a which are not in b
      */
-    public static <T> Set<T> sub(final Collection<T> a, final Collection<T> b) {
+    public static <T> Set<T> setDiff(final Collection<T> a, final Collection<T> b) {
         final Set<T> ret = new LinkedHashSet<>(a);
         ret.removeAll(b);
         return ret;
