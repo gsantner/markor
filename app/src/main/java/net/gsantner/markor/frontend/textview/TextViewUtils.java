@@ -33,6 +33,7 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -442,6 +443,7 @@ public final class TextViewUtils extends GsTextUtils {
         private int _startSkip = 0;
         private int _endSkip = 0;
         private int _selStart = -1, _selEnd = -1;
+        private boolean _selChanged = false;
         private int _depth = 0; // Used to chain chunked editables
 
         public static ChunkedEditable wrap(@NonNull final Editable e) {
@@ -476,6 +478,8 @@ public final class TextViewUtils extends GsTextUtils {
             final boolean hasDiff = diff[0] != diff[1] || diff[0] != diff[2];
             if (hasDiff) {
                 original.replace(diff[0], diff[1], copy.subSequence(diff[0], diff[2]));
+            }
+            if (_selChanged) {
                 Selection.setSelection(original, _selStart, _selEnd);
             }
             copy = null; // Reset as we have applied all changed
@@ -574,8 +578,10 @@ public final class TextViewUtils extends GsTextUtils {
         private void setSel(Object o, int v) {
             if (Selection.SELECTION_START == o) {
                 _selStart = v;
+                _selChanged = true;
             } else if (Selection.SELECTION_END == o) {
                 _selEnd = v;
+                _selChanged = true;
             }
         }
 
@@ -615,8 +621,9 @@ public final class TextViewUtils extends GsTextUtils {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public <T> T[] getSpans(int start, int end, Class<T> type) {
-            return (T[]) (new Object[0]);
+            return (T[]) Array.newInstance(type, 0);
         }
 
         @Override
