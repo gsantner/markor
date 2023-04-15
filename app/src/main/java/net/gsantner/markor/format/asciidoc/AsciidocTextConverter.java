@@ -1,29 +1,52 @@
 /*#######################################################
  *
- *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
 package net.gsantner.markor.format.asciidoc;
 
-import net.gsantner.markor.format.plaintext.PlaintextTextConverter;
+import android.content.Context;
+import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.opoc.format.GsTextUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 @SuppressWarnings("WeakerAccess")
-public class AsciidocTextConverter extends PlaintextTextConverter {
+public class AsciidocTextConverter extends TextConverterBase {
     //########################
     //## Extensions
     //########################
+    private static final Set<String> EXT = new HashSet<>(Arrays.asList(".adoc", ".asciidoc", ".asc"));
+    public static final String HTML_ASCIIDOCJS_JS_INCLUDE = "<script src='file:///android_asset/asciidoc/asciidoctor.min.js'></script>";
+    public static final String HTML_ASCIIDOCJS_CSS_INCLUDE = "<link rel=\"stylesheet\" href=\"file:///android_asset/asciidoc/asciidoctor.css\">";
 
-    private static final List<String> EXT_ASCIIDOC = Arrays.asList(".adoc", ".asciidoc", ".asc");
-    private static final List<String> EXT = new ArrayList<>();
-
-    static {
-        EXT.addAll(EXT_ASCIIDOC);
+    @Override
+    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+        String converted = "<div id=\"asciidoc_content\"></div>\n";
+        String head =  HTML_ASCIIDOCJS_JS_INCLUDE + HTML_ASCIIDOCJS_CSS_INCLUDE;
+        String onLoadJs = "var textBase64 = `";
+        //convert a text to base64 to simplify supporting special characters
+        onLoadJs += GsTextUtils.toBase64(markup);
+        onLoadJs += "`;\n" +
+                //decode base64 to utf8 string
+                "const asciiPlainText = atob(textBase64);\n" +
+                "const length = asciiPlainText.length;\n" +
+                "const bytes = new Uint8Array(length);\n" +
+                "for (let i = 0; i < length; i++) {\n" +
+                "    bytes[i] = asciiPlainText.charCodeAt(i);\n" +
+                "}\n" +
+                "const decoder = new TextDecoder();\n" +
+                "var utf8PlainText = decoder.decode(bytes);" +
+                "var asciidoctor = Asciidoctor();\n" +
+                //standalone : true - to generate header 1 (= title) in the page. if don't do that - title will be absent.
+                //nofooter: true - to don't generate footer (Last updated ...). if don't do that and use standalone : true - the page will have that footer.
+                "var html = asciidoctor.convert(utf8PlainText, {standalone : true, attributes : {nofooter: true}});\n" +
+                "document.getElementById(\"asciidoc_content\").innerHTML = html;";
+        //TODO need to support dark mode
+        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
     }
 
     @Override
