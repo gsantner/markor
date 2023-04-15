@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -12,7 +12,9 @@ import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @SuppressWarnings("WeakerAccess")
 public class AsciidocTextConverter extends TextConverterBase {
@@ -26,7 +28,7 @@ public class AsciidocTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "<div id=\"asciidoc_content\"></div>\n";
-        String head =  HTML_ASCIIDOCJS_JS_INCLUDE + HTML_ASCIIDOCJS_CSS_INCLUDE;
+        String head = HTML_ASCIIDOCJS_JS_INCLUDE + HTML_ASCIIDOCJS_CSS_INCLUDE;
         String onLoadJs = "var textBase64 = `";
         //convert a text to base64 to simplify supporting special characters
         onLoadJs += GsTextUtils.toBase64(markup);
