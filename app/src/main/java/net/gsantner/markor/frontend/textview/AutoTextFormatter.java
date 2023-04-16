@@ -42,7 +42,13 @@ public class AutoTextFormatter implements InputFilter {
 
         final OrderedListLine oLine = new OrderedListLine(dest, dstart, _patterns);
         final UnOrderedOrCheckListLine uLine = new UnOrderedOrCheckListLine(dest, dstart, _patterns);
-        final String indent = source + oLine.line.substring(0, oLine.indent); // Copy indent from previous line
+        final String indent;
+        if (oLine.indent < 0 || oLine.indent > oLine.line.length()) {
+            indent = source.toString();
+        } else {
+            // Copy indent from previous line
+            indent = source + oLine.line.substring(0, oLine.indent);
+        }
 
         final String result;
         if (oLine.isOrderedList && oLine.lineEnd != oLine.groupEnd && dend >= oLine.groupEnd) {
