@@ -18,7 +18,7 @@ import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiExtension;
 import com.vladsch.flexmark.ext.emoji.EmojiImageType;
 import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension;
+import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughSubscriptExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.gitlab.GitLabExtension;
 import com.vladsch.flexmark.ext.ins.InsExtension;
@@ -125,7 +125,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     // See https://github.com/vsch/flexmark-java/wiki/Extensions#tables
     private static final List<Extension> flexmarkExtensions = Arrays.asList(
-            StrikethroughExtension.create(),
+            StrikethroughSubscriptExtension.create()
             AutolinkExtension.create(),
             InsExtension.create(),
             FlexmarkKatexExtension.KatexExtension.create(),
