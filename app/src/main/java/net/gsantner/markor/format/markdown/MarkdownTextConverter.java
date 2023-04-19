@@ -125,7 +125,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     // See https://github.com/vsch/flexmark-java/wiki/Extensions#tables
     private static final List<Extension> flexmarkExtensions = Arrays.asList(
-            StrikethroughSubscriptExtension.create()
+            StrikethroughSubscriptExtension.create(),
             AutolinkExtension.create(),
             InsExtension.create(),
             FlexmarkKatexExtension.KatexExtension.create(),
