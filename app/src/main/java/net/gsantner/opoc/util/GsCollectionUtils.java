@@ -139,4 +139,22 @@ public class GsCollectionUtils {
 
         return a.equals(b);
     }
+
+    /**
+     * Set union
+     */
+    public static <T> Set<T> union(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new HashSet<>(a);
+        ret.addAll(b);
+        return ret;
+    }
+
+    /**
+     * Set intersection
+     */
+    public static <T> Set<T> intersection(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new HashSet<>(a);
+        ret.retainAll(b);
+        return ret;
+    }
 }

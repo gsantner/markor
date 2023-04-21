@@ -583,17 +583,17 @@ public class MarkorDialogFactory {
             final Set<String> allKeys,
             final Set<String> currentKeys,
             final @Nullable EditText text,   // Passed in here for keyboard restore
-            final GsCallback.a1<List<String>> callback
+            final GsCallback.a1<Collection<String>> callback
     ) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(allKeys);
         dopt.preSelected = GsCollectionUtils.map(currentKeys, (s, i) -> dopt.data.indexOf(s));
-        dopt.callback = (s) -> callback.callback(Collections.singletonList(s));
         dopt.titleText = title;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
         dopt.isLongPressSelectEnabled = false; // Don't want to remove all others by selecting just one
+        dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
         dopt.positionCallback = (newSel) -> callback.callback(
                 GsCollectionUtils.map(newSel, (pi, i)  -> dopt.data.get(pi).toString()));
 

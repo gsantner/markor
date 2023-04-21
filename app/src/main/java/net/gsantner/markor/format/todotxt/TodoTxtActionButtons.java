@@ -253,7 +253,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         MarkorDialogFactory.showUpdateItemsDialog(getActivity(), R.string.insert_context, all, current, _hlEditor,
             updated -> {
-            if (!GsCollectionUtils.setEquals(current, updated)) {
                 final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
                 for (final String item : GsCollectionUtils.setDiff(current, updated)) {
                     removeItem(chunk, prefix + item);
@@ -262,7 +261,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     insertUniqueItem(chunk, prefix + item, append);
                 }
                 chunk.applyChanges();
-            }
         });
     }
 
