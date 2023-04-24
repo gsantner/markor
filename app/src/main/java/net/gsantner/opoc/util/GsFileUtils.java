@@ -695,7 +695,7 @@ public class GsFileUtils {
      */
     private static List<String> makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
         // If we want directories first we prefix with a 0 to increase priority
-        final String dirPrefix = file.isDirectory() ? "0" : "1";
+        final String dirPrefix = (dirFirst && file.isDirectory()) ? "0" : "1";
         // All sort conflicts resolved by name
         final String name = file.getName().toLowerCase();
 
