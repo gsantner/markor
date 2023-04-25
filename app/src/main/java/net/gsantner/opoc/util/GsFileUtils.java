@@ -726,7 +726,7 @@ public class GsFileUtils {
                     Collections.reverse(filesToSort);
                 }
                 if (folderFirst) {
-                    GsCollectionUtils.keySort(filesToSort, File::isDirectory);
+                    GsCollectionUtils.keySort(filesToSort, (f) -> !f.isDirectory());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
