@@ -194,8 +194,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         // Check set type and fallback to ext check
         private boolean isTodoTxt(final Document doc) {
             final int format = _appSettings.getDocumentFormat(doc.getPath(), FormatRegistry.FORMAT_UNKNOWN);
-            if (format == FormatRegistry.FORMAT_TODOTXT) {
-                return true;
+            if (format != FormatRegistry.FORMAT_UNKNOWN) {
+                return format == FormatRegistry.FORMAT_TODOTXT;
             }
             return doc.getFormat() == FormatRegistry.FORMAT_TODOTXT;
         }
