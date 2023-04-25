@@ -206,7 +206,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final String formatted;
             if (isTodoTxt(document)) {
                 final String date = _appSettings.getDocumentAutoFormatEnabled(document.getPath()) ? TodoTxtTask.getToday() : "";
-                formatted = date + _sharedText.replace("\n", " ");
+                formatted = date + " " + _sharedText.replaceAll("\\n+", " ");
             } else {
                 formatted = formatShare(_sharedText);
             }
@@ -331,9 +331,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     showAppendDialog(keyId);
                     return true;
                 }
-                case R.string.pref_key__share_into__quicknote:
-                case R.string.pref_key__share_into__todo: {
+                case R.string.pref_key__share_into__quicknote: {
                     appendToExistingDocumentAndClose(_appSettings.getQuickNoteFile(), false);
+                    break;
+                }
+                case R.string.pref_key__share_into__todo: {
+                    appendToExistingDocumentAndClose(_appSettings.getTodoFile(), false);
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
