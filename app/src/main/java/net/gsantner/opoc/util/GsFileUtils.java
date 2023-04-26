@@ -39,6 +39,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -693,25 +694,21 @@ public class GsFileUtils {
      * @param dirFirst Whether to sort directories first
      * @return A key which can be used for comparisons / sorting
      */
-    private static List<String> makeSortKey(final String sortBy, final File file, final boolean dirFirst) {
-        // If we want directories first we prefix with a 0 to increase priority
-        final String dirPrefix = (dirFirst && file.isDirectory()) ? "0" : "1";
-        // All sort conflicts resolved by name
+    private static String makeSortKey(final String sortBy, final File file) {
         final String name = file.getName().toLowerCase();
-
         switch (sortBy) {
             case SORT_BY_MTIME: {
-                return Arrays.asList(dirPrefix, Long.toString(file.lastModified()), name);
+                return file.lastModified() + name;
             }
             case SORT_BY_FILESIZE: {
-                return Arrays.asList(dirPrefix, Long.toString(file.length()), name);
+                return file.length() + name;
             }
             case SORT_BY_MIMETYPE: {
-                return Arrays.asList(dirPrefix, getMimeType(file).toLowerCase(), name);
+                return getMimeType(file).toLowerCase() + name;
             }
             case SORT_BY_NAME:
             default: {
-                return Arrays.asList(dirPrefix, name);
+                return name;
             }
         }
     }
@@ -724,7 +721,13 @@ public class GsFileUtils {
     ) {
         if (filesToSort != null && !filesToSort.isEmpty()) {
             try {
-                GsCollectionUtils.keySort(filesToSort, reverse, (f) -> makeSortKey(sortBy, f, folderFirst), GsCollectionUtils::listComp);
+                GsCollectionUtils.keySort(filesToSort, (f) -> makeSortKey(sortBy, f));
+                if (reverse) {
+                    Collections.reverse(filesToSort);
+                }
+                if (folderFirst) {
+                    GsCollectionUtils.keySort(filesToSort, (f) -> !f.isDirectory());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
