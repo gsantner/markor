@@ -87,20 +87,17 @@ public class GsCollectionUtils {
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
      *
      * @param list    List to sort
-     * @param reverse Whether to sort in reverse
      * @param keyFn   Function to generate a self-comparable key from each list item
      * @param <T>     List type
      * @param <K>     Key type
      */
     public static <T, K> void keySort(
             final List<T> list,
-            final boolean reverse,
             final GsCallback.r1<K, ? super T> keyFn,
             final Comparator<K> comp
     ) {
         final List<Pair<T, K>> decorated = map(list, (v, i) -> Pair.create(v, keyFn.callback(v)));
-        final int mul = reverse ? -1 : 1;
-        Collections.sort(decorated, (a, b) -> comp.compare(a.second, b.second) * mul);
+        Collections.sort(decorated, (a, b) -> comp.compare(a.second, b.second));
 
         // TODO - investigate ways of doing this sort in-place
         list.clear();
@@ -109,10 +106,9 @@ public class GsCollectionUtils {
 
     public static <T, K extends Comparable<K>> void keySort(
             final List<T> list,
-            final boolean reverse,
             final GsCallback.r1<K, ? super T> keyFn
     ) {
-        keySort(list, reverse, keyFn, Comparable::compareTo);
+        keySort(list, keyFn, Comparable::compareTo);
     }
 
 
