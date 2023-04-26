@@ -26,6 +26,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -511,9 +512,15 @@ public class MarkorDialogFactory {
     }
 
     // Restore the keyboard when dialog closes if required
+    // NOTE: This relies on the activity having unchanged as the default soft input mode
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit, final Boolean restore) {
-        if (restore != null && restore) {
-            options.dismissCallback = (d) -> GsContextUtils.instance.setSoftKeyboardVisible(activity, true, edit);
+        if (restore != null && !restore) {
+            options.dismissCallback = (d) -> {
+                final Window w = activity.getWindow();
+                // Suppress opening the keyboard automatically again
+                w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                edit.postDelayed(() -> w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 1000);
+            };
         }
     }
 

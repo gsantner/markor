@@ -752,9 +752,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            _cu.hideSoftKeyboard(activity);
+            _cu.showSoftKeyboard(activity, false, _hlEditor);
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> _cu.hideSoftKeyboard(activity), 300);
+            _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
