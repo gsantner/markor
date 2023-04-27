@@ -2507,54 +2507,16 @@ public class GsContextUtils {
                 .show();
     }
 
-    public <T extends GsContextUtils> T setSoftKeyboardVisible(final Activity context, boolean visible, View... editView) {
-        if (context != null) {
-            final View v = (editView != null && editView.length > 0) ? (editView[0]) : (context.getCurrentFocus() != null && context.getCurrentFocus().getWindowToken() != null ? context.getCurrentFocus() : null);
-            final InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (v != null && imm != null) {
-                Runnable r = () -> {
-                    if (visible) {
-                        v.requestFocus();
-                        imm.showSoftInput(v, InputMethodManager.SHOW_FORCED);
-                    } else {
-                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    }
-                };
-                r.run();
-                for (int d : new int[]{100, 350}) {
-                    v.postDelayed(r, d);
+    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final boolean show, final View ... view) {
+        if (activity != null) {
+            final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
+            if (imm != null && focus != null && focus.getWindowToken() != null) {
+                if (show) {
+                    imm.showSoftInput(focus, 0);
+                } else if (focus.getWindowToken() != null) {
+                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
                 }
-            }
-        }
-        return thisp();
-    }
-
-    public <T extends GsContextUtils> T hideSoftKeyboard(final Activity context) {
-        if (context != null) {
-            InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && context.getCurrentFocus() != null && context.getCurrentFocus().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
-            }
-        }
-        return thisp();
-    }
-
-    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity) {
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null) {
-                showSoftKeyboard(activity, activity.getCurrentFocus());
-            }
-        }
-        return thisp();
-    }
-
-
-    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, View textInputView) {
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            if (imm != null && textInputView != null) {
-                imm.showSoftInput(textInputView, InputMethodManager.SHOW_FORCED);
             }
         }
         return thisp();

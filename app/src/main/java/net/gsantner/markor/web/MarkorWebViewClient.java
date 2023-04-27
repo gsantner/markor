@@ -41,7 +41,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                 return false;
             } else if (url.startsWith("file://")) {
                 MarkorContextUtils su = new MarkorContextUtils(view.getContext());
-                File file = new File(URLDecoder.decode(url.replace("file://", "")));
+                File file = new File(URLDecoder.decode(url.replace("file://", "").replace("+", "%2B")));
                 for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
                     File f = new File(str);
                     if (f.exists()) {
