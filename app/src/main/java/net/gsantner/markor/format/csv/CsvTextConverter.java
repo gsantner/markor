@@ -97,7 +97,10 @@ public class CsvTextConverter extends MarkdownTextConverter {
                         }
                     }
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
+                // invalid csv format in editor should not crash the app when trying to display as html
+                // openCsv-3.10 may throw IOException or RuntimeExcpetion,
+                // openCsv-5.7 may throw IOException or CsvValidationException.
                 e.printStackTrace();
             }
             return mdMarkup.toString();
@@ -156,6 +159,8 @@ public class CsvTextConverter extends MarkdownTextConverter {
         }
 
         private String[] readNextCsvColumnLine() throws IOException {
+            // openCsv-3.10 may throw IOException or RuntimeExcpetion,
+            // openCsv-5.7 may throw IOException or CsvValidationException.
             String[] columns;
             do {
                 m_lineNumber++;
