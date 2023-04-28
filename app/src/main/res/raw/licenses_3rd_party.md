@@ -49,7 +49,7 @@ Version 2.0, January 2004
 * adapter-kit
 ~° Copyright 2013 Mobs & Geeks
 
-* Commons IO
+* commons-io, commons-lang3, commons-beanutils, commons-logging, commons-collections
 ~° Copyright Apache Foundation
 
 * OpenCsv
