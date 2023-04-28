@@ -465,12 +465,12 @@ public final class TextViewUtils extends GsTextUtils {
 
         // Apply changes from copy to original
         public void applyChanges() {
-            if (copy == null) {
+            if (_depth > 0) {
+                _depth--;
                 return;
             }
 
-            if (_depth > 0) {
-                _depth--;
+            if (copy == null) {
                 return;
             }
 
