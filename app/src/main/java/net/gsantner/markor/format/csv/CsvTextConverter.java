@@ -15,7 +15,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
-import com.opencsv.exceptions.CsvValidationException;
 
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
@@ -100,8 +99,6 @@ public class CsvTextConverter extends MarkdownTextConverter {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (CsvValidationException e) {
-                e.printStackTrace();
             }
             return mdMarkup.toString();
         }
@@ -124,20 +121,20 @@ public class CsvTextConverter extends MarkdownTextConverter {
             }
         }
 
-        private static void addColumnsLine(StringBuilder mdMarkup, String[] colums, int headerLength) {
-            for (int i = 0; i < max(headerLength, colums.length); i++) {
-                addColumnContainingNL(mdMarkup.append(MD_COL_DELIMITER), getCol(colums, i));
+        private static void addColumnsLine(StringBuilder mdMarkup, String[] columns, int headerLength) {
+            for (int i = 0; i < max(headerLength, columns.length); i++) {
+                addColumnContainingNL(mdMarkup.append(MD_COL_DELIMITER), getCol(columns, i));
             }
             mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
         }
 
-        private static String getCol(String[] colums, int i) {
-            if (i >= 0 && i < colums.length) return colums[i];
+        private static String getCol(String[] columns, int i) {
+            if (i >= 0 && i < columns.length) return columns[i];
             return "";
         }
 
         private static void addColumnContainingNL(StringBuilder mdMarkup, String col) {
-            // '|' is a reseved symbol and my not be content of a csv-column
+            // '|' is a reserved symbol and my not be content of a csv-column
             col = col.replace('|', '!');
 
             String[] lines = col.split("\r?\n");
@@ -158,7 +155,7 @@ public class CsvTextConverter extends MarkdownTextConverter {
             mdMarkup.append(col);
         }
 
-        private String[] readNextCsvColumnLine() throws IOException, CsvValidationException {
+        private String[] readNextCsvColumnLine() throws IOException {
             String[] columns;
             do {
                 m_lineNumber++;

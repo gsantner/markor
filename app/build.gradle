@@ -126,7 +126,10 @@ dependencies {
 
     // csv support
     // https://opencsv.sourceforge.net/licenses.html License: Apache2
-    implementation 'com.opencsv:opencsv:5.7.1'
+    // opencsv 3.10 was the last java-6 version
+    // opencsv 5.7.1' for java-8 may have dependencies that are not backward compatibility with android-4.1
+    //noinspection GradleDependency
+    implementation 'com.opencsv:opencsv:3.10'
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
