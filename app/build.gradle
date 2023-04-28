@@ -129,7 +129,12 @@ dependencies {
     // opencsv 3.10 was the last java-6 version
     // opencsv 5.7.1' for java-8 may have dependencies that are not backward compatibility with android-4.1
     //noinspection GradleDependency
-    implementation 'com.opencsv:opencsv:3.10'
+    implementation('com.opencsv:opencsv:3.10') {
+        // do not get transitive 'commons-beanutils:commons-beanutils as the opencsv bean <-> csv feature is not used
+        exclude group: 'commons-beanutils', module: 'commons-beanutils'
+    }
+
+
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
