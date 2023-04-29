@@ -69,11 +69,11 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
         }
     }
 
-    private void createSpanForColumn(int from, int to, int color, int colNumner) {
+    private void createSpanForColumn(int from, int to, int color, int colNumber) {
         if (DEBUG_COLORING) {
-            Log.d(TAG, String.format("#%d(%d,%d,%d) = %s", colNumner, from, to, color, _spannable.subSequence(from, to)));
+            Log.d(TAG, String.format("#%d(%d,%d,%d) = %s", colNumber, from, to, color, _spannable.subSequence(from, to)));
         }
-        if (colNumner >= 0 && from > 0 && Math.abs(to - from) >= 0) {
+        if (colNumber >= 0 && from > 0 && Math.abs(to - from) >= 0) {
             HighlightSpan span = new HighlightSpan().setForeColor(color);
 
             if (span != null) {
@@ -146,7 +146,9 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
         if (nextBeginQuote > INDEX_NOT_FOUND && nextBeginQuote < nextDelimiter && nextBeginQuote < nextNl) {
             // column surrounded by qoutes
             int nextEndQuote = nextEndQuote(nextBeginQuote + 1);
-            if (nextEndQuote == INDEX_NOT_FOUND) return csvLen;
+            if (nextEndQuote == INDEX_NOT_FOUND) {
+                return csvLen;
+            }
 
             nextDelimiter = StringUtils.indexOf(_spannable, m_csvDelimiter, nextEndQuote);
             nextNl = GsTextUtils.endOfLine(_spannable.toString(), nextEndQuote);
@@ -173,8 +175,12 @@ public class CsvSyntaxHighlighter extends MarkdownSyntaxHighlighter {
         while (start < csvLen) {
             found = StringUtils.indexOf(_spannable, m_csvQoute, start);
 
-            if (found == INDEX_NOT_FOUND) return INDEX_NOT_FOUND;
-            if (found + 1 < csvLen && _spannable.charAt(found + 1) != m_csvQoute) return found;
+            if (found == INDEX_NOT_FOUND) {
+                return INDEX_NOT_FOUND;
+            }
+            if (found + 1 < csvLen && _spannable.charAt(found + 1) != m_csvQoute) {
+                return found;
+            }
 
             // found double quote -""- : ignore
             start = found + 2;

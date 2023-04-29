@@ -11,6 +11,8 @@ import static java.lang.Math.max;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
@@ -86,7 +88,7 @@ public class CsvTextConverter extends MarkdownTextConverter {
                     if (headers != null && headers.length > 0) {
                         addColumnsLine(mdMarkup, headers, headers.length);
 
-                        for (int i = 0; i < headers.length; i++) {
+                        for (String h : headers) {
                             mdMarkup.append(MD_HEADER_LINE_DELIMITER);
                         }
                         mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
@@ -124,16 +126,15 @@ public class CsvTextConverter extends MarkdownTextConverter {
             }
         }
 
-        private static void addColumnsLine(StringBuilder mdMarkup, String[] columns, int headerLength) {
+        private static void addColumnsLine(StringBuilder mdMarkup, @NonNull String[] columns, int headerLength) {
             for (int i = 0; i < max(headerLength, columns.length); i++) {
                 addColumnContainingNL(mdMarkup.append(MD_COL_DELIMITER), getCol(columns, i));
             }
             mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
         }
 
-        private static String getCol(String[] columns, int i) {
-            if (i >= 0 && i < columns.length) return columns[i];
-            return "";
+        @NonNull private static String getCol(@NonNull String[] columns, int i) {
+            return (i >= 0 && i < columns.length) ? columns[i] : "";
         }
 
         private static void addColumnContainingNL(StringBuilder mdMarkup, String col) {
@@ -169,9 +170,15 @@ public class CsvTextConverter extends MarkdownTextConverter {
             return columns;
         }
 
-        private boolean isComment(String[] columns) {
+        private boolean isComment(@NonNull String[] columns) {
+            if (columns.length == 0) {
+                return true;
+            }
+
             // empty line without content
-            if (columns.length == 1 && columns[0].trim().length() == 0) return true;
+            if (columns.length == 1 && columns[0].trim().length() == 0) {
+                return true;
+            }
 
             // comments start with "#" char
             return columns[0].startsWith("#");
