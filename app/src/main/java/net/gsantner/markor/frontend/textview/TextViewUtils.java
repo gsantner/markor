@@ -35,6 +35,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -231,6 +232,11 @@ public final class TextViewUtils extends GsTextUtils {
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
+    }
+
+
+    public static void selectLines(final EditText edit, final Integer ... positions) {
+        selectLines(edit, Arrays.asList(positions));
     }
 
     /**

@@ -23,9 +23,14 @@ import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
 
 public class MarkdownActionButtons extends ActionButtonBase {
+
+    private Set<Integer> _disabledHeadings = new HashSet<>();
 
     public MarkdownActionButtons(@NonNull Context context, Document document) {
         super(context, document);
@@ -205,7 +210,13 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
-        MarkorDialogFactory.showHeadlineDialog(MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.toString(), getActivity(), _hlEditor);
+        final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher(_hlEditor.getText());
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _disabledHeadings, (start, end) -> {
+            if (m.region(start, end).find()) {
+                return m.end(2) - m.start(2) - 1;
+            }
+            return -1;
+        });
         return true;
     }
 

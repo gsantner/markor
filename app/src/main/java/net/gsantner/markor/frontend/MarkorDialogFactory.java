@@ -307,7 +307,7 @@ public class MarkorDialogFactory {
 
         // Add saved views
         final List<Pair<String, String>> savedViews = TodoTxtFilter.loadSavedFilters(activity);
-        final List<Integer> indices = GsTextUtils.range(savedViews.size());
+        final List<Integer> indices = GsCollectionUtils.range(savedViews.size());
         Collections.sort(indices, (a, b) -> savedViews.get(a).first.compareTo(savedViews.get(b).first));
 
         for (final int i : indices) {
@@ -604,14 +604,14 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
         dopt.data = new ArrayList<>(allKeys);
-        dopt.preSelected = GsCollectionUtils.map(currentKeys, (s, i) -> dopt.data.indexOf(s));
+        dopt.preSelected = GsCollectionUtils.map(currentKeys, s -> dopt.data.indexOf(s));
         dopt.titleText = title;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
         dopt.isLongPressSelectEnabled = false; // Don't want to remove all others by selecting just one
         dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
         dopt.positionCallback = (newSel) -> callback.callback(
-                GsCollectionUtils.map(newSel, (pi, i)  -> dopt.data.get(pi).toString()));
+                GsCollectionUtils.map(newSel, pi -> dopt.data.get(pi).toString()));
 
         if (text != null) {
             addRestoreKeyboard(activity, dopt, text);
@@ -645,17 +645,86 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showHeadlineDialog(final String headlineFilterPattern, final Activity activity, final EditText text) {
+    private static class Heading {
+        final int level, line;
+        final String str;
+
+        Heading(int level, CharSequence str, int line) {
+            this.level = level;
+            this.str = str.toString();
+            this.line = line;
+        }
+    }
+
+    public static void showHeadlineDialog(
+            final Activity activity,
+            final EditText edit,
+            final Collection<Integer> disabled,
+            final GsCallback.r2<Integer, Integer, Integer> headingLevel
+    ) {
+        // Get all headings and their levels
+        final CharSequence text = edit.getText();
+        final List<Heading> headings = new ArrayList<>();
+        GsTextUtils.forEachline(text, (line, start, end) -> {
+            final int level = headingLevel.callback(start, end);
+            if (level > 0) {
+                headings.add(new Heading(level, text.subSequence(start, end), line));
+            }
+        });
+
+        // Set of unique headings and the enabled ones
+        final List<Integer> levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(headings, h -> h.level)));
+        final Set<Integer> enabled = GsCollectionUtils.setDiff(levels, disabled);
+
+        // Currently filtered headings
+        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> enabled.contains(h.level));
+        final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
+
+
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
-        dopt.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
-        dopt.data = Arrays.asList(text.getText().toString().split("\n", -1));
+        dopt.data = data;
         dopt.titleText = R.string.table_of_contents;
         dopt.searchHintText = R.string.search;
-        dopt.extraFilter = headlineFilterPattern;
         dopt.isSearchEnabled = true;
+        dopt.neutralButtonText = R.string.filter;
+        dopt.positionCallback = result -> {
+            final int index = filtered.get(result.get(0));
+            TextViewUtils.selectLines(edit, headings.get(index).line);
+        };
+
+        dopt.dismissCallback = (di) -> {
+            disabled.clear();
+            disabled.addAll(GsCollectionUtils.select(levels, l -> !enabled.contains(l)));
+        };
+
+        dopt.neutralButtonCallback = (dialog) -> {
+            final DialogOptions dopt2 = new DialogOptions();
+            dopt2.preSelected = GsCollectionUtils.indices(levels, enabled::contains);
+            dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
+            dopt2.titleText = R.string.filter;
+            dopt2.isSearchEnabled = false;
+            dopt2.isMultiSelectEnabled = true;
+            dopt2.dialogWidthDp = 250;
+            dopt2.positionCallback = (selected) -> {
+                // Update levels so the selected ones are true
+                enabled.clear();
+                enabled.addAll(GsCollectionUtils.map(selected, levels::get));
+
+                // Update selection and data
+                filtered.clear();
+                filtered.addAll(GsCollectionUtils.indices(headings, h -> enabled.contains(h.level)));
+
+                data.clear();
+                data.addAll(GsCollectionUtils.map(filtered, (si, i) -> headings.get(si).str));
+
+                // Refresh
+                GsSearchOrCustomTextDialog.getAdapter(dialog).update();
+            };
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
+        };
         dopt.gravity = Gravity.TOP;
-        addRestoreKeyboard(activity, dopt, text);
+        addRestoreKeyboard(activity, dopt, edit);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
