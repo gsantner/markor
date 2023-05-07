@@ -197,8 +197,7 @@ public class GsCollectionUtils {
         }
         return sel;
     }
-
-
+    
     /**
      * Get a list of values (like np.arange())
      *

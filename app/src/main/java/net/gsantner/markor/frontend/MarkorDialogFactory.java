@@ -659,7 +659,7 @@ public class MarkorDialogFactory {
     public static void showHeadlineDialog(
             final Activity activity,
             final EditText edit,
-            final Collection<Integer> disabled,
+            final Set<Integer> disabled,
             final GsCallback.r2<Integer, Integer, Integer> headingLevel
     ) {
         // Get all headings and their levels
@@ -672,12 +672,11 @@ public class MarkorDialogFactory {
             }
         });
 
-        // Set of unique headings and the enabled ones
+        // List of levels present in text
         final List<Integer> levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(headings, h -> h.level)));
-        final Set<Integer> enabled = GsCollectionUtils.setDiff(levels, disabled);
 
         // Currently filtered headings
-        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> enabled.contains(h.level));
+        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level));
         final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
 
 
@@ -693,14 +692,9 @@ public class MarkorDialogFactory {
             TextViewUtils.selectLines(edit, headings.get(index).line);
         };
 
-        dopt.dismissCallback = (di) -> {
-            disabled.clear();
-            disabled.addAll(GsCollectionUtils.select(levels, l -> !enabled.contains(l)));
-        };
-
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = new DialogOptions();
-            dopt2.preSelected = GsCollectionUtils.indices(levels, enabled::contains);
+            dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !disabled.contains(l));
             dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
@@ -708,12 +702,12 @@ public class MarkorDialogFactory {
             dopt2.dialogWidthDp = 250;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
-                enabled.clear();
-                enabled.addAll(GsCollectionUtils.map(selected, levels::get));
+                disabled.clear();
+                disabled.addAll(GsCollectionUtils.setDiff(levels, GsCollectionUtils.map(selected, levels::get)));
 
                 // Update selection and data
                 filtered.clear();
-                filtered.addAll(GsCollectionUtils.indices(headings, h -> enabled.contains(h.level)));
+                filtered.addAll(GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level)));
 
                 data.clear();
                 data.addAll(GsCollectionUtils.map(filtered, (si, i) -> headings.get(si).str));
