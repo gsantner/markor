@@ -18,7 +18,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 // Class for general utilities
 public class GsCollectionUtils {
@@ -111,38 +114,43 @@ public class GsCollectionUtils {
         keySort(list, keyFn, Comparable::compareTo);
     }
 
+    /**
+     * Return set of elements in a which are not in b
+     */
+    public static <T> Set<T> setDiff(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new LinkedHashSet<>(a);
+        ret.removeAll(b);
+        return ret;
+    }
 
     /**
-     * Find the smallest single diff from source -> dest
-     * This is similar to TextViewUtils.findDiff
-     *
-     * @param dest   Into which we want to apply the diff
-     * @param source From which we want to apply the diff
-     * @return { a, b, c } s.t. setting dest[a:b] = source[a:c] will make dest == source
+     * Check if 2 collections have the same elements
      */
-    public static <T> int[] diff(final List<T> dest, final List<T> source) {
-        final int dl = dest.size(), sl = source.size();
-        final int minLength = Math.min(dl, sl);
+    public static <T> boolean setEquals(Collection<T> a, Collection<T> b) {
+        a = a != null ? a : Collections.emptySet();
+        b = b != null ? b : Collections.emptySet();
 
-        int start = 0, fromEnd = 0;
-        while (start < minLength && source.get(start).equals(dest.get(start))) {
-            start++;
-        }
+        a = a instanceof Set ? a : new HashSet<>(a);
+        b = b instanceof Set ? b : new HashSet<>(b);
 
-        // Handle several special cases
-        if (sl == dl && start == sl) { // Case where 2 sequences are same
-            return new int[]{0, 0, 0, 0};
-        } else if (sl < dl && start == sl) { // Pure crop
-            return new int[]{start, dl, sl, sl};
-        } else if (dl < sl && start == dl) { // Pure append
-            return new int[]{dl, dl, start, sl};
-        }
+        return a.equals(b);
+    }
 
-        final int maxEnd = minLength - start;
-        while (fromEnd < maxEnd && source.get(sl - fromEnd - 1).equals(dest.get(sl - fromEnd - 1))) {
-            fromEnd++;
-        }
+    /**
+     * Set union
+     */
+    public static <T> Set<T> union(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new HashSet<>(a);
+        ret.addAll(b);
+        return ret;
+    }
 
-        return new int[]{start, dl - fromEnd, sl - fromEnd};
+    /**
+     * Set intersection
+     */
+    public static <T> Set<T> intersection(final Collection<T> a, final Collection<T> b) {
+        final Set<T> ret = new HashSet<>(a);
+        ret.retainAll(b);
+        return ret;
     }
 }

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -392,16 +393,20 @@ public abstract class ActionButtonBase {
      */
     public static void runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
         if (editor instanceof HighlightingEditor) {
-            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> _runRegexReplaceAction(editor, patterns));
+            ((HighlightingEditor) editor).withAutoFormatDisabled(() -> runRegexReplaceAction(editor.getText(), patterns));
         } else {
-            _runRegexReplaceAction(editor, patterns);
+            runRegexReplaceAction(editor.getText(), patterns);
         }
     }
 
-    private static void _runRegexReplaceAction(final EditText editor, final List<ReplacePattern> patterns) {
+    public static void runRegexReplaceAction(final Editable editable, final ReplacePattern... patterns) {
+        runRegexReplaceAction(editable, Arrays.asList(patterns));
+    }
 
-        final int[] sel = TextViewUtils.getSelection(editor);
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editor.getText());
+    private static void runRegexReplaceAction(final Editable editable, final List<ReplacePattern> patterns) {
+
+        final int[] sel = TextViewUtils.getSelection(editable);
+        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
 
         // Offset of selection start from text end - used to restore selection
         final int selEndOffset = text.length() - sel[1];
@@ -436,7 +441,7 @@ public abstract class ActionButtonBase {
 
         final int newSelEnd = text.length() - selEndOffset;
         final int newSelStart = sel[0] == sel[1] ? newSelEnd : TextViewUtils.getLineEnd(text, selStartStart) - selStartOffset;
-        editor.setSelection(newSelStart, newSelEnd);
+        Selection.setSelection(editable, newSelStart, newSelEnd);
     }
 
     protected void runInlineAction(String _action) {
