@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
@@ -158,8 +159,16 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a3<String, Integer, Boolean> callback) {
-        if (!FileSearchEngine.isSearchExecuting) {
+    public static void showSearchFilesDialog(
+            final Activity activity,
+            final File searchDir,
+            final GsCallback.a3<String, Integer, Boolean> callback
+    ) {
+        if (activity == null || searchDir == null || !searchDir.canRead()) {
+            return;
+        }
+
+        if (!FileSearchEngine.isSearchExecuting.get()) {
             GsCallback.a1<FileSearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
                 FileSearchEngine.queueFileSearch(activity, searchOptions, (searchResults) ->
