@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
@@ -51,6 +52,7 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog.DialogOptions;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -58,9 +60,12 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -154,8 +159,16 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showSearchFilesDialog(Activity activity, File searchDir, GsCallback.a3<String, Integer, Boolean> callback) {
-        if (!FileSearchEngine.isSearchExecuting) {
+    public static void showSearchFilesDialog(
+            final Activity activity,
+            final File searchDir,
+            final GsCallback.a3<String, Integer, Boolean> callback
+    ) {
+        if (activity == null || searchDir == null || !searchDir.canRead()) {
+            return;
+        }
+
+        if (!FileSearchEngine.isSearchExecuting.get()) {
             GsCallback.a1<FileSearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
                 searchOptions.rootSearchDir = searchDir;
                 FileSearchEngine.queueFileSearch(activity, searchOptions, (searchResults) ->
@@ -576,6 +589,34 @@ public class MarkorDialogFactory {
         if (text != null) {
             addRestoreKeyboard(activity, dopt, text);
         }
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    // Insert items
+    public static void showUpdateItemsDialog(
+            final Activity activity,
+            final @StringRes int title,
+            final Set<String> allKeys,
+            final Set<String> currentKeys,
+            final @Nullable EditText text,   // Passed in here for keyboard restore
+            final GsCallback.a1<Collection<String>> callback
+    ) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.data = new ArrayList<>(allKeys);
+        dopt.preSelected = GsCollectionUtils.map(currentKeys, (s, i) -> dopt.data.indexOf(s));
+        dopt.titleText = title;
+        dopt.searchHintText = R.string.search_or_custom;
+        dopt.isMultiSelectEnabled = true;
+        dopt.isLongPressSelectEnabled = false; // Don't want to remove all others by selecting just one
+        dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
+        dopt.positionCallback = (newSel) -> callback.callback(
+                GsCollectionUtils.map(newSel, (pi, i)  -> dopt.data.get(pi).toString()));
+
+        if (text != null) {
+            addRestoreKeyboard(activity, dopt, text);
+        }
+
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

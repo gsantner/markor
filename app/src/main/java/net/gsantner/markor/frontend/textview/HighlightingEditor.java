@@ -334,28 +334,13 @@ public class HighlightingEditor extends AppCompatEditText {
         _autoFormatEnabled = enable;
     }
 
-    // Run some code with accessibility disabled
-    public void withAccessibilityDisabled(final GsCallback.a0 callback) {
+    // Run some code with auto formatters and accessibility disabled
+    public void withAutoFormatDisabled(final GsCallback.a0 callback) {
         try {
             _accessibilityEnabled = false;
-            callback.callback();
+            TextViewUtils.withAutoFormatDisabled(getText(), callback);
         } finally {
             _accessibilityEnabled = true;
-        }
-    }
-
-    // Run some code with auto formatters disabled
-    // Also disables accessibility
-    public void withAutoFormatDisabled(final GsCallback.a0 callback) {
-        if (getAutoFormatEnabled()) {
-            try {
-                setAutoFormatEnabled(false);
-                withAccessibilityDisabled(callback);
-            } finally {
-                setAutoFormatEnabled(true);
-            }
-        } else {
-            withAccessibilityDisabled(callback);
         }
     }
 

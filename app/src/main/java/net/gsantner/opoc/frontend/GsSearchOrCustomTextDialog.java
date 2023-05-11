@@ -50,6 +50,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -60,6 +61,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 @SuppressLint("SetTextI18n")
@@ -77,6 +79,7 @@ public class GsSearchOrCustomTextDialog {
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
         public boolean isMultiSelectEnabled = false;
+        public boolean isLongPressSelectEnabled = true;
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
@@ -134,7 +137,7 @@ public class GsSearchOrCustomTextDialog {
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
-            _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+            _selectedItems = new TreeSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
             _layoutHeight = (int) GsContextUtils.instance.convertDpToPx(context, 36);
         }
 
@@ -278,10 +281,9 @@ public class GsSearchOrCustomTextDialog {
         if (isSearchOk || isMultiSelOk || isPlainDialog) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
-                if (dopt.positionCallback != null && !listAdapter._selectedItems.isEmpty()) {
-                    final List<Integer> sel = new ArrayList<>(listAdapter._selectedItems);
-                    Collections.sort(sel);
-                    dopt.positionCallback.callback(sel);
+                if (dopt.positionCallback != null && !GsCollectionUtils.setEquals(dopt.preSelected, listAdapter._selectedItems)) {
+                    // Position callback triggered when selection changed
+                    dopt.positionCallback.callback(new ArrayList<>(listAdapter._selectedItems));
                 } else if (dopt.callback != null && (!dopt.isSearchEnabled || !TextUtils.isEmpty(searchText))) {
                     dopt.callback.callback(searchText);
                 }
@@ -343,8 +345,7 @@ public class GsSearchOrCustomTextDialog {
             dialog.dismiss();
             if (dopt.callback != null) {
                 dopt.callback.callback(dopt.data.get(index).toString());
-            }
-            if (dopt.positionCallback != null) {
+            } else if (dopt.positionCallback != null) {
                 dopt.positionCallback.callback(Collections.singletonList(index));
             }
             return true;
@@ -384,8 +385,9 @@ public class GsSearchOrCustomTextDialog {
             }
         });
 
-        // long click always activates
-        listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+        if (dopt.isLongPressSelectEnabled) {
+            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+        }
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {

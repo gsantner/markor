@@ -39,6 +39,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -128,7 +129,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             swipe.setRefreshing(false);
         });
 
-        if (FileSearchEngine.isSearchExecuting) {
+        if (FileSearchEngine.isSearchExecuting.get()) {
             FileSearchEngine.activity.set(new WeakReference<>(getActivity()));
         }
     }
