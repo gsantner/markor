@@ -14,6 +14,11 @@
 * Mermaid
 ~° Copyright Mermaid authors
 
+* asciidoctor.js
+~° Copyright asciidoctor.js authors
+
+asciidoctor-skins
+~° Copyright asciidoctor-skins authors
 
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy
