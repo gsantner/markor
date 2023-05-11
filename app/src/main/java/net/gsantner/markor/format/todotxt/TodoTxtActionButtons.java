@@ -25,14 +25,21 @@ import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class TodoTxtActionButtons extends ActionButtonBase {
@@ -102,17 +109,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_add_context: {
-                final List<String> contexts = new ArrayList<>();
-                contexts.addAll(TodoTxtTask.getContexts(TodoTxtTask.getAllTasks(_hlEditor.getText())));
-                contexts.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getContexts());
-                MarkorDialogFactory.showInsertItemsDialog(getActivity(), R.string.insert_context, contexts, _hlEditor, context -> insertUniqueItem(context, "@"));
+                addRemoveItems("@", TodoTxtTask::getContexts);
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
-                final List<String> projects = new ArrayList<>();
-                projects.addAll(TodoTxtTask.getProjects(TodoTxtTask.getAllTasks(_hlEditor.getText())));
-                projects.addAll(new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects()).getProjects());
-                MarkorDialogFactory.showInsertItemsDialog(getActivity(), R.string.insert_project, projects, _hlEditor, project -> insertUniqueItem(project, "+"));
+                addRemoveItems("+", TodoTxtTask::getProjects);
                 return true;
             }
             case R.string.abid_todotxt_priority: {
@@ -241,27 +242,55 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         return true;
     }
 
-    private void insertUniqueItem(String item, final String prefix) {
-        // Prepare item
-        if (prefix != null) {
-            item = item.startsWith(prefix) ? item : prefix + item;
-        }
-        item = item.trim().replace(" ", "_");
+    private void addRemoveItems(final String prefix, final GsCallback.r1<Collection<String>, List<TodoTxtTask>> keyGetter) {
+        final Set<String> all = new TreeSet<>(keyGetter.callback(TodoTxtTask.getAllTasks(_hlEditor.getText())));
+        final TodoTxtTask additional = new TodoTxtTask(_appSettings.getTodotxtAdditionalContextsAndProjects());
+        all.addAll(keyGetter.callback(Collections.singletonList(additional)));
+
+        final Set<String> current = new HashSet<>(keyGetter.callback(TodoTxtTask.getSelectedTasks(_hlEditor)));
+
+        final boolean append = _appSettings.isTodoAppendProConOnEndEnabled();
+
+        MarkorDialogFactory.showUpdateItemsDialog(getActivity(), R.string.insert_context, all, current, _hlEditor,
+            updated -> {
+                final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
+                for (final String item : GsCollectionUtils.setDiff(current, updated)) {
+                    removeItem(chunk, prefix + item);
+                }
+                for (final String item : GsCollectionUtils.setDiff(updated, current)) {
+                    insertUniqueItem(chunk, prefix + item, append);
+                }
+                chunk.applyChanges();
+        });
+    }
+
+    private static void removeItem(final Editable editable, final String item) {
+        runRegexReplaceAction(
+                editable,
+                // In the middle - replace with space
+                new ReplacePattern(String.format("\\s\\Q%s\\E\\s", item), " "),
+                // In the end - remove
+                new ReplacePattern(String.format("\\s\\Q%s\\E$", item), "")
+        );
+    }
+
+    private static void insertUniqueItem(final Editable editable, final String item, final boolean append) {
 
         // Pattern to match <space><literal string><space OR end of line>
         // i.e. to check if a word is present in the line
         final Pattern pattern = Pattern.compile(String.format("\\s\\Q%s\\E(:?\\s|$)", item));
-        final String lines = TextViewUtils.getSelectedLines(_hlEditor);
+        final String lines = TextViewUtils.getSelectedLines(editable);
         // Multiline or setting
-        if (lines.contains("\n") || _appSettings.isTodoAppendProConOnEndEnabled()) {
+        if (append || lines.contains("\n")) {
             runRegexReplaceAction(
+                    editable,
                     // Replace existing item with itself. i.e. do nothing
                     new ReplacePattern(pattern, "$0"),
                     // Append to end
                     new ReplacePattern("\\s*$", " " + item)
             );
         } else if (!pattern.matcher(lines).find()) {
-            insertInline(item);
+            insertInline(editable, item);
         }
     }
 
@@ -269,22 +298,21 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         runRegexReplaceAction("^\\s*", "");
     }
 
-    private void insertInline(String thing) {
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
-        final CharSequence text = _hlEditor.getText();
+    private static void insertInline(final Editable editable, String thing) {
+        final int[] sel = TextViewUtils.getSelection(editable);
         if (sel[0] > 0) {
-            final char before = text.charAt(sel[0] - 1);
+            final char before = editable.charAt(sel[0] - 1);
             if (before != ' ' && before != '\n') {
                 thing = " " + thing;
             }
         }
-        if (sel[1] < text.length()) {
-            final char after = text.charAt(sel[1]);
+        if (sel[1] < editable.length()) {
+            final char after = editable.charAt(sel[1]);
             if (after != ' ' && after != '\n') {
                 thing = thing + " ";
             }
         }
-        _hlEditor.insertOrReplaceTextOnCursor(thing);
+        editable.replace(sel[0], sel[1], thing);
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
