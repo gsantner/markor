@@ -17,7 +17,7 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AutoTextFormatter extends TextViewUtils.PausableFilter {
+public class AutoTextFormatter implements InputFilter {
 
     private final FormatPatterns _patterns;
 
@@ -27,10 +27,6 @@ public class AutoTextFormatter extends TextViewUtils.PausableFilter {
 
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-        if (paused) {
-            return source;
-        }
-
         try {
             if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);

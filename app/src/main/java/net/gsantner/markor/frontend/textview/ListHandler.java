@@ -8,9 +8,11 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Pair;
 
-public class ListHandler extends TextViewUtils.PauseableWatcher {
+
+public class ListHandler implements TextViewUtils.MTextWatcher {
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
     private boolean alreadyRunning = false; // Prevent this instance from triggering itself
@@ -25,7 +27,7 @@ public class ListHandler extends TextViewUtils.PauseableWatcher {
 
     @Override
     public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
-        if (alreadyRunning || paused) {
+        if (alreadyRunning) {
             return;
         }
 
@@ -48,10 +50,9 @@ public class ListHandler extends TextViewUtils.PauseableWatcher {
 
     @Override
     public void afterTextChanged(final Editable e) {
-        if (alreadyRunning || paused) {
+        if (alreadyRunning) {
             return;
         }
-
         try {
             alreadyRunning = true;
             if (_deleteRegion != null) {
@@ -68,7 +69,7 @@ public class ListHandler extends TextViewUtils.PauseableWatcher {
 
     @Override
     public void beforeTextChanged(final CharSequence s, int start, final int count, final int after) {
-        if (alreadyRunning || paused) {
+        if (alreadyRunning) {
             return;
         }
 
