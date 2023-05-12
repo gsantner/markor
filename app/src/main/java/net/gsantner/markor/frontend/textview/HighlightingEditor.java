@@ -338,7 +338,7 @@ public class HighlightingEditor extends AppCompatEditText {
     public void withAutoFormatDisabled(final GsCallback.a0 callback) {
         try {
             _accessibilityEnabled = false;
-            TextViewUtils.withAutoFormatDisabled(getText(), callback);
+            TextViewUtils.withAutoFormatPaused(getText(), callback);
         } finally {
             _accessibilityEnabled = true;
         }

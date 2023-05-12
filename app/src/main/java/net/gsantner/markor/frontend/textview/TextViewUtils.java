@@ -714,38 +714,59 @@ public final class TextViewUtils extends GsTextUtils {
         return null; // Uncertain
     }
 
-    public interface MTextWatcher extends TextWatcher {
-        // Classes inheriting from this class will be disabled in withAutoFormatDisabled
+    // Classes inheriting from this class will be disabled in withAutoFormatDisabled
+    public static abstract class PauseableWatcher implements TextWatcher {
+        public boolean paused = false;
     }
 
-    public static void withAutoFormatDisabled(final Editable editable, final GsCallback.a0 callback) {
+    public static abstract class PausableFilter implements InputFilter {
+        public boolean paused = false;
+    }
+
+
+    public static void withAutoFormatPaused(final Editable editable, final GsCallback.a0 callback) {
         if (editable instanceof ChunkedEditable) {
-            // Optimization for chunked editabled, which do not support formatting
+            // Optimization for chunked editables as they do not support formatting
             callback.callback();
             return;
         }
 
+        // Set Pausable filters and watchers to paused
         final InputFilter[] filters = editable.getFilters();
-        editable.setFilters(new InputFilter[0]);
+        // We check if filters already paused.
+        // Unwinding is the responsibility of whatever paused these
+        final List<Integer> pausedFilters = new ArrayList<>();
 
-        // We use MTextWatcher and not TextWatcher as SpannableStringBuilder uses TextWatcher internally
-        // And we don't want to break that functionality too
-        final MTextWatcher[] watchers = editable.getSpans(0, editable.length(), MTextWatcher.class);
-        final int[][] wData = new int[watchers.length][3];
-        for (int i = 0; i < watchers.length; i++) {
-            final TextWatcher w = watchers[i];
-            wData[i][0] = editable.getSpanStart(w);
-            wData[i][1] = editable.getSpanEnd(w);
-            wData[i][2] = editable.getSpanFlags(w);
-            editable.removeSpan(w);
+        for (int i = 0; i < filters.length; i++) {
+            if (filters[i] instanceof PausableFilter) {
+                final PausableFilter filter = (PausableFilter) filters[i];
+                if (!filter.paused) {
+                    filter.paused = true;
+                    pausedFilters.add(i);
+                }
+            }
         }
 
+        final PauseableWatcher[] watchers = editable.getSpans(0, editable.length(), PauseableWatcher.class);
+        final List<Integer> pausedWatchers = new ArrayList<>();
+
+        for (int i = 0; i < watchers.length; i++) {
+            if (!watchers[i].paused) {
+                watchers[i].paused = true;
+                pausedWatchers.add(i);
+            }
+        }
+
+        // Perform work
         callback.callback();
 
-        for (int i = 0; i < watchers.length; i++) {
-            editable.setSpan(watchers[i], wData[i][0], wData[i][1], wData[i][2]);
+        // Set paused to false
+        for (final int i : pausedWatchers) {
+            watchers[i].paused = false;
         }
 
-        editable.setFilters(filters);
+        for (final int i : pausedFilters) {
+            ((PausableFilter) filters[i]).paused = false;
+        }
     }
 }
