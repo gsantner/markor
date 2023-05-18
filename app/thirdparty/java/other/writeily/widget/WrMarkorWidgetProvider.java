@@ -108,6 +108,10 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
     public static void updateLauncherWidgets() {
         final Context context = ApplicationObject.get().getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        if (appWidgetManager == null) {
+            // The device does not support widgets.
+            return;
+        }
         final ComponentName comp = new ComponentName(context, WrMarkorWidgetProvider.class);
         final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(comp);
 
