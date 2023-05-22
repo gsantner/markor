@@ -210,9 +210,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
-        final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher(_hlEditor.getText());
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _disabledHeadings, (start, end) -> {
-            if (m.region(start, end).find()) {
+        final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _disabledHeadings, (text, start, end) -> {
+            if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }
             return -1;

@@ -289,10 +289,10 @@ public class WikitextActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
-        final Matcher m = WikitextSyntaxHighlighter.HEADING.matcher(_hlEditor.getText());
-        MarkorDialogFactory.showHeadlineDialog(getActivity(),  _hlEditor, _disabledHeadings, (start, end) -> {
-            if (m.region(start, end).find(start)) {
-                return m.end(2) - m.start(2);
+        final Matcher m = WikitextSyntaxHighlighter.HEADING.matcher("");
+        MarkorDialogFactory.showHeadlineDialog(getActivity(),  _hlEditor, _disabledHeadings, (text, start, end) -> {
+            if (m.reset(text.subSequence(start, end)).find()) {
+                return 7 - (m.end(2) - m.start(2));
             }
             return -1;
         });

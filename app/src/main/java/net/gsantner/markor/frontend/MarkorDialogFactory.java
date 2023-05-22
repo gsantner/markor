@@ -660,13 +660,13 @@ public class MarkorDialogFactory {
             final Activity activity,
             final EditText edit,
             final Set<Integer> disabled,
-            final GsCallback.r2<Integer, Integer, Integer> headingLevel
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel
     ) {
         // Get all headings and their levels
         final CharSequence text = edit.getText();
         final List<Heading> headings = new ArrayList<>();
         GsTextUtils.forEachline(text, (line, start, end) -> {
-            final int level = headingLevel.callback(start, end);
+            final int level = headingLevel.callback(text, start, end);
             if (level > 0) {
                 headings.add(new Heading(level, text.subSequence(start, end), line));
             }
