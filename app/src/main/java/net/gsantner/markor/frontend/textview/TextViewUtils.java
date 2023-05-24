@@ -713,39 +713,4 @@ public final class TextViewUtils extends GsTextUtils {
         }
         return null; // Uncertain
     }
-
-    public interface MTextWatcher extends TextWatcher {
-        // Classes inheriting from this class will be disabled in withAutoFormatDisabled
-    }
-
-    public static void withAutoFormatDisabled(final Editable editable, final GsCallback.a0 callback) {
-        if (editable instanceof ChunkedEditable) {
-            // Optimization for chunked editabled, which do not support formatting
-            callback.callback();
-            return;
-        }
-
-        final InputFilter[] filters = editable.getFilters();
-        editable.setFilters(new InputFilter[0]);
-
-        // We use MTextWatcher and not TextWatcher as SpannableStringBuilder uses TextWatcher internally
-        // And we don't want to break that functionality too
-        final MTextWatcher[] watchers = editable.getSpans(0, editable.length(), MTextWatcher.class);
-        final int[][] wData = new int[watchers.length][3];
-        for (int i = 0; i < watchers.length; i++) {
-            final TextWatcher w = watchers[i];
-            wData[i][0] = editable.getSpanStart(w);
-            wData[i][1] = editable.getSpanEnd(w);
-            wData[i][2] = editable.getSpanFlags(w);
-            editable.removeSpan(w);
-        }
-
-        callback.callback();
-
-        for (int i = 0; i < watchers.length; i++) {
-            editable.setSpan(watchers[i], wData[i][0], wData[i][1], wData[i][2]);
-        }
-
-        editable.setFilters(filters);
-    }
 }

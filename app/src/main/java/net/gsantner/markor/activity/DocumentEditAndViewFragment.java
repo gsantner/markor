@@ -186,6 +186,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _document.resetChangeTracking(); // force next reload
         loadDocument();
 
+        // If not set by loadDocument, se the undo-redo helper here
+        if (_editTextUndoRedoHelper == null) {
+            _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+        }
+
         // Configure the editor. Doing so after load helps prevent some errors
         // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());

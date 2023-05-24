@@ -245,7 +245,7 @@ public class TextViewUndoRedo {
             return true;
         }
 
-        if (Integer.valueOf(hash) != mTextView.getText().toString().hashCode()) {
+        if (Integer.parseInt(hash) != mTextView.getText().toString().hashCode()) {
             return false;
         }
 
@@ -404,13 +404,7 @@ public class TextViewUndoRedo {
          */
         private CharSequence mBeforeChange;
 
-        /**
-         * The text that was inserted by the change event.
-         */
-        private CharSequence mAfterChange;
-
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             if (mIsUndoOrRedo) {
                 return;
             }
@@ -418,13 +412,13 @@ public class TextViewUndoRedo {
             mBeforeChange = TextViewUtils.toString(s, start, start + count);
         }
 
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (mIsUndoOrRedo) {
                 return;
             }
 
-            mAfterChange = TextViewUtils.toString(s, start, start + count);
+            // The text that was inserted by the change event.
+            final CharSequence mAfterChange = TextViewUtils.toString(s, start, start + count);
             mEditHistory.add(new EditItem(start, mBeforeChange, mAfterChange));
         }
 
