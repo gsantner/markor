@@ -207,7 +207,7 @@ public class FileSearchEngine {
             if (_isCanceled && _result.size() == 0) {
                 cancel(true);
             }
-
+            Collections.sort(_result, (o1, o2) -> o1.path.compareToIgnoreCase(o2.path));
             return _result;
         }
 
