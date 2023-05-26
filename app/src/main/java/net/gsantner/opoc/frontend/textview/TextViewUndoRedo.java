@@ -48,7 +48,10 @@ import android.widget.TextView;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A generic undo/redo implementation for TextViews.
@@ -65,12 +68,12 @@ public class TextViewUndoRedo {
     /**
      * The edit history.
      */
-    private EditHistory mEditHistory;
+    private final EditHistory mEditHistory;
 
     /**
      * The change listener.
      */
-    private EditTextChangeListener mChangeListener;
+    private final EditTextChangeListener mChangeListener;
 
     /**
      * The edit text.
@@ -138,14 +141,14 @@ public class TextViewUndoRedo {
      * Perform undo.
      */
     public void undo() {
-        EditItem edit = mEditHistory.getPrevious();
+        final EditItem edit = mEditHistory.getPrevious();
         if (edit == null) {
             return;
         }
 
-        Editable text = mTextView.getEditableText();
-        int start = edit.mmStart;
-        int end = start + (edit.mmAfter != null ? edit.mmAfter.length() : 0);
+        final Editable text = mTextView.getEditableText();
+        final int start = edit.mmStart;
+        final int end = start + (edit.mmAfter != null ? edit.mmAfter.length() : 0);
 
         mIsUndoOrRedo = true;
         text.replace(start, end, edit.mmBefore);
@@ -245,7 +248,7 @@ public class TextViewUndoRedo {
             return true;
         }
 
-        if (Integer.parseInt(hash) != mTextView.getText().toString().hashCode()) {
+        if (Integer.valueOf(hash) != mTextView.getText().toString().hashCode()) {
             return false;
         }
 
@@ -296,7 +299,7 @@ public class TextViewUndoRedo {
         /**
          * The list of edits in chronological order.
          */
-        private final LinkedList<EditItem> mmHistory = new LinkedList<EditItem>();
+        private final LinkedList<EditItem> mmHistory = new LinkedList<>();
 
         /**
          * Clear history.
@@ -311,7 +314,7 @@ public class TextViewUndoRedo {
          * executed after a call to getPrevious() removes all the future history
          * (elements with positions >= current history position).
          */
-        private void add(EditItem item) {
+        private void add(final EditItem item) {
             while (mmHistory.size() > mmPosition) {
                 mmHistory.removeLast();
             }
@@ -378,19 +381,22 @@ public class TextViewUndoRedo {
     /**
      * Represents the changes performed by a single edit operation.
      */
-    private final class EditItem {
+    private static final class EditItem {
         private final int mmStart;
-        private final CharSequence mmBefore;
-        private final CharSequence mmAfter;
+        private final String mmBefore;
+        private final String mmAfter;
 
         /**
          * Constructs EditItem of a modification that was applied at position
          * start and replaced CharSequence before with CharSequence after.
          */
-        public EditItem(int start, CharSequence before, CharSequence after) {
-            mmStart = start;
-            mmBefore = before;
-            mmAfter = after;
+        public EditItem(final int start, final String before, final String after) {
+            final int end = Math.min(before.length(), after.length());
+            int i = 0;
+            while (i < end && before.charAt(i) == after.charAt(i)) i++;
+            mmStart = start + i;
+            mmBefore = before.substring(i);
+            mmAfter = after.substring(i);
         }
     }
 
@@ -402,7 +408,9 @@ public class TextViewUndoRedo {
         /**
          * The text that will be removed by the change event.
          */
-        private CharSequence mBeforeChange;
+        private String mBeforeChange;
+        private boolean inChain = true;
+        private long lastTime = 0;
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             if (mIsUndoOrRedo) {
@@ -412,18 +420,71 @@ public class TextViewUndoRedo {
             mBeforeChange = TextViewUtils.toString(s, start, start + count);
         }
 
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
             if (mIsUndoOrRedo) {
                 return;
             }
 
-            // The text that was inserted by the change event.
-            final CharSequence mAfterChange = TextViewUtils.toString(s, start, start + count);
-            mEditHistory.add(new EditItem(start, mBeforeChange, mAfterChange));
+            final String mAfterChange = TextViewUtils.toString(s, start, start + count);
+            final EditItem cur = new EditItem(start, mBeforeChange, mAfterChange);
+            final EditItem prev = mEditHistory.getPrevious();
+            for (final EditItem item : handleCombineItems(prev, cur)) {
+                mEditHistory.add(item);
+            }
         }
 
         public void afterTextChanged(Editable s) {
             // ignored
+        }
+
+        /**
+         * Attempt to combine EditItems
+         */
+        private List<EditItem> handleCombineItems(final EditItem prev, final EditItem cur) {
+
+            // Do not combine if
+            final long delta = System.currentTimeMillis() - lastTime;
+            lastTime += delta;
+            if (prev == null || delta > 5000) {
+                inChain = false;
+                return Collections.singletonList(cur);
+            }
+
+            final int pbl = prev.mmBefore.length();
+            final int pal = prev.mmAfter.length();
+            final int cbl = cur.mmBefore.length();
+            final int cal = cur.mmAfter.length();
+
+            final boolean insChain = (pal > pbl && inChain) || (pal - pbl == 1);
+            final boolean singleIns = cbl == 0 && cal == 1;
+            final int start = Math.min(prev.mmStart, cur.mmStart);
+
+            if (singleIns && insChain && typeOf(prev.mmAfter.charAt(pal - 1)) == typeOf(cur.mmAfter.charAt(0))) {
+                inChain = true;
+                return Collections.singletonList(new EditItem(start, "", prev.mmAfter + cur.mmAfter));
+            }
+
+            final boolean delChain = (pbl > pal && inChain) || (pbl - pal == 1);
+            final boolean singleDel = cal == 0 && cbl == 1;
+
+            if (singleDel && delChain && typeOf(prev.mmBefore.charAt(0)) == typeOf(cur.mmBefore.charAt(0))) {
+                inChain = true;
+                return Collections.singletonList(new EditItem(start, cur.mmBefore + prev.mmBefore, ""));
+            }
+
+            inChain = false;
+            return Arrays.asList(prev, cur);
+        }
+
+        private int typeOf(final char c) {
+            switch(c) {
+                case '\n':
+                    return 0;
+                case ' ':
+                    return 1;
+                default:
+                    return 2;
+            }
         }
     }
 }
