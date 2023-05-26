@@ -315,6 +315,10 @@ public class TextViewUndoRedo {
          * (elements with positions >= current history position).
          */
         private void add(final EditItem item) {
+            if (item == null || item.zeroChange()) {
+                return;
+            }
+
             while (mmHistory.size() > mmPosition) {
                 mmHistory.removeLast();
             }
@@ -398,6 +402,10 @@ public class TextViewUndoRedo {
             mmBefore = before.substring(i);
             mmAfter = after.substring(i);
         }
+
+        public boolean zeroChange() {
+            return mmBefore.equals(mmAfter);
+        }
     }
 
     /**
@@ -441,13 +449,11 @@ public class TextViewUndoRedo {
          * Attempt to combine EditItems
          */
         private List<EditItem> handleCombineItems(final EditItem prev, final EditItem cur) {
-
-            // Do not combine if
             final long delta = System.currentTimeMillis() - lastTime;
             lastTime += delta;
-            if (prev == null || delta > 5000) {
+            if (delta > 5000 || prev == null || cur == null || prev.zeroChange() || cur.zeroChange()) {
                 inChain = false;
-                return Collections.singletonList(cur);
+                return Arrays.asList(prev, cur);
             }
 
             final int pbl = prev.mmBefore.length();
