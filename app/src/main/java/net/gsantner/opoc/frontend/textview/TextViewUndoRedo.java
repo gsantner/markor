@@ -48,10 +48,7 @@ import android.widget.TextView;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * A generic undo/redo implementation for TextViews.
@@ -417,7 +414,7 @@ public class TextViewUndoRedo {
          * The text that will be removed by the change event.
          */
         private String mBeforeChange;
-        private boolean inChain = true;
+        private boolean isInChain = true;
         private long lastTime = 0;
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -433,63 +430,71 @@ public class TextViewUndoRedo {
                 return;
             }
 
+            // Get previous and new items
+            final EditItem prev = mEditHistory.getPrevious();
             final String mAfterChange = TextViewUtils.toString(s, start, start + count);
             final EditItem cur = new EditItem(start, mBeforeChange, mAfterChange);
-            final EditItem prev = mEditHistory.getPrevious();
-            for (final EditItem item : handleCombineItems(prev, cur)) {
-                mEditHistory.add(item);
+
+            // Attempt to combine if conditions are met
+            final long delta = System.currentTimeMillis() - lastTime;
+            lastTime += delta;
+            if (delta < 5000 && prev != null && !prev.zeroChange() && !cur.zeroChange()) {
+
+                final int pbl = prev.mmBefore.length();
+                final int pal = prev.mmAfter.length();
+                final int cbl = cur.mmBefore.length();
+                final int cal = cur.mmAfter.length();
+
+                final boolean insChain = (pal > pbl && isInChain) || (pal - pbl == 1);
+                final boolean singleIns = cbl == 0 && cal == 1;
+                final int newStart = Math.min(prev.mmStart, cur.mmStart);
+
+                // Combine if adding multiple of same class or trailing space
+                if (singleIns && insChain) {
+                    final int chainType = typeOf(prev.mmAfter.charAt(pal - 1));
+                    final int insType = typeOf(cur.mmAfter.charAt(0));
+                    if (chainType == insType || (chainType == CHAR && insType == SPACE)) {
+                        // Changing type breaks space
+                        isInChain = chainType == insType;
+                        mEditHistory.add(new EditItem(newStart, "", prev.mmAfter + cur.mmAfter));
+                        return;
+                    }
+                }
+
+                final boolean delChain = (pbl > pal && isInChain) || (pbl - pal == 1);
+                final boolean singleDel = cal == 0 && cbl == 1;
+
+                // Combine if removing multiple of same class
+                if (singleDel && delChain) {
+                    final int chainType = typeOf(prev.mmBefore.charAt(0));
+                    final int delType = typeOf(cur.mmBefore.charAt(0));
+                    if (chainType == delType || (chainType == CHAR && delType == SPACE)) {
+                        isInChain = chainType == delType;
+                        mEditHistory.add(new EditItem(newStart, cur.mmBefore + prev.mmBefore, ""));
+                        return;
+                    }
+                }
             }
+
+            // Else add both prev and cur back - null and empty handled automatically
+            isInChain = false;
+            mEditHistory.add(prev);
+            mEditHistory.add(cur);
         }
 
         public void afterTextChanged(Editable s) {
             // ignored
         }
 
-        /**
-         * Attempt to combine EditItems
-         */
-        private List<EditItem> handleCombineItems(final EditItem prev, final EditItem cur) {
-            final long delta = System.currentTimeMillis() - lastTime;
-            lastTime += delta;
-            if (delta > 5000 || prev == null || cur == null || prev.zeroChange() || cur.zeroChange()) {
-                inChain = false;
-                return Arrays.asList(prev, cur);
-            }
-
-            final int pbl = prev.mmBefore.length();
-            final int pal = prev.mmAfter.length();
-            final int cbl = cur.mmBefore.length();
-            final int cal = cur.mmAfter.length();
-
-            final boolean insChain = (pal > pbl && inChain) || (pal - pbl == 1);
-            final boolean singleIns = cbl == 0 && cal == 1;
-            final int start = Math.min(prev.mmStart, cur.mmStart);
-
-            if (singleIns && insChain && typeOf(prev.mmAfter.charAt(pal - 1)) == typeOf(cur.mmAfter.charAt(0))) {
-                inChain = true;
-                return Collections.singletonList(new EditItem(start, "", prev.mmAfter + cur.mmAfter));
-            }
-
-            final boolean delChain = (pbl > pal && inChain) || (pbl - pal == 1);
-            final boolean singleDel = cal == 0 && cbl == 1;
-
-            if (singleDel && delChain && typeOf(prev.mmBefore.charAt(0)) == typeOf(cur.mmBefore.charAt(0))) {
-                inChain = true;
-                return Collections.singletonList(new EditItem(start, cur.mmBefore + prev.mmBefore, ""));
-            }
-
-            inChain = false;
-            return Arrays.asList(prev, cur);
-        }
-
+        final int CHAR = 0, SPACE = 1, NL = 2;
         private int typeOf(final char c) {
             switch(c) {
                 case '\n':
-                    return 0;
+                    return NL;
                 case ' ':
-                    return 1;
+                    return SPACE;
                 default:
-                    return 2;
+                    return CHAR;
             }
         }
     }
