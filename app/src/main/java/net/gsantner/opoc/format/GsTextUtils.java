@@ -60,6 +60,13 @@ public class GsTextUtils {
         return null;
     }
 
+    /**
+     * find '\n' to the right and left of text[pos] .. text[posEnd].
+     * If left does not exist 0 (begin of text) is used.
+     * if right does not exist text.length() (end of text) is used.
+     *
+     * @return result[0] is left, result[1] is right.
+     */
     public static int[] getNeighbourLineEndings(String text, int pos, int posEnd) {
         final int len = text.length();
 
@@ -88,6 +95,16 @@ public class GsTextUtils {
         return null;
     }
 
+    /**
+     * returns search for begin of line starting for startPosition down to 0
+     */
+    public static int beginOfLine(final String text, int startPosition) {
+        return getNeighbourLineEndings(text, startPosition, startPosition)[0];
+    }
+
+    public static int endOfLine(final String text, int startPosition) {
+        return getNeighbourLineEndings(text, startPosition, startPosition)[1];
+    }
 
     public static String removeLinesOfTextAround(String text, int pos, int posEnd) {
         int[] endings = getNeighbourLineEndings(text, pos, posEnd);
@@ -266,6 +283,7 @@ public class GsTextUtils {
         }
         return count;
     }
+
 
     /**
      * Pad string on left up to size

@@ -54,8 +54,11 @@ Version 2.0, January 2004
 * adapter-kit
 ~° Copyright 2013 Mobs & Geeks
 
-* Commons IO
+* commons-io, commons-lang3
 ~° Copyright Apache Foundation
+
+* OpenCsv
+  ~° Copyright Bytecode Pty Ltd.
 
 * gene-rate
 ~° Copyright 2017 Pixplicity

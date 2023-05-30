@@ -495,6 +495,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.string.action_format_wikitext:
             case R.string.action_format_keyvalue:
             case R.string.action_format_todotxt:
+            case R.string.action_format_csv:
             case R.string.action_format_plaintext:
             case R.string.action_format_asciidoc:
             case R.string.action_format_markdown: {

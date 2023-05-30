@@ -376,6 +376,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
+    <string name="file_template__csv_sample" translatable="false">sample.csv</string>
     <string name="asciidoc" translatable="false">AsciiDoc</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
@@ -420,6 +421,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__todotxt__due_date_offset" translatable="false">pref_key__todotxt_due_date_offset</string>
     <string name="action_format_keyvalue" translatable="false">action_format_keyvalue</string>
     <string name="action_format_plaintext" translatable="false">action_format_plaintext</string>
+    <string name="action_format_csv" translatable="false">action_format_csv</string>
     <string name="action_format_asciidoc" translatable="false">action_format_asciidoc</string>
     <string name="action_format_embedbinary" translatable="false">action_format_embedbinary</string>
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
@@ -427,4 +429,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_wikitext" translatable="false">action_format_wikitext</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
+    <string name="csv" translatable="false">CSV</string>
 </resources>
