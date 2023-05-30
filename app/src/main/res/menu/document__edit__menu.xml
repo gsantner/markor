@@ -168,8 +168,8 @@
                             android:title="@string/wikitext" />
                         <item
                             android:id="@string/action_format_csv"
-                            android:icon="@drawable/ic_file_white_24dp"
-                            android:title="@string/csvtext" />
+                            android:icon="@drawable/ic_view_module_black_24dp"
+                            android:title="@string/csv" />
                         <item
                             android:id="@string/action_format_embedbinary"
                             android:icon="@drawable/ic_image_black_24dp"

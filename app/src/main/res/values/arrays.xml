@@ -103,7 +103,7 @@
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/wikitext</item>
         <item translatable="false">@string/asciidoc</item>
-        <item translatable="false">@string/csvtext</item>
+        <item translatable="false">@string/csv</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
