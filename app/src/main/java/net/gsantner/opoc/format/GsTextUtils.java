@@ -10,6 +10,11 @@
 package net.gsantner.opoc.format;
 
 import android.util.Base64;
+import android.util.Pair;
+
+import net.gsantner.opoc.util.GsCollectionUtils;
+import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -264,36 +269,6 @@ public class GsTextUtils {
     }
 
     /**
-     * Get a list of values (like np.arange())
-     *
-     * @param ops start, stop and step (all optional)
-     * @return List of integers with values
-     */
-    public static List<Integer> range(final int... ops) {
-        int start = 0, end = 0, step = 1;
-        if (ops != null) {
-            if (ops.length == 1) {
-                end = ops[0];
-            } else if (ops.length == 2) {
-                start = ops[0];
-                end = ops[1];
-            } else if (ops.length >= 3) {
-                start = ops[0];
-                end = ops[1];
-                step = ops[2];
-            }
-        }
-
-        final List<Integer> values = new ArrayList<>();
-        while (start < end) {
-            values.add(start);
-            start += step;
-        }
-
-        return values;
-    }
-
-    /**
      * Count number of instances of 'find' in 'text'
      *
      * @param text Text to search
@@ -334,5 +309,30 @@ public class GsTextUtils {
         final char[] stringChars = new char[count];
         Arrays.fill(stringChars, character);
         return new String(stringChars);
+    }
+
+    public static List<Integer> findChar(final CharSequence text, final char c) {
+        return findChar(text, c, 0, text.length());
+    }
+
+    public static List<Integer> findChar(final CharSequence text, final char c, final int start, final int end) {
+        final List<Integer> posns = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            if (text.charAt(i) == c) {
+                posns.add(i);
+            }
+        }
+        return posns;
+    }
+
+    public static void forEachline(final CharSequence text, GsCallback.a3<Integer, Integer, Integer> callback) {
+        final List<Integer> ends = findChar(text, '\n');
+        int start = 0, i = 0;
+        for (; i < ends.size(); i++) {
+            final int end = ends.get(i);
+            callback.callback(i, start, end);
+            start = end + 1;
+        }
+        callback.callback(i, start, text.length());
     }
 }
