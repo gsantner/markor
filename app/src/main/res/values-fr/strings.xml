@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
     <string name="last_modified_witharg">Dernière modification : %s</string>
-    <string name="last_modified">Dernière modification</string>
+    <string name="last_modified">Dernière modification </string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
     <string name="create">Créer</string>
@@ -261,7 +261,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Les fichiers et dossiers ne seront pas écrasés ou remplacés</string>
     <string name="multiple_windows">Fenêtres multiples</string>
     <string name="font">Police</string>
-    <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la clé des fenêtres récentes de votre appareil.</string>
+    <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la touche des fenêtres récentes de votre appareil.</string>
     <string name="enter_or_select_format">Entrez le format manuellement ou sélectionnez le format</string>
     <string name="pick_date">Choisissez une date</string>
     <string name="pick_time">Choisissez l\'heure</string>
