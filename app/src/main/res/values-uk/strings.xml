@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Відображати для писемності справа-наліво</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Помилка: неможливо створити директорію</string>
     <string name="last_modified_witharg">Дата зміни: %s</string>
-    <string name="last_modified">Остання зміна</string>
+    <string name="last_modified">Дата зміни</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
     <string name="create">Створити</string>
