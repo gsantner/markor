@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Tampilkan untuk bahasa dari kanan ke kiri</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Tidak dapat membuat direktori notebook</string>
     <string name="last_modified_witharg">Modifikasi terakhir: %s</string>
+    <string name="last_modified">Modifikasi terakhir</string>
     <string name="select_this_folder">Pilih folder ini</string>
     <string name="select">Pilih</string>
     <string name="create">Buat Baru</string>
@@ -124,6 +125,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Buat catatan</string>
     <string name="special_documents" needed="false">Dokumen spesial</string>
     <string name="keep_screen_on" needed="false">Biarkan layar tetap menyala</string>
+    <string name="disallow_screenshots">Larang tangkapan layar</string>
     <string name="back_to_previous_folder" needed="false">Kembali ke folder sebelumnya</string>
     <string name="app_settings" needed="false">Pengaturan aplikasi</string>
     <string name="editor_settings" needed="false">Pengaturan editor</string>
@@ -170,6 +172,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Memindahkan tugas yang sudah selesai ke file yang ditentukan dalam folder yang sama</string>
     <string name="sort_tasks_by_selected_order">Urutkan tugas dari daftar yang dipilih</string>
     <string name="special_key">Kunci Spesial</string>
+    <string name="asciidoc_special_key">Isi AsciiDoc khusus</string>
     <string name="key_page_up">Halaman atas (Halaman atas)</string>
     <string name="key_page_down">Halaman bawah (Halaman bawah)</string>
     <string name="move_text_one_line_up">Pindah teks ke satu baris atas</string>
@@ -198,6 +201,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Atas</string>
     <string name="bottom">Bawah</string>
     <string name="center">Tengah</string>
+    <string name="actionbutton_spacing">Penjarakkan TombolAksi</string>
+    <string name="horizontal_space_between_actionbuttons">Jarak horizontal antar TombolAksi</string>
     <string name="center_text">Teks tengah</string>
     <string name="edit_text_in_center_of_screen">Edit teks di tengah layar</string>
     <string name="clipboard">Papan klip</string>
@@ -304,6 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="recursive_search_in_current_directory">Pencarian rekursif di direktori saat ini.</string>
     <string name="always_open_with_this_app">Selalu buka dengan aplikasi ini</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Selalu buka file dengan aplikasi ini saat daftar berisi ekstensi file. Gunakan \'None, .html, .css, .js\' misalnya jika Anda ingin mengedit file web dan yang tanpa ekstensi file.</string>
+    <string name="open_file_with">Buka file dengan</string>
     <string name="rotate">Rotasi</string>
     <string name="template">Sampul</string>
     <string name="send_debug_log">Kirim Log Debug</string>
@@ -364,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">Sandi enkripsi berkas</string>
     <string name="no_password_set_cannot_encrypt_decrypt">Tidak ada kumpulan kata sandi, tidak dapat mengenkripsi atau mendekripsi.\nPergi ke Setelan -&gt; Umum &gt; Kata Sandi untuk mengatur kata sandi.</string>
     <string name="encrypt_file_content">Enkripsi konten file</string>
+    <string name="utf8_with_bom">UTF-8 dengan BOM</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">Tak bisa mengenkripsi konten file. Berkas tidak disimpan.</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">Tak bisa mendekripsi konten file. Apakah Anda menggunakan password yang salah? Apakah file benar-benar dienkripsi dengan enkripsi Markor AES?</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">Kata sandi sudah diatur. Mengatur kata sandi baru akan menimpa kata sandi yang ada dan Anda mungkin tidak dapat mengakses file lagi jika Anda lupa kata sandi.</string>
@@ -419,4 +426,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="completed">Diselesaikan</string>
     <string name="match_any">Cocokkan apa saja</string>
     <string name="match_all">Cocokkan semua</string>
+    <string name="auto_format">Format otomatis</string>
+    <string name="error_could_not_open_file">Kesalahan: Tidak dapat membuka file.</string>
+    <string name="wont_save_min_length">File-file dengan karakter kurang dari %d tidak otomatis tersimpan untuk menghindari hilangnya data.</string>
 </resources>
