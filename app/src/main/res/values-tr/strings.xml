@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hata: Not defteri dizini oluşturulamıyor</string>
     <string name="last_modified_witharg">Son düzenleme: %s</string>
-    <string name="last_modified">Son düzenlenme</string>
+    <string name="last_modified">Son düzenleme</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
     <string name="create">Oluştur</string>
@@ -432,9 +432,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Tümünü Eşleştir</string>
     <string name="dynamic_notebook_root_links">Not defteri kaynağında dinamik arama yap</string>
     <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
+    <string name="share_into_format_prefix_for_text_shared">Markor\'a paylaşılan metin için biçim/ön ek. Android\'in SimpleDateFormat kurallarına uyar.\n\nPaylaşılan metni konumlandırmak için {{text}} kullanın. Konum belirtilmezse, biçim başta kullanılır ve paylaşılan metin sona eklenir.</string>
     <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
     <string name="auto_format">Otomatik biçim</string>
     <string name="insert_snippet">Kod parçacığı ekle</string>
     <string name="error_could_not_open_file">Hata: Dosya açılamadı.</string>
     <string name="document_error_clip">Karşılaşılan hata: Metin panoya kopyalandı.</string>
+    <string name="wont_save_min_length">%d\'den az karaktere sahip dosyalar, veri kaybını önlemek için otomatik olarak kaydedilmez.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Gelişmiş filtreleme sözdizimi</a></small>]]></string>
 </resources>

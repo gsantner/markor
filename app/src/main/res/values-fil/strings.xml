@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">I-render para sa mga wikang kanan-pakaliwa</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Kamalian: Hindi makagawa ng direktorya ng notebook</string>
     <string name="last_modified_witharg">Huling nabago: %s</string>
+    <string name="last_modified">Huling nabago</string>
     <string name="select_this_folder">Piliin itong folder</string>
     <string name="select">Piliin</string>
     <string name="create">Gumawa</string>

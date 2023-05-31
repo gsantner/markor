@@ -56,6 +56,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">दाएं से बाएं भाषाओं के लिए प्रस्तुत करना</string>
     <string name="error_cannot_create_notebook_dir__appspecific">त्रुटि: निर्देशिका को सहेज नहीं सका</string>
     <string name="last_modified_witharg">अंतिम बार संशोधित: %s</string>
+    <string name="last_modified">अंतिम बार संशोधित</string>
     <string name="select_this_folder">इस फ़ोल्डर का चयन करें</string>
     <string name="select">चयन करें</string>
     <string name="create">बनाये</string>
@@ -193,6 +194,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="send_debug_log">डिबग लग्स को भेजें</string>
     <string name="print_pdf">PDF प्रिंट करें</string>
     <string name="current">प्रगति पर</string>
+    <string name="heading">शीर्षक</string>
     <string name="heading_1">शीर्षक 1</string>
     <string name="heading_2">शीर्षक 2</string>
     <string name="heading_3">शीर्षक 3</string>

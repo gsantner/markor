@@ -53,6 +53,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font_size">قەبارەی نووسین</string>
     <string name="render_rtl_language">گونجاندن بۆ زمانە ڕاست بۆ چەپەکان</string>
     <string name="last_modified_witharg">دوایین دەستکاریکردن: %s</string>
+    <string name="last_modified">دوایین دەستکاریکردن</string>
     <string name="select_this_folder">دیاریکردنی ئەم فۆڵدەرە</string>
     <string name="select">دیاریبکە</string>
     <string name="create">دروستکردن</string>

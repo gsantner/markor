@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Vykreslovat pro right-to-left jazyky</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Error: Nelze vytvořit složku pro notebook</string>
     <string name="last_modified_witharg">Naposledy změněno: %s</string>
-    <string name="last_modified">Naposledy upraveno</string>
+    <string name="last_modified">Naposledy změněno</string>
     <string name="select_this_folder">Vybrat tuto složku</string>
     <string name="select">Vybrat</string>
     <string name="create">Vytvoøit</string>

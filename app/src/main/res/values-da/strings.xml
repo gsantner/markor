@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Vis for højre-mod-venstre sprog</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Fejl: Kan ikke oprette mappe til notesbogen</string>
     <string name="last_modified_witharg">Sidst modificeret: %s</string>
-    <string name="last_modified">Sidst ændret</string>
+    <string name="last_modified">Sidst modificeret</string>
     <string name="select_this_folder">Vælg denne mappe</string>
     <string name="select">Vælg</string>
     <string name="create">Opret</string>

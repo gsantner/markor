@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Рендерирај за десно-на-лево јазици</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Грешка: Неможе да се креира директориум за тетратка</string>
     <string name="last_modified_witharg">Последна измена: %s</string>
+    <string name="last_modified">Последна измена</string>
     <string name="select_this_folder">Избери директориум</string>
     <string name="select">Избери</string>
     <string name="create">Создади</string>
