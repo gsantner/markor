@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Insertar imagen</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Guardar ubicación</string>
+    <string name="saved_location_to">Guardado en %s</string>
     <string name="select_storage_folder">Seleccionar carpeta de almacenamiento</string>
     <string name="licenses">Licencias</string>
     <string name="changelog">Registro de cambios</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostrar licencias de terceras partes</string>
     <string name="language_change_restart_description">Cambiar el idioma de esta aplicación. Reinicie la aplicación para que los cambios surtan efecto</string>
     <string name="language">Idioma</string>
+    <string name="storage_permission_required">Permiso de Almacenamiento necesario para leer y escribir archivos</string>
     <string name="open_with">Abrir con</string>
     <string name="sort_by">Ordenar por</string>
     <string name="date">Fecha</string>
@@ -174,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Mueve las tareas completadas al archivo especificado en la misma carpeta</string>
     <string name="sort_tasks_by_selected_order">Ordenar tareas por orden seleccionado</string>
     <string name="special_key">Tecla especial</string>
+    <string name="asciidoc_special_key">Contenido especial AsciiDoc</string>
     <string name="key_page_up">Página anterior (Page Up)</string>
     <string name="key_page_down">Siguiente página (Page Down)</string>
     <string name="move_text_one_line_up">Mover texto una línea arriba</string>
@@ -193,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Makor sólo puede editar los documentos locales, disponibles sin conexión y no es compatible con gestores de archivos que no proporcionan la ruta de archivo completo.</string>
+    <string name="file_does_not_exist_and_cant_be_created">El archivo o la carpeta no existe y no puede ser creado</string>
+    <string name="permissions">Permisos</string>
+    <string name="permission_paths_revert">¿Revertir a ubicaciones por defecto?</string>
+    <string name="permission_not_granted">Permiso no concedido</string>
     <string name="sync_to_local_folder_notice">Nota: Las aplicaciones de sincronización pueden colocar archivos en carpetas personalizadas. Puede abrirlas cambiando la carpeta de documentos de Markor en consecuencia, o en otro gestor de archivos.</string>
     <string name="vertical_alignment">Alineación vertical</string>
     <string name="horizontal_alignment">Alineación horizontal</string>
@@ -439,4 +446,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
     <string name="wont_save_min_length">Archivos con menos de %d caracteres no guardados automáticamente, para prevenir la perdida de datos.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxis de filtrado avanzado</a></small>]]></string>
+    <string name="filter">Filtro</string>
 </resources>
