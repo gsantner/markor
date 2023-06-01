@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
     <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
+    <string name="storage_permission_required">Storage permission: Die Berechtigung zum Lesen und Speichern von Dateien</string>
     <string name="open_with">Öffnen mit</string>
     <string name="sort_by">Sortieren</string>
     <string name="date">Datum</string>
@@ -175,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Erledigte Aufgaben in angegebene Datei im selben Ordner verschieben</string>
     <string name="sort_tasks_by_selected_order">Aufgaben nach ausgewählter Ordnung sortieren</string>
     <string name="special_key">Spezielle Tasten</string>
+    <string name="asciidoc_special_key">Spezieller AsciiDoc Inhalt</string>
     <string name="key_page_up">Vorherige Seite (Bild↑)</string>
     <string name="key_page_down">Nächste Seite (Bild↓)</string>
     <string name="move_text_one_line_up">Text eine Zeile nach oben verschieben</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Stern (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbare Dokumente bearbeiten und unterstützt keine Datei-Manager, die nicht den vollständigen Dateipfad angeben.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Datei oder Verzeichnis existiert nicht und kann auch nicht erzeugt werden</string>
+    <string name="permissions">Berechtigungen</string>
+    <string name="permission_paths_revert">Auf Standard Dateiverzeichnisse zurücksetzen?</string>
+    <string name="permission_not_granted">Berechtigung wurde nicht erteilt</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="vertical_alignment">Vertikale Anordnung</string>
     <string name="horizontal_alignment">Horizontale Anordnung</string>
@@ -440,4 +446,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Erweiterte Filterregel</a></small>]]></string>
+    <string name="filter">Filter</string>
 </resources>
