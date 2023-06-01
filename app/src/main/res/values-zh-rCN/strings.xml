@@ -72,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
-    <string name="saved_location_to">已保存到%s</string>
+    <string name="saved_location_to">已保存到 %s</string>
     <string name="select_storage_folder">选择存储文件夹</string>
     <string name="licenses">开源协议</string>
     <string name="changelog">更新日志​​​​​</string>
