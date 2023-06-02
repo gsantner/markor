@@ -9,6 +9,9 @@ can handle [csv](https://en.wikipedia.org/wiki/Comma-separated_values) files sin
 
 ### Features
 
+Note: [Screenshot Example csv data](assets/csv/Example-Wikidata-rhodos3.csv) was queried from 
+www.wikidata.org  : commons.wikimedia.org photos from the greek island of rhodes.
+
 * Editor with SyntaxHighlighter
   * ![](assets/csv/MakorCsvSyntaxh-Landscape.png) 
   * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
