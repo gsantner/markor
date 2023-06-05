@@ -54,6 +54,7 @@ import java.util.regex.Pattern;
 
 import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import other.flexmark.ext.codeblocks.LineNumbersExtension;
 
 @SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MarkdownTextConverter extends TextConverterBase {
@@ -155,9 +156,15 @@ public class MarkdownTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
+        ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
+
+        if (_appSettings.isCodeBlockLineNumbersEnabled()) {
+            // Add code blocks Line numbers extension
+            extensions.add(LineNumbersExtension.create());
+        }
 
         MutableDataSet options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, flexmarkExtensions);
+        options.set(Parser.EXTENSIONS, extensions);
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
         //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
@@ -347,28 +354,26 @@ public class MarkdownTextConverter extends TextConverterBase {
         return sb.toString();
     }
 
+    private static final String CSS_PREFIX = "<link rel='stylesheet' href='file:///android_asset";
+    private static final String CSS_POSTFIX = "'/>";
+    private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset";
+    private static final String JS_POSTFIX = "'></script>";
+
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
     private String getViewHlPrismIncludes(@NonNull final Context context, final String themeName) {
         final StringBuilder sb = new StringBuilder(1500);
-        final String js_prefix = "<script type='text/javascript' src='file:///android_asset/prism/";
-        sb.append("\n\n");
-        sb.append("<link rel='stylesheet' href='file:///android_asset/prism/prism" + themeName + ".min.css' /> ");
-        sb.append(js_prefix + "prism.min.js'></script> ");
-        sb.append(js_prefix + "prism-markup-templating.min.js'></script> ");
-        try {
-            for (String lang : context.getAssets().list("prism")) {
-                if (!lang.endsWith(".js") || lang.contains("prism.min.js") || lang.contains("prism-markup-templating.min.js")) {
-                    continue;
-                }
-                sb.append(js_prefix);
-                sb.append(lang);
-                sb.append("'></script> ");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        final String PRISM_PREFIX = "/prism";
+
+        sb.append(CSS_PREFIX + PRISM_PREFIX + "/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
+        sb.append(JS_PREFIX + PRISM_PREFIX + "/prism.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + PRISM_PREFIX + "/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
+
+        if (_appSettings.isCodeBlockLineNumbersEnabled()) {
+            sb.append(CSS_PREFIX + PRISM_PREFIX + "/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
+            sb.append(JS_PREFIX + PRISM_PREFIX + "/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
         }
-        sb.append("\n\n");
-        return sb.toString();
+
+        return sb.append("\n").toString();
     }
 
     @Override

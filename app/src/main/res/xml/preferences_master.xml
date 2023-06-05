@@ -352,6 +352,12 @@
                 android:title="@string/wrap_words" />
             <CheckBoxPreference
                 android:defaultValue="false"
+                android:icon="@drawable/ic_line_numbers_24dp"
+                android:key="@string/pref_key__editor_line_numbers"
+                android:summary="@string/show_line_numbers_on_the_left_side_of_the_editor"
+                android:title="@string/show_line_numbers" />
+            <CheckBoxPreference
+                android:defaultValue="false"
                 android:icon="@drawable/ic_filter_center_focus_black_24dp"
                 android:key="@string/pref_key__editor_start_editing_in_center"
                 android:summary="@string/edit_text_in_center_of_screen"
@@ -428,6 +434,14 @@
                 android:title="@string/font_size"
                 app:min="-1"
                 app:showSeekBarValue="true" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/other">
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_line_numbers_24dp"
+                android:key="@string/pref_key__markdown_code_block_line_numbers"
+                android:summary="@string/show_line_numbers_for_code_blocks"
+                android:title="@string/show_line_numbers" />
         </PreferenceCategory>
     </PreferenceScreen>
 

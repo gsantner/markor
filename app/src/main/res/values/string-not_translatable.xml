@@ -187,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__inject_to_body" translatable="false">pref_key__inject_to_body</string>
     <string name="pref_key__markdown_render_math" translatable="false">pref_key__markdown_render_math</string>
     <string name="pref_key__markdown_always_shown_yaml_front_matter_keys" translatable="false">pref_key__markdown_always_shown_yaml_front_matter_keys</string>
+    <string name="pref_key__markdown_code_block_line_numbers" translatable="false">pref_key__markdown_code_block_line_numbers</string>
     <string name="pref_key__markdown_newline_newparagraph" translatable="false">pref_key__markdown_newline_newparagraph</string>
     <string name="pref_key__markdown_table_of_contents_enabled_levels" translatable="false">pref_key__markdown_table_of_contents_enabled_levels</string>
     <string name="pref_key__is_launcher_for_special_files_enabled" translatable="false">pref_key__is_launcher_for_special_files_enabled</string>
@@ -360,6 +361,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__show_dot_files_v2" translatable="false">pref_key__show_dot_files_v2</string>
     <string name="pref_key__tab_width_v2" translatable="false">pref_key__tab_width_v2</string>
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
+    <string name="pref_key__editor_line_numbers" translatable="false">pref_key__editor_line_numbers</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>

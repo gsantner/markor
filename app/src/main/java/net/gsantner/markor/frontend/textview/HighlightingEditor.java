@@ -8,6 +8,8 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
@@ -28,6 +30,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -46,6 +49,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _isDynamicHighlightingEnabled = true;
     private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
     private boolean _hlEnabled;           // Whether highlighting is enabled
+    private boolean _nuEnabled;           // Whether show line numbers is enabled
     private final Rect _oldHlRect;        // Rect highlighting was previously applied to
     private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
@@ -53,6 +57,13 @@ public class HighlightingEditor extends AppCompatEditText {
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
+
+    // For drawing line numbers fence
+    Paint paint = new Paint();
+    int lineNumbersFencePaddingLeft = 26;
+    int lineNumbersFencePaddingRight = 18;
+    int defaultPaddingLeft;
+
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -67,6 +78,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _hlEnabled = false;
+        _nuEnabled = false;
         _oldHlRect = new Rect();
         _hlRect = new Rect();
 
@@ -93,6 +105,54 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        defaultPaddingLeft = getPaddingLeft();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        // If line numbers enabled and format is not .todo.txt
+        if (_nuEnabled && !(_hl instanceof TodoTxtSyntaxHighlighter)) {
+            drawLineNumbers(canvas);
+        } else if (getPaddingLeft() != defaultPaddingLeft) {
+            // Reset padding without line numbers fence
+            setPadding(defaultPaddingLeft, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        }
+    }
+
+    private void drawLineNumbers(Canvas canvas) {
+        paint.setTextSize(getTextSize());
+        // The line numbers fence width = line numbers text width + line numbers fence padding left + line numbers fence padding right
+        float lineNumbersFenceWidth = paint.measureText(String.valueOf(getLineCount())) + lineNumbersFencePaddingLeft + lineNumbersFencePaddingRight;
+
+        setPadding((int) lineNumbersFenceWidth + 18, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+
+        // Draw right border of line numbers fence
+        // canvas.drawRect(new Rect(getLeft(), getTop(), getLeft() + (int) lineNumbersFenceWidth, getTop() + getHeight()), paint);
+        paint.setColor(Color.LTGRAY);
+        float x = getLeft() + lineNumbersFenceWidth;
+        canvas.drawLine(x, getTop(), x, getTop() + getHeight(), paint);
+
+        // Draw line numbers
+        paint.setColor(Color.GRAY);
+        int firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
+        int y = getTop() + firstBaselineToTopHeight;
+        int number = 1;
+        // Draw first line number
+        canvas.drawText(String.valueOf(number), lineNumbersFencePaddingLeft, y, paint);
+        // Draw others line number
+        for (int i = 1; i < getLineCount(); i++) {
+            y = y + getLineHeight();
+            if (getText().charAt(getLayout().getLineStart(i) - 1) == '\n') {
+                canvas.drawText(String.valueOf(++number), lineNumbersFencePaddingLeft, y, paint);
+            }
+        }
     }
 
     // Highlighting
@@ -174,6 +234,19 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_hl != null) {
                 _hl.clearAll();
             }
+        }
+        return prev;
+    }
+
+    public boolean getLineNumbersEnabled() {
+        return _nuEnabled;
+    }
+
+    public boolean setLineNumbersEnabled(final boolean enable) {
+        final boolean prev = _hlEnabled;
+
+        if (enable != _nuEnabled) {
+            _nuEnabled = enable;
         }
         return prev;
     }
