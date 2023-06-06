@@ -72,9 +72,9 @@ If you have questions or found an issue please head to the [Markor project](http
   * Better Support for the new storage APIs including scoped storage, SAF (fixes #1172 )
 * New Features
   * View mode: open Image,Video,Audio files in Markor ( #1806, #1200 )
-  * Todo.txt advanced search system ( #1901 )
+  * [Todo.txt advanced search system](https://github.com/gsantner/markor/pull/1901) ( #1901 )
 * [AsciiDoc File](https://asciidoctor.org/) support. ( #1876, #808, #2022)
-* [CSV File](https://en.wikipedia.org/wiki/Comma-separated_values) support. ( See [CSV_README.md](doc/CSV_README.md),  #1988, #1987, #1980, #1667 )
+* [CSV File](https://en.wikipedia.org/wiki/Comma-separated_values) support. (For details see [CSV_README.md](doc/CSV_README.md), implemented in  #1988, #1987, #1980, #1667 )
   * Editor with SyntaxHighlighter
     * ![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)
     * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
