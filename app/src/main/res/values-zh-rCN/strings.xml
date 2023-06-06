@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">显示第三方许可</string>
     <string name="language_change_restart_description">更改语言（重启应用后生效）</string>
     <string name="language">语言</string>
-    <string name="storage_permission_required">需要存储权限来读取和写入文件</string>
+    <string name="storage_permission_required">需要存储权限读写文件</string>
     <string name="open_with">打开方式</string>
     <string name="sort_by">排序方式</string>
     <string name="date">日期</string>
@@ -127,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">新建笔记</string>
     <string name="special_documents" needed="false">特殊文件</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>
-    <string name="disallow_screenshots">不允许截屏</string>
+    <string name="disallow_screenshots">禁止截屏</string>
     <string name="back_to_previous_folder" needed="false">返回上一个文件夹</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
@@ -428,7 +428,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_context">插入情境</string>
     <string name="browse_todo">浏览待办事项</string>
     <string name="browse_by_priority">按优先级浏览</string>
-    <string name="browse_by_due_date">按到期日浏览</string>
+    <string name="browse_by_due_date">按截止时间浏览</string>
     <string name="due_overdue">过期时间</string>
     <string name="due_today">今日到期</string>
     <string name="due_future">将来到期</string>
