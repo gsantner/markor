@@ -46,7 +46,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                     File f = new File(str);
                     if (f.exists()) {
                         /* iframe: file.html | viewerjs/index.html#../demo.pdf | pdfjs/web/viewer.html?file=../../demo.pdf */
-                        if (str.endsWith(".html")) {
+                        if (str.endsWith(".html") || str.endsWith(".md") || str.endsWith(".txt")) {
                             return false;
                         }
                         file = f;
