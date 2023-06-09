@@ -42,9 +42,13 @@ public class MarkorWebViewClient extends GsWebViewClient {
             } else if (url.startsWith("file://")) {
                 MarkorContextUtils su = new MarkorContextUtils(view.getContext());
                 File file = new File(URLDecoder.decode(url.replace("file://", "").replace("+", "%2B")));
-                for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
+                for (String str : new String[]{file.getAbsolutePath(), file.getAbsolutePath().replaceFirst("[#?].*$", ""), file.getAbsolutePath() + ".md", file.getAbsolutePath() + ".txt"}) {
                     File f = new File(str);
                     if (f.exists()) {
+                        /* iframe: file.html | viewerjs/index.html#../demo.pdf | pdfjs/web/viewer.html?file=../../demo.pdf */
+                        if (str.endsWith(".html")) {
+                            return false;
+                        }
                         file = f;
                         break;
                     }
