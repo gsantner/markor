@@ -9,6 +9,8 @@ import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.html.Attributes;
 
+import java.util.Objects;
+
 /**
  * AttributeProvider of flexmark-java extension for prism syntax highlighter.
  */
@@ -27,6 +29,9 @@ public class LineNumbersAttributeProvider implements AttributeProvider {
     @Override
     public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
         if (node instanceof FencedCodeBlock && part == AttributablePart.NODE) {
+            if (Objects.equals(((FencedCodeBlock) node).getInfo(), "mermaid")) {
+                return;
+            }
             attributes.replaceValue("class", "line-numbers");
         }
     }
