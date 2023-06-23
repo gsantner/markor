@@ -97,13 +97,18 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final String HTML_PRESENTATION_BEAMER_SLIDE_START_DIV = "<!-- Presentation slide NO --> <div class='slide_pNO slide'><div class='slide_body'>";
     public static final String TOKEN_SITE_DATE_JEKYLL = "{{ site.time | date: '%x' }}";
 
-    public static final String HTML_KATEX_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/katex/katex.min.css'>" +
-            "<script src='file:///android_asset/katex/katex.min.js'></script>" +
-            "<script src='file:///android_asset/katex/katex-render.js'></script>" +
-            "<script src='file:///android_asset/katex/mhchem.min.js'></script>";
+    private static final String CSS_PREFIX = "<link rel='stylesheet' href='file:///android_asset/";
+    private static final String CSS_POSTFIX = "'/>";
+    private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset/";
+    private static final String JS_POSTFIX = "'></script>";
+
+    public static final String HTML_KATEX_INCLUDE = CSS_PREFIX + "katex/katex.min.css" + CSS_POSTFIX +
+            JS_PREFIX + "katex/katex.min.js" + JS_POSTFIX +
+            JS_PREFIX + "katex/katex-render.js" + JS_POSTFIX +
+            JS_PREFIX + "katex/mhchem.min.js" + JS_POSTFIX;
     public static final String CSS_KATEX = CSS_S + ".katex { font-size: inherit; }" + CSS_E;
 
-    public static final String HTML_MERMAID_INCLUDE = "<script src='file:///android_asset/mermaid/mermaid.min.js'></script>";
+    public static final String HTML_MERMAID_INCLUDE = JS_PREFIX + "mermaid/mermaid.min.js" + JS_POSTFIX;
 
     public static final String HTML_FRONTMATTER_CONTAINER_S = "<div class='front-matter-container'>";
     public static final String HTML_FRONTMATTER_CONTAINER_E = "</div>";
@@ -117,8 +122,8 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final String YAML_FRONTMATTER_SCOPES = "post"; //, page, site";
     public static final Pattern YAML_FRONTMATTER_TOKEN_PATTERN = Pattern.compile("\\{\\{\\s+(?:" + YAML_FRONTMATTER_SCOPES.replaceAll(",\\s*", "|") + ")\\.[A-Za-z0-9]+\\s+\\}\\}");
 
-    public static final String HTML_ADMONITION_INCLUDE = "<link rel='stylesheet'  type='text/css' href='file:///android_asset/flexmark/admonition.css'>" +
-            "<script src='file:///android_asset/flexmark/admonition.js'></script>";
+    public static final String HTML_ADMONITION_INCLUDE = CSS_PREFIX + "flexmark/admonition.css" + CSS_POSTFIX +
+            JS_PREFIX + "flexmark/admonition.js" + JS_POSTFIX;
     public static final String CSS_ADMONITION = CSS_S + ".adm-block { width: initial; font-size: 90%; text-indent: 0em; } .adm-heading { height: auto; padding-top: 0.4em; padding-left: 2.2em; padding-bottom: 0.4em; } .adm-body { padding-top: 0.25em; padding-bottom: 0.25em; margin-left: 0.5em; margin-right: 0.5em; } .adm-icon { position: absolute; top: 50%; left: 0.5em; transform: translateY(-50%); } .adm-block > .adm-heading { position: relative; cursor: pointer; } .adm-block.adm-open > .adm-heading:after, .adm-block.adm-collapsed > .adm-heading:after { top: 50%; transform: translateY(-50%); content: '▼'; } .adm-block.adm-collapsed > .adm-heading:after { content: '◀'; } pre + div.adm-block, div.adm-block + pre { margin-top: 1.75em; }" + CSS_E;
 
     //########################
@@ -156,15 +161,17 @@ public class MarkdownTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
         String converted = "", onLoadJs = "", head = "";
-        ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
+
+        MutableDataSet options = new MutableDataSet();
 
         if (_appSettings.isCodeBlockLineNumbersEnabled()) {
             // Add code blocks Line numbers extension
+            ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
             extensions.add(LineNumbersExtension.create());
+            options.set(Parser.EXTENSIONS, extensions);
+        } else {
+            options.set(Parser.EXTENSIONS, flexmarkExtensions);
         }
-
-        MutableDataSet options = new MutableDataSet();
-        options.set(Parser.EXTENSIONS, extensions);
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
         //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
@@ -354,23 +361,16 @@ public class MarkdownTextConverter extends TextConverterBase {
         return sb.toString();
     }
 
-    private static final String CSS_PREFIX = "<link rel='stylesheet' href='file:///android_asset";
-    private static final String CSS_POSTFIX = "'/>";
-    private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset";
-    private static final String JS_POSTFIX = "'></script>";
-
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
     private String getViewHlPrismIncludes(@NonNull final Context context, final String themeName) {
-        final StringBuilder sb = new StringBuilder(1500);
-        final String PRISM_PREFIX = "/prism";
-
-        sb.append(CSS_PREFIX + PRISM_PREFIX + "/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
-        sb.append(JS_PREFIX + PRISM_PREFIX + "/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + PRISM_PREFIX + "/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
+        final StringBuilder sb = new StringBuilder(1000);
+        sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
         if (_appSettings.isCodeBlockLineNumbersEnabled()) {
-            sb.append(CSS_PREFIX + PRISM_PREFIX + "/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
-            sb.append(JS_PREFIX + PRISM_PREFIX + "/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
+            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
         }
 
         return sb.append("\n").toString();

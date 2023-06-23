@@ -59,9 +59,9 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _saveInstanceState = true;
 
     // For drawing line numbers fence
-    private Paint paint = new Paint();
-    private int lineNumbersFencePaddingLeft = 16;
-    private int lineNumbersFencePaddingRight = 10;
+    private final Paint paint = new Paint();
+    private static final int LINE_NUMBERS_PADDING_LEFT = 16;
+    private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
     private int defaultPaddingLeft;
 
 
@@ -129,16 +129,17 @@ public class HighlightingEditor extends AppCompatEditText {
     private void drawLineNumbers(Canvas canvas) {
         // Draw line numbers
         paint.setColor(Color.GRAY);
-        int firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
-        int x = getLeft() + lineNumbersFencePaddingLeft;
-        int y = getTop() + firstBaselineToTopHeight;
+        final int x = getLeft() + LINE_NUMBERS_PADDING_LEFT;
+        int y = getTop() + getPaddingTop() - getPaint().getFontMetricsInt().top;
         int number = 1;
         // Draw first line number
         canvas.drawText(String.valueOf(number), x, y, paint);
         // Draw others line number
+        final Layout layout = getLayout();
+        final Editable text = getText();
         for (int i = 1; i < getLineCount(); i++) {
-            y = y + getLineHeight();
-            if (getText().charAt(getLayout().getLineStart(i) - 1) == '\n') {
+            y += getLineHeight();
+            if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                 canvas.drawText(String.valueOf(++number), x, y, paint);
             }
         }
@@ -146,10 +147,10 @@ public class HighlightingEditor extends AppCompatEditText {
         // Draw right border of line numbers fence
         paint.setColor(Color.LTGRAY);
         paint.setTextSize(getTextSize());
-        // The line numbers fence width = max line number width + line numbers fence padding left + line numbers fence padding right
-        float lineNumbersFenceWidth = (int) paint.measureText(String.valueOf(number)) + lineNumbersFencePaddingLeft + lineNumbersFencePaddingRight;
+        // The line numbers fence width = max line number width + line numbers padding left + line numbers padding right
+        final float lineNumbersFenceWidth = (int) paint.measureText(String.valueOf(number)) + LINE_NUMBERS_PADDING_LEFT + LINE_NUMBERS_PADDING_RIGHT;
+        final float startX = getLeft() + lineNumbersFenceWidth;
         setPadding((int) lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-        float startX = getLeft() + lineNumbersFenceWidth;
         canvas.drawLine(startX, getTop(), startX, getTop() + getHeight(), paint);
     }
 
