@@ -30,7 +30,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -117,8 +116,8 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // If line numbers enabled and format is not .todo.txt
-        if (_nuEnabled && !(_hl instanceof TodoTxtSyntaxHighlighter)) {
+        // If line numbers enabled
+        if (_nuEnabled) {
             drawLineNumbers(canvas);
         } else if (getPaddingLeft() != defaultPaddingLeft) {
             // Reset padding without line numbers fence
@@ -127,20 +126,21 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void drawLineNumbers(Canvas canvas) {
-        // Draw line numbers
-        paint.setColor(Color.GRAY);
         final int x = getLeft() + LINE_NUMBERS_PADDING_LEFT;
-        int y = getTop() + getPaddingTop() - getPaint().getFontMetricsInt().top;
+        final int firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
         int number = 1;
+
+        paint.setColor(Color.GRAY);
         // Draw first line number
-        canvas.drawText(String.valueOf(number), x, y, paint);
+        canvas.drawText(String.valueOf(number), x, firstBaselineToTopHeight, paint);
         // Draw others line number
-        final Layout layout = getLayout();
+        final int count = getLineCount();
         final Editable text = getText();
-        for (int i = 1; i < getLineCount(); i++) {
-            y += getLineHeight();
+        final Layout layout = getLayout();
+        final float offsetY = firstBaselineToTopHeight - (float) (getTextSize() * 0.14);
+        for (int i = 1; i < count; i++) {
             if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
-                canvas.drawText(String.valueOf(++number), x, y, paint);
+                canvas.drawText(String.valueOf(++number), x, layout.getLineTop(i) + offsetY, paint);
             }
         }
 
