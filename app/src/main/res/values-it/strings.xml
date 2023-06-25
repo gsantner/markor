@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserisci immagine</string>
     <string name="contributors">Collaboratori</string>
     <string name="save_location">Percorso di salvataggio</string>
+    <string name="saved_location_to">Salvato in %s</string>
     <string name="select_storage_folder">Seleziona la cartella di archiviazione</string>
     <string name="licenses">Licenze</string>
     <string name="changelog">Log delle modifiche</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostra licenze di terze parti</string>
     <string name="language_change_restart_description">Cambia la lingua di questa app. Riavvia l\'app per rendere effettive le modifiche</string>
     <string name="language">Lingua</string>
+    <string name="storage_permission_required">È necessaria l\'autorizzazione Archiviazione per leggere e scrivere i file</string>
     <string name="open_with">Apri con</string>
     <string name="sort_by">Ordina per</string>
     <string name="date">Ordina per data</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Più (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor può modificare solamente documenti disponibili in locale oppure offline, e non supporta gestori dei file che non forniscono il percorso completo del file.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Il file o la directory non esistono e non possono essere creati</string>
+    <string name="permissions">Permessi</string>
+    <string name="permission_paths_revert">Tornare ai percorsi di default?</string>
+    <string name="permission_not_granted">Autorizzazione non concessa</string>
     <string name="sync_to_local_folder_notice">Nota: le app di sincronizzazione possono inserire file in cartelle personalizzate. Puoi aprirli modificando la cartella dei documenti di Markor, o usando un altro file manager.</string>
     <string name="vertical_alignment">Allineamento verticale</string>
     <string name="horizontal_alignment">Allineamento orizzontale</string>
@@ -442,4 +448,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
     <string name="wont_save_min_length">I file di meno di %d caratteri non sono salvati automaticamente, per evitare perdita di dati.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintassi filtri avanzata</a></small>]]></string>
+    <string name="filter">Filtro</string>
 </resources>

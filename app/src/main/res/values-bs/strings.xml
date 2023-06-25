@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Prikaz za pisma koja se pišu slijeva udesno</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Greška: Nije moguće kreirati direktorij za bilježnicu</string>
     <string name="last_modified_witharg">Zadnja izmjena: %s</string>
+    <string name="last_modified">Zadnja izmjena</string>
     <string name="select_this_folder">Označi ovaj direktorij</string>
     <string name="select">Označi</string>
     <string name="create">Kreiraj</string>

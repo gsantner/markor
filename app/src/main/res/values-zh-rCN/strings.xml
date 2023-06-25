@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">渲染从右往左读的语言</string>
     <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
     <string name="last_modified_witharg">上次修改：%s</string>
-    <string name="last_modified">最后修改</string>
+    <string name="last_modified">上次修改</string>
     <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
+    <string name="saved_location_to">已保存到 %s</string>
     <string name="select_storage_folder">选择存储文件夹</string>
     <string name="licenses">开源协议</string>
     <string name="changelog">更新日志​​​​​</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">显示第三方许可</string>
     <string name="language_change_restart_description">更改语言（重启应用后生效）</string>
     <string name="language">语言</string>
+    <string name="storage_permission_required">需要存储权限读写文件</string>
     <string name="open_with">打开方式</string>
     <string name="sort_by">排序方式</string>
     <string name="date">日期</string>
@@ -125,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">新建笔记</string>
     <string name="special_documents" needed="false">特殊文件</string>
     <string name="keep_screen_on" needed="false">保持屏幕开启</string>
-    <string name="disallow_screenshots">不允许截屏</string>
+    <string name="disallow_screenshots">禁止截屏</string>
     <string name="back_to_previous_folder" needed="false">返回上一个文件夹</string>
     <string name="app_settings" needed="false">应用设置</string>
     <string name="editor_settings" needed="false">编辑器设置</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">星号 (*)</string>
     <string name="unordered_list_char_plus">加号 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 只能编辑本地、离线可用的文档，且不支持不提供完整文件路径的文件管理器。</string>
+    <string name="file_does_not_exist_and_cant_be_created">文件或目录不存在且无法创建</string>
+    <string name="permissions">权限</string>
+    <string name="permission_paths_revert">恢复为默认路径？</string>
+    <string name="permission_not_granted">未授予权限</string>
     <string name="sync_to_local_folder_notice">注意：同步应用可能会将文件放置在自定义文件夹中，请相应地更改 Markor 的文档文件夹或在另一个文件管理器中打开它们。</string>
     <string name="vertical_alignment">垂直对齐</string>
     <string name="horizontal_alignment">水平对齐</string>
@@ -422,7 +428,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_context">插入情境</string>
     <string name="browse_todo">浏览待办事项</string>
     <string name="browse_by_priority">按优先级浏览</string>
-    <string name="browse_by_due_date">按到期日浏览</string>
+    <string name="browse_by_due_date">按截止时间浏览</string>
     <string name="due_overdue">过期时间</string>
     <string name="due_today">今日到期</string>
     <string name="due_future">将来到期</string>
@@ -440,4 +446,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
     <string name="wont_save_min_length">未自动保存字符数不到 %d 的文件以防止数据丢失。</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">高级过滤语法</a></small>]]></string>
+    <string name="filter">过滤器</string>
 </resources>

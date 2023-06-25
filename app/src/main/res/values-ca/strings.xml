@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Insereix imatge</string>
     <string name="contributors">Col·laboradors</string>
     <string name="save_location">Desa la ubicació</string>
+    <string name="saved_location_to">S\'ha desat a %s</string>
     <string name="select_storage_folder">Seleccioneu la carpeta d\'emmagatzematge</string>
     <string name="licenses">Llicències</string>
     <string name="changelog">Novetats</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Mostra les llicències de tercers</string>
     <string name="language_change_restart_description">Canvieu l\'idioma d\'aquesta aplicació. Reinicieu l\'aplicació perquè els canvis tinguin efecte</string>
     <string name="language">Idioma</string>
+    <string name="storage_permission_required">Cal permís d\'emmagatzematge per llegir i escriure fitxers</string>
     <string name="open_with">Obre amb</string>
     <string name="sort_by">Ordena per</string>
     <string name="date">Data</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisc (*)</string>
     <string name="unordered_list_char_plus">Suma (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor només pot editar documents locals disponibles sense connexió i no admet administradors d\'arxius que no proporcionin la ruta completa del fitxer.</string>
+    <string name="file_does_not_exist_and_cant_be_created">El fitxer o el directori no existeix i no es pot crear</string>
+    <string name="permissions">Permisos</string>
+    <string name="permission_paths_revert">Voleu tornar a les rutes per defecte?</string>
+    <string name="permission_not_granted">Permís no concedit</string>
     <string name="sync_to_local_folder_notice">Avís: les aplicacions de sincronització poden col·locar fitxers en carpetes personalitzades. Podeu obrir-les canviant la carpeta de documents de Markor o en un altre gestor de fitxers.</string>
     <string name="vertical_alignment">Alineació vertical</string>
     <string name="horizontal_alignment">Alineació horitzontal</string>
@@ -440,4 +446,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
     <string name="wont_save_min_length">Els fitxers amb menys de %d caràcters no es desaran automàticament per evitar la pèrdua de dades.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintaxi de filtratge avançat</a></small>]]></string>
+    <string name="filter">Filtre</string>
 </resources>

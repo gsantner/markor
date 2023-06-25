@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Εισαγωγή εικόνας</string>
     <string name="contributors">Συντελεστές</string>
     <string name="save_location">Αποθήκευση τοποθεσίας</string>
+    <string name="saved_location_to">Αποθηκεύτηκε σε %s</string>
     <string name="select_storage_folder">Επιλογή φακέλου αποθήκευσης</string>
     <string name="licenses">Άδειες</string>
     <string name="changelog">Αρχείο Αλλαγών</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Εμφάνιση αδειών τρίτων</string>
     <string name="language_change_restart_description">Αλλαγή γλώσσας αυτής της εφαρμογής. Επανεκκίνηση της εφαρμογής για να τεθούν σε ισχύ οι αλλαγές</string>
     <string name="language">Γλώσσα</string>
+    <string name="storage_permission_required">Άδεια αποθήκευσης αρχείων είναι απαραίτητη</string>
     <string name="open_with">Άνοιγμα με</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
     <string name="date">Ημερομηνία</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Αστερίσκος (*)</string>
     <string name="unordered_list_char_plus">Συν (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Το Markor μπορεί να επεξεργαστεί μόνο τοπικά, offline διαθέσιμα έγγραφα και δεν υποστηρίζει διαχειριστές αρχείων που δεν παρέχουν την πλήρη διαδρομή αρχείου.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Ένα αρχείο ή φάκελος δεν υπάρχει και δεν μπορεί να δημιουργηθεί</string>
+    <string name="permissions">Δικαιώματα</string>
+    <string name="permission_paths_revert">Επαναφορά των προεπιλογών;</string>
+    <string name="permission_not_granted">Άδεια δεν εκχωρήθηκε</string>
     <string name="sync_to_local_folder_notice">Σημείωση: Οι εφαρμογές συγχρονισμού μπορούν να τοποθετούν αρχεία σε προσαρμοσμένους φακέλους. Ανοίξτε τα αλλάζοντας αναλόγως το φάκελο εγγράφων του Markor, ή σε άλλο διαχειριστή αρχείων.</string>
     <string name="vertical_alignment">Κατακόρυφη στοίχιση</string>
     <string name="horizontal_alignment">Οριζόντια στοίχιση</string>
@@ -441,4 +447,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Αντιμετώπιση σφάλματος: Το κείμενο αντιγράφηκε στο πρόχειρο.</string>
     <string name="wont_save_min_length">Αρχεία με λιγότερους από %d χαρακτήρες, δεν αποθηκεύονται αυτόματα για να αποφευχθεί η απώλεια δεδομένων.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Προχωρημένη σύνταξη φίλτρων</a></small>]]></string>
+    <string name="filter">Φίλτρο</string>
 </resources>
