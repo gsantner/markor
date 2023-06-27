@@ -136,10 +136,14 @@ public class HighlightingEditor extends AppCompatEditText {
         // Draw others line number
         float y;
         final float offsetY = firstBaselineToTopHeight - getTextSize() * 0.14f;
-        final ScrollView scrollView = (ScrollView) getParent();
-        // Range of current visible area, drawing line number only near the visible area
-        final int top = scrollView.getScrollY() - 100;
-        final int bottom = scrollView.getScrollY() + scrollView.getHeight();
+        int top = Integer.MIN_VALUE;
+        int bottom = Integer.MAX_VALUE;
+        if (getParent() instanceof ScrollView) {
+            ScrollView scrollView = (ScrollView) getParent();
+            // Set range of current visible area, drawing line number only near the visible area
+            top = scrollView.getScrollY() - 100;
+            bottom = scrollView.getScrollY() + scrollView.getHeight();
+        }
 
         final int count = getLineCount();
         final Editable text = getText();
@@ -251,7 +255,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public boolean setLineNumbersEnabled(final boolean enable) {
-        final boolean prev = _hlEnabled;
+        final boolean prev = _nuEnabled;
 
         if (enable != _nuEnabled) {
             _nuEnabled = enable;
