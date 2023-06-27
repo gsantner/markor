@@ -10,8 +10,6 @@ package net.gsantner.markor.format.markdown;
 import android.content.Context;
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
-
 import com.vladsch.flexmark.ext.admonition.AdmonitionExtension;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
@@ -275,7 +273,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes(context, (GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
+        final String xt = getViewHlPrismIncludes((GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
         head += xt;
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
@@ -362,7 +360,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(@NonNull final Context context, final String themeName) {
+    private String getViewHlPrismIncludes(final String themeName) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
