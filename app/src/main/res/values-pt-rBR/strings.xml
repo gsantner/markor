@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserir Imagem</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Salvar localização</string>
+    <string name="saved_location_to">Salvo em %s</string>
     <string name="select_storage_folder">Escolher pasta de armazenamento</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de mudanças</string>
