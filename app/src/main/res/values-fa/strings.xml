@@ -57,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">رندر برای زبان‌های راست به چپ</string>
     <string name="error_cannot_create_notebook_dir__appspecific">خطا: نمی‌توان پوشه‌ی دفترچه را ایجاد کرد</string>
     <string name="last_modified_witharg">آخرین تغییر: %s</string>
+    <string name="last_modified">آخرین تغییر</string>
     <string name="select_this_folder">انتخاب این پوشه</string>
     <string name="select">انتخاب</string>
     <string name="create">ایجاد</string>

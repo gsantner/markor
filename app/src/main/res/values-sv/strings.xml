@@ -272,7 +272,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="just_date">Endast datum</string>
     <string name="last_used">Senast använda</string>
     <string name="my_note">mina anteckningar</string>
-    <string name="close">Avsluta</string>
+    <string name="close">Stäng</string>
     <string name="cancel">Avbryt</string>
     <string name="app_start_tab">Appens startflik</string>
     <string name="tab_to_select_at_start">Välj uppstartsflik</string>

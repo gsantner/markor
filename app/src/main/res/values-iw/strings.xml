@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">תייצג עבור שפות ימין-לשמאל</string>
     <string name="error_cannot_create_notebook_dir__appspecific">שגיאה: לא ניתן ליצור תיקיה</string>
     <string name="last_modified_witharg">עדכון אחרון: %s</string>
-    <string name="last_modified">Last updated</string>
+    <string name="last_modified">עדכון אחרון</string>
     <string name="select_this_folder">בחר תיקיה זו</string>
     <string name="select">בחר</string>
     <string name="create">צור</string>
@@ -366,7 +366,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="created">נוצר</string>
     <string name="file_encryption_password">סיסמה להצפנת קבצים</string>
     <string name="no_password_set_cannot_encrypt_decrypt">לא הוגדרה סיסמא, לא ניתן להצפין/לפענח.
-גש להגדרות -> כללי -> סיסמא
+גש להגדרות -&gt; כללי -&gt; סיסמא
 בכדי להגדיר סיסמא.</string>
     <string name="encrypt_file_content">הצפן קובץ</string>
     <string name="utf8_with_bom">UTF-8 עם BOM</string>

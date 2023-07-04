@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserta un\'immàgine</string>
     <string name="contributors">Contribuidores</string>
     <string name="save_location">Logu de sarvamentu</string>
+    <string name="saved_location_to">Sarvadu in %s</string>
     <string name="select_storage_folder">Ischerta sa cartella de archiviatzione</string>
     <string name="licenses">Litzèntzias</string>
     <string name="changelog">Registru de sas modìficas</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Librerias de terzas partes</string>
     <string name="language_change_restart_description">Càmbia sa limba de custa aplicatzione. Torra·la a allùghere pro fàghere tènnere efetu a su cambiamentu</string>
     <string name="language">Limba</string>
+    <string name="storage_permission_required">Su permissu de archiviatzione est netzessàriu pro lèghere e iscrìere documentos</string>
     <string name="open_with">Aberi cun</string>
     <string name="sort_by">Òrdina pro</string>
     <string name="date">Data</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asteriscu (*)</string>
     <string name="unordered_list_char_plus">Prus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor podet editare petzi documentos locales e disponìbiles chene sa connessione a ìnternet e non suportat gestore de documentos chi non frunint s\'àndala intrea pro sos documentos.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Su documentu o sa cartella no esistit e non si podet creare</string>
+    <string name="permissions">Permissos</string>
+    <string name="permission_paths_revert">Torrare a sas àndalas predefinidas?</string>
+    <string name="permission_not_granted">Permissu non cuntzessu</string>
     <string name="sync_to_local_folder_notice">Ammenta·ti: sas aplicatziones de sincronizatzione diant pòdere sarvare sos documentos in cartellas personalizadas. Aberi·los mudende sa cartella de sos documentos de Markor, o impreende un\'àteru gestore de documentos.</string>
     <string name="vertical_alignment">Alliniamentu verticale</string>
     <string name="horizontal_alignment">Alliniamentu orizontale</string>
@@ -440,4 +446,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
     <string name="wont_save_min_length">Documentos cun prus pagu de %d caràteres non benint sarvados in automàticu pro prevenire pèrdidas de datos.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Sintassi de filtràgiu avantzada</a></small>]]></string>
+    <string name="filter">Filtru</string>
 </resources>

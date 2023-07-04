@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Sağdan sola yazılan diller için metin yönünü değiştir</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Hata: Not defteri dizini oluşturulamıyor</string>
     <string name="last_modified_witharg">Son düzenleme: %s</string>
-    <string name="last_modified">Son düzenlenme</string>
+    <string name="last_modified">Son düzenleme</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
     <string name="create">Oluştur</string>
@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Resim Ekle</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="save_location">Kayıt konumu</string>
+    <string name="saved_location_to">%s\'a Kaydedildi</string>
     <string name="select_storage_folder">Depolama klasörünü seç</string>
     <string name="licenses">Lisanslar</string>
     <string name="changelog">Değişme Günlüğü</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Üçüncü parti lisansları göster</string>
     <string name="language_change_restart_description">Uygulamanın dilini değiştir. Değişikliklerin etkili olması için uygulamayı yeniden başlat</string>
     <string name="language">Dil</string>
+    <string name="storage_permission_required">Depolama izni, dosyaları okumak ve yazmak için gereklidir</string>
     <string name="open_with">Şununla aç</string>
     <string name="sort_by">Sırala</string>
     <string name="date">Tarihe göre sırala</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Yıldız işareti (*)</string>
     <string name="unordered_list_char_plus">Artı işareti (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Dosya veya dizin mevcut değil ve oluşturulamıyor</string>
+    <string name="permissions">İzinler</string>
+    <string name="permission_paths_revert">Varsayılan dosya yollarına geri dönülsün mü?</string>
+    <string name="permission_not_granted">İzin verilmedi</string>
     <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="vertical_alignment">Dikey hizalama</string>
     <string name="horizontal_alignment">Yatay hizalama</string>
@@ -432,9 +438,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Tümünü Eşleştir</string>
     <string name="dynamic_notebook_root_links">Not defteri kaynağında dinamik arama yap</string>
     <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
+    <string name="share_into_format_prefix_for_text_shared">Markor\'a paylaşılan metin için biçim/ön ek. Android\'in SimpleDateFormat kurallarına uyar.\n\nPaylaşılan metni konumlandırmak için {{text}} kullanın. Konum belirtilmezse, biçim başta kullanılır ve paylaşılan metin sona eklenir.</string>
     <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
     <string name="auto_format">Otomatik biçim</string>
     <string name="insert_snippet">Kod parçacığı ekle</string>
     <string name="error_could_not_open_file">Hata: Dosya açılamadı.</string>
     <string name="document_error_clip">Karşılaşılan hata: Metin panoya kopyalandı.</string>
+    <string name="wont_save_min_length">%d\'den az karaktere sahip dosyalar, veri kaybını önlemek için otomatik olarak kaydedilmez.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Gelişmiş filtreleme sözdizimi</a></small>]]></string>
+    <string name="filter">Filtrele</string>
 </resources>

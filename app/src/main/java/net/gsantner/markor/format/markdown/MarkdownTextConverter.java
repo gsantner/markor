@@ -177,7 +177,8 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         // Add id to headers
         options.set(HtmlRenderer.GENERATE_HEADER_ID, true)
-                .set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, true)
+                .set(HtmlRenderer.HEADER_ID_GENERATOR_RESOLVE_DUPES, true)
+                .set(AnchorLinkExtension.ANCHORLINKS_SET_ID, false)
                 .set(AnchorLinkExtension.ANCHORLINKS_ANCHOR_CLASS, "header_no_underline");
 
         // Prepare head and javascript calls
