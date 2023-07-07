@@ -379,7 +379,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (_editTextUndoRedoHelper == null) {
                     _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
                 } else {
-                    _editTextUndoRedoHelper.setmTextView(_hlEditor);
+                    _editTextUndoRedoHelper.setTextView(_hlEditor);
                 }
 
                 _hlEditor.setSelection(sel[0], sel[1]);

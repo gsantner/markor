@@ -75,7 +75,7 @@ public class TextViewUndoRedo {
     /**
      * The edit text.
      */
-    private final TextView mTextView;
+    private TextView mTextView;
 
     // =================================================================== //
 
@@ -91,9 +91,9 @@ public class TextViewUndoRedo {
         mTextView.addTextChangedListener(mChangeListener);
     }
 
-    public void setmTextView(TextView mTextView) {
+    public void setTextView(TextView textView) {
         disconnect();
-        mTextView = mTextView;
+        mTextView = textView;
         mTextView.addTextChangedListener(mChangeListener);
     }
 
