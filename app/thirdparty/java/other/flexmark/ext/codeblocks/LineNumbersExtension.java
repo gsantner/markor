@@ -1,3 +1,10 @@
+/*#######################################################
+ * flexmark-ext-prism-linenumber
+ *
+ * Copyright Tom Misawa
+ * Source: https://github.com/riversun/flexmark-ext-prism-linenumber
+ * License: MIT
+#########################################################*/
 package other.flexmark.ext.codeblocks;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
