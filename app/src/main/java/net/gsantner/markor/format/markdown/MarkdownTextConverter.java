@@ -162,7 +162,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         MutableDataSet options = new MutableDataSet();
 
-        if (_appSettings.isCodeBlockLineNumbersEnabled()) {
+        if (_appSettings.isLineNumbersEnabled()) {
             // Add code blocks Line numbers extension
             ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
             extensions.add(LineNumbersExtension.create());
@@ -366,7 +366,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
-        if (_appSettings.isCodeBlockLineNumbersEnabled()) {
+        if (_appSettings.isLineNumbersEnabled()) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
         }

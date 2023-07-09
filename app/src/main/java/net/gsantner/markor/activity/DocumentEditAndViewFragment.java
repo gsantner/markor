@@ -200,7 +200,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText()));
-        _hlEditor.setLineNumbersEnabled(_appSettings.getEditorLineNumbersState(_hlEditor.getText()));
+        _hlEditor.setLineNumbersEnabled(_appSettings.isLineNumbersEnabled());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
@@ -562,8 +562,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 updateMenuToggleStates(0);
                 return true;
             }
-            case R.id.action_show_line_numbers: {
-                _hlEditor.setLineNumbersEnabled(!_hlEditor.getLineNumbersEnabled());
+            case R.id.action_line_numbers: {
+                _appSettings.setLineNumbersEnabled(!_appSettings.isLineNumbersEnabled());
+                _hlEditor.setLineNumbersEnabled(_appSettings.isLineNumbersEnabled());
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -632,7 +633,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_highlighting)) != null) {
             mi.setChecked(_hlEditor.getHighlightingEnabled());
         }
-        if ((mi = _fragmentMenu.findItem(R.id.action_show_line_numbers)) != null) {
+        if ((mi = _fragmentMenu.findItem(R.id.action_line_numbers)) != null) {
             mi.setChecked(_hlEditor.getLineNumbersEnabled());
         }
         if ((mi = _fragmentMenu.findItem(R.id.action_enable_auto_format)) != null) {

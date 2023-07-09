@@ -112,10 +112,10 @@
                 app:showAsAction="never" />
 
             <item
-                android:id="@+id/action_show_line_numbers"
+                android:id="@+id/action_line_numbers"
                 android:checkable="true"
                 android:icon="@drawable/ic_line_numbers_24dp"
-                android:title="@string/show_line_numbers"
+                android:title="@string/line_numbers"
                 app:showAsAction="never" />
 
             <item

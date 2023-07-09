@@ -329,9 +329,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">List in recent files</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Wrap words</string>
-    <string name="show_line_numbers">Show line numbers</string>
-    <string name="show_line_numbers_for_code_blocks">Show line numbers for code blocks.</string>
-    <string name="show_line_numbers_on_the_left_side_of_the_editor">Show line numbers on the left side of the editor.</string>
+    <string name="line_numbers">Line numbers</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
     <string name="recursive_search_in_current_directory">Recursive search in current directory.</string>
     <string name="always_open_with_this_app">Always open with this app</string>

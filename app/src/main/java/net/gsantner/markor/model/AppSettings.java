@@ -131,12 +131,12 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
-    public boolean isEditorLineNumbersEnabled() {
-        return getBool(R.string.pref_key__editor_line_numbers, false);
+    public boolean isLineNumbersEnabled() {
+        return getBool(R.string.pref_key__enable_line_numbers, false);
     }
 
-    public boolean isCodeBlockLineNumbersEnabled() {
-        return getBool(R.string.pref_key__markdown_code_block_line_numbers, false);
+    public void setLineNumbersEnabled(boolean enabled) {
+        setBool(R.string.pref_key__enable_line_numbers, enabled);
     }
 
     public boolean isDynamicHighlightingEnabled() {
@@ -496,11 +496,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public boolean getDocumentHighlightState(final String path, final CharSequence chars) {
         final boolean lengthOk = chars != null && chars.length() < (_isDeviceGoodHardware ? 100000 : 35000);
         return getBool(PREF_PREFIX_HIGHLIGHT_STATE + path, lengthOk && isHighlightingEnabled());
-    }
-
-    public boolean getEditorLineNumbersState(final CharSequence chars) {
-        final boolean lengthOk = chars != null && chars.length() < (_isDeviceGoodHardware ? 100000 : 35000);
-        return lengthOk && isEditorLineNumbersEnabled();
     }
 
     public int getLastViewPositionX(File file) {

@@ -118,7 +118,7 @@ public class HighlightingEditor extends AppCompatEditText {
         super.onDraw(canvas);
 
         // If line numbers enabled
-        if (_nuEnabled) {
+        if (_nuEnabled && length() < (AppSettings._isDeviceGoodHardware ? 100000 : 35000)) {
             drawLineNumbers(canvas);
         } else if (getPaddingLeft() != _defaultPaddingLeft) {
             // Reset padding without line numbers fence
