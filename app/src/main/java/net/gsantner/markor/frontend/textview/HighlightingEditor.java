@@ -31,6 +31,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
+import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -128,6 +129,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @SuppressWarnings("ConstantConditions")
     private void drawLineNumbers(Canvas canvas) {
+        final boolean hasHorizontalDivider = (_hl instanceof TodoTxtSyntaxHighlighter);
         final int firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
         int number = 1;
 
@@ -136,7 +138,7 @@ public class HighlightingEditor extends AppCompatEditText {
         canvas.drawText(String.valueOf(number), LINE_NUMBERS_PADDING_LEFT, firstBaselineToTopHeight, _paint);
         // Draw others line number
         float y;
-        final float offsetY = firstBaselineToTopHeight - getTextSize() * 0.14f;
+        final float offsetY = (firstBaselineToTopHeight - getTextSize() * 0.14f) * (hasHorizontalDivider ? 1.46f : 1f);
         int top = Integer.MIN_VALUE;
         int bottom = Integer.MAX_VALUE;
         if (getParent() instanceof ScrollView) {
