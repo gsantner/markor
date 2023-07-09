@@ -126,6 +126,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void drawLineNumbers(Canvas canvas) {
         final int firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
         int number = 1;
