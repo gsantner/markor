@@ -31,10 +31,12 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
-import net.gsantner.markor.format.todotxt.TodoTxtSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
@@ -66,9 +68,9 @@ public class HighlightingEditor extends AppCompatEditText {
     private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
     private int _defaultPaddingLeft;
     private int _x;
+    private int _maxLineNumber = 1;
     private int _maxLineNumberWidth;
     private int _lineNumbersFenceWidth;
-    private int _firstBaselineToTopHeight;
 
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
@@ -89,10 +91,32 @@ public class HighlightingEditor extends AppCompatEditText {
         _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
+            private Pattern pattern = Pattern.compile("\n");
+            private Matcher matcher;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (after == 0 && count > 0) {
+                    CharSequence deleted = s.subSequence(start, start + count);
+                    matcher = pattern.matcher(deleted);
+                    while (matcher.find()) {
+                        _maxLineNumber--;
+                    }
+                }
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
+                }
+
+                if (before == 0 && count > 0) {
+                    CharSequence added = s.subSequence(start, start + count);
+                    matcher = pattern.matcher(added);
+                    while (matcher.find()) {
+                        _maxLineNumber++;
+                    }
                 }
             }
 
@@ -121,9 +145,9 @@ public class HighlightingEditor extends AppCompatEditText {
 
     @Override
     public boolean onPreDraw() {
+        _paint.setTextSize(getTextSize());
         _paint.setTextAlign(Paint.Align.RIGHT);
         _scrollView = getParent() instanceof ScrollView ? (ScrollView) getParent() : (ScrollView) getParent().getParent();
-        _firstBaselineToTopHeight = getPaddingTop() - getPaint().getFontMetricsInt().top;
         return super.onPreDraw();
     }
 
@@ -140,48 +164,46 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void drawLineNumbers(Canvas canvas) {
-        // Draw first line number
-        int number = 1;
-        _paint.setColor(Color.GRAY);
         if (_x != 0) {
-            canvas.drawText(String.valueOf(number), _x, _firstBaselineToTopHeight, _paint);
-        }
-
-        // Draw others line number
-        final Editable text = getText();
-        if (text != null) {
-            int y;
-            final float offsetY = (_firstBaselineToTopHeight - getTextSize() * 0.14f) * ((_hl instanceof TodoTxtSyntaxHighlighter) ? 1.46f : 1f);
-            final int top = _scrollView.getScrollY() - 100; // Top border of current visible area
-            final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom border of current visible area
-            final int count = getLineCount();
             final Layout layout = getLayout();
+            final float offsetY = getPaddingTop();
 
-            for (int i = 1; i < count; i++) {
-                if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
-                    number++;
-                    y = layout.getLineTop(i);
-                    if (y > top && y < bottom && _x != 0 && getPaddingLeft() != _defaultPaddingLeft) {
-                        canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
+            // Draw first line number
+            _paint.setColor(Color.GRAY);
+            canvas.drawText(String.valueOf(1), _x, layout.getLineBounds(0, null) + offsetY, _paint);
+
+            // Draw others line number
+            final Editable text = getText();
+            if (text != null) {
+                int y;
+                final int top = _scrollView.getScrollY() - 100; // Top border of current visible area
+                final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom border of current visible area
+                final int count = getLineCount();
+                for (int i = 1, number = 1; i < count; i++) {
+                    if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
+                        number++;
+                        y = layout.getLineBounds(i, null);
+                        if (y > bottom) {
+                            break;
+                        } else if (y > top && getPaddingLeft() != _defaultPaddingLeft) {
+                            canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
+                        }
                     }
                 }
             }
         }
 
         // Draw right border of line numbers fence
-        _paint.setColor(Color.LTGRAY);
-        if (getTextSize() != _paint.getTextSize()) {
-            _paint.setTextSize(getTextSize());
-        }
-        if (_maxLineNumberWidth != (int) _paint.measureText(String.valueOf(number))) {
-            // Update params
-            _maxLineNumberWidth = (int) _paint.measureText(String.valueOf(number));
-            _x = LINE_NUMBERS_PADDING_LEFT + _maxLineNumberWidth;
+        final int width = (int) _paint.measureText(String.valueOf(_maxLineNumber));
+        if (_maxLineNumberWidth != width) {
+            _maxLineNumberWidth = width;
+            _x = LINE_NUMBERS_PADDING_LEFT + width;
             _lineNumbersFenceWidth = _x + LINE_NUMBERS_PADDING_RIGHT;
             setPadding(_lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         } else if (getPaddingLeft() == _defaultPaddingLeft) {
             setPadding(_lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         }
+        _paint.setColor(Color.LTGRAY);
         canvas.drawLine(_lineNumbersFenceWidth, getTop(), _lineNumbersFenceWidth, getTop() + getHeight(), _paint);
     }
 

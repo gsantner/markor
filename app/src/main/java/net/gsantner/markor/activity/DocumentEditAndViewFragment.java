@@ -565,6 +565,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.id.action_line_numbers: {
                 _appSettings.setLineNumbersEnabled(!_appSettings.isLineNumbersEnabled());
                 _hlEditor.setLineNumbersEnabled(_appSettings.isLineNumbersEnabled());
+                _hlEditor.invalidate();
                 updateMenuToggleStates(0);
                 return true;
             }
