@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">渲染从右往左读的语言</string>
     <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
     <string name="last_modified_witharg">上次修改：%s</string>
-    <string name="last_modified">上次修改</string>
+    <string name="last_modified">最后一次修改</string>
     <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
