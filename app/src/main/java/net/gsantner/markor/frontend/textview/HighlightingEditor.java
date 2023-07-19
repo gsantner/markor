@@ -91,7 +91,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
-            private Pattern pattern = Pattern.compile("\n");
+            private final Pattern pattern = Pattern.compile("\n");
             private Matcher matcher;
 
             @Override
@@ -164,6 +164,9 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void drawLineNumbers(Canvas canvas) {
+        final int top = _scrollView.getScrollY() - 100; // Top border of current visible area
+        final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom border of current visible area
+
         if (_x != 0) {
             final Layout layout = getLayout();
             final float offsetY = getPaddingTop();
@@ -175,11 +178,8 @@ public class HighlightingEditor extends AppCompatEditText {
             // Draw others line number
             final Editable text = getText();
             if (text != null) {
-                int y;
-                final int top = _scrollView.getScrollY() - 100; // Top border of current visible area
-                final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom border of current visible area
                 final int count = getLineCount();
-                for (int i = 1, number = 1; i < count; i++) {
+                for (int i = 1, number = 1, y; i < count; i++) {
                     if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                         number++;
                         y = layout.getLineBounds(i, null);
@@ -204,7 +204,7 @@ public class HighlightingEditor extends AppCompatEditText {
             setPadding(_lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         }
         _paint.setColor(Color.LTGRAY);
-        canvas.drawLine(_lineNumbersFenceWidth, getTop(), _lineNumbersFenceWidth, getTop() + getHeight(), _paint);
+        canvas.drawLine(_lineNumbersFenceWidth, top, _lineNumbersFenceWidth, bottom, _paint);
     }
 
     // Highlighting
