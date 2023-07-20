@@ -70,7 +70,6 @@ public class HighlightingEditor extends AppCompatEditText {
     private int _x;
     private int _maxLineNumber = 1;
     private int _maxLineNumberWidth;
-    private int _lineNumbersFenceWidth;
 
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
@@ -158,53 +157,48 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_nuEnabled && length() < (AppSettings._isDeviceGoodHardware ? 100000 : 35000)) {
             drawLineNumbers(canvas);
         } else if (getPaddingLeft() != _defaultPaddingLeft) {
+            _maxLineNumberWidth = 0;
             // Reset padding without line numbers fence
             setPadding(_defaultPaddingLeft, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         }
     }
 
     private void drawLineNumbers(Canvas canvas) {
-        final int top = _scrollView.getScrollY() - 100; // Top border of current visible area
-        final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom border of current visible area
-
-        if (_x != 0) {
-            final Layout layout = getLayout();
-            final float offsetY = getPaddingTop();
-
-            // Draw first line number
-            _paint.setColor(Color.GRAY);
-            canvas.drawText(String.valueOf(1), _x, layout.getLineBounds(0, null) + offsetY, _paint);
-
-            // Draw others line number
-            final Editable text = getText();
-            if (text != null) {
-                final int count = getLineCount();
-                for (int i = 1, number = 1, y; i < count; i++) {
-                    if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
-                        number++;
-                        y = layout.getLineBounds(i, null);
-                        if (y > bottom) {
-                            break;
-                        } else if (y > top && getPaddingLeft() != _defaultPaddingLeft) {
-                            canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
-                        }
-                    }
-                }
-            }
-        }
-
-        // Draw right border of line numbers fence
+        final Editable text = getText();
+        final Layout layout = getLayout();
+        final float offsetY = getPaddingTop();
+        final int top = _scrollView.getScrollY() - 100; // Top of current visible area
+        final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom of current visible area
         final int width = (int) _paint.measureText(String.valueOf(_maxLineNumber));
         if (_maxLineNumberWidth != width) {
             _maxLineNumberWidth = width;
             _x = LINE_NUMBERS_PADDING_LEFT + width;
-            _lineNumbersFenceWidth = _x + LINE_NUMBERS_PADDING_RIGHT;
-            setPadding(_lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-        } else if (getPaddingLeft() == _defaultPaddingLeft) {
-            setPadding(_lineNumbersFenceWidth + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+            setPadding(_x + LINE_NUMBERS_PADDING_RIGHT + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         }
+
+        // Draw the right border
         _paint.setColor(Color.LTGRAY);
-        canvas.drawLine(_lineNumbersFenceWidth, top, _lineNumbersFenceWidth, bottom, _paint);
+        canvas.drawLine(_x + LINE_NUMBERS_PADDING_RIGHT, top, _x + LINE_NUMBERS_PADDING_RIGHT, bottom, _paint);
+
+        // Draw first line number
+        _paint.setColor(Color.GRAY);
+        canvas.drawText(String.valueOf(1), _x, layout.getLineBounds(0, null) + offsetY, _paint);
+
+        // Draw other line numbers
+        if (text != null) {
+            final int count = getLineCount();
+            for (int i = 1, number = 1, y; i < count; i++) {
+                if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
+                    number++;
+                    y = layout.getLineBounds(i, null);
+                    if (y > bottom) {
+                        break;
+                    } else if (y > top && getPaddingLeft() != _defaultPaddingLeft) {
+                        canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
+                    }
+                }
+            }
+        }
     }
 
     // Highlighting
