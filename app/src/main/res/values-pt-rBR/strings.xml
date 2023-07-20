@@ -392,7 +392,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Substituir todos</string>
     <string name="matches">Jogos</string>
     <string name="search_replace_pattern_error_message">Erro ao pesquisar ou substituir padrão.</string>
-    <string name="backup_settings">Configurações do backup</string>
+    <string name="backup_settings">Fazer backup das configurações</string>
     <string name="restore_settings">Restaurar configurações</string>
     <string name="failed_to_create_backup">Falha ao criar backup</string>
     <string name="export_settings_to_json_file">Exportar configurações para arquivo json</string>
