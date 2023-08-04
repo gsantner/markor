@@ -39,6 +39,7 @@ public class HighlightingEditor extends AppCompatEditText {
     final static float HIGHLIGHT_REGION_SIZE = 0.75f;        // Minimum extra screens to highlight (should be > 0.5 to cover screen)
 
     public final static String PLACE_CURSOR_HERE_TOKEN = "%%PLACE_CURSOR_HERE%%";
+    public final static String INSERT_SELECTION_HERE_TOKEN = "%%INSERT_SELECTION_HERE%%";
 
     private boolean _accessibilityEnabled = true;
     private final boolean _isSpellingRedUnderline;
@@ -188,6 +189,11 @@ public class HighlightingEditor extends AppCompatEditText {
         } else {
             return new int[]{0, length()};
         }
+    }
+
+    @Override
+    public boolean bringPointIntoView(int i) {
+        return super.bringPointIntoView(i);
     }
 
     private int rowStart(final int y) {
@@ -360,9 +366,16 @@ public class HighlightingEditor extends AppCompatEditText {
     public void insertOrReplaceTextOnCursor(final String newText) {
         final Editable edit = getText();
         if (edit != null && newText != null) {
-            final int newCursorPos = newText.indexOf(PLACE_CURSOR_HERE_TOKEN);
-            final String finalText = newText.replace(PLACE_CURSOR_HERE_TOKEN, "");
+
+            // Fill in any instances of selection
             final int[] sel = TextViewUtils.getSelection(this);
+            final CharSequence selected = TextViewUtils.toString(edit, sel[0], sel[1]);
+            String expanded = newText.replace(INSERT_SELECTION_HERE_TOKEN, selected);
+
+            // Determine where to place the cursor
+            final int newCursorPos = expanded.indexOf(PLACE_CURSOR_HERE_TOKEN);
+            final String finalText = expanded.replace(PLACE_CURSOR_HERE_TOKEN, "");
+
             sel[0] = Math.max(sel[0], 0);
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
             if (newCursorPos >= 0) {
