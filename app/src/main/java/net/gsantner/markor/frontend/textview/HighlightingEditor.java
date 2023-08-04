@@ -378,9 +378,18 @@ public class HighlightingEditor extends AppCompatEditText {
             final String finalText = expanded.replace(PLACE_CURSOR_HERE_TOKEN, "");
 
             sel[0] = Math.max(sel[0], 0);
+
+            // Needed to prevent selection of whole of inserted text after replace
+            // if we want a cursor position instead
+            if (newCursorPos >= 0) {
+                setSelection(sel[0]);
+            }
+
             withAutoFormatDisabled(() -> edit.replace(sel[0], sel[1], finalText));
+
             if (newCursorPos >= 0) {
                 setSelection(sel[0] + newCursorPos);
+                TextViewUtils.showSelection(this);
             }
         }
     }
