@@ -367,6 +367,7 @@ public class HighlightingEditor extends AppCompatEditText {
         final Editable edit = getText();
         if (edit != null && newText != null) {
 
+            // TODO - should consider moving any snippet specific logic out of here
             // Fill in any instances of selection
             final int[] sel = TextViewUtils.getSelection(this);
             final CharSequence selected = TextViewUtils.toString(edit, sel[0], sel[1]);
