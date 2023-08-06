@@ -8,6 +8,7 @@
 package net.gsantner.markor.format.asciidoc;
 
 import android.content.Context;
+
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.format.GsTextUtils;
 

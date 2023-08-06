@@ -133,7 +133,8 @@ public class CsvTextConverter extends MarkdownTextConverter {
             mdMarkup.append(MD_COL_DELIMITER).append(MD_LINE_DELIMITER);
         }
 
-        @NonNull private static String getCol(@NonNull String[] columns, int i) {
+        @NonNull
+        private static String getCol(@NonNull String[] columns, int i) {
             return (i >= 0 && i < columns.length) ? columns[i] : "";
         }
 
