@@ -154,7 +154,7 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // If line numbers can be drawn
-        if (_nuEnabled && length() < (AppSettings._isDeviceGoodHardware ? 100000 : 35000)) {
+        if (_nuEnabled && _maxLineNumber < (AppSettings._isDeviceGoodHardware ? 5000 : 3000)) {
             drawLineNumbers(canvas);
         } else if (getPaddingLeft() != _defaultPaddingLeft) {
             _maxLineNumberWidth = 0;
@@ -193,7 +193,8 @@ public class HighlightingEditor extends AppCompatEditText {
                     y = layout.getLineBounds(i, null);
                     if (y > bottom) {
                         break;
-                    } else if (y > top && getPaddingLeft() != _defaultPaddingLeft) {
+                    }
+                    if (y > top) {
                         canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
                     }
                 }
