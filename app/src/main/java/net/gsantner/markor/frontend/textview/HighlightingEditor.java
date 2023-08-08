@@ -64,12 +64,14 @@ public class HighlightingEditor extends AppCompatEditText {
     // For drawing line numbers
     private final Paint _paint = new Paint();
     private ScrollView _scrollView;
-    private static final int LINE_NUMBERS_PADDING_LEFT = 14;
-    private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
-    private int _defaultPaddingLeft;
     private int _x;
     private int _maxLineNumber = 1;
     private int _maxLineNumberWidth;
+    private int _defaultPaddingLeft;
+    private static final int LINE_NUMBERS_PADDING_LEFT = 14;
+    private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
+    private final int[] _firstVisibleLine = {-1, -1}; // {line index, actual line number}
+    private boolean _firstVisibleLineUpdated;
 
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
@@ -140,13 +142,23 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onFinishInflate() {
         super.onFinishInflate();
         _defaultPaddingLeft = getPaddingLeft();
+        _paint.setTextAlign(Paint.Align.RIGHT);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        _scrollView = getParent() instanceof ScrollView ? (ScrollView) getParent() : (ScrollView) getParent().getParent();
+        _scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (_firstVisibleLineUpdated) {
+                _firstVisibleLineUpdated = false;
+            }
+        });
     }
 
     @Override
     public boolean onPreDraw() {
         _paint.setTextSize(getTextSize());
-        _paint.setTextAlign(Paint.Align.RIGHT);
-        _scrollView = getParent() instanceof ScrollView ? (ScrollView) getParent() : (ScrollView) getParent().getParent();
         return super.onPreDraw();
     }
 
@@ -187,7 +199,19 @@ public class HighlightingEditor extends AppCompatEditText {
         // Draw other line numbers
         if (text != null) {
             final int count = getLineCount();
-            for (int i = 1, number = 1, y; i < count; i++) {
+            int i = 1, number = 1;
+
+            if (_firstVisibleLineUpdated) {
+                // Set and then iterate from the first visible line
+                i = _firstVisibleLine[0];
+                number = _firstVisibleLine[1];
+            } else {
+                // Set the first visible line invalid, it needs to be updated
+                _firstVisibleLine[0] = -1;
+                _firstVisibleLine[1] = -1;
+            }
+
+            for (int y; i < count; i++) {
                 if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                     number++;
                     y = layout.getLineBounds(i, null);
@@ -195,6 +219,12 @@ public class HighlightingEditor extends AppCompatEditText {
                         break;
                     }
                     if (y > top) {
+                        if (_firstVisibleLine[0] < 0) {
+                            // Update the first visible line
+                            _firstVisibleLine[0] = i;
+                            _firstVisibleLine[1] = number - 1;
+                            _firstVisibleLineUpdated = true;
+                        }
                         canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
                     }
                 }
