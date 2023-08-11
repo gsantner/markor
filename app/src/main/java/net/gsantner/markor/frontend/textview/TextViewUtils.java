@@ -228,6 +228,22 @@ public final class TextViewUtils extends GsTextUtils {
         return counts;
     }
 
+    public static int countChar(final CharSequence s, final char c) {
+        return countChar(s, 0, s.length(), c);
+    }
+
+    public static int countChar(final CharSequence s, int start, int end, final char c) {
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
     }
