@@ -70,8 +70,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private int _defaultPaddingLeft;
     private static final int LINE_NUMBERS_PADDING_LEFT = 14;
     private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
-    private final int[] _firstVisibleLine = {-1, -1}; // {line index, actual line number}
-    private boolean _firstVisibleLineUpdated;
+    private final int[] _firstVisibleLine = {-1, 0}; // {line index, actual line number}
 
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
@@ -150,8 +149,8 @@ public class HighlightingEditor extends AppCompatEditText {
         super.onAttachedToWindow();
         _scrollView = getParent() instanceof ScrollView ? (ScrollView) getParent() : (ScrollView) getParent().getParent();
         _scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (_firstVisibleLineUpdated) {
-                _firstVisibleLineUpdated = false;
+            if (_firstVisibleLine[0] > -1) {
+                _firstVisibleLine[0] = -1;
             }
         });
     }
@@ -188,45 +187,44 @@ public class HighlightingEditor extends AppCompatEditText {
             setPadding(_x + LINE_NUMBERS_PADDING_RIGHT + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
         }
 
-        // Draw the right border
+        // Draw the vertical line
         _paint.setColor(Color.LTGRAY);
         canvas.drawLine(_x + LINE_NUMBERS_PADDING_RIGHT, top, _x + LINE_NUMBERS_PADDING_RIGHT, bottom, _paint);
 
-        // Draw first line number
+        // Draw line numbers
         _paint.setColor(Color.GRAY);
-        canvas.drawText(String.valueOf(1), _x, layout.getLineBounds(0, null) + offsetY, _paint);
+        canvas.drawText("1", _x, layout.getLineBounds(0, null) + offsetY, _paint);
 
-        // Draw other line numbers
-        if (text != null) {
-            final int count = getLineCount();
-            int i = 1, number = 1;
+        if (text == null || text.length() == 0) {
+            return;
+        }
 
-            if (_firstVisibleLineUpdated) {
-                // Set and then iterate from the first visible line
-                i = _firstVisibleLine[0];
-                number = _firstVisibleLine[1];
-            } else {
-                // Set the first visible line invalid, it needs to be updated
-                _firstVisibleLine[0] = -1;
-                _firstVisibleLine[1] = -1;
-            }
+        final int count = getLineCount();
+        int i = 1, number = 1;
 
-            for (int y; i < count; i++) {
-                if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
-                    number++;
-                    y = layout.getLineBounds(i, null);
-                    if (y > bottom) {
-                        break;
+        if (_firstVisibleLine[0] > -1) {
+            // Set and then iterate from the first visible line
+            i = _firstVisibleLine[0];
+            number = _firstVisibleLine[1];
+        } else {
+            // Set the first visible line invalid, it needs to be updated
+            _firstVisibleLine[0] = -1;
+        }
+
+        for (int y; i < count; i++) {
+            if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
+                number++;
+                y = layout.getLineBounds(i, null);
+                if (y > bottom) {
+                    break;
+                }
+                if (y > top) {
+                    if (_firstVisibleLine[0] < 0) {
+                        // Update the first visible line
+                        _firstVisibleLine[0] = i;
+                        _firstVisibleLine[1] = number - 1;
                     }
-                    if (y > top) {
-                        if (_firstVisibleLine[0] < 0) {
-                            // Update the first visible line
-                            _firstVisibleLine[0] = i;
-                            _firstVisibleLine[1] = number - 1;
-                            _firstVisibleLineUpdated = true;
-                        }
-                        canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
-                    }
+                    canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
                 }
             }
         }
