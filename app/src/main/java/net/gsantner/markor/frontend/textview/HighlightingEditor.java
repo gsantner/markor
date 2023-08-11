@@ -51,8 +51,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _hlEnabled;           // Whether highlighting is enabled
     private boolean _numEnabled;          // Whether show line numbers is enabled
     private final Rect _oldHlRect;        // Rect highlighting was previously applied to
-    private final Rect _visRect;          // Current rect
-    private boolean _isVisible = false;   // Whether the editor is visible
+    private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
     private InputFilter _autoFormatFilter;
     private TextWatcher _autoFormatModifier;
@@ -64,6 +63,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private int _defaultPaddingLeft;
     private static final int LINE_NUMBERS_PADDING_LEFT = 14;
     private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
+    private final Rect _numRect;
 
     private int _numXPos = -1; // X coordinate for drawing numbers
 
@@ -82,7 +82,8 @@ public class HighlightingEditor extends AppCompatEditText {
         _hlEnabled = false;
         _numEnabled = false;
         _oldHlRect = new Rect();
-        _visRect = new Rect();
+        _hlRect = new Rect();
+        _numRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
 
@@ -127,7 +128,6 @@ public class HighlightingEditor extends AppCompatEditText {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        _isVisible = getLocalVisibleRect(_visRect);
 
         // If line numbers can be drawn
         if (_numEnabled) {
@@ -139,6 +139,10 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private void drawLineNumbers(final Canvas canvas) {
+        if (!getLocalVisibleRect(_numRect)) {
+            return;
+        }
+
         final CharSequence text = getText();
         final Layout layout = getLayout();
         if (text == null || layout == null) {
@@ -146,27 +150,29 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         // Current visible area
-        final int height = _visRect.height();
-        final int top = _visRect.top - height;
-        final int bottom = _visRect.bottom + height;
+        final int height = _hlRect.height();
+        final int top = _hlRect.top - height;
+        final int bottom = _hlRect.bottom + height;
 
         final int offsetY = getPaddingTop();
         final int maxLayoutLine = layout.getLineCount();
 
         // Only update if needed
+        final int lineX;
         if (_numXPos < 0) {
             final int lineCount = TextViewUtils.countChar(text, '\n');
             final int width = Math.round(_paint.measureText(String.valueOf(lineCount)));
             _numXPos = LINE_NUMBERS_PADDING_LEFT + width;
 
-            final int gutterRight = _numXPos + LINE_NUMBERS_PADDING_RIGHT;
-            setPadding( gutterRight + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-
-            // Draw the right border
-            _paint.setColor(Color.LTGRAY);
-            canvas.drawLine(gutterRight, top, gutterRight, bottom, _paint);
+            lineX = _numXPos + LINE_NUMBERS_PADDING_RIGHT;
+            setPadding( lineX + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        } else {
+            lineX = _numXPos + LINE_NUMBERS_PADDING_RIGHT;
         }
 
+        // Draw the right border
+        _paint.setColor(Color.LTGRAY);
+        canvas.drawLine(lineX, top, lineX, bottom, _paint);
         _paint.setColor(Color.GRAY);
 
         int line = 0;
@@ -190,19 +196,21 @@ public class HighlightingEditor extends AppCompatEditText {
     // ---------------------------------------------------------------------------------------------
 
     private boolean isScrollSignificant() {
-        return (_oldHlRect.top - _visRect.top) > _hlShiftThreshold ||
-               (_visRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
+        return (_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
+               (_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateHighlighting(final boolean recompute) {
         if (_hlEnabled && _hl != null && getLayout() != null) {
 
+            final boolean visible = getLocalVisibleRect(_hlRect);
+
             // Don't highlight unless shifted sufficiently or a recompute is required
-            if (recompute || (_isVisible && _hl.hasSpans() && isScrollSignificant())) {
+            if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
 
-                _oldHlRect.set(_visRect);
+                _oldHlRect.set(_hlRect);
 
-                final int[] newHlRegion = hlRegion(_visRect); // Compute this _before_ clear
+                final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
                 _hl.clearDynamic();
                 if (recompute) {
                     _hl.clearStatic().recompute().applyStatic();
