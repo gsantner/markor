@@ -157,12 +157,12 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
 
         MutableDataSet options = new MutableDataSet();
 
-        if (_appSettings.isLineNumbersEnabled()) {
+        if (lineNum) {
             // Add code blocks Line numbers extension
             ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
             extensions.add(LineNumbersExtension.create());
@@ -170,6 +170,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         } else {
             options.set(Parser.EXTENSIONS, flexmarkExtensions);
         }
+
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
         //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
@@ -273,7 +274,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes((GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
+        final String xt = getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", lineNum);
         head += xt;
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
@@ -324,7 +325,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Deliver result
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
@@ -360,13 +361,13 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String themeName) {
+    private String getViewHlPrismIncludes(final String themeName, final boolean lineNum) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
-        if (_appSettings.isLineNumbersEnabled()) {
+        if (lineNum) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
         }
