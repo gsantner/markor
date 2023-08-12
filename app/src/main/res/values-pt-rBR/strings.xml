@@ -306,7 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Compartilhar para</string>
     <string name="favourite">Favorito</string>
     <string name="favourites">Favoritos</string>
-    <string name="please_wait">Por favor aguarde</string>
+    <string name="please_wait">Por favor, aguarde</string>
     <string name="app_start_folder">Pasta inicial do aplicativo</string>
     <string name="tab_width">Largura da aba</string>
     <string name="amount_of_space_for_tab">Quantidade de espaços para exibir tabulação</string>
@@ -443,4 +443,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_snippet">Insert snippet</string>
     <string name="error_could_not_open_file">Erro: Não foi possível abrir o arquivo.</string>
     <string name="document_error_clip">Erro encontrado: Texto copiado para área de transferência.</string>
+    <string name="wont_save_min_length">Arquivo com menos que %d caracteres não salvo automaticamente visando prevenir perca de informações.</string>
+    <string name="advanced_filtering_help"><![CDATA[Sintaxe de filtros avançados]]></string>
+    <string name="filter">Filtro</string>
 </resources>
