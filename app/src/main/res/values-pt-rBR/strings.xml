@@ -81,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Exibir licenças de terceiros</string>
     <string name="language_change_restart_description">Alterar o idioma deste aplicativo. Reinicie o aplicativo para as mudanças terem efeito</string>
     <string name="language">Idioma</string>
+    <string name="storage_permission_required">Permissão de armazenamento é necessária para ler e gravar arquivos</string>
     <string name="open_with">Abrir com</string>
     <string name="sort_by">Ordenar</string>
     <string name="date">Ordenar por Data</string>
@@ -195,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais e off-line, não há suporte para gerenciadores de arquivos que não disponibilizem o caminho completo do arquivo.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Arquivo ou pasta não existem, e não podem ser criados</string>
+    <string name="permissions">Permissões</string>
+    <string name="permission_paths_revert">Reverter para termos padrão?</string>
+    <string name="permission_not_granted">Permissão não concedida</string>
     <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
