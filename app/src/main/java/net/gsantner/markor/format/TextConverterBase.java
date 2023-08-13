@@ -106,11 +106,10 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e;
         }
 
-        String baseFolder = ApplicationObject.settings().getNotebookDirectory().getAbsolutePath();
-        if (document.getFile().getParentFile() != null) {
-            baseFolder = document.getFile().getParent();
+        String baseFolder = document.getFile().getParent();
+        if (baseFolder == null) {
+            baseFolder = "file://" + baseFolder + "/";
         }
-        baseFolder = "file://" + baseFolder + "/";
         webView.loadDataWithBaseURL(baseFolder, html, getContentType(), UTF_CHARSET, null);
 
         // When TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT is contained in text zoom out as far possible

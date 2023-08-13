@@ -160,11 +160,11 @@ public class MarkdownTextConverter extends TextConverterBase {
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
 
-        MutableDataSet options = new MutableDataSet();
+        final MutableDataSet options = new MutableDataSet();
 
         if (lineNum) {
             // Add code blocks Line numbers extension
-            ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
+            final ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
             extensions.add(LineNumbersExtension.create());
             options.set(Parser.EXTENSIONS, extensions);
         } else {
@@ -274,8 +274,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", lineNum);
-        head += xt;
+        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", lineNum);
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
@@ -297,11 +296,9 @@ public class MarkdownTextConverter extends TextConverterBase {
             fmaText = HTML_FRONTMATTER_CONTAINER_S + fmaText + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
-
         ////////////
         // Markup parsing - afterwards = HTML
-        converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        converted = fmaText + converted;
+        converted = fmaText + flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {

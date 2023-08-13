@@ -157,6 +157,7 @@ public class HighlightingEditor extends AppCompatEditText {
         final int offsetY = getPaddingTop();
         final int maxLayoutLine = layout.getLineCount();
 
+        // Set gutter size and padding
         // Only update if needed
         final int lineX;
         if (_numXPos < 0) {
@@ -173,11 +174,12 @@ public class HighlightingEditor extends AppCompatEditText {
         // Draw the right border
         _paint.setColor(Color.LTGRAY);
         canvas.drawLine(lineX, top, lineX, bottom, _paint);
-        _paint.setColor(Color.GRAY);
 
+        // Draw the numbers
         int line = 0;
         int number = 1;
         int yPos = top;
+        _paint.setColor(Color.GRAY);
 
         while(line < maxLayoutLine && yPos < bottom) {
             final int start = layout.getLineStart(line);
@@ -281,13 +283,11 @@ public class HighlightingEditor extends AppCompatEditText {
         return _numEnabled;
     }
 
-    public boolean setLineNumbersEnabled(final boolean enable) {
-        final boolean prev = _numEnabled;
-
-        if (enable != _numEnabled) {
-            _numEnabled = enable;
+    public void setLineNumbersEnabled(final boolean enable) {
+        if (enable ^ _numEnabled) {
+            post(this::invalidate);
         }
-        return prev;
+        _numEnabled = enable;
     }
 
     // Region to highlight

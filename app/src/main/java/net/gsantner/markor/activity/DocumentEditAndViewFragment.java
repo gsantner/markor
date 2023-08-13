@@ -566,7 +566,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final boolean newState = !_hlEditor.getLineNumbersEnabled();
                 _appSettings.setDocumentLineNumbersEnabled(_document.getPath(), newState);
                 _hlEditor.setLineNumbersEnabled(newState);
-                _hlEditor.invalidate();
                 updateMenuToggleStates(0);
                 return true;
             }
