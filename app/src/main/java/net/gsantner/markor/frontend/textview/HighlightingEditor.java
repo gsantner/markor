@@ -34,6 +34,9 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
@@ -65,7 +68,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
     private final Rect _numRect;
 
-    private int _numXPos = -1; // X coordinate for drawing numbers
+    private final List<Integer> _numYPositions; // Y positions of numbers to draw
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -84,6 +87,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _oldHlRect = new Rect();
         _hlRect = new Rect();
         _numRect = new Rect();
+        _numYPositions = new ArrayList<>();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
 
@@ -92,7 +96,6 @@ public class HighlightingEditor extends AppCompatEditText {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
                 }
-                _numXPos = -1;
             }
 
             @Override
@@ -157,40 +160,40 @@ public class HighlightingEditor extends AppCompatEditText {
         final int offsetY = getPaddingTop();
         final int maxLayoutLine = layout.getLineCount();
 
-        // Set gutter size and padding
-        // Only update if needed
-        final int lineX;
-        if (_numXPos < 0) {
-            final int lineCount = TextViewUtils.countChar(text, '\n');
-            final int width = Math.round(_paint.measureText(String.valueOf(lineCount)));
-            _numXPos = LINE_NUMBERS_PADDING_LEFT + width;
-
-            lineX = _numXPos + LINE_NUMBERS_PADDING_RIGHT;
-            setPadding( lineX + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-        } else {
-            lineX = _numXPos + LINE_NUMBERS_PADDING_RIGHT;
+        // We make a single pass through the text to determine
+        // 1. y positions and line numbers we want to draw
+        // 2. max line number (to gauge gutter width)
+        _numYPositions.clear();
+        int startNumber = 1, maxNumber = 1;
+        for (int i = 0; i < maxLayoutLine; i++) {
+            final int start = layout.getLineStart(i);
+            if (start == 0 || text.charAt(start - 1) == '\n') {
+                final int numY = layout.getLineBaseline(i);
+                if (numY < top) {
+                    startNumber++;
+                } else if (numY < bottom) {
+                    _numYPositions.add(numY);
+                }
+                maxNumber++;
+            }
         }
 
-        // Draw the right border
+        // Draw the gutter
+        final int width = Math.round(_paint.measureText(String.valueOf(maxNumber)));
+        final int numX = LINE_NUMBERS_PADDING_LEFT + width;
+        final int lineX = numX + LINE_NUMBERS_PADDING_RIGHT;
+        final int padding = lineX + 10;
+        if (padding != getPaddingLeft()) {
+            setPadding(padding, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        }
         _paint.setColor(Color.LTGRAY);
         canvas.drawLine(lineX, top, lineX, bottom, _paint);
 
-        // Draw the numbers
-        int line = 0;
-        int number = 1;
-        int yPos = top;
         _paint.setColor(Color.GRAY);
-
-        while(line < maxLayoutLine && yPos < bottom) {
-            final int start = layout.getLineStart(line);
-            if (start == 0 || text.charAt(start - 1) == '\n') {
-                yPos = layout.getLineBounds(line, null);
-                if (yPos > top) {
-                    canvas.drawText(String.valueOf(number), _numXPos, yPos + offsetY, _paint);
-                }
-                number++;
-            }
-            line++;
+        for (int i = 0; i < _numYPositions.size(); i++) {
+            final String number = String.valueOf(startNumber + i);
+            final float numY = _numYPositions.get(i) + offsetY;
+            canvas.drawText(number, numX, numY, _paint);
         }
     }
 
