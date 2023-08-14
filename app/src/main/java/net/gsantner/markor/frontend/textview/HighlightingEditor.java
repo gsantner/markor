@@ -8,6 +8,8 @@
 package net.gsantner.markor.frontend.textview;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
@@ -21,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -31,6 +34,9 @@ import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
@@ -46,6 +52,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _isDynamicHighlightingEnabled = true;
     private Runnable _hlDebounced;        // Debounced runnable which recomputes highlighting
     private boolean _hlEnabled;           // Whether highlighting is enabled
+    private boolean _nuEnabled;           // Whether show line numbers is enabled
     private final Rect _oldHlRect;        // Rect highlighting was previously applied to
     private final Rect _hlRect;           // Current rect
     private int _hlShiftThreshold = -1;   // How much to scroll before re-apply highlight
@@ -53,6 +60,18 @@ public class HighlightingEditor extends AppCompatEditText {
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
+
+    // For drawing line numbers
+    private final Paint _paint = new Paint();
+    private ScrollView _scrollView;
+    private int _x;
+    private int _maxLineNumber = 1;
+    private int _maxLineNumberWidth;
+    private int _defaultPaddingLeft;
+    private static final int LINE_NUMBERS_PADDING_LEFT = 14;
+    private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
+    private final int[] _firstVisibleLine = {-1, 0}; // {line index, actual line number}
+
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -67,14 +86,37 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         _hlEnabled = false;
+        _nuEnabled = false;
         _oldHlRect = new Rect();
         _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
+            private final Pattern pattern = Pattern.compile("\n");
+            private Matcher matcher;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (after == 0 && count > 0) {
+                    CharSequence deleted = s.subSequence(start, start + count);
+                    matcher = pattern.matcher(deleted);
+                    while (matcher.find()) {
+                        _maxLineNumber--;
+                    }
+                }
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
+                }
+
+                if (before == 0 && count > 0) {
+                    CharSequence added = s.subSequence(start, start + count);
+                    matcher = pattern.matcher(added);
+                    while (matcher.find()) {
+                        _maxLineNumber++;
+                    }
                 }
             }
 
@@ -93,6 +135,99 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        _defaultPaddingLeft = getPaddingLeft();
+        _paint.setTextAlign(Paint.Align.RIGHT);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        _scrollView = getParent() instanceof ScrollView ? (ScrollView) getParent() : (ScrollView) getParent().getParent();
+        _scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (_firstVisibleLine[0] > -1) {
+                _firstVisibleLine[0] = -1;
+            }
+        });
+    }
+
+    @Override
+    public boolean onPreDraw() {
+        _paint.setTextSize(getTextSize());
+        return super.onPreDraw();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        // If line numbers can be drawn
+        if (_nuEnabled && _maxLineNumber < (AppSettings._isDeviceGoodHardware ? 5000 : 3000)) {
+            drawLineNumbers(canvas);
+        } else if (getPaddingLeft() != _defaultPaddingLeft) {
+            _maxLineNumberWidth = 0;
+            // Reset padding without line numbers fence
+            setPadding(_defaultPaddingLeft, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        }
+    }
+
+    private void drawLineNumbers(Canvas canvas) {
+        final Editable text = getText();
+        final Layout layout = getLayout();
+        final float offsetY = getPaddingTop();
+        final int top = _scrollView.getScrollY() - 100; // Top of current visible area
+        final int bottom = _scrollView.getScrollY() + _scrollView.getHeight(); // Bottom of current visible area
+        final int width = (int) _paint.measureText(String.valueOf(_maxLineNumber));
+        if (_maxLineNumberWidth != width) {
+            _maxLineNumberWidth = width;
+            _x = LINE_NUMBERS_PADDING_LEFT + width;
+            setPadding(_x + LINE_NUMBERS_PADDING_RIGHT + 10, getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        }
+
+        // Draw the vertical line
+        _paint.setColor(Color.LTGRAY);
+        canvas.drawLine(_x + LINE_NUMBERS_PADDING_RIGHT, top, _x + LINE_NUMBERS_PADDING_RIGHT, bottom, _paint);
+
+        // Draw line numbers
+        _paint.setColor(Color.GRAY);
+        canvas.drawText("1", _x, layout.getLineBounds(0, null) + offsetY, _paint);
+
+        if (text == null || text.length() == 0) {
+            return;
+        }
+
+        final int count = getLineCount();
+        int i = 1, number = 1;
+
+        if (_firstVisibleLine[0] > -1) {
+            // Set and then iterate from the first visible line
+            i = _firstVisibleLine[0];
+            number = _firstVisibleLine[1];
+        } else {
+            // Set the first visible line invalid, it needs to be updated
+            _firstVisibleLine[0] = -1;
+        }
+
+        for (int y; i < count; i++) {
+            if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
+                number++;
+                y = layout.getLineBounds(i, null);
+                if (y > bottom) {
+                    break;
+                }
+                if (y > top) {
+                    if (_firstVisibleLine[0] < 0) {
+                        // Update the first visible line
+                        _firstVisibleLine[0] = i;
+                        _firstVisibleLine[1] = number - 1;
+                    }
+                    canvas.drawText(String.valueOf(number), _x, y + offsetY, _paint);
+                }
+            }
+        }
     }
 
     // Highlighting
@@ -174,6 +309,19 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_hl != null) {
                 _hl.clearAll();
             }
+        }
+        return prev;
+    }
+
+    public boolean getLineNumbersEnabled() {
+        return _nuEnabled;
+    }
+
+    public boolean setLineNumbersEnabled(final boolean enable) {
+        final boolean prev = _nuEnabled;
+
+        if (enable != _nuEnabled) {
+            _nuEnabled = enable;
         }
         return prev;
     }

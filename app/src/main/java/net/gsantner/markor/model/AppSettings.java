@@ -131,6 +131,14 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
+    public boolean isLineNumbersEnabled() {
+        return getBool(R.string.pref_key__enable_line_numbers, false);
+    }
+
+    public void setLineNumbersEnabled(boolean enabled) {
+        setBool(R.string.pref_key__enable_line_numbers, enabled);
+    }
+
     public boolean isDynamicHighlightingEnabled() {
         return getBool(R.string.pref_key__is_dynamic_highlighting_activated, true);
     }
