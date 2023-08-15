@@ -18,6 +18,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.ICSVParser;
 
+import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 
 import java.io.BufferedReader;
@@ -33,7 +34,7 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
  * Part of Markor-Architecture implementing Preview/Export for csv.
  * <p>
  * Converts csv to md and let
- * {@link  MarkdownTextConverter#convertMarkup(String, Context, boolean, File)}
+ * {@link  TextConverterBase#convertMarkup(String, Context, boolean, boolean, File)}
  * do the rest.
  * <p>
  * This way csv columns may contain md expressions like bold text.
@@ -41,9 +42,9 @@ import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 @SuppressWarnings("WeakerAccess")
 public class CsvTextConverter extends MarkdownTextConverter {
     @Override
-    public String convertMarkup(String csvMarkup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String csvMarkup, Context context, boolean lightMode, boolean lineNum, File file) {
         String mdMarkup = Csv2MdTable.toMdTable(csvMarkup);
-        return super.convertMarkup(mdMarkup, context, isExportInLightMode, file);
+        return super.convertMarkup(mdMarkup, context, lightMode, lineNum, file);
     }
 
     @Override

@@ -22,6 +22,7 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -97,19 +98,18 @@ public abstract class TextConverterBase {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, String content, Activity context, WebView webView, boolean isExportInLightMode) {
+    public String convertMarkupShowInWebView(Document document, String content, Activity context, WebView webView, boolean lightMode, boolean lineNum) {
         String html;
         try {
-            html = convertMarkup(content, context, isExportInLightMode, document.getFile());
+            html = convertMarkup(content, context, lightMode, lineNum, document.getFile());
         } catch (Exception e) {
-            html = "Please report at project issue tracker: " + e.toString();
+            html = "Please report at project issue tracker: " + e;
         }
 
-        String baseFolder = ApplicationObject.settings().getNotebookDirectory().getAbsolutePath();
-        if (document.getFile().getParentFile() != null) {
-            baseFolder = document.getFile().getParent();
+        String baseFolder = document.getFile().getParent();
+        if (baseFolder == null) {
+            baseFolder = "file://" + baseFolder + "/";
         }
-        baseFolder = "file://" + baseFolder + "/";
         webView.loadDataWithBaseURL(baseFolder, html, getContentType(), UTF_CHARSET, null);
 
         // When TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT is contained in text zoom out as far possible
@@ -121,21 +121,16 @@ public abstract class TextConverterBase {
         return html;
     }
 
-    protected String getFileExtension(File file) {
-        if (file == null) {
-            return "";
-        }
-        return (file.getName().contains(".") ? file.getName().substring(file.getName().lastIndexOf(".")) : "").toLowerCase();
-    }
-
     /**
      * Convert markup text to target format
      *
-     * @param markup  Markup text
-     * @param context Android Context
+     * @param markup     Markup text
+     * @param context    Android Context
+     * @param lightMode
+     * @param lineNum
      * @return html as String
      */
-    public abstract String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file);
+    public abstract String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file);
 
     protected String putContentIntoTemplate(Context context, String content, boolean isExportInLightMode, File file, String onLoadJs, String head) {
         final String contentLower = content.toLowerCase();
@@ -185,7 +180,7 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, _appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
-                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + getFileExtension(file).replace(".", ""))
+                .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", ""))
                 .replace(TOKEN_POST_TODAY_DATE, DateFormat.getDateFormat(context).format(new Date()))
                 .replace(TOKEN_FILEURI_VIEWED_FILE, (file != null ? Uri.fromFile(file.getAbsoluteFile()).toString() : "file:///dummy").replace("'", "\\'").replace("\"", "\\\""));
 

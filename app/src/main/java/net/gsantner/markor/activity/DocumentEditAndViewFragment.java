@@ -200,7 +200,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
         _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText()));
-        _hlEditor.setLineNumbersEnabled(_appSettings.isLineNumbersEnabled());
+        _hlEditor.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.getPath()));
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
@@ -459,7 +459,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _cu.shareText(getActivity(),
-                            converter.convertMarkup(getTextString(), getActivity(), false, _document.getFile()),
+                            converter.convertMarkup(getTextString(), getActivity(), false, _hlEditor.getLineNumbersEnabled(), _document.getFile()),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
                     );
                 }
@@ -563,9 +563,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_line_numbers: {
-                _appSettings.setLineNumbersEnabled(!_appSettings.isLineNumbersEnabled());
-                _hlEditor.setLineNumbersEnabled(_appSettings.isLineNumbersEnabled());
-                _hlEditor.invalidate();
+                final boolean newState = !_hlEditor.getLineNumbersEnabled();
+                _appSettings.setDocumentLineNumbersEnabled(_document.getPath(), newState);
+                _hlEditor.setLineNumbersEnabled(newState);
                 updateMenuToggleStates(0);
                 return true;
             }
@@ -758,7 +758,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void updateViewModeText() {
         final String text = getTextString();
-        _format.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode);
+        _format.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode, _hlEditor.getLineNumbersEnabled());
     }
 
     public void setViewModeVisibility(boolean show) {
