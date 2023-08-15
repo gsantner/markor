@@ -60,15 +60,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private TextWatcher _autoFormatModifier;
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
+    private final LineNumbersDrawer _lineNumbersDrawer = new LineNumbersDrawer(this);
 
-    // For drawing line numbers
-    private final Paint _paint = new Paint();
-    private int _defaultPaddingLeft;
-    private static final int LINE_NUMBERS_PADDING_LEFT = 14;
-    private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
-    private final Rect _numRect;
-
-    private final List<Integer> _numYPositions; // Y positions of numbers to draw
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -86,11 +79,8 @@ public class HighlightingEditor extends AppCompatEditText {
         _numEnabled = false;
         _oldHlRect = new Rect();
         _hlRect = new Rect();
-        _numRect = new Rect();
-        _numYPositions = new ArrayList<>();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
@@ -111,20 +101,19 @@ public class HighlightingEditor extends AppCompatEditText {
         observer.addOnScrollChangedListener(() -> updateHighlighting(false));
         observer.addOnGlobalLayoutListener(() -> updateHighlighting(false));
 
-        // Fix for android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
+        // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        _defaultPaddingLeft = getPaddingLeft();
-        _paint.setTextAlign(Paint.Align.RIGHT);
+        _lineNumbersDrawer.setDefaultPaddingLeft(getPaddingLeft());
     }
 
     @Override
     public boolean onPreDraw() {
-        _paint.setTextSize(getTextSize());
+        _lineNumbersDrawer.setTextSize(getTextSize());
         return super.onPreDraw();
     }
 
@@ -132,68 +121,10 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        // If line numbers can be drawn
         if (_numEnabled) {
-            drawLineNumbers(canvas);
-        } else if (getPaddingLeft() != _defaultPaddingLeft) {
-            // Reset padding without line numbers fence
-            setPadding(_defaultPaddingLeft, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-        }
-    }
-
-    private void drawLineNumbers(final Canvas canvas) {
-        if (!getLocalVisibleRect(_numRect)) {
-            return;
-        }
-
-        final CharSequence text = getText();
-        final Layout layout = getLayout();
-        if (text == null || layout == null) {
-            return;
-        }
-
-        // Current visible area
-        final int height = _hlRect.height();
-        final int top = _hlRect.top - height;
-        final int bottom = _hlRect.bottom + height;
-
-        final int offsetY = getPaddingTop();
-        final int maxLayoutLine = layout.getLineCount();
-
-        // We make a single pass through the text to determine
-        // 1. y positions and line numbers we want to draw
-        // 2. max line number (to gauge gutter width)
-        _numYPositions.clear();
-        int startNumber = 1, maxNumber = 1;
-        for (int i = 0; i < maxLayoutLine; i++) {
-            final int start = layout.getLineStart(i);
-            if (start == 0 || text.charAt(start - 1) == '\n') {
-                final int numY = layout.getLineBaseline(i);
-                if (numY < top) {
-                    startNumber++;
-                } else if (numY < bottom) {
-                    _numYPositions.add(numY);
-                }
-                maxNumber++;
-            }
-        }
-
-        // Draw the gutter
-        final int width = Math.round(_paint.measureText(String.valueOf(maxNumber)));
-        final int numX = LINE_NUMBERS_PADDING_LEFT + width;
-        final int lineX = numX + LINE_NUMBERS_PADDING_RIGHT;
-        final int padding = lineX + 10;
-        if (padding != getPaddingLeft()) {
-            setPadding(padding, getPaddingTop(), getPaddingRight(), getPaddingBottom());
-        }
-        _paint.setColor(Color.LTGRAY);
-        canvas.drawLine(lineX, top, lineX, bottom, _paint);
-
-        _paint.setColor(Color.GRAY);
-        for (int i = 0; i < _numYPositions.size(); i++) {
-            final String number = String.valueOf(startNumber + i);
-            final float numY = _numYPositions.get(i) + offsetY;
-            canvas.drawText(number, numX, numY, _paint);
+            _lineNumbersDrawer.draw(canvas);
+        } else {
+            _lineNumbersDrawer.suspend();
         }
     }
 
@@ -212,7 +143,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
             // Don't highlight unless shifted sufficiently or a recompute is required
             if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
-
                 _oldHlRect.set(_hlRect);
 
                 final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
@@ -534,5 +464,157 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public boolean indexesValid(int... indexes) {
         return TextViewUtils.inRange(0, length(), indexes);
+    }
+
+    static class LineNumbersDrawer {
+
+        private final AppCompatEditText _editor;
+        private final Paint _paint = new Paint();
+
+        private int _defaultPaddingLeft;
+        private static final int LINE_NUMBERS_PADDING_LEFT = 14;
+        private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
+
+        private final Rect _visibleRect = new Rect();
+        private final Rect _lastVisibleRect = new Rect();
+
+        private int _startNumber = 1;
+        private int _maxNumber = 1; // to gauge gutter width
+        private int _maxNumberDigits;
+        private int _lastMaxNumberDigits;
+        private int _lastLayoutLineCount;
+        private float _lastTextSize;
+        private int _numberX;
+        private int _gutterLineX;
+        private final List<Integer> _numberYPositions = new ArrayList<>(); // Y positions of numbers to draw
+
+        // Current visible area
+        private int _top;
+        private int _bottom;
+
+
+        public LineNumbersDrawer(AppCompatEditText editor) {
+            _editor = editor;
+            _editor.getLocalVisibleRect(_lastVisibleRect);
+            _paint.setTextAlign(Paint.Align.RIGHT);
+        }
+
+        public void setDefaultPaddingLeft(int padding) {
+            this._defaultPaddingLeft = padding;
+        }
+
+        public void setTextSize(float textSize) {
+            if (this._lastTextSize != _paint.getTextSize()) {
+                this._lastTextSize = _paint.getTextSize();
+            }
+            _paint.setTextSize(textSize);
+        }
+
+        public int getNumberDigits(int number) {
+            if (_lastMaxNumberDigits != _maxNumberDigits) {
+                _lastMaxNumberDigits = _maxNumberDigits;
+            }
+
+            if (number < 10) {
+                _maxNumberDigits = 1;
+            } else if (number < 100) {
+                _maxNumberDigits = 2;
+            } else if (number < 1000) {
+                _maxNumberDigits = 3;
+            } else if (number < 10000) {
+                _maxNumberDigits = 4;
+            } else {
+                _maxNumberDigits = 5;
+            }
+            return _maxNumberDigits;
+        }
+
+        public boolean isVisibleAreaChanged() {
+            if (_visibleRect.top == _lastVisibleRect.top && _visibleRect.bottom == _lastVisibleRect.bottom) {
+                return false;
+            } else {
+                _lastVisibleRect.top = _visibleRect.top;
+                _lastVisibleRect.bottom = _visibleRect.bottom;
+                return true;
+            }
+        }
+
+        /**
+         * Draw line numbers.
+         *
+         * @param canvas the canvas on which the line numbers will be drawn.
+         */
+        public void draw(final Canvas canvas) {
+            if (!_editor.getLocalVisibleRect(_visibleRect)) {
+                return;
+            }
+
+            final CharSequence text = _editor.getText();
+            final Layout layout = _editor.getLayout();
+            if (text == null || layout == null) {
+                return;
+            }
+
+            final int offsetY = _editor.getPaddingTop();
+            final int layoutLineCount = layout.getLineCount();
+
+            // Only if the visible area or the layout line count changed
+            // We make a single pass through the text to determine
+            // 1. y positions and line numbers we want to draw
+            // 2. max line number (to gauge gutter width)
+            if (isVisibleAreaChanged() || layoutLineCount != _lastLayoutLineCount) {
+                _lastLayoutLineCount = layoutLineCount;
+                _maxNumber = 1;
+                _startNumber = 1;
+                _numberYPositions.clear();
+                _top = _visibleRect.top - _visibleRect.height();
+                _bottom = _visibleRect.bottom + _visibleRect.height();
+
+                for (int i = 0; i < layoutLineCount; i++) {
+                    System.err.println(i);
+                    final int start = layout.getLineStart(i);
+                    if (start == 0 || text.charAt(start - 1) == '\n') {
+                        final int y = layout.getLineBaseline(i);
+                        if (y < _top) {
+                            _startNumber++;
+                        } else if (y < _bottom) {
+                            _numberYPositions.add(y);
+                        }
+                        _maxNumber++;
+                    }
+                }
+            }
+
+            // Only if the text size or the max line number of digits changed
+            // Update the gutter parameters and set padding left
+            if (_paint.getTextSize() != _lastTextSize || getNumberDigits(_maxNumber) != _lastMaxNumberDigits) {
+                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber)));
+                _numberX = LINE_NUMBERS_PADDING_LEFT + width;
+                _gutterLineX = _numberX + LINE_NUMBERS_PADDING_RIGHT;
+                _editor.setPadding(_gutterLineX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
+            }
+
+            // Draw the gutter line
+            _paint.setColor(Color.LTGRAY);
+            canvas.drawLine(_gutterLineX, _top, _gutterLineX, _bottom, _paint);
+
+            // Draw the line numbers
+            _paint.setColor(Color.GRAY);
+            for (int i = 0; i < _numberYPositions.size(); i++) {
+                final String number = String.valueOf(_startNumber + i);
+                canvas.drawText(number, _numberX, _numberYPositions.get(i) + offsetY, _paint);
+            }
+        }
+
+        /**
+         * Suspend drawing the line numbers.
+         */
+        public void suspend() {
+            if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
+                _maxNumberDigits = 0;
+                // Reset padding without line numbers fence
+                _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
+            }
+        }
     }
 }
