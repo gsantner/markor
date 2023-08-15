@@ -10,6 +10,7 @@ package net.gsantner.markor.format.asciidoc;
 import android.content.Context;
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ public class AsciidocTextConverter extends TextConverterBase {
                 //standalone : true - to generate header 1 (= title) in the page. if don't do that - title will be absent.
                 //nofooter: true - to don't generate footer (Last updated ...). if don't do that and use standalone : true - the page will have that footer.
                 "var html = asciidoctor.convert(utf8PlainText, {standalone : true, attributes : {nofooter: true, stylesheet: \"" +
-                (isExportInLightMode ? HTML_ASCIIDOCJS_DEFAULT_CSS_INCLUDE : HTML_ASCIIDOCJS_DARK_CSS_INCLUDE)
+                (GsContextUtils.instance.isDarkModeEnabled(context) ? HTML_ASCIIDOCJS_DARK_CSS_INCLUDE : HTML_ASCIIDOCJS_DEFAULT_CSS_INCLUDE)
                 + "\"}});\n" +
                 "document.getElementById(\"asciidoc_content\").innerHTML = html;";
         return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, HTML_ASCIIDOCJS_JS_INCLUDE);
