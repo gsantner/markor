@@ -587,7 +587,7 @@ public class HighlightingEditor extends AppCompatEditText {
             // Only if the text size or the max line number of digits changed
             // Update the gutter parameters and set padding left
             if (_paint.getTextSize() != _lastTextSize || getNumberDigits(_maxNumber) != _lastMaxNumberDigits) {
-                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber)));
+                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber - 1)));
                 _numberX = LINE_NUMBERS_PADDING_LEFT + width;
                 _gutterLineX = _numberX + LINE_NUMBERS_PADDING_RIGHT;
                 _editor.setPadding(_gutterLineX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
