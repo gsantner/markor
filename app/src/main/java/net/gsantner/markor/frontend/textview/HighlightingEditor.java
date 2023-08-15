@@ -571,7 +571,6 @@ public class HighlightingEditor extends AppCompatEditText {
                 _bottom = _visibleRect.bottom + _visibleRect.height();
 
                 for (int i = 0; i < layoutLineCount; i++) {
-                    System.err.println(i);
                     final int start = layout.getLineStart(i);
                     if (start == 0 || text.charAt(start - 1) == '\n') {
                         final int y = layout.getLineBaseline(i);
