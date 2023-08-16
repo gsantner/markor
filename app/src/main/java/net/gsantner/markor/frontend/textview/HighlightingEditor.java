@@ -36,6 +36,8 @@ import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
@@ -477,7 +479,7 @@ public class HighlightingEditor extends AppCompatEditText {
         private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
 
         private final Rect _visibleRect = new Rect();
-        private final Rect _lastVisibleRect = new Rect();
+        private final Rect _lineNumbersRect = new Rect();
 
         private int _startNumber = 1;
         private int _maxNumber = 1; // to gauge gutter width
@@ -489,15 +491,47 @@ public class HighlightingEditor extends AppCompatEditText {
         private int _gutterLineX;
         private final List<Integer> _numberYPositions = new ArrayList<>(); // y positions of numbers to draw
 
-        // Current visible area
+        // Current line numbers area
+        // Note: the distance between the top and bottom = 3 * height of visible area
+        // In order to reduce the frequency of updating parameters of line numbers,
+        // the line numbers are drawn on previous page, current page and next page per time.
+        // Update parameters again only if the visible area is out of these 3 pages.
         private int _top;
         private int _bottom;
 
 
         public LineNumbersDrawer(AppCompatEditText editor) {
             _editor = editor;
-            _editor.getLocalVisibleRect(_lastVisibleRect);
+            _editor.getLocalVisibleRect(_lineNumbersRect);
             _paint.setTextAlign(Paint.Align.RIGHT);
+
+            _editor.addTextChangedListener(new GsTextWatcherAdapter() {
+
+                private final Pattern pattern = Pattern.compile("\n");
+                private Matcher matcher;
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    if (after == 0 && count > 0) {
+                        CharSequence deleted = s.subSequence(start, start + count);
+                        matcher = pattern.matcher(deleted);
+                        while (matcher.find()) {
+                            _maxNumber--;
+                        }
+                    }
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (before == 0 && count > 0) {
+                        CharSequence added = s.subSequence(start, start + count);
+                        matcher = pattern.matcher(added);
+                        while (matcher.find()) {
+                            _maxNumber++;
+                        }
+                    }
+                }
+            });
         }
 
         public void setDefaultPaddingLeft(int padding) {
@@ -530,12 +564,12 @@ public class HighlightingEditor extends AppCompatEditText {
             return _maxNumberDigits;
         }
 
-        public boolean isVisibleAreaChanged() {
-            if (_visibleRect.top == _lastVisibleRect.top && _visibleRect.bottom == _lastVisibleRect.bottom) {
+        public boolean isOutOfLineNumbersArea() {
+            if (_visibleRect.top > _lineNumbersRect.top && _visibleRect.bottom < _lineNumbersRect.bottom) {
                 return false;
             } else {
-                _lastVisibleRect.top = _visibleRect.top;
-                _lastVisibleRect.bottom = _visibleRect.bottom;
+                _lineNumbersRect.top = _visibleRect.top - _visibleRect.height();
+                _lineNumbersRect.bottom = _visibleRect.bottom + _visibleRect.height();
                 return true;
             }
         }
@@ -559,28 +593,27 @@ public class HighlightingEditor extends AppCompatEditText {
             final int offsetY = _editor.getPaddingTop();
             final int layoutLineCount = layout.getLineCount();
 
-            // Only if the visible area or the layout line count changed
+            // Only if the visible area is out of current line numbers area or the layout line count changed
             // We make a single pass through the text to determine
             // 1. y positions and line numbers we want to draw
             // 2. max line number (to gauge gutter width)
-            if (isVisibleAreaChanged() || layoutLineCount != _lastLayoutLineCount) {
+            if (isOutOfLineNumbersArea() || layoutLineCount != _lastLayoutLineCount) {
                 _lastLayoutLineCount = layoutLineCount;
-                _maxNumber = 0;
                 _startNumber = 1;
                 _numberYPositions.clear();
                 _top = _visibleRect.top - _visibleRect.height();
                 _bottom = _visibleRect.bottom + _visibleRect.height();
-
                 for (int i = 0; i < layoutLineCount; i++) {
                     final int start = layout.getLineStart(i);
                     if (start == 0 || text.charAt(start - 1) == '\n') {
                         final int y = layout.getLineBaseline(i);
-                        if (y < _top) {
+                        if (y > _bottom) {
+                            break;
+                        } else if (y < _top) {
                             _startNumber++;
-                        } else if (y < _bottom) {
+                        } else {
                             _numberYPositions.add(y);
                         }
-                        _maxNumber++;
                     }
                 }
             }
@@ -607,7 +640,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Suspend drawing the line numbers.
+         * Suspend drawing line numbers.
          */
         public void suspend() {
             if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
