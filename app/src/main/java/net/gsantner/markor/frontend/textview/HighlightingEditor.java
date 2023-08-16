@@ -81,6 +81,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hlRect = new Rect();
 
         addTextChangedListener(new GsTextWatcherAdapter() {
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
@@ -486,7 +487,7 @@ public class HighlightingEditor extends AppCompatEditText {
         private float _lastTextSize;
         private int _numberX;
         private int _gutterLineX;
-        private final List<Integer> _numberYPositions = new ArrayList<>(); // Y positions of numbers to draw
+        private final List<Integer> _numberYPositions = new ArrayList<>(); // y positions of numbers to draw
 
         // Current visible area
         private int _top;
@@ -500,12 +501,12 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         public void setDefaultPaddingLeft(int padding) {
-            this._defaultPaddingLeft = padding;
+            _defaultPaddingLeft = padding;
         }
 
         public void setTextSize(float textSize) {
-            if (this._lastTextSize != _paint.getTextSize()) {
-                this._lastTextSize = _paint.getTextSize();
+            if (_lastTextSize != _paint.getTextSize()) {
+                _lastTextSize = _paint.getTextSize();
             }
             _paint.setTextSize(textSize);
         }
@@ -564,7 +565,7 @@ public class HighlightingEditor extends AppCompatEditText {
             // 2. max line number (to gauge gutter width)
             if (isVisibleAreaChanged() || layoutLineCount != _lastLayoutLineCount) {
                 _lastLayoutLineCount = layoutLineCount;
-                _maxNumber = 1;
+                _maxNumber = 0;
                 _startNumber = 1;
                 _numberYPositions.clear();
                 _top = _visibleRect.top - _visibleRect.height();
@@ -587,7 +588,7 @@ public class HighlightingEditor extends AppCompatEditText {
             // Only if the text size or the max line number of digits changed
             // Update the gutter parameters and set padding left
             if (_paint.getTextSize() != _lastTextSize || getNumberDigits(_maxNumber) != _lastMaxNumberDigits) {
-                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber - 1)));
+                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber)));
                 _numberX = LINE_NUMBERS_PADDING_LEFT + width;
                 _gutterLineX = _numberX + LINE_NUMBERS_PADDING_RIGHT;
                 _editor.setPadding(_gutterLineX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
@@ -611,7 +612,7 @@ public class HighlightingEditor extends AppCompatEditText {
         public void suspend() {
             if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
                 _maxNumberDigits = 0;
-                // Reset padding without line numbers fence
+                // Reset padding without line numbers
                 _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
         }
