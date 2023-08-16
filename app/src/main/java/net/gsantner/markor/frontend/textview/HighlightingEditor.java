@@ -472,8 +472,9 @@ public class HighlightingEditor extends AppCompatEditText {
         private static final int LINE_NUMBER_PADDING_LEFT = 14;
         private static final int LINE_NUMBER_PADDING_RIGHT = 10;
 
-        private final Rect _visibleRect = new Rect();
-        private final Rect _lineNumbersRect = new Rect();
+        private final Rect _visibleArea = new Rect();
+        private final Rect _lineNumbersArea = new Rect();
+
         private int _startNumber = 1;
         private int _maxNumber = 1; // to gauge gutter width
         private int _maxNumberDigits;
@@ -486,16 +487,15 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Current line numbers area
         // Note: the distance between the top and bottom = 3 * height of visible area
-        // In order to reduce the frequency of updating parameters of line numbers,
-        // the line numbers are drawn on previous page, current page and next page
-        // Update again only if the visible area is out of these 3 pages
+        // In order to reduce the frequency of refreshing parameters of line numbers,
+        // the line numbers are drawn on previous page, current page and next page every time
         private int _top;
         private int _bottom;
 
 
         public LineNumbersDrawer(AppCompatEditText editor) {
             _editor = editor;
-            _editor.getLocalVisibleRect(_lineNumbersRect);
+            _editor.getLocalVisibleRect(_lineNumbersArea);
             _paint.setTextAlign(Paint.Align.RIGHT);
             _defaultPaddingLeft = editor.getPaddingLeft();
 
@@ -555,11 +555,11 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         public boolean isOutOfLineNumbersArea() {
-            if (_visibleRect.top > _lineNumbersRect.top && _visibleRect.bottom < _lineNumbersRect.bottom) {
+            if (_visibleArea.top > _lineNumbersArea.top && _visibleArea.bottom < _lineNumbersArea.bottom) {
                 return false;
             } else {
-                _lineNumbersRect.top = _visibleRect.top - _visibleRect.height();
-                _lineNumbersRect.bottom = _visibleRect.bottom + _visibleRect.height();
+                _lineNumbersArea.top = _visibleArea.top - _visibleArea.height();
+                _lineNumbersArea.bottom = _visibleArea.bottom + _visibleArea.height();
                 return true;
             }
         }
@@ -570,7 +570,7 @@ public class HighlightingEditor extends AppCompatEditText {
          * @param canvas the canvas on which the line numbers will be drawn.
          */
         public void draw(final Canvas canvas) {
-            if (!_editor.getLocalVisibleRect(_visibleRect)) {
+            if (!_editor.getLocalVisibleRect(_visibleArea)) {
                 return;
             }
 
@@ -591,8 +591,8 @@ public class HighlightingEditor extends AppCompatEditText {
                 _lastLayoutLineCount = layoutLineCount;
                 _startNumber = 1;
                 _lineIndex.clear();
-                _top = _visibleRect.top - _visibleRect.height();
-                _bottom = _visibleRect.bottom + _visibleRect.height();
+                _top = _visibleArea.top - _visibleArea.height();
+                _bottom = _visibleArea.bottom + _visibleArea.height();
                 for (int i = 0; i < layoutLineCount; i++) {
                     final int start = layout.getLineStart(i);
                     if (start == 0 || text.charAt(start - 1) == '\n') {
