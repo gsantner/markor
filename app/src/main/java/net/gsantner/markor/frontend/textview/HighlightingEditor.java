@@ -109,12 +109,6 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        _lineNumbersDrawer.setDefaultPaddingLeft(getPaddingLeft());
-    }
-
-    @Override
     public boolean onPreDraw() {
         _lineNumbersDrawer.setTextSize(getTextSize());
         return super.onPreDraw();
@@ -474,13 +468,12 @@ public class HighlightingEditor extends AppCompatEditText {
         private final AppCompatEditText _editor;
         private final Paint _paint = new Paint();
 
-        private int _defaultPaddingLeft;
-        private static final int LINE_NUMBERS_PADDING_LEFT = 14;
-        private static final int LINE_NUMBERS_PADDING_RIGHT = 10;
+        private final int _defaultPaddingLeft;
+        private static final int LINE_NUMBER_PADDING_LEFT = 14;
+        private static final int LINE_NUMBER_PADDING_RIGHT = 10;
 
         private final Rect _visibleRect = new Rect();
         private final Rect _lineNumbersRect = new Rect();
-
         private int _startNumber = 1;
         private int _maxNumber = 1; // to gauge gutter width
         private int _maxNumberDigits;
@@ -489,13 +482,13 @@ public class HighlightingEditor extends AppCompatEditText {
         private float _lastTextSize;
         private int _numberX;
         private int _gutterLineX;
-        private final List<Integer> _numberYPositions = new ArrayList<>(); // y positions of numbers to draw
+        private final List<Integer> _lineIndex = new ArrayList<>(); // Index of layout lines currently being drawn
 
         // Current line numbers area
         // Note: the distance between the top and bottom = 3 * height of visible area
         // In order to reduce the frequency of updating parameters of line numbers,
-        // the line numbers are drawn on previous page, current page and next page per time.
-        // Update parameters again only if the visible area is out of these 3 pages.
+        // the line numbers are drawn on previous page, current page and next page
+        // Update again only if the visible area is out of these 3 pages
         private int _top;
         private int _bottom;
 
@@ -504,6 +497,7 @@ public class HighlightingEditor extends AppCompatEditText {
             _editor = editor;
             _editor.getLocalVisibleRect(_lineNumbersRect);
             _paint.setTextAlign(Paint.Align.RIGHT);
+            _defaultPaddingLeft = editor.getPaddingLeft();
 
             _editor.addTextChangedListener(new GsTextWatcherAdapter() {
 
@@ -532,10 +526,6 @@ public class HighlightingEditor extends AppCompatEditText {
                     }
                 }
             });
-        }
-
-        public void setDefaultPaddingLeft(int padding) {
-            _defaultPaddingLeft = padding;
         }
 
         public void setTextSize(float textSize) {
@@ -600,7 +590,7 @@ public class HighlightingEditor extends AppCompatEditText {
             if (isOutOfLineNumbersArea() || layoutLineCount != _lastLayoutLineCount) {
                 _lastLayoutLineCount = layoutLineCount;
                 _startNumber = 1;
-                _numberYPositions.clear();
+                _lineIndex.clear();
                 _top = _visibleRect.top - _visibleRect.height();
                 _bottom = _visibleRect.bottom + _visibleRect.height();
                 for (int i = 0; i < layoutLineCount; i++) {
@@ -612,18 +602,18 @@ public class HighlightingEditor extends AppCompatEditText {
                         } else if (y < _top) {
                             _startNumber++;
                         } else {
-                            _numberYPositions.add(y);
+                            _lineIndex.add(i);
                         }
                     }
                 }
             }
 
             // Only if the text size or the max line number of digits changed
-            // Update the gutter parameters and set padding left
+            // Update the gutter parameters and set padding
             if (_paint.getTextSize() != _lastTextSize || getNumberDigits(_maxNumber) != _lastMaxNumberDigits) {
                 final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber)));
-                _numberX = LINE_NUMBERS_PADDING_LEFT + width;
-                _gutterLineX = _numberX + LINE_NUMBERS_PADDING_RIGHT;
+                _numberX = LINE_NUMBER_PADDING_LEFT + width;
+                _gutterLineX = _numberX + LINE_NUMBER_PADDING_RIGHT;
                 _editor.setPadding(_gutterLineX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
 
@@ -633,9 +623,9 @@ public class HighlightingEditor extends AppCompatEditText {
 
             // Draw the line numbers
             _paint.setColor(Color.GRAY);
-            for (int i = 0; i < _numberYPositions.size(); i++) {
-                final String number = String.valueOf(_startNumber + i);
-                canvas.drawText(number, _numberX, _numberYPositions.get(i) + offsetY, _paint);
+            final int size = _lineIndex.size();
+            for (int i = 0; i < size; i++) {
+                canvas.drawText(String.valueOf(_startNumber + i), _numberX, layout.getLineBaseline(_lineIndex.get(i)) + offsetY, _paint);
             }
         }
 
