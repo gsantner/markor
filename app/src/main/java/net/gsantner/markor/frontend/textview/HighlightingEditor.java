@@ -120,8 +120,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_numEnabled) {
             _lineNumbersDrawer.draw(canvas);
-        } else {
-            _lineNumbersDrawer.suspend();
         }
     }
 
@@ -218,6 +216,9 @@ public class HighlightingEditor extends AppCompatEditText {
             post(this::invalidate);
         }
         _numEnabled = enable;
+        if (!_numEnabled) {
+            _lineNumbersDrawer.stop();
+        }
     }
 
     // Region to highlight
@@ -500,7 +501,6 @@ public class HighlightingEditor extends AppCompatEditText {
             _defaultPaddingLeft = editor.getPaddingLeft();
 
             _editor.addTextChangedListener(new GsTextWatcherAdapter() {
-
                 private final Pattern pattern = Pattern.compile("\n");
                 private Matcher matcher;
 
@@ -585,8 +585,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
             // Only if the visible area is out of current line numbers area or the layout line count changed
             // We make a single pass through the text to determine
-            // 1. y positions and line numbers we want to draw
-            // 2. max line number (to gauge gutter width)
+            // 1. Start line number to be drawn at present;
+            // 2. Index of layout lines to be drawn at present.
             if (isOutOfLineNumbersArea() || layoutLineCount != _lastLayoutLineCount) {
                 _lastLayoutLineCount = layoutLineCount;
                 _startNumber = 1;
@@ -630,9 +630,9 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Suspend drawing line numbers.
+         * Stop drawing line numbers.
          */
-        public void suspend() {
+        public void stop() {
             if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
                 _maxNumberDigits = 0;
                 // Reset padding without line numbers
