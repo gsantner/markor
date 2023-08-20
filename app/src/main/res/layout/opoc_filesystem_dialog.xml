@@ -17,77 +17,86 @@
     android:layout_height="match_parent"
     android:layout_marginTop="4dp">
 
-    <TextView
-        android:id="@+id/ui__filesystem_dialog__title"
-        style="@style/TextAppearance.AppCompat.Title"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ui__filesystem_dialog__title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/primary"
-        android:gravity="center_vertical|start"
-        android:minHeight="48dp"
-        android:padding="16dp"
-        tools:text="Select file" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-    <LinearLayout
-        android:id="@+id/ui__filesystem_dialog__utilbar"
+        <!-- Title TextView -->
+        <TextView
+            android:id="@+id/ui__filesystem_dialog__title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical|start" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ui__filesystem_dialog__search_holder"
+        android:layout_below="@id/ui__filesystem_dialog__title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ui__filesystem_dialog__title"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal">
+        android:visibility="visible"
+        android:layout_marginTop="4dp"
+        app:hintEnabled="false"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ui__filesystem_dialog__home"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:src="@android:drawable/star_big_on"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/ui__filesystem_dialog__search_button"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:scaleType="fitEnd"
-            android:src="@android:drawable/ic_menu_search"
-            tools:ignore="ContentDescription" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ui__filesystem_dialog__search_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:hint="Search...."
-            android:importantForAutofill="no"
             android:inputType="text"
-            android:maxLines="1"
-            android:textSize="14sp"
-            android:visibility="gone"
-            tools:ignore="HardcodedText" />
+            android:textSize="15sp"
+            android:singleLine="true"/>
 
-    </LinearLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ui__filesystem_dialog__search_button"
+        android:src="@android:drawable/ic_menu_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/ui__filesystem_dialog__new_dir"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="ContentDescription"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ui__filesystem_dialog__new_dir"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/ui__filesystem_dialog__home"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        tools:ignore="ContentDescription"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ui__filesystem_dialog__home"
+        android:src="@android:drawable/btn_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/ui__filesystem_dialog__buttons"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ui__filesystem_dialog__list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_below="@+id/ui__filesystem_dialog__search_holder"
         android:layout_above="@+id/ui__filesystem_dialog__buttons"
-        android:layout_below="@+id/ui__filesystem_dialog__utilbar"
         android:minHeight="100dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -98,8 +107,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="end"
         android:orientation="horizontal"
-        android:padding="16dp">
-
+        android:padding="4dp">
 
         <TextView
             android:id="@+id/ui__filesystem_dialog__button_cancel"
@@ -119,7 +127,7 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textColor="@color/primary"
-            tools:text="Select folder" />
+            tools:text="Select" />
 
     </LinearLayout>
 

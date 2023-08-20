@@ -17,6 +17,7 @@
  */
 package net.gsantner.opoc.frontend.filebrowser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,18 +29,28 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import net.gsantner.markor.R;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 
@@ -64,11 +75,11 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public TextView _dialogTitle;
     private TextView _buttonCancel;
     private TextView _buttonOk;
-    private LinearLayout _utilBar;
-    private LinearLayout _buttonBar;
-    private ImageView _homeButton;
-    private ImageView _buttonSearch;
-    private EditText _searchEdit;
+    private FloatingActionButton _homeButton;
+    private FloatingActionButton _buttonSearch;
+    private FloatingActionButton _buttonNewDir;
+    private TextInputEditText _searchEdit;
+    private TextInputLayout _searchHolder;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
     private GsFileBrowserOptions.Options _dopt;
@@ -91,20 +102,19 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
-        _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title);
+        _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
         _buttonOk = root.findViewById(R.id.ui__filesystem_dialog__button_ok);
-        _utilBar = root.findViewById(R.id.ui__filesystem_dialog__utilbar);
-        _buttonBar = root.findViewById(R.id.ui__filesystem_dialog__buttons);
         _homeButton = root.findViewById(R.id.ui__filesystem_dialog__home);
+        _buttonNewDir = root.findViewById(R.id.ui__filesystem_dialog__new_dir);
         _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
+        _searchHolder = root.findViewById(R.id.ui__filesystem_dialog__search_holder);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
-        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonCancel, _buttonOk}) {
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
             v.setOnClickListener(this::onClicked);
         }
-
 
         if (_dopt == null || _buttonCancel == null) {
             dismiss();
@@ -131,6 +141,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonSearch.setImageResource(_dopt.searchButtonImage);
         _buttonSearch.setVisibility(_dopt.searchEnable ? View.VISIBLE : View.GONE);
         _buttonSearch.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+
+        _buttonNewDir.setImageResource(_dopt.newDirButtonImage);
+        _buttonNewDir.setVisibility(_dopt.newDirButtonEnable ? View.VISIBLE : View.GONE);
+        _buttonNewDir.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         _searchEdit.setHint(_dopt.searchHint);
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
@@ -173,19 +187,63 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__search_button: {
-                _buttonSearch.setVisibility(View.GONE);
-                _searchEdit.setVisibility(View.VISIBLE);
-                _searchEdit.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(_searchEdit, InputMethodManager.SHOW_IMPLICIT);
+                if (_searchHolder.getVisibility() == View.VISIBLE) {
+                    _searchHolder.setVisibility(View.GONE);
+                    _searchEdit.clearFocus();
+                    _searchEdit.setText("");
+                } else {
+                    _searchHolder.setVisibility(View.VISIBLE);
+                    _searchEdit.requestFocus();
+                    final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(_searchEdit, InputMethodManager.SHOW_IMPLICIT);
+                }
+
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
                 onFsViewerNothingSelected(_dopt.requestId);
                 break;
             }
-
+            case R.id.ui__filesystem_dialog__new_dir: {
+                showNewDirDialog();
+                break;
+            }
         }
+    }
+
+    private void showNewDirDialog() {
+        final Activity activity = getActivity();
+
+        if (activity == null) {
+            return;
+        }
+
+        // Make the view
+        final EditText nameBox = new EditText(activity);
+        final int padding = GsContextUtils.instance.convertDpToPx(activity, 20);
+        nameBox.setPadding(padding, nameBox.getPaddingTop(), nameBox.getPaddingBottom(), padding);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        if (_dopt.newDirButtonText != 0) {
+            builder.setTitle(_dopt.newDirButtonText);
+        }
+
+        if (_dopt.newDirButtonImage != 0) {
+            builder.setIcon(_dopt.newDirButtonImage);
+        }
+
+        builder.setCancelable(true)
+               .setView(nameBox)
+               .setCancelable(true)
+               .setPositiveButton(android.R.string.ok, (d, w) -> {
+                    _filesystemViewerAdapter.createDirectoryHere(nameBox.getText());
+                    _filesystemViewerAdapter.reloadCurrentFolder();
+               });
+
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener((d) -> nameBox.requestFocus());
+        dialog.show();
     }
 
     private void checkOptions() {

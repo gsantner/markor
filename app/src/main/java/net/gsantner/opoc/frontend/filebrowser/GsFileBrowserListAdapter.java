@@ -451,6 +451,28 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
+    public void createDirectoryHere(final CharSequence name) {
+        if (name == null || _currentFolder == null || !_currentFolder.canWrite()) {
+            return;
+        }
+
+        final String trimmed = name.toString().trim();
+
+        if (trimmed.length() == 0) {
+            return;
+        }
+
+        boolean success = false;
+        try {
+            success = new File(_currentFolder, trimmed).mkdir();
+        } catch (SecurityException ignored) {
+        }
+
+        if (!success) {
+            Toast.makeText(_context, R.string.file_does_not_exist_and_cant_be_created, Toast.LENGTH_LONG).show();
+        }
+    }
+
     // Get the position of a file in the current view
     // -1 if file is not a child of the current directory
     public int getFilePosition(final File file) {

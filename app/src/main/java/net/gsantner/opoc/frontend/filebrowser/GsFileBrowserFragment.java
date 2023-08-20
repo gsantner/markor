@@ -568,6 +568,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
                 _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
                 _doptMoC.startFolder = getCurrentFolder();
+                _doptMoC.newDirButtonEnable = true;
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();
                 for (final File f : files) {
