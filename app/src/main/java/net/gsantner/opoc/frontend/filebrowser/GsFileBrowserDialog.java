@@ -19,6 +19,7 @@ package net.gsantner.opoc.frontend.filebrowser;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,8 +79,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     private FloatingActionButton _homeButton;
     private FloatingActionButton _buttonSearch;
     private FloatingActionButton _buttonNewDir;
-    private TextInputEditText _searchEdit;
-    private TextInputLayout _searchHolder;
+    private EditText _searchEdit;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
     private GsFileBrowserOptions.Options _dopt;
@@ -101,6 +101,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
+
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
@@ -109,7 +110,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonNewDir = root.findViewById(R.id.ui__filesystem_dialog__new_dir);
         _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
-        _searchHolder = root.findViewById(R.id.ui__filesystem_dialog__search_holder);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
         for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
@@ -187,17 +187,15 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__search_button: {
-                if (_searchHolder.getVisibility() == View.VISIBLE) {
-                    _searchHolder.setVisibility(View.GONE);
+                if (_searchEdit.getVisibility() == View.VISIBLE) {
+                    _searchEdit.setVisibility(View.GONE);
                     _searchEdit.clearFocus();
                     _searchEdit.setText("");
                 } else {
-                    _searchHolder.setVisibility(View.VISIBLE);
+                    _searchEdit.setVisibility(View.VISIBLE);
+                    _searchEdit.setText("");
                     _searchEdit.requestFocus();
-                    final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(_searchEdit, InputMethodManager.SHOW_IMPLICIT);
                 }
-
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
@@ -230,12 +228,15 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         }
 
         if (_dopt.newDirButtonImage != 0) {
-            builder.setIcon(_dopt.newDirButtonImage);
+            final Drawable icon = ContextCompat.getDrawable(activity, _dopt.newDirButtonImage);
+            if (icon != null) {
+                icon.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+                builder.setIcon(icon);
+            }
         }
 
-        builder.setCancelable(true)
-               .setView(nameBox)
-               .setCancelable(true)
+        builder.setView(nameBox)
+               .setNegativeButton(android.R.string.cancel, (d, w) -> d.dismiss())
                .setPositiveButton(android.R.string.ok, (d, w) -> {
                     _filesystemViewerAdapter.createDirectoryHere(nameBox.getText());
                     _filesystemViewerAdapter.reloadCurrentFolder();
