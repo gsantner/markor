@@ -34,11 +34,6 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
@@ -216,8 +211,11 @@ public class HighlightingEditor extends AppCompatEditText {
             post(this::invalidate);
         }
         _numEnabled = enable;
-        if (!_numEnabled) {
+        if (_numEnabled) {
+            _lineNumbersDrawer.startLineTracking();
+        } else {
             _lineNumbersDrawer.stop();
+            _lineNumbersDrawer.stopLineTracking();
         }
     }
 
@@ -476,92 +474,81 @@ public class HighlightingEditor extends AppCompatEditText {
         private final Rect _visibleArea = new Rect();
         private final Rect _lineNumbersArea = new Rect();
 
-        private int _startNumber = 1;
         private int _maxNumber = 1; // to gauge gutter width
         private int _maxNumberDigits;
-        private int _lastMaxNumberDigits;
-        private int _lastLayoutLineCount;
-        private float _lastTextSize;
         private int _numberX;
-        private int _gutterLineX;
-        private final List<Integer> _lineIndex = new ArrayList<>(); // Index of layout lines currently being drawn
+        private int _gutterX;
+        private float _oldTextSize;
+        private final int[] _startLine = {0, 1}; // {line index, actual line number}
 
-        // Current line numbers area
-        // Note: the distance between the top and bottom = 3 * height of visible area
-        // In order to reduce the frequency of refreshing parameters of line numbers,
-        // the line numbers are drawn on previous page, current page and next page every time
-        private int _top;
-        private int _bottom;
+        private final GsTextWatcherAdapter lineTrackingWatcher = new GsTextWatcherAdapter() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                _maxNumber -= TextViewUtils.countChar(s, start, start + count, '\n');
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                _maxNumber += TextViewUtils.countChar(s, start, start + count, '\n');
+            }
+        };
 
-        public LineNumbersDrawer(AppCompatEditText editor) {
+        public LineNumbersDrawer(final AppCompatEditText editor) {
             _editor = editor;
-            _editor.getLocalVisibleRect(_lineNumbersArea);
             _paint.setTextAlign(Paint.Align.RIGHT);
             _defaultPaddingLeft = editor.getPaddingLeft();
-
-            _editor.addTextChangedListener(new GsTextWatcherAdapter() {
-                private final Pattern pattern = Pattern.compile("\n");
-                private Matcher matcher;
-
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    if (after == 0 && count > 0) {
-                        CharSequence deleted = s.subSequence(start, start + count);
-                        matcher = pattern.matcher(deleted);
-                        while (matcher.find()) {
-                            _maxNumber--;
-                        }
-                    }
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (before == 0 && count > 0) {
-                        CharSequence added = s.subSequence(start, start + count);
-                        matcher = pattern.matcher(added);
-                        while (matcher.find()) {
-                            _maxNumber++;
-                        }
-                    }
-                }
-            });
         }
 
-        public void setTextSize(float textSize) {
-            if (_lastTextSize != _paint.getTextSize()) {
-                _lastTextSize = _paint.getTextSize();
-            }
+        public void setTextSize(final float textSize) {
             _paint.setTextSize(textSize);
         }
 
-        public int getNumberDigits(int number) {
-            if (_lastMaxNumberDigits != _maxNumberDigits) {
-                _lastMaxNumberDigits = _maxNumberDigits;
+        public boolean isTextSizeChanged() {
+            if (_paint.getTextSize() == _oldTextSize) {
+                return false;
+            } else {
+                _oldTextSize = _paint.getTextSize();
+                return true;
             }
+        }
 
-            if (number < 10) {
+        public boolean isMaxNumberDigitsChanged() {
+            final int oldDigits = _maxNumberDigits;
+
+            if (_maxNumber < 10) {
                 _maxNumberDigits = 1;
-            } else if (number < 100) {
+            } else if (_maxNumber < 100) {
                 _maxNumberDigits = 2;
-            } else if (number < 1000) {
+            } else if (_maxNumber < 1000) {
                 _maxNumberDigits = 3;
-            } else if (number < 10000) {
+            } else if (_maxNumber < 10000) {
                 _maxNumberDigits = 4;
             } else {
                 _maxNumberDigits = 5;
             }
-            return _maxNumberDigits;
+            return _maxNumberDigits != oldDigits;
         }
 
         public boolean isOutOfLineNumbersArea() {
             if (_visibleArea.top > _lineNumbersArea.top && _visibleArea.bottom < _lineNumbersArea.bottom) {
                 return false;
             } else {
+                // If current visible area is out of line numbers area, line numbers area will be updated
                 _lineNumbersArea.top = _visibleArea.top - _visibleArea.height();
                 _lineNumbersArea.bottom = _visibleArea.bottom + _visibleArea.height();
                 return true;
             }
+        }
+
+        public void startLineTracking() {
+            final CharSequence text = _editor.getText();
+            _maxNumber = TextViewUtils.countChar(text, 0, text.length(), '\n') + 1;
+            _editor.removeTextChangedListener(lineTrackingWatcher);
+            _editor.addTextChangedListener(lineTrackingWatcher);
+        }
+
+        public void stopLineTracking() {
+            _editor.removeTextChangedListener(lineTrackingWatcher);
         }
 
         /**
@@ -580,52 +567,47 @@ public class HighlightingEditor extends AppCompatEditText {
                 return;
             }
 
-            final int offsetY = _editor.getPaddingTop();
-            final int layoutLineCount = layout.getLineCount();
-
-            // Only if the visible area is out of current line numbers area or the layout line count changed
-            // We make a single pass through the text to determine
-            // 1. Start line number to be drawn at present;
-            // 2. Index of layout lines to be drawn at present.
-            if (isOutOfLineNumbersArea() || layoutLineCount != _lastLayoutLineCount) {
-                _lastLayoutLineCount = layoutLineCount;
-                _startNumber = 1;
-                _lineIndex.clear();
-                _top = _visibleArea.top - _visibleArea.height();
-                _bottom = _visibleArea.bottom + _visibleArea.height();
-                for (int i = 0; i < layoutLineCount; i++) {
-                    final int start = layout.getLineStart(i);
-                    if (start == 0 || text.charAt(start - 1) == '\n') {
-                        final int y = layout.getLineBaseline(i);
-                        if (y > _bottom) {
-                            break;
-                        } else if (y < _top) {
-                            _startNumber++;
-                        } else {
-                            _lineIndex.add(i);
-                        }
-                    }
-                }
+            // Only if the text size or the max line number of digits changed,
+            // update the gutter's parameters and reset padding
+            if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
+                _numberX = LINE_NUMBER_PADDING_LEFT + Math.round(_paint.measureText(String.valueOf(_maxNumber)));
+                _gutterX = _numberX + LINE_NUMBER_PADDING_RIGHT;
+                _editor.setPadding(_gutterX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
 
-            // Only if the text size or the max line number of digits changed
-            // Update the gutter parameters and set padding
-            if (_paint.getTextSize() != _lastTextSize || getNumberDigits(_maxNumber) != _lastMaxNumberDigits) {
-                final int width = Math.round(_paint.measureText(String.valueOf(_maxNumber)));
-                _numberX = LINE_NUMBER_PADDING_LEFT + width;
-                _gutterLineX = _numberX + LINE_NUMBER_PADDING_RIGHT;
-                _editor.setPadding(_gutterLineX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
-            }
-
-            // Draw the gutter line
+            // Draw the right border of the gutter
             _paint.setColor(Color.LTGRAY);
-            canvas.drawLine(_gutterLineX, _top, _gutterLineX, _bottom, _paint);
+            canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
 
-            // Draw the line numbers
+            int i = _startLine[0], number = _startLine[1];
+            // Only if the visible area is out of current line numbers area,
+            // update the parameters of the line numbers which will be drawn
+            if (isOutOfLineNumbersArea()) {
+                i = 0;
+                number = 1;
+                _startLine[0] = -1;
+            }
+
+            // Draw the line numbers (on the previous, current and next page every time)
             _paint.setColor(Color.GRAY);
-            final int size = _lineIndex.size();
-            for (int i = 0; i < size; i++) {
-                canvas.drawText(String.valueOf(_startNumber + i), _numberX, layout.getLineBaseline(_lineIndex.get(i)) + offsetY, _paint);
+            final int count = layout.getLineCount();
+            final int offsetY = _editor.getPaddingTop();
+            for (; i < count; i++) {
+                final int start = layout.getLineStart(i);
+                if (start == 0 || text.charAt(start - 1) == '\n') {
+                    final int y = layout.getLineBaseline(i);
+                    if (y > _lineNumbersArea.bottom) {
+                        break;
+                    }
+                    if (y > _lineNumbersArea.top) {
+                        if (_startLine[0] < 0) {
+                            _startLine[0] = i;
+                            _startLine[1] = number;
+                        }
+                        canvas.drawText(String.valueOf(number), _numberX, y + offsetY, _paint);
+                    }
+                    number++;
+                }
             }
         }
 
@@ -634,9 +616,8 @@ public class HighlightingEditor extends AppCompatEditText {
          */
         public void stop() {
             if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
-                _maxNumberDigits = 0;
-                // Reset padding without line numbers
                 _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
+                _maxNumberDigits = 0;
             }
         }
     }
