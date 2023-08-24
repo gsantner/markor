@@ -481,7 +481,7 @@ public class HighlightingEditor extends AppCompatEditText {
         private float _oldTextSize;
         private final int[] _startLine = {0, 1}; // {line index, actual line number}
 
-        private final GsTextWatcherAdapter lineTrackingWatcher = new GsTextWatcherAdapter() {
+        private final GsTextWatcherAdapter _lineTrackingWatcher = new GsTextWatcherAdapter() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 _maxNumber -= TextViewUtils.countChar(s, start, start + count, '\n');
@@ -541,14 +541,17 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         public void startLineTracking() {
+            _editor.removeTextChangedListener(_lineTrackingWatcher);
+            _maxNumber = 1;
             final CharSequence text = _editor.getText();
-            _maxNumber = TextViewUtils.countChar(text, 0, text.length(), '\n') + 1;
-            _editor.removeTextChangedListener(lineTrackingWatcher);
-            _editor.addTextChangedListener(lineTrackingWatcher);
+            if (text != null) {
+                _maxNumber += TextViewUtils.countChar(text, 0, text.length(), '\n');
+            }
+            _editor.addTextChangedListener(_lineTrackingWatcher);
         }
 
         public void stopLineTracking() {
-            _editor.removeTextChangedListener(lineTrackingWatcher);
+            _editor.removeTextChangedListener(_lineTrackingWatcher);
         }
 
         /**
