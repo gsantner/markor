@@ -214,7 +214,7 @@ public class HighlightingEditor extends AppCompatEditText {
         if (_numEnabled) {
             _lineNumbersDrawer.startLineTracking();
         } else {
-            _lineNumbersDrawer.stop();
+            _lineNumbersDrawer.reset();
             _lineNumbersDrawer.stopLineTracking();
         }
     }
@@ -473,11 +473,12 @@ public class HighlightingEditor extends AppCompatEditText {
 
         private final Rect _visibleArea = new Rect();
         private final Rect _lineNumbersArea = new Rect();
+        // the height of the line numbers area = 3 * height of the visible area
 
-        private int _maxNumber = 1; // to gauge gutter width
-        private int _maxNumberDigits;
         private int _numberX;
         private int _gutterX;
+        private int _maxNumber = 1; // to gauge gutter width
+        private int _maxNumberDigits;
         private float _oldTextSize;
         private final int[] _startLine = {0, 1}; // {line index, actual line number}
 
@@ -533,7 +534,7 @@ public class HighlightingEditor extends AppCompatEditText {
             if (_visibleArea.top > _lineNumbersArea.top && _visibleArea.bottom < _lineNumbersArea.bottom) {
                 return false;
             } else {
-                // If current visible area is out of line numbers area, line numbers area will be updated
+                // Reset the line numbers area
                 _lineNumbersArea.top = _visibleArea.top - _visibleArea.height();
                 _lineNumbersArea.bottom = _visibleArea.bottom + _visibleArea.height();
                 return true;
@@ -557,7 +558,7 @@ public class HighlightingEditor extends AppCompatEditText {
         /**
          * Draw line numbers.
          *
-         * @param canvas the canvas on which the line numbers will be drawn.
+         * @param canvas The canvas on which the line numbers will be drawn.
          */
         public void draw(final Canvas canvas) {
             if (!_editor.getLocalVisibleRect(_visibleArea)) {
@@ -570,8 +571,8 @@ public class HighlightingEditor extends AppCompatEditText {
                 return;
             }
 
-            // Only if the text size or the max line number of digits changed,
-            // update the gutter's parameters and reset padding
+            // If text size or the max line number of digits changed,
+            // update the variables and reset padding
             if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
                 _numberX = LINE_NUMBER_PADDING_LEFT + Math.round(_paint.measureText(String.valueOf(_maxNumber)));
                 _gutterX = _numberX + LINE_NUMBER_PADDING_RIGHT;
@@ -583,15 +584,15 @@ public class HighlightingEditor extends AppCompatEditText {
             canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
 
             int i = _startLine[0], number = _startLine[1];
-            // Only if the visible area is out of current line numbers area,
-            // update the parameters of the line numbers which will be drawn
+            // If current visible area is out of current line numbers area,
+            // iterate from the first line to recalculate the start line
             if (isOutOfLineNumbersArea()) {
                 i = 0;
                 number = 1;
                 _startLine[0] = -1;
             }
 
-            // Draw the line numbers (on the previous, current and next page every time)
+            // Draw the line numbers
             _paint.setColor(Color.GRAY);
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
@@ -615,9 +616,9 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         /**
-         * Stop drawing line numbers.
+         * Reset to the state without line numbers.
          */
-        public void stop() {
+        public void reset() {
             if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
                 _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
                 _maxNumberDigits = 0;
