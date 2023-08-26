@@ -18,8 +18,10 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -29,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -316,6 +319,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
         firstResume = false;
+
+        final File folder = getCurrentFolder();
+        final Activity activity = getActivity();
+        if (isVisible() && folder != null && activity != null) {
+            activity.setTitle(folder.getName());
+            reloadCurrentFolder();
+        }
     }
 
 
@@ -642,24 +652,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getCurrentFolder() != null && !TextUtils.isEmpty(getCurrentFolder().getName()) && getToolbar() != null) {
-            getToolbar().setTitle(getCurrentFolder().getName());
-            reloadCurrentFolder();
-        }
-    }
 
-    private void showAndBlink(final File file) {
-        final int pos = getAdapter().getFilePosition(file);
-        final LinearLayoutManager manager = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        if (manager != null && pos >= 0) {
-            manager.scrollToPositionWithOffset(pos, 1);
-            _recyclerList.postDelayed(() -> {
-                final RecyclerView.ViewHolder holder = _recyclerList.findViewHolderForLayoutPosition(pos);
-                if (holder != null) {
-                    TextViewUtils.blinkView(holder.itemView);
-                }
-            }, 250);
-        }
     }
 
     // Switch to folder and show the file
@@ -684,14 +677,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 public void onChanged() {
                     super.onChanged();
                     if ((System.currentTimeMillis() - init) < 2000) {
-                        _recyclerList.postDelayed(() -> showAndBlink(file), 250);
+                        _recyclerList.postDelayed(() -> adapter.showAndBlink(file, _recyclerList), 250);
                     }
                     adapter.unregisterAdapterDataObserver(this);
                 }
             });
             adapter.setCurrentFolder(dir);
         } else {
-            showAndBlink(file);
+            adapter.showAndBlink(file, _recyclerList);
         }
     }
 

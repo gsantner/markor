@@ -40,7 +40,6 @@ public class MarkorFileBrowserFactory {
         opts.doSelectFolder = doSelectFolder;
         opts.doSelectFile = !doSelectFolder;
 
-        opts.searchHint = R.string.search_documents;
         opts.searchButtonImage = R.drawable.ic_search_black_24dp;
         opts.newDirButtonImage = R.drawable.baseline_create_new_folder_24;
         opts.homeButtonImage = R.drawable.ic_home_black_24dp;

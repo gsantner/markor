@@ -15,8 +15,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="4dp">
-
+    android:layout_marginTop="4dp"
+    android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ui__filesystem_dialog__title_bar"
@@ -30,45 +30,25 @@
             android:id="@+id/ui__filesystem_dialog__title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select"
+            android:text=""
             android:textColor="@android:color/primary_text_dark"
             android:textSize="18sp"
             android:layout_gravity="center_vertical|start" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!--
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ui__filesystem_dialog__search_holder"
-        app:layout_constraintTop_toBottomOf="@id/ui__filesystem_dialog__title_bar"
-        app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__list"
-        android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_marginTop="4dp"
-        app:endIconMode="clear_text"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ui__filesystem_dialog__search_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:endIconMode="clear_text"
-            android:inputType="text"
-            android:textSize="15sp"
-            android:singleLine="true"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-    -->
-
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/ui__filesystem_dialog__search_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ui__filesystem_dialog__title_bar"
         android:visibility="gone"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:inputType="text"
         android:textSize="15sp"
-        android:singleLine="true"/>
+        android:maxLines="1"
+        android:importantForAutofill="no" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ui__filesystem_dialog__list"
@@ -113,6 +93,7 @@
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
+        tools:ignore="ContentDescription"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 
     <LinearLayout

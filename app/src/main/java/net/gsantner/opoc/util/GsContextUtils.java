@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -2513,9 +2514,9 @@ public class GsContextUtils {
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
             if (imm != null && focus != null && focus.getWindowToken() != null) {
                 if (show) {
-                    imm.showSoftInput(focus, 0);
+                    imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
                 } else if (focus.getWindowToken() != null) {
-                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(focus.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
             }
         }
@@ -2820,5 +2821,12 @@ public class GsContextUtils {
             }
         }
         return false;
+    }
+
+    public static void blinkView(final View view) {
+        if (view != null) {
+            final float init = view.getAlpha();
+            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
+        }
     }
 }

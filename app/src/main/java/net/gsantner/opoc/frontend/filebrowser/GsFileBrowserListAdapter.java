@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
@@ -95,6 +96,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         loadFolder((options.startFolder != null) ? options.startFolder : options.rootFolder);
         _recyclerView = recyclerView;
         _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
+
+        // Prevents view flicker - https://stackoverflow.com/a/32488059
+        setHasStableIds(true);
 
         GsContextUtils cu = GsContextUtils.instance;
         if (_dopt.primaryColor == 0) {
@@ -284,6 +288,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
+
+    // Prevents view flicker - https://stackoverflow.com/a/32488059
+    @Override
+    public long getItemId(final int position) {
+        return _adapterData.get(position).hashCode();
+    }
+
     public File getCurrentFolder() {
         return _currentFolder;
     }
@@ -451,25 +462,46 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    public void createDirectoryHere(final CharSequence name) {
+    public File createDirectoryHere(final CharSequence name) {
         if (name == null || _currentFolder == null || !_currentFolder.canWrite()) {
-            return;
+            return null;
         }
 
         final String trimmed = name.toString().trim();
 
         if (trimmed.length() == 0) {
-            return;
+            return null;
         }
 
-        boolean success = false;
         try {
-            success = new File(_currentFolder, trimmed).mkdir();
+            final File file = new File(_currentFolder, trimmed);
+            if (file.exists() || file.mkdir()) {
+                reloadCurrentFolder();
+                return file;
+            }
         } catch (SecurityException ignored) {
         }
 
-        if (!success) {
-            Toast.makeText(_context, R.string.file_does_not_exist_and_cant_be_created, Toast.LENGTH_LONG).show();
+        Toast.makeText(_context, R.string.file_does_not_exist_and_cant_be_created, Toast.LENGTH_LONG).show();
+        return null;
+    }
+
+    /**
+     * Show a file in the current folder and blink it
+     * @param file       File to blink
+     * @param recycler   RecyclerView which holds the file items
+     */
+    public void showAndBlink(final File file, final RecyclerView recycler) {
+        final int pos = getFilePosition(file);
+        final LinearLayoutManager manager = (LinearLayoutManager) recycler.getLayoutManager();
+        if (manager != null && pos >= 0) {
+            manager.scrollToPositionWithOffset(pos, 1);
+            recycler.postDelayed(() -> {
+                final RecyclerView.ViewHolder holder = recycler.findViewHolderForLayoutPosition(pos);
+                if (holder != null) {
+                    GsContextUtils.blinkView(holder.itemView);
+                }
+            }, 250);
         }
     }
 

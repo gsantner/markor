@@ -19,8 +19,9 @@ package net.gsantner.opoc.frontend.filebrowser;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,15 +29,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -44,14 +40,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 
@@ -149,10 +143,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _searchEdit.setHint(_dopt.searchHint);
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
         _searchEdit.setHintTextColor(rcolor(_dopt.secondaryTextColor));
+        _searchEdit.setOnFocusChangeListener((edit, hasFocus) -> {
+            GsContextUtils.instance.showSoftKeyboard(getActivity(), hasFocus, _searchEdit);
+        });
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
@@ -187,14 +184,14 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__search_button: {
-                if (_searchEdit.getVisibility() == View.VISIBLE) {
+                if (_searchEdit.getVisibility() == View.GONE) {
+                    _searchEdit.setText("");
+                    _searchEdit.setVisibility(View.VISIBLE);
+                    _searchEdit.requestFocus();
+                } else {
+                    _searchEdit.setText("");
                     _searchEdit.setVisibility(View.GONE);
                     _searchEdit.clearFocus();
-                    _searchEdit.setText("");
-                } else {
-                    _searchEdit.setVisibility(View.VISIBLE);
-                    _searchEdit.setText("");
-                    _searchEdit.requestFocus();
                 }
                 break;
             }
@@ -209,6 +206,12 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         }
     }
 
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        GsContextUtils.instance.showSoftKeyboard(getActivity(), false);
+        super.onDismiss(dialog);
+    }
+
     private void showNewDirDialog() {
         final Activity activity = getActivity();
 
@@ -216,35 +219,21 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             return;
         }
 
-        // Make the view
-        final EditText nameBox = new EditText(activity);
-        final int padding = GsContextUtils.instance.convertDpToPx(activity, 20);
-        nameBox.setPadding(padding, nameBox.getPaddingTop(), nameBox.getPaddingBottom(), padding);
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-        if (_dopt.newDirButtonText != 0) {
-            builder.setTitle(_dopt.newDirButtonText);
-        }
-
-        if (_dopt.newDirButtonImage != 0) {
-            final Drawable icon = ContextCompat.getDrawable(activity, _dopt.newDirButtonImage);
-            if (icon != null) {
-                icon.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
-                builder.setIcon(icon);
+        final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
+        dopt.titleText = _dopt.newDirButtonText;
+        dopt.searchInputType = InputType.TYPE_CLASS_TEXT;
+        dopt.textColor = rcolor(_dopt.primaryTextColor);
+        dopt.searchHintText = android.R.string.untitled;
+        dopt.data = null;
+        dopt.callback = (name) -> {
+            final File file = _filesystemViewerAdapter.createDirectoryHere(name);
+            if (file != null) {
+                _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(file, _recyclerList), 100);
             }
-        }
+        };
 
-        builder.setView(nameBox)
-               .setNegativeButton(android.R.string.cancel, (d, w) -> d.dismiss())
-               .setPositiveButton(android.R.string.ok, (d, w) -> {
-                    _filesystemViewerAdapter.createDirectoryHere(nameBox.getText());
-                    _filesystemViewerAdapter.reloadCurrentFolder();
-               });
-
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener((d) -> nameBox.requestFocus());
-        dialog.show();
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
     private void checkOptions() {
