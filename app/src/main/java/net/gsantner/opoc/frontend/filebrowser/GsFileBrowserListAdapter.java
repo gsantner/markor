@@ -171,7 +171,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        //String tmp = descriptionFile.getAbsolutePath().startsWith("/storage/emulated/0/") && getCurrentFolder().getAbsolutePath().startsWith("/storage/emulated/0/") ? "/storage/emulated/0/" : "";
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
 
         holder.image.postDelayed(() -> {
@@ -292,7 +291,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     // Prevents view flicker - https://stackoverflow.com/a/32488059
     @Override
     public long getItemId(final int position) {
-        return _adapterData.get(position).hashCode();
+        return _adapterDataFiltered.get(position).hashCode();
     }
 
     public File getCurrentFolder() {
@@ -400,8 +399,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public boolean toggleSelection(TagContainer data) {
         boolean clickHandled = false;
-        if (data != null && data.file != null && getCurrentFolder() != null) {
-            if (data.file.isDirectory() && getCurrentFolder().getParentFile() != null && getCurrentFolder().getParentFile().equals(data.file)) {
+        if (data != null && data.file != null && _currentFolder != null) {
+            if (data.file.isDirectory() && _currentFolder.getParentFile() != null && _currentFolder.getParentFile().equals(data.file)) {
                 // goUp
                 clickHandled = true;
             } else if (_currentSelection.contains(data.file)) {
