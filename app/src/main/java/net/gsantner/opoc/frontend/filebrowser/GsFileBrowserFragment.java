@@ -489,7 +489,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    FileInfoDialog.show(file, getFragmentManager());
+                    FileInfoDialog.show(file, getChildFragmentManager());
                 }
                 return true;
             }
@@ -498,7 +498,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
-                    renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
+                    renameDialog.show(getChildFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
                 }
                 return true;
             }
@@ -556,7 +556,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
-        confirmDialog.show(getParentFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void askForMoveOrCopy(final boolean isMove) {
@@ -596,7 +596,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     }
                 }
             }
-        }, getActivity().getSupportFragmentManager(), getActivity());
+        }, getChildFragmentManager(), getActivity());
     }
 
     private void showImportDialog() {
@@ -622,7 +622,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 dopt.doSelectFile = true;
                 dopt.doSelectFolder = true;
             }
-        }, getFragmentManager(), getActivity(), null);
+        }, getChildFragmentManager(), getActivity(), null);
     }
 
     private void importFile(final File file) {
@@ -635,9 +635,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                             importFileToCurrentDirectory(getActivity(), file);
                         }
                     });
-            if (getFragmentManager() != null) {
-                d.show(getFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
-            }
+            d.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
         } else {
             // Import
             importFileToCurrentDirectory(getActivity(), file);

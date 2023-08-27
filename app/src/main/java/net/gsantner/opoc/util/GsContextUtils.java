@@ -56,6 +56,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
@@ -2512,11 +2513,12 @@ public class GsContextUtils {
         if (activity != null) {
             final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
-            if (imm != null && focus != null && focus.getWindowToken() != null) {
+            final IBinder token = focus != null ? focus.getWindowToken() : null;
+            if (imm != null && focus != null) {
                 if (show) {
                     imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
-                } else if (focus.getWindowToken() != null) {
-                    imm.hideSoftInputFromWindow(focus.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+                } else if (token != null) {
+                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
             }
         }

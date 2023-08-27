@@ -18,16 +18,15 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -42,7 +41,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -85,8 +83,11 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.opoc_filesystem_dialog, container, false);
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        final Dialog dialog = getDialog();
+        final Window window = dialog != null ? dialog.getWindow() : null;
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            setStyle(STYLE_NORMAL, R.style.AppTheme_Unified);
         }
         return root;
     }
@@ -143,8 +144,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _searchEdit.setHint(_dopt.searchHint);
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
         _searchEdit.setHintTextColor(rcolor(_dopt.secondaryTextColor));
-        _searchEdit.setOnFocusChangeListener((edit, hasFocus) -> {
-            GsContextUtils.instance.showSoftKeyboard(getActivity(), hasFocus, _searchEdit);
+        _searchEdit.setOnFocusChangeListener((v, isFocussed) -> {
+            GsContextUtils.instance.showSoftKeyboard(getActivity(), isFocussed, _searchEdit);
         });
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
@@ -208,8 +209,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
     @Override
     public void onDismiss(final DialogInterface dialog) {
-        GsContextUtils.instance.showSoftKeyboard(getActivity(), false);
         super.onDismiss(dialog);
+        GsContextUtils.instance.showSoftKeyboard(getActivity(), false, _searchEdit);
     }
 
     private void showNewDirDialog() {
@@ -222,10 +223,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         final GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.titleText = _dopt.newDirButtonText;
-        dopt.searchInputType = InputType.TYPE_CLASS_TEXT;
         dopt.textColor = rcolor(_dopt.primaryTextColor);
         dopt.searchHintText = android.R.string.untitled;
-        dopt.data = null;
         dopt.callback = (name) -> {
             final File file = _filesystemViewerAdapter.createDirectoryHere(name);
             if (file != null) {
