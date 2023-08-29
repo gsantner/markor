@@ -9,7 +9,6 @@ package net.gsantner.markor.frontend.textview;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
@@ -495,6 +494,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         public LineNumbersDrawer(final AppCompatEditText editor) {
             _editor = editor;
+            _paint.setColor(0xFF999999);
             _paint.setTextAlign(Paint.Align.RIGHT);
             _defaultPaddingLeft = editor.getPaddingLeft();
         }
@@ -583,10 +583,6 @@ public class HighlightingEditor extends AppCompatEditText {
                 _editor.setPadding(_gutterX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
 
-            // Draw right border of the gutter
-            _paint.setColor(Color.LTGRAY);
-            canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
-
             int i = _startLine[0], number = _startLine[1];
             // If current visible area is out of current line numbers area,
             // iterate from the first line to recalculate the start line
@@ -596,8 +592,10 @@ public class HighlightingEditor extends AppCompatEditText {
                 _startLine[0] = -1;
             }
 
+            // Draw border of the gutter
+            canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
+
             // Draw line numbers
-            _paint.setColor(Color.GRAY);
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
             for (; i < count; i++) {
