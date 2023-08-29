@@ -473,7 +473,6 @@ public class HighlightingEditor extends AppCompatEditText {
 
         private final Rect _visibleArea = new Rect();
         private final Rect _lineNumbersArea = new Rect();
-        // the height of the line numbers area = 3 * height of the visible area
 
         private int _numberX;
         private int _gutterX;
@@ -531,13 +530,18 @@ public class HighlightingEditor extends AppCompatEditText {
         }
 
         public boolean isOutOfLineNumbersArea() {
-            if (_visibleArea.top > _lineNumbersArea.top && _visibleArea.bottom < _lineNumbersArea.bottom) {
-                return false;
-            } else {
-                // Reset the line numbers area
-                _lineNumbersArea.top = _visibleArea.top - _visibleArea.height();
-                _lineNumbersArea.bottom = _visibleArea.bottom + _visibleArea.height();
+            final int margin = (int) (_visibleArea.height() * 0.5f);
+            final int top = _visibleArea.top - margin;
+            final int bottom = _visibleArea.bottom + margin;
+
+            if (top < _lineNumbersArea.top || bottom > _lineNumbersArea.bottom) {
+                // Reset line numbers area
+                // height of line numbers area = (1.5 + 1 + 1.5) * height of visible area
+                _lineNumbersArea.top = top - _visibleArea.height();
+                _lineNumbersArea.bottom = bottom + _visibleArea.height();
                 return true;
+            } else {
+                return false;
             }
         }
 
@@ -574,12 +578,12 @@ public class HighlightingEditor extends AppCompatEditText {
             // If text size or the max line number of digits changed,
             // update the variables and reset padding
             if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
-                _numberX = LINE_NUMBER_PADDING_LEFT + Math.round(_paint.measureText(String.valueOf(_maxNumber)));
+                _numberX = LINE_NUMBER_PADDING_LEFT + (int) _paint.measureText(String.valueOf(_maxNumber));
                 _gutterX = _numberX + LINE_NUMBER_PADDING_RIGHT;
                 _editor.setPadding(_gutterX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
 
-            // Draw the right border of the gutter
+            // Draw right border of the gutter
             _paint.setColor(Color.LTGRAY);
             canvas.drawLine(_gutterX, _lineNumbersArea.top, _gutterX, _lineNumbersArea.bottom, _paint);
 
@@ -592,7 +596,7 @@ public class HighlightingEditor extends AppCompatEditText {
                 _startLine[0] = -1;
             }
 
-            // Draw the line numbers
+            // Draw line numbers
             _paint.setColor(Color.GRAY);
             final int count = layout.getLineCount();
             final int offsetY = _editor.getPaddingTop();
