@@ -468,6 +468,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         restoreDefaultToolbar();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
+    }
+
     /**
      * Restores the default toolbar. Used when changing the tab or moving to another activity
      * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)

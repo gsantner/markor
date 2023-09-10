@@ -547,6 +547,7 @@ public abstract class ActionButtonBase {
     // Some actions common to multiple file types
     // Can be called _explicitly_ by a derived class
     protected final boolean runCommonAction(final @StringRes int action) {
+        final Editable text = _hlEditor.getText();
         switch (action) {
             case R.string.abid_common_unordered_list_char: {
                 runRegularPrefixAction(_appSettings.getUnorderedListCharacter() + " ", true);
@@ -564,34 +565,20 @@ public abstract class ActionButtonBase {
                 DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
                 return true;
             }
-            case R.string.abid_common_time_insert_timestamp: {
-
-            }
             case R.string.abid_common_accordion: {
                 _hlEditor.insertOrReplaceTextOnCursor("<details markdown='1'><summary>" + rstr(R.string.expand_collapse) + "</summary>\n" + HighlightingEditor.PLACE_CURSOR_HERE_TOKEN + "\n\n</details>");
                 return true;
             }
-            case R.string.abid_common_attach_something: {
-                MarkorDialogFactory.showAttachSomethingDialog(getActivity(), itemId -> {
-                    switch (itemId) {
-                        case R.id.action_attach_color: {
-                            showColorPickerDialog();
-                            break;
-                        }
-                        case R.id.action_attach_date: {
-                            DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
-                            break;
-                        }
-                        case R.id.action_attach_audio:
-                        case R.id.action_attach_file:
-                        case R.id.action_attach_image:
-                        case R.id.action_attach_link: {
-                            int actionId = (itemId == R.id.action_attach_audio ? 4 : (itemId == R.id.action_attach_image ? 2 : 3));
-                            AttachLinkOrFileDialog.showInsertImageOrLinkDialog(actionId, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
-                            break;
-                        }
-                    }
-                });
+            case R.string.abid_common_insert_audio: {
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), getActivity(), text, _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_insert_link: {
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), getActivity(), text, _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_insert_image: {
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), getActivity(), text, _document.getFile());
                 return true;
             }
             case R.string.abid_common_ordered_list_renumber: {
@@ -619,7 +606,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_open_link_browser: {
                 String url;
-                if ((url = GsTextUtils.tryExtractUrlAroundPos(_hlEditor.getText().toString(), _hlEditor.getSelectionStart())) != null) {
+                if ((url = GsTextUtils.tryExtractUrlAroundPos(text.toString(), _hlEditor.getSelectionStart())) != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
@@ -633,13 +620,12 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_new_line_below: {
                 // Go to end of line, works with wrapped lines too
-                _hlEditor.setSelection(TextViewUtils.getLineEnd(_hlEditor.getText(), TextViewUtils.getSelection(_hlEditor)[1]));
+                _hlEditor.setSelection(TextViewUtils.getLineEnd(text, TextViewUtils.getSelection(_hlEditor)[1]));
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_ENTER);
                 return true;
             }
             case R.string.abid_common_delete_lines: {
                 final int[] sel = TextViewUtils.getLineSelection(_hlEditor);
-                final Editable text = _hlEditor.getText();
                 final boolean lastLine = sel[1] == text.length();
                 final boolean firstLine = sel[0] == 0;
                 text.delete(sel[0] - (lastLine && !firstLine ? 1 : 0), sel[1] + (lastLine ? 0 : 1));

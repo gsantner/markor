@@ -158,6 +158,8 @@ public class GsContextUtils {
     //########################
     public static final GsContextUtils instance = new GsContextUtils();
 
+    private static String _authority = null;
+
     public GsContextUtils() {
     }
 
@@ -185,7 +187,7 @@ public class GsContextUtils {
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
-    protected static String m_lastCameraPictureFilepath;
+    protected static String _lastCameraPictureFilepath;
     protected static String m_chooserTitle = "➥";
 
 
@@ -1072,12 +1074,15 @@ public class GsContextUtils {
     }
 
     public String getFileProvider(final Context context) {
-        for (final ProviderInfo info : getProvidersInfos(context)) {
-            if (info.name.matches("(?i).*fileprovider.*")) {
-                return info.authority;
+        if (_authority == null) {
+            for (final ProviderInfo info : getProvidersInfos(context)) {
+                if (info.name.matches("(?i).*fileprovider.*")) {
+                    _authority = info.authority;
+                    break;
+                }
             }
         }
-        return null;
+        return _authority;
     }
 
     /**
@@ -1741,48 +1746,33 @@ public class GsContextUtils {
      * it can be retrieved using {@link #extractResultFromActivityResult(Activity, int, int, Intent)}
      * returns null if an error happened.
      *
-     * @param target Path to file to write to, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
+     * @param targetDir Path to under which file will be written, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
      */
     @SuppressWarnings("RegExpRedundantEscape")
-    public String requestCameraPicture(final Activity context, final File target) {
-        final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        final String timestampedFilename = GsFileUtils.getFilenameWithTimestamp("IMG", "", "jpg");
-        final File storageDir = target != null ? target : new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "Camera");
+    public void requestCameraPicture(final Activity activity, final File targetDir) {
+        try {
+            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            final File picDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            final String tempName = GsFileUtils.getFilenameWithTimestamp("IMG", "", "");
+            final File imageTemp = File.createTempFile(tempName, ".jpg", picDir);
+            imageTemp.deleteOnExit();
 
-        String cameraPictureFilepath = null;
-        if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
-            File photoFile;
-            try {
-                // Create an image file name
-                if (target != null && !target.isDirectory()) {
-                    photoFile = target;
+            if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+                final String targetName = GsFileUtils.getFilenameWithTimestamp("IMG", "", "jpg");
+                // Continue only if the File was successfully created
+                final Uri uri;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    uri = FileProvider.getUriForFile(activity, getFileProviderAuthority(activity), imageTemp);
                 } else {
-                    photoFile = new File(storageDir, timestampedFilename);
-                    if (photoFile.getParentFile() != null && !photoFile.getParentFile().exists() && !photoFile.getParentFile().mkdirs()) {
-                        photoFile = File.createTempFile(timestampedFilename.replace(".jpg", "_"), ".jpg", storageDir);
-                    }
+                    uri = Uri.fromFile(imageTemp);
                 }
-
-                //noinspection StatementWithEmptyBody
-                if (photoFile.getParentFile() != null && !photoFile.getParentFile().exists() && photoFile.getParentFile().mkdirs())
-                    ;
-
-                // Save a file: path for use with ACTION_VIEW intents
-                cameraPictureFilepath = photoFile.getAbsolutePath();
-            } catch (IOException ex) {
-                return null;
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                        .putExtra(Intent.EXTRA_RETURN_RESULT, true);
+                _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
+                activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
             }
-
-            // Continue only if the File was successfully created
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(context, getFileProviderAuthority(context), photoFile));
-            } else {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-            }
-            context.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
+        } catch (IOException ignored) {
         }
-        m_lastCameraPictureFilepath = cameraPictureFilepath;
-        return cameraPictureFilepath;
     }
 
     /**
@@ -1794,7 +1784,7 @@ public class GsContextUtils {
     public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent data) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
-                String picturePath = (resultCode == Activity.RESULT_OK) ? m_lastCameraPictureFilepath : null;
+                final String picturePath = (resultCode == Activity.RESULT_OK) ? _lastCameraPictureFilepath : null;
                 if (picturePath != null) {
                     sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 }
@@ -1918,8 +1908,8 @@ public class GsContextUtils {
      * @param file File that should be edited
      */
     public void requestPictureEdit(final Context context, final File file) {
-        Uri uri = getUriByFileProviderAuthority(context, file);
-        Intent intent = new Intent(Intent.ACTION_EDIT);
+        final Uri uri = getUriByFileProviderAuthority(context, file);
+        final Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setDataAndType(uri, "image/*");
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);

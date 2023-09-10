@@ -104,35 +104,6 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    public static void showAttachSomethingDialog(final Activity activity, final GsCallback.a1<Integer> userCallback) {
-        final List<String> availableData = new ArrayList<>();
-        final List<Integer> availableDataToActionMap = new ArrayList<>();
-        final List<Integer> availableDataToIconMap = new ArrayList<>();
-        final GsCallback.a3<Integer, Integer, Integer> addToList = (strRes, actionRes, iconRes) -> {
-            availableData.add(activity.getString(strRes));
-            availableDataToActionMap.add(actionRes);
-            availableDataToIconMap.add(iconRes);
-        };
-        addToList.callback(R.string.color, R.id.action_attach_color, R.drawable.ic_format_color_fill_black_24dp);
-        addToList.callback(R.string.insert_link, R.id.action_attach_link, R.drawable.ic_link_black_24dp);
-        addToList.callback(R.string.file, R.id.action_attach_file, R.drawable.ic_attach_file_black_24dp);
-        addToList.callback(R.string.image, R.id.action_attach_image, R.drawable.ic_image_black_24dp);
-        addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
-        addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
-
-        DialogOptions dopt = new DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
-        dopt.data = availableData;
-        dopt.iconsForData = availableDataToIconMap;
-        dopt.isSearchEnabled = false;
-        dopt.okButtonText = 0;
-        dopt.titleText = 0;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.gravity = Gravity.BOTTOM | Gravity.END;
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
     public static void showInsertTableRowDialog(final Activity activity, final boolean isHeader, GsCallback.a2<Integer, Boolean> callback) {
         final DialogOptions dopt = new DialogOptions();
         final String PREF_LAST_USED_TABLE_SIZE = "pref_key_last_used_table_size";
@@ -253,7 +224,6 @@ public class MarkorDialogFactory {
         dopt.iconsForData = availableDataToIconMap;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 530;
-        dopt.gravity = Gravity.BOTTOM | Gravity.END;
         dopt.okButtonText = 0;
 
         dopt.titleText = R.string.sort_tasks_by_selected_order;

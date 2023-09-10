@@ -778,4 +778,18 @@ public class GsFileUtils {
 
         return false;
     }
+
+    public static File findNonConflictingDest(final File destDir, final String name) {
+        File dest = new File(destDir, name);
+        final String[] splits = name.split("\\.");
+        final String baseName = splits[0];
+        splits[0] = "";
+        final String extension = String.join(".", splits);
+        int i = 1;
+        while (dest.exists()) {
+            dest = new File(destDir, String.format("%s_%d%s", baseName, i, extension));
+            i++;
+        }
+        return dest;
+    }
 }

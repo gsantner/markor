@@ -165,6 +165,13 @@
                 android:key="@string/pref_key__share_into_format"
                 android:title="@string/share_into_format" />
 
+            <androidx.preference.EditTextPreference
+                android:defaultValue="_res"
+                android:dialogMessage="@string/attachment_folder_name_desc"
+                android:icon="@drawable/ic_attach_file_black_24dp"
+                android:key="@string/pref_key__attachment_folder_name"
+                android:title="@string/attachment_folder_name" />
+
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_open_in_browser_black_24dp"

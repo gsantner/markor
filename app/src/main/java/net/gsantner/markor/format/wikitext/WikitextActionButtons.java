@@ -16,7 +16,6 @@ import androidx.annotation.StringRes;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.ActionButtonBase;
-import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -70,8 +69,8 @@ public class WikitextActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_wikitext_h4, R.drawable.format_header_4, R.string.heading_4),
                 new ActionItem(R.string.abid_wikitext_h5, R.drawable.format_header_5, R.string.heading_5),
-                new ActionItem(R.string.abid_wikitext_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
-                new ActionItem(R.string.abid_wikitext_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
+                new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
+                new ActionItem(R.string.abid_common_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
                 new ActionItem(R.string.abid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
                 new ActionItem(R.string.abid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
                 new ActionItem(R.string.abid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
@@ -146,13 +145,6 @@ public class WikitextActionButtons extends ActionButtonBase {
             //       runInlineAction("----\n");
             //       return true;
             // }
-            case R.string.abid_wikitext_insert_link:
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
-                return true;
-            case R.string.abid_wikitext_insert_image: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
-                return true;
-            }
             case R.string.abid_common_indent:
                 runRegexReplaceAction(WikitextReplacePatternGenerator.indentOneTab());
                 runRenumberOrderedListIfRequired();
@@ -179,13 +171,13 @@ public class WikitextActionButtons extends ActionButtonBase {
                 runRegexReplaceAction(WikitextReplacePatternGenerator.removeCheckbox());
                 return true;
             }
-            case R.string.abid_wikitext_insert_link: {
+            case R.string.abid_common_insert_link: {
                 int pos = _hlEditor.getSelectionStart();
                 _hlEditor.getText().insert(pos, "[[]]");
                 _hlEditor.setSelection(pos + 2);
                 return true;
             }
-            case R.string.abid_wikitext_insert_image: {
+            case R.string.abid_common_insert_image: {
                 int pos = _hlEditor.getSelectionStart();
                 _hlEditor.getText().insert(pos, "{{}}");
                 _hlEditor.setSelection(pos + 2);

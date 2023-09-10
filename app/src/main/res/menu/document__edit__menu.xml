@@ -12,42 +12,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
-
-    <item
-        android:id="@+id/submenu_attach"
-        android:icon="@drawable/ic_attach_file_black_24dp"
-        android:title="@string/attach"
-        android:visible="false"
-        app:showAsAction="always">
-        <menu>
-            <item
-                android:id="@+id/action_attach_link"
-                android:icon="@drawable/ic_link_black_24dp"
-                android:title="@string/insert_link" />
-            <item
-                android:id="@+id/action_attach_file"
-                android:icon="@drawable/ic_file_white_24dp"
-                android:title="@string/file" />
-            <item
-                android:id="@+id/action_attach_image"
-                android:icon="@drawable/ic_image_black_24dp"
-                android:title="@string/image" />
-            <item
-                android:id="@+id/action_attach_audio"
-                android:icon="@drawable/ic_keyboard_voice_black_24dp"
-                android:title="@string/audio" />
-            <item
-                android:id="@+id/action_attach_date"
-                android:icon="@drawable/ic_date_range_black_24dp"
-                android:title="@string/date" />
-            <item
-                android:id="@+id/action_attach_color"
-                android:icon="@drawable/ic_format_color_fill_black_24dp"
-                android:title="@string/color" />
-        </menu>
-    </item>
-
-
     <item
         android:id="@+id/action_undo"
         android:icon="@drawable/ic_undo_black_24dp"
