@@ -221,7 +221,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview);
         }
 
-        final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
+        final Runnable debounced = TextViewUtils.makeDebounced(200, () -> {
             checkTextChangeState();
             updateUndoRedoIconStates();
         });
@@ -498,6 +498,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.string.action_format_csv:
             case R.string.action_format_plaintext:
             case R.string.action_format_asciidoc:
+            case R.string.action_format_orgmode:
             case R.string.action_format_markdown: {
                 if (itemId != _document.getFormat()) {
                     _document.setFormat(itemId);

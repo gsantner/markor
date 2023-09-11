@@ -90,6 +90,8 @@ public class Document implements Serializable {
             setFormat(FormatRegistry.FORMAT_WIKITEXT);
         } else if (FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(getPath())) {
             setFormat(FormatRegistry.FORMAT_EMBEDBINARY);
+        } else if (FormatRegistry.CONVERTER_ORGMODE.isFileOutOfThisFormat(getPath())) {
+            setFormat(FormatRegistry.FORMAT_ORGMODE);
         } else {
             setFormat(FormatRegistry.FORMAT_PLAIN);
         }
