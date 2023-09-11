@@ -17,7 +17,7 @@
 * asciidoctor.js
 ~° Copyright asciidoctor.js authors
 
-* asciidoctor-skins
+asciidoctor-skins
 ~° Copyright asciidoctor-skins authors
 
 * flexmark-ext-prism-linenumber
