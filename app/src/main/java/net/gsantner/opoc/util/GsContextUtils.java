@@ -12,6 +12,7 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -55,6 +56,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
@@ -2507,15 +2509,16 @@ public class GsContextUtils {
                 .show();
     }
 
-    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final boolean show, final View ... view) {
+    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final boolean show, final View... view) {
         if (activity != null) {
             final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
-            if (imm != null && focus != null && focus.getWindowToken() != null) {
+            final IBinder token = focus != null ? focus.getWindowToken() : null;
+            if (imm != null && focus != null) {
                 if (show) {
-                    imm.showSoftInput(focus, 0);
-                } else if (focus.getWindowToken() != null) {
-                    imm.hideSoftInputFromWindow(focus.getWindowToken(), 0);
+                    imm.showSoftInput(focus, InputMethodManager.SHOW_IMPLICIT);
+                } else if (token != null) {
+                    imm.hideSoftInputFromWindow(token, InputMethodManager.HIDE_IMPLICIT_ONLY);
                 }
             }
         }
@@ -2820,5 +2823,12 @@ public class GsContextUtils {
             }
         }
         return false;
+    }
+
+    public static void blinkView(final View view) {
+        if (view != null) {
+            final float init = view.getAlpha();
+            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
+        }
     }
 }

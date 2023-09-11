@@ -131,6 +131,14 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__is_highlighting_activated, true);
     }
 
+    public boolean isLineNumbersEnabled() {
+        return getBool(R.string.pref_key__enable_line_numbers, false);
+    }
+
+    public void setLineNumbersEnabled(boolean enabled) {
+        setBool(R.string.pref_key__enable_line_numbers, enabled);
+    }
+
     public boolean isDynamicHighlightingEnabled() {
         return getBool(R.string.pref_key__is_dynamic_highlighting_activated, true);
     }
@@ -353,6 +361,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     private static final String PREF_PREFIX_VIEW_SCROLL_X = "PREF_PREFIX_VIEW_SCROLL_X";
     private static final String PREF_PREFIX_VIEW_SCROLL_Y = "PREF_PREFIX_VIEW_SCROLL_Y";
     private static final String PREF_PREFIX_TODO_DONE_NAME = "PREF_PREFIX_TODO_DONE_NAME";
+    private static final String PREF_PREFIX_LINE_NUM_STATE = "PREF_PREFIX_LINE_NUM_STATE";
 
     public void setLastTodoDoneName(final String path, final String name) {
         if (fexists(path)) {
@@ -405,6 +414,21 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return _default;
         } else {
             return getBool(PREF_PREFIX_WRAP_STATE + path, _default);
+        }
+    }
+
+    public void setDocumentLineNumbersEnabled(final String path, final boolean enabled) {
+        if (fexists(path)) {
+            setBool(PREF_PREFIX_LINE_NUM_STATE + path, enabled);
+        }
+    }
+
+    public boolean getDocumentLineNumbersEnabled(final String path) {
+        final boolean _default = false;
+        if (!fexists(path)) {
+            return _default;
+        } else {
+            return getBool(PREF_PREFIX_LINE_NUM_STATE + path, _default);
         }
     }
 

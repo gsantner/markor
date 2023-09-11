@@ -10,10 +10,7 @@
 package net.gsantner.opoc.format;
 
 import android.util.Base64;
-import android.util.Pair;
 
-import net.gsantner.opoc.util.GsCollectionUtils;
-import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import org.json.JSONArray;
