@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">画像を挿入</string>
     <string name="contributors">貢献者</string>
     <string name="save_location">保存場所</string>
+    <string name="saved_location_to">Saved to %s</string>
     <string name="select_storage_folder">ストレージのフォルダーを選択</string>
     <string name="licenses">ライセンス</string>
     <string name="changelog">変更履歴</string>

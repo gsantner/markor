@@ -360,6 +360,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__show_dot_files_v2" translatable="false">pref_key__show_dot_files_v2</string>
     <string name="pref_key__tab_width_v2" translatable="false">pref_key__tab_width_v2</string>
     <string name="pref_key__editor_enable_line_breaking" translatable="false">pref_key__editor_enable_line_breaking</string>
+    <string name="pref_key__enable_line_numbers" translatable="false">pref_key__enable_line_numbers</string>
     <string name="pref_key__exts_to_always_open_in_this_app" translatable="false">pref_key__exts_to_always_open_in_this_app</string>
     <string name="pref_key__view_font_size" translatable="false">pref_key__view_font_size</string>
     <string name="pref_key__view_mode_link_color" translatable="false">pref_key__view_mode_link_color</string>

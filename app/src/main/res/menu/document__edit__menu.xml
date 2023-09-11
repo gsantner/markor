@@ -112,6 +112,13 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/action_line_numbers"
+                android:checkable="true"
+                android:icon="@drawable/ic_line_numbers_24dp"
+                android:title="@string/line_numbers"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/action_enable_highlighting"
                 android:checkable="true"
                 android:icon="@drawable/ic_format_color_fill_black_24dp"

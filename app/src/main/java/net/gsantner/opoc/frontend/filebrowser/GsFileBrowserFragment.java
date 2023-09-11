@@ -42,7 +42,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;

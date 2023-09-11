@@ -20,7 +20,6 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowInsets;
@@ -31,7 +30,6 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -216,6 +214,11 @@ public final class TextViewUtils extends GsTextUtils {
      * @return number of instances of each char in [start, end)
      */
     public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
+        // Faster specialization for the common single case
+        if (chars.length == 1) {
+            return new int[] {countChar(s, start, end, chars[0])};
+        }
+
         final int[] counts = new int[chars.length];
         start = Math.max(0, start);
         end = Math.min(end, s.length());
@@ -230,11 +233,30 @@ public final class TextViewUtils extends GsTextUtils {
         return counts;
     }
 
+    public static int countChar(final CharSequence s, final char c) {
+        return countChar(s, 0, s.length(), c);
+    }
+
+    /**
+     * Count instances of a single char in a charsequence
+     */
+    public static int countChar(final CharSequence s, int start, int end, final char c) {
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
     }
 
-    public static void selectLines(final EditText edit, final Integer ... positions) {
+    public static void selectLines(final EditText edit, final Integer... positions) {
         selectLines(edit, Arrays.asList(positions));
     }
 
