@@ -157,19 +157,20 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
 
-        MutableDataSet options = new MutableDataSet();
+        final MutableDataSet options = new MutableDataSet();
 
-        if (_appSettings.isLineNumbersEnabled()) {
+        if (lineNum) {
             // Add code blocks Line numbers extension
-            ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
+            final ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
             extensions.add(LineNumbersExtension.create());
             options.set(Parser.EXTENSIONS, extensions);
         } else {
             options.set(Parser.EXTENSIONS, flexmarkExtensions);
         }
+
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
         //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
@@ -273,8 +274,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        final String xt = getViewHlPrismIncludes((GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : ""));
-        head += xt;
+        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", lineNum);
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
@@ -296,11 +296,9 @@ public class MarkdownTextConverter extends TextConverterBase {
             fmaText = HTML_FRONTMATTER_CONTAINER_S + fmaText + HTML_FRONTMATTER_CONTAINER_E + "\n";
         }
 
-
         ////////////
         // Markup parsing - afterwards = HTML
-        converted = flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
-        converted = fmaText + converted;
+        converted = fmaText + flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -324,7 +322,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Deliver result
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
@@ -360,13 +358,13 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String themeName) {
+    private String getViewHlPrismIncludes(final String themeName, final boolean lineNum) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
-        if (_appSettings.isLineNumbersEnabled()) {
+        if (lineNum) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
         }

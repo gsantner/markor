@@ -214,6 +214,11 @@ public final class TextViewUtils extends GsTextUtils {
      * @return number of instances of each char in [start, end)
      */
     public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
+        // Faster specialization for the common single case
+        if (chars.length == 1) {
+            return new int[] {countChar(s, start, end, chars[0])};
+        }
+
         final int[] counts = new int[chars.length];
         start = Math.max(0, start);
         end = Math.min(end, s.length());
@@ -226,6 +231,25 @@ public final class TextViewUtils extends GsTextUtils {
             }
         }
         return counts;
+    }
+
+    public static int countChar(final CharSequence s, final char c) {
+        return countChar(s, 0, s.length(), c);
+    }
+
+    /**
+     * Count instances of a single char in a charsequence
+     */
+    public static int countChar(final CharSequence s, int start, int end, final char c) {
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public static boolean isNewLine(CharSequence source, int start, int end) {
