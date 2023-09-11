@@ -268,6 +268,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = startFolder;
+                    dopt.newDirButtonEnable = false;
                 }
 
                 @Override

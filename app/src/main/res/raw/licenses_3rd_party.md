@@ -20,6 +20,9 @@
 asciidoctor-skins
 ~° Copyright asciidoctor-skins authors
 
+* flexmark-ext-prism-linenumber
+~° Copyright Tom Misawa
+
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -58,7 +61,7 @@ Version 2.0, January 2004
 ~° Copyright Apache Foundation
 
 * OpenCsv
-  ~° Copyright Bytecode Pty Ltd.
+~° Copyright Bytecode Pty Ltd.
 
 * gene-rate
 ~° Copyright 2017 Pixplicity

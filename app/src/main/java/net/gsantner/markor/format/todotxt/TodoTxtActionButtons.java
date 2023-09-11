@@ -252,16 +252,16 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         final boolean append = _appSettings.isTodoAppendProConOnEndEnabled();
 
         MarkorDialogFactory.showUpdateItemsDialog(getActivity(), R.string.insert_context, all, current, _hlEditor,
-            updated -> {
-                final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
-                for (final String item : GsCollectionUtils.setDiff(current, updated)) {
-                    removeItem(chunk, prefix + item);
-                }
-                for (final String item : GsCollectionUtils.setDiff(updated, current)) {
-                    insertUniqueItem(chunk, prefix + item, append);
-                }
-                chunk.applyChanges();
-        });
+                updated -> {
+                    final TextViewUtils.ChunkedEditable chunk = TextViewUtils.ChunkedEditable.wrap(_hlEditor.getText());
+                    for (final String item : GsCollectionUtils.setDiff(current, updated)) {
+                        removeItem(chunk, prefix + item);
+                    }
+                    for (final String item : GsCollectionUtils.setDiff(updated, current)) {
+                        insertUniqueItem(chunk, prefix + item, append);
+                    }
+                    chunk.applyChanges();
+                });
     }
 
     private static void removeItem(final Editable editable, final String item) {

@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserir Imagem</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Salvar localização</string>
+    <string name="saved_location_to">Salvo em %s</string>
     <string name="select_storage_folder">Escolher pasta de armazenamento</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Histórico de mudanças</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Exibir licenças de terceiros</string>
     <string name="language_change_restart_description">Alterar o idioma deste aplicativo. Reinicie o aplicativo para as mudanças terem efeito</string>
     <string name="language">Idioma</string>
+    <string name="storage_permission_required">Permissão de armazenamento é necessária para ler e gravar arquivos</string>
     <string name="open_with">Abrir com</string>
     <string name="sort_by">Ordenar</string>
     <string name="date">Ordenar por Data</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais e off-line, não há suporte para gerenciadores de arquivos que não disponibilizem o caminho completo do arquivo.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Arquivo ou pasta não existem, e não podem ser criados</string>
+    <string name="permissions">Permissões</string>
+    <string name="permission_paths_revert">Reverter para termos padrão?</string>
+    <string name="permission_not_granted">Permissão não concedida</string>
     <string name="sync_to_local_folder_notice">Importante: se você estiver usando um aplicativo de sincronização on-line e souber o local do diretório onde ele armazena informações, poderá alterar o diretório de documentos padrão para sincronizar ou usar um gerenciador de arquivos para abrir o documentos que deseja editar.</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
@@ -300,7 +306,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into">Compartilhar para</string>
     <string name="favourite">Favorito</string>
     <string name="favourites">Favoritos</string>
-    <string name="please_wait">Por favor aguarde</string>
+    <string name="please_wait">Por favor, aguarde</string>
     <string name="app_start_folder">Pasta inicial do aplicativo</string>
     <string name="tab_width">Largura da aba</string>
     <string name="amount_of_space_for_tab">Quantidade de espaços para exibir tabulação</string>
@@ -391,7 +397,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="replace_all">Substituir todos</string>
     <string name="matches">Jogos</string>
     <string name="search_replace_pattern_error_message">Erro ao pesquisar ou substituir padrão.</string>
-    <string name="backup_settings">Configurações do backup</string>
+    <string name="backup_settings">Fazer backup das configurações</string>
     <string name="restore_settings">Restaurar configurações</string>
     <string name="failed_to_create_backup">Falha ao criar backup</string>
     <string name="export_settings_to_json_file">Exportar configurações para arquivo json</string>
@@ -437,4 +443,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_snippet">Insert snippet</string>
     <string name="error_could_not_open_file">Erro: Não foi possível abrir o arquivo.</string>
     <string name="document_error_clip">Erro encontrado: Texto copiado para área de transferência.</string>
+    <string name="wont_save_min_length">Arquivo com menos que %d caracteres não salvo automaticamente visando prevenir perca de informações.</string>
+    <string name="advanced_filtering_help"><![CDATA[Sintaxe de filtros avançados]]></string>
+    <string name="filter">Filtro</string>
 </resources>
