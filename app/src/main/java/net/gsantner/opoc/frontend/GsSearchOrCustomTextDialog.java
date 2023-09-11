@@ -115,7 +115,7 @@ public class GsSearchOrCustomTextDialog {
         @StringRes
         public int searchHintText = android.R.string.search_go;
         @DrawableRes
-        public int clearInputIcon = android.R.drawable.ic_input_delete;
+        public int clearInputIcon = android.R.drawable.ic_menu_close_clear_cancel;
     }
 
     public static class Adapter extends BaseAdapter {

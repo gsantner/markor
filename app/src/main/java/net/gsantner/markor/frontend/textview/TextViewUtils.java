@@ -715,13 +715,6 @@ public final class TextViewUtils extends GsTextUtils {
         return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
     }
 
-    public static void blinkView(final View view) {
-        if (view != null) {
-            final float init = view.getAlpha();
-            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
-        }
-    }
-
     public static boolean isViewVisible(final View view) {
         if (view == null || !view.isShown()) {
             return false;

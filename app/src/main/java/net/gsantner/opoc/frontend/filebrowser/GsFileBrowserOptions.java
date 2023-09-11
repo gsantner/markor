@@ -71,7 +71,8 @@ public class GsFileBrowserOptions {
                 upButtonEnable = true,
                 homeButtonEnable = true,
                 cancelButtonEnable = true,
-                okButtonEnable = true;
+                okButtonEnable = true,
+                newDirButtonEnable = true;
 
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
@@ -89,10 +90,14 @@ public class GsFileBrowserOptions {
         public int contentDescriptionSelected = 0;
         @StringRes
         public int contentDescriptionFile = 0;
+        @StringRes
+        public int newDirButtonText = 0;
         @DrawableRes
         public int homeButtonImage = android.R.drawable.star_big_on;
         @DrawableRes
         public int searchButtonImage = android.R.drawable.ic_menu_search;
+        @DrawableRes
+        public int newDirButtonImage = android.R.drawable.ic_menu_add;
         @DrawableRes
         public int folderImage = android.R.drawable.ic_menu_view;
         @DrawableRes
