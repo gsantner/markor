@@ -11,6 +11,8 @@ package net.gsantner.opoc.format;
 
 import android.util.Base64;
 
+import net.gsantner.opoc.wrapper.GsCallback;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -55,6 +57,13 @@ public class GsTextUtils {
         return null;
     }
 
+    /**
+     * find '\n' to the right and left of text[pos] .. text[posEnd].
+     * If left does not exist 0 (begin of text) is used.
+     * if right does not exist text.length() (end of text) is used.
+     *
+     * @return result[0] is left, result[1] is right.
+     */
     public static int[] getNeighbourLineEndings(String text, int pos, int posEnd) {
         final int len = text.length();
 
@@ -83,6 +92,16 @@ public class GsTextUtils {
         return null;
     }
 
+    /**
+     * returns search for begin of line starting for startPosition down to 0
+     */
+    public static int beginOfLine(final String text, int startPosition) {
+        return getNeighbourLineEndings(text, startPosition, startPosition)[0];
+    }
+
+    public static int endOfLine(final String text, int startPosition) {
+        return getNeighbourLineEndings(text, startPosition, startPosition)[1];
+    }
 
     public static String removeLinesOfTextAround(String text, int pos, int posEnd) {
         int[] endings = getNeighbourLineEndings(text, pos, posEnd);
@@ -247,36 +266,6 @@ public class GsTextUtils {
     }
 
     /**
-     * Get a list of values (like np.arange())
-     *
-     * @param ops start, stop and step (all optional)
-     * @return List of integers with values
-     */
-    public static List<Integer> range(final int... ops) {
-        int start = 0, end = 0, step = 1;
-        if (ops != null) {
-            if (ops.length == 1) {
-                end = ops[0];
-            } else if (ops.length == 2) {
-                start = ops[0];
-                end = ops[1];
-            } else if (ops.length >= 3) {
-                start = ops[0];
-                end = ops[1];
-                step = ops[2];
-            }
-        }
-
-        final List<Integer> values = new ArrayList<>();
-        while (start < end) {
-            values.add(start);
-            start += step;
-        }
-
-        return values;
-    }
-
-    /**
      * Count number of instances of 'find' in 'text'
      *
      * @param text Text to search
@@ -291,6 +280,7 @@ public class GsTextUtils {
         }
         return count;
     }
+
 
     /**
      * Pad string on left up to size
@@ -316,5 +306,30 @@ public class GsTextUtils {
         final char[] stringChars = new char[count];
         Arrays.fill(stringChars, character);
         return new String(stringChars);
+    }
+
+    public static List<Integer> findChar(final CharSequence text, final char c) {
+        return findChar(text, c, 0, text.length());
+    }
+
+    public static List<Integer> findChar(final CharSequence text, final char c, final int start, final int end) {
+        final List<Integer> posns = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            if (text.charAt(i) == c) {
+                posns.add(i);
+            }
+        }
+        return posns;
+    }
+
+    public static void forEachline(final CharSequence text, GsCallback.a3<Integer, Integer, Integer> callback) {
+        final List<Integer> ends = findChar(text, '\n');
+        int start = 0, i = 0;
+        for (; i < ends.size(); i++) {
+            final int end = ends.get(i);
+            callback.callback(i, start, end);
+            start = end + 1;
+        }
+        callback.callback(i, start, text.length());
     }
 }

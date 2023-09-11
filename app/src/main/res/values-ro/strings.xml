@@ -164,6 +164,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlight_line_ending_if_two_or_more_spaces">Evidențiază spațiile la capătul liniilor care conțin două sau mai multe spații</string>
     <string name="use_monospace_for_code">Folosește fontul monospațiu pentru cod</string>
     <string name="disable_code_block_highlight">Dezactivează evidențierea pentru blocuri de cod</string>
+    <string name="auto_renumber_ordered_list">Auto-renumărare liste ordonate</string>
     <string name="auto_renumber_ordered_list_slowdown">Această opțiune poate afecta performanța aplicațiilor.</string>
     <string name="use_different_fonttype_slow_down">Folosiți un tip diferit de font. Schimbarea acestuia are un impact dinamic asupra performanței aplicației.</string>
     <string name="general">General</string>
@@ -186,6 +187,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_tab">Tabel</string>
     <string name="start_on_bottom">Pornire jos</string>
     <string name="start_on_bottom_when_loading_document">La încărcarea unui document, cursorul de poziție la sfârșit</string>
+    <string name="unordered_list_character">Caracter listă neordonat</string>
     <string name="character_to_start_items_of_unordered_list_with">Ce caracter trebuie folosit pentru a indica liste neordonate</string>
     <string name="unordered_list_char_dash">Liniuță (-)</string>
     <string name="unordered_list_char_asterisk">Asterisc (*)</string>
@@ -337,7 +339,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="date_and_time">Data și ora</string>
     <string name="jump_to_bottom">Salt la jos</string>
     <string name="quote">Ofertă</string>
-    <string name="heading">Titlu</string>
+    <string name="heading">Subtitlu</string>
     <string name="heading_1">Subtitlu 1</string>
     <string name="heading_2">Titlu2</string>
     <string name="heading_3">Titlu3</string>

@@ -38,6 +38,7 @@ If you have questions or found an issue please head to the [Markor project](http
   * [Using Markor to Write (and More) on an Android Device (The Plain Text Project)](doc/2019-07-16-using-markor-to-write-on-an-android-device-plaintextproject.md#readme)
   * [How I Take Notes With Vim, Markdown, and Pandoc (Vaughan)](doc/2018-05-15-pandoc-vim-markdown-how-i-take-notes-vaughan.md#readme)
 * [**NEWS**](NEWS.md)
+  * [Markor v2.11 - Todo.txt advanced search, New support for AsciiDoc and CSV](NEWS.md#markor-v211) 
   * [Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters](NEWS.md#markor-v210---custom-file-templates-share-into-automatically-remove-url-tracking-parameters)
   * [Markor v2.9 - Snippets, Templates, Graphs, Charts, Diagrams, YAML front-matter, Chemistry](NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry)
   * [Markor v2.8 - Multi-selection for todo.txt dialogs](NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs)
@@ -64,8 +65,25 @@ If you have questions or found an issue please head to the [Markor project](http
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------------------------------------------------
+# Markor v2.11 
 
+* Architectural improvements:
+  * Much simpler permissions (fixes #1981 #1957 #1886 )
+  * Better Support for the new storage APIs including scoped storage, SAF (fixes #1172 )
+* New Features
+  * View mode: open Image,Video,Audio files in Markor ( #1806, #1200 )
+  * [Todo.txt advanced search system](https://github.com/gsantner/markor/pull/1901) ( #1901 )
+* [AsciiDoc File](https://asciidoctor.org/) support. ( #1876, #808, #2022)
+* [CSV File](https://en.wikipedia.org/wiki/Comma-separated_values) support. (For details see [CSV_README.md](doc/CSV_README.md), implemented in  #1988, #1987, #1980, #1667 )
+  * Editor with SyntaxHighlighter
+    * ![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)
+    * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
+  * Preview as html-Table with export as pdf
+    * ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
+    * A csv column may contain markdown (See Example column **foto** )
+* [All fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
+
+------------------------------------------------------------------------------------------------------------------------------------
 
 # Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters
 _16. July 2022_

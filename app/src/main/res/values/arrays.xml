@@ -103,9 +103,11 @@
         <item translatable="false">@string/todo_txt</item>
         <item translatable="false">@string/wikitext</item>
         <item translatable="false">@string/asciidoc</item>
+        <item translatable="false">@string/csv</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
+    <!-- arr_file_templates : add new templates always at the end and corresponding code to NewFileDialog.java : getTemplateContent() -->
     <string-array name="arr_file_templates" translatable="false">
         <item translatable="false">@string/empty_file</item>
         <item translatable="false">@string/file_template__md_markor_markdown_reference</item>
@@ -118,6 +120,7 @@
         <item translatable="false">@string/file_template__md_hugo_post_front_matter</item>
         <item translatable="false">@string/file_template__md_zettelkasten</item>
         <item translatable="false">@string/file_template__ad_jekyll_post</item>
+        <item translatable="false">@string/file_template__csv_sample</item>
     </string-array>
 
     <string-array name="new_file_types__file_extension" translatable="false">
@@ -126,6 +129,7 @@
         <item translatable="false">.todo.txt</item>
         <item translatable="false">.txt</item>
         <item translatable="false">.adoc</item>
+        <item translatable="false">.csv</item>
         <item translatable="false" />
     </string-array>
 

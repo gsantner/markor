@@ -266,7 +266,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="table_of_contents">Table of contents</string>
     <string name="miscellaneous">Miscellaneous</string>
 
-
     <string name="prefer_view">Prefer view</string>
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
@@ -330,6 +329,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">List in recent files</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Wrap words</string>
+    <string name="line_numbers">Line numbers</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
     <string name="recursive_search_in_current_directory">Recursive search in current directory.</string>
     <string name="always_open_with_this_app">Always open with this app</string>
@@ -456,7 +456,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Match All</string>
     <string name="dynamic_notebook_root_links">Dynamic search for notebook root</string>
     <string name="search_dynamically_for_notebook_root">In order to follow wiki links, dynamically search for the notebook.zim file to identify the root directory for the current notebook. Check this if you use multiple zim notebooks or the notebook directory set in the app does not correspond to your zim notebook.</string>
-	<string name="share_into_format_prefix_for_text_shared">Format/Prefix for text shared into Markor. Follows Android\'s SimpleDateFormat rules.\n\nUse the placeholder {{text}} to position the shared text. If not specified, the shared text is appended and the format used as a prefix.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Prefix for text shared into Markor. Follows Android\'s SimpleDateFormat rules.\n\nUse the placeholder {{text}} to position the shared text. If not specified, the shared text is appended and the format used as a prefix.</string>
     <string name="share_into_format">Share into - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
@@ -464,4 +464,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="document_error_clip">Error encountered: Text copied to clipboard.</string>
     <string name="wont_save_min_length">Files with fewer than %d characters not saved automatically in order to prevent data loss.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Advanced filtering syntax</a></small>]]></string>
+    <string name="filter">Filter</string>
 </resources>

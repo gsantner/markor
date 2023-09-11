@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderowanie dla języków od prawej do lewej</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Błąd: Nie można utworzyć katalogu Notatek</string>
     <string name="last_modified_witharg">Ostatnio zmodyfikowano: %s</string>
-    <string name="last_modified">Ostatnio zmodyfikowane</string>
+    <string name="last_modified">Ostatnio zmodyfikowano</string>
     <string name="select_this_folder">Wybierz ten folder</string>
     <string name="select">Wybierz</string>
     <string name="create">Stwórz</string>

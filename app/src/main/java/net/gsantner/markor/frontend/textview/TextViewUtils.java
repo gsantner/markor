@@ -20,7 +20,6 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowInsets;
@@ -31,10 +30,10 @@ import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -215,6 +214,11 @@ public final class TextViewUtils extends GsTextUtils {
      * @return number of instances of each char in [start, end)
      */
     public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
+        // Faster specialization for the common single case
+        if (chars.length == 1) {
+            return new int[] {countChar(s, start, end, chars[0])};
+        }
+
         final int[] counts = new int[chars.length];
         start = Math.max(0, start);
         end = Math.min(end, s.length());
@@ -229,8 +233,31 @@ public final class TextViewUtils extends GsTextUtils {
         return counts;
     }
 
+    public static int countChar(final CharSequence s, final char c) {
+        return countChar(s, 0, s.length(), c);
+    }
+
+    /**
+     * Count instances of a single char in a charsequence
+     */
+    public static int countChar(final CharSequence s, int start, int end, final char c) {
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static boolean isNewLine(CharSequence source, int start, int end) {
         return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
+    }
+
+    public static void selectLines(final EditText edit, final Integer... positions) {
+        selectLines(edit, Arrays.asList(positions));
     }
 
     /**
@@ -712,40 +739,5 @@ public final class TextViewUtils extends GsTextUtils {
             return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
         }
         return null; // Uncertain
-    }
-
-    public interface MTextWatcher extends TextWatcher {
-        // Classes inheriting from this class will be disabled in withAutoFormatDisabled
-    }
-
-    public static void withAutoFormatDisabled(final Editable editable, final GsCallback.a0 callback) {
-        if (editable instanceof ChunkedEditable) {
-            // Optimization for chunked editabled, which do not support formatting
-            callback.callback();
-            return;
-        }
-
-        final InputFilter[] filters = editable.getFilters();
-        editable.setFilters(new InputFilter[0]);
-
-        // We use MTextWatcher and not TextWatcher as SpannableStringBuilder uses TextWatcher internally
-        // And we don't want to break that functionality too
-        final MTextWatcher[] watchers = editable.getSpans(0, editable.length(), MTextWatcher.class);
-        final int[][] wData = new int[watchers.length][3];
-        for (int i = 0; i < watchers.length; i++) {
-            final TextWatcher w = watchers[i];
-            wData[i][0] = editable.getSpanStart(w);
-            wData[i][1] = editable.getSpanEnd(w);
-            wData[i][2] = editable.getSpanFlags(w);
-            editable.removeSpan(w);
-        }
-
-        callback.callback();
-
-        for (int i = 0; i < watchers.length; i++) {
-            editable.setSpan(watchers[i], wData[i][0], wData[i][1], wData[i][2]);
-        }
-
-        editable.setFilters(filters);
     }
 }

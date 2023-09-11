@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Activer le support des langues écrites de droite à gauche</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erreur : impossible de créer le dossier du bloc note</string>
     <string name="last_modified_witharg">Dernière modification : %s</string>
-    <string name="last_modified">Dernière modification</string>
+    <string name="last_modified">Dernière modification </string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
     <string name="create">Créer</string>
@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Insérer image</string>
     <string name="contributors">Contributeurs</string>
     <string name="save_location">Enregistrer la localisation</string>
+    <string name="saved_location_to">Enregistré dans %s</string>
     <string name="select_storage_folder">Sélectionnez le dossier à utiliser pour l\'enregistrement</string>
     <string name="licenses">Licences</string>
     <string name="changelog">Nouveautés</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Montrer les licences tierces</string>
     <string name="language_change_restart_description">Change la langue de l\'application. Redémarrez l\'application pour que les changements prennent effet</string>
     <string name="language">Langue</string>
+    <string name="storage_permission_required">L\'autorisation de stockage est nécessaire pour lire et écrire les fichiers</string>
     <string name="open_with">Ouvrir avec</string>
     <string name="sort_by">Trier</string>
     <string name="date">Trier par date</string>
@@ -193,6 +195,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor ne peut éditer que des fichiers locaux, disponibles hors connexion, et ne supporte pas les gestionnaires de fichiers qui ne fournissent pas le chemin d’accès complet du fichier.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Le fichier ou le dossier n\'existe pas et ne peut pas être créé</string>
+    <string name="permissions">Permissions</string>
+    <string name="permission_paths_revert">Rétablir les chemins de fichiers par défaut ?</string>
+    <string name="permission_not_granted">Permission non accordée</string>
     <string name="sync_to_local_folder_notice">Remarque : Les applications de synchronisation peuvent placer des fichiers dans des dossiers personnalisés. Ouvrez-les en modifiant le dossier de document de Markor en conséquence, ou dans un autre gestionnaire de fichiers.</string>
     <string name="vertical_alignment">Alignement vertical</string>
     <string name="horizontal_alignment">Alignement horizontal</string>
@@ -261,7 +267,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="keep_existing_file">- Les fichiers et dossiers ne seront pas écrasés ou remplacés</string>
     <string name="multiple_windows">Fenêtres multiples</string>
     <string name="font">Police</string>
-    <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la clé des fenêtres récentes de votre appareil.</string>
+    <string name="open_new_documents_always_in_new_window">Toujours ouvrir les documents dans une fenêtre séparée. Changez de document en utilisant la touche des fenêtres récentes de votre appareil.</string>
     <string name="enter_or_select_format">Entrez le format manuellement ou sélectionnez le format</string>
     <string name="pick_date">Choisissez une date</string>
     <string name="pick_time">Choisissez l\'heure</string>
@@ -436,4 +442,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_snippet">Insert snippet</string>
     <string name="error_could_not_open_file">Impossible d\'ouvrir le fichier.</string>
     <string name="document_error_clip">Erreur rencontrée: Texte copié dans le presse-papiers.</string>
+    <string name="filter">Filtrer</string>
 </resources>

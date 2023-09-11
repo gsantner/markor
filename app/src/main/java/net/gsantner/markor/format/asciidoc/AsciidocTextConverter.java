@@ -12,6 +12,9 @@ import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
+import net.gsantner.markor.format.TextConverterBase;
+import net.gsantner.opoc.format.GsTextUtils;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -33,7 +36,7 @@ public class AsciidocTextConverter extends TextConverterBase {
     public static final String HTML_ASCIIDOCJS_DARK_CSS_INCLUDE = "file:///android_asset/asciidoc/dark.css";
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "<div id=\"asciidoc_content\"></div>\n";
         String onLoadJs = "var textBase64 = `" +
                 //convert a text to base64 to simplify supporting special characters
@@ -55,7 +58,7 @@ public class AsciidocTextConverter extends TextConverterBase {
                 (GsContextUtils.instance.isDarkModeEnabled(context) ? HTML_ASCIIDOCJS_DARK_CSS_INCLUDE : HTML_ASCIIDOCJS_DEFAULT_CSS_INCLUDE)
                 + "\"}});\n" +
                 "document.getElementById(\"asciidoc_content\").innerHTML = html;";
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, HTML_ASCIIDOCJS_JS_INCLUDE);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, HTML_ASCIIDOCJS_JS_INCLUDE);
     }
 
     @Override

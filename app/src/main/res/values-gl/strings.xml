@@ -55,6 +55,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Renderizar para idiomas escritos de dereita a esqueda</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Erro: non se puido crear o directorio para as notas</string>
     <string name="last_modified_witharg">Última modificación: %s</string>
+    <string name="last_modified">Última modificación</string>
     <string name="select_this_folder">Seleccionar este cartafol</string>
     <string name="select">Seleccionar</string>
     <string name="create">Crear</string>

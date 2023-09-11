@@ -11,8 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 
-
-public class ListHandler implements TextViewUtils.MTextWatcher {
+public class ListHandler implements TextWatcher {
     private boolean triggerReorder = false;
     private Integer beforeLineEnd = null;
     private boolean alreadyRunning = false; // Prevent this instance from triggering itself

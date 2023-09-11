@@ -35,25 +35,26 @@ public class WikitextTextConverter extends TextConverterBase {
     /**
      * First, convert Wikitext to regular Markor markdown. Then, calls the regular converter.
      *
-     * @param markup              Markup text
-     * @param context             Android Context
-     * @param isExportInLightMode True if the light theme is to apply.
-     * @param file                The file to convert.
+     * @param markup     Markup text
+     * @param context    Android Context
+     * @param lightMode  True if the light theme is to apply.
+     * @param lineNum
+     * @param file       The file to convert.
      * @return HTML text
      */
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String contentWithoutHeader = markup.replaceFirst(WikitextSyntaxHighlighter.ZIMHEADER.toString(), "");
         StringBuilder markdownContent = new StringBuilder();
 
         for (String line : contentWithoutHeader.split("\\r\\n|\\r|\\n")) {
-            String markdownEquivalentLine = getMarkdownEquivalentLine(context, file, line, isExportInLightMode);
+            String markdownEquivalentLine = getMarkdownEquivalentLine(context, file, line, lightMode);
             markdownContent.append(markdownEquivalentLine);
             markdownContent.append("  "); // line breaks must be made explicit in markdown by two spaces
             markdownContent.append(String.format("%n"));
         }
 
-        return FormatRegistry.CONVERTER_MARKDOWN.convertMarkup(markdownContent.toString(), context, isExportInLightMode, file);
+        return FormatRegistry.CONVERTER_MARKDOWN.convertMarkup(markdownContent.toString(), context, lightMode, lineNum, file);
     }
 
     private String getMarkdownEquivalentLine(final Context context, final File file, String wikitextLine, final boolean isExportInLightMode) {

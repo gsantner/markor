@@ -257,12 +257,16 @@ public class NewFileDialog extends DialogFragment {
         }
     }
 
+    // this code corresponds to R.arrays.arr_file_templates
+    //
     // How to get content out of a file:
     // 1) Replace \n with \n | copy to clipboard
     //    cat markor-markdown-reference.md  | sed 's@\\@\\\\@g' | sed -z 's@\n@\n@g'  | xclip
     //
     // 2) t = "<cursor>";  | ctrl+shift+v "paste without formatting"
     //
+    // -----
+    // if you use Androidstudio/IntelliJ copy file content into t = "<cursor>". Android studio takes care of escaping
     @SuppressLint("TrulyRandom")
     private Pair<byte[], Integer> getTemplateContent(final Spinner templateSpinner, final File basedir, final String filename, final boolean encrypt) {
         String t = null;
@@ -310,6 +314,24 @@ public class NewFileDialog extends DialogFragment {
                 t = "= My Title\n:page-subtitle: This is a subtitle\n:page-last-updated: 2029-01-01\n:page-tags: ['AsciiDoc', 'Markor', 'open source']\n:toc: auto\n:toclevels: 2\n// :page-description: the optional description\n// This should match the structure on the jekyll server:\n:imagesdir: ../assets/img/blog\n\nifndef::env-site[]\n\n// on the jekyll server, the :page-subtitle: is displayed below the title.\n// but it is not shown, when rendered in html5, and the site is rendered in html5, when working locally\n// so we show it additionally only, when we work locally\n// https://docs.asciidoctor.org/asciidoc/latest/document/subtitle/\n\n[discrete] \n=== {page-subtitle}\n\nendif::env-site[]\n\n// local testing:\n:imagesdir: ../app/src/main/assets/img\n\nimage::flowerfield.jpg[]\n\nimage::schindelpattern.jpg[Schindelpattern,200]\n\nbefore inline picture image:schindelpattern.jpg[Schindelpattern,50] and after inline picture\n";
                 break;
             }
+            case 11: {
+                // sample.csv
+                t = "# this is a comment in csv file\n" +
+                        "\n" +
+                        "# below is the header\n" +
+                        "number;text;finishing date\n" +
+                        "\n" +
+                        "# csv can contain markdown formatting\n" +
+                        "1;Learn to use **Markor** formatting\n" +
+                        "\n" +
+                        "# use \"...\" if the column contains reserved chars\n" +
+                        "2;\"Use Delimitter chars like \"\";    :,\";2019-06-24\n" +
+                        "\n" +
+                        "# use \"...\" if the column is multiline\n" +
+                        "3;\"multi\n" +
+                        "   line\";2059-12-24\n";
+                break;
+            }
             default: {
                 final Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
@@ -325,6 +347,9 @@ public class NewFileDialog extends DialogFragment {
 
         final int startingIndex = t.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
         t = t.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+
+        // Has no utility in a new file
+        t = t.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
 
         final byte[] bytes;
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

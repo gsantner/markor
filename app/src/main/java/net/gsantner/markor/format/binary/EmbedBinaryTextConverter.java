@@ -53,7 +53,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
 
     @SuppressWarnings({"ConstantConditions", "StringConcatenationInLoop"})
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
         if (file == null) {
             return "";
@@ -152,7 +152,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
         }
 
         converted += HTML101_BODY_END;
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
     @Override

@@ -30,11 +30,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Checkable;
 import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -49,6 +48,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -61,11 +61,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressLint("SetTextI18n")
 public class GsSearchOrCustomTextDialog {
+
+    public static final int LIST_VIEW_ID = 99;
 
     public static class DialogOptions {
 
@@ -116,35 +118,48 @@ public class GsSearchOrCustomTextDialog {
         public int clearInputIcon = android.R.drawable.ic_input_delete;
     }
 
-    private static class Adapter extends ArrayAdapter<Integer> {
+    public static class Adapter extends BaseAdapter {
         @LayoutRes
         private final int _layout;
         private final int _layoutHeight;
         private final LayoutInflater _inflater;
         private final DialogOptions _dopt;
-        private final List<Integer> _filteredItems;
         private final Set<Integer> _selectedItems;
-        private final Pattern _extraPattern;
+        private final Matcher _extraPattern;
+        private final ArrayList<Integer> _filteredItems;
+        private String _lastConstraint = "";
 
-        public static Adapter create(final Context context, final DialogOptions dopt) {
-            return new Adapter(context, dopt, dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1, new ArrayList<>());
+
+        @Override
+        public int getCount() {
+            return _filteredItems.size();
         }
 
-        private Adapter(final Context context, final DialogOptions dopt, final int layout, final List<Integer> filteredItems) {
-            super(context, layout, filteredItems);
-            _layout = layout;
-            _filteredItems = filteredItems;
+        @Override
+        public Object getItem(int position) {
+            return _filteredItems.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        private Adapter(final Context context, final DialogOptions dopt) {
+            super();
+            _filteredItems = new ArrayList<>();
+            _layout = dopt.isMultiSelectEnabled ? android.R.layout.simple_list_item_multiple_choice : android.R.layout.simple_list_item_1;
             _inflater = LayoutInflater.from(context);
             _dopt = dopt;
-            _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter));
-            _selectedItems = new TreeSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
+            _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
+            _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
             _layoutHeight = (int) GsContextUtils.instance.convertDpToPx(context, 36);
         }
 
         @NonNull
         @Override
         public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-            final int index = getItem(pos);
+            final int index = _filteredItems.get(pos);
 
             final TextView textView;
             if (convertView == null) {
@@ -163,7 +178,7 @@ public class GsSearchOrCustomTextDialog {
                 textView.setCompoundDrawablesWithIntrinsicBounds(_dopt.iconsForData.get(index), 0, 0, 0);
                 textView.setCompoundDrawablePadding(32);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    textView.setCompoundDrawableTintList(ColorStateList.valueOf(_dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
+                    TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(_dopt.isDarkDialog ? Color.WHITE : Color.BLACK));
                 }
             } else {
                 textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -187,40 +202,31 @@ public class GsSearchOrCustomTextDialog {
             return textView;
         }
 
-        @NonNull
-        @Override
-        public Filter getFilter() {
-            return new Filter() {
-                @SuppressWarnings("unchecked")
-                @Override
-                protected void publishResults(final CharSequence constraint, final FilterResults results) {
-                    _filteredItems.clear();
-                    _filteredItems.addAll((List<Integer>) results.values);
-                    notifyDataSetChanged();
-                }
+        public void filter(final CharSequence constraint) {
+            _lastConstraint = constraint.toString();
+            _filteredItems.clear();
 
-                @Override
-                protected FilterResults performFiltering(final CharSequence constraint) {
-                    final List<Integer> resList = new ArrayList<>();
-
-                    if (_dopt.data != null) {
-                        final boolean emptySearch = constraint.length() == 0;
-                        for (int i = 0; i < _dopt.data.size(); i++) {
-                            final String str = _dopt.data.get(i).toString();
-                            final boolean matchExtra = (_extraPattern == null) || _extraPattern.matcher(str).find();
-                            if (matchExtra && (emptySearch || _dopt.searchFunction.callback(constraint, str))) {
-                                resList.add(i);
-                            }
-                        }
+            if (_dopt.data != null) {
+                final boolean emptySearch = constraint.length() == 0;
+                for (int i = 0; i < _dopt.data.size(); i++) {
+                    final String str = _dopt.data.get(i).toString();
+                    final boolean matchExtra = (_extraPattern == null) || _extraPattern.reset(str).find();
+                    if (matchExtra && (emptySearch || _dopt.searchFunction.callback(constraint, str))) {
+                        _filteredItems.add(i);
                     }
-
-                    final FilterResults res = new FilterResults();
-                    res.values = resList;
-                    res.count = resList.size();
-                    return res;
                 }
-            };
+            }
+            notifyDataSetChanged();
         }
+
+        public void update() {
+            filter(_lastConstraint);
+        }
+    }
+
+    public static Adapter getAdapter(final AlertDialog dialog) {
+        final ListView list = dialog.findViewById(GsSearchOrCustomTextDialog.LIST_VIEW_ID);
+        return list != null ? (Adapter) list.getAdapter() : null;
     }
 
     public static boolean standardSearch(final CharSequence constraint, final CharSequence text) {
@@ -232,7 +238,7 @@ public class GsSearchOrCustomTextDialog {
         final int dialogStyle = GsContextUtils.instance.getResId(activity, GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
 
-        final Adapter listAdapter = Adapter.create(activity, dopt);
+        final Adapter listAdapter = new Adapter(activity, dopt);
 
         // Constructing the dialog
         // =========================================================================================
@@ -251,13 +257,14 @@ public class GsSearchOrCustomTextDialog {
         // SearchView is currently constructed even if it isn't needed
         final View searchView = makeSearchView(activity, dopt);
         final EditText searchEditText = searchView.findViewWithTag("EDIT");
-        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after((cbEditable) -> listAdapter.getFilter().filter(cbEditable)));
+        searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(listAdapter::filter));
 
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
         }
 
         final ListView listView = new ListView(activity);
+        listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
@@ -336,7 +343,7 @@ public class GsSearchOrCustomTextDialog {
         }
 
         if (dopt.defaultText != null) {
-            listAdapter.getFilter().filter(searchEditText.getText());
+            listAdapter.filter(searchEditText.getText());
         }
 
         // Helper function to trigger callback with single item

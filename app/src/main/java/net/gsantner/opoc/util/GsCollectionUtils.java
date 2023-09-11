@@ -67,12 +67,10 @@ public class GsCollectionUtils {
         return out;
     }
 
-    public static <T> void mapInplace(final List<T> in, final GsCallback.r2<? extends T, ? super T, Integer> op) {
-        final List<? extends T> res = map(in, op);
-        in.clear();
-        in.addAll(res);
+    // Map without index
+    public static <I, O> List<O> map(final Collection<? extends I> in, final GsCallback.r1<O, ? super I> op) {
+        return map(in, (v, i) -> op.callback(v));
     }
-
 
     public static <T extends Comparable<T>> int listComp(final List<T> a, final List<T> b) {
         final int la = a.size(), lb = b.size();
@@ -89,10 +87,10 @@ public class GsCollectionUtils {
      * Sort a list using a key function.
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
      *
-     * @param list    List to sort
-     * @param keyFn   Function to generate a self-comparable key from each list item
-     * @param <T>     List type
-     * @param <K>     Key type
+     * @param list  List to sort
+     * @param keyFn Function to generate a self-comparable key from each list item
+     * @param <T>   List type
+     * @param <K>   Key type
      */
     public static <T, K> void keySort(
             final List<T> list,
@@ -119,7 +117,9 @@ public class GsCollectionUtils {
      */
     public static <T> Set<T> setDiff(final Collection<T> a, final Collection<T> b) {
         final Set<T> ret = new LinkedHashSet<>(a);
-        ret.removeAll(b);
+        if (b != null) {
+            ret.removeAll(b);
+        }
         return ret;
     }
 
@@ -152,5 +152,75 @@ public class GsCollectionUtils {
         final Set<T> ret = new HashSet<>(a);
         ret.retainAll(b);
         return ret;
+    }
+
+
+    public static <T, V> V accumulate(
+            final Collection<T> collection,
+            final GsCallback.r2<V, ? super T, V> func,
+            final V initial) {
+        V val = initial;
+        for (final T item : collection) {
+            val = func.callback(item, val);
+        }
+        return val;
+    }
+
+    /**
+     * Get indices of data where predicate is true. Meaningless for unordered data.
+     */
+    public static <T> List<Integer> indices(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
+        final List<Integer> indices = new ArrayList<>();
+        int index = 0;
+        for (final T item : data) {
+            if (predicate.callback(item)) {
+                indices.add(index);
+            }
+            index++;
+        }
+        return indices;
+    }
+
+    /**
+     * Select elements of data where predicate is true
+     */
+    public static <T> List<T> select(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
+        final List<T> sel = new ArrayList<>();
+        for (final T item : data) {
+            if (predicate.callback(item)) {
+                sel.add(item);
+            }
+        }
+        return sel;
+    }
+
+    /**
+     * Get a list of values (like np.arange())
+     *
+     * @param ops start, stop and step (all optional)
+     * @return List of integers with values
+     */
+    public static List<Integer> range(final int... ops) {
+        int start = 0, end = 0, step = 1;
+        if (ops != null) {
+            if (ops.length == 1) {
+                end = ops[0];
+            } else if (ops.length == 2) {
+                start = ops[0];
+                end = ops[1];
+            } else if (ops.length >= 3) {
+                start = ops[0];
+                end = ops[1];
+                step = ops[2];
+            }
+        }
+
+        final List<Integer> values = new ArrayList<>();
+        while (start < end) {
+            values.add(start);
+            start += step;
+        }
+
+        return values;
     }
 }

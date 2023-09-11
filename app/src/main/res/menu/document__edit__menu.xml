@@ -112,6 +112,13 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/action_line_numbers"
+                android:checkable="true"
+                android:icon="@drawable/ic_line_numbers_24dp"
+                android:title="@string/line_numbers"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/action_enable_highlighting"
                 android:checkable="true"
                 android:icon="@drawable/ic_format_color_fill_black_24dp"
@@ -166,6 +173,10 @@
                             android:id="@string/action_format_wikitext"
                             android:icon="@drawable/fountain_pen"
                             android:title="@string/wikitext" />
+                        <item
+                            android:id="@string/action_format_csv"
+                            android:icon="@drawable/ic_view_module_black_24dp"
+                            android:title="@string/csv" />
                         <item
                             android:id="@string/action_format_embedbinary"
                             android:icon="@drawable/ic_image_black_24dp"

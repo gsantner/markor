@@ -207,7 +207,7 @@ public class FileSearchEngine {
             if (_isCanceled && _result.size() == 0) {
                 cancel(true);
             }
-
+            Collections.sort(_result, (o1, o2) -> o1.path.compareToIgnoreCase(o2.path));
             return _result;
         }
 
@@ -233,24 +233,20 @@ public class FileSearchEngine {
 
                         final boolean isDir = f.isDirectory();
 
-                        if (!isDir && f.canRead()) {
+                        final int beforeContentCount = _result.size();
+                        if (_config.isSearchInContent && !isDir && f.canRead() && GsFileUtils.isTextFile(f)) {
+                            getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
+                        }
 
-                            final int beforeContentCount = _result.size();
-                            if (_config.isSearchInContent && GsFileUtils.isTextFile(f)) {
-                                getContentMatches(f, _config.isOnlyFirstContentMatch, trimSize);
-                            }
-
-                            // Search name if not already included due to content
-                            if (_result.size() == beforeContentCount) {
-                                getFileIfNameMatches(f, trimSize);
-                            }
+                        // Search name if director or not already included due to content
+                        if (isDir || _result.size() == beforeContentCount) {
+                            getFileIfNameMatches(f, trimSize);
                         }
 
                         if (isDir && !isFileContainSymbolicLinks(f, currentDir)) {
                             subQueue.add(f);
                         }
                     }
-
 
                     publishProgress(_currentQueueLength + subQueue.size(), _currentSearchDepth, _result.size(), _countCheckedFiles);
                 }
@@ -332,11 +328,11 @@ public class FileSearchEngine {
             return true;
         }
 
-        private void getFileIfNameMatches(final File file, final int trim) {
+        private void getFileIfNameMatches(final File file, final int baseLength) {
             try {
                 final String fileName = _config.isCaseSensitiveQuery ? file.getName() : file.getName().toLowerCase();
                 if (_config.isRegexQuery ? _matcher.reset(fileName).matches() : fileName.contains(_config.query)) {
-                    _result.add(new FitFile(file.getCanonicalPath().substring(trim), file.isDirectory(), null));
+                    _result.add(new FitFile(file.getCanonicalPath().substring(baseLength), file.isDirectory(), null));
                 }
             } catch (Exception ignored) {
             }
