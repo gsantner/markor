@@ -29,7 +29,7 @@ public class OrgmodeTextConverter extends TextConverterBase {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean isExportInLightMode, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
         final String extWithDot = GsFileUtils.getFilenameExtension(file);
 
@@ -39,7 +39,7 @@ public class OrgmodeTextConverter extends TextConverterBase {
         converted = HTML100_BODY_PRE_BEGIN
                 + TextUtilsCompat.htmlEncode(markup)
                 + HTML101_BODY_PRE_END;
-        return putContentIntoTemplate(context, converted, isExportInLightMode, file, onLoadJs, head);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
     @Override
