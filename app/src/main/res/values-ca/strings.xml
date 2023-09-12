@@ -314,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Mostra-ho als fitxers recents</string>
     <string name="reload">Recarrega</string>
     <string name="wrap_words">Ajusta les paraules</string>
+    <string name="line_numbers">Números de línies</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Salt suau si el text no s\'ajusta a l\'amplada de la pantalla. En cas contrari, activeu el desplaçament horitzontal.</string>
     <string name="recursive_search_in_current_directory">Cerca recursiva al directori actual.</string>
     <string name="always_open_with_this_app">Obre sempre amb aquesta aplicació</string>
