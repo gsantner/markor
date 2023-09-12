@@ -222,7 +222,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview);
         }
 
-        final Runnable debounced = TextViewUtils.makeDebounced(200, () -> {
+        final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
             updateUndoRedoIconStates();
         });
