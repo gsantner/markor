@@ -131,6 +131,7 @@
         <item translatable="false">.txt</item>
         <item translatable="false">.adoc</item>
         <item translatable="false">.csv</item>
+        <item translatable="false">.org</item>
         <item translatable="false" />
     </string-array>
 
