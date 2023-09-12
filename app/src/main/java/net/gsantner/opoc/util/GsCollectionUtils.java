@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Map;
 
 // Class for general utilities
 public class GsCollectionUtils {
@@ -88,10 +87,10 @@ public class GsCollectionUtils {
      * Sort a list using a key function.
      * Refer to python's sort - https://docs.python.org/3/howto/sorting.html
      *
-     * @param list    List to sort
-     * @param keyFn   Function to generate a self-comparable key from each list item
-     * @param <T>     List type
-     * @param <K>     Key type
+     * @param list  List to sort
+     * @param keyFn Function to generate a self-comparable key from each list item
+     * @param <T>   List type
+     * @param <K>   Key type
      */
     public static <T, K> void keySort(
             final List<T> list,
@@ -159,8 +158,7 @@ public class GsCollectionUtils {
     public static <T, V> V accumulate(
             final Collection<T> collection,
             final GsCallback.r2<V, ? super T, V> func,
-            final V initial)
-    {
+            final V initial) {
         V val = initial;
         for (final T item : collection) {
             val = func.callback(item, val);
@@ -171,11 +169,10 @@ public class GsCollectionUtils {
     /**
      * Get indices of data where predicate is true. Meaningless for unordered data.
      */
-    public static <T> List<Integer> indices(final Collection<T> data, final GsCallback.b1<? super T> predicate)
-    {
+    public static <T> List<Integer> indices(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
         final List<Integer> indices = new ArrayList<>();
         int index = 0;
-        for (final T item: data) {
+        for (final T item : data) {
             if (predicate.callback(item)) {
                 indices.add(index);
             }
@@ -187,17 +184,16 @@ public class GsCollectionUtils {
     /**
      * Select elements of data where predicate is true
      */
-    public static <T> List<T> select(final Collection<T> data, final GsCallback.b1<? super T> predicate)
-    {
+    public static <T> List<T> select(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
         final List<T> sel = new ArrayList<>();
-        for (final T item: data) {
+        for (final T item : data) {
             if (predicate.callback(item)) {
                 sel.add(item);
             }
         }
         return sel;
     }
-    
+
     /**
      * Get a list of values (like np.arange())
      *

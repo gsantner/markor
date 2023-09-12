@@ -348,6 +348,9 @@ public class NewFileDialog extends DialogFragment {
         final int startingIndex = t.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
         t = t.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
 
+        // Has no utility in a new file
+        t = t.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
+
         final byte[] bytes;
         if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final char[] pass = ApplicationObject.settings().getDefaultPassword();

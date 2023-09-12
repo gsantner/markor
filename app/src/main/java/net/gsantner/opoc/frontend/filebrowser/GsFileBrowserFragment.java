@@ -18,8 +18,10 @@
 package net.gsantner.opoc.frontend.filebrowser;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -29,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +42,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -316,6 +318,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
         firstResume = false;
+
+        final File folder = getCurrentFolder();
+        final Activity activity = getActivity();
+        if (isVisible() && folder != null && activity != null) {
+            activity.setTitle(folder.getName());
+            reloadCurrentFolder();
+        }
     }
 
 
@@ -479,7 +488,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    FileInfoDialog.show(file, getFragmentManager());
+                    FileInfoDialog.show(file, getChildFragmentManager());
                 }
                 return true;
             }
@@ -488,7 +497,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
                     WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
-                    renameDialog.show(getFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
+                    renameDialog.show(getChildFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
                 }
                 return true;
             }
@@ -546,7 +555,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
 
         WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
-        confirmDialog.show(getParentFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
+        confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
     private void askForMoveOrCopy(final boolean isMove) {
@@ -586,7 +595,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     }
                 }
             }
-        }, getActivity().getSupportFragmentManager(), getActivity());
+        }, getChildFragmentManager(), getActivity());
     }
 
     private void showImportDialog() {
@@ -612,7 +621,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 dopt.doSelectFile = true;
                 dopt.doSelectFolder = true;
             }
-        }, getFragmentManager(), getActivity(), null);
+        }, getChildFragmentManager(), getActivity(), null);
     }
 
     private void importFile(final File file) {
@@ -625,9 +634,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                             importFileToCurrentDirectory(getActivity(), file);
                         }
                     });
-            if (getFragmentManager() != null) {
-                d.show(getFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
-            }
+            d.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
         } else {
             // Import
             importFileToCurrentDirectory(getActivity(), file);
@@ -642,24 +649,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getCurrentFolder() != null && !TextUtils.isEmpty(getCurrentFolder().getName()) && getToolbar() != null) {
-            getToolbar().setTitle(getCurrentFolder().getName());
-            reloadCurrentFolder();
-        }
-    }
 
-    private void showAndBlink(final File file) {
-        final int pos = getAdapter().getFilePosition(file);
-        final LinearLayoutManager manager = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        if (manager != null && pos >= 0) {
-            manager.scrollToPositionWithOffset(pos, 1);
-            _recyclerList.postDelayed(() -> {
-                final RecyclerView.ViewHolder holder = _recyclerList.findViewHolderForLayoutPosition(pos);
-                if (holder != null) {
-                    TextViewUtils.blinkView(holder.itemView);
-                }
-            }, 250);
-        }
     }
 
     // Switch to folder and show the file
@@ -684,14 +674,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 public void onChanged() {
                     super.onChanged();
                     if ((System.currentTimeMillis() - init) < 2000) {
-                        _recyclerList.postDelayed(() -> showAndBlink(file), 250);
+                        _recyclerList.postDelayed(() -> adapter.showAndBlink(file, _recyclerList), 250);
                     }
                     adapter.unregisterAdapterDataObserver(this);
                 }
             });
             adapter.setCurrentFolder(dir);
         } else {
-            showAndBlink(file);
+            adapter.showAndBlink(file, _recyclerList);
         }
     }
 
