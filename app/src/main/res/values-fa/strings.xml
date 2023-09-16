@@ -237,12 +237,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="text_words">واژگان متن</string>
     <string name="directory">پوشه</string>
     <string name="recently_viewed_documents">سندهایی که اخیرا استفاده شده است</string>
-    <string name="details">ریزگان</string>
+    <string name="details">جزییات</string>
     <string name="calendar">سالنامه</string>
-    <string name="warning_disallowed_sd_access">Warning! The app doesn\'t have the permission to save this file, all changes will be lost. There is no possibility to resolve the problem or to confirm something, Android denies any access here.</string>
-    <string name="error_picture_selection">No picture selected, taken or saved.</string>
+    <string name="warning_disallowed_sd_access">اخطار! این برنامه اجازه‌ی ذخیره‌ کردن فایل در این مسیر را ندارد، تمام داده‌ها از دست خواهند رفت. هیچ امکانی جهت حل این مشکل یا تایید اجازه‌ی آن وجود ندارد. سیستم اندروید اجازه هیچ‌گونه دسترسی به این مسیر را نمی‌دهد.</string>
+    <string name="error_picture_selection">عکسی گرفته یا انتخاب نشده است.</string>
     <string name="gallery_picture">تصاویر گالری</string>
-    <string name="camera_picture">Camera picture</string>
+    <string name="camera_picture">تصویر از دوریین</string>
     <string name="enable_undo_and_redo_be_patient">Enable undo and redo actions. Only suited for advanced use, be patient to not delete something important. Close and open editor to clear history.</string>
     <string name="description">توضیحات</string>
     <string name="edit_picture">امکان مسلح کردن وجود ندارد</string>
