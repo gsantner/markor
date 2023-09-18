@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_photo_camera_black_24dp"
             android:drawableLeft="@drawable/ic_photo_camera_black_24dp"
+            android:visibility="gone"
             android:text="@string/camera_picture" />
 
         <Button
@@ -63,6 +64,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_image_black_24dp"
             android:drawableLeft="@drawable/ic_image_black_24dp"
+            android:visibility="gone"
             android:text="@string/gallery_picture" />
 
         <Button
@@ -71,6 +73,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_crop_black_24dp"
             android:drawableLeft="@drawable/ic_crop_black_24dp"
+            android:visibility="gone"
             android:text="@string/edit_picture" />
 
         <Button
@@ -79,6 +82,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_keyboard_voice_black_24dp"
             android:drawableLeft="@drawable/ic_keyboard_voice_black_24dp"
+            android:visibility="gone"
             android:text="@string/record_audio" />
     </LinearLayout>
 

@@ -149,6 +149,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -1755,12 +1756,11 @@ public class GsContextUtils {
         try {
             final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             final File picDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            final String tempName = GsFileUtils.getFilenameWithTimestamp("IMG", "", "");
-            final File imageTemp = File.createTempFile(tempName, ".jpg", picDir);
-            imageTemp.deleteOnExit();
+            final String name = GsFileUtils.getFilenameWithTimestamp("IMG", "", ".jpg");
+            final File imageTemp = GsFileUtils.findNonConflictingDest(picDir, name);
 
-            if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-                final String targetName = GsFileUtils.getFilenameWithTimestamp("IMG", "", "jpg");
+            if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null && imageTemp.createNewFile()) {
+                imageTemp.deleteOnExit();
                 // Continue only if the File was successfully created
                 final Uri uri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

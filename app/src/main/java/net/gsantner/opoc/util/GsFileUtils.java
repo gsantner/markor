@@ -682,6 +682,10 @@ public class GsFileUtils {
         return filename;
     }
 
+    public static String getPrefix(final String name) {
+        return name.split("_")[0];
+    }
+
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
