@@ -492,17 +492,8 @@ public class MarkorDialogFactory {
         addRestoreKeyboard(activity, options, edit, TextViewUtils.isImeOpen(edit));
     }
 
-    // Restore the keyboard when dialog closes if required
-    // NOTE: This relies on the activity having unchanged as the default soft input mode
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit, final Boolean restore) {
-        if (restore != null && !restore) {
-            options.dismissCallback = (d) -> {
-                final Window w = activity.getWindow();
-                // Suppress opening the keyboard automatically again
-                w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                edit.postDelayed(() -> w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 1000);
-            };
-        }
+        options.dismissCallback = (d) -> edit.postDelayed(() -> GsContextUtils.instance.showSoftKeyboard(activity, restore, edit), 250);
     }
 
     /**

@@ -217,11 +217,7 @@ public class AttachLinkOrFileDialog {
 
         dialog.setOnDismissListener(d -> {
             LocalBroadcastManager.getInstance(activity).unregisterReceiver(br);
-
-            // Restore keyboard if required
-            if (restoreIme != null && restoreIme) {
-                edit.postDelayed(() -> GsContextUtils.instance.showSoftKeyboard(activity, restoreIme, edit), 500);
-            }
+            edit.postDelayed(() -> GsContextUtils.instance.showSoftKeyboard(activity, restoreIme, edit), 250);
         });
 
         // Get picture from camera
