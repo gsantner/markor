@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Masukkan Gambar/Foto</string>
     <string name="contributors">Kontributor</string>
     <string name="save_location">Lokasi penyimpanan</string>
+    <string name="saved_location_to">Disimpan ke %s</string>
     <string name="select_storage_folder">Pilih folder penyimpanan</string>
     <string name="licenses">Lisensi</string>
     <string name="changelog">Catatan Perubahan</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Tampilkan lisensi pihak ketiga</string>
     <string name="language_change_restart_description">Mengubah bahasa aplikasi. Buka ulang aplikasi setelah mengubah preferensi bahasa</string>
     <string name="language">Bahasa</string>
+    <string name="storage_permission_required">Izin penyimpanan diperlukan untuk membaca dan menulis berkas</string>
     <string name="open_with">Buka dengan</string>
     <string name="sort_by">Urut berdasarkan</string>
     <string name="date">Tanggal</string>
@@ -136,9 +138,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">Tema keseluruhan yang digunakan di dalam aplikasi</string>
     <string name="remember_last_directory">Ingatkan direktori terakhir</string>
     <string name="syntax_highlighting">Penyorotan sintaks</string>
+    <string name="dynamic_highlighting">Penyorotan dinamis</string>
     <string name="highlighting_delay">Menyoroti penundaan</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Keterlambatan dalam milidetik untuk menyegarkan kembali penyorotan. Nilai yang lebih rendah akan mulai disorot lebih awal, tetapi akan menguras baterai Anda dan dapat memperlambat aplikasi pada perangkat yang lebih lama.</string>
     <string name="highlighting_enabled_or_not__appspecific">Mengontrol apakah teks yang dimasukkan harus disorot atau tidak</string>
+    <string name="dynamic_highlighting_effect">Penyorotan dinamis meningkatkan performa. Dapat menyebabkan rendering artifacts.</string>
     <string name="control_font_size_in_editor">Atur ukuran huruf yang pada editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Tampilkan bilah dengan tombol praktis di bawah. Aksi teks ini mengubah teks atau menjalankan aksi berdasar teks.</string>
     <string name="load_last_opened_folder_at_startup">Muat folder yang dibuka terakhir</string>
@@ -192,6 +196,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Bintang (*)</string>
     <string name="unordered_list_char_plus">Tambah (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor hanya dapat mengedit file lokal, dokumen tersedia secara offline dan tidak mendukung pengelola berkas yang tidak menyertakan berkas utasan penuh.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Berkas atau folder tidak ada dan tidak bisa dibuat</string>
+    <string name="permissions">Izin</string>
+    <string name="permission_not_granted">Izin tidak diberikan</string>
     <string name="sync_to_local_folder_notice">Catatan: Aplikasi sinkronisasi dapat menempatkan file di folder kustom. Buka dengan mengubah folder dokumen Markor yang sesuai, atau di pengelola file lain.</string>
     <string name="vertical_alignment">Letak vertikal</string>
     <string name="horizontal_alignment">Letak horizontal</string>
@@ -305,6 +312,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Daftar dalam file terbaru</string>
     <string name="reload">Muat ulang</string>
     <string name="wrap_words">Pembungkus kata</string>
+    <string name="line_numbers">Nomor baris</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Break ringan jika teks tidak sesuai dengan lebar layar. Lainnya, mengaktifkan pengguliran horizontal.</string>
     <string name="recursive_search_in_current_directory">Pencarian rekursif di direktori saat ini.</string>
     <string name="always_open_with_this_app">Selalu buka dengan aplikasi ini</string>
@@ -424,9 +432,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Tenggat hari ini</string>
     <string name="due_future">Tenggat mendatang</string>
     <string name="completed">Diselesaikan</string>
+    <string name="advanced_filtering">Filter lanjutan</string>
     <string name="match_any">Cocokkan apa saja</string>
     <string name="match_all">Cocokkan semua</string>
+    <string name="share_into_format">Bagikan dalam bentuk - format</string>
     <string name="auto_format">Format otomatis</string>
+    <string name="insert_snippet">Sisipkan cuplikan</string>
     <string name="error_could_not_open_file">Kesalahan: Tidak dapat membuka file.</string>
     <string name="wont_save_min_length">File-file dengan karakter kurang dari %d tidak otomatis tersimpan untuk menghindari hilangnya data.</string>
 </resources>
