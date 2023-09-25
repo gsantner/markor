@@ -26,6 +26,7 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsCollectionUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -204,11 +205,11 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         switch (action) {
             case R.string.abid_todotxt_add_context: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, TextViewUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.CONTEXT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_context, true, true, GsContextUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.CONTEXT);
                 return true;
             }
             case R.string.abid_todotxt_add_project: {
-                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, TextViewUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.PROJECT);
+                MarkorDialogFactory.showSttKeySearchDialog(getActivity(), _hlEditor, R.string.browse_by_project, true, true, GsContextUtils.isImeOpen(_hlEditor), TodoTxtFilter.TYPE.PROJECT);
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {

@@ -145,7 +145,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
         _searchEdit.setHintTextColor(rcolor(_dopt.secondaryTextColor));
         _searchEdit.setOnFocusChangeListener((v, isFocussed) -> {
-            GsContextUtils.instance.showSoftKeyboard(getActivity(), isFocussed, _searchEdit);
+            GsContextUtils.instance.showIme(getActivity(), isFocussed, _searchEdit);
         });
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
@@ -210,7 +210,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     @Override
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
-        GsContextUtils.instance.showSoftKeyboard(getActivity(), false, _searchEdit);
+        GsContextUtils.instance.showIme(getActivity(), false, _searchEdit);
     }
 
     private void showNewDirDialog() {

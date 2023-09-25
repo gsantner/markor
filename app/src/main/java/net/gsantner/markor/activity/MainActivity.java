@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserFragment;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -372,19 +374,18 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         return null;
     }
 
-    public void onViewPagerPageSelected(int pos) {
+    public void onViewPagerPageSelected(final int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
+            _cu.showIme(this, false);
         } else {
             _fab.hide();
-        }
-        setTitle(getPosTitle(pos));
-
-        if (pos != tabIdToPos(R.id.nav_notebook)) {
             restoreDefaultToolbar();
         }
+
+        setTitle(getPosTitle(pos));
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;

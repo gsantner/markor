@@ -26,7 +26,6 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -235,7 +234,7 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
-        final Boolean showIme = TextViewUtils.isImeOpen(text);
+        final Boolean showIme = GsContextUtils.isImeOpen(text);
 
         final List<String> options = new ArrayList<>();
         final List<Integer> icons = new ArrayList<>();
@@ -489,11 +488,11 @@ public class MarkorDialogFactory {
 
     // Restore the keyboard when dialog closes if keyboard is open when dialog was called
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit) {
-        addRestoreKeyboard(activity, options, edit, TextViewUtils.isImeOpen(edit));
+        addRestoreKeyboard(activity, options, edit, GsContextUtils.isImeOpen(edit));
     }
 
     private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit, final Boolean restore) {
-        options.dismissCallback = (d) -> edit.postDelayed(() -> GsContextUtils.instance.showSoftKeyboard(activity, restore, edit), 250);
+        options.dismissCallback = (d) -> edit.postDelayed(() -> GsContextUtils.instance.showIme(activity, restore, edit), 250);
     }
 
     /**
@@ -818,7 +817,7 @@ public class MarkorDialogFactory {
         baseConf(activity, dopt);
 
         final Map<String, File> texts = getSnippets(as());
-        final Boolean showIme = edit != null ? TextViewUtils.isImeOpen(edit) : null;
+        final Boolean showIme = edit != null ? GsContextUtils.isImeOpen(edit) : null;
 
         final List<String> data = new ArrayList<>(texts.keySet());
         dopt.data = data;

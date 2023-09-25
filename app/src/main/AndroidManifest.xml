@@ -179,7 +179,7 @@
             android:parentActivityName=".activity.MainActivity"
             android:taskAffinity=".activity.DocumentActivity"
             android:theme="@style/AppTheme.Unified.StartupFlash"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

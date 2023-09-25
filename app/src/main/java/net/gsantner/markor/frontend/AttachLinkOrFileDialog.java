@@ -14,8 +14,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.text.Editable;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -159,7 +157,7 @@ public class AttachLinkOrFileDialog {
             }
         };
 
-        final Boolean restoreIme = TextViewUtils.isImeOpen(edit);
+        final Boolean restoreIme = GsContextUtils.isImeOpen(edit);
 
         final AlertDialog dialog =
                 builder.setView(view)
@@ -217,7 +215,7 @@ public class AttachLinkOrFileDialog {
 
         dialog.setOnDismissListener(d -> {
             LocalBroadcastManager.getInstance(activity).unregisterReceiver(br);
-            edit.postDelayed(() -> GsContextUtils.instance.showSoftKeyboard(activity, restoreIme, edit), 250);
+            edit.postDelayed(() -> GsContextUtils.instance.showIme(activity, restoreIme, edit), 250);
         });
 
         // Get picture from camera

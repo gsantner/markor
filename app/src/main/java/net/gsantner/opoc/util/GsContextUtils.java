@@ -88,6 +88,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
@@ -149,7 +150,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -2499,7 +2499,16 @@ public class GsContextUtils {
                 .show();
     }
 
-    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final Boolean show, final View... view) {
+
+    // Check if keyboard open. Only available after android 11 :(
+    public static Boolean isImeOpen(final View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
+        }
+        return null; // Uncertain
+    }
+
+    public <T extends GsContextUtils> T showIme(final Activity activity, final Boolean show, final View... view) {
         if (activity != null && show != null) {
             final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
