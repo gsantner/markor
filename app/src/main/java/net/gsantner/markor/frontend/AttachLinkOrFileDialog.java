@@ -157,8 +157,6 @@ public class AttachLinkOrFileDialog {
             }
         };
 
-        final Boolean restoreIme = GsContextUtils.isImeOpen(edit);
-
         final AlertDialog dialog =
                 builder.setView(view)
                 .setTitle(actionTitle)
@@ -213,10 +211,7 @@ public class AttachLinkOrFileDialog {
                 "" + MarkorContextUtils.REQUEST_CAMERA_PICTURE, "" + MarkorContextUtils.REQUEST_PICK_PICTURE
         );
 
-        dialog.setOnDismissListener(d -> {
-            LocalBroadcastManager.getInstance(activity).unregisterReceiver(br);
-            edit.postDelayed(() -> GsContextUtils.instance.showIme(activity, restoreIme, edit), 250);
-        });
+        dialog.setOnDismissListener(d -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(br));
 
         // Get picture from camera
         buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(activity, attachmentDir));

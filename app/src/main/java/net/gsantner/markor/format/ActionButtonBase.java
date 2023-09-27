@@ -598,7 +598,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_insert_snippet: {
-                MarkorDialogFactory.showInsertSnippetDialog(getActivity(), _hlEditor, (snip) -> {
+                MarkorDialogFactory.showInsertSnippetDialog(getActivity(), (snip) -> {
                     _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });

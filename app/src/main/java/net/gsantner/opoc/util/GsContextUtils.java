@@ -88,7 +88,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
@@ -2499,17 +2498,8 @@ public class GsContextUtils {
                 .show();
     }
 
-
-    // Check if keyboard open. Only available after android 11 :(
-    public static Boolean isImeOpen(final View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
-        }
-        return null; // Uncertain
-    }
-
-    public <T extends GsContextUtils> T showIme(final Activity activity, final Boolean show, final View... view) {
-        if (activity != null && show != null) {
+    public <T extends GsContextUtils> T showIme(final Activity activity, final boolean show, final View... view) {
+        if (activity != null) {
             final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();
             final IBinder token = focus != null ? focus.getWindowToken() : null;

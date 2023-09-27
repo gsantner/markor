@@ -99,6 +99,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
+    private Boolean defocusImeState = null;
 
     public DocumentEditAndViewFragment() {
         super();
@@ -225,6 +226,18 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+
+        // Restore keyboard when we regain focus
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
+                if (hasFocus) {
+                    _cu.showIme(getActivity(), defocusImeState, _hlEditor);
+                    defocusImeState = null;
+                } else {
+                    defocusImeState = GsContextUtils.isImeOpen(_hlEditor);
+                }
+            });
+        }
     }
 
     @Override
