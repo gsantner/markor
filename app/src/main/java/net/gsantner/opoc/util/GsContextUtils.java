@@ -2498,7 +2498,7 @@ public class GsContextUtils {
                 .show();
     }
 
-    public <T extends GsContextUtils> T showIme(final Activity activity, final boolean show, final View... view) {
+    public <T extends GsContextUtils> T showSoftKeyboard(final Activity activity, final boolean show, final View... view) {
         if (activity != null) {
             final InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             final View focus = (view != null && view.length > 0) ? view[0] : activity.getCurrentFocus();

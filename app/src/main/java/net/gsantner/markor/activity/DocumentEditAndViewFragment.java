@@ -231,7 +231,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
                 if (hasFocus) {
-                    _cu.showIme(getActivity(), defocusImeState, _hlEditor);
+                    _cu.showSoftKeyboard(getActivity(), defocusImeState, _hlEditor);
                     defocusImeState = null;
                 } else {
                     defocusImeState = GsContextUtils.isImeOpen(_hlEditor);
@@ -760,9 +760,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         if (show) {
             updateViewModeText();
-            _cu.showIme(activity, false, _hlEditor);
+            _cu.showSoftKeyboard(activity, false, _hlEditor);
             _hlEditor.clearFocus();
-            _hlEditor.postDelayed(() -> _cu.showIme(activity, false, _hlEditor), 300);
+            _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
             fadeInOut(_webView, _primaryScrollView);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
