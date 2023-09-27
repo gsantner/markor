@@ -234,7 +234,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _cu.showSoftKeyboard(getActivity(), defocusImeState, _hlEditor);
                     defocusImeState = null;
                 } else {
-                    defocusImeState = GsContextUtils.isImeOpen(_hlEditor);
+                    defocusImeState = TextViewUtils.isImeOpen(_hlEditor);
                 }
             });
         }
