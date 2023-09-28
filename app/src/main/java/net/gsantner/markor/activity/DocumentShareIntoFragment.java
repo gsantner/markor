@@ -415,7 +415,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 text = "";
             }
 
-            link = link.replaceAll("(?m)(?<=&|\\?)(utm_|source|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
+            link = link.replaceAll("(?m)(?<=&|\\?)(utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
 
             formattedLink = String.format("[%s](%s )",
                     text.trim().replace("[", "\\[").replace("]", "\\]").replace("|", "/"),
