@@ -60,7 +60,6 @@ public class FormatRegistry {
     public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
     public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
-
     public static final int FORMAT_ORGMODE = R.string.action_format_orgmode;
 
 
@@ -72,7 +71,6 @@ public class FormatRegistry {
     public final static PlaintextTextConverter CONVERTER_PLAINTEXT = new PlaintextTextConverter();
     public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
     public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
-
     public final static OrgmodeTextConverter CONVERTER_ORGMODE = new OrgmodeTextConverter();
 
 
@@ -86,7 +84,7 @@ public class FormatRegistry {
             CONVERTER_ASCIIDOC,
             CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
-            CONVERTER_ORGMODE
+            CONVERTER_ORGMODE,
     };
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
@@ -166,7 +164,6 @@ public class FormatRegistry {
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
                 break;
-
             }
             case FORMAT_ORGMODE: {
                 format._converter = CONVERTER_ORGMODE;
@@ -174,7 +171,6 @@ public class FormatRegistry {
                 format._textActions = new OrgmodeActionButtons(context, document);
                 format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
                 format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
-
                 break;
             }
             default:

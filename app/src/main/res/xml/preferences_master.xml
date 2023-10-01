@@ -602,7 +602,7 @@
             </PreferenceCategory>
 
         </PreferenceScreen>
-        <!-- Plaintext Screen -->
+        <!-- OrgMode Screen -->
         <PreferenceScreen
             android:icon="@drawable/fountain_pen"
             android:title="@string/orgmode">
