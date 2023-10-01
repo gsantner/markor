@@ -35,11 +35,11 @@ public class WikitextTextConverter extends TextConverterBase {
     /**
      * First, convert Wikitext to regular Markor markdown. Then, calls the regular converter.
      *
-     * @param markup     Markup text
-     * @param context    Android Context
-     * @param lightMode  True if the light theme is to apply.
+     * @param markup    Markup text
+     * @param context   Android Context
+     * @param lightMode True if the light theme is to apply.
      * @param lineNum
-     * @param file       The file to convert.
+     * @param file      The file to convert.
      * @return HTML text
      */
     @Override

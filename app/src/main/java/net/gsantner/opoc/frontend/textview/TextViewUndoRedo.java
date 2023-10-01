@@ -533,8 +533,9 @@ public class TextViewUndoRedo {
         }
 
         final int CHAR = 0, SPACE = 1, NL = 2;
+
         private int typeOf(final char c) {
-            switch(c) {
+            switch (c) {
                 case '\n':
                     return NL;
                 case ' ':
