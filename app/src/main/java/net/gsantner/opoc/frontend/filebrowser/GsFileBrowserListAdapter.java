@@ -487,8 +487,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     /**
      * Show a file in the current folder and blink it
-     * @param file       File to blink
-     * @param recycler   RecyclerView which holds the file items
+     *
+     * @param file     File to blink
+     * @param recycler RecyclerView which holds the file items
      */
     public void showAndBlink(final File file, final RecyclerView recycler) {
         final int pos = getFilePosition(file);
