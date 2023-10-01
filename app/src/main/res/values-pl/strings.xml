@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Wstaw obrazek</string>
     <string name="contributors">Współautorzy</string>
     <string name="save_location">Zapisz lokalizację</string>
+    <string name="saved_location_to">Zapisano do %s</string>
     <string name="select_storage_folder">Wybierz folder zapisu</string>
     <string name="licenses">Licencje</string>
     <string name="changelog">Lista zmian</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Pokaż licencje dzieł osób trzecich</string>
     <string name="language_change_restart_description">Zmień język aplikacji. Uruchom ponownie aplikację, aby zobaczyć zmiany</string>
     <string name="language">Język</string>
+    <string name="storage_permission_required">Wymagany dostęp do odczytu i zapisu plików</string>
     <string name="open_with">Otwórz za pomocą</string>
     <string name="sort_by">Sortuj</string>
     <string name="date">Sortuj według daty</string>
