@@ -1,7 +1,8 @@
-
 package net.gsantner.markor.format.orgmode;
 
 import android.content.Context;
+
+import androidx.core.text.TextUtilsCompat;
 
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -10,8 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import androidx.core.text.TextUtilsCompat;
 
 @SuppressWarnings("WeakerAccess")
 public class OrgmodeTextConverter extends TextConverterBase {

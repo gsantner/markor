@@ -1,7 +1,9 @@
-
 package net.gsantner.markor.format.orgmode;
 
 import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
@@ -11,9 +13,6 @@ import net.gsantner.markor.model.Document;
 
 import java.util.Arrays;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 
 public class OrgmodeActionButtons extends ActionButtonBase {
 

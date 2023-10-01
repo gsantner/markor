@@ -1,7 +1,6 @@
 package net.gsantner.markor.format.orgmode;
 
 import android.graphics.Paint;
-import android.graphics.Typeface;
 
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
@@ -26,6 +25,7 @@ public class OrgmodeSyntaxHighlighter extends SyntaxHighlighterBase {
     public OrgmodeSyntaxHighlighter(AppSettings as) {
         super(as);
     }
+
     @Override
     public SyntaxHighlighterBase configure(Paint paint) {
         _delay = _appSettings.getOrgmodeHighlightingDelay();
@@ -41,7 +41,7 @@ public class OrgmodeSyntaxHighlighter extends SyntaxHighlighterBase {
         createColorSpanForMatches(LINK, ORG_COLOR_LINK);
         createColorSpanForMatches(LIST_UNORDERED, ORG_COLOR_LIST);
         createColorSpanForMatches(LIST_ORDERED, ORG_COLOR_LIST);
-        createColorSpanForMatches(PREAMBLE,ORG_COLOR_DIM);
+        createColorSpanForMatches(PREAMBLE, ORG_COLOR_DIM);
         createColorSpanForMatches(COMMENT, ORG_COLOR_DIM);
         createColorBackgroundSpan(BLOCK, ORG_COLOR_BLOCK);
     }

@@ -11,6 +11,8 @@ import android.content.Context;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 
+import androidx.annotation.NonNull;
+
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.asciidoc.AsciidocActionButtons;
@@ -48,8 +50,6 @@ import net.gsantner.markor.model.Document;
 import java.io.File;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-
 public class FormatRegistry {
     public static final int FORMAT_UNKNOWN = 0;
     public static final int FORMAT_WIKITEXT = R.string.action_format_wikitext;
@@ -62,7 +62,6 @@ public class FormatRegistry {
     public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
 
     public static final int FORMAT_ORGMODE = R.string.action_format_orgmode;
-
 
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
