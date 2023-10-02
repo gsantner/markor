@@ -230,7 +230,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Restore keyboard when we regain focus
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
-                if (hasFocus) {
+                if (hasFocus && defocusImeState != null) {
                     _cu.showSoftKeyboard(getActivity(), defocusImeState, _hlEditor);
                     defocusImeState = null;
                 } else {

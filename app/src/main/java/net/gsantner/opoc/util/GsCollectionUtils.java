@@ -11,6 +11,8 @@ package net.gsantner.opoc.util;
 
 import android.util.Pair;
 
+import androidx.lifecycle.LifecycleKt;
+
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
@@ -140,7 +142,7 @@ public class GsCollectionUtils {
      * Set union
      */
     public static <T> Set<T> union(final Collection<T> a, final Collection<T> b) {
-        final Set<T> ret = new HashSet<>(a);
+        final Set<T> ret = new LinkedHashSet<>(a);
         ret.addAll(b);
         return ret;
     }
@@ -149,7 +151,7 @@ public class GsCollectionUtils {
      * Set intersection
      */
     public static <T> Set<T> intersection(final Collection<T> a, final Collection<T> b) {
-        final Set<T> ret = new HashSet<>(a);
+        final Set<T> ret = new LinkedHashSet<>(a);
         ret.retainAll(b);
         return ret;
     }

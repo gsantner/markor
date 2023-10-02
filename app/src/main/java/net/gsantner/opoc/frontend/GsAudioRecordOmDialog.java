@@ -219,7 +219,7 @@ public class GsAudioRecordOmDialog {
         }
     }
 
-    public static File generateFilename(File recordDirectory) {
+    public static File generateFilename(final File recordDirectory) {
         final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
         return new File(recordDirectory, datestr + "-record.wav");
     }

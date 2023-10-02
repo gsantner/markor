@@ -46,11 +46,14 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsCollectionUtils;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,13 +66,13 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public abstract class ActionButtonBase {
-    private Activity m_activity;
-    private MarkorContextUtils m_cu;
+    private Activity _activity;
+    private MarkorContextUtils _cu;
     private final int _buttonHorizontalMargin;
     private String _lastSnip;
 
     protected HighlightingEditor _hlEditor;
-    protected WebView m_webView;
+    protected WebView _webView;
     protected Document _document;
     protected AppSettings _appSettings;
     protected int _indent;
@@ -97,7 +100,7 @@ public abstract class ActionButtonBase {
 
     // Override to implement custom search action
     public boolean onSearch() {
-        MarkorDialogFactory.showSearchDialog(getActivity(), _hlEditor);
+        MarkorDialogFactory.showSearchDialog(_activity, _hlEditor);
         return true;
     }
 
@@ -137,10 +140,10 @@ public abstract class ActionButtonBase {
      * @return Map of String key -> Action
      */
     public Map<String, ActionItem> getActiveActionMap() {
-        List<ActionItem> actionList = getActiveActionList();
-        List<String> keyList = getActiveActionKeys();
+        final List<ActionItem> actionList = getActiveActionList();
+        final List<String> keyList = getActiveActionKeys();
 
-        Map<String, ActionItem> map = new HashMap<String, ActionItem>();
+        final Map<String, ActionItem> map = new HashMap<String, ActionItem>();
 
         for (int i = 0; i < actionList.size(); i++) {
             map.put(keyList.get(i), actionList.get(i));
@@ -154,14 +157,7 @@ public abstract class ActionButtonBase {
      * @return List or resource strings
      */
     public List<String> getActiveActionKeys() {
-        final List<ActionItem> actionList = getActiveActionList();
-        final ArrayList<String> keys = new ArrayList<>();
-
-        for (ActionItem item : actionList) {
-            keys.add(rstr(item.keyId));
-        }
-
-        return keys;
+        return GsCollectionUtils.map(getActiveActionList(), item -> rstr(item.keyId));
     }
 
     /**
@@ -172,7 +168,7 @@ public abstract class ActionButtonBase {
      *
      * @param keys of keys (in order) to save
      */
-    public void saveDisabledActions(final List<String> keys) {
+    public void saveDisabledActions(final Collection<String> keys) {
         saveActionPreference(DISABLED_SUFFIX, keys);
     }
 
@@ -184,17 +180,13 @@ public abstract class ActionButtonBase {
      *
      * @param keys of keys (in order) to save
      */
-    public void saveActionOrder(final List<String> keys) {
+    public void saveActionOrder(final Collection<String> keys) {
         saveActionPreference(ORDER_SUFFIX, keys);
     }
 
-    private void saveActionPreference(final String suffix, List<String> values) {
-        // Remove any values not in current actions
-        values = new ArrayList<>(values);
-        values.retainAll(getActiveActionKeys());
-
-        SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
-        String formatKey = rstr(getFormatActionsKey()) + suffix;
+    private void saveActionPreference(final String suffix, final Collection<String> values) {
+        final SharedPreferences settings = getContext().getSharedPreferences(ACTION_ORDER_PREF_NAME, Context.MODE_PRIVATE);
+        final String formatKey = rstr(getFormatActionsKey()) + suffix;
         settings.edit().putString(formatKey, TextUtils.join(",", values)).apply();
     }
 
@@ -220,30 +212,38 @@ public abstract class ActionButtonBase {
      */
     public List<String> getActionOrder() {
 
-        ArrayList<String> definedKeys = new ArrayList<>(getActiveActionKeys());
-        List<String> prefKeys = new ArrayList<>(loadActionPreference(ORDER_SUFFIX));
+        final Set<String> order = new LinkedHashSet<>(loadActionPreference(ORDER_SUFFIX));
 
         // Handle the case where order was stored without suffix. i.e. before this release.
-        if (prefKeys.size() == 0) {
-            prefKeys = new ArrayList<>(loadActionPreference(""));
+        if (order.isEmpty()) {
+            order.addAll(loadActionPreference(""));
         }
 
-        Set<String> prefSet = new LinkedHashSet<>(prefKeys);
-        Set<String> defSet = new LinkedHashSet<>(definedKeys);
+        final Set<String> defined = new LinkedHashSet<>(getActiveActionKeys());
+        final Set<String> disabled = new LinkedHashSet<>(getDisabledActions());
 
-        // Add any defined keys which are not in prefs
-        defSet.removeAll(prefSet);
-        prefKeys.addAll(defSet);
+        // Any definedKeys which are not in prefs or disabled keys are added to disabled
+        final Set<String> existing = GsCollectionUtils.union(order, disabled);
+        final Set<String> added = GsCollectionUtils.setDiff(defined, existing);
+        final Set<String> removed = GsCollectionUtils.setDiff(existing, defined);
 
-        // Remove any pref keys which are not defined
-        prefSet.removeAll(definedKeys);
-        prefKeys.removeAll(prefSet);
-
-        if (defSet.size() > 0 || prefSet.size() > 0) {
-            saveActionOrder(prefKeys);
+        // Disable any new actions unless none existing (i.e. first run)
+        if (!existing.isEmpty()) {
+            disabled.addAll(added);
         }
 
-        return prefKeys;
+        // Add new ones to order
+        order.addAll(added);
+
+        // Removed removed from order and disabled
+        disabled.removeAll(removed);
+        order.removeAll(removed);
+
+        if (!added.isEmpty() || !removed.isEmpty()) {
+            saveActionOrder(order);
+        }
+
+        return new ArrayList<>(order);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -263,7 +263,7 @@ public abstract class ActionButtonBase {
     }
 
     protected void appendActionButtonToBar(ViewGroup barLayout, @NonNull ActionItem action) {
-        final ImageView btn = (ImageView) getActivity().getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
+        final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
         final String desc = rstr(action.stringId);
         btn.setContentDescription(desc);
@@ -499,10 +499,10 @@ public abstract class ActionButtonBase {
 
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
-        m_activity = activity;
+        _activity = activity;
         _hlEditor = hlEditor;
-        m_webView = webview;
-        m_cu = new MarkorContextUtils(m_activity);
+        _webView = webview;
+        _cu = new MarkorContextUtils(_activity);
         return this;
     }
 
@@ -516,22 +516,22 @@ public abstract class ActionButtonBase {
     }
 
     public Activity getActivity() {
-        return m_activity;
+        return _activity;
     }
 
     public Context getContext() {
-        return m_activity != null ? m_activity : _appSettings.getContext();
+        return _activity != null ? _activity : _appSettings.getContext();
     }
 
     public MarkorContextUtils getCu() {
-        return m_cu;
+        return _cu;
     }
 
     /**
      * Callable from background thread!
      */
     public void setEditorTextAsync(final String text) {
-        getActivity().runOnUiThread(() -> _hlEditor.setText(text));
+        _activity.runOnUiThread(() -> _hlEditor.setText(text));
     }
 
     protected void runIndentLines(final boolean deIndent) {
@@ -562,7 +562,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_time: {
-                DatetimeFormatDialog.showDatetimeFormatDialog(getActivity(), _hlEditor);
+                DatetimeFormatDialog.showDatetimeFormatDialog(_activity, _hlEditor);
                 return true;
             }
             case R.string.abid_common_accordion: {
@@ -570,15 +570,15 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.getFile());
                 return true;
             }
             case R.string.abid_common_insert_link: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, text, _document.getFile());
                 return true;
             }
             case R.string.abid_common_insert_image: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.getFile());
                 return true;
             }
             case R.string.abid_common_ordered_list_renumber: {
@@ -598,7 +598,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_insert_snippet: {
-                MarkorDialogFactory.showInsertSnippetDialog(getActivity(), (snip) -> {
+                MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
                     _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(snip));
                     _lastSnip = snip;
                 });
@@ -610,7 +610,7 @@ public abstract class ActionButtonBase {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
-                    getCu().openWebpageInExternalBrowser(getContext(), url);
+                    _cu.openWebpageInExternalBrowser(getContext(), url);
                 }
                 return true;
             }
@@ -636,15 +636,15 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                m_webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
-                getCu().viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
+                _cu.viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
-                getCu().nextScreenRotationSetting(getActivity());
+                _cu.nextScreenRotationSetting(_activity);
                 return true;
             }
         }
@@ -658,7 +658,7 @@ public abstract class ActionButtonBase {
         switch (action) {
             case R.string.abid_common_deindent:
             case R.string.abid_common_indent: {
-                MarkorDialogFactory.showIndentSizeDialog(getActivity(), _indent, (size) -> {
+                MarkorDialogFactory.showIndentSizeDialog(_activity, _indent, (size) -> {
                     _indent = Integer.parseInt(size);
                     _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
                 });
@@ -691,6 +691,18 @@ public abstract class ActionButtonBase {
                 if (!TextUtils.isEmpty(_lastSnip)) {
                     _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(_lastSnip));
                 }
+                return true;
+            }
+            case R.string.abid_common_insert_audio: {
+                AttachLinkOrFileDialog.insertAudioRecording(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_insert_link: {
+                AttachLinkOrFileDialog.insertGalleryPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_insert_image: {
+                AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
                 return true;
             }
         }
@@ -865,11 +877,11 @@ public abstract class ActionButtonBase {
             int pos = _hlEditor.getSelectionStart();
             _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
         } else if (displayMode == ActionItem.DisplayMode.VIEW) {
-            boolean top = m_webView.getScrollY() > 100;
-            m_webView.scrollTo(0, top ? 0 : m_webView.getContentHeight());
+            boolean top = _webView.getScrollY() > 100;
+            _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
             if (!top) {
-                m_webView.scrollBy(0, 1000);
-                m_webView.scrollBy(0, 1000);
+                _webView.scrollBy(0, 1000);
+                _webView.scrollBy(0, 1000);
             }
         }
     }

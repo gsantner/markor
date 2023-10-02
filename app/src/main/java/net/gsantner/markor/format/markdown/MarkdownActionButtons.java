@@ -149,12 +149,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean onActionLongClick(final @StringRes int action) {
         switch (action) {
-            case R.string.abid_common_insert_image: {
-                int pos = _hlEditor.getSelectionStart();
-                _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
-                _hlEditor.setSelection(pos + 48);
-                return true;
-            }
             case R.string.abid_markdown_table_insert_columns: {
                 MarkorDialogFactory.showInsertTableRowDialog(getActivity(), true, this::insertTableRow);
                 return true;

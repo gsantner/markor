@@ -143,12 +143,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -176,6 +179,7 @@ public class GsContextUtils {
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
     public final static String EXTRA_FILEPATH = "real_file_path_2";
+    public final static String EXTRA_URI = "real_uri_0";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
@@ -186,6 +190,7 @@ public class GsContextUtils {
     public final static int REQUEST_SAF = 50003;
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
+    public final static int REQUEST_RECORD_AUDIO = 50006;
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
@@ -1727,12 +1732,22 @@ public class GsContextUtils {
      * service, the image will get copied to app-cache folder and it's path returned.
      */
     public void requestGalleryPicture(final Activity activity) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        final Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         try {
             activity.startActivityForResult(intent, REQUEST_PICK_PICTURE);
         } catch (Exception ex) {
             Toast.makeText(activity, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean requestAudioRecording(final Activity activity) {
+        final Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+        try {
+            activity.startActivityForResult(intent, REQUEST_RECORD_AUDIO);
+            return true;
+        } catch (Exception ignored) {
+        }
+        return false;
     }
 
     public String extractFileFromIntentStr(final Context context, final Intent receivingIntent) {
@@ -1748,10 +1763,8 @@ public class GsContextUtils {
      * it can be retrieved using {@link #extractResultFromActivityResult(Activity, int, int, Intent)}
      * returns null if an error happened.
      *
-     * @param targetDir Path to under which file will be written, if folder the filename gets app_name + millis + random filename. If null DCIM folder is used.
      */
-    @SuppressWarnings("RegExpRedundantEscape")
-    public void requestCameraPicture(final Activity activity, final File targetDir) {
+    public void requestCameraPicture(final Activity activity) {
         try {
             final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             final File picDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -1767,8 +1780,7 @@ public class GsContextUtils {
                 } else {
                     uri = Uri.fromFile(imageTemp);
                 }
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-                        .putExtra(Intent.EXTRA_RETURN_RESULT, true);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri).putExtra(Intent.EXTRA_RETURN_RESULT, true);
                 _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
                 activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
             }
@@ -1782,7 +1794,7 @@ public class GsContextUtils {
      * Also may forward results via local broadcast
      */
     @SuppressLint("ApplySharedPref")
-    public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent data) {
+    public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent intent) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
                 final String picturePath = (resultCode == Activity.RESULT_OK) ? _lastCameraPictureFilepath : null;
@@ -1792,8 +1804,8 @@ public class GsContextUtils {
                 return picturePath;
             }
             case REQUEST_PICK_PICTURE: {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    Uri selectedImage = data.getData();
+                if (resultCode == Activity.RESULT_OK && intent != null) {
+                    Uri selectedImage = intent.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     String picturePath = null;
 
@@ -1813,19 +1825,22 @@ public class GsContextUtils {
                     }
 
                     // Try to grab via file extraction method
-                    data.setAction(Intent.ACTION_VIEW);
-                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(context, data);
+                    intent.setAction(Intent.ACTION_VIEW);
+                    picturePath = picturePath != null ? picturePath : extractFileFromIntentStr(context, intent);
 
                     // Retrieve image from file descriptor / Cloud, e.g.: Google Drive, Picasa
                     if (picturePath == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                         try {
-                            ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(selectedImage, "r");
+                            final ParcelFileDescriptor parcelFileDescriptor = context.getContentResolver().openFileDescriptor(selectedImage, "r");
                             if (parcelFileDescriptor != null) {
-                                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                                FileInputStream input = new FileInputStream(fileDescriptor);
+                                final FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                                final FileInputStream input = new FileInputStream(fileDescriptor);
 
                                 // Create temporary file in cache directory
-                                picturePath = File.createTempFile("image", "tmp", context.getCacheDir()).getAbsolutePath();
+                                final File temp = File.createTempFile("image", "tmp", context.getCacheDir());
+                                temp.deleteOnExit();
+                                picturePath = temp.getAbsolutePath();
+
                                 GsFileUtils.writeFile(new File(picturePath), GsFileUtils.readCloseBinaryStream(input), null);
                             }
                         } catch (IOException ignored) {
@@ -1837,23 +1852,36 @@ public class GsContextUtils {
                     if (picturePath != null) {
                         sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                     }
+
                     return picturePath;
                 }
                 break;
             }
-
+            case REQUEST_RECORD_AUDIO: {
+                final Uri uri = intent.getData();
+                final String uriPath = uri.getPath();
+                final String ext = uriPath.substring(uriPath.lastIndexOf("."));
+                final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
+                final File temp = new File(context.getCacheDir(), datestr + ext);
+                GsFileUtils.copyUriToFile(context, uri, temp);
+                sendLocalBroadcastWithStringExtra(context, REQUEST_RECORD_AUDIO + "", EXTRA_FILEPATH, temp.getAbsolutePath());
+            }
             case REQUEST_SAF: {
-                if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-                    Uri treeUri = data.getData();
+                if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
+                    final Uri treeUri = intent.getData();
                     PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PREF_KEY__SAF_TREE_URI, treeUri.toString()).commit();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        context.getContentResolver().takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        final ContentResolver resolver = context.getContentResolver();
+                        try {
+                            resolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        } catch (SecurityException se) {
+                            resolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        }
                     }
                     return treeUri;
                 }
                 break;
             }
-
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
                 return checkExternalStoragePermission(context);
