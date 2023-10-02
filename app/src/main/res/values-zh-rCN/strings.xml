@@ -314,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">最近文件列表</string>
     <string name="reload">刷新</string>
     <string name="wrap_words">折行</string>
+    <string name="line_numbers">行号</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
     <string name="recursive_search_in_current_directory">在当前目录中进行递归搜索。</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>

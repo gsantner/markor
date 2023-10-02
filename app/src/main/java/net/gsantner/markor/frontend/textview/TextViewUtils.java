@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
-import android.animation.ObjectAnimator;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -216,7 +215,7 @@ public final class TextViewUtils extends GsTextUtils {
     public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
         // Faster specialization for the common single case
         if (chars.length == 1) {
-            return new int[] {countChar(s, start, end, chars[0])};
+            return new int[]{countChar(s, start, end, chars[0])};
         }
 
         final int[] counts = new int[chars.length];
