@@ -124,8 +124,8 @@ public abstract class TextConverterBase {
     /**
      * Convert markup text to target format
      *
-     * @param markup     Markup text
-     * @param context    Android Context
+     * @param markup    Markup text
+     * @param context   Android Context
      * @param lightMode
      * @param lineNum
      * @return html as String

@@ -316,6 +316,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lista nei file recenti</string>
     <string name="reload">Ricarica</string>
     <string name="wrap_words">Parole a capo</string>
+    <string name="line_numbers">Numeri di riga</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella directory corrente.</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
