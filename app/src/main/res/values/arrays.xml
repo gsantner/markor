@@ -104,6 +104,7 @@
         <item translatable="false">@string/wikitext</item>
         <item translatable="false">@string/asciidoc</item>
         <item translatable="false">@string/csv</item>
+        <item translatable="false">@string/orgmode</item>
         <item translatable="false">@string/none</item>
     </string-array>
 
@@ -130,6 +131,7 @@
         <item translatable="false">.txt</item>
         <item translatable="false">.adoc</item>
         <item translatable="false">.csv</item>
+        <item translatable="false">.org</item>
         <item translatable="false" />
     </string-array>
 

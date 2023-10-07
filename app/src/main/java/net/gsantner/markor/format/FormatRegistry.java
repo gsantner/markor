@@ -27,6 +27,9 @@ import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.markdown.MarkdownReplacePatternGenerator;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
+import net.gsantner.markor.format.orgmode.OrgmodeActionButtons;
+import net.gsantner.markor.format.orgmode.OrgmodeSyntaxHighlighter;
+import net.gsantner.markor.format.orgmode.OrgmodeTextConverter;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.plaintext.PlaintextTextConverter;
@@ -57,6 +60,7 @@ public class FormatRegistry {
     public static final int FORMAT_TODOTXT = R.string.action_format_todotxt;
     public static final int FORMAT_KEYVALUE = R.string.action_format_keyvalue;
     public static final int FORMAT_EMBEDBINARY = R.string.action_format_embedbinary;
+    public static final int FORMAT_ORGMODE = R.string.action_format_orgmode;
 
 
     public final static MarkdownTextConverter CONVERTER_MARKDOWN = new MarkdownTextConverter();
@@ -67,6 +71,7 @@ public class FormatRegistry {
     public final static PlaintextTextConverter CONVERTER_PLAINTEXT = new PlaintextTextConverter();
     public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
     public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
+    public final static OrgmodeTextConverter CONVERTER_ORGMODE = new OrgmodeTextConverter();
 
 
     // Order here is used to **determine** format by it's file extension and/or content heading
@@ -79,6 +84,7 @@ public class FormatRegistry {
             CONVERTER_ASCIIDOC,
             CONVERTER_PLAINTEXT,
             CONVERTER_EMBEDBINARY,
+            CONVERTER_ORGMODE,
     };
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
@@ -157,6 +163,14 @@ public class FormatRegistry {
                 format._converter = CONVERTER_EMBEDBINARY;
                 format._highlighter = new PlaintextSyntaxHighlighter(appSettings);
                 format._textActions = new PlaintextActionButtons(context, document);
+                break;
+            }
+            case FORMAT_ORGMODE: {
+                format._converter = CONVERTER_ORGMODE;
+                format._highlighter = new OrgmodeSyntaxHighlighter(appSettings);
+                format._textActions = new OrgmodeActionButtons(context, document);
+                format._autoFormatInputFilter = new AutoTextFormatter(MarkdownReplacePatternGenerator.formatPatterns);
+                format._autoFormatTextWatcher = new ListHandler(MarkdownReplacePatternGenerator.formatPatterns);
                 break;
             }
             default:

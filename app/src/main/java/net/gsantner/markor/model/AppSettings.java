@@ -153,6 +153,10 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getInt(R.string.pref_key__asciidoc__hl_delay, 650);
     }
 
+    public int getOrgmodeHighlightingDelay() {
+        return getInt(R.string.pref_key__orgmode__hl_delay, 650);
+    }
+
     public boolean isMarkdownHighlightLineEnding() {
         return getBool(R.string.pref_key__markdown__highlight_lineending_two_or_more_space, false);
     }
