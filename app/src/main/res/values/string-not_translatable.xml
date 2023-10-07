@@ -114,6 +114,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
      -->
     <string name="pref_key__markdown__hl_delay_v2" translatable="false">pref_key__markdown__hl_delay_v2</string>
     <string name="pref_key__asciidoc__hl_delay" translatable="false">pref_key__asciidoc__hl_delay</string>
+    <string name="pref_key__orgmode__hl_delay" translatable="false">pref_key__orgmode__hl_delay</string>
     <string name="pref_key__quicknote_filepath" translatable="false">pref_key__quicknote_filepath</string>
     <string name="pref_key__markdown__highlight_lineending_two_or_more_space" translatable="false">pref_key__markdown__highlight_lineending_two_or_more_space</string>
     <string name="pref_key__asciidoc__highlight_lineending_hard_line_break" translatable="false">pref_key__asciidoc__highlight_lineending_hard_line_break</string>
@@ -121,9 +122,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__markdown__reorder_actions" translatable="false">pref_key__markdown__reorder_actions</string>
     <string name="pref_key__todotxt__reorder_actions" translatable="false">pref_key__todotxt__reorder_actions</string>
     <string name="pref_key__plaintext__reorder_actions" translatable="false">pref_key__plaintext__reorder_actions</string>
+    <string name="pref_key__orgmode__reorder_actions" translatable="false">pref_key__orgmode__reorder_actions</string>
     <string name="pref_key__asciidoc__reorder_actions" translatable="false">pref_key__asciidoc__reorder_actions</string>
     <string name="pref_key__markdown__action_keys" translatable="false">pref_key__markdown__action_keys</string>
     <string name="pref_key__todotxt__action_keys" translatable="false">pref_key__todotxt__action_keys</string>
+    <string name="pref_key__orgmode__action_keys" translatable="false">pref_key__orgmode__action_keys</string>
     <string name="pref_key__plaintext__action_keys" translatable="false">pref_key__plaintext__action_keys</string>
     <string name="pref_key__asciidoc__action_keys" translatable="false">pref_key__asciidoc__action_keys</string>
     <string name="pref_key__todotxt__hl_delay" translatable="false">pref_key__todotxt__hl_delay</string>
@@ -428,7 +431,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_markdown" translatable="false">action_format_markdown</string>
     <string name="action_format_todotxt" translatable="false">action_format_todotxt</string>
     <string name="action_format_wikitext" translatable="false">action_format_wikitext</string>
+    <string name="action_format_orgmode" translatable="false">action_format_orgmode</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
+    <string name="orgmode" translatable="false">OrgMode</string>
 </resources>
