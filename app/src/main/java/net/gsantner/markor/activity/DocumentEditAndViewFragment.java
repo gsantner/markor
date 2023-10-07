@@ -27,6 +27,8 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -99,7 +101,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private MarkorWebViewClient _webViewClient;
     private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
-    private Boolean defocusImeState = null;
 
     public DocumentEditAndViewFragment() {
         super();
@@ -227,14 +228,23 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
 
-        // Restore keyboard when we regain focus
+        // We set the keyboard to be hidden if it was hidden when we lost focus
+        // This works well to preserve keyboard state.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            final Window window = activity.getWindow();
+            final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+            final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
+            final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
+
             _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
-                if (hasFocus && defocusImeState != null) {
-                    _cu.showSoftKeyboard(getActivity(), defocusImeState, _hlEditor);
-                    defocusImeState = null;
+                if (hasFocus) {
+                    // Restore old state
+                    _hlEditor.postDelayed(() -> window.setSoftInputMode(unchanged), 500);
                 } else {
-                    defocusImeState = TextViewUtils.isImeOpen(_hlEditor);
+                    final Boolean isOpen = TextViewUtils.isImeOpen(_hlEditor);
+                    if (isOpen != null && !isOpen) {
+                        window.setSoftInputMode(hidden);
+                    }
                 }
             });
         }

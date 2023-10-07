@@ -65,7 +65,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:taskAffinity=".activity.MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateUnchanged|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -179,7 +179,7 @@
             android:parentActivityName=".activity.MainActivity"
             android:taskAffinity=".activity.DocumentActivity"
             android:theme="@style/AppTheme.Unified.StartupFlash"
-            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:windowSoftInputMode="stateUnchanged|adjustResize"
             tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
