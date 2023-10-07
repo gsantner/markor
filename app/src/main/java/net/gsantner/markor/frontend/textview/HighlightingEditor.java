@@ -467,7 +467,7 @@ public class HighlightingEditor extends AppCompatEditText {
         private final Paint _paint = new Paint();
 
         private final int _defaultPaddingLeft;
-        private static final int LINE_NUMBER_PADDING_LEFT = 14;
+        private static final int LINE_NUMBER_PADDING_LEFT = 12;
         private static final int LINE_NUMBER_PADDING_RIGHT = 10;
 
         private final Rect _visibleArea = new Rect();
