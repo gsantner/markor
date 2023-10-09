@@ -71,6 +71,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     private FloatingActionButton _homeButton;
     private FloatingActionButton _buttonSearch;
     private FloatingActionButton _buttonNewDir;
+    private FloatingActionButton _buttonNewFile;
     private EditText _searchEdit;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
@@ -102,12 +103,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
         _buttonOk = root.findViewById(R.id.ui__filesystem_dialog__button_ok);
         _homeButton = root.findViewById(R.id.ui__filesystem_dialog__home);
+        _buttonNewFile = root.findViewById(R.id.ui__filesystem_dialog__new_file);
         _buttonNewDir = root.findViewById(R.id.ui__filesystem_dialog__new_dir);
         _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
-        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk, _buttonNewFile}) {
             v.setOnClickListener(this::onClicked);
         }
 
@@ -140,6 +142,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonNewDir.setImageResource(_dopt.newDirButtonImage);
         _buttonNewDir.setVisibility(_dopt.newDirButtonEnable ? View.VISIBLE : View.GONE);
         _buttonNewDir.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
+
+        _buttonNewFile.setImageResource(_dopt.newFileButtonImage);
+        _buttonNewFile.setVisibility(_dopt.createFileCallback != null ? View.VISIBLE : View.GONE);
+        _buttonNewFile.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         _searchEdit.setHint(_dopt.searchHint);
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
@@ -177,7 +183,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         }
     }
 
-    public void onClicked(View view) {
+    public void onClicked(final View view) {
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:
             case R.id.ui__filesystem_dialog__home: {
@@ -204,6 +210,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 showNewDirDialog();
                 break;
             }
+            case R.id.ui__filesystem_dialog__new_file: {
+                showCreateFile();
+                break;
+            }
         }
     }
 
@@ -211,6 +221,17 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
         GsContextUtils.instance.showSoftKeyboard(getActivity(), false, _searchEdit);
+    }
+
+    private void showCreateFile() {
+        // Initially implementing with create and show file
+        _dopt.createFileCallback.callback(_filesystemViewerAdapter.getCurrentFolder(),
+                (newFile) -> {
+                    _filesystemViewerAdapter.reloadCurrentFolder();
+                    if (newFile != null) {
+                        _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(newFile, _recyclerList), 200);
+                    }
+                });
     }
 
     private void showNewDirDialog() {
@@ -228,7 +249,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         dopt.callback = (name) -> {
             final File file = _filesystemViewerAdapter.createDirectoryHere(name);
             if (file != null) {
-                _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(file, _recyclerList), 100);
+                _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(file, _recyclerList), 200);
             }
         };
 

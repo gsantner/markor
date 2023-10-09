@@ -225,6 +225,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Edit text in the center of the screen</string>
     <string name="clipboard">Clipboard</string>
     <string name="select_existing_document">Select existing document</string>
+    <string name="select_create_document">Select or create document</string>
     <string name="open_source_licenses">Open Source Licenses</string>
     <string name="rate_this_app">Rate this app</string>
     <string name="translate">Translate</string>

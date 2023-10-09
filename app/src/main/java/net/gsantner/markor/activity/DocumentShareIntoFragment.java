@@ -219,12 +219,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
+            _appSettings.addRecentDocument(file);
             if (showEditor) {
                 showInDocumentActivity(document);
+            } else {
+                context.finish();
             }
-            _appSettings.addRecentDocument(file);
-
-            context.finish();
         }
 
         private String formatShare(final String shared) {
@@ -245,30 +245,36 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         private void showAppendDialog(int keyId) {
-            final File startFolder;
-            switch (keyId) {
-                case R.string.pref_key__favourite_files: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
-                    break;
-                }
-                case R.string.pref_key__popular_documents: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
-                    break;
-                }
-                case R.string.pref_key__recent_documents: {
-                    startFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
-                    break;
-                }
-                default: {
-                    startFolder = _appSettings.getNotebookDirectory();
-                    break;
-                }
-            }
+
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = startFolder;
                     dopt.newDirButtonEnable = false;
+                    switch (keyId) {
+                        case R.string.pref_key__favourite_files: {
+                            dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE;
+                            break;
+                        }
+                        case R.string.pref_key__popular_documents: {
+                            dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR;
+                            break;
+                        }
+                        case R.string.pref_key__recent_documents: {
+                            dopt.rootFolder = GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS;
+                            break;
+                        }
+                        default: {
+                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.newDirButtonEnable = true;
+                            dopt.createFileCallback = (dir, callback) -> NewFileDialog.newInstance(dir, false, (ok, f) -> {
+                                    if (ok && f.isFile()) {
+                                        appendToExistingDocumentAndClose(f, true);
+                                    }
+                                }
+                            ).show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                            break;
+                        }
+                    }
                 }
 
                 @Override
@@ -296,7 +302,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     });
                     dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
                 }
-            }, getFragmentManager(), getActivity());
+            }, getParentFragmentManager(), getActivity());
         }
 
         private void showInDocumentActivity(final Document document) {
@@ -321,14 +327,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     close = true;
                     break;
                 }
-                case R.string.pref_key__share_into__create_document: {
-                    createNewDocument();
-                    return true;
-                }
+                case R.string.pref_key__select_create_document:
                 case R.string.pref_key__favourite_files:
                 case R.string.pref_key__popular_documents:
-                case R.string.pref_key__recent_documents:
-                case R.string.pref_key__share_into__existing_document: {
+                case R.string.pref_key__recent_documents: {
                     showAppendDialog(keyId);
                     return true;
                 }

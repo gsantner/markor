@@ -65,10 +65,26 @@
         android:src="@android:drawable/ic_menu_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__new_file"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:alpha="0.50"
+        tools:ignore="ContentDescription"
+        app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ui__filesystem_dialog__new_file"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__new_dir"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:alpha="0.50"
         tools:ignore="ContentDescription"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 
@@ -77,10 +93,12 @@
         android:src="@android:drawable/ic_input_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__home"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:alpha="0.50"
         tools:ignore="ContentDescription"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 
@@ -89,10 +107,12 @@
         android:src="@android:drawable/btn_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ui__filesystem_dialog__buttons"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:alpha="0.50"
         tools:ignore="ContentDescription"
         app:shapeAppearance="@style/ShapeAppearanceOverlay.Material3.FloatingActionButton"/>
 

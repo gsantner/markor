@@ -352,8 +352,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
             case R.id.ui__filesystem_dialog__button_ok: {
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
-                    _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
-                            _currentSelection.toArray(new File[0]));
+                    _dopt.listener.onFsViewerMultiSelected(_dopt.requestId, _currentSelection.toArray(new File[0]));
                 } else if (_dopt.doSelectFolder && (_currentFolder.exists() || isCurrentFolderVirtual())) {
                     _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }

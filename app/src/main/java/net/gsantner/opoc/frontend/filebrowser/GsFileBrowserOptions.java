@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
 
@@ -76,6 +77,13 @@ public class GsFileBrowserOptions {
 
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
+        /**
+         * First argument is the directory in which the file is to be created
+         * Second argument is a callback which can be called after the file is created.
+         *   Calling this callback is optional. It will show and blink the created file.
+         */
+        public GsCallback.a2<File, GsCallback.a1<File>> createFileCallback = null;
+
         @StringRes
         public int cancelButtonText = android.R.string.cancel;
         @StringRes
@@ -98,6 +106,8 @@ public class GsFileBrowserOptions {
         public int searchButtonImage = android.R.drawable.ic_menu_search;
         @DrawableRes
         public int newDirButtonImage = android.R.drawable.ic_menu_add;
+        @DrawableRes
+        public int newFileButtonImage = android.R.drawable.ic_menu_add;
         @DrawableRes
         public int folderImage = android.R.drawable.ic_menu_view;
         @DrawableRes
