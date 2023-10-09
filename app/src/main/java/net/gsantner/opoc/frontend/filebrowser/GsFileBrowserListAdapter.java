@@ -321,7 +321,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         switch (view.getId()) {
             case R.id.opoc_filesystem_item__root: {
                 // A own item was clicked
-                TagContainer data = (TagContainer) view.getTag();
+                final TagContainer data = (TagContainer) view.getTag();
                 if (data != null && data.file != null) {
                     File file = data.file;
                     if (_virtualMapping.containsKey(file)) {
@@ -353,7 +353,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             case R.id.ui__filesystem_dialog__button_ok: {
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
                     _dopt.listener.onFsViewerMultiSelected(_dopt.requestId, _currentSelection.toArray(new File[0]));
-                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || isCurrentFolderVirtual())) {
+                } else {
                     _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }
                 return;

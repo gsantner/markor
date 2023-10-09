@@ -53,8 +53,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerCreator";
 
-    public static GsFileBrowserDialog newInstance(GsFileBrowserOptions.Options options) {
-        GsFileBrowserDialog f = new GsFileBrowserDialog();
+    public static GsFileBrowserDialog newInstance(final GsFileBrowserOptions.Options options) {
+        final GsFileBrowserDialog f = new GsFileBrowserDialog();
         f.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         options.listener.onFsViewerConfig(options);
         f.setDialogOptions(options);
@@ -71,7 +71,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     private FloatingActionButton _homeButton;
     private FloatingActionButton _buttonSearch;
     private FloatingActionButton _buttonNewDir;
-    private FloatingActionButton _buttonNewFile;
     private EditText _searchEdit;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
@@ -103,13 +102,12 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
         _buttonOk = root.findViewById(R.id.ui__filesystem_dialog__button_ok);
         _homeButton = root.findViewById(R.id.ui__filesystem_dialog__home);
-        _buttonNewFile = root.findViewById(R.id.ui__filesystem_dialog__new_file);
         _buttonNewDir = root.findViewById(R.id.ui__filesystem_dialog__new_dir);
         _buttonSearch = root.findViewById(R.id.ui__filesystem_dialog__search_button);
         _searchEdit = root.findViewById(R.id.ui__filesystem_dialog__search_edit);
 
         _searchEdit.addTextChangedListener(GsTextWatcherAdapter.on(this::changeAdapterFilter));
-        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk, _buttonNewFile}) {
+        for (final View v : new View[]{_homeButton, _buttonSearch, _buttonNewDir, _buttonCancel, _buttonOk}) {
             v.setOnClickListener(this::onClicked);
         }
 
@@ -143,10 +141,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonNewDir.setVisibility(_dopt.newDirButtonEnable ? View.VISIBLE : View.GONE);
         _buttonNewDir.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
-        _buttonNewFile.setImageResource(_dopt.newFileButtonImage);
-        _buttonNewFile.setVisibility(_dopt.createFileCallback != null ? View.VISIBLE : View.GONE);
-        _buttonNewFile.setColorFilter(rcolor(_dopt.primaryTextColor), android.graphics.PorterDuff.Mode.SRC_ATOP);
-
         _searchEdit.setHint(_dopt.searchHint);
         _searchEdit.setTextColor(rcolor(_dopt.primaryTextColor));
         _searchEdit.setHintTextColor(rcolor(_dopt.secondaryTextColor));
@@ -174,7 +168,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _dopt = options;
         _callback = _dopt.listener;
         _dopt.listener = this;
-        checkOptions();
     }
 
     public void changeAdapterFilter(CharSequence s, int start, int before, int count) {
@@ -204,14 +197,11 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
                 onFsViewerNothingSelected(_dopt.requestId);
+                dismiss();
                 break;
             }
             case R.id.ui__filesystem_dialog__new_dir: {
                 showNewDirDialog();
-                break;
-            }
-            case R.id.ui__filesystem_dialog__new_file: {
-                showCreateFile();
                 break;
             }
         }
@@ -221,17 +211,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
         GsContextUtils.instance.showSoftKeyboard(getActivity(), false, _searchEdit);
-    }
-
-    private void showCreateFile() {
-        // Initially implementing with create and show file
-        _dopt.createFileCallback.callback(_filesystemViewerAdapter.getCurrentFolder(),
-                (newFile) -> {
-                    _filesystemViewerAdapter.reloadCurrentFolder();
-                    if (newFile != null) {
-                        _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(newFile, _recyclerList), 200);
-                    }
-                });
     }
 
     private void showNewDirDialog() {
@@ -256,14 +235,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private void checkOptions() {
-        if (_dopt.doSelectFile && !_dopt.doSelectMultiple) {
-            _dopt.okButtonEnable = false;
-        }
-    }
-
     @Override
-    public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+    public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
         if (_callback != null) {
             _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }

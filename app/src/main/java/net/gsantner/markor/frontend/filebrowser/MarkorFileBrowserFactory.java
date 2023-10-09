@@ -29,7 +29,11 @@ public class MarkorFileBrowserFactory {
     public static GsCallback.b2<Context, File> IsMimeAudio = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("audio/");
     public static GsCallback.b2<Context, File> IsMimeVideo = (context, file) -> file != null && GsContextUtils.instance.getMimeType(context, file).startsWith("video/");
 
-    public static GsFileBrowserOptions.Options prepareFsViewerOpts(Context context, boolean doSelectFolder, GsFileBrowserOptions.SelectionListener listener) {
+    public static GsFileBrowserOptions.Options prepareFsViewerOpts(
+            final Context context,
+            final boolean doSelectFolder,
+            final GsFileBrowserOptions.SelectionListener listener
+    ) {
         final GsFileBrowserOptions.Options opts = new GsFileBrowserOptions.Options();
         final MarkorContextUtils cu = new MarkorContextUtils(context);
         final AppSettings appSettings = ApplicationObject.settings();
@@ -40,9 +44,10 @@ public class MarkorFileBrowserFactory {
         opts.doSelectFolder = doSelectFolder;
         opts.doSelectFile = !doSelectFolder;
 
+        opts.okButtonEnable = opts.doSelectFolder || opts.doSelectMultiple;
+
         opts.searchButtonImage = R.drawable.ic_search_black_24dp;
         opts.newDirButtonImage = R.drawable.baseline_create_new_folder_24;
-        opts.newFileButtonImage = R.drawable.ic_add_white_24dp;
         opts.homeButtonImage = R.drawable.ic_home_black_24dp;
         opts.selectedItemImage = R.drawable.ic_check_black_24dp;
         opts.newDirButtonText = R.string.create_folder;
@@ -85,7 +90,7 @@ public class MarkorFileBrowserFactory {
         return files;
     }
 
-    private static void showDialog(FragmentManager fm, GsFileBrowserOptions.Options opts) {
+    private static void showDialog(final FragmentManager fm, final GsFileBrowserOptions.Options opts) {
         GsFileBrowserDialog filesystemViewerDialog = GsFileBrowserDialog.newInstance(opts);
         filesystemViewerDialog.show(fm, GsFileBrowserDialog.FRAGMENT_TAG);
     }
