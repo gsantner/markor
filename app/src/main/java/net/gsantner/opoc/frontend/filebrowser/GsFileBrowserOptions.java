@@ -72,7 +72,8 @@ public class GsFileBrowserOptions {
                 homeButtonEnable = true,
                 cancelButtonEnable = true,
                 okButtonEnable = true,
-                newDirButtonEnable = true;
+                newDirButtonEnable = true,
+                dismissAfterCallback = true;
 
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 

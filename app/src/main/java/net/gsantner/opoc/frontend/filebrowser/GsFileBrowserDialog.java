@@ -93,9 +93,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View root, final @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        Context context = getContext();
+        final Activity activity = getActivity();
 
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
@@ -151,10 +151,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -197,7 +197,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
                 onFsViewerNothingSelected(_dopt.requestId);
-                dismiss();
                 break;
             }
             case R.id.ui__filesystem_dialog__new_dir: {
@@ -240,7 +239,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override
@@ -248,7 +249,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerMultiSelected(_dopt.requestId, files);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override
@@ -256,7 +259,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerNothingSelected(_dopt.requestId);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override

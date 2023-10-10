@@ -37,6 +37,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -289,6 +290,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     dopt.startFolder = workingDir;
                     dopt.okButtonText = R.string.create_new_document;
                     dopt.okButtonEnable = true;
+                    dopt.dismissAfterCallback = false;
                 }
 
                 @Override
