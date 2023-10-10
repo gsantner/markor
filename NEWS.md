@@ -38,7 +38,7 @@ If you have questions or found an issue please head to the [Markor project](http
   * [Using Markor to Write (and More) on an Android Device (The Plain Text Project)](doc/2019-07-16-using-markor-to-write-on-an-android-device-plaintextproject.md#readme)
   * [How I Take Notes With Vim, Markdown, and Pandoc (Vaughan)](doc/2018-05-15-pandoc-vim-markdown-how-i-take-notes-vaughan.md#readme)
 * [**NEWS**](NEWS.md)
-  * [Markor v2.11 - Todo.txt advanced search, New support for AsciiDoc and CSV](NEWS.md#markor-v211) 
+  * [Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search](NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers) 
   * [Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters](NEWS.md#markor-v210---custom-file-templates-share-into-automatically-remove-url-tracking-parameters)
   * [Markor v2.9 - Snippets, Templates, Graphs, Charts, Diagrams, YAML front-matter, Chemistry](NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry)
   * [Markor v2.8 - Multi-selection for todo.txt dialogs](NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs)
@@ -65,7 +65,7 @@ If you have questions or found an issue please head to the [Markor project](http
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-# Markor v2.11 
+# Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search, Line numbers
 
 ## Line number support
 
@@ -106,7 +106,6 @@ There is no dedicated view mode implemented.
   * View mode: open Image,Video,Audio files in Markor ( #1806, #1200 )
   * [Todo.txt advanced search system](https://github.com/gsantner/markor/pull/1901) ( #1901 )
 * [More fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
-
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
