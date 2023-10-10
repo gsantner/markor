@@ -26,13 +26,11 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
@@ -99,35 +97,6 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
-    public static void showAttachSomethingDialog(final Activity activity, final GsCallback.a1<Integer> userCallback) {
-        final List<String> availableData = new ArrayList<>();
-        final List<Integer> availableDataToActionMap = new ArrayList<>();
-        final List<Integer> availableDataToIconMap = new ArrayList<>();
-        final GsCallback.a3<Integer, Integer, Integer> addToList = (strRes, actionRes, iconRes) -> {
-            availableData.add(activity.getString(strRes));
-            availableDataToActionMap.add(actionRes);
-            availableDataToIconMap.add(iconRes);
-        };
-        addToList.callback(R.string.color, R.id.action_attach_color, R.drawable.ic_format_color_fill_black_24dp);
-        addToList.callback(R.string.insert_link, R.id.action_attach_link, R.drawable.ic_link_black_24dp);
-        addToList.callback(R.string.file, R.id.action_attach_file, R.drawable.ic_attach_file_black_24dp);
-        addToList.callback(R.string.image, R.id.action_attach_image, R.drawable.ic_image_black_24dp);
-        addToList.callback(R.string.audio, R.id.action_attach_audio, R.drawable.ic_keyboard_voice_black_24dp);
-        addToList.callback(R.string.date, R.id.action_attach_date, R.drawable.ic_access_time_black_24dp);
-
-        DialogOptions dopt = new DialogOptions();
-        baseConf(activity, dopt);
-        dopt.callback = str -> userCallback.callback(availableDataToActionMap.get(availableData.indexOf(str)));
-        dopt.data = availableData;
-        dopt.iconsForData = availableDataToIconMap;
-        dopt.isSearchEnabled = false;
-        dopt.okButtonText = 0;
-        dopt.titleText = 0;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.gravity = Gravity.BOTTOM | Gravity.END;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -251,7 +220,6 @@ public class MarkorDialogFactory {
         dopt.iconsForData = availableDataToIconMap;
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 530;
-        dopt.gravity = Gravity.BOTTOM | Gravity.END;
         dopt.okButtonText = 0;
 
         dopt.titleText = R.string.sort_tasks_by_selected_order;
@@ -265,27 +233,25 @@ public class MarkorDialogFactory {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
-        final Boolean showIme = TextViewUtils.isImeOpen(text);
-
         final List<String> options = new ArrayList<>();
         final List<Integer> icons = new ArrayList<>();
         final List<GsCallback.a0> callbacks = new ArrayList<>();
 
         options.add(activity.getString(R.string.priority));
         icons.add(R.drawable.ic_star_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, showIme, TodoTxtFilter.TYPE.PRIORITY));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_priority, false, false, TodoTxtFilter.TYPE.PRIORITY));
 
         options.add(activity.getString(R.string.due_date));
         icons.add(R.drawable.ic_date_range_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, showIme, TodoTxtFilter.TYPE.DUE));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_due_date, false, false, TodoTxtFilter.TYPE.DUE));
 
         options.add(activity.getString(R.string.project));
         icons.add(R.drawable.ic_new_label_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, showIme, TodoTxtFilter.TYPE.PROJECT));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_project, true, true, TodoTxtFilter.TYPE.PROJECT));
 
         options.add(activity.getString(R.string.context));
         icons.add(R.drawable.gs_email_sign_black_24dp);
-        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, showIme, TodoTxtFilter.TYPE.CONTEXT));
+        callbacks.add(() -> showSttKeySearchDialog(activity, text, R.string.browse_by_context, true, true, TodoTxtFilter.TYPE.CONTEXT));
 
         options.add(activity.getString(R.string.advanced_filtering));
         icons.add(R.drawable.ic_extension_black_24dp);
@@ -299,7 +265,6 @@ public class MarkorDialogFactory {
                 return TodoTxtFilter.isMatchQuery(new TodoTxtTask(line), query);
             };
             addSaveQuery(activity, dopt2, () -> queryHolder[0]);
-            addRestoreKeyboard(activity, dopt2, text, showIme);
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         });
 
@@ -357,7 +322,6 @@ public class MarkorDialogFactory {
      * @param title        Dialog title
      * @param enableSearch Whether key search is enabled
      * @param enableAnd    Whether 'and' keys makes sense / is enabled
-     * @param showIme      Whether to show IME when done (if == true)
      * @param queryType    Key used with TodoTxtFilter
      */
     public static void showSttKeySearchDialog(
@@ -366,7 +330,6 @@ public class MarkorDialogFactory {
             final int title,
             final boolean enableSearch,
             final boolean enableAnd,
-            final Boolean showIme,
             final TodoTxtFilter.TYPE queryType
     ) {
 
@@ -413,7 +376,6 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = enableSearch;
         dopt.searchHintText = R.string.search;
         dopt.isMultiSelectEnabled = true;
-        addRestoreKeyboard(activity, dopt, text, showIme);
 
         // Callback to actually show tasks
         // -------------------------------------
@@ -429,7 +391,6 @@ public class MarkorDialogFactory {
             final DialogOptions doptSel = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
             setQueryTitle(doptSel, activity.getString(title), query);
             addSaveQuery(activity, doptSel, () -> query);
-            addRestoreKeyboard(activity, doptSel, text, showIme);
 
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, doptSel);
         };
@@ -513,26 +474,7 @@ public class MarkorDialogFactory {
             dialog.dismiss();
             SearchAndReplaceTextDialog.showSearchReplaceDialog(activity, text.getText(), TextViewUtils.getSelection(text));
         };
-        addRestoreKeyboard(activity, dopt, text);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
-    }
-
-    // Restore the keyboard when dialog closes if keyboard is open when dialog was called
-    private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit) {
-        addRestoreKeyboard(activity, options, edit, TextViewUtils.isImeOpen(edit));
-    }
-
-    // Restore the keyboard when dialog closes if required
-    // NOTE: This relies on the activity having unchanged as the default soft input mode
-    private static void addRestoreKeyboard(final Activity activity, final DialogOptions options, final EditText edit, final Boolean restore) {
-        if (restore != null && !restore) {
-            options.dismissCallback = (d) -> {
-                final Window w = activity.getWindow();
-                // Suppress opening the keyboard automatically again
-                w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                edit.postDelayed(() -> w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 1000);
-            };
-        }
     }
 
     /**
@@ -569,7 +511,6 @@ public class MarkorDialogFactory {
             final Activity activity,
             final @StringRes int title,
             final List<String> data,
-            final @Nullable EditText text,              // Passed in here for keyboard restore
             final GsCallback.a1<String> insertCallback
     ) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
@@ -584,9 +525,6 @@ public class MarkorDialogFactory {
                 insertCallback.callback(dopt.data.get(pi).toString());
             }
         };
-        if (text != null) {
-            addRestoreKeyboard(activity, dopt, text);
-        }
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -596,7 +534,6 @@ public class MarkorDialogFactory {
             final @StringRes int title,
             final Set<String> allKeys,
             final Set<String> currentKeys,
-            final @Nullable EditText text,   // Passed in here for keyboard restore
             final GsCallback.a1<Collection<String>> callback
     ) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
@@ -610,10 +547,6 @@ public class MarkorDialogFactory {
         dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
         dopt.positionCallback = (newSel) -> callback.callback(
                 GsCollectionUtils.map(newSel, pi -> dopt.data.get(pi).toString()));
-
-        if (text != null) {
-            addRestoreKeyboard(activity, dopt, text);
-        }
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -639,7 +572,6 @@ public class MarkorDialogFactory {
         };
         dopt.neutralButtonText = R.string.search_and_replace;
         dopt.positionCallback = (result) -> TextViewUtils.selectLines(text, result);
-        addRestoreKeyboard(activity, dopt, text);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -716,7 +648,6 @@ public class MarkorDialogFactory {
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
         dopt.gravity = Gravity.TOP;
-        addRestoreKeyboard(activity, dopt, edit);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -852,12 +783,11 @@ public class MarkorDialogFactory {
         return texts;
     }
 
-    public static void showInsertSnippetDialog(final Activity activity, @Nullable final EditText edit, final GsCallback.a1<String> callback) {
+    public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
         final Map<String, File> texts = getSnippets(as());
-        final Boolean showIme = edit != null ? TextViewUtils.isImeOpen(edit) : null;
 
         final List<String> data = new ArrayList<>(texts.keySet());
         dopt.data = data;
@@ -865,7 +795,6 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsFolder().getAbsolutePath() + "</small></small>");
         dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
-        addRestoreKeyboard(activity, dopt, edit, showIme);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

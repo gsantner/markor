@@ -27,6 +27,8 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -43,8 +45,6 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.TextConverterBase;
-import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
-import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.DraggableScrollbarScrollView;
 import net.gsantner.markor.frontend.FileInfoDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -227,6 +227,27 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             updateUndoRedoIconStates();
         });
         _hlEditor.addTextChangedListener(GsTextWatcherAdapter.after(s -> debounced.run()));
+
+        // We set the keyboard to be hidden if it was hidden when we lost focus
+        // This works well to preserve keyboard state.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            final Window window = activity.getWindow();
+            final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+            final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
+            final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
+
+            _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
+                if (hasFocus) {
+                    // Restore old state
+                    _hlEditor.postDelayed(() -> window.setSoftInputMode(unchanged), 500);
+                } else {
+                    final Boolean isOpen = TextViewUtils.isImeOpen(_hlEditor);
+                    if (isOpen != null && !isOpen) {
+                        window.setSoftInputMode(hidden);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -294,7 +315,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Edit / Preview switch
         menu.findItem(R.id.action_edit).setVisible(isText && _isPreviewVisible);
-        menu.findItem(R.id.submenu_attach).setVisible(false);
         menu.findItem(R.id.action_preview).setVisible(isText && !_isPreviewVisible);
         menu.findItem(R.id.action_search).setVisible(isText && !_isPreviewVisible);
         menu.findItem(R.id.action_search_view).setVisible(isText && _isPreviewVisible);
@@ -518,24 +538,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 _cu.draftEmail(getActivity(), "Debug Log " + getString(R.string.app_name_real), text, "debug@localhost.lan");
                 return true;
             }
-
-            case R.id.action_attach_color: {
-                _format.getActions().showColorPickerDialog();
-                return true;
-            }
-            case R.id.action_attach_date: {
-                DatetimeFormatDialog.showDatetimeFormatDialog(activity, _hlEditor);
-                return true;
-            }
-            case R.id.action_attach_audio:
-            case R.id.action_attach_file:
-            case R.id.action_attach_image:
-            case R.id.action_attach_link: {
-                int actionId = (itemId == R.id.action_attach_audio ? 4 : (itemId == R.id.action_attach_image ? 2 : 3));
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(actionId, _document.getFormat(), activity, _hlEditor, _document.getFile());
-                return true;
-            }
-
             case R.id.action_load_epub: {
                 MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                                                             @Override

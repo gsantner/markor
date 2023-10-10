@@ -16,7 +16,6 @@ import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.ActionButtonBase;
-import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
@@ -52,7 +51,9 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_markdown_italic, R.drawable.ic_format_italic_black_24dp, R.string.italic),
                 new ActionItem(R.string.abid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
                 new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
-                new ActionItem(R.string.abid_common_attach_something, R.drawable.ic_attach_file_black_24dp, R.string.attach),
+                new ActionItem(R.string.abid_common_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
+                new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
+                new ActionItem(R.string.abid_common_insert_audio, R.drawable.ic_keyboard_voice_black_24dp, R.string.audio),
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
                 new ActionItem(R.string.abid_markdown_code_inline, R.drawable.ic_code_black_24dp, R.string.inline_code),
@@ -138,11 +139,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 MarkorDialogFactory.showInsertTableRowDialog(getActivity(), false, this::insertTableRow);
                 return true;
             }
-            case R.string.abid_markdown_insert_link:
-            case R.string.abid_markdown_insert_image: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(action == R.string.abid_markdown_insert_image ? 2 : 3, _document.getFormat(), getActivity(), _hlEditor, _document.getFile());
-                return true;
-            }
             default: {
                 return runCommonAction(action);
             }
@@ -153,12 +149,6 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean onActionLongClick(final @StringRes int action) {
         switch (action) {
-            case R.string.abid_markdown_insert_image: {
-                int pos = _hlEditor.getSelectionStart();
-                _hlEditor.getText().insert(pos, "<img style=\"width:auto;max-height: 256px;\" src=\"\" />");
-                _hlEditor.setSelection(pos + 48);
-                return true;
-            }
             case R.string.abid_markdown_table_insert_columns: {
                 MarkorDialogFactory.showInsertTableRowDialog(getActivity(), true, this::insertTableRow);
                 return true;

@@ -372,19 +372,18 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         return null;
     }
 
-    public void onViewPagerPageSelected(int pos) {
+    public void onViewPagerPageSelected(final int pos) {
         _bottomNav.getMenu().getItem(pos).setChecked(true);
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
+            _cu.showSoftKeyboard(this, false);
         } else {
             _fab.hide();
-        }
-        setTitle(getPosTitle(pos));
-
-        if (pos != tabIdToPos(R.id.nav_notebook)) {
             restoreDefaultToolbar();
         }
+
+        setTitle(getPosTitle(pos));
     }
 
     private GsFileBrowserOptions.Options _filesystemDialogOptions = null;
@@ -466,6 +465,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onStop() {
         super.onStop();
         restoreDefaultToolbar();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
     /**
