@@ -79,7 +79,7 @@ public class GsAudioRecordOmDialog {
         final AtomicReference<MediaPlayer> mediaPlayer = new AtomicReference<>();
         final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
         final AtomicReference<Long> startTime = new AtomicReference<>();
-        final File TMP_FILE_RECORDING = new File(activity.getCacheDir(), "recording.wav");
+        final File TMP_FILE_RECORDING = generateFilename(activity.getCacheDir());
         if (TMP_FILE_RECORDING.exists()) {
             TMP_FILE_RECORDING.delete();
         }
@@ -169,9 +169,9 @@ public class GsAudioRecordOmDialog {
 
         ////////////////////////////////////
         // Callback for OK & Cancel dialog button
-        DialogInterface.OnClickListener dialogOkAndCancelListener = (dialogInterface, dialogButtonCase) -> {
+        final DialogInterface.OnClickListener dialogOkAndCancelListener = (dialogInterface, dialogButtonCase) -> {
             final boolean isSavePressed = (dialogButtonCase == DialogInterface.BUTTON_POSITIVE);
-            if (isRecordSavedOnce.get()) {
+            if (isRecording.get() || isRecordSavedOnce.get()) {
                 try {
                     recorder.get().stopRecording();
                 } catch (Exception ignored) {
@@ -219,7 +219,7 @@ public class GsAudioRecordOmDialog {
         }
     }
 
-    public static File generateFilename(File recordDirectory) {
+    public static File generateFilename(final File recordDirectory) {
         final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
         return new File(recordDirectory, datestr + "-record.wav");
     }

@@ -10,17 +10,18 @@
 package net.gsantner.markor.frontend;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import net.gsantner.markor.ApplicationObject;
@@ -28,27 +29,59 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
-import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
-import net.gsantner.opoc.wrapper.GsHashMap;
 
 import java.io.File;
 import java.util.regex.Matcher;
 
-@SuppressWarnings({"UnusedReturnValue", "WeakerAccess"})
 public class AttachLinkOrFileDialog {
     public final static int IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3, AUDIO_ACTION = 4;
 
-    @SuppressWarnings("RedundantCast")
-    public static Dialog showInsertImageOrLinkDialog(final int action, final int textFormatId, final Activity activity, final HighlightingEditor _hlEditor, final File currentWorkingFile) {
-        final AppSettings _appSettings = ApplicationObject.settings();
+    private static String getImageFormat(final int textFormatId) {
+        if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
+            return "![TITLE](LINK)";
+        } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+            return "{{LINK}}";
+        } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
+            return "image::LINK[\"TITLE\"]";
+        } else {
+            return "<img style='width:auto;max-height:256px;' alt='TITLE' src='LINK' />";
+        }
+    }
+
+    private static String getLinkFormat(final int textFormatId) {
+        if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
+            return "[TITLE](LINK)";
+        } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+            return "{{LINK|TITLE}}";
+        } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
+            return "link:LINK[TITLE]";
+        } else{
+            return "<a href=\"LINK\">TITLE</a>";
+        }
+    }
+
+    private static String getAudioFormat(final int textFormatId) {
+        return "<audio src='LINK' controls><a href='LINK'>TITLE</a></audio>";
+    }
+
+    public static void showInsertImageOrLinkDialog(
+            final int action,
+            final int textFormatId,
+            final Activity activity,
+            final Editable edit,
+            final File currentFile
+    ) {
+        final int[] sel = TextViewUtils.getSelection(edit);
+
         final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity);
-        final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, (ViewGroup) null);
+        final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, null);
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
@@ -57,211 +90,224 @@ public class AttachLinkOrFileDialog {
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
         final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
-        final int startCursorPos = _hlEditor.getSelectionStart();
-        buttonAudioRecord.setVisibility(action == AUDIO_ACTION ? View.VISIBLE : View.GONE);
-        buttonPictureCamera.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
-        buttonPictureGallery.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
-        buttonPictureEdit.setVisibility(action == IMAGE_ACTION ? View.VISIBLE : View.GONE);
         final int actionTitle;
-        final String formatTemplate;
-        switch (action) {
-            default:
-            case FILE_OR_LINK_ACTION: {
-                actionTitle = R.string.insert_link;
-                formatTemplate = new GsHashMap<Integer, String>().load(
-                        FormatRegistry.FORMAT_MARKDOWN, "[{{ template.title }}]({{ template.link }})",
-                        FormatRegistry.FORMAT_ASCIIDOC, "link:{{ template.link }}[{{ template.title }}]",
-                        FormatRegistry.FORMAT_WIKITEXT, "[[{{ template.link }}|{{ template.title }}]]"
-                ).getOrDefault(textFormatId, "<a href='{{ template.link }}'>{{ template.title }}</a>");
-                break;
-            }
-            case IMAGE_ACTION: {
-                actionTitle = R.string.insert_image;
-                formatTemplate = new GsHashMap<Integer, String>().load(
-                        FormatRegistry.FORMAT_MARKDOWN, "![{{ template.title }}]({{ template.link }})",
-                        FormatRegistry.FORMAT_ASCIIDOC, "image::{{ template.link }}[\"{{ template.title }}\"]",
-                        FormatRegistry.FORMAT_WIKITEXT, "{{{{ template.link }}}}"
-                ).getOrDefault(textFormatId, "<img style='width:auto;max-height: 256px;' alt='{{ template.title }}' src='{{ template.link }}' />");
-                break;
-            }
-            case AUDIO_ACTION: {
-                formatTemplate = "<audio src='{{ template.link }}' controls><a href='{{ template.link }}'>{{ template.title }}</a></audio>";
-                actionTitle = R.string.audio;
-                break;
-            }
-
+        if (action == IMAGE_ACTION) {
+            buttonPictureCamera.setVisibility(View.VISIBLE);
+            buttonPictureGallery.setVisibility(View.VISIBLE);
+            buttonPictureEdit.setVisibility(View.VISIBLE);
+            actionTitle = R.string.insert_image;
+        } else if (action == AUDIO_ACTION) {
+            actionTitle = R.string.audio;
+            buttonAudioRecord.setVisibility(View.VISIBLE);
+        } else {
+            actionTitle = R.string.insert_link;
         }
 
         // Extract filepath if using Markdown
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
-            if (_hlEditor.hasSelection()) {
-                String selected_text = "";
-                try {
-                    selected_text = _hlEditor.getText().subSequence(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd()).toString();
-                } catch (Exception ignored) {
-                }
-                inputPathName.setText(selected_text);
-            } else if (_hlEditor.getText().toString().isEmpty()) {
+            if (sel[0] > 0 && sel[1] > 0 && sel[0] != sel[1]) {
+                inputPathName.setText(edit.subSequence(sel[0], sel[1]));
+            } else if (edit.length() == 0) {
                 inputPathName.setText("");
             } else {
-                final Editable contentText = _hlEditor.getText();
-                int lineStartidx = Math.max(startCursorPos, 0);
-                int lineEndidx = Math.min(startCursorPos, contentText.length() - 1);
-                lineStartidx = Math.min(lineEndidx, lineStartidx);
-                for (; lineStartidx > 0; lineStartidx--) {
-                    if (contentText.charAt(lineStartidx) == '\n') {
-                        break;
-                    }
+                final int[] lineSel = TextViewUtils.getLineSelection(edit, sel);
+                final String line = edit.subSequence(lineSel[0], lineSel[1]).toString();
+                final Matcher m;
+                if (action == IMAGE_ACTION) {
+                    m = MarkdownSyntaxHighlighter.ACTION_IMAGE_PATTERN.matcher(line);
+                } else if (action == FILE_OR_LINK_ACTION) {
+                    m = MarkdownSyntaxHighlighter.ACTION_LINK_PATTERN.matcher(line);
+                } else {
+                    m = null;
                 }
-                for (; lineEndidx < contentText.length(); lineEndidx++) {
-                    if (contentText.charAt(lineEndidx) == '\n') {
-                        break;
-                    }
-                }
-
-                final String line = contentText.subSequence(lineStartidx, lineEndidx).toString();
-                Matcher m = (action == FILE_OR_LINK_ACTION ? MarkdownSyntaxHighlighter.ACTION_LINK_PATTERN : MarkdownSyntaxHighlighter.ACTION_IMAGE_PATTERN).matcher(line);
-                if (m.find() && startCursorPos > lineStartidx + m.start() && startCursorPos < m.end() + lineStartidx) {
-                    int stat = lineStartidx + m.start();
-                    int en = lineStartidx + m.end();
-                    _hlEditor.setSelection(stat, en);
+                if (m != null && m.find()) {
                     inputPathName.setText(m.group(1));
                     inputPathUrl.setText((m.group(2)));
+                    sel[0] = m.start() + lineSel[0];
+                    sel[1] = m.end() + lineSel[0];
                 }
             }
         }
 
 
-        // Inserts path relative if inside savedir, else absolute. asks to copy file if not in savedir
-        final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
-            @Override
-            public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                final File saveDir = _appSettings.getNotebookDirectory();
-                String text = null;
-                boolean isInSaveDir = GsFileUtils.isChild(saveDir, file) && GsFileUtils.isChild(saveDir, currentWorkingFile);
-                boolean isInCurrentDir = currentWorkingFile.getAbsolutePath().startsWith(file.getParentFile().getAbsolutePath());
-                if (isInCurrentDir || isInSaveDir) {
-                    text = GsFileUtils.relativePath(currentWorkingFile, file);
-                } else if ("abs_if_not_relative".equals(request)) {
-                    text = file.getAbsolutePath();
-                } else {
-                    String filename = file.getName();
-                    if ("audio_record_om_dialog".equals(request)) {
-                        filename = GsAudioRecordOmDialog.generateFilename(file).getName();
-                    }
-                    File targetCopy = new File(currentWorkingFile.getParentFile(), filename);
-                    showCopyFileToDirDialog(activity, file, targetCopy, false, (cbRetValSuccess, cbRestValTargetFile) -> onFsViewerSelected("abs_if_not_relative", cbRestValTargetFile, null));
-                }
-                if (text == null) {
-                    text = file.getAbsolutePath();
-                }
+        final AlertDialog dialog = builder.setView(view).setTitle(actionTitle).create();
 
-                inputPathUrl.setText(text);
+        // Helper func
+        final GsCallback.a1<Integer> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, dialog);
 
-                if (inputPathName.getText().toString().isEmpty()) {
-                    text = file.getName();
-                    text = text.contains(".") ? text.substring(0, text.lastIndexOf('.')) : text;
-                    inputPathName.setText(text);
-                }
-                text = inputPathUrl.getText().toString();
-                try {
-                    if (text.startsWith("../assets/") && currentWorkingFile.getParentFile().getName().equals("_posts")) {
-                        text = "{{ site.baseurl }}" + text.substring(2);
-                        inputPathUrl.setText(text);
-                    }
-                } catch (Exception ignored) {
-                }
+        // Done after dialog creation as we need a ref to dialog
+        final String ok = activity.getString(android.R.string.ok);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(TYPE_DIALOG_TEXT));
+        dialog.show();
+
+        buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(TYPE_CAMERA_PHOTO));
+        buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(TYPE_GALERY_IMAGE));
+        buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(TYPE_FILE_LINK));
+        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(TYPE_AUDIO_RECORDING));
+        buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(TYPE_EDIT_PICTURE));
+    }
+
+    private static final int TYPE_CAMERA_PHOTO = 0;
+    private static final int TYPE_AUDIO_RECORDING = 1;
+    private static final int TYPE_FILE_LINK = 2;
+    private static final int TYPE_GALERY_IMAGE = 3;
+    private static final int TYPE_EDIT_PICTURE = 4;
+    private static final int TYPE_DIALOG_TEXT = 5;
+
+    private static void insertItem(
+            final int itemType,
+            final int textFormatId,
+            final Activity activity,
+            final Editable text,
+            final File currentFile,
+            @Nullable AlertDialog dialog
+    ) {
+        final int[] sel = TextViewUtils.getSelection(text);
+
+        final AppSettings _appSettings = ApplicationObject.settings();
+        final File attachmentDir = _appSettings.getAttachmentFolder(currentFile);
+
+        final String template;
+        final GsCallback.b2<Context, File> fileFilter;
+        if (itemType == TYPE_CAMERA_PHOTO || itemType == TYPE_GALERY_IMAGE) {
+            template = getImageFormat(textFormatId);
+            fileFilter = MarkorFileBrowserFactory.IsMimeImage;
+        } else if (itemType == TYPE_AUDIO_RECORDING) {
+            template = getAudioFormat(textFormatId);
+            fileFilter = MarkorFileBrowserFactory.IsMimeAudio;
+        } else {
+            template = getLinkFormat(textFormatId);
+            fileFilter = null;
+        }
+
+        // Source, dest to be written when the user hits accept
+        final GsCallback.a2<String, String> insertLink = (title, path) -> {
+            if (TextViewUtils.isNullOrEmpty(path)) {
+                return;
             }
 
-            @Override
-            public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                if (currentWorkingFile != null) {
-                    dopt.rootFolder = currentWorkingFile.getParentFile();
-                }
+            String newText = template.replace("TITLE", title).replace("LINK", path);
+
+            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
+                newText = newText.replaceFirst("\\|]]$", "]]");
+            }
+
+            if (!text.subSequence(sel[0], sel[1]).equals(newText)) {
+                text.replace(sel[0], sel[1], newText);
+            }
+
+            if (dialog != null) {
+                dialog.dismiss();
             }
         };
 
-        // Request camera / gallery picture button handling
-        final MarkorContextUtils shu = new MarkorContextUtils(activity);
-        final BroadcastReceiver lbr = shu.receiveResultFromLocalBroadcast(activity, (intent, lbr_ref) -> {
-                    fsListener.onFsViewerSelected("pic", new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH)), null);
-                },
-                false, MarkorContextUtils.REQUEST_CAMERA_PICTURE + "", MarkorContextUtils.REQUEST_PICK_PICTURE + "");
-        final File targetFolder = currentWorkingFile != null ? currentWorkingFile.getParentFile() : _appSettings.getNotebookDirectory();
-        buttonPictureCamera.setOnClickListener(button -> shu.requestCameraPicture(activity, targetFolder));
-        buttonPictureGallery.setOnClickListener(button -> shu.requestGalleryPicture(activity));
-
-        buttonBrowseFilesystem.setOnClickListener(button -> {
-            if (activity instanceof AppCompatActivity) {
-                AppCompatActivity a = (AppCompatActivity) activity;
-                GsCallback.b2<Context, File> f = action == AUDIO_ACTION ? MarkorFileBrowserFactory.IsMimeAudio : (action == FILE_OR_LINK_ACTION ? null : MarkorFileBrowserFactory.IsMimeImage);
-                MarkorFileBrowserFactory.showFileDialog(fsListener, a.getSupportFragmentManager(), activity, f);
+        final GsCallback.a1<File> insertFileLink = (file) -> {
+            // If path is not under notebook, copy it to the res folder
+            if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
+                final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
+                attachmentDir.mkdirs();
+                GsFileUtils.copyFile(file, local);
+                file = local;
             }
-        });
+            final String title = GsFileUtils.getFilenameWithoutExtension(file);
+            final String path = GsFileUtils.relativePath(currentFile, file);
+            insertLink.callback(title, path);
+        };
 
-        // Audio Record -> fs listener with arg file,"audio_record"
-        buttonAudioRecord.setOnClickListener(v -> GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, cbValAudioRecordFilepath -> fsListener.onFsViewerSelected("audio_record_om_dialog", cbValAudioRecordFilepath, null)));
+        final MarkorContextUtils shu = new MarkorContextUtils(activity);
+        final BroadcastReceiver br = shu.receiveResultFromLocalBroadcast(
+                activity,
+                (intent, _br) -> insertFileLink.callback(new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH))),
+                true,
+                "" + MarkorContextUtils.REQUEST_CAMERA_PICTURE,
+                "" + MarkorContextUtils.REQUEST_PICK_PICTURE,
+                "" + MarkorContextUtils.REQUEST_RECORD_AUDIO
+        );
 
-        buttonPictureEdit.setOnClickListener(v -> {
-            String filepath = inputPathUrl.getText().toString().replace("%20", " ");
+        final EditText nameEdit, pathEdit;
+        if (dialog != null) {
+            nameEdit = dialog.findViewById(R.id.ui__select_path_dialog__name);
+            pathEdit = dialog.findViewById(R.id.ui__select_path_dialog__url);
+            dialog.setOnDismissListener(d -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(br));
+        } else {
+            nameEdit = pathEdit = null;
+        }
+
+        // Perform the requested action
+        if (itemType == TYPE_CAMERA_PHOTO) {
+            shu.requestCameraPicture(activity);
+        } else if (itemType == TYPE_GALERY_IMAGE) {
+            shu.requestGalleryPicture(activity);
+        } else if (itemType == TYPE_AUDIO_RECORDING) {
+            if (!shu.requestAudioRecording(activity)) {
+                GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, insertFileLink);
+            }
+        } else if (itemType == TYPE_FILE_LINK && activity instanceof AppCompatActivity && nameEdit != null && pathEdit != null) {
+            final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
+                @Override
+                public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
+                    pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+
+                    if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
+                        nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
+                    }
+                }
+
+                @Override
+                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                    dopt.rootFolder = currentFile.getParentFile();
+                }
+            };
+
+            final FragmentManager f = ((AppCompatActivity) activity).getSupportFragmentManager();
+            MarkorFileBrowserFactory.showFileDialog(fsListener, f, activity, fileFilter);
+
+        } else if (itemType == TYPE_EDIT_PICTURE && pathEdit != null) {
+
+            String filepath = pathEdit.getText().toString().replace("%20", " ");
             if (!filepath.startsWith("/")) {
-                filepath = new File(currentWorkingFile.getParent(), filepath).getAbsolutePath();
+                filepath = new File(currentFile.getParent(), filepath).getAbsolutePath();
             }
             File file = new File(filepath);
             if (file.exists() && file.isFile()) {
                 shu.requestPictureEdit(activity, file);
             }
-        });
+        } else if (itemType == TYPE_DIALOG_TEXT && nameEdit != null && pathEdit != null) {
 
-        builder.setView(view)
-                .setTitle(actionTitle)
-                .setOnDismissListener(dialog -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(lbr))
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                    if (_hlEditor.hasSelection()) {
-                        _hlEditor.setSelection(startCursorPos);
-                    }
-                })
-                .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                    try {
-                        String title = inputPathName.getText().toString().replace(")", "\\)");
-                        String url = inputPathUrl.getText().toString().trim().replace(")", "\\)").replace(" ", "%20");  // Workaround for parser - cannot deal with spaces and have other entities problems
-                        url = url.replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
-                        String newText = formatTemplate.replace("{{ template.title }}", title).replace("{{ template.link }}", url);
-                        if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
-                            newText = newText.replaceFirst("\\|]]$", "]]");
-                        }
-                        if (_hlEditor.hasSelection()) {
-                            _hlEditor.getText().replace(_hlEditor.getSelectionStart(), _hlEditor.getSelectionEnd(), newText);
-                            _hlEditor.setSelection(_hlEditor.getSelectionStart());
-                        } else {
-                            _hlEditor.getText().insert(_hlEditor.getSelectionStart(), newText);
-                        }
-                    } catch (Exception ignored) {
-                    }
-                });
-        return builder.show();
+            final String title = nameEdit.getText().toString().trim().replace(")", "\\)");
+            final String link = pathEdit.getText().toString().trim()
+                    .replace(")", "\\)")
+                    .replace(" ", "%20")  // Workaround for parser - cannot deal with spaces and have other entities problems
+                    .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
+
+            insertLink.callback(title, link);
+        }
     }
 
-    public static Dialog showCopyFileToDirDialog(final Activity activity, final File srcFile, final File tarFile, boolean disableCancel, final GsCallback.a2<Boolean, File> copyFileFinishedCallback) {
-        final GsCallback.a1<File> copyToDirInvocation = cbValTargetFile -> new MarkorContextUtils(activity).writeFile(activity, cbValTargetFile, false, (wfCbValOpened, wfCbValStream) -> {
-            if (wfCbValOpened && GsFileUtils.copyFile(srcFile, wfCbValStream)) {
-                copyFileFinishedCallback.callback(true, cbValTargetFile);
-            }
-        });
+    public static void insertCameraPhoto(
+            final Activity activity,
+            final int textFormatId,
+            final Editable text,
+            final File currentFile
+    ) {
+        insertItem(TYPE_CAMERA_PHOTO, textFormatId, activity, text, currentFile, null);
+    }
 
-        final File tarFileInAssetsDir = new File(ApplicationObject.settings().getNotebookDirectory(), tarFile.getName());
+    public static void insertGalleryPhoto(
+            final Activity activity,
+            final int textFormatId,
+            final Editable text,
+            final File currentFile
+    ) {
+        insertItem(TYPE_GALERY_IMAGE, textFormatId, activity, text, currentFile, null);
+    }
 
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity)
-                .setTitle(R.string.copy_file)
-                .setMessage(R.string.file_not_in_current_folder_do_copy__appspecific)
-                .setPositiveButton(R.string.current, (dialogInterface, which) -> copyToDirInvocation.callback(tarFile))
-                .setNeutralButton(R.string.notebook, (dialogInterface, which) -> copyToDirInvocation.callback(tarFileInAssetsDir));
-        if (disableCancel) {
-            dialogBuilder.setCancelable(false);
-        } else {
-            dialogBuilder.setNegativeButton(android.R.string.no, null);
-        }
-        return dialogBuilder.show();
+    public static void insertAudioRecording(
+            final Activity activity,
+            final int textFormatId,
+            final Editable text,
+            final File currentFile
+    ) {
+        insertItem(TYPE_AUDIO_RECORDING, textFormatId, activity, text, currentFile, null);
     }
 }

@@ -10,6 +10,8 @@
 package net.gsantner.opoc.util;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -682,6 +684,10 @@ public class GsFileUtils {
         return filename;
     }
 
+    public static String getPrefix(final String name) {
+        return name.split("_")[0];
+    }
+
     public static final String SORT_BY_NAME = "NAME", SORT_BY_FILESIZE = "FILESIZE", SORT_BY_MTIME = "MTIME", SORT_BY_MIMETYPE = "MIMETYPE";
 
     /**
@@ -691,7 +697,6 @@ public class GsFileUtils {
      *
      * @param sortBy   String key of what to sort
      * @param file     The file object to get the
-     * @param dirFirst Whether to sort directories first
      * @return A key which can be used for comparisons / sorting
      */
     private static String makeSortKey(final String sortBy, final File file) {
@@ -777,5 +782,45 @@ public class GsFileUtils {
         } while (test != null);
 
         return false;
+    }
+
+    public static File findNonConflictingDest(final File destDir, final String name) {
+        File dest = new File(destDir, name);
+        final String[] splits = name.split("\\.");
+        final String baseName = splits[0];
+        splits[0] = "";
+        final String extension = String.join(".", splits);
+        int i = 1;
+        while (dest.exists()) {
+            dest = new File(destDir, String.format("%s_%d%s", baseName, i, extension));
+            i++;
+        }
+        return dest;
+    }
+
+    public static boolean isUriOrFilePath(final String path) {
+        try {
+            // Attempt to create a URI from the given path
+            // If the URI scheme is "file", it's a file path
+            return "file".equals(Uri.parse(path).getScheme());
+        } catch (Exception e) {
+            // If parsing the path as a URI fails, it's not a valid URI
+            // So, assume it's a file path
+            return true;
+        }
+    }
+
+    public static void copyUriToFile(final Context context, final Uri source, final File dest) {
+
+        try (final OutputStream outputStream = new FileOutputStream(dest, false);
+             final InputStream inputStream = context.getContentResolver().openInputStream(source)
+        ) {
+            final byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException ignored) {
+        }
     }
 }

@@ -98,7 +98,14 @@ public abstract class TextConverterBase {
      * @param webView  The WebView content to be shown in
      * @return Copy of converted html
      */
-    public String convertMarkupShowInWebView(Document document, String content, Activity context, WebView webView, boolean lightMode, boolean lineNum) {
+    public String convertMarkupShowInWebView(
+            final Document document,
+            final String content,
+            final Activity context,
+            final WebView webView,
+            final boolean lightMode,
+            final boolean lineNum
+    ) {
         String html;
         try {
             html = convertMarkup(content, context, lightMode, lineNum, document.getFile());
@@ -106,10 +113,12 @@ public abstract class TextConverterBase {
             html = "Please report at project issue tracker: " + e;
         }
 
-        String baseFolder = document.getFile().getParent();
-        if (baseFolder == null) {
-            baseFolder = "file://" + baseFolder + "/";
+        String parent = document.getFile().getParent();
+        if (parent == null) {
+            parent = _appSettings.getNotebookDirectory().getAbsolutePath();
         }
+        final String baseFolder = "file://" + parent + "/";
+
         webView.loadDataWithBaseURL(baseFolder, html, getContentType(), UTF_CHARSET, null);
 
         // When TOKEN_TEXT_CONVERTER_MAX_ZOOM_OUT_BY_DEFAULT is contained in text zoom out as far possible

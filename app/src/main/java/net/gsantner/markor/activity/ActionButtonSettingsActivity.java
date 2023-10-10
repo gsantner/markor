@@ -35,6 +35,7 @@ import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.format.plaintext.PlaintextActionButtons;
 import net.gsantner.markor.format.todotxt.TodoTxtActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextActionButtons;
+import net.gsantner.opoc.util.GsCollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -110,14 +111,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
     }
 
     private void saveNewOrder() {
-        final ArrayList<String> reorderedKeys = new ArrayList<>();
-
-        for (final int i : _adapter.order) {
-            reorderedKeys.add(_keys.get(i));
-        }
-
-        _textActions.saveActionOrder(reorderedKeys);
-        _textActions.saveDisabledActions(new ArrayList<>(_adapter._disabled));
+        _textActions.saveActionOrder(GsCollectionUtils.map(_adapter.order, i -> _keys.get(i)));
+        _textActions.saveDisabledActions(_adapter._disabled);
     }
 
     @Override
@@ -238,8 +233,8 @@ public class ActionButtonSettingsActivity extends MarkorBaseActivity {
 
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            final int from = viewHolder.getAdapterPosition();
-            final int to = target.getAdapterPosition();
+            final int from = viewHolder.getAbsoluteAdapterPosition();
+            final int to = target.getAbsoluteAdapterPosition();
 
             final int value = _adapter.order.get(from);
             _adapter.order.remove(from);
