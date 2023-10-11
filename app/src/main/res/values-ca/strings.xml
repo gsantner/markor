@@ -441,6 +441,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Per seguir els enllaços wiki, cerqueu dinàmicament el fitxer notebook.zim per identificar el directori arrel del quadern actual. Marqueu-ho si feu servir diversos quaderns zim o el directori de quaderns establert a l\'aplicació no es correspon amb el vostre quadern zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Format/Prefix per al text compartit al Markor. Segueix les regles SimpleDateFormat d\'Android.\n\nUtilitzeu el marcador de posició {{text}} per posicionar el text compartit. Si no s\'especifica, s\'afegeix el text compartit i el format s\'utilitza com a prefix.</string>
     <string name="share_into_format">Comparteix en - Format</string>
+    <string name="attachment_folder_name">Nom de la carpeta adjunta</string>
+    <string name="attachment_folder_name_desc">Subcarpeta sota la carpeta actual on es desaran els fitxers adjunts. Si es deixa en blanc, els fitxers adjunts es desaran a la carpeta actual.</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
     <string name="error_could_not_open_file">Error: no s\'ha pogut obrir el fitxer.</string>
