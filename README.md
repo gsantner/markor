@@ -45,7 +45,37 @@ Markor is openly developed free software that accepts community contributions.
 <br/>🔃 Markor is an offline app. It works with sync apps, but they have to do syncing respectively.
 <br/>🔒 Can encrypt your textfiles with AES256. You need to set a password at the settings and use Android device with version Marshmallow or newer. You can use [jpencconverter](https://gitlab.com/opensource21/jpencconverter) to encrypt/decrypt on desktop. Be aware that only the text is encrypted not pictures or attachments.
 
+## New features in the latest update - Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search, Line numbers
 
+### Line number support
+
+Markor supports showing line numbers now. In the top file menu you can find a new option to enable numbers.
+It is supported in editor as well in view mode of documents (in code blocks).
+
+![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
+
+### New format: AsciiDoc
+AsciiDoc is one of the new formats that are now supported.
+While it might be not as much fleshed out like Markdown, it should fit for general use.
+
+![AsciiDoc](doc/assets/2023-10-11-asciidoc.webp)
+
+### New format: CSV
+[CSV file](https://en.wikipedia.org/wiki/Comma-separated_values) are supported now (in sense of syntax highlighting and preview). 
+For details see [CSV_README.md](doc/CSV_README.md), it was implemented in #1988, #1987, #1980, #1667.
+
+* Editor with SyntaxHighlighter
+* Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
+* Preview as html-Table with export as pdf
+* A csv column may contain markdown (See Example column in screenshot)
+
+![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)  ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
+
+### New format: Org-Mode
+The third and last new format newly added is Org-Mode. Note that currently only editor syntax highlighting and action buttons to make editing easier are available.
+There is no dedicated view mode implemented.
+
+![Org-Mode](doc/assets/2023-10-07-orgmode.webp)
 
 ### Navigation
 * [**README**](README.md)
