@@ -81,7 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Drittanbieter Lizenzen anzeigen</string>
     <string name="language_change_restart_description">Sprache der App ändern. Ein Neustart der App ist erforderlich um die Einstellung zu übernehmen</string>
     <string name="language">Sprache</string>
-    <string name="storage_permission_required">Storage permission: Die Berechtigung zum Lesen und Speichern von Dateien</string>
+    <string name="storage_permission_required">Speicher-Berechtigung: Die Berechtigung zum Lesen und Speichern von Dateien</string>
     <string name="open_with">Öffnen mit</string>
     <string name="sort_by">Sortieren</string>
     <string name="date">Datum</string>
@@ -127,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Notiz erstellen</string>
     <string name="special_documents" needed="false">Spezielle Dokumente</string>
     <string name="keep_screen_on" needed="false">Bildschirm nicht ausschalten</string>
-    <string name="disallow_screenshots">Screenshots verbieten</string>
+    <string name="disallow_screenshots">Screenshots verhindern</string>
     <string name="back_to_previous_folder" needed="false">Zurück zum vorherigen Ordner</string>
     <string name="app_settings" needed="false">App-Einstellungen</string>
     <string name="editor_settings" needed="false">Editor-Einstellungen</string>
@@ -142,7 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Highlighting-Verzögerung</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Verzögerung für eine Highlighting-Aktualisierung in Millisekunden. Ein niedriger Wert wird das Highlighting früher starten, aber mehr Akku verbrauchen sowie die Performance verringern.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kontrollieren ob eingegebener Text gehighlightet werden soll oder nicht</string>
-    <string name="dynamic_highlighting_effect">Dynamische Hervorhebung erhöht die Leistung. Kann Artefakte rendern.</string>
+    <string name="dynamic_highlighting_effect">Dynamische Hervorhebung erhöht die Leistung. Kann Rendering-Artefakte produzieren.</string>
     <string name="control_font_size_in_editor">Einstellen der Schriftgröße im Editor</string>
     <string name="textactions_show_useful_actions_description__appspecific">Eine Leiste mit nützlichen Aktionen anzeigen, welche Text-Module einfügen</string>
     <string name="load_last_opened_folder_at_startup">Beim App-Start den zuletzt geöffneten Ordner laden</string>
@@ -196,9 +196,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Stern (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kann nur lokale, offline verfügbare Dokumente bearbeiten und unterstützt keine Datei-Manager, die nicht den vollständigen Dateipfad angeben.</string>
-    <string name="file_does_not_exist_and_cant_be_created">Datei oder Verzeichnis existiert nicht und kann auch nicht erzeugt werden</string>
+    <string name="file_does_not_exist_and_cant_be_created">Datei oder Verzeichnis existiert nicht und kann nicht erstellt werden</string>
     <string name="permissions">Berechtigungen</string>
-    <string name="permission_paths_revert">Auf Standard Dateiverzeichnisse zurücksetzen?</string>
+    <string name="permission_paths_revert">Dateipfade auf den Standard zurücksetzen?</string>
     <string name="permission_not_granted">Berechtigung wurde nicht erteilt</string>
     <string name="sync_to_local_folder_notice">Hinweis: Wenn du eine Synchronisations-App verwendest, befinden sich die Dateien möglicherweise in einem bekannten oder benutzerdefinierten Ordner. Du kannst die Dateien öffnen indem du Markor\'s Dokumenten-Ordner änderst oder durch Nutzung eines anderen Datei-Managers.</string>
     <string name="vertical_alignment">Vertikale Anordnung</string>
@@ -209,7 +209,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Oben</string>
     <string name="bottom">Unten</string>
     <string name="center">Mitte</string>
-    <string name="actionbutton_spacing">ActionButton-Abstand</string>
+    <string name="actionbutton_spacing">ActionButton Abstand</string>
     <string name="horizontal_space_between_actionbuttons">Horizontaler Abstand zwischen den ActionButtons</string>
     <string name="center_text">Text mittig</string>
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
@@ -248,7 +248,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Beschreibung</string>
     <string name="edit_picture">Bild bearbeiten</string>
     <string name="math">Mathematik</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">Eingetragene Titelei-Attribute in YAML in betrachteten Dokumenten oben ausgeben. Geben Sie dafür durch Kommata getrennte Schlüsselbegriffe ein. Lassen Sie diese weg falls keine oder verwenden Sie \'*\' falls alle ausgegeben werden sollen. \n\nWenn irgendein Attribut im Dokument definiert ist (z. B. Titel: \'Hallo\') und es {{ post.title }} auch in Ihrem Dokument gibt, wird es ersetzt. Sie können auf diese Weise eine benutzerdefinierte Titelei-Kopfzeile erstellen.</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Eingetragene Fron Matter-Attribute in YAML in betrachteten Dokumenten oben ausgeben. Geben Sie dafür durch Kommata getrennte Schlüsselbegriffe ein. Lassen Sie diese weg falls keine oder verwenden Sie \'*\' falls alle ausgegeben werden sollen. \n\nWenn irgendein Attribut im Dokument definiert ist (z. B. Titel: \'Hallo\') und es {{ post.title }} auch in Ihrem Dokument gibt, wird es ersetzt. Sie können auf diese Weise eine benutzerdefinierte Titelei-Kopfzeile erstellen.</string>
     <string name="table_of_contents">Inhaltsverzeichnis</string>
     <string name="miscellaneous">Verschiedenes</string>
     <string name="prefer_view">Ansichts-Modus bevorzugen</string>
@@ -434,7 +434,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Heute fällig</string>
     <string name="due_future">Künftig fällig</string>
     <string name="completed">Abgeschlossen</string>
-    <string name="advanced_filtering">Komplexer Filter</string>
+    <string name="advanced_filtering">Erweitertes Filtern</string>
     <string name="match_any">Jegliche Übereinstimmung</string>
     <string name="match_all">Vollständige Übereinstimmung</string>
     <string name="dynamic_notebook_root_links">Dynamische Suche nach Notizbuch-Wurzelverzeichnis</string>
