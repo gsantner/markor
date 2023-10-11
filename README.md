@@ -33,7 +33,7 @@ Markor is openly developed free software that accepts community contributions.
 <br/>📚 Notebook: Store all documents on a common filesystem folder
 <br/>📓 QuickNote: Fast accessible for keeping notes
 <br/>☑️ To-Do: Write down your to-do
-<br/>🖍 Formats: Markdown, todo.txt, Zim/WikiText, Plaintext, [csv](doc/CSV_README.md), ics, ini, json, toml, vcf, yaml
+<br/>🖍 Formats: Markdown, todo.txt, Zim/WikiText, Plaintext, [csv](doc/2023-06-02-csv-readme.md), ics, ini, json, toml, vcf, yaml
 <br/>📋 Copy to clipboard: Copy any text, including text shared into Markor
 <br/>💡 Notebook is the root folder of documents and can be changed to any location on the filesystem. QuickNote and To-Do are textfiles
 <br/>
@@ -62,14 +62,14 @@ While it might be not as much fleshed out like Markdown, it should fit for gener
 
 ### New format: CSV
 [CSV file](https://en.wikipedia.org/wiki/Comma-separated_values) are supported now (in sense of syntax highlighting and preview). 
-For details see [CSV_README.md](doc/CSV_README.md), it was implemented in #1988, #1987, #1980, #1667.
+For details see [CSV README](doc/2023-06-02-csv-readme.md), it was implemented in #1988, #1987, #1980, #1667.
 
 * Editor with SyntaxHighlighter
 * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
 * Preview as html-Table with export as pdf
 * A csv column may contain markdown (See Example column in screenshot)
 
-![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)  ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
+![](doc/assets/csv/2023-06-25-csv-landscape.webp)
 
 ### New format: Org-Mode
 The third and last new format newly added is Org-Mode. Note that currently only editor syntax highlighting and action buttons to make editing easier are available.

@@ -1,5 +1,3 @@
-.../doc/CSV_README.md
-
 Last updated 2023-06-02 by k3b
 
 ## Information about csv files in markor
@@ -7,13 +5,13 @@ Last updated 2023-06-02 by k3b
 The android editor app [markor](https://github.com/gsantner/markor)
 can handle [csv](https://en.wikipedia.org/wiki/Comma-separated_values) files since version v2.10.9
 
+![](assets/csv/2023-06-25-csv-landscape.webp) 
+
 ### Features
 
 * Editor with SyntaxHighlighter
-  * ![](assets/csv/MakorCsvSyntaxh-Landscape.png) 
   * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
 * Preview as html-Table with export as pdf
-  * ![](assets/csv/MakorCsvPreviewLandscape2.png) 
   * A csv column may contain markdown formatting like **bold** or image  
 * Automatic discovering of `csv-field-delimiter-char` from found csv-header. 
   * Currently implemented: `;,:|` and `<tab>`
