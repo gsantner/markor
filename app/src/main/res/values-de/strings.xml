@@ -314,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">In zuletzt geöffneten Dateien anzeigen</string>
     <string name="reload">Aktualisieren</string>
     <string name="wrap_words">Zeilenumbruch</string>
+    <string name="line_numbers">Zeilennummern</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Weicher Zeilenumbruch falls der Text nicht auf den Bildschirm passt. Andernfalls wird horizontales Scrollen aktiviert.</string>
     <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis.</string>
     <string name="always_open_with_this_app">Immer mit dieser App öffnen</string>
