@@ -440,6 +440,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Zum Folgen von Wiki-Links dynamisch nach der notebook.zim-Datei suchen, um das Wurzelverzeichnis für das aktuelle Notebook zu bestimmen. Aktivieren Sie diese Option, falls Sie mehrere Zim-Notebooks verwenden oder das in der App festgelegte Notebook-Verzeichnis nicht Ihrem Zim-Notebook entspricht.</string>
     <string name="share_into_format_prefix_for_text_shared">Formatierung/Präfix für in Markor geteilten Text. Befolgt Androids SimpleDateFormat-Regeln.\n\nVerwenden Sie den Platzhalter {{text}}, um den geteilten Text zu platzieren. Falls nicht angegeben, wird der geteilte Text angehängt und die Formatierung wie ein Präfix verwendet.</string>
     <string name="share_into_format">Teilen in - Format</string>
+    <string name="attachment_folder_name">Ordnername für Anhänge</string>
+    <string name="attachment_folder_name_desc">Unterordner des aktuellen Ordners, in dem Anhänge gespeichert werden. Wenn leer gelassen, werden Anhänge im aktuellen Ordner gespeichert.</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
     <string name="error_could_not_open_file">Fehler: Datei konnte nicht geöffnet werden.</string>
