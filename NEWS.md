@@ -67,21 +67,46 @@ If you have questions or found an issue please head to the [Markor project](http
 
 # Markor v2.11 
 
+## Line number support
+
+Markor supports showing line numbers now. In the top file menu you can find a new option to enable numbers.
+It is supported in editor as well in view mode of documents (in code blocks).
+
+![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
+
+## New format: AsciiDoc
+AsciiDoc is one of the new formats that are now supported.
+While it might be not as much fleshed out like Markdown, it should fit for general use.
+
+![AsciiDoc](doc/assets/2023-10-11-asciidoc.webp)
+
+## New format: CSV
+[CSV file](https://en.wikipedia.org/wiki/Comma-separated_values) are supported now (in sense of syntax highlighting and preview). 
+For details see [CSV_README.md](doc/CSV_README.md), it was implemented in #1988, #1987, #1980, #1667.
+
+* Editor with SyntaxHighlighter
+* Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
+* Preview as html-Table with export as pdf
+* A csv column may contain markdown (See Example column in screenshot)
+
+![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)  ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
+
+## New format: Org-Mode
+The third and last new format newly added is Org-Mode. Note that currently only editor syntax highlighting and action buttons to make editing easier are available.
+There is no dedicated view mode implemented.
+
+![Org-Mode](doc/assets/2023-10-07-orgmode.webp)
+
+## More
+
 * Architectural improvements:
   * Much simpler permissions (fixes #1981 #1957 #1886 )
   * Better Support for the new storage APIs including scoped storage, SAF (fixes #1172 )
 * New Features
   * View mode: open Image,Video,Audio files in Markor ( #1806, #1200 )
   * [Todo.txt advanced search system](https://github.com/gsantner/markor/pull/1901) ( #1901 )
-* [AsciiDoc File](https://asciidoctor.org/) support. ( #1876, #808, #2022)
-* [CSV File](https://en.wikipedia.org/wiki/Comma-separated_values) support. (For details see [CSV_README.md](doc/CSV_README.md), implemented in  #1988, #1987, #1980, #1667 )
-  * Editor with SyntaxHighlighter
-    * ![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)
-    * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
-  * Preview as html-Table with export as pdf
-    * ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
-    * A csv column may contain markdown (See Example column **foto** )
-* [All fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
+* [More fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
+
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
