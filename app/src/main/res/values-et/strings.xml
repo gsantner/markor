@@ -11,10 +11,60 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="settings">Seaded</string>
+    <string name="light">Hele</string>
+    <string name="dark">Tume</string>
+    <string name="delete">Eemalda</string>
     <string name="appearance">Välimus</string>
+    <string name="rename">Ümbernimeta</string>
+    <string name="confirm_delete">Kinnita eemaldamine</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Kas Sa tõesti eemaldad %s?</string>
+    <string name="confirm_overwrite">Kinnita ülekirjutamine</string>
+    <string name="file_already_exists_overwerite">Juba on selle nimega kirje, kas annad uue nime?</string>
+    <string name="browse_filesystem">Sirvi failisüsteemi</string>
+    <string name="title">Tiitel</string>
+    <string name="empty_directory">Tühi kataloog</string>
+    <string name="enter_name_of_folder">Sisesta nimi uuele kaustale</string>
+    <string name="create_folder">Loo kaust</string>
+    <string name="create_new_document">Loo uus kirje</string>
+    <string name="move">Liiguta</string>
+    <string name="copy">Koopia</string>
+    <string name="info">Teave</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Kirje/kaust juba leidub! Palun pane erinev nimi</string>
+    <string name="import_from_device">Impordi seadmest</string>
+    <string name="import_">Importimine</string>
+    <string name="append_to_witharg">Lisa %s lõppu</string>
+    <string name="select_folder">Vali kaust</string>
+    <string name="edit">Toimeta</string>
+    <string name="search_documents">Otsi kirjetest</string>
+    <string name="share_to_arrow" tools:ignore="TypographyEllipsis">Jaga&#8230;</string>
+    <string name="share">Jaga</string>
+    <string name="search">Otsi</string>
+    <string name="display_converted_markup">Näita teisendatud märgistust</string>
     <string name="editor">Redigeerija</string>
+    <string name="folders">Kaustad</string>
+    <string name="files">Kirjed</string>
+    <string name="document">Kirje</string>
+    <string name="documents">Kirjutised</string>
+    <string name="html_as_plaintext">HTML (kui lihttekst)</string>
+    <string name="document_editor_font">Tekstitoimeti font</string>
+    <string name="theme">Kujundus</string>
+    <string name="open_existing_files_in_view_mode">Ava kirjutised ainult vaatamiseks</string>
     <string name="about">Teave</string>
+    <string name="plaintext">Lihttekst</string>
+    <string name="file">Fail</string>
+    <string name="image">Pilt</string>
+    <string name="font_size">Kirja suurus</string>
+    <string name="render_rtl_language">Esita paremalt-vasakule keeltes</string>
+    <string name="error_cannot_create_notebook_dir__appspecific">Viga: Ei saa luua märkmiku kausta</string>
+    <string name="last_modified_witharg">Viimati muudeti: %s</string>
+    <string name="last_modified">Viimati muudetud</string>
+    <string name="select_this_folder">Vali see kaust</string>
+    <string name="select">Vali</string>
     <string name="create">Loo</string>
+    <string name="select_entries">Vali sissekanded</string>
+    <string name="one_item_selected">Üks asi valitud</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja valitud</string>
+    <string name="hide_statusbar_at_this_view">Peida oleku ala sellest vaatest</string>
     <string name="hide_statusbar">Peida olekuriba</string>
     <string name="contributors">Toetajad</string>
     <string name="licenses">Litsentsid</string>
@@ -28,8 +78,32 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Välju</string>
     <string name="more">Lisaks</string>
     <string name="help">Abiinfo</string>
+    <string name="back_to_previous_folder" needed="false">Tagasi eelmisesse kausta</string>
+    <string name="app_settings" needed="false">Äpi seadistused</string>
+    <string name="editor_settings" needed="false">Tekstitoimeti seadsitused</string>
+    <string name="remember_last_folder_location_on_startup" needed="false">Mäleta viimati avatud kausta</string>
+    <string name="number_of_files_witharg" needed="false">Kirjeid on %d</string>
+    <string name="app_wide">Äpi ülene</string>
     <string name="main_view">Põhivaade</string>
+    <string name="overall_theme_used_in_app">Üle kogu äpi kasutatud kujundus</string>
+    <string name="remember_last_directory">Mäleta viimast kausta</string>
+    <string name="syntax_highlighting">Süntaksi esiletõstmine</string>
+    <string name="dynamic_highlighting">Jooksev esiletõstmine</string>
+    <string name="highlighting_delay">Viivitus esiletõstmisel</string>
+    <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viivitus millisekundites enne esiletõstmist. Lühem viivitus aeglustab vana seadet ja kulutab rohkem akut.</string>
+    <string name="highlighting_enabled_or_not__appspecific">Kas sisestatud tekst tõstetakse esile või mitte</string>
+    <string name="dynamic_highlighting_effect">Jooksev esiletõst parendab tekstis mõistmist, aga võivad ilmneda häired.</string>
+    <string name="control_font_size_in_editor">Saab muuta tekstitoimeti kirja suurust</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Näita all teksti muutmise nuppe.</string>
+    <string name="load_last_opened_folder_at_startup">Laadi alustades viimati avatud kaust</string>
+    <string name="format">Vorming</string>
+    <string name="contexts">Kontekst</string>
+    <string name="project">Ettevõtmine</string>
+    <string name="projects">Ettevõtmised</string>
+    <string name="none">Puudub</string>
     <string name="other">Muud</string>
+    <string name="empty_file">Tühi kirje</string>
+    <string name="break_page_pdf_print">Lehe piir(PDF/Trükkimine)</string>
     <string name="general">Üldine</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
@@ -52,4 +126,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="close">Sulge</string>
     <string name="favourite">Lemmik</string>
     <string name="rotate">Pööra</string>
+    <string name="attachment_folder_name">Manuste kausta nimi</string>
+    <string name="attachment_folder_name_desc">Praeguse kausta alamkaust manuste hoiustamiseks. Kui jääb tühjaks, manused pannakse praegusesse kausta.</string>
 </resources>
