@@ -66,18 +66,39 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja valitud</string>
     <string name="hide_statusbar_at_this_view">Peida oleku ala sellest vaatest</string>
     <string name="hide_statusbar">Peida olekuriba</string>
+    <string name="name">Pealkiri</string>
+    <string name="url_or_path">URL / failitee</string>
+    <string name="insert_link">Sisesta link</string>
+    <string name="insert_image">Sisesta pilt</string>
     <string name="contributors">Toetajad</string>
+    <string name="save_location">Määra asukohad</string>
+    <string name="saved_location_to">Salvestatud %s</string>
+    <string name="select_storage_folder">Vali hoidla kaust</string>
     <string name="licenses">Litsentsid</string>
     <string name="changelog">Muuda logi</string>
+    <string name="more_info">Rohkem teavet</string>
     <string name="show_license_of_the_app">Kuva rakenduse litsents</string>
     <string name="show_third_party_licenses">Kuva kolmanda osapoole litsentsid</string>
     <string name="language_change_restart_description">Muutke selle rakenduse keelt. Muudatuste jõustumiseks taaskäivitage rakendus</string>
     <string name="language">Keel</string>
+    <string name="storage_permission_required">Hoidla luba nõutakse, et faile lugeda ja kirjutada</string>
+    <string name="open_with">Ava sellega</string>
+    <string name="sort_by">Järjesta alusel</string>
+    <string name="date">Kuupäev</string>
+    <string name="deleteme____1">Nimi</string>
     <string name="size">Suurus</string>
+    <string name="reverse_order">Järjesta vastupidi</string>
     <string name="contribute">Andke oma panus</string>
+    <string name="project_page">Projekti leht</string>
+    <string name="press_back_again_to_exit">Väljumiseks vajuta veelkord \'Tagasi\'</string>
     <string name="exit">Välju</string>
+    <string name="undo">Ennista</string>
+    <string name="redo">Tee uuesti</string>
     <string name="more">Lisaks</string>
+    <string name="notebook">Märkmeraamat</string>
     <string name="help">Abiinfo</string>
+    <string name="todo_list">Tegemiseks</string>
+    <string name="task">Ülesanne</string>
     <string name="back_to_previous_folder" needed="false">Tagasi eelmisesse kausta</string>
     <string name="app_settings" needed="false">Äpi seadistused</string>
     <string name="editor_settings" needed="false">Tekstitoimeti seadsitused</string>
