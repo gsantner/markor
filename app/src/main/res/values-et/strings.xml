@@ -99,6 +99,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="help">Abiinfo</string>
     <string name="todo_list">Tegemiseks</string>
     <string name="task">Ülesanne</string>
+    <string name="context">Valdkond</string>
+    <string name="list">Nimistu</string>
+    <string name="priority">Olulisus</string>
+    <string name="history">Ajalugu</string>
     <string name="back_to_previous_folder" needed="false">Tagasi eelmisesse kausta</string>
     <string name="app_settings" needed="false">Äpi seadistused</string>
     <string name="editor_settings" needed="false">Tekstitoimeti seadsitused</string>
