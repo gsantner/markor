@@ -25,8 +25,8 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
-        versionName "2.11.0"
-        versionCode 147
+        versionName "2.11.1"
+        versionCode 148
 
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
