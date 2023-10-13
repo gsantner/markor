@@ -611,7 +611,7 @@
         </PreferenceScreen>
         <!-- OrgMode Screen -->
         <PreferenceScreen
-            android:icon="@drawable/fountain_pen"
+            android:icon="@drawable/ic_org_mode_file"
             android:title="@string/orgmode">
 
             <PreferenceCategory android:title="@string/syntax_highlighting">
