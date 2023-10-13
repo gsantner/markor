@@ -32,6 +32,7 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -120,7 +121,7 @@ public class AttachLinkOrFileDialog {
         final AlertDialog dialog = builder.setView(view).create();
 
         // Helper func
-        final GsCallback.a1<InsertType> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, dialog);
+        final GsCallback.a1<InsertType> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, sel, dialog);
 
         // Setup all the various choices
         final InsertType browseType, okType;
@@ -216,14 +217,20 @@ public class AttachLinkOrFileDialog {
             final Activity activity,
             final Editable text,
             final File currentFile,
+            @Nullable final int[] region,
             @Nullable AlertDialog dialog
     ) {
-        final int[] sel = TextViewUtils.getSelection(text);
+        final int[] sel;
+        if (region != null && region.length > 1 && region[0] >= 0 && region[1] >= 0) {
+            sel = region;
+        } else {
+            sel = TextViewUtils.getSelection(text);
+        }
 
         final AppSettings _appSettings = ApplicationObject.settings();
         final File attachmentDir = _appSettings.getAttachmentFolder(currentFile);
 
-        // Source, dest to be written when the user hits accept
+        // Title, path to be written when the user hits accept
         final GsCallback.a2<String, String> insertLink = (title, path) -> {
             if (TextViewUtils.isNullOrEmpty(path)) {
                 return;
@@ -244,7 +251,7 @@ public class AttachLinkOrFileDialog {
                 newText = newText.replaceFirst("\\|]]$", "]]");
             }
 
-            if (!text.subSequence(sel[0], sel[1]).equals(newText)) {
+            if (!newText.equals(text.subSequence(sel[0], sel[1]).toString())) {
                 text.replace(sel[0], sel[1], newText);
             }
 
@@ -297,13 +304,17 @@ public class AttachLinkOrFileDialog {
             }
             case IMAGE_EDIT: {
                 if (pathEdit != null) {
-                    String filepath = pathEdit.getText().toString().replace("%20", " ");
-                    if (!filepath.startsWith("/")) {
-                        filepath = new File(currentFile.getParent(), filepath).getAbsolutePath();
+                    final String path = pathEdit.getText().toString().replace("%20", " ");
+
+                    final File abs = new File(path).getAbsoluteFile();
+                    if (abs.isFile()) {
+                        shu.requestPictureEdit(activity, abs);
+                        break;
                     }
-                    File file = new File(filepath);
-                    if (file.exists() && file.isFile()) {
-                        shu.requestPictureEdit(activity, file);
+
+                    final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
+                    if (rel.isFile()) {
+                        shu.requestPictureEdit(activity, rel);
                     }
                 }
                 break;
@@ -355,7 +366,7 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(InsertType.IMAGE_CAMERA, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.IMAGE_CAMERA, textFormatId, activity, text, currentFile, null, null);
     }
 
     public static void insertGalleryPhoto(
@@ -364,7 +375,7 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(InsertType.IMAGE_GALLERY, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.IMAGE_GALLERY, textFormatId, activity, text, currentFile, null, null);
     }
 
     public static void insertAudioRecording(
@@ -373,6 +384,6 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(InsertType.AUDIO_RECORDING, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.AUDIO_RECORDING, textFormatId, activity, text, currentFile, null, null);
     }
 }
