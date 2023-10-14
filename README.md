@@ -52,7 +52,7 @@ Markor is openly developed free software that accepts community contributions.
 Markor supports showing line numbers now. In the top file menu you can find a new option to enable numbers.
 It is supported in editor as well in view mode of documents (in code blocks).
 
-![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
+![Line numbers](doc/assets/2023-10-11-line-numbers.jpg)
 
 ### New format: AsciiDoc
 AsciiDoc is one of the new formats that are now supported.
