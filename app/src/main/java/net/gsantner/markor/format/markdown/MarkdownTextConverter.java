@@ -52,7 +52,6 @@ import java.util.regex.Pattern;
 
 import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
-import other.flexmark.ext.codeblocks.LineNumbersExtension;
 
 @SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MarkdownTextConverter extends TextConverterBase {
@@ -83,7 +82,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     //## Injected CSS / JS / HTML
     //########################
-    public static final String CSS_BODY = CSS_S + "body{margin:0;padding:2.5vw}" + CSS_E;
+    public static final String CSS_BODY = CSS_S + "body{margin:0;padding:0 2.5vw}" + CSS_E;
     public static final String CSS_HEADER_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
     public static final String CSS_H1_H2_UNDERLINE = CSS_S + " h1,h2 { border-bottom: 2px solid " + TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE + "; } " + CSS_E;
     public static final String CSS_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
@@ -160,26 +159,20 @@ public class MarkdownTextConverter extends TextConverterBase {
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
         String converted = "", onLoadJs = "", head = "";
-
         final MutableDataSet options = new MutableDataSet();
 
-        if (lineNum) {
-            // Add code blocks Line numbers extension
-            final ArrayList<Extension> extensions = new ArrayList<>(flexmarkExtensions);
-            extensions.add(LineNumbersExtension.create());
-            options.set(Parser.EXTENSIONS, extensions);
-        } else {
-            options.set(Parser.EXTENSIONS, flexmarkExtensions);
-        }
+        options.set(Parser.EXTENSIONS, flexmarkExtensions);
 
         options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
-        //options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to html break
+
+        // options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to HTML break
+
         options.set(EmojiExtension.USE_IMAGE_TYPE, EmojiImageType.UNICODE_ONLY); // Use unicode (OS/browser images)
 
         // GitLab extension
         options.set(GitLabExtension.RENDER_BLOCK_MATH, false);
 
-        // gfm table parsing
+        // GFM table parsing
         options.set(TablesExtension.WITH_CAPTION, false)
                 .set(TablesExtension.COLUMN_SPANS, true)
                 .set(TablesExtension.MIN_HEADER_ROWS, 0)
@@ -323,6 +316,11 @@ public class MarkdownTextConverter extends TextConverterBase {
             }
         }
 
+        if (lineNum) {
+            // For Prism line numbers plugin
+            onLoadJs = "document.body.classList.add('line-numbers');adjustLineNumbers();";
+        }
+
         // Deliver result
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
@@ -367,11 +365,13 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
         if (lineNum) {
-            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.css" + CSS_POSTFIX);
+            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/custom.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/custom.js" + JS_POSTFIX);
         }
+        sb.append("\n");
 
-        return sb.append("\n").toString();
+        return sb.toString();
     }
 
     @Override
