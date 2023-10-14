@@ -1,3 +1,7 @@
+function enableLineNumbers() {
+    document.body.classList.add("line-numbers");
+}
+
 function adjustLineNumbers() {
     let preElements = document.querySelectorAll("pre[class*='language-']");
 

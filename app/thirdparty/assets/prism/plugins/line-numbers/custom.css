@@ -15,7 +15,6 @@ pre[class*="language-"] > code {
     top: 0;
     font-size: 100%;
     left: -6.3em;
-    /* works for line-numbers below 1000 lines */
     width: 6em;
     letter-spacing: -1px;
     border-right: 1px solid #999;

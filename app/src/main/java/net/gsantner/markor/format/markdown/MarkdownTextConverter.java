@@ -318,7 +318,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         if (lineNum) {
             // For Prism line numbers plugin
-            onLoadJs = "document.body.classList.add('line-numbers');adjustLineNumbers();";
+            onLoadJs = "enableLineNumbers();adjustLineNumbers();";
         }
 
         // Deliver result
