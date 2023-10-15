@@ -22,10 +22,10 @@ jobs:
     steps:
 
     - name: "Checkout: Code"
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: "Checkout: Code (PR)"
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       if: "contains(github.event_name, 'pull_request')"
       with:
         ref: ${{github.event.pull_request.head.ref}}
