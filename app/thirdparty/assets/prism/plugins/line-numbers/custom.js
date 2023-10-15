@@ -3,15 +3,25 @@ function enableLineNumbers() {
 }
 
 function adjustLineNumbers() {
-    let preElements = document.querySelectorAll("pre[class*='language-']");
+    const preElements = document.querySelectorAll("pre[class*='language-']");
+    let fontWidth = -1;
 
     preElements.forEach((element) => {
         let codeElement = element.querySelector("code");
         if (codeElement) {
-            let maxNumber = codeElement.textContent.split("\n").length - 1;
-            if (maxNumber > 0) {
-                element.style.paddingLeft = 1.1 + getNumberDigits(maxNumber) * 0.5 + "em";
+            const maxNumber = codeElement.textContent.split("\n").length - 1;
+            if (maxNumber == 0) {
+                return;
             }
+
+            if (fontWidth == -1) {
+                const canvasContext = document.createElement("canvas").getContext("2d");
+                canvasContext.font = window.getComputedStyle(codeElement, null).getPropertyValue("font");
+                fontWidth = canvasContext.measureText("0").width;
+            }
+
+            const digits = getNumberDigits(maxNumber);
+            element.style.paddingLeft = 2 * fontWidth + digits * fontWidth - digits + "px";
         }
     });
 }
