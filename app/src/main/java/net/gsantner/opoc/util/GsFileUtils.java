@@ -499,7 +499,7 @@ public class GsFileUtils {
 
     public static boolean isTextFile(File file) {
         final String mime = getMimeType(file);
-        return mime != null && mime.startsWith("text/");
+        return mime != null && (mime.startsWith("text/") || mime.contains("xml"));
     }
 
     /**
