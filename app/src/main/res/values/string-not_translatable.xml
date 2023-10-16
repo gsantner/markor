@@ -376,6 +376,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
     <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
     <string name="file_template__csv_sample" translatable="false">sample.csv</string>
+    <string name="file_template__orgmode_reference" translatable="false">orgmode-reference.org</string>
     <string name="asciidoc" translatable="false">AsciiDoc</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>

@@ -19,7 +19,8 @@ public class OrgmodeTextConverter extends TextConverterBase {
     /**
      * this file is exported by browserify from  <a href="https://github.com/mooz/org-js">org-js</a>
      */
-    public static final String HTML_ORG_JS_INCLUDE = "<script src='file:///android_asset/orgmode/org-bundle.js'></script>";
+    public static final String HTML_ORG_JS_INCLUDE = "<script src='file:///android_asset/orgmode/org-bundle.js'></script>\n";
+    public static final String HTML_ORG_CSS_INCLUDE = "<link href='file:///android_asset/orgmode/org.css' type='text/css' rel='stylesheet'/>\n";
 
 
     static {
@@ -53,7 +54,7 @@ public class OrgmodeTextConverter extends TextConverterBase {
                         "var orgHTMLDocument = orgDocument.convert(org.ConverterHTML, {});" +
                         "document.getElementById(\"orgmode_content\").innerHTML = orgHTMLDocument;" +
                         "";
-        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, HTML_ORG_JS_INCLUDE);
+        return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, HTML_ORG_JS_INCLUDE + HTML_ORG_CSS_INCLUDE);
     }
 
     @Override
