@@ -160,7 +160,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsViewerCancel(_dopt.requestId);
+                onFsViewerNothingSelected(_dopt.requestId);
                 break;
             }
 
@@ -189,9 +189,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public void onFsViewerCancel(String request) {
+    public void onFsViewerNothingSelected(String request) {
         if (_callback != null) {
-            _callback.onFsViewerCancel(_dopt.requestId);
+            _callback.onFsViewerNothingSelected(_dopt.requestId);
         }
     }
 
