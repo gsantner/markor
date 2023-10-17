@@ -53,6 +53,7 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
 
     // only runs for a valid id
     private void showWidgetSelectFolderDialog() {
+        final FragmentManager fragManager = getSupportFragmentManager();
         MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
             @Override
             public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
@@ -66,13 +67,7 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
                 dopt.titleText = R.string.select_folder;
                 dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
             }
-
-            @Override
-            public void onFsViewerCancel(final String request) {
-                finish();
-            }
-
-        }, getSupportFragmentManager(), this);
+        }, fragManager, this);
     }
 
     public static File getWidgetDirectory(final Context context, int id) {

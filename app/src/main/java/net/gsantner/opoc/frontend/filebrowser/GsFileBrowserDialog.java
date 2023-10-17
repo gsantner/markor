@@ -95,7 +95,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     @Override
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        final Context context = getContext();
+        Context context = getContext();
 
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
@@ -197,7 +197,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsViewerCancel(_dopt.requestId);
+                onFsViewerNothingSelected(_dopt.requestId);
                 break;
             }
             case R.id.ui__filesystem_dialog__new_dir: {
@@ -258,9 +258,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onFsViewerCancel(String request) {
+    public void onFsViewerNothingSelected(String request) {
         if (_callback != null) {
-            _callback.onFsViewerCancel(_dopt.requestId);
+            _callback.onFsViewerNothingSelected(_dopt.requestId);
         }
         dismiss();
     }

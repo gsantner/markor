@@ -31,7 +31,7 @@ public class GsFileBrowserOptions {
 
         void onFsViewerMultiSelected(final String request, final File... files);
 
-        void onFsViewerCancel(final String request);
+        void onFsViewerNothingSelected(final String request);
 
         void onFsViewerConfig(final Options dopt);
 
@@ -130,7 +130,7 @@ public class GsFileBrowserOptions {
         }
 
         @Override
-        public void onFsViewerCancel(String request) {
+        public void onFsViewerNothingSelected(String request) {
         }
 
         @Override
