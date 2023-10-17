@@ -32,7 +32,6 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
-import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -308,13 +307,13 @@ public class AttachLinkOrFileDialog {
 
                     final File abs = new File(path).getAbsoluteFile();
                     if (abs.isFile()) {
-                        shu.requestPictureEdit(activity, abs);
+                        shu.requestFileEdit(activity, abs);
                         break;
                     }
 
                     final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
                     if (rel.isFile()) {
-                        shu.requestPictureEdit(activity, rel);
+                        shu.requestFileEdit(activity, rel);
                     }
                 }
                 break;
