@@ -103,6 +103,31 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list">Nimistu</string>
     <string name="priority">Olulisus</string>
     <string name="history">Ajalugu</string>
+    <string name="sync">Ühtlusta</string>
+    <string name="search_or_custom">Otsi / Kohanda</string>
+    <string name="save">Salvesta</string>
+    <string name="update">Uuenda</string>
+    <string name="clear">Puhasta</string>
+    <string name="due_date">Tähtaeg</string>
+    <string name="current_date">Kuupäev</string>
+    <string name="archive">Arhiiv</string>
+    <string name="add_task">Lisa ülesanne</string>
+    <string name="add_x_witharg">Lisa %s</string>
+    <string name="document_to_be_loaded_and_saved_as_witharg">Kirjutis laaditakse ja salvestatakse kui %s</string>
+    <string name="refresh">Värskenda</string>
+    <string name="create_shortcut">Loo otsetee</string>
+    <string name="tried_to_create_shortcut_for_this_notice">Proovib luua otsetee sinu kodukraanike. Mõned käivitajad ei võimalda seda.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Valitud fail ei asu rakenduse märkmiku kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik olemasolevad sama nimega failid.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Fail ei asu praeguses kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik olemasolevad sama nimega failid.</string>
+    <string name="files_and_folders">Failid ja kaustad</string>
+    <string name="document_browser">Dokumentide sirvija</string>
+    <string name="file_browser">Failide sirvija</string>
+    <string name="set_due_date">Sea tähtaeg</string>
+    <string name="insert_replace_date">Sisesta kuupäev</string>
+    <string name="create_note" needed="false">Puhasta märge</string>
+    <string name="special_documents" needed="false">Erilised dokumendid</string>
+    <string name="keep_screen_on" needed="false">Hoia ekraanil</string>
+    <string name="disallow_screenshots">Keela kuvarõmmised</string>
     <string name="back_to_previous_folder" needed="false">Tagasi eelmisesse kausta</string>
     <string name="app_settings" needed="false">Äpi seadistused</string>
     <string name="editor_settings" needed="false">Tekstitoimeti seadsitused</string>
@@ -129,6 +154,18 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="other">Muud</string>
     <string name="empty_file">Tühi kirje</string>
     <string name="break_page_pdf_print">Lehe piir(PDF/Trükkimine)</string>
+    <string name="underline">Jooni alla</string>
+    <string name="underline_hex_color_wether_or_not_to_description__appspecific">Kas alla joonida kuueteistkümnend värvikoodid vastavalt värvile</string>
+    <string name="underline_hex_color_codes">Jooni alla kuueteistkümnend värvikoodid</string>
+    <string name="insert_current_date_when_starting_new_task">Sisesta uue ülesande alustamisel praegune kuupäev</string>
+    <string name="tasks_with_todays_date">Ülesanded tänase kuupäevaga</string>
+    <string name="append_contexts_and_projects">Lisa kontekste ja ettevõtmisi</string>
+    <string name="append_contexts_and_projects_on_end_of_task">Kui kasutate sobivat tekstitoimingut, lisage ülesande lõppu kontekstid ja projektid</string>
+    <string name="rtl_rendering">Paremalt vasakule</string>
+    <string name="highlight_line_ending">Märgi realõpud</string>
+    <string name="highlight_line_ending_if_two_or_more_spaces">Tõstab esile vähemalt kahe tühikuga rea lõpud</string>
+    <string name="use_monospace_for_code">Kasuta koodile püsiva laiusega fonti</string>
+    <string name="disable_code_block_highlight">Keela koodiplokkide esiletõstmine</string>
     <string name="general">Üldine</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
