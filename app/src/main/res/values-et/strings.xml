@@ -200,6 +200,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="permissions">Load</string>
     <string name="permission_paths_revert">Kas taastada vaikimisi failiteed?</string>
     <string name="permission_not_granted">Luba pole tagatud</string>
+    <string name="sync_to_local_folder_notice">Märge: Sünkijad võivad panna faile oma kaustadesse. Ava neid faile muutes vastavalt Markori märkmete kausta või läbi teise failihalduri.</string>
+    <string name="vertical_alignment">Püstjoondus</string>
+    <string name="horizontal_alignment">Rõhtjoondus</string>
+    <string name="default_">Vaikimisi</string>
+    <string name="left">Vasak</string>
+    <string name="right">Parem</string>
+    <string name="top">Üleval</string>
+    <string name="bottom">All</string>
+    <string name="center">Keskel</string>
+    <string name="actionbutton_spacing">Toimingunuppude vahe</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
     <string name="translate">Tõlgi</string>
