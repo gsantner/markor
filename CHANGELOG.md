@@ -1,6 +1,24 @@
 ### Recent changes
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
 
+### v2.11 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers))
+- Reworked attachments (PR #2106 by @harshad1)
+- Editor/viewer: Side margin improvements 2, closes #2111 (PR #2119 by @guanglinn)
+- Format: Add Orgmode - SyntaxHighlight basic support (PR #2107 by @bigger124 @gsantner)
+- Editor/viewer: Side margin improvements, closes #2111 (PR #2118 by @guanglinn)
+- Reformat code, by @gsantner
+- Update translations (PR #2108)
+- ShareInto: Automatically remove new YouTube tracking parameter si
+- New folder in copy/move dialog, closes #2093 (PR #2098)
+- AsciiDoc: Support view-mode light theme, by @TimReset (#1880 #2091 #2092)
+- Update translations (PR #2071)
+- Line numbers improvements, by @harshad1 @guang-lin @gsantner (PR #2090)
+- Feature: Add Line numbers support (Issue #2057, PR #2062, by @guang-lin)
+- Chunked undo redo, by @harshad1 (#2052)
+- Update translations (PR #2056)
+- Update CSV documentation and NEWS/CHANGELOG (PR #2058)
+- Markdown: Text converter do not make duplicate header id (closes #2045, by @gsantner)
+
 ### v2.10 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v210---custom-file-templates-share-into-remove-url-tracking-parameters))
 - [Search: Keep in-files search dialog open, closes #1663, by @harshad1 (PR #1689)](https://github.com/gsantner/markor/pull/1689/files)
 - [File management: Support UTF-8 with BOM, by @tifish (PR #1693)](https://github.com/gsantner/markor/pull/1693/files)

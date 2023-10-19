@@ -38,7 +38,7 @@ If you have questions or found an issue please head to the [Markor project](http
   * [Using Markor to Write (and More) on an Android Device (The Plain Text Project)](doc/2019-07-16-using-markor-to-write-on-an-android-device-plaintextproject.md#readme)
   * [How I Take Notes With Vim, Markdown, and Pandoc (Vaughan)](doc/2018-05-15-pandoc-vim-markdown-how-i-take-notes-vaughan.md#readme)
 * [**NEWS**](NEWS.md)
-  * [Markor v2.11 - Todo.txt advanced search, New support for AsciiDoc and CSV](NEWS.md#markor-v211) 
+  * [Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search](NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers) 
   * [Markor v2.10 - Custom file templates, Share Into automatically remove URL tracking parameters](NEWS.md#markor-v210---custom-file-templates-share-into-automatically-remove-url-tracking-parameters)
   * [Markor v2.9 - Snippets, Templates, Graphs, Charts, Diagrams, YAML front-matter, Chemistry](NEWS.md#markor-v29---snippets-templates-graphs-charts-diagrams-yaml-front-matter-chemistry)
   * [Markor v2.8 - Multi-selection for todo.txt dialogs](NEWS.md#markor-v28---multi-selection-for-todotxt-dialogs)
@@ -65,7 +65,39 @@ If you have questions or found an issue please head to the [Markor project](http
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
-# Markor v2.11 
+# Markor v2.11 - AsciiDoc, CSV and Org-Mode, Todo.txt advanced search, Line numbers
+
+## Line number support
+
+Markor supports showing line numbers now. In the document top file menu you can find the new checkbox to enable numbers.
+It is supported in editor as well in view mode of documents (in code blocks).
+
+![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
+
+## New format: AsciiDoc
+AsciiDoc is one of the new formats that are now supported.
+While it might be not as much fleshed out like Markdown, it should fit for general use.
+
+![AsciiDoc](doc/assets/2023-10-11-asciidoc.webp)
+
+## New format: CSV
+[CSV files](https://en.wikipedia.org/wiki/Comma-separated_values) are supported now (in sense of syntax highlighting and preview). 
+For details see [CSV README](doc/2023-06-02-csv-readme.md), it was implemented in #1988, #1987, #1980, #1667.
+
+* Editor with SyntaxHighlighter
+* Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
+* Preview as html-Table with export as pdf
+* A csv column may contain markdown (see column with picture in the screenshot)
+
+![](doc/assets/csv/2023-06-25-csv-landscape.webp)
+
+## New format: Org-Mode
+The third and last new format newly added is Org-Mode. Note that currently only editor syntax highlighting and action buttons to make editing easier are available.
+There is no dedicated view mode implemented.
+
+![Org-Mode](doc/assets/2023-10-07-orgmode.webp)
+
+## More
 
 * Architectural improvements:
   * Much simpler permissions (fixes #1981 #1957 #1886 )
@@ -73,15 +105,7 @@ If you have questions or found an issue please head to the [Markor project](http
 * New Features
   * View mode: open Image,Video,Audio files in Markor ( #1806, #1200 )
   * [Todo.txt advanced search system](https://github.com/gsantner/markor/pull/1901) ( #1901 )
-* [AsciiDoc File](https://asciidoctor.org/) support. ( #1876, #808, #2022)
-* [CSV File](https://en.wikipedia.org/wiki/Comma-separated_values) support. (For details see [CSV_README.md](doc/CSV_README.md), implemented in  #1988, #1987, #1980, #1667 )
-  * Editor with SyntaxHighlighter
-    * ![](doc/assets/csv/MakorCsvSyntaxh-Landscape.png)
-    * Each csv column is shown in a different unique color to see which csv-data belongs to which colum/header
-  * Preview as html-Table with export as pdf
-    * ![](doc/assets/csv/MakorCsvPreviewLandscape2.png)
-    * A csv column may contain markdown (See Example column **foto** )
-* [All fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
+* [More fixed issues:](https://github.com/gsantner/markor/milestone/16?closed=1)
 
 ------------------------------------------------------------------------------------------------------------------------------------
 
