@@ -67,7 +67,13 @@ public class WrWidgetConfigure extends MarkorBaseActivity {
                 dopt.titleText = R.string.select_folder;
                 dopt.rootFolder = ApplicationObject.settings().getNotebookDirectory();
             }
-        }, fragManager, this);
+
+            @Override
+            public void onFsViewerCancel(final String request) {
+                finish();
+            }
+
+        }, getSupportFragmentManager(), this);
     }
 
     public static File getWidgetDirectory(final Context context, int id) {

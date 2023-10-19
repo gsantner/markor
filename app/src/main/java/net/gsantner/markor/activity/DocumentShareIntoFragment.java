@@ -37,7 +37,6 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
-import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
@@ -284,6 +283,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         private void createSelectNewDocument() {
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                GsFileBrowserOptions.Options _dopt = null;
+
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
@@ -291,6 +292,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     dopt.okButtonText = R.string.create_new_document;
                     dopt.okButtonEnable = true;
                     dopt.dismissAfterCallback = false;
+                    _dopt = dopt;
                 }
 
                 @Override
@@ -300,10 +302,16 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                             if (ok && f.isFile()) {
                                 appendToExistingDocumentAndClose(f, true);
                             }
-                        }).show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                        }).show(getChildFragmentManager(), NewFileDialog.FRAGMENT_TAG);
                     } else {
                         appendToExistingDocumentAndClose(sel, true);
                     }
+                }
+
+                @Override
+                public void onFsViewerCancel(final String request) {
+                    // Will cause the dialog to dismiss after this callback
+                    _dopt.dismissAfterCallback = true;
                 }
             }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
