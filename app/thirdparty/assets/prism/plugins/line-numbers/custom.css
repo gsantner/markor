@@ -1,6 +1,6 @@
 pre[class*="language-"] {
     position: relative;
-    padding-left: 1.6em; /* codes padding left. */
+    padding-left: 0.8em; /* padding left of codes */
     counter-reset: linenumber;
 }
 
@@ -14,8 +14,8 @@ pre[class*="language-"] > code {
     pointer-events: none;
     top: 0;
     font-size: 100%;
-    left: -6.3em;
-    width: 6em;
+    left: -5.3em;
+    width: 5em;
     letter-spacing: -1px;
     border-right: 1px solid #999;
 
@@ -34,6 +34,6 @@ pre[class*="language-"] > code {
     content: counter(linenumber);
     color: #999;
     display: block;
-    padding-right: 0.3em; /* line numbers padding right */
+    padding-right: 0.3em; /* padding right of line numbers */
     text-align: right;
 }
