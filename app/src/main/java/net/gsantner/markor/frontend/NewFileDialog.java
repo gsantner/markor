@@ -335,7 +335,8 @@ public class NewFileDialog extends DialogFragment {
             default: {
                 final Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
                 if (templateSpinner.getSelectedItem() instanceof String && snippets.containsKey((String) templateSpinner.getSelectedItem())) {
-                    t = TextViewUtils.interpolateEscapedDateTime(GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first);
+                    final String text = GsFileUtils.readTextFileFast(snippets.get((String) templateSpinner.getSelectedItem())).first;
+                    t = TextViewUtils.interpolatePlaceholders(text, GsFileUtils.getNameWithoutExtension(filename));
                     break;
                 }
             }

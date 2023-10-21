@@ -644,9 +644,12 @@ public class GsFileUtils {
 
     // Get the title of the file
     public static String getFilenameWithoutExtension(final File file) {
-        final String name = file.getName();
-        final int doti = name.lastIndexOf(".");
-        return (doti < 0) ? name : name.substring(0, doti);
+        return getNameWithoutExtension(file.getName());
+    }
+
+    public static String getNameWithoutExtension(final String fileName) {
+        final int doti = fileName.lastIndexOf(".");
+        return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
 
     /// Get the file extension of the file, including dot
