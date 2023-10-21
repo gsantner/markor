@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -599,7 +600,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(snip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolatePlaceholders(snip, _document.getTitle()));
                     _lastSnip = snip;
                 });
                 return true;
@@ -689,7 +690,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(_lastSnip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolatePlaceholders(_lastSnip, _document.getName()));
                 }
                 return true;
             }
@@ -885,5 +886,4 @@ public abstract class ActionButtonBase {
             }
         }
     }
-
 }

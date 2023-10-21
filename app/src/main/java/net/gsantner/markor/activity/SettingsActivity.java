@@ -235,10 +235,26 @@ public class SettingsActivity extends MarkorBaseActivity {
         @Override
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement", "StatementWithEmptyBody"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyResId) {
+            final FragmentManager fragManager = getActivity().getSupportFragmentManager();
             switch (keyResId) {
+                case R.string.pref_key__snippet_directory_path: {
+                    MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        @Override
+                        public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+                            _appSettings.setSnippetDirectory(file);
+                            doUpdatePreferences();
+                        }
+
+                        @Override
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                            dopt.titleText = R.string.snippet_directory;
+                            dopt.rootFolder = _appSettings.getNotebookDirectory();
+                        }
+                    }, fragManager, getActivity());
+                    return true;
+                }
 
                 case R.string.pref_key__notebook_directory: {
-                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
                     MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
@@ -256,7 +272,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     return true;
                 }
                 case R.string.pref_key__quicknote_filepath: {
-                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
                     MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
@@ -274,7 +289,6 @@ public class SettingsActivity extends MarkorBaseActivity {
                     return true;
                 }
                 case R.string.pref_key__todo_filepath: {
-                    FragmentManager fragManager = getActivity().getSupportFragmentManager();
                     MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(String request, File file, final Integer lineNumber) {

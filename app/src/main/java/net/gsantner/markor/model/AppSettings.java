@@ -112,8 +112,14 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return new File(getDefaultNotebookFile(), rstr(R.string.todo_default_filename));
     }
 
-    public File getSnippetsFolder() {
-        return new File(getNotebookDirectory(), ".app/snippets");
+    public File getSnippetsDirectory() {
+        final File _default = new File(getNotebookDirectory(), ".app/snippets");
+        final File snf = new File(getString(R.string.pref_key__quicknote_filepath, _default.getAbsolutePath()));
+        return snf.isDirectory() && snf.canRead() ? snf : _default;
+    }
+
+    public void setSnippetDirectory(final File folder) {
+        setString(R.string.pref_key__snippet_directory_path, folder.getAbsolutePath());
     }
 
     public String getFontFamily() {

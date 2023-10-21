@@ -9,6 +9,7 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -22,13 +23,20 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowInsets;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.hippo.quickjs.android.JSContext;
+import com.hippo.quickjs.android.JSRuntime;
+import com.hippo.quickjs.android.QuickJS;
+
+import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -37,9 +45,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class TextViewUtils extends GsTextUtils {
+
+    final static Pattern jsDelim = Pattern.compile("<%\\s(.*?)\\s%>");
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {
@@ -375,15 +387,69 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
+    public static String interpolatePlaceholders(String text, final String title) {
+        final long current = System.currentTimeMillis();
+        final String time = GsContextUtils.instance.formatDateTime((Locale) null, "HH:mm", current);
+        final String date = GsContextUtils.instance.formatDateTime((Locale) null, "yyyy-MM-dd", current);
+
+        // Handle legacy replacements
+        text = text.replace("%%INSERT_SELECTION_HERE%%", "{{selection}}");
+        text = interpolateEscapedDateTime(text);
+
+        // Replace placeholders
+        text = text
+                .replace("{{time}}", time)
+                .replace("{{date}}", date)
+                .replace("{{title}}", title)
+                .replace("{{sel}}", HighlightingEditor.INSERT_SELECTION_HERE_TOKEN);
+
+        text = interpolateJS(text);
+
+        text = text.replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+
+        return text;
+    }
+
+
+    public static String interpolateJS(final String text) {
+        final QuickJS quickJS = new QuickJS.Builder().build();
+        try (JSRuntime runtime = quickJS.createJSRuntime()) {
+            try (JSContext context = runtime.createJSContext()) {
+
+                final Matcher matcher = jsDelim.matcher(text);
+                final List<Integer> starts = new ArrayList<>();
+                final List<Integer> ends = new ArrayList<>();
+                final List<String> evals = new ArrayList<>();
+
+                // Evaluate all the groups
+                while (matcher.find()) {
+                    final String code = matcher.group(1);
+                    evals.add(context.evaluate(code, "", String.class));
+                    starts.add(matcher.start());
+                    ends.add(matcher.end());
+                }
+
+                final StringBuilder builder = new StringBuilder(text);
+
+                // Fill them in backwards to preserve indices
+                for (int i = (evals.size() - 1); i >= 0; i--) {
+                    builder.replace(starts.get(i), ends.get(i), evals.get(i));
+                }
+
+                return builder.toString();
+            }
+        }
+    }
+
     // Search for matching pairs of backticks
     // interpolate contents of backtick pair as SimpleDateFormat
-    public static String interpolateEscapedDateTime(final String snip) {
+    public static String interpolateEscapedDateTime(final String text) {
         final StringBuilder interpolated = new StringBuilder();
         final StringBuilder temp = new StringBuilder();
         boolean isEscaped = false;
         boolean inDate = false;
-        for (int i = 0; i < snip.length(); i++) {
-            final char c = snip.charAt(i);
+        for (int i = 0; i < text.length(); i++) {
+            final char c = text.charAt(i);
             if (c == '\\' && !isEscaped) {
                 isEscaped = true;
             } else if (isEscaped) {

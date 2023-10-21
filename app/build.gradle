@@ -13,7 +13,7 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-rootProject.ext.version_minSdk = 16
+rootProject.ext.version_minSdk = 18
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.42.14"
@@ -134,8 +134,6 @@ dependencies {
         exclude group: 'commons-beanutils', module: 'commons-beanutils'
     }
 
-
-
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
@@ -149,6 +147,9 @@ dependencies {
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
+
+    // Javascript evaluator
+    implementation "com.github.seven332:quickjs-android:0.1.0"
 
     // Processors
     def anpros = []

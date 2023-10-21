@@ -172,6 +172,11 @@
                 android:key="@string/pref_key__attachment_folder_name"
                 android:title="@string/attachment_folder_name" />
 
+            <Preference
+                android:icon="@drawable/baseline_snippet_folder_24"
+                android:key="@string/pref_key__snippet_directory_path"
+                android:title="@string/snippet_directory" />
+
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:icon="@drawable/ic_open_in_browser_black_24dp"
