@@ -13,7 +13,7 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-rootProject.ext.version_minSdk = 20
+rootProject.ext.version_minSdk = 16
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.42.14"
@@ -67,7 +67,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -133,6 +133,8 @@ dependencies {
         // do not get transitive 'commons-beanutils:commons-beanutils as the opencsv bean <-> csv feature is not used
         exclude group: 'commons-beanutils', module: 'commons-beanutils'
     }
+
+
 
     // UI libs
     implementation 'com.pixplicity.generate:library:1.1.8'

@@ -16,7 +16,7 @@ buildscript {
 
         version_compileSdk = 33
         version_buildTools = "33.0.0"
-        version_minSdk = 18
+        version_minSdk = 17
     }
 
     repositories {
