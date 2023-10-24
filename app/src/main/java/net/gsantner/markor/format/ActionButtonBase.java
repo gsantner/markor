@@ -600,7 +600,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolatePlaceholders(snip, _document.getTitle()));
+                    TextViewUtils.interpolatePlaceholders(snip, _document.getTitle(), _hlEditor::insertOrReplaceTextOnCursor);
                     _lastSnip = snip;
                 });
                 return true;
@@ -690,7 +690,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolatePlaceholders(_lastSnip, _document.getName()));
+                    TextViewUtils.interpolatePlaceholders(_lastSnip, _document.getTitle(), _hlEditor::insertOrReplaceTextOnCursor);
                 }
                 return true;
             }

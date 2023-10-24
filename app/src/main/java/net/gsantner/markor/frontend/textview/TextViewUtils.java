@@ -9,7 +9,6 @@
 #########################################################*/
 package net.gsantner.markor.frontend.textview;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
@@ -23,18 +22,14 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowInsets;
-import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.hippo.quickjs.android.JSContext;
-import com.hippo.quickjs.android.JSRuntime;
-import com.hippo.quickjs.android.QuickJS;
-
-import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.markor.util.JSEvaluator;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -51,7 +46,7 @@ import java.util.regex.Pattern;
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class TextViewUtils extends GsTextUtils {
 
-    final static Pattern jsDelim = Pattern.compile("<%\\s(.*?)\\s%>");
+    private final static Pattern jsDelim = Pattern.compile("<%\\s(.*?)\\s%>", Pattern.DOTALL);
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {
@@ -387,7 +382,11 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
-    public static String interpolatePlaceholders(String text, final String title) {
+    public static void interpolatePlaceholders(
+            String text,
+            final String title,
+            final GsCallback.a1<String> callback
+    ) {
         final long current = System.currentTimeMillis();
         final String time = GsContextUtils.instance.formatDateTime((Locale) null, "HH:mm", current);
         final String date = GsContextUtils.instance.formatDateTime((Locale) null, "yyyy-MM-dd", current);
@@ -403,41 +402,52 @@ public final class TextViewUtils extends GsTextUtils {
                 .replace("{{title}}", title)
                 .replace("{{sel}}", HighlightingEditor.INSERT_SELECTION_HERE_TOKEN);
 
-        text = interpolateJS(text);
-
-        text = text.replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-
-        return text;
+        interpolateJS(text, (evald) -> {
+            evald = evald.replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+            callback.callback(evald);
+        });
     }
 
+    private static class Region {
+        public final int start, end;
+        public final String result;
+        public Region(int start, int end, String result) {
+            this.end = end;
+            this.start = start;
+            this.result = result;
+        }
+    }
 
-    public static String interpolateJS(final String text) {
-        final QuickJS quickJS = new QuickJS.Builder().build();
-        try (JSRuntime runtime = quickJS.createJSRuntime()) {
-            try (JSContext context = runtime.createJSContext()) {
+    public static void interpolateJS(
+            final String text,
+            final GsCallback.a1<String> callback
+    ) {
+        final Matcher matcher = jsDelim.matcher(text);
+        final List<Region> replaces = new ArrayList<>();
 
-                final Matcher matcher = jsDelim.matcher(text);
-                final List<Integer> starts = new ArrayList<>();
-                final List<Integer> ends = new ArrayList<>();
-                final List<String> evals = new ArrayList<>();
+        // Evaluate all the groups
+        final int[] count = new int[] { 0 };
+        while (matcher.find()) {
+            final String code = matcher.group(1);
+            final int start = matcher.start(), end = matcher.end();
 
-                // Evaluate all the groups
-                while (matcher.find()) {
-                    final String code = matcher.group(1);
-                    evals.add(context.evaluate(code, "", String.class));
-                    starts.add(matcher.start());
-                    ends.add(matcher.end());
+            // Only instantiatiated if a snippet actually has JS
+            JSEvaluator.getInstance().eval(code, (result) -> {
+                replaces.add(new Region(start, end, result));
+
+                if (replaces.size() == count[0]) {
+
+                    // When done, fill them in backwards to preserve indices
+                    GsCollectionUtils.keySort(replaces, (r) -> -r.start);
+                    final StringBuilder builder = new StringBuilder(text);
+                    for (final Region r: replaces) {
+                        builder.replace(r.start, r.end, r.result);
+                    }
+
+                    callback.callback(builder.toString());
                 }
-
-                final StringBuilder builder = new StringBuilder(text);
-
-                // Fill them in backwards to preserve indices
-                for (int i = (evals.size() - 1); i >= 0; i--) {
-                    builder.replace(starts.get(i), ends.get(i), evals.get(i));
-                }
-
-                return builder.toString();
-            }
+            });
+            count[0]++;
         }
     }
 
