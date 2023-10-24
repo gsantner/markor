@@ -59,7 +59,7 @@ public class AttachLinkOrFileDialog {
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
             return "[TITLE](LINK)";
         } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "{{LINK|TITLE}}";
+            return "[[LINK|TITLE]]";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:LINK[TITLE]";
         } else {
