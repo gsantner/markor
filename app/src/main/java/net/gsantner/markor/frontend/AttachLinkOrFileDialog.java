@@ -90,19 +90,6 @@ public class AttachLinkOrFileDialog {
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
         final Button buttonAudioRecord = view.findViewById(R.id.ui__select_path_dialog__record_audio);
 
-        final int actionTitle;
-        if (action == IMAGE_ACTION) {
-            buttonPictureCamera.setVisibility(View.VISIBLE);
-            buttonPictureGallery.setVisibility(View.VISIBLE);
-            buttonPictureEdit.setVisibility(View.VISIBLE);
-            actionTitle = R.string.insert_image;
-        } else if (action == AUDIO_ACTION) {
-            actionTitle = R.string.audio;
-            buttonAudioRecord.setVisibility(View.VISIBLE);
-        } else {
-            actionTitle = R.string.insert_link;
-        }
-
         // Extract filepath if using Markdown
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
             if (sel[0] > 0 && sel[1] > 0 && sel[0] != sel[1]) {
@@ -129,33 +116,102 @@ public class AttachLinkOrFileDialog {
             }
         }
 
-
-        final AlertDialog dialog = builder.setView(view).setTitle(actionTitle).create();
+        // Create dialog first as we need a ref to it
+        final AlertDialog dialog = builder.setView(view).create();
 
         // Helper func
-        final GsCallback.a1<Integer> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, dialog);
+        final GsCallback.a1<InsertType> _insertItem = (type) -> insertItem(type, textFormatId, activity, edit, currentFile, dialog);
 
-        // Done after dialog creation as we need a ref to dialog
+        // Setup all the various choices
+        final InsertType browseType, okType;
+        if (action == IMAGE_ACTION) {
+            buttonPictureCamera.setVisibility(View.VISIBLE);
+            buttonPictureGallery.setVisibility(View.VISIBLE);
+            buttonPictureEdit.setVisibility(View.VISIBLE);
+            dialog.setTitle(R.string.insert_image);
+            browseType = InsertType.IMAGE_BROWSE;
+            okType = InsertType.IMAGE_DIALOG;
+        } else if (action == AUDIO_ACTION) {
+            dialog.setTitle(R.string.audio);
+            buttonAudioRecord.setVisibility(View.VISIBLE);
+            browseType = InsertType.AUDIO_BROWSE;
+            okType = InsertType.AUDIO_DIALOG;
+        } else {
+            dialog.setTitle(R.string.insert_link);
+            browseType = InsertType.LINK_BROWSE;
+            okType = InsertType.LINK_DIALOG;
+        }
+
         final String ok = activity.getString(android.R.string.ok);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(TYPE_DIALOG_TEXT));
-        dialog.show();
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(okType));
+        buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(browseType));
+        buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
+        buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
+        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
+        buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
-        buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(TYPE_CAMERA_PHOTO));
-        buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(TYPE_GALERY_IMAGE));
-        buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(TYPE_FILE_LINK));
-        buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(TYPE_AUDIO_RECORDING));
-        buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(TYPE_EDIT_PICTURE));
+        dialog.show();
     }
 
-    private static final int TYPE_CAMERA_PHOTO = 0;
-    private static final int TYPE_AUDIO_RECORDING = 1;
-    private static final int TYPE_FILE_LINK = 2;
-    private static final int TYPE_GALERY_IMAGE = 3;
-    private static final int TYPE_EDIT_PICTURE = 4;
-    private static final int TYPE_DIALOG_TEXT = 5;
+    private enum InsertType {
+        IMAGE_CAMERA,
+        IMAGE_GALLERY,
+        IMAGE_BROWSE,
+        IMAGE_DIALOG,
+        IMAGE_EDIT,
+        AUDIO_RECORDING,
+        AUDIO_BROWSE,
+        AUDIO_DIALOG,
+        LINK_BROWSE,
+        LINK_DIALOG,
+    }
+
+    private static String getTemplateForAction(final InsertType action, final int textFormatId) {
+        switch (action) {
+            case IMAGE_CAMERA:
+            case IMAGE_GALLERY:
+            case IMAGE_EDIT:
+            case IMAGE_DIALOG:
+            case IMAGE_BROWSE: {
+                return getImageFormat(textFormatId);
+            }
+            case AUDIO_RECORDING:
+            case AUDIO_DIALOG:
+            case AUDIO_BROWSE: {
+                return getAudioFormat(textFormatId);
+            }
+            case LINK_DIALOG:
+            case LINK_BROWSE:
+            default: {
+                return getLinkFormat(textFormatId);
+            }
+        }
+    }
+
+    private static GsCallback.b2<Context, File> getFilterForAction(final InsertType action) {
+        switch (action) {
+            case IMAGE_CAMERA:
+            case IMAGE_GALLERY:
+            case IMAGE_EDIT:
+            case IMAGE_DIALOG:
+            case IMAGE_BROWSE: {
+                return MarkorFileBrowserFactory.IsMimeImage;
+            }
+            case AUDIO_RECORDING:
+            case AUDIO_DIALOG:
+            case AUDIO_BROWSE: {
+                return MarkorFileBrowserFactory.IsMimeAudio;
+            }
+            case LINK_DIALOG:
+            case LINK_BROWSE:
+            default: {
+                return null;
+            }
+        }
+    }
 
     private static void insertItem(
-            final int itemType,
+            final InsertType action,
             final int textFormatId,
             final Activity activity,
             final Editable text,
@@ -167,26 +223,22 @@ public class AttachLinkOrFileDialog {
         final AppSettings _appSettings = ApplicationObject.settings();
         final File attachmentDir = _appSettings.getAttachmentFolder(currentFile);
 
-        final String template;
-        final GsCallback.b2<Context, File> fileFilter;
-        if (itemType == TYPE_CAMERA_PHOTO || itemType == TYPE_GALERY_IMAGE) {
-            template = getImageFormat(textFormatId);
-            fileFilter = MarkorFileBrowserFactory.IsMimeImage;
-        } else if (itemType == TYPE_AUDIO_RECORDING) {
-            template = getAudioFormat(textFormatId);
-            fileFilter = MarkorFileBrowserFactory.IsMimeAudio;
-        } else {
-            template = getLinkFormat(textFormatId);
-            fileFilter = null;
-        }
-
         // Source, dest to be written when the user hits accept
         final GsCallback.a2<String, String> insertLink = (title, path) -> {
             if (TextViewUtils.isNullOrEmpty(path)) {
                 return;
             }
 
-            String newText = template.replace("TITLE", title).replace("LINK", path);
+            title = title.trim().replace(")", "\\)");
+            path = path.trim().replace(")", "\\)")
+                    // Workaround for parser - cannot deal with spaces and have other entities problems
+                    .replace(" ", "%20")
+                    // Disable space encoding for Jekyll
+                    .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}");
+
+            String newText = getTemplateForAction(action, textFormatId)
+                    .replace("TITLE", title)
+                    .replace("LINK", path);
 
             if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
                 newText = newText.replaceFirst("\\|]]$", "]]");
@@ -233,54 +285,67 @@ public class AttachLinkOrFileDialog {
             nameEdit = pathEdit = null;
         }
 
-        // Perform the requested action
-        if (itemType == TYPE_CAMERA_PHOTO) {
-            shu.requestCameraPicture(activity);
-        } else if (itemType == TYPE_GALERY_IMAGE) {
-            shu.requestGalleryPicture(activity);
-        } else if (itemType == TYPE_AUDIO_RECORDING) {
-            if (!shu.requestAudioRecording(activity)) {
-                GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, insertFileLink);
+        // Do each thing as necessary
+        switch (action) {
+            case IMAGE_CAMERA: {
+                shu.requestCameraPicture(activity);
+                break;
             }
-        } else if (itemType == TYPE_FILE_LINK && activity instanceof AppCompatActivity && nameEdit != null && pathEdit != null) {
-            final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
-                @Override
-                public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                    pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
-
-                    if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
-                        nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
+            case IMAGE_GALLERY: {
+                shu.requestGalleryPicture(activity);
+                break;
+            }
+            case IMAGE_EDIT: {
+                if (pathEdit != null) {
+                    String filepath = pathEdit.getText().toString().replace("%20", " ");
+                    if (!filepath.startsWith("/")) {
+                        filepath = new File(currentFile.getParent(), filepath).getAbsolutePath();
+                    }
+                    File file = new File(filepath);
+                    if (file.exists() && file.isFile()) {
+                        shu.requestPictureEdit(activity, file);
                     }
                 }
-
-                @Override
-                public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = currentFile.getParentFile();
+                break;
+            }
+            case AUDIO_RECORDING: {
+                if (!shu.requestAudioRecording(activity)) {
+                    GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, insertFileLink);
                 }
-            };
-
-            final FragmentManager f = ((AppCompatActivity) activity).getSupportFragmentManager();
-            MarkorFileBrowserFactory.showFileDialog(fsListener, f, activity, fileFilter);
-
-        } else if (itemType == TYPE_EDIT_PICTURE && pathEdit != null) {
-
-            String filepath = pathEdit.getText().toString().replace("%20", " ");
-            if (!filepath.startsWith("/")) {
-                filepath = new File(currentFile.getParent(), filepath).getAbsolutePath();
+                break;
             }
-            File file = new File(filepath);
-            if (file.exists() && file.isFile()) {
-                shu.requestPictureEdit(activity, file);
+            case LINK_BROWSE:
+            case IMAGE_BROWSE:
+            case AUDIO_BROWSE: {
+                if (activity instanceof AppCompatActivity && nameEdit != null && pathEdit != null) {
+                    final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
+                        @Override
+                        public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
+                            pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+
+                            if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
+                                nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
+                            }
+                        }
+
+                        @Override
+                        public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
+                            dopt.rootFolder = currentFile.getParentFile();
+                        }
+                    };
+
+                    final FragmentManager f = ((AppCompatActivity) activity).getSupportFragmentManager();
+                    MarkorFileBrowserFactory.showFileDialog(fsListener, f, activity, getFilterForAction(action));
+                }
+                break;
             }
-        } else if (itemType == TYPE_DIALOG_TEXT && nameEdit != null && pathEdit != null) {
-
-            final String title = nameEdit.getText().toString().trim().replace(")", "\\)");
-            final String link = pathEdit.getText().toString().trim()
-                    .replace(")", "\\)")
-                    .replace(" ", "%20")  // Workaround for parser - cannot deal with spaces and have other entities problems
-                    .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}"); // Disable space encoding for Jekyll
-
-            insertLink.callback(title, link);
+            case LINK_DIALOG:
+            case AUDIO_DIALOG:
+            case IMAGE_DIALOG: {
+                if (nameEdit != null && pathEdit != null) {
+                    insertLink.callback(nameEdit.getText().toString(), pathEdit.getText().toString());
+                }
+            }
         }
     }
 
@@ -290,7 +355,7 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(TYPE_CAMERA_PHOTO, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.IMAGE_CAMERA, textFormatId, activity, text, currentFile, null);
     }
 
     public static void insertGalleryPhoto(
@@ -299,7 +364,7 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(TYPE_GALERY_IMAGE, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.IMAGE_GALLERY, textFormatId, activity, text, currentFile, null);
     }
 
     public static void insertAudioRecording(
@@ -308,6 +373,6 @@ public class AttachLinkOrFileDialog {
             final Editable text,
             final File currentFile
     ) {
-        insertItem(TYPE_AUDIO_RECORDING, textFormatId, activity, text, currentFile, null);
+        insertItem(InsertType.AUDIO_RECORDING, textFormatId, activity, text, currentFile, null);
     }
 }
