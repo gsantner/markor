@@ -72,7 +72,7 @@ If you have questions or found an issue please head to the [Markor project](http
 Markor supports showing line numbers now. In the document top file menu you can find the new checkbox to enable numbers.
 It is supported in editor as well in view mode of documents (in code blocks).
 
-![Line numbers](doc/assets/2023-10-11-line-numbers.jpg)
+![Line numbers](doc/assets/2023-10-11-line-numbers.webp)
 
 ## New format: AsciiDoc
 AsciiDoc is one of the new formats that are now supported.
