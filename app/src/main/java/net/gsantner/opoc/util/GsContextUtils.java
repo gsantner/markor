@@ -1914,9 +1914,11 @@ public class GsContextUtils {
         final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
         final Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setData(uri);  // Mime type inferred automatically
+        intent.setType(GsFileUtils.getMimeType(file));
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
         startActivity(context, intent);
     }
 
