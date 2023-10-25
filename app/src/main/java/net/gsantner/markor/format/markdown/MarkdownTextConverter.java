@@ -157,7 +157,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
 
     @Override
-    public String convertMarkup(String markup, Context context, boolean lightMode, boolean lineNum, File file) {
+    public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
         String converted = "", onLoadJs = "", head = "";
         final MutableDataSet options = new MutableDataSet();
 
@@ -269,7 +269,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", lineNum);
+        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
@@ -316,7 +316,7 @@ public class MarkdownTextConverter extends TextConverterBase {
             }
         }
 
-        if (lineNum) {
+        if (enableLineNumbers) {
             // For Prism line numbers plugin
             onLoadJs = "enableLineNumbers();adjustLineNumbers();";
         }
@@ -358,16 +358,17 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String themeName, final boolean lineNum) {
+    private String getViewHlPrismIncludes(final String themeName, final boolean enableLineNumbers) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
 
-        if (lineNum) {
-            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/custom.css" + CSS_POSTFIX);
+        if (enableLineNumbers) {
+            sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
-            sb.append(JS_PREFIX + "prism/plugins/line-numbers/custom.js" + JS_POSTFIX);
+            sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
         }
         sb.append("\n");
 
