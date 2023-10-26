@@ -28,6 +28,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
+import net.gsantner.markor.format.wikitext.WikitextLinkResolver;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -331,10 +332,33 @@ public class AttachLinkOrFileDialog {
                     final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                            pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+                            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+                                // About the Zim's window 'Insert Link', where it is possible to browse for a file to select,
+                                // Zim defaults, for the first time, to the file link's path to set the description when it's
+                                // considered empty.  Then, Zim will automatically replace a description with the path of the
+                                // next selection only if the description had been already automatically set, or manually set
+                                // before switching the file, to the path of the current selection.  Zim will not replace the
+                                // description that had been manually set to the path of a future selection, after exchanging
+                                // that file.  Nor Zim will replace an empty description if this happens after the first time
+                                // a link is inserted.  Here, for clarity, always replace an empty description, or one set to
+                                // the path of the current selection, with the path of the next selection.
+                                if (nameEdit.getText().toString().equals(pathEdit.getText().toString())) {
+                                    nameEdit.setText("");
+                                }
 
-                            if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
-                                nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
+                                final File notebookDir = _appSettings.getNotebookDirectory();
+                                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
+                                pathEdit.setText(WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot));
+
+                                if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
+                                    nameEdit.setText(pathEdit.getText());
+                                }
+                            } else {
+                                pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+
+                                if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
+                                    nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
+                                }
                             }
                         }
 

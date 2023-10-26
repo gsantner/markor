@@ -119,7 +119,7 @@ public class WikitextLinkResolver {
         return wikitextPath;
     }
 
-    private File findNotebookRootDir(File currentPage) {
+    private static File findNotebookRootDir(File currentPage) {
         if (currentPage != null && currentPage.exists()) {
             if (GsFileUtils.join(currentPage, "notebook.zim").exists()) {
                 return currentPage;
@@ -175,5 +175,106 @@ public class WikitextLinkResolver {
 
     public File getNotebookRootDir() {
         return _notebookRootDir;
+    }
+
+    /**
+     * Return a wiki file's Attachment Directory.<p></p>
+     *
+     * <p> By design, a Zim wiki file's Attachment Directory should
+     * have the same path of the wiki file itself, without the .txt
+     * suffix.</p><p></p>
+     *
+     * <p>Here, a difference from Zim is that any file can derive a
+     * properly named Attachment Directory, as long as that file is
+     * with a suffix.</p>
+     *
+     * @param currentPage Current wiki file's path.
+     * @return {@code currentPage}'s path without suffix.
+     *
+     * @see GsFileUtils#getFilenameWithoutExtension(File)
+     */
+    public static File findAttachmentDir(File currentPage) {
+        return GsFileUtils.join(currentPage.getParentFile(), GsFileUtils.getFilenameWithoutExtension(currentPage));
+    }
+
+    /**
+     * Return a Notebook's Root Directory.<p></p>
+     *
+     * <p> By design ({@code shouldDynamicallyDetermineRoot = true}),
+     * a Zim Notebook's Root Directory is the closest ancestor of the
+     * {@code currentPage} with a notebook.zim file in it.</p><p></p>
+     *
+     * <p> Here, a difference from Zim is that if a notebook.zim file
+     * can't be located, a {@code currentPage}'s current directory is
+     * taken as Root Directory.</p><p></p>
+     *
+     * <p> WARNING: Removing a notebook.zim file from the Notebook or
+     * changing the value of {@code notebookRootDir}, may switch to a
+     * Root Directory different than where the Notebook was organized
+     * originally.</p>
+     *
+     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage Current wiki file's path used to determine the current directory.
+     * @param shouldDynamicallyDetermineRoot If {@code true}, return the closest ancestor of the
+     * {@code currentPage} with a notebook.zim file in it, or fall back to the current directory
+     * on failure.  If {@code false}, return {@code notebookRootDir}.
+     * @return Identified Notebook's Root Directory.
+     *
+     * @see WikitextLinkResolver#findNotebookRootDir(File)
+     */
+    public static File findNotebookRootDir(File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
+        if (shouldDynamicallyDetermineRoot) {
+            notebookRootDir = findNotebookRootDir(currentPage);
+            if (notebookRootDir == null) {
+                notebookRootDir = currentPage.getParentFile();
+            }
+        }
+        return notebookRootDir;
+    }
+
+    /**
+     * Return a system file's path as wiki attachment's path.<p></p>
+     *
+     * <p> If both {@code file} and {@code currentPage} are children
+     * of the same Notebook's Root Directory, return a path relative
+     * to the {@code currentPage}'s Attachment Directory, otherwise,
+     * return the original {@code file}'s path.</p><p></p>
+     *
+     * <p> Here, a difference from Zim is to always consider as Root
+     * Directory the {@code currentPage}'s directory before anything
+     * else.</p>
+     *
+     * @param file System file's path to resolve as wiki attachment's path.
+     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage Current wiki file's path used to determine the current Attachment Directory.
+     * @param shouldDynamicallyDetermineRoot If {@code true}, the Root Directory is the closest ancestor
+     * of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
+     * on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
+     * {@code currentPage}'s directory is always considered as Root Directory before anything else.
+     * @return {@code file}'s path relative to the {@code currentPage}'s Attachment Directory, when both
+     * {@code file} and {@code currentPage} are children of the identified Notebook's Root Directory, or
+     * the original {@code file}'s path otherwise.
+     *
+     * @see WikitextLinkResolver#findAttachmentDir(File)
+     * @see WikitextLinkResolver#findNotebookRootDir(File, File, boolean)
+     */
+    public static String resolveSystemFilePath(File file, File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
+        final File currentDir = currentPage.getParentFile();
+        notebookRootDir = findNotebookRootDir(notebookRootDir, currentPage, shouldDynamicallyDetermineRoot);
+
+        if (GsFileUtils.isChild(currentDir, file) ||
+            (GsFileUtils.isChild(notebookRootDir, file) && GsFileUtils.isChild(notebookRootDir, currentPage))) {
+            final File attachmentDir = findAttachmentDir(currentPage);
+            String path = GsFileUtils.relativePath(attachmentDir, file);
+
+            // Zim prefixes also children of the Attachment Directory.
+            if (file.toString().endsWith("/" + path)) {
+                path = "./" + path;
+            }
+
+            return path;
+        }
+
+        return file.toString();
     }
 }
