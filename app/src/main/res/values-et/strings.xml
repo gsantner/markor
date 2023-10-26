@@ -248,7 +248,15 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">Kirjeldus</string>
     <string name="edit_picture">Redigeeri pilti</string>
     <string name="math">Matemaatika</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">Kuva vaadatud dokumentide ülaosas sisestatud YAML Front Matter atribuudid. Sisestage komadega eraldatud võtmed. Jätke tühjaks kui pole või kasutage kõigi jaoks \'*\'. \n\nKui dokumendis on määratletud mõni atribuut (nt pealkiri: \'Tere\') ja ka teie dokumendis on {{ post.title }}, asendatakse see. Sel viisil saate luua kohandatud Front Matteri pealkirja.</string>
+    <string name="table_of_contents">Sisukord</string>
     <string name="miscellaneous">Mitmesugune</string>
+    <string name="prefer_view">Eelistatud vaade</string>
+    <string name="no_calendar_app_is_installed">Kalendrirakendust pole!</string>
+    <string name="popular_documents">Nõutavad dokumendid</string>
+    <string name="color">Värv</string>
+    <string name="zero_width_space">Ruumi raiskamata</string>
+    <string name="basic_color_scheme">Põhilised värvid</string>
     <string name="background">Taust</string>
     <string name="font">Kirjatüüp</string>
     <string name="close">Sulge</string>
