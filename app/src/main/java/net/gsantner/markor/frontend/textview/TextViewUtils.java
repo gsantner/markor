@@ -33,6 +33,8 @@ import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -151,10 +153,24 @@ public final class TextViewUtils extends GsTextUtils {
         return getLineSelection(seq, getSelection(seq));
     }
 
-    public static String getSelectedLines(final CharSequence seq) {
-        final int[] sel = getLineSelection(seq);
-        return seq.subSequence(sel[0], sel[1]).toString();
+
+    public static String getSelectedLines(final TextView text, final int... sel) {
+        return getSelectedLines(text.getText(), sel);
     }
+
+    public static String getSelectedLines(final CharSequence seq) {
+        return getSelectedLines(seq, getSelection(seq));
+    }
+
+    public static String getSelectedLines(final CharSequence seq, final int... sel) {
+        if (sel == null || sel.length == 0) {
+            return "";
+        }
+        final int start = getLineStart(seq, sel[0]);
+        final int end = getLineEnd(seq, sel[sel.length - 1]);
+        return seq.subSequence(start, end).toString();
+    }
+
 
     /**
      * Convert a char index to a line index + offset from end of line
@@ -410,44 +426,50 @@ public final class TextViewUtils extends GsTextUtils {
 
     private static class Region {
         public final int start, end;
-        public final String result;
-        public Region(int start, int end, String result) {
+        public final String str;
+        public Region(int start, int end, String str) {
             this.end = end;
             this.start = start;
-            this.result = result;
+            this.str = str;
         }
     }
 
-    public static void interpolateJS(
-            final String text,
-            final GsCallback.a1<String> callback
-    ) {
+    public static void interpolateJS(final String text, final GsCallback.a1<String> callback) {
         final Matcher matcher = jsDelim.matcher(text);
-        final List<Region> replaces = new ArrayList<>();
+        final List<Region> jSnips = new ArrayList<>();
+        final List<Region> evals = new ArrayList<>();
 
         // Evaluate all the groups
         final int[] count = new int[] { 0 };
         while (matcher.find()) {
             final String code = matcher.group(1);
-            final int start = matcher.start(), end = matcher.end();
+            jSnips.add(new Region(matcher.start(), matcher.end(), code));
+        }
 
-            // Only instantiatiated if a snippet actually has JS
-            JSEvaluator.getInstance().eval(code, (result) -> {
-                replaces.add(new Region(start, end, result));
+        if (jSnips.isEmpty()) {
+            callback.callback(text);
+            return;
+        }
 
-                if (replaces.size() == count[0]) {
+        final JSEvaluator evaluator = JSEvaluator.getInstance().clearState();
+        try {
+            for (final Region snip : jSnips) {
+                evaluator.eval(snip.str, (result) -> {
+                    evals.add(new Region(snip.start, snip.end, result));
 
-                    // When done, fill them in backwards to preserve indices
-                    GsCollectionUtils.keySort(replaces, (r) -> -r.start);
-                    final StringBuilder builder = new StringBuilder(text);
-                    for (final Region r: replaces) {
-                        builder.replace(r.start, r.end, r.result);
+                    if (evals.size() == jSnips.size()) {
+                        final StringBuilder builder = new StringBuilder(text);
+                        GsCollectionUtils.keySort(evals, (r) -> -r.start);
+                        for (final Region r : evals) {
+                            builder.replace(r.start, r.end, r.str);
+                        }
+
+                        callback.callback(builder.toString());
                     }
-
-                    callback.callback(builder.toString());
-                }
-            });
-            count[0]++;
+                });
+            }
+        } finally {
+            evaluator.clearState();
         }
     }
 

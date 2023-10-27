@@ -16,6 +16,8 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
+
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.BufferedInputStream;
@@ -824,6 +826,22 @@ public class GsFileUtils {
                 outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException ignored) {
+        }
+    }
+
+    public static File makeAbsolute(final String path, final File base) {
+        return path != null ? makeAbsolute(new File(path.trim()), base) : null;
+    }
+
+    public static File makeAbsolute(final File file, final File base) {
+        if (file == null) {
+            return null;
+        } else if (file.isAbsolute()) {
+            return file;
+        } else if (base != null) {
+            return new File(base, file.getPath()).getAbsoluteFile();
+        } else {
+            return null;
         }
     }
 }

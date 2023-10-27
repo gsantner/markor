@@ -47,6 +47,11 @@ public class JSEvaluator {
         settings.setAllowUniversalAccessFromFileURLs(true);
     }
 
+    public JSEvaluator clearState() {
+        webView.loadUrl("about:blank");
+        return this;
+    }
+
     public void eval(final String code, final GsCallback.a1<String> callback) {
         try {
             webView.evaluateJavascript(code, res -> {

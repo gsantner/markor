@@ -60,4 +60,9 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     public Boolean isFlagSecure() {
         return _appSettings.isDisallowScreenshots();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

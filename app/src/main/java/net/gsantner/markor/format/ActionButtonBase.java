@@ -606,8 +606,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_open_link_browser: {
-                String url;
-                if ((url = GsTextUtils.tryExtractUrlAroundPos(text.toString(), _hlEditor.getSelectionStart())) != null) {
+                final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+                final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
+                final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
+                String url = GsTextUtils.tryExtractUrlAroundPos(line, cursor);
+                if (url != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
