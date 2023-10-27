@@ -354,6 +354,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_4">Pealkiri 4</string>
     <string name="heading_5">Pealkiri 5</string>
     <string name="heading_6">Pealkiri 6</string>
+    <string name="bold">Tugev</string>
+    <string name="italic">Kaldus</string>
+    <string name="highlighted">Esiletõstetud</string>
+    <string name="strikeout">Läbijoonitud</string>
+    <string name="inline_code">Kood tekstireal</string>
+    <string name="horizontal_line">Horisontaaljoon</string>
     <string name="matches">Vastavused</string>
     <string name="search_replace_pattern_error_message">Viga otsi ja asenda mustris.</string>
     <string name="backup_settings">Varundamise seaded</string>
