@@ -17,7 +17,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appearance">Välimus</string>
     <string name="rename">Ümbernimeta</string>
     <string name="confirm_delete">Kinnita eemaldamine</string>
-    <string name="do_you_really_want_to_delete_this_witharg">Kas Sa tõesti eemaldad %s?</string>
+    <string name="do_you_really_want_to_delete_this_witharg">Kas Sa tõesti eemaldad selle %s?</string>
     <string name="confirm_overwrite">Kinnita ülekirjutamine</string>
     <string name="file_already_exists_overwerite">Juba on selle nimega kirje, kas annad uue nime?</string>
     <string name="browse_filesystem">Sirvi failisüsteemi</string>
@@ -63,7 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create">Loo</string>
     <string name="select_entries">Vali sissekanded</string>
     <string name="one_item_selected">Üks asi valitud</string>
-    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja valitud</string>
+    <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja on valitud</string>
     <string name="hide_statusbar_at_this_view">Peida oleku ala sellest vaatest</string>
     <string name="hide_statusbar">Peida olekuriba</string>
     <string name="name">Nimetus</string>
@@ -77,7 +77,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="licenses">Litsentsid</string>
     <string name="changelog">Muuda logi</string>
     <string name="more_info">Rohkem teavet</string>
-    <string name="show_license_of_the_app">Kuva rakenduse litsents</string>
+    <string name="show_license_of_the_app">Näita rakenduse litsentsi</string>
     <string name="show_third_party_licenses">Kuva kolmanda osapoole litsentsid</string>
     <string name="language_change_restart_description">Muutke selle rakenduse keelt. Muudatuste jõustumiseks taaskäivitage rakendus</string>
     <string name="language">Keel</string>
@@ -117,8 +117,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="refresh">Värskenda</string>
     <string name="create_shortcut">Loo otsetee</string>
     <string name="tried_to_create_shortcut_for_this_notice">Proovib luua otsetee sinu kodukraanike. Mõned käivitajad ei võimalda seda.</string>
-    <string name="file_not_in_save_path_do_import_notice__appspecific">Valitud fail ei asu rakenduse märkmiku kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik olemasolevad sama nimega failid.</string>
-    <string name="file_not_in_current_folder_do_copy__appspecific">Fail ei asu praeguses kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik olemasolevad sama nimega failid.</string>
+    <string name="file_not_in_save_path_do_import_notice__appspecific">Valitud fail ei asu rakenduse märkmiku kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik olemas olevad sama nimega failid.</string>
+    <string name="file_not_in_current_folder_do_copy__appspecific">Fail ei asu praeguses kaustas. Kas soovite selle praegusesse kausta kopeerida? See kirjutab üle kõik sama nimega failid.</string>
     <string name="files_and_folders">Failid ja kaustad</string>
     <string name="document_browser">Dokumentide sirvija</string>
     <string name="file_browser">Failide sirvija</string>
@@ -142,7 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">Viivitus esiletõstmisel</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">Viivitus millisekundites enne esiletõstmist. Lühem viivitus aeglustab vana seadet ja kulutab rohkem akut.</string>
     <string name="highlighting_enabled_or_not__appspecific">Kas sisestatud tekst tõstetakse esile või mitte</string>
-    <string name="dynamic_highlighting_effect">Jooksev esiletõst parendab tekstis mõistmist, aga võivad ilmneda häired.</string>
+    <string name="dynamic_highlighting_effect">Jooksev esiletõstmine parendab tekstis mõistmist, aga võivad ilmneda häired.</string>
     <string name="control_font_size_in_editor">Saab muuta tekstitoimeti kirja suurust</string>
     <string name="textactions_show_useful_actions_description__appspecific">Näita all teksti muutmise nuppe.</string>
     <string name="load_last_opened_folder_at_startup">Laadi alustades viimati avatud kaust</string>
@@ -210,11 +210,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="bottom">All</string>
     <string name="center">Keskel</string>
     <string name="actionbutton_spacing">Toimingunuppude vahe</string>
-    <string name="horizontal_space_between_actionbuttons">Toimungunuppude vahe</string>
+    <string name="horizontal_space_between_actionbuttons">Toimingunuppude vahe</string>
     <string name="center_text">Keskjoonda tekst</string>
     <string name="edit_text_in_center_of_screen">Toimeta teksti ekraani keskel</string>
     <string name="clipboard">Lõikelaud</string>
-    <string name="select_existing_document">Vali olemasolev kirjutis</string>
+    <string name="select_existing_document">Vali leiduv kirjutis</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
     <string name="translate">Tõlgi</string>
@@ -337,7 +337,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="read">Loe</string>
     <string name="table">Tabel</string>
     <string name="how_much_columns_press_table_button_long_to_start_table">Mitu veergu? Vajuta tabeli nuppu pikalt ja alusta tabeliga( lisa päis), vajuta lühidalt ja lisa rida.</string>
-    <string name="example_of_a_markdown_table">Markdowni tabeli näidis</string>
+    <string name="example_of_a_markdown_table">Markdownis tabeli näidis</string>
     <string name="delete_lines">Kustuta read</string>
     <string name="unordered_list">Korrastamata nimekiri</string>
     <string name="ordered_list">Korrastatud nimekiri</string>
@@ -400,7 +400,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_replace_pattern_error_message">Viga otsi ja asenda mustris.</string>
     <string name="backup_settings">Varundamise seaded</string>
     <string name="restore_settings">Taasta seaded</string>
-    <string name="failed_to_create_backup">Varunduse loomine ebaõnnestus</string>
+    <string name="failed_to_create_backup">Varundamine ebaõnnestus</string>
     <string name="export_settings_to_json_file">Väljuta seaded json faili</string>
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Importige seaded varukoopia Json-failist. Edu korral taaskäivitatakse rakendus.</string>
     <string name="failed_to_restore_settings_from_backup">Seadete taastamine varukoopiast ebaõnnestus</string>
@@ -408,7 +408,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">Otsi sisust</string>
     <string name="max_search_depth">Otsimise sügavus</string>
     <string name="ignore_list">Eiramiste loend</string>
-    <string name="do_not_search_specified_files_and_folders">Ärge otsige määratud failidest ja kaustadest.\nKasutage eraldajana uut rida.\nKasutage täpsete kaustanimede jaoks jutumärke: \"Test\".\nVõi kasutage Regexit \'^[.].*\'\nNäited: ^\\..*\n \"test\"\n\"Test\"\n.*salajane.*\n.*VARUKOOPIA.*\n.*.ini</string>
+    <string name="do_not_search_specified_files_and_folders">Ärge otsige määratud failidest ja kaustadest.\nKasutage eraldajana uut rida.\nKasutage täpsete kaustanimede jaoks jutumärke: \"Test\".\nVõi kasutage Regexi \'^[.].*\'\nNäited: ^\\..*\n \"test\"\n\"Test\"\n.*salajane.*\n.*VARUKOOPIA.*\n.*.ini</string>
     <string name="regex_search">Regex otsing</string>
     <string name="case_sensitive">Tõstutundlik</string>
     <string name="stop_search_after_first_match">Lõpeta otsing pärast esimest leidu</string>
@@ -437,7 +437,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="advanced_filtering">Täpsem eraldamine</string>
     <string name="match_any">Leia mistahes</string>
     <string name="match_all">Leia kõik</string>
-    <string name="dynamic_notebook_root_links">Märkmiku juure otsing</string>
+    <string name="dynamic_notebook_root_links">Märkmiku juure otsimine</string>
     <string name="search_dynamically_for_notebook_root">Vikilinkide järgimiseks otsige dünaamiliselt faili notebook.zim, et tuvastada praeguse märkmiku juurkataloog. Märkige see, kui kasutate mitut zim-märkmikku või rakenduses määratud märkmikukataloog ei vasta teie zim-märkmikule.</string>
     <string name="share_into_format_prefix_for_text_shared">Markoris jagatud teksti vorming/eesliide. Järgib Androidi SimpleDateFormat reegleid.\n\nKasutage jagatud teksti paigutamiseks kohahoidjat {{text}}. Kui pole määratud, lisatakse jagatud tekst ja vormingut kasutatakse prefiksina.</string>
     <string name="share_into_format">Jaga valitud vormingus</string>
