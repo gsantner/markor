@@ -327,7 +327,8 @@ public class AttachLinkOrFileDialog {
                         break;
                     }
 
-                    final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
+                    final File currentDir = (textFormatId == FormatRegistry.FORMAT_WIKITEXT) ? WikitextLinkResolver.findAttachmentDir(currentFile) : currentFile.getParentFile();
+                    final File rel = new File(currentDir, path).getAbsoluteFile();
                     if (rel.isFile()) {
                         shu.requestFileEdit(activity, rel);
                     }
