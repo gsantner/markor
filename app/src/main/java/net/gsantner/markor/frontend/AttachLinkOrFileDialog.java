@@ -262,15 +262,30 @@ public class AttachLinkOrFileDialog {
 
         final GsCallback.a1<File> insertFileLink = (file) -> {
             // If path is not under notebook, copy it to the res folder
-            if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
-                final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
-                attachmentDir.mkdirs();
-                GsFileUtils.copyFile(file, local);
-                file = local;
+            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+                final File notebookDir = _appSettings.getNotebookDirectory();
+                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
+                String path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
+                if (path.startsWith("/")) {
+                    final File zimAttachmentDir = WikitextLinkResolver.findAttachmentDir(currentFile);
+                    final File local = GsFileUtils.findNonConflictingDest(zimAttachmentDir, file.getName());
+                    zimAttachmentDir.mkdirs();
+                    GsFileUtils.copyFile(file, local);
+                    file = local;
+                    path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
+                }
+                insertLink.callback(path, path);
+            } else {
+                if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
+                    final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
+                    attachmentDir.mkdirs();
+                    GsFileUtils.copyFile(file, local);
+                    file = local;
+                }
+                final String title = GsFileUtils.getFilenameWithoutExtension(file);
+                final String path = GsFileUtils.relativePath(currentFile, file);
+                insertLink.callback(title, path);
             }
-            final String title = GsFileUtils.getFilenameWithoutExtension(file);
-            final String path = GsFileUtils.relativePath(currentFile, file);
-            insertLink.callback(title, path);
         };
 
         final MarkorContextUtils shu = new MarkorContextUtils(activity);
