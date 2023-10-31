@@ -267,6 +267,7 @@ public class GsFileUtils {
                     is.close();
                 }
                 if (os != null) {
+                    os.flush();
                     os.close();
                 }
             }

@@ -33,8 +33,6 @@ import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
-import org.w3c.dom.Text;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,6 +139,15 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
+    public static String getSelectedText(final CharSequence text) {
+        final int[] sel = getSelection(text);
+        return (sel[0] >= 0 && sel[1] >= 0) ? text.subSequence(sel[0], sel[1]).toString() : "";
+    }
+
+    public static String getSelectedText(final TextView text) {
+        return getSelectedText(text.getText());
+    }
+
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
@@ -154,6 +161,7 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
 
+    /** Get lines of text in which sel[0] -> sel[1] is contained **/
     public static String getSelectedLines(final TextView text, final int... sel) {
         return getSelectedLines(text.getText(), sel);
     }
@@ -162,13 +170,15 @@ public final class TextViewUtils extends GsTextUtils {
         return getSelectedLines(seq, getSelection(seq));
     }
 
+    /** Get lines of text in which sel[0] -> sel[1] is contained **/
     public static String getSelectedLines(final CharSequence seq, final int... sel) {
         if (sel == null || sel.length == 0) {
             return "";
         }
-        final int start = getLineStart(seq, sel[0]);
-        final int end = getLineEnd(seq, sel[sel.length - 1]);
-        return seq.subSequence(start, end).toString();
+
+        final int start = Math.min(Math.max(sel[0], 0), seq.length());
+        final int end = Math.min(Math.max(start, sel[sel.length - 1]), seq.length());
+        return seq.subSequence(getLineStart(seq, start), getLineEnd(seq, end)).toString();
     }
 
 
@@ -393,32 +403,42 @@ public final class TextViewUtils extends GsTextUtils {
                 }
 
                 edit.setSelection(start, end);
-                edit.post(() -> showSelection(edit, start, end));
+                edit.postDelayed(() -> showSelection(edit, start, end), 250);
             });
         }
     }
 
-    public static void interpolatePlaceholders(
-            String text,
+    /**
+     * Snippets are evaluated in the following order:
+     * 1. {{*}} style placeholders are replaced (except {{cursor}})
+     * 2. Javascript within <% %> delimiters is evaluated.
+     * 3. Time formats within backticks are interpolated
+     * 4. {{cursor}} tokens are replaced with HighlightingEditor.PLACE_CURSOR_HERE_TOKEN
+     *
+     * @param text         Text to be interpolated
+     * @param title        Title of note (for {{title}})
+     * @param selectedText Currently selected text
+     * @param callback     Callback executed with interpolated text
+     */
+    public static void interpolateSnippet(
+            final String text,
             final String title,
+            final String selectedText,
             final GsCallback.a1<String> callback
     ) {
         final long current = System.currentTimeMillis();
         final String time = GsContextUtils.instance.formatDateTime((Locale) null, "HH:mm", current);
         final String date = GsContextUtils.instance.formatDateTime((Locale) null, "yyyy-MM-dd", current);
 
-        // Handle legacy replacements
-        text = text.replace("%%INSERT_SELECTION_HERE%%", "{{selection}}");
-        text = interpolateEscapedDateTime(text);
-
         // Replace placeholders
-        text = text
+        final String replaced = text
                 .replace("{{time}}", time)
                 .replace("{{date}}", date)
                 .replace("{{title}}", title)
-                .replace("{{sel}}", HighlightingEditor.INSERT_SELECTION_HERE_TOKEN);
+                .replace("{{sel}}", selectedText);
 
-        interpolateJS(text, (evald) -> {
+        interpolateJS(replaced, evald -> {
+            evald = interpolateEscapedDateTime(evald);
             evald = evald.replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
             callback.callback(evald);
         });
@@ -826,7 +846,10 @@ public final class TextViewUtils extends GsTextUtils {
     // Check if keyboard open. Only available after android 11 :(
     public static Boolean isImeOpen(final View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
+            final WindowInsets insets = view.getRootWindowInsets();
+            if (insets != null) {
+                insets.isVisible(WindowInsets.Type.ime());
+            }
         }
         return null; // Uncertain
     }
