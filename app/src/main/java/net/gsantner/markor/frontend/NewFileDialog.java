@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -371,7 +370,7 @@ public class NewFileDialog extends DialogFragment {
             if (sel instanceof String && snippets.containsKey((String) sel)) {
                 final String t = GsFileUtils.readTextFileFast(snippets.get((String) sel)).first;
                 final String title = GsFileUtils.getNameWithoutExtension(filename);
-                TextViewUtils.interpolatePlaceholders(t, title, processAndCallback);
+                TextViewUtils.interpolateSnippet(t, title, "", processAndCallback);
             } else {
                 processAndCallback.callback(null);
             }
