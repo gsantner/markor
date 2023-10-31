@@ -428,7 +428,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
             if (newCursorPos >= 0) {
                 setSelection(sel[0] + newCursorPos);
-                TextViewUtils.showSelection(this);
+                postDelayed(() -> TextViewUtils.showSelection(this), 500);
             }
         }
     }
