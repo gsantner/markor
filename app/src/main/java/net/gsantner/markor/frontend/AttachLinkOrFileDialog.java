@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -260,6 +261,11 @@ public class AttachLinkOrFileDialog {
         };
 
         final GsCallback.a1<File> insertFileLink = (file) -> {
+            // If path is empty, unregister the broadcast (autoUnregister == true)
+            if (TextUtils.isEmpty(file.toString())) {
+                return;
+            }
+
             // If path is not under notebook, copy it to the res folder
             if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
                 final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());

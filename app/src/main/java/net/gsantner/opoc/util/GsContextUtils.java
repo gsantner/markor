@@ -1771,16 +1771,15 @@ public class GsContextUtils {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
                 final String picturePath = (resultCode == Activity.RESULT_OK) ? _lastCameraPictureFilepath : null;
-                if (picturePath != null) {
-                    sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                }
+                sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
                 return picturePath;
             }
             case REQUEST_PICK_PICTURE: {
+                String picturePath = null;
+
                 if (resultCode == Activity.RESULT_OK && intent != null) {
                     Uri selectedImage = intent.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    String picturePath = null;
 
                     Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                     if (cursor != null && cursor.moveToFirst()) {
@@ -1820,15 +1819,12 @@ public class GsContextUtils {
                             // nothing we can do here, null value will be handled below
                         }
                     }
-
-                    // Return path to picture on success, else null
-                    if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(context, REQUEST_PICK_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                    }
-
-                    return picturePath;
                 }
-                break;
+
+                // Return path to picture on success, else null to unregister the broadcast (autoUnregister == true)
+                sendLocalBroadcastWithStringExtra(context, REQUEST_PICK_PICTURE + "", EXTRA_FILEPATH, picturePath);
+
+                return picturePath;
             }
             case REQUEST_RECORD_AUDIO: {
                 String audioPath = null;
