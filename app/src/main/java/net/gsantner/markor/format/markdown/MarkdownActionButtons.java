@@ -43,6 +43,8 @@ public class MarkdownActionButtons extends ActionButtonBase {
     // Group 1 matches text, group 2 matches path
     private static final Pattern MARKDOWN_LINK = Pattern.compile("\\[([^\\]]*)\\]\\(([^)]+)\\)");
 
+    private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
+
     private final Set<Integer> _disabledHeadings = new HashSet<>();
 
     public MarkdownActionButtons(@NonNull Context context, Document document) {
@@ -189,6 +191,10 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     private boolean followLinkUnderCursor() {
         final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+        if (sel < 0) {
+            return false;
+        }
+
         final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
         final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
 
@@ -196,7 +202,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
         while (m.find()) {
             final String group = m.group(2);
             if (m.start() <= cursor && m.end() > cursor && group != null) {
-                if (Patterns.WEB_URL.matcher(group).matches()) {
+                if (WEB_URL.matcher(group).matches()) {
                     GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
                     return true;
                 } else {
