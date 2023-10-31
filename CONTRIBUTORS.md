@@ -49,3 +49,4 @@ Where:
 * **[Frederic Jacob](https://github.com/fredericjacob)**<br>~° Added Zim-Wiki highlighting, text actions, view mode, page creation.
 * **[Winston Feng](https://github.com/tifish)**<br>~° Support spaces in URL.
 * **[k3b](https://github.com/k3b)**<br>~° Added CSV-Support.
+* **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update.
