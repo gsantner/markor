@@ -310,7 +310,7 @@ public class AttachLinkOrFileDialog {
                 break;
             }
             case IMAGE_EDIT: {
-                if (pathEdit != null) {
+                if (pathEdit != null && !TextUtils.isEmpty(pathEdit.getText().toString())) {
                     final String path = pathEdit.getText().toString().replace("%20", " ");
 
                     final File abs = new File(path).getAbsoluteFile();
