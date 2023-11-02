@@ -39,6 +39,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 
 public class AttachLinkOrFileDialog {
@@ -314,13 +315,23 @@ public class AttachLinkOrFileDialog {
 
                     final File abs = new File(path).getAbsoluteFile();
                     if (abs.isFile()) {
-                        shu.requestFileEdit(activity, abs);
+                        try {
+                            final File canonical = new File(abs.getCanonicalPath());
+                            shu.requestFileEdit(activity, canonical);
+                        } catch (IOException e) {
+                            shu.requestFileEdit(activity, abs);
+                        }
                         break;
                     }
 
                     final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
                     if (rel.isFile()) {
-                        shu.requestFileEdit(activity, rel);
+                        try {
+                            final File canonical = new File(rel.getCanonicalPath());
+                            shu.requestFileEdit(activity, canonical);
+                        } catch (IOException e) {
+                            shu.requestFileEdit(activity, rel);
+                        }
                         break;
                     }
                 }
