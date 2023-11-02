@@ -285,6 +285,7 @@ public class AttachLinkOrFileDialog {
                 true,
                 "" + MarkorContextUtils.REQUEST_CAMERA_PICTURE,
                 "" + MarkorContextUtils.REQUEST_PICK_PICTURE,
+                "" + MarkorContextUtils.REQUEST_FILE_EDIT,
                 "" + MarkorContextUtils.REQUEST_RECORD_AUDIO
         );
 
@@ -320,8 +321,11 @@ public class AttachLinkOrFileDialog {
                     final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
                     if (rel.isFile()) {
                         shu.requestFileEdit(activity, rel);
+                        break;
                     }
                 }
+
+                shu.requestFileEdit(activity, null);
                 break;
             }
             case AUDIO_RECORDING: {

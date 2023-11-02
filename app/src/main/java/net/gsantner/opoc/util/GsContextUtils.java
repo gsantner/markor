@@ -187,6 +187,7 @@ public class GsContextUtils {
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
     public final static int REQUEST_RECORD_AUDIO = 50006;
+    public final static int REQUEST_FILE_EDIT = 50007;
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
@@ -1826,6 +1827,10 @@ public class GsContextUtils {
 
                 return picturePath;
             }
+            case REQUEST_FILE_EDIT: {
+                sendLocalBroadcastWithStringExtra(context, REQUEST_FILE_EDIT + "", EXTRA_FILEPATH, null);
+                break;
+            }
             case REQUEST_RECORD_AUDIO: {
                 String audioPath = null;
                 if (resultCode == Activity.RESULT_OK && intent != null) {
@@ -1911,14 +1916,23 @@ public class GsContextUtils {
      * @param file File that should be edited
      */
     public void requestFileEdit(final Context context, final File file) {
-        final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
-        final Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        startActivity(context, intent);
+        if (file != null) {
+            final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
+            final Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
+            try {
+                // Bogus, ACTION_EDIT doesn't have a result, this is to unregister the broadcast.
+                ((Activity) context).startActivityForResult(intent, REQUEST_FILE_EDIT);
+            } catch (Exception ignored) {
+            }
+        } else {
+            // Unregister the broadcast.
+            sendLocalBroadcastWithStringExtra(context, REQUEST_FILE_EDIT + "", EXTRA_FILEPATH, null);
+        }
     }
 
     /**
