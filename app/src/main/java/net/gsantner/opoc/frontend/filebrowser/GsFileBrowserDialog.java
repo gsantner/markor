@@ -208,6 +208,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     @Override
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
+        onFsViewerDismissed();
         GsContextUtils.instance.showSoftKeyboard(getActivity(), false, _searchEdit);
     }
 
@@ -226,6 +227,13 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         dopt.callback = (name) -> _filesystemViewerAdapter.createDirectoryHere(name, true);
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    @Override
+    public void onFsViewerDismissed() {
+        if (_callback != null) {
+            _callback.onFsViewerDismissed();
+        }
     }
 
     @Override

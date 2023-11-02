@@ -173,6 +173,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         }
     }
 
+    @Override
+    public void onFsViewerDismissed() {
+        if (_callback != null) {
+            _callback.onFsViewerDismissed();
+        }
+    }
 
     @Override
     public void onFsViewerSelected(String request, File file, final Integer lineNumber) {

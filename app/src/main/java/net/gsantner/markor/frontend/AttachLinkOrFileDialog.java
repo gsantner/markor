@@ -348,6 +348,11 @@ public class AttachLinkOrFileDialog {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.rootFolder = currentFile.getParentFile();
                         }
+
+                        @Override
+                        public void onFsViewerDismissed() {
+                            LocalBroadcastManager.getInstance(activity).unregisterReceiver(br);
+                        }
                     };
 
                     final FragmentManager f = ((AppCompatActivity) activity).getSupportFragmentManager();
