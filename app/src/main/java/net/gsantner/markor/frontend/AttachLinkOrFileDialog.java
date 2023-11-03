@@ -69,7 +69,11 @@ public class AttachLinkOrFileDialog {
     }
 
     private static String getAudioFormat(final int textFormatId) {
-        return "<audio src='LINK' controls><a href='LINK'>TITLE</a></audio>";
+        if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+            return "[[LINK|TITLE]]";
+        } else {
+            return "<audio src='LINK' controls><a href='LINK'>TITLE</a></audio>";
+        }
     }
 
     public static void showInsertImageOrLinkDialog(
