@@ -6,6 +6,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -90,7 +91,8 @@ public class WikitextLinkResolver {
         if (_shouldDynamicallyDetermineRoot) {
             _notebookRootDir = findNotebookRootDir(_currentPage);
             if (_notebookRootDir == null) {
-                return null;
+                // try the current directory as a possible notebook root dir
+                _notebookRootDir = _currentPage.getParentFile();
             }
         }
 
@@ -107,7 +109,10 @@ public class WikitextLinkResolver {
             return findFirstPageTraversingUpToRoot(_currentPage, relativeLinkToCheck);
         }
 
-        return wikitextPath; // just return the original path in case the link cannot be resolved (might be a URL)
+        // Try to resolve the path as relative to the wiki page's attachment directory.
+        // Return an absolute path, or the original path in case it cannot be resolved,
+        // it might be a URL.
+        return resolveAttachmentPath(wikitextPath, _notebookRootDir, _currentPage, _shouldDynamicallyDetermineRoot);
     }
 
     private String stripInnerPageReference(String wikitextPath) {
@@ -276,5 +281,48 @@ public class WikitextLinkResolver {
         }
 
         return file.toString();
+    }
+
+    /**
+     * Return a wiki attachment's path as system absolute path.<p></p>
+     *
+     * <p> If {@code path} can be resolved as a relative path to the
+     * {@code currentPage}'s Attachment Directory, return the result
+     * of {@code path} as a system absolute path.  Otherwise, return
+     * the original {@code path}.</p><p></p>
+     *
+     * <p> Here, a difference from Zim is to always consider as Root
+     * Directory the {@code currentPage}'s directory before anything
+     * else.</p>
+     *
+     * @param path Path that might be relative to the {@code currentPage}'s Attachment Directory.
+     * @param notebookRootDir Root Directory when {@code shouldDynamicallyDetermineRoot == false}.
+     * @param currentPage Current wiki file's path used to determine the current Attachment Directory.
+     * @param shouldDynamicallyDetermineRoot If {@code true}, the Root Directory is the closest ancestor
+     * of the {@code currentPage} with a notebook.zim file in it, or the {@code currentPage}'s directory
+     * on failure.  If {@code false}, the Root Directory is {@code notebookRootDir}.  In either cases, a
+     * {@code currentPage}'s directory is always considered as Root Directory before anything else.
+     * @return {@code path} as a system absolute path, if it can be resolved as a relative path to the
+     * {@code currentPage}'s Attachment Directory, or the original {@code path} otherwise.
+     *
+     * @see WikitextLinkResolver#findAttachmentDir(File)
+     * @see WikitextLinkResolver#resolveSystemFilePath(File, File, File, boolean)
+     */
+    public static String resolveAttachmentPath(String path, File notebookRootDir, File currentPage, boolean shouldDynamicallyDetermineRoot) {
+        if (path.startsWith("./") || path.startsWith("../")) {
+            final File attachmentDir = findAttachmentDir(currentPage);
+            final File file = new File(attachmentDir, path).getAbsoluteFile();
+            final String resolved = resolveSystemFilePath(file, notebookRootDir, currentPage, shouldDynamicallyDetermineRoot);
+
+            if (path.equals(resolved)) {
+                try {
+                    return file.getCanonicalPath();
+                } catch (IOException e) {
+                    return file.toString();
+                }
+            }
+        }
+
+        return path;
     }
 }
