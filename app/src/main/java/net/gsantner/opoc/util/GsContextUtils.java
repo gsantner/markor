@@ -1832,13 +1832,18 @@ public class GsContextUtils {
                 break;
             }
             case REQUEST_RECORD_AUDIO: {
-                final Uri uri = intent.getData();
-                final String uriPath = uri.getPath();
-                final String ext = uriPath.substring(uriPath.lastIndexOf("."));
-                final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
-                final File temp = new File(context.getCacheDir(), datestr + ext);
-                GsFileUtils.copyUriToFile(context, uri, temp);
-                sendLocalBroadcastWithStringExtra(context, REQUEST_RECORD_AUDIO + "", EXTRA_FILEPATH, temp.getAbsolutePath());
+                String audioPath = null;
+                if (resultCode == Activity.RESULT_OK && intent != null) {
+                    final Uri uri = intent.getData();
+                    final String uriPath = uri.getPath();
+                    final String ext = uriPath.substring(uriPath.lastIndexOf("."));
+                    final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
+                    final File temp = new File(context.getCacheDir(), datestr + ext);
+                    GsFileUtils.copyUriToFile(context, uri, temp);
+                    audioPath = temp.getAbsolutePath();
+                }
+                sendLocalBroadcastWithStringExtra(context, REQUEST_RECORD_AUDIO + "", EXTRA_FILEPATH, audioPath);
+                break;
             }
             case REQUEST_SAF: {
                 if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
