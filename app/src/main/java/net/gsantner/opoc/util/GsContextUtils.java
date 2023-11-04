@@ -1823,7 +1823,7 @@ public class GsContextUtils {
 
                     // Return path to picture on success, else null
                     if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
+                        sendLocalBroadcastWithStringExtra(context, REQUEST_PICK_PICTURE + "", EXTRA_FILEPATH, picturePath);
                     }
 
                     return picturePath;
