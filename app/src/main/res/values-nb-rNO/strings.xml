@@ -29,7 +29,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="move">Flytt</string>
     <string name="copy">Kopier</string>
     <string name="info">Info</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">Fil/mappe eksisterer allerede! Vennligst velg et annet navn</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">Filen/mappen finnes allerede! Vennligst velg et annet navn</string>
     <string name="import_from_device">Importer fra enhet</string>
     <string name="import_">Importer</string>
     <string name="append_to_witharg">Tilføy %s</string>
@@ -92,7 +92,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="exit">Avslutt</string>
     <string name="undo">Angre</string>
     <string name="redo">Gjenta</string>
-    <string name="more">Mor</string>
+    <string name="more">Mer</string>
     <string name="notebook">Notatblokk</string>
     <string name="help">Hjelp</string>
     <string name="todo_list">Gjøremålsliste</string>
@@ -254,7 +254,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">Preset</string>
     <string name="foreground">Forgrunn</string>
     <string name="background">Bakgrunn</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Sett forgrunn eller bakgrunnsfarge på tekst? Det er også mulig å sette inn heksadesimale fargekoder</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Vil du velge forgrunns- eller bakgrunnsfarge på tekst? Det er også mulig å sette inn heksadesimale fargekoder.</string>
     <string name="type">Type:</string>
     <string name="folder">Mappe</string>
     <string name="folder_is_created_without_extension">- Mappen ble opprettet uten filtype</string>
@@ -284,7 +284,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="appdata_private">Appdata (privat)</string>
     <string name="appdata_sdcard">Appdata (SD kort)</string>
     <string name="internal_storage">Intern lagring</string>
-    <string name="open_the_document_from_main_view">Du kan åpne dokumentet fra hovedvisning på bunnen, filbrowseren eller startsiden. Det er også mulig å legge til tekst delt inn i Markor.</string>
+    <string name="open_the_document_from_main_view">Du kan åpne dokumentet fra hovedvisningen på bunnen, filutforskeren, eller startsiden. Det er også mulig å legge til tekst delt inn i Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook er mappen som Markor laster i filbrowseren når appen starter. Det er startmappen for filene.</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote er det raskeste alternativet for å skrive ned notater. Det er en fil i Markdown format med standard plassering &gt;Notebook/QuickNote. d&lt;, du kan angi en egendefinert filstien i innstillingene.</string>
     <string name="todo_is_the_easiest_way_">Administrere oppgavene med ToDo. Det er en fil i todo.txt format med standardplassering &gt;Notebook/todo. xt&lt;, du kan angi en egendefinert filbane i innstillingene.</string>
@@ -307,7 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Bryt ord</string>
-    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Myk pause hvis tekst ikke passer til skjermens bredde. Elsk aktiver horisontal scrolling.</string>
+    <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Bryt tekst hvis teksten ikke passer inn i skjermbredde. Hvis satt til av, benyttes loddrett skrolling.</string>
     <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
