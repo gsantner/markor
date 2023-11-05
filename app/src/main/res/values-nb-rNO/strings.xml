@@ -227,8 +227,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag forblir, rød understreking blir borte.</string>
     <string name="location">Plassering</string>
     <string name="text_lines">Tekstlinjer</string>
-    <string name="text_characters">Tekstbokstaver</string>
-    <string name="text_words">Tekst ord</string>
+    <string name="text_characters">Teksttegn</string>
+    <string name="text_words">Tekstord</string>
     <string name="directory">Mappe</string>
     <string name="recently_viewed_documents">Nylig viste dokumenter</string>
     <string name="details">Detaljer</string>
@@ -243,14 +243,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="math">Matte</string>
     <string name="enter_yaml_front_matter_attributes_to_show">Vis angitt YAML Front Matter-attributter på viste dokumenter. Angi nøkler adskilt med komma. La stå tomt for ingen eller bruk \'*\' for alle. \n\nHvis noen attributt er definert i dokumentet (dvs. title: \'Hei\') og det er {{ post.title }} i dokumentet ditt også erstattet. Du kan gjøre en egendefinert Front Matter overskrift på denne måten.</string>
     <string name="table_of_contents">Innholdsfortegnelse</string>
-    <string name="miscellaneous">Ymse</string>
+    <string name="miscellaneous">Diverse</string>
     <string name="prefer_view">Foretrekk utsikt</string>
     <string name="no_calendar_app_is_installed">Ingen kalenderapp installert!</string>
     <string name="popular_documents">Populære dokumenter</string>
     <string name="color">Farge</string>
     <string name="zero_width_space">Null bredde område</string>
     <string name="basic_color_scheme">Grunnleggende fargevalg</string>
-    <string name="background_foreground_color_in_editor_works_dark_light">Endrer bakgrunn og forgrunnsfarge i tekstbehandleren. Justerer app tema så tilgjengelig for lys og mørkt tema. Syntaksutheving er de samme som før.</string>
+    <string name="background_foreground_color_in_editor_works_dark_light">Endrer bakgrunn og forgrunnsfarge i tekstbehandleren. Tilpasser seg til apptemaet, og er dermed tilgjengelig i lyst og mørkt tema. Syntaksutheving er de samme som før.</string>
     <string name="preset">Preset</string>
     <string name="foreground">Forgrunn</string>
     <string name="background">Bakgrunn</string>
@@ -286,8 +286,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="internal_storage">Intern lagring</string>
     <string name="open_the_document_from_main_view">Du kan åpne dokumentet fra hovedvisningen på bunnen, filutforskeren, eller startsiden. Det er også mulig å legge til tekst delt inn i Markor.</string>
     <string name="notebook_is_the_home_of_your_files">Notebook er mappen som Markor laster i filbrowseren når appen starter. Det er startmappen for filene.</string>
-    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote er det raskeste alternativet for å skrive ned notater. Det er en fil i Markdown format med standard plassering &gt;Notebook/QuickNote. d&lt;, du kan angi en egendefinert filstien i innstillingene.</string>
-    <string name="todo_is_the_easiest_way_">Administrere oppgavene med ToDo. Det er en fil i todo.txt format med standardplassering &gt;Notebook/todo. xt&lt;, du kan angi en egendefinert filbane i innstillingene.</string>
+    <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote er det raskeste alternativet for å skrive ned notater. Det er en fil i Markdown-format med standardplasseringen &gt;Notebook/QuickNote.md&lt;, du kan angi en egendefinert filbane i innstillingene.</string>
+    <string name="todo_is_the_easiest_way_">Administrer oppgavene med To-Do. Det er en fil i «todo.txt»-format med standardplasseringen &gt;Notebook/todo.txt&lt;, du kan angi en egendefinert filbane i innstillingene.</string>
     <string name="navigationbar_color">Navigasjonsbar farge</string>
     <string name="black">Svart</string>
     <string name="white">Hvit</string>
@@ -303,7 +303,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_start_folder">App startmappe</string>
     <string name="tab_width">Tab width</string>
     <string name="amount_of_space_for_tab">Antall mellomrom som skal vises i en fane</string>
-    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valgte filen kan være en klartekst fil. Vil du åpne den i editoren eller i en annen app?\n\nVil du ikke prøve å åpne binære filer. Hvis du er usikker, åpne med annen app.</string>
+    <string name="selected_file_may_be_a_textfile_want_to_open_in_editor">Den valgte filen kan være en ren tekst-fil. Vil du åpne den i redigereren eller i en annen app?\n\n Ikke prøv å åpne binære filer. Hvis du er usikker, åpne med annen app.</string>
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Bryt ord</string>
@@ -382,7 +382,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_description_format">Format for filbeskrivelse</string>
     <string name="file_description_format_dialog">Formatet for beskrivelsen under hver fil i filnettleser. Følg reglene for Android, SimpleDateFormat med tillegg av FS for å vise filstørrelse. La være blank for å bruke standardformat for din lokalitet.\n\nEksempel input:\nFS yyyy MMM dd ht:mm:ss aa\nUtdataformat:\n30 KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">Laster inn standardverdi</string>
-    <string name="file_settings">Fil innstillinger</string>
+    <string name="file_settings">Filinnstillinger</string>
     <string name="search_and_replace">Søk / erstatt</string>
     <string name="search_for">Søk etter</string>
     <string name="replace_with">Erstatt med</string>
@@ -433,5 +433,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Del inn - format</string>
     <string name="auto_format">Autokoformater</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="document_error_clip">Oppnådd tekst: kopiert til utklippstavlen.</string>
+    <string name="document_error_clip">En feil oppstod: Teksten ble kopiert til utklippstavlen.</string>
 </resources>
