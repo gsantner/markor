@@ -143,8 +143,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -162,8 +160,6 @@ public class GsContextUtils {
     //## Constructor
     //########################
     public static final GsContextUtils instance = new GsContextUtils();
-
-    private static String _authority = null;
 
     public GsContextUtils() {
     }
@@ -1083,15 +1079,12 @@ public class GsContextUtils {
     }
 
     public String getFileProvider(final Context context) {
-        if (_authority == null) {
-            for (final ProviderInfo info : getProvidersInfos(context)) {
-                if (info.name.matches("(?i).*fileprovider.*")) {
-                    _authority = info.authority;
-                    break;
-                }
+        for (final ProviderInfo info : getProvidersInfos(context)) {
+            if (info.name.matches("(?i).*fileprovider.*")) {
+                return info.authority;
             }
         }
-        return _authority;
+        throw new RuntimeException("Error at GsContextUtils::getFileProviderAuthority(context): No FileProvider authority setup");
     }
 
     /**
@@ -1129,28 +1122,9 @@ public class GsContextUtils {
     }
 
 
-    public String getFileProviderAuthority(final Context context) {
-        final String provider = getFileProvider(context);
-        if (TextUtils.isEmpty(provider)) {
-            throw new RuntimeException("Error at GsContextUtils::getFileProviderAuthority(context): No FileProvider authority setup");
-        }
-        return provider;
-    }
-
-
     public <T extends GsContextUtils> T setChooserTitle(final String title) {
         m_chooserTitle = title;
         return thisp();
-    }
-
-    /**
-     * Convert a {@link File} to an {@link Uri}
-     *
-     * @param file the file
-     * @return Uri for this file
-     */
-    public Uri getUriByFileProviderAuthority(final Context context, final File file) {
-        return FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
     }
 
     /**
@@ -1250,7 +1224,7 @@ public class GsContextUtils {
         intent.setType(mimeType);
 
         try {
-            Uri fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
+            final Uri fileUri = FileProvider.getUriForFile(context, getFileProvider(context), file);
             intent.putExtra(Intent.EXTRA_STREAM, fileUri);
             showChooser(context, intent, null);
             return true;
@@ -1269,7 +1243,7 @@ public class GsContextUtils {
         ArrayList<Uri> uris = new ArrayList<>();
         for (File file : files) {
             File uri = new File(file.toString());
-            uris.add(FileProvider.getUriForFile(context, getFileProviderAuthority(context), file));
+            uris.add(FileProvider.getUriForFile(context, getFileProvider(context), file));
         }
 
         try {
@@ -1338,7 +1312,7 @@ public class GsContextUtils {
         // On some specific devices the first won't work
         Uri fileUri = null;
         try {
-            fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
+            fileUri = FileProvider.getUriForFile(context, getFileProvider(context), file);
         } catch (Exception ignored) {
             try {
                 fileUri = Uri.fromFile(file);
@@ -1375,7 +1349,7 @@ public class GsContextUtils {
 
         Uri fileUri = null;
         try {
-            fileUri = FileProvider.getUriForFile(context, getFileProviderAuthority(context), file);
+            fileUri = FileProvider.getUriForFile(context, getFileProvider(context), file);
         } catch (Exception ignored) {
             try {
                 fileUri = Uri.fromFile(file);
@@ -1778,7 +1752,7 @@ public class GsContextUtils {
                 // Continue only if the File was successfully created
                 final Uri uri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(activity, getFileProviderAuthority(activity), imageTemp);
+                    uri = FileProvider.getUriForFile(activity, getFileProvider(activity), imageTemp);
                 } else {
                     uri = Uri.fromFile(imageTemp);
                 }
@@ -1934,18 +1908,19 @@ public class GsContextUtils {
     }
 
     /**
-     * Request edit of image (by image editor/viewer - for example to crop image)
+     * Request edit of file
      *
      * @param file File that should be edited
      */
-    public void requestPictureEdit(final Context context, final File file) {
-        final Uri uri = getUriByFileProviderAuthority(context, file);
+    public void requestFileEdit(final Context context, final File file) {
+        final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
         final Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setDataAndType(uri, "image/*");
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        startActivity(context, Intent.createChooser(intent, null));
+        startActivity(context, intent);
     }
 
     /**
