@@ -316,9 +316,13 @@ public class MarkdownTextConverter extends TextConverterBase {
             }
         }
 
+        if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
+            onLoadJs += "wrapCodeBlockWords();";
+        }
+
         if (enableLineNumbers) {
             // For Prism line numbers plugin
-            onLoadJs = "enableLineNumbers();adjustLineNumbers();";
+            onLoadJs += "enableLineNumbers();adjustLineNumbers();";
         }
 
         // Deliver result
@@ -364,6 +368,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
         sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
 
         if (enableLineNumbers) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
