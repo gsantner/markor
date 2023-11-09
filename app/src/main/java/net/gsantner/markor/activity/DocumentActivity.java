@@ -80,9 +80,10 @@ public class DocumentActivity extends MarkorBaseActivity {
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
 
+
     public static void handleFileClick(Activity activity, File file, Integer lineNumber) {
-        if (activity != null && file != null) {
-            if (FormatRegistry.isFileSupported(file)) {
+        if (activity != null && file != null && file.canRead()) {
+            if (FormatRegistry.isFileSupported(file) || file.isDirectory()) {
                 launch(activity, file, null, null, lineNumber);
             } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
                 GsContextUtils.instance.requestApkInstallation(activity, file);
