@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
+import java.util.UUID;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
 public final class TextViewUtils extends GsTextUtils {
@@ -423,6 +424,10 @@ public final class TextViewUtils extends GsTextUtils {
                 .replace("{{title}}", title)
                 .replace("{{sel}}", selectedText)
                 .replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+
+        while (text.contains("{{uuid}}")) {
+            text = text.replaceFirst("\\{\\{uuid\\}\\}", UUID.randomUUID().toString());
+        }
 
         return interpolateEscapedDateTime(text);
     }
