@@ -81,16 +81,20 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public static void handleFileClick(Activity activity, File file, Integer lineNumber) {
-        if (activity != null && file != null) {
-            final boolean readableDirectory = file.isDirectory() && file.canRead();
-            final boolean creatableFile = FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file);
-            if (readableDirectory || creatableFile) {
+        if (activity == null || file == null) {
+            return;
+        }
+
+        if (file.isDirectory()) {
+            if (file.canRead()) {
                 launch(activity, file, null, null, lineNumber);
-            } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
-                GsContextUtils.instance.requestApkInstallation(activity, file);
-            } else {
-                askUserIfWantsToOpenFileInThisApp(activity, file);
             }
+        } else if (FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file)) {
+            launch(activity, file, null, null, lineNumber);
+        } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+            GsContextUtils.instance.requestApkInstallation(activity, file);
+        } else {
+            askUserIfWantsToOpenFileInThisApp(activity, file);
         }
     }
 
