@@ -591,6 +591,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     }
                 }
             }
+
+            @Override
+            public void onFsViewerCancel(final String request) {
+                super.onFsViewerCancel(request);
+                _filesystemViewerAdapter.reloadCurrentFolder(); // May be new folders
+            }
         }, getChildFragmentManager(), getActivity());
     }
 
