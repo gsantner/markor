@@ -7,4 +7,5 @@ pre[class*="language-"] {
 pre[class*="language-"] > code {
     position: relative;
     white-space: inherit;
+    overflow-wrap: inherit;
 }
