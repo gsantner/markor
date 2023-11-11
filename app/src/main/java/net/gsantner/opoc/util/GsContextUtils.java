@@ -190,7 +190,8 @@ public class GsContextUtils {
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
-    protected static String _lastCameraPictureFilepath;
+    protected static String _lastCameraPictureFilepath = null;
+    protected static GsCallback.a1<String> _receivePathCallback = null;
     protected static String m_chooserTitle = "➥";
 
 
@@ -1705,19 +1706,21 @@ public class GsContextUtils {
      * It will return the path to the image if locally stored. If retrieved from e.g. a cloud
      * service, the image will get copied to app-cache folder and it's path returned.
      */
-    public void requestGalleryPicture(final Activity activity) {
+    public void requestGalleryPicture(final Activity activity, GsCallback.a1<String> callback) {
         final Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         try {
             activity.startActivityForResult(intent, REQUEST_PICK_PICTURE);
+            _receivePathCallback = callback;
         } catch (Exception ex) {
             Toast.makeText(activity, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public boolean requestAudioRecording(final Activity activity) {
+    public boolean requestAudioRecording(final Activity activity, final GsCallback.a1<String> callback) {
         final Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         try {
             activity.startActivityForResult(intent, REQUEST_RECORD_AUDIO);
+            _receivePathCallback = callback;
             return true;
         } catch (Exception ignored) {
         }
@@ -1738,7 +1741,7 @@ public class GsContextUtils {
      * returns null if an error happened.
      *
      */
-    public void requestCameraPicture(final Activity activity) {
+    public void requestCameraPicture(final Activity activity, GsCallback.a1<String> callback) {
         try {
             final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             final File picDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -1755,27 +1758,33 @@ public class GsContextUtils {
                     uri = Uri.fromFile(imageTemp);
                 }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri).putExtra(Intent.EXTRA_RETURN_RESULT, true);
-                _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
                 activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
+                _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
+                _receivePathCallback = callback;
             }
         } catch (IOException ignored) {
         }
     }
 
+    private void sendPathCallback(final String path) {
+        if (!GsTextUtils.isNullOrEmpty(path) && _receivePathCallback != null) {
+            _receivePathCallback.callback(path);
+        }
+        // Send only once and once only
+        _receivePathCallback = null;
+    }
+
     /**
      * Extract result data from {@link Activity}.onActivityResult.
      * Forward all arguments from context. Only requestCodes as implemented in {@link GsContextUtils} are analyzed.
-     * Also may forward results via local broadcast
+     * Also may forward results via callback
      */
     @SuppressLint("ApplySharedPref")
-    public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent intent) {
+    public void extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent intent) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
-                final String picturePath = (resultCode == Activity.RESULT_OK) ? _lastCameraPictureFilepath : null;
-                if (picturePath != null) {
-                    sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                }
-                return picturePath;
+                sendPathCallback(resultCode == Activity.RESULT_OK ? _lastCameraPictureFilepath : null);
+                break;
             }
             case REQUEST_PICK_PICTURE: {
                 if (resultCode == Activity.RESULT_OK && intent != null) {
@@ -1823,22 +1832,21 @@ public class GsContextUtils {
                     }
 
                     // Return path to picture on success, else null
-                    if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                    }
-
-                    return picturePath;
+                    sendPathCallback(picturePath);
                 }
                 break;
             }
             case REQUEST_RECORD_AUDIO: {
-                final Uri uri = intent.getData();
-                final String uriPath = uri.getPath();
-                final String ext = uriPath.substring(uriPath.lastIndexOf("."));
-                final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
-                final File temp = new File(context.getCacheDir(), datestr + ext);
-                GsFileUtils.copyUriToFile(context, uri, temp);
-                sendLocalBroadcastWithStringExtra(context, REQUEST_RECORD_AUDIO + "", EXTRA_FILEPATH, temp.getAbsolutePath());
+                if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
+                    final Uri uri = intent.getData();
+                    final String uriPath = uri.getPath();
+                    final String ext = uriPath.substring(uriPath.lastIndexOf("."));
+                    final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
+                    final File temp = new File(context.getCacheDir(), datestr + ext);
+                    GsFileUtils.copyUriToFile(context, uri, temp);
+                    sendPathCallback(temp.getAbsolutePath());
+                }
+                break;
             }
             case REQUEST_SAF: {
                 if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
@@ -1852,16 +1860,15 @@ public class GsContextUtils {
                             resolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         }
                     }
-                    return treeUri;
                 }
                 break;
             }
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
-                return checkExternalStoragePermission(context);
+                checkExternalStoragePermission(context);
+                break;
             }
         }
-        return null;
     }
 
     /**

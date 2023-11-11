@@ -32,6 +32,7 @@ import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -231,7 +232,7 @@ public class AttachLinkOrFileDialog {
 
         // Title, path to be written when the user hits accept
         final GsCallback.a2<String, String> insertLink = (title, path) -> {
-            if (TextViewUtils.isNullOrEmpty(path)) {
+            if (GsTextUtils.isNullOrEmpty(path)) {
                 return;
             }
 
@@ -259,7 +260,18 @@ public class AttachLinkOrFileDialog {
             }
         };
 
-        final GsCallback.a1<File> insertFileLink = (file) -> {
+        // Pull dialog elements
+        final EditText nameEdit, pathEdit;
+        if (dialog != null) {
+            nameEdit = dialog.findViewById(R.id.ui__select_path_dialog__name);
+            pathEdit = dialog.findViewById(R.id.ui__select_path_dialog__url);
+        } else {
+            nameEdit = pathEdit = null;
+        }
+
+        final GsCallback.a1<String> insertFileLink = (path) -> {
+            File file = new File(path);
+
             // If path is not under notebook, copy it to the res folder
             if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
                 final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
@@ -267,38 +279,30 @@ public class AttachLinkOrFileDialog {
                 GsFileUtils.copyFile(file, local);
                 file = local;
             }
-            final String title = GsFileUtils.getFilenameWithoutExtension(file);
-            final String path = GsFileUtils.relativePath(currentFile, file);
-            insertLink.callback(title, path);
+
+            // Pull the appropriate title
+            String title = "";
+            if (nameEdit != null) {
+                title = nameEdit.getText().toString();
+            }
+
+            if (GsTextUtils.isNullOrEmpty(title)) {
+                title = GsFileUtils.getFilenameWithoutExtension(file);
+            }
+
+            insertLink.callback(title, GsFileUtils.relativePath(currentFile, file));
         };
 
-        final MarkorContextUtils shu = new MarkorContextUtils(activity);
-        final BroadcastReceiver br = shu.receiveResultFromLocalBroadcast(
-                activity,
-                (intent, _br) -> insertFileLink.callback(new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH))),
-                true,
-                "" + MarkorContextUtils.REQUEST_CAMERA_PICTURE,
-                "" + MarkorContextUtils.REQUEST_PICK_PICTURE,
-                "" + MarkorContextUtils.REQUEST_RECORD_AUDIO
-        );
-
-        final EditText nameEdit, pathEdit;
-        if (dialog != null) {
-            nameEdit = dialog.findViewById(R.id.ui__select_path_dialog__name);
-            pathEdit = dialog.findViewById(R.id.ui__select_path_dialog__url);
-            dialog.setOnDismissListener(d -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(br));
-        } else {
-            nameEdit = pathEdit = null;
-        }
+        final MarkorContextUtils cu = new MarkorContextUtils(activity);
 
         // Do each thing as necessary
         switch (action) {
             case IMAGE_CAMERA: {
-                shu.requestCameraPicture(activity);
+                cu.requestCameraPicture(activity, insertFileLink);
                 break;
             }
             case IMAGE_GALLERY: {
-                shu.requestGalleryPicture(activity);
+                cu.requestGalleryPicture(activity, insertFileLink);
                 break;
             }
             case IMAGE_EDIT: {
@@ -307,19 +311,19 @@ public class AttachLinkOrFileDialog {
 
                     final File abs = new File(path).getAbsoluteFile();
                     if (abs.isFile()) {
-                        shu.requestFileEdit(activity, abs);
+                        cu.requestFileEdit(activity, abs);
                         break;
                     }
 
                     final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
                     if (rel.isFile()) {
-                        shu.requestFileEdit(activity, rel);
+                        cu.requestFileEdit(activity, rel);
                     }
                 }
                 break;
             }
             case AUDIO_RECORDING: {
-                if (!shu.requestAudioRecording(activity)) {
+                if (!cu.requestAudioRecording(activity, insertFileLink)) {
                     GsAudioRecordOmDialog.showAudioRecordDialog(activity, R.string.record_audio, insertFileLink);
                 }
                 break;
@@ -333,7 +337,7 @@ public class AttachLinkOrFileDialog {
                         public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
                             pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
 
-                            if (TextViewUtils.isNullOrEmpty(nameEdit.getText())) {
+                            if (GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
                                 nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
                             }
                         }

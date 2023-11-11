@@ -58,7 +58,7 @@ import omrecorder.Recorder;
 //
 @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
 public class GsAudioRecordOmDialog {
-    public static void showAudioRecordDialog(final Activity activity, @StringRes final int titleResId, final GsCallback.a1<File> recordFinishedCallbackWithPathToTemporaryFile) {
+    public static void showAudioRecordDialog(final Activity activity, @StringRes final int titleResId, final GsCallback.a1<String> recordFinishedCallbackWithPathToTemporaryFile) {
         ////////////////////////////////////
         // Request permission in case not granted. Do not show dialog UI in this case
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -181,7 +181,7 @@ public class GsAudioRecordOmDialog {
                         TMP_FILE_RECORDING.delete();
                     }
                 } else if (recordFinishedCallbackWithPathToTemporaryFile != null) {
-                    recordFinishedCallbackWithPathToTemporaryFile.callback(TMP_FILE_RECORDING);
+                    recordFinishedCallbackWithPathToTemporaryFile.callback(TMP_FILE_RECORDING.getAbsolutePath());
                 }
             }
             dialogInterface.dismiss();
