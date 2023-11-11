@@ -39,7 +39,7 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class TextViewUtils extends GsTextUtils {
+public final class TextViewUtils {
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {
