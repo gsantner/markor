@@ -259,15 +259,6 @@ public class AttachLinkOrFileDialog {
             }
         };
 
-        // Pull dialog elements
-        final EditText nameEdit, pathEdit;
-        if (dialog != null) {
-            nameEdit = dialog.findViewById(R.id.ui__select_path_dialog__name);
-            pathEdit = dialog.findViewById(R.id.ui__select_path_dialog__url);
-        } else {
-            nameEdit = pathEdit = null;
-        }
-
         final GsCallback.a1<File> insertFileLink = (file) -> {
             // If path is not under notebook, copy it to the res folder
             if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
@@ -276,20 +267,13 @@ public class AttachLinkOrFileDialog {
                 GsFileUtils.copyFile(file, local);
                 file = local;
             }
-
-            final String title;
-            if (nameEdit != null) {
-                title = nameEdit.getText().toString();
-            } else {
-                title = GsFileUtils.getFilenameWithoutExtension(file);
-            }
-
+            final String title = GsFileUtils.getFilenameWithoutExtension(file);
             final String path = GsFileUtils.relativePath(currentFile, file);
             insertLink.callback(title, path);
         };
 
         final MarkorContextUtils shu = new MarkorContextUtils(activity);
-        final BroadcastReceiver receiver = shu.receiveResultFromLocalBroadcast(
+        final BroadcastReceiver br = shu.receiveResultFromLocalBroadcast(
                 activity,
                 (intent, _br) -> insertFileLink.callback(new File(intent.getStringExtra(MarkorContextUtils.EXTRA_FILEPATH))),
                 true,
@@ -298,8 +282,13 @@ public class AttachLinkOrFileDialog {
                 "" + MarkorContextUtils.REQUEST_RECORD_AUDIO
         );
 
+        final EditText nameEdit, pathEdit;
         if (dialog != null) {
-            dialog.setOnDismissListener(d -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(receiver));
+            nameEdit = dialog.findViewById(R.id.ui__select_path_dialog__name);
+            pathEdit = dialog.findViewById(R.id.ui__select_path_dialog__url);
+            dialog.setOnDismissListener(d -> LocalBroadcastManager.getInstance(activity).unregisterReceiver(br));
+        } else {
+            nameEdit = pathEdit = null;
         }
 
         // Do each thing as necessary
