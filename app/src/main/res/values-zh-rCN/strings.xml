@@ -441,7 +441,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">为了跟随维基链接，动态地搜索notbook.zim文件来识别当前笔记本的根目录。 如果您使用多个zim笔记本或者应用程序中的笔记本目录与您的zim笔记本不对应，请选中此项。</string>
     <string name="share_into_format_prefix_for_text_shared">分享到 Markor 的文本的格式/前缀。遵循 Android 的 SimpleDateFormat 规则。\n\n使用占位符 {{text}} 来放置分享的文本。如果未指定，分享的文本将附加在最后，格式为前缀。</string>
     <string name="share_into_format">分享到 - 格式</string>
-    <string name="attachment_folder_name">附加文件夹名</string>
+    <string name="attachment_folder_name">附件文件夹名</string>
     <string name="attachment_folder_name_desc">当前文件夹下保存附件的子文件夹。如留空，附件将被保存在当前文件夹中。</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>

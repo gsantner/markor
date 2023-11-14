@@ -728,7 +728,10 @@ public final class TextViewUtils extends GsTextUtils {
     // Check if keyboard open. Only available after android 11 :(
     public static Boolean isImeOpen(final View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return view.getRootWindowInsets().isVisible(WindowInsets.Type.ime());
+            final WindowInsets insets = view.getRootWindowInsets();
+            if (insets != null) {
+                insets.isVisible(WindowInsets.Type.ime());
+            }
         }
         return null; // Uncertain
     }

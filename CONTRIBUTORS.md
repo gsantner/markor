@@ -50,3 +50,4 @@ Where:
 * **[Winston Feng](https://github.com/tifish)**<br>~° Support spaces in URL.
 * **[k3b](https://github.com/k3b)**<br>~° Added CSV-Support.
 * **[bigger124](https://github.com/bigger124)**<br>~° Added OrgMode-Support.
+* **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update.
