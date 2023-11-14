@@ -446,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Praeguse kausta alamkaust manuste hoiustamiseks. Kui jääb tühjaks, manused pannakse praegusesse kausta.</string>
     <string name="auto_format">Vorminda sobivalt</string>
     <string name="insert_snippet">Sisesta katkend</string>
+    <string name="snippet_directory">Katkendite ja mallide kataloog</string>
     <string name="error_could_not_open_file">Viga: ei saa faili avatud.</string>
     <string name="document_error_clip">Ilmnes viga: tekst kopeeriti lõikelauale.</string>
     <string name="wont_save_min_length">Alla %d tähemärgiga faile ei salvestata automaatselt vältimaks andmete kadumist.</string>
