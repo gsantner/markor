@@ -62,7 +62,7 @@ public class AttachLinkOrFileDialog {
             return "{{LINK|TITLE}}";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:LINK[TITLE]";
-        } else{
+        } else {
             return "<a href=\"LINK\">TITLE</a>";
         }
     }

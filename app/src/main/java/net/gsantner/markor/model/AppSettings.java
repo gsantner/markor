@@ -935,7 +935,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getString(R.string.pref_key__share_into_format, "\\n----\\n{{text}}");
     }
 
-    public @NonNull File getAttachmentFolder(final File file) {
+    public @NonNull
+    File getAttachmentFolder(final File file) {
         final File parent = file.getParentFile();
         if (parent == null) {
             return getNotebookDirectory();

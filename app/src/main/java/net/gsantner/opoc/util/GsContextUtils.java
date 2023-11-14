@@ -1736,7 +1736,6 @@ public class GsContextUtils {
      * The requested image savepath has to be stored at caller side (not contained in intent),
      * it can be retrieved using {@link #extractResultFromActivityResult(Activity, int, int, Intent)}
      * returns null if an error happened.
-     *
      */
     public void requestCameraPicture(final Activity activity) {
         try {

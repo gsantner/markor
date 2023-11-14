@@ -16,8 +16,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
 
-import androidx.annotation.Nullable;
-
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.BufferedInputStream;
@@ -701,8 +699,8 @@ public class GsFileUtils {
      * This is highly performant as each file is processed exactly once.
      * Inspired by python's sort
      *
-     * @param sortBy   String key of what to sort
-     * @param file     The file object to get the
+     * @param sortBy String key of what to sort
+     * @param file   The file object to get the
      * @return A key which can be used for comparisons / sorting
      */
     private static String makeSortKey(final String sortBy, final File file) {

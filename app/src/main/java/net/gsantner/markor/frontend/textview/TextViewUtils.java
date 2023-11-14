@@ -155,7 +155,9 @@ public final class TextViewUtils extends GsTextUtils {
     }
 
 
-    /** Get lines of text in which sel[0] -> sel[1] is contained **/
+    /**
+     * Get lines of text in which sel[0] -> sel[1] is contained
+     **/
     public static String getSelectedLines(final TextView text, final int... sel) {
         return getSelectedLines(text.getText(), sel);
     }
@@ -164,7 +166,9 @@ public final class TextViewUtils extends GsTextUtils {
         return getSelectedLines(seq, getSelection(seq));
     }
 
-    /** Get lines of text in which sel[0] -> sel[1] is contained **/
+    /**
+     * Get lines of text in which sel[0] -> sel[1] is contained
+     **/
     public static String getSelectedLines(final CharSequence seq, final int... sel) {
         if (sel == null || sel.length == 0) {
             return "";

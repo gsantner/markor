@@ -11,8 +11,6 @@ package net.gsantner.opoc.util;
 
 import android.util.Pair;
 
-import androidx.lifecycle.LifecycleKt;
-
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.util.ArrayList;
