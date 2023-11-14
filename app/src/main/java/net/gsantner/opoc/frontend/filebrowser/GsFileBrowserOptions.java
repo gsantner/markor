@@ -31,7 +31,7 @@ public class GsFileBrowserOptions {
 
         void onFsViewerMultiSelected(final String request, final File... files);
 
-        void onFsViewerNothingSelected(final String request);
+        void onFsViewerCancel(final String request);
 
         void onFsViewerConfig(final Options dopt);
 
@@ -72,7 +72,8 @@ public class GsFileBrowserOptions {
                 homeButtonEnable = true,
                 cancelButtonEnable = true,
                 okButtonEnable = true,
-                newDirButtonEnable = true;
+                newDirButtonEnable = true,
+                dismissAfterCallback = true;
 
         public GsCallback.b2<Context, File> fileOverallFilter = (context, file) -> true;
 
@@ -130,7 +131,7 @@ public class GsFileBrowserOptions {
         }
 
         @Override
-        public void onFsViewerNothingSelected(String request) {
+        public void onFsViewerCancel(String request) {
         }
 
         @Override
