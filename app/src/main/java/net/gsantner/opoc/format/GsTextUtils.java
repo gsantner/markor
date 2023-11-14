@@ -37,21 +37,19 @@ public class GsTextUtils {
      * @param pos  Position to start searching from (backwards)
      * @return Extracted URL or {@code null} if none found
      */
-    public static String tryExtractUrlAroundPos(String text, int pos) {
+    public static String tryExtractUrlAroundPos(final String text, int pos) {
         pos = Math.min(Math.max(0, pos), text.length() - 1);
-        if (pos >= 0 && pos < text.length()) {
-            int begin = Math.max(text.lastIndexOf("https://", pos), text.lastIndexOf("http://", pos));
-            if (begin >= 0) {
-                int end = text.length();
-                for (String check : new String[]{"\n", " ", "\t", "\r", ")", "|"}) {
-                    if ((pos = text.indexOf(check, begin)) > begin && pos < end) {
-                        end = pos;
-                    }
+        int begin = Math.max(text.lastIndexOf("https://", pos), text.lastIndexOf("http://", pos));
+        if (begin >= 0) {
+            int end = text.length();
+            for (final String check : new String[]{"\n", " ", "\t", "\r", ")", "|"}) {
+                if ((pos = text.indexOf(check, begin)) > begin && pos < end) {
+                    end = pos;
                 }
+            }
 
-                if ((end - begin) > 5 && end > 5) {
-                    return text.substring(begin, end).replaceAll("[\\]=%>}]+$", "");
-                }
+            if ((end - begin) > 5) {
+                return text.substring(begin, end).replaceAll("[\\]=%>}]+$", "");
             }
         }
         return null;

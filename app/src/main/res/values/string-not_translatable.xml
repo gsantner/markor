@@ -206,6 +206,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__basic_color_scheme_sepia" translatable="false">pref_key__basic_color_scheme_sepia</string>
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
     <string name="pref_key__is_disallow_screenshots" translatable="false">pref_key__is_disallow_screenshots</string>
+    <string name="pref_key__snippet_directory_path" translatable="false">pref_key__snippet_directory_path</string>
 
     <string name="abid_common_delete_lines" translatable="false">abid_common_delete_lines</string>
     <string name="abid_common_new_line_below" translatable="false">abid_common_new_line_below</string>

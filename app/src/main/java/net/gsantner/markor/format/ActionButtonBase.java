@@ -599,14 +599,17 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(snip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
                     _lastSnip = snip;
                 });
                 return true;
             }
             case R.string.abid_common_open_link_browser: {
-                String url;
-                if ((url = GsTextUtils.tryExtractUrlAroundPos(text.toString(), _hlEditor.getSelectionStart())) != null) {
+                final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+                final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
+                final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
+                String url = GsTextUtils.tryExtractUrlAroundPos(line, cursor);
+                if (url != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
                     }
@@ -689,7 +692,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateEscapedDateTime(_lastSnip));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
                 }
                 return true;
             }
