@@ -192,6 +192,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="folder_first">ପ୍ରଥମେ ଫୋଲ୍ଡର୍</string>
     <string name="internal_storage">ଅନ୍ତର୍ନିହିତ ଷ୍ଟୋରେଜ୍‌</string>
     <string name="open_the_document_from_main_view">ଆପଣ ତଳେଥିବା ମୁଖ୍ୟ ଦର୍ଶନ, ଫାଇଲ୍ ବ୍ରାଉଜର୍ କିମ୍ୱା ଉନ୍ମୋଚକ ରୁ ଡକ୍ୟୁମେଣ୍ଟ୍ ଖୋଲିପାରିବେ। Markorରେ ଅଂଶିଦାରୀ ପାଠ୍ୟ ଯୋଡ଼ିବାର ଏକ ବିକଳ୍ପ ମଧ୍ୟ ଅଛି।</string>
+    <string name="navigationbar_color">ଦିଗଚଳନ ଦଣ୍ଡିକା ରଙ୍ଗ</string>
     <string name="black">କଳା</string>
     <string name="white">ଧଳା</string>
     <string name="view">ଦର୍ଶନ</string>

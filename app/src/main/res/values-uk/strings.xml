@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Вставити зображення</string>
     <string name="contributors">Учасники</string>
     <string name="save_location">Розташування сховища</string>
+    <string name="saved_location_to">Збережено до %s</string>
     <string name="select_storage_folder">Обрати робочу директорію</string>
     <string name="licenses">Ліцензії</string>
     <string name="changelog">Журнал змін</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Показати ліцензії сторонніх компонентів</string>
     <string name="language_change_restart_description">Змінити мову цієї програмки. Перезавантажте застосунок, щоб зміни запрацювали</string>
     <string name="language">Мова</string>
+    <string name="storage_permission_required">Для читання та запису файлів потрібен доступ до накопичувача</string>
     <string name="open_with">Відкрити в</string>
     <string name="sort_by">Сортування</string>
     <string name="date">Дата</string>
@@ -174,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Перемістити виконані задачі до заданого файлу в тій же директорії</string>
     <string name="sort_tasks_by_selected_order">Сортування завдань за обраним порядком</string>
     <string name="special_key">Спеціальна клавіша</string>
+    <string name="asciidoc_special_key">Особливий зміст AsciiDoc</string>
     <string name="key_page_up">До сторінки вище (Page Up)</string>
     <string name="key_page_down">До сторінки нижче (Page Down)</string>
     <string name="move_text_one_line_up">Перемістити текст на один рядок вище</string>
@@ -193,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Зірочка (*)</string>
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor може редагувати лише локальні документи доступні офлайн та не підтримує файлові менеджери, які не надають повний шлях до файлу.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Файл або тека не існують та не можуть бути створені</string>
+    <string name="permissions">Дозволи</string>
+    <string name="permission_paths_revert">Повернути типові шляхи?</string>
+    <string name="permission_not_granted">Дозвіл не надано</string>
     <string name="sync_to_local_folder_notice">Увага: Додатки з синхронізацією можуть розміщувати файли у власних директоріях і ці файли слід відкривати зі зміною директорії документів Markor\'а на відповідну або іншим файловим менеджером.</string>
     <string name="vertical_alignment">Вертикальне вирівнювання</string>
     <string name="horizontal_alignment">Горизонтальне вирівнювання</string>
@@ -307,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Показати в нещодавніх документах</string>
     <string name="reload">Перезавантажити</string>
     <string name="wrap_words">Перенесення рядків</string>
+    <string name="line_numbers">Нумерація рядків</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Додавати м\'які переноси замість відображення смуги горизонтальної прокрутки, коли текст не вміщається у ширину екрану.</string>
     <string name="recursive_search_in_current_directory">Рекурсивний пошук у поточному каталозі.</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
@@ -426,6 +434,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Сьогодні</string>
     <string name="due_future">Термін дії в майбутньому</string>
     <string name="completed">Завершені</string>
+    <string name="advanced_filtering">Розширені фільтри</string>
     <string name="match_any">Збігів</string>
     <string name="match_all">Відповідає всім</string>
     <string name="dynamic_notebook_root_links">Динамічний пошук кореневого блокноту</string>
