@@ -210,7 +210,7 @@ public class NewFileDialog extends DialogFragment {
                 return;
             }
             final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
-            File f = new File(basedir, usedFoldername);
+            final File f = new File(basedir, usedFoldername);
             if (cu.isUnderStorageAccessFolder(getContext(), f, true)) {
                 DocumentFile dof = cu.getDocumentFile(getContext(), f, true);
                 callback(dof != null && dof.exists(), f);

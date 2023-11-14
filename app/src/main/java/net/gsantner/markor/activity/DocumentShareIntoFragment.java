@@ -54,12 +54,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String TEXT_TOKEN = "{{text}}";
 
     public static DocumentShareIntoFragment newInstance(Intent intent) {
-        DocumentShareIntoFragment f = new DocumentShareIntoFragment();
-        Bundle args = new Bundle();
+        final DocumentShareIntoFragment f = new DocumentShareIntoFragment();
+        final Bundle args = new Bundle();
 
         final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
-        Object intentFile = intent.getSerializableExtra(Document.EXTRA_PATH);
+        final Object intentFile = intent.getSerializableExtra(Document.EXTRA_PATH);
         if (intentFile instanceof File && ((File) intentFile).isDirectory()) {
             f.workingDir = (File) intentFile;
         }
@@ -219,12 +219,12 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
+            _appSettings.addRecentDocument(file);
             if (showEditor) {
                 showInDocumentActivity(document);
+            } else {
+                context.finish();
             }
-            _appSettings.addRecentDocument(file);
-
-            context.finish();
         }
 
         private String formatShare(final String shared) {
@@ -264,6 +264,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
             }
+
             MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
@@ -280,23 +281,39 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
 
-        private void createNewDocument() {
-            MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+        private void createSelectNewDocument() {
+            MarkorFileBrowserFactory.showFileDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
+                GsFileBrowserOptions.Options _dopt = null;
+
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                    dopt.rootFolder = (workingDir == null) ? _appSettings.getNotebookDirectory() : workingDir;
+                    dopt.rootFolder = _appSettings.getNotebookDirectory();
+                    dopt.startFolder = workingDir;
+                    dopt.okButtonText = R.string.create_new_document;
+                    dopt.okButtonEnable = true;
+                    dopt.dismissAfterCallback = false;
+                    _dopt = dopt;
                 }
 
                 @Override
-                public void onFsViewerSelected(String request, File dir, final Integer lineNumber) {
-                    NewFileDialog dialog = NewFileDialog.newInstance(dir, false, (ok, f) -> {
-                        if (ok && f.isFile()) {
-                            appendToExistingDocumentAndClose(f, true);
-                        }
-                    });
-                    dialog.show(getActivity().getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                public void onFsViewerSelected(final String request, final File sel, final Integer lineNumber) {
+                    if (sel.isDirectory()) {
+                        NewFileDialog.newInstance(sel, false, (ok, f) -> {
+                            if (ok && f.isFile()) {
+                                appendToExistingDocumentAndClose(f, true);
+                            }
+                        }).show(getChildFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                    } else {
+                        appendToExistingDocumentAndClose(sel, true);
+                    }
                 }
-            }, getFragmentManager(), getActivity());
+
+                @Override
+                public void onFsViewerCancel(final String request) {
+                    // Will cause the dialog to dismiss after this callback
+                    _dopt.dismissAfterCallback = true;
+                }
+            }, getParentFragmentManager(), getActivity(), MarkorFileBrowserFactory.IsMimeText);
         }
 
         private void showInDocumentActivity(final Document document) {
@@ -321,14 +338,13 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     close = true;
                     break;
                 }
-                case R.string.pref_key__share_into__create_document: {
-                    createNewDocument();
+                case R.string.pref_key__select_create_document: {
+                    createSelectNewDocument();
                     return true;
                 }
                 case R.string.pref_key__favourite_files:
                 case R.string.pref_key__popular_documents:
-                case R.string.pref_key__recent_documents:
-                case R.string.pref_key__share_into__existing_document: {
+                case R.string.pref_key__recent_documents: {
                     showAppendDialog(keyId);
                     return true;
                 }
