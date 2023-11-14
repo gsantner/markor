@@ -117,7 +117,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _recyclerList.addItemDecoration(dividerItemDecoration);
         _previousNotebookDirectory = _appSettings.getNotebookDirectory();
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context, _recyclerList);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -160,7 +160,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsViewerNothingSelected(_dopt.requestId);
+                onFsViewerCancel(_dopt.requestId);
                 break;
             }
 
@@ -189,9 +189,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public void onFsViewerNothingSelected(String request) {
+    public void onFsViewerCancel(String request) {
         if (_callback != null) {
-            _callback.onFsViewerNothingSelected(_dopt.requestId);
+            _callback.onFsViewerCancel(_dopt.requestId);
         }
     }
 
@@ -525,7 +525,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     onFsViewerSelected("", load, lineNumber);
                 }
             } else {
-                showFile(load);
+                _filesystemViewerAdapter.showFile(load);
             }
         });
     }
@@ -591,6 +591,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     }
                 }
             }
+
+            @Override
+            public void onFsViewerCancel(final String request) {
+                super.onFsViewerCancel(request);
+                _filesystemViewerAdapter.reloadCurrentFolder(); // May be new folders
+            }
         }, getChildFragmentManager(), getActivity());
     }
 
@@ -640,45 +646,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private void importFileToCurrentDirectory(Context context, File sourceFile) {
         GsFileUtils.copyFile(sourceFile, new File(getCurrentFolder().getAbsolutePath(), sourceFile.getName()));
         Toast.makeText(context, getString(R.string.import_) + ": " + sourceFile.getName(), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-    }
-
-    // Switch to folder and show the file
-    public void showFile(final File file) {
-        final GsFileBrowserListAdapter adapter = getAdapter();
-        if (adapter == null || !file.exists()) {
-            return;
-        }
-
-        final File dir = file.getParentFile();
-        if (dir == null) {
-            return;
-        }
-
-        final File current = adapter.getCurrentFolder();
-
-        if (!current.equals(dir)) {
-            // Wait up to 2s for the folder to load
-            final long init = System.currentTimeMillis();
-            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onChanged() {
-                    super.onChanged();
-                    if ((System.currentTimeMillis() - init) < 2000) {
-                        _recyclerList.postDelayed(() -> adapter.showAndBlink(file, _recyclerList), 250);
-                    }
-                    adapter.unregisterAdapterDataObserver(this);
-                }
-            });
-            adapter.setCurrentFolder(dir);
-        } else {
-            adapter.showAndBlink(file, _recyclerList);
-        }
     }
 
     public void setCurrentFolder(final File folder) {

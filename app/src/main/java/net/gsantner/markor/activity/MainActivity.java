@@ -296,7 +296,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     if (f.isFile()) {
                         DocumentActivity.launch(MainActivity.this, f, false, null, null);
                     } else if (f.isDirectory()) {
-                        _notebook.reloadCurrentFolder();
+                        _notebook.getAdapter().showFile(f);
                     }
                 }
             });

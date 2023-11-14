@@ -19,7 +19,6 @@ package net.gsantner.opoc.frontend.filebrowser;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,8 +52,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //########################
     public static final String FRAGMENT_TAG = "FilesystemViewerCreator";
 
-    public static GsFileBrowserDialog newInstance(GsFileBrowserOptions.Options options) {
-        GsFileBrowserDialog f = new GsFileBrowserDialog();
+    public static GsFileBrowserDialog newInstance(final GsFileBrowserOptions.Options options) {
+        final GsFileBrowserDialog f = new GsFileBrowserDialog();
         f.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         options.listener.onFsViewerConfig(options);
         f.setDialogOptions(options);
@@ -93,9 +92,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     }
 
     @Override
-    public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View root, final @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-        Context context = getContext();
+        final Activity activity = getActivity();
 
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
         _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
@@ -151,10 +150,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
         final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), lam.getOrientation());
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
 
-        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
+        _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
@@ -168,7 +167,6 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _dopt = options;
         _callback = _dopt.listener;
         _dopt.listener = this;
-        checkOptions();
     }
 
     public void changeAdapterFilter(CharSequence s, int start, int before, int count) {
@@ -177,7 +175,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         }
     }
 
-    public void onClicked(View view) {
+    public void onClicked(final View view) {
         switch (view.getId()) {
             case R.id.ui__filesystem_dialog__button_ok:
             case R.id.ui__filesystem_dialog__home: {
@@ -197,7 +195,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
                 break;
             }
             case R.id.ui__filesystem_dialog__button_cancel: {
-                onFsViewerNothingSelected(_dopt.requestId);
+                onFsViewerCancel(_dopt.requestId);
                 break;
             }
             case R.id.ui__filesystem_dialog__new_dir: {
@@ -225,28 +223,19 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         dopt.titleText = _dopt.newDirButtonText;
         dopt.textColor = rcolor(_dopt.primaryTextColor);
         dopt.searchHintText = android.R.string.untitled;
-        dopt.callback = (name) -> {
-            final File file = _filesystemViewerAdapter.createDirectoryHere(name);
-            if (file != null) {
-                _recyclerList.postDelayed(() -> _filesystemViewerAdapter.showAndBlink(file, _recyclerList), 100);
-            }
-        };
+        dopt.callback = (name) -> _filesystemViewerAdapter.createDirectoryHere(name, true);
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    private void checkOptions() {
-        if (_dopt.doSelectFile && !_dopt.doSelectMultiple) {
-            _dopt.okButtonEnable = false;
-        }
-    }
-
     @Override
-    public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
+    public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
         if (_callback != null) {
             _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override
@@ -254,15 +243,19 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerMultiSelected(_dopt.requestId, files);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override
-    public void onFsViewerNothingSelected(String request) {
+    public void onFsViewerCancel(String request) {
         if (_callback != null) {
-            _callback.onFsViewerNothingSelected(_dopt.requestId);
+            _callback.onFsViewerCancel(_dopt.requestId);
         }
-        dismiss();
+        if (_dopt.dismissAfterCallback) {
+            dismiss();
+        }
     }
 
     @Override
