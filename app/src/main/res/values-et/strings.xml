@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Toimeta teksti ekraani keskel</string>
     <string name="clipboard">Lõikelaud</string>
     <string name="select_existing_document">Vali leiduv kirjutis</string>
+    <string name="select_create_document">Vali või loo dokument</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
     <string name="translate">Tõlgi</string>
