@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Esita paremalt-vasakule keeltes</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Viga: Ei saa luua märkmiku kausta</string>
     <string name="last_modified_witharg">Viimati muudeti: %s</string>
-    <string name="last_modified">Viimati muudetud</string>
+    <string name="last_modified">Viimati muudeti</string>
     <string name="select_this_folder">Vali see kaust</string>
     <string name="select">Vali</string>
     <string name="create">Loo</string>
@@ -66,7 +66,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja on valitud</string>
     <string name="hide_statusbar_at_this_view">Peida oleku ala sellest vaatest</string>
     <string name="hide_statusbar">Peida olekuriba</string>
-    <string name="name">Nimetus</string>
+    <string name="name">Nimi</string>
     <string name="url_or_path">URL / failitee</string>
     <string name="insert_link">Sisesta link</string>
     <string name="insert_image">Sisesta pilt</string>
@@ -85,7 +85,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_with">Ava sellega</string>
     <string name="sort_by">Järjesta alusel</string>
     <string name="date">Kuupäev</string>
-    <string name="deleteme____1">Nimi</string>
+    <string name="deleteme____1">Nimetus</string>
     <string name="size">Suurus</string>
     <string name="reverse_order">Järjesta vastupidi</string>
     <string name="contribute">Andke oma panus</string>
