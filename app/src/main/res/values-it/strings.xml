@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Modifica il testo al centro dello schermo</string>
     <string name="clipboard">Appunti</string>
     <string name="select_existing_document">Seleziona documento esistente</string>
+    <string name="select_create_document">Seleziona o crea un documento</string>
     <string name="open_source_licenses">Licenze Open Source</string>
     <string name="rate_this_app">Valuta l\'app</string>
     <string name="translate">Traduci</string>
@@ -447,6 +448,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Sottocartella in cui verranno salvati gli allegati. Se lasciato in bianco, gli allegati verranno salvati nella cartella attuale.</string>
     <string name="auto_format">Autoformattazione</string>
     <string name="insert_snippet">Inserisci snippet</string>
+    <string name="snippet_directory">Cartella per snippet / template</string>
     <string name="error_could_not_open_file">Errore: impossibile aprire il file.</string>
     <string name="document_error_clip">Trovato errore: Testo copiato negli appunti.</string>
     <string name="wont_save_min_length">I file di meno di %d caratteri non sono salvati automaticamente, per evitare perdita di dati.</string>
