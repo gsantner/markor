@@ -141,6 +141,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -191,7 +192,7 @@ public class GsContextUtils {
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
     protected static String _lastCameraPictureFilepath = null;
-    protected static GsCallback.a1<String> _receivePathCallback = null;
+    protected static WeakReference<GsCallback.a1<String>> _receivePathCallback = null;
     protected static String m_chooserTitle = "➥";
 
 
@@ -1706,11 +1707,11 @@ public class GsContextUtils {
      * It will return the path to the image if locally stored. If retrieved from e.g. a cloud
      * service, the image will get copied to app-cache folder and it's path returned.
      */
-    public void requestGalleryPicture(final Activity activity, GsCallback.a1<String> callback) {
+    public void requestGalleryPicture(final Activity activity, final GsCallback.a1<String> callback) {
         final Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         try {
             activity.startActivityForResult(intent, REQUEST_PICK_PICTURE);
-            _receivePathCallback = callback;
+            setPathCallback(callback);
         } catch (Exception ex) {
             Toast.makeText(activity, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
@@ -1720,7 +1721,7 @@ public class GsContextUtils {
         final Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         try {
             activity.startActivityForResult(intent, REQUEST_RECORD_AUDIO);
-            _receivePathCallback = callback;
+            setPathCallback(callback);
             return true;
         } catch (Exception ignored) {
         }
@@ -1759,15 +1760,22 @@ public class GsContextUtils {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri).putExtra(Intent.EXTRA_RETURN_RESULT, true);
                 activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
                 _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
-                _receivePathCallback = callback;
+                setPathCallback(callback);
             }
         } catch (IOException ignored) {
         }
     }
 
+    private void setPathCallback(final GsCallback.a1<String> callback) {
+        _receivePathCallback = new WeakReference<>(callback);
+    }
+
     private void sendPathCallback(final String path) {
         if (!GsTextUtils.isNullOrEmpty(path) && _receivePathCallback != null) {
-            _receivePathCallback.callback(path);
+            final GsCallback.a1<String> cb = _receivePathCallback.get();
+            if (cb != null) {
+                cb.callback(path);
+            }
         }
         // Send only once and once only
         _receivePathCallback = null;
