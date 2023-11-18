@@ -15,21 +15,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.format.ActionButtonBase;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.util.GsFileUtils;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MarkdownActionButtons extends ActionButtonBase {
 
-    private Set<Integer> _disabledHeadings = new HashSet<>();
+    // Group 1 matches text, group 2 matches path
+    private static final Pattern MARKDOWN_LINK = Pattern.compile("\\[([^\\]]*)\\]\\(([^)]+)\\)");
+
+    private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
+
+    private final Set<Integer> _disabledHeadings = new HashSet<>();
 
     public MarkdownActionButtons(@NonNull Context context, Document document) {
         super(context, document);
@@ -139,6 +149,11 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 MarkorDialogFactory.showInsertTableRowDialog(getActivity(), false, this::insertTableRow);
                 return true;
             }
+            case R.string.abid_common_open_link_browser: {
+                if (followLinkUnderCursor()) {
+                    return true;
+                }
+            }
             default: {
                 return runCommonAction(action);
             }
@@ -166,6 +181,34 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 return runCommonLongPressAction(action);
             }
         }
+    }
+
+    private boolean followLinkUnderCursor() {
+        final int sel = TextViewUtils.getSelection(_hlEditor)[0];
+        if (sel < 0) {
+            return false;
+        }
+
+        final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
+        final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
+
+        final Matcher m = MARKDOWN_LINK.matcher(line);
+        while (m.find()) {
+            final String group = m.group(2);
+            if (m.start() <= cursor && m.end() > cursor && group != null) {
+                if (WEB_URL.matcher(group).matches()) {
+                    GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+                    return true;
+                } else {
+                    final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
+                    if (GsFileUtils.canCreate(f)) {
+                        DocumentActivity.handleFileClick(getActivity(), f, null);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private void insertTableRow(int cols, boolean isHeaderEnabled) {

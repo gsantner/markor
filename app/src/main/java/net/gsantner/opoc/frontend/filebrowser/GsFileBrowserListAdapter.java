@@ -76,7 +76,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Context _context;
     private StringFilter _filter;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
-    private final RecyclerView _recyclerView;
+    private RecyclerView _recyclerView;
     private final SharedPreferences _prefApp;
 
     //########################
@@ -84,17 +84,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //########################
 
     public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Context context) {
-        this(options, context, null);
-    }
 
-    public GsFileBrowserListAdapter(GsFileBrowserOptions.Options options, Context context, RecyclerView recyclerView) {
         _dopt = options;
         _adapterData = new ArrayList<>();
         _adapterDataFiltered = new ArrayList<>();
         _currentSelection = new HashSet<>();
         _context = context;
         loadFolder((options.startFolder != null) ? options.startFolder : options.rootFolder);
-        _recyclerView = recyclerView;
         _prefApp = _context.getSharedPreferences("app", Context.MODE_PRIVATE);
 
         // Prevents view flicker - https://stackoverflow.com/a/32488059
@@ -200,6 +196,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setTag(new TagContainer(file, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(final RecyclerView view) {
+        super.onAttachedToRecyclerView(view);
+        _recyclerView = view;
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -321,7 +323,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         switch (view.getId()) {
             case R.id.opoc_filesystem_item__root: {
                 // A own item was clicked
-                TagContainer data = (TagContainer) view.getTag();
+                final TagContainer data = (TagContainer) view.getTag();
                 if (data != null && data.file != null) {
                     File file = data.file;
                     if (_virtualMapping.containsKey(file)) {
@@ -352,9 +354,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
             case R.id.ui__filesystem_dialog__button_ok: {
                 if (_dopt.doSelectMultiple && areItemsSelected()) {
-                    _dopt.listener.onFsViewerMultiSelected(_dopt.requestId,
-                            _currentSelection.toArray(new File[0]));
-                } else if (_dopt.doSelectFolder && (_currentFolder.exists() || isCurrentFolderVirtual())) {
+                    _dopt.listener.onFsViewerMultiSelected(_dopt.requestId, _currentSelection.toArray(new File[0]));
+                } else {
                     _dopt.listener.onFsViewerSelected(_dopt.requestId, _currentFolder, null);
                 }
                 return;
@@ -461,7 +462,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    public File createDirectoryHere(final CharSequence name) {
+    public File createDirectoryHere(final CharSequence name, final boolean show) {
         if (name == null || _currentFolder == null || !_currentFolder.canWrite()) {
             return null;
         }
@@ -475,7 +476,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         try {
             final File file = new File(_currentFolder, trimmed);
             if (file.exists() || file.mkdir()) {
-                reloadCurrentFolder();
+                if (show) {
+                    showFile(file);
+                } else {
+                    reloadCurrentFolder();
+                }
                 return file;
             }
         } catch (SecurityException ignored) {
@@ -485,19 +490,48 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return null;
     }
 
+    // Switch to folder and show the file
+    public void showFile(final File file) {
+        if (file == null || !file.exists() || _recyclerView == null) {
+            return;
+        }
+
+        final File dir = file.getParentFile();
+        if (dir == null) {
+            return;
+        }
+
+        if (getFilePosition(file) < 0) {
+            // Wait up to 2s for the folder to load or reload
+            final long init = System.currentTimeMillis();
+            registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    super.onChanged();
+                    if ((System.currentTimeMillis() - init) < 2000) {
+                        _recyclerView.postDelayed(() -> showAndBlink(file), 250);
+                    }
+                    unregisterAdapterDataObserver(this);
+                }
+            });
+            loadFolder(dir); // Will reload folder if necessary
+        } else {
+            showAndBlink(file);
+        }
+    }
+
     /**
      * Show a file in the current folder and blink it
      *
-     * @param file     File to blink
-     * @param recycler RecyclerView which holds the file items
+     * @param file File to blink
      */
-    public void showAndBlink(final File file, final RecyclerView recycler) {
+    private void showAndBlink(final File file) {
         final int pos = getFilePosition(file);
-        final LinearLayoutManager manager = (LinearLayoutManager) recycler.getLayoutManager();
+        final LinearLayoutManager manager = (LinearLayoutManager) _recyclerView.getLayoutManager();
         if (manager != null && pos >= 0) {
             manager.scrollToPositionWithOffset(pos, 1);
-            recycler.postDelayed(() -> {
-                final RecyclerView.ViewHolder holder = recycler.findViewHolderForLayoutPosition(pos);
+            _recyclerView.postDelayed(() -> {
+                final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
                     GsContextUtils.blinkView(holder.itemView);
                 }

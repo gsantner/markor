@@ -314,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Allista in sos documentos reghentes</string>
     <string name="reload">Torra a carrigare</string>
     <string name="wrap_words">Acontzu de sas lìnias</string>
+    <string name="line_numbers">Nùmeros de lìnia</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
     <string name="recursive_search_in_current_directory">Chirca ricursiva in sa cartella atuale.</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
@@ -440,6 +441,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Pro sighire sos ligàmenes wiki chirca in manera dinàmica su documentu notebook.zim pro identificare sa cartella de raighina pro sas notas atuales. Marca·lu si impreas prus blocos de notas zim o si sa cartella de su blocu de notas impostada in s\'aplicatzione non currispondet a su blocu de notas zim tuo.</string>
     <string name="share_into_format_prefix_for_text_shared">Formadu/Prefissu pro su testu cumpartzidu in Markor. Sighit sas règulas SimpleDateFormat de Android.\n\nImprea su sinnapostu {{text}} pro pònnere in logu su testu cumpartzidu. Si no est dislindadu su testu cumpartzidu benit postu in fundu e su formadu s\'impreat comente prefissu.</string>
     <string name="share_into_format">Cumpartzi in - Formadu</string>
+    <string name="attachment_folder_name">Nùmene de sa cartella de sos alligados</string>
+    <string name="attachment_folder_name_desc">Suta-cartella suta de sa cartella atuale in ue s\'anta a sarvare sos alligados. Si abarrat bòidu, sos alligados s\'ant a sarvare in sa cartella atuale.</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
     <string name="error_could_not_open_file">Errore: No at fatu a abèrrere su documentu.</string>
