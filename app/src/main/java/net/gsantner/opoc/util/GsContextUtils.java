@@ -1924,15 +1924,24 @@ public class GsContextUtils {
      *
      * @param file File that should be edited
      */
-    public void requestFileEdit(final Context context, final File file) {
-        final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
-        final Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        startActivity(context, intent);
+    public void requestFileEdit(final Context context, File file) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+
+        try {
+            file = file.getCanonicalFile();
+            final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
+            final Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(EXTRA_FILEPATH, file.getPath());
+            startActivity(context, intent);
+        } catch (IOException e) {
+            Log.e(GsContextUtils.class.getName(), "ERROR: Failed to get canonical file path");
+        }
     }
 
     /**
