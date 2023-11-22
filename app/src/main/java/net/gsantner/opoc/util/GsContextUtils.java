@@ -1922,7 +1922,8 @@ public class GsContextUtils {
     /**
      * Request edit of file
      *
-     * @param file File that should be edited
+     * @param context Context to use to get provider and start activity
+     * @param file    File that should be edited
      */
     public void requestFileEdit(final Context context, File file) {
         if (file == null || !file.exists()) {

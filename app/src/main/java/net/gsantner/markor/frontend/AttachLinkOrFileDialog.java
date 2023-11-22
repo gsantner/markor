@@ -10,7 +10,6 @@
 package net.gsantner.markor.frontend;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
@@ -22,7 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
@@ -269,10 +267,17 @@ public class AttachLinkOrFileDialog {
             nameEdit = pathEdit = null;
         }
 
+        // Defensive checks to make sure file has not changed
+        // Can happen if the callback is triggered after a long delay
+        final long hash = GsFileUtils.crc32(text);
+
         final GsCallback.a1<String> insertFileLink = (path) -> {
-            File file = new File(path);
+            if (GsFileUtils.crc32(text) != hash) {
+                return;
+            }
 
             // If path is not under notebook, copy it to the res folder
+            File file = new File(path);
             if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
                 final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
                 attachmentDir.mkdirs();
