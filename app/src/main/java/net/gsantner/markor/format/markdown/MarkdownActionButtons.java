@@ -39,7 +39,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
 
-    private final Set<Integer> _disabledHeadings = new HashSet<>();
+    private Set<Integer> _enabledHeadings = null;
 
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
@@ -267,8 +267,14 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     @Override
     public boolean runTitleClick() {
+        if (_enabledHeadings == null) {
+            _enabledHeadings = new HashSet<>();
+            for (final int i : _appSettings.getMarkdownTableOfContentLevels()) {
+                _enabledHeadings.add(i);
+            }
+        }
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _disabledHeadings, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _enabledHeadings, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }
