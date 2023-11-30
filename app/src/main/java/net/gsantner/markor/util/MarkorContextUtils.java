@@ -77,7 +77,7 @@ public class MarkorContextUtils extends GsContextUtils {
         }
 
         // By extra path
-        final File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        final File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
         if (file != null) {
             return file;
         }
@@ -91,8 +91,8 @@ public class MarkorContextUtils extends GsContextUtils {
         return fallback;
     }
 
-    public static File getValidIntentDir(final Intent intent, final File fallback) {
+    public static File getValidIntentFile(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
-        return (f != null && f.isDirectory() && f.exists()) ? f : fallback;
+        return f != null && f.exists() ? f : fallback;
     }
 }

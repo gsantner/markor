@@ -49,7 +49,7 @@ public class Document implements Serializable {
 
     private static final String MOD_PREF_NAME = "DOCUMENT_MOD_TIMES";
     public static final String EXTRA_DOCUMENT = "EXTRA_DOCUMENT"; // Document
-    public static final String EXTRA_PATH = "EXTRA_PATH"; // java.io.File
+    public static final String EXTRA_FILE = "EXTRA_FILE"; // java.io.File
     public static final String EXTRA_FILE_LINE_NUMBER = "EXTRA_FILE_LINE_NUMBER"; // int
     public static final int EXTRA_FILE_LINE_NUMBER_LAST = -919385553; // Flag for last line
 

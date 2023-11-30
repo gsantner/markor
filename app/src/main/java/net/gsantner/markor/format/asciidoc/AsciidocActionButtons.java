@@ -29,8 +29,8 @@ public class AsciidocActionButtons extends ActionButtonBase {
     }
 
     @Override
-    public List<ActionItem> getActiveActionList() {
-        final ActionItem[] TMA_ACTIONS = {
+    public List<ActionItem> getFormatActionList() {
+        return Arrays.asList(
                 new ActionItem(R.string.abid_asciidoc_checkbox_list, R.drawable.ic_check_box_black_24dp, R.string.check_list),
                 new ActionItem(R.string.abid_asciidoc_unordered_list_char, R.drawable.ic_list_black_24dp, R.string.unordered_list),
                 new ActionItem(R.string.abid_asciidoc_ordered_list_char, R.drawable.ic_format_list_numbered_black_24dp, R.string.ordered_list),
@@ -39,10 +39,8 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_indent, R.drawable.ic_format_indent_increase_black_24dp, R.string.indent),
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_asciidoc_squarebrackets, R.drawable.ic_baseline_data_array_24, R.string.squarebrackets),
-                new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 // similar to abid_common_special_key, but separate menu
                 new ActionItem(R.string.abid_asciidoc_special_key, R.drawable.asciidoc_icon_black_24dp, R.string.asciidoc_special_key),
-                new ActionItem(R.string.abid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
                 new ActionItem(R.string.abid_asciidoc_h1, R.drawable.format_header_1, R.string.heading_1),
                 new ActionItem(R.string.abid_asciidoc_h2, R.drawable.format_header_2, R.string.heading_2),
                 new ActionItem(R.string.abid_asciidoc_h3, R.drawable.format_header_3, R.string.heading_3),
@@ -67,20 +65,10 @@ public class AsciidocActionButtons extends ActionButtonBase {
                 // TODO: Implement Table Generator later
                 // new ActionItem(R.string.abid_asciidoc_table_insert_columns, R.drawable.ic_view_module_black_24dp, R.string.table),
                 // similar to other formats:
-                new ActionItem(R.string.abid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
-                new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 // a different icon was used than in other formats, so that you can distinguish
                 // it from opening in the browser
-                new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with, ActionItem.DisplayMode.ANY),
-                new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
-                new ActionItem(R.string.abid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
-                new ActionItem(R.string.abid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up),
-                new ActionItem(R.string.abid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down),
-                new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom, ActionItem.DisplayMode.VIEW),
-                new ActionItem(R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate, ActionItem.DisplayMode.ANY),
-        };
-
-        return Arrays.asList(TMA_ACTIONS);
+                new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.ANY)
+        );
     }
 
     // indent deindent:

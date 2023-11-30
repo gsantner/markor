@@ -174,8 +174,8 @@ public class GsContextUtils {
     //########################
     @SuppressLint("ConstantLocale")
     public final static Locale INITIAL_LOCALE = Locale.getDefault();
-    public final static String EXTRA_FILEPATH = "real_file_path_2";
-    public final static String EXTRA_URI = "real_uri_0";
+    public final static String EXTRA_FILEPATH = "EXTRA_FILEPATH";
+    public final static String EXTRA_URI = "EXTRA_URI";
     public final static SimpleDateFormat DATEFORMAT_RFC3339ISH = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", INITIAL_LOCALE);
     public final static String MIME_TEXT_PLAIN = "text/plain";
     public final static String PREF_KEY__SAF_TREE_URI = "pref_key__saf_tree_uri";
@@ -1326,7 +1326,7 @@ public class GsContextUtils {
             intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
             intent.putExtra(Intent.EXTRA_TITLE, file.getName());
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            showChooser(context, intent, null);
+            startActivity(context, intent);
             return true;
         }
         return false;

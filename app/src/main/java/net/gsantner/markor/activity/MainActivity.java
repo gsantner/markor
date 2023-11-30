@@ -108,7 +108,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onActivityFirstTimeVisible();
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
-        if (startTab != R.id.nav_notebook && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
+        if (startTab != R.id.nav_notebook && MarkorContextUtils.getValidIntentFile(getIntent(), null) == null) {
             _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
         }
     }
@@ -173,9 +173,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        final File dir = MarkorContextUtils.getValidIntentDir(intent, null);
-        if (_notebook != null && dir != null) {
-            _notebook.post(() -> _notebook.setCurrentFolder(dir));
+        final File file = MarkorContextUtils.getValidIntentFile(intent, null);
+        if (_notebook != null && file != null) {
+            if (file.isDirectory()) {
+                _notebook.post(() -> _notebook.setCurrentFolder(file));
+            } else {
+                _notebook.post(() -> _notebook.getAdapter().showFile(file));
+            }
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
@@ -392,11 +396,16 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
             _filesystemDialogOptions = MarkorFileBrowserFactory.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
+                File toShow = null;
+
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
-                    dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
+                    final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
+                    final File file = MarkorContextUtils.getValidIntentFile(getIntent(), fallback);
+                    dopt.startFolder = file.isDirectory() ? file : file.getParentFile();
+                    toShow = file.isFile() ? file : null;
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }
@@ -409,6 +418,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                             setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
                         }
                         invalidateOptionsMenu();
+                    }
+
+                    if (toShow != null && adapter != null) {
+                        adapter.showFile(toShow);
+                        toShow = null;
                     }
                 }
 

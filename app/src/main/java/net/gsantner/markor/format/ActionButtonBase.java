@@ -12,11 +12,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -27,6 +30,7 @@ import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
@@ -80,6 +84,8 @@ public abstract class ActionButtonBase {
     private static final String ORDER_SUFFIX = "_order";
     private static final String DISABLED_SUFFIX = "_disabled";
 
+    private static final Pattern UNTRIMMED_TEXT = Pattern.compile("(\\s*)(.*?)(\\s*)", Pattern.DOTALL);
+
     public ActionButtonBase(@NonNull final Context context, final Document document) {
         _document = document;
         _appSettings = ApplicationObject.settings();
@@ -122,7 +128,7 @@ public abstract class ActionButtonBase {
      *
      * @return List of ActionItems
      */
-    protected abstract List<ActionItem> getActiveActionList();
+    protected abstract List<ActionItem> getFormatActionList();
 
     /**
      * These will not be added to the actions list.
@@ -139,7 +145,7 @@ public abstract class ActionButtonBase {
      * @return Map of String key -> Action
      */
     public Map<String, ActionItem> getActiveActionMap() {
-        final List<ActionItem> actionList = getActiveActionList();
+        final List<ActionItem> actionList = getActionList();
         final List<String> keyList = getActiveActionKeys();
 
         final Map<String, ActionItem> map = new HashMap<String, ActionItem>();
@@ -151,12 +157,47 @@ public abstract class ActionButtonBase {
     }
 
     /**
+     * Get a combined action list - from derived format and the base actions
+     * @return
+     */
+    private List<ActionItem> getActionList() {
+        final List<ActionItem> commonActions = Arrays.asList(
+                new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
+                new ActionItem(R.string.abid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
+                new ActionItem(R.string.abid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
+                new ActionItem(R.string.abid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up).setRepeatable(true),
+                new ActionItem(R.string.abid_common_move_text_one_line_down, R.drawable.ic_baseline_arrow_downward_24, R.string.move_text_one_line_down).setRepeatable(true),
+                new ActionItem(R.string.abid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
+                new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
+                new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
+
+                new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom).setDisplayMode(ActionItem.DisplayMode.VIEW),
+                new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_open_in_browser_black_24dp, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.ANY),
+                new ActionItem(R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate).setDisplayMode(ActionItem.DisplayMode.ANY)
+        );
+
+        // Order is enforced separately
+        final Map<Integer, ActionItem> unique = new HashMap<>();
+
+        for (final ActionItem item : commonActions) {
+            unique.put(item.keyId, item);
+        }
+
+        // Actions in the derived class override common actions if they share the same keyId
+        for (final ActionItem item : getFormatActionList()) {
+            unique.put(item.keyId, item);
+        }
+
+        return new ArrayList<>(unique.values());
+    }
+
+    /**
      * Get string for every ActionItem.keyId defined by getActiveActionList
      *
      * @return List or resource strings
      */
     public List<String> getActiveActionKeys() {
-        return GsCollectionUtils.map(getActiveActionList(), item -> rstr(item.keyId));
+        return GsCollectionUtils.map(getActionList(), item -> rstr(item.keyId));
     }
 
     /**
@@ -261,31 +302,77 @@ public abstract class ActionButtonBase {
         }
     }
 
-    protected void appendActionButtonToBar(ViewGroup barLayout, @NonNull ActionItem action) {
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    private void setupRepeat(final View btn, final ActionItem action) {
+        // Velocity and acceleration parameters
+        final int initialDelay = 400, deltaDelay = 50, minDelay = 100;
+        final Integer token = action.keyId;
+
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            Handler handler = null;
+            int delay = initialDelay;
+
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(final View v, final MotionEvent event) {
+                if (handler == null) {
+                    handler = v.getHandler();
+                }
+
+                final int action = event.getAction();
+                if (action == MotionEvent.ACTION_DOWN) {
+                    onClick(v);
+                    return true;
+                } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+                    handler.removeCallbacksAndMessages(token);
+                    return true;
+                }
+                return false;
+            }
+
+            private void onClick(final View v) {
+                try {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    onActionClick(action.keyId);
+                    handler.postDelayed(() -> onClick(v), token, delay);
+                    delay = Math.max(minDelay, delay - deltaDelay);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    protected void appendActionButtonToBar(final ViewGroup barLayout, final @NonNull ActionItem action) {
         final ImageView btn = (ImageView) _activity.getLayoutInflater().inflate(R.layout.quick_keyboard_button, null);
         btn.setImageResource(action.iconId);
         final String desc = rstr(action.stringId);
         btn.setContentDescription(desc);
         TooltipCompat.setTooltipText(btn, desc);
 
-        btn.setOnClickListener(v -> {
-            try {
-                // run action
-                v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                onActionClick(action.keyId);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-        btn.setOnLongClickListener(v -> {
-            try {
-                v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                return onActionLongClick(action.keyId);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            return false;
-        });
+        if (action.isRepeatable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            setupRepeat(btn, action);
+        } else {
+            btn.setOnClickListener(v -> {
+                try {
+                    // run action
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    onActionClick(action.keyId);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+            btn.setOnLongClickListener(v -> {
+                try {
+                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                    return onActionLongClick(action.keyId);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                return false;
+            });
+        }
         final int sidePadding = _buttonHorizontalMargin + btn.getPaddingLeft(); // Left and right are symmetrical
         btn.setPadding(sidePadding, btn.getPaddingTop(), sidePadding, btn.getPaddingBottom());
         barLayout.addView(btn);
@@ -443,59 +530,69 @@ public abstract class ActionButtonBase {
         Selection.setSelection(editable, newSelStart, newSelEnd);
     }
 
-    protected void runInlineAction(String _action) {
-        if (_hlEditor.getText() == null) {
-            return;
-        }
-        if (_hlEditor.hasSelection()) {
-            String text = _hlEditor.getText().toString();
-            int selectionStart = _hlEditor.getSelectionStart();
-            int selectionEnd = _hlEditor.getSelectionEnd();
 
-            //Check if Selection includes the shortcut characters
-            if (selectionEnd < text.length() && selectionStart >= 0 && (text.substring(selectionStart, selectionEnd)
-                    .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
-
-                text = text.substring(selectionStart + _action.length(),
-                        selectionEnd - _action.length());
-                _hlEditor.getText()
-                        .replace(selectionStart, selectionEnd, text);
-
-            }
-            //Check if Selection is Preceded and succeeded by shortcut characters
-            else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
-                    (selectionStart >= _action.length())) &&
-                    (text.substring(selectionStart - _action.length(),
-                                    selectionEnd + _action.length())
-                            .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
-
-                text = text.substring(selectionStart, selectionEnd);
-                _hlEditor.getText()
-                        .replace(selectionStart - _action.length(),
-                                selectionEnd + _action.length(), text);
-
-            }
-            //Condition to insert shortcut preceding and succeeding the selection
-            else {
-                _hlEditor.getText().insert(selectionStart, _action);
-                _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
-            }
-        } else {
-            //Condition for Empty Selection
-                /*if (false) {
-                    // Condition for things that should only be placed at the start of the line even if no text is selected
-                } else */
-            if ("----\n".equals(_action)) {
-                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action);
-            } else {
-                // Condition for formatting which is inserted on either side of the cursor
-                _hlEditor.getText().insert(_hlEditor.getSelectionStart(), _action)
-                        .insert(_hlEditor.getSelectionEnd(), _action);
-                _hlEditor.setSelection(_hlEditor.getSelectionStart() - _action.length());
-            }
-        }
+    protected void runSurroundAction(final String delim) {
+        runSurroundAction(delim, delim, true);
     }
 
+    /**
+     * Surrounds the current selection with the given startDelimiter and end strings.
+     * If the region is already surrounded by the given strings, they are removed instead.
+     *
+     * @param open  The string to insert at the start of the selection
+     * @param close The string to insert at the end of the selection
+     * @param trim  Whether to trim spaces from the start and end of the selection
+     */
+    protected void runSurroundAction(final String open, final String close, final boolean trim) {
+        final Editable text = _hlEditor.getText();
+        if (text == null) {
+            return;
+        }
+
+        // Detect if delims within or around selection
+        // If so, remove it
+        // -------------------------------------------------------------------------
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
+        final int ss = sel[0], se = sel[1];
+        final int ol = open.length(), cl = close.length(), sl = se - ss;
+        // Left as a CharSequence to help maintain spans
+        final CharSequence selection = text.subSequence(ss, se);
+
+        // Case delims around selection
+        if ((ss > ol) && ((se + cl) <= text.length())) {
+            final String before = text.subSequence(ss - ol, ss).toString();
+            final String after = text.subSequence(se, se + cl).toString();
+            if (before.equals(open) && after.equals(close)) {
+                text.replace(ss - ol, se + cl, selection);
+                _hlEditor.setSelection(ss - ol, se - ol);
+                return;
+            }
+        }
+
+        // Case delims within selection
+        if ((se - ss) >= (ol + cl)) {
+            final String within = text.subSequence(ss, se).toString();
+            if (within.startsWith(open) && within.endsWith(close)) {
+                text.replace(ss, se, within.substring(ol, within.length() - cl));
+                _hlEditor.setSelection(ss, se - ol - cl);
+                return;
+            }
+        }
+
+        final String replace;
+        if (trim && selection.length() > 0) {
+            final int f = TextViewUtils.getFirstNonWhitespace(selection);
+            final int l = TextViewUtils.getLastNonWhitespace(selection) + 1;
+            replace = selection.subSequence(0, f) + open +
+                      selection.subSequence(f, l) + close +
+                      selection.subSequence(l, sl);
+        } else {
+            replace = open + selection + close;
+        }
+
+        text.replace(ss, se, replace);
+        _hlEditor.setSelection(ss + ol, se + ol);
+    }
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         _activity = activity;
@@ -718,15 +815,26 @@ public abstract class ActionButtonBase {
         public int iconId;
         @StringRes
         public int stringId;
-        public DisplayMode displayMode;
+        public DisplayMode displayMode = DisplayMode.EDIT;
+
+        public boolean isRepeatable = false;
 
         public enum DisplayMode {EDIT, VIEW, ANY}
 
-        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string, final DisplayMode... a_displayMode) {
+        public ActionItem(@StringRes int key, @DrawableRes int icon, @StringRes int string) {
             keyId = key;
             iconId = icon;
             stringId = string;
-            displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
+        }
+
+        public ActionItem setDisplayMode(DisplayMode mode) {
+            displayMode = mode;
+            return this;
+        }
+
+        public ActionItem setRepeatable(boolean repeatable) {
+            isRepeatable = repeatable;
+            return this;
         }
     }
 

@@ -54,6 +54,8 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -215,28 +217,24 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     private void updateMenuItems() {
         final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
-        final boolean selMulti1 = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() == 1;
-        final boolean selMultiMore = _dopt.doSelectMultiple && _filesystemViewerAdapter.getCurrentSelection().size() > 1;
+        final int selCount = _filesystemViewerAdapter.getCurrentSelection().size();
+        final boolean selMulti1 = _dopt.doSelectMultiple && selCount == 1;
+        final boolean selMultiMore = _dopt.doSelectMultiple && selCount > 1;
+        final boolean selMultiAny = selMultiMore || selMulti1;
         final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
         final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
 
         // Check if is a favourite
-        boolean isFavourite = false;
         boolean selTextFilesOnly = true;
         boolean selDirectoriesOnly = true;
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
-        if (selMulti1) {
-            for (File favourite : _dopt.favouriteFiles == null ? new ArrayList<File>() : _dopt.favouriteFiles) {
-                if (selFiles.contains(favourite)) {
-                    isFavourite = true;
-                    break;
-                }
-            }
-        }
+        boolean allSelectedFav = true;
+        final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
         for (final File f : _filesystemViewerAdapter.getCurrentSelection()) {
             selTextFilesOnly &= FormatRegistry.isFileSupported(f, true);
             selWritable &= f.canWrite();
             selDirectoriesOnly &= f.isDirectory();
+            allSelectedFav &= favFiles.contains(f);
         }
 
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
@@ -251,8 +249,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_sort).setVisible(!_filesystemViewerAdapter.areItemsSelected());
             _fragmentMenu.findItem(R.id.action_import).setVisible(!_filesystemViewerAdapter.areItemsSelected() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
             _fragmentMenu.findItem(R.id.action_settings).setVisible(!_filesystemViewerAdapter.areItemsSelected());
-            _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMulti1 && !isFavourite);
-            _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMulti1 && isFavourite);
+            _fragmentMenu.findItem(R.id.action_favourite).setVisible(selMultiAny && !allSelectedFav);
+            _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMultiAny && allSelectedFav);
             _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
             _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
         }
@@ -442,11 +440,22 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 Toast.makeText(getContext(), folder.getAbsolutePath(), Toast.LENGTH_SHORT).show();
                 return true;
             }
-            case R.id.action_favourite:
+            case R.id.action_favourite: {
+                if (_filesystemViewerAdapter.areItemsSelected()) {
+                    final Set<File> favs = _appSettings.getFavouriteFiles();
+                    favs.addAll(_filesystemViewerAdapter.getCurrentSelection());
+                    _appSettings.setFavouriteFiles(favs);
+                    _dopt.favouriteFiles = favs;
+                    updateMenuItems();
+                }
+                return true;
+            }
             case R.id.action_favourite_remove: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    _appSettings.toggleFavouriteFile(new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0));
-                    _dopt.favouriteFiles = _appSettings.getFavouriteFiles();
+                    final Set<File> favs = _appSettings.getFavouriteFiles();
+                    favs.removeAll(_filesystemViewerAdapter.getCurrentSelection());
+                    _appSettings.setFavouriteFiles(favs);
+                    _dopt.favouriteFiles = favs;
                     updateMenuItems();
                 }
                 return true;

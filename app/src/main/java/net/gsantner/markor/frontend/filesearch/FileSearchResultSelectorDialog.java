@@ -116,6 +116,18 @@ public class FileSearchResultSelectorDialog {
             return false;
         });
 
+        final GsCallback.b5<ExpandableListView, View, Integer, Integer, Long> onChildClick = (parent, view, groupPos, childPos, id) -> {
+            final ExpandableListAdapter _adapter = parent.getExpandableListAdapter();
+            final FitFile groupItem = (FitFile) _adapter.getGroup(groupPos);
+            final Pair<String, Integer> childItem = (Pair<String, Integer>) _adapter.getChild(groupPos, childPos);
+            if (childItem != null && childItem.second != null && childItem.second >= 0) {
+                dialogCallback.callback(groupItem.path, childItem.second, false);
+            }
+            return false;
+        };
+
+        expandableListView.setOnChildClickListener(onChildClick::callback);
+
         // Long click on file name takes us to the file's location
         expandableListView.setOnItemLongClickListener((parent, view, position, id) -> {
             try {
@@ -125,19 +137,14 @@ public class FileSearchResultSelectorDialog {
                     final String path = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).path;
                     dismiss.callback();
                     dialogCallback.callback(path, null, true);
+                } else {
+                    final int groupPos = ExpandableListView.getPackedPositionGroup(packed);
+                    final int childPos = ExpandableListView.getPackedPositionChild(packed);
+                    onChildClick.callback(expandableListView, view, groupPos, childPos, id);
                 }
             } catch (ClassCastException | NullPointerException ignored) {
             }
             return true;
-        });
-
-        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
-            Pair<String, Integer> childItem = (Pair<String, Integer>) parent.getExpandableListAdapter().getChild(groupPosition, childPosition);
-            if (childItem != null && childItem.second != null && childItem.second >= 0) {
-                dialogCallback.callback(groupItem.path, childItem.second, false);
-            }
-            return false;
         });
 
         dialogLayout.addView(expandableListView);

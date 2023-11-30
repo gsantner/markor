@@ -26,8 +26,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Create Folder</string>
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
-    <string name="copy">Copy</string>
     <string name="info">Info</string>
+    <string name="show">Show</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder already exists! Please use a different name</string>
 
     <string name="import_from_device">Import from device</string>

@@ -55,9 +55,9 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent = new Intent(activity, DocumentActivity.class);
         }
         if (path != null) {
-            intent.putExtra(Document.EXTRA_PATH, path);
+            intent.putExtra(Document.EXTRA_FILE, path);
         } else {
-            path = intent.hasExtra(Document.EXTRA_PATH) ? ((File) intent.getSerializableExtra(Document.EXTRA_PATH)) : null;
+            path = intent.hasExtra(Document.EXTRA_FILE) ? ((File) intent.getSerializableExtra(Document.EXTRA_FILE)) : null;
         }
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
@@ -71,7 +71,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         }
         if (path != null && path.isDirectory()) {
-            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_PATH, path);
+            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, path);
         }
         if (path != null && path.isFile() && as.isPreferViewMode()) {
             as.setDocumentPreviewState(path.getAbsolutePath(), true);
@@ -87,7 +87,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         if (file.isDirectory()) {
             if (file.canRead()) {
-                launch(activity, file, null, null, lineNumber);
+                launch(activity, file, null, null, null);
             }
         } else if (FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file)) {
             launch(activity, file, null, null, lineNumber);
@@ -113,12 +113,12 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
-        Object[] fret = checkIfLikelyTextfileAndGetExt(file);
-        boolean isLikelyTextfile = (boolean) fret[0];
-        String ext = (String) fret[1];
-        boolean isYes = ApplicationObject.settings().isExtOpenWithThisApp(ext);
+        final Object[] fret = checkIfLikelyTextfileAndGetExt(file);
+        final boolean isLikelyTextfile = (boolean) fret[0];
+        final String ext = (String) fret[1];
+        final boolean isYes = ApplicationObject.settings().isExtOpenWithThisApp(ext);
 
-        GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
+        final GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
                 DocumentActivity.launch(activity, file, null, null, null);
             } else {
@@ -178,7 +178,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Pull the file from the intent
         // -----------------------------------------------------------------------
-        File file = (File) intent.getSerializableExtra(Document.EXTRA_PATH);
+        File file = (File) intent.getSerializableExtra(Document.EXTRA_FILE);
 
         final boolean intentIsView = Intent.ACTION_VIEW.equals(intentAction);
         final boolean intentIsSend = Intent.ACTION_SEND.equals(intentAction);

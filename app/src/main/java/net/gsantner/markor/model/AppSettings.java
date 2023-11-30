@@ -29,15 +29,19 @@ import net.gsantner.markor.util.ShortcutUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
 
@@ -341,21 +345,25 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         ShortcutUtils.setShortcuts(_context);
     }
 
-    public void toggleFavouriteFile(File file) {
-        List<String> list = new ArrayList<>();
-        List<File> favourites = getFavouriteFiles();
-        for (File f : favourites) {
+    public void setFavouriteFiles(final Collection<File> files) {
+        final Set<String> set = new LinkedHashSet<>();
+        for (final File f : files) {
             if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f))) {
-                list.add(f.getAbsolutePath());
+                set.add(f.getAbsolutePath());
             }
         }
-        String abs = file.getAbsolutePath();
-        if (list.contains(abs)) {
-            list.remove(abs);
+        setStringList(R.string.pref_key__favourite_files, GsCollectionUtils.map(set, p -> p));
+    }
+
+    public void toggleFavouriteFile(File file) {
+        final List<String> list = new ArrayList<>();
+        final Set<File> favourites = getFavouriteFiles();
+        if (favourites.contains(file)) {
+            favourites.remove(file);
         } else {
-            list.add(abs);
+            favourites.add(file);
         }
-        setStringList(R.string.pref_key__favourite_files, list);
+        setFavouriteFiles(favourites);
     }
 
     private static final String PREF_PREFIX_EDIT_POS_CHAR = "PREF_PREFIX_EDIT_POS_CHAR";
@@ -580,15 +588,15 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return r;
     }
 
-    public ArrayList<File> getFavouriteFiles() {
-        ArrayList<File> list = new ArrayList<>();
-        for (String fp : getStringList(R.string.pref_key__favourite_files)) {
-            File f = new File(fp);
+    public Set<File> getFavouriteFiles() {
+        final Set<File> set = new LinkedHashSet<>();
+        for (final String fp : getStringList(R.string.pref_key__favourite_files)) {
+            final File f = new File(fp);
             if (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f)) {
-                list.add(f);
+                set.add(f);
             }
         }
-        return list;
+        return set;
     }
 
     public String getInjectedHeader() {
