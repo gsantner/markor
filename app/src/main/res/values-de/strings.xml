@@ -446,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Unterordner des aktuellen Ordners, in dem Anhänge gespeichert werden. Wenn leer gelassen, werden Anhänge im aktuellen Ordner gespeichert.</string>
     <string name="auto_format">Auto-Format</string>
     <string name="insert_snippet">Schnipsel einfügen</string>
+    <string name="snippet_directory">Verzeichnis für Entwürfe/Vorlagen</string>
     <string name="error_could_not_open_file">Fehler: Datei konnte nicht geöffnet werden.</string>
     <string name="document_error_clip">Fehler aufgetreten: Text in die Zwischenablage kopiert.</string>
     <string name="wont_save_min_length">Dateien mit weniger als %d Zeichen werden nicht automatisch gespeichert, um Datenverlust vorzubeugen.</string>
