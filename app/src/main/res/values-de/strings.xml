@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Text in der Mitte des Bildschirms editieren</string>
     <string name="clipboard">Zwischenablage</string>
     <string name="select_existing_document">Bestehendes Dokument auswählen</string>
+    <string name="select_create_document">Dokument wählen oder erstellen</string>
     <string name="open_source_licenses">Open Source Lizenzen</string>
     <string name="rate_this_app">App bewerten</string>
     <string name="translate">Übersetzen</string>
