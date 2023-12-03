@@ -942,6 +942,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return getNotebookDirectory();
         }
         final String child = getString(R.string.pref_key__attachment_folder_name, "_res").trim();
-        return TextViewUtils.isNullOrEmpty(child) ? parent : new File(parent, child);
+        return GsTextUtils.isNullOrEmpty(child) ? parent : new File(parent, child);
     }
 }
