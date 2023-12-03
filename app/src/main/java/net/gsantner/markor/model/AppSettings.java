@@ -276,7 +276,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
-        return true;//getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
+        return false; // getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
     }
 
     public boolean isHighlightingHexColorEnabled() {
