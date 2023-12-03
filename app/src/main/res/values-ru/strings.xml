@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Вставить изображение</string>
     <string name="contributors">Разработчики</string>
     <string name="save_location">Сохранить расположение</string>
+    <string name="saved_location_to">Сохранено в %s</string>
     <string name="select_storage_folder">Выбрать папку для хранения</string>
     <string name="licenses">Лицензии</string>
     <string name="changelog">История изменений</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Показать сторонние лицензии</string>
     <string name="language_change_restart_description">Изменить язык этого приложения. Перезапустите приложение, чтобы изменения вступили в силу</string>
     <string name="language">Язык</string>
+    <string name="storage_permission_required">Необходимо разрешение для чтения и записи файлов</string>
     <string name="open_with">Открыть с помощью</string>
     <string name="sort_by">Сортировать по</string>
     <string name="date">Дата</string>
@@ -194,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Звёздочка (*)</string>
     <string name="unordered_list_char_plus">Плюс (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor может редактировать только локальные, автономно доступные документы и не поддерживает файловые менеджеры, которые не предоставляют полный путь к файлу.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Файл или директория не существует и не может быть создан</string>
+    <string name="permissions">Разрешения</string>
+    <string name="permission_paths_revert">Вернуть пути по умолчанию?</string>
+    <string name="permission_not_granted">Разрешено не выдано</string>
     <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -209,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
     <string name="select_existing_document">Выберите существующий документ</string>
+    <string name="select_create_document">Выбрать или создать документ</string>
     <string name="open_source_licenses">Лицензии с открытым исходным кодом</string>
     <string name="rate_this_app">Оценить приложение</string>
     <string name="translate">Перевод</string>
@@ -308,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Показывать в недавних файлах</string>
     <string name="reload">Обновить</string>
     <string name="wrap_words">Переносить слова</string>
+    <string name="line_numbers">Нумерация строк</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_current_directory">Рекурсивный поиск в текущем каталоге.</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
@@ -434,10 +442,14 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Чтобы перейти по вики-ссылкам, необходимо динамически искать файл notebook.zim для определения корневого каталога текущей записной книжки. Установите флажок, если вы используете несколько цим-блокнотов или установленный в приложении каталог блокнота не соответствует вашему блокноту zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Формат/Префикс для текста, отправленного в Markor. Соответствует правилам Android SimpleDateFormat. \n\nИспользуйте переменную \'{{text}}\' (с одинарными кавычками) для размещения отправленного текста. Если не указано, отправленный текст добавляется и формат используется в качестве префикса.</string>
     <string name="share_into_format">Поделиться - Формат</string>
+    <string name="attachment_folder_name">Название папки с вложением</string>
+    <string name="attachment_folder_name_desc">Подпапка в текущей папке, где будут храниться вложения. Если оставить пустым, то вложения будут храниться в текущей папке.</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Директория сниппета / шаблона</string>
     <string name="error_could_not_open_file">Ошибка: Не удалось открыть файл.</string>
     <string name="document_error_clip">Произошла ошибка: текст скопирован в буфер обмена.</string>
     <string name="wont_save_min_length">Файлы содержащие менее %d символов не сохраняются автоматически во избежание случайного удаления данных.</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Расширенный синтаксис фильтрации</a></small>]]></string>
+    <string name="filter">Фильтр</string>
 </resources>
