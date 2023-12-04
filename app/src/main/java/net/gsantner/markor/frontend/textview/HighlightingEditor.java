@@ -466,8 +466,8 @@ public class HighlightingEditor extends AppCompatEditText {
         private final Paint _paint = new Paint();
 
         private final int _defaultPaddingLeft;
-        private static final int LINE_NUMBER_PADDING_LEFT = 12;
-        private static final int LINE_NUMBER_PADDING_RIGHT = 10;
+        private static final int LINE_NUMBER_PADDING_LEFT = 20;
+        private static final int LINE_NUMBER_PADDING_RIGHT = 12;
 
         private final Rect _visibleArea = new Rect();
         private final Rect _lineNumbersArea = new Rect();
@@ -579,7 +579,7 @@ public class HighlightingEditor extends AppCompatEditText {
             if (isTextSizeChanged() || isMaxNumberDigitsChanged()) {
                 _numberX = LINE_NUMBER_PADDING_LEFT + (int) _paint.measureText(String.valueOf(_maxNumber));
                 _gutterX = _numberX + LINE_NUMBER_PADDING_RIGHT;
-                _editor.setPadding(_gutterX + 10, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
+                _editor.setPadding(_gutterX + 12, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
             }
 
             int i = _startLine[0], number = _startLine[1];

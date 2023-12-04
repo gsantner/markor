@@ -40,7 +40,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class TextViewUtils extends GsTextUtils {
+public final class TextViewUtils {
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {

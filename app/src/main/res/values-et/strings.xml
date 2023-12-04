@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">Esita paremalt-vasakule keeltes</string>
     <string name="error_cannot_create_notebook_dir__appspecific">Viga: Ei saa luua märkmiku kausta</string>
     <string name="last_modified_witharg">Viimati muudeti: %s</string>
-    <string name="last_modified">Viimati muudetud</string>
+    <string name="last_modified">Viimati muudeti</string>
     <string name="select_this_folder">Vali see kaust</string>
     <string name="select">Vali</string>
     <string name="create">Loo</string>
@@ -66,7 +66,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d asja on valitud</string>
     <string name="hide_statusbar_at_this_view">Peida oleku ala sellest vaatest</string>
     <string name="hide_statusbar">Peida olekuriba</string>
-    <string name="name">Nimetus</string>
+    <string name="name">Nimi</string>
     <string name="url_or_path">URL / failitee</string>
     <string name="insert_link">Sisesta link</string>
     <string name="insert_image">Sisesta pilt</string>
@@ -85,7 +85,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_with">Ava sellega</string>
     <string name="sort_by">Järjesta alusel</string>
     <string name="date">Kuupäev</string>
-    <string name="deleteme____1">Nimi</string>
+    <string name="deleteme____1">Nimetus</string>
     <string name="size">Suurus</string>
     <string name="reverse_order">Järjesta vastupidi</string>
     <string name="contribute">Andke oma panus</string>
@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Toimeta teksti ekraani keskel</string>
     <string name="clipboard">Lõikelaud</string>
     <string name="select_existing_document">Vali leiduv kirjutis</string>
+    <string name="select_create_document">Vali või loo dokument</string>
     <string name="open_source_licenses">Avatud lähtekoodiga litsentsid</string>
     <string name="rate_this_app">Hinda seda rakendust</string>
     <string name="translate">Tõlgi</string>
@@ -445,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Praeguse kausta alamkaust manuste hoiustamiseks. Kui jääb tühjaks, manused pannakse praegusesse kausta.</string>
     <string name="auto_format">Vorminda sobivalt</string>
     <string name="insert_snippet">Sisesta katkend</string>
+    <string name="snippet_directory">Katkendite ja mallide kataloog</string>
     <string name="error_could_not_open_file">Viga: ei saa faili avatud.</string>
     <string name="document_error_clip">Ilmnes viga: tekst kopeeriti lõikelauale.</string>
     <string name="wont_save_min_length">Alla %d tähemärgiga faile ei salvestata automaatselt vältimaks andmete kadumist.</string>
