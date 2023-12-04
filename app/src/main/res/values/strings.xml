@@ -463,6 +463,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Subfolder under the current folder where attachments will be saved. If left blank, attachments will be saved in the current folder.</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Snippet / Template directory</string>
     <string name="error_could_not_open_file">Error: Could not open file.</string>
     <string name="document_error_clip">Error encountered: Text copied to clipboard.</string>
     <string name="wont_save_min_length">Files with fewer than %d characters not saved automatically in order to prevent data loss.</string>

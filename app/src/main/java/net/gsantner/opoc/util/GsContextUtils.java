@@ -141,6 +141,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -190,7 +191,8 @@ public class GsContextUtils {
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
-    protected static String _lastCameraPictureFilepath;
+    protected static String _lastCameraPictureFilepath = null;
+    protected static WeakReference<GsCallback.a1<String>> _receivePathCallback = null;
     protected static String m_chooserTitle = "➥";
 
 
@@ -1705,19 +1707,21 @@ public class GsContextUtils {
      * It will return the path to the image if locally stored. If retrieved from e.g. a cloud
      * service, the image will get copied to app-cache folder and it's path returned.
      */
-    public void requestGalleryPicture(final Activity activity) {
+    public void requestGalleryPicture(final Activity activity, final GsCallback.a1<String> callback) {
         final Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         try {
             activity.startActivityForResult(intent, REQUEST_PICK_PICTURE);
+            setPathCallback(callback);
         } catch (Exception ex) {
             Toast.makeText(activity, "No gallery app installed!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public boolean requestAudioRecording(final Activity activity) {
+    public boolean requestAudioRecording(final Activity activity, final GsCallback.a1<String> callback) {
         final Intent intent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
         try {
             activity.startActivityForResult(intent, REQUEST_RECORD_AUDIO);
+            setPathCallback(callback);
             return true;
         } catch (Exception ignored) {
         }
@@ -1736,9 +1740,8 @@ public class GsContextUtils {
      * The requested image savepath has to be stored at caller side (not contained in intent),
      * it can be retrieved using {@link #extractResultFromActivityResult(Activity, int, int, Intent)}
      * returns null if an error happened.
-     *
      */
-    public void requestCameraPicture(final Activity activity) {
+    public void requestCameraPicture(final Activity activity, GsCallback.a1<String> callback) {
         try {
             final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             final File picDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -1755,27 +1758,40 @@ public class GsContextUtils {
                     uri = Uri.fromFile(imageTemp);
                 }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri).putExtra(Intent.EXTRA_RETURN_RESULT, true);
-                _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
                 activity.startActivityForResult(takePictureIntent, REQUEST_CAMERA_PICTURE);
+                _lastCameraPictureFilepath = imageTemp.getAbsolutePath();
+                setPathCallback(callback);
             }
         } catch (IOException ignored) {
         }
     }
 
+    private void setPathCallback(final GsCallback.a1<String> callback) {
+        _receivePathCallback = new WeakReference<>(callback);
+    }
+
+    private void sendPathCallback(final String path) {
+        if (!GsTextUtils.isNullOrEmpty(path) && _receivePathCallback != null) {
+            final GsCallback.a1<String> cb = _receivePathCallback.get();
+            if (cb != null) {
+                cb.callback(path);
+            }
+        }
+        // Send only once and once only
+        _receivePathCallback = null;
+    }
+
     /**
      * Extract result data from {@link Activity}.onActivityResult.
      * Forward all arguments from context. Only requestCodes as implemented in {@link GsContextUtils} are analyzed.
-     * Also may forward results via local broadcast
+     * Also may forward results via callback
      */
     @SuppressLint("ApplySharedPref")
-    public Object extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent intent) {
+    public void extractResultFromActivityResult(final Activity context, final int requestCode, final int resultCode, final Intent intent) {
         switch (requestCode) {
             case REQUEST_CAMERA_PICTURE: {
-                final String picturePath = (resultCode == Activity.RESULT_OK) ? _lastCameraPictureFilepath : null;
-                if (picturePath != null) {
-                    sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                }
-                return picturePath;
+                sendPathCallback(resultCode == Activity.RESULT_OK ? _lastCameraPictureFilepath : null);
+                break;
             }
             case REQUEST_PICK_PICTURE: {
                 if (resultCode == Activity.RESULT_OK && intent != null) {
@@ -1823,26 +1839,20 @@ public class GsContextUtils {
                     }
 
                     // Return path to picture on success, else null
-                    if (picturePath != null) {
-                        sendLocalBroadcastWithStringExtra(context, REQUEST_CAMERA_PICTURE + "", EXTRA_FILEPATH, picturePath);
-                    }
-
-                    return picturePath;
+                    sendPathCallback(picturePath);
                 }
                 break;
             }
             case REQUEST_RECORD_AUDIO: {
-                String audioPath = null;
-                if (resultCode == Activity.RESULT_OK && intent != null) {
+                if (resultCode == Activity.RESULT_OK && intent != null && intent.getData() != null) {
                     final Uri uri = intent.getData();
                     final String uriPath = uri.getPath();
                     final String ext = uriPath.substring(uriPath.lastIndexOf("."));
                     final String datestr = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss", Locale.ENGLISH).format(new Date());
                     final File temp = new File(context.getCacheDir(), datestr + ext);
                     GsFileUtils.copyUriToFile(context, uri, temp);
-                    audioPath = temp.getAbsolutePath();
+                    sendPathCallback(temp.getAbsolutePath());
                 }
-                sendLocalBroadcastWithStringExtra(context, REQUEST_RECORD_AUDIO + "", EXTRA_FILEPATH, audioPath);
                 break;
             }
             case REQUEST_SAF: {
@@ -1857,16 +1867,15 @@ public class GsContextUtils {
                             resolver.takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         }
                     }
-                    return treeUri;
                 }
                 break;
             }
             case REQUEST_STORAGE_PERMISSION_M:
             case REQUEST_STORAGE_PERMISSION_R: {
-                return checkExternalStoragePermission(context);
+                checkExternalStoragePermission(context);
+                break;
             }
         }
-        return null;
     }
 
     /**
@@ -1913,17 +1922,27 @@ public class GsContextUtils {
     /**
      * Request edit of file
      *
-     * @param file File that should be edited
+     * @param context Context to use to get provider and start activity
+     * @param file    File that should be edited
      */
-    public void requestFileEdit(final Context context, final File file) {
-        final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
-        final Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra(EXTRA_FILEPATH, file.getAbsolutePath());
-        startActivity(context, intent);
+    public void requestFileEdit(final Context context, File file) {
+        if (file == null || !file.exists()) {
+            return;
+        }
+
+        try {
+            file = file.getCanonicalFile();
+            final Uri uri = FileProvider.getUriForFile(context, getFileProvider(context), file);
+            final Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setDataAndType(uri, GsFileUtils.getMimeType(file));
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(EXTRA_FILEPATH, file.getPath());
+            startActivity(context, intent);
+        } catch (IOException e) {
+            Log.e(GsContextUtils.class.getName(), "ERROR: Failed to get canonical file path");
+        }
     }
 
     /**

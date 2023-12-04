@@ -17,11 +17,9 @@
 * asciidoctor.js
 ~° Copyright asciidoctor.js authors
 
-asciidoctor-skins
+* asciidoctor-skins
 ~° Copyright asciidoctor-skins authors
 
-* flexmark-ext-prism-linenumber
-~° Copyright Tom Misawa
 
 `---------------`  
 <small>Permission is hereby granted, free of charge, to any person obtaining a copy

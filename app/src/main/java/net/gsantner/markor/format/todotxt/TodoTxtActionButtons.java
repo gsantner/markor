@@ -26,7 +26,6 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
 import net.gsantner.opoc.util.GsCollectionUtils;
-import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -344,7 +343,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         };
 
         new DateFragment()
-                .setActivity(getActivity())
                 .setListener(listener)
                 .setCalendar(initDate)
                 .show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "date");
@@ -373,7 +371,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         };
 
         new DateFragment()
-                .setActivity(getActivity())
                 .setListener(listener)
                 .setCalendar(initDate)
                 .setMessage(getContext().getString(R.string.due_date))
@@ -392,7 +389,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
         private DatePickerDialog.OnClickListener _extraListener;
         private String _extraLabel;
 
-        private Activity _activity;
         private int _year;
         private int _month;
         private int _day;
@@ -415,11 +411,6 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         public DateFragment setExtraLabel(String label) {
             _extraLabel = label;
-            return this;
-        }
-
-        public DateFragment setActivity(Activity activity) {
-            _activity = activity;
             return this;
         }
 
@@ -452,10 +443,10 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
         @NonNull
         @Override
-        public DatePickerDialog onCreateDialog(Bundle savedInstanceState) {
+        public DatePickerDialog onCreateDialog(final Bundle savedInstanceState) {
             super.onCreateDialog(savedInstanceState);
 
-            DatePickerDialog dialog = new DatePickerDialog(_activity, _listener, _year, _month, _day);
+            final DatePickerDialog dialog = new DatePickerDialog(getContext(), _listener, _year, _month, _day);
 
             if (_message != null && !_message.isEmpty()) {
                 dialog.setMessage(_message);
@@ -466,6 +457,15 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
 
             return dialog;
+        }
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            // Do not auto-recreate
+            if (savedInstanceState != null) {
+                dismiss();
+            }
         }
     }
 }

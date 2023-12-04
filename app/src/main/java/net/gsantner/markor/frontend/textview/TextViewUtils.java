@@ -37,9 +37,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
+import java.util.UUID;
 
 @SuppressWarnings({"CharsetObjectCanBeUsed", "WeakerAccess", "unused"})
-public final class TextViewUtils extends GsTextUtils {
+public final class TextViewUtils {
 
     // Suppress default constructor for noninstantiability
     private TextViewUtils() {
@@ -132,6 +133,15 @@ public final class TextViewUtils extends GsTextUtils {
         }
     }
 
+    public static String getSelectedText(final CharSequence text) {
+        final int[] sel = getSelection(text);
+        return (sel[0] >= 0 && sel[1] >= 0) ? text.subSequence(sel[0], sel[1]).toString() : "";
+    }
+
+    public static String getSelectedText(final TextView text) {
+        return getSelectedText(text.getText());
+    }
+
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
@@ -144,10 +154,31 @@ public final class TextViewUtils extends GsTextUtils {
         return getLineSelection(seq, getSelection(seq));
     }
 
-    public static String getSelectedLines(final CharSequence seq) {
-        final int[] sel = getLineSelection(seq);
-        return seq.subSequence(sel[0], sel[1]).toString();
+
+    /**
+     * Get lines of text in which sel[0] -> sel[1] is contained
+     **/
+    public static String getSelectedLines(final TextView text, final int... sel) {
+        return getSelectedLines(text.getText(), sel);
     }
+
+    public static String getSelectedLines(final CharSequence seq) {
+        return getSelectedLines(seq, getSelection(seq));
+    }
+
+    /**
+     * Get lines of text in which sel[0] -> sel[1] is contained
+     **/
+    public static String getSelectedLines(final CharSequence seq, final int... sel) {
+        if (sel == null || sel.length == 0) {
+            return "";
+        }
+
+        final int start = Math.min(Math.max(sel[0], 0), seq.length());
+        final int end = Math.min(Math.max(start, sel[sel.length - 1]), seq.length());
+        return seq.subSequence(getLineStart(seq, start), getLineEnd(seq, end)).toString();
+    }
+
 
     /**
      * Convert a char index to a line index + offset from end of line
@@ -370,20 +401,50 @@ public final class TextViewUtils extends GsTextUtils {
                 }
 
                 edit.setSelection(start, end);
-                edit.post(() -> showSelection(edit, start, end));
+                edit.postDelayed(() -> showSelection(edit, start, end), 250);
             });
         }
     }
 
+    /**
+     * Snippets are evaluated in the following order:
+     * 1. {{*}} style placeholders are replaced (except {{cursor}})
+     * 2. Time formats within backticks are interpolated
+     * 3. {{cursor}} tokens are replaced with HighlightingEditor.PLACE_CURSOR_HERE_TOKEN
+     *
+     * @param text         Text to be interpolated
+     * @param title        Title of note (for {{title}})
+     * @param selectedText Currently selected text
+     */
+    public static String interpolateSnippet(String text, final String title, final String selectedText) {
+        final long current = System.currentTimeMillis();
+        final String time = GsContextUtils.instance.formatDateTime((Locale) null, "HH:mm", current);
+        final String date = GsContextUtils.instance.formatDateTime((Locale) null, "yyyy-MM-dd", current);
+
+        // Replace placeholders
+        text = text
+                .replace("{{time}}", time)
+                .replace("{{date}}", date)
+                .replace("{{title}}", title)
+                .replace("{{sel}}", selectedText)
+                .replace("{{cursor}}", HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+
+        while (text.contains("{{uuid}}")) {
+            text = text.replaceFirst("\\{\\{uuid\\}\\}", UUID.randomUUID().toString());
+        }
+
+        return interpolateEscapedDateTime(text);
+    }
+
     // Search for matching pairs of backticks
     // interpolate contents of backtick pair as SimpleDateFormat
-    public static String interpolateEscapedDateTime(final String snip) {
+    public static String interpolateEscapedDateTime(final String text) {
         final StringBuilder interpolated = new StringBuilder();
         final StringBuilder temp = new StringBuilder();
         boolean isEscaped = false;
         boolean inDate = false;
-        for (int i = 0; i < snip.length(); i++) {
-            final char c = snip.charAt(i);
+        for (int i = 0; i < text.length(); i++) {
+            final char c = text.charAt(i);
             if (c == '\\' && !isEscaped) {
                 isEscaped = true;
             } else if (isEscaped) {

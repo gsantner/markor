@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
     <string name="select_existing_document">选择已有文档</string>
+    <string name="select_create_document">选择或创建文档</string>
     <string name="open_source_licenses">开源协议</string>
     <string name="rate_this_app">评价本应用</string>
     <string name="translate">翻译</string>
@@ -445,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">当前文件夹下保存附件的子文件夹。如留空，附件将被保存在当前文件夹中。</string>
     <string name="auto_format">自动格式</string>
     <string name="insert_snippet">插入片段</string>
+    <string name="snippet_directory">文本片段/模板目录</string>
     <string name="error_could_not_open_file">错误：无法打开文件。</string>
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
     <string name="wont_save_min_length">未自动保存字符数不到 %d 的文件以防止数据丢失。</string>

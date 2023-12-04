@@ -645,9 +645,12 @@ public class GsFileUtils {
 
     // Get the title of the file
     public static String getFilenameWithoutExtension(final File file) {
-        final String name = file.getName();
-        final int doti = name.lastIndexOf(".");
-        return (doti < 0) ? name : name.substring(0, doti);
+        return getNameWithoutExtension(file.getName());
+    }
+
+    public static String getNameWithoutExtension(final String fileName) {
+        final int doti = fileName.lastIndexOf(".");
+        return (doti < 0) ? fileName : fileName.substring(0, doti);
     }
 
     /// Get the file extension of the file, including dot
@@ -696,8 +699,8 @@ public class GsFileUtils {
      * This is highly performant as each file is processed exactly once.
      * Inspired by python's sort
      *
-     * @param sortBy   String key of what to sort
-     * @param file     The file object to get the
+     * @param sortBy String key of what to sort
+     * @param file   The file object to get the
      * @return A key which can be used for comparisons / sorting
      */
     private static String makeSortKey(final String sortBy, final File file) {
@@ -822,6 +825,22 @@ public class GsFileUtils {
                 outputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException ignored) {
+        }
+    }
+
+    public static File makeAbsolute(final String path, final File base) {
+        return path != null ? makeAbsolute(new File(path.trim()), base) : null;
+    }
+
+    public static File makeAbsolute(final File file, final File base) {
+        if (file == null) {
+            return null;
+        } else if (file.isAbsolute()) {
+            return file;
+        } else if (base != null) {
+            return new File(base, file.getPath()).getAbsoluteFile();
+        } else {
+            return null;
         }
     }
 }
