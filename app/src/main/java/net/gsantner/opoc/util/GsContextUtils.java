@@ -1148,6 +1148,15 @@ public class GsContextUtils {
         return thisp();
     }
 
+    public <T extends GsContextUtils> T setLauncherActivityEnabledFromString(final Context context, String activityClass, boolean enable) {
+        try {
+            ComponentName component = new ComponentName(context, activityClass);
+            context.getPackageManager().setComponentEnabledSetting(component, enable ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        } catch (Exception ignored) {
+        }
+        return thisp();
+    }
+
     /**
      * Try to create a new desktop shortcut on the launcher. Add permissions:
      * <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />

@@ -1085,7 +1085,7 @@
             android:label="@string/app_name"
             android:exported="true"
             android:targetActivity=".activity.DocumentActivity"
-            android:enabled="true">
+            android:enabled="false">
 
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
