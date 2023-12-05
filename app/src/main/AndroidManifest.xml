@@ -192,7 +192,6 @@
 
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
-                <action android:name="android.intent.action.PROCESS_TEXT" />
 
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/*" />
@@ -1080,6 +1079,22 @@
 
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name="AliasDocumentProcessText"
+            android:label="@string/app_name"
+            android:exported="true"
+            android:targetActivity=".activity.DocumentActivity"
+            android:enabled="true">
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+        </activity-alias>
     </application>
 
     <queries>
