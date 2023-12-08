@@ -195,6 +195,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Fil eller mapp finns inte eller kan inte skapas</string>
+    <string name="permissions">Rättigheter</string>
+    <string name="permission_not_granted">Behörighet inte beviljad</string>
     <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontell justering</string>
@@ -210,6 +213,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Editera text i mitten av skärmen</string>
     <string name="clipboard">Klippbord</string>
     <string name="select_existing_document">Välj existerande dokument</string>
+    <string name="select_create_document">Välj eller skapa dokument</string>
     <string name="open_source_licenses">Licenser för Öppen Källkod</string>
     <string name="rate_this_app">Betygsätt den här appen</string>
     <string name="translate">Översätt</string>
@@ -309,6 +313,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Visa senaste filerna</string>
     <string name="reload">Ladda om</string>
     <string name="wrap_words">Bryt långa rader</string>
+    <string name="line_numbers">Radnummer</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Aktiverar annars horisontell rullning.</string>
     <string name="recursive_search_in_current_directory">Rekursiv sökning i aktuell katalog.</string>
     <string name="always_open_with_this_app">Öppna alltid med denna app</string>
@@ -428,6 +433,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Förfaller idag</string>
     <string name="due_future">Förfaller i framtiden</string>
     <string name="completed">Slutförd</string>
+    <string name="advanced_filtering">Avancerad filtrering</string>
     <string name="match_any">Matcha alla</string>
     <string name="match_all">Matcha alla</string>
     <string name="dynamic_notebook_root_links">Dynamisk sökning efter anteckningsbok rot</string>
@@ -435,5 +441,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Dela till - Format</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="error_could_not_open_file">Fel: Kunde inte öppna fil.</string>
     <string name="document_error_clip">Ett fel uppstod: Text kopierad till urklipp.</string>
+    <string name="wont_save_min_length">Filer med färre än %d tecken sparas inte automatiskt i syfte för att förhindra förlust av data.</string>
+    <string name="filter">Filter</string>
 </resources>
