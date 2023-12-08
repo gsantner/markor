@@ -589,7 +589,7 @@ public class MarkorDialogFactory {
     public static void showHeadlineDialog(
             final Activity activity,
             final EditText edit,
-            final Set<Integer> enabled,
+            final Set<Integer> disabled,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel
     ) {
         // Get all headings and their levels
@@ -606,8 +606,9 @@ public class MarkorDialogFactory {
         final List<Integer> levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(headings, h -> h.level)));
 
         // Currently filtered headings
-        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> enabled.contains(h.level));
+        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level));
         final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
+
 
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
@@ -623,7 +624,7 @@ public class MarkorDialogFactory {
 
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = new DialogOptions();
-            dopt2.preSelected = GsCollectionUtils.indices(levels, enabled::contains);
+            dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !disabled.contains(l));
             dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
@@ -631,12 +632,12 @@ public class MarkorDialogFactory {
             dopt2.dialogWidthDp = 250;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
-                enabled.clear();
-                enabled.addAll(GsCollectionUtils.map(selected, levels::get));
+                disabled.clear();
+                disabled.addAll(GsCollectionUtils.setDiff(levels, GsCollectionUtils.map(selected, levels::get)));
 
                 // Update selection and data
                 filtered.clear();
-                filtered.addAll(GsCollectionUtils.indices(headings, h -> enabled.contains(h.level)));
+                filtered.addAll(GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level)));
 
                 data.clear();
                 data.addAll(GsCollectionUtils.map(filtered, (si, i) -> headings.get(si).str));

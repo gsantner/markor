@@ -34,6 +34,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Checkable;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -50,6 +51,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.widget.TextViewCompat;
 
+import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -242,13 +244,18 @@ public class GsSearchOrCustomTextDialog {
 
         // Constructing the dialog
         // =========================================================================================
-        if (dopt.titleText != 0 || !TextUtils.isEmpty(dopt.messageText)) {
+        final View selectAll;
+        if (dopt.titleText != 0 || !TextUtils.isEmpty(dopt.messageText) || dopt.isMultiSelectEnabled) {
             // Using a custom view for title and message.
             // This is needed because:
             // 1. https://stackoverflow.com/questions/61339887/alertdialog-doesnt-fit-long-list-view-buttons-if-used-together
             // 2. In order to control spacing
             // And is much less hacky than the other approaches
-            dialogBuilder.setCustomTitle(makeTitleView(activity, dopt));
+            final View title = makeTitleView(activity, dopt);
+            dialogBuilder.setCustomTitle(title);
+            selectAll = title.findViewWithTag("SELECT_ALL");
+        } else {
+            selectAll = null;
         }
 
         final LinearLayout mainLayout = new LinearLayout(activity);
@@ -258,6 +265,7 @@ public class GsSearchOrCustomTextDialog {
         final View searchView = makeSearchView(activity, dopt);
         final EditText searchEditText = searchView.findViewWithTag("EDIT");
         searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(listAdapter::filter));
+
 
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
@@ -374,6 +382,34 @@ public class GsSearchOrCustomTextDialog {
         // Set ok button text initially
         setOkButtonState.callback();
 
+        final GsCallback.a0 setSelectAllButtonState = () -> {
+            if (selectAll != null) {
+                if (listAdapter._selectedItems.size() < dopt.data.size()) {
+                    selectAll.setContentDescription(activity.getString(R.string.select_all));
+                    ((Checkable) selectAll).setChecked(false);
+                } else {
+                    selectAll.setContentDescription(activity.getString(R.string.clear_selection));
+                    ((Checkable) selectAll).setChecked(true);
+                }
+            }
+        };
+
+        // Set select all button state initially
+        setSelectAllButtonState.callback();
+
+        if (selectAll != null && dopt.isMultiSelectEnabled) {
+            selectAll.setOnClickListener((v) -> {
+                if (listAdapter._selectedItems.size() < dopt.data.size()) {
+                    listAdapter._selectedItems.addAll(GsCollectionUtils.range(dopt.data.size()));
+                } else {
+                    listAdapter._selectedItems.clear();
+                }
+                listAdapter.notifyDataSetChanged();
+                setOkButtonState.callback();
+                setSelectAllButtonState.callback();
+            });
+        }
+
         // Item click action
         listView.setOnItemClickListener((parent, textView, pos, id) -> {
             if (dopt.isMultiSelectEnabled) {
@@ -387,6 +423,7 @@ public class GsSearchOrCustomTextDialog {
                     ((Checkable) textView).setChecked(listAdapter._selectedItems.contains(index));
                 }
                 setOkButtonState.callback();
+                setSelectAllButtonState.callback();
             } else {
                 directActivate.callback(pos);
             }
@@ -400,6 +437,14 @@ public class GsSearchOrCustomTextDialog {
     private static View makeTitleView(final Context context, final DialogOptions dopt) {
         final int paddingSide = GsContextUtils.instance.convertDpToPx(context, 16);
         final int paddingBetween = GsContextUtils.instance.convertDpToPx(context, 4);
+
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final FrameLayout layout = new FrameLayout(context);
+        final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, layout, false);
+        selectAll.setTag("SELECT_ALL");
+        selectAll.setText("");
+
+
 
         final LinearLayout titleLayout = new LinearLayout(context);
         titleLayout.setOrientation(LinearLayout.VERTICAL);
@@ -423,6 +468,24 @@ public class GsSearchOrCustomTextDialog {
             subTitle.setTextIsSelectable(true);
             subTitle.setMovementMethod(LinkMovementMethod.getInstance()); // Allow links to be shown and followed
             titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
+
+        if (dopt.isMultiSelectEnabled) {
+            final LinearLayout overtitleLayout = new LinearLayout(context);
+            overtitleLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            final LayoutInflater inflater = LayoutInflater.from(context);
+            final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, overtitleLayout, false);
+            selectAll.setTag("SELECT_ALL");
+            selectAll.setText("");
+            TooltipCompat.setTooltipText(selectAll, context.getString(R.string.select_all));
+            final LinearLayout.LayoutParams selLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
+            selLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+            selLp.weight = 1;
+
+            overtitleLayout.addView(titleLayout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 5));
+            overtitleLayout.addView(selectAll, selLp);
+            return overtitleLayout;
         }
 
         return titleLayout;

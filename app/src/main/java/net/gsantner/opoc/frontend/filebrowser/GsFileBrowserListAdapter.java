@@ -338,7 +338,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 return;
             }
             case R.id.ui__filesystem_dialog__home: {
-                _currentSelection.clear();
                 loadFolder(_dopt.rootFolder);
                 return;
             }
@@ -362,7 +361,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void unselectAll() {
         for (int i = 0; i < _adapterDataFiltered.size(); i++) {
-            TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
+            final TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
             if (_currentSelection.contains(data.file)) {
                 _currentSelection.remove(data.file);
                 notifyItemChanged(data.position);
@@ -388,7 +387,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return true;
     }
 
-    public boolean toggleSelection(TagContainer data) {
+    public boolean toggleSelection(final TagContainer data) {
         boolean clickHandled = false;
         if (data != null && data.file != null && _currentFolder != null) {
             if (data.file.isDirectory() && _currentFolder.getParentFile() != null && _currentFolder.getParentFile().equals(data.file)) {
@@ -440,10 +439,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     @Override
-    public boolean onLongClick(View view) {
+    public boolean onLongClick(final View view) {
         switch (view.getId()) {
             case R.id.opoc_filesystem_item__root: {
-                TagContainer data = (TagContainer) view.getTag();
+                final TagContainer data = (TagContainer) view.getTag();
                 toggleSelection(data);
                 _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
                 return true;
@@ -547,7 +546,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private void loadFolder(final File folder) {
 
         final Handler handler = _recyclerView != null ? _recyclerView.getHandler() : new Handler();
-        _currentSelection.clear();
 
         new Thread(() -> {
             synchronized (LOAD_FOLDER_SYNC_OBJECT) {
@@ -630,6 +628,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 if (!newData.equals(_adapterData)) {
                     _adapterData.clear();
                     _adapterData.addAll(newData);
+                    _currentSelection.retainAll(_adapterData);
                     handler.post(() -> {
                         _filter.filter(_filter._lastFilter);
                         // TODO - add logic to notify the changed bits

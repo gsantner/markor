@@ -172,7 +172,7 @@ public abstract class ActionButtonBase {
                 new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
 
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom).setDisplayMode(ActionItem.DisplayMode.VIEW),
-                new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_open_in_browser_black_24dp, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.ANY),
+                new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.ANY),
                 new ActionItem(R.string.abid_common_rotate_screen, R.drawable.ic_rotate_left_black_24dp, R.string.rotate).setDisplayMode(ActionItem.DisplayMode.ANY)
         );
 

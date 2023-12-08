@@ -217,12 +217,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     private void updateMenuItems() {
         final String curFilepath = (getCurrentFolder() != null ? getCurrentFolder() : new File("/")).getAbsolutePath();
-        final int selCount = _filesystemViewerAdapter.getCurrentSelection().size();
+        final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
+        final int selCount = selFiles.size();
         final boolean selMulti1 = _dopt.doSelectMultiple && selCount == 1;
         final boolean selMultiMore = _dopt.doSelectMultiple && selCount > 1;
         final boolean selMultiAny = selMultiMore || selMulti1;
         final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
-        final Set<File> selFiles = _filesystemViewerAdapter.getCurrentSelection();
 
         // Check if is a favourite
         boolean selTextFilesOnly = true;
@@ -230,7 +230,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
         boolean allSelectedFav = true;
         final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
-        for (final File f : _filesystemViewerAdapter.getCurrentSelection()) {
+        for (final File f : selFiles) {
             selTextFilesOnly &= FormatRegistry.isFileSupported(f, true);
             selWritable &= f.canWrite();
             selDirectoriesOnly &= f.isDirectory();
@@ -253,6 +253,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMultiAny && allSelectedFav);
             _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
             _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
+            _fragmentMenu.findItem(R.id.action_clear_selection).setVisible(selCount > 0);
         }
     }
 
@@ -273,7 +274,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     public void reloadCurrentFolder() {
-        _filesystemViewerAdapter.unselectAll();
         _filesystemViewerAdapter.reloadCurrentFolder();
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
     }
@@ -367,12 +367,17 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         final int _id = item.getItemId();
+        final Set<File> currentSelection = _filesystemViewerAdapter.getCurrentSelection();
 
         switch (_id) {
+            case R.id.action_clear_selection: {
+                clearSelection();
+                return true;
+            }
             case R.id.action_create_shortcut: {
-                final File file = _filesystemViewerAdapter.getCurrentSelection().iterator().next();
+                final File file = currentSelection.iterator().next();
                 _cu.createLauncherDesktopShortcut(getContext(), file);
                 return true;
             }
@@ -443,7 +448,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_favourite: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     final Set<File> favs = _appSettings.getFavouriteFiles();
-                    favs.addAll(_filesystemViewerAdapter.getCurrentSelection());
+                    favs.addAll(currentSelection);
                     _appSettings.setFavouriteFiles(favs);
                     _dopt.favouriteFiles = favs;
                     updateMenuItems();
@@ -453,7 +458,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_favourite_remove: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
                     final Set<File> favs = _appSettings.getFavouriteFiles();
-                    favs.removeAll(_filesystemViewerAdapter.getCurrentSelection());
+                    favs.removeAll(currentSelection);
                     _appSettings.setFavouriteFiles(favs);
                     _dopt.favouriteFiles = favs;
                     updateMenuItems();
@@ -464,9 +469,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 askForDeletingFilesRecursive((confirmed, data) -> {
                     if (confirmed) {
                         Runnable deleter = () -> {
-                            WrMarkorSingleton.getInstance().deleteSelectedItems(_filesystemViewerAdapter.getCurrentSelection(), getContext());
+                            WrMarkorSingleton.getInstance().deleteSelectedItems(currentSelection, getContext());
                             _recyclerList.post(() -> {
-                                _filesystemViewerAdapter.unselectAll();
                                 _filesystemViewerAdapter.reloadCurrentFolder();
                             });
                         };
@@ -484,15 +488,14 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             case R.id.action_share_files: {
                 MarkorContextUtils s = new MarkorContextUtils(getContext());
-                s.shareStreamMultiple(getContext(), _filesystemViewerAdapter.getCurrentSelection(), "*/*");
-                _filesystemViewerAdapter.unselectAll();
+                s.shareStreamMultiple(getContext(), currentSelection, "*/*");
                 _filesystemViewerAdapter.reloadCurrentFolder();
                 return true;
             }
 
             case R.id.action_info_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
+                    File file = new ArrayList<>(currentSelection).get(0);
                     FileInfoDialog.show(file, getChildFragmentManager());
                 }
                 return true;
@@ -500,8 +503,8 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             case R.id.action_rename_selected_item: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
-                    WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
+                    final File file = currentSelection.iterator().next();
+                    final WrRenameDialog renameDialog = WrRenameDialog.newInstance(file, renamedFile -> reloadCurrentFolder());
                     renameDialog.show(getChildFragmentManager(), WrRenameDialog.FRAGMENT_TAG);
                 }
                 return true;
@@ -509,11 +512,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             case R.id.action_fs_copy_to_clipboard: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    File file = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection()).get(0);
+                    final File file = new ArrayList<>(currentSelection).get(0);
                     if (FormatRegistry.isFileSupported(file, true)) {
                         _cu.setClipboard(getContext(), GsFileUtils.readTextFileFast(file).first);
                         Toast.makeText(getContext(), R.string.clipboard, Toast.LENGTH_SHORT).show();
-                        _filesystemViewerAdapter.unselectAll();
                     }
                 }
                 return true;

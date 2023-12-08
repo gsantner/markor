@@ -12,6 +12,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AlwaysShowAction">
 
+
+    <item
+        android:id="@+id/action_clear_selection"
+        android:icon="@drawable/ic_baseline_clear_24"
+        android:title="@string/clear_selection"
+        android:visible="false"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_favourite"
         android:icon="@drawable/ic_star_border_black_24dp"
@@ -56,14 +63,14 @@
         android:icon="@drawable/ic_gs_file_move_black_24dp"
         android:title="@string/move"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_copy_selected_items"
         android:icon="@drawable/ic_baseline_file_copy_24"
         android:title="@string/copy"
         android:visible="false"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_create_shortcut"

@@ -416,11 +416,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 }
 
                 @Override
-                public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
+                public void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
-                            setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
+                            setTitle(getFileBrowserTitle());
                         }
                         invalidateOptionsMenu();
                     }
