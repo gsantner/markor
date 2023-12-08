@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Infoga bild</string>
     <string name="contributors">Medhjälpare</string>
     <string name="save_location">Spara plats</string>
+    <string name="saved_location_to">Sparad till %s</string>
     <string name="select_storage_folder">Välj lagringsmapp</string>
     <string name="licenses">Licenser</string>
     <string name="changelog">Ändringar</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Visa tredjeparts-licenser</string>
     <string name="language_change_restart_description">Byt språk för appen. Starta om för att fastställa ändringar</string>
     <string name="language">Språk</string>
+    <string name="storage_permission_required">Rättigheter till lagringsplats krävs för att läsa och skriva filer</string>
     <string name="open_with">Öppna med</string>
     <string name="sort_by">Sortera</string>
     <string name="date">Datum</string>
