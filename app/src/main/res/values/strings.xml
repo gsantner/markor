@@ -385,7 +385,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_file_or_folder">Create a new file or folder</string>
     <string name="choose_format">Choose format</string>
     <string name="clear_selection">Clear selection</string>
-    <string name="select_all">Select_all</string>
+    <string name="select_all">Select all</string>
     <string name="selected">Selected</string>
     <string name="back">Back</string>
     <string name="expand_collapse">Expand / Collapse</string>

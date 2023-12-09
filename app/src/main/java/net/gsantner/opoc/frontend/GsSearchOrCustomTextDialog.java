@@ -34,7 +34,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Checkable;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -49,6 +48,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -435,22 +435,27 @@ public class GsSearchOrCustomTextDialog {
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {
-        final int paddingSide = GsContextUtils.instance.convertDpToPx(context, 16);
-        final int paddingBetween = GsContextUtils.instance.convertDpToPx(context, 4);
+        // We nest the title layout within a horizontal layout so we can add a select all button
+        // We return the horizontal layout so that the select all button can be found by tag
 
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        final FrameLayout layout = new FrameLayout(context);
-        final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, layout, false);
-        selectAll.setTag("SELECT_ALL");
-        selectAll.setText("");
-
-
-
+        final int padding = GsContextUtils.instance.convertDpToPx(context, 4);
         final LinearLayout titleLayout = new LinearLayout(context);
-        titleLayout.setOrientation(LinearLayout.VERTICAL);
-        titleLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        titleLayout.setOrientation(LinearLayout.HORIZONTAL);
+        titleLayout.setPadding(4 * padding, 2 * padding, 4 * padding, padding);
+        titleLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT)
+        );
         titleLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        titleLayout.setPadding(paddingSide, 2 * paddingBetween, paddingSide, paddingBetween);
+
+        final LinearLayout titleTextLayout = new LinearLayout(context);
+        titleTextLayout.setOrientation(LinearLayout.VERTICAL);
+        titleTextLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 5)
+        );
+        titleLayout.addView(titleTextLayout);
+
 
         if (dopt.titleText != 0) {
             final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
@@ -458,34 +463,39 @@ public class GsSearchOrCustomTextDialog {
             title.setEllipsize(TextUtils.TruncateAt.END);
             title.setText(dopt.titleText);
             title.setPadding(0, 0, 0, 0);
-            titleLayout.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            titleTextLayout.addView(title, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         if (!TextUtils.isEmpty(dopt.messageText)) {
             final TextView subTitle = new TextView(context, null, android.R.attr.textAppearanceMedium);
-            subTitle.setPadding(0, dopt.titleText == 0 ? 0 : paddingBetween, 0, 0);
+            subTitle.setPadding(0, dopt.titleText == 0 ? 0 : padding, 0, 0);
             subTitle.setText(dopt.messageText);
             subTitle.setTextIsSelectable(true);
             subTitle.setMovementMethod(LinkMovementMethod.getInstance()); // Allow links to be shown and followed
-            titleLayout.addView(subTitle, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            titleTextLayout.addView(subTitle, new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
         if (dopt.isMultiSelectEnabled) {
-            final LinearLayout overtitleLayout = new LinearLayout(context);
-            overtitleLayout.setOrientation(LinearLayout.HORIZONTAL);
-
+            // Using a multiple choice text view as a selectable checkbox button
+            // Requires no styling to match the existing check boxes
             final LayoutInflater inflater = LayoutInflater.from(context);
-            final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, overtitleLayout, false);
+            final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, titleLayout, false);
             selectAll.setTag("SELECT_ALL");
             selectAll.setText("");
             TooltipCompat.setTooltipText(selectAll, context.getString(R.string.select_all));
-            final LinearLayout.LayoutParams selLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 0);
-            selLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-            selLp.weight = 1;
+            // Remove padding to right to help align it
+            titleLayout.setPadding(titleLayout.getPaddingLeft(), titleLayout.getPaddingTop(), 0, titleLayout.getPaddingBottom());
 
-            overtitleLayout.addView(titleLayout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 5));
-            overtitleLayout.addView(selectAll, selLp);
-            return overtitleLayout;
+            final LinearLayout.LayoutParams selLp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT, 0);
+            selLp.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+
+            titleLayout.addView(selectAll, selLp);
         }
 
         return titleLayout;
