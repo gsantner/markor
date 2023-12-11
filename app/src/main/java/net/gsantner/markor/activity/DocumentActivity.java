@@ -26,7 +26,6 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -289,7 +288,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public void showTextEditor(final Document document, final Integer lineNumber, final Boolean startPreview) {
-        GsFragmentBase currentFragment = getCurrentVisibleFragment();
+        final GsFragmentBase currentFragment = getCurrentVisibleFragment();
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditAndViewFragment &&

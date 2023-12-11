@@ -320,7 +320,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public int getEditorActionButtonItemPadding() {
-        return getInt(R.string.pref_key__editor_textaction_bar_item_padding, 8);
+        return getInt(R.string.pref_key__editor_textaction_bar_item_padding, 6);
     }
 
     public boolean isDisableSpellingRedUnderline() {

@@ -48,7 +48,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.TextViewCompat;
 
 import net.gsantner.markor.R;
@@ -58,6 +57,7 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -97,7 +97,7 @@ public class GsSearchOrCustomTextDialog {
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
         public GsCallback.a1<Spannable> highlighter = null;
         public String extraFilter = null;
-        public List<Integer> preSelected = null;
+        public Collection<Integer> preSelected = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
         public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
         public GsCallback.a1<DialogInterface> dismissCallback = null;

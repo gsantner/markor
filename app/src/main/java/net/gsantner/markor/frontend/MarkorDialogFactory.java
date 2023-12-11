@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
@@ -59,11 +60,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class MarkorDialogFactory {
     public static AppSettings as() {
@@ -506,6 +511,80 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
+    /**
+     * Shows all checkboxes in the file in a muti select dialog.
+     * The multi select can be used to check or uncheck them.
+     *
+     * Long pressing a line will jump to the line in the file.
+     */
+    public static void showDocumentChecklistDialog(
+            final Activity activity,
+            final Editable text,
+            final Pattern checkPattern,
+            final int checkGroup,
+            final String checkedChars,
+            final String uncheckedChars,
+            final @Nullable GsCallback.a1<Integer> showCallback
+    ) {
+        final List<String> lines = new ArrayList<>();    // String of each line
+        final Set<Integer> checked = new HashSet<>();    // Whether the line is checked
+        final List<Integer> indices = new ArrayList<>(); // Indices of the check char in the line
+        final Matcher matcher = checkPattern.matcher("");
+        GsTextUtils.forEachline(text, (index, start, end) -> {
+            final String line = text.subSequence(start, end).toString();
+            matcher.reset(line);
+            if (matcher.find()) {
+                final int cs = matcher.start(checkGroup);
+                final char c = line.charAt(cs);
+                if (checkedChars.indexOf(c) >= 0) {
+                    checked.add(lines.size());
+                }
+                lines.add(line);
+                indices.add(cs + start);
+            }
+        });
+
+        final DialogOptions dopt = new DialogOptions();
+        baseConf(activity, dopt);
+        dopt.isMultiSelectEnabled = true;
+        dopt.data = lines;
+        dopt.preSelected = checked;
+        dopt.titleText = R.string.check_list;
+        dopt.isLongPressSelectEnabled = true;
+
+        final String check = Character.toString(checkedChars.charAt(0));
+        final String uncheck = Character.toString(uncheckedChars.charAt(0));
+        final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(text);
+
+        dopt.positionCallback = (result) -> {
+            // Result has the indices of the checker lines which are selected
+            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+                final int cs = indices.get(i);
+                chunked.replace(cs, cs + 1, uncheck);
+            }
+
+            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+                final int cs = indices.get(i);
+                chunked.replace(cs, cs + 1, check);
+            }
+
+            chunked.applyChanges();
+        };
+
+        if (showCallback != null) {
+            dopt.callback = (line) -> {
+                final int index = lines.indexOf(line);
+                if (index >= 0) {
+                    final int cs = indices.get(index);
+                    final int end = TextViewUtils.getLineEnd(text, cs);
+                    showCallback.callback(end);
+                }
+            };
+        }
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
     // Insert items
     public static void showInsertItemsDialog(
             final Activity activity,
@@ -608,7 +687,6 @@ public class MarkorDialogFactory {
         // Currently filtered headings
         final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level));
         final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
-
 
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
