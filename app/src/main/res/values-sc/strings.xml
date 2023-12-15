@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Èdita su testu in su tzentru de s\'ischermu</string>
     <string name="clipboard">Punta de billete</string>
     <string name="select_existing_document">Ischerta unu documentu esistente</string>
+    <string name="select_create_document">Seletziona o crea unu documentu</string>
     <string name="open_source_licenses">Litzèntzias a mitza aberta</string>
     <string name="rate_this_app">Vàluta custa aplicatzione</string>
     <string name="translate">Tradui</string>
@@ -445,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Suta-cartella suta de sa cartella atuale in ue s\'anta a sarvare sos alligados. Si abarrat bòidu, sos alligados s\'ant a sarvare in sa cartella atuale.</string>
     <string name="auto_format">Formatatzione automàtica</string>
     <string name="insert_snippet">Inserta frammentu</string>
+    <string name="snippet_directory">Cartella pro frammentos / modellos</string>
     <string name="error_could_not_open_file">Errore: No at fatu a abèrrere su documentu.</string>
     <string name="document_error_clip">Errore agatadu: testu copiadu in punta de billete.</string>
     <string name="wont_save_min_length">Documentos cun prus pagu de %d caràteres non benint sarvados in automàticu pro prevenire pèrdidas de datos.</string>
