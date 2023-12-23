@@ -51,7 +51,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     public static final Pattern LINE_ITALIC = Pattern.compile(LINE_PREFIX + "(\\s*)(_)(\\S.*\\S)(\\3)(\\s*)$");
     public static final Pattern LINE_STRIKEOUT = Pattern.compile(LINE_PREFIX + "(\\s*)(~~)(\\S.*\\S)(\\3)(\\s*)$");
     // Group 1: Prefix, Group 2: Pre-space, Group 3: Text, Group 4: Post-space
-    public static final Pattern LINE_NONE = Pattern.compile(LINE_PREFIX + "(\\s*)(.*)(\\s*)$");
+    public static final Pattern LINE_NONE = Pattern.compile(LINE_PREFIX + "(\\s*)(.*?)(\\s*)$");
     // ----------------------------------------------------------------------------
 
     public static final Pattern CHECKED_LIST_LINE = Pattern.compile("^(\\s*)(([-*+])\\s\\[([xX ])\\]\\s)");

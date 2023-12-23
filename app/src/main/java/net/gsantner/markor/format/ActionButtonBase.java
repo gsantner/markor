@@ -159,11 +159,9 @@ public abstract class ActionButtonBase {
 
     /**
      * Get a combined action list - from derived format and the base actions
-     * @return
      */
     private List<ActionItem> getActionList() {
         final List<ActionItem> commonActions = Arrays.asList(
-                new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
                 new ActionItem(R.string.abid_common_delete_lines, R.drawable.ic_delete_black_24dp, R.string.delete_lines),
                 new ActionItem(R.string.abid_common_new_line_below, R.drawable.ic_baseline_keyboard_return_24, R.string.start_new_line_below),
                 new ActionItem(R.string.abid_common_move_text_one_line_up, R.drawable.ic_baseline_arrow_upward_24, R.string.move_text_one_line_up).setRepeatable(true),
@@ -171,6 +169,7 @@ public abstract class ActionButtonBase {
                 new ActionItem(R.string.abid_common_insert_snippet, R.drawable.ic_baseline_file_copy_24, R.string.insert_snippet),
                 new ActionItem(R.string.abid_common_special_key, R.drawable.ic_keyboard_black_24dp, R.string.special_key),
                 new ActionItem(R.string.abid_common_time, R.drawable.ic_access_time_black_24dp, R.string.date_and_time),
+                new ActionItem(R.string.abid_common_open_link_browser, R.drawable.ic_open_in_browser_black_24dp, R.string.open_link),
 
                 new ActionItem(R.string.abid_common_web_jump_to_very_top_or_bottom, R.drawable.ic_vertical_align_center_black_24dp, R.string.jump_to_bottom).setDisplayMode(ActionItem.DisplayMode.VIEW),
                 new ActionItem(R.string.abid_common_view_file_in_other_app, R.drawable.ic_baseline_open_in_new_24, R.string.open_with).setDisplayMode(ActionItem.DisplayMode.VIEW),
@@ -268,10 +267,11 @@ public abstract class ActionButtonBase {
         final Set<String> added = GsCollectionUtils.setDiff(defined, existing);
         final Set<String> removed = GsCollectionUtils.setDiff(existing, defined);
 
+        // NOTE: suppressing this for increased discoverability
         // Disable any new actions unless none existing (i.e. first run)
-        if (!existing.isEmpty()) {
-            disabled.addAll(added);
-        }
+        // if (!existing.isEmpty()) {
+        //     disabled.addAll(added);
+        // }
 
         // Add new ones to order
         order.addAll(added);
