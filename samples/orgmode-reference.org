@@ -1,0 +1,74 @@
+OrgMode Reference
+* Headline
+** Nested headline
+*** Deeper
+
+* Basic markup
+This is the general building block for org-mode navigation.
+- _underscores let you underline things_
+- *stars add emphasis*
+- /slashes are italics/
+- +pluses are strikethrough+
+- =equal signs are verbatim text=
+- ~tildes can also be used~
+
+* List
+** Unordered List
+- Item 1
+- Item 2
+  - Subitem 2.1
+  - Subitem 2.2
+** Ordered List
+1. First Item
+2. Second Item
+   1. Subitem 2.1
+   2. Subitem 2.2
+- [X] Completed Task
+- [ ] Uncompleted Task
+** Nested List
+   - Item A
+     - Subitem A.1
+     - Subitem A.2
+   - Item B
+
+* Tables
+
+| First Name                 | Last Name           | Years using Emacs |
+|----------------------------+---------------------+-------------------|
+| Lee                        | Hinman              |                 5 |
+| Mike                       | Hunsinger           |                 2 |
+| Daniel                     | Glauser             |                 4 |
+| Really-long-first-name-guy | long-last-name-pers |                 1 |
+
+* Org-mode links
+
+#+BEGIN_SRC fundamental
+[[http://google.com/][Google]]
+#+END_SRC
+
+[[./images/pic1.png]]
+
+* TODO List
+** TODO This is a task that needs doing
+** TODO Another todo task
+- [ ] sub task one
+- [X] sub task two
+- [ ] sub task three
+** DONE I've already finished this one
+*** CANCELLED learn todos
+    CLOSED: [2023-10-16 Mon 08:39]
+
+* Code
+#+BEGIN_LaTeX
+$a + b$
+#+END_LaTeX
+
+#+BEGIN_SRC emacs-lisp
+(defun my/function ()
+  "docstring"
+  (interactive)
+  (progn
+    (+ 1 1)
+    (message "Hi")))
+#+END_SRC
+
