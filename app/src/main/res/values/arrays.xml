@@ -122,6 +122,7 @@
         <item translatable="false">@string/file_template__md_zettelkasten</item>
         <item translatable="false">@string/file_template__ad_jekyll_post</item>
         <item translatable="false">@string/file_template__csv_sample</item>
+        <item translatable="false">@string/file_template__orgmode_reference</item>
     </string-array>
 
     <string-array name="new_file_types__file_extension" translatable="false">
