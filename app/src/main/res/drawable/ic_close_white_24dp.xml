@@ -8,7 +8,6 @@
                 <stroke
                     android:width="2dp"
                     android:color="@color/white" />
-                <!-- width - with of the line -->
             </shape>
         </rotate>
     </item>
