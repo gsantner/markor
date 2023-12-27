@@ -100,6 +100,8 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset/";
     private static final String JS_POSTFIX = "'></script>";
 
+    public static final String OUTER_TOC_GENERATOR_INCLUDE = JS_PREFIX + "contents/contents-generator.js" + JS_POSTFIX;
+
     public static final String HTML_KATEX_INCLUDE = CSS_PREFIX + "katex/katex.min.css" + CSS_POSTFIX +
             JS_PREFIX + "katex/katex.min.js" + JS_POSTFIX +
             JS_PREFIX + "katex/katex-render.js" + JS_POSTFIX +
@@ -249,6 +251,11 @@ public class MarkdownTextConverter extends TextConverterBase {
                     .set(TocExtension.DIV_CLASS, "markor-table-of-contents toc")
                     .set(TocExtension.LIST_CLASS, "markor-table-of-contents-list")
                     .set(TocExtension.BLANK_LINE_SPACER, false);
+        }
+
+        // Enable outer table of contents generator
+        if (!_appSettings.isMarkdownTableOfContentsEnabled()) {
+            head += OUTER_TOC_GENERATOR_INCLUDE;
         }
 
         // Enable Math / KaTex

@@ -9,9 +9,11 @@ package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -19,10 +21,14 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -72,6 +78,7 @@ public abstract class ActionButtonBase {
 
     protected HighlightingEditor _hlEditor;
     protected WebView _webView;
+    protected WebView _contentsWebView;
     protected Document _document;
     protected AppSettings _appSettings;
     protected int _indent;
@@ -210,7 +217,6 @@ public abstract class ActionButtonBase {
      * @return List of Action Item keys in order specified by preferences
      */
     public List<String> getActionOrder() {
-
         final Set<String> order = new LinkedHashSet<>(loadActionPreference(ORDER_SUFFIX));
 
         // Handle the case where order was stored without suffix. i.e. before this release.
@@ -638,7 +644,78 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                // Jump to table of contents in Markdown
+                if (_appSettings.isMarkdownTableOfContentsEnabled()) {
+                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                    return true;
+                }
+
+                // Show table of contents in dialog
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    _webView.evaluateJavascript("javascript: isReloaded()", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String result) {
+                            if ("true".equals(result)) {
+                                _webView.evaluateJavascript("javascript: generate()", new ValueCallback<String>() {
+                                    @Override
+                                    public void onReceiveValue(String toc) {
+                                        if (toc.length() < 3) {
+                                            Toast.makeText(_activity, R.string.no_table_of_contents_defined, Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                        toc = toc.replaceAll("\\\\u003C", "<");
+                                        toc = toc.replaceAll("\\\\", "");
+                                        toc = toc.substring(1, toc.length() - 1);
+                                        _contentsWebView.loadDataWithBaseURL(null, toc, "text/html;charset=utf-8", "utf-8", null);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+
+                if (_contentsWebView == null) {
+                    if (_contentsWebView == null) {
+                        _contentsWebView = new WebView(getContext());
+                        _contentsWebView.getSettings().setJavaScriptEnabled(true);
+                        _contentsWebView.addJavascriptInterface(new Object() {
+                            @JavascriptInterface
+                            public void run(String param) {
+                                _activity.runOnUiThread(() -> _webView.loadUrl("javascript:document.getElementById('" + param.substring(1) + "').scrollIntoView();"));
+                            }
+                        }, "injectedObject");
+                    }
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    _webView.evaluateJavascript("javascript: locate()", new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String result) {
+                            if (result.length() < 1) {
+                                return;
+                            }
+                            result = result.replaceAll("\\\\u003C", "<");
+                            result = result.replaceAll("\\\\", "");
+                            result = result.substring(1, result.length() - 1);
+                            _contentsWebView.loadUrl("javascript:highlightById('" + result + "')");
+                        }
+                    });
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.table_of_contents);
+                builder.setView(_contentsWebView);
+                builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+                params.height = (int) (_activity.getResources().getDisplayMetrics().heightPixels * 0.8);
+                dialog.getWindow().setAttributes(params);
+
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
@@ -728,6 +805,7 @@ public abstract class ActionButtonBase {
             stringId = string;
             displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
+
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {

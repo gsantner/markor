@@ -1,0 +1,14 @@
+a {
+    text-decoration: none;
+    color: grey;
+}
+
+.title {
+    font-size: 1.2em;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.title:hover {
+    background-color: #ececec;
+}
