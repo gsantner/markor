@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Déplacer vers un fichier du dossier</string>
     <string name="sort_tasks_by_selected_order">Ordonnez les tâches selon l\'ordre sélectionné</string>
     <string name="special_key">Touches spéciales</string>
+    <string name="asciidoc_special_key">Contenu spécial AsciiDoc</string>
     <string name="key_page_up">Page précédente</string>
     <string name="key_page_down">Page suivante</string>
     <string name="move_text_one_line_up">Déplacer le texte une ligne vers le haut</string>
@@ -214,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Éditer le texte au centre de l\'écran</string>
     <string name="clipboard">Presse-papier</string>
     <string name="select_existing_document">Sélectionner un document existant</string>
+    <string name="select_create_document">Choisir ou créer un document</string>
     <string name="open_source_licenses">Licence Open Source</string>
     <string name="rate_this_app">Évaluer cette application</string>
     <string name="translate">Traduire</string>
@@ -313,6 +315,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lister dans les fichiers récents</string>
     <string name="reload">Rafraîchir</string>
     <string name="wrap_words">Retour à la ligne</string>
+    <string name="line_numbers">Numéro de la ligne</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Afficher la suite du texte à la ligne suivante s\'il dépasse la largeur de l\'écran, plutôt que d\'utiliser le défilement horizontal.</string>
     <string name="recursive_search_in_current_directory">Recherche récursive dans le répertoire courant.</string>
     <string name="always_open_with_this_app">Toujours ouvrir avec cette application</string>
@@ -437,7 +440,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Tout faire correspondre</string>
     <string name="dynamic_notebook_root_links">Recherche dynamique de la racine du bloc-notes</string>
     <string name="search_dynamically_for_notebook_root">Afin de suivre les liens du wiki, recherchez dynamiquement le fichier notebook.zim pour identifier le répertoire racine du cahier actuel. Cochez cette case si vous utilisez plusieurs blocs-notes zim ou si le répertoire de bloc-notes défini dans l\'application ne correspond pas à votre bloc-notes zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/Préfixe des textes partagés dans Markor. Suis les règles de format de dates simplifiées d\'Android.\n\nUtiliser le texte réservé {{text}} pour positionner le texte partagé. S\'il n\'est pas spécifié, le texte partagé sera annexés et le format utilisé comme préfixe.</string>
     <string name="share_into_format">Partager dans - Format</string>
+    <string name="attachment_folder_name">Nom du dossier en attachement</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>
     <string name="error_could_not_open_file">Impossible d\'ouvrir le fichier.</string>

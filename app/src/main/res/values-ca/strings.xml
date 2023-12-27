@@ -215,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Edita el text al centre de la pantalla</string>
     <string name="clipboard">Porta-retalls</string>
     <string name="select_existing_document">Seleccioneu el document existent</string>
+    <string name="select_create_document">Seleccioneu o creeu un document</string>
     <string name="open_source_licenses">Llicències de codi obert</string>
     <string name="rate_this_app">Valoreu l\'aplicació</string>
     <string name="translate">Tradueix</string>
@@ -445,6 +446,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Subcarpeta sota la carpeta actual on es desaran els fitxers adjunts. Si es deixa en blanc, els fitxers adjunts es desaran a la carpeta actual.</string>
     <string name="auto_format">Format automàtic</string>
     <string name="insert_snippet">Insereix fragment</string>
+    <string name="snippet_directory">Directori de fragments/plantilles</string>
     <string name="error_could_not_open_file">Error: no s\'ha pogut obrir el fitxer.</string>
     <string name="document_error_clip">S\'ha trobat un error: el text s\'ha copiat al porta-retalls.</string>
     <string name="wont_save_min_length">Els fitxers amb menys de %d caràcters no es desaran automàticament per evitar la pèrdua de dades.</string>

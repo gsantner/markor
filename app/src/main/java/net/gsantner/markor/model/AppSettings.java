@@ -276,7 +276,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean isShowSettingsOptionInMainToolbar() {
-        return true;//getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
+        return false; // getBool(R.string.pref_key__show_settings_option_in_main_toolbar, true);
     }
 
     public boolean isHighlightingHexColorEnabled() {
@@ -942,6 +942,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return getNotebookDirectory();
         }
         final String child = getString(R.string.pref_key__attachment_folder_name, "_res").trim();
-        return TextViewUtils.isNullOrEmpty(child) ? parent : new File(parent, child);
+        return GsTextUtils.isNullOrEmpty(child) ? parent : new File(parent, child);
     }
 }
