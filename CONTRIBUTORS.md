@@ -40,7 +40,7 @@ Where:
 * **[Alexander Sachse](alexander.sachse@gmail.com)**<br/>~° Added simple word counter
 * **[Kyle Phelps](kyle.phelps757@gmail.com)**<br/>~° Added functionality to share multiple files from file browser
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
-* * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions
+* **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions
 * **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists
 * **[Niels](https://stackoverflow.com/users/432115/niels)**<br/>~° Added encryption for textfile contents
 * **[Helguli](https://github.com/Helguli)**<br/>~° Added fast scroll to editor
@@ -52,4 +52,3 @@ Where:
 * **[Li Guanglin](https://github.com/guanglinn)**<br/>~° Added line numbers support
 * **[bigger124](https://github.com/bigger124)**<br>~° Added OrgMode-Support
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
-
