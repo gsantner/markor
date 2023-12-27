@@ -147,7 +147,7 @@
                             android:title="@string/embed_binary" />
                         <item
                             android:id="@string/action_format_orgmode"
-                            android:icon="@drawable/fountain_pen"
+                            android:icon="@drawable/ic_org_mode_file"
                             android:title="@string/orgmode" />
                     </group>
                 </menu>
