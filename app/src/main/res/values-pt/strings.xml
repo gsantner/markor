@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Inserir imagem</string>
     <string name="contributors">Colaboradores</string>
     <string name="save_location">Localização para guardar</string>
+    <string name="saved_location_to">Guardado em %s</string>
     <string name="select_storage_folder">Selecionar pasta do armazenamento</string>
     <string name="licenses">Licenças</string>
     <string name="changelog">Alterações</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Licenças de terceiros</string>
     <string name="language_change_restart_description">Altera o idioma da aplicação. Tem que reiniciar a aplicação para aplicar as alterações.</string>
     <string name="language">Idioma</string>
+    <string name="storage_permission_required">Permissão de armamento necessária para ler e escrever ficheiros</string>
     <string name="open_with">Abrir com</string>
     <string name="sort_by">Ordenar por</string>
     <string name="date">Data</string>
@@ -193,6 +195,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisco (*)</string>
     <string name="unordered_list_char_plus">Mais (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor só pode editar documentos locais, off-line e não tem suporte a gestor de ficheiros que não disponibilizem o caminho completo do ficheiro.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Ficheiro ou directoria não existe e não pode ser criado</string>
+    <string name="permissions">Permissões</string>
+    <string name="permission_paths_revert">Reverter para os caminhos por definição?</string>
+    <string name="permission_not_granted">Permissão não concedida</string>
     <string name="sync_to_local_folder_notice">Aviso: as aplicações de sincronização podem colocar os ficheiros em pastas personalizadas. Pode abrir os ficheiros alterando a pasta de documentos do Markor ou através de um gestor de ficheiros.</string>
     <string name="vertical_alignment">Alinhamento vertical</string>
     <string name="horizontal_alignment">Alinhamento horizontal</string>
@@ -208,6 +214,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Editar texto no centro do ecrã</string>
     <string name="clipboard">Área de transferência</string>
     <string name="select_existing_document">Selecionar documento</string>
+    <string name="select_create_document">Selecionar ou criar documento</string>
     <string name="open_source_licenses">Licenças Open Source</string>
     <string name="rate_this_app">Avaliar</string>
     <string name="translate">Traduzir</string>
@@ -307,6 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Lista nos ficheiros recentes</string>
     <string name="reload">Recarregar</string>
     <string name="wrap_words">Moldar texto</string>
+    <string name="line_numbers">Números das linhas</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
     <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual.</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
@@ -426,6 +434,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Vence hoje</string>
     <string name="due_future">Vencimento no futuro</string>
     <string name="completed">Concluído</string>
+    <string name="advanced_filtering">Filtro avançado</string>
     <string name="match_any">Corresponder Qualquer Um</string>
     <string name="match_all">Combinar todos</string>
     <string name="dynamic_notebook_root_links">Busca dinâmica pela raiz de notebook</string>
