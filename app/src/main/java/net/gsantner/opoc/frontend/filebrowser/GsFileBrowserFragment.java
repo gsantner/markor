@@ -563,7 +563,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private void askForMoveOrCopy(final boolean isMove) {
         final List<File> files = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
         MarkorFileBrowserFactory.showFolderDialog(new GsFileBrowserOptions.SelectionListenerAdapter() {
-            private GsFileBrowserOptions.Options _doptMoC;
 
             @Override
             public void onFsViewerSelected(String request, File file, Integer lineNumber) {
@@ -575,27 +574,15 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
             @Override
             public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
-                _doptMoC = dopt;
-                _doptMoC.titleText = isMove ? R.string.move : R.string.copy;
-                _doptMoC.rootFolder = _appSettings.getNotebookDirectory();
-                _doptMoC.startFolder = getCurrentFolder();
+                dopt.titleText = isMove ? R.string.move : R.string.copy;
+                dopt.rootFolder = _appSettings.getNotebookDirectory();
+                dopt.startFolder = getCurrentFolder();
                 // Directories cannot be moved into themselves. Don't give users the option
                 final Set<String> selSet = new HashSet<>();
                 for (final File f : files) {
                     selSet.add(f.getAbsolutePath());
                 }
-                _doptMoC.fileOverallFilter = (context, test) -> !selSet.contains(test.getAbsolutePath());
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
-                if (_doptMoC.listener instanceof GsFileBrowserDialog) {
-                    final TextView titleView = ((GsFileBrowserDialog) _doptMoC.listener)._dialogTitle;
-                    if (titleView != null && adapter.getCurrentFolder() != null) {
-                        titleView.setText(String.format("%s → %s", titleView.getContext().getString(isMove ? R.string.move : R.string.copy), adapter.getCurrentFolder().getName()));
-                    }
-                }
+                dopt.fileOverallFilter = (context, test) -> !selSet.contains(test.getAbsolutePath());
             }
 
             @Override

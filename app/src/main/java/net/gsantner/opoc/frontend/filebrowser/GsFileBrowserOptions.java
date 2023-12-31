@@ -66,7 +66,6 @@ public class GsFileBrowserOptions {
 
         // Visibility of elements
         public boolean
-                titleTextEnable = true,
                 utilsBarEnable = true,
                 searchEnable = true,
                 upButtonEnable = true,
@@ -120,6 +119,8 @@ public class GsFileBrowserOptions {
         public int titleTextColor = 0;
 
         public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
+
+        public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {
