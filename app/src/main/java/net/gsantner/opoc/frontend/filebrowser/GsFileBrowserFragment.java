@@ -253,7 +253,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _fragmentMenu.findItem(R.id.action_favourite_remove).setVisible(selMultiAny && allSelectedFav);
             _fragmentMenu.findItem(R.id.action_fs_copy_to_clipboard).setVisible(selMulti1 && selTextFilesOnly);
             _fragmentMenu.findItem(R.id.action_create_shortcut).setVisible(selMulti1 && (selFilesOnly || selDirectoriesOnly));
-            _fragmentMenu.findItem(R.id.action_clear_selection).setVisible(selCount > 0);
         }
     }
 
@@ -372,10 +371,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         final Set<File> currentSelection = _filesystemViewerAdapter.getCurrentSelection();
 
         switch (_id) {
-            case R.id.action_clear_selection: {
-                clearSelection();
-                return true;
-            }
             case R.id.action_create_shortcut: {
                 final File file = currentSelection.iterator().next();
                 _cu.createLauncherDesktopShortcut(getContext(), file);
