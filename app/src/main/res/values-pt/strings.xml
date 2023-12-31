@@ -440,10 +440,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Combinar todos</string>
     <string name="dynamic_notebook_root_links">Busca dinâmica pela raiz de notebook</string>
     <string name="search_dynamically_for_notebook_root">Para seguir os links da wiki, procure dinamicamente o arquivo notebook.zim para identificar o diretório raiz do caderno atual. Verifique se você utiliza vários blocos de anotações zím ou o diretório de anotações definido no app não corresponde ao seu caderno zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formato/Prefixo para texto partilhado para Markor. Se as regras SimpleDateFormat do Android.\n\nUsa o espaço reservado {{text}} para posicionar o texto partilhado. Se não especificado, o texto partilhado é anexado e o formato usado como prefixo.</string>
     <string name="share_into_format">Compartilhar em - Formato</string>
     <string name="attachment_folder_name">Nome da pasta de anexos</string>
+    <string name="attachment_folder_name_desc">Subpasta na pasta atual onde os anexos serão guardados. Se deixado em branco, os anexos serão salvos na pasta atual.</string>
     <string name="auto_format">Auto-formatar</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Trecho / Diretoria de modelos</string>
     <string name="error_could_not_open_file">Erro: Não foi possível abrir o ficheiro.</string>
     <string name="document_error_clip">Erro encontrado: Texto copiado para área de transferência.</string>
     <string name="wont_save_min_length">Ficheiros com menos de %d caracteres não são salvos automaticamente para prevenir perda de dados.</string>
