@@ -42,6 +42,7 @@ public class MarkorContextUtils extends GsContextUtils {
         setLauncherActivityEnabled(context, OpenEditorQuickNoteActivity.class, extraLaunchersEnabled);
         setLauncherActivityEnabled(context, OpenEditorTodoActivity.class, extraLaunchersEnabled);
         setLauncherActivityEnabled(context, OpenShareIntoActivity.class, extraLaunchersEnabled);
+        setLauncherActivityEnabledFromString(context, "net.gsantner.markor.AliasDocumentProcessText", extraLaunchersEnabled);
         return thisp();
     }
 
