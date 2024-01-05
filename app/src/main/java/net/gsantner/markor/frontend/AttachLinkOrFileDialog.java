@@ -12,6 +12,7 @@ package net.gsantner.markor.frontend;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +28,15 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
+import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
+import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
+import net.gsantner.markor.frontend.filesearch.FileSearchResultSelectorDialog;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -84,6 +89,8 @@ public class AttachLinkOrFileDialog {
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
         final Button buttonBrowseFilesystem = view.findViewById(R.id.ui__select_path_dialog__browse_filesystem);
+        final Button buttonSelectSpecial = view.findViewById(R.id.ui__select_path_dialog__select_special);
+        final Button buttonSearch = view.findViewById(R.id.ui__select_path_dialog__search);
         final Button buttonPictureGallery = view.findViewById(R.id.ui__select_path_dialog__gallery_picture);
         final Button buttonPictureCamera = view.findViewById(R.id.ui__select_path_dialog__camera_picture);
         final Button buttonPictureEdit = view.findViewById(R.id.ui__select_path_dialog__edit_picture);
@@ -137,6 +144,8 @@ public class AttachLinkOrFileDialog {
             okType = InsertType.AUDIO_DIALOG;
         } else {
             dialog.setTitle(R.string.insert_link);
+            buttonSelectSpecial.setVisibility(View.VISIBLE);
+            buttonSearch.setVisibility(View.VISIBLE);
             browseType = InsertType.LINK_BROWSE;
             okType = InsertType.LINK_DIALOG;
         }
@@ -144,6 +153,8 @@ public class AttachLinkOrFileDialog {
         final String ok = activity.getString(android.R.string.ok);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, ok, (di, b) -> _insertItem.callback(okType));
         buttonBrowseFilesystem.setOnClickListener(v -> _insertItem.callback(browseType));
+        buttonSelectSpecial.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SPECIAL));
+        buttonSearch.setOnClickListener(v -> _insertItem.callback(InsertType.LINK_SEARCH));
         buttonPictureCamera.setOnClickListener(b -> _insertItem.callback(InsertType.IMAGE_CAMERA));
         buttonPictureGallery.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_GALLERY));
         buttonAudioRecord.setOnClickListener(v -> _insertItem.callback(InsertType.AUDIO_RECORDING));
@@ -163,6 +174,8 @@ public class AttachLinkOrFileDialog {
         AUDIO_DIALOG,
         LINK_BROWSE,
         LINK_DIALOG,
+        LINK_SPECIAL,
+        LINK_SEARCH
     }
 
     private static String getTemplateForAction(final InsertType action, final int textFormatId) {
@@ -181,6 +194,8 @@ public class AttachLinkOrFileDialog {
             }
             case LINK_DIALOG:
             case LINK_BROWSE:
+            case LINK_SPECIAL:
+            case LINK_SEARCH:
             default: {
                 return getLinkFormat(textFormatId);
             }
@@ -203,6 +218,8 @@ public class AttachLinkOrFileDialog {
             }
             case LINK_DIALOG:
             case LINK_BROWSE:
+            case LINK_SPECIAL:
+            case LINK_SEARCH:
             default: {
                 return null;
             }
@@ -300,6 +317,16 @@ public class AttachLinkOrFileDialog {
 
         final MarkorContextUtils cu = new MarkorContextUtils(activity);
 
+        final GsCallback.a1<File> setFields = file -> {
+            if (pathEdit != null) {
+                pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+            }
+
+            if (nameEdit != null && GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
+                nameEdit.setText(GsFileUtils.getNameWithoutExtension(file.getName()));
+            }
+        };
+
         // Do each thing as necessary
         switch (action) {
             case IMAGE_CAMERA: {
@@ -340,11 +367,7 @@ public class AttachLinkOrFileDialog {
                     final GsFileBrowserOptions.SelectionListener fsListener = new GsFileBrowserOptions.SelectionListenerAdapter() {
                         @Override
                         public void onFsViewerSelected(final String request, final File file, final Integer lineNumber) {
-                            pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
-
-                            if (GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
-                                nameEdit.setText(GsFileUtils.getFilenameWithoutExtension(file));
-                            }
+                            setFields.callback(file);
                         }
 
                         @Override
@@ -357,6 +380,24 @@ public class AttachLinkOrFileDialog {
                     MarkorFileBrowserFactory.showFileDialog(fsListener, f, activity, getFilterForAction(action));
                 }
                 break;
+            }
+            case LINK_SPECIAL: {
+                MarkorDialogFactory.showSelectSpecialFileDialog(activity, setFields);
+                break;
+            }
+            case LINK_SEARCH: {
+                final File nb = _appSettings.getNotebookDirectory();
+                final FileSearchDialog.Options options = new FileSearchDialog.Options();
+                options.enableSearchInContent = false;
+                options.searchLocation = R.string.notebook;
+                if (!FileSearchEngine.isSearchExecuting.get()) {
+                    FileSearchDialog.showDialog(activity, options, searchOptions -> {
+                        searchOptions.rootSearchDir = nb;
+                        FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
+                                FileSearchResultSelectorDialog.showDialog(activity, searchResults, (file, line, isLong) ->
+                                        setFields.callback(new File(nb, file))));
+                    });
+                }
             }
             case LINK_DIALOG:
             case AUDIO_DIALOG:
