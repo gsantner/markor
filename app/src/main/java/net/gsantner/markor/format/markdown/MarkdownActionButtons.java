@@ -25,6 +25,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -227,18 +228,27 @@ public class MarkdownActionButtons extends ActionButtonBase {
         final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
 
         final Matcher m = MARKDOWN_LINK.matcher(line);
+
+        final ArrayList<String> linksUnderCursor = new ArrayList<>();
         while (m.find()) {
             final String group = m.group(2);
-            if (m.start() <= cursor && m.end() > cursor && group != null) {
-                if (WEB_URL.matcher(group).matches()) {
-                    GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+            if (m.start() <= cursor && m.end() >= cursor && group != null) {
+                linksUnderCursor.add(group);
+            }
+        }
+
+        // We want to search the line backwards in order to find the link closest to the cursor
+        // This helps us to match a link right after the cursor when there is one right before
+        for (int i = linksUnderCursor.size() - 1; i >= 0; i--) {
+            final String group = linksUnderCursor.get(i);
+            if (WEB_URL.matcher(group).matches()) {
+                GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+                return true;
+            } else {
+                final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
+                if (GsFileUtils.canCreate(f)) {
+                    DocumentActivity.handleFileClick(getActivity(), f, null);
                     return true;
-                } else {
-                    final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
-                    if (GsFileUtils.canCreate(f)) {
-                        DocumentActivity.handleFileClick(getActivity(), f, null);
-                        return true;
-                    }
                 }
             }
         }

@@ -50,6 +50,24 @@
             android:text="@string/browse_filesystem" />
 
         <Button
+            android:id="@+id/ui__select_path_dialog__select_special"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_history_black_24dp"
+            android:drawableLeft="@drawable/ic_history_black_24dp"
+            android:visibility="gone"
+            android:text="@string/special_documents" />
+
+        <Button
+            android:id="@+id/ui__select_path_dialog__search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:visibility="gone"
+            android:text="@string/search_documents" />
+
+        <Button
             android:id="@+id/ui__select_path_dialog__camera_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

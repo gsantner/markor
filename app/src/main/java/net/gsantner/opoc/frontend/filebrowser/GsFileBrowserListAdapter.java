@@ -55,10 +55,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //########################
     //## Static
     //########################
-    public static final File VIRTUAL_STORAGE_RECENTS = new File("/storage/recent-files");
-    public static final File VIRTUAL_STORAGE_FAVOURITE = new File("/storage/favourite-files");
-    public static final File VIRTUAL_STORAGE_POPULAR = new File("/storage/popular-files");
-    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File("/storage/appdata-private");
+    public static final File VIRTUAL_STORAGE_ROOT = new File("/storage/");
+    public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "recent-files");
+    public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "favourite-files");
+    public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "popular-files");
+    public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "appdata-private");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
@@ -554,23 +555,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _virtualMapping.clear();
                 final List<File> newData = new ArrayList<>();
 
-                if (_currentFolder.isDirectory()) {
-                    GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                    newData.addAll(_dopt.recentFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-                    newData.addAll(_dopt.popularFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
-                    GsCollectionUtils.addAll(newData, _dopt.favouriteFiles);
-                } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
-                    newData.add(new File(folder, "0"));
-                } else if (folder.getAbsolutePath().equals("/")) {
-                    newData.add(new File(folder, "storage"));
-                } else if (folder.equals(_context.getFilesDir().getParentFile())) {
-                    // Private AppStorage: Allow to access to files directory only
-                    // (don't allow access to internals like shared_preferences & databases)
-                    newData.add(new File(folder, "files"));
-                } else if (folder.getAbsolutePath().equals("/storage")) {
+                if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
                     // Scan for /storage/emulated/{0,1,2,..}
                     for (int i = 0; i < 10; i++) {
                         final File file = new File("/storage/emulated/" + i);
@@ -600,9 +585,25 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
                         newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                     }
+                } else if (_currentFolder.isDirectory()) {
+                    GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                    newData.addAll(_dopt.recentFiles);
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
+                    newData.addAll(_dopt.popularFiles);
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
+                    GsCollectionUtils.addAll(newData, _dopt.favouriteFiles);
+                } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
+                    newData.add(new File(folder, "0"));
+                } else if (folder.getAbsolutePath().equals("/")) {
+                    newData.add(new File(folder, "storage"));
+                } else if (folder.equals(_context.getFilesDir().getParentFile())) {
+                    // Private AppStorage: Allow to access to files directory only
+                    // (don't allow access to internals like shared_preferences & databases)
+                    newData.add(new File(folder, "files"));
                 }
 
-                for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+                    for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                     for (int i = 0; i < newData.size(); i++) {
                         final File file = newData.get(i);
                         if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {

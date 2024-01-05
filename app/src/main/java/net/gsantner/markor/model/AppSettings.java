@@ -588,15 +588,27 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return r;
     }
 
-    public Set<File> getFavouriteFiles() {
+    public static Set<File> getFileSet(final List<String> paths) {
         final Set<File> set = new LinkedHashSet<>();
-        for (final String fp : getStringList(R.string.pref_key__favourite_files)) {
+        for (final String fp : paths) {
             final File f = new File(fp);
             if (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f)) {
                 set.add(f);
             }
         }
         return set;
+    }
+
+    public Set<File> getFavouriteFiles() {
+        return getFileSet(getStringList(R.string.pref_key__favourite_files));
+    }
+
+    public Set<File> getRecentFiles() {
+        return getFileSet(getStringList(R.string.pref_key__recent_documents));
+    }
+
+    public Set<File> getPopularFiles() {
+        return getFileSet(getPopularDocuments());
     }
 
     public String getInjectedHeader() {

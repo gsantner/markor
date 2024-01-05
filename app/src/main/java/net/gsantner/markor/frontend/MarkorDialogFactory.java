@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
@@ -141,12 +142,11 @@ public class MarkorDialogFactory {
         }
 
         if (!FileSearchEngine.isSearchExecuting.get()) {
-            GsCallback.a1<FileSearchEngine.SearchOptions> fileSearchDialogCallback = (searchOptions) -> {
+            FileSearchDialog.showDialog(activity, searchOptions -> {
                 searchOptions.rootSearchDir = searchDir;
-                FileSearchEngine.queueFileSearch(activity, searchOptions, (searchResults) ->
-                        FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback));
-            };
-            FileSearchDialog.showDialog(activity, fileSearchDialogCallback);
+                FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
+                        FileSearchResultSelectorDialog.showDialog(activity, searchResults, () -> callback));
+            });
         }
     }
 
@@ -585,24 +585,79 @@ public class MarkorDialogFactory {
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
-    // Insert items
-    public static void showInsertItemsDialog(
+    public static void showSelectSpecialFileDialog(final Activity activity, final GsCallback.a1<File> callback) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.titleText = R.string.special_documents;
+        final ArrayList<String> data = new ArrayList<>();
+        data.add(activity.getString(R.string.recently_viewed_documents));
+        data.add(activity.getString(R.string.popular_documents));
+        data.add(activity.getString(R.string.favourites));
+        dopt.data = data;
+        dopt.isSearchEnabled = false;
+        final AppSettings as = ApplicationObject.settings();
+
+        dopt.positionCallback = i -> {
+            switch (i.get(0)) {
+                default:
+                case 0:
+                    selectItemDialog(activity, R.string.recently_viewed_documents, as.getRecentFiles(), File::getName, callback);
+                    break;
+                case 1:
+                    selectItemDialog(activity, R.string.popular_documents, as.getPopularFiles(), File::getName, callback);
+                    break;
+                case 2:
+                    selectItemDialog(activity, R.string.favourites, as.getFavouriteFiles(), File::getName, callback);
+                    break;
+            }
+        };
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    /* Dialog to select an item from a list of items */
+    public static <T> void selectItemDialog(
             final Activity activity,
-            final @StringRes int title,
-            final List<String> data,
-            final GsCallback.a1<String> insertCallback
+            final int title,
+            final Collection<T> items,
+            final GsCallback.s1<T> toString,
+            final GsCallback.a1<T> callback
     ) {
         GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
         baseConf(activity, dopt);
-        dopt.data = new ArrayList<>(new TreeSet<>(data));
-        dopt.callback = insertCallback;
         dopt.titleText = title;
-        dopt.searchHintText = R.string.search_or_custom;
-        dopt.isMultiSelectEnabled = true;
-        dopt.positionCallback = (result) -> {
-            for (final Integer pi : result) {
-                insertCallback.callback(dopt.data.get(pi).toString());
-            }
+        final List<T> data = items instanceof List ? (List<T>) items : new ArrayList<>(items);
+        dopt.data = GsCollectionUtils.map(data, toString::callback);
+        dopt.positionCallback = i -> callback.callback(data.get(i.get(0)));
+        dopt.isSearchEnabled = true;
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void showGlobFilesDialog(
+            final Activity activity,
+            final File searchDir,
+            final GsCallback.a1<File> callback
+    ) {
+        GsSearchOrCustomTextDialog.DialogOptions dopt = new GsSearchOrCustomTextDialog.DialogOptions();
+        baseConf(activity, dopt);
+        dopt.titleText = R.string.search_documents;
+        dopt.isSearchEnabled = true;
+        dopt.defaultText = "**/[!.]*.*";
+        dopt.callback = (query) -> {
+            final List<File> found = GsFileUtils.searchFiles(searchDir, query);
+            GsSearchOrCustomTextDialog.DialogOptions dopt2 = new GsSearchOrCustomTextDialog.DialogOptions();
+            baseConf(activity, dopt2);
+            dopt2.titleText = R.string.select;
+            dopt2.isSearchEnabled = true;
+            dopt2.data = GsCollectionUtils.map(found, File::getPath);
+            dopt2.positionCallback = (result) -> callback.callback(found.get(result.get(0)));
+            dopt2.neutralButtonText = R.string.search;
+            dopt2.neutralButtonCallback = dialog2 -> {
+                dialog2.dismiss();
+                showGlobFilesDialog(activity, searchDir, callback);
+            };
+            GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

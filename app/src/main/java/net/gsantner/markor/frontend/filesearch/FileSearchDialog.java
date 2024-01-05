@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
@@ -20,26 +22,28 @@ import androidx.core.content.ContextCompat;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class FileSearchDialog {
-    public static void showDialog(final Activity activity, final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback) {
-        final AtomicReference<AlertDialog> dialogRef = new AtomicReference<>();
-        dialogRef.set(buildDialog(activity, dialogRef, dialogCallback).create());
-        if (dialogRef.get().getWindow() != null) {
-            dialogRef.get().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-        dialogRef.get().show();
-        if (dialogRef.get().getWindow() != null) {
-            dialogRef.get().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        }
+    public static final class Options {
+        public boolean enableRegex = true;
+        public boolean enableSearchInContent = true;
+        public @StringRes int searchLocation = R.string.directory;
     }
 
-    private static AlertDialog.Builder buildDialog(final Activity activity, final AtomicReference<AlertDialog> dialog, final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback) {
+    public static void showDialog(final Activity activity, final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback) {
+        showDialog(activity, new Options(), dialogCallback);
+    }
+
+    public static void showDialog(
+            final Activity activity,
+            final FileSearchDialog.Options options,
+            final GsCallback.a1<FileSearchEngine.SearchOptions> dialogCallback
+    ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+        final AppSettings appSettings = ApplicationObject.settings();
 
         final ScrollView scrollView = new ScrollView(activity);
         final LinearLayout dialogLayout = new LinearLayout(activity);
@@ -61,31 +65,9 @@ public class FileSearchDialog {
         final CheckBox searchInContentCheckBox = new CheckBox(activity);
         final CheckBox onlyFirstContentMatchCheckBox = new CheckBox(activity);
 
-        final AppSettings appSettings = ApplicationObject.settings();
-        final GsCallback.a0 submit = () -> {
-            final String query = searchEditText.getText().toString();
-            if (dialogCallback != null && !TextUtils.isEmpty(query)) {
-                FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
-                opt.query = query;
-                opt.isRegexQuery = regexCheckBox.isChecked();
-                opt.isCaseSensitiveQuery = caseSensitivityCheckBox.isChecked();
-                opt.isSearchInContent = searchInContentCheckBox.isChecked();
-                opt.isOnlyFirstContentMatch = onlyFirstContentMatchCheckBox.isChecked();
-                opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
-                opt.maxSearchDepth = appSettings.getSearchMaxDepth();
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    opt.password = appSettings.getDefaultPassword();
-                }
-                appSettings.setSearchQueryRegexUsing(opt.isRegexQuery);
-                appSettings.setSearchQueryCaseSensitivity(opt.isCaseSensitiveQuery);
-                appSettings.setSearchInContent(opt.isSearchInContent);
-                appSettings.setOnlyFirstContentMatch(opt.isOnlyFirstContentMatch);
-                dialogCallback.callback(opt);
-            }
-        };
-
         // TextView
-        messageTextView.setText(R.string.recursive_search_in_current_directory);
+        final String loc = activity.getString(options.searchLocation != 0 ? options.searchLocation : R.string.directory);
+        messageTextView.setText(activity.getString(R.string.recursive_search_in_location, loc));
         dialogLayout.addView(messageTextView, margins);
 
         // EdiText: Search query input
@@ -94,16 +76,6 @@ public class FileSearchDialog {
         searchEditText.setMaxLines(1);
         searchEditText.setTextColor(textColor);
         searchEditText.setHintTextColor((textColor & 0x00FFFFFF) | 0x99000000);
-        searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
-            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                if (dialog != null && dialog.get() != null) {
-                    dialog.get().dismiss();
-                }
-                submit.callback();
-                return true;
-            }
-            return false;
-        });
         dialogLayout.addView(searchEditText, margins);
 
         // Spinner: History
@@ -128,9 +100,14 @@ public class FileSearchDialog {
         }
 
         // Checkbox: Regex search
-        regexCheckBox.setText(R.string.regex_search);
-        regexCheckBox.setChecked(appSettings.isSearchQueryUseRegex());
-        dialogLayout.addView(regexCheckBox, margins);
+        if (options.enableRegex) {
+            regexCheckBox.setText(R.string.regex_search);
+            regexCheckBox.setChecked(appSettings.isSearchQueryUseRegex());
+            dialogLayout.addView(regexCheckBox, margins);
+        } else {
+            regexCheckBox.setChecked(false);
+            regexCheckBox.setVisibility(View.GONE);
+        }
 
         // Checkbox: Case sensitive
         caseSensitivityCheckBox.setText(R.string.case_sensitive);
@@ -138,32 +115,78 @@ public class FileSearchDialog {
         dialogLayout.addView(caseSensitivityCheckBox, margins);
 
         // Checkbox: Search in content
-        searchInContentCheckBox.setText(R.string.search_in_content);
-        searchInContentCheckBox.setChecked(appSettings.isSearchInContent());
-        searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            onlyFirstContentMatchCheckBox.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
-        });
-        dialogLayout.addView(searchInContentCheckBox, margins);
+        if (options.enableSearchInContent) {
+            searchInContentCheckBox.setText(R.string.search_in_content);
+            searchInContentCheckBox.setChecked(appSettings.isSearchInContent());
+            searchInContentCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                onlyFirstContentMatchCheckBox.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
+            });
+            dialogLayout.addView(searchInContentCheckBox, margins);
 
-        // Checkbox: Only first content match
-        onlyFirstContentMatchCheckBox.setText(R.string.stop_search_after_first_match);
-        onlyFirstContentMatchCheckBox.setChecked(appSettings.isOnlyFirstContentMatch());
-        onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
-        dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
+            // Checkbox: Only first content match
+            onlyFirstContentMatchCheckBox.setText(R.string.stop_search_after_first_match);
+            onlyFirstContentMatchCheckBox.setChecked(appSettings.isOnlyFirstContentMatch());
+            onlyFirstContentMatchCheckBox.setVisibility(searchInContentCheckBox.isChecked() ? View.VISIBLE : View.INVISIBLE);
+            dialogLayout.addView(onlyFirstContentMatchCheckBox, subCheckBoxMargins);
+        } else {
+            searchInContentCheckBox.setChecked(false);
+            searchInContentCheckBox.setVisibility(View.GONE);
+            onlyFirstContentMatchCheckBox.setChecked(false);
+            onlyFirstContentMatchCheckBox.setVisibility(View.GONE);
+        }
 
         // ScrollView
         scrollView.addView(dialogLayout);
 
         // Configure dialog
-        dialogBuilder.setTitle(R.string.search)
+        final AlertDialog dialog = dialogBuilder
+                .setTitle(R.string.search)
                 .setOnCancelListener(null)
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
-                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                    dialogInterface.dismiss();
-                    submit.callback();
-                })
-                .setView(scrollView);
+                .setView(scrollView)
+                .create();
 
-        return dialogBuilder;
+        final Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
+
+        final GsCallback.a0 submit = () -> {
+            final String query = searchEditText.getText().toString();
+            if (dialogCallback != null && !TextUtils.isEmpty(query)) {
+                FileSearchEngine.SearchOptions opt = new FileSearchEngine.SearchOptions();
+                opt.query = query;
+                opt.isRegexQuery = regexCheckBox.isChecked();
+                opt.isCaseSensitiveQuery = caseSensitivityCheckBox.isChecked();
+                opt.isSearchInContent = searchInContentCheckBox.isChecked();
+                opt.isOnlyFirstContentMatch = onlyFirstContentMatchCheckBox.isChecked();
+                opt.ignoredDirectories = appSettings.getFileSearchIgnorelist();
+                opt.maxSearchDepth = appSettings.getSearchMaxDepth();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    opt.password = appSettings.getDefaultPassword();
+                }
+                appSettings.setSearchQueryRegexUsing(opt.isRegexQuery);
+                appSettings.setSearchQueryCaseSensitivity(opt.isCaseSensitiveQuery);
+                appSettings.setSearchInContent(opt.isSearchInContent);
+                appSettings.setOnlyFirstContentMatch(opt.isOnlyFirstContentMatch);
+
+                dialog.dismiss();
+                dialogCallback.callback(opt);
+            }
+        };
+
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, activity.getString(android.R.string.ok), (di, i) -> submit.callback());
+
+        // Enter button callback set after creation to get ref to dialog
+        searchEditText.setOnKeyListener((keyView, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                submit.callback();
+                return true;
+            }
+            return false;
+        });
+
+        dialog.show();
     }
 }

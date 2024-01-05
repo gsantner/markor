@@ -27,9 +27,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
@@ -71,6 +73,7 @@ public class FileSearchEngine {
         public boolean isShowMatchPreview = true;
         public boolean isShowResultOnCancel = true;
         public char[] password = new char[0];
+        public int message = 0;
     }
 
     public static class FitFile {
@@ -119,8 +122,8 @@ public class FileSearchEngine {
         private boolean _isCanceled = false;
         private Integer _currentSearchDepth = 0;
         private final List<FitFile> _result = new ArrayList<>();
-        private final List<Matcher> _ignoredRegexDirs = new ArrayList<>();
-        private final List<String> _ignoredExactDirs = new ArrayList<>();
+        private final Set<Matcher> _ignoredRegexDirs = new HashSet<>();
+        private final Set<String> _ignoredExactDirs = new HashSet<>();
 
         public QueueSearchFilesTask(final SearchOptions config, final GsCallback.a1<List<FitFile>> callback) {
             _config = config;
@@ -286,7 +289,7 @@ public class FileSearchEngine {
             FileSearchEngine.isSearchExecuting.set(false);
         }
 
-        public void splitRegexExactFiles(final List<String> list, final List<String> exactList, final List<Matcher> regexList) {
+        private void splitRegexExactFiles(final List<String> list, final Set<String> exactList, final Set<Matcher> regexList) {
             for (String pattern : (list != null ? list : new ArrayList<String>())) {
                 if (pattern.isEmpty()) {
                     continue;

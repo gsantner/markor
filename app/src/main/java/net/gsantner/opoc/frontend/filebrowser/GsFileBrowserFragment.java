@@ -522,9 +522,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     private void executeSearchAction() {
         final File currentFolder = getCurrentFolder();
-        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relPath, lineNumber, isLong) -> {
+        MarkorDialogFactory.showSearchFilesDialog(getActivity(), currentFolder, (relPath, lineNumber, longPress) -> {
             final File load = new File(currentFolder, relPath);
-            if (!isLong) {
+            if (!longPress) {
                 if (load.isDirectory()) {
                     _filesystemViewerAdapter.setCurrentFolder(load);
                 } else {
