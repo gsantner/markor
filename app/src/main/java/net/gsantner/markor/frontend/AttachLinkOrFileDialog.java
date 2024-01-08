@@ -27,6 +27,7 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
@@ -36,7 +37,6 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
-import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -66,6 +66,8 @@ public class AttachLinkOrFileDialog {
             return "{{LINK|TITLE}}";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:LINK[TITLE]";
+        } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
+            return "TITLE:LINK";
         } else {
             return "<a href=\"LINK\">TITLE</a>";
         }
@@ -113,7 +115,7 @@ public class AttachLinkOrFileDialog {
                 } else {
                     m = null;
                 }
-                if (m != null && m.find()) {
+                if (m != null && m.find() && sel[0] >= m.start() && sel[1] <= m.end()) {
                     inputPathName.setText(m.group(1));
                     inputPathUrl.setText((m.group(2)));
                     sel[0] = m.start() + lineSel[0];
@@ -226,6 +228,33 @@ public class AttachLinkOrFileDialog {
         }
     }
 
+    public static String formatLink(String title, String path, final int textFormatId) {
+        return formatLink(title, path, textFormatId, InsertType.LINK_DIALOG);
+    }
+
+    private static String formatLink(String title, String path, final int textFormatId, final InsertType action) {
+        title = title.trim().replace(")", "\\)");
+        path = path.trim().replace(")", "\\)")
+                // Workaround for parser - cannot deal with spaces and have other entities problems
+                .replace(" ", "%20")
+                // Disable space encoding for Jekyll
+                .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}");
+
+        String newText = getTemplateForAction(action, textFormatId)
+                .replace("TITLE", title)
+                .replace("LINK", path);
+
+        if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
+            newText = newText.replaceFirst("\\|]]$", "]]");
+        }
+
+        if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
+            newText = newText.replaceAll("\\n", " ");
+        }
+
+        return newText;
+    }
+
     private static void insertItem(
             final InsertType action,
             final int textFormatId,
@@ -251,20 +280,7 @@ public class AttachLinkOrFileDialog {
                 return;
             }
 
-            title = title.trim().replace(")", "\\)");
-            path = path.trim().replace(")", "\\)")
-                    // Workaround for parser - cannot deal with spaces and have other entities problems
-                    .replace(" ", "%20")
-                    // Disable space encoding for Jekyll
-                    .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}");
-
-            String newText = getTemplateForAction(action, textFormatId)
-                    .replace("TITLE", title)
-                    .replace("LINK", path);
-
-            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
-                newText = newText.replaceFirst("\\|]]$", "]]");
-            }
+            final String newText = formatLink(title, path, textFormatId, action);
 
             if (!newText.equals(text.subSequence(sel[0], sel[1]).toString())) {
                 text.replace(sel[0], sel[1], newText);

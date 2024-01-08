@@ -100,10 +100,12 @@ public final class TextViewUtils {
     }
 
     public static int getLastNonWhitespace(final CharSequence s, final int end) {
-        for (int i = Math.min(s.length() - 1, end); i >= 0; i--) {
-            char c = s.charAt(i);
-            if (c != ' ' && c != '\t') {
-                return i;
+        if (s != null) {
+            for (int i = Math.min(s.length() - 1, end); i >= 0; i--) {
+                char c = s.charAt(i);
+                if (c != ' ' && c != '\t') {
+                    return i;
+                }
             }
         }
         return -1;

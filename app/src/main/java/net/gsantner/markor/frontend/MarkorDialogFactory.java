@@ -145,7 +145,7 @@ public class MarkorDialogFactory {
             FileSearchDialog.showDialog(activity, searchOptions -> {
                 searchOptions.rootSearchDir = searchDir;
                 FileSearchEngine.queueFileSearch(activity, searchOptions, searchResults ->
-                        FileSearchResultSelectorDialog.showDialog(activity, searchResults, () -> callback));
+                        FileSearchResultSelectorDialog.showDialog(activity, searchResults, callback));
             });
         }
     }
@@ -542,6 +542,7 @@ public class MarkorDialogFactory {
                 lines.add(line);
                 indices.add(cs + start);
             }
+            return true;
         });
 
         final DialogOptions dopt = new DialogOptions();
@@ -734,6 +735,7 @@ public class MarkorDialogFactory {
             if (level > 0) {
                 headings.add(new Heading(level, text.subSequence(start, end), line));
             }
+            return true;
         });
 
         // List of levels present in text
