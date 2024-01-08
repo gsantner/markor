@@ -9,6 +9,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Editable;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
@@ -171,10 +172,25 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * @param delim   - Delimiter to surround text with
      */
     private void runLineSurroundAction(final Pattern pattern, final String delim) {
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
+        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
+
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
                 new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
         );
+
+        // This logic sets the cursor to the inside of the delimiters if the delimiters were empty
+        if (lineBefore != null) {
+            final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor, sel[0]);
+            final String pair = delim + delim;
+            if (lineAfter.length() - lineBefore.length() == pair.length() && lineAfter.trim().endsWith(pair)) {
+                final Editable text = _hlEditor.getText();
+                final int end = TextViewUtils.getLineEnd(text, sel[0]);
+                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delim.length();
+                _hlEditor.setSelection(ns);
+            }
+        }
     }
 
     @SuppressLint("NonConstantResourceId")

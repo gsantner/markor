@@ -11,16 +11,21 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
@@ -29,9 +34,11 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
+import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -39,11 +46,15 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsPreferenceFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsCollectionUtils;
+import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,11 +64,11 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
     public static final String TEXT_TOKEN = "{{text}}";
 
-    public static DocumentShareIntoFragment newInstance(Intent intent) {
+    public static DocumentShareIntoFragment newInstance(final Intent intent) {
         final DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         final Bundle args = new Bundle();
 
-        final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
+        final String sharedText = extractShareText(intent);
 
         final Object intentFile = intent.getSerializableExtra(Document.EXTRA_FILE);
         if (intentFile instanceof File && ((File) intentFile).isDirectory()) {
@@ -70,8 +81,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private File workingDir;
-    private HighlightingEditor _hlEditor;
-    private ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
 
     public DocumentShareIntoFragment() {
     }
@@ -84,33 +93,31 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     @Override
     public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
-        _hlEditor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) -> onTextChanged(ctext)));
+        HighlightingEditor _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
+        final ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
         if (_savedInstanceState == null) {
             FragmentTransaction t = getChildFragmentManager().beginTransaction();
-            _shareIntoImportOptionsFragment = ShareIntoImportOptionsFragment.newInstance(sharedText);
+            _shareIntoImportOptionsFragment = new ShareIntoImportOptionsFragment();
             _shareIntoImportOptionsFragment.setWorkingDir(workingDir);
             t.replace(R.id.document__share_into__fragment__placeholder_fragment, _shareIntoImportOptionsFragment, ShareIntoImportOptionsFragment.TAG).commit();
         } else {
             _shareIntoImportOptionsFragment = (ShareIntoImportOptionsFragment) getChildFragmentManager().findFragmentByTag(ShareIntoImportOptionsFragment.TAG);
         }
 
-        _hlEditor.setText(sharedText);
+        if (_shareIntoImportOptionsFragment != null) {
+            _shareIntoImportOptionsFragment.setEditor(_hlEditor);
+        }
+
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
         _hlEditor.setTypeface(Typeface.create(_appSettings.getFontFamily(), Typeface.NORMAL));
         _hlEditor.setHighlighter(new PlaintextSyntaxHighlighter(_appSettings));
         _hlEditor.setHighlightingEnabled(true);
+        _hlEditor.setText(sharedText);
 
         if (sharedText.isEmpty()) {
             _hlEditor.requestFocus();
-        }
-    }
-
-    public void onTextChanged(CharSequence text) {
-        if (_shareIntoImportOptionsFragment != null) {
-            _shareIntoImportOptionsFragment.setText(text.toString());
         }
     }
 
@@ -127,27 +134,22 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentBase<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
-        private static final String EXTRA_TEXT = Intent.EXTRA_TEXT;
         private File workingDir;
+
+        private EditText _editor = null;
 
         @Override
         public boolean isDividerVisible() {
             return true;
         }
 
-        public static ShareIntoImportOptionsFragment newInstance(String sharedText) {
-            ShareIntoImportOptionsFragment f = new ShareIntoImportOptionsFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(EXTRA_TEXT, sharedText);
-            f.setArguments(bundle);
-            return f;
-        }
-
         public void setWorkingDir(File dir) {
             workingDir = dir;
         }
 
-        private String _sharedText = "";
+        public void setEditor(final EditText editor) {
+            _editor = editor;
+        }
 
         @Override
         public int getPreferenceResourceForInflation() {
@@ -167,49 +169,29 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @Override
         protected void afterOnCreate(Bundle savedInstances, Context context) {
             super.afterOnCreate(savedInstances, context);
-            if (getArguments() != null) {
-                _sharedText = getArguments().getString(EXTRA_TEXT, "");
-            }
-            if (savedInstances != null) {
-                _sharedText = savedInstances.getString(EXTRA_TEXT, _sharedText);
-            }
             doUpdatePreferences();
-        }
 
-        @Override
-        public void onSaveInstanceState(Bundle outState) {
-            super.onSaveInstanceState(outState);
-            if ((_sharedText.length() * 1.05) < 8200) {
-                outState.putString(EXTRA_TEXT, _sharedText);
+            if (_editor != null) {
+                final CheckBoxPreference asLinkPref = (CheckBoxPreference) findPreference(R.string.pref_key__attach_as_link);
+                if (asLinkPref != null) {
+                    asLinkPref.setVisible(!findLinksAndPaths(_editor.getText()).isEmpty());
+                    asLinkPref.setChecked(true);
+                    _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
+                        asLinkPref.setVisible(!findLinksAndPaths(ctext).isEmpty())));
+                }
             }
         }
 
-        public void setText(String text) {
-            _sharedText = text;
-            if (isAdded()) {
-                doUpdatePreferences();
-            }
-        }
-
-        // Check set type and fallback to ext check
-        private boolean isTodoTxt(final Document doc) {
-            final int format = _appSettings.getDocumentFormat(doc.getPath(), FormatRegistry.FORMAT_UNKNOWN);
-            if (format != FormatRegistry.FORMAT_UNKNOWN) {
-                return format == FormatRegistry.FORMAT_TODOTXT;
-            }
-            return doc.getFormat() == FormatRegistry.FORMAT_TODOTXT;
+        private boolean shareAsLink() {
+            final CheckBoxPreference asLinkPref = (CheckBoxPreference) findPreference(R.string.pref_key__attach_as_link);
+            return asLinkPref != null && asLinkPref.isVisible() && asLinkPref.isEnabled() && asLinkPref.isChecked();
         }
 
         private void appendToExistingDocumentAndClose(final File file, final boolean showEditor) {
             final Activity context = getActivity();
             final Document document = new Document(file);
-            final String formatted;
-            if (isTodoTxt(document)) {
-                final String date = _appSettings.getDocumentAutoFormatEnabled(document.getPath()) ? TodoTxtTask.getToday() : "";
-                formatted = date + " " + _sharedText.replaceAll("\\n+", " ");
-            } else {
-                formatted = formatShare(_sharedText);
-            }
+            final int format = _appSettings.getDocumentFormat(document.getPath(), document.getFormat());
+            final String formatted = getFormatted(shareAsLink(), file, format);
 
             final String oldContent = document.loadContent(context);
             if (oldContent != null) {
@@ -225,6 +207,83 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             } else {
                 context.finish();
             }
+        }
+
+        /**
+         * Iterates over each line of the text and checks if it is a path or link
+         * The whole line has to be a path or link to match.
+         *
+         * @param text Text to parse
+         * @return List of pairs.
+         *         The first element of the pair is the start and end index of the link/path.
+         *         Second element is true if it is a path, false if it is a link.
+         */
+        public static List<Pair<int[], Boolean>> findLinksAndPaths(final CharSequence text) {
+            final List<Pair<int[], Boolean>> links = new ArrayList<>();
+            GsTextUtils.forEachline(text, (line, start, end) -> {
+                start = TextViewUtils.getNextNonWhitespace(text, start);
+                end = TextViewUtils.getLastNonWhitespace(text, end) + 1;
+                if (start != -1 && end != -1 && start <= end) {
+                    final String tl = text.subSequence(start, end).toString();
+                    final boolean hasSpaces = tl.contains(" ") || tl.contains("\\t");
+                    if (!hasSpaces && Patterns.WEB_URL.matcher(tl).matches()) {
+                        links.add(Pair.create(new int[]{start, end}, false));
+                    } else {
+                        try {
+                            if (new File(tl.replace("%20", " ")).exists()) {
+                                links.add(Pair.create(new int[]{start, end}, true));
+                            }
+                        } catch (NullPointerException ignored) {
+                        }
+                    }
+                }
+                return true;
+            });
+            return links;
+        }
+
+        public static String getLinkTitle(final String link) {
+            final Matcher m = Patterns.WEB_URL.matcher(link);
+            if (m.matches()) {
+                final String title = m.group(4);
+                return (title != null && title.endsWith(".")) ? title.substring(0, title.length() - 1) : title;
+            }
+            return "";
+        }
+
+        private String getFormatted(final boolean asLink, final File src, final int format) {
+            final String text = _editor.getText().toString();
+            String formatted = text;
+            if (asLink) {
+                final StringBuilder sb = new StringBuilder(text);
+                // Replace all links
+                final List<Pair<int[], Boolean>> links = findLinksAndPaths(sb);
+                Collections.reverse(links);
+                for (final Pair<int[], Boolean> link : links) {
+                    final String linkText = text.substring(link.first[0], link.first[1]);
+                    final String title, linkPath;
+                    if (link.second) {
+                        final File file = new File(linkText.replace("%20", " "));
+                        title = file.getName();
+                        linkPath = GsFileUtils.relativePath(src, file);
+                    } else {
+                        title = getLinkTitle(linkText);
+                        linkPath = linkText;
+                    }
+                    final String fmtLine = AttachLinkOrFileDialog.formatLink(title, linkPath, format);
+                    sb.replace(link.first[0], link.first[1], fmtLine);
+                }
+
+                formatted = sb.toString();
+            }
+
+            formatted = formatShare(formatted);
+
+            if (format == FormatRegistry.FORMAT_TODOTXT) {
+                formatted = TodoTxtTask.getToday() + " " + formatted.replaceAll("\\n", " ");
+            }
+
+            return formatted;
         }
 
         private String formatShare(final String shared) {
@@ -328,13 +387,14 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @SuppressWarnings({"ConstantConditions", "ConstantIfStatement"})
         public Boolean onPreferenceClicked(Preference preference, String key, int keyId) {
             final Activity activity = getActivity();
+            final String text = _editor.getText().toString();
             final MarkorContextUtils shu = new MarkorContextUtils(activity);
             String tmps;
 
             boolean close = false;
             switch (keyId) {
                 case R.string.pref_key__share_into__clipboard: {
-                    shu.setClipboard(getContext(), _sharedText);
+                    shu.setClipboard(getContext(), text);
                     close = true;
                     break;
                 }
@@ -357,19 +417,19 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     break;
                 }
                 case R.string.pref_key__share_into__open_in_browser: {
-                    if ((tmps = GsTextUtils.tryExtractUrlAroundPos(_sharedText, _sharedText.length())) != null) {
+                    if ((tmps = GsTextUtils.tryExtractUrlAroundPos(text, text.length())) != null) {
                         _cu.openWebpageInExternalBrowser(getActivity(), tmps);
                         close = true;
                     }
                     break;
                 }
                 case R.string.pref_key__share_into__reshare: {
-                    shu.shareText(getActivity(), _sharedText, null);
+                    shu.shareText(getActivity(), text, null);
                     close = true;
                     break;
                 }
                 case R.string.pref_key__share_into__calendar_event: {
-                    if (shu.createCalendarAppointment(getActivity(), null, _sharedText, null)) {
+                    if (shu.createCalendarAppointment(getActivity(), null, text, null)) {
                         close = true;
                     } else {
                         Toast.makeText(getContext(), R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
@@ -394,7 +454,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @Override
         public void doUpdatePreferences() {
             super.doUpdatePreferences();
-            final boolean maybeHasWebUrl = _sharedText.contains("http://") || _sharedText.contains("https://");
+            final String text = _editor.getText().toString();
+            final boolean maybeHasWebUrl = text.contains("http://") || text.contains("https://");
             setPreferenceVisible(R.string.pref_key__share_into__open_in_browser, maybeHasWebUrl);
         }
 
@@ -410,36 +471,16 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
     }
 
-    /**
-     * Convert text and link into a formatted link, if the text and string appear to be a link
-     *
-     * @param text Link description
-     * @param link Link url
-     * @return formatted URL of format [text](url)
-     */
-    private static String formatLink(String text, String link) {
-        link = link == null ? "" : link;
-        text = text == null ? "" : text;
+    private static String sanitize(final String link) {
+        return link.replaceAll("(?m)(?<=&|\\?)(utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
+    }
 
-        final String formattedLink;
-        final Matcher linkMatch = Patterns.WEB_URL.matcher(link.trim());
-        if (linkMatch.matches() && !link.trim().matches("\\s") && !text.trim().matches("\\s")) {
-            // Get a resonable default text if one is not present. group 4 is the domain name
-            try {
-                text = TextUtils.isEmpty(text) ? linkMatch.group(4).replaceAll("\\.$", "") : text;
-            } catch (IllegalStateException | IndexOutOfBoundsException e) {
-                text = "";
-            }
-
-            link = link.replaceAll("(?m)(?<=&|\\?)(utm_|source|si|__mk_|ref|sprefix|crid|partner|promo|ad_sub|gclid|fbclid|msclkid).*?(&|$|\\s|\\))", "");
-
-            formattedLink = String.format("[%s](%s )",
-                    text.trim().replace("[", "\\[").replace("]", "\\]").replace("|", "/"),
-                    link.trim().replace("(", "\\(").replace(")", "\\)")
-            );
-        } else {
-            formattedLink = text + " " + link;
+    private static String extractShareText(final Intent intent) {
+        String link = intent.getStringExtra(Intent.EXTRA_TEXT);
+        link = link != null ? link.trim() : "";
+        if (Patterns.WEB_URL.matcher(link).matches()) {
+            link = sanitize(link);
         }
-        return formattedLink;
+        return link;
     }
 }
