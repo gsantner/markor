@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
 
