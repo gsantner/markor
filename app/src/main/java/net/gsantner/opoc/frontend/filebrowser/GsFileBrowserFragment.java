@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,8 +80,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     //########################
 
     private RecyclerView _recyclerList;
-    private SwipeRefreshLayout swipe;
+    private SwipeRefreshLayout _swipe;
     private TextView _emptyHint;
+    private TextView _topNavSubTitle;
+    private ImageView _topNavLeftActionButton;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
     private GsFileBrowserOptions.Options _dopt;
@@ -103,8 +106,10 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         super.onViewCreated(root, savedInstanceState);
         Context context = getContext();
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
-        swipe = root.findViewById(R.id.pull_to_refresh);
+        _swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
+        _topNavSubTitle = getActivity().findViewById(R.id.top_nav_sub_title);
+        _topNavLeftActionButton = getActivity().findViewById(R.id.top_nav_cancel);
 
         _appSettings = ApplicationObject.settings();
         _cu = new MarkorContextUtils(root.getContext());
@@ -124,10 +129,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
-        swipe.setOnRefreshListener(() -> {
+        _swipe.setOnRefreshListener(() -> {
+            _filesystemViewerAdapter.unselectAll();
             _filesystemViewerAdapter.reloadCurrentFolder();
-            swipe.setRefreshing(false);
+            _swipe.setRefreshing(false);
         });
+
+        _topNavLeftActionButton.setOnClickListener(v -> _filesystemViewerAdapter.unselectAll());
 
         if (FileSearchEngine.isSearchExecuting.get()) {
             FileSearchEngine.activity.set(new WeakReference<>(getActivity()));
@@ -205,10 +213,18 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
+    @SuppressLint("SetTextI18n")
     public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
         if (_callback != null) {
             _callback.onFsViewerDoUiUpdate(adapter);
         }
+
+        // Count selected files
+        final int amountSelectedFiles = _filesystemViewerAdapter.getCurrentSelection().size();
+        final boolean hasSelection = amountSelectedFiles > 0;
+        _topNavSubTitle.setText(hasSelection ? (getString(R.string.selected) + " " + amountSelectedFiles) : "");
+        _topNavSubTitle.setVisibility(hasSelection ? View.VISIBLE : View.GONE);
+        _topNavLeftActionButton.setVisibility(hasSelection ? View.VISIBLE : View.GONE);
 
         updateMenuItems();
         _emptyHint.postDelayed(() -> _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE), 200);
@@ -478,6 +494,11 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_move_selected_items:
             case R.id.action_copy_selected_items: {
                 askForMoveOrCopy(_id == R.id.action_move_selected_items);
+                return true;
+            }
+
+            case R.id.action_check_all: {
+                _filesystemViewerAdapter.selectAll();
                 return true;
             }
 
