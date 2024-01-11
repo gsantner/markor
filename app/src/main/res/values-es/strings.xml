@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Última modificación</string>
     <string name="select_this_folder">Seleccionar esta carpeta</string>
     <string name="select">Seleccionar</string>
+    <string name="select_all">Seleccionar todo</string>
     <string name="create">Crear</string>
     <string name="select_entries">Seleccionar entradas</string>
     <string name="one_item_selected">Un elemento seleccionado</string>
@@ -442,8 +443,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Para seguir los enlaces de la wiki, busque dinámicamente el archivo notebook.zim para identificar el directorio raíz del cuaderno actual. Marque esta opción si utiliza múltiples cuadernos zim o el directorio de cuadernos establecido en la aplicación no corresponde a su cuaderno zim.</string>
     <string name="share_into_format_prefix_for_text_shared">Formato/prefijo para el texto compartido en Markor. Sigue las reglas de SimpleDateFormat.\n\nUtilice el marcador de posición \'{{text}}\' (rodeado por comillas simples) para colocar el texto compartido. Si no se especifica, el texto compartido es añadido y el formato utilizado es el de prefijo.</string>
     <string name="share_into_format">Compartir en - Formato</string>
+    <string name="attachment_folder_name">Nombre de la carpeta adjunta</string>
+    <string name="attachment_folder_name_desc">Subcarpeta debajo de la carpeta actual donde se guardarán los accesorios. Si se deja en blanco, los accesorios se guardarán en la carpeta actual.</string>
     <string name="auto_format">Auto-formato</string>
     <string name="insert_snippet">Insertar fragmento</string>
+    <string name="snippet_directory">Directorio de fragmentos/plantillas</string>
     <string name="error_could_not_open_file">Error: No se pudo abrir el archivo.</string>
     <string name="document_error_clip">Error encontrado: Texto copiado al portapapeles.</string>
     <string name="wont_save_min_length">Archivos con menos de %d caracteres no guardados automáticamente, para prevenir la perdida de datos.</string>
