@@ -237,7 +237,8 @@ public class Document implements Serializable {
             } catch (FileNotFoundException e) {
                 Log.e(Document.class.getName(), "loadDocument:  File " + _file + " not found.");
                 content = "";
-            } catch (JavaPasswordbasedCryption.EncryptionFailedException | IllegalArgumentException e) {
+            } catch (JavaPasswordbasedCryption.EncryptionFailedException |
+                     IllegalArgumentException e) {
                 Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
                 Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + _file + ". " + e.getMessage(), e);
                 content = "";

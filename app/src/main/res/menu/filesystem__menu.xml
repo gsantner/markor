@@ -36,49 +36,42 @@
         android:title="@string/rename"
         android:visible="false"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_info_selected_item"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/details"
         android:visible="false"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_delete_selected_items"
         android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/delete"
         android:visible="false"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_move_selected_items"
         android:icon="@drawable/ic_gs_file_move_black_24dp"
         android:title="@string/move"
         android:visible="false"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_copy_selected_items"
         android:icon="@drawable/ic_baseline_file_copy_24"
         android:title="@string/copy"
         android:visible="false"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_create_shortcut"
         android:icon="@drawable/ic_widgets_black_24dp"
         android:title="@string/create_shortcut"
         android:visible="false"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_share_files"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share"
         android:visible="false"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/action_go_to"
         android:layout_width="match_parent"
@@ -135,9 +128,7 @@
                 android:title="@string/notebook"
                 app:showAsAction="never" />
         </menu>
-
     </item>
-
 
     <item
         android:id="@+id/action_sort"
@@ -195,7 +186,6 @@
                     app:showAsAction="never" />
             </group>
         </menu>
-
     </item>
 
     <item
@@ -203,11 +193,14 @@
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/search"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_import"
         android:icon="@drawable/ic_file_white_24dp"
         android:title="@string/import_from_device"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/action_check_all"
+        android:icon="@drawable/ic_check_circle_24dp"
+        android:title="@string/select_all"
+        app:showAsAction="never" />
 </menu>

@@ -31,7 +31,25 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay"
-            app:title="@string/app_name" />
+            app:title="@string/app_name">
+
+            <ImageView
+                android:id="@+id/top_nav_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_close_white_24dp"
+                android:clickable="true"
+                android:contentDescription="Unselect all items" />
+
+            <TextView
+                android:id="@+id/top_nav_sub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:text=""
+                android:textSize="18sp" />
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

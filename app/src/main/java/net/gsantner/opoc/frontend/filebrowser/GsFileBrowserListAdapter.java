@@ -370,6 +370,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
+    public void selectAll() {
+        for (int i = 0; i < _adapterDataFiltered.size(); i++) {
+            TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
+            if (!_currentSelection.contains(data.file)) {
+                if (data.file.isDirectory() && getCurrentFolder().getParentFile() != null && getCurrentFolder().getParentFile().equals(data.file)) {
+                    continue;
+                }
+                _currentSelection.add(data.file);
+                notifyItemChanged(data.position);
+            }
+        }
+        _dopt.listener.onFsViewerDoUiUpdate(this);
+    }
+
     public void unselectAll() {
         for (int i = 0; i < _adapterDataFiltered.size(); i++) {
             TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);

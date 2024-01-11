@@ -57,7 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="render_rtl_language">渲染从右往左读的语言</string>
     <string name="error_cannot_create_notebook_dir__appspecific">错误：无法创建笔记本目录</string>
     <string name="last_modified_witharg">上次修改：%s</string>
-    <string name="last_modified">最后一次修改</string>
+    <string name="last_modified">最后修改</string>
     <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
     <string name="create">新建</string>
@@ -142,7 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">语法高亮延时</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">刷新高亮的延迟时间（以毫秒为单位）。 较低的值将更早开始高亮，但它会耗尽您的电池，并可能拖慢旧设备上的应用程序速度。</string>
     <string name="highlighting_enabled_or_not__appspecific">控制是否应突出显示输入的文本</string>
-    <string name="dynamic_highlighting_effect">动态高亮增加性能。可能会导致渲染伪影。</string>
+    <string name="dynamic_highlighting_effect">动态高亮增加性能，可能导致伪影。</string>
     <string name="control_font_size_in_editor">调整编辑器中文字的字体大小</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部显示一排快捷按钮。这些文本操作按钮可以修改文字或着对文字进行其他操作。</string>
     <string name="load_last_opened_folder_at_startup">启动时加载上次打开的目录</string>
@@ -209,8 +209,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">顶端</string>
     <string name="bottom">底端</string>
     <string name="center">居中</string>
-    <string name="actionbutton_spacing">ActionButton 间距</string>
-    <string name="horizontal_space_between_actionbuttons">ActionButton 之间的水平间距</string>
+    <string name="actionbutton_spacing">快捷键间距</string>
+    <string name="horizontal_space_between_actionbuttons">快捷键之间的水平间距</string>
     <string name="center_text">居中文字</string>
     <string name="edit_text_in_center_of_screen">在屏幕中央编辑文本</string>
     <string name="clipboard">剪切板</string>
@@ -249,7 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML 前置属性。输入密钥以逗号分隔。留空则不留空，或者全部使用“*”。 \n\n如果文档中定义了任何属性 (即) title: \'你好\', 你的文档有 {{ post.title }} 也被替换。你可以制作一个自定义的前台来向这个方向前进。</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML Front Matter 属性。输入的关键词用逗号分隔。留空表示无或使用“*”表示全部。 \n\n如果文档中定义了任何属性 (即 title: \'你好\')， 并且你的文档也有 {{ post.title }}，那么该属性将被替换。你可以像这样自定义 Front Mtter 标题</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
     <string name="prefer_view">首选视图</string>
@@ -295,7 +295,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="open_the_document_from_main_view">您可以从底部主视图、文件浏览器或启动器打开文档。还有一个选项可以附加分享到 Markor 的文本。</string>
     <string name="notebook_is_the_home_of_your_files">笔记本是程序启动时 Markor 在文件浏览器中加载的文件夹。它是你的文件的主文件夹。</string>
     <string name="quicknote_is_the_fastest_option_to_write_down_notes">QuickNote 是写下笔记最快选择。它是一个默认位置为 &gt;Notebook/QuickNote.md&lt; 的 Markdown 格式的文件，您可以在设置中设置一个自定义文件路径。</string>
-    <string name="todo_is_the_easiest_way_">使用 ToDo管理您的任务。它是 todo.txt 格式的文件，默认位置 &gt;Notebook/todo。 xt&lt;，您可以在设置中设置自定义文件路径。</string>
+    <string name="todo_is_the_easiest_way_">使用 ToDo 管理你的任务。它是 todo.txt 格式的文件，默认位置是 &gt;Notebook/todo.txt&lt;，你可以在设置中自定义文件路径。</string>
     <string name="navigationbar_color">导航栏颜色</string>
     <string name="black">黑色</string>
     <string name="white">白色</string>
@@ -319,7 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
     <string name="recursive_search_in_current_directory">在当前目录中进行递归搜索。</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>
-    <string name="always_open_files_with_this_app_when_list_contains_file_extension">当列表包含文件扩展名时总是使用此应用打开文件。例如如果您想编辑网页文件和无扩展名文件，请使用 \'None, .html, .css , .js\'。</string>
+    <string name="always_open_files_with_this_app_when_list_contains_file_extension">总是使用本应用打开此列表包含的文件扩展名的文件，例如如果你想编辑网页文件和无扩展名的文件，请使用 \'None, .html, .css , .js\'。</string>
     <string name="open_file_with">打开文件</string>
     <string name="rotate">旋转</string>
     <string name="template">模板</string>
@@ -381,7 +381,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_encryption_password">文件加密密码</string>
     <string name="no_password_set_cannot_encrypt_decrypt">没有设置密码，不能加密或解密。\n请前往设置 -&gt; 常规 -&gt; 密码来设置密码。</string>
     <string name="encrypt_file_content">加密文件内容</string>
-    <string name="utf8_with_bom">使用 BOM 的 UTF-8</string>
+    <string name="utf8_with_bom">带 BOM 的 UTF-8</string>
     <string name="could_not_encrypt_file_content_the_file_was_not_saved">无法加密文件内容。文件未保存。</string>
     <string name="could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted">无法解密文件内容。 您是否使用了错误的密码？ 文件是否真的使用 Markors AES 加密方式进行加密？</string>
     <string name="password_already_set_setting_a_new_password_will_overwrite">密码已设置。 设置新密码将覆盖现有密码，如果您忘记密码，您可能无法再访问文件。</string>
@@ -436,7 +436,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_future">将来到期</string>
     <string name="completed">已完成</string>
     <string name="advanced_filtering">高级筛选</string>
-    <string name="match_any">任何匹配</string>
+    <string name="match_any">匹配任意</string>
     <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">动态搜索笔记本根目录</string>
     <string name="search_dynamically_for_notebook_root">为了跟随维基链接，动态地搜索notbook.zim文件来识别当前笔记本的根目录。 如果您使用多个zim笔记本或者应用程序中的笔记本目录与您的zim笔记本不对应，请选中此项。</string>
@@ -449,7 +449,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="snippet_directory">文本片段/模板目录</string>
     <string name="error_could_not_open_file">错误：无法打开文件。</string>
     <string name="document_error_clip">出现错误：文本已复制到剪贴板。</string>
-    <string name="wont_save_min_length">未自动保存字符数不到 %d 的文件以防止数据丢失。</string>
+    <string name="wont_save_min_length">字符数不到 %d 的文件不会自动保存防止数据丢失。</string>
     <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">高级过滤语法</a></small>]]></string>
     <string name="filter">过滤器</string>
 </resources>

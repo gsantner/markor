@@ -51,7 +51,7 @@ allprojects {
         task -> task.dependsOn copyRepoFiles
     }
 
-    tasks.matching {it instanceof Test}.all { // Enable unit test output, html+xml output
+    tasks.matching { it instanceof Test }.all { // Enable unit test output, html+xml output
         testLogging.events "passed", "skipped", "failed", "standardOut", "standardError"
         testLogging.showStandardStreams = true
         reports.junitXml.enabled = true

@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
 import java.lang.reflect.Array;
