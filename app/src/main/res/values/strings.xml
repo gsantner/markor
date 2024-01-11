@@ -63,6 +63,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Last modified</string>
     <string name="select_this_folder">Select this folder</string>
     <string name="select">Select</string>
+    <string name="select_all">Select all</string>
     <string name="create">Create</string>
     <string name="select_entries">Select entries</string>
     <string name="one_item_selected">One item selected</string>
