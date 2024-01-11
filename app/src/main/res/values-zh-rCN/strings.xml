@@ -249,7 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML Front Matter 属性。输入的关键词用逗号分隔。留空则表示无，或全部使用“*”。 \n\n如果文档中定义了任何属性 (即 title: \'你好\')， 并且你的文档也有 {{ post.title }}，那么该属性将被替换。你可以像这样自定义 Front Mtter 标题</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML Front Matter 属性。输入的关键词用逗号分隔。留空表示无或使用“*”表示全部。 \n\n如果文档中定义了任何属性 (即 title: \'你好\')， 并且你的文档也有 {{ post.title }}，那么该属性将被替换。你可以像这样自定义 Front Mtter 标题</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
     <string name="prefer_view">首选视图</string>
