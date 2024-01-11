@@ -81,7 +81,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private SwipeRefreshLayout _swipe;
     private TextView _emptyHint;
     private TextView _topNavSubTitle;
-    private ImageView _topNavCancel;
+    private ImageView _topNavLeftActionButton;
 
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
     private GsFileBrowserOptions.Options _dopt;
@@ -107,7 +107,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _swipe = root.findViewById(R.id.pull_to_refresh);
         _emptyHint = root.findViewById(R.id.empty_hint);
         _topNavSubTitle = getActivity().findViewById(R.id.top_nav_sub_title);
-        _topNavCancel = getActivity().findViewById(R.id.top_nav_cancel);
+        _topNavLeftActionButton = getActivity().findViewById(R.id.top_nav_cancel);
 
         _appSettings = ApplicationObject.settings();
         _cu = new MarkorContextUtils(root.getContext());
@@ -133,7 +133,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             _swipe.setRefreshing(false);
         });
 
-        _topNavCancel.setOnClickListener(v -> _filesystemViewerAdapter.unselectAll());
+        _topNavLeftActionButton.setOnClickListener(v -> _filesystemViewerAdapter.unselectAll());
 
         if (FileSearchEngine.isSearchExecuting.get()) {
             FileSearchEngine.activity.set(new WeakReference<>(getActivity()));
@@ -211,27 +211,18 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     @Override
+    @SuppressLint("SetTextI18n")
     public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
         if (_callback != null) {
             _callback.onFsViewerDoUiUpdate(adapter);
         }
 
         // Count selected files
-        int count = _filesystemViewerAdapter.getCurrentSelection().size();
-        if (count > 0) {
-            final String text = getResources().getString(R.string.selected) + " " + count;
-            _topNavSubTitle.setText(text);
-            if (_topNavSubTitle.getVisibility() != View.VISIBLE) {
-                _topNavSubTitle.setVisibility(View.VISIBLE);
-            }
-            if (_topNavCancel.getVisibility() != View.VISIBLE) {
-                _topNavCancel.setVisibility(View.VISIBLE);
-            }
-        } else {
-            _topNavSubTitle.setText("");
-            _topNavSubTitle.setVisibility(View.GONE);
-            _topNavCancel.setVisibility(View.GONE);
-        }
+        final int amountSelectedFiles = _filesystemViewerAdapter.getCurrentSelection().size();
+        final boolean hasSelection = amountSelectedFiles > 0;
+        _topNavSubTitle.setText(hasSelection ? (getString(R.string.selected) + " " + amountSelectedFiles) : "");
+        _topNavSubTitle.setVisibility(hasSelection ? View.VISIBLE : View.GONE);
+        _topNavLeftActionButton.setVisibility(hasSelection ? View.VISIBLE : View.GONE);
 
         updateMenuItems();
         _emptyHint.postDelayed(() -> _emptyHint.setVisibility(adapter.isCurrentFolderEmpty() ? View.VISIBLE : View.GONE), 200);
