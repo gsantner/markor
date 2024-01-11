@@ -72,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入圖像</string>
     <string name="contributors">貢獻人</string>
     <string name="save_location">保存位置</string>
+    <string name="saved_location_to">儲存至 %s</string>
     <string name="select_storage_folder">選擇儲存資料夾</string>
     <string name="licenses">許可證</string>
     <string name="changelog">更新紀錄</string>
@@ -80,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">第三方程式庫</string>
     <string name="language_change_restart_description">更改應用程式使用的語言。要重新開啟應用程式才會生效</string>
     <string name="language">語言</string>
+    <string name="storage_permission_required">需要儲存權限以讀取文件</string>
     <string name="open_with">開啟用</string>
     <string name="sort_by">排序依據</string>
     <string name="date">依日期排列</string>
@@ -140,6 +142,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
+    <string name="dynamic_highlighting_effect">動態高亮增加性能，可能導致偽影。</string>
     <string name="control_font_size_in_editor">調整在編輯器中使用的字型</string>
     <string name="textactions_show_useful_actions_description__appspecific">在底部顯示工作列按鈕以快速修改輸入的內容或執行其他文字動作。</string>
     <string name="load_last_opened_folder_at_startup">啟動時開啟最後使用的資料夾</string>
@@ -173,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
     <string name="sort_tasks_by_selected_order">依所選的順序進行任務排列</string>
     <string name="special_key">特殊鍵</string>
+    <string name="asciidoc_special_key">特殊 Ascill 內容</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
     <string name="move_text_one_line_up">往上面一行移動文字</string>
@@ -192,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">星號 (*)</string>
     <string name="unordered_list_char_plus">加號 (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor 僅能編輯本機或離線的可用文件，也不支援未提供完整路徑的檔案管理器。</string>
+    <string name="file_does_not_exist_and_cant_be_created">文件或路徑不存在且無法創建</string>
+    <string name="permissions">權限</string>
+    <string name="permission_paths_revert">確認恢復為默認路徑嗎？</string>
+    <string name="permission_not_granted">未授予權限</string>
     <string name="sync_to_local_folder_notice">注意：如果使用某個同步程式，該文件將位於已知或自訂的資料夾，您可以變更Markor的文件目錄或以其他檔案管理程式開啟。</string>
     <string name="vertical_alignment">垂直偏移</string>
     <string name="horizontal_alignment">水平偏移</string>
@@ -207,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">從螢幕中央開始編輯文件。</string>
     <string name="clipboard">剪貼簿</string>
     <string name="select_existing_document">選擇現有的文件</string>
+    <string name="select_create_document">選擇或創建文檔</string>
     <string name="open_source_licenses">開源許可</string>
     <string name="rate_this_app">評價這個App</string>
     <string name="translate">翻譯</string>
@@ -240,6 +249,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">詳情</string>
     <string name="edit_picture">編輯圖片</string>
     <string name="math">數學公式及符號</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">在已瀏覽文件的頂部顯示輸入的 YAML Front Matter 屬性。 輸入的關鍵詞用逗號分隔。 留空表示無或使用“*”表示全部。 \n\n如果文檔中定義了任何屬性 (即 title: \'你好\')， 並且你的文檔也有 {{ post.title }}，那麼該屬性將被替換。 你可以像這樣自定義 Front Mtter 標題</string>
     <string name="table_of_contents">目錄</string>
     <string name="miscellaneous">其他</string>
     <string name="prefer_view">偏好檢視</string>

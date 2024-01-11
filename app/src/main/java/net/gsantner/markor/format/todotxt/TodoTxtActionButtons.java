@@ -8,7 +8,6 @@
 package net.gsantner.markor.format.todotxt;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
