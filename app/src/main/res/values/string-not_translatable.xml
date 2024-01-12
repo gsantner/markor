@@ -403,6 +403,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__file_browser_last_browsed_folder" translatable="false">pref_key__file_browser_last_browsed_folder</string>
     <string name="select_current_line" translatable="false">Select current line(s)</string>
     <string name="pref_key__file_description_format" translatable="false">pref_key__file_description_format</string>
+    <string name="pref_key__file_browser_compact" translatable="false">pref_key__file_browser_compact</string>
     <string name="pref_key__wikitext_bigger_headings" translatable="false">pref_key__wikitext_bigger_headings</string>
     <string name="pref_key__asciidoc_bigger_headings" translatable="false">pref_key__asciidoc_bigger_headings</string>
     <string name="pref_key__wikitext_reorder_actions" translatable="false">pref_key__wikitext_reorder_actions</string>

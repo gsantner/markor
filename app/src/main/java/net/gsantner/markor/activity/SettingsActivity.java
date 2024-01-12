@@ -208,6 +208,9 @@ public class SettingsActivity extends MarkorBaseActivity {
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _appSettings.applyAppTheme();
                 getActivity().finish();
+            } else if (eq(key, R.string.pref_key__file_browser_compact)) {
+                activityRetVal = RESULT.RESTART_REQ;
+                _appSettings.setRecreateMainRequired(true);
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _appSettings.setRecreateMainRequired(true);

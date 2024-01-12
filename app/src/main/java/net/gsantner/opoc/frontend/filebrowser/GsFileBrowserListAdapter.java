@@ -120,7 +120,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     @Override
     public FilesystemViewerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.opoc_filesystem_item, parent, false);
-        return new FilesystemViewerViewHolder(v);
+        FilesystemViewerViewHolder holder = new FilesystemViewerViewHolder(v);
+        if (_prefApp.getBoolean("pref_key__file_browser_compact", false)) {
+            holder.contentContainer.setOrientation(LinearLayout.HORIZONTAL);
+        } else {
+            holder.contentContainer.setOrientation(LinearLayout.VERTICAL);
+        }
+
+        return holder;
     }
 
     public boolean isCurrentFolderEmpty() {
@@ -774,6 +781,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         ImageView image;
         TextView title;
         TextView description;
+        LinearLayout contentContainer;
 
         //########################
         //## Methods
@@ -784,6 +792,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             image = row.findViewById(R.id.opoc_filesystem_item__image);
             title = row.findViewById(R.id.opoc_filesystem_item__title);
             description = row.findViewById(R.id.opoc_filesystem_item__description);
+            contentContainer = row.findViewById(R.id.opoc_filesystem_item__content);
         }
     }
 }
