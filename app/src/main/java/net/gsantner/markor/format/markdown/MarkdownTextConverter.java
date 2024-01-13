@@ -100,7 +100,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset/";
     private static final String JS_POSTFIX = "'></script>";
 
-    public static final String OUTER_TOC_GENERATOR_INCLUDE = JS_PREFIX + "contents/contents-generator.js" + JS_POSTFIX;
+    public static final String OUTER_TOC_GENERATOR_INCLUDE = JS_PREFIX + "toc/toc-generator.js" + JS_POSTFIX;
 
     public static final String HTML_KATEX_INCLUDE = CSS_PREFIX + "katex/katex.min.css" + CSS_POSTFIX +
             JS_PREFIX + "katex/katex.min.js" + JS_POSTFIX +

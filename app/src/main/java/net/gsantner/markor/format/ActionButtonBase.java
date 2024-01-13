@@ -9,11 +9,9 @@ package net.gsantner.markor.format;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
@@ -21,14 +19,10 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -46,6 +40,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
+import net.gsantner.markor.frontend.TocDialogFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
@@ -78,7 +73,6 @@ public abstract class ActionButtonBase {
 
     protected HighlightingEditor _hlEditor;
     protected WebView _webView;
-    protected WebView _contentsWebView;
     protected Document _document;
     protected AppSettings _appSettings;
     protected int _indent;
@@ -149,7 +143,7 @@ public abstract class ActionButtonBase {
         final List<ActionItem> actionList = getActiveActionList();
         final List<String> keyList = getActiveActionKeys();
 
-        final Map<String, ActionItem> map = new HashMap<String, ActionItem>();
+        final Map<String, ActionItem> map = new HashMap<>();
 
         for (int i = 0; i < actionList.size(); i++) {
             map.put(keyList.get(i), actionList.get(i));
@@ -458,7 +452,7 @@ public abstract class ActionButtonBase {
             int selectionStart = _hlEditor.getSelectionStart();
             int selectionEnd = _hlEditor.getSelectionEnd();
 
-            //Check if Selection includes the shortcut characters
+            // Check if Selection includes the shortcut characters
             if (selectionEnd < text.length() && selectionStart >= 0 && (text.substring(selectionStart, selectionEnd)
                     .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
@@ -468,7 +462,7 @@ public abstract class ActionButtonBase {
                         .replace(selectionStart, selectionEnd, text);
 
             }
-            //Check if Selection is Preceded and succeeded by shortcut characters
+            // Check if Selection is Preceded and succeeded by shortcut characters
             else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
                     (selectionStart >= _action.length())) &&
                     (text.substring(selectionStart - _action.length(),
@@ -481,14 +475,14 @@ public abstract class ActionButtonBase {
                                 selectionEnd + _action.length(), text);
 
             }
-            //Condition to insert shortcut preceding and succeeding the selection
+            // Condition to insert shortcut preceding and succeeding the selection
             else {
                 _hlEditor.getText().insert(selectionStart, _action);
                 _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
             }
         } else {
-            //Condition for Empty Selection
-                /*if (false) {
+            // Condition for Empty Selection
+                /* if (false) {
                     // Condition for things that should only be placed at the start of the line even if no text is selected
                 } else */
             if ("----\n".equals(_action)) {
@@ -501,7 +495,6 @@ public abstract class ActionButtonBase {
             }
         }
     }
-
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         _activity = activity;
@@ -644,78 +637,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                // Jump to table of contents in Markdown
                 if (_appSettings.isMarkdownTableOfContentsEnabled()) {
                     _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
                     return true;
                 }
-
-                // Show table of contents in dialog
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    _webView.evaluateJavascript("javascript: isReloaded()", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String result) {
-                            if ("true".equals(result)) {
-                                _webView.evaluateJavascript("javascript: generate()", new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String toc) {
-                                        if (toc.length() < 3) {
-                                            Toast.makeText(_activity, R.string.no_table_of_contents_defined, Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-                                        toc = toc.replaceAll("\\\\u003C", "<");
-                                        toc = toc.replaceAll("\\\\", "");
-                                        toc = toc.substring(1, toc.length() - 1);
-                                        _contentsWebView.loadDataWithBaseURL(null, toc, "text/html;charset=utf-8", "utf-8", null);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
-
-                if (_contentsWebView == null) {
-                    if (_contentsWebView == null) {
-                        _contentsWebView = new WebView(getContext());
-                        _contentsWebView.getSettings().setJavaScriptEnabled(true);
-                        _contentsWebView.addJavascriptInterface(new Object() {
-                            @JavascriptInterface
-                            public void run(String param) {
-                                _activity.runOnUiThread(() -> _webView.loadUrl("javascript:document.getElementById('" + param.substring(1) + "').scrollIntoView();"));
-                            }
-                        }, "injectedObject");
-                    }
-                }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    _webView.evaluateJavascript("javascript: locate()", new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String result) {
-                            if (result.length() < 1) {
-                                return;
-                            }
-                            result = result.replaceAll("\\\\u003C", "<");
-                            result = result.replaceAll("\\\\", "");
-                            result = result.substring(1, result.length() - 1);
-                            _contentsWebView.loadUrl("javascript:highlightById('" + result + "')");
-                        }
-                    });
-                }
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.table_of_contents);
-                builder.setView(_contentsWebView);
-                builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-                WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-                params.height = (int) (_activity.getResources().getDisplayMetrics().heightPixels * 0.8);
-                dialog.getWindow().setAttributes(params);
-
+                TocDialogFactory.showTocDialog(_activity, getContext(), _webView);
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
@@ -805,7 +731,6 @@ public abstract class ActionButtonBase {
             stringId = string;
             displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
-
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {

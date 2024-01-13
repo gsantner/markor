@@ -11,7 +11,6 @@ import android.widget.ScrollView;
 
 @SuppressLint("ClickableViewAccessibility")
 public class DraggableScrollbarScrollView extends ScrollView {
-
     private boolean _isFastScrolling = false;
     private boolean _fastScrollEnabled = true;
     private boolean _ltr = true;

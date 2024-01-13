@@ -42,10 +42,10 @@ function generate() {
     }
 
     let html = "<html><head>";
-    html += "<link href='file:///android_asset/contents/contents.css' rel='stylesheet' type='text/css'>";
+    html += "<link href='file:///android_asset/toc/toc.css' rel='stylesheet' type='text/css'>";
     html += "</head><body>";
     html += contents.innerHTML;
-    html += "<script src='file:///android_asset/contents/contents.js'></script>";
+    html += "<script src='file:///android_asset/toc/toc.js'></script>";
     html += "</body></html>";
 
     return html;
@@ -55,23 +55,22 @@ function locate() {
     if (headers.length == 0) {
         return "";
     }
-
     if (headers.length == 1) {
         return headers[0].id;
     }
 
-    const MARGIN = 4;
+    const TOP_MARGIN = 4;
     let innerHeight = window.innerHeight;
     let lastHeader = headers[0];
     for (let i = 1; i < headers.length; i++) {
         let headerTop = headers[i].getBoundingClientRect().top;
         let lastHeaderTop = lastHeader.getBoundingClientRect().top;
 
-        if (lastHeaderTop < MARGIN) {
-            if (headerTop < MARGIN) {
+        if (lastHeaderTop < TOP_MARGIN) {
+            if (headerTop < TOP_MARGIN) {
                 continue;
             } else {
-                if (headerTop < innerHeight + MARGIN) {
+                if (headerTop < innerHeight + TOP_MARGIN) {
                     return headers[i].id;
                 } else {
                     return lastHeader.id;
@@ -81,10 +80,4 @@ function locate() {
             return lastHeader.id;
         }
     }
-}
-
-function isReloaded() {
-    let temp = reloaded;
-    reloaded = false;
-    return temp;
 }
