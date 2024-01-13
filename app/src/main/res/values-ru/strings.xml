@@ -200,7 +200,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="file_does_not_exist_and_cant_be_created">Файл или директория не существует и не может быть создан</string>
     <string name="permissions">Разрешения</string>
     <string name="permission_paths_revert">Вернуть пути по умолчанию?</string>
-    <string name="permission_not_granted">Разрешено не выдано</string>
+    <string name="permission_not_granted">Разрешение не выдано</string>
     <string name="sync_to_local_folder_notice">Примечание: приложения синхронизации могут размещать файлы в пользовательских папках. Откройте их, соответственно изменяя папку документов Маркора, или в другом менеджере файлов.</string>
     <string name="vertical_alignment">Выравнивание по вертикали</string>
     <string name="horizontal_alignment">Выравнивание по горизонтали</string>
@@ -210,8 +210,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">По верхнему краю</string>
     <string name="bottom">Снизу</string>
     <string name="center">Центр</string>
-    <string name="actionbutton_spacing">Интервал действия кнопки</string>
-    <string name="horizontal_space_between_actionbuttons">Горизонтальное пространство между кнопками действий</string>
+    <string name="actionbutton_spacing">Интервал между кнопками действий</string>
+    <string name="horizontal_space_between_actionbuttons">Горизонтальный интервал между кнопками действий</string>
     <string name="center_text">Центрировать текст</string>
     <string name="edit_text_in_center_of_screen">Начинать редактирование текста по центру</string>
     <string name="clipboard">Буфер обмена</string>
@@ -447,7 +447,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="attachment_folder_name_desc">Подпапка в текущей папке, где будут храниться вложения. Если оставить пустым, то вложения будут храниться в текущей папке.</string>
     <string name="auto_format">Автоформат</string>
     <string name="insert_snippet">Insert snippet</string>
-    <string name="snippet_directory">Директория сниппета / шаблона</string>
+    <string name="snippet_directory">Директория с фрагментами / шаблонами</string>
     <string name="error_could_not_open_file">Ошибка: Не удалось открыть файл.</string>
     <string name="document_error_clip">Произошла ошибка: текст скопирован в буфер обмена.</string>
     <string name="wont_save_min_length">Файлы содержащие менее %d символов не сохраняются автоматически во избежание случайного удаления данных.</string>
