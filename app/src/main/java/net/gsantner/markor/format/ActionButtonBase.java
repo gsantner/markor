@@ -731,6 +731,7 @@ public abstract class ActionButtonBase {
             stringId = string;
             displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
+
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
