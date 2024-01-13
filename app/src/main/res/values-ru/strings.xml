@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Был изменён</string>
     <string name="select_this_folder">Выбрать текущую папку</string>
     <string name="select">Выбрать</string>
+    <string name="select_all">Выбрать всё</string>
     <string name="create">Создать</string>
     <string name="select_entries">Выбрать элементы</string>
     <string name="one_item_selected">Один элемент выбран</string>
