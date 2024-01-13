@@ -44,7 +44,7 @@ public class TocDialogFactory {
         }
 
         final TocDataHolder holder = temp;
-        configureTocWebView(holder, activity, context, documentWebView);
+        configureTocWebView(activity, context, holder, documentWebView);
         if (!holder.loaded) {
             holder.loaded = true;
             documentWebView.evaluateJavascript("javascript: generate()", result -> {
@@ -55,7 +55,7 @@ public class TocDialogFactory {
                 result = result.replaceAll("\\\\u003C", "<");
                 result = result.replaceAll("\\\\", "");
                 result = result.substring(1, result.length() - 1);
-                // Load TOC page
+                // Load the TOC page
                 holder.tocWebView.loadDataWithBaseURL(null, result, "text/html;charset=utf-8", "utf-8", null);
             });
         }
@@ -78,8 +78,8 @@ public class TocDialogFactory {
             builder.setView(holder.tocWebView);
             holder.dialog = builder.create();
         }
-
         holder.dialog.show();
+
         WindowManager.LayoutParams params = holder.dialog.getWindow().getAttributes();
         final int height = activity.getResources().getDisplayMetrics().heightPixels;
         final int width = activity.getResources().getDisplayMetrics().widthPixels;
@@ -91,7 +91,7 @@ public class TocDialogFactory {
         holder.dialog.getWindow().setAttributes(params);
     }
 
-    private static void configureTocWebView(TocDataHolder holder, final Activity activity, final Context context, WebView documentWebView) {
+    private static void configureTocWebView(final Activity activity, final Context context, TocDataHolder holder, WebView documentWebView) {
         if (holder.configured) {
             return;
         }

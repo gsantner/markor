@@ -842,10 +842,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        if (_isPreviewVisible) {
-            TocDialogFactory.showTocDialog(getActivity(), getContext(), _webView);
-        } else {
+        if (!_isPreviewVisible) {
             _format.getActions().runTitleClick();
+        } else if (!_appSettings.isMarkdownTableOfContentsEnabled()) {
+            TocDialogFactory.showTocDialog(getActivity(), getContext(), _webView);
         }
     }
 

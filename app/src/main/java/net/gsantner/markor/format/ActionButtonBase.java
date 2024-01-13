@@ -731,11 +731,9 @@ public abstract class ActionButtonBase {
             stringId = string;
             displayMode = a_displayMode != null && a_displayMode.length > 0 ? a_displayMode[0] : DisplayMode.EDIT;
         }
-
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
-
         final Editable text = hlEditor.getText();
 
         final int[] sel = TextViewUtils.getSelection(hlEditor);
@@ -743,7 +741,6 @@ public abstract class ActionButtonBase {
         final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
 
         if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
-
             final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
             final int altStart = isUp ? TextViewUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
@@ -787,7 +784,6 @@ public abstract class ActionButtonBase {
     }
 
     public void runSpecialKeyAction() {
-
         // Needed to prevent selection from being overwritten on refocus
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
         _hlEditor.clearFocus();
