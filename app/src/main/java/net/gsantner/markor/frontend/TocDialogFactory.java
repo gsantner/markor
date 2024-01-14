@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -27,11 +26,9 @@ public class TocDialogFactory {
         }
 
         TocDataHolder temp = null;
-        for (TocDataHolder tocDataHolder : deque) {
-            temp = tocDataHolder;
-            if (!documentWebView.equals(temp.documentWebView)) {
-                temp = null;
-            } else {
+        for (TocDataHolder e : deque) {
+            if (documentWebView.equals(e.documentWebView)) {
+                temp = e;
                 break;
             }
         }
@@ -49,7 +46,6 @@ public class TocDialogFactory {
             holder.loaded = true;
             documentWebView.evaluateJavascript("javascript: generate()", result -> {
                 if (result.length() < 3) {
-                    Toast.makeText(activity, R.string.no_table_of_contents, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 result = result.replaceAll("\\\\u003C", "<");

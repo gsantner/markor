@@ -48,7 +48,7 @@ function highlight() {
         highlighted = element;
         element.style.color = "black";
         element.style.fontWeight = "bold";
-        element.scrollIntoView();
+        element.parentNode.scrollIntoView();
     }
 }
 
