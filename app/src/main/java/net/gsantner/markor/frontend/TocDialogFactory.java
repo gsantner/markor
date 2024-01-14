@@ -42,27 +42,33 @@ public class TocDialogFactory {
 
         final TocDataHolder holder = temp;
         configureTocWebView(activity, context, holder, documentWebView);
-        if (!holder.loaded) {
-            holder.loaded = true;
-            documentWebView.evaluateJavascript("javascript: generate()", result -> {
-                if (result.length() < 3) {
-                    return;
-                }
-                result = result.replaceAll("\\\\u003C", "<");
-                result = result.replaceAll("\\\\", "");
-                result = result.substring(1, result.length() - 1);
-                // Load the TOC page
-                holder.tocWebView.loadDataWithBaseURL(null, result, "text/html;charset=utf-8", "utf-8", null);
-            });
-        }
-
-        documentWebView.evaluateJavascript("javascript: locate()", result -> {
-            if (result.length() < 1) {
+        documentWebView.evaluateJavascript("javascript: isReloaded()", reloaded -> {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                 return;
             }
-            result = result.replaceAll("\\\\u003C", "<");
-            result = result.replaceAll("\\\\", "");
-            holder.tocWebView.loadUrl("javascript:highlightById(" + result + ")");
+
+            if (!holder.loaded || "true".equals(reloaded)) {
+                holder.loaded = true;
+                documentWebView.evaluateJavascript("javascript: generate()", result -> {
+                    if (result.length() < 3) {
+                        return;
+                    }
+                    result = result.replaceAll("\\\\u003C", "<");
+                    result = result.replaceAll("\\\\", "");
+                    result = result.substring(1, result.length() - 1);
+                    // Load the TOC page
+                    holder.tocWebView.loadDataWithBaseURL(null, result, "text/html;charset=utf-8", "utf-8", null);
+                });
+            } else {
+                documentWebView.evaluateJavascript("javascript: locate()", result -> {
+                    if (result.length() == 0) {
+                        return;
+                    }
+                    result = result.replaceAll("\\\\u003C", "<");
+                    result = result.replaceAll("\\\\", "");
+                    holder.tocWebView.loadUrl("javascript:highlightById(" + result + ")");
+                });
+            }
         });
 
         if (holder.dialog == null) {
@@ -77,11 +83,13 @@ public class TocDialogFactory {
         holder.dialog.show();
 
         WindowManager.LayoutParams params = holder.dialog.getWindow().getAttributes();
-        final int height = activity.getResources().getDisplayMetrics().heightPixels;
         final int width = activity.getResources().getDisplayMetrics().widthPixels;
+        final int height = activity.getResources().getDisplayMetrics().heightPixels;
         if (width > height) {
             params.width = (int) (width * 0.7);
+            params.height = (int) (height * 0.95);
         } else {
+            params.width = (int) (width * 0.95);
             params.height = (int) (height * 0.75);
         }
         holder.dialog.getWindow().setAttributes(params);

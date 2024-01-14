@@ -1,11 +1,3 @@
-/*#######################################################
- *
- *   Maintained 2023.12.27 by Li Guanglin
- *   License of this file: Apache 2.0
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
-#########################################################*/
-
 let highlighted = document.createElement("a");
 
 window.onload = function () {
@@ -53,6 +45,10 @@ function highlight() {
 }
 
 function highlightById(id) {
+    if (id.length == 0) {
+        return;
+    }
+
     let elements = document.querySelectorAll(".current");
     elements.forEach((element) => {
         element.style.color = "gray";
