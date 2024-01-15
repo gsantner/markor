@@ -43,10 +43,6 @@ public class TocDialogFactory {
         final TocDataHolder holder = temp;
         configureTocWebView(activity, context, holder, documentWebView);
         documentWebView.evaluateJavascript("javascript: isReloaded()", reloaded -> {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                return;
-            }
-
             if (!holder.loaded || "true".equals(reloaded)) {
                 holder.loaded = true;
                 documentWebView.evaluateJavascript("javascript: generate()", result -> {
