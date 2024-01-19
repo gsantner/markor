@@ -142,8 +142,7 @@ public abstract class ActionButtonBase {
         final List<ActionItem> actionList = getActiveActionList();
         final List<String> keyList = getActiveActionKeys();
 
-        final Map<String, ActionItem> map = new HashMap<String, ActionItem>();
-
+        final Map<String, ActionItem> map = new HashMap<>();
         for (int i = 0; i < actionList.size(); i++) {
             map.put(keyList.get(i), actionList.get(i));
         }
@@ -210,7 +209,6 @@ public abstract class ActionButtonBase {
      * @return List of Action Item keys in order specified by preferences
      */
     public List<String> getActionOrder() {
-
         final Set<String> order = new LinkedHashSet<>(loadActionPreference(ORDER_SUFFIX));
 
         // Handle the case where order was stored without suffix. i.e. before this release.
@@ -452,7 +450,7 @@ public abstract class ActionButtonBase {
             int selectionStart = _hlEditor.getSelectionStart();
             int selectionEnd = _hlEditor.getSelectionEnd();
 
-            //Check if Selection includes the shortcut characters
+            // Check if Selection includes the shortcut characters
             if (selectionEnd < text.length() && selectionStart >= 0 && (text.substring(selectionStart, selectionEnd)
                     .matches("(\\*\\*|~~|_|`)[a-zA-Z0-9\\s]*(\\*\\*|~~|_|`)"))) {
 
@@ -462,7 +460,7 @@ public abstract class ActionButtonBase {
                         .replace(selectionStart, selectionEnd, text);
 
             }
-            //Check if Selection is Preceded and succeeded by shortcut characters
+            // Check if Selection is Preceded and succeeded by shortcut characters
             else if (((selectionEnd <= (_hlEditor.length() - _action.length())) &&
                     (selectionStart >= _action.length())) &&
                     (text.substring(selectionStart - _action.length(),
@@ -475,14 +473,14 @@ public abstract class ActionButtonBase {
                                 selectionEnd + _action.length(), text);
 
             }
-            //Condition to insert shortcut preceding and succeeding the selection
+            // Condition to insert shortcut preceding and succeeding the selection
             else {
                 _hlEditor.getText().insert(selectionStart, _action);
                 _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), _action);
             }
         } else {
-            //Condition for Empty Selection
-                /*if (false) {
+            // Condition for Empty Selection
+                /* if (false) {
                     // Condition for things that should only be placed at the start of the line even if no text is selected
                 } else */
             if ("----\n".equals(_action)) {
@@ -495,7 +493,6 @@ public abstract class ActionButtonBase {
             }
         }
     }
-
 
     public ActionButtonBase setUiReferences(@Nullable final Activity activity, @Nullable final HighlightingEditor hlEditor, @Nullable final WebView webview) {
         _activity = activity;
@@ -638,7 +635,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                if (_appSettings.isMarkdownTableOfContentsEnabled()) {
+                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                } else {
+                    runTitleClick();
+                }
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
@@ -731,7 +732,6 @@ public abstract class ActionButtonBase {
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
-
         final Editable text = hlEditor.getText();
 
         final int[] sel = TextViewUtils.getSelection(hlEditor);
@@ -739,7 +739,6 @@ public abstract class ActionButtonBase {
         final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
 
         if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
-
             final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
             final int altStart = isUp ? TextViewUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
@@ -783,7 +782,6 @@ public abstract class ActionButtonBase {
     }
 
     public void runSpecialKeyAction() {
-
         // Needed to prevent selection from being overwritten on refocus
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
         _hlEditor.clearFocus();

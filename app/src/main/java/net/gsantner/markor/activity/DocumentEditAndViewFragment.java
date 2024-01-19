@@ -660,7 +660,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void setHorizontalScrollMode(final boolean wrap) {
-
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
 
@@ -734,7 +733,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return false;
         }
 
-        // Document is written iff writeable && content has changed
+        // Document is written if writeable && content has changed
         final CharSequence text = _hlEditor.getText();
         if (!_document.isContentSame(text)) {
             final int minLength = GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH;
@@ -832,15 +831,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _document;
     }
 
-    public WebView getWebview() {
+    public WebView getWebView() {
         return _webView;
     }
 
     @Override
     protected void onToolbarClicked(View v) {
-        if (!_isPreviewVisible && _format != null) {
-            _format.getActions().runTitleClick();
+        if (_format == null) {
+            return;
         }
+        _format.getActions().runTitleClick();
     }
 
     @Override

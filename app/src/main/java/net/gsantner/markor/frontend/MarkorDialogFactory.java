@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -589,9 +590,9 @@ public class MarkorDialogFactory {
     public static void showHeadlineDialog(
             final Activity activity,
             final EditText edit,
+            final WebView webView,
             final Set<Integer> disabled,
-            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel
-    ) {
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel) {
         // Get all headings and their levels
         final CharSequence text = edit.getText();
         final List<Heading> headings = new ArrayList<>();
@@ -616,10 +617,24 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.table_of_contents;
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
+        dopt.isSoftInputVisible = false;
+        dopt.isDismissOnItemSelected = false;
+        final int width = activity.getResources().getDisplayMetrics().widthPixels;
+        final int height = activity.getResources().getDisplayMetrics().heightPixels;
+        if (width > height) {
+            dopt.dialogWidth = (int) (width * 0.7);
+            dopt.dialogHeight = (int) (height * 0.95);
+        } else {
+            dopt.dialogWidth = (int) (width * 0.95);
+            dopt.dialogHeight = (int) (height * 0.8);
+        }
         dopt.neutralButtonText = R.string.filter;
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             TextViewUtils.selectLines(edit, headings.get(index).line);
+            String title = headings.get(index).str;
+            String id = title.substring(title.lastIndexOf('#') + 1).trim().replaceAll("\\s+", "-").replaceAll("&", "").toLowerCase();
+            webView.loadUrl("javascript:document.getElementById('" + id + "').scrollIntoView();");
         };
 
         dopt.neutralButtonCallback = (dialog) -> {
@@ -647,7 +662,7 @@ public class MarkorDialogFactory {
             };
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
-        dopt.gravity = Gravity.TOP;
+        dopt.gravity = Gravity.CENTER;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

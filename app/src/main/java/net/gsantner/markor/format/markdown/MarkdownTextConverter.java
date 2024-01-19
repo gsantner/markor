@@ -163,7 +163,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
 
-        options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
+        options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
         // options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to HTML break
 
@@ -198,7 +198,7 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += CSS_PRESENTATION_BEAMER;
         }
 
-        // Frontmatter
+        // Front matter
         String fmaText = "";
         final List<String> fmaAllowedAttributes = _appSettings.getMarkdownShownYamlFrontMatterKeys();
         Map<String, List<String>> fma = Collections.EMPTY_MAP;
