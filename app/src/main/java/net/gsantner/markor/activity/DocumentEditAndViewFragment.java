@@ -837,10 +837,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onToolbarClicked(View v) {
-        if (_format == null) {
-            return;
+        if (_format != null) {
+            _format.getActions().runTitleClick();
         }
-        _format.getActions().runTitleClick();
     }
 
     @Override
