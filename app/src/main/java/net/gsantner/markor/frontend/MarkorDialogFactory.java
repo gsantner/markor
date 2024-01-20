@@ -39,6 +39,7 @@ import androidx.core.content.ContextCompat;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -695,24 +696,16 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
         dopt.isDismissOnItemSelected = false;
-        final int width = activity.getResources().getDisplayMetrics().widthPixels;
-        final int height = activity.getResources().getDisplayMetrics().heightPixels;
-        if (width > height) {
-            dopt.dialogWidth = (int) (width * 0.7);
-            dopt.dialogHeight = (int) (height * 0.95);
-        } else {
-            dopt.dialogWidth = (int) (width * 0.95);
-            dopt.dialogHeight = (int) (height * 0.8);
-        }
-        dopt.neutralButtonText = R.string.filter;
+
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             TextViewUtils.selectLines(edit, headings.get(index).line);
-            String title = headings.get(index).str;
-            String id = title.substring(title.lastIndexOf('#') + 1).trim().replaceAll("\\s+", "-").replaceAll("&", "").toLowerCase();
+            String header = headings.get(index).str;
+            String id = MarkdownTextConverter.generateHeaderId(header.substring(header.lastIndexOf('#') + 1).trim());
             webView.loadUrl("javascript:document.getElementById('" + id + "').scrollIntoView();");
         };
 
+        dopt.neutralButtonText = R.string.filter;
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = new DialogOptions();
             dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !disabled.contains(l));
@@ -738,7 +731,18 @@ public class MarkorDialogFactory {
             };
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
+
+        final int width = activity.getResources().getDisplayMetrics().widthPixels;
+        final int height = activity.getResources().getDisplayMetrics().heightPixels;
+        if (width > height) {
+            dopt.dialogWidth = (int) (width * 0.7);
+            dopt.dialogHeight = (int) (height * 0.95);
+        } else {
+            dopt.dialogWidth = (int) (width * 0.95);
+            dopt.dialogHeight = (int) (height * 0.8);
+        }
         dopt.gravity = Gravity.CENTER;
+
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

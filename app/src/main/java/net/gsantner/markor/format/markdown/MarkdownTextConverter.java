@@ -31,8 +31,10 @@ import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.html.renderer.HeaderIdGenerator;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
+import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -153,9 +155,15 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
+    //## Extras
+    //########################
+    private static String toDashChars = null;
+    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+
+
+    //########################
     //## Methods
     //########################
-
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
         String converted = "", onLoadJs = "", head = "";
@@ -293,7 +301,10 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         ////////////
         // Markup parsing - afterwards = HTML
-        converted = fmaText + flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+        Document document = flexmarkParser.parse(markup);
+        converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
+
+        toDashChars = HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -329,14 +340,15 @@ public class MarkdownTextConverter extends TextConverterBase {
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
-    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+    public static String generateHeaderId(String headerText) {
+        return HeaderIdGenerator.generateId(headerText, toDashChars, false, false);
+    }
 
     private String escapeSpacesInLink(final String markup) {
         final Matcher matcher = linkPattern.matcher(markup);
         if (!matcher.find()) {
             return markup;
         }
-
         // 1) Walk through the text till finding a link in markdown syntax
         // 2) Add all text-before-link to buffer
         // 3) Extract [title](link to somehere)
