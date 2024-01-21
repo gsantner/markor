@@ -550,7 +550,6 @@ public class MarkorDialogFactory {
         dopt.data = lines;
         dopt.preSelected = checked;
         dopt.titleText = R.string.check_list;
-        dopt.isLongPressSelectEnabled = true;
 
         final String check = Character.toString(checkedChars.charAt(0));
         final String uncheck = Character.toString(uncheckedChars.charAt(0));
@@ -622,7 +621,6 @@ public class MarkorDialogFactory {
         dopt.titleText = title;
         dopt.searchHintText = R.string.search_or_custom;
         dopt.isMultiSelectEnabled = true;
-        dopt.isLongPressSelectEnabled = false; // Don't want to remove all others by selecting just one
         dopt.callback = (str) -> callback.callback(GsCollectionUtils.union(currentKeys, Collections.singleton(str)));
         dopt.positionCallback = (newSel) -> callback.callback(
                 GsCollectionUtils.map(newSel, pi -> dopt.data.get(pi).toString()));

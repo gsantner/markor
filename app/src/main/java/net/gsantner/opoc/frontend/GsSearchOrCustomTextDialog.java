@@ -83,7 +83,6 @@ public class GsSearchOrCustomTextDialog {
         public GsCallback.a1<List<Integer>> positionCallback = null;
 
         public boolean isMultiSelectEnabled = false;
-        public boolean isLongPressSelectEnabled = true;
         public List<? extends CharSequence> data = null;
         public List<? extends CharSequence> highlightData = null;
         public List<Integer> iconsForData;
@@ -429,9 +428,7 @@ public class GsSearchOrCustomTextDialog {
             }
         });
 
-        if (dopt.isLongPressSelectEnabled) {
-            listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
-        }
+        listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {
