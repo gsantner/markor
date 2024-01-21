@@ -1,9 +1,7 @@
 package net.gsantner.markor.activity;
 
 import android.content.Context;
-import android.view.Menu;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import net.gsantner.markor.ApplicationObject;
