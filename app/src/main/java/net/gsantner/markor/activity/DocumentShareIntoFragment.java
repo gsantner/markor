@@ -220,25 +220,36 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
          */
         public static List<Pair<int[], Boolean>> findLinksAndPaths(final CharSequence text) {
             final List<Pair<int[], Boolean>> links = new ArrayList<>();
+
             GsTextUtils.forEachline(text, (line, start, end) -> {
+
                 start = TextViewUtils.getNextNonWhitespace(text, start);
-                end = TextViewUtils.getLastNonWhitespace(text, end) + 1;
+                end = TextViewUtils.getLastNonWhitespace(text, end - 1) + 1;
+
                 if (start != -1 && end != -1 && start <= end) {
-                    final String tl = text.subSequence(start, end).toString();
-                    final boolean hasSpaces = tl.contains(" ") || tl.contains("\\t");
-                    if (!hasSpaces && Patterns.WEB_URL.matcher(tl).matches()) {
+
+                    final String trimmed = text.subSequence(start, end).toString();
+                    final boolean hasSpaces = trimmed.contains(" ") || trimmed.contains("\\t");
+
+                    // Test for web links
+                    if (!hasSpaces && Patterns.WEB_URL.matcher(trimmed).matches()) {
                         links.add(Pair.create(new int[]{start, end}, false));
-                    } else {
-                        try {
-                            if (new File(tl.replace("%20", " ")).exists()) {
-                                links.add(Pair.create(new int[]{start, end}, true));
-                            }
-                        } catch (NullPointerException ignored) {
+                        return true;
+                    }
+
+                    // Test for file links
+                    try {
+                        if (new File(trimmed.replace("%20", " ")).exists()) {
+                            links.add(Pair.create(new int[]{start, end}, true));
+                            return true;
                         }
+                    } catch (NullPointerException ignored) {
                     }
                 }
+
                 return true;
             });
+
             return links;
         }
 
