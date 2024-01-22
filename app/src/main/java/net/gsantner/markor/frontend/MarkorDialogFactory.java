@@ -655,15 +655,8 @@ public class MarkorDialogFactory {
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
 
-        final int width = activity.getResources().getDisplayMetrics().widthPixels;
-        final int height = activity.getResources().getDisplayMetrics().heightPixels;
-        if (width > height) {
-            dopt.dialogWidth = (int) (width * 0.7);
-            dopt.dialogHeight = (int) (height * 0.95);
-        } else {
-            dopt.dialogWidth = (int) (width * 0.95);
-            dopt.dialogHeight = (int) (height * 0.8);
-        }
+        dopt.portraitAspectRatio = new float[]{0.95f, 0.8f};
+        dopt.landscapeAspectRatio = new float[]{0.7f, 0.95f};
         dopt.gravity = Gravity.CENTER;
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
