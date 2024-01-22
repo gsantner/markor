@@ -128,7 +128,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
 
         _swipe.setOnRefreshListener(() -> {
-            _filesystemViewerAdapter.unselectAll();
             _filesystemViewerAdapter.reloadCurrentFolder();
             _swipe.setRefreshing(false);
         });
