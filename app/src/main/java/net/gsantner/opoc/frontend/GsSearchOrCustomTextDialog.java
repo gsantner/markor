@@ -23,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -88,22 +89,22 @@ public class GsSearchOrCustomTextDialog {
         public List<Integer> iconsForData;
         public CharSequence messageText = "";
         public String defaultText = "";
+        public boolean isDarkDialog = false;
         public boolean isSearchEnabled = true;
         public boolean isSoftInputVisible = true;
         public boolean isDismissOnItemSelected = true;
-        public boolean isDarkDialog = false;
+        public int gravity = Gravity.NO_GRAVITY;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        public int dialogWidth;
-        public int dialogHeight;
-        public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public GsCallback.a1<Spannable> highlighter = null;
+        public float[] portraitAspectRatio = {0.0f, 1.0f};
+        public float[] landscapeAspectRatio = {0.0f, 1.0f};
         public String extraFilter = null;
         public Collection<Integer> preSelected = null;
+        public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
-        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
+        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -330,28 +331,26 @@ public class GsSearchOrCustomTextDialog {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
             }
-        }
-        dialog.show();
+            dialog.show();
 
-        if (win != null) {
-            if (dopt.dialogWidth > 0 && dopt.dialogHeight > 0) {
-                WindowManager.LayoutParams params = win.getAttributes();
-                params.width = dopt.dialogWidth;
-                params.height = dopt.dialogHeight;
-                win.setAttributes(params);
+            DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+            if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
+                GsContextUtils.windowAspectRatio(win, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1], displayMetrics);
             } else {
-                int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
-                int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
-                ds_w = (ds_w * 1.1 > activity.getResources().getDisplayMetrics().widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
-                ds_h = (ds_h * 1.1 > activity.getResources().getDisplayMetrics().heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
+                int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * displayMetrics.density));
+                int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * displayMetrics.density));
+                ds_w = (ds_w * 1.1 > displayMetrics.widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
+                ds_h = (ds_h * 1.1 > displayMetrics.heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
                 win.setLayout(ds_w, ds_h);
             }
-        }
 
-        if (win != null && dopt.gravity != Gravity.NO_GRAVITY) {
-            WindowManager.LayoutParams wlp = win.getAttributes();
-            wlp.gravity = dopt.gravity;
-            win.setAttributes(wlp);
+            if (dopt.gravity != Gravity.NO_GRAVITY) {
+                WindowManager.LayoutParams wlp = win.getAttributes();
+                wlp.gravity = dopt.gravity;
+                win.setAttributes(wlp);
+            }
+        } else {
+            dialog.show();
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
