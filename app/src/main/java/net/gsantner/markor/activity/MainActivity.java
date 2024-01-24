@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -314,12 +315,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         // Check if fragment handled back press
-        final GsFragmentBase<?, ?> frag = getPosFrament(getCurrentPos());
+        final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
         if (frag != null && frag.onBackPressed()) {
             return;
         }
 
-        // Confirm exit with back / snackbar
+        // Confirm exit with back / snack bar
         _doubleBackToExitPressedOnce = true;
         _cu.showSnackBar(this, R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
@@ -364,12 +365,23 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         return "";
     }
 
-    public GsFragmentBase<?, ?> getPosFrament(final int pos) {
+    public GsFragmentBase<?, ?> getPosFragment(final int pos) {
         if (pos == 0) return _notebook;
         if (pos == 1) return _todo;
         if (pos == 2) return _quicknote;
         if (pos == 3) return _more;
         return null;
+    }
+
+    /**
+     * Restores the default toolbar. Used when changing the tab or moving to another activity
+     * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)
+     */
+    private void restoreDefaultToolbar() {
+        GsFileBrowserFragment wrFragment = getNotebook();
+        if (wrFragment != null) {
+            wrFragment.clearSelection();
+        }
     }
 
     public void onViewPagerPageSelected(final int pos) {
@@ -473,14 +485,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
-    /**
-     * Restores the default toolbar. Used when changing the tab or moving to another activity
-     * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)
-     */
-    private void restoreDefaultToolbar() {
-        GsFileBrowserFragment wrFragment = getNotebook();
-        if (wrFragment != null) {
-            wrFragment.clearSelection();
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.isCtrlPressed() && keyCode == KeyEvent.KEYCODE_S) {
+            final GsFragmentBase<?, ?> fragment = getPosFragment(getCurrentPos());
+            if (fragment instanceof DocumentEditAndViewFragment && fragment != null) {
+                ((DocumentEditAndViewFragment) fragment).saveDocument(true);
+            }
         }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -820,27 +820,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     @Override
+    protected void onToolbarClicked(View v) {
+        if (!_isPreviewVisible && _format != null) {
+            _format.getActions().runTitleClick();
+        }
+    }
+
+    @Override
     protected boolean onToolbarLongClicked(View v) {
         if (isVisible() && isResumed()) {
             _format.getActions().runJumpBottomTopAction(_isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
             return true;
         }
         return false;
-    }
-
-    public Document getDocument() {
-        return _document;
-    }
-
-    public WebView getWebview() {
-        return _webView;
-    }
-
-    @Override
-    protected void onToolbarClicked(View v) {
-        if (!_isPreviewVisible && _format != null) {
-            _format.getActions().runTitleClick();
-        }
     }
 
     @Override
@@ -851,6 +843,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         } catch (Exception ignored) {
         }
         super.onDestroy();
+    }
+
+    public Document getDocument() {
+        return _document;
+    }
+
+    public WebView getWebview() {
+        return _webView;
     }
 
     public String getTextString() {

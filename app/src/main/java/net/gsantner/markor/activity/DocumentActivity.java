@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -337,6 +338,17 @@ public class DocumentActivity extends MarkorBaseActivity {
         } else {
             finish();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.isCtrlPressed() && keyCode == KeyEvent.KEYCODE_S) {
+            GsFragmentBase fragment = getCurrentVisibleFragment();
+            if (fragment instanceof DocumentEditAndViewFragment && fragment != null) {
+                ((DocumentEditAndViewFragment) fragment).saveDocument(true);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
