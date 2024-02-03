@@ -322,6 +322,7 @@ public abstract class ActionButtonBase {
 
                 final int action = event.getAction();
                 if (action == MotionEvent.ACTION_DOWN) {
+                    delay = initialDelay;
                     onClick(v);
                     return true;
                 } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
