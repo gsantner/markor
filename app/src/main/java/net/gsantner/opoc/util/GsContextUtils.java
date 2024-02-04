@@ -2746,11 +2746,11 @@ public class GsContextUtils {
     }
 
     public static void windowAspectRatio(final Window window,
+                                         final DisplayMetrics displayMetrics,
                                          float portraitWidthRatio,
                                          float portraitHeightRatio,
                                          float landscapeWidthRatio,
-                                         float landscapeHeightRatio,
-                                         final DisplayMetrics displayMetrics) {
+                                         float landscapeHeightRatio) {
         if (window == null) {
             return;
         }

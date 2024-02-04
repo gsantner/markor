@@ -93,6 +93,7 @@ public class GsSearchOrCustomTextDialog {
         public boolean isSearchEnabled = true;
         public boolean isSoftInputVisible = true;
         public boolean isDismissOnItemSelected = true;
+        public boolean isSaveItemPositionEnabled = false;
         public int gravity = Gravity.NO_GRAVITY;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -159,7 +160,7 @@ public class GsSearchOrCustomTextDialog {
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            _layoutHeight = (int) GsContextUtils.instance.convertDpToPx(context, 36);
+            _layoutHeight = GsContextUtils.instance.convertDpToPx(context, 36);
         }
 
         @NonNull
@@ -278,6 +279,9 @@ public class GsSearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
+        if (dopt.isSaveItemPositionEnabled) {
+            listView.setSelection(activity.getIntent().getIntExtra("lastHeadingPosition", 0));
+        }
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         listLayout.weight = 1;
@@ -285,6 +289,8 @@ public class GsSearchOrCustomTextDialog {
 
         if (dopt.dismissCallback != null) {
             dialogBuilder.setOnDismissListener(dopt.dismissCallback::callback);
+        } else {
+            dialogBuilder.setOnDismissListener(dialogInterface -> activity.getIntent().putExtra("lastHeadingPosition", listView.getFirstVisiblePosition()));
         }
 
         dialogBuilder.setView(mainLayout)
@@ -335,7 +341,7 @@ public class GsSearchOrCustomTextDialog {
 
             DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
             if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
-                GsContextUtils.windowAspectRatio(win, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1], displayMetrics);
+                GsContextUtils.windowAspectRatio(win, displayMetrics, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1]);
             } else {
                 int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * displayMetrics.density));
                 int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * displayMetrics.density));
