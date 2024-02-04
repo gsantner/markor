@@ -619,6 +619,7 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
         dopt.isDismissOnItemSelected = false;
+        dopt.isSaveItemPositionEnabled = true;
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
