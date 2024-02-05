@@ -155,9 +155,9 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
-    //## Extras
+    //## Others
     //########################
-    private static String toDashChars = null;
+    private static String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
     private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
 
 
@@ -166,7 +166,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
-        String converted = "", onLoadJs = "", head = "";
+        String converted, onLoadJs = "", head = "";
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
@@ -303,8 +303,6 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Markup parsing - afterwards = HTML
         Document document = flexmarkParser.parse(markup);
         converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
-
-        toDashChars = HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
