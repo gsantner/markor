@@ -10,6 +10,7 @@
         android:width="6dp"
         android:left="12dp">
         <shape android:shape="rectangle">
+            <corners android:radius="6dp" />
             <solid android:color="@color/light_grey" />
         </shape>
     </item>
