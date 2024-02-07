@@ -12,6 +12,8 @@ package net.gsantner.opoc.frontend.filebrowser;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -201,11 +203,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
 
-        final TagContainer data = folderLevelDataMap.get(getPathLevel(_currentFolder.getAbsolutePath()));
-        if (data != null && data.position == position) {
-            holder.itemView.setBackgroundColor(HIGHLIGHT_ITEM_COLOR);
-        } else {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        final Drawable drawable = holder.itemView.getBackground();
+        if (drawable != null) {
+            if (((ColorDrawable) drawable).getColor() != HIGHLIGHT_ITEM_COLOR) {
+                return;
+            }
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
         }
     }
 
@@ -242,14 +245,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (savedInstanceState.containsKey(EXTRA_CURRENT_FOLDER)) {
-            final File f = new File(savedInstanceState.getString(EXTRA_CURRENT_FOLDER));
-            final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualStorage(f);
+            final String path = savedInstanceState.getString(EXTRA_CURRENT_FOLDER);
+            if (path != null) {
+                final File f = new File(path);
+                final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualStorage(f);
 
-            if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
-                _dopt.listener.onFsViewerConfig(_dopt);
-            }
-            if (f.isDirectory() || isVirtualDirectory) {
-                loadFolder(f);
+                if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
+                    _dopt.listener.onFsViewerConfig(_dopt);
+                }
+                if (f.isDirectory() || isVirtualDirectory) {
+                    loadFolder(f);
+                }
             }
         }
 
@@ -342,9 +348,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
 
         if (currentItemLevel > currentFolderLevel) {
-            data.lastRecyclerViewState = _recyclerView.getLayoutManager().onSaveInstanceState();
+            final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
+            if (layoutManager != null) {
+                data.lastRecyclerViewState = layoutManager.onSaveInstanceState();
+            }
             folderLevelDataMap.put(currentFolderLevel, data);
         } else {
+            data.lastRecyclerViewState = null;
             folderLevelDataMap.remove(currentFolderLevel);
         }
     }
@@ -370,7 +380,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         if (!toggleSelection(data) && file != null && file.isDirectory()) {
                             loadFolder(file);
                         }
-                    } else {
+                    } else if (file != null) {
                         // No pre-selection
                         if (file.isDirectory()) {
                             loadFolder(file);
@@ -449,8 +459,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public boolean toggleSelection(TagContainer data) {
+        if (data == null) {
+            return false;
+        }
+
         boolean clickHandled = false;
-        if (data != null && data.file != null && _currentFolder != null) {
+        if (data.file != null && _currentFolder != null) {
             if (data.file.isDirectory() && _currentFolder.getParentFile() != null && _currentFolder.getParentFile().equals(data.file)) {
                 // goUp
                 clickHandled = true;
@@ -475,6 +489,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         notifyItemChanged(data.position);
         _dopt.listener.onFsViewerDoUiUpdate(this);
+
         return clickHandled;
     }
 
@@ -503,13 +518,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     @Override
     public boolean onLongClick(View view) {
-        switch (view.getId()) {
-            case R.id.opoc_filesystem_item__root: {
-                TagContainer data = (TagContainer) view.getTag();
-                toggleSelection(data);
-                _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
-                return true;
-            }
+        if (view.getId() == R.id.opoc_filesystem_item__root) {
+            TagContainer data = (TagContainer) view.getTag();
+            toggleSelection(data);
+            _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
+            return true;
         }
         return false;
     }
@@ -652,8 +665,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
     private class FolderLoader implements Runnable {
-        final File folder;
-        final Handler handler = new Handler();
+        private final File folder;
+        private final Handler handler = new Handler();
 
         public FolderLoader(final File folder) {
             this.folder = folder;
@@ -728,15 +741,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                             final int depth = TextViewUtils.countChars(file.getAbsolutePath(), '/')[0];
                             if (depth < 3) {
-                                final File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
-                                _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
-                                newData.add(remap);
+                                final File parent = file.getParentFile();
+                                if (parent != null) {
+                                    final File remap = new File(parent.getAbsolutePath(), "appdata-public (" + file.getName() + ")");
+                                    _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                                    newData.add(remap);
+                                }
                             }
                         }
                     }
                 }
 
-                // Don't sort recents - use the default order
+                // Don't sort recent items - use the default order
                 if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
                     GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                 }
@@ -756,16 +772,32 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
                         }
                     });
-                } else {
-                    // Need to refresh the color of items to highlight or unhighlight them
-                    handler.post(() -> notifyDataSetChanged());
                 }
 
                 handler.postDelayed(() -> {
-                    TagContainer data = folderLevelDataMap.get(getPathLevel(_currentFolder.getAbsolutePath()));
-                    if (data != null) {
-                        _recyclerView.getLayoutManager().onRestoreInstanceState(data.lastRecyclerViewState);
+                    final TagContainer data = folderLevelDataMap.get(getPathLevel(_currentFolder.getAbsolutePath()));
+                    if (data == null) {
+                        return;
                     }
+
+                    final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
+                    if (layoutManager != null) {
+                        layoutManager.onRestoreInstanceState(data.lastRecyclerViewState);
+                    }
+
+                    // Highlight the item view
+                    handler.postDelayed(() -> {
+                        for (int i = _recyclerView.getChildCount() - 1; i > 0; i--) {
+                            final View view = _recyclerView.getChildAt(i);
+                            final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
+
+                            if (data.file.getName().equals(textView.getText().toString())) {
+                                view.setBackgroundColor(HIGHLIGHT_ITEM_COLOR);
+                                handler.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 1600);
+                                break;
+                            }
+                        }
+                    }, 200);
                 }, 200);
             }
         }
