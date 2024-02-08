@@ -21,54 +21,54 @@
     <color name="colorAccent">@color/accent</color>
 
     <!-- Color values -->
-    <color name="primary">#1E2135</color>
+    <color name="primary">#1e2135</color>
     <color name="primary_dark">#161828</color>
-    <color name="primary_light">#CED9DD</color>
-    <color name="accent">#F04B4B</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
+    <color name="primary_light">#ced9dd</color>
+    <color name="accent">#f04b4b</color>
+    <color name="accent_light">#ff9800</color>
+    <color name="icons">#ffffff</color>
 
-    <color name="accent_light">#FF9800</color>
-    <color name="divider_2">#3D3D3D</color>
-    <color name="default_link_color">#388E3C</color>
+    <color name="divider">#b6b6b6</color>
+    <color name="divider_2">#3d3d3d</color>
+    <color name="default_link_color">#388e3c</color>
 
-    <color name="light__background">#EEEEEE</color>
-    <color name="light__background_2">#F9F9F9</color>
+    <color name="light__background">#eeeeee</color>
+    <color name="light__background_2">#f9f9f9</color>
     <color name="light__primary_text">#212121</color>
     <color name="light__secondary_text">#757575</color>
 
     <color name="dark__background">#222222</color>
     <color name="dark__background_2">#424242</color>
     <color name="dark__primary_text">@color/white</color>
-    <color name="dark__secondary_text">#9E9E9E</color>
+    <color name="dark__secondary_text">#9e9e9e</color>
 
     <color name="ic_launcher_background">#636363</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#ffffffff</color>
     <color name="black">#000000</color>
-    <color name="grey">#FF505050</color>
-    <color name="dark_grey">#FF212121</color>
-    <color name="light_grey">#FFC0C0C0</color>
-    <color name="lighter_grey">#FFE0E0E0</color>
-    <color name="transparent">#00FFFFFF</color>
+    <color name="grey">#ff505050</color>
+    <color name="dark_grey">#ff212121</color>
+    <color name="light_grey">#ffc0c0c0</color>
+    <color name="lighter_grey">#ffe0e0e0</color>
+    <color name="transparent">#00ffffff</color>
 
-    <color name="solarized_bg_dark">#002B36</color>
-    <color name="solarized_bg_light">#FCF5E4</color>
-    <color name="solarized_fg">#657B83</color>
+    <color name="solarized_bg_dark">#002b36</color>
+    <color name="solarized_bg_light">#fcf5e4</color>
+    <color name="solarized_fg">#657b83</color>
     <color name="gruvbox_bg_dark">#282828</color>
-    <color name="gruvbox_fg_dark">#EBDBB2</color>
-    <color name="gruvbox_bg_light">#FBF1C7</color>
-    <color name="gruvbox_fg_light">#3C3836</color>
-    <color name="green_dark">#00FF00</color>
-    <color name="green_light">#00BB00</color>
+    <color name="gruvbox_fg_dark">#ebdbb2</color>
+    <color name="gruvbox_bg_light">#fbf1c7</color>
+    <color name="gruvbox_fg_light">#3c3836</color>
+    <color name="green_dark">#00ff00</color>
+    <color name="green_light">#00bb00</color>
 
     <color name="sepia_fg_light__bg_dark">#282828</color>
-    <color name="sepia_bg_light__fg_dark">#EBDBB2</color>
+    <color name="sepia_bg_light__fg_dark">#ebdbb2</color>
 
-    <color name="nord_bg_dark">#2E3440</color>
-    <color name="nord_fg_dark">#ECEFF4</color>
-    <color name="nord_bg_light">#ECEFF4</color>
-    <color name="nord_fg_light">#2E3440</color>
+    <color name="nord_bg_dark">#2e3440</color>
+    <color name="nord_fg_dark">#eceff4</color>
+    <color name="nord_bg_light">#eceff4</color>
+    <color name="nord_fg_light">#2e3440</color>
 
-    <color name="link">#FF1EA3FD</color>;
+    <color name="link">#ff1ea3fd</color>;
 
 </resources>
