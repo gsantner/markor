@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsActivityBase;
+import net.gsantner.opoc.frontend.base.GsFragmentBase;
 
 public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, MarkorContextUtils> {
 
@@ -29,6 +31,10 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
         if (_appSettings.isHideSystemStatusbar()) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
+
+    protected boolean onReceiveKeyPress(GsFragmentBase fragment, int keyCode, KeyEvent event) {
+        return fragment.onReceiveKeyPress(keyCode, event);
     }
 
     @Override

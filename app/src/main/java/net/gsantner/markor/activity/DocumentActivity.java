@@ -342,19 +342,11 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.isCtrlPressed() && keyCode == KeyEvent.KEYCODE_S) {
-            GsFragmentBase fragment = getCurrentVisibleFragment();
-            if (fragment instanceof DocumentEditAndViewFragment && fragment != null) {
-                ((DocumentEditAndViewFragment) fragment).saveDocument(true);
-            }
-        }
-        return super.onKeyDown(keyCode, event);
+        return super.onReceiveKeyPress(getCurrentVisibleFragment(), keyCode, event) ? true : super.onKeyDown(keyCode, event);
     }
 
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
-
         if (fragment != getCurrentVisibleFragment()) {
-
             _fragManager.beginTransaction()
                     .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
                     .commit();
@@ -365,9 +357,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
-        FragmentManager fmgr = getSupportFragmentManager();
-        GsFragmentBase fragment = (GsFragmentBase) fmgr.findFragmentByTag(fragmentTag);
-        return fragment;
+        return (GsFragmentBase) getSupportFragmentManager().findFragmentByTag(fragmentTag);
     }
 
     private GsFragmentBase getCurrentVisibleFragment() {

@@ -193,7 +193,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
             _cu.animateToActivity(this, SettingsActivity.class, false, null);
@@ -487,12 +487,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.isCtrlPressed() && keyCode == KeyEvent.KEYCODE_S) {
-            final GsFragmentBase<?, ?> fragment = getPosFragment(getCurrentPos());
-            if (fragment instanceof DocumentEditAndViewFragment && fragment != null) {
-                ((DocumentEditAndViewFragment) fragment).saveDocument(true);
-            }
-        }
-        return super.onKeyDown(keyCode, event);
+        return super.onReceiveKeyPress(getPosFragment(getCurrentPos()), keyCode, event) ? true : super.onKeyDown(keyCode, event);
     }
 }

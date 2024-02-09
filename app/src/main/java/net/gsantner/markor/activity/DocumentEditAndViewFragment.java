@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -87,20 +88,21 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private HighlightingEditor _hlEditor;
-    private ViewGroup _textActionsBar;
     private WebView _webView;
-    private DraggableScrollbarScrollView _primaryScrollView;
+    private MarkorWebViewClient _webViewClient;
+    private ViewGroup _textActionsBar;
 
+    private DraggableScrollbarScrollView _primaryScrollView;
     private HorizontalScrollView _hsView;
     private SearchView _menuSearchViewForViewMode;
     private Document _document;
     private FormatRegistry _format;
     private MarkorContextUtils _cu;
     private TextViewUndoRedo _editTextUndoRedoHelper;
-    private boolean _isPreviewVisible;
-    private MarkorWebViewClient _webViewClient;
-    private boolean _nextConvertToPrintMode = false;
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
+    private boolean _isPreviewVisible;
+    private boolean _nextConvertToPrintMode = false;
+
 
     public DocumentEditAndViewFragment() {
         super();
@@ -355,6 +357,39 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         updateMenuToggleStates(_document.getFormat());
         checkTextChangeState();
         updateUndoRedoIconStates();
+    }
+
+    @Override
+    public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        if (event.isCtrlPressed()) {
+            if (event.isShiftPressed() && keyCode == KeyEvent.KEYCODE_Z) {
+                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+                    updateUndoRedoIconStates();
+                }
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_B) {
+                _format.getActions().onActionClick(R.string.abid_markdown_bold);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_I) {
+                _format.getActions().onActionClick(R.string.abid_markdown_italic);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_S) {
+                saveDocument(true);
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Z) {
+                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
+                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);
+                    updateUndoRedoIconStates();
+                }
+                return true;
+            } else if (keyCode == KeyEvent.KEYCODE_SLASH) {
+                setViewModeVisibility(!_isPreviewVisible);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void updateUndoRedoIconStates() {
