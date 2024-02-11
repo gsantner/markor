@@ -368,12 +368,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     updateUndoRedoIconStates();
                 }
                 return true;
-            } else if (keyCode == KeyEvent.KEYCODE_B) {
-                _format.getActions().onActionClick(R.string.abid_markdown_bold);
-                return true;
-            } else if (keyCode == KeyEvent.KEYCODE_I) {
-                _format.getActions().onActionClick(R.string.abid_markdown_italic);
-                return true;
             } else if (keyCode == KeyEvent.KEYCODE_S) {
                 saveDocument(true);
                 return true;
