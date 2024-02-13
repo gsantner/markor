@@ -12,7 +12,9 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -2855,5 +2857,16 @@ public class GsContextUtils {
             final float init = view.getAlpha();
             ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
         }
+    }
+
+    public static ValueAnimator blinkView(final View view, final int startColor, final int endColor, final int duration) {
+        if (view != null) {
+            ValueAnimator animator = ObjectAnimator.ofInt(view, "backgroundColor", endColor, startColor, endColor);
+            animator.setDuration(duration);
+            animator.setEvaluator(new ArgbEvaluator());
+            animator.start();
+            return animator;
+        }
+        return null;
     }
 }

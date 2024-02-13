@@ -9,11 +9,10 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -71,7 +70,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
     public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
-    private static final int HIGHLIGHT_ITEM_COLOR = 0xFFCFCFCF;
+    private static final int HIGHLIGHT_ITEM_COLOR = 0xffeaeaea;
 
     //########################
     //## Members
@@ -202,12 +201,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
 
-        final Drawable drawable = holder.itemView.getBackground();
-        if (drawable != null) {
-            if (((ColorDrawable) drawable).getColor() != HIGHLIGHT_ITEM_COLOR) {
-                return;
-            }
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
+        final Object animator = holder.itemRoot.getTag(R.id.view_animator);
+        if (animator != null) {
+            ((ValueAnimator) animator).cancel();
+            holder.itemRoot.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
+            holder.itemRoot.setTag(R.id.view_animator, null);
         }
     }
 
@@ -287,7 +285,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static class TagContainer {
         public final File file;
         public final int position;
-        public Parcelable lastRecyclerViewState;
+        public Parcelable recyclerViewState;
 
         public TagContainer(File file_, int position_) {
             file = file_;
@@ -333,19 +331,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return level;
     }
 
-    private void saveItemPositionState(final TagContainer data) {
-        int currentItemLevel = getPathLevel(data.file.getAbsolutePath());
-        int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
+    private void saveItemState(final TagContainer data) {
+        final int currentItemLevel = getPathLevel(data.file.getAbsolutePath());
+        final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
 
         if (currentItemLevel > currentFolderLevel) {
             final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
             if (layoutManager != null) {
-                data.lastRecyclerViewState = layoutManager.onSaveInstanceState();
+                data.recyclerViewState = layoutManager.onSaveInstanceState();
             }
             folderLevelDataMap.put(currentFolderLevel, data);
-        } else {
-            data.lastRecyclerViewState = null;
-            folderLevelDataMap.remove(currentFolderLevel);
         }
     }
 
@@ -354,7 +349,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public void onClick(View view) {
         final TagContainer data = (TagContainer) view.getTag();
         if (_currentSelection.size() == 0) {
-            saveItemPositionState(data);
+            saveItemState(data);
         }
 
         switch (view.getId()) {
@@ -483,7 +478,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             final String absolutePath = _currentFolder.getAbsolutePath();
             if (_currentFolder != null && _currentFolder.getParentFile() != null && !_currentFolder.getParentFile().getAbsolutePath().equals(absolutePath)) {
                 unselectAll();
-                folderLevelDataMap.remove(getPathLevel(absolutePath));
                 loadFolder(_currentFolder.getParentFile());
                 return true;
             }
@@ -862,25 +856,27 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 }
 
                 handler.postDelayed(() -> {
-                    final TagContainer data = folderLevelDataMap.get(getPathLevel(_currentFolder.getAbsolutePath()));
+                    final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
+                    final TagContainer data = folderLevelDataMap.get(currentFolderLevel);
                     if (data == null) {
                         return;
                     }
 
+                    // Restore scroll position
                     final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
                     if (layoutManager != null) {
-                        layoutManager.onRestoreInstanceState(data.lastRecyclerViewState);
+                        layoutManager.onRestoreInstanceState(data.recyclerViewState);
                     }
 
-                    // Highlight the item view
+                    // Highlight the item
                     handler.postDelayed(() -> {
                         for (int i = _recyclerView.getChildCount() - 1; i > 0; i--) {
                             final View view = _recyclerView.getChildAt(i);
                             final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
-
                             if (data.file.getName().equals(textView.getText().toString())) {
-                                view.setBackgroundColor(HIGHLIGHT_ITEM_COLOR);
-                                handler.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 1600);
+                                view.setTag(R.id.view_animator, GsContextUtils.blinkView(view, HIGHLIGHT_ITEM_COLOR, Color.TRANSPARENT, 1800));
+                                data.recyclerViewState = null;
+                                folderLevelDataMap.remove(currentFolderLevel);
                                 break;
                             }
                         }
