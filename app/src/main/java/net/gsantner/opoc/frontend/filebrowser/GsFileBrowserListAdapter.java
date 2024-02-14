@@ -783,7 +783,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                     // Highlight the item
                     handler.postDelayed(() -> {
-                        for (int i = _recyclerView.getChildCount() - 1; i > 0; i--) {
+                        int i = _recyclerView.getChildCount() - 1;
+                        for (; i > 0; i--) {
                             final View view = _recyclerView.getChildAt(i);
                             final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
                             if (data.file.getName().equals(textView.getText().toString())) {
@@ -792,6 +793,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                                 folderLevelDataMap.remove(currentFolderLevel);
                                 break;
                             }
+                        }
+                        if (i == 0) {
+                            data.recyclerViewState = null;
+                            folderLevelDataMap.remove(currentFolderLevel);
                         }
                     }, 200);
                 }, 200);
