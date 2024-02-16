@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Kreiraj direktorij</string>
     <string name="create_new_document">Kreiraj novi dokument</string>
     <string name="move">Premjesti</string>
-    <string name="copy">Kopiraj</string>
     <string name="info">Informacija</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Datoteka/direktorij već postoji! Molimo odaberite drugi naziv</string>
     <string name="import_from_device">Prenesi sa uređaja</string>

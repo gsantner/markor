@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">建立資料夾</string>
     <string name="create_new_document">建立新的文件</string>
     <string name="move">移動</string>
-    <string name="copy">複製</string>
     <string name="info">資訊</string>
     <string name="file_folder_already_exists_please_use_a_different_name">文件／資料夾名稱已存在，請重新命名</string>
     <string name="import_from_device">從裝置匯入</string>

@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">फोल्डर बनाएं</string>
     <string name="create_new_document">नया दस्तावेज़ बनाएं</string>
     <string name="move">स्थान-परिवर्तन</string>
-    <string name="copy">प्रतिलिपि बनाएँ</string>
     <string name="info">जानकारी</string>
     <string name="file_folder_already_exists_please_use_a_different_name">फाइल या फोल्डर पहले से उप्ल्व्द उप्ल्व्द है! दूसरा नाम सोचे</string>
     <string name="import_from_device">डिवाइस से आयात करें</string>

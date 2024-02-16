@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Luo kansio</string>
     <string name="create_new_document">Luo uusi asiakirja</string>
     <string name="move">Siirrä</string>
-    <string name="copy">Kopioi</string>
     <string name="info">Tiedot</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Tiedosto / kansio on jo olemassa! Käytä toista nimeä</string>
     <string name="import_from_device">Tuo laitteelta</string>

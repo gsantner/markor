@@ -25,7 +25,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Krei Dosierujon</string>
     <string name="create_new_document">Krei novan dokumenton</string>
     <string name="move">Movi</string>
-    <string name="copy">Kopii</string>
     <string name="info">Informo</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Dosiero/dosierujo jam ekzistas! Bonvolu uzi malsaman nomon</string>
     <string name="import_from_device">Enporti el aparato</string>

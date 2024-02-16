@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">フォルダーを作成</string>
     <string name="create_new_document">新しいドキュメントを作成</string>
     <string name="move">移動</string>
-    <string name="copy">コピー</string>
     <string name="info">情報</string>
     <string name="file_folder_already_exists_please_use_a_different_name">ファイルまたはフォルダ名はすでに存在します。別の名前を使用してください。</string>
     <string name="import_from_device">デバイスからインポート</string>

@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">ایجاد پوشه</string>
     <string name="create_new_document">ایجاد پرونده جدید</string>
     <string name="move">بریدن</string>
-    <string name="copy">کپی</string>
     <string name="info">اطلاعات</string>
     <string name="file_folder_already_exists_please_use_a_different_name">پوشه وجود دارد! لطفا از نام دیگری استفاده کنید</string>
     <string name="import_from_device">درون‌ریزی از دستگاه</string>

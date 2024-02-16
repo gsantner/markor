@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Buat Folder</string>
     <string name="create_new_document">Buat dokumen baru</string>
     <string name="move">Pindahkan</string>
-    <string name="copy">Salin</string>
     <string name="info">Informasi</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder sudah ada! Silahkan menggunakan nama lain</string>
     <string name="import_from_device">Impor dari perangkat</string>

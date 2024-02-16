@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Utwórz folder</string>
     <string name="create_new_document">Utwórz nowy dokument</string>
     <string name="move">Przenieś</string>
-    <string name="copy">Kopiuj</string>
     <string name="info">Informacje</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Plik/katalog już istnieje! Proszę użyć innej nazwy</string>
     <string name="import_from_device">Importuj z urządzenia</string>

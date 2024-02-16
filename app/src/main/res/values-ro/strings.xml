@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Creați Folder</string>
     <string name="create_new_document">Creați un document nou</string>
     <string name="move">Mutați</string>
-    <string name="copy">Copiază</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fișierul/directorul există deja! Te rugăm să folosești un nume diferit</string>
     <string name="import_from_device">Importă de pe dispozitiv</string>
