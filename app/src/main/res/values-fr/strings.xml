@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
     <string name="info">Info</string>
+    <string name="show">Afficher</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Le fichier/dossier existe déjà ! Veuillez utiliser un nom différent</string>
     <string name="import_from_device">Importer depuis cet appareil</string>
     <string name="import_">Importer</string>
@@ -367,6 +368,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Archiver les tâches terminées</string>
     <string name="create_new_file_or_folder">Créer un nouveau fichier ou dossier</string>
     <string name="choose_format">Choisir le format</string>
+    <string name="clear_selection">Effacer la sélection</string>
     <string name="selected">Sélectionné</string>
     <string name="back">Retour</string>
     <string name="expand_collapse">Développer / Réduire</string>
