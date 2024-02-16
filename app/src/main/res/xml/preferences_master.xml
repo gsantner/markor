@@ -419,11 +419,6 @@
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/text">
-<!--            <other.com.flask.colorpicker.ColorPickerPreference-->
-<!--                android:defaultValue="@color/default_link_color"-->
-<!--                android:icon="@drawable/ic_format_underlined_black_24dp"-->
-<!--                android:key="@string/pref_key__view_mode_link_color"-->
-<!--                android:title="@string/link_color" />-->
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_format_textdirection_r_to_l_black_24dp"
