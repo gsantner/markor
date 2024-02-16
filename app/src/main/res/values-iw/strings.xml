@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">צור תיקייה</string>
     <string name="create_new_document">צור מסמך חדש</string>
     <string name="move">הזז</string>
-    <string name="copy">להעתיק</string>
     <string name="info">מידע</string>
     <string name="file_folder_already_exists_please_use_a_different_name">הקובץ/תיקיה כבר קיים! נא לבחור שם אחר</string>
     <string name="import_from_device">ייבא מהמכשיר</string>
