@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Opret mappe</string>
     <string name="create_new_document">Opret nyt dokument</string>
     <string name="move">Flyt</string>
-    <string name="copy">Kopiér</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fil/mappe findes allerede! Brug venligst et andet navn</string>
     <string name="import_from_device">Importér fra enhed</string>

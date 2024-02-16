@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -108,7 +109,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onActivityFirstTimeVisible();
         // Switch to tab if specific folder _not_ requested, and not recreating from saved instance
         final int startTab = _appSettings.getAppStartupTab();
-        if (startTab != R.id.nav_notebook && MarkorContextUtils.getValidIntentDir(getIntent(), null) == null) {
+        if (startTab != R.id.nav_notebook && MarkorContextUtils.getValidIntentFile(getIntent(), null) == null) {
             _viewPager.postDelayed(() -> _viewPager.setCurrentItem(tabIdToPos(startTab)), 100);
         }
     }
@@ -173,9 +174,13 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
-        final File dir = MarkorContextUtils.getValidIntentDir(intent, null);
-        if (_notebook != null && dir != null) {
-            _notebook.post(() -> _notebook.setCurrentFolder(dir));
+        final File file = MarkorContextUtils.getValidIntentFile(intent, null);
+        if (_notebook != null && file != null) {
+            if (file.isDirectory()) {
+                _notebook.post(() -> _notebook.setCurrentFolder(file));
+            } else {
+                _notebook.post(() -> _notebook.getAdapter().showFile(file));
+            }
             _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
@@ -192,7 +197,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.action_settings) {
             _cu.animateToActivity(this, SettingsActivity.class, false, null);
@@ -314,12 +319,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         }
 
         // Check if fragment handled back press
-        final GsFragmentBase<?, ?> frag = getPosFrament(getCurrentPos());
+        final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
         if (frag != null && frag.onBackPressed()) {
             return;
         }
 
-        // Confirm exit with back / snackbar
+        // Confirm exit with back / snack bar
         _doubleBackToExitPressedOnce = true;
         _cu.showSnackBar(this, R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
@@ -364,12 +369,23 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         return "";
     }
 
-    public GsFragmentBase<?, ?> getPosFrament(final int pos) {
+    public GsFragmentBase<?, ?> getPosFragment(final int pos) {
         if (pos == 0) return _notebook;
         if (pos == 1) return _todo;
         if (pos == 2) return _quicknote;
         if (pos == 3) return _more;
         return null;
+    }
+
+    /**
+     * Restores the default toolbar. Used when changing the tab or moving to another activity
+     * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)
+     */
+    private void restoreDefaultToolbar() {
+        GsFileBrowserFragment wrFragment = getNotebook();
+        if (wrFragment != null) {
+            wrFragment.clearSelection();
+        }
     }
 
     public void onViewPagerPageSelected(final int pos) {
@@ -392,23 +408,38 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     public GsFileBrowserOptions.Options getFilesystemFragmentOptions(GsFileBrowserOptions.Options existingOptions) {
         if (_filesystemDialogOptions == null) {
             _filesystemDialogOptions = MarkorFileBrowserFactory.prepareFsViewerOpts(this, false, new GsFileBrowserOptions.SelectionListenerAdapter() {
+                File toShow = null;
+
                 @Override
                 public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                     dopt.descModtimeInsteadOfParent = true;
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
-                    dopt.startFolder = MarkorContextUtils.getValidIntentDir(getIntent(), _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId()));
+                    final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
+                    final File file = MarkorContextUtils.getValidIntentFile(getIntent(), fallback);
+                    if (!GsFileBrowserListAdapter.isVirtualFolder(file) && file.isFile()) {
+                        dopt.startFolder = file.getParentFile();
+                        toShow = file;
+                    } else {
+                        dopt.startFolder = file;
+                    }
+                    toShow = file.isFile() ? file : null;
                     dopt.doSelectMultiple = dopt.doSelectFolder = dopt.doSelectFile = true;
                     dopt.mountedStorageFolder = _cu.getStorageAccessFolder(MainActivity.this);
                 }
 
                 @Override
-                public void onFsViewerDoUiUpdate(GsFileBrowserListAdapter adapter) {
+                public void onFsViewerDoUiUpdate(final GsFileBrowserListAdapter adapter) {
                     if (adapter != null && adapter.getCurrentFolder() != null && !TextUtils.isEmpty(adapter.getCurrentFolder().getName())) {
                         _appSettings.setFileBrowserLastBrowsedFolder(adapter.getCurrentFolder());
                         if (getCurrentPos() == tabIdToPos(R.id.nav_notebook)) {
-                            setTitle(adapter.areItemsSelected() ? "" : getFileBrowserTitle());
+                            setTitle(getFileBrowserTitle());
                         }
                         invalidateOptionsMenu();
+                    }
+
+                    if (toShow != null && adapter != null) {
+                        adapter.showFile(toShow);
+                        toShow = null;
                     }
                 }
 
@@ -473,14 +504,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
-    /**
-     * Restores the default toolbar. Used when changing the tab or moving to another activity
-     * while {@link GsFileBrowserFragment} action mode is active (e.g. when renaming a file)
-     */
-    private void restoreDefaultToolbar() {
-        GsFileBrowserFragment wrFragment = getNotebook();
-        if (wrFragment != null) {
-            wrFragment.clearSelection();
-        }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onReceiveKeyPress(getPosFragment(getCurrentPos()), keyCode, event) ? true : super.onKeyDown(keyCode, event);
     }
 }

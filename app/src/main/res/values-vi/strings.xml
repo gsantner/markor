@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Tạo thư mục</string>
     <string name="create_new_document">Tạo tài liệu mới</string>
     <string name="move">Di chuyển</string>
-    <string name="copy">Sao Chép</string>
     <string name="info">Xem thông tin</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Trùng tên! Vui lòng sử dụng tên khác</string>
     <string name="import_from_device">Nhập từ thiết bị</string>

@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Gumawa ng Folder</string>
     <string name="create_new_document">Gumawa ng bagong dokumento</string>
     <string name="move">Ilipat</string>
-    <string name="copy">Kopyahin</string>
     <string name="info">Impormasyon</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Mayroong nang ganitong file/folder! Mangyaring gumamit ng ibang pangalan</string>
     <string name="import_from_device">Kumuha mula sa device</string>

@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Δημιουργία Φακέλου</string>
     <string name="create_new_document">Δημιουργία νέου εγγράφου</string>
     <string name="move">Μετακίνηση</string>
-    <string name="copy">Αντιγραφή</string>
     <string name="info">Πληροφορίες</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Το αρχείο/φάκελος υπάρχει ήδη! Παρακαλούμε χρησιμοποιήστε ένα διαφορετικό όνομα</string>
     <string name="import_from_device">Εισαγωγή από τη συσκευή</string>

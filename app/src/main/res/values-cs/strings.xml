@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Vytvořit složku</string>
     <string name="create_new_document">Vytvořit nový dokument</string>
     <string name="move">Přesunout</string>
-    <string name="copy">Kopírovat</string>
     <string name="info">Informace</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Soubor/složka již existuje, prosím, použijte jiné jméno</string>
     <string name="import_from_device">Import ze zařízení</string>
