@@ -12,6 +12,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -462,15 +463,19 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 setViewModeVisibility(!_isPreviewVisible);
                 return true;
             }
+            case R.id.action_share_path: {
+                _cu.shareText(getActivity(), _document.getFile().getAbsolutePath(), GsContextUtils.MIME_TEXT_PLAIN);
+                return true;
+            }
             case R.id.action_share_text: {
                 if (saveDocument(false)) {
-                    _cu.shareText(getActivity(), getTextString(), "text/plain");
+                    _cu.shareText(getActivity(), getTextString(), GsContextUtils.MIME_TEXT_PLAIN);
                 }
                 return true;
             }
             case R.id.action_share_file: {
                 if (saveDocument(false)) {
-                    _cu.shareStream(getActivity(), _document.getFile(), "text/plain");
+                    _cu.shareStream(getActivity(), _document.getFile(), GsContextUtils.MIME_TEXT_PLAIN);
                 }
                 return true;
             }
@@ -597,6 +602,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
                     _appSettings.setDocumentFontSize(_document.getPath(), newSize);
                 });
+                return true;
+            }
+            case R.id.action_show_file_browser: {
+                final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.getFile());
+                GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+                return true;
             }
             default: {
                 return super.onOptionsItemSelected(item);

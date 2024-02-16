@@ -162,6 +162,10 @@
         app:showAsAction="never">
         <menu>
             <item
+                android:id="@+id/action_share_path"
+                android:icon="@drawable/ic_link_black_24dp"
+                android:title="@string/url_or_path" />
+            <item
                 android:id="@+id/action_share_text"
                 android:icon="@drawable/ic_file_white_24dp"
                 android:title="@string/plaintext" />
@@ -222,6 +226,11 @@
                 app:showAsAction="never" />
         </menu>
     </item>
+    <item
+        android:id="@+id/action_show_file_browser"
+        android:icon="@drawable/ic_folder_gray_24dp"
+        android:title="@string/show"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_info"
         android:icon="@drawable/ic_info_black_24dp"

@@ -231,7 +231,7 @@ public class AutoTextFormatter implements InputFilter {
             if (isUnorderedOrCheckList) {
                 groupStart = lineStart + matcher.start(FULL_ITEM_PREFIX_GROUP);
                 groupEnd = lineStart + matcher.end(FULL_ITEM_PREFIX_GROUP);
-                String emptyCheckboxContent = " ";
+                final String emptyCheckboxContent = " ";
                 newItemPrefix = isChecklist ? matcher.group(CHECKBOX_PREFIX_LEFT_GROUP) + emptyCheckboxContent + matcher.group(CHECKBOX_PREFIX_RIGHT_GROUP)
                         : matcher.group(FULL_ITEM_PREFIX_GROUP);
             } else {

@@ -61,33 +61,33 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
             // Open Folder
             final Intent goToFolder = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_PATH, directoryF);
+                    .putExtra(Document.EXTRA_FILE, directoryF);
             views.setOnClickPendingIntent(R.id.widget_header, PendingIntent.getActivity(context, requestCode++, goToFolder, staticFlags));
 
             // Open To-do
             final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getTodoFile())
+                    .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
 
             // Open QuickNote
             final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getQuickNoteFile())
+                    .putExtra(Document.EXTRA_FILE, appSettings.getQuickNoteFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, staticFlags));
 
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
-                    .putExtra(Document.EXTRA_PATH, appSettings.getNotebookDirectory());
+                    .putExtra(Document.EXTRA_FILE, appSettings.getNotebookDirectory());
             views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)
                     .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-                    .putExtra(Document.EXTRA_PATH, directoryF);
+                    .putExtra(Document.EXTRA_FILE, directoryF);
             notesListIntent.setData(Uri.parse(notesListIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             views.setEmptyView(R.id.widget_list_container, R.id.widget_empty_hint);

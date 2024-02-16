@@ -710,7 +710,7 @@ public class GsFileUtils {
                 return file.lastModified() + name;
             }
             case SORT_BY_FILESIZE: {
-                return file.length() + name;
+                return String.format("%015d", file.length()) + name;
             }
             case SORT_BY_MIMETYPE: {
                 return getMimeType(file).toLowerCase() + name;
