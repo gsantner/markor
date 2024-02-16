@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">دروستکردنی فۆڵدەر</string>
     <string name="create_new_document">دروستکردنی بەڵگەنامەی نوێ</string>
     <string name="move">گواستنەوە</string>
-    <string name="copy">لەبەرگرتنەوە</string>
     <string name="info">زانیاری</string>
     <string name="file_folder_already_exists_please_use_a_different_name">فایل/فۆڵدەر بوونی هەیە! تکایە ناوێکی جیاواز بەکاربێنە</string>
     <string name="import_from_device">هێنان لە ئامێرەوە</string>

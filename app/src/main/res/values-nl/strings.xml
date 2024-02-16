@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Maak folder</string>
     <string name="create_new_document">Maak een nieuw document</string>
     <string name="move">Verplaatsen</string>
-    <string name="copy">Kopiëren</string>
     <string name="info">Info</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Bestand/map bestaat al! Gebruik een andere naam</string>
     <string name="import_from_device">Importeer van apparaat</string>

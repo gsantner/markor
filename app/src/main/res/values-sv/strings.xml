@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Skapa mapp</string>
     <string name="create_new_document">Skapa nytt dokument</string>
     <string name="move">Flytta</string>
-    <string name="copy">Kopiera</string>
     <string name="info">Information</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Fil/mapp finns redan! Använd ett annat namn</string>
     <string name="import_from_device">Importera från enhet</string>
@@ -60,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Senast ändrad</string>
     <string name="select_this_folder">Välj den här mappen</string>
     <string name="select">Välj</string>
+    <string name="select_all">Välj alla</string>
     <string name="create">Skapa</string>
     <string name="select_entries">Välj poster</string>
     <string name="one_item_selected">Ett objekt valt</string>

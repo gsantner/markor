@@ -29,7 +29,7 @@ public class OpenEditorActivity extends MarkorBaseActivity {
     protected void openEditorForFile(final File file, final Integer line) {
         final Intent openIntent = new Intent(getApplicationContext(), OpenFromShortcutOrWidgetActivity.class)
                 .setAction(Intent.ACTION_EDIT)
-                .putExtra(Document.EXTRA_PATH, file);
+                .putExtra(Document.EXTRA_FILE, file);
 
         if (line != null) {
             openIntent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, line);
