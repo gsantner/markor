@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Создај директориум</string>
     <string name="create_new_document">Создај нов документ</string>
     <string name="move">Премести</string>
-    <string name="copy">Копирај</string>
     <string name="info">Инфо</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Фајл/директориум веќе постои! Одберете друго име</string>
     <string name="import_from_device">Увезете од други уреди</string>
