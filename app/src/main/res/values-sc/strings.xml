@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Crea una cartella</string>
     <string name="create_new_document">Crea unu documentu nou</string>
     <string name="move">Move</string>
-    <string name="copy">Còpia</string>
     <string name="info">Informatziones</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Su documentu/sa cartella esistit giai! Pro praghere imprea unu nùmene diferente</string>
     <string name="import_from_device">Importa dae su dispositivu</string>
