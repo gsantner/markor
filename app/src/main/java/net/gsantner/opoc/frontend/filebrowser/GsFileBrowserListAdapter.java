@@ -788,7 +788,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             final View view = _recyclerView.getChildAt(i);
                             final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
                             if (data.file.getName().equals(textView.getText().toString())) {
-                                view.setTag(R.id.view_animator, GsContextUtils.blinkView(view, HIGHLIGHT_ITEM_COLOR, Color.TRANSPARENT, 1800));
+                                view.setTag(R.id.view_animator, GsContextUtils.blinkView(view, HIGHLIGHT_ITEM_COLOR, 1800));
                                 data.recyclerViewState = null;
                                 folderLevelDataMap.remove(currentFolderLevel);
                                 break;

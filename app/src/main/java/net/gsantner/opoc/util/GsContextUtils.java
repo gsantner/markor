@@ -49,6 +49,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.media.MediaMetadataRetriever;
@@ -2796,7 +2797,6 @@ public class GsContextUtils {
         return h >= begin && h <= end;
     }
 
-
     @SuppressLint("SwitchIntDef")
     public void nextScreenRotationSetting(final Activity context) {
         String text;
@@ -2859,9 +2859,14 @@ public class GsContextUtils {
         }
     }
 
-    public static ValueAnimator blinkView(final View view, final int startColor, final int endColor, final int duration) {
+    public static ValueAnimator blinkView(final View view, final int color, final int duration) {
         if (view != null) {
-            ValueAnimator animator = ObjectAnimator.ofInt(view, "backgroundColor", endColor, startColor, endColor);
+            int initColor = Color.TRANSPARENT;
+            Drawable drawable = view.getBackground();
+            if (drawable != null) {
+                initColor = ((ColorDrawable) drawable).getColor();
+            }
+            ValueAnimator animator = ObjectAnimator.ofInt(view, "backgroundColor", initColor, color, initColor);
             animator.setDuration(duration);
             animator.setEvaluator(new ArgbEvaluator());
             animator.start();
