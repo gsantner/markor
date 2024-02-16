@@ -443,6 +443,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public boolean toggleSelection(final TagContainer data) {
+        if (data == null) {
+            return false;
+        }
+
         boolean clickHandled = false;
         if (data.file != null && _currentFolder != null) {
             if (data.file.isDirectory() && _currentFolder.getParentFile() != null && _currentFolder.getParentFile().equals(data.file)) {
@@ -497,13 +501,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     @Override
     public boolean onLongClick(final View view) {
-        switch (view.getId()) {
-            case R.id.opoc_filesystem_item__root: {
-                final TagContainer data = (TagContainer) view.getTag();
-                toggleSelection(data);
-                _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
-                return true;
-            }
+        if (view.getId() == R.id.opoc_filesystem_item__root) {
+            final TagContainer data = (TagContainer) view.getTag();
+            toggleSelection(data);
+            _dopt.listener.onFsViewerItemLongPressed(data.file, _dopt.doSelectMultiple);
+            return true;
         }
         return false;
     }
@@ -713,15 +715,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
                             final int depth = TextViewUtils.countChars(file.getAbsolutePath(), '/')[0];
                             if (depth < 3) {
-                                final File remap = new File(file.getParentFile().getAbsolutePath(), "appdata-public (" + file.getName() + ")");
-                                _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
-                                newData.add(remap);
+                                final File parent = file.getParentFile();
+                                if (parent != null) {
+                                    final File remap = new File(parent.getAbsolutePath(), "appdata-public (" + file.getName() + ")");
+                                    _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                                    newData.add(remap);
+                                }
                             }
                         }
                     }
                 }
 
-                // Don't sort recents - use the default order
+                // Don't sort recent items - use the default order
                 if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
                     GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                 }
