@@ -441,7 +441,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
         return true;
     }
-    
+
     public boolean toggleSelection(final TagContainer data) {
         boolean clickHandled = false;
         if (data.file != null && _currentFolder != null) {
@@ -655,14 +655,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
                         newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                     }
-
-                    handler.post(() -> notifyDataSetChanged());
-                    handler.postDelayed(() -> {
-                        TagContainer data = folderLevelDataMap.get(getPathLevel(_currentFolder.getAbsolutePath()));
-                        if (data != null) {
-                            _recyclerView.getLayoutManager().onRestoreInstanceState(data.lastRecyclerViewState);
-                        }
-                    }, 200);
                 }
 
                 for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
