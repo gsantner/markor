@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Son düzenleme</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
+    <string name="select_all">Tümünü seç</string>
     <string name="create">Oluştur</string>
     <string name="select_entries">Öğeleri seç</string>
     <string name="one_item_selected">Bir öğe seçildi</string>
