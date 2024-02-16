@@ -59,7 +59,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         final String sharedText = formatLink(intent.getStringExtra(Intent.EXTRA_SUBJECT), intent.getStringExtra(Intent.EXTRA_TEXT));
 
-        final Object intentFile = intent.getSerializableExtra(Document.EXTRA_PATH);
+        final Object intentFile = intent.getSerializableExtra(Document.EXTRA_FILE);
         if (intentFile instanceof File && ((File) intentFile).isDirectory()) {
             f.workingDir = (File) intentFile;
         }
