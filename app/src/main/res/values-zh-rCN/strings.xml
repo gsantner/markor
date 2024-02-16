@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">最后修改</string>
     <string name="select_this_folder">选择这个文件夹</string>
     <string name="select">选择</string>
+    <string name="select_all">全选</string>
     <string name="create">新建</string>
     <string name="select_entries">选择 输入文字</string>
     <string name="one_item_selected">已选中一项</string>

@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -339,10 +340,13 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onReceiveKeyPress(getCurrentVisibleFragment(), keyCode, event) ? true : super.onKeyDown(keyCode, event);
+    }
+
     public GsFragmentBase showFragment(GsFragmentBase fragment) {
-
         if (fragment != getCurrentVisibleFragment()) {
-
             _fragManager.beginTransaction()
                     .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
                     .commit();
@@ -353,9 +357,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
-        FragmentManager fmgr = getSupportFragmentManager();
-        GsFragmentBase fragment = (GsFragmentBase) fmgr.findFragmentByTag(fragmentTag);
-        return fragment;
+        return (GsFragmentBase) getSupportFragmentManager().findFragmentByTag(fragmentTag);
     }
 
     private GsFragmentBase getCurrentVisibleFragment() {

@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Viimati muudeti</string>
     <string name="select_this_folder">Vali see kaust</string>
     <string name="select">Vali</string>
+    <string name="select_all">Vali kõik</string>
     <string name="create">Loo</string>
     <string name="select_entries">Vali sissekanded</string>
     <string name="one_item_selected">Üks asi valitud</string>

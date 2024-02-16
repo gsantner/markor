@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -203,6 +204,10 @@ public abstract class GsFragmentBase<AS extends GsSharedPreferencesPropertyBacke
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public boolean onReceiveKeyPress(int keyCode, KeyEvent event) {
+        return false;
     }
 
     /**

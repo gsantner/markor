@@ -60,6 +60,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Última modificação</string>
     <string name="select_this_folder">Selecionar esta pasta</string>
     <string name="select">Selecionar</string>
+    <string name="select_all">Selecionar tudo</string>
     <string name="create">Criar</string>
     <string name="select_entries">Selecionar entradas</string>
     <string name="one_item_selected">Um item selecionado</string>
