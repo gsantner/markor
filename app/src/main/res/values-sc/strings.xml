@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Crea unu documentu nou</string>
     <string name="move">Move</string>
     <string name="info">Informatziones</string>
+    <string name="show">Mustra</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Su documentu/sa cartella esistit giai! Pro praghere imprea unu nùmene diferente</string>
     <string name="import_from_device">Importa dae su dispositivu</string>
     <string name="import_">Importa</string>
@@ -368,6 +369,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Archìvia sas fainas acabadas</string>
     <string name="create_new_file_or_folder">Crea unu documentu o una cartella noa</string>
     <string name="choose_format">Issèbera su formadu</string>
+    <string name="clear_selection">Isbòida sa seletzione</string>
     <string name="selected">Ischertados</string>
     <string name="back">In palas</string>
     <string name="expand_collapse">Ismànnia / Mìnima</string>
