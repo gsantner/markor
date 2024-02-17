@@ -530,6 +530,76 @@ public class MarkorDialogFactory {
         final Set<Integer> checked = new HashSet<>();    // Whether the line is checked
         final List<Integer> indices = new ArrayList<>(); // Indices of the check char in the line
         final Matcher matcher = checkPattern.matcher("");
+
+        GsTextUtils.forEachline(text, (index, start, end) -> {
+            final String line = text.subSequence(start, end).toString();
+            matcher.reset(line);
+            if (matcher.find()) {
+                final int cs = matcher.start(checkGroup);
+                final char c = line.charAt(cs);
+                if (checkedChars.indexOf(c) >= 0) {
+                    checked.add(lines.size());
+                }
+                lines.add(line);
+                indices.add(cs + start);
+            }
+            return true;
+        });
+
+        final DialogOptions dopt = new DialogOptions();
+        baseConf(activity, dopt);
+        dopt.isMultiSelectEnabled = true;
+        dopt.data = lines;
+        dopt.preSelected = checked;
+        dopt.titleText = R.string.check_list;
+
+        final String check = Character.toString(checkedChars.charAt(0));
+        final String uncheck = Character.toString(uncheckedChars.charAt(0));
+        final TextViewUtils.ChunkedEditable chunked = TextViewUtils.ChunkedEditable.wrap(text);
+
+        dopt.positionCallback = (result) -> {
+            // Result has the indices of the checker lines which are selected
+            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+                final int cs = indices.get(i);
+                chunked.replace(cs, cs + 1, uncheck);
+            }
+
+            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+                final int cs = indices.get(i);
+                chunked.replace(cs, cs + 1, check);
+            }
+
+            chunked.applyChanges();
+        };
+
+        if (showCallback != null) {
+            dopt.callback = (line) -> {
+                final int index = lines.indexOf(line);
+                if (index >= 0) {
+                    final int cs = indices.get(index);
+                    final int end = TextViewUtils.getLineEnd(text, cs);
+                    showCallback.callback(end);
+                }
+            };
+        }
+
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+    }
+
+    // Insert items
+    public static void showInsertItemsDialog(
+            final Activity activity,
+            final Editable text,
+            final Pattern checkPattern,
+            final int checkGroup,
+            final String checkedChars,
+            final String uncheckedChars,
+            final @Nullable GsCallback.a1<Integer> showCallback
+    ) {
+        final List<String> lines = new ArrayList<>();    // String of each line
+        final Set<Integer> checked = new HashSet<>();    // Whether the line is checked
+        final List<Integer> indices = new ArrayList<>(); // Indices of the check char in the line
+        final Matcher matcher = checkPattern.matcher("");
         GsTextUtils.forEachline(text, (index, start, end) -> {
             final String line = text.subSequence(start, end).toString();
             matcher.reset(line);

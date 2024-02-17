@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">ෆෝල්ඩරය නිර්මාණය</string>
     <string name="create_new_document">නව ලේඛනයක් සාදන්න</string>
     <string name="move">චලනය කරන්න</string>
-    <string name="copy">පිටපත් කරන්න</string>
     <string name="info">තොරතුරු</string>
     <string name="file_folder_already_exists_please_use_a_different_name">ගොනුව/ෆෝල්ඩරය දැනටමත් පවතී! කරුණාකර වෙනත් නමක් භාවිතා කරන්න</string>
     <string name="import_from_device">උපාංගයෙන් ආයාත කරන්න</string>

@@ -99,7 +99,7 @@ public final class TextViewUtils {
     }
 
     public static int getLastNonWhitespace(final CharSequence s, final int end) {
-        if (s != null) {
+        if (s != null && end >= 0 && end < s.length()) {
             for (int i = Math.min(s.length() - 1, end); i >= 0; i--) {
                 char c = s.charAt(i);
                 if (c != ' ' && c != '\t') {
@@ -116,11 +116,13 @@ public final class TextViewUtils {
     }
 
     public static int getNextNonWhitespace(final CharSequence s, final int start) {
-        final int length = s.length();
-        for (int i = Math.max(0, start); i < length; i++) {
-            char c = s.charAt(i);
-            if (c != ' ' && c != '\t') {
-                return i;
+        if (s != null && start >= 0) {
+            final int length = s.length();
+            for (int i = Math.max(0, start); i < length; i++) {
+                char c = s.charAt(i);
+                if (c != ' ' && c != '\t') {
+                    return i;
+                }
             }
         }
         return -1;

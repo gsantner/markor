@@ -27,7 +27,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_folder">Loo kaust</string>
     <string name="create_new_document">Loo uus kirje</string>
     <string name="move">Teisalda</string>
-    <string name="copy">Kopeeri</string>
     <string name="info">Teave</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Kirje/kaust juba leidub! Palun pane erinev nimi</string>
     <string name="import_from_device">Impordi seadmest</string>
@@ -60,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Viimati muudeti</string>
     <string name="select_this_folder">Vali see kaust</string>
     <string name="select">Vali</string>
+    <string name="select_all">Vali kõik</string>
     <string name="create">Loo</string>
     <string name="select_entries">Vali sissekanded</string>
     <string name="one_item_selected">Üks asi valitud</string>
