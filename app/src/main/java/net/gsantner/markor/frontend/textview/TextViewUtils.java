@@ -118,7 +118,7 @@ public final class TextViewUtils {
     public static int getNextNonWhitespace(final CharSequence s, final int start) {
         if (s != null && start >= 0) {
             final int length = s.length();
-            for (int i = Math.max(0, start); i < length; i++) {
+            for (int i = start; i < length; i++) {
                 char c = s.charAt(i);
                 if (c != ' ' && c != '\t') {
                     return i;
