@@ -332,15 +332,17 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private void saveItemState(final TagContainer data) {
-        final int currentItemLevel = getPathLevel(data.file.getAbsolutePath());
-        final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
+        if (data != null) {
+            final int currentItemLevel = getPathLevel(data.file.getAbsolutePath());
+            final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
 
-        if (currentItemLevel > currentFolderLevel) {
-            final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
-            if (layoutManager != null) {
-                data.recyclerViewState = layoutManager.onSaveInstanceState();
+            if (currentItemLevel > currentFolderLevel) {
+                final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
+                if (layoutManager != null) {
+                    data.recyclerViewState = layoutManager.onSaveInstanceState();
+                }
+                folderLevelDataMap.put(currentFolderLevel, data);
             }
-            folderLevelDataMap.put(currentFolderLevel, data);
         }
     }
 
