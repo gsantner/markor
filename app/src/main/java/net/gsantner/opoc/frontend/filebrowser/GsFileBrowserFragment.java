@@ -663,7 +663,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     }
 
     public void setCurrentFolder(final File folder) {
-        if (folder != null && folder.canRead() && _filesystemViewerAdapter != null) {
+        if (folder != null && (folder.canRead() || GsFileBrowserListAdapter.isVirtualFolder(folder)) && _filesystemViewerAdapter != null) {
             _filesystemViewerAdapter.setCurrentFolder(folder);
         }
     }
