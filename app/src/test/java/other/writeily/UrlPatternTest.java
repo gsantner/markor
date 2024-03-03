@@ -10,6 +10,7 @@ public class UrlPatternTest {
 
     @Test
     public void test() {
+        check("http://test/test2", "http://test/test2");
         check("begin http://test/test2 end", "http://test/test2");
         check("begin https://test/test2 end", "https://test/test2");
         check("begin https://www.test/test2 end", "https://www.test/test2");
@@ -17,6 +18,7 @@ public class UrlPatternTest {
         check("begin /test/test2 end");
         check("begin ftp://test/test2 end");
         check("begin smb://test/test2 end");
+        check("begin HtTp://test/test2 end");
     }
 
     private void check(String inputString, String expectedUrl) {
