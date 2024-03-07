@@ -191,7 +191,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
             final String oldContent = document.loadContent(context);
             if (oldContent != null) {
-                final String newContent = oldContent + "\n" + formatted;
+                final String nline = oldContent.endsWith("\n") ? "" : "\n";
+                final String newContent = oldContent + nline + formatted;
                 document.saveContent(context, newContent);
             } else {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
@@ -287,7 +288,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             formatted = formatShare(formatted);
 
             if (format == FormatRegistry.FORMAT_TODOTXT) {
-                formatted = TodoTxtTask.getToday() + " " + formatted.replaceAll("\\n", " ");
+                formatted = "\\n" + TodoTxtTask.getToday() + " " + formatted.replaceAll("\\n", " ");
             }
 
             return formatted;
