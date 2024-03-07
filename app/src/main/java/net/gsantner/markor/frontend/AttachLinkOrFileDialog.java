@@ -49,32 +49,32 @@ public class AttachLinkOrFileDialog {
 
     private static String getImageFormat(final int textFormatId) {
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
-            return "![TITLE](LINK)";
+            return "![%TITLE%](%LINK%)";
         } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "{{LINK}}";
+            return "{{%LINK%}}";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
-            return "image::LINK[\"TITLE\"]";
+            return "image::%LINK%[\"%TITLE%\"]";
         } else {
-            return "<img style='width:auto;max-height:256px;' alt='TITLE' src='LINK' />";
+            return "<img style='width:auto;max-height:256px;' alt='%TITLE%' src='%LINK%' />";
         }
     }
 
     private static String getLinkFormat(final int textFormatId) {
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
-            return "[TITLE](LINK)";
+            return "[%TITLE%](%LINK%)";
         } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "{{LINK|TITLE}}";
+            return "{{%LINK%|%TITLE%}}";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
-            return "link:LINK[TITLE]";
+            return "link:%LINK%[%TITLE%]";
         } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
-            return "TITLE:LINK";
+            return "%TITLE% link:%LINK%";
         } else {
-            return "<a href=\"LINK\">TITLE</a>";
+            return "<a href=\"%LINK%\">%TITLE%</a>";
         }
     }
 
     private static String getAudioFormat(final int textFormatId) {
-        return "<audio src='LINK' controls><a href='LINK'>TITLE</a></audio>";
+        return "<audio src='%LINK%' controls><a href='%LINK%'>%TITLE%</a></audio>";
     }
 
     public static void showInsertImageOrLinkDialog(
@@ -241,8 +241,8 @@ public class AttachLinkOrFileDialog {
                 .replace("{{%20site.baseurl%20}}", "{{ site.baseurl }}");
 
         String newText = getTemplateForAction(action, textFormatId)
-                .replace("TITLE", title)
-                .replace("LINK", path);
+                .replace("%TITLE%", title)
+                .replace("%LINK%", path);
 
         if (textFormatId == FormatRegistry.FORMAT_WIKITEXT && newText.endsWith("|]]")) {
             newText = newText.replaceFirst("\\|]]$", "]]");
