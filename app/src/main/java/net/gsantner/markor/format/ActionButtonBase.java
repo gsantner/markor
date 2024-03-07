@@ -881,7 +881,9 @@ public abstract class ActionButtonBase {
     }
 
     public static void duplicateLineSelection(final HighlightingEditor hlEditor) {
-        // Duplication is performed downwards, selection is moving alongside it.
+        // Duplication is performed downwards, selection is moving alongside it and
+        // cursor is preserved regarding column position (helpful for editing the
+        // newly created line at the selected position right away).
         final Editable text = hlEditor.getText();
 
         final int[] sel = TextViewUtils.getSelection(hlEditor);
@@ -890,16 +892,12 @@ public abstract class ActionButtonBase {
 
         final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
-        final int altStart = linesEnd + 1;
-        final int altEnd = TextViewUtils.getLineEnd(text, altStart);
-        final CharSequence altLine = text.subSequence(altStart, altEnd);
-
         final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
         final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
         hlEditor.withAutoFormatDisabled(() -> {
             final String lines_final = String.format("%s\n", lines);
-            text.insert(altStart, lines_final);
+            text.insert(linesEnd + 1, lines_final);
         });
 
         final int sel_offset = selEnd[0] - selStart[0] + 1;
