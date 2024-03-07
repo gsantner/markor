@@ -288,7 +288,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             formatted = formatShare(formatted);
 
             if (format == FormatRegistry.FORMAT_TODOTXT) {
-                formatted = "\\n" + TodoTxtTask.getToday() + " " + formatted.replaceAll("\\n", " ");
+                formatted = TodoTxtTask.getToday() + " " + formatted.replaceAll("\\n+", " ");
+            } else {
+                formatted = "\n" + formatted;
             }
 
             return formatted;
