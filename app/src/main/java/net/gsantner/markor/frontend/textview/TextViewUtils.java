@@ -28,6 +28,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import net.gsantner.opoc.util.GsContextUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -143,6 +144,22 @@ public final class TextViewUtils {
         } else {
             return new int[]{selectionEnd, selectionStart};
         }
+    }
+
+    public static void withKeepSelection(final Editable text, final GsCallback.a2<Integer, Integer> action) {
+        final int[] sel = TextViewUtils.getSelection(text);
+        final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
+        final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
+
+        action.callback(selStart[0], selEnd[0]);
+
+        Selection.setSelection(text,
+                TextViewUtils.getIndexFromLineOffset(text, selStart),
+                TextViewUtils.getIndexFromLineOffset(text, selEnd));
+    }
+
+    public static void withKeepSelection(final Editable text, final GsCallback.a0 action) {
+        withKeepSelection(text, (start, end) -> action.callback());
     }
 
     public static String getSelectedText(final CharSequence text) {
