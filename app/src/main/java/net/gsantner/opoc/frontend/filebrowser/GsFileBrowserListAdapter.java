@@ -9,10 +9,11 @@
 #########################################################*/
 package net.gsantner.opoc.frontend.filebrowser;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -70,7 +71,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static final String EXTRA_DOPT = "EXTRA_DOPT";
     public static final String EXTRA_RECYCLER_SCROLL_STATE = "EXTRA_RECYCLER_SCROLL_STATE";
     public static final String EXTRA_REQ_FOLDER = "EXTRA_REQ_FOLDER";
-    private static final int HIGHLIGHT_ITEM_COLOR = 0xffeaeaea;
 
     //########################
     //## Members
@@ -201,11 +201,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
 
-        final Object animator = holder.itemRoot.getTag(R.id.view_animator);
-        if (animator != null) {
-            ((ValueAnimator) animator).cancel();
-            holder.itemRoot.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
-            holder.itemRoot.setTag(R.id.view_animator, null);
+        final Drawable drawable = holder.itemView.getBackground();
+        if (drawable != null && ((ColorDrawable) drawable).getColor() == Color.LTGRAY) {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
         }
     }
 
@@ -771,7 +769,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             final View view = _recyclerView.getChildAt(i);
                             final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
                             if (data.file.getName().equals(textView.getText().toString())) {
-                                view.setTag(R.id.view_animator, GsContextUtils.blinkView(view, HIGHLIGHT_ITEM_COLOR, 1000));
+                                view.setBackgroundColor(Color.LTGRAY); // Highlight
+                                view.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 300);
                                 data.recyclerViewState = null;
                                 folderLevelDataMap.remove(currentFolderLevel);
                                 break;
