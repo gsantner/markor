@@ -37,8 +37,8 @@ public class TodoTxtTask {
     public static final SimpleDateFormat DATEF_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     public static final int DATEF_YYYY_MM_DD_LEN = "yyyy-MM-dd".length();
     public static final String PT_DATE = "\\d{4}-\\d{2}-\\d{2}";
-    public static final Pattern PATTERN_PROJECTS = Pattern.compile("\\B(?:\\++)(\\S+)");
-    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("\\B(?:\\@+)(\\S+)");
+    public static final Pattern PATTERN_PROJECTS = Pattern.compile("(?:^|\\s)(?:\\++)(\\S+)");
+    public static final Pattern PATTERN_CONTEXTS = Pattern.compile("(?:^|\\s)(?:\\@+)(\\S+)");
     public static final Pattern PATTERN_DONE = Pattern.compile("(?m)(^[Xx]) (.*)$");
     public static final Pattern PATTERN_DATE = Pattern.compile("(?:^|\\s|:)(" + PT_DATE + ")(?:$|\\s)");
     public static final Pattern PATTERN_KEY_VALUE_PAIRS__TAG_ONLY = Pattern.compile("(?i)([a-z]+):([a-z0-9_-]+)");

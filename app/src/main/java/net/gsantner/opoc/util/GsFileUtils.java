@@ -14,7 +14,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
+
+import androidx.annotation.RequiresApi;
 
 import net.gsantner.opoc.format.GsTextUtils;
 
@@ -33,7 +36,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -842,5 +851,29 @@ public class GsFileUtils {
         } else {
             return null;
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static List<File> searchFiles(final File root, String glob) {
+        try {
+            glob = glob.trim();
+            glob = glob.startsWith("glob:") ? glob : "glob:" + glob;
+
+            final PathMatcher matcher = FileSystems.getDefault().getPathMatcher(glob);
+            final List<File> found = new ArrayList<>();
+            Files.walkFileTree(root.toPath(), new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs) {
+                    if (matcher.matches(path)) {
+                        found.add(path.toFile());
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+            return found;
+        } catch (IOException e) {
+            Log.d(GsFileUtils.class.getName(), e.toString());
+        }
+        return null;
     }
 }

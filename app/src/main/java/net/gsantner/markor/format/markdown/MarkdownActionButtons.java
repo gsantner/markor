@@ -9,6 +9,7 @@ package net.gsantner.markor.format.markdown;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Editable;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -170,10 +172,25 @@ public class MarkdownActionButtons extends ActionButtonBase {
      * @param delim   - Delimiter to surround text with
      */
     private void runLineSurroundAction(final Pattern pattern, final String delim) {
+        final int[] sel = TextViewUtils.getSelection(_hlEditor);
+        final String lineBefore = sel[0] == sel[1] ? TextViewUtils.getSelectedLines(_hlEditor, sel[0]) : null;
+
         runRegexReplaceAction(
                 new ReplacePattern(pattern, "$1$2$4$6"),
                 new ReplacePattern(LINE_NONE, "$1$2" + delim + "$3" + delim + "$4")
         );
+
+        // This logic sets the cursor to the inside of the delimiters if the delimiters were empty
+        if (lineBefore != null) {
+            final String lineAfter = TextViewUtils.getSelectedLines(_hlEditor, sel[0]);
+            final String pair = delim + delim;
+            if (lineAfter.length() - lineBefore.length() == pair.length() && lineAfter.trim().endsWith(pair)) {
+                final Editable text = _hlEditor.getText();
+                final int end = TextViewUtils.getLineEnd(text, sel[0]);
+                final int ns = TextViewUtils.getLastNonWhitespace(text, end) - delim.length();
+                _hlEditor.setSelection(ns);
+            }
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -227,18 +244,27 @@ public class MarkdownActionButtons extends ActionButtonBase {
         final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
 
         final Matcher m = MARKDOWN_LINK.matcher(line);
+
+        final ArrayList<String> linksUnderCursor = new ArrayList<>();
         while (m.find()) {
             final String group = m.group(2);
-            if (m.start() <= cursor && m.end() > cursor && group != null) {
-                if (WEB_URL.matcher(group).matches()) {
-                    GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+            if (m.start() <= cursor && m.end() >= cursor && group != null) {
+                linksUnderCursor.add(group);
+            }
+        }
+
+        // We want to search the line backwards in order to find the link closest to the cursor
+        // This helps us to match a link right after the cursor when there is one right before
+        for (int i = linksUnderCursor.size() - 1; i >= 0; i--) {
+            final String group = linksUnderCursor.get(i);
+            if (WEB_URL.matcher(group).matches()) {
+                GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+                return true;
+            } else {
+                final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
+                if (GsFileUtils.canCreate(f)) {
+                    DocumentActivity.handleFileClick(getActivity(), f, null);
                     return true;
-                } else {
-                    final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
-                    if (GsFileUtils.canCreate(f)) {
-                        DocumentActivity.handleFileClick(getActivity(), f, null);
-                        return true;
-                    }
                 }
             }
         }
