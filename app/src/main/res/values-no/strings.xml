@@ -145,7 +145,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_enabled_or_not__appspecific">Kontroller om innskrevet tekst skal framheves eller ikke</string>
     <string name="dynamic_highlighting_effect">Dynamisk utheving øker ytelsen. Kan føre til gjengivelsesartifakter.</string>
     <string name="control_font_size_in_editor">Kontroller skriftstørrelsen som brukes i editoren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger for å sette inn ofte brukt tekst i tekstmoduler</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger nederst. Disse teksthandlingene modifiserer teksten, eller kjører en handling basert på teksten.</string>
     <string name="load_last_opened_folder_at_startup">Last sist åpnede mappe ved oppstart</string>
     <string name="format">Formatér</string>
     <string name="contexts">Kontekster</string>
@@ -233,7 +233,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">synkende</string>
     <string name="ascending">stigende</string>
     <string name="disable_spelling_underline">Skru av stavingsunderstreking</string>
-    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag forblir, rød understreking blir borte.</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag blir værende, rød understrekning forsvinner</string>
     <string name="location">Posisjon</string>
     <string name="text_lines">Tekstlinjer</string>
     <string name="text_characters">Tekst tegn</string>
@@ -263,8 +263,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">Preset</string>
     <string name="foreground">Forgrunn</string>
     <string name="background">Bakgrunn</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Sett forgrunn eller bakgrunnsfarge på tekst? Det er også mulig å sette inn heksadesimale fargekoder</string>
-    <string name="type">Type:</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Vil du velge forgrunn- eller bakgrunnsfargen til tekst? Det er også mulig å velge heksadesimale fargekoder,</string>
+    <string name="type">Type</string>
     <string name="folder">Mappe</string>
     <string name="folder_is_created_without_extension">- Mappen ble opprettet uten filtype</string>
     <string name="keep_existing_file">- Filer og mapper er ikke overskrevet</string>
@@ -442,8 +442,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Samsvarer med alle</string>
     <string name="dynamic_notebook_root_links">Dynamisk søk etter bærerrot for notatblokk</string>
     <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formatet/startteksten for tekst som deles inn til Markor. Følger Android sin SimpleDateFormat-format.\n\nBruk stattholderen {{text}} for å posisjonere den delte teksten. Hvis det ikke er spesifisert, blir den delte tekste tilføyd, og formatet brukes som starttekst.</string>
     <string name="share_into_format">Del inn - format</string>
+    <string name="attachment_folder_name">Vedleggsmappenavn</string>
+    <string name="attachment_folder_name_desc">Undermappen under den nåværende mappen hvor vedlegg vil bli lagret. Hvis feltet er tomt, vil veflegg bli lagret i den nåværende mappen.</string>
     <string name="auto_format">Autokoformater</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Utdrags/mal-mappen</string>
+    <string name="error_could_not_open_file">Error: Klarte ikke å åpne filen.</string>
     <string name="document_error_clip">Oppnådd tekst: kopiert til utklippstavlen.</string>
+    <string name="wont_save_min_length">Filer med færre enn %d tegn blir ikke automatisk lagret, for å forhindre datatap.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Avansert filtreringssyntaks</a></small>]]></string>
+    <string name="filter">Filter</string>
 </resources>
