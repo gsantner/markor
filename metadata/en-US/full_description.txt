@@ -25,4 +25,4 @@
 
 
 <b>Support the project:</b>
-<a href="https://github.com/gsantner/markor/issues/new/choose">Report ideas and issues</a> | <a href="https://github.com/gsantner/markor/discussions">Join community discussion</a> | <a href="https://crowdin.com/project/markor/invite">Translate</a> | <a href="https://github.com/gsantner/markor#contributions">More information about contributions</a>
+<a href="https://github.com/gsantner/markor/issues/new/choose">Report ideas and issues</a> | <a href="https://github.com/gsantner/markor/discussions">Join community discussion</a> | <a href="https://crowdin.com/project/markor/invite?h=a30c38972fb7edee1b157e38bdc063492042484">Translate</a> | <a href="https://github.com/gsantner/markor#contributions">More information about contributions</a>

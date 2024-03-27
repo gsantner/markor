@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ import androidx.core.content.ContextCompat;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
+import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -514,7 +516,7 @@ public class MarkorDialogFactory {
     /**
      * Shows all checkboxes in the file in a muti select dialog.
      * The multi select can be used to check or uncheck them.
-     *
+     * <p>
      * Long pressing a line will jump to the line in the file.
      */
     public static void showDocumentChecklistDialog(
@@ -559,12 +561,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = (result) -> {
             // Result has the indices of the checker lines which are selected
-            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+            for (final int i : GsCollectionUtils.setDiff(checked, result)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, uncheck);
             }
 
-            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+            for (final int i : GsCollectionUtils.setDiff(result, checked)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, check);
             }
@@ -628,12 +630,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = (result) -> {
             // Result has the indices of the checker lines which are selected
-            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+            for (final int i : GsCollectionUtils.setDiff(checked, result)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, uncheck);
             }
 
-            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+            for (final int i : GsCollectionUtils.setDiff(result, checked)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, check);
             }
@@ -792,9 +794,9 @@ public class MarkorDialogFactory {
     public static void showHeadlineDialog(
             final Activity activity,
             final EditText edit,
+            final WebView webView,
             final Set<Integer> disabled,
-            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel
-    ) {
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel) {
         // Get all headings and their levels
         final CharSequence text = edit.getText();
         final List<Heading> headings = new ArrayList<>();
@@ -819,12 +821,19 @@ public class MarkorDialogFactory {
         dopt.titleText = R.string.table_of_contents;
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
-        dopt.neutralButtonText = R.string.filter;
+        dopt.isSoftInputVisible = false;
+        dopt.isDismissOnItemSelected = false;
+        dopt.isSaveItemPositionEnabled = true;
+
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             TextViewUtils.selectLines(edit, headings.get(index).line);
+            String header = headings.get(index).str;
+            String id = MarkdownTextConverter.generateHeaderId(header.substring(header.lastIndexOf('#') + 1).trim());
+            webView.loadUrl("javascript:document.getElementById('" + id + "').scrollIntoView();");
         };
 
+        dopt.neutralButtonText = R.string.filter;
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = new DialogOptions();
             dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !disabled.contains(l));
@@ -850,7 +859,11 @@ public class MarkorDialogFactory {
             };
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
-        dopt.gravity = Gravity.TOP;
+
+        dopt.portraitAspectRatio = new float[]{0.95f, 0.8f};
+        dopt.landscapeAspectRatio = new float[]{0.7f, 0.95f};
+        dopt.gravity = Gravity.CENTER;
+
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

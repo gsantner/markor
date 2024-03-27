@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Zuletzt bearbeitet</string>
     <string name="select_this_folder">Ordner auswählen</string>
     <string name="select">Auswählen</string>
+    <string name="select_all">Alles auswählen</string>
     <string name="create">Erstellen</string>
     <string name="select_entries">Einträge auswählen</string>
     <string name="one_item_selected">Eine Datei ausgewählt</string>
@@ -316,7 +317,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Zeilenumbruch</string>
     <string name="line_numbers">Zeilennummern</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Weicher Zeilenumbruch falls der Text nicht auf den Bildschirm passt. Andernfalls wird horizontales Scrollen aktiviert.</string>
-    <string name="recursive_search_in_current_directory">Rekursive Suche im aktuellen Verzeichnis.</string>
+    <string name="recursive_search_in_location">Rekursive Suche in %s</string>
+    <string name="current_location">aktuell ermittelte Position</string>
     <string name="always_open_with_this_app">Immer mit dieser App öffnen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Dateien immer mit dieser App öffnen wenn die Liste die Dateiendung enthält. Nutze z. B. \'None, .html, .css, .js\' wenn du Web-Dateien und Dateien ohne Endung editieren möchtest.</string>
     <string name="open_file_with">Datei öffnen mit</string>
@@ -339,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Wie viele Spalten? Drücken Sie die Tabellenschaltfläche lang, um eine Tabelle anzulegen (Kopfzeile einfügen), drücken Sie kurz, um eine Zeile hinzuzufügen.</string>
     <string name="example_of_a_markdown_table">Beispiel einer Markdown-Tabelle</string>
     <string name="delete_lines">Zeilen löschen</string>
+    <string name="duplicate_lines">Zeilen duplizieren</string>
     <string name="unordered_list">Unsortierte Liste</string>
     <string name="ordered_list">Nummerierte Liste</string>
     <string name="check_list">Checkliste</string>
@@ -367,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Erledigte Aufgaben archivieren</string>
     <string name="create_new_file_or_folder">Neue Datei oder Ordner erstellen</string>
     <string name="choose_format">Format auswählen</string>
+    <string name="clear_selection">Auswahl aufheben</string>
     <string name="selected">Ausgewählt</string>
     <string name="back">Zurück</string>
     <string name="expand_collapse">Erweitern / Einklappen</string>

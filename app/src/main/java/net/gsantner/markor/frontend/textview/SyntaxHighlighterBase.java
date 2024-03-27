@@ -24,7 +24,6 @@ import android.text.style.TypefaceSpan;
 import android.text.style.UpdateAppearance;
 import android.text.style.UpdateLayout;
 import android.util.Log;
-import android.util.Patterns;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -50,6 +49,11 @@ public abstract class SyntaxHighlighterBase {
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
 
     private static final Pattern PATTERN_TAB = Pattern.compile("\t");
+
+    /**
+     * Url pattern with required http/https protocol. Case-sensitive.
+     */
+    public static final Pattern URL = Pattern.compile("\\bhttps?://(?:(?:[-;:&=+$,\\w]+@)?[A-Za-z0-9.-]+|(?:www\\.|[-;:&=+$,\\w]+@)[A-Za-z0-9.-]+)(?:/[+~%/.\\w_-]*\\??[-+=&;%@.\\w_]*#?[.!/\\\\\\w]*)?");
 
     protected static SyntaxHighlighterBase getDefaultHighlighter(final AppSettings as) {
         return new PlaintextSyntaxHighlighter(as);
@@ -440,7 +444,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     protected final void createSmallBlueLinkSpans() {
-        createSpanForMatches(Patterns.WEB_URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextScale(0.85f));
+        createSpanForMatches(URL, new HighlightSpan().setForeColor(0xff1ea3fd).setItalic(true).setTextScale(0.85f));
     }
 
     protected final void createUnderlineHexColorsSpans() {

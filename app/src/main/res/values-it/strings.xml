@@ -319,7 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Parole a capo</string>
     <string name="line_numbers">Numeri di riga</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
-    <string name="recursive_search_in_current_directory">Ricerca ricorsiva nella directory corrente.</string>
+    <string name="current_location">posizione attuale</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="open_file_with">Apri file con</string>
@@ -370,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Archivia attività completate</string>
     <string name="create_new_file_or_folder">Crea un nuovo file o cartella</string>
     <string name="choose_format">Scegli il formato</string>
+    <string name="clear_selection">Cancella selezione</string>
     <string name="selected">Selezionati</string>
     <string name="back">Indietro</string>
     <string name="expand_collapse">Espandi / Comprimi</string>

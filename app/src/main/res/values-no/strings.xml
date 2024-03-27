@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Sist endret</string>
     <string name="select_this_folder">Velg denne mappen</string>
     <string name="select">Velg</string>
+    <string name="select_all">Velg alle</string>
     <string name="create">Opprett</string>
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
@@ -71,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Sett inn bilde</string>
     <string name="contributors">Medvirkende</string>
     <string name="save_location">Lagre plassering</string>
+    <string name="saved_location_to">Lagret til %s</string>
     <string name="select_storage_folder">Velg lagringsmappe</string>
     <string name="licenses">Lisenser</string>
     <string name="changelog">Endringslogg</string>
@@ -79,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
     <string name="language_change_restart_description">Bytt språket for denne appen og omstart slik at endringen kan ta sted</string>
     <string name="language">Språk</string>
+    <string name="storage_permission_required">Lagringstillatelse kreves for å lese og lagre filer</string>
     <string name="open_with">Åpne med</string>
     <string name="sort_by">Sorter etter</string>
     <string name="date">Dato</string>
@@ -141,7 +144,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="highlighting_enabled_or_not__appspecific">Kontroller om innskrevet tekst skal framheves eller ikke</string>
     <string name="dynamic_highlighting_effect">Dynamisk utheving øker ytelsen. Kan føre til gjengivelsesartifakter.</string>
     <string name="control_font_size_in_editor">Kontroller skriftstørrelsen som brukes i editoren</string>
-    <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger for å sette inn ofte brukt tekst i tekstmoduler</string>
+    <string name="textactions_show_useful_actions_description__appspecific">Vis et felt med nyttige handlinger nederst. Disse teksthandlingene modifiserer teksten, eller kjører en handling basert på teksten.</string>
     <string name="load_last_opened_folder_at_startup">Last sist åpnede mappe ved oppstart</string>
     <string name="format">Formatér</string>
     <string name="contexts">Kontekster</string>
@@ -173,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Flytt avsluttede oppgaver til spesifisert fil i samme mappe</string>
     <string name="sort_tasks_by_selected_order">Sorter oppgaver på valgt rekkefølge</string>
     <string name="special_key">Spesiell nøkkel</string>
+    <string name="asciidoc_special_key">Spesielt AsciiDoc-innhold</string>
     <string name="key_page_up">Side opp (page opp)</string>
     <string name="key_page_down">Side ned (ned)</string>
     <string name="move_text_one_line_up">Flytt teksten en linje opp</string>
@@ -192,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Pluss (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bare redigere lokale, offline tilgjengelige dokumenter og støtter ikke filadministratorer som ikke gir fullstendig filbane.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Filen eller mappen finnes ikke og kan ikke opprettes</string>
+    <string name="permissions">Tillatelser</string>
+    <string name="permission_paths_revert">Vil du tilbakestille til standard-filbanene?</string>
+    <string name="permission_not_granted">Tillatelse har ikke blitt gitt</string>
     <string name="sync_to_local_folder_notice">Merk: Synkroniser apper kan plassere filer i egendefinerte mapper. Åpne dem ved å endre Markors dokumentmappe tilsvarende, eller i en annen filbehandler.</string>
     <string name="vertical_alignment">Vertikal justering</string>
     <string name="horizontal_alignment">Horisontal justering</string>
@@ -207,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Rediger tekst i midten av skjermen</string>
     <string name="clipboard">Utklippstavle</string>
     <string name="select_existing_document">Velg eksisterende dokument</string>
+    <string name="select_create_document">Velg eller opprett dokument</string>
     <string name="open_source_licenses">Åpen kilde-lisenser</string>
     <string name="rate_this_app">Vurder denne appen</string>
     <string name="translate">Oversett</string>
@@ -223,7 +232,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="descending">synkende</string>
     <string name="ascending">stigende</string>
     <string name="disable_spelling_underline">Skru av stavingsunderstreking</string>
-    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag forblir, rød understreking blir borte.</string>
+    <string name="spellcheck_keyboard_suggestion_stay_red_underline_vanishes">Tastaturforslag blir værende, rød understrekning forsvinner</string>
     <string name="location">Posisjon</string>
     <string name="text_lines">Tekstlinjer</string>
     <string name="text_characters">Tekst tegn</string>
@@ -253,8 +262,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="preset">Preset</string>
     <string name="foreground">Forgrunn</string>
     <string name="background">Bakgrunn</string>
-    <string name="set_foreground_or_background_color_hexcolor_also_possible">Sett forgrunn eller bakgrunnsfarge på tekst? Det er også mulig å sette inn heksadesimale fargekoder</string>
-    <string name="type">Type:</string>
+    <string name="set_foreground_or_background_color_hexcolor_also_possible">Vil du velge forgrunn- eller bakgrunnsfargen til tekst? Det er også mulig å velge heksadesimale fargekoder,</string>
+    <string name="type">Type</string>
     <string name="folder">Mappe</string>
     <string name="folder_is_created_without_extension">- Mappen ble opprettet uten filtype</string>
     <string name="keep_existing_file">- Filer og mapper er ikke overskrevet</string>
@@ -306,8 +315,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Bryt ord</string>
+    <string name="line_numbers">Linjenumre</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Myk pause hvis tekst ikke passer til skjermens bredde. Elsk aktiver horisontal scrolling.</string>
-    <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
+    <string name="current_location">nåværende posisjon</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
     <string name="open_file_with">Åpne fil med</string>
@@ -358,6 +368,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
+    <string name="clear_selection">Tøm utvalget</string>
     <string name="selected">Valgt</string>
     <string name="back">Tilbake</string>
     <string name="expand_collapse">Utvid / Kollaps</string>
@@ -425,12 +436,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Forfaller i dag</string>
     <string name="due_future">Forfaller i fremtid</string>
     <string name="completed">Fullført</string>
+    <string name="advanced_filtering">Avansert filtrering</string>
     <string name="match_any">Samsvar med alle</string>
     <string name="match_all">Samsvarer med alle</string>
     <string name="dynamic_notebook_root_links">Dynamisk søk etter bærerrot for notatblokk</string>
     <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formatet/startteksten for tekst som deles inn til Markor. Følger Android sin SimpleDateFormat-format.\n\nBruk stattholderen {{text}} for å posisjonere den delte teksten. Hvis det ikke er spesifisert, blir den delte tekste tilføyd, og formatet brukes som starttekst.</string>
     <string name="share_into_format">Del inn - format</string>
+    <string name="attachment_folder_name">Vedleggsmappenavn</string>
+    <string name="attachment_folder_name_desc">Undermappen under den nåværende mappen hvor vedlegg vil bli lagret. Hvis feltet er tomt, vil veflegg bli lagret i den nåværende mappen.</string>
     <string name="auto_format">Autokoformater</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Utdrags/mal-mappen</string>
+    <string name="error_could_not_open_file">Error: Klarte ikke å åpne filen.</string>
     <string name="document_error_clip">Oppnådd tekst: kopiert til utklippstavlen.</string>
+    <string name="wont_save_min_length">Filer med færre enn %d tegn blir ikke automatisk lagret, for å forhindre datatap.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Avansert filtreringssyntaks</a></small>]]></string>
+    <string name="filter">Filter</string>
 </resources>

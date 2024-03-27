@@ -14,7 +14,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_license_name" translatable="false">Apache 2.0</string>
     <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
     <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues/new/choose</string>
-    <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite</string>
+    <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite?h=a30c38972fb7edee1b157e38bdc063492042484</string>
 
     <string name="app_web_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
@@ -210,6 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__snippet_directory_path" translatable="false">pref_key__snippet_directory_path</string>
 
     <string name="abid_common_delete_lines" translatable="false">abid_common_delete_lines</string>
+    <string name="abid_common_duplicate_lines" translatable="false">abid_common_duplicate_lines</string>
     <string name="abid_common_new_line_below" translatable="false">abid_common_new_line_below</string>
     <string name="abid_common_attach_something" translatable="false">abid_common_attach_something</string>
     <string name="abid_common_unordered_list_char" translatable="false">abid_common_unordered_list_char</string>

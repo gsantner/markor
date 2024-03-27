@@ -2,7 +2,6 @@ package net.gsantner.markor.frontend.filesearch;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.text.Editable;
@@ -17,19 +16,16 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,12 +34,12 @@ public class FileSearchResultSelectorDialog {
     /**
      * Show a file system selector dialog
      *
-     * @param activity       Activity to use
-     * @param searchResults  Search results to filter
-     * @param callback       Callback to call when a item is selected
-     *                       callback.first:  Path to file (relative)
-     *                       callback.second: Line number (null if not applicable)
-     *                       callback.third:  True if the dialog was dismissed by long clicking on a file
+     * @param activity      Activity to use
+     * @param searchResults Search results to filter
+     * @param callback      Callback to call when a item is selected
+     *                      callback.first:  Path to file (relative)
+     *                      callback.second: Line number (null if not applicable)
+     *                      callback.third:  True if the dialog was dismissed by long clicking on a file
      */
     public static void showDialog(
             final Activity activity,

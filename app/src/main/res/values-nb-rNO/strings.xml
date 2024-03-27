@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Sist endret</string>
     <string name="select_this_folder">Velg denne mappen</string>
     <string name="select">Velg</string>
+    <string name="select_all">Velg alle</string>
     <string name="create">Opprett</string>
     <string name="select_entries">Velg oppføringer</string>
     <string name="one_item_selected">Ett element valgt</string>
@@ -71,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Sett inn bilde</string>
     <string name="contributors">Bidragsytere</string>
     <string name="save_location">Lagre posisjon</string>
+    <string name="saved_location_to">Lagret til %s</string>
     <string name="select_storage_folder">Velg lagringsmappe</string>
     <string name="licenses">Lisenser</string>
     <string name="changelog">Endringslogg</string>
@@ -79,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Vis tredjepartslisenser</string>
     <string name="language_change_restart_description">Endre programmets språk. Omstart kreves før endringer trer i effekt</string>
     <string name="language">Språk</string>
+    <string name="storage_permission_required">Lagringstillatelse kreves for å lese og lagre filer</string>
     <string name="open_with">Åpne med</string>
     <string name="sort_by">Sorter</string>
     <string name="date">Etter dato</string>
@@ -173,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Flytt fullførte gjøremål til angitt fil i samme mappe</string>
     <string name="sort_tasks_by_selected_order">Sorter gjøremålene etter valgt rekkefølge</string>
     <string name="special_key">Spesialtast</string>
+    <string name="asciidoc_special_key">Spesielt AsciiDoc-innhold</string>
     <string name="key_page_up">Side opp (Page Up)</string>
     <string name="key_page_down">Side ned (Page Down)</string>
     <string name="move_text_one_line_up">Flytt teksten en linje opp</string>
@@ -192,6 +196,10 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Asterisk (*)</string>
     <string name="unordered_list_char_plus">Pluss (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bare redigere lokale tilgjengelige dokumenter og støtter ikke filbehandlere som ikke gir en hel filsti.</string>
+    <string name="file_does_not_exist_and_cant_be_created">Filen eller mappen finnes ikke og kan ikke opprettes</string>
+    <string name="permissions">Tillatelser</string>
+    <string name="permission_paths_revert">Vil du tilbakestille til standard-filbanene?</string>
+    <string name="permission_not_granted">Tillatelse har ikke blitt gitt</string>
     <string name="sync_to_local_folder_notice">Merk: Synkroniser apper kan plassere filer i egendefinerte mapper. Åpne dem ved å endre Markors dokumentmappe tilsvarende, eller i en annen filbehandler.</string>
     <string name="vertical_alignment">Loddrett justering</string>
     <string name="horizontal_alignment">Vannrett justering</string>
@@ -207,6 +215,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Rediger tekst i midten av skjermen</string>
     <string name="clipboard">Utklippstavle</string>
     <string name="select_existing_document">Velg eksisterende dokument</string>
+    <string name="select_create_document">Velg eller opprett dokument</string>
     <string name="open_source_licenses">Friprog-lisenser</string>
     <string name="rate_this_app">Vurder dette programmet</string>
     <string name="translate">Oversett</string>
@@ -306,8 +315,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Liste over nylige filer</string>
     <string name="reload">Reload</string>
     <string name="wrap_words">Bryt ord</string>
+    <string name="line_numbers">Linjenummer</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Bryt tekst hvis teksten ikke passer inn i skjermbredde. Hvis satt til av, benyttes loddrett skrolling.</string>
-    <string name="recursive_search_in_current_directory">Rekursivt søk i gjeldende katalog.</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
     <string name="open_file_with">Åpne fil med</string>
@@ -358,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Arkiver fullførte oppgaver</string>
     <string name="create_new_file_or_folder">Opprett ny fil eller mappe</string>
     <string name="choose_format">Velg format</string>
+    <string name="clear_selection">Tøm utvalg</string>
     <string name="selected">Valgt</string>
     <string name="back">Tilbake</string>
     <string name="expand_collapse">Utvid / Kollaps</string>
@@ -425,12 +435,21 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Forfaller i dag</string>
     <string name="due_future">Forfaller i fremtid</string>
     <string name="completed">Fullført</string>
+    <string name="advanced_filtering">Avansert filtrering</string>
     <string name="match_any">Samsvar med alle</string>
     <string name="match_all">Samsvarer med alle</string>
     <string name="dynamic_notebook_root_links">Dynamisk søk etter bærerrot for notatblokk</string>
     <string name="search_dynamically_for_notebook_root">For å følge wiki-linker, kan du dynamisk søke etter notebook.zim filen for å identifisere rotmappen for den gjeldende notatboken. Sjekk dette hvis du bruker flere zim notatbøker eller notatmappen som er angitt i appen samsvarer ikke med din zim notisbook.</string>
+    <string name="share_into_format_prefix_for_text_shared">Formatet/startteksten for tekst som deles inn til Markor. Følger Android sin SimpleDateFormat-format.\n\nBruk stattholderen {{text}} for å posisjonere den delte teksten. Hvis det ikke er spesifisert, blir den delte tekste tilføyd, og formatet brukes som starttekst.</string>
     <string name="share_into_format">Del inn - format</string>
+    <string name="attachment_folder_name">Vedleggsmappenavn</string>
+    <string name="attachment_folder_name_desc">Undermappen under den nåværende mappen hvor vedlegg vil bli lagret. Hvis feltet er tomt, vil veflegg bli lagret i den nåværende mappen.</string>
     <string name="auto_format">Autokoformater</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Utdrags/mal-mappen</string>
+    <string name="error_could_not_open_file">Error: Klarte ikke å åpne filen.</string>
     <string name="document_error_clip">En feil oppstod: Teksten ble kopiert til utklippstavlen.</string>
+    <string name="wont_save_min_length">Filer med færre enn %d tegn blir ikke automatisk lagret, for å forhindre datatap.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Avansert filtreringssyntaks</a></small>]]></string>
+    <string name="filter">Filter</string>
 </resources>

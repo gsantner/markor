@@ -173,7 +173,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     asLinkPref.setVisible(!findLinksAndPaths(_editor.getText()).isEmpty());
                     asLinkPref.setChecked(true);
                     _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
-                        asLinkPref.setVisible(!findLinksAndPaths(ctext).isEmpty())));
+                            asLinkPref.setVisible(!findLinksAndPaths(ctext).isEmpty())));
                 }
             }
         }
@@ -212,8 +212,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
          *
          * @param text Text to parse
          * @return List of pairs.
-         *         The first element of the pair is the start and end index of the link/path.
-         *         Second element is true if it is a path, false if it is a link.
+         * The first element of the pair is the start and end index of the link/path.
+         * Second element is true if it is a path, false if it is a link.
          */
         public static List<Pair<int[], Boolean>> findLinksAndPaths(final CharSequence text) {
             final List<Pair<int[], Boolean>> links = new ArrayList<>();

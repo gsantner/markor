@@ -315,7 +315,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">重新下載</string>
     <string name="wrap_words">文字斷行</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字超過螢幕寬度時會自動換行。停用該功能則開啟水平捲動。</string>
-    <string name="recursive_search_in_current_directory">在目前目錄中遞迴搜尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">當列表的項目裡包含副檔名時，總是以這個程式開啟檔案。如果您要編輯網頁檔案或其他不含附檔名的檔案時，可以使用 \'None, .html, .css , .js\' 等。</string>
     <string name="open_file_with">開啟檔案</string>

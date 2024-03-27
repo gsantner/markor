@@ -27,7 +27,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Create new document</string>
     <string name="move">Move</string>
     <string name="info">Info</string>
-    <string name="show">Show</string>
+
     <string name="file_folder_already_exists_please_use_a_different_name">File/folder already exists! Please use a different name</string>
 
     <string name="import_from_device">Import from device</string>
@@ -357,6 +357,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">How many columns? Press table button long to start a table (insert header), press short to add a row.</string>
     <string name="example_of_a_markdown_table">Example of a Markdown table</string>
     <string name="delete_lines">Delete lines</string>
+    <string name="duplicate_lines">Duplicate lines</string>
     <string name="unordered_list">Unordered list</string>
     <string name="ordered_list">Ordered list</string>
     <string name="check_list">Check list</string>
