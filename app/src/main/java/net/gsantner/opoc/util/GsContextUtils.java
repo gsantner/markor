@@ -2817,7 +2817,6 @@ public class GsContextUtils {
         return h >= begin && h <= end;
     }
 
-
     @SuppressLint("SwitchIntDef")
     public void nextScreenRotationSetting(final Activity context) {
         String text;
