@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
     <string name="info">Info</string>
-
     <string name="file_folder_already_exists_please_use_a_different_name">Ficheiro/pasta já existe! Utilize um nome diferente.</string>
     <string name="import_from_device">Importar do dispositivo</string>
     <string name="import_">Importar</string>
@@ -318,6 +317,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Moldar texto</string>
     <string name="line_numbers">Números das linhas</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
+    <string name="recursive_search_in_location">Pesquisa recursiva em %s</string>
+    <string name="current_location">localização atual</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esta aplicação se a wextensão do ficheiro estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar ficheiros web ou ficheiros que não tenham extensão.</string>
     <string name="open_file_with">Abrir arquivo com</string>

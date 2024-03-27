@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Créer un nouveau document</string>
     <string name="move">Déplacer</string>
     <string name="info">Info</string>
-
     <string name="file_folder_already_exists_please_use_a_different_name">Le fichier/dossier existe déjà ! Veuillez utiliser un nom différent</string>
     <string name="import_from_device">Importer depuis cet appareil</string>
     <string name="import_">Importer</string>

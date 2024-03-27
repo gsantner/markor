@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Crea un nou document</string>
     <string name="move">Mou</string>
     <string name="info">Informació</string>
-
     <string name="file_folder_already_exists_please_use_a_different_name">El fitxer/carpeta ja existeix. Utilitzeu un nom diferent</string>
     <string name="import_from_device">Importa des d\'un dispositiu</string>
     <string name="import_">Importa</string>
