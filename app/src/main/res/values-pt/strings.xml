@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Criar novo documento</string>
     <string name="move">Mover</string>
     <string name="info">Info</string>
-    <string name="show" comment="this is about showing the current file in the filebrowser (currently user edits the file)">Mostrar</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Ficheiro/pasta já existe! Utilize um nome diferente.</string>
     <string name="import_from_device">Importar do dispositivo</string>
     <string name="import_">Importar</string>
