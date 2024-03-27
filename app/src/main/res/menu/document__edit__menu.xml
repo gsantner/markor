@@ -229,7 +229,7 @@
     <item
         android:id="@+id/action_show_file_browser"
         android:icon="@drawable/ic_folder_gray_24dp"
-        android:title="@string/show"
+        android:title="@string/file_browser"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_info"
