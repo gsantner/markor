@@ -2,56 +2,53 @@ package net.gsantner.markor.frontend.filesearch;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class FileSearchResultSelectorDialog {
+    /**
+     * Show a file system selector dialog
+     *
+     * @param activity       Activity to use
+     * @param searchResults  Search results to filter
+     * @param callback       Callback to call when a item is selected
+     *                       callback.first:  Path to file (relative)
+     *                       callback.second: Line number (null if not applicable)
+     *                       callback.third:  True if the dialog was dismissed by long clicking on a file
+     */
     public static void showDialog(
             final Activity activity,
             final List<FileSearchEngine.FitFile> searchResults,
-            final GsCallback.a3<String, Integer, Boolean> dialogCallback
-    ) {
-        final AtomicReference<AlertDialog> dialog = new AtomicReference<>();
-        dialog.set(buildDialog(activity, dialog, searchResults, dialogCallback).create());
-        if (dialog.get().getWindow() != null) {
-            dialog.get().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-        dialog.get().show();
-        if (dialog.get().getWindow() != null) {
-            dialog.get().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        }
-    }
-
-    private static AlertDialog.Builder buildDialog(
-            final Activity activity,
-            final AtomicReference<AlertDialog> dialog,
-            final List<FileSearchEngine.FitFile> searchResults,
-            final GsCallback.a3<String, Integer, Boolean> dialogCallback
+            final GsCallback.a3<String, Integer, Boolean> callback
     ) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
 
@@ -80,7 +77,7 @@ public class FileSearchResultSelectorDialog {
         // List filling
         final List<FitFile> groupItemsData = filter(searchResults, "");
         final ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, groupItemsData);
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        searchEditText.addTextChangedListener(new GsTextWatcherAdapter() {
             @Override
             public void afterTextChanged(final Editable arg0) {
                 String filterText = searchEditText.getText() == null ? "" : searchEditText.getText().toString();
@@ -88,30 +85,32 @@ public class FileSearchResultSelectorDialog {
                 ExpandableSearchResultsListAdapter adapter = new ExpandableSearchResultsListAdapter(activity, filteredGroups);
                 expandableListView.setAdapter(adapter);
             }
-
-            @Override
-            public void onTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
-
-            @Override
-            public void beforeTextChanged(final CharSequence arg0, final int arg1, final int arg2, final int arg3) {
-            }
         });
 
         expandableListView.setGroupIndicator(null);
         expandableListView.setAdapter(adapter);
+        dialogLayout.addView(expandableListView);
 
-        final GsCallback.a0 dismiss = () -> {
-            if (dialog != null && dialog.get() != null) {
-                dialog.get().dismiss();
-            }
-        };
+        // Configure dialog
+        final AlertDialog dialog = dialogBuilder
+                .setView(dialogLayout)
+                .setTitle(R.string.select)
+                .setOnCancelListener(null)
+                .setMessage(searchResults.isEmpty() ? "     ¯\\_(ツ)_/¯     " : null)
+                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
+                .create();
+
+        final Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
 
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
             final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
             if (groupItem.children.isEmpty()) {
-                dismiss.callback();
-                dialogCallback.callback(groupItem.path, null, false);
+                dialog.dismiss();
+                callback.callback(groupItem.path, null, false);
             }
             return false;
         });
@@ -121,7 +120,8 @@ public class FileSearchResultSelectorDialog {
             final FitFile groupItem = (FitFile) _adapter.getGroup(groupPos);
             final Pair<String, Integer> childItem = (Pair<String, Integer>) _adapter.getChild(groupPos, childPos);
             if (childItem != null && childItem.second != null && childItem.second >= 0) {
-                dialogCallback.callback(groupItem.path, childItem.second, false);
+                dialog.dismiss();
+                callback.callback(groupItem.path, childItem.second, false);
             }
             return false;
         };
@@ -135,8 +135,8 @@ public class FileSearchResultSelectorDialog {
                 if (ExpandableListView.getPackedPositionType(packed) == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     final int group = ExpandableListView.getPackedPositionGroup(packed);
                     final String path = ((FitFile) expandableListView.getExpandableListAdapter().getGroup(group)).path;
-                    dismiss.callback();
-                    dialogCallback.callback(path, null, true);
+                    dialog.dismiss();
+                    callback.callback(path, null, true);
                 } else {
                     final int groupPos = ExpandableListView.getPackedPositionGroup(packed);
                     final int childPos = ExpandableListView.getPackedPositionChild(packed);
@@ -147,16 +147,7 @@ public class FileSearchResultSelectorDialog {
             return true;
         });
 
-        dialogLayout.addView(expandableListView);
-
-        // Configure dialog
-        dialogBuilder.setView(dialogLayout)
-                .setTitle(R.string.select)
-                .setOnCancelListener(null)
-                .setMessage(searchResults.isEmpty() ? "     ¯\\_(ツ)_/¯     " : null)
-                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
-
-        return dialogBuilder;
+        dialog.show();
     }
 
     private static List<FitFile> filter(final List<FitFile> searchResults, String query) {
