@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Opprett nytt dokument</string>
     <string name="move">Flytt</string>
     <string name="info">Info</string>
-    <string name="show">Vis</string>
+    <string name="show" comment="this is about showing the current file in the filebrowser (currently user edits the file)">Vis</string>
     <string name="file_folder_already_exists_please_use_a_different_name">Filen/mappen finnes allerede! Vennligst velg et annet navn</string>
     <string name="import_from_device">Importer fra enhet</string>
     <string name="import_">Importer</string>
