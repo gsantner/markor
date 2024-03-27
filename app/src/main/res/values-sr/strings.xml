@@ -64,5 +64,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="font">Фонт</string>
     <string name="close">Затвори</string>
     <string name="favourite">Омиљени</string>
+    <string name="current_location">тренутна локација</string>
     <string name="rotate">Окретање</string>
 </resources>

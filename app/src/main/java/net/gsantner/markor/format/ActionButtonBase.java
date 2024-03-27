@@ -149,8 +149,7 @@ public abstract class ActionButtonBase {
         final List<ActionItem> actionList = getActionList();
         final List<String> keyList = getActiveActionKeys();
 
-        final Map<String, ActionItem> map = new HashMap<String, ActionItem>();
-
+        final Map<String, ActionItem> map = new HashMap<>();
         for (int i = 0; i < actionList.size(); i++) {
             map.put(keyList.get(i), actionList.get(i));
         }
@@ -251,7 +250,6 @@ public abstract class ActionButtonBase {
      * @return List of Action Item keys in order specified by preferences
      */
     public List<String> getActionOrder() {
-
         final Set<String> order = new LinkedHashSet<>(loadActionPreference(ORDER_SUFFIX));
 
         // Handle the case where order was stored without suffix. i.e. before this release.
@@ -532,7 +530,6 @@ public abstract class ActionButtonBase {
         Selection.setSelection(editable, newSelStart, newSelEnd);
     }
 
-
     protected void runSurroundAction(final String delim) {
         runSurroundAction(delim, delim, true);
     }
@@ -586,8 +583,8 @@ public abstract class ActionButtonBase {
             final int f = TextViewUtils.getFirstNonWhitespace(selection);
             final int l = TextViewUtils.getLastNonWhitespace(selection) + 1;
             replace = selection.subSequence(0, f) + open +
-                      selection.subSequence(f, l) + close +
-                      selection.subSequence(l, sl);
+                    selection.subSequence(f, l) + close +
+                    selection.subSequence(l, sl);
         } else {
             replace = open + selection + close;
         }
@@ -737,7 +734,11 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_web_jump_to_table_of_contents: {
-                _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                if (_appSettings.isMarkdownTableOfContentsEnabled()) {
+                    _webView.loadUrl("javascript:document.getElementsByClassName('toc')[0].scrollIntoView();");
+                } else {
+                    runTitleClick();
+                }
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
@@ -841,7 +842,6 @@ public abstract class ActionButtonBase {
     }
 
     public static void moveLineSelectionBy1(final HighlightingEditor hlEditor, final boolean isUp) {
-
         final Editable text = hlEditor.getText();
 
         final int[] sel = TextViewUtils.getSelection(hlEditor);
@@ -849,7 +849,6 @@ public abstract class ActionButtonBase {
         final int linesEnd = TextViewUtils.getLineEnd(text, sel[1]);
 
         if ((isUp && linesStart > 0) || (!isUp && linesEnd < text.length())) {
-
             final CharSequence lines = text.subSequence(linesStart, linesEnd);
 
             final int altStart = isUp ? TextViewUtils.getLineStart(text, linesStart - 1) : linesEnd + 1;
@@ -893,7 +892,6 @@ public abstract class ActionButtonBase {
     }
 
     public void runSpecialKeyAction() {
-
         // Needed to prevent selection from being overwritten on refocus
         final int[] sel = TextViewUtils.getSelection(_hlEditor);
         _hlEditor.clearFocus();
