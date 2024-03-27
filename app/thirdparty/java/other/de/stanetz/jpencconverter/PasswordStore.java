@@ -122,7 +122,7 @@ public class PasswordStore {
             editor.apply();
             return true;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException |
-                BadPaddingException | IllegalBlockSizeException | NoSuchProviderException e) {
+                 BadPaddingException | IllegalBlockSizeException | NoSuchProviderException e) {
             Log.e(LOG_TAG_NAME, "Wrong encryption parameter", e);
         } catch (InvalidAlgorithmParameterException e) {
             if (SecurityMode.AUTHENTICATION.equals(securityMode) && !_deviceIsProtected) {
@@ -189,7 +189,9 @@ public class PasswordStore {
                 Charset utf8Charset = Charset.forName("UTF-8");
                 CharBuffer charBuffer = utf8Charset.decode(ByteBuffer.wrap(byteArray));
                 return charBuffer.array();
-            } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException |
+                     InvalidAlgorithmParameterException | InvalidKeyException |
+                     IllegalBlockSizeException | BadPaddingException e) {
                 Log.e(LOG_TAG_NAME, "Wrong decryption parameter", e);
             }
         }

@@ -179,7 +179,9 @@ public class JavaPasswordbasedCryption {
             final byte[] encodedBytes = Arrays.copyOfRange(encrypted, from, to);
             final SecretKey key = createKeyFromPassword(password, salt);
             return getCipher(key, Cipher.DECRYPT_MODE, nonce).doFinal(encodedBytes);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException |
+                 InvalidAlgorithmParameterException | InvalidKeyException |
+                 IllegalBlockSizeException | BadPaddingException e) {
             throw new EncryptionFailedException("Can't decrypt text.", e);
         }
     }
