@@ -210,6 +210,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__snippet_directory_path" translatable="false">pref_key__snippet_directory_path</string>
 
     <string name="abid_common_delete_lines" translatable="false">abid_common_delete_lines</string>
+    <string name="abid_common_duplicate_lines" translatable="false">abid_common_duplicate_lines</string>
     <string name="abid_common_new_line_below" translatable="false">abid_common_new_line_below</string>
     <string name="abid_common_attach_something" translatable="false">abid_common_attach_something</string>
     <string name="abid_common_unordered_list_char" translatable="false">abid_common_unordered_list_char</string>
