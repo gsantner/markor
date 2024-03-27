@@ -104,8 +104,7 @@ public abstract class TextConverterBase {
             final Activity context,
             final WebView webView,
             final boolean lightMode,
-            final boolean lineNum
-    ) {
+            final boolean lineNum) {
         String html;
         try {
             html = convertMarkup(content, context, lightMode, lineNum, document.getFile());

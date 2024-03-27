@@ -12,6 +12,11 @@
     android:layout_height="match_parent"
     android:title="@string/share_to_arrow">
 
+    <CheckBoxPreference
+        android:icon="@drawable/ic_link_black_24dp"
+        android:key="@string/pref_key__attach_as_link"
+        android:checked="true"
+        android:title="@string/insert_link" />
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
         android:key="@string/pref_key__share_into__quicknote"
