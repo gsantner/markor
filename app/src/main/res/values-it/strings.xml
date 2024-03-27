@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Crea un nuovo documento</string>
     <string name="move">Sposta</string>
     <string name="info">Informazioni</string>
-    <string name="show">Mostra</string>
+    <string name="show" comment="this is about showing the current file in the filebrowser (currently user edits the file)">Mostra</string>
     <string name="file_folder_already_exists_please_use_a_different_name">File/cartella già esistente! Si prega di usare un nome diverso</string>
     <string name="import_from_device">Importa dal dispositivo</string>
     <string name="import_">Importa</string>
