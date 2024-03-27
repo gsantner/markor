@@ -617,7 +617,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     newData.add(new File(folder, "files"));
                 }
 
-                    for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+                for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                     for (int i = 0; i < newData.size(); i++) {
                         final File file = newData.get(i);
                         if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {

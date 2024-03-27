@@ -514,7 +514,7 @@ public class MarkorDialogFactory {
     /**
      * Shows all checkboxes in the file in a muti select dialog.
      * The multi select can be used to check or uncheck them.
-     *
+     * <p>
      * Long pressing a line will jump to the line in the file.
      */
     public static void showDocumentChecklistDialog(
@@ -559,12 +559,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = (result) -> {
             // Result has the indices of the checker lines which are selected
-            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+            for (final int i : GsCollectionUtils.setDiff(checked, result)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, uncheck);
             }
 
-            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+            for (final int i : GsCollectionUtils.setDiff(result, checked)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, check);
             }
@@ -628,12 +628,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = (result) -> {
             // Result has the indices of the checker lines which are selected
-            for (final int i: GsCollectionUtils.setDiff(checked, result)) {
+            for (final int i : GsCollectionUtils.setDiff(checked, result)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, uncheck);
             }
 
-            for (final int i: GsCollectionUtils.setDiff(result, checked)) {
+            for (final int i : GsCollectionUtils.setDiff(result, checked)) {
                 final int cs = indices.get(i);
                 chunked.replace(cs, cs + 1, check);
             }

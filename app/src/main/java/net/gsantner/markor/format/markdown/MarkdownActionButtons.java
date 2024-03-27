@@ -164,7 +164,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     /**
      * Used to surround selected text with a given delimiter (and remove it if present)
-     *
+     * <p>
      * Not super intelligent about how patterns can be combined.
      * Current regexes just look for the litera delimiters.
      *

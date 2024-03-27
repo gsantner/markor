@@ -586,8 +586,8 @@ public abstract class ActionButtonBase {
             final int f = TextViewUtils.getFirstNonWhitespace(selection);
             final int l = TextViewUtils.getLastNonWhitespace(selection) + 1;
             replace = selection.subSequence(0, f) + open +
-                      selection.subSequence(f, l) + close +
-                      selection.subSequence(l, sl);
+                    selection.subSequence(f, l) + close +
+                    selection.subSequence(l, sl);
         } else {
             replace = open + selection + close;
         }
