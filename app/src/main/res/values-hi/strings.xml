@@ -188,6 +188,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="favourites">पसंदीदा</string>
     <string name="please_wait">कृपया प्रतीक्षा करें</string>
     <string name="reload">फिर से लोड करें</string>
+    <string name="current_location">वर्तमान स्थान</string>
     <string name="rotate">घुमये</string>
     <string name="template">खाका</string>
     <string name="send_debug_log">डिबग लग्स को भेजें</string>
