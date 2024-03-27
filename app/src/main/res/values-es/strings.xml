@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Cambio de línea</string>
     <string name="line_numbers">Número de línea</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. De lo contrario, activa el desplazamiento horizontal.</string>
+    <string name="recursive_search_in_location">Búsqueda recursiva en %s</string>
     <string name="current_location">ubicación actual</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
@@ -340,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">¿Cuántas columnas? Presione el botón de tabla para iniciar una tabla (insertar cabecera), presione corto para agregar una fila.</string>
     <string name="example_of_a_markdown_table">Ejemplo de una tabla Markdown</string>
     <string name="delete_lines">Eliminar líneas</string>
+    <string name="duplicate_lines">Duplicar líneas</string>
     <string name="unordered_list">Lista sin ordenar</string>
     <string name="ordered_list">Lista ordenada</string>
     <string name="check_list">Lista de verificación</string>
