@@ -28,6 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">ایجاد پرونده جدید</string>
     <string name="move">بریدن</string>
     <string name="info">اطلاعات</string>
+    <string name="show">نمایش</string>
     <string name="file_folder_already_exists_please_use_a_different_name">پوشه وجود دارد! لطفا از نام دیگری استفاده کنید</string>
     <string name="import_from_device">درون‌ریزی از دستگاه</string>
     <string name="import_">درون‌ریزی</string>
@@ -313,7 +314,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Wrap words</string>
     <string name="line_numbers">شماره‌ی خطوط</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break if text doesn\'t fit to screen width. Else enable horizontal scrolling.</string>
-    <string name="recursive_search_in_current_directory">Recursive search in current directory.</string>
     <string name="always_open_with_this_app">Always open with this app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Always open files with this app when the list contains the file extension. Use \'None, .html, .css , .js\' for example if you want to edit web files and those without file extension.</string>
     <string name="open_file_with">باز کردن فایل به‌وسیله‌ی</string>
@@ -364,6 +364,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Archive completed tasks</string>
     <string name="create_new_file_or_folder">ساخت پرونده یا پوشه جدید</string>
     <string name="choose_format">انتخاب قالب</string>
+    <string name="clear_selection">پاک کردن موارد انتخابی</string>
     <string name="selected">انتخاب شده</string>
     <string name="back">بازگشت</string>
     <string name="expand_collapse">گسترش دادن / بستن</string>

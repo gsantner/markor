@@ -314,7 +314,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Atualizar</string>
     <string name="wrap_words">Ajuste de palavras</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no tela. Também ativa a deslocação horizontal.</string>
-    <string name="recursive_search_in_current_directory">Pesquisa recursiva no diretório atual.</string>
+    <string name="current_location">localização atual</string>
     <string name="always_open_with_this_app">Sempre abrir com este aplicativo</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esse aplicativo se a extensão do arquivo estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar arquivos web ou arquivos que não tenham extensão.</string>
     <string name="open_file_with">Abrir arquivo com</string>

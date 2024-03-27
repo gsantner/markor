@@ -159,6 +159,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__share_into__clipboard" translatable="false">pref_key__share_into__clipboard</string>
     <string name="pref_key__share_into__reshare" translatable="false">pref_key__share_into__reshare</string>
     <string name="pref_key__share_into__calendar_event" translatable="false">pref_key__share_into__calendar_event</string>
+    <string name="pref_key__attach_as_link" translatable="false">pref_key__attach_as_link</string>
     <string name="pref_key__more_info__settings" translatable="false">pref_key__more_info__settings</string>
     <string name="pref_key__more_info__source_code" translatable="false">pref_key__more_info__source_code</string>
     <string name="pref_key__more_info__project_license" translatable="false">pref_key__more_info__project_license</string>
