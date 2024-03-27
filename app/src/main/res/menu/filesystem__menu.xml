@@ -203,4 +203,9 @@
         android:icon="@drawable/ic_check_circle_24dp"
         android:title="@string/select_all"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_clear_selection"
+        android:icon="@drawable/ic_baseline_clear_24"
+        android:title="@string/clear_selection"
+        app:showAsAction="never" />
 </menu>

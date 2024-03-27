@@ -26,15 +26,6 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-        <TextView
-            android:id="@+id/ui__filesystem_dialog__title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@android:color/primary_text_dark"
-            android:textSize="18sp"
-            android:layout_gravity="center_vertical|start" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.AppCompatEditText

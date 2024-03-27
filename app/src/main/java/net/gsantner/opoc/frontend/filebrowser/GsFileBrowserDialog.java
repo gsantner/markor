@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -64,7 +65,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //## Member
     //########################
     private RecyclerView _recyclerList;
-    public TextView _dialogTitle;
+    private Toolbar _toolBar;
     private TextView _buttonCancel;
     private TextView _buttonOk;
     private FloatingActionButton _homeButton;
@@ -97,7 +98,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         final Activity activity = getActivity();
 
         _recyclerList = root.findViewById(R.id.ui__filesystem_dialog__list);
-        _dialogTitle = root.findViewById(R.id.ui__filesystem_dialog__title_text);
+        _toolBar = root.findViewById(R.id.ui__filesystem_dialog__title_bar);
         _buttonCancel = root.findViewById(R.id.ui__filesystem_dialog__button_cancel);
         _buttonOk = root.findViewById(R.id.ui__filesystem_dialog__button_ok);
         _homeButton = root.findViewById(R.id.ui__filesystem_dialog__home);
@@ -123,10 +124,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _buttonOk.setTextColor(rcolor(_dopt.accentColor));
         _buttonOk.setText(_dopt.okButtonText);
 
-        _dialogTitle.setTextColor(rcolor(_dopt.titleTextColor));
-        _dialogTitle.setBackgroundColor(rcolor(_dopt.primaryColor));
-        _dialogTitle.setText(_dopt.titleText);
-        _dialogTitle.setVisibility(_dopt.titleTextEnable ? View.VISIBLE : View.GONE);
+        _toolBar.setTitleTextColor(rcolor(_dopt.titleTextColor));
+        _toolBar.setTitle(_dopt.titleText);
+        _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -157,6 +157,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _recyclerList.setAdapter(_filesystemViewerAdapter);
         _filesystemViewerAdapter.getFilter().filter("");
         onFsViewerDoUiUpdate(_filesystemViewerAdapter);
+
+        // Setup callbacks
+        _dopt.setSubtitle = _toolBar::setSubtitle;
+        _dopt.setTitle = _toolBar::setTitle;
     }
 
     private int rcolor(@ColorRes int colorRes) {
@@ -273,6 +277,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerDoUiUpdate(adapter);
         }
+        _toolBar.setSubtitle(adapter.getCurrentFolder().getName());
     }
 
     @Override
