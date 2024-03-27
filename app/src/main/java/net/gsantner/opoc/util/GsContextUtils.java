@@ -2745,6 +2745,29 @@ public class GsContextUtils {
         }
     }
 
+    public static void windowAspectRatio(final Window window,
+                                         final DisplayMetrics displayMetrics,
+                                         float portraitWidthRatio,
+                                         float portraitHeightRatio,
+                                         float landscapeWidthRatio,
+                                         float landscapeHeightRatio) {
+        if (window == null) {
+            return;
+        }
+
+        WindowManager.LayoutParams params = window.getAttributes();
+        final int width = displayMetrics.widthPixels;
+        final int height = displayMetrics.heightPixels;
+        if (width < height) { // Portrait
+            params.width = (int) (width * portraitWidthRatio);
+            params.height = (int) (height * portraitHeightRatio);
+        } else { // Landscape
+            params.width = (int) (width * landscapeWidthRatio);
+            params.height = (int) (height * landscapeHeightRatio);
+        }
+        window.setAttributes(params);
+    }
+
     // Make activity/app not show up in the recents history - call before finish / System.exit
     public <T extends GsContextUtils> T removeActivityFromHistory(final Context activity) {
         try {

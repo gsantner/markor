@@ -634,8 +634,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_show_file_browser: {
-                final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.getFile());
-                GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+                // Delay because I want menu to close before we open the file browser
+                _hlEditor.postDelayed(() -> {
+                    final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.getFile());
+                    GsContextUtils.instance.animateToActivity(activity, intent, false, null);
+                }, 250);
                 return true;
             }
             default: {
@@ -700,7 +703,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void setHorizontalScrollMode(final boolean wrap) {
-
         final Context context = getContext();
         if (context != null && _hlEditor != null && isWrapped() != wrap) {
 
@@ -861,7 +863,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     protected void onToolbarClicked(View v) {
-        if (!_isPreviewVisible && _format != null) {
+        if (_format != null) {
             _format.getActions().runTitleClick();
         }
     }
@@ -889,7 +891,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return _document;
     }
 
-    public WebView getWebview() {
+    public WebView getWebView() {
         return _webView;
     }
 
