@@ -320,12 +320,14 @@ public class GsTextUtils {
         return posns;
     }
 
-    public static void forEachline(final CharSequence text, GsCallback.a3<Integer, Integer, Integer> callback) {
+    public static void forEachline(final CharSequence text, GsCallback.b3<Integer, Integer, Integer> callback) {
         final List<Integer> ends = findChar(text, '\n');
         int start = 0, i = 0;
         for (; i < ends.size(); i++) {
             final int end = ends.get(i);
-            callback.callback(i, start, end);
+            if (!callback.callback(i, start, end)) {
+                break;
+            };
             start = end + 1;
         }
         callback.callback(i, start, text.length());
