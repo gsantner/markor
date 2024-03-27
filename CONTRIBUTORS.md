@@ -52,3 +52,4 @@ Where:
 * **[Li Guanglin](https://github.com/guanglinn)**<br/>~° Added line numbers support
 * **[bigger124](https://github.com/bigger124)**<br>~° Added OrgMode-Support
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
+* **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action

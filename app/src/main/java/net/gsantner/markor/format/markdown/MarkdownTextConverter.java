@@ -31,8 +31,10 @@ import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
 import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.html.renderer.HeaderIdGenerator;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
+import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
@@ -153,17 +155,23 @@ public class MarkdownTextConverter extends TextConverterBase {
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
 
     //########################
+    //## Others
+    //########################
+    private static String toDashChars = " -_"; // See HtmlRenderer.HEADER_ID_GENERATOR_TO_DASH_CHARS.getFrom(document)
+    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+
+
+    //########################
     //## Methods
     //########################
-
     @Override
     public String convertMarkup(String markup, Context context, boolean lightMode, boolean enableLineNumbers, File file) {
-        String converted = "", onLoadJs = "", head = "";
+        String converted, onLoadJs = "", head = "";
         final MutableDataSet options = new MutableDataSet();
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
 
-        options.set(Parser.SPACE_IN_LINK_URLS, true); // allow links like [this](some filename with spaces.md)
+        options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
         // options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to HTML break
 
@@ -198,7 +206,7 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += CSS_PRESENTATION_BEAMER;
         }
 
-        // Frontmatter
+        // Front matter
         String fmaText = "";
         final List<String> fmaAllowedAttributes = _appSettings.getMarkdownShownYamlFrontMatterKeys();
         Map<String, List<String>> fma = Collections.EMPTY_MAP;
@@ -293,7 +301,8 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         ////////////
         // Markup parsing - afterwards = HTML
-        converted = fmaText + flexmarkRenderer.withOptions(options).render(flexmarkParser.parse(markup));
+        Document document = flexmarkParser.parse(markup);
+        converted = fmaText + flexmarkRenderer.withOptions(options).render(document);
 
         // After render changes: Fixes for Footnotes (converter creates footnote + <br> + ref#(click) --> remove line break)
         if (converted.contains("footnote-")) {
@@ -329,14 +338,15 @@ public class MarkdownTextConverter extends TextConverterBase {
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
     }
 
-    private static final Pattern linkPattern = Pattern.compile("\\[(.*?)\\]\\((.*?)(\\s+\".*\")?\\)");
+    public static String generateHeaderId(String headerText) {
+        return HeaderIdGenerator.generateId(headerText, toDashChars, false, false);
+    }
 
     private String escapeSpacesInLink(final String markup) {
         final Matcher matcher = linkPattern.matcher(markup);
         if (!matcher.find()) {
             return markup;
         }
-
         // 1) Walk through the text till finding a link in markdown syntax
         // 2) Add all text-before-link to buffer
         // 3) Extract [title](link to somehere)

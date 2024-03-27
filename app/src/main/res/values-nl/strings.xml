@@ -307,7 +307,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Herladen</string>
     <string name="wrap_words">Woorden weghalen</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Soft break als tekst niet past bij schermbreedte. Schakel horizontaal scrollen in.</string>
-    <string name="recursive_search_in_current_directory">Recursieve zoekopdracht in de huidige map.</string>
     <string name="always_open_with_this_app">Altijd open met deze app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Open altijd bestanden met deze app wanneer de lijst de bestandsextensie bevat. Gebruik \'Geen, .html, .css , .js\' bijvoorbeeld als u webbestanden en degenen zonder bestandsextensie wilt bewerken.</string>
     <string name="open_file_with">Bestand openen met</string>

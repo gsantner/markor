@@ -309,7 +309,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">Przeładuj</string>
     <string name="wrap_words">Zawijanie słów</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Miękka przerwa, jeśli tekst nie pasuje do szerokości ekranu. W przeciwnym razie włącz przewijanie poziome.</string>
-    <string name="recursive_search_in_current_directory">Wyszukiwanie rekursywne w bieżącym katalogu.</string>
+    <string name="current_location">obecne położenie</string>
     <string name="always_open_with_this_app">Zawsze otwieraj za pomocą tej aplikacji</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Zawsze otwieraj pliki o wybranych rozszerzeniach w tej aplikacji. Przykładowo, użyj \'None, .html, .css , .js\', jeśli chcesz edytować pliki internetowe i te bez rozszerzenia pliku.</string>
     <string name="open_file_with">Otwórz plik z</string>

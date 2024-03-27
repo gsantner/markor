@@ -164,7 +164,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     /**
      * Used to surround selected text with a given delimiter (and remove it if present)
-     *
+     * <p>
      * Not super intelligent about how patterns can be combined.
      * Current regexes just look for the litera delimiters.
      *
@@ -304,7 +304,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _disabledHeadings, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _disabledHeadings, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }

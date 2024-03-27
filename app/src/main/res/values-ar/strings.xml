@@ -307,7 +307,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">إنعاش</string>
     <string name="wrap_words">كلمات مخفية</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">استراحة ناعمة إذا كان النص غير مناسب لعرض الشاشة. وإلا تمكين التمرير الأفقي.</string>
-    <string name="recursive_search_in_current_directory">البحث المتكرر في الدليل الحالي.</string>
+    <string name="current_location">الموقع الحالي</string>
     <string name="always_open_with_this_app">افتحه دائما بهذا التطبيق</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">فتح الملفات دائما مع هذا التطبيق عندما تحتوي القائمة على امتداد الملف. استخدم \'لا شيء، .html. .js\' على سبيل المثال إذا كنت ترغب في تحرير ملفات الويب وتلك التي ليس لها امتداد للملف.</string>
     <string name="open_file_with">فتح الملف باستخدام</string>

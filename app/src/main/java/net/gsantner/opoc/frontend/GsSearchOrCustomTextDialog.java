@@ -23,6 +23,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -88,18 +89,23 @@ public class GsSearchOrCustomTextDialog {
         public List<Integer> iconsForData;
         public CharSequence messageText = "";
         public String defaultText = "";
-        public boolean isSearchEnabled = true;
         public boolean isDarkDialog = false;
+        public boolean isSearchEnabled = true;
+        public boolean isSoftInputVisible = true;
+        public boolean isDismissOnItemSelected = true;
+        public boolean isSaveItemPositionEnabled = false;
+        public int gravity = Gravity.NO_GRAVITY;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        public int gravity = Gravity.NO_GRAVITY;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public GsCallback.a1<Spannable> highlighter = null;
+        public float[] portraitAspectRatio = {0.0f, 1.0f};
+        public float[] landscapeAspectRatio = {0.0f, 1.0f};
         public String extraFilter = null;
         public Collection<Integer> preSelected = null;
+        public GsCallback.a1<Spannable> highlighter = null;
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
-        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
+        public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -154,7 +160,7 @@ public class GsSearchOrCustomTextDialog {
             _dopt = dopt;
             _extraPattern = (_dopt.extraFilter == null ? null : Pattern.compile(_dopt.extraFilter).matcher(""));
             _selectedItems = new HashSet<>(_dopt.preSelected != null ? _dopt.preSelected : Collections.emptyList());
-            _layoutHeight = (int) GsContextUtils.instance.convertDpToPx(context, 36);
+            _layoutHeight = GsContextUtils.instance.convertDpToPx(context, 36);
         }
 
         @NonNull
@@ -273,6 +279,9 @@ public class GsSearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
+        if (dopt.isSaveItemPositionEnabled) {
+            listView.setSelection(activity.getIntent().getIntExtra("lastHeadingPosition", 0));
+        }
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         listLayout.weight = 1;
@@ -280,6 +289,8 @@ public class GsSearchOrCustomTextDialog {
 
         if (dopt.dismissCallback != null) {
             dialogBuilder.setOnDismissListener(dopt.dismissCallback::callback);
+        } else {
+            dialogBuilder.setOnDismissListener(dialogInterface -> activity.getIntent().putExtra("lastHeadingPosition", listView.getFirstVisiblePosition()));
         }
 
         dialogBuilder.setView(mainLayout)
@@ -318,24 +329,34 @@ public class GsSearchOrCustomTextDialog {
         });
 
         final Window win = dialog.getWindow();
-        if (win != null && dopt.isSearchEnabled) {
-            win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-
-        dialog.show();
-
         if (win != null) {
-            int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * activity.getResources().getDisplayMetrics().density));
-            int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * activity.getResources().getDisplayMetrics().density));
-            ds_w = (ds_w * 1.1 > activity.getResources().getDisplayMetrics().widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
-            ds_h = (ds_h * 1.1 > activity.getResources().getDisplayMetrics().heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
-            win.setLayout(ds_w, ds_h);
-        }
+            if (dopt.isSearchEnabled) {
+                if (dopt.isSoftInputVisible) {
+                    win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                } else {
+                    win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                }
+            }
+            dialog.show();
 
-        if (win != null && dopt.gravity != Gravity.NO_GRAVITY) {
-            WindowManager.LayoutParams wlp = win.getAttributes();
-            wlp.gravity = dopt.gravity;
-            win.setAttributes(wlp);
+            DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+            if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
+                GsContextUtils.windowAspectRatio(win, displayMetrics, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1]);
+            } else {
+                int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * displayMetrics.density));
+                int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * displayMetrics.density));
+                ds_w = (ds_w * 1.1 > displayMetrics.widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
+                ds_h = (ds_h * 1.1 > displayMetrics.heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
+                win.setLayout(ds_w, ds_h);
+            }
+
+            if (dopt.gravity != Gravity.NO_GRAVITY) {
+                WindowManager.LayoutParams wlp = win.getAttributes();
+                wlp.gravity = dopt.gravity;
+                win.setAttributes(wlp);
+            }
+        } else {
+            dialog.show();
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
@@ -356,7 +377,9 @@ public class GsSearchOrCustomTextDialog {
         // Helper function to trigger callback with single item
         final GsCallback.b1<Integer> directActivate = (position) -> {
             final int index = listAdapter._filteredItems.get(position);
-            dialog.dismiss();
+            if (dopt.isDismissOnItemSelected) {
+                dialog.dismiss();
+            }
             if (dopt.callback != null) {
                 dopt.callback.callback(dopt.data.get(index).toString());
             } else if (dopt.positionCallback != null) {

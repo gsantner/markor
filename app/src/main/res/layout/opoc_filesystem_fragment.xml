@@ -39,8 +39,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="100dp"
+            app:fastScrollEnabled="true"
+            app:fastScrollHorizontalThumbDrawable="@drawable/scrollbar_thumb"
+            app:fastScrollHorizontalTrackDrawable="@drawable/scrollbar_track"
+            app:fastScrollVerticalThumbDrawable="@drawable/scrollbar_thumb"
+            app:fastScrollVerticalTrackDrawable="@drawable/scrollbar_track"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </FrameLayout>

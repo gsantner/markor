@@ -327,7 +327,8 @@ public class GsTextUtils {
             final int end = ends.get(i);
             if (!callback.callback(i, start, end)) {
                 break;
-            };
+            }
+            ;
             start = end + 1;
         }
         callback.callback(i, start, text.length());

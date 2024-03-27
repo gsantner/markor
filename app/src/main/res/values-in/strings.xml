@@ -313,7 +313,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Pembungkus kata</string>
     <string name="line_numbers">Nomor baris</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Break ringan jika teks tidak sesuai dengan lebar layar. Lainnya, mengaktifkan pengguliran horizontal.</string>
-    <string name="recursive_search_in_current_directory">Pencarian rekursif di direktori saat ini.</string>
     <string name="always_open_with_this_app">Selalu buka dengan aplikasi ini</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Selalu buka file dengan aplikasi ini saat daftar berisi ekstensi file. Gunakan \'None, .html, .css, .js\' misalnya jika Anda ingin mengedit file web dan yang tanpa ekstensi file.</string>
     <string name="open_file_with">Buka file dengan</string>

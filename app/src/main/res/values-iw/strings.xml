@@ -303,7 +303,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">טען מחדש</string>
     <string name="wrap_words">גלישת שורות</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">שבירת שורות במקרה של טקטס רחב מהמסך. אחרת אפשר גלילה אופקית.</string>
-    <string name="recursive_search_in_current_directory">חיפוש ריקורסיבי בתיקיה נוכחית.</string>
     <string name="always_open_with_this_app">פתח תמיד עם אפליקציה זו</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">תמיד פתח קבצים באפליקציה זו כאשר הרשימה מכילה את סיומת הקובץ. השתמשו לדוגמא ב \'None, .html, .css , .js\' אם ברצונכם לערוך קבצי web וכאלו ללא סיומת.</string>
     <string name="rotate">לסובב</string>
