@@ -339,7 +339,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Wie viele Spalten? Drücken Sie die Tabellenschaltfläche lang, um eine Tabelle anzulegen (Kopfzeile einfügen), drücken Sie kurz, um eine Zeile hinzuzufügen.</string>
     <string name="example_of_a_markdown_table">Beispiel einer Markdown-Tabelle</string>
     <string name="delete_lines">Zeilen löschen</string>
-    <string name="duplicate_lines">Zeilen duplizieren</string>
     <string name="unordered_list">Unsortierte Liste</string>
     <string name="ordered_list">Nummerierte Liste</string>
     <string name="check_list">Checkliste</string>
