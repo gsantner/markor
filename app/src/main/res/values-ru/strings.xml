@@ -28,7 +28,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">Создать документ</string>
     <string name="move">Переместить</string>
     <string name="info">Инфо</string>
-
     <string name="file_folder_already_exists_please_use_a_different_name">Файл или папка уже существует! Используйте другое имя</string>
     <string name="import_from_device">Импортировать с устройства</string>
     <string name="import_">Импортировать</string>
