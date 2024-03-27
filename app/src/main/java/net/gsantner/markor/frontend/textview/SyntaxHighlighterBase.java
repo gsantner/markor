@@ -24,9 +24,11 @@ import android.text.style.TypefaceSpan;
 import android.text.style.UpdateAppearance;
 import android.text.style.UpdateLayout;
 import android.util.Log;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
