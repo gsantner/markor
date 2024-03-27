@@ -317,7 +317,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Reamurdmine</string>
     <string name="line_numbers">Reanumbrid</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pehme murdmine, kui tekst ei mahu ekraanilaiusesse. Muidu luba rõht kerimine.</string>
-    <string name="recursive_search_in_current_directory">Sügav otsing praeguses kataloogis.</string>
     <string name="always_open_with_this_app">Alati ava selle rakendusega</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Alati ava faile selles rakenduses kui nimekirjas on faililaiend. Näiteks kasuta \'None, .html, .css, .js\' veebifailidele ja neile millel pole nimelaiendit.</string>
     <string name="open_file_with">Ava fail sellega</string>
