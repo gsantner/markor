@@ -33,7 +33,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/opoc_filesystem_item__content"
+    >
 
         <TextView
             android:id="@+id/opoc_filesystem_item__title"
@@ -45,6 +47,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="19sp"
             tools:text="how to write a readme.md" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/opoc_filesystem_item__description"

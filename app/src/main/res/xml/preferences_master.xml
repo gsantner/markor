@@ -267,6 +267,11 @@
                 android:icon="@android:drawable/ic_menu_info_details"
                 android:key="@string/pref_key__file_description_format"
                 android:title="@string/file_description_format" />
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:icon="@drawable/ic_open_in_browser_black_24dp"
+                android:key="@string/pref_key__file_browser_compact"
+                android:title="@string/compact_file_browser_entries" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="@string/backup">
