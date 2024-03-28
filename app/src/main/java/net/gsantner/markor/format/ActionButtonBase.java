@@ -894,8 +894,10 @@ public abstract class ActionButtonBase {
         final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
         hlEditor.withAutoFormatDisabled(() -> {
-            final String lines_final = String.format("%s\n", lines);
-            text.insert(linesEnd + 1, lines_final);
+            // Prepending the newline instead of appending it is required for making
+            // this logic work even if it's about the last line in the given file.
+            final String lines_final = String.format("\n%s", lines);
+            text.insert(linesEnd, lines_final);
         });
 
         final int sel_offset = selEnd[0] - selStart[0] + 1;
