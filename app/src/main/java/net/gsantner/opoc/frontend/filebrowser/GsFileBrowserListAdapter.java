@@ -11,9 +11,6 @@ package net.gsantner.opoc.frontend.filebrowser;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -201,11 +198,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.itemRoot.setTag(new TagContainer(file, position));
         holder.itemRoot.setOnClickListener(this);
         holder.itemRoot.setOnLongClickListener(this);
-
-        final Drawable drawable = holder.itemView.getBackground();
-        if (drawable != null && ((ColorDrawable) drawable).getColor() == Color.LTGRAY) {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT); // Clear highlight
-        }
     }
 
     @Override
@@ -558,14 +550,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 public void onChanged() {
                     super.onChanged();
                     if ((System.currentTimeMillis() - init) < 2000) {
-                        _recyclerView.postDelayed(() -> showAndBlink(file), 250);
+                        _recyclerView.postDelayed(() -> showAndBlink(file, true), 250);
                     }
                     unregisterAdapterDataObserver(this);
                 }
             });
             loadFolder(dir); // Will reload folder if necessary
         } else {
-            showAndBlink(file);
+            showAndBlink(file, true);
         }
     }
 
@@ -574,11 +566,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
      *
      * @param file File to blink
      */
-    private void showAndBlink(final File file) {
+    private void showAndBlink(final File file, boolean isLocateNeeded) {
         final int pos = getFilePosition(file);
         final LinearLayoutManager manager = (LinearLayoutManager) _recyclerView.getLayoutManager();
         if (manager != null && pos >= 0) {
-            manager.scrollToPositionWithOffset(pos, 1);
+            if (isLocateNeeded) {
+                manager.scrollToPositionWithOffset(pos, 1);
+            }
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
@@ -764,25 +758,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     }
 
                     // Highlight the item
-                    handler.postDelayed(() -> {
-                        int i = _recyclerView.getChildCount() - 1;
-                        for (; i > 0; i--) {
-                            final View view = _recyclerView.getChildAt(i);
-                            final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
-                            if (data.file.getName().equals(textView.getText().toString())) {
-                                view.setBackgroundColor(Color.LTGRAY); // Highlight
-                                view.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 300);
-                                data.recyclerViewState = null;
-                                folderLevelDataMap.remove(currentFolderLevel);
-                                break;
-                            }
-                        }
-                        if (i == 0) {
-                            data.recyclerViewState = null;
-                            folderLevelDataMap.remove(currentFolderLevel);
-                        }
-                    }, 200);
-                }, 200);
+                    showAndBlink(data.file, false);
+
+                    data.recyclerViewState = null;
+                    folderLevelDataMap.remove(currentFolderLevel);
+                }, 150);
             }
         }
     }
