@@ -35,7 +35,7 @@ jobs:
       - name: current dir
         run: | 
             pwd
-            ls -la app/build/outputs/apk/flavorDefault
+            ls -la app/build/outputs/apk/flavorDefault/release
 
       - name: Setup build tool version variable
         shell: bash
@@ -48,7 +48,7 @@ jobs:
         uses: r0adkll/sign-android-release@v1
         id: sign_app
         with:
-          releaseDirectory: app/build/outputs/apk/release/
+          releaseDirectory: app/build/outputs/apk/flavorDefault/release
           signingKeyBase64: ${{ secrets.KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.PASSWORD }}
