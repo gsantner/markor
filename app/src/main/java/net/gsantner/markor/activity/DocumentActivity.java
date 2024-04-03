@@ -145,6 +145,20 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (_appSettings.getAppThemeName().contains("default")) {
+            setTheme(R.style.AppTheme_Unified);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_aqua")) {
+            setTheme(R.style.BlackAqua);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_green")) {
+            setTheme(R.style.BlackGreen);
+        }
+
+
         StoragePermissionActivity.requestPermissions(this);
         AppSettings.clearDebugLog();
         if (nextLaunchTransparentBg) {

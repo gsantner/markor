@@ -71,6 +71,20 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (_appSettings.getAppThemeName().contains("default")) {
+            setTheme(R.style.AppTheme_Unified);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_aqua")) {
+            setTheme(R.style.BlackAqua);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_green")) {
+            setTheme(R.style.BlackGreen);
+        }
+
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
         _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);

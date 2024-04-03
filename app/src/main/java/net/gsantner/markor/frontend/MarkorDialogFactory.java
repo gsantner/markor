@@ -1018,6 +1018,6 @@ public class MarkorDialogFactory {
         dopt.isDarkDialog = GsContextUtils.instance.isDarkModeEnabled(activity);
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
-        dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
+        //dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
     }
 }

@@ -139,6 +139,16 @@
                 android:summary="%1$s"
                 android:title="@string/navigationbar_color" />
 
+            <ListPreference
+                android:defaultValue="default"
+                android:dialogTitle="@string/accent"
+                android:entries="@array/pref_arrdisp__app_accent"
+                android:entryValues="@array/pref_arrkeys__app_accent"
+                android:icon="@drawable/ic_invert_colors_black_24dp"
+                android:key="@string/pref_key__app_accent"
+                android:summary="%1$s"
+                android:title="@string/accent" />
+
             <CheckBoxPreference
                 android:defaultValue="false"
                 android:icon="@drawable/ic_visibility_off_black_24dp"
@@ -246,6 +256,10 @@
                         android:icon="@drawable/ic_palette_black_24dp"
                         android:key="@string/pref_key__basic_color_scheme_greenscale"
                         android:title="@string/editor_basic_color_scheme_greenscale" />
+                    <Preference
+                        android:icon="@drawable/ic_palette_black_24dp"
+                        android:key="@string/pref_key__basic_color_scheme_aqua"
+                        android:title="@string/editor_basic_color_scheme_aqua" />
                     <Preference
                         android:icon="@drawable/ic_palette_black_24dp"
                         android:key="@string/pref_key__basic_color_scheme_sepia"

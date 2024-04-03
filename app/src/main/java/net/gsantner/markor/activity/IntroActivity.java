@@ -41,11 +41,11 @@ public class IntroActivity extends AppIntro {
 
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest
-        addSlide(AppIntroFragment.createInstance(getString(R.string.main_view), getString(R.string.notebook_is_the_home_of_your_files), R.drawable.screen1_main_view, R.color.primary));
-        addSlide(AppIntroFragment.createInstance(getString(R.string.view), "", R.drawable.screen3_view, R.color.primary));
-        addSlide(AppIntroFragment.createInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, R.color.primary));
-        addSlide(AppIntroFragment.createInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, R.color.primary));
-        addSlide(AppIntroFragment.createInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, R.color.primary));
+        addSlide(AppIntroFragment.createInstance(getString(R.string.main_view), getString(R.string.notebook_is_the_home_of_your_files), R.drawable.screen1_main_view, R.color.colorPrimary));
+        addSlide(AppIntroFragment.createInstance(getString(R.string.view), "", R.drawable.screen3_view, R.color.colorPrimary));
+        addSlide(AppIntroFragment.createInstance(getString(R.string.share) + " -> " + getString(R.string.app_name), "", R.drawable.screen4_share_into, R.color.colorPrimary));
+        addSlide(AppIntroFragment.createInstance(getString(R.string.todo), getString(R.string.todo_is_the_easiest_way_), R.drawable.ic_launcher_todo, R.color.colorPrimary));
+        addSlide(AppIntroFragment.createInstance(getString(R.string.quicknote), getString(R.string.quicknote_is_the_fastest_option_to_write_down_notes), R.drawable.ic_launcher_quicknote, R.color.colorPrimary));
 
         // Permissions -- takes a permission and slide number
         setSkipButtonEnabled(false);

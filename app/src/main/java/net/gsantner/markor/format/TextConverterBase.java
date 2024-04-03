@@ -185,7 +185,7 @@ public abstract class TextConverterBase {
                 .replace(TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE, darkTheme ? "#eaecef" : "#696969")
                 .replace(TOKEN_COLOR_GREY_OF_THEME, darkTheme ? "#393939" : GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.lighter_grey)))
                 .replace(TOKEN_LINK_COLOR, _appSettings.getViewModeLinkColor())
-                .replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.color.accent)))
+                ///.replace(TOKEN_ACCENT_COLOR, GsTextUtils.colorToHexString(ContextCompat.getColor(context, R.style.accent)))
                 .replace(TOKEN_TEXT_DIRECTION, _appSettings.isRenderRtl() ? "right" : "left")
                 .replace(TOKEN_FONT, font)
                 .replace(TOKEN_TEXT_CONVERTER_CSS_CLASS, "format-" + getClass().getSimpleName().toLowerCase().replace("textconverter", "").replace("converter", "") + " fileext-" + GsFileUtils.getFilenameExtension(file).replace(".", ""))

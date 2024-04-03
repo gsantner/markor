@@ -25,7 +25,7 @@
             android:id="@+id/widget_header"
             android:layout_width="match_parent"
             android:layout_height="36sp"
-            android:background="@color/primary">
+            android:background="?colorPrimary">
 
             <TextView
                 android:id="@+id/widget_header_title"

@@ -26,6 +26,24 @@
         <item translatable="false">dark-black</item>
     </string-array>
 
+    <string-array name="pref_arrdisp__app_accent" translatable="false">
+        <item translatable="false">Default</item>
+        <item translatable="false">Blue</item>
+        <item translatable="false">Black and Aqua</item>
+        <item translatable="false">Black and Green</item>
+        <item translatable="false">White</item>
+        <item translatable="false">Black</item>
+    </string-array>
+	
+    <string-array name="pref_arrkeys__app_accent" translatable="false">
+        <item translatable="false">default</item>
+        <item translatable="false">blue</item>
+        <item translatable="false">black_aqua</item>
+        <item translatable="false">black_green</item>
+        <item translatable="false">white</item>
+        <item translatable="false">black</item>
+    </string-array>
+	
     <string-array name="pref_arrdisp__editor_basic_color_schemes" translatable="false">
         <item translatable="false">@string/editor_basic_color_scheme_markor</item>
         <item translatable="false">@string/editor_basic_color_scheme_black_or_white</item>

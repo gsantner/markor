@@ -210,6 +210,8 @@ public class SettingsActivity extends MarkorBaseActivity {
             } else if (eq(key, R.string.pref_key__app_theme)) {
                 _appSettings.applyAppTheme();
                 getActivity().finish();
+            } else if (eq(key, R.string.pref_key__app_accent)) {
+                getActivity().finish();
             } else if (eq(key, R.string.pref_key__theming_hide_system_statusbar)) {
                 activityRetVal = RESULT.RESTART_REQ;
                 _appSettings.setRecreateMainRequired(true);
@@ -330,6 +332,11 @@ public class SettingsActivity extends MarkorBaseActivity {
                 case R.string.pref_key__basic_color_scheme_nord: {
                     _appSettings.setEditorBasicColor(true, R.color.nord_fg_dark, R.color.nord_bg_dark);
                     _appSettings.setEditorBasicColor(false, R.color.nord_fg_light, R.color.nord_bg_light);
+                    break;
+                }
+                case R.string.pref_key__basic_color_scheme_aqua: {
+                    _appSettings.setEditorBasicColor(true, R.color.aqua, R.color.black);
+                    _appSettings.setEditorBasicColor(false, R.color.aqua, R.color.black);
                     break;
                 }
                 case R.string.pref_key__basic_color_scheme_greenscale: {

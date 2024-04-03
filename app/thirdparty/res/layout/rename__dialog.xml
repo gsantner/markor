@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:textColor="@color/accent"
+        android:textColor="?colorAccent"
         android:textSize="16sp" />
 
     <EditText
