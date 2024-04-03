@@ -30,6 +30,46 @@
         <item name="android:windowBackground">#EEEEEE</item>
     </style>
 
+    <style name="BlackWhite" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:actionModeBackground">@color/black</item>
+        <item name="actionModeBackground">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimaryContainer">@color/white</item>
+        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <style name="WhiteBlack" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:actionModeBackground">@color/white</item>
+        <item name="actionModeBackground">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="colorPrimaryContainer">@color/black</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
     <style name="BlackAqua" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowActionModeOverlay">true</item>
         <item name="windowActionModeOverlay">true</item>
@@ -69,7 +109,47 @@
         <item name="colorOnPrimaryContainer">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
     </style>
-    
+		
+    <style name="Sepia" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="colorPrimaryDark">@color/sepia_bg_light__fg_dark</item>
+        <item name="android:actionModeBackground">@color/sepia_fg_light__bg_dark</item>
+        <item name="actionModeBackground">@color/sepia_fg_light__bg_dark</item>
+        <item name="colorPrimary">@color/sepia_fg_light__bg_dark</item>
+        <item name="colorOnPrimary">@color/sepia_bg_light__fg_dark</item>
+        <item name="colorAccent">@color/sepia_bg_light__fg_dark</item>
+        <item name="colorPrimaryContainer">@color/sepia_fg_light__bg_dark</item>
+        <item name="colorOnPrimaryContainer">@color/sepia_fg_light__bg_dark</item>
+        <item name="android:windowBackground">@color/sepia_fg_light__bg_dark</item>
+    </style>		
+	
+    <style name="Nord" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:actionButtonStyle">@style/LessSpaceActionButtonStyle</item>
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="colorPrimaryDark">@color/nord_bg_dark</item>
+        <item name="android:actionModeBackground">@color/nord_bg_dark</item>
+        <item name="actionModeBackground">@color/nord_bg_dark</item>
+        <item name="colorPrimary">@color/nord_bg_dark</item>
+        <item name="colorOnPrimary">@color/nord_fg_dark</item>
+        <item name="colorAccent">@color/nord_fg_dark</item>
+        <item name="colorPrimaryContainer">@color/nord_fg_dark</item>
+        <item name="colorOnPrimaryContainer">@color/nord_bg_dark</item>
+        <item name="android:windowBackground">@color/nord_bg_dark</item>
+    </style>
+
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
         <item name="preferenceCategoryStyle">@style/AppTheme.PreferenceTheme.CategoryStyle</item>
     </style>

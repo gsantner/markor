@@ -150,6 +150,14 @@ public class DocumentActivity extends MarkorBaseActivity {
             setTheme(R.style.AppTheme_Unified);
         }
 
+        if (_appSettings.getAppAccentName().contains("black_white")) {
+            setTheme(R.style.BlackWhite);
+        }
+
+        if (_appSettings.getAppAccentName().contains("white_black")) {
+            setTheme(R.style.WhiteBlack);
+        }
+
         if (_appSettings.getAppAccentName().contains("black_aqua")) {
             setTheme(R.style.BlackAqua);
         }
@@ -158,6 +166,13 @@ public class DocumentActivity extends MarkorBaseActivity {
             setTheme(R.style.BlackGreen);
         }
 
+        if (_appSettings.getAppAccentName().contains("sepia")) {
+            setTheme(R.style.Sepia);
+        }
+
+        if (_appSettings.getAppAccentName().contains("nord")) {
+            setTheme(R.style.Nord);
+        }
 
         StoragePermissionActivity.requestPermissions(this);
         AppSettings.clearDebugLog();
