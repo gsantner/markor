@@ -68,3 +68,26 @@ jobs:
         name: "android-apk"
         path: |
           dist/*.apk
+
+    - name: current dir
+       run: | 
+          pwd
+          ls -la
+          ls -la dist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
