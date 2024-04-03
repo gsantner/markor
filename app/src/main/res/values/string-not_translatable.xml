@@ -47,7 +47,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_drawer_launcher_special_files_description" translatable="false">App drawer launchers - To-Do, QuickNote</string>
 
     <string name="katex_latex" translatable="false">KaTex (LaTex)\n$ a^2 + b^2 = c^2 $</string>
+    <string name="accent" translatable="false">Accent Color</string>
     <string name="app_theme_system" translatable="false">system</string>
+    <string name="app_accent_system" translatable="false">accent</string>	
     <string name="editor_basic_color_scheme_markor" translatable="false">Markor</string>
     <string name="editor_basic_color_scheme_black_or_white" translatable="false">Black or White</string>
     <string name="editor_basic_color_scheme_amoled" translatable="false">AMOLED</string>
@@ -55,6 +57,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="editor_basic_color_scheme_nord" translatable="false">Nord</string>
     <string name="editor_basic_color_scheme_gruvbox" translatable="false">Gruvbox</string>
     <string name="editor_basic_color_scheme_greenscale" translatable="false">Greenscale</string>
+    <string name="editor_basic_color_scheme_aqua" translatable="false">Black and Aqua</string>
     <string name="editor_basic_color_scheme_sepia" translatable="false">Sepia</string>
 
     <string name="hexcode" translatable="false">Hexcode</string>
@@ -144,6 +147,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__font_family" translatable="false">pref_key__font_family</string>
     <string name="pref_key__editor_font_size" translatable="false">pref_key__editor_font_size</string>
     <string name="pref_key__app_theme" translatable="false">pref_key__app_theme</string>
+    <string name="pref_key__app_accent" translatable="false">pref_key__app_accent</string>
     <string name="pref_key__theming_hide_system_statusbar" translatable="false">pref_key__theming_hide_system_statusbar</string>
     <string name="pref_key__language" translatable="false">pref_key__language</string>
     <string name="pref_key__is_main_recreate_required" translatable="false">pref_key__is_main_recreate_required</string>
@@ -204,6 +208,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__basic_color_scheme_markor" translatable="false">pref_key__basic_color_scheme_markor</string>
     <string name="pref_key__basic_color_scheme_gruvbox" translatable="false">pref_key__basic_color_scheme_gruvbox</string>
     <string name="pref_key__basic_color_scheme_greenscale" translatable="false">pref_key__basic_color_scheme_greenscale</string>
+    <string name="pref_key__basic_color_scheme_aqua" translatable="false">pref_key__basic_color_scheme_aqua</string>
     <string name="pref_key__basic_color_scheme_sepia" translatable="false">pref_key__basic_color_scheme_sepia</string>
     <string name="pref_key__is_keep_screen_on" translatable="false">pref_key__keep_screen_on</string>
     <string name="pref_key__is_disallow_screenshots" translatable="false">pref_key__is_disallow_screenshots</string>

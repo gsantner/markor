@@ -16,7 +16,6 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:fitsSystemWindows="true"
-    android:theme="@style/AppTheme.Unified"
     tools:context="net.gsantner.markor.activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -63,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="start|bottom"
-        android:background="@color/primary"
-        app:itemBackground="@color/primary"
+        android:background="?colorPrimary"
+        app:itemBackground="?colorPrimary"
         app:itemIconTint="@drawable/bottomnav_color_selector"
         app:itemTextColor="@drawable/bottomnav_color_selector"
         app:labelVisibilityMode="labeled"

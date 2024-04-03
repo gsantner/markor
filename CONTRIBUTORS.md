@@ -53,3 +53,4 @@ Where:
 * **[bigger124](https://github.com/bigger124)**<br>~° Added OrgMode-Support
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action
+* **[ELY M.](https://github.com/ely3m)**<br/>~° Added theme system for main app - ability to change accent color and other colors.   

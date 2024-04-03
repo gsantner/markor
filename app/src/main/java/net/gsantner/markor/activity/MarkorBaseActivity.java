@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
@@ -21,7 +22,36 @@ public abstract class MarkorBaseActivity extends GsActivityBase<AppSettings, Mar
     @Override
     protected void onPreCreate(@Nullable Bundle savedInstanceState) {
         super.onPreCreate(savedInstanceState); // _appSettings, _cu gets available
-        setTheme(R.style.AppTheme_Unified);
+        //setTheme(R.style.AppTheme_Unified);
+
+        if (_appSettings.getAppThemeName().contains("default")) {
+            setTheme(R.style.AppTheme_Unified);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_white")) {
+            setTheme(R.style.BlackWhite);
+        }
+
+        if (_appSettings.getAppAccentName().contains("white_black")) {
+            setTheme(R.style.WhiteBlack);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_aqua")) {
+            setTheme(R.style.BlackAqua);
+        }
+
+        if (_appSettings.getAppAccentName().contains("black_green")) {
+            setTheme(R.style.BlackGreen);
+        }
+
+        if (_appSettings.getAppAccentName().contains("sepia")) {
+            setTheme(R.style.Sepia);
+        }
+
+        if (_appSettings.getAppAccentName().contains("nord")) {
+            setTheme(R.style.Nord);
+        }
+
         _appSettings.applyAppTheme();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setEnterTransition(null);

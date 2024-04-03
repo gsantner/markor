@@ -109,7 +109,7 @@
             android:layout_margin="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textColor="@color/primary"
+            android:textColor="?colorPrimary"
             tools:text="Cancel" />
 
         <TextView
@@ -119,7 +119,7 @@
             android:layout_margin="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:textColor="@color/primary"
+            android:textColor="?colorPrimary"
             tools:text="Select" />
 
     </LinearLayout>
