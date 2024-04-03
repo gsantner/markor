@@ -35,7 +35,7 @@ jobs:
       - name: current dir
         run: | 
             pwd
-            ls -la app/build/outputs/apk
+            ls -la app/build/outputs/apk/flavorDefault
 
       - name: Setup build tool version variable
         shell: bash
