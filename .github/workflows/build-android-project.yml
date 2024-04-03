@@ -71,9 +71,9 @@ jobs:
 
     - name: current dir
        run: | 
-          pwd
-          ls -la
-          ls -la dist
+           pwd
+           ls -la
+           ls -la dist
 
 
 
