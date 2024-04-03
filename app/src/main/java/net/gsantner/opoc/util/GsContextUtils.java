@@ -12,7 +12,10 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -128,7 +131,6 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.format.GsSimpleMarkdownParser;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -2879,21 +2881,26 @@ public class GsContextUtils {
         return false;
     }
 
+    private static final int VIEW_TAG_ANIMATOR = 1786072579;
+
     public static void blinkView(final View view) {
         if (view != null) {
-            final Object tag = view.getTag(R.id.view_animator);
-            if (tag != null && tag instanceof ObjectAnimator) {
-                if (((ObjectAnimator) tag).isRunning()) {
-                    return;
-                } else {
-                    view.setTag(R.id.view_animator, null);
-                }
+            final Object obj = view.getTag(VIEW_TAG_ANIMATOR);
+            if (obj != null && obj instanceof ValueAnimator && ((ValueAnimator) obj).isRunning()) {
+                return;
             }
 
             final ObjectAnimator animator = ObjectAnimator.ofFloat(view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f);
             animator.setDuration(1000);
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    view.setTag(VIEW_TAG_ANIMATOR, null);
+                }
+            });
             animator.start();
-            view.setTag(R.id.view_animator, animator);
+            view.setTag(VIEW_TAG_ANIMATOR, animator);
         }
     }
 }

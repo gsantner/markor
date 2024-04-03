@@ -747,22 +747,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 handler.postDelayed(() -> {
                     final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
                     final TagContainer data = folderLevelDataMap.get(currentFolderLevel);
-                    if (data == null) {
-                        return;
+                    if (data != null) {
+                        // Restore scroll position
+                        final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
+                        if (layoutManager != null) {
+                            layoutManager.onRestoreInstanceState(data.recyclerViewState);
+                        }
+
+                        // Highlight the item
+                        showAndBlink(data.file, false);
+
+                        data.recyclerViewState = null;
+                        folderLevelDataMap.remove(currentFolderLevel);
                     }
-
-                    // Restore scroll position
-                    final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
-                    if (layoutManager != null) {
-                        layoutManager.onRestoreInstanceState(data.recyclerViewState);
-                    }
-
-                    // Highlight the item
-                    showAndBlink(data.file, false);
-
-                    data.recyclerViewState = null;
-                    folderLevelDataMap.remove(currentFolderLevel);
-                }, 150);
+                }, 200);
             }
         }
     }
