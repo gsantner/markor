@@ -30,7 +30,7 @@ jobs:
       - name: Build APK
         run: |
             chmod +x gradlew        
-            ./gradlew assembleflavorDefault-release
+            ./gradlew assembleFlavorDefaultRelease
         
       - name: current dir
         run: | 
