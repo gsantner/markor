@@ -35,7 +35,6 @@ jobs:
       - name: current dir
         run: | 
             pwd
-            ls -la app/build 
 
       - name: Setup build tool version variable
         shell: bash
