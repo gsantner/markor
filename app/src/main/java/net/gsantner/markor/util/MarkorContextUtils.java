@@ -25,6 +25,7 @@ import net.gsantner.markor.activity.openeditor.OpenEditorTodoActivity;
 import net.gsantner.markor.activity.openeditor.OpenFromShortcutOrWidgetActivity;
 import net.gsantner.markor.activity.openeditor.OpenShareIntoActivity;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -46,13 +47,27 @@ public class MarkorContextUtils extends GsContextUtils {
         return thisp();
     }
 
+    private static int getIconResForFile(final File file) {
+        if (file.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
+            return R.mipmap.ic_shortcut_popular;
+        } else if (file.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
+            return R.mipmap.ic_shortcut_recent;
+        } else if (file.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
+            return R.mipmap.ic_shortcut_favourite;
+        } else if (file.isDirectory()) {
+            return R.mipmap.ic_shortcut_folder;
+        } else {
+            return R.mipmap.ic_shortcut_file;
+        }
+    }
+
     public <T extends GsContextUtils> T createLauncherDesktopShortcut(final Context context, final File file) {
         // This is only allowed to call when direct file access is possible!!
         // So basically only for java.io.File Objects. Virtual files, or content://
         // in private/restricted space won't work - because of missing permission grant when re-launching
         final String title = file != null ? GsFileUtils.getFilenameWithoutExtension(file) : null;
         if (!TextUtils.isEmpty(title)) {
-            final int iconRes = file.isDirectory() ? R.mipmap.ic_shortcut_folder : R.mipmap.ic_shortcut_file;
+            final int iconRes = getIconResForFile(file);
             final Intent intent = new Intent(context, OpenFromShortcutOrWidgetActivity.class).setData(Uri.fromFile(file));
             createLauncherDesktopShortcut(context, intent, iconRes, title);
         }
@@ -94,6 +109,6 @@ public class MarkorContextUtils extends GsContextUtils {
 
     public static File getValidIntentFile(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
-        return f != null && f.exists() ? f : fallback;
+        return f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f)) ? f : fallback;
     }
 }

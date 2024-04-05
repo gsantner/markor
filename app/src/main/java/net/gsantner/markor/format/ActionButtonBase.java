@@ -909,6 +909,14 @@ public abstract class ActionButtonBase {
                 TextViewUtils.getIndexFromLineOffset(text, selEnd));
     }
 
+    public void withKeepSelection(final GsCallback.a2<Integer, Integer> action) {
+        _hlEditor.withAutoFormatDisabled(() -> TextViewUtils.withKeepSelection(_hlEditor.getText(), action));
+    }
+
+    public void withKeepSelection(final GsCallback.a0 action) {
+        withKeepSelection((start, end) -> action.callback());
+    }
+
     // Derived classes should override this to implement format-specific renumber logic
     protected void renumberOrderedList() {
         // No-op in base class
