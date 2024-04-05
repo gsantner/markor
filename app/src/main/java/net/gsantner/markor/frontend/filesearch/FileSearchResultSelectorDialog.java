@@ -2,7 +2,6 @@ package net.gsantner.markor.frontend.filesearch;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.text.Editable;
@@ -17,19 +16,16 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine.FitFile;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
