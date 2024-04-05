@@ -34,12 +34,12 @@ public class FileSearchResultSelectorDialog {
     /**
      * Show a file system selector dialog
      *
-     * @param activity       Activity to use
-     * @param searchResults  Search results to filter
-     * @param callback       Callback to call when a item is selected
-     *                       callback.first:  Path to file (relative)
-     *                       callback.second: Line number (null if not applicable)
-     *                       callback.third:  True if the dialog was dismissed by long clicking on a file
+     * @param activity      Activity to use
+     * @param searchResults Search results to filter
+     * @param callback      Callback to call when a item is selected
+     *                      callback.first:  Path to file (relative)
+     *                      callback.second: Line number (null if not applicable)
+     *                      callback.third:  True if the dialog was dismissed by long clicking on a file
      */
     public static void showDialog(
             final Activity activity,
