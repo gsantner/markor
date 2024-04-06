@@ -2878,10 +2878,10 @@ public class GsContextUtils {
         return false;
     }
 
-    public static void blinkView(final View view) {
+    public static void flashView(final View view) {
         if (view != null) {
-            final float init = view.getAlpha();
-            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
+            view.setBackgroundColor(Color.LTGRAY); // Highlight
+            view.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 300);
         }
     }
 }
