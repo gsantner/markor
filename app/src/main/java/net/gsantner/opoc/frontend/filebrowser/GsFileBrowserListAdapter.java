@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -587,7 +586,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    GsContextUtils.flashView(holder.itemView);
+                    GsContextUtils.blinkView(holder.itemView);
                 }
             }, 250);
         }
