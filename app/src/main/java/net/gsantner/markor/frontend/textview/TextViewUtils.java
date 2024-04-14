@@ -151,7 +151,7 @@ public final class TextViewUtils {
         final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
         final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
-        action.callback(selStart[0], selEnd[0]);
+        action.callback(sel[0], sel[1]);
 
         Selection.setSelection(text,
                 TextViewUtils.getIndexFromLineOffset(text, selStart),
