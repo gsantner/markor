@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
@@ -85,6 +86,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private RecyclerView _recyclerView;
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
+    private final Map<File, Integer> _fileIdMap = new HashMap<>();
 
     //########################
     //## Methods
@@ -292,7 +294,15 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     // Prevents view flicker - https://stackoverflow.com/a/32488059
     @Override
     public long getItemId(final int position) {
-        return _adapterDataFiltered.get(position).hashCode();
+        final File f = _adapterDataFiltered.get(position);
+        final Integer key = _fileIdMap.get(f);
+        if (key == null) {
+            final int newId = _fileIdMap.size();
+            _fileIdMap.put(f, newId);
+            return newId;
+        } else {
+            return key;
+        }
     }
 
     public File getCurrentFolder() {
@@ -695,6 +705,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     _adapterData.addAll(newData);
                     _currentSelection.retainAll(_adapterData);
                     _filter.filter(_filter._lastFilter);
+
+                    if (!_currentFolder.equals(prevFolder)) {
+                        _fileIdMap.clear();
+                    }
 
                     _recyclerView.post(() -> {
                         // Must be called from UI thread
