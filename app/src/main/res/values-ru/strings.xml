@@ -317,7 +317,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Переносить слова</string>
     <string name="line_numbers">Нумерация строк</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
-    <string name="current_location">текущее местоположение</string>
+    <string name="recursive_search_in_location">Рекурсивный поиск в %s</string>
+    <string name="current_location">текущее место</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Если расширение файла есть в списке, всегда будет открывать его в Markor. К примеру, если вы хотите редактировать файлы без расширения и веб-файлы, введите \'None, .html, .css, .js\'.</string>
     <string name="open_file_with">Открыть файл</string>
@@ -340,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Сколько колонок? Жмите кнопку таблицы долго, чтобы начать таблицу (вставить заголовок), нажмите коротко для добавления строки.</string>
     <string name="example_of_a_markdown_table">Пример Markdown-таблицы</string>
     <string name="delete_lines">Удалить строки</string>
+    <string name="duplicate_lines">Дубли строки</string>
     <string name="unordered_list">Неупорядоченный список</string>
     <string name="ordered_list">Нумерованный список</string>
     <string name="check_list">Контрольный список</string>

@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Acontzu de sas lìnias</string>
     <string name="line_numbers">Nùmeros de lìnia</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mandat a suta su testu si cussu barigat sa mannària de s\'ischermu. Si nono abìlitat s\'iscurrimentu orizontale.</string>
+    <string name="recursive_search_in_location">Chirca ricursiva in %s</string>
     <string name="current_location">positzione atuale</string>
     <string name="always_open_with_this_app">Aberi semper cun custa aplicatzione</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Aberi semper sos documentos cun custa aplicatzione cando sa lista cuntenet s\'estensione de su documentu. Imprea \'Peruna, .html, .css , .js\' a esèmpiu si cheres modificare documentos web e cussos chene estensione.</string>
@@ -340,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Cantas colonnas? Incarca su butone de sa tabella a longu pro creare una tabella (insertare s\'intestatzione), pro pagu pro annànghere una riga.</string>
     <string name="example_of_a_markdown_table">Esèmpiu de una tabella Markdown</string>
     <string name="delete_lines">Iscantzella sas rigas</string>
+    <string name="duplicate_lines">Lìnias duplicadas</string>
     <string name="unordered_list">Lista disordinada</string>
     <string name="ordered_list">Lista ordinada</string>
     <string name="check_list">Lista de verìfica</string>

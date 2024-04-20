@@ -2498,9 +2498,15 @@ public class GsContextUtils {
             if (!TextUtils.isEmpty(v)) {
                 if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_BITRATE) {
                     v = GsFileUtils.getHumanReadableByteCountSI(Long.parseLong(v)) + "ps";
+                    if (v.startsWith("-1 ")) {
+                        continue; // invalid / unknown
+                    }
                 } else if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_DURATION) {
                     final int[] hms = GsFileUtils.getTimeDiffHMS(Long.parseLong(v), 0);
                     v = String.format("%sh %sm %ss", hms[0], hms[1], hms[2]);
+                    if (v.equals("0h 0m 0s")) {
+                        continue; // Duration key might be set but no actual duration information
+                    }
                 }
                 append.callback(mmrfield.second, v);
             }
