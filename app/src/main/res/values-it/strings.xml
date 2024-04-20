@@ -320,7 +320,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_numbers">Numeri di riga</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Manda a capo il testo se supera la dimensione della riga; altrimenti abilita lo scorrimento orizzontale.</string>
     <string name="recursive_search_in_location">Ricerca ricorsiva in %s</string>
-    <string name="current_location">posizione attuale</string>
     <string name="always_open_with_this_app">Apri sempre con quest\'app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Apri sempre i file con questa app quando la lista contiene l\'estensione del file. Usa \'Nessuno, .html, .css , .js\' per esempio se si desidera modificare i file web e i file senza estensione.</string>
     <string name="open_file_with">Apri file con</string>
