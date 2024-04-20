@@ -492,43 +492,36 @@ public abstract class ActionButtonBase {
 
     private static void runRegexReplaceAction(final Editable editable, final List<ReplacePattern> patterns) {
 
-        final int[] sel = TextViewUtils.getSelection(editable);
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+        TextViewUtils.withKeepSelection(editable, (selStart, selEnd) -> {
 
-        // Offset of selection start from text end - used to restore selection
-        final int selEndOffset = text.length() - sel[1];
-        // Offset of selection start from line end - used to restore selection
-        final int selStartOffset = sel[1] == sel[0] ? selEndOffset : TextViewUtils.getLineEnd(text, sel[0]) - sel[0];
+            final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+            // Start of line on which sel begins
+            final int selStartStart = TextViewUtils.getLineStart(text, selStart);
 
-        // Start of line on which sel begins
-        final int selStartStart = TextViewUtils.getLineStart(text, sel[0]);
-        // Number of lines we will be modifying
-        final int lineCount = TextViewUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
+            // Number of lines we will be modifying
+            final int lineCount = TextViewUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
+            int lineStart = selStartStart;
 
-        int lineStart = selStartStart;
 
-        for (int i = 0; i < lineCount; i++) {
+            for (int i = 0; i < lineCount; i++) {
 
-            int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
-            final String line = TextViewUtils.toString(text, lineStart, lineEnd);
+                int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
+                final String line = TextViewUtils.toString(text, lineStart, lineEnd);
 
-            for (final ReplacePattern pattern : patterns) {
-                if (pattern.matcher.reset(line).find()) {
-                    if (!pattern.isSameReplace()) {
-                        text.replace(lineStart, lineEnd, pattern.replace());
+                for (final ReplacePattern pattern : patterns) {
+                    if (pattern.matcher.reset(line).find()) {
+                        if (!pattern.isSameReplace()) {
+                            text.replace(lineStart, lineEnd, pattern.replace());
+                        }
+                        break;
                     }
-                    break;
                 }
+
+                lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
             }
 
-            lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
-        }
-
-        text.applyChanges();
-
-        final int newSelEnd = text.length() - selEndOffset;
-        final int newSelStart = sel[0] == sel[1] ? newSelEnd : TextViewUtils.getLineEnd(text, selStartStart) - selStartOffset;
-        Selection.setSelection(editable, newSelStart, newSelEnd);
+            text.applyChanges();
+        });
     }
 
     protected void runSurroundAction(final String delim) {
@@ -907,6 +900,14 @@ public abstract class ActionButtonBase {
         hlEditor.setSelection(
                 TextViewUtils.getIndexFromLineOffset(text, selStart),
                 TextViewUtils.getIndexFromLineOffset(text, selEnd));
+    }
+
+    public void withKeepSelection(final GsCallback.a2<Integer, Integer> action) {
+        _hlEditor.withAutoFormatDisabled(() -> TextViewUtils.withKeepSelection(_hlEditor.getText(), action));
+    }
+
+    public void withKeepSelection(final GsCallback.a0 action) {
+        withKeepSelection((start, end) -> action.callback());
     }
 
     // Derived classes should override this to implement format-specific renumber logic

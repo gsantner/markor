@@ -176,7 +176,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
-            if (file.isDirectory()) {
+            if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
                 _notebook.post(() -> _notebook.setCurrentFolder(file));
             } else {
                 _notebook.post(() -> _notebook.getAdapter().showFile(file));
