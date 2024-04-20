@@ -16,6 +16,7 @@ import android.print.PrintJob;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
@@ -47,7 +48,7 @@ public class MarkorContextUtils extends GsContextUtils {
         return thisp();
     }
 
-    private static int getIconResForFile(final File file) {
+    private static int getIconResForFile(final @NonNull File file) {
         if (file.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
             return R.mipmap.ic_shortcut_popular;
         } else if (file.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
