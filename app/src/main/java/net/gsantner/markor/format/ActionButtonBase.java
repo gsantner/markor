@@ -15,7 +15,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
