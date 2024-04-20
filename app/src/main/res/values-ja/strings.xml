@@ -308,7 +308,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="reload">再読み込み</string>
     <string name="wrap_words">単語の折り返し</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">テキストが画面幅に合わない場合に折り返します。 それ以外は、水平スクロールを有効にします。</string>
-    <string name="current_location">現在の場所</string>
     <string name="always_open_with_this_app">いつもこのアプリで開く</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">リストにファイル拡張子が含まれている場合は、常にこのアプリでファイルを開きます。 たとえば、Webファイルやファイル拡張子のないファイルを編集したい場合は、 \'なし, .html, .css , .js\' を使用してください。</string>
     <string name="open_file_with">ファイルを開く</string>
