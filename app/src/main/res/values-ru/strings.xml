@@ -318,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_numbers">Нумерация строк</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Вставлять мягкие переносы вместо отображения ползунка горизонтальной прокрутки, когда текст не помещается по ширине на экране.</string>
     <string name="recursive_search_in_location">Рекурсивный поиск в %s</string>
-    <string name="current_location">текущее место</string>
     <string name="always_open_with_this_app">Всегда открывать в этом приложении</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Если расширение файла есть в списке, всегда будет открывать его в Markor. К примеру, если вы хотите редактировать файлы без расширения и веб-файлы, введите \'None, .html, .css, .js\'.</string>
     <string name="open_file_with">Открыть файл</string>
