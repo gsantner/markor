@@ -12,9 +12,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_name_real" translatable="false">Markor</string>
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
-    <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
-    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues/new/choose</string>
-    <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite?h=a30c38972fb7edee1b157e38bdc063492042484</string>
+    <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
+    <string name="app_translate_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
 
     <string name="app_web_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
