@@ -257,6 +257,10 @@ public class NewFileDialog extends DialogFragment {
         }
     }
 
+    public void setCallback(final GsCallback.a2<Boolean, File> callback) {
+        this.callback = callback;
+    }
+
     // this code corresponds to R.arrays.arr_file_templates
     //
     // How to get content out of a file:
