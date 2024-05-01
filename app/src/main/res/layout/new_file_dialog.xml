@@ -11,7 +11,6 @@
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/new_file_dialog__root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,17 +50,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="70"
-                android:hint="@string/my_note"
+                android:hint="{{date}}"
                 android:importantForAutofill="no"
                 android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                tools:ignore="TextFields" />
+                tools:ignore="HardcodedText,TextFields"/>
+
 
             <EditText
                 android:id="@+id/new_file_dialog__ext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
                 android:layout_weight="30"
                 android:gravity="end"
                 android:hint=".md"
@@ -70,55 +73,26 @@
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textSize="15sp"
-                tools:text=".md"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                tools:text=".md" />
         </LinearLayout>
 
-       <LinearLayout
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        <view class="net.gsantner.markor.frontend.NewFileDialog$ReselectSpinner"
+            android:id="@+id/new_file_dialog__type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-           <com.google.android.material.textfield.TextInputLayout
-               style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-               android:id="@+id/new_file_dialog__title_format_holder"
-               android:layout_width="0dp"
-               android:layout_height="match_parent"
-               android:layout_weight="60"
-               android:hint="@string/format">
-
-                <AutoCompleteTextView
-                    android:id="@+id/new_file_dialog__title_format"
-                    android:layout_width="match_parent"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:importantForAutofill="no"
-                    android:lines="1"
-                    android:textSize="15sp"
-                    android:hint="{{date}}_{{title}}"
-                    tools:ignore="HardcodedText"/>
-
-           </com.google.android.material.textfield.TextInputLayout>
-
-           <Spinner
-               android:id="@+id/new_file_dialog__type"
-               android:drawSelectorOnTop="true"
-               android:layout_width="0dp"
-               android:layout_height="match_parent"
-               android:layout_gravity="center_vertical"
-               android:layout_marginEnd="-10dp"
-               android:layout_marginRight="-10dp"
-               android:layout_weight="40"
-               android:gravity="end"
-               android:importantForAutofill="no"
-               android:lines="1"
-               android:textSize="15sp" />
-
-       </LinearLayout>
-
+            android:drawSelectorOnTop="true"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -134,8 +108,7 @@
             android:id="@+id/new_file_dialog__template"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:drawSelectorOnTop="true" />
+            android:drawSelectorOnTop="true"/>
 
         <CheckBox
             android:id="@+id/new_file_dialog__encrypt"

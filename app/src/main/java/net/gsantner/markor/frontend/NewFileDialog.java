@@ -11,23 +11,21 @@ package net.gsantner.markor.frontend;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
+import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListPopupWindow;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -107,7 +105,6 @@ public class NewFileDialog extends DialogFragment {
         final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
-        final AutoCompleteTextView titleFormatEdit = root.findViewById(R.id.new_file_dialog__title_format);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appSettings.isDefaultPasswordSet()) {
             encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
@@ -125,48 +122,19 @@ public class NewFileDialog extends DialogFragment {
         extEdit.setFilters(titleEdit.getFilters());
 
 
-        // Setup title format spinner and actions
-        // -----------------------------------------------------------------------------------------
-
-        final ArrayAdapter<String> titleFormatAdapter = new ArrayAdapter<>(
-                activity, android.R.layout.simple_list_item_1);
-
-        titleFormatAdapter.add("");
-        titleFormatAdapter.addAll(appSettings.getTitleFormats());
-
-        titleFormatEdit.setAdapter(titleFormatAdapter);
-
-        // // Popup window for ComboBox
-        // final ListPopupWindow popupWindow = new ListPopupWindow(activity);
-        // popupWindow.setAdapter(titleFormatAdapter);
-
-        // popupWindow.setOnItemClickListener((parent, view, position, id) ->
-        //         titleFormatEdit.setText(titleFormatAdapter.getItem(position))
-        // );
-
-        // popupWindow.setAnchorView(titleFormatEdit);
-        // popupWindow.setModal(true);
-
-
         // Setup template spinner and action
         // -----------------------------------------------------------------------------------------
         final List<Pair<String, File>> snippets = appSettings.getSnippetFiles();
         final List<Pair<String, String>> templates = appSettings.getBuiltinTemplates();
-        final ArrayAdapter<String> templateAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> templateAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
         templateAdapter.add(activity.getString(R.string.empty_file));
         templateAdapter.addAll(GsCollectionUtils.map(snippets, p -> p.first));
         templateAdapter.addAll(GsCollectionUtils.map(templates, p -> p.first));
         templateSpinner.setAdapter(templateAdapter);
 
-        templateSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
-            final String template = templateAdapter.getItem(pos);
-            final String format = appSettings.getTemplateTitleFormat(template);
-            titleFormatEdit.setText(format == null ? "" : format);
-        }));
-
         // Setup type / format spinner and action
         // -----------------------------------------------------------------------------------------
-        final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
         typeAdapter.addAll(GsCollectionUtils.map(Arrays.asList(FormatRegistry.FORMATS), f -> activity.getString(f.name)));
         typeSpinner.setAdapter(typeAdapter);
 
@@ -219,12 +187,18 @@ public class NewFileDialog extends DialogFragment {
         // Setup button click actions
         // -----------------------------------------------------------------------------------------
 
+        final GsCallback.s0 getTitle = () -> {
+                String title = titleEdit.getText().toString().trim();
+                title = title.isEmpty() ? titleEdit.getHint().toString() : title;
+                return TextViewUtils.interpolateSnippet(title, "", "").trim();
+        };
+
+
         final MarkorContextUtils cu = new MarkorContextUtils(getContext());
         dialogBuilder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
 
-            final String titleFormat = titleFormatEdit.getText().toString().trim();
-            final String title = assembleTitle(titleFormat, titleEdit.getText());
+            final String title = getTitle.callback();
             final String ext = extEdit.getText().toString().trim();
             final String fileName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title + ext);
 
@@ -249,14 +223,9 @@ public class NewFileDialog extends DialogFragment {
             final Document document = new Document(file);
 
             // These are done even if the file doesn
-            appSettings.setTemplateTitleFormat(templateAdapter.getItem(ti), titleFormat);
             final FormatRegistry.Format fmt = FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()];
             appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
             appSettings.setNewFileDialogLastUsedType(fmt.format);
-
-            if (!titleFormat.isEmpty()) {
-                appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
-            }
 
             if (!file.exists() || file.length() <= GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
                 document.saveContent(activity, content.first, cu, true);
@@ -279,8 +248,7 @@ public class NewFileDialog extends DialogFragment {
 
         dialogBuilder.setNeutralButton(R.string.folder, (dialogInterface, i) -> {
 
-            final String titleFormat = titleFormatEdit.getText().toString().trim();
-            final String title = assembleTitle(titleFormat, titleEdit.getText());
+            final String title = getTitle.callback();
             final String dirName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title);
             final File f = new File(basedir, dirName);
 
@@ -323,24 +291,6 @@ public class NewFileDialog extends DialogFragment {
         }
     }
 
-    private String assembleTitle(final CharSequence rawFmt, final CharSequence rawName) {
-        String format = rawFmt.toString().trim();
-        final String name = rawName.toString().trim();
-
-        // Include title if not included
-        if (!name.isEmpty() && !format.contains("{{title}}")) {
-            format = format + (format.isEmpty() ? "" : "_") + "{{title}}";
-        }
-
-        final String formatted = TextViewUtils.interpolateSnippet(format, name, "").trim();
-
-        if (formatted.isEmpty()) {
-            return TextViewUtils.interpolateSnippet("`yyyyMMddHHmmss`", "", "");
-        }
-
-        return formatted;
-    }
-
     private Pair<String, Integer> getTemplateContent(final String template, final String name) {
         String text = TextViewUtils.interpolateSnippet(template, name, "");
 
@@ -351,5 +301,38 @@ public class NewFileDialog extends DialogFragment {
         text = text.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
 
         return Pair.create(text, startingIndex);
+    }
+
+    public static class ReselectSpinner extends androidx.appcompat.widget.AppCompatSpinner {
+
+        public ReselectSpinner(Context context) {
+            super(context);
+        }
+
+        public ReselectSpinner(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public ReselectSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        @Override
+        public void setSelection(int position, boolean animate) {
+            boolean sameSelected = position == getSelectedItemPosition();
+            super.setSelection(position, animate);
+            if (sameSelected) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            }
+        }
+
+        @Override
+        public void setSelection(int position) {
+            boolean sameSelected = position == getSelectedItemPosition();
+            super.setSelection(position);
+            if (sameSelected) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            }
+        }
     }
 }
