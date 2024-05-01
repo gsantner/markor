@@ -296,13 +296,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 return;
             }
 
-            final NewFileDialog dialog = NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, (ok, f) -> {
-                if (ok) {
-                    if (f.isFile()) {
-                        DocumentActivity.launch(MainActivity.this, f, false, null, null);
-                    } else if (f.isDirectory()) {
-                        _notebook.getAdapter().showFile(f);
-                    }
+            final NewFileDialog dialog = NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, f -> {
+                if (f.isFile()) {
+                    DocumentActivity.launch(MainActivity.this, f, false, null, null);
+                } else if (f.isDirectory()) {
+                    _notebook.getAdapter().showFile(f);
                 }
             });
             dialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);

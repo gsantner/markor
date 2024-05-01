@@ -1,0 +1,14 @@
+# this is a comment in csv file
+
+# below is the header
+number;text;finishing date
+
+# csv can contain markdown formatting
+1;Learn to use **Markor** formatting
+
+# use "..." if the column contains reserved chars
+2;"Use Delimitter chars like "";    :,";2019-06-24
+
+# use "..." if the column is multiline
+3;"multi
+   line";2059-12-24

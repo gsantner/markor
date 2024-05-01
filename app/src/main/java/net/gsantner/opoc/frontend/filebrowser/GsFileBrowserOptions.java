@@ -117,7 +117,7 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int titleTextColor = 0;
 
-        public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
+        public GsCallback.r0<Collection<File>> getFavouriteFiles, getRecentFiles, getPopularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
     }
 

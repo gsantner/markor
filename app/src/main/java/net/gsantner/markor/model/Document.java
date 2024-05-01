@@ -354,6 +354,7 @@ public class Document implements Serializable {
                         if (isContentResolverProxyFile) {
                             GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
                         }
+
                     } catch (Exception e) {
                         Log.i(Document.class.toString(), e.getMessage());
                     }

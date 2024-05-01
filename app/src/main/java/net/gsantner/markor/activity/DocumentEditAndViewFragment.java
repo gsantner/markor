@@ -285,7 +285,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onPause() {
         saveDocument(false);
         _webView.onPause();
-        _appSettings.addRecentDocument(_document.getFile());
+        _appSettings.addRecentFile(_document.getFile());
         _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
         super.onPause();

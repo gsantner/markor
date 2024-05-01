@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.markor.model.AppSettings;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -46,6 +47,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -87,6 +90,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final Map<File, Integer> _fileIdMap = new HashMap<>();
+    private Collection<File> _favouriteFiles, _recentFiles, _popularFiles;
 
     //########################
     //## Methods
@@ -156,8 +160,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final File descriptionFile = file.equals(_currentFolder.getParentFile()) ? file : fileParent;
         final boolean isGoUp = file.equals(_currentFolder.getParentFile());
         final boolean isSelected = _currentSelection.contains(file);
-        final boolean isFavourite = _dopt.favouriteFiles != null && _dopt.favouriteFiles.contains(file);
-        final boolean isPopular = _dopt.popularFiles != null && _dopt.popularFiles.contains(file);
+        final boolean isFavourite = _favouriteFiles != null && _favouriteFiles.contains(file);
+        final boolean isPopular = _popularFiles != null && _popularFiles.contains(file);
         final int descriptionRes = isSelected ? _dopt.contentDescriptionSelected : (file.isDirectory() ? _dopt.contentDescriptionFolder : _dopt.contentDescriptionFile);
         String titleText = filename;
         if (isCurrentFolderVirtual() && "index.html".equals(filename)) {
@@ -626,6 +630,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _virtualMapping.clear();
                 final List<File> newData = new ArrayList<>();
 
+                _recentFiles = _dopt.getRecentFiles != null ? _dopt.getRecentFiles.callback() : Collections.emptyList();
+                _popularFiles = _dopt.getPopularFiles != null ? _dopt.getPopularFiles.callback(): Collections.emptyList();
+                _favouriteFiles = _dopt.getFavouriteFiles != null ? _dopt.getFavouriteFiles.callback() : Collections.emptyList();
+
                 if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
                     // Scan for /storage/emulated/{0,1,2,..}
                     for (int i = 0; i < 10; i++) {
@@ -639,15 +647,15 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         }
                     }
 
-                    if (_dopt.recentFiles != null) {
+                    if (_dopt.getRecentFiles != null) {
                         _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
                         newData.add(VIRTUAL_STORAGE_RECENTS);
                     }
-                    if (_dopt.popularFiles != null) {
+                    if (_dopt.getPopularFiles != null) {
                         _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
                         newData.add(VIRTUAL_STORAGE_POPULAR);
                     }
-                    if (_dopt.favouriteFiles != null) {
+                    if (_dopt.getFavouriteFiles != null) {
                         _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
                         newData.add(VIRTUAL_STORAGE_FAVOURITE);
                     }
@@ -659,11 +667,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 } else if (_currentFolder.isDirectory()) {
                     GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
                 } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                    newData.addAll(_dopt.recentFiles);
+                    newData.addAll(_recentFiles);
                 } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-                    newData.addAll(_dopt.popularFiles);
+                    newData.addAll(_popularFiles);
                 } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
-                    GsCollectionUtils.addAll(newData, _dopt.favouriteFiles);
+                    newData.addAll(_favouriteFiles);
                 } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
                     newData.add(new File(folder, "0"));
                 } else if (folder.getAbsolutePath().equals("/")) {

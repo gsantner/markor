@@ -12,6 +12,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
@@ -41,6 +42,7 @@ import net.gsantner.markor.format.wikitext.WikitextActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextReplacePatternGenerator;
 import net.gsantner.markor.format.wikitext.WikitextSyntaxHighlighter;
 import net.gsantner.markor.format.wikitext.WikitextTextConverter;
+import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
@@ -72,6 +74,32 @@ public class FormatRegistry {
     public final static AsciidocTextConverter CONVERTER_ASCIIDOC = new AsciidocTextConverter();
     public final static EmbedBinaryTextConverter CONVERTER_EMBEDBINARY = new EmbedBinaryTextConverter();
     public final static OrgmodeTextConverter CONVERTER_ORGMODE = new OrgmodeTextConverter();
+
+
+
+    public static class Format {
+        public final @StringRes int format, name;
+        public final String ext;
+        public final TextConverterBase converter;
+
+        Format(int format, int name, String ext, final TextConverterBase converter) {
+            this.format = format;
+            this.name = name;
+            this.ext = ext;
+            this.converter = converter;
+        }
+    }
+
+    public static final Format[] FORMATS = new Format[] {
+            new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", CONVERTER_MARKDOWN),
+            new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_TODOTXT, R.string.todo_txt, ".todo.txt", CONVERTER_TODOTXT),
+            new Format(FormatRegistry.FORMAT_WIKITEXT, R.string.wikitext, ".txt", CONVERTER_WIKITEXT),
+            new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", CONVERTER_ASCIIDOC),
+            new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", CONVERTER_CSV),
+            new Format(FormatRegistry.FORMAT_ORGMODE, R.string.orgmode, ".org", CONVERTER_ORGMODE),
+            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null),
+    };
 
 
     // Order here is used to **determine** format by it's file extension and/or content heading

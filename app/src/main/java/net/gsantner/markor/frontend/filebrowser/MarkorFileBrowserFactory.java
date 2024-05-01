@@ -72,9 +72,9 @@ public class MarkorFileBrowserFactory {
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 
-        opts.recentFiles = appSettings.getAsFileList(appSettings.getRecentDocuments());
-        opts.popularFiles = appSettings.getAsFileList(appSettings.getPopularDocuments());
-        opts.favouriteFiles = appSettings.getFavouriteFiles();
+        opts.getRecentFiles = appSettings::getRecentFiles;
+        opts.getPopularFiles = appSettings::getPopularFiles;
+        opts.getFavouriteFiles = appSettings::getFavouriteFiles;
 
         opts.titleText = R.string.select;
 

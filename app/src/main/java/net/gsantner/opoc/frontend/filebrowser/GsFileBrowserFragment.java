@@ -236,7 +236,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         boolean selDirectoriesOnly = true;
         boolean selWritable = (!curFilepath.equals("/storage") && !curFilepath.equals("/storage/emulated"));
         boolean allSelectedFav = true;
-        final Collection<File> favFiles = _dopt.favouriteFiles != null ? _dopt.favouriteFiles : Collections.emptySet();
+        final Collection<File> favFiles = _appSettings.getFavouriteFiles();
         for (final File f : selFiles) {
             selTextFilesOnly &= FormatRegistry.isFileSupported(f, true);
             selWritable &= f.canWrite();
@@ -463,7 +463,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     final Set<File> favs = _appSettings.getFavouriteFiles();
                     favs.addAll(currentSelection);
                     _appSettings.setFavouriteFiles(favs);
-                    _dopt.favouriteFiles = favs;
                     updateMenuItems();
                 }
                 return true;
@@ -473,7 +472,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     final Set<File> favs = _appSettings.getFavouriteFiles();
                     favs.removeAll(currentSelection);
                     _appSettings.setFavouriteFiles(favs);
-                    _dopt.favouriteFiles = favs;
                     updateMenuItems();
                 }
                 return true;
