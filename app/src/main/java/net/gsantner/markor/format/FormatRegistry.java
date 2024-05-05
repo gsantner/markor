@@ -42,7 +42,6 @@ import net.gsantner.markor.format.wikitext.WikitextActionButtons;
 import net.gsantner.markor.format.wikitext.WikitextReplacePatternGenerator;
 import net.gsantner.markor.format.wikitext.WikitextSyntaxHighlighter;
 import net.gsantner.markor.format.wikitext.WikitextTextConverter;
-import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
