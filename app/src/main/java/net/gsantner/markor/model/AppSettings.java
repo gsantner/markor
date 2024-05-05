@@ -1022,6 +1022,43 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return map.get(format == 0 ? "" : _context.getString(format));
     }
 
+    public void setTemplateTitleFormat(final String templateName, final String titleFormat) {
+        final String js = getString(R.string.pref_key__template_title_format_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        map.put(templateName, titleFormat);
+        setString(R.string.pref_key__template_title_format_map, mapToJsonString(map));
+    }
+
+    public @Nullable String getTemplateTitleFormat(final String templateName) {
+        final String js = getString(R.string.pref_key__template_title_format_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        return map.get(templateName);
+    }
+
+    public Set<String> getTitleFormats() {
+        final String js = getString(R.string.pref_key__title_format_list, "[]");
+        final Set<String> formats = new LinkedHashSet<>(jsonStringToList(js));
+        formats.addAll(Arrays.asList(
+            "{{date}}_{{title}}",
+            "{{date}}T{{time}}_{{title}}",
+            "`yyyyMMddHHmmSS`_{{title}}",
+            "{{uuid}}"
+        ));
+        return formats;
+    }
+
+    public void saveTitleFormat(final String format, final int maxCount) {
+        final Set<String> formats = getTitleFormats();
+        final Set<String> updated = new LinkedHashSet<>(Collections.singleton(format));
+        for (final String f : formats) {
+            updated.add(f);
+            if (updated.size() >= maxCount) {
+                break;
+            }
+        }
+        setString(R.string.pref_key__title_format_list, toJsonString(updated));
+    }
+
     private static String mapToJsonString(final Map<String, String> map) {
         return new JSONObject(map).toString();
     }

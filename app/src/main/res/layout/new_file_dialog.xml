@@ -40,7 +40,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
+            android:layout_marginTop="-5dp"
             android:orientation="horizontal"
             android:weightSum="100">
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="70"
-                android:hint="{{date}}"
+                android:hint="@string/title"
                 android:importantForAutofill="no"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -63,8 +63,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_weight="30"
                 android:gravity="end"
                 android:hint=".md"
@@ -76,6 +76,53 @@
                 tools:ignore="HardcodedText"
                 tools:text=".md" />
         </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/format"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <EditText
+                android:id="@+id/new_file_dialog__name_format"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="{{title}}"
+                android:importantForAutofill="no"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="15sp"
+                tools:ignore="HardcodedText,TextFields"/>
+
+            <TextView
+                android:id="@+id/new_file_dialog__name_format_spinner"
+                style="@style/Base.Widget.AppCompat.Spinner"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="-16dp"
+                android:layout_marginEnd="-16dp"
+                android:contentDescription="@string/choose_format"
+                android:inputType="none" />
+
+        </RelativeLayout>
 
 
         <TextView

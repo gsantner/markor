@@ -20,15 +20,19 @@ import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListPopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.DialogFragment;
@@ -105,6 +109,8 @@ public class NewFileDialog extends DialogFragment {
         final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
+        final EditText formatEdit = root.findViewById(R.id.new_file_dialog__name_format);
+        final TextView formatSpinner = root.findViewById(R.id.new_file_dialog__name_format_spinner);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appSettings.isDefaultPasswordSet()) {
             encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
@@ -121,6 +127,23 @@ public class NewFileDialog extends DialogFragment {
         titleEdit.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
         extEdit.setFilters(titleEdit.getFilters());
 
+        // Setup title format spinner and actions
+        // -----------------------------------------------------------------------------------------
+        final ArrayAdapter<String> formatAdapter = new ArrayAdapter<>(
+                activity, android.R.layout.simple_spinner_dropdown_item);
+
+        formatAdapter.add("");
+        formatAdapter.addAll(appSettings.getTitleFormats());
+
+        final ListPopupWindow formatPopup = new ListPopupWindow(activity);
+        formatPopup.setAdapter(formatAdapter);
+        formatPopup.setAnchorView(formatEdit);
+        formatPopup.setOnItemClickListener((parent, view, position, id) -> {
+            formatEdit.setText(formatAdapter.getItem(position));
+            formatPopup.dismiss();
+        });
+
+        formatSpinner.setOnClickListener(v -> formatPopup.show());
 
         // Setup template spinner and action
         // -----------------------------------------------------------------------------------------
@@ -157,13 +180,6 @@ public class NewFileDialog extends DialogFragment {
 
         typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(typeCallback));
 
-        // TODO - make it so re-clicking works
-        // // We set on clicked for each loop so that re-clicking triggers again
-        // for (final int pos : GsCollectionUtils.range(typeSpinner.getCount())) {
-        //     typeSpinner.getChildAt(pos).setOnClickListener(v -> typeCallback.callback(pos));
-        // }
-
-
         // Setup other checkboxes etc
         // -----------------------------------------------------------------------------------------
         encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -188,9 +204,18 @@ public class NewFileDialog extends DialogFragment {
         // -----------------------------------------------------------------------------------------
 
         final GsCallback.s0 getTitle = () -> {
-                String title = titleEdit.getText().toString().trim();
-                title = title.isEmpty() ? titleEdit.getHint().toString() : title;
-                return TextViewUtils.interpolateSnippet(title, "", "").trim();
+                final String title = titleEdit.getText().toString().trim();
+
+                String format = formatEdit.getText().toString().trim();
+                if (format.isEmpty() && title.isEmpty()) {
+                    format = "`yyyy-MM-dd'T'hhMMss`";
+                } else if (format.isEmpty()) {
+                    format = "{{title}}";
+                } else if (!title.isEmpty() && !format.contains("{{title}}")) {
+                    format += "_{{title}}";
+                }
+
+                return TextViewUtils.interpolateSnippet(format, title, "").trim();
         };
 
 
@@ -223,9 +248,15 @@ public class NewFileDialog extends DialogFragment {
             final Document document = new Document(file);
 
             // These are done even if the file doesn
+            final String titleFormat = formatEdit.getText().toString().trim();
+            appSettings.setTemplateTitleFormat(templateAdapter.getItem(ti), titleFormat);
             final FormatRegistry.Format fmt = FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()];
             appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
             appSettings.setNewFileDialogLastUsedType(fmt.format);
+
+            if (!titleFormat.isEmpty()) {
+                appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
+            }
 
             if (!file.exists() || file.length() <= GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
                 document.saveContent(activity, content.first, cu, true);
@@ -251,6 +282,11 @@ public class NewFileDialog extends DialogFragment {
             final String title = getTitle.callback();
             final String dirName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title);
             final File f = new File(basedir, dirName);
+
+            final String titleFormat = formatEdit.getText().toString().trim();
+            if (!titleFormat.isEmpty()) {
+                appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
+            }
 
             if (cu.isUnderStorageAccessFolder(getContext(), f, true)) {
                 DocumentFile dof = cu.getDocumentFile(getContext(), f, true);
