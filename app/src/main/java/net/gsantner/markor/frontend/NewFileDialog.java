@@ -325,6 +325,10 @@ public class NewFileDialog extends DialogFragment {
         }
     }
 
+    public void setCallback(final GsCallback.a1<File> callback) {
+        this.callback = callback;
+    }
+
     private Pair<String, Integer> getTemplateContent(final String template, final String name) {
         String text = TextViewUtils.interpolateSnippet(template, name, "");
 

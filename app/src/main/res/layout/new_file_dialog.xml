@@ -57,7 +57,6 @@
                 android:textSize="15sp"
                 tools:ignore="HardcodedText,TextFields"/>
 
-
             <EditText
                 android:id="@+id/new_file_dialog__ext"
                 android:layout_width="0dp"
@@ -129,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/type"
@@ -145,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:lines="1"
             android:text="@string/template"
@@ -168,14 +167,14 @@
             android:id="@+id/new_file_dialog__utf8_bom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/utf8_with_bom" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="@string/folder_is_created_without_extension" />
 
         <TextView

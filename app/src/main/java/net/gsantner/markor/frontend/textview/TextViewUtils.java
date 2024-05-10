@@ -425,7 +425,7 @@ public final class TextViewUtils {
 
         if (inRange(0, edit.length(), start, end)) {
             edit.post(() -> {
-                if (!edit.hasFocus()) {
+                if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
                     edit.requestFocus();
                 }
 
