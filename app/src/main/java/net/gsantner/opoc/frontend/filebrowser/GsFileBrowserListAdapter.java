@@ -556,7 +556,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         });
     }
 
-                              // Switch to folder and show the file
+    // Switch to folder and show the file
     public void showFile(final File file) {
         if (file == null || !file.exists() || _recyclerView == null) {
             return;

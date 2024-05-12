@@ -16,7 +16,6 @@ import com.github.appintro.AppIntroFragment;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 
 public class IntroActivity extends AppIntro {
