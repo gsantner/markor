@@ -55,6 +55,7 @@ import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.markor.util.JSFileInterface;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.markor.web.MarkorWebViewClient;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
@@ -150,7 +151,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             WebView.enableSlowWholeDocumentDraw();
         }
 
-        _webViewClient = new MarkorWebViewClient(_webView, activity);
+        _webViewClient = new MarkorWebViewClient(_webView, activity)
+                .setJsFileInterface(new JSFileInterface(_document.getFile().getParentFile()));
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");

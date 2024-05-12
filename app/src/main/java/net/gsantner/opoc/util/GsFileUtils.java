@@ -231,7 +231,7 @@ public class GsFileUtils {
         return baos.toByteArray();
     }
 
-    public static boolean writeFile(final File file, final byte[] data, final FileInfo options) {
+    public static boolean writeFile(final File file, final byte[] data, final @Nullable FileInfo options) {
         try (final FileOutputStream output = new FileOutputStream(file, false)) {
             if (options != null && options.hasBom) {
                 output.write(0xEF);
@@ -247,7 +247,7 @@ public class GsFileUtils {
         }
     }
 
-    public static boolean writeFile(final File file, final String data, final FileInfo options) {
+    public static boolean writeFile(final File file, final String data, final @Nullable FileInfo options) {
         return writeFile(file, data.getBytes(), options);
     }
 
