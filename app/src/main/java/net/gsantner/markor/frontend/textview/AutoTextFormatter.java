@@ -30,7 +30,7 @@ public class AutoTextFormatter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
+            if (start < source.length() && dstart <= dest.length() && GsTextUtils.isNewLine(source, start, end)) {
                 return autoIndent(source, dest, dstart, dend);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -277,7 +277,7 @@ public class AutoTextFormatter implements InputFilter {
     public static void renumberOrderedList(final Editable edit, final FormatPatterns patterns) {
 
         final int[] sel = TextViewUtils.getSelection(edit);
-        if (!TextViewUtils.inRange(0, edit.length(), sel)) {
+        if (!GsTextUtils.inRange(0, edit.length(), sel)) {
             return;
         }
 
@@ -351,7 +351,7 @@ public class AutoTextFormatter implements InputFilter {
             chunked.applyChanges();
 
             final int[] newSel = new int[]{sel[0] + shifts[0], sel[1] + shifts[1]};
-            if (TextViewUtils.inRange(0, edit.length(), newSel)) {
+            if (GsTextUtils.inRange(0, edit.length(), newSel)) {
                 Selection.setSelection(edit, newSel[0], newSel[1]);
             }
 

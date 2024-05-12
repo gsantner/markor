@@ -22,6 +22,8 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {
@@ -117,8 +119,10 @@ public class GsFileBrowserOptions {
         @ColorRes
         public int titleTextColor = 0;
 
-        public GsCallback.r0<Collection<File>> getFavouriteFiles, getRecentFiles, getPopularFiles = null;
+        public Collection<File> favouriteFiles, recentFiles, popularFiles = null;
         public GsCallback.a1<CharSequence> setTitle = null, setSubtitle = null;
+
+        public GsCallback.a0 refresh = null;
     }
 
     public static class SelectionListenerAdapter implements SelectionListener, Serializable {

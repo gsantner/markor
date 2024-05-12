@@ -502,7 +502,7 @@ public abstract class ActionButtonBase {
             final int selStartStart = TextViewUtils.getLineStart(text, selStart);
 
             // Number of lines we will be modifying
-            final int lineCount = TextViewUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
+            final int lineCount = GsTextUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
             int lineStart = selStartStart;
 
 

@@ -10,6 +10,7 @@
 package net.gsantner.opoc.format;
 
 import android.util.Base64;
+import android.widget.EditText;
 
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -364,5 +365,76 @@ public class GsTextUtils {
             start = end + 1;
         }
         callback.callback(i, start, text.length());
+    }
+
+
+    public static int[] countChars(final CharSequence s, final char... chars) {
+        return countChars(s, 0, s.length(), chars);
+    }
+
+    /**
+     * Count instances of chars between start and end
+     *
+     * @param s     Sequence to count in
+     * @param start start of section to count within
+     * @param end   end of section to count within
+     * @param chars Array of chars to count
+     * @return number of instances of each char in [start, end)
+     */
+    public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
+        // Faster specialization for the common single case
+        if (chars.length == 1) {
+            return new int[]{countChar(s, start, end, chars[0])};
+        }
+
+        final int[] counts = new int[chars.length];
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        for (int i = start; i < end; i++) {
+            final char c = s.charAt(i);
+            for (int j = 0; j < chars.length; j++) {
+                if (c == chars[j]) {
+                    counts[j]++;
+                }
+            }
+        }
+        return counts;
+    }
+
+    public static int countChar(final CharSequence s, final char c) {
+        return countChar(s, 0, s.length(), c);
+    }
+
+    /**
+     * Count instances of a single char in a charsequence
+     */
+    public static int countChar(final CharSequence s, int start, int end, final char c) {
+        start = Math.max(0, start);
+        end = Math.min(end, s.length());
+        int count = 0;
+        for (int i = start; i < end; i++) {
+            if (s.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean isNewLine(CharSequence source, int start, int end) {
+        return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
+    }
+
+    public static boolean isValidIndex(final CharSequence s, final int... indices) {
+        return s != null && inRange(0, s.length() - 1, indices);
+    }
+
+    // Checks if all values are in [min, max] _inclusive_
+    public static boolean inRange(final int min, final int max, final int... values) {
+        for (final int i : values) {
+            if (i < min || i > max) {
+                return false;
+            }
+        }
+        return true;
     }
 }
