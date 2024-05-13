@@ -446,14 +446,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_favourite: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    _appSettings.setFavouriteFiles(GsCollectionUtils.union(_dopt.favouriteFiles, currentSelection));
+                    _dopt.favouriteFiles = GsCollectionUtils.union(_dopt.favouriteFiles, currentSelection);
+                    _appSettings.setFavouriteFiles(_dopt.favouriteFiles);
                     updateMenuItems();
                 }
                 return true;
             }
             case R.id.action_favourite_remove: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    _appSettings.setFavouriteFiles(GsCollectionUtils.setDiff(_dopt.favouriteFiles, currentSelection));
+                    _dopt.favouriteFiles = GsCollectionUtils.setDiff(_dopt.favouriteFiles, currentSelection);
+                    _appSettings.setFavouriteFiles(_dopt.favouriteFiles);
                     updateMenuItems();
                 }
                 return true;
