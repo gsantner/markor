@@ -38,12 +38,12 @@ public class MarkorWebViewClient extends GsWebViewClient {
     public MarkorWebViewClient setJsFileInterface(final JSFileInterface jsFileInterface) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             _jsFileInterface = jsFileInterface;
-            final String name = _jsFileInterface.getClass().getSimpleName();
-            _webView.removeJavascriptInterface(name);
-            _webView.addJavascriptInterface(_jsFileInterface, name);
+            _webView.removeJavascriptInterface(_jsFileInterface.getInterfaceName());
+            _webView.addJavascriptInterface(_jsFileInterface, _jsFileInterface.getInterfaceName());
         }
         return this;
     }
+
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {

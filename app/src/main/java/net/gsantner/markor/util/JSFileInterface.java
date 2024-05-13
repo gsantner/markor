@@ -6,14 +6,13 @@ import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class JSFileInterface {
+    public static final String INTERFACE_NAME = "Markor";
 
     private final File root;
     private boolean _enabled = true;
+
 
     public JSFileInterface(final File root) {
         this.root = root;
@@ -22,6 +21,10 @@ public class JSFileInterface {
     public JSFileInterface setEnabled(boolean enabled) {
         _enabled = enabled;
         return this;
+    }
+
+    public String getInterfaceName() {
+        return INTERFACE_NAME;
     }
 
     private File toFile(final String... path) {
@@ -33,24 +36,44 @@ public class JSFileInterface {
         }
         return file;
     }
-
-    // Method to get the list of files in a directory
     @JavascriptInterface
-    public List<String> listFiles(final String path) {
+    public int getChildCount(final String path) {
         if (!_enabled) {
-            return Collections.emptyList();
+            return 0;
         }
 
-        final File directory = toFile(path);
-        final List<String> fileList = new ArrayList<>();
-        final File[] files = directory.listFiles();
+        final File[] files = toFile().listFiles();
+        return files == null ? 0 : files.length;
+    }
+
+    @JavascriptInterface
+    public String getChildAt(final String path, final int index) {
+        if (!_enabled) {
+            return null;
+        }
+
+        final File[] files = toFile(path).listFiles();
+        if (files != null && index >= 0 && index < files.length) {
+            return files[index].getName();
+        }
+        return null;
+    }
+
+    @JavascriptInterface
+    public boolean isChild(final String path, final String child) {
+        if (!_enabled) {
+            return false;
+        }
+
+        final File[] files = toFile(path).listFiles();
         if (files != null) {
-            for (File file : files) {
-                // Add file name to the list
-                fileList.add(file.getName());
+            for (final File f : files) {
+                if (f.getName().equals(child)) {
+                    return true;
+                }
             }
         }
-        return fileList;
+        return false;
     }
 
     // Method to get the parent directory
