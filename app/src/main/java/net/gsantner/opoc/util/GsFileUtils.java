@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.opoc.format.GsTextUtils;
