@@ -207,9 +207,15 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         private static Pair<String, File> getLinePath(final CharSequence line) {
-            final String trimmed = line.toString().trim().replace("%20", " ");
-            final File file = new File(trimmed);
-            return file.exists() ? Pair.create(trimmed, file) : null;
+            final String trimmed = line.toString().trim();
+            final int si = trimmed.lastIndexOf(" ");
+            final String path = si == -1 ? trimmed : trimmed.substring(si + 1);
+            final File file = new File(path);
+            if (file.exists()) {
+                final String title = si == -1 ? file.getName() : trimmed.substring(0, si);
+                return Pair.create(title, file);
+            }
+            return null;
         }
 
         // Title and link or null
@@ -304,15 +310,15 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                     final String lineText = text.subSequence(start, end).toString().trim();
 
                     final String title, path;
-                    final Pair<String, File> pathLine = getLinePath(lineText);
-                    if (pathLine != null) {
-                        title = pathLine.first;
-                        path = GsFileUtils.relativePath(src, pathLine.second);
+                    final Pair<String, File> linePath = getLinePath(lineText);
+                    if (linePath != null) {
+                        title = linePath.first;
+                        path = GsFileUtils.relativePath(src, linePath.second);
                     } else {
-                        final Pair<String, String> linkLine = getLineLink(lineText);
-                        if (linkLine != null) {
-                            title = linkLine.first;
-                            path = linkLine.second;
+                        final Pair<String, String> lineLink = getLineLink(lineText);
+                        if (lineLink != null) {
+                            title = lineLink.first;
+                            path = lineLink.second;
                         } else {
                             title = lineText;
                             path = null;
