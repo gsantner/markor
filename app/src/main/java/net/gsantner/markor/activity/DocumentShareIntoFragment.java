@@ -206,18 +206,20 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
         }
 
-        private static boolean isLinePath(final CharSequence line) {
-            return new File(line.toString().replace("%20", " ")).exists();
+        private static Pair<String, File> getLinePath(final CharSequence line) {
+            final String trimmed = line.toString().trim().replace("%20", " ");
+            final File file = new File(trimmed);
+            return file.exists() ? Pair.create(trimmed, file) : null;
         }
 
         // Title and link or null
         private static Pair<String, String> getLineLink(final CharSequence line) {
             final String trimmed = line.toString().trim();
-            final int lastSpace = trimmed.lastIndexOf(" ");
-            final String linkPath = lastSpace == -1 ? trimmed : trimmed.substring(lastSpace + 1);
-            if (Patterns.WEB_URL.matcher(linkPath).matches()) {
-                final String linkText = lastSpace == -1 ? null : trimmed.substring(0, lastSpace);
-                return Pair.create(linkText, linkPath);
+            final int si = trimmed.lastIndexOf(" ");
+            final String path = si == -1 ? trimmed : trimmed.substring(si + 1);
+            if (Patterns.WEB_URL.matcher(path).matches()) {
+                final String title = si == -1 ? getLinkTitle(path) : trimmed.substring(0, si);
+                return Pair.create(title, path);
             }
             return null;
         }
@@ -227,7 +229,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
             GsTextUtils.forEachline(text, (li, start, end) -> {
                 final CharSequence line = text.subSequence(start, end);
-                if (isLinePath(line) || getLineLink(line) != null) {
+                if (getLinePath(line) != null || getLineLink(line) != null) {
                     hasLinks[0] = true;
                     return false;
                 }
@@ -295,22 +297,26 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             String formatted = text;
             if (asLink) {
 
+                // Go over every line in the text replacing them with formatted links if appropriate
                 final StringBuilder sb = new StringBuilder();
                 GsTextUtils.forEachline(text, (line, start, end) -> {
+
                     final String lineText = text.subSequence(start, end).toString().trim();
 
-                    final Pair<String, String> link = getLineLink(lineText);
-
                     final String title, path;
-                    if (link == null && isLinePath(lineText)) {
-                        title = new File(lineText.replace("%20", " ")).getName();
-                        path = lineText;
-                    } else if (link != null) {
-                        title = TextUtils.isEmpty(link.first) ? getLinkTitle(link.second) : link.first;
-                        path = link.second;
+                    final Pair<String, File> pathLine = getLinePath(lineText);
+                    if (pathLine != null) {
+                        title = pathLine.first;
+                        path = GsFileUtils.relativePath(src, pathLine.second);
                     } else {
-                        title = lineText;
-                        path = null;
+                        final Pair<String, String> linkLine = getLineLink(lineText);
+                        if (linkLine != null) {
+                            title = linkLine.first;
+                            path = linkLine.second;
+                        } else {
+                            title = lineText;
+                            path = null;
+                        }
                     }
 
                     if (path != null) {
@@ -319,6 +325,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                         sb.append(lineText);
                     }
                     sb.append("\n");
+
                     return true;
                 });
 
