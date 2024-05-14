@@ -170,10 +170,10 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             if (_editor != null) {
                 final CheckBoxPreference asLinkPref = (CheckBoxPreference) findPreference(R.string.pref_key__attach_as_link);
                 if (asLinkPref != null) {
-                    asLinkPref.setVisible(!findLinksAndPaths(_editor.getText()).isEmpty());
+                    asLinkPref.setVisible(hasLinks(_editor.getText()));
                     asLinkPref.setChecked(true);
                     _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
-                            asLinkPref.setVisible(!findLinksAndPaths(ctext).isEmpty())));
+                            asLinkPref.setVisible(hasLinks(ctext))));
                 }
             }
         }
@@ -206,9 +206,40 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
         }
 
+        private static boolean isLinePath(final CharSequence line) {
+            return new File(line.toString().replace("%20", " ")).exists();
+        }
+
+        // Title and link or null
+        private static Pair<String, String> getLineLink(final CharSequence line) {
+            final String trimmed = line.toString().trim();
+            final int lastSpace = trimmed.lastIndexOf(" ");
+            final String linkPath = lastSpace == -1 ? trimmed : trimmed.substring(lastSpace + 1);
+            if (Patterns.WEB_URL.matcher(linkPath).matches()) {
+                final String linkText = lastSpace == -1 ? null : trimmed.substring(0, lastSpace);
+                return Pair.create(linkText, linkPath);
+            }
+            return null;
+        }
+
+        private static boolean hasLinks(final CharSequence text) {
+            final boolean[] hasLinks = {false};
+
+            GsTextUtils.forEachline(text, (li, start, end) -> {
+                final CharSequence line = text.subSequence(start, end);
+                if (isLinePath(line) || getLineLink(line) != null) {
+                    hasLinks[0] = true;
+                    return false;
+                }
+                return true;
+            });
+
+            return hasLinks[0];
+        }
+
         /**
          * Iterates over each line of the text and checks if it is a path or link
-         * The whole line has to be a path or link to match.
+         * The whole line has to be a path or the line must end with a link to match.
          *
          * @param text Text to parse
          * @return List of pairs.
@@ -263,24 +294,33 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             final String text = _editor.getText().toString();
             String formatted = text;
             if (asLink) {
-                final StringBuilder sb = new StringBuilder(text);
-                // Replace all links
-                final List<Pair<int[], Boolean>> links = findLinksAndPaths(sb);
-                Collections.reverse(links);
-                for (final Pair<int[], Boolean> link : links) {
-                    final String linkText = text.substring(link.first[0], link.first[1]);
-                    final String title, linkPath;
-                    if (link.second) {
-                        final File file = new File(linkText.replace("%20", " "));
-                        title = file.getName();
-                        linkPath = GsFileUtils.relativePath(src, file);
+
+                final StringBuilder sb = new StringBuilder();
+                GsTextUtils.forEachline(text, (line, start, end) -> {
+                    final String lineText = text.subSequence(start, end).toString().trim();
+
+                    final Pair<String, String> link = getLineLink(lineText);
+
+                    final String title, path;
+                    if (link == null && isLinePath(lineText)) {
+                        title = new File(lineText.replace("%20", " ")).getName();
+                        path = lineText;
+                    } else if (link != null) {
+                        title = TextUtils.isEmpty(link.first) ? getLinkTitle(link.second) : link.first;
+                        path = link.second;
                     } else {
-                        title = getLinkTitle(linkText);
-                        linkPath = linkText;
+                        title = lineText;
+                        path = null;
                     }
-                    final String fmtLine = AttachLinkOrFileDialog.formatLink(title, linkPath, format);
-                    sb.replace(link.first[0], link.first[1], fmtLine);
-                }
+
+                    if (path != null) {
+                        sb.append(AttachLinkOrFileDialog.formatLink(title, path, format));
+                    } else {
+                        sb.append(lineText);
+                    }
+                    sb.append("\n");
+                    return true;
+                });
 
                 formatted = sb.toString();
             }
@@ -486,11 +526,18 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private static String extractShareText(final Intent intent) {
+        String title = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (title != null) {
+            title = title.trim() + " ";
+        }
+
         String link = intent.getStringExtra(Intent.EXTRA_TEXT);
         link = link != null ? link.trim() : "";
+
         if (Patterns.WEB_URL.matcher(link).matches()) {
-            link = sanitize(link);
+            link = (title != null? title : "") + sanitize(link);
         }
+
         return link;
     }
 }
