@@ -89,6 +89,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final Map<File, Integer> _fileIdMap = new HashMap<>();
+    private GsCallback.a0 _blinkCallback;
 
     //########################
     //## Methods
@@ -598,7 +599,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    GsContextUtils.blinkView(holder.itemView);
+                    _blinkCallback = GsContextUtils.blinkView(holder.itemView);
                 }
             }, 250);
         }
@@ -619,7 +620,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
 
+    // Stop blinking if we are currently blinking
+    private void stopBlinking() {
+        if (_blinkCallback != null) {
+            _blinkCallback.callback();
+            _blinkCallback = null;
+        }
+    }
+
     private void loadFolder(final File folder) {
+        stopBlinking();
         executorService.execute(() -> {
             synchronized (LOAD_FOLDER_SYNC_OBJECT) {
 

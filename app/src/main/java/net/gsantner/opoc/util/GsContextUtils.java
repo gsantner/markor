@@ -2880,10 +2880,38 @@ public class GsContextUtils {
         return false;
     }
 
-    public static void blinkView(final View view) {
-        if (view != null) {
-            ObjectAnimator.ofFloat(view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f).setDuration(800).start();
+    /**
+     * Blinks the view passed in as parameter
+     * @param view View to be blinked
+     * @return A callback to terminate the blinking
+     */
+    public static @Nullable GsCallback.a0 blinkView(final View view) {
+
+        if (view == null) {
+            return null;
         }
+
+        final ObjectAnimator animator = ObjectAnimator.ofFloat(
+                view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
+                .setDuration(800);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setAlpha(1.0f);
+            }
+        });
+
+        final WeakReference<ObjectAnimator> animatorRef = new WeakReference<>(animator);
+        final GsCallback.a0 terminateCallback = () -> {
+            final ObjectAnimator a = animatorRef.get();
+            if (a != null) {
+                a.cancel();
+            }
+        };
+
+        animator.start();
+
+        return terminateCallback;
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
