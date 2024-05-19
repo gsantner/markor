@@ -353,6 +353,12 @@ public class GsTextUtils {
         return posns;
     }
 
+    /**
+     * Iterate over lines in a text
+     *
+     * @param text     Text to iterate over
+     * @param callback Callback to call for each line. Return false to stop iteration.
+     */
     public static void forEachline(final CharSequence text, GsCallback.b3<Integer, Integer, Integer> callback) {
         final List<Integer> ends = findChar(text, '\n');
         int start = 0, i = 0;
