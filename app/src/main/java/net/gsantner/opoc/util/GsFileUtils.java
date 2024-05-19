@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import net.gsantner.opoc.format.GsTextUtils;
@@ -79,14 +80,15 @@ public class GsFileUtils {
         public boolean ioError = false;
     }
 
-    public static Pair<String, FileInfo> readTextFileFast(final File file) {
-        final FileInfo info = new FileInfo();
+    public static Pair<String, FileInfo> readInputStreamFast(final InputStream inputStream, @Nullable FileInfo info) {
+        info = info == null ? new FileInfo() : info;
 
-        try (final FileInputStream inputStream = new FileInputStream(file)) {
+        try {
             final ByteArrayOutputStream result = new ByteArrayOutputStream();
 
             final byte[] bomBuffer = new byte[3];
             final int bomReadLength = inputStream.read(bomBuffer);
+
             info.hasBom = bomReadLength == 3 &&
                     bomBuffer[0] == (byte) 0xEF &&
                     bomBuffer[1] == (byte) 0xBB &&
@@ -104,6 +106,19 @@ public class GsFileUtils {
                 result.write(buffer, 0, length);
             }
             return new Pair<>(result.toString("UTF-8"), info);
+        } catch (IOException e) {
+            e.printStackTrace();
+            info.ioError = true;
+        }
+
+        return new Pair<>("", info);
+    }
+
+    public static Pair<String, FileInfo> readTextFileFast(final File file) {
+        final FileInfo info = new FileInfo();
+
+        try (final FileInputStream inputStream = new FileInputStream(file)) {
+            return readInputStreamFast(inputStream, info);
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {

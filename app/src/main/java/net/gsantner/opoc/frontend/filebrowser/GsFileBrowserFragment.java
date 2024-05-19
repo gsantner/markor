@@ -49,6 +49,7 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
@@ -86,7 +87,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private GsFileBrowserListAdapter _filesystemViewerAdapter;
     private GsFileBrowserOptions.Options _dopt;
     private GsFileBrowserOptions.SelectionListener _callback;
-    private boolean firstResume = true;
     private AppSettings _appSettings;
     private Menu _fragmentMenu;
     private MarkorContextUtils _cu;
@@ -120,7 +120,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
         _recyclerList.addItemDecoration(dividerItemDecoration);
-        _previousNotebookDirectory = _appSettings.getNotebookDirectory();
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, context);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
@@ -311,24 +310,12 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         _filesystemViewerAdapter.restoreSavedInstanceState(savedInstanceState);
     }
 
-    private static File _previousNotebookDirectory;
-
     @Override
     public void onResume() {
         super.onResume();
-        if (!_appSettings.getNotebookDirectory().equals(_previousNotebookDirectory)) {
-            _dopt.rootFolder = _appSettings.getNotebookDirectory();
-            _filesystemViewerAdapter.setCurrentFolder(_dopt.rootFolder);
+        if (_dopt.refresh != null) {
+            _dopt.refresh.callback();
         }
-
-        if (!firstResume) {
-            if (_filesystemViewerAdapter.getCurrentFolder() != null) {
-                _filesystemViewerAdapter.reloadCurrentFolder();
-            }
-        }
-
-        onFsViewerDoUiUpdate(_filesystemViewerAdapter);
-        firstResume = false;
 
         final File folder = getCurrentFolder();
         final Activity activity = getActivity();
@@ -337,7 +324,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             reloadCurrentFolder();
         }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -397,31 +383,31 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_sort_by_name: {
                 item.setChecked(true);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_NAME);
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_date: {
                 item.setChecked(true);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MTIME);
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_filesize: {
                 item.setChecked(true);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_FILESIZE);
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_by_mimetype: {
                 item.setChecked(true);
                 _dopt.sortByType = _appSettings.setFileBrowserSortByType(GsFileUtils.SORT_BY_MIMETYPE);
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_sort_reverse: {
                 item.setChecked(!item.isChecked());
                 _dopt.sortReverse = _appSettings.setFileBrowserSortReverse(item.isChecked());
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_show_dotfiles: {
@@ -441,7 +427,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             case R.id.action_folder_first: {
                 item.setChecked(!item.isChecked());
                 _dopt.sortFolderFirst = _appSettings.setFileBrowserSortFolderFirst(item.isChecked());
-                sortAdapter();
+                reloadCurrentFolder();
                 return true;
             }
             case R.id.action_go_to_home:
@@ -460,20 +446,16 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
             }
             case R.id.action_favourite: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    final Set<File> favs = _appSettings.getFavouriteFiles();
-                    favs.addAll(currentSelection);
-                    _appSettings.setFavouriteFiles(favs);
-                    _dopt.favouriteFiles = favs;
+                    _dopt.favouriteFiles = GsCollectionUtils.union(_dopt.favouriteFiles, currentSelection);
+                    _appSettings.setFavouriteFiles(_dopt.favouriteFiles);
                     updateMenuItems();
                 }
                 return true;
             }
             case R.id.action_favourite_remove: {
                 if (_filesystemViewerAdapter.areItemsSelected()) {
-                    final Set<File> favs = _appSettings.getFavouriteFiles();
-                    favs.removeAll(currentSelection);
-                    _appSettings.setFavouriteFiles(favs);
-                    _dopt.favouriteFiles = favs;
+                    _dopt.favouriteFiles = GsCollectionUtils.setDiff(_dopt.favouriteFiles, currentSelection);
+                    _appSettings.setFavouriteFiles(_dopt.favouriteFiles);
                     updateMenuItems();
                 }
                 return true;
@@ -555,10 +537,6 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                 _filesystemViewerAdapter.showFile(load);
             }
         });
-    }
-
-    public void sortAdapter() {
-        reloadCurrentFolder();
     }
 
     public void clearSelection() {

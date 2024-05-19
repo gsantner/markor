@@ -9,12 +9,14 @@
 package net.gsantner.markor.frontend;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
-import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,10 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListPopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -32,27 +37,21 @@ import androidx.fragment.app.DialogFragment;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.todotxt.TodoTxtTask;
-import net.gsantner.markor.format.wikitext.WikitextActionButtons;
+import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
@@ -60,9 +59,16 @@ public class NewFileDialog extends DialogFragment {
     public static final String FRAGMENT_TAG = NewFileDialog.class.getName();
     public static final String EXTRA_DIR = "EXTRA_DIR";
     public static final String EXTRA_ALLOW_CREATE_DIR = "EXTRA_ALLOW_CREATE_DIR";
-    private GsCallback.a2<Boolean, File> callback;
 
-    public static NewFileDialog newInstance(final File sourceFile, final boolean allowCreateDir, final GsCallback.a2<Boolean, File> callback) {
+    public static final int MAX_TITLE_FORMATS = 10;
+
+    private GsCallback.a1<File> callback;
+
+    public static NewFileDialog newInstance(
+            final File sourceFile,
+            final boolean allowCreateDir,
+            final GsCallback.a1<File> callback
+    ) {
         NewFileDialog dialog = new NewFileDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_DIR, sourceFile);
@@ -90,79 +96,98 @@ public class NewFileDialog extends DialogFragment {
 
     @SuppressLint("SetTextI18n")
     private AlertDialog.Builder makeDialog(final File basedir, final boolean allowCreateDir, LayoutInflater inflater) {
-        View root;
-        AlertDialog.Builder dialogBuilder;
+        final Activity activity = getActivity();
         final AppSettings appSettings = ApplicationObject.settings();
-        dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
-        root = inflater.inflate(R.layout.new_file_dialog, null);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(inflater.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+        final View root = inflater.inflate(R.layout.new_file_dialog, null);
 
-        final EditText fileNameEdit = root.findViewById(R.id.new_file_dialog__name);
-        final EditText fileExtEdit = root.findViewById(R.id.new_file_dialog__ext);
+        final EditText titleEdit = root.findViewById(R.id.new_file_dialog__name);
+        final EditText extEdit = root.findViewById(R.id.new_file_dialog__ext);
         final CheckBox encryptCheckbox = root.findViewById(R.id.new_file_dialog__encrypt);
         final CheckBox utf8BomCheckbox = root.findViewById(R.id.new_file_dialog__utf8_bom);
         final Spinner typeSpinner = root.findViewById(R.id.new_file_dialog__type);
         final Spinner templateSpinner = root.findViewById(R.id.new_file_dialog__template);
-        final String[] typeSpinnerToExtension = getResources().getStringArray(R.array.new_file_types__file_extension);
+        final EditText formatEdit = root.findViewById(R.id.new_file_dialog__name_format);
+        final TextView formatSpinner = root.findViewById(R.id.new_file_dialog__name_format_spinner);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && appSettings.isDefaultPasswordSet()) {
             encryptCheckbox.setChecked(appSettings.getNewFileDialogLastUsedEncryption());
         } else {
             encryptCheckbox.setVisibility(View.GONE);
         }
+
         utf8BomCheckbox.setChecked(appSettings.getNewFileDialogLastUsedUtf8Bom());
         utf8BomCheckbox.setVisibility(appSettings.isExperimentalFeaturesEnabled() ? View.VISIBLE : View.GONE);
-        fileExtEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
-        fileNameEdit.requestFocus();
-        new Handler().postDelayed(new GsContextUtils.DoTouchView(fileNameEdit), 200);
+        extEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
+        titleEdit.requestFocus();
+        new Handler().postDelayed(new GsContextUtils.DoTouchView(titleEdit), 200);
 
-        fileNameEdit.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
-        fileExtEdit.setFilters(fileNameEdit.getFilters());
+        titleEdit.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
+        extEdit.setFilters(titleEdit.getFilters());
 
-        loadTemplatesIntoSpinner(appSettings, templateSpinner);
-        final AtomicBoolean typeSpinnerNoTriggerOnFirst = new AtomicBoolean(true);
-        typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
-            if (pos == 3) { // Wikitext
-                templateSpinner.setSelection(7); // Zim empty
-            }
-            if (typeSpinnerNoTriggerOnFirst.getAndSet(false)) {
-                return;
-            }
-            String ext = pos < typeSpinnerToExtension.length ? typeSpinnerToExtension[pos] : "";
+        // Setup title format spinner and actions
+        // -----------------------------------------------------------------------------------------
+        final ArrayAdapter<String> formatAdapter = new ArrayAdapter<>(
+                activity, android.R.layout.simple_spinner_dropdown_item);
 
-            if (ext != null) {
+        formatAdapter.add("");
+        formatAdapter.addAll(appSettings.getTitleFormats());
+
+        final ListPopupWindow formatPopup = new ListPopupWindow(activity);
+        formatPopup.setAdapter(formatAdapter);
+        formatPopup.setAnchorView(formatEdit);
+        formatPopup.setOnItemClickListener((parent, view, position, id) -> {
+            formatEdit.setText(formatAdapter.getItem(position));
+            formatPopup.dismiss();
+        });
+
+        formatSpinner.setOnClickListener(v -> formatPopup.show());
+
+        // Setup template spinner and action
+        // -----------------------------------------------------------------------------------------
+        final List<Pair<String, File>> snippets = appSettings.getSnippetFiles();
+        final List<Pair<String, String>> templates = appSettings.getBuiltinTemplates();
+        final ArrayAdapter<String> templateAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
+        templateAdapter.add(activity.getString(R.string.empty_file));
+        templateAdapter.addAll(GsCollectionUtils.map(snippets, p -> p.first));
+        templateAdapter.addAll(GsCollectionUtils.map(templates, p -> p.first));
+        templateSpinner.setAdapter(templateAdapter);
+
+        // Setup type / format spinner and action
+        // -----------------------------------------------------------------------------------------
+        final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
+        typeAdapter.addAll(GsCollectionUtils.map(Arrays.asList(FormatRegistry.FORMATS), f -> activity.getString(f.name)));
+        typeSpinner.setAdapter(typeAdapter);
+
+        // Load name formats into spinner
+        final GsCallback.a1<Integer> typeCallback = pos -> {
+            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[pos];
+            if (fmt.ext != null) {
                 if (encryptCheckbox.isChecked()) {
-                    fileExtEdit.setText(ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    extEdit.setText(fmt.ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 } else {
-                    fileExtEdit.setText(ext);
+                    extEdit.setText(fmt.ext);
                 }
             }
-            fileNameEdit.setSelection(fileNameEdit.length());
-            appSettings.setNewFileDialogLastUsedType(typeSpinner.getSelectedItemPosition());
-        }));
-        typeSpinner.setSelection(appSettings.getNewFileDialogLastUsedType());
 
-        templateSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
-            String prefix = null;
-
-            if (pos == 3) { // Jekyll
-                prefix = TodoTxtTask.DATEF_YYYY_MM_DD.format(new Date()) + "-";
-            } else if (pos == 9) { // ZettelKasten
-                prefix = new SimpleDateFormat("yyyyMMddHHmm", Locale.ROOT).format(new Date()) + "-";
+            final int tpos = templateAdapter.getPosition(appSettings.getTypeTemplate(fmt.format));
+            if (tpos >= 0) {
+                templateSpinner.setSelection(tpos);
             }
-            if (!TextUtils.isEmpty(prefix) && !fileNameEdit.getText().toString().startsWith(prefix)) {
-                fileNameEdit.setText(prefix + fileNameEdit.getText().toString());
-            }
-            fileNameEdit.setSelection(fileNameEdit.length());
-        }));
+        };
 
+        typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(typeCallback));
+
+        // Setup other checkboxes etc
+        // -----------------------------------------------------------------------------------------
         encryptCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            final String currentExtention = fileExtEdit.getText().toString();
+            final String currentExtention = extEdit.getText().toString();
             if (isChecked) {
                 if (!currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
-                    fileExtEdit.setText(currentExtention + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    extEdit.setText(currentExtention + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 }
             } else if (currentExtention.endsWith(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION)) {
-                fileExtEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+                extEdit.setText(currentExtention.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
             }
             appSettings.setNewFileDialogLastUsedEncryption(isChecked);
         });
@@ -172,51 +197,104 @@ public class NewFileDialog extends DialogFragment {
         });
 
         dialogBuilder.setView(root);
-        fileNameEdit.requestFocus();
+
+        // Setup button click actions
+        // -----------------------------------------------------------------------------------------
+
+        final GsCallback.s0 getTitle = () -> {
+                final String title = titleEdit.getText().toString().trim();
+
+                String format = formatEdit.getText().toString().trim();
+                if (format.isEmpty() && title.isEmpty()) {
+                    format = "`yyyy-MM-dd'T'hhMMss`";
+                } else if (format.isEmpty()) {
+                    format = "{{title}}";
+                } else if (!title.isEmpty() && !format.contains("{{title}}")) {
+                    format += "_{{title}}";
+                }
+
+                return TextViewUtils.interpolateSnippet(format, title, "").trim();
+        };
+
 
         final MarkorContextUtils cu = new MarkorContextUtils(getContext());
         dialogBuilder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
-            if (ez(fileNameEdit)) {
-                return;
+
+            final String title = getTitle.callback();
+            final String ext = extEdit.getText().toString().trim();
+            final String fileName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title + ext);
+
+            // Get template string
+            // -------------------------------------------------------------------------------------
+            final int ti = templateSpinner.getSelectedItemPosition();
+            final String template;
+            if (ti == 0) {
+                template = "";
+            } else if (ti <= snippets.size()) {
+                template = GsFileUtils.readTextFileFast(snippets.get(ti - 1).second).first;
+            } else {
+                template = templates.get(ti - snippets.size()).second;
             }
 
-            appSettings.setNewFileDialogLastUsedExtension(fileExtEdit.getText().toString().trim());
-            final String usedFilename = getFileNameWithoutExtension(fileNameEdit.getText().toString(), templateSpinner.getSelectedItemPosition());
-            final File f = new File(basedir, Document.normalizeFilename(usedFilename.trim()) + fileExtEdit.getText().toString().trim());
-            final Pair<byte[], Integer> templateContents = getTemplateContent(templateSpinner, basedir, f.getName(), encryptCheckbox.isChecked());
-            cu.writeFile(getActivity(), f, false, (arg_ok, arg_fos) -> {
-                try {
-                    if (appSettings.getNewFileDialogLastUsedUtf8Bom()) {
-                        arg_fos.write(0xEF);
-                        arg_fos.write(0xBB);
-                        arg_fos.write(0xBF);
-                    }
-                    if (templateContents.first != null && (!f.exists() || f.length() < GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH)) {
-                        arg_fos.write(templateContents.first);
-                    }
-                } catch (Exception ignored) {
-                }
-                if (templateContents.second >= 0) {
-                    appSettings.setLastEditPosition(f.getAbsolutePath(), templateContents.second);
-                }
-                callback(arg_ok || f.exists(), f);
-                dialogInterface.dismiss();
-            });
+            final Pair<String, Integer> content = getTemplateContent(template, title);
+            // -------------------------------------------------------------------------------------
+
+            final File file = new File(basedir, fileName);
+
+            // Most of the logic we want is in the document class so we just reuse it
+            final Document document = new Document(file);
+
+            // These are done even if the file doesn
+            final String titleFormat = formatEdit.getText().toString().trim();
+            appSettings.setTemplateTitleFormat(templateAdapter.getItem(ti), titleFormat);
+            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()];
+            appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
+            appSettings.setNewFileDialogLastUsedType(fmt.format);
+
+            if (!titleFormat.isEmpty()) {
+                appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
+            }
+
+            if (!file.exists() || file.length() <= GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
+                document.saveContent(activity, content.first, cu, true);
+
+                // We only make these changes if the file did not exist
+                document.setFormat(FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()].format);
+                appSettings.setLastEditPosition(document.getPath(), content.second);
+                appSettings.setNewFileDialogLastUsedExtension(extEdit.getText().toString().trim());
+
+                callback(file);
+
+            } else if (file.canWrite()) {
+                callback(file);
+            } else {
+                Toast.makeText(activity, R.string.failed_to_create_backup, Toast.LENGTH_LONG).show();
+            }
+
+            dialogInterface.dismiss();
         });
 
         dialogBuilder.setNeutralButton(R.string.folder, (dialogInterface, i) -> {
-            if (ez(fileNameEdit)) {
-                return;
+
+            final String title = getTitle.callback();
+            final String dirName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title);
+            final File f = new File(basedir, dirName);
+
+            final String titleFormat = formatEdit.getText().toString().trim();
+            if (!titleFormat.isEmpty()) {
+                appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
             }
-            final String usedFoldername = getFileNameWithoutExtension(fileNameEdit.getText().toString().trim(), templateSpinner.getSelectedItemPosition());
-            final File f = new File(basedir, usedFoldername);
+
             if (cu.isUnderStorageAccessFolder(getContext(), f, true)) {
                 DocumentFile dof = cu.getDocumentFile(getContext(), f, true);
-                callback(dof != null && dof.exists(), f);
-            } else {
-                callback(f.mkdirs() || f.exists(), f);
+                if (dof != null && dof.exists()) {
+                    callback(f);
+                }
+            } else if (f.isDirectory() || f.mkdirs()) {
+                callback(f);
             }
+
             dialogInterface.dismiss();
         });
 
@@ -224,150 +302,75 @@ public class NewFileDialog extends DialogFragment {
             dialogBuilder.setNeutralButton("", null);
         }
 
+        // Initial creation - loop through and set type
+        final int lastUsedType = appSettings.getNewFileDialogLastUsedType();
+        for (int i = 0; i < FormatRegistry.FORMATS.length; i++) {
+            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[i];
+            if (fmt.format == lastUsedType) {
+                typeSpinner.setSelection(i);
+                typeCallback.callback(i);
+                break;
+            }
+        }
+
+        titleEdit.requestFocus();
+
         return dialogBuilder;
     }
 
-    private void loadTemplatesIntoSpinner(final AppSettings appSettings, final Spinner templateSpinner) {
-        List<String> templates = new ArrayList<>();
-        for (int i = 0; i < templateSpinner.getCount(); i++) {
-            templates.add((String) templateSpinner.getAdapter().getItem(i));
-        }
-        templates.addAll(MarkorDialogFactory.getSnippets(appSettings).keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, templates.toArray(new String[0]));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        templateSpinner.setAdapter(adapter);
-    }
-
-    private boolean ez(EditText et) {
-        return et.getText().toString().trim().isEmpty();
-    }
-
-    private String getFileNameWithoutExtension(String typedFilename, int selectedTemplatePos) {
-        if (selectedTemplatePos == 7) {
-            // Wikitext files always use underscores instead of spaces
-            return typedFilename.trim().replace(' ', '_');
-        }
-        return typedFilename.trim();
-    }
-
-    private void callback(boolean ok, File file) {
+    private void callback(final File file) {
         try {
-            callback.callback(ok, file);
+            callback.callback(file);
         } catch (Exception ignored) {
         }
     }
 
-    // this code corresponds to R.arrays.arr_file_templates
-    //
-    // How to get content out of a file:
-    // 1) Replace \n with \n | copy to clipboard
-    //    cat markor-markdown-reference.md  | sed 's@\\@\\\\@g' | sed -z 's@\n@\n@g'  | xclip
-    //
-    // 2) t = "<cursor>";  | ctrl+shift+v "paste without formatting"
-    //
-    // -----
-    // if you use Androidstudio/IntelliJ copy file content into t = "<cursor>". Android studio takes care of escaping
-    private String getTemplateByPos(
-            final int spinnerPos,
-            final String fileName,
-            final File basedir
-    ) {
-        switch (spinnerPos) {
-            case 1: {
-                return "# Markdown Reference\nAutomatically generate _table of contents_ by checking the option here: `Settings > Format > Markdown`.\n\n## H2 Header\n### H3 header\n#### H4 Header\n##### H5 Header\n###### H6 Header\n\n<!-- --------------- -->\n\n## Format Text\n\n*Italic emphasis* , _Alternative italic emphasis_\n\n**Bold emphasis** , __Alternative bold emphasis__\n\n~~Strikethrough~~\n\nBreak line (two spaces at end of line)  \n\n> Block quote\n\n`Inline code`\n\n```\nCode blocks\nare\nawesome\n```\n\n<!-- --------------- -->\n \n## Lists\n### Ordered & unordered\n\n* Unordered list\n* ...with asterisk/star\n* Test\n\n- Another unordered list\n- ...with hyphen/minus\n- Test\n\n1. Ordered list\n2. Test\n3. Test\n4. Test\n\n- Nested lists\n    * Unordered nested list\n    * Test\n    * Test\n    * Test\n- Ordered nested list\n    1. Test\n    2. Test\n    3. Test\n    4. Test\n- Double-nested unordered list\n    - Test\n    - Unordered\n        - Test a\n        - Test b\n    - Ordered\n        1. Test 1\n        2. Test 2\n\n### Checklist\n* [ ] Salad\n* [x] Potatoes\n\n1. [x] Clean\n2. [ ] Cook\n\n<!-- --------------- -->\n\n## Links\n[Link](https://duckduckgo.com/)\n\n[File in same folder as the document.](markor-markdown-reference.md) Use %20 for spaces!\n\n<!-- --------------- -->\n\n## Tables\n\n| Left aligned | Middle aligned | Right aligned |\n| :--------------- | :------------------: | -----------------: |\n| Test                 | Test                      | Test                    |\n| Test                 | Test                      | Test                    |\n\n÷÷÷÷\n\nShorter | Table | Syntax\n:---: | ---: | :---\nTest | Test | Test\nTest | Test | Test\n\n<!-- Comment: Not visibile in view. Can also span across multiple lines. End with:-->\n\n<!-- ------------- -->\n\n## Math (KaTeX)\nSee [reference](https://katex.org/docs/supported.html) & [examples](https://github.com/waylonflinn/markdown-it-katex/blob/master/README.md). Enable by checking Math at `Settings > Markdown`.\n\n### Math inline\n\n$ I = \\frac V R $\n\n### Math block\n\n$$\\begin{array}{c} \nabla \\times \\vec{\\mathbf{B}} -\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{E}}}{\\partial t} & = \\frac{4\\pi}{c}\\vec{\\mathbf{j}} \nabla \\cdot \\vec{\\mathbf{E}} & = 4 \\pi \\rho \\\\ \nabla \\times \\vec{\\mathbf{E}}\\, +\\, \\frac1c\\, \\frac{\\partial\\vec{\\mathbf{B}}}{\\partial t} & = \\vec{\\mathbf{0}} \\\\ \nabla \\cdot \\vec{\\mathbf{B}} & = 0 \\end{array}$$\n\n\n$$\\frac{k_t}{k_e} = \\sqrt{2}$$\n\n<!-- ------------- -->\n\n## Format Text (continued)\n\n### Text color\n\n<span style='background-color:#ffcb2e;'>Text with background color / highlight</span>\n\n<span style='color:#3333ff;'>Text foreground color</span>\n\n<span style='text-shadow: 0px 0px 2px #FF0000;'>Text with colored outline</span> / <span style='text-shadow: 0px 0px 2px #0000FF; color: white'>Text with colored outline</span>\n\n\n### Text sub & superscript\n\n<u>Underline</u>\n\nThe <sub>Subway</sub> sandwich was <sup>super</sup>\n\nSuper special characters: ⁰ ¹ ² ³ ⁴ ⁵ ⁶ ⁷ ⁸ ⁹ ⁺ ⁻ ⁼ ⁽ ⁾ ⁿ ™ ® ℠\n\n### Text positioning\n<div markdown='1' align='right'>\n\ntext on the **right**\n\n</div>\n\n<div markdown='1' align='center'>\n\ntext in the **center**  \n(one empy line above and below  \nrequired for Markdown support OR markdown='1')\n\n</div>\n\n### Block Text\n\n<div markdown='1' style='text-align: justify; text-justify: inter-word;'>\nlorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. \n</div>\n\n### Dropdown\n\n<details markdown='1'><summary>Click to Expand/Collapse</summary>\n\nExpanded content. Shows up and keeps visible when clicking expand. Hide again by clicking the dropdown button again.\n\n</details>\n\n\n### Break page\nTo break the page (/start a new page), put the div below into a own line.\nRelevant for creating printable pages from the document (Print / PDF).\n\n<div style='page-break-after: always'></div>\n\n\n<!-- ------------- -->\n\n## Multimedia\n\n### Images\n![Image](file:///android_asset/img/schindelpattern.jpg)\n\n### Videos\n**Youtube** [Welcome to Upper Austria](https://www.youtube.com/watch?v=RJREFH7Lmm8)\n<iframe width='360' height='200' src='https://www.youtube.com/embed/RJREFH7Lmm8'> </iframe>\n\n**Peertube** [Road in the wood](https://open.tube/videos/watch/8116312a-dbbd-43a3-9260-9ea6367c72fc)\n<div><video controls><source src='https://peertube.mastodon.host/download/videos/8116312a-dbbd-43a3-9260-9ea6367c72fc-480.mp4' </source></video></div>\n\n<!-- **Local video** <div><video controls><source src='voice-parrot.mp4' </source></video></div> -->\n\n### Audio & Music\n**Web audio** [Guifrog - Xia Yu](https://www.freemusicarchive.org/music/Guifrog/Xia_Yu)\n<audio controls src='https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Guifrog/Xia_Yu/Guifrog_-_Xia_Yu.mp3'></audio>\n\n**Local audio** Yellowcard - Lights up in the sky\n<audio controls src='../Music/mp3/Yellowcard/[2007]%20Paper%20Walls/Yellowcard%20-%2005%20-%20Light%20Up%20the%20Sky.mp3'></audio>\n\n## Charts / Graphs / Diagrams (mermaidjs)\nPie, flow, sequence, class, state, ER  \nSee also: mermaidjs [live editor](https://mermaid-js.github.io/mermaid-live-editor/).\n\n```mermaid\ngraph LR\n    A[Square Rect] -- Link text --> B((Circle))\n    A --> C(Round Rect)\n    B --> D{Rhombus}\n    C --> D\n```\n\n\n\n## Admonition Extension\nCreate block-styled side content.  \nUse one of these qualifiers to select the icon and the block color: abstract, summary, tldr, bug, danger, error, example, snippet, failure, fail, missing, question, help, faq, info, todo, note, seealso, quote, cite, success, check, done, tip, hint, important, warning, caution, attention.\n\n!!! warning 'Optional Title'\n    Block-Styled Side Content with **Markdown support**\n\n!!! info ''\n    No-Heading Content\n\n??? bug 'Collapsed by default'\n    Collapsible Block-Styled Side Content\n\n???+ example 'Open by default'\n     Collapsible Block-Styled Side Content\n\n------------------\n\nThis Markdown reference file was created for the [Markor](https://github.com/gsantner/markor) project by [Gregor Santner](https://github.com/gsanter) and is licensed [Creative Commons Zero 1.0](https://creativecommons.org/publicdomain/zero/1.0/legalcode) (public domain). File revision 3.\n\n------------------\n\n\n";
-            }
-            case 2: {
-                return "(A) Call Mom @mobile +family\n(A) Schedule annual checkup +health\n(A) Urgently buy milk @shop\n(B) Outline chapter 5 +novel @computer\n(C) Add cover sheets @work +myproject\nPlan backyard herb garden @home\nBuy salad @shop\nWrite blog post @pc\nInstall Markor @mobile\n2019-06-24 scan photos @home +blog\n2019-06-25 draw diagram @work \nx This has been done @home +renovations";
-            }
-            case 3: {
-                return "---\nlayout: post\ntags: []\ncategories: []\n#date: 2019-06-25 13:14:15\n#excerpt: ''\n#image: 'BASEURL/assets/blog/img/.png'\n#description:\n#permalink:\ntitle: 'title'\n---\n\n\n";
-            }
-            case 4: {
-                return "# Title\n## Description\n\n![Text](picture.png)\n\n### Ingredients\n\n|  Ingredient   | Amount |\n|:--------------|:-------|\n| 1             | 1      |\n| 2             | 2      |\n| 3             | 3      |\n| 4             | 4      |\n\n\n### Preparation\n\n1. Text\n2. Text\n\n";
-            }
-            case 5: {
-                return "---\nclass: beamer\n---\n\n-----------------\n# Cool presentation\n\n## Abed Nadir\n\n{{ post.date_today }}\n\n<!-- Overall slide design -->\n<style>\n.slide {\nbackground:url() no-repeat center center fixed; background-size: cover;\n}\n.slide_type_title {\nbackground: slategrey;\n}\n</style>\n\n-----------------\n\n## Slide title\n\n\n1. All Markdown features of Markor are **supported** for Slides too ~~strikeout~~ _italic_ `code`\n2. Start new slides with 3 more hyphens (---) separated by empty lines\n3. End last slide with hyphens too\n4. Slide backgrounds can be configured using CSS, for all and individual slides\n5. Print / PDF export in landscape mode\n6. Create title only slides (like first slide) by starting the slide (line after `---`) with title `# title`\n\n\n-----------------\n## Slide with centered image\n* Images can be centered by adding 'imghcenter' in alt text & grown to page size with 'imgbig'\n* Example: `![text imghcenter imgbig text](a.jpg)`\n\n![imghcenter imgbig](file:///android_asset/img/flowerfield.jpg)\n\n\n\n\n-----------------\n## Page with gradient background\n* and a picture\n* configure background color/image with CSS .slide_p4 { } (4 = the slide page number)\n\n![pic](file:///android_asset/img/flowerfield.jpg)\n\n\n<style> .slide_p4 { background: linear-gradient(to bottom, #11998e, #38ef7d); } </style>\n\n-----------------\n## Page with image background\n* containing text and a table\n\n| Left aligned | Middle aligned | Right aligned |\n| :------------------- | :----------------------: | --------------------: |\n| Test               | Test                    | Test                |\n| Test               | Test                    | Test                |\n\n\n\n<style> \n.slide_p5 { background: url('file:///android_asset/img/schindelpattern.jpg') no-repeat center center fixed; background-size: cover; }\n.slide_p5 > .slide_body > * { color: black; }\n</style>\n\n-----------------\n";
-            }
-            case 6: {
-                return "Content-Type: text/x-zim-wiki\nWiki-Format: zim 0.4\nCreation-Date: 2019-01-28T20:53:47+01:00\n\n====== Zim Wiki ======\nLet me try to gather a list of the formatting options Zim provides.\n\n====== Head 1 ======\n\n===== Head 2 =====\n\n==== Head 3 ====\n\n=== Head 4 ===\n\n== Head 5 ==\n\n**Bold**\n//italics//\n__marked (yellow Background)__\n~~striked~~\n\n* Unordered List\n* second item\n	* [[Sub-Item]]\n		* Subsub-Item\n			* and one more sub\n* Back to first indent level\n\n1. ordered list\n2. second item\n	a. item 2a\n		1. Item 2a1\n		2. Item 2a2\n	b. item 2b\n		1. 2b1\n			a. 2b1a\n3. an so on...\n\n[ ] Checklist\n[ ] unchecked item\n[*] checked item\n[x] crossed item\n[>] Item marked with a yellow left-to-right-arrow\n[ ] another unchecked item\n\n\nThis ist ''preformatted text'' inline.\n\n'''\nThis is a preformatted text block.\nIt spans multiple lines.\nAnd it's visually indented.\n'''\n\nWe also have _{subscript} and ^{superscript}.\n\nIt seems there is no way to combine those styles.\n//**this is simply italic**// and you can see the asterisks.\n**//This is simply bold//** and you can see the slashes.\n__**This is simply marked yellow**__ and you can see the asterisks.\n\nThis is a web link: [[https://github.com/gsantner/markor|Markor on Github]]\nLinks inside the Zim Wiki project can be made by simply using the [[Page Name]] in double square brackets.\nThis my also contain some hierarchy information, like [[Folder:Subfolder:Document Name]]\n\n\nThis zim wiki reference file was created for the [[https://github.com/gsantner/markor|Markor]] project by [[https://github.com/gsantner|Gregor Santner]] and is licensed [[https://creativecommons.org/publicdomain/zero/1.0/legalcode|Creative Commons Zero 1.0]] (public domain). File revision 1.";
-            }
-            case 7: {
-                return WikitextActionButtons.createWikitextHeaderAndTitleContents(fileName.replaceAll("(\\.((zim)|(txt)))*$", "").trim().replace(' ', '_'), new Date(), getResources().getString(R.string.created));
-            }
-            case 8: {
-                final String header = TextViewUtils.interpolateEscapedDateTime("---\ntags: []\ncreated: '`yyyy-MM-dd`'\ntitle: ''\n---\n\n");
-                if (basedir != null && new File(basedir.getParentFile(), ".notabledir").exists()) {
-                    return header.replace("created:", "modified:");
-                }
-                return header;
-            }
-            case 9: {
-                return "source:\ncategory:\ntag:\n------------\n";
-            }
-            case 10: {
-                return "= My Title\n:page-subtitle: This is a subtitle\n:page-last-updated: 2029-01-01\n:page-tags: ['AsciiDoc', 'Markor', 'open source']\n:toc: auto\n:toclevels: 2\n// :page-description: the optional description\n// This should match the structure on the jekyll server:\n:imagesdir: ../assets/img/blog\n\nifndef::env-site[]\n\n// on the jekyll server, the :page-subtitle: is displayed below the title.\n// but it is not shown, when rendered in html5, and the site is rendered in html5, when working locally\n// so we show it additionally only, when we work locally\n// https://docs.asciidoctor.org/asciidoc/latest/document/subtitle/\n\n[discrete] \n=== {page-subtitle}\n\nendif::env-site[]\n\n// local testing:\n:imagesdir: ../app/src/main/assets/img\n\nimage::flowerfield.jpg[]\n\nimage::schindelpattern.jpg[Schindelpattern,200]\n\nbefore inline picture image:schindelpattern.jpg[Schindelpattern,50] and after inline picture\n";
-            }
-            case 11: {
-                // sample.csv
-                return "# this is a comment in csv file\n" +
-                        "\n" +
-                        "# below is the header\n" +
-                        "number;text;finishing date\n" +
-                        "\n" +
-                        "# csv can contain markdown formatting\n" +
-                        "1;Learn to use **Markor** formatting\n" +
-                        "\n" +
-                        "# use \"...\" if the column contains reserved chars\n" +
-                        "2;\"Use Delimitter chars like \"\";    :,\";2019-06-24\n" +
-                        "\n" +
-                        "# use \"...\" if the column is multiline\n" +
-                        "3;\"multi\n" +
-                        "   line\";2059-12-24\n";
-            }
-            case 12: {
-                // Org-mode
-                return "OrgMode Reference\n" + "* Headline\n" + "** Nested headline\n" + "*** Deeper\n" + "\n" + "* Basic markup\n" + "This is the general building block for org-mode navigation.\n" + "- _underscores let you underline things_\n" + "- *stars add emphasis*\n" + "- /slashes are italics/\n" + "- +pluses are strikethrough+\n" + "- =equal signs are verbatim text=\n" + "- ~tildes can also be used~\n" + "\n" + "* List\n" + "** Unordered List\n" + "- Item 1\n" + "- Item 2\n" + "  - Subitem 2.1\n" + "  - Subitem 2.2\n" + "** Ordered List\n" + "1. First Item\n" + "2. Second Item\n" + "   1. Subitem 2.1\n" + "   2. Subitem 2.2\n" + "- [X] Completed Task\n" + "- [ ] Uncompleted Task\n" + "** Nested List\n" + "   - Item A\n" + "     - Subitem A.1\n" + "     - Subitem A.2\n" + "   - Item B\n" + "\n" + "* Tables\n" + "\n" + "| First Name                 | Last Name           | Years using Emacs |\n" + "|----------------------------+---------------------+-------------------|\n" + "| Lee                        | Hinman              |                 5 |\n" + "| Mike                       | Hunsinger           |                 2 |\n" + "| Daniel                     | Glauser             |                 4 |\n" + "| Really-long-first-name-guy | long-last-name-pers |                 1 |\n" + "\n" + "* Org-mode links\n" + "\n" + "#+BEGIN_SRC fundamental\n" + "[[http://google.com/][Google]]\n" + "#+END_SRC\n" + "\n" + "[[./images/pic1.png]]\n" + "\n" + "\n" + "* TODO List\n" + "** TODO This is a task that needs doing\n" + "** TODO Another todo task\n" + "- [ ] sub task one\n" + "- [X] sub task two\n" + "- [ ] sub task three\n" + "** DONE I've already finished this one\n" + "*** CANCELLED learn todos\n" + "    CLOSED: [2023-10-16 Mon 08:39]\n" + "\n" + "* Code\n" + "#+BEGIN_LaTeX\n" + "$a + b$\n" + "#+END_LaTeX\n" + "\n" + "#+BEGIN_SRC emacs-lisp\n" + "(defun my/function ()\n" + "  \"docstring\"\n" + "  (interactive)\n" + "  (progn\n" + "    (+ 1 1)\n" + "    (message \"Hi\")))\n" + "#+END_SRC\n" + "\n";
-            }
-        }
-        return null;
+    public void setCallback(final GsCallback.a1<File> callback) {
+        this.callback = callback;
     }
 
-    private Pair<byte[], Integer> getTemplateContent(
-            final Spinner templateSpinner,
-            final File basedir,
-            final String filename,
-            final boolean encrypt
-    ) {
+    private Pair<String, Integer> getTemplateContent(final String template, final String name) {
+        String text = TextViewUtils.interpolateSnippet(template, name, "");
 
-        String template = getTemplateByPos(templateSpinner.getSelectedItemPosition(), filename, basedir);
-        if (template == null) {
-            final Map<String, File> snippets = MarkorDialogFactory.getSnippets(ApplicationObject.settings());
-            final Object sel = templateSpinner.getSelectedItem();
-            if (sel instanceof String && snippets.containsKey((String) sel)) {
-                final String t = GsFileUtils.readTextFileFast(snippets.get((String) sel)).first;
-                final String title = GsFileUtils.getNameWithoutExtension(filename);
-                template = TextViewUtils.interpolateSnippet(t, title, "");
+        final int startingIndex = template.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+        text = text.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+
+        // Has no utility in a new file
+        text = text.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
+
+        return Pair.create(text, startingIndex);
+    }
+
+    public static class ReselectSpinner extends androidx.appcompat.widget.AppCompatSpinner {
+
+        public ReselectSpinner(Context context) {
+            super(context);
+        }
+
+        public ReselectSpinner(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public ReselectSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+        }
+
+        @Override
+        public void setSelection(int position, boolean animate) {
+            boolean sameSelected = position == getSelectedItemPosition();
+            super.setSelection(position, animate);
+            if (sameSelected) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
             }
         }
 
-        if (template == null) {
-            return Pair.create(null, -1);
+        @Override
+        public void setSelection(int position) {
+            boolean sameSelected = position == getSelectedItemPosition();
+            super.setSelection(position);
+            if (sameSelected) {
+                getOnItemSelectedListener().onItemSelected(this, getSelectedView(), position, getSelectedItemId());
+            }
         }
-
-        final int startingIndex = template.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-        template = template.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
-
-        // Has no utility in a new file
-        template = template.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
-
-        final byte[] bytes;
-        if (encrypt && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final char[] pass = ApplicationObject.settings().getDefaultPassword();
-            bytes = new JavaPasswordbasedCryption(Build.VERSION.SDK_INT, new SecureRandom()).encrypt(template, pass);
-        } else {
-            bytes = template.getBytes();
-        }
-
-        return Pair.create(bytes, startingIndex);
     }
 }
