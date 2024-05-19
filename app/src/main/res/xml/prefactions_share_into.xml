@@ -12,11 +12,6 @@
     android:layout_height="match_parent"
     android:title="@string/share_to_arrow">
 
-    <CheckBoxPreference
-        android:icon="@drawable/ic_link_black_24dp"
-        android:key="@string/pref_key__attach_as_link"
-        android:checked="true"
-        android:title="@string/insert_link" />
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
         android:key="@string/pref_key__share_into__quicknote"
@@ -42,6 +37,12 @@
         android:key="@string/pref_key__share_into__calendar_event"
         android:title="@string/calendar" />
 
+    <CheckBoxPreference
+        android:checked="true"
+        android:icon="@drawable/ic_link_black_24dp"
+        android:key="@string/pref_key__attach_as_link"
+        android:title="@string/insert_link" />
+
     <PreferenceCategory android:title="@string/file_browser" />
 
     <Preference
@@ -63,7 +64,6 @@
         android:icon="@drawable/ic_favorite_black_24dp"
         android:key="@string/pref_key__popular_documents"
         android:title="@string/popular_documents" />
-
 
 
 </PreferenceScreen> <!-- Screen -->
