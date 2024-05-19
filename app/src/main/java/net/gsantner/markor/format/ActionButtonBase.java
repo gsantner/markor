@@ -7,6 +7,8 @@
 #########################################################*/
 package net.gsantner.markor.format;
 
+import static android.util.Patterns.WEB_URL;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -40,6 +42,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -54,6 +57,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -498,7 +502,7 @@ public abstract class ActionButtonBase {
             final int selStartStart = TextViewUtils.getLineStart(text, selStart);
 
             // Number of lines we will be modifying
-            final int lineCount = TextViewUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
+            final int lineCount = GsTextUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
             int lineStart = selStartStart;
 
 
@@ -696,7 +700,25 @@ public abstract class ActionButtonBase {
                 final int sel = TextViewUtils.getSelection(_hlEditor)[0];
                 final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
                 final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
-                String url = GsTextUtils.tryExtractUrlAroundPos(line, cursor);
+
+                // First try to pull a resource
+                String url = null;
+                final String resource = GsTextUtils.tryExtractResourceAroundPos(line, cursor);
+                if (resource != null) {
+                    if (WEB_URL.matcher(resource).matches()) {
+                        url = resource;
+                    } else {
+                        final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
+                        if (f.canRead()) {
+                            DocumentActivity.handleFileClick(getActivity(), f, null);
+                            return true;
+                        }
+                    }
+
+                }
+
+                // Then try to pull a tag
+                url = url == null ? GsTextUtils.tryExtractUrlAroundPos(line, cursor) : url;
                 if (url != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);

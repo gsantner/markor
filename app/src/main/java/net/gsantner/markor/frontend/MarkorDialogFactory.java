@@ -39,7 +39,6 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
@@ -67,7 +66,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -978,39 +976,18 @@ public class MarkorDialogFactory {
         }
     }
 
-    // Read all files in snippets folder with appropriate extension
-    // Create a map of snippet title -> text
-    public static Map<String, File> getSnippets(final AppSettings as) {
-        final Map<String, File> texts = new TreeMap<>();
-        final File folder = new File(as.getNotebookDirectory(), ".app/snippets");
-        if ((!folder.exists() || !folder.isDirectory() || !folder.canRead())) {
-            if (!folder.mkdirs()) {
-                return texts;
-            }
-        }
-
-        // Read all files in snippets folder with appropriate extension
-        // Create a map of snippet title -> text
-        for (final File f : folder.listFiles()) {
-            if (f.exists() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
-                texts.put(f.getName(), f);
-            }
-        }
-        return texts;
-    }
 
     public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
 
-        final Map<String, File> texts = getSnippets(as());
+        final List<Pair<String, File>> snippets = as().getSnippetFiles();
 
-        final List<String> data = new ArrayList<>(texts.keySet());
-        dopt.data = data;
+        dopt.data = GsCollectionUtils.map(snippets, p -> p.first);
         dopt.isSearchEnabled = true;
         dopt.titleText = R.string.insert_snippet;
         dopt.messageText = Html.fromHtml("<small><small>" + as().getSnippetsDirectory().getAbsolutePath() + "</small></small>");
-        dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(texts.get(data.get(ind.get(0)))).first);
+        dopt.positionCallback = (ind) -> callback.callback(GsFileUtils.readTextFileFast(snippets.get(ind.get(0)).second).first);
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 

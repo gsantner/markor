@@ -11,6 +11,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 
 import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 
 import java.util.Date;
 
@@ -19,7 +20,7 @@ public class TodoTxtAutoTextFormatter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
         try {
-            if (start < source.length() && dstart <= dest.length() && TextViewUtils.isNewLine(source, start, end)) {
+            if (start < source.length() && dstart <= dest.length() && GsTextUtils.isNewLine(source, start, end)) {
                 return autoIndent(source);
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
