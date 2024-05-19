@@ -22,25 +22,26 @@ jobs:
     steps:
 
     - name: "Checkout: Code"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: "Checkout: Code (PR)"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       if: "contains(github.event_name, 'pull_request')"
       with:
         ref: ${{github.event.pull_request.head.ref}}
         repository: ${{github.event.pull_request.head.repo.full_name}}
 
     - name: "Setup: Java"
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v4
       with:
         java-version: 11
+        distribution: "temurin"
 
     - name: "Setup: Install additional dependencies"
       run: sudo apt-get install -y ispell
 
     - name: "Cache: Gradle"
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle

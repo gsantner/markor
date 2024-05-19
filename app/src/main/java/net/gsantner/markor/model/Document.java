@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -77,7 +77,7 @@ public class Document implements Serializable {
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter.isFileOutOfThisFormat(fnlower)) {
+            if (format.converter == null || format.converter.isFileOutOfThisFormat(fnlower)) {
                 setFormat(format.format);
                 break;
             }
