@@ -277,7 +277,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (_callback != null) {
             _callback.onFsViewerDoUiUpdate(adapter);
         }
-        _toolBar.setSubtitle(adapter.getCurrentFolder().getName());
+        if (adapter.getCurrentFolder() != null) {
+            _toolBar.setSubtitle(adapter.getCurrentFolder().getName());
+        }
     }
 
     @Override
