@@ -10,7 +10,6 @@ package net.gsantner.markor.format.todotxt;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.util.Date;

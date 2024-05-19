@@ -303,7 +303,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             }
 
             NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, this::newItemCallback)
-                .show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+                    .show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
         }
     }
 
