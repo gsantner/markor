@@ -77,7 +77,7 @@ public class Document implements Serializable {
         // Set initial format
         final String fnlower = _file.getName().toLowerCase();
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter.isFileOutOfThisFormat(fnlower)) {
+            if (format.converter == null || format.converter.isFileOutOfThisFormat(fnlower)) {
                 setFormat(format.format);
                 break;
             }
