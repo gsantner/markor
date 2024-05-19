@@ -15,8 +15,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -38,19 +36,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
+import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
@@ -63,9 +65,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     //## Static
     //########################
     public static final File VIRTUAL_STORAGE_ROOT = new File("/storage/");
-    public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "recent-files");
-    public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "favourite-files");
-    public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "popular-files");
+    public static final File VIRTUAL_STORAGE_RECENTS = new File(VIRTUAL_STORAGE_ROOT, "Recent");
+    public static final File VIRTUAL_STORAGE_FAVOURITE = new File(VIRTUAL_STORAGE_ROOT, "Favourites");
+    public static final File VIRTUAL_STORAGE_POPULAR = new File(VIRTUAL_STORAGE_ROOT, "Popular");
     public static final File VIRTUAL_STORAGE_APP_DATA_PRIVATE = new File(VIRTUAL_STORAGE_ROOT, "appdata-private");
     private static final StrikethroughSpan STRIKE_THROUGH_SPAN = new StrikethroughSpan();
     public static final String EXTRA_CURRENT_FOLDER = "EXTRA_CURRENT_FOLDER";
@@ -86,7 +88,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private RecyclerView _recyclerView;
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
-    private final HashMap<Integer, TagContainer> folderLevelDataMap = new HashMap<>();
+    private final Map<File, Integer> _fileIdMap = new HashMap<>();
+    private GsCallback.a0 _blinkCallback;
 
     //########################
     //## Methods
@@ -291,7 +294,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public static class TagContainer {
         public final File file;
         public final int position;
-        public Parcelable recyclerViewState;
 
         public TagContainer(File file_, int position_) {
             file = file_;
@@ -302,7 +304,15 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     // Prevents view flicker - https://stackoverflow.com/a/32488059
     @Override
     public long getItemId(final int position) {
-        return _adapterDataFiltered.get(position).hashCode();
+        final File f = _adapterDataFiltered.get(position);
+        final Integer key = _fileIdMap.get(f);
+        if (key == null) {
+            final int newId = _fileIdMap.size();
+            _fileIdMap.put(f, newId);
+            return newId;
+        } else {
+            return key;
+        }
     }
 
     public File getCurrentFolder() {
@@ -344,10 +354,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
             if (currentItemLevel > currentFolderLevel) {
                 final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
-                if (layoutManager != null) {
-                    data.recyclerViewState = layoutManager.onSaveInstanceState();
-                }
-                folderLevelDataMap.put(currentFolderLevel, data);
             }
         }
     }
@@ -546,6 +552,20 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return null;
     }
 
+    public void doAfterChange(final GsCallback.a0 callback) {
+        final long init = System.currentTimeMillis();
+        registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if ((System.currentTimeMillis() - init) < 2000) {
+                    _recyclerView.postDelayed(callback::callback, 250);
+                }
+                unregisterAdapterDataObserver(this);
+            }
+        });
+    }
+
     // Switch to folder and show the file
     public void showFile(final File file) {
         if (file == null || !file.exists() || _recyclerView == null) {
@@ -558,21 +578,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         if (getFilePosition(file) < 0) {
-            // Wait up to 2s for the folder to load or reload
-            final long init = System.currentTimeMillis();
-            registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onChanged() {
-                    super.onChanged();
-                    if ((System.currentTimeMillis() - init) < 2000) {
-                        _recyclerView.postDelayed(() -> showAndBlink(file), 250);
-                    }
-                    unregisterAdapterDataObserver(this);
-                }
-            });
+            doAfterChange(() -> showAndFlash(file));
             loadFolder(dir); // Will reload folder if necessary
         } else {
-            showAndBlink(file);
+            showAndFlash(file);
         }
     }
 
@@ -581,15 +590,23 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
      *
      * @param file File to blink
      */
-    private void showAndBlink(final File file) {
+    private void showAndFlash(final File file) {
         final int pos = getFilePosition(file);
         final LinearLayoutManager manager = (LinearLayoutManager) _recyclerView.getLayoutManager();
-        if (manager != null && pos >= 0) {
-            manager.scrollToPositionWithOffset(pos, 1);
+
+        if (pos >= 0 && manager != null) {
+
+            // Scroll to position if needed
+            final int firstVisible = manager.findFirstCompletelyVisibleItemPosition();
+            final int lastVisible = manager.findLastCompletelyVisibleItemPosition();
+            if (pos < firstVisible || pos > lastVisible) {
+                manager.scrollToPositionWithOffset(pos, 1);
+            }
+
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    GsContextUtils.blinkView(holder.itemView);
+                    _blinkCallback = GsContextUtils.blinkView(holder.itemView);
                 }
             }, 250);
         }
@@ -610,8 +627,128 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
 
+    // Stop blinking if we are currently blinking
+    private void stopBlinking() {
+        if (_blinkCallback != null) {
+            _blinkCallback.callback();
+            _blinkCallback = null;
+        }
+    }
+
     private void loadFolder(final File folder) {
-        executorService.execute(new FolderLoader(folder));
+        stopBlinking();
+        executorService.execute(() -> {
+            synchronized (LOAD_FOLDER_SYNC_OBJECT) {
+
+                if (_dopt.refresh != null) {
+                    _dopt.refresh.callback();
+                }
+
+                final File prevFolder = _currentFolder;
+                _currentFolder = folder;
+                _virtualMapping.clear();
+                final List<File> newData = new ArrayList<>();
+
+                if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
+                    // Scan for /storage/emulated/{0,1,2,..}
+                    for (int i = 0; i < 10; i++) {
+                        final File file = new File("/storage/emulated/" + i);
+                        if (canWrite(file)) {
+                            File remap = new File(folder, "emulated-" + i);
+                            _virtualMapping.put(remap, file);
+                            newData.add(remap);
+                        } else {
+                            break;
+                        }
+                    }
+
+                    if (_dopt.recentFiles != null) {
+                        _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
+                        newData.add(VIRTUAL_STORAGE_RECENTS);
+                    }
+                    if (_dopt.popularFiles != null) {
+                        _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
+                        newData.add(VIRTUAL_STORAGE_POPULAR);
+                    }
+                    if (_dopt.favouriteFiles != null) {
+                        _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
+                        newData.add(VIRTUAL_STORAGE_FAVOURITE);
+                    }
+                    File appDataFolder = _context.getFilesDir();
+                    if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
+                        _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
+                        newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
+                    }
+                } else if (_currentFolder.isDirectory()) {
+                    GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                    newData.addAll(_dopt.recentFiles);
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
+                    newData.addAll(_dopt.popularFiles);
+                } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
+                    newData.addAll(_dopt.favouriteFiles);
+                } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
+                    newData.add(new File(folder, "0"));
+                } else if (folder.getAbsolutePath().equals("/")) {
+                    newData.add(new File(folder, "storage"));
+                } else if (folder.equals(_context.getFilesDir().getParentFile())) {
+                    // Private AppStorage: Allow to access to files directory only
+                    // (don't allow access to internals like shared_preferences & databases)
+                    newData.add(new File(folder, "files"));
+                }
+
+                for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
+                    for (int i = 0; i < newData.size(); i++) {
+                        final File file = newData.get(i);
+                        if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
+                            final int depth = GsTextUtils.countChars(file.getAbsolutePath(), '/')[0];
+                            if (depth < 3) {
+                                final File parent = file.getParentFile();
+                                if (parent != null) {
+                                    final File remap = new File(parent.getAbsolutePath(), "appdata-public (" + file.getName() + ")");
+                                    _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                                    newData.add(remap);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Don't sort recent items - use the default order
+                if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                    GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
+                }
+
+                if (canGoUp(_currentFolder)) {
+                    newData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
+                }
+
+                if (!newData.equals(_adapterData)) {
+                    _adapterData.clear();
+                    _adapterData.addAll(newData);
+                    _currentSelection.retainAll(_adapterData);
+                    _filter.filter(_filter._lastFilter);
+
+                    if (!_currentFolder.equals(prevFolder)) {
+                        _fileIdMap.clear();
+                    }
+
+                    _recyclerView.post(() -> {
+                        // Must be called from UI thread
+                        // TODO - add logic to notify the changed bits
+                        notifyDataSetChanged();
+
+                        if (prevFolder != null && _currentFolder.equals(prevFolder.getParentFile())) {
+                            doAfterChange(() -> showAndFlash(prevFolder));
+                        }
+
+                        if (_dopt.listener != null) {
+                            _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private boolean canWrite(File file) {
@@ -654,145 +791,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
 
-    private class FolderLoader implements Runnable {
-        private final File folder;
-        private final Handler handler = (_recyclerView != null && _recyclerView.getHandler() != null) ? _recyclerView.getHandler() : new Handler();
-
-        public FolderLoader(final File folder) {
-            this.folder = folder;
-        }
-
-        @Override
-        public void run() {
-            synchronized (LOAD_FOLDER_SYNC_OBJECT) {
-                _currentFolder = folder;
-                _virtualMapping.clear();
-                final List<File> newData = new ArrayList<>();
-
-                if (folder.equals(VIRTUAL_STORAGE_ROOT)) {
-                    // Scan for /storage/emulated/{0,1,2,..}
-                    for (int i = 0; i < 10; i++) {
-                        final File file = new File("/storage/emulated/" + i);
-                        if (canWrite(file)) {
-                            File remap = new File(folder, "emulated-" + i);
-                            _virtualMapping.put(remap, file);
-                            newData.add(remap);
-                        } else {
-                            break;
-                        }
-                    }
-
-                    if (_dopt.recentFiles != null) {
-                        _virtualMapping.put(VIRTUAL_STORAGE_RECENTS, VIRTUAL_STORAGE_RECENTS);
-                        newData.add(VIRTUAL_STORAGE_RECENTS);
-                    }
-                    if (_dopt.popularFiles != null) {
-                        _virtualMapping.put(VIRTUAL_STORAGE_POPULAR, VIRTUAL_STORAGE_POPULAR);
-                        newData.add(VIRTUAL_STORAGE_POPULAR);
-                    }
-                    if (_dopt.favouriteFiles != null) {
-                        _virtualMapping.put(VIRTUAL_STORAGE_FAVOURITE, VIRTUAL_STORAGE_FAVOURITE);
-                        newData.add(VIRTUAL_STORAGE_FAVOURITE);
-                    }
-                    File appDataFolder = _context.getFilesDir();
-                    if (appDataFolder.exists() || (!appDataFolder.exists() && appDataFolder.mkdir())) {
-                        _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
-                        newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
-                    }
-                } else if (_currentFolder.isDirectory()) {
-                    GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                    newData.addAll(_dopt.recentFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
-                    newData.addAll(_dopt.popularFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
-                    GsCollectionUtils.addAll(newData, _dopt.favouriteFiles);
-                } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
-                    newData.add(new File(folder, "0"));
-                } else if (folder.getAbsolutePath().equals("/")) {
-                    newData.add(new File(folder, "storage"));
-                } else if (folder.equals(_context.getFilesDir().getParentFile())) {
-                    // Private AppStorage: Allow to access to files directory only
-                    // (don't allow access to internals like shared_preferences & databases)
-                    newData.add(new File(folder, "files"));
-                }
-
-                for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
-                    for (int i = 0; i < newData.size(); i++) {
-                        final File file = newData.get(i);
-                        if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
-                            final int depth = TextViewUtils.countChars(file.getAbsolutePath(), '/')[0];
-                            if (depth < 3) {
-                                final File parent = file.getParentFile();
-                                if (parent != null) {
-                                    final File remap = new File(parent.getAbsolutePath(), "appdata-public (" + file.getName() + ")");
-                                    _virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
-                                    newData.add(remap);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Don't sort recent items - use the default order
-                if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
-                    GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
-                }
-
-                if (canGoUp(_currentFolder)) {
-                    newData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
-                }
-
-                if (!newData.equals(_adapterData)) {
-                    _adapterData.clear();
-                    _adapterData.addAll(newData);
-                    _currentSelection.retainAll(_adapterData);
-                    handler.post(() -> {
-                        _filter.filter(_filter._lastFilter);
-                        // TODO - add logic to notify the changed bits
-                        notifyDataSetChanged();
-                        if (_dopt.listener != null) {
-                            _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
-                        }
-                    });
-                }
-
-                handler.postDelayed(() -> {
-                    final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
-                    final TagContainer data = folderLevelDataMap.get(currentFolderLevel);
-                    if (data == null) {
-                        return;
-                    }
-
-                    // Restore scroll position
-                    final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
-                    if (layoutManager != null) {
-                        layoutManager.onRestoreInstanceState(data.recyclerViewState);
-                    }
-
-                    // Highlight the item
-                    handler.postDelayed(() -> {
-                        int i = _recyclerView.getChildCount() - 1;
-                        for (; i > 0; i--) {
-                            final View view = _recyclerView.getChildAt(i);
-                            final TextView textView = view.findViewById(R.id.opoc_filesystem_item__title);
-                            if (data.file.getName().equals(textView.getText().toString())) {
-                                view.setBackgroundColor(Color.LTGRAY); // Highlight
-                                view.postDelayed(() -> view.setBackgroundColor(Color.TRANSPARENT), 300);
-                                data.recyclerViewState = null;
-                                folderLevelDataMap.remove(currentFolderLevel);
-                                break;
-                            }
-                        }
-                        if (i == 0) {
-                            data.recyclerViewState = null;
-                            folderLevelDataMap.remove(currentFolderLevel);
-                        }
-                    }, 200);
-                }, 200);
-            }
-        }
-    }
 
     //########################
     //##

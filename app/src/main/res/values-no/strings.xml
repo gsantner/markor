@@ -317,7 +317,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Bryt ord</string>
     <string name="line_numbers">Linjenumre</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Myk pause hvis tekst ikke passer til skjermens bredde. Elsk aktiver horisontal scrolling.</string>
-    <string name="current_location">nåværende posisjon</string>
     <string name="always_open_with_this_app">Åpne alltid med denne appen</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Åpne alltid filer med denne appen når listen inneholder filutvidelsen. Bruk \'None, .html, . ss , .js\' for eksempel hvis du vil redigere nettfiler og de uten filutvidelse.</string>
     <string name="open_file_with">Åpne fil med</string>

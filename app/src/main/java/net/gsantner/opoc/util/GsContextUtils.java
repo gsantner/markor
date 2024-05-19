@@ -12,6 +12,8 @@ package net.gsantner.opoc.util;
 import static android.graphics.Bitmap.CompressFormat;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -2498,9 +2500,15 @@ public class GsContextUtils {
             if (!TextUtils.isEmpty(v)) {
                 if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_BITRATE) {
                     v = GsFileUtils.getHumanReadableByteCountSI(Long.parseLong(v)) + "ps";
+                    if (v.startsWith("-1 ")) {
+                        continue; // invalid / unknown
+                    }
                 } else if (mmrfield.first == MediaMetadataRetriever.METADATA_KEY_DURATION) {
                     final int[] hms = GsFileUtils.getTimeDiffHMS(Long.parseLong(v), 0);
                     v = String.format("%sh %sm %ss", hms[0], hms[1], hms[2]);
+                    if (v.equals("0h 0m 0s")) {
+                        continue; // Duration key might be set but no actual duration information
+                    }
                 }
                 append.callback(mmrfield.second, v);
             }
@@ -2872,10 +2880,63 @@ public class GsContextUtils {
         return false;
     }
 
-    public static void blinkView(final View view) {
-        if (view != null) {
-            final float init = view.getAlpha();
-            ObjectAnimator.ofFloat(view, View.ALPHA, init, 0.1f, 1.0f, 0.1f, 1.0f, init).setDuration(1000).start();
+    /**
+     * Blinks the view passed in as parameter
+     * @param view View to be blinked
+     * @return A callback to terminate the blinking
+     */
+    public static @Nullable GsCallback.a0 blinkView(final View view) {
+
+        if (view == null) {
+            return null;
         }
+
+        final ObjectAnimator animator = ObjectAnimator.ofFloat(
+                view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
+                .setDuration(800);
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setAlpha(1.0f);
+            }
+        });
+
+        final WeakReference<ObjectAnimator> animatorRef = new WeakReference<>(animator);
+        final GsCallback.a0 terminateCallback = () -> {
+            final ObjectAnimator a = animatorRef.get();
+            if (a != null) {
+                a.cancel();
+            }
+        };
+
+        animator.start();
+
+        return terminateCallback;
+    }
+
+    public static boolean fadeInOut(final View in, final View out, final boolean animate) {
+        // Do nothing if we are already in the correct state
+        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
+            return false;
+        }
+
+        in.setVisibility(View.VISIBLE);
+        if (animate) {
+            in.setAlpha(0);
+            in.animate().alpha(1).setDuration(200).setListener(null);
+            out.animate()
+                    .alpha(0)
+                    .setDuration(200)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            out.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            out.setVisibility(View.GONE);
+        }
+
+        return true;
     }
 }

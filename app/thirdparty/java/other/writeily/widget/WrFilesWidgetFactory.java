@@ -54,9 +54,9 @@ public class WrFilesWidgetFactory implements RemoteViewsService.RemoteViewsFacto
         final AppSettings as = ApplicationObject.settings();
 
         if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_RECENTS)) {
-            _widgetFilesList.addAll(Arrays.asList(MarkorFileBrowserFactory.strlistToArray(ApplicationObject.settings().getRecentDocuments())));
+            _widgetFilesList.addAll(ApplicationObject.settings().getRecentFiles());
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_POPULAR)) {
-            _widgetFilesList.addAll(Arrays.asList(MarkorFileBrowserFactory.strlistToArray(ApplicationObject.settings().getPopularDocuments())));
+            _widgetFilesList.addAll(ApplicationObject.settings().getPopularFiles());
         } else if (dir.equals(GsFileBrowserListAdapter.VIRTUAL_STORAGE_FAVOURITE)) {
             _widgetFilesList.addAll(ApplicationObject.settings().getFavouriteFiles());
         } else if (dir.exists() && dir.canRead()) {

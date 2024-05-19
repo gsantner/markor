@@ -317,6 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Reamurdmine</string>
     <string name="line_numbers">Reanumbrid</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Pehme murdmine, kui tekst ei mahu ekraanilaiusesse. Muidu luba rõht kerimine.</string>
+    <string name="recursive_search_in_location">Rekursiivne otsing %s</string>
     <string name="always_open_with_this_app">Alati ava selle rakendusega</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Alati ava faile selles rakenduses kui nimekirjas on faililaiend. Näiteks kasuta \'None, .html, .css, .js\' veebifailidele ja neile millel pole nimelaiendit.</string>
     <string name="open_file_with">Ava fail sellega</string>
@@ -339,6 +340,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Mitu veergu? Vajuta tabeli nuppu pikalt ja alusta tabeliga( lisa päis), vajuta lühidalt ja lisa rida.</string>
     <string name="example_of_a_markdown_table">Markdownis tabeli näidis</string>
     <string name="delete_lines">Kustuta read</string>
+    <string name="duplicate_lines">Identsed read</string>
     <string name="unordered_list">Korrastamata nimekiri</string>
     <string name="ordered_list">Korrastatud nimekiri</string>
     <string name="check_list">Märkeruutudega nimekiri</string>
@@ -367,6 +369,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Hoiusta lõpetatud ülesanded</string>
     <string name="create_new_file_or_folder">Loo uus kirjutis või kaust</string>
     <string name="choose_format">Vali vorming</string>
+    <string name="clear_selection">Ära vali midagi</string>
     <string name="selected">Valitud</string>
     <string name="back">Tagasi</string>
     <string name="expand_collapse">Laienda/ ahenda</string>

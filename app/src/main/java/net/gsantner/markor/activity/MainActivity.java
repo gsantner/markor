@@ -147,6 +147,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
             _quicknote = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_quicknote));
             _todo = (DocumentEditAndViewFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_todo));
             _more = (MoreFragment) manager.getFragment(savedInstanceState, Integer.toString(R.id.nav_more));
+
+            final NewFileDialog nf = (NewFileDialog) manager.findFragmentByTag(NewFileDialog.FRAGMENT_TAG);
+            if (nf != null) {
+                nf.setCallback(this::newItemCallback);
+            }
+
         } catch (NullPointerException | IllegalStateException ignored) {
             Log.d(MainActivity.class.getName(), "Child fragment not found in onRestoreInstanceState()");
         }
@@ -176,7 +182,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
-            if (file.isDirectory()) {
+            if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
                 _notebook.post(() -> _notebook.setCurrentFolder(file));
             } else {
                 _notebook.post(() -> _notebook.getAdapter().showFile(file));
@@ -296,16 +302,16 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                 return;
             }
 
-            final NewFileDialog dialog = NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, (ok, f) -> {
-                if (ok) {
-                    if (f.isFile()) {
-                        DocumentActivity.launch(MainActivity.this, f, false, null, null);
-                    } else if (f.isDirectory()) {
-                        _notebook.getAdapter().showFile(f);
-                    }
-                }
-            });
-            dialog.show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+            NewFileDialog.newInstance(_notebook.getCurrentFolder(), true, this::newItemCallback)
+                .show(getSupportFragmentManager(), NewFileDialog.FRAGMENT_TAG);
+        }
+    }
+
+    private void newItemCallback(final File file) {
+        if (file.isFile()) {
+            DocumentActivity.launch(MainActivity.this, file, false, null, null);
+        } else if (file.isDirectory()) {
+            _notebook.getAdapter().showFile(file);
         }
     }
 

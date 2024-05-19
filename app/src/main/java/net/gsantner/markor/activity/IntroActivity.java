@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -50,6 +51,8 @@ public class IntroActivity extends AppIntro {
         // Permissions -- takes a permission and slide number
         setSkipButtonEnabled(false);
         setSwipeLock(false);
+        setSeparatorColor(Color.DKGRAY);
+        setIndicatorColor(GsContextUtils.instance.rcolor(this, R.color.accent), Color.LTGRAY);
     }
 
     @Override

@@ -7,6 +7,8 @@
 #########################################################*/
 package net.gsantner.markor.format;
 
+import static android.util.Patterns.WEB_URL;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +17,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -41,6 +42,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.DatetimeFormatDialog;
 import net.gsantner.markor.frontend.MarkorDialogFactory;
@@ -55,6 +57,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -492,43 +495,36 @@ public abstract class ActionButtonBase {
 
     private static void runRegexReplaceAction(final Editable editable, final List<ReplacePattern> patterns) {
 
-        final int[] sel = TextViewUtils.getSelection(editable);
-        final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+        TextViewUtils.withKeepSelection(editable, (selStart, selEnd) -> {
 
-        // Offset of selection start from text end - used to restore selection
-        final int selEndOffset = text.length() - sel[1];
-        // Offset of selection start from line end - used to restore selection
-        final int selStartOffset = sel[1] == sel[0] ? selEndOffset : TextViewUtils.getLineEnd(text, sel[0]) - sel[0];
+            final TextViewUtils.ChunkedEditable text = TextViewUtils.ChunkedEditable.wrap(editable);
+            // Start of line on which sel begins
+            final int selStartStart = TextViewUtils.getLineStart(text, selStart);
 
-        // Start of line on which sel begins
-        final int selStartStart = TextViewUtils.getLineStart(text, sel[0]);
-        // Number of lines we will be modifying
-        final int lineCount = TextViewUtils.countChars(text, sel[0], sel[1], '\n')[0] + 1;
+            // Number of lines we will be modifying
+            final int lineCount = GsTextUtils.countChars(text, selStart, selEnd, '\n')[0] + 1;
+            int lineStart = selStartStart;
 
-        int lineStart = selStartStart;
 
-        for (int i = 0; i < lineCount; i++) {
+            for (int i = 0; i < lineCount; i++) {
 
-            int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
-            final String line = TextViewUtils.toString(text, lineStart, lineEnd);
+                int lineEnd = TextViewUtils.getLineEnd(text, lineStart);
+                final String line = TextViewUtils.toString(text, lineStart, lineEnd);
 
-            for (final ReplacePattern pattern : patterns) {
-                if (pattern.matcher.reset(line).find()) {
-                    if (!pattern.isSameReplace()) {
-                        text.replace(lineStart, lineEnd, pattern.replace());
+                for (final ReplacePattern pattern : patterns) {
+                    if (pattern.matcher.reset(line).find()) {
+                        if (!pattern.isSameReplace()) {
+                            text.replace(lineStart, lineEnd, pattern.replace());
+                        }
+                        break;
                     }
-                    break;
                 }
+
+                lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
             }
 
-            lineStart = TextViewUtils.getLineEnd(text, lineStart) + 1;
-        }
-
-        text.applyChanges();
-
-        final int newSelEnd = text.length() - selEndOffset;
-        final int newSelStart = sel[0] == sel[1] ? newSelEnd : TextViewUtils.getLineEnd(text, selStartStart) - selStartOffset;
-        Selection.setSelection(editable, newSelStart, newSelEnd);
+            text.applyChanges();
+        });
     }
 
     protected void runSurroundAction(final String delim) {
@@ -704,7 +700,25 @@ public abstract class ActionButtonBase {
                 final int sel = TextViewUtils.getSelection(_hlEditor)[0];
                 final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
                 final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
-                String url = GsTextUtils.tryExtractUrlAroundPos(line, cursor);
+
+                // First try to pull a resource
+                String url = null;
+                final String resource = GsTextUtils.tryExtractResourceAroundPos(line, cursor);
+                if (resource != null) {
+                    if (WEB_URL.matcher(resource).matches()) {
+                        url = resource;
+                    } else {
+                        final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
+                        if (f.canRead()) {
+                            DocumentActivity.handleFileClick(getActivity(), f, null);
+                            return true;
+                        }
+                    }
+
+                }
+
+                // Then try to pull a tag
+                url = url == null ? GsTextUtils.tryExtractUrlAroundPos(line, cursor) : url;
                 if (url != null) {
                     if (url.endsWith(")")) {
                         url = url.substring(0, url.length() - 1);
@@ -894,8 +908,10 @@ public abstract class ActionButtonBase {
         final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
 
         hlEditor.withAutoFormatDisabled(() -> {
-            final String lines_final = String.format("%s\n", lines);
-            text.insert(linesEnd + 1, lines_final);
+            // Prepending the newline instead of appending it is required for making
+            // this logic work even if it's about the last line in the given file.
+            final String lines_final = String.format("\n%s", lines);
+            text.insert(linesEnd, lines_final);
         });
 
         final int sel_offset = selEnd[0] - selStart[0] + 1;
@@ -905,6 +921,14 @@ public abstract class ActionButtonBase {
         hlEditor.setSelection(
                 TextViewUtils.getIndexFromLineOffset(text, selStart),
                 TextViewUtils.getIndexFromLineOffset(text, selEnd));
+    }
+
+    public void withKeepSelection(final GsCallback.a2<Integer, Integer> action) {
+        _hlEditor.withAutoFormatDisabled(() -> TextViewUtils.withKeepSelection(_hlEditor.getText(), action));
+    }
+
+    public void withKeepSelection(final GsCallback.a0 action) {
+        withKeepSelection((start, end) -> action.callback());
     }
 
     // Derived classes should override this to implement format-specific renumber logic

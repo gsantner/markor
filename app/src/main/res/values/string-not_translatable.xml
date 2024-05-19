@@ -12,9 +12,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="app_name_real" translatable="false">Markor</string>
     <string name="app_name" translatable="false">@string/app_name_real</string>
     <string name="app_license_name" translatable="false">Apache 2.0</string>
-    <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions</string>
-    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/issues/new/choose</string>
-    <string name="app_translate_url" translatable="false">https://crowdin.com/project/markor/invite?h=a30c38972fb7edee1b157e38bdc063492042484</string>
+    <string name="app_community_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
+    <string name="app_bugreport_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
+    <string name="app_translate_url" translatable="false">https://github.com/gsantner/markor/discussions/2269#discussion_bucket</string>
 
     <string name="app_web_url" translatable="false">https://github.com/gsantner/markor</string>
     <string name="sync_client_support_issue_url" translatable="false">https://github.com/gsantner/markor/discussions/1381</string>
@@ -212,7 +212,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="abid_common_delete_lines" translatable="false">abid_common_delete_lines</string>
     <string name="abid_common_duplicate_lines" translatable="false">abid_common_duplicate_lines</string>
     <string name="abid_common_new_line_below" translatable="false">abid_common_new_line_below</string>
-    <string name="abid_common_attach_something" translatable="false">abid_common_attach_something</string>
     <string name="abid_common_unordered_list_char" translatable="false">abid_common_unordered_list_char</string>
     <string name="abid_common_ordered_list_number" translatable="false">abid_common_ordered_list_number</string>
     <string name="abid_common_ordered_list_renumber" translatable="false">abid_common_ordered_list_renumber</string>
@@ -367,18 +366,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__open_links_with_chrome_custom_tabs" translatable="false">pref_key__open_links_with_chrome_custom_tabs</string>
     <string name="features" translatable="false">Features</string>
     <string name="chrome_custom_tabs" translatable="false">Chrome Custom Tabs</string>
-    <string name="file_template__md_markor_markdown_reference" translatable="false">markor-markdown-reference.md</string>
-    <string name="file_template__md_jekyll_post" translatable="false">2029-01-01-jekyll-post.md</string>
-    <string name="file_template__ad_jekyll_post" translatable="false">2029-01-01-jekyll-post.adoc</string>
-    <string name="file_template__md_zettelkasten" translatable="false">202901012359-zettelkasten.md</string>
-    <string name="file_template__md_cooking_recipe" translatable="false">cooking-recipe.md</string>
-    <string name="file_template__txt_todo_sample" translatable="false">todo.example.txt</string>
-    <string name="file_template__zim_wiki_reference" translatable="false">zim-wiki-reference.txt</string>
-    <string name="file_template__zim_wiki_empty" translatable="false">zim-wiki-empty.txt</string>
-    <string name="file_template__md_hugo_post_front_matter" translatable="false">hugo-post-front-matter.md</string>
-    <string name="file_template__md_presentation_beamer" translatable="false">presentation-beamer.md</string>
-    <string name="file_template__csv_sample" translatable="false">sample.csv</string>
-    <string name="file_template__orgmode_reference" translatable="false">orgmode-reference.org</string>
     <string name="asciidoc" translatable="false">AsciiDoc</string>
     <string name="key_value" translatable="false">Key - Value</string>
     <string name="ohm" translatable="false">Ohm (Ω)</string>
@@ -433,6 +420,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="action_format_orgmode" translatable="false">action_format_orgmode</string>
     <string name="pref_key__share_into_format" translatable="false">pref_key__share_into_format</string>
     <string name="pref_key__attachment_folder_name" translatable="false">pref_key__attachment_directory_name</string>
+    <string name="pref_key__filetype_template_map" translatable="false">pref_key__filetype_template_map</string>
+    <string name="pref_key__template_title_format_map" translatable="false">pref_key__template_title_format_map</string>
+    <string name="pref_key__title_format_list" translatable="false">pref_key__title_format_list</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
     <string name="orgmode" translatable="false">OrgMode</string>

@@ -221,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduzir</string>
     <string name="more_info_and_help">Mais informações/ajuda</string>
     <string name="report_bugs">Reportar erros</string>
+    <string name="do_you_have_a_question_or_problem">Tem alguma questão ou problema?</string>
     <string name="join_community">Participe na comunidade</string>
     <string name="bug_reports_suggest_improvements">Comentários, reporte de erros e sugestões</string>
     <string name="help_translating_this_app">Traduzir esta aplicação</string>
@@ -318,7 +319,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_numbers">Números das linhas</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Ajustar texto caso este não caiba no ecrã. Também ativa a deslocação horizontal.</string>
     <string name="recursive_search_in_location">Pesquisa recursiva em %s</string>
-    <string name="current_location">localização atual</string>
     <string name="always_open_with_this_app">Abrir sempre com esta aplicação</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Utilizar sempre esta aplicação se a wextensão do ficheiro estiver nesta lista. Utilize, por exemplo, \'None, .html, .css , .js\' se quiser editar ficheiros web ou ficheiros que não tenham extensão.</string>
     <string name="open_file_with">Abrir arquivo com</string>
@@ -341,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Quantas colunas? Pressione o botão de tabela para iniciar uma tabela (inserir cabeçalho), pressione a tecla curta para adicionar uma linha.</string>
     <string name="example_of_a_markdown_table">Exemplo de tabela Markdown</string>
     <string name="delete_lines">Apagar linhas</string>
+    <string name="duplicate_lines">Duplicar linhas</string>
     <string name="unordered_list">Lista desordenada</string>
     <string name="ordered_list">Lista ordenada</string>
     <string name="check_list">Lista de verificação</string>
