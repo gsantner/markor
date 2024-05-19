@@ -318,7 +318,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="line_numbers">Número de línea</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Desliza suavemente si el texto no se ajusta al ancho de pantalla. De lo contrario, activa el desplazamiento horizontal.</string>
     <string name="recursive_search_in_location">Búsqueda recursiva en %s</string>
-    <string name="current_location">ubicación actual</string>
     <string name="always_open_with_this_app">Siempre abierto con esta aplicación</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Siempre abra archivos con esta aplicación cuando la lista contiene la extensión de archivo. Use \'Ninguno, .html, .css , .js\' por ejemplo si desea editar archivos web y aquellos sin extensión de archivo.</string>
     <string name="open_file_with">Abrir archivo con</string>

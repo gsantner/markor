@@ -1,0 +1,6 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: `yyyy-MM-dd'T'HH:mm:ssXXX`
+
+====== {{title}} ======
+Created `EEEE dd MMMM yyyy`

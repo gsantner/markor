@@ -7,6 +7,7 @@ import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.util.MarkorContextUtils;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 
 import java.io.File;
 
@@ -31,7 +32,7 @@ public class OpenFromShortcutOrWidgetActivity extends MarkorBaseActivity {
     private void launchActivityAndFinish(Intent intent) {
         final Intent newIntent = new Intent(intent);
         final File intentFile = MarkorContextUtils.getIntentFile(intent, null);
-        if (intentFile != null && intentFile.isDirectory()) {
+        if (intentFile != null && (intentFile.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(intentFile))) {
             newIntent.setClass(this, MainActivity.class);
             startActivity(newIntent);
         } else {

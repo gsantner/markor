@@ -30,6 +30,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
@@ -457,7 +458,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     public boolean indexesValid(int... indexes) {
-        return TextViewUtils.inRange(0, length(), indexes);
+        return GsTextUtils.inRange(0, length(), indexes);
     }
 
     static class LineNumbersDrawer {
@@ -482,12 +483,12 @@ public class HighlightingEditor extends AppCompatEditText {
         private final GsTextWatcherAdapter _lineTrackingWatcher = new GsTextWatcherAdapter() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                _maxNumber -= TextViewUtils.countChar(s, start, start + count, '\n');
+                _maxNumber -= GsTextUtils.countChar(s, start, start + count, '\n');
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                _maxNumber += TextViewUtils.countChar(s, start, start + count, '\n');
+                _maxNumber += GsTextUtils.countChar(s, start, start + count, '\n');
             }
         };
 
@@ -549,7 +550,7 @@ public class HighlightingEditor extends AppCompatEditText {
             _maxNumber = 1;
             final CharSequence text = _editor.getText();
             if (text != null) {
-                _maxNumber += TextViewUtils.countChar(text, 0, text.length(), '\n');
+                _maxNumber += GsTextUtils.countChar(text, 0, text.length(), '\n');
             }
             _editor.addTextChangedListener(_lineTrackingWatcher);
         }

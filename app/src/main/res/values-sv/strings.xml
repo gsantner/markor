@@ -176,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Flytta klara uppgifter till angiven fil i samma mapp</string>
     <string name="sort_tasks_by_selected_order">Sortera uppgifter efter vald ordning</string>
     <string name="special_key">Specialtangenter</string>
+    <string name="asciidoc_special_key">Särskilt AsciiDoc-innehåll</string>
     <string name="key_page_up">Sida upp (Page up)</string>
     <string name="key_page_down">Sida ned (Page down)</string>
     <string name="move_text_one_line_up">Flytta text en rad upp</string>
@@ -197,6 +198,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor kan bara redigera lokala dokument som är tillgängliga offlinie och stöder inte filhanterare som inte ger den fullständiga sökvägen.</string>
     <string name="file_does_not_exist_and_cant_be_created">Fil eller mapp finns inte eller kan inte skapas</string>
     <string name="permissions">Rättigheter</string>
+    <string name="permission_paths_revert">Återställ till defaultsökvägar?</string>
     <string name="permission_not_granted">Behörighet inte beviljad</string>
     <string name="sync_to_local_folder_notice">OBS: Synkroniseringsappar kan möjligen placera filer i egna mappar. Öppna dem genom att ändra Markors dokumentmapp eller i en annan filhanterare.</string>
     <string name="vertical_alignment">Vertikal justering</string>
@@ -315,7 +317,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Bryt långa rader</string>
     <string name="line_numbers">Radnummer</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Mjuk brytning om texten inte får plats på skärmen. Aktiverar annars horisontell rullning.</string>
-    <string name="current_location">nuvarande plats</string>
+    <string name="recursive_search_in_location">Sök rekursivt i %s</string>
     <string name="always_open_with_this_app">Öppna alltid med denna app</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Öppna alltid filer med filtyperna i listan med den här appen. Använd till exempel \'None, .html, .css , .js\' om du vill redigera webbfiler och filer utan filändelse.</string>
     <string name="open_file_with">Öppna fil med</string>
@@ -338,6 +340,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Hur många kolumner? Tryck på tabellknappen för att starta en tabell (infoga sidhuvud), tryck kort för att lägga till en rad.</string>
     <string name="example_of_a_markdown_table">Exempel på en markdown-tabell</string>
     <string name="delete_lines">Radera rader</string>
+    <string name="duplicate_lines">Duplicera rader</string>
     <string name="unordered_list">Punktlista</string>
     <string name="ordered_list">Numrerad lista</string>
     <string name="check_list">Checklista</string>
@@ -366,6 +369,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Arkivera slutförda uppgifter</string>
     <string name="create_new_file_or_folder">Skapa en ny fil eller mapp</string>
     <string name="choose_format">Välj format</string>
+    <string name="clear_selection">Rensa markering</string>
     <string name="selected">Vald</string>
     <string name="back">Tillbaka</string>
     <string name="expand_collapse">Expandera / Komprimera</string>
@@ -438,11 +442,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Matcha alla</string>
     <string name="dynamic_notebook_root_links">Dynamisk sökning efter anteckningsbok rot</string>
     <string name="search_dynamically_for_notebook_root">För att följa wiki-länkar, dynamiskt söka efter filen notebook.zim för att identifiera rotkatalogen för den aktuella anteckningsboken. Kontrollera detta om du använder flera anteckningsböcker för zim eller den anteckningsbok som anges i appen inte motsvarar din anteckningsbok för zim.</string>
+    <string name="share_into_format_prefix_for_text_shared">Format/prefix för text delad i Markor. Följer Androids regler för SimpleDateFormat.\n\nAnvänd {{text}} för att placera din text. Om taggen in är angiven kommer texten att användas som prefix i slutet.</string>
     <string name="share_into_format">Dela till - Format</string>
+    <string name="attachment_folder_name">Namn på katalog för bilagor</string>
+    <string name="attachment_folder_name_desc">Underkataloger under nuvarande katalog där bilagor sparas. Om oangiven, kommer bilagor sparas i nuvarande katalog.</string>
     <string name="auto_format">Auto-format</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Urklipps- och mallkatalog</string>
     <string name="error_could_not_open_file">Fel: Kunde inte öppna fil.</string>
     <string name="document_error_clip">Ett fel uppstod: Text kopierad till urklipp.</string>
     <string name="wont_save_min_length">Filer med färre än %d tecken sparas inte automatiskt i syfte för att förhindra förlust av data.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Syntax för avancerade filter</a></small>]]></string>
     <string name="filter">Filter</string>
 </resources>

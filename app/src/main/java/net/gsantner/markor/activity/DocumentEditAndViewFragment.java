@@ -7,8 +7,6 @@
 #########################################################*/
 package net.gsantner.markor.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -185,6 +183,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
         }
 
+        // Preview mode set before loadDocument to prevent flicker
+        final Bundle args = getArguments();
+        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
+        if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
+            setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview), false);
+        } else {
+            setViewModeVisibility(startInPreview, false);
+        }
+
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
         _document.resetChangeTracking(); // force next reload
         loadDocument();
@@ -215,15 +222,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.getPath()));
         updateMenuToggleStates(0);
         // ---------------------------------------------------------
-
-        // Start preview _after_ text load
-        final Bundle args = getArguments();
-        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
-        if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
-            setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview));
-        } else {
-            setViewModeVisibility(startInPreview);
-        }
 
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
@@ -285,7 +283,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onPause() {
         saveDocument(false);
         _webView.onPause();
-        _appSettings.addRecentDocument(_document.getFile());
+        _appSettings.addRecentFile(_document.getFile());
         _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
         super.onPause();
@@ -806,7 +804,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _format.getConverter().convertMarkupShowInWebView(_document, text, getActivity(), _webView, _nextConvertToPrintMode, _hlEditor.getLineNumbersEnabled());
     }
 
-    public void setViewModeVisibility(boolean show) {
+    public void setViewModeVisibility(final boolean show) {
+        setViewModeVisibility(show, true);
+    }
+
+    public void setViewModeVisibility(boolean show, final boolean animate) {
         final Activity activity = getActivity();
         show |= _document.isBinaryFileNoTextLoading();
 
@@ -816,10 +818,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _cu.showSoftKeyboard(activity, false, _hlEditor);
             _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
-            fadeInOut(_webView, _primaryScrollView);
+            GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
             _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            fadeInOut(_primaryScrollView, _webView);
+            GsContextUtils.fadeInOut(_primaryScrollView, _webView, animate);
         }
 
         _nextConvertToPrintMode = false;
@@ -837,28 +839,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (type.equalsIgnoreCase("toast") && args.length == 2) {
             Toast.makeText(getActivity(), args[1], Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private static boolean fadeInOut(final View in, final View out) {
-        // Do nothing if we are already in the correct state
-        if (in.getVisibility() == View.VISIBLE && out.getVisibility() == View.GONE) {
-            return false;
-        }
-
-        in.setAlpha(0);
-        in.setVisibility(View.VISIBLE);
-        in.animate().alpha(1).setDuration(200).setListener(null);
-        out.animate()
-                .alpha(0)
-                .setDuration(200)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        out.setVisibility(View.GONE);
-                    }
-                });
-
-        return true;
     }
 
     @Override

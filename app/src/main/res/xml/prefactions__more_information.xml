@@ -24,9 +24,10 @@
         tools:summary="Version v0.5" />
 
     <Preference
-        android:icon="@drawable/ic_thumb_up_black_24dp"
-        android:key="@string/pref_key__more_info__rate_app"
-        android:title="@string/rate_this_app" />
+        android:icon="@drawable/ic_bug_report_black_24dp"
+        android:key="@string/pref_key__more_info__bug_reports"
+        android:summary="@string/bug_reports_suggest_improvements"
+        android:title="@string/do_you_have_a_question_or_problem" />
 
     <Preference
         android:icon="@drawable/ic_settings_black_24dp"
@@ -38,32 +39,24 @@
         android:key="@string/pref_key__more_info__help"
         android:title="@string/help" />
 
+    <Preference
+        android:icon="@drawable/ic_thumb_up_black_24dp"
+        android:key="@string/pref_key__more_info__rate_app"
+        android:title="@string/rate_this_app" />
 
-    <PreferenceCategory android:title="@string/contribute">
+    <PreferenceCategory
+        android:key="@string/pref_key__more_info__project_team"
+        android:title="@string/project_team" />
 
-        <Preference
-            android:icon="@drawable/ic_bug_report_black_24dp"
-            android:key="@string/pref_key__more_info__bug_reports"
-            android:summary="@string/bug_reports_suggest_improvements"
-            android:title="@string/report_bugs" />
+    <PreferenceCategory
+        android:key="@string/pref_key__more_info__project_community"
+        android:title="@string/community">
 
         <Preference
             android:icon="@drawable/ic_translate_black_24dp"
             android:key="@string/pref_key__more_info__translate"
             android:summary="@string/help_translating_this_app"
             android:title="@string/translate" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="@string/pref_key__more_info__project_team"
-        android:title="@string/project_team">
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="@string/pref_key__more_info__project_community"
-        android:title="@string/community">
 
         <Preference
             android:icon="@drawable/ic_group_black_24dp"

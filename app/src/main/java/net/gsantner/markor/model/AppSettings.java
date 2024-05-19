@@ -9,6 +9,7 @@ package net.gsantner.markor.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
@@ -17,6 +18,7 @@ import android.util.Pair;
 import androidx.annotation.ColorRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
@@ -32,14 +34,22 @@ import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import other.de.stanetz.jpencconverter.PasswordStore;
@@ -326,7 +336,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return getBool(R.string.pref_key__editor_disable_spelling_red_underline, true);
     }
 
-    public void addRecentDocument(File file) {
+    public void addRecentFile(final File file) {
         if (!listFileInRecents(file)) {
             return;
         }
@@ -553,10 +563,6 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         return popular;
     }
 
-    public List<String> getPopularDocuments() {
-        return getStringList(R.string.pref_key__popular_documents);
-    }
-
     public void setPopularDocuments(List<String> v) {
         limitListTo(v, 20, true);
         setStringList(R.string.pref_key__popular_documents, v, _prefApp);
@@ -569,7 +575,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public ArrayList<String> getRecentDocuments() {
-        ArrayList<String> list = getStringList(R.string.pref_key__recent_documents);
+        final ArrayList<String> list = getStringList(R.string.pref_key__recent_documents);
         for (int i = 0; i < list.size(); i++) {
             if (!new File(list.get(i)).isFile()) {
                 list.remove(i);
@@ -607,7 +613,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public Set<File> getPopularFiles() {
-        return getFileSet(getPopularDocuments());
+        return getFileSet(getStringList(R.string.pref_key__popular_documents));
     }
 
     public String getInjectedHeader() {
@@ -962,5 +968,133 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
         final String child = getString(R.string.pref_key__attachment_folder_name, "_res").trim();
         return GsTextUtils.isNullOrEmpty(child) ? parent : new File(parent, child);
+    }
+
+    public List<Pair<String, String>> getBuiltinTemplates() {
+        final List<Pair<String, String>> templates = new ArrayList<>();
+        final String templateAssetDir = "templates";
+        try {
+            // Assuming templates are stored in res/raw directory
+            final AssetManager am = _context.getAssets();
+            final String[] names = am.list("templates");
+            for (final String name : names) {
+                try (final InputStream is = am.open(templateAssetDir + File.separator + name)) {
+                    final String contents = GsFileUtils.readInputStreamFast(is, null).first;
+                    templates.add(Pair.create(name, contents));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return templates;
+    }
+
+    // Read all files in snippets folder with appropriate extension
+    // Create a map of snippet title -> text
+    public List<Pair<String, File>> getSnippetFiles() {
+        final List<Pair<String, File>> texts = new ArrayList<>();
+        // Read all files in snippets folder with appropriate extension
+        // Create a map of snippet title -> text
+        final File[] files = getSnippetsDirectory().listFiles();
+        if (files != null) {
+            for (final File f : files) {
+                if (f.isFile() && f.canRead() && FormatRegistry.isFileSupported(f, true)) {
+                    texts.add(Pair.create(f.getName(), f));
+                }
+            }
+        }
+
+        GsCollectionUtils.keySort(texts, p -> p.first);
+        return texts;
+    }
+
+    public void setTypeTemplate(final @StringRes int format, final String template) {
+        final String js = getString(R.string.pref_key__filetype_template_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        map.put(_context.getString(format), template);
+        setString(R.string.pref_key__filetype_template_map, mapToJsonString(map));
+    }
+
+    public @Nullable String getTypeTemplate(final @StringRes int format) {
+        final String js = getString(R.string.pref_key__filetype_template_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        return map.get(format == 0 ? "" : _context.getString(format));
+    }
+
+    public void setTemplateTitleFormat(final String templateName, final String titleFormat) {
+        final String js = getString(R.string.pref_key__template_title_format_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        map.put(templateName, titleFormat);
+        setString(R.string.pref_key__template_title_format_map, mapToJsonString(map));
+    }
+
+    public @Nullable String getTemplateTitleFormat(final String templateName) {
+        final String js = getString(R.string.pref_key__template_title_format_map, "{}");
+        final Map<String, String> map = jsonStringToMap(js);
+        return map.get(templateName);
+    }
+
+    public Set<String> getTitleFormats() {
+        final String js = getString(R.string.pref_key__title_format_list, "[]");
+        final Set<String> formats = new LinkedHashSet<>(jsonStringToList(js));
+        formats.addAll(Arrays.asList(
+            "{{date}}_{{title}}",
+            "{{date}}T{{time}}_{{title}}",
+            "`yyyyMMddHHmmSS`_{{title}}",
+            "{{uuid}}"
+        ));
+        return formats;
+    }
+
+    public void saveTitleFormat(final String format, final int maxCount) {
+        final Set<String> formats = getTitleFormats();
+        final Set<String> updated = new LinkedHashSet<>(Collections.singleton(format));
+        for (final String f : formats) {
+            updated.add(f);
+            if (updated.size() >= maxCount) {
+                break;
+            }
+        }
+        setString(R.string.pref_key__title_format_list, toJsonString(updated));
+    }
+
+    private static String mapToJsonString(final Map<String, String> map) {
+        return new JSONObject(map).toString();
+    }
+
+    private static Map<String, String> jsonStringToMap(final String jsonString) {
+        final Map<String, String> map = new LinkedHashMap<>();
+        try {
+            final JSONObject jsonObject = new JSONObject(jsonString);
+            final Iterator<String> keys = jsonObject.keys();
+
+            while (keys.hasNext()) {
+                String key = keys.next();
+                String value = jsonObject.getString(key);
+                map.put(key, value);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public String toJsonString(final Collection<String> list) {
+        final JSONArray jsonArray = new JSONArray(list);
+        return jsonArray.toString();
+    }
+
+    public List<String> jsonStringToList(final String jsonString) {
+        final List<String> list = new ArrayList<>();
+        try {
+            final JSONArray jsonArray = new JSONArray(jsonString);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                list.add(jsonArray.getString(i));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
