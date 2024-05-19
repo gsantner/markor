@@ -2882,6 +2882,7 @@ public class GsContextUtils {
 
     /**
      * Blinks the view passed in as parameter
+     *
      * @param view View to be blinked
      * @return A callback to terminate the blinking
      */
@@ -2892,7 +2893,7 @@ public class GsContextUtils {
         }
 
         final ObjectAnimator animator = ObjectAnimator.ofFloat(
-                view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
+                        view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
                 .setDuration(800);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override

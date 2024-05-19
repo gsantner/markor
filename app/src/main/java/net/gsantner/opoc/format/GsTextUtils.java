@@ -10,7 +10,6 @@
 package net.gsantner.opoc.format;
 
 import android.util.Base64;
-import android.widget.EditText;
 
 import net.gsantner.opoc.wrapper.GsCallback;
 

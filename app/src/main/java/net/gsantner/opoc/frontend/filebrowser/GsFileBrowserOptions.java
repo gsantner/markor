@@ -22,8 +22,6 @@ import net.gsantner.opoc.wrapper.GsCallback;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class GsFileBrowserOptions {

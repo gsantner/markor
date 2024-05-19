@@ -202,18 +202,18 @@ public class NewFileDialog extends DialogFragment {
         // -----------------------------------------------------------------------------------------
 
         final GsCallback.s0 getTitle = () -> {
-                final String title = titleEdit.getText().toString().trim();
+            final String title = titleEdit.getText().toString().trim();
 
-                String format = formatEdit.getText().toString().trim();
-                if (format.isEmpty() && title.isEmpty()) {
-                    format = "`yyyy-MM-dd'T'hhMMss`";
-                } else if (format.isEmpty()) {
-                    format = "{{title}}";
-                } else if (!title.isEmpty() && !format.contains("{{title}}")) {
-                    format += "_{{title}}";
-                }
+            String format = formatEdit.getText().toString().trim();
+            if (format.isEmpty() && title.isEmpty()) {
+                format = "`yyyy-MM-dd'T'hhMMss`";
+            } else if (format.isEmpty()) {
+                format = "{{title}}";
+            } else if (!title.isEmpty() && !format.contains("{{title}}")) {
+                format += "_{{title}}";
+            }
 
-                return TextViewUtils.interpolateSnippet(format, title, "").trim();
+            return TextViewUtils.interpolateSnippet(format, title, "").trim();
         };
 
 

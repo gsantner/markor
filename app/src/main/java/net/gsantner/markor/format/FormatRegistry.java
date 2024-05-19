@@ -75,7 +75,6 @@ public class FormatRegistry {
     public final static OrgmodeTextConverter CONVERTER_ORGMODE = new OrgmodeTextConverter();
 
 
-
     public static class Format {
         public final @StringRes int format, name;
         public final String ext;
@@ -89,7 +88,7 @@ public class FormatRegistry {
         }
     }
 
-    public static final Format[] FORMATS = new Format[] {
+    public static final Format[] FORMATS = new Format[]{
             new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", CONVERTER_MARKDOWN),
             new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
             new Format(FormatRegistry.FORMAT_TODOTXT, R.string.todo_txt, ".todo.txt", CONVERTER_TODOTXT),
