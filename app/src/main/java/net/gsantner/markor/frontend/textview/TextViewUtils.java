@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -47,27 +48,13 @@ public final class TextViewUtils {
         throw new AssertionError();
     }
 
-    public static boolean isValidIndex(final CharSequence s, final int... indices) {
-        return s != null && inRange(0, s.length() - 1, indices);
-    }
-
-    // Checks if all values are in [min, max] _inclusive_
-    public static boolean inRange(final int min, final int max, final int... values) {
-        for (final int i : values) {
-            if (i < min || i > max) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static int getLineStart(CharSequence s, int start) {
         return getLineStart(s, start, 0);
     }
 
     public static int getLineStart(CharSequence s, int start, int minRange) {
         int i = start;
-        if (isValidIndex(s, start - 1, minRange)) {
+        if (GsTextUtils.isValidIndex(s, start - 1, minRange)) {
             for (; i > minRange; i--) {
                 if (s.charAt(i - 1) == '\n') {
                     break;
@@ -84,7 +71,7 @@ public final class TextViewUtils {
 
     public static int getLineEnd(CharSequence s, int start, int maxRange) {
         int i = start;
-        if (isValidIndex(s, start, maxRange - 1)) {
+        if (GsTextUtils.isValidIndex(s, start, maxRange - 1)) {
             for (; i < maxRange; i++) {
                 if (s.charAt(i) == '\n') {
                     break;
@@ -218,7 +205,7 @@ public final class TextViewUtils {
      */
     public static int[] getLineOffsetFromIndex(final CharSequence s, int p) {
         p = Math.min(Math.max(p, 0), s.length());
-        final int line = countChars(s, 0, p, '\n')[0];
+        final int line = GsTextUtils.countChars(s, 0, p, '\n')[0];
         final int offset = getLineEnd(s, p) - p;
 
         return new int[]{line, offset};
@@ -259,61 +246,6 @@ public final class TextViewUtils {
         return i;
     }
 
-    public static int[] countChars(final CharSequence s, final char... chars) {
-        return countChars(s, 0, s.length(), chars);
-    }
-
-    /**
-     * Count instances of chars between start and end
-     *
-     * @param s     Sequence to count in
-     * @param start start of section to count within
-     * @param end   end of section to count within
-     * @param chars Array of chars to count
-     * @return number of instances of each char in [start, end)
-     */
-    public static int[] countChars(final CharSequence s, int start, int end, final char... chars) {
-        // Faster specialization for the common single case
-        if (chars.length == 1) {
-            return new int[]{countChar(s, start, end, chars[0])};
-        }
-
-        final int[] counts = new int[chars.length];
-        start = Math.max(0, start);
-        end = Math.min(end, s.length());
-        for (int i = start; i < end; i++) {
-            final char c = s.charAt(i);
-            for (int j = 0; j < chars.length; j++) {
-                if (c == chars[j]) {
-                    counts[j]++;
-                }
-            }
-        }
-        return counts;
-    }
-
-    public static int countChar(final CharSequence s, final char c) {
-        return countChar(s, 0, s.length(), c);
-    }
-
-    /**
-     * Count instances of a single char in a charsequence
-     */
-    public static int countChar(final CharSequence s, int start, int end, final char c) {
-        start = Math.max(0, start);
-        end = Math.min(end, s.length());
-        int count = 0;
-        for (int i = start; i < end; i++) {
-            if (s.charAt(i) == c) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public static boolean isNewLine(CharSequence source, int start, int end) {
-        return isValidIndex(source, start, end - 1) && (source.charAt(start) == '\n' || source.charAt(end - 1) == '\n');
-    }
 
     public static void selectLines(final EditText edit, final Integer... positions) {
         selectLines(edit, Arrays.asList(positions));
@@ -423,9 +355,9 @@ public final class TextViewUtils {
         final int start = sel[0];
         final int end = sel.length > 1 ? sel[1] : start;
 
-        if (inRange(0, edit.length(), start, end)) {
+        if (GsTextUtils.inRange(0, edit.length(), start, end)) {
             edit.post(() -> {
-                if (!edit.hasFocus()) {
+                if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
                     edit.requestFocus();
                 }
 
@@ -803,7 +735,7 @@ public final class TextViewUtils {
     }
 
     public static boolean checkRange(final int length, final int... indices) {
-        return indices != null && indices.length >= 2 && inRange(0, length, indices) && indices[1] > indices[0];
+        return indices != null && indices.length >= 2 && GsTextUtils.inRange(0, length, indices) && indices[1] > indices[0];
     }
 
     public static boolean isViewVisible(final View view) {

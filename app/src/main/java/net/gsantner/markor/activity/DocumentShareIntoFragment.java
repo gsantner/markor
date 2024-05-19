@@ -198,7 +198,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
-            _appSettings.addRecentDocument(file);
+            _appSettings.addRecentFile(file);
             if (showEditor) {
                 showInDocumentActivity(document);
             } else {
@@ -420,8 +420,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 @Override
                 public void onFsViewerSelected(final String request, final File sel, final Integer lineNumber) {
                     if (sel.isDirectory()) {
-                        NewFileDialog.newInstance(sel, false, (ok, f) -> {
-                            if (ok && f.isFile()) {
+                        NewFileDialog.newInstance(sel, false, f -> {
+                            if (f.isFile()) {
                                 appendToExistingDocumentAndClose(f, true);
                             }
                         }).show(getChildFragmentManager(), NewFileDialog.FRAGMENT_TAG);

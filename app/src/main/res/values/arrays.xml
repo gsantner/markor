@@ -97,45 +97,6 @@
         <item translatable="false">@string/asciidoc_break_page</item>
     </string-array>
 
-    <string-array name="new_file_types" translatable="false">
-        <item translatable="false">@string/markdown</item>
-        <item translatable="false">@string/plaintext</item>
-        <item translatable="false">@string/todo_txt</item>
-        <item translatable="false">@string/wikitext</item>
-        <item translatable="false">@string/asciidoc</item>
-        <item translatable="false">@string/csv</item>
-        <item translatable="false">@string/orgmode</item>
-        <item translatable="false">@string/none</item>
-    </string-array>
-
-    <!-- arr_file_templates : add new templates always at the end and corresponding code to NewFileDialog.java : getTemplateContent() -->
-    <string-array name="arr_file_templates" translatable="false">
-        <item translatable="false">@string/empty_file</item>
-        <item translatable="false">@string/file_template__md_markor_markdown_reference</item>
-        <item translatable="false">@string/file_template__txt_todo_sample</item>
-        <item translatable="false">@string/file_template__md_jekyll_post</item>
-        <item translatable="false">@string/file_template__md_cooking_recipe</item>
-        <item translatable="false">@string/file_template__md_presentation_beamer</item>
-        <item translatable="false">@string/file_template__zim_wiki_reference</item>
-        <item translatable="false">@string/file_template__zim_wiki_empty</item>
-        <item translatable="false">@string/file_template__md_hugo_post_front_matter</item>
-        <item translatable="false">@string/file_template__md_zettelkasten</item>
-        <item translatable="false">@string/file_template__ad_jekyll_post</item>
-        <item translatable="false">@string/file_template__csv_sample</item>
-        <item translatable="false">@string/file_template__orgmode_reference</item>
-    </string-array>
-
-    <string-array name="new_file_types__file_extension" translatable="false">
-        <item translatable="false">.md</item>
-        <item translatable="false">.txt</item>
-        <item translatable="false">.todo.txt</item>
-        <item translatable="false">.txt</item>
-        <item translatable="false">.adoc</item>
-        <item translatable="false">.csv</item>
-        <item translatable="false">.org</item>
-        <item translatable="false" />
-    </string-array>
-
     <string-array name="pref_arrdisp__files_startup_folder" translatable="false">
         <item translatable="false">@string/notebook</item>
         <item translatable="false">@string/favourites</item>
