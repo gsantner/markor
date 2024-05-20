@@ -788,17 +788,32 @@ public class MarkorDialogFactory {
         }
     }
 
+    public static class HeadlineDialogState {
+        public Set<Integer> disabledLevels = new HashSet<>();
+        public String searchQuery = "";
+        public int listPosition = -1;
+    }
+
+    /**
+     * Show a dialog to select a heading
+     * @param activity       Activity
+     * @param edit           Editable text
+     * @param webView        WebView corresponding to the text
+     * @param state          State of the dialog, so it can be restored.
+     * @param levelCallback  Callback to get the heading level given the text and line start and end
+     */
     public static void showHeadlineDialog(
             final Activity activity,
             final EditText edit,
             final WebView webView,
-            final Set<Integer> disabled,
-            final GsCallback.r3<Integer, CharSequence, Integer, Integer> headingLevel) {
+            final HeadlineDialogState state,
+            final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
+    ) {
         // Get all headings and their levels
         final CharSequence text = edit.getText();
         final List<Heading> headings = new ArrayList<>();
         GsTextUtils.forEachline(text, (line, start, end) -> {
-            final int level = headingLevel.callback(text, start, end);
+            final int level = levelCallback.callback(text, start, end);
             if (level > 0) {
                 headings.add(new Heading(level, text.subSequence(start, end), line));
             }
@@ -809,7 +824,7 @@ public class MarkorDialogFactory {
         final List<Integer> levels = new ArrayList<>(new TreeSet<>(GsCollectionUtils.map(headings, h -> h.level)));
 
         // Currently filtered headings
-        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level));
+        final List<Integer> filtered = GsCollectionUtils.indices(headings, h -> !state.disabledLevels.contains(h.level));
         final List<String> data = GsCollectionUtils.map(filtered, i -> headings.get(i).str);
 
         final DialogOptions dopt = new DialogOptions();
@@ -819,8 +834,7 @@ public class MarkorDialogFactory {
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
-        dopt.isDismissOnItemSelected = false;
-        dopt.isSaveItemPositionEnabled = true;
+        dopt.listPosition = state.listPosition;
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
@@ -833,7 +847,7 @@ public class MarkorDialogFactory {
         dopt.neutralButtonText = R.string.filter;
         dopt.neutralButtonCallback = (dialog) -> {
             final DialogOptions dopt2 = new DialogOptions();
-            dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !disabled.contains(l));
+            dopt2.preSelected = GsCollectionUtils.indices(levels, l -> !state.disabledLevels.contains(l));
             dopt2.data = GsCollectionUtils.map(levels, l -> "H" + l);
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
@@ -841,12 +855,12 @@ public class MarkorDialogFactory {
             dopt2.dialogWidthDp = 250;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
-                disabled.clear();
-                disabled.addAll(GsCollectionUtils.setDiff(levels, GsCollectionUtils.map(selected, levels::get)));
+                state.disabledLevels.clear();
+                state.disabledLevels.addAll(GsCollectionUtils.setDiff(levels, GsCollectionUtils.map(selected, levels::get)));
 
                 // Update selection and data
                 filtered.clear();
-                filtered.addAll(GsCollectionUtils.indices(headings, h -> !disabled.contains(h.level)));
+                filtered.addAll(GsCollectionUtils.indices(headings, h -> !state.disabledLevels.contains(h.level)));
 
                 data.clear();
                 data.addAll(GsCollectionUtils.map(filtered, (si, i) -> headings.get(si).str));
@@ -860,6 +874,10 @@ public class MarkorDialogFactory {
         dopt.portraitAspectRatio = new float[]{0.95f, 0.8f};
         dopt.landscapeAspectRatio = new float[]{0.7f, 0.95f};
         dopt.gravity = Gravity.CENTER;
+        dopt.dismissCallback = (d) -> {
+            state.listPosition = dopt.listPosition;
+            state.searchQuery = dopt.defaultText;
+        };
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

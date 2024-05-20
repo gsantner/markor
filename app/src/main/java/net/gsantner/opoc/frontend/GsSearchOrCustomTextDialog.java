@@ -93,7 +93,7 @@ public class GsSearchOrCustomTextDialog {
         public boolean isSearchEnabled = true;
         public boolean isSoftInputVisible = true;
         public boolean isDismissOnItemSelected = true;
-        public boolean isSaveItemPositionEnabled = false;
+        public int listPosition = -1;
         public int gravity = Gravity.NO_GRAVITY;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -271,7 +271,6 @@ public class GsSearchOrCustomTextDialog {
         final EditText searchEditText = searchView.findViewWithTag("EDIT");
         searchEditText.addTextChangedListener(GsTextWatcherAdapter.after(listAdapter::filter));
 
-
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
         }
@@ -279,19 +278,25 @@ public class GsSearchOrCustomTextDialog {
         final ListView listView = new ListView(activity);
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
-        if (dopt.isSaveItemPositionEnabled) {
-            listView.setSelection(activity.getIntent().getIntExtra("lastHeadingPosition", 0));
+
+        if (dopt.listPosition >= 0) {
+            listView.setSelection(dopt.listPosition);
         }
+
         listView.setVisibility(dopt.data != null && !dopt.data.isEmpty() ? View.VISIBLE : View.GONE);
         final LinearLayout.LayoutParams listLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         listLayout.weight = 1;
         mainLayout.addView(listView, listLayout);
 
-        if (dopt.dismissCallback != null) {
-            dialogBuilder.setOnDismissListener(dopt.dismissCallback::callback);
-        } else {
-            dialogBuilder.setOnDismissListener(dialogInterface -> activity.getIntent().putExtra("lastHeadingPosition", listView.getFirstVisiblePosition()));
-        }
+        dialogBuilder.setOnDismissListener((dialogInterface) -> {
+            // Update state
+            dopt.listPosition = listView.getFirstVisiblePosition();
+            dopt.defaultText = searchEditText.getText().toString();
+
+            if (dopt.dismissCallback != null) {
+                dopt.dismissCallback.callback(dialogInterface);
+            }
+        });
 
         dialogBuilder.setView(mainLayout)
                 .setOnCancelListener(null)
