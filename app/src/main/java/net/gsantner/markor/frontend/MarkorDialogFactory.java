@@ -835,12 +835,17 @@ public class MarkorDialogFactory {
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
         dopt.listPosition = state.listPosition;
+        dopt.defaultText = state.searchQuery;
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
             TextViewUtils.selectLines(edit, headings.get(index).line);
-            String header = headings.get(index).str;
-            String id = MarkdownTextConverter.generateHeaderId(header.substring(header.lastIndexOf('#') + 1).trim());
+
+            // Scroll to the heading in webview
+            // This needs improvement - does not handle duplicated headers etc
+            final String header = headings.get(index).str;
+            final String headerText = header.substring(header.lastIndexOf('#') + 1).trim();
+            final String id = MarkdownTextConverter.generateHeaderId(headerText);
             webView.loadUrl("javascript:document.getElementById('" + id + "').scrollIntoView();");
         };
 

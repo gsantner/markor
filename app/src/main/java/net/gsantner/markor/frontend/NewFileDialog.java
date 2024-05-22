@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,6 +63,16 @@ public class NewFileDialog extends DialogFragment {
     public static final String EXTRA_ALLOW_CREATE_DIR = "EXTRA_ALLOW_CREATE_DIR";
 
     public static final int MAX_TITLE_FORMATS = 10;
+
+    private static final List<Integer> NEW_FILE_FORMATS = Arrays.asList(
+            FormatRegistry.FORMAT_MARKDOWN,
+            FormatRegistry.FORMAT_PLAIN,
+            FormatRegistry.FORMAT_TODOTXT,
+            FormatRegistry.FORMAT_WIKITEXT,
+            FormatRegistry.FORMAT_ASCIIDOC,
+            FormatRegistry.FORMAT_ORGMODE,
+            FormatRegistry.FORMAT_CSV
+    );
 
     private GsCallback.a1<File> callback;
 
@@ -125,6 +137,12 @@ public class NewFileDialog extends DialogFragment {
         titleEdit.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
         extEdit.setFilters(titleEdit.getFilters());
 
+        // Build a list of available formats
+        // -----------------------------------------------------------------------------------------
+        final List<FormatRegistry.Format> allFormats = Arrays.asList(FormatRegistry.FORMATS);
+        final List<FormatRegistry.Format> formats = GsCollectionUtils.map(
+                NEW_FILE_FORMATS, t -> GsCollectionUtils.selectFirst(allFormats, f -> f.format == t));
+
         // Setup title format spinner and actions
         // -----------------------------------------------------------------------------------------
         final ArrayAdapter<String> formatAdapter = new ArrayAdapter<>(
@@ -156,12 +174,12 @@ public class NewFileDialog extends DialogFragment {
         // Setup type / format spinner and action
         // -----------------------------------------------------------------------------------------
         final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item);
-        typeAdapter.addAll(GsCollectionUtils.map(Arrays.asList(FormatRegistry.FORMATS), f -> activity.getString(f.name)));
+        typeAdapter.addAll(GsCollectionUtils.map(formats, f -> activity.getString(f.name)));
         typeSpinner.setAdapter(typeAdapter);
 
         // Load name formats into spinner
         final GsCallback.a1<Integer> typeCallback = pos -> {
-            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[pos];
+            final FormatRegistry.Format fmt = formats.get(pos);
             if (fmt.ext != null) {
                 if (encryptCheckbox.isChecked()) {
                     extEdit.setText(fmt.ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
@@ -245,10 +263,10 @@ public class NewFileDialog extends DialogFragment {
             // Most of the logic we want is in the document class so we just reuse it
             final Document document = new Document(file);
 
-            // These are done even if the file doesn
+            // These are done even if the file isn't created
             final String titleFormat = formatEdit.getText().toString().trim();
             appSettings.setTemplateTitleFormat(templateAdapter.getItem(ti), titleFormat);
-            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()];
+            final FormatRegistry.Format fmt = formats.get(typeSpinner.getSelectedItemPosition());
             appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
             appSettings.setNewFileDialogLastUsedType(fmt.format);
 
@@ -259,8 +277,8 @@ public class NewFileDialog extends DialogFragment {
             if (!file.exists() || file.length() <= GsContextUtils.TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH) {
                 document.saveContent(activity, content.first, cu, true);
 
-                // We only make these changes if the file did not exist
-                document.setFormat(FormatRegistry.FORMATS[typeSpinner.getSelectedItemPosition()].format);
+                // We only make these changes if the file did not already exist
+                appSettings.setDocumentFormat(document.getPath(), fmt.format);
                 appSettings.setLastEditPosition(document.getPath(), content.second);
                 appSettings.setNewFileDialogLastUsedExtension(extEdit.getText().toString().trim());
 
@@ -304,8 +322,8 @@ public class NewFileDialog extends DialogFragment {
 
         // Initial creation - loop through and set type
         final int lastUsedType = appSettings.getNewFileDialogLastUsedType();
-        for (int i = 0; i < FormatRegistry.FORMATS.length; i++) {
-            final FormatRegistry.Format fmt = FormatRegistry.FORMATS[i];
+        for (int i = 0; i < formats.size(); i++) {
+            final FormatRegistry.Format fmt = formats.get(i);
             if (fmt.format == lastUsedType) {
                 typeSpinner.setSelection(i);
                 typeCallback.callback(i);

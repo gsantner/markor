@@ -194,6 +194,15 @@ public class GsCollectionUtils {
         return sel;
     }
 
+    public static <T> T selectFirst(final Collection<T> data, final GsCallback.b1<? super T> predicate) {
+        for (final T item : data) {
+            if (predicate.callback(item)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
     /**
      * Get a list of values (like np.arange())
      *
