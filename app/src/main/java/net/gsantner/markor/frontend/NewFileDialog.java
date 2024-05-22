@@ -139,9 +139,8 @@ public class NewFileDialog extends DialogFragment {
 
         // Build a list of available formats
         // -----------------------------------------------------------------------------------------
-        final List<FormatRegistry.Format> allFormats = Arrays.asList(FormatRegistry.FORMATS);
         final List<FormatRegistry.Format> formats = GsCollectionUtils.map(
-                NEW_FILE_FORMATS, t -> GsCollectionUtils.selectFirst(allFormats, f -> f.format == t));
+                NEW_FILE_FORMATS, t -> GsCollectionUtils.selectFirst(FormatRegistry.FORMATS, f -> f.format == t));
 
         // Setup title format spinner and actions
         // -----------------------------------------------------------------------------------------

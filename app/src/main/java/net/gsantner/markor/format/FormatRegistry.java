@@ -50,6 +50,8 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class FormatRegistry {
@@ -90,7 +92,7 @@ public class FormatRegistry {
     }
 
     // Order here is used to **determine** format by it's file extension and/or content heading
-    public static final Format[] FORMATS = new Format[]{
+    public static final List<Format> FORMATS = Arrays.asList(
             new Format(FormatRegistry.FORMAT_MARKDOWN, R.string.markdown, ".md", CONVERTER_MARKDOWN),
             new Format(FormatRegistry.FORMAT_CSV, R.string.csv, ".csv", CONVERTER_CSV),
             new Format(FormatRegistry.FORMAT_TODOTXT, R.string.todo_txt, ".todo.txt", CONVERTER_TODOTXT),
@@ -100,9 +102,8 @@ public class FormatRegistry {
             new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
             new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
             new Format(FormatRegistry.FORMAT_ORGMODE, R.string.orgmode, ".org", CONVERTER_ORGMODE),
-            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null),
-    };
-
+            new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null)
+    );
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
         final boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
