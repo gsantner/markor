@@ -87,7 +87,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final Map<File, Integer> _fileIdMap = new HashMap<>();
-    private GsCallback.a0 _blinkCallback;
 
     //########################
     //## Methods
@@ -194,7 +193,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         holder.itemRoot.setContentDescription((descriptionRes != 0 ? (_context.getString(descriptionRes) + " ") : "") + holder.title.getText().toString() + " " + holder.description.getText().toString());
-        // holder.itemRoot.setBackgroundColor(ContextCompat.getColor(_context, isSelected ? _dopt.primaryColor : _dopt.backgroundColor));
         holder.image.setOnLongClickListener(view -> {
             Toast.makeText(_context, file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             return true;
@@ -549,8 +547,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             @Override
             public void onChanged() {
                 super.onChanged();
+                // Ignore if the load takes too long
                 if ((System.currentTimeMillis() - init) < 2000) {
-                    _recyclerView.postDelayed(callback::callback, 250);
+                    _recyclerView.post(callback::callback);
                 }
                 unregisterAdapterDataObserver(this);
             }
@@ -597,9 +596,9 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    _blinkCallback = GsContextUtils.blinkView(holder.itemView);
+                    GsContextUtils.blinkView(holder.itemView);
                 }
-            }, 250);
+            }, 100);
         }
     }
 
@@ -620,9 +619,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     // Stop blinking if we are currently blinking
     private void stopBlinking() {
-        if (_blinkCallback != null) {
-            _blinkCallback.callback();
-            _blinkCallback = null;
+        if (_recyclerView != null) {
+            for (int i = 0; i < _recyclerView.getChildCount(); i++) {
+                GsContextUtils.stopBlinking(_recyclerView.getChildAt(i));
+            }
         }
     }
 

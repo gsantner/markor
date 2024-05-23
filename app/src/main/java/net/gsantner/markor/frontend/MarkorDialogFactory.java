@@ -841,8 +841,6 @@ public class MarkorDialogFactory {
             final int index = filtered.get(result.get(0));
             TextViewUtils.selectLines(edit, headings.get(index).line);
 
-            // Scroll to the heading in webview
-            // This needs improvement - does not handle duplicated headers etc
             final String header = headings.get(index).str;
             final String headerText = header.substring(header.lastIndexOf('#') + 1).trim();
             final String id = MarkdownTextConverter.generateHeaderId(headerText);
