@@ -627,7 +627,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private void loadFolder(final File folder) {
-        stopBlinking();
         executorService.execute(() -> {
             synchronized (LOAD_FOLDER_SYNC_OBJECT) {
 
@@ -728,6 +727,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         // Must be called from UI thread
                         // TODO - add logic to notify the changed bits
                         notifyDataSetChanged();
+                        stopBlinking();
 
                         if (prevFolder != null && _currentFolder.equals(prevFolder.getParentFile())) {
                             doAfterChange(() -> showAndFlash(prevFolder));
