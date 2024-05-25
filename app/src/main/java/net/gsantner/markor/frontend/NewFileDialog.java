@@ -177,11 +177,11 @@ public class NewFileDialog extends DialogFragment {
         // Load name formats into spinner
         final GsCallback.a1<Integer> typeCallback = pos -> {
             final FormatRegistry.Format fmt = formats.get(pos);
-            if (fmt.ext != null) {
+            if (fmt.defaultExtensionWithDot != null) {
                 if (encryptCheckbox.isChecked()) {
-                    extEdit.setText(fmt.ext + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
+                    extEdit.setText(fmt.defaultExtensionWithDot + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 } else {
-                    extEdit.setText(fmt.ext);
+                    extEdit.setText(fmt.defaultExtensionWithDot);
                 }
             }
 
