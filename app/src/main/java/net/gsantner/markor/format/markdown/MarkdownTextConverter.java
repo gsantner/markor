@@ -179,8 +179,6 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         options.set(Parser.EXTENSIONS, flexmarkExtensions);
 
-        options.set(Parser.TRACK_DOCUMENT_LINES, true);
-
         options.set(Parser.SPACE_IN_LINK_URLS, true); // Allow links like [this](some filename with spaces.md)
 
         // options.set(HtmlRenderer.SOFT_BREAK, "<br />\n"); // Add linefeed to HTML break
