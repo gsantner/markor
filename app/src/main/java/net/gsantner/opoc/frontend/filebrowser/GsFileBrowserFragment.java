@@ -229,6 +229,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         final boolean selMultiMore = _dopt.doSelectMultiple && selCount > 1;
         final boolean selMultiAny = selMultiMore || selMulti1;
         final boolean selFilesOnly = _filesystemViewerAdapter.isFilesOnlySelected();
+        final boolean selInVirtualDirectory = _filesystemViewerAdapter.isCurrentFolderVirtual();
 
         // Check if is a favourite
         boolean selTextFilesOnly = true;
@@ -246,9 +247,9 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
         if (_fragmentMenu != null && _fragmentMenu.findItem(R.id.action_delete_selected_items) != null) {
             _fragmentMenu.findItem(R.id.action_search).setVisible(selFiles.isEmpty() && !_filesystemViewerAdapter.isCurrentFolderVirtual());
             _fragmentMenu.findItem(R.id.action_delete_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable);
-            _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable);
+            _fragmentMenu.findItem(R.id.action_rename_selected_item).setVisible(selMulti1 && selWritable & !selInVirtualDirectory);
             _fragmentMenu.findItem(R.id.action_info_selected_item).setVisible(selMulti1);
-            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
+            _fragmentMenu.findItem(R.id.action_move_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !selInVirtualDirectory && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_copy_selected_items).setVisible((selMulti1 || selMultiMore) && selWritable && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_share_files).setVisible(selFilesOnly && (selMulti1 || selMultiMore) && !_cu.isUnderStorageAccessFolder(getContext(), getCurrentFolder(), true));
             _fragmentMenu.findItem(R.id.action_go_to).setVisible(!_filesystemViewerAdapter.areItemsSelected());
