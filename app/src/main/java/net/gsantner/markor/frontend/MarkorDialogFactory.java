@@ -796,11 +796,12 @@ public class MarkorDialogFactory {
 
     /**
      * Show a dialog to select a heading
-     * @param activity       Activity
-     * @param edit           Editable text
-     * @param webView        WebView corresponding to the text
-     * @param state          State of the dialog, so it can be restored.
-     * @param levelCallback  Callback to get the heading level given the text and line start and end
+     *
+     * @param activity      Activity
+     * @param edit          Editable text
+     * @param webView       WebView corresponding to the text
+     * @param state         State of the dialog, so it can be restored.
+     * @param levelCallback Callback to get the heading level given the text and line start and end
      */
     public static void showHeadlineDialog(
             final Activity activity,

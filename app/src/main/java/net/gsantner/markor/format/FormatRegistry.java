@@ -12,7 +12,6 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import net.gsantner.markor.ApplicationObject;

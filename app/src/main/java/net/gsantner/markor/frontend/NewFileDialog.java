@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -51,7 +50,6 @@ import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
