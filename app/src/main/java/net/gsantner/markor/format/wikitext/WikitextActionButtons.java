@@ -25,15 +25,13 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.regex.Matcher;
 
 public class WikitextActionButtons extends ActionButtonBase {
 
-    private Set<Integer> _disabledHeadings = new HashSet<>();
+    private MarkorDialogFactory.HeadlineDialogState _headlineDialogState = new MarkorDialogFactory.HeadlineDialogState();
 
     public WikitextActionButtons(@NonNull Context context, Document document) {
         super(context, document);
@@ -263,7 +261,7 @@ public class WikitextActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = WikitextSyntaxHighlighter.HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _disabledHeadings, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return 7 - (m.end(2) - m.start(2));
             }

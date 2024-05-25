@@ -190,6 +190,7 @@ public class GsContextUtils {
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
     public final static int REQUEST_RECORD_AUDIO = 50006;
+    private final static int BLINK_ANIMATOR_TAG = -1206813720;
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
@@ -2884,35 +2885,46 @@ public class GsContextUtils {
      * Blinks the view passed in as parameter
      *
      * @param view View to be blinked
-     * @return A callback to terminate the blinking
      */
-    public static @Nullable GsCallback.a0 blinkView(final View view) {
+    public static void blinkView(final View view) {
 
         if (view == null) {
-            return null;
+            return;
         }
 
         final ObjectAnimator animator = ObjectAnimator.ofFloat(
-                        view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
-                .setDuration(800);
+                        view, View.ALPHA, 0.1f, 1.0f, 0.1f, 1.0f)
+                .setDuration(500);
+
+        view.setTag(BLINK_ANIMATOR_TAG, new WeakReference<>(animator));
+
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 view.setAlpha(1.0f);
+                view.setTag(BLINK_ANIMATOR_TAG, null);
             }
         });
 
-        final WeakReference<ObjectAnimator> animatorRef = new WeakReference<>(animator);
-        final GsCallback.a0 terminateCallback = () -> {
-            final ObjectAnimator a = animatorRef.get();
-            if (a != null) {
-                a.cancel();
-            }
-        };
-
         animator.start();
+    }
 
-        return terminateCallback;
+    public static void stopBlinking(final View view) {
+        if (view == null) {
+            return;
+        }
+
+        final Object tagRef = view.getTag(BLINK_ANIMATOR_TAG);
+        if (tagRef instanceof WeakReference) {
+            final Object tag = ((WeakReference<?>) tagRef).get();
+            if (tag instanceof ObjectAnimator) {
+                final ObjectAnimator anim = ((ObjectAnimator) tag);
+                if (anim.isRunning()) {
+                    anim.cancel();
+                }
+            }
+        }
+
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {

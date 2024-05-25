@@ -28,9 +28,7 @@ import net.gsantner.opoc.util.GsFileUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +39,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
 
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
 
-    private final Set<Integer> _disabledHeadings = new HashSet<>();
+    private final MarkorDialogFactory.HeadlineDialogState _headlineDialogState = new MarkorDialogFactory.HeadlineDialogState();
 
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
@@ -304,7 +302,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _disabledHeadings, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }

@@ -50,7 +50,6 @@ import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -548,7 +547,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         link = link != null ? link.trim() : "";
 
         if (Patterns.WEB_URL.matcher(link).matches()) {
-            link = (title != null? title : "") + sanitize(link);
+            link = (title != null ? title : "") + sanitize(link);
         }
 
         return link;
