@@ -445,18 +445,21 @@ public class MarkdownTextConverter extends TextConverterBase {
         return markupReplaced;
     }
 
+    // Extension to add line numbers to headings
+    // ---------------------------------------------------------------------------------------------
+
+    public static String getIdForLineNumber(final int num) {
+        return "line-" + num;
+    }
+
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
             if (node instanceof com.vladsch.flexmark.ast.Heading) {
                 final Document document = node.getDocument();
                 final int lineNumber = document.getLineNumber(node.getStartOffset());
-                attributes.addValue("id", "line-" + lineNumber);
+                attributes.addValue("id", getIdForLineNumber(lineNumber));
             }
-        }
-
-        public static AttributeProviderFactory Factory() {
-            return new LineNumberIdProviderFactory();
         }
     }
 
@@ -486,12 +489,11 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static class LineNumberIdExtension implements HtmlRenderer.HtmlRendererExtension {
         @Override
         public void rendererOptions(MutableDataHolder options) {
-
         }
 
         @Override
         public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
-            rendererBuilder.attributeProviderFactory(LineNumberIdProvider.Factory());
+            rendererBuilder.attributeProviderFactory(new LineNumberIdProviderFactory());
         }
 
         public static HtmlRenderer.HtmlRendererExtension create() {
