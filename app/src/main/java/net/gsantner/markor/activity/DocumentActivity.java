@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
