@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -44,7 +45,6 @@ public class DocumentActivity extends MarkorBaseActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
     private Toolbar _toolbar;
-    private TextView _toolbarTitleText;
 
     private FragmentManager _fragManager;
 
@@ -153,7 +153,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         setContentView(R.layout.document__activity);
         _toolbar = findViewById(R.id.toolbar);
-        _toolbarTitleText = findViewById(R.id.note__activity__text_note_title);
 
         if (_appSettings.isHideSystemStatusbar()) {
             AndroidBug5497Workaround.assistActivity(this);
@@ -281,8 +280,15 @@ public class DocumentActivity extends MarkorBaseActivity {
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
+    public void setTitle(final CharSequence title) {
+        final ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setTitle(title);
+        }
+    }
+
     public void setDocumentTitle(final String title) {
-        _toolbarTitleText.setText(title);
+        setTitle(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
@@ -301,8 +307,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public void showShareInto(Intent intent) {
-        // Disable edittext when going to shareinto
-        _toolbarTitleText.setText(R.string.share_into);
+        setTitle(getString(R.string.share_into));
         showFragment(DocumentShareIntoFragment.newInstance(intent));
     }
 

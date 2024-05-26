@@ -139,7 +139,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         if (checkBox == null) {
 
             checkBox = new CheckBox(activity);
-            checkBox.setText(R.string.format_as_link);
+            checkBox.setText(R.string.format_link);
             checkBox.setTag(CHECKBOX_TAG);
             CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(Color.WHITE));
             checkBox.setTextColor(Color.WHITE);
