@@ -557,8 +557,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
                     _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
-                    return true;
                 }
+                return true;
             }
             case R.id.action_search: {
                 setViewModeVisibility(false);

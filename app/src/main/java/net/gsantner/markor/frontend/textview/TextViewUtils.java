@@ -162,6 +162,10 @@ public final class TextViewUtils {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
 
+    public static int[] getLineSelection(final CharSequence text, final int sel) {
+        return getLineSelection(text, new int[]{sel, sel});
+    }
+
     public static int[] getLineSelection(final TextView text) {
         return getLineSelection(text.getText());
     }

@@ -25,7 +25,7 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
+import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
@@ -40,7 +40,6 @@ import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.regex.Matcher;
 
 public class AttachLinkOrFileDialog {
     public final static int IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3, AUDIO_ACTION = 4;
@@ -103,21 +102,14 @@ public class AttachLinkOrFileDialog {
             } else if (edit.length() == 0) {
                 inputPathName.setText("");
             } else {
-                final int[] lineSel = TextViewUtils.getLineSelection(edit, sel);
-                final String line = edit.subSequence(lineSel[0], lineSel[1]).toString();
-                final Matcher m;
-                if (action == IMAGE_ACTION) {
-                    m = MarkdownSyntaxHighlighter.ACTION_IMAGE_PATTERN.matcher(line);
-                } else if (action == FILE_OR_LINK_ACTION) {
-                    m = MarkdownSyntaxHighlighter.ACTION_LINK_PATTERN.matcher(line);
-                } else {
-                    m = null;
-                }
-                if (m != null && m.find() && sel[0] >= m.start() && sel[1] <= m.end()) {
-                    inputPathName.setText(m.group(1));
-                    inputPathUrl.setText((m.group(2)));
-                    sel[0] = m.start() + lineSel[0];
-                    sel[1] = m.end() + lineSel[0];
+                final MarkdownActionButtons.Link link = MarkdownActionButtons.Link.extract(edit, sel[0]);
+                final boolean isImage = action == IMAGE_ACTION && link.isImage;
+                final boolean isLink = action == FILE_OR_LINK_ACTION && !link.isImage;
+                if (link.isValid() && (isImage || isLink)) {
+                    inputPathName.setText(link.title);
+                    inputPathUrl.setText(link.link);
+                    sel[0] = link.start;
+                    sel[1] = link.end;
                 }
             }
         }
@@ -231,8 +223,9 @@ public class AttachLinkOrFileDialog {
     }
 
     private static String formatLink(String title, String path, final int textFormatId, final InsertType action) {
-        title = title.trim().replace(")", "\\)");
-        path = path.trim().replace(")", "\\)")
+        title = title.trim().replace("|", "/");
+
+        path = path.trim()
                 // Workaround for parser - cannot deal with spaces and have other entities problems
                 .replace(" ", "%20")
                 // Disable space encoding for Jekyll

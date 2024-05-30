@@ -23,15 +23,14 @@ public class MarkdownSyntaxHighlighter extends SyntaxHighlighterBase {
     public final static Pattern ITALICS = Pattern.compile("(?<=(\\n|^|\\s|\\[|\\{|\\())([*_])(?=((?!\\2)|\\2{2,}))(?=\\S)(.*?)\\S\\2(?=(\\n|$|\\s|\\.|,|:|;|-|\\]|\\}|\\)))");
     public final static Pattern HEADING = Pattern.compile("(?m)((^#{1,6}[^\\S\\n][^\\n]+)|((\\n|^)[^\\s]+.*?\\n(-{2,}|={2,})[^\\S\\n]*$))");
     public final static Pattern HEADING_SIMPLE = Pattern.compile("(?m)^(#{1,6}\\s.*$)");
-    public final static Pattern LINK = Pattern.compile("\\[([^\\[]+)\\]\\(([^\\)]+)\\)");
+    // Group 1 matches image, Group 2 matches text, group 3 matches path
+    public static final Pattern LINK = Pattern.compile("(?m)(!)?\\[([^\\]]*)\\]\\((.+?)\\)(:?\\s|$)");
     public final static Pattern LIST_UNORDERED = Pattern.compile("(\\n|^)\\s{0,16}([*+-])( \\[[ xX]\\])?(?= )");
     public final static Pattern LIST_ORDERED = Pattern.compile("(?m)^\\s{0,16}(\\d+)(:?\\.|\\))\\s");
     public final static Pattern QUOTATION = Pattern.compile("(\\n|^)>");
     public final static Pattern STRIKETHROUGH = Pattern.compile("~{2}(.*?)\\S~{2}");
     public final static Pattern CODE = Pattern.compile("(?m)(`(?!`)(.*?)`)|(^[^\\S\\n]{4}(?![0-9\\-*+]).*$)");
     public final static Pattern DOUBLESPACE_LINE_ENDING = Pattern.compile("(?m)(?<=\\S)([^\\S\\n]{2,})\\n");
-    public final static Pattern ACTION_LINK_PATTERN = Pattern.compile("(?m)\\[(.*?)\\]\\((.*?)\\)");
-    public final static Pattern ACTION_IMAGE_PATTERN = Pattern.compile("(?m)!\\[(.*?)\\]\\((.*?)\\)");
 
     private static final int MD_COLOR_HEADING = 0xffef6D00;
     private static final int MD_COLOR_LINK = 0xff1ea3fe;
