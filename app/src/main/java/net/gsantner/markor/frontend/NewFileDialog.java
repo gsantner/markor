@@ -30,6 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.documentfile.provider.DocumentFile;
@@ -48,6 +49,7 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsAndroidSpinnerOnItemSelectedAdapter;
 import net.gsantner.opoc.wrapper.GsCallback;
+import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
 import java.util.Arrays;
@@ -231,6 +233,24 @@ public class NewFileDialog extends DialogFragment {
             return TextViewUtils.interpolateSnippet(format, title, "").trim();
         };
 
+        final @ColorInt int color = titleEdit.getCurrentTextColor();
+        titleEdit.addTextChangedListener(new GsTextWatcherAdapter() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    final String title = getTitle.callback();
+                    final String ext = extEdit.getText().toString().trim();
+                    final String fn = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title + ext);
+                    if (new File(basedir, fn).exists()) {
+                        titleEdit.setTextColor(0xffff0000);
+                    } else {
+                        titleEdit.setTextColor(color);
+                    }
+                } catch (Exception ignored) {
+                    titleEdit.setTextColor(color);
+                }
+            }
+        });
 
         final MarkorContextUtils cu = new MarkorContextUtils(getContext());
         dialogBuilder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
@@ -242,12 +262,12 @@ public class NewFileDialog extends DialogFragment {
 
             // Get template string
             // -------------------------------------------------------------------------------------
-            final int ti = templateSpinner.getSelectedItemPosition();
+            final int ti = templateSpinner.getSelectedItemPosition() - 1;
             final String template;
-            if (ti == 0) {
+            if (ti < 0) {
                 template = "";
             } else if (ti <= snippets.size()) {
-                template = GsFileUtils.readTextFileFast(snippets.get(ti - 1).second).first;
+                template = GsFileUtils.readTextFileFast(snippets.get(ti).second).first;
             } else {
                 template = templates.get(ti - snippets.size()).second;
             }
