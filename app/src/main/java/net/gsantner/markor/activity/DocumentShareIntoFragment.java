@@ -64,6 +64,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
     public static final String TEXT_TOKEN = "{{text}}";
 
+    private static final String CHECKBOX_TAG = "insert_link_checkbox";
+
     public static DocumentShareIntoFragment newInstance(final Intent intent) {
         final DocumentShareIntoFragment f = new DocumentShareIntoFragment();
         final Bundle args = new Bundle();
@@ -123,7 +125,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     }
 
     private CheckBox addCheckBoxToToolbar() {
-        final String CHECKBOX_TAG = "insert_link_checkbox";
 
         final Activity activity = getActivity();
         if (activity == null) {
@@ -161,6 +162,23 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         return checkBox;
+    }
+
+    private void removeCheckbox() {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        final Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            return;
+        }
+
+        final CheckBox checkBox = toolbar.findViewWithTag(CHECKBOX_TAG);
+        if (checkBox != null) {
+            toolbar.removeView(checkBox);
+        }
     }
 
     @Override

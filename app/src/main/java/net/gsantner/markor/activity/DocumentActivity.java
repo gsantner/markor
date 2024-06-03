@@ -51,31 +51,35 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     public static void launch(final Activity activity, File path, final Boolean doPreview, Intent intent, final Integer lineNumber) {
         final AppSettings as = ApplicationObject.settings();
+
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
         }
+
         if (path != null) {
             intent.putExtra(Document.EXTRA_FILE, path);
         } else {
             path = intent.hasExtra(Document.EXTRA_FILE) ? ((File) intent.getSerializableExtra(Document.EXTRA_FILE)) : null;
         }
+
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
+
         if (doPreview != null) {
             intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && ApplicationObject.settings().isMultiWindowEnabled()) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled()) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
+
         if (path != null && path.isDirectory()) {
             intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, path);
         }
-        if (path != null && path.isFile() && as.isPreferViewMode()) {
-            as.setDocumentPreviewState(path.getAbsolutePath(), true);
-        }
+
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
