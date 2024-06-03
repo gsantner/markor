@@ -217,26 +217,31 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         private void appendToExistingDocumentAndClose(final File file, final boolean showEditor) {
-            final Activity context = getActivity();
+            final Activity activity = getActivity();
+            if (activity == null) {
+                return;
+            }
+
             final Document document = new Document(file);
             final int format = _appSettings.getDocumentFormat(document.getPath(), document.getFormat());
             final String formatted = getFormatted(shareAsLink(), file, format);
 
-            final String oldContent = document.loadContent(context);
+            final String oldContent = document.loadContent(activity);
             if (oldContent != null) {
                 final String nline = oldContent.endsWith("\n") ? "" : "\n";
                 final String newContent = oldContent + nline + formatted;
-                document.saveContent(context, newContent);
+                document.saveContent(activity, newContent);
             } else {
-                Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
             _appSettings.addRecentFile(file);
+
             if (showEditor) {
-                showInDocumentActivity(document);
-            } else {
-                context.finish();
+                DocumentActivity.launch(activity, document.getFile(), null, null, -1);
             }
+
+            activity.finish();
         }
 
         private static Pair<String, File> getLinePath(final CharSequence line) {

@@ -49,7 +49,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
+    public static void launch(final Activity activity, File path, final Boolean doPreview, Intent intent, final Integer lineNumber) {
         final AppSettings as = ApplicationObject.settings();
         if (intent == null) {
             intent = new Intent(activity, DocumentActivity.class);
