@@ -75,9 +75,8 @@ public class Document implements Serializable {
         _fileExtension = GsFileUtils.getFilenameExtension(_file);
 
         // Set initial format
-        final String fnlower = _file.getName().toLowerCase();
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter == null || format.converter.isFileOutOfThisFormat(fnlower)) {
+            if (format.converter == null || format.converter.isFileOutOfThisFormat(_file)) {
                 setFormat(format.format);
                 break;
             }
@@ -190,7 +189,7 @@ public class Document implements Serializable {
     }
 
     public boolean isBinaryFileNoTextLoading() {
-        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
+        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file);
     }
 
     public boolean isEncrypted() {

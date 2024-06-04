@@ -87,7 +87,7 @@ public class PlaintextTextConverter extends TextConverterBase {
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return EXT.contains(extWithDot) || _appSettings.isExtOpenWithThisApp(extWithDot) || GsFileUtils.isTextFile(new File(filepath));
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return EXT.contains(ext) || _appSettings.isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
     }
 }
