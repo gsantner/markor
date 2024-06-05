@@ -596,7 +596,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    GsContextUtils.blinkView(holder.itemView);
+                    GsContextUtils.rippleView(holder.itemView);
                 }
             }, 100);
         }
@@ -621,7 +621,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private void stopBlinking() {
         if (_recyclerView != null) {
             for (int i = 0; i < _recyclerView.getChildCount(); i++) {
-                GsContextUtils.stopBlinking(_recyclerView.getChildAt(i));
+                GsContextUtils.stopRipple(_recyclerView.getChildAt(i));
             }
         }
     }

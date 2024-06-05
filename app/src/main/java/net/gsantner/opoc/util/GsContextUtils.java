@@ -50,6 +50,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaScannerConnection;
@@ -2881,11 +2882,6 @@ public class GsContextUtils {
         return false;
     }
 
-    /**
-     * Blinks the view passed in as parameter
-     *
-     * @param view View to be blinked
-     */
     public static void blinkView(final View view) {
 
         if (view == null) {
@@ -2925,6 +2921,26 @@ public class GsContextUtils {
             }
         }
 
+    }
+
+    public static void rippleView(final View view) {
+        if (view != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            final Drawable drawable = view.getForeground();
+            if (drawable instanceof RippleDrawable) {
+                drawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
+                view.postDelayed(() -> drawable.setState(new int[]{}), 250);
+            }
+        }
+    }
+
+    public static void stopRipple(final View view) {
+        if (view != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Drawable drawable = view.getForeground();
+            if (drawable instanceof RippleDrawable) {
+                drawable.setState(new int[]{});
+                drawable.jumpToCurrentState();
+            }
+        }
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {
