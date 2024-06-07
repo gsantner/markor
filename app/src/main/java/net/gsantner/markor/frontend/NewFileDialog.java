@@ -262,14 +262,14 @@ public class NewFileDialog extends DialogFragment {
 
             // Get template string
             // -------------------------------------------------------------------------------------
-            final int ti = templateSpinner.getSelectedItemPosition() - 1;
+            final int ti = templateSpinner.getSelectedItemPosition();
             final String template;
-            if (ti < 0) {
+            if (ti == 0) {
                 template = "";
             } else if (ti <= snippets.size()) {
-                template = GsFileUtils.readTextFileFast(snippets.get(ti).second).first;
+                template = GsFileUtils.readTextFileFast(snippets.get(ti - 1).second).first;
             } else {
-                template = templates.get(ti - snippets.size()).second;
+                template = templates.get(ti - snippets.size() - 1).second;
             }
 
             final Pair<String, Integer> content = getTemplateContent(template, title);

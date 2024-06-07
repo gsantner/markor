@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -84,9 +85,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Context _context;
     private StringFilter _filter;
     private RecyclerView _recyclerView;
+    private LinearLayoutManager _layoutManager;
     private final SharedPreferences _prefApp;
     private final HashMap<File, File> _virtualMapping = new HashMap<>();
     private final Map<File, Integer> _fileIdMap = new HashMap<>();
+    private final Map<File, Parcelable> _folderScrollMap = new HashMap<>();
 
     //########################
     //## Methods
@@ -211,6 +214,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     public void onAttachedToRecyclerView(@NonNull final RecyclerView view) {
         super.onAttachedToRecyclerView(view);
         _recyclerView = view;
+        _layoutManager = (LinearLayoutManager) view.getLayoutManager();
     }
 
     public String formatFileDescription(final File file, String format) {
@@ -229,7 +233,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (_recyclerView != null) {
             if (_recyclerView.getLayoutManager() != null) {
-                outState.putParcelable(EXTRA_RECYCLER_SCROLL_STATE, _recyclerView.getLayoutManager().onSaveInstanceState());
+                outState.putParcelable(EXTRA_RECYCLER_SCROLL_STATE, _layoutManager.onSaveInstanceState());
             }
         }
     }
@@ -254,8 +258,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (savedInstanceState.containsKey(EXTRA_RECYCLER_SCROLL_STATE) && _recyclerView.getLayoutManager() != null) {
-            _recyclerView.postDelayed(() -> _recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE)), 200);
+        if (savedInstanceState.containsKey(EXTRA_RECYCLER_SCROLL_STATE) && _layoutManager != null) {
+            _recyclerView.postDelayed(() -> _layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(EXTRA_RECYCLER_SCROLL_STATE)), 200);
         }
     }
 
@@ -336,23 +340,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return level;
     }
 
-    private void saveItemState(final TagContainer data) {
-        if (data != null) {
-            final int currentItemLevel = getPathLevel(data.file.getAbsolutePath());
-            final int currentFolderLevel = getPathLevel(_currentFolder.getAbsolutePath());
-
-            if (currentItemLevel > currentFolderLevel) {
-                final RecyclerView.LayoutManager layoutManager = _recyclerView.getLayoutManager();
-            }
-        }
-    }
-
     @Override
     @SuppressWarnings("UnnecessaryReturnStatement")
     public void onClick(View view) {
         final TagContainer data = (TagContainer) view.getTag();
-        if (_currentSelection.size() == 0) {
-            saveItemState(data);
+
+        if (!_currentSelection.isEmpty()) {
+            // Blink in multi-select
+            GsContextUtils.blinkView(view);
         }
 
         switch (view.getId()) {
@@ -497,13 +492,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return canGoUp(_currentFolder);
     }
 
-    public boolean canGoUp(File currentFolder) {
-        File parentFolder = _currentFolder != null ? _currentFolder.getParentFile() : null;
-        return parentFolder != null && (!_dopt.mustStartWithRootFolder || parentFolder.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath()));
+    public boolean canGoUp(final File folder) {
+        final File parent = folder != null ? folder.getParentFile() : null;
+        return parent != null && (!_dopt.mustStartWithRootFolder || parent.getAbsolutePath().startsWith(_dopt.rootFolder.getAbsolutePath()));
     }
 
     @Override
     public boolean onLongClick(final View view) {
+        GsContextUtils.blinkView(view);
         if (view.getId() == R.id.opoc_filesystem_item__root) {
             final TagContainer data = (TagContainer) view.getTag();
             toggleSelection(data);
@@ -548,7 +544,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             public void onChanged() {
                 super.onChanged();
                 // Ignore if the load takes too long
-                if ((System.currentTimeMillis() - init) < 2000) {
+                if ((System.currentTimeMillis() - init) < 5000) {
                     _recyclerView.post(callback::callback);
                 }
                 unregisterAdapterDataObserver(this);
@@ -569,7 +565,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (getFilePosition(file) < 0) {
             doAfterChange(() -> showAndFlash(file));
-            loadFolder(dir); // Will reload folder if necessary
+            loadFolder(dir, false); // Will reload folder if necessary
         } else {
             showAndFlash(file);
         }
@@ -582,23 +578,26 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
      */
     private void showAndFlash(final File file) {
         final int pos = getFilePosition(file);
-        final LinearLayoutManager manager = (LinearLayoutManager) _recyclerView.getLayoutManager();
 
-        if (pos >= 0 && manager != null) {
+        if (pos >= 0 && _layoutManager != null) {
 
             // Scroll to position if needed
-            final int firstVisible = manager.findFirstCompletelyVisibleItemPosition();
-            final int lastVisible = manager.findLastCompletelyVisibleItemPosition();
+            final int firstVisible = _layoutManager.findFirstCompletelyVisibleItemPosition();
+            final int lastVisible = _layoutManager.findLastCompletelyVisibleItemPosition();
+            final int delay;
             if (pos < firstVisible || pos > lastVisible) {
-                manager.scrollToPositionWithOffset(pos, 1);
+                _layoutManager.scrollToPositionWithOffset(pos, 1);
+                delay = 500;
+            } else {
+                delay = 100;
             }
 
             _recyclerView.postDelayed(() -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
-                    GsContextUtils.rippleView(holder.itemView);
+                    GsContextUtils.blinkView(holder.itemView);
                 }
-            }, 100);
+            }, delay);
         }
     }
 
@@ -617,25 +616,23 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
 
-    // Stop blinking if we are currently blinking
-    private void stopBlinking() {
-        if (_recyclerView != null) {
-            for (int i = 0; i < _recyclerView.getChildCount(); i++) {
-                GsContextUtils.stopRipple(_recyclerView.getChildAt(i));
-            }
-        }
+    private void loadFolder(final File folder) {
+        loadFolder(folder, true);
     }
 
-    private void loadFolder(final File folder) {
+    private void loadFolder(final File folder, final boolean showChild) {
+        final boolean folderChanged = !folder.equals(_currentFolder);
+        if (folderChanged && _currentFolder != null && _layoutManager != null) {
+            _folderScrollMap.put(_currentFolder, _layoutManager.onSaveInstanceState());
+        }
+
         executorService.execute(() -> {
-            synchronized (LOAD_FOLDER_SYNC_OBJECT) {
+            synchronized (_adapterData) {
 
                 if (_dopt.refresh != null) {
                     _dopt.refresh.callback();
                 }
 
-                final File prevFolder = _currentFolder;
-                _currentFolder = folder;
                 _virtualMapping.clear();
                 final List<File> newData = new ArrayList<>();
 
@@ -669,13 +666,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         _virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
                         newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                     }
-                } else if (_currentFolder.isDirectory()) {
-                    GsCollectionUtils.addAll(newData, _currentFolder.listFiles(GsFileBrowserListAdapter.this));
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                } else if (folder.isDirectory()) {
+                    GsCollectionUtils.addAll(newData, folder.listFiles(GsFileBrowserListAdapter.this));
+                } else if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
                     newData.addAll(_dopt.recentFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_POPULAR)) {
+                } else if (folder.equals(VIRTUAL_STORAGE_POPULAR)) {
                     newData.addAll(_dopt.popularFiles);
-                } else if (_currentFolder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
+                } else if (folder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
                     newData.addAll(_dopt.favouriteFiles);
                 } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
                     newData.add(new File(folder, "0"));
@@ -705,33 +702,44 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 }
 
                 // Don't sort recent items - use the default order
-                if (!_currentFolder.equals(VIRTUAL_STORAGE_RECENTS)) {
+                if (!folder.equals(VIRTUAL_STORAGE_RECENTS)) {
                     GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
                 }
 
-                if (canGoUp(_currentFolder)) {
-                    newData.add(0, _currentFolder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : _currentFolder.getParentFile());
+                if (canGoUp(folder)) {
+                    newData.add(0, folder.equals(new File("/storage/emulated/0")) ? new File("/storage/emulated") : folder.getParentFile());
                 }
 
-                if (!newData.equals(_adapterData)) {
+                if (folderChanged || !newData.equals(_adapterData)) {
                     _adapterData.clear();
                     _adapterData.addAll(newData);
                     _currentSelection.retainAll(_adapterData);
                     _filter.filter(_filter._lastFilter);
 
-                    if (!_currentFolder.equals(prevFolder)) {
+                    if (folderChanged) {
                         _fileIdMap.clear();
                     }
 
+                    // Set the current folder before notifying the UI
+                    final File folderToShow = _currentFolder;
+                    _currentFolder = folder;
+
+                    // Must be called from UI thread
                     _recyclerView.post(() -> {
-                        // Must be called from UI thread
+
+                        if (folderChanged && showChild) {
+                            doAfterChange(() -> {
+                                final Parcelable scrollState = _folderScrollMap.remove(folder);
+                                if (scrollState != null && _layoutManager != null) {
+                                    _layoutManager.onRestoreInstanceState(scrollState);
+                                }
+                                // We still show and flash as the folder contents may have changed
+                                _recyclerView.postDelayed(() -> showAndFlash(folderToShow), 250);
+                            });
+                        }
+
                         // TODO - add logic to notify the changed bits
                         notifyDataSetChanged();
-                        stopBlinking();
-
-                        if (prevFolder != null && _currentFolder.equals(prevFolder.getParentFile())) {
-                            doAfterChange(() -> showAndFlash(prevFolder));
-                        }
 
                         if (_dopt.listener != null) {
                             _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
@@ -779,9 +787,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 VIRTUAL_STORAGE_POPULAR.equals(file) ||
                 VIRTUAL_STORAGE_RECENTS.equals(file);
     }
-
-    private final static Object LOAD_FOLDER_SYNC_OBJECT = new Object();
-
 
     //########################
     //##

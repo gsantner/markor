@@ -14,6 +14,7 @@ import static android.graphics.Bitmap.CompressFormat;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -49,6 +50,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.VectorDrawable;
@@ -2883,14 +2885,13 @@ public class GsContextUtils {
     }
 
     public static void blinkView(final View view) {
-
         if (view == null) {
             return;
         }
 
-        final ObjectAnimator animator = ObjectAnimator.ofFloat(
-                        view, View.ALPHA, 0.1f, 1.0f, 0.1f, 1.0f)
-                .setDuration(500);
+        final ObjectAnimator animator = ObjectAnimator
+                .ofFloat(view, View.ALPHA, 0.2f, 1.0f)
+                .setDuration(500L);
 
         view.setTag(BLINK_ANIMATOR_TAG, new WeakReference<>(animator));
 
@@ -2918,27 +2919,6 @@ public class GsContextUtils {
                 if (anim.isRunning()) {
                     anim.cancel();
                 }
-            }
-        }
-
-    }
-
-    public static void rippleView(final View view) {
-        if (view != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            final Drawable drawable = view.getForeground();
-            if (drawable instanceof RippleDrawable) {
-                drawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
-                view.postDelayed(() -> drawable.setState(new int[]{}), 250);
-            }
-        }
-    }
-
-    public static void stopRipple(final View view) {
-        if (view != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Drawable drawable = view.getForeground();
-            if (drawable instanceof RippleDrawable) {
-                drawable.setState(new int[]{});
-                drawable.jumpToCurrentState();
             }
         }
     }
