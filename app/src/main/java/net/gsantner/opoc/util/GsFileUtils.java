@@ -794,7 +794,7 @@ public class GsFileUtils {
      * @return if parent is a child of test
      */
     public static boolean isChild(final File parent, File test) {
-        if (parent.equals(test)) {
+        if (test == null || parent == null || parent.equals(test)) {
             return false;
         }
 

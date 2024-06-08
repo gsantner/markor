@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.gsantner.markor.R;
+import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
@@ -57,6 +58,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import kotlin.reflect.KCallable;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowserListAdapter.FilesystemViewerViewHolder> implements Filterable, View.OnClickListener, View.OnLongClickListener, FilenameFilter {
@@ -537,19 +540,22 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return null;
     }
 
+    Runnable _afterRender = null;
+
+    @Override
+    public void onViewRecycled(@NonNull final FilesystemViewerViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (_afterRender != null) {
+            _afterRender.run();
+        }
+    }
+
     public void doAfterChange(final GsCallback.a0 callback) {
-        final long init = System.currentTimeMillis();
-        registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                // Ignore if the load takes too long
-                if ((System.currentTimeMillis() - init) < 5000) {
-                    _recyclerView.post(callback::callback);
-                }
-                unregisterAdapterDataObserver(this);
-            }
+        _afterRender = TextViewUtils.makeDebounced(_recyclerView.getHandler(), 250, () -> {
+            _recyclerView.post(callback::callback);
+            _afterRender = null;
         });
+        _afterRender.run();
     }
 
     // Switch to folder and show the file
@@ -581,23 +587,23 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
         if (pos >= 0 && _layoutManager != null) {
 
-            // Scroll to position if needed
-            final int firstVisible = _layoutManager.findFirstCompletelyVisibleItemPosition();
-            final int lastVisible = _layoutManager.findLastCompletelyVisibleItemPosition();
-            final int delay;
-            if (pos < firstVisible || pos > lastVisible) {
-                _layoutManager.scrollToPositionWithOffset(pos, 1);
-                delay = 500;
-            } else {
-                delay = 100;
-            }
-
-            _recyclerView.postDelayed(() -> {
+            final GsCallback.a0 blink = () -> {
                 final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
                 if (holder != null) {
                     GsContextUtils.blinkView(holder.itemView);
                 }
-            }, delay);
+            };
+
+            final int firstVisible = _layoutManager.findFirstCompletelyVisibleItemPosition();
+            final int lastVisible = _layoutManager.findLastCompletelyVisibleItemPosition();
+            if (pos < firstVisible || pos > lastVisible) {
+                // Scroll to position if needed and call.
+                // The delay works better than a listener on the scroll state
+                _layoutManager.scrollToPositionWithOffset(pos, 1);
+                _recyclerView.postDelayed(blink::callback, 500);
+            } else {
+                blink.callback();
+            }
         }
     }
 
@@ -620,7 +626,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         loadFolder(folder, true);
     }
 
-    private void loadFolder(final File folder, final boolean showChild) {
+    private void loadFolder(final File folder, final boolean restorePosition) {
         final boolean folderChanged = !folder.equals(_currentFolder);
         if (folderChanged && _currentFolder != null && _layoutManager != null) {
             _folderScrollMap.put(_currentFolder, _layoutManager.onSaveInstanceState());
@@ -724,22 +730,21 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     final File folderToShow = _currentFolder;
                     _currentFolder = folder;
 
-                    // Must be called from UI thread
                     _recyclerView.post(() -> {
-
-                        if (folderChanged && showChild) {
-                            doAfterChange(() -> {
-                                final Parcelable scrollState = _folderScrollMap.remove(folder);
-                                if (scrollState != null && _layoutManager != null) {
-                                    _layoutManager.onRestoreInstanceState(scrollState);
-                                }
-                                // We still show and flash as the folder contents may have changed
-                                _recyclerView.postDelayed(() -> showAndFlash(folderToShow), 250);
-                            });
-                        }
-
+                        // Must be called from UI thread
                         // TODO - add logic to notify the changed bits
                         notifyDataSetChanged();
+
+                        if (folderChanged && restorePosition) {
+                            final Parcelable scrollState = _folderScrollMap.remove(folder);
+                            if (scrollState != null && _layoutManager != null) {
+                                _layoutManager.onRestoreInstanceState(scrollState);
+                            }
+
+                            if (GsFileUtils.isChild(_currentFolder, folderToShow)) {
+                                doAfterChange(() -> showAndFlash(folderToShow));
+                            }
+                        }
 
                         if (_dopt.listener != null) {
                             _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
@@ -838,7 +843,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     @SuppressWarnings({"WeakerAccess", "unused"})
-    static class FilesystemViewerViewHolder extends RecyclerView.ViewHolder {
+    public static class FilesystemViewerViewHolder extends RecyclerView.ViewHolder {
         //########################
         //## UI Binding
         //########################
