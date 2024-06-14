@@ -24,7 +24,6 @@ import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -539,6 +538,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return null;
     }
 
+    // This method tries several methods to ensure that the recyclerview is updated after data changes
     public void doAfterChange(final GsCallback.a0 callback) {
         if (_recyclerView == null) {
             return;
@@ -548,15 +548,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
-                final ViewTreeObserver vto = _recyclerView.getViewTreeObserver();
-                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                unregisterAdapterDataObserver(this);
+                _recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                     @Override
-                    public void onGlobalLayout() {
-                        _recyclerView.postDelayed(callback::callback, 250);
-                        vto.removeOnGlobalLayoutListener(this);
+                    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                        _recyclerView.removeOnLayoutChangeListener(this);
+                        callback.callback();
                     }
                 });
-                unregisterAdapterDataObserver(this);
             }
         });
     }
@@ -586,25 +585,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
      */
     private void showAndFlash(final File file) {
         final int pos = getFilePosition(file);
-
         if (pos >= 0 && _layoutManager != null) {
-
-            final GsCallback.a0 blink = () -> {
-                final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
-                if (holder != null) {
-                    GsContextUtils.blinkView(holder.itemView);
-                }
-            };
-
-            final int firstVisible = _layoutManager.findFirstCompletelyVisibleItemPosition();
-            final int lastVisible = _layoutManager.findLastCompletelyVisibleItemPosition();
-            if (pos < firstVisible || pos > lastVisible) {
-                // Scroll to position if needed and call.
-                // The delay works better than a listener on the scroll state
-                _layoutManager.scrollToPositionWithOffset(pos, 1);
-                _recyclerView.postDelayed(blink::callback, 500);
-            } else {
-                blink.callback();
+            final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
+            if (holder != null) {
+                _layoutManager.scrollToPosition(pos);
+                _recyclerView.post(() -> GsContextUtils.blinkView(holder.itemView));
             }
         }
     }
@@ -734,16 +719,19 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                             _fileIdMap.clear();
                         }
 
-                        if (folderChanged && GsFileUtils.isChild(_currentFolder, toShow)) {
-                            doAfterChange(() -> showAndFlash(toShow));
-                        }
-
                         // TODO - add logic to notify the changed bits
                         notifyDataSetChanged();
 
-                        if (folderChanged && _layoutManager != null && _recyclerView != null) {
-                            final Parcelable state = _folderScrollMap.remove(_currentFolder);
-                            _recyclerView.post(() -> _layoutManager.onRestoreInstanceState(state));
+                        if (folderChanged) {
+                            _recyclerView.post(() -> {
+                                if (_layoutManager != null) {
+                                    _layoutManager.onRestoreInstanceState(_folderScrollMap.remove(_currentFolder));
+                                }
+
+                                if (GsFileUtils.isChild(_currentFolder, toShow)) {
+                                    _recyclerView.postDelayed(() -> showAndFlash(toShow), 400);
+                                }
+                            });
                         }
 
                         if (_dopt.listener != null) {

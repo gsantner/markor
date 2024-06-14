@@ -1042,7 +1042,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         formats.addAll(Arrays.asList(
                 "{{date}}_{{title}}",
                 "{{date}}T{{time}}_{{title}}",
-                "`yyyyMMddHHmmSS`_{{title}}",
+                "`yyyyMMddHHmmss`_{{title}}",
                 "{{uuid}}"
         ));
         return formats;

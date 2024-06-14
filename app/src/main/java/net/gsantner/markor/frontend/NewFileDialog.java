@@ -223,7 +223,7 @@ public class NewFileDialog extends DialogFragment {
 
             String format = formatEdit.getText().toString().trim();
             if (format.isEmpty() && title.isEmpty()) {
-                format = "`yyyy-MM-dd'T'hhMMss`";
+                format = "`yyyy-MM-dd'T'HHmmss`";
             } else if (format.isEmpty()) {
                 format = "{{title}}";
             } else if (!title.isEmpty() && !format.contains("{{title}}")) {

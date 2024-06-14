@@ -17,6 +17,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -825,6 +827,17 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_image: {
                 AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_new_line_below: {
+                // Long press = line above
+                final Editable text = _hlEditor.getText();
+                if (text != null) {
+                    final int sel = TextViewUtils.getSelection(text)[0];
+                    final int lineStart = TextViewUtils.getLineStart(text, sel);
+                    text.insert(lineStart, "\n");
+                    _hlEditor.setSelection(lineStart);
+                }
                 return true;
             }
         }
