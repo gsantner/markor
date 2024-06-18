@@ -28,7 +28,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_new_document">建立新的文件</string>
     <string name="move">移動</string>
     <string name="info">資訊</string>
-    <string name="file_folder_already_exists_please_use_a_different_name">文件／資料夾名稱已存在，請重新命名</string>
+    <string name="file_folder_already_exists_please_use_a_different_name">檔案／資料夾已經存在！請使用不同的名稱</string>
     <string name="import_from_device">從裝置匯入</string>
     <string name="import_">匯入</string>
     <string name="append_to_witharg">增補到 %s</string>
@@ -72,7 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">插入圖像</string>
     <string name="contributors">貢獻人</string>
     <string name="save_location">保存位置</string>
-    <string name="saved_location_to">儲存至 %s</string>
+    <string name="saved_location_to">已儲存至 %s</string>
     <string name="select_storage_folder">選擇儲存資料夾</string>
     <string name="licenses">許可證</string>
     <string name="changelog">更新紀錄</string>
@@ -127,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">建立筆記</string>
     <string name="special_documents" needed="false">指定文件</string>
     <string name="keep_screen_on" needed="false">保持螢幕開啓</string>
-    <string name="disallow_screenshots">不允許截圖</string>
+    <string name="disallow_screenshots">不允許螢幕截圖</string>
     <string name="back_to_previous_folder" needed="false">回到上個資料夾</string>
     <string name="app_settings" needed="false">程式設定</string>
     <string name="editor_settings" needed="false">編輯器設定</string>
@@ -138,7 +138,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="overall_theme_used_in_app">使用於程式整體的主題</string>
     <string name="remember_last_directory">記住最近使用的目錄</string>
     <string name="syntax_highlighting">同步標記</string>
-    <string name="dynamic_highlighting">同步標記</string>
+    <string name="dynamic_highlighting">動態標記</string>
     <string name="highlighting_delay">標記延遲</string>
     <string name="highlighting_delay_lower_value_more_battery_drain_description__appspecific">延遲的閃亮標記以毫秒更新記時，較低值會提早開始標記，但會降低效能與耗電。</string>
     <string name="highlighting_enabled_or_not__appspecific">不管輸入的文字是否已標記都要調整</string>
@@ -153,7 +153,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="none">全無</string>
     <string name="other">其他</string>
     <string name="empty_file">空白檔案</string>
-    <string name="break_page_pdf_print">分頁（PDF / 列印）</string>
+    <string name="break_page_pdf_print">分頁（PDF／列印）</string>
     <string name="underline">底線</string>
     <string name="underline_hex_color_wether_or_not_to_description__appspecific">依顏色突顯Hex顏色碼</string>
     <string name="underline_hex_color_codes">突顯 Hex 顏色碼</string>
@@ -176,7 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">移動完成的工作到相同資料夾的指定文件上。</string>
     <string name="sort_tasks_by_selected_order">依所選的順序進行任務排列</string>
     <string name="special_key">特殊鍵</string>
-    <string name="asciidoc_special_key">特殊 Ascill 內容</string>
+    <string name="asciidoc_special_key">特殊 AsciiDoc 內容</string>
     <string name="key_page_up">往上頁 (Page Up)</string>
     <string name="key_page_down">往下頁 (Page Down)</string>
     <string name="move_text_one_line_up">往上面一行移動文字</string>
@@ -221,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻譯</string>
     <string name="more_info_and_help">更多關於這個App的資訊和幫助</string>
     <string name="report_bugs">回報臭蟲</string>
+    <string name="do_you_have_a_question_or_problem">你有問題或難題嗎？</string>
     <string name="join_community">加入社團</string>
     <string name="bug_reports_suggest_improvements">提供回饋，回報臭蟲或改善建議</string>
     <string name="help_translating_this_app">翻譯這個Apo的語文界面</string>
@@ -315,7 +316,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">最近開啟的文件列表</string>
     <string name="reload">重新下載</string>
     <string name="wrap_words">文字斷行</string>
+    <string name="line_numbers">行號</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字超過螢幕寬度時會自動換行。停用該功能則開啟水平捲動。</string>
+    <string name="recursive_search_in_location">在 %s 中遞迴搜​​尋</string>
     <string name="always_open_with_this_app">總是使用此應用程式開啟</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">當列表的項目裡包含副檔名時，總是以這個程式開啟檔案。如果您要編輯網頁檔案或其他不含附檔名的檔案時，可以使用 \'None, .html, .css , .js\' 等。</string>
     <string name="open_file_with">開啟檔案</string>
@@ -338,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">需要多少欄 (columns)？長按表格按鈕建立表格（插入 header），輕觸則新增一列 (row)。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
     <string name="delete_lines">刪除線</string>
+    <string name="duplicate_lines">重複行</string>
     <string name="unordered_list">無序清單</string>
     <string name="ordered_list">有序清單</string>
     <string name="check_list">檢查清單</string>
@@ -366,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">歸檔已完成的任務</string>
     <string name="create_new_file_or_folder">建立新檔案或資料夾</string>
     <string name="choose_format">選擇格式</string>
+    <string name="clear_selection">清除選取</string>
     <string name="selected">已選擇</string>
     <string name="back">返回</string>
     <string name="expand_collapse">展開／摺疊</string>
@@ -387,6 +392,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="add_completion_date">加入完成日期</string>
     <string name="add_completion_date_for_todos_when_marking_them_as_done">將待辦事項標示為已完成時，加入完成日期</string>
     <string name="file_description_format">檔案加密格式</string>
+    <string name="file_description_format_dialog">檔案瀏覽器中每個檔案下的描述格式。遵循 Android 的 SimpleDateFormat 規則，並且新增 FS 用於顯示檔案大小。留空以使用你所在地區的預設格式。\n\n輸入範例：\nFS yyyy MMM dd hh:mm:ss aa\n輸出格式：\n30KB 2020 Mar 20 11:24:52 PM</string>
     <string name="loading_default_value">正在載入預設值</string>
     <string name="file_settings">檔案設定</string>
     <string name="search_and_replace">搜尋 / 取代</string>
@@ -406,6 +412,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_in_content">在内容中搜尋</string>
     <string name="max_search_depth">搜尋深度</string>
     <string name="ignore_list">忽略列表</string>
+    <string name="do_not_search_specified_files_and_folders">不要搜尋指定的檔案和資料夾。\n使用新行作為分隔符號。\n使用引號表示確切的目錄名稱：「\"Test\"」。\n或使用正規表示式「^[.].*」\n範例：^\\..*\n\"test\"\n\"Test\"\n.*secret.*\n.*BACKUP.*\n.*.ini</string>
     <string name="regex_search">以正規表示式來搜尋</string>
     <string name="case_sensitive">區分大小寫</string>
     <string name="stop_search_after_first_match">第一次匹配後停止搜尋</string>
@@ -435,9 +442,17 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_any">任意匹配</string>
     <string name="match_all">匹配全部</string>
     <string name="dynamic_notebook_root_links">動態搜尋筆記本根目錄</string>
+    <string name="search_dynamically_for_notebook_root">若要追蹤維基連結，動態搜尋 notebook.zim 檔案以識別目前筆記本的根目錄。如果你使用多個 zim 筆記本或應用程式中設定的筆記本目錄與你的 zim 筆記本不對應時，請勾選此項目。</string>
+    <string name="share_into_format_prefix_for_text_shared">分享至 Markor 的文字的格式／前綴。遵循 Android 的 SimpleDateFormat 規則。\n\n使用佔位符 {{text}} 來定位分享的文字。如果未指定，則會附加分享文字並將格式用作前綴。</string>
     <string name="share_into_format">分享到 - 格式</string>
+    <string name="attachment_folder_name">附件資料夾名稱</string>
+    <string name="attachment_folder_name_desc">附件將儲存在目前資料夾下的子資料夾中。如果留空，附件將會儲存在目前資料夾中。</string>
     <string name="auto_format">自動格式化</string>
     <string name="insert_snippet">插入片段</string>
+    <string name="snippet_directory">片段／範本目錄</string>
     <string name="error_could_not_open_file">錯誤：無法開啟檔案。</string>
+    <string name="document_error_clip">遇到錯誤：文字已複製至剪貼簿。</string>
+    <string name="wont_save_min_length">為了防止資料遺失，不會自動儲存少於 %d 個字元的檔案。</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">進階過濾語法</a></small>]]></string>
     <string name="filter">過濾器</string>
 </resources>
