@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">上次修改時間</string>
     <string name="select_this_folder">選擇當前資料夾</string>
     <string name="select">選擇</string>
+    <string name="select_all">選取全部</string>
     <string name="create">建立</string>
     <string name="select_entries">選擇 輸入文字</string>
     <string name="one_item_selected">已經選擇一個項目</string>
@@ -438,4 +439,5 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="auto_format">自動格式化</string>
     <string name="insert_snippet">插入片段</string>
     <string name="error_could_not_open_file">錯誤：無法開啟檔案。</string>
+    <string name="filter">過濾器</string>
 </resources>
