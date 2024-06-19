@@ -47,6 +47,7 @@ import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -99,8 +100,8 @@ public class FormatRegistry {
             new Format(FormatRegistry.FORMAT_KEYVALUE, R.string.key_value, ".json", CONVERTER_KEYVALUE),
             new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", CONVERTER_ASCIIDOC),
             new Format(FormatRegistry.FORMAT_ORGMODE, R.string.orgmode, ".org", CONVERTER_ORGMODE),
-            new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
             new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
             new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null)
     );
 
@@ -115,6 +116,8 @@ public class FormatRegistry {
                     return true;
                 }
             }
+            // If we have a valid format saved, we can still likely open it
+            return ApplicationObject.settings().getDocumentFormat(file.getAbsolutePath(), -1) != -1;
         }
         return false;
     }

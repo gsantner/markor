@@ -1118,7 +1118,6 @@ public class GsContextUtils {
             context.startActivityForResult(intent, requestCode);
         } else {
             context.startActivity(intent);
-
         }
         context.overridePendingTransition(getResId(context, ResType.DIMEN, "fadein"), getResId(context, ResType.DIMEN, "fadeout"));
         if (finishFromActivity != null && finishFromActivity) {

@@ -469,9 +469,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return _default;
         } else {
             final String value = getString(PREF_PREFIX_FILE_FORMAT + path, null);
+            if (value == null) {
+                return _default;
+            }
             final int sid = _cu.getResId(_context, GsContextUtils.ResType.STRING, value);
-            // Note TextFormat.FORMAT_UNKNOWN also == 0
-            return sid != 0 ? sid : _default;
+            return sid != FormatRegistry.FORMAT_UNKNOWN ? sid : _default;
         }
     }
 

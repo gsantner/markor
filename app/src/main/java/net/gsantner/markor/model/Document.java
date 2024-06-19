@@ -83,6 +83,10 @@ public class Document implements Serializable {
         }
     }
 
+    public static String getPath(final File file) {
+        return file != null ? file.getAbsolutePath() : "";
+    }
+
     // Get a default file
     public static Document getDefault(final Context context) {
         final File notebook = ApplicationObject.settings().getNotebookDirectory();

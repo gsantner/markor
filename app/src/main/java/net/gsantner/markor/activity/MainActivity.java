@@ -98,7 +98,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
-            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
+            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null);
         }
 
         _cu.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
@@ -309,7 +309,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private void newItemCallback(final File file) {
         if (file.isFile()) {
-            DocumentActivity.launch(MainActivity.this, file, false, null, null);
+            DocumentActivity.launch(MainActivity.this, file, false, null);
         } else if (file.isDirectory()) {
             _notebook.getAdapter().showFile(file);
         }

@@ -256,7 +256,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             _appSettings.addRecentFile(file);
 
             if (showEditor) {
-                DocumentActivity.launch(activity, document.getFile(), null, null, -1);
+                DocumentActivity.launch(activity, document.getFile(), null, -1);
             }
 
             activity.finish();

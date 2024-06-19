@@ -49,17 +49,16 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(final Activity activity, File path, final Boolean doPreview, Intent intent, final Integer lineNumber) {
+    public static void launch(final Activity activity, final File path, final Boolean doPreview, final Integer lineNumber) {
         final AppSettings as = ApplicationObject.settings();
-
-        if (intent == null) {
-            intent = new Intent(activity, DocumentActivity.class);
-        }
+        final Intent intent = new Intent(activity, DocumentActivity.class);
 
         if (path != null) {
             intent.putExtra(Document.EXTRA_FILE, path);
-        } else {
-            path = intent.hasExtra(Document.EXTRA_FILE) ? ((File) intent.getSerializableExtra(Document.EXTRA_FILE)) : null;
+        }
+
+        if (path != null && path.isDirectory()) {
+            intent.setClass(activity, MainActivity.class);
         }
 
         if (lineNumber != null && lineNumber >= 0) {
@@ -76,10 +75,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
-        if (path != null && path.isDirectory()) {
-            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, path);
-        }
-
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
@@ -91,10 +86,10 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         if (file.isDirectory()) {
             if (file.canRead()) {
-                launch(activity, file, null, null, null);
+                launch(activity, file, null, null);
             }
         } else if (FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file)) {
-            launch(activity, file, null, null, lineNumber);
+            launch(activity, file, null, lineNumber);
         } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
             GsContextUtils.instance.requestApkInstallation(activity, file);
         } else {
@@ -124,7 +119,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, null, null, null);
+                DocumentActivity.launch(activity, file, null, null);
             } else {
                 new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
             }
