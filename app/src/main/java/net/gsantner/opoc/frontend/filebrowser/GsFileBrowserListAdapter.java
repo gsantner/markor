@@ -118,6 +118,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (_dopt.titleTextColor == 0) {
             _dopt.titleTextColor = _dopt.primaryTextColor;
         }
+        if (_dopt.fileColor == 0) {
+            _dopt.fileColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "file");
+        }
+        if (_dopt.folderColor == 0) {
+            _dopt.folderColor = cu.getResId(context, GsContextUtils.ResType.COLOR, "folder");
+        }
 
         loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder);
     }
@@ -181,7 +187,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
         }, 60);
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                        isSelected ? _dopt.accentColor : _dopt.secondaryTextColor),
+                        isSelected ? _dopt.accentColor : (!file.isFile() ? _dopt.folderColor : _dopt.fileColor)),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(0xFFE3B51B);
