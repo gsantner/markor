@@ -116,8 +116,6 @@ public class FormatRegistry {
                     return true;
                 }
             }
-            // If we have a valid format saved, we can still likely open it
-            return ApplicationObject.settings().getDocumentFormat(file.getAbsolutePath(), -1) != -1;
         }
         return false;
     }

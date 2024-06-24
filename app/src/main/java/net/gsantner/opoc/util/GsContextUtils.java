@@ -14,13 +14,13 @@ import static android.graphics.Bitmap.CompressFormat;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Application;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -50,9 +50,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaScannerConnection;
@@ -1314,6 +1312,7 @@ public class GsContextUtils {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
+
         context.startActivity(intent);
     }
 
@@ -1347,7 +1346,6 @@ public class GsContextUtils {
         }
         return false;
     }
-
 
     /**
      * Request installation of APK specified by file

@@ -36,6 +36,7 @@ import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.GsAudioRecordOmDialog;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserOptions;
+import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -83,7 +84,7 @@ public class AttachLinkOrFileDialog {
     ) {
         final int[] sel = TextViewUtils.getSelection(edit);
 
-        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, null);
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);

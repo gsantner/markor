@@ -758,7 +758,7 @@ public final class TextViewUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             final WindowInsets insets = view.getRootWindowInsets();
             if (insets != null) {
-                insets.isVisible(WindowInsets.Type.ime());
+                return insets.isVisible(WindowInsets.Type.ime());
             }
         }
         return null; // Uncertain

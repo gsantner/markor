@@ -451,7 +451,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    DocumentActivity.handleFileClick(MainActivity.this, file, lineNumber);
+                    DocumentActivity.launch(MainActivity.this, file, null, lineNumber);
                 }
             });
         }

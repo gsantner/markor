@@ -702,7 +702,7 @@ public abstract class ActionButtonBase {
                     } else {
                         final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
                         if (f.canRead()) {
-                            DocumentActivity.handleFileClick(getActivity(), f, null);
+                            DocumentActivity.launch(getActivity(), f, null, null);
                             return true;
                         }
                     }

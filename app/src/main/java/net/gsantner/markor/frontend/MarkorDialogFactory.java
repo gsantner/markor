@@ -222,8 +222,6 @@ public class MarkorDialogFactory {
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(as().getString(optLastSelected, o_context + d_desc));
         dopt.iconsForData = availableDataToIconMap;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = 530;
         dopt.okButtonText = 0;
 
         dopt.titleText = R.string.sort_tasks_by_selected_order;
@@ -282,6 +280,7 @@ public class MarkorDialogFactory {
             final String title = savedViews.get(i).first;
             final String query = savedViews.get(i).second;
             options.add(title);
+            icons.add(R.drawable.empty_blank);
             callbacks.add(() -> {
                 final DialogOptions doptView = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
                 setQueryTitle(doptView, title, query);
@@ -310,7 +309,6 @@ public class MarkorDialogFactory {
         dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.browse_todo;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -856,7 +854,6 @@ public class MarkorDialogFactory {
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
             dopt2.isMultiSelectEnabled = true;
-            dopt2.dialogWidthDp = 250;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
                 state.disabledLevels.clear();
@@ -893,9 +890,8 @@ public class MarkorDialogFactory {
         dopt.data = Arrays.asList("1", "2", "4", "8");
         dopt.highlightData = Collections.singletonList(Integer.toString(indent));
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.titleText = R.string.indent;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -912,9 +908,9 @@ public class MarkorDialogFactory {
         dopt.data = sizes;
         dopt.highlightData = Collections.singletonList(Integer.toString(currentSize));
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 400;
         dopt.titleText = R.string.font_size;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -970,11 +966,8 @@ public class MarkorDialogFactory {
         }
         dopt.data = data;
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.messageText = activity.getString(R.string.copy_move_conflict_message, fileName, destName);
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -997,7 +990,6 @@ public class MarkorDialogFactory {
         }
     }
 
-
     public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
@@ -1017,5 +1009,6 @@ public class MarkorDialogFactory {
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
         dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
+        dopt.dialogStyle = R.style.Theme_AppCompat_DayNight_Dialog_Rounded;
     }
 }

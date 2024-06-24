@@ -83,7 +83,7 @@ public class DatetimeFormatDialog {
      */
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n, InflateParams"})
     public static void showDatetimeFormatDialog(final Activity activity, final HighlightingEditor hlEditor) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
         final GsContextUtils cu = new GsContextUtils();

@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -50,17 +51,38 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(final Activity activity, final File path, final Boolean doPreview, final Integer lineNumber) {
+    public static void launch(final Activity activity, final File file, final Boolean doPreview, final Integer lineNumber) {
+        if (activity == null || file == null) {
+            return;
+        }
+
+        final boolean isVirtualDir = GsFileBrowserListAdapter.isVirtualFolder(file);
+
+        if (!file.exists() && !GsFileUtils.canCreate(file) && !isVirtualDir) {
+            Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+            GsContextUtils.instance.requestApkInstallation(activity, file);
+            return;
+        }
+
+        if (file.isFile() && !FormatRegistry.isFileSupported(file)) {
+            askUserIfWantsToOpenFileInThisApp(activity, file);
+            return;
+        }
+
         final AppSettings as = ApplicationObject.settings();
-        final Intent intent = new Intent(activity, DocumentActivity.class);
 
-        if (path != null) {
-            intent.putExtra(Document.EXTRA_FILE, path);
+        final Intent intent;
+        if (isVirtualDir || file.isDirectory()) {
+            intent = new Intent(activity, MainActivity.class);
+        } else {
+            intent = new Intent(activity, DocumentActivity.class);
         }
 
-        if (path != null && (path.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(path))) {
-            intent.setClass(activity, MainActivity.class);
-        }
+        intent.putExtra(Document.EXTRA_FILE, file);
 
         if (lineNumber != null && lineNumber >= 0) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
@@ -78,24 +100,6 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         nextLaunchTransparentBg = (activity instanceof MainActivity);
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-    }
-
-    public static void handleFileClick(Activity activity, File file, Integer lineNumber) {
-        if (activity == null || file == null) {
-            return;
-        }
-
-        if (file.isDirectory()) {
-            if (file.canRead()) {
-                launch(activity, file, null, null);
-            }
-        } else if (FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file)) {
-            launch(activity, file, null, lineNumber);
-        } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
-            GsContextUtils.instance.requestApkInstallation(activity, file);
-        } else {
-            askUserIfWantsToOpenFileInThisApp(activity, file);
-        }
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -129,7 +133,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (isYes) {
             openFile.callback(true);
         } else if (isLikelyTextfile) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
@@ -201,12 +205,8 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (file == null) {
+        if (file == null || file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             showNotSupportedMessage();
-        } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
-            // File readable but is not a text-file (and not a supported binary-embed type)
-            handleFileClick(this, file, null);
-            finish();
         } else {
             // Open in editor/viewer
             final Document doc = new Document(file);
@@ -235,7 +235,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private void showNotSupportedMessage() {
         final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Rounded)
                 .setMessage(Html.fromHtml(notSupportedMessage))
                 .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
