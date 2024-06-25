@@ -215,11 +215,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
     <string name="select_existing_document">Mevcut belegeyi seç</string>
+    <string name="select_create_document">Dosya seç ya da oluştur</string>
     <string name="open_source_licenses">Açık Kaynak Lisansları</string>
     <string name="rate_this_app">Bu uygulamayı değerlendir</string>
     <string name="translate">Çeviri</string>
     <string name="more_info_and_help">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="report_bugs">Hataları bildir</string>
+    <string name="do_you_have_a_question_or_problem">Sorunuz mu var ya da probleminiz mi var?</string>
     <string name="join_community">Topluluğa katıl</string>
     <string name="bug_reports_suggest_improvements">Geri bildirim verin, hataları bildirin veya iyileştirmeler önerin</string>
     <string name="help_translating_this_app">Bu uygulamayı diğer dillere çevirin</string>
