@@ -538,44 +538,30 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return null;
     }
 
-    // This method tries several methods to ensure that the recyclerview is updated after data changes
-    public void doAfterChange(final GsCallback.a0 callback) {
-        if (_recyclerView == null) {
-            return;
-        }
-
-        // We wait for data to change and then a subsequent layout pass
-        registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                unregisterAdapterDataObserver(this);
-                _recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-                    @Override
-                    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                        _recyclerView.removeOnLayoutChangeListener(this);
-                        callback.callback();
-                    }
-                });
-            }
-        });
-    }
-
     // Switch to folder and show the file
     public void showFile(final File file) {
         if (file == null || !file.exists() || _recyclerView == null) {
             return;
         }
 
-        final File dir = file.getParentFile();
-        if (dir == null) {
-            return;
-        }
-
         if (getFilePosition(file) < 0) {
-            loadFolder(dir, file);
+            final File dir = file.getParentFile();
+            if (dir != null) {
+                loadFolder(dir, file);
+            }
         } else {
             showAndFlash(file);
         }
+    }
+
+    private void doAfterChange(final GsCallback.a0 callback) {
+        _recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int l, int t, int r, int b, int ol, int ot, int or, int ob) {
+                _recyclerView.removeOnLayoutChangeListener(this);
+                callback.callback();
+            }
+        });
     }
 
     /**
@@ -586,11 +572,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private void showAndFlash(final File file) {
         final int pos = getFilePosition(file);
         if (pos >= 0 && _layoutManager != null) {
-            final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
-            if (holder != null) {
-                _layoutManager.scrollToPosition(pos);
-                _recyclerView.post(() -> GsContextUtils.blinkView(holder.itemView));
-            }
+            doAfterChange(() -> _recyclerView.postDelayed(() -> {
+                final RecyclerView.ViewHolder holder = _recyclerView.findViewHolderForLayoutPosition(pos);
+                if (holder != null) {
+                    GsContextUtils.blinkView(holder.itemView);
+                }
+            }, 400));
+            _layoutManager.scrollToPosition(pos);
         }
     }
 
@@ -729,7 +717,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                                 }
 
                                 if (GsFileUtils.isChild(_currentFolder, toShow)) {
-                                    _recyclerView.postDelayed(() -> showAndFlash(toShow), 400);
+                                    _recyclerView.post(() -> showAndFlash(toShow));
                                 }
                             });
                         }

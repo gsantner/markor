@@ -182,12 +182,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
+            _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
-                _notebook.post(() -> _notebook.setCurrentFolder(file));
+                _notebook.setCurrentFolder(file);
             } else {
-                _notebook.post(() -> _notebook.getAdapter().showFile(file));
+                _notebook.getAdapter().showFile(file);
             }
-            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
 
