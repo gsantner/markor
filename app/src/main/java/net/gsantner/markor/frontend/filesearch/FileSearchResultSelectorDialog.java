@@ -46,7 +46,7 @@ public class FileSearchResultSelectorDialog {
             final List<FileSearchEngine.FitFile> searchResults,
             final GsCallback.a3<String, Integer, Boolean> callback
     ) {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
 
         final LinearLayout dialogLayout = new LinearLayout(activity);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
@@ -98,8 +98,8 @@ public class FileSearchResultSelectorDialog {
 
         final Window window = dialog.getWindow();
         if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
 
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {

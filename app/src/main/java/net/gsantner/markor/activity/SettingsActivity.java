@@ -286,6 +286,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.quicknote;
                             dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.newDirButtonEnable = false;
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
@@ -303,6 +304,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.todo;
                             dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.newDirButtonEnable = false;
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;

@@ -16,6 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="4dp"
+    style="@style/AppTheme.Unified.Dialog.Rounded"
     android:animateLayoutChanges="true">
 
     <androidx.appcompat.widget.Toolbar

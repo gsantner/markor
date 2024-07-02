@@ -18,8 +18,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -32,6 +33,7 @@ import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.frontend.base.GsFragmentBase;
+import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -44,59 +46,60 @@ public class DocumentActivity extends MarkorBaseActivity {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
     private Toolbar _toolbar;
-    private TextView _toolbarTitleText;
 
     private FragmentManager _fragManager;
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(Activity activity, File path, Boolean doPreview, Intent intent, final Integer lineNumber) {
-        final AppSettings as = ApplicationObject.settings();
-        if (intent == null) {
-            intent = new Intent(activity, DocumentActivity.class);
-        }
-        if (path != null) {
-            intent.putExtra(Document.EXTRA_FILE, path);
-        } else {
-            path = intent.hasExtra(Document.EXTRA_FILE) ? ((File) intent.getSerializableExtra(Document.EXTRA_FILE)) : null;
-        }
-        if (lineNumber != null && lineNumber >= 0) {
-            intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
-        }
-        if (doPreview != null) {
-            intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && ApplicationObject.settings().isMultiWindowEnabled()) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        }
-        if (path != null && path.isDirectory()) {
-            intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, path);
-        }
-        if (path != null && path.isFile() && as.isPreferViewMode()) {
-            as.setDocumentPreviewState(path.getAbsolutePath(), true);
-        }
-        nextLaunchTransparentBg = (activity instanceof MainActivity);
-        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
-    }
-
-    public static void handleFileClick(Activity activity, File file, Integer lineNumber) {
+    public static void launch(final Activity activity, final File file, final Boolean doPreview, final Integer lineNumber) {
         if (activity == null || file == null) {
             return;
         }
 
-        if (file.isDirectory()) {
-            if (file.canRead()) {
-                launch(activity, file, null, null, null);
-            }
-        } else if (FormatRegistry.isFileSupported(file) && GsFileUtils.canCreate(file)) {
-            launch(activity, file, null, null, lineNumber);
-        } else if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
-            GsContextUtils.instance.requestApkInstallation(activity, file);
-        } else {
-            askUserIfWantsToOpenFileInThisApp(activity, file);
+        final boolean isVirtualDir = GsFileBrowserListAdapter.isVirtualFolder(file);
+
+        if (!file.exists() && !GsFileUtils.tryCreatePath(file) && !isVirtualDir) {
+            Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
+            GsContextUtils.instance.requestApkInstallation(activity, file);
+            return;
+        }
+
+        if (file.isFile() && !FormatRegistry.isFileSupported(file)) {
+            askUserIfWantsToOpenFileInThisApp(activity, file);
+            return;
+        }
+
+        final AppSettings as = ApplicationObject.settings();
+
+        final Intent intent;
+        if (isVirtualDir || file.isDirectory()) {
+            intent = new Intent(activity, MainActivity.class);
+        } else {
+            intent = new Intent(activity, DocumentActivity.class);
+        }
+
+        intent.putExtra(Document.EXTRA_FILE, file);
+
+        if (lineNumber != null && lineNumber >= 0) {
+            intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
+        }
+
+        if (doPreview != null) {
+            intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled()) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        } else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+
+        nextLaunchTransparentBg = (activity instanceof MainActivity);
+        GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
 
     public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
@@ -121,7 +124,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
             if (openInThisApp) {
-                DocumentActivity.launch(activity, file, null, null, null);
+                DocumentActivity.launch(activity, file, null, null);
             } else {
                 new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
             }
@@ -130,7 +133,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (isYes) {
             openFile.callback(true);
         } else if (isLikelyTextfile) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
@@ -153,7 +156,6 @@ public class DocumentActivity extends MarkorBaseActivity {
         }
         setContentView(R.layout.document__activity);
         _toolbar = findViewById(R.id.toolbar);
-        _toolbarTitleText = findViewById(R.id.note__activity__text_note_title);
 
         if (_appSettings.isHideSystemStatusbar()) {
             AndroidBug5497Workaround.assistActivity(this);
@@ -203,12 +205,8 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (file == null) {
+        if (file == null || file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
             showNotSupportedMessage();
-        } else if (file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
-            // File readable but is not a text-file (and not a supported binary-embed type)
-            handleFileClick(this, file, null);
-            finish();
         } else {
             // Open in editor/viewer
             final Document doc = new Document(file);
@@ -237,7 +235,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private void showNotSupportedMessage() {
         final String notSupportedMessage = (getString(R.string.filemanager_doesnot_supply_required_data__appspecific) + "\n\n" + getString(R.string.sync_to_local_folder_notice)).replace("\n", "<br/>");
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog_Rounded)
                 .setMessage(Html.fromHtml(notSupportedMessage))
                 .setNegativeButton(R.string.more_info, (di, i) -> _cu.openWebpageInExternalBrowser(this, getString(R.string.sync_client_support_issue_url)))
                 .setPositiveButton(android.R.string.ok, null)
@@ -281,8 +279,15 @@ public class DocumentActivity extends MarkorBaseActivity {
         _cu.extractResultFromActivityResult(this, requestCode, resultCode, data);
     }
 
+    public void setTitle(final CharSequence title) {
+        final ActionBar bar = getSupportActionBar();
+        if (bar != null) {
+            bar.setTitle(title);
+        }
+    }
+
     public void setDocumentTitle(final String title) {
-        _toolbarTitleText.setText(title);
+        setTitle(title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.isMultiWindowEnabled()) {
             setTaskDescription(new ActivityManager.TaskDescription(title));
         }
@@ -301,8 +306,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public void showShareInto(Intent intent) {
-        // Disable edittext when going to shareinto
-        _toolbarTitleText.setText(R.string.share_into);
+        setTitle(getString(R.string.share_into));
         showFragment(DocumentShareIntoFragment.newInstance(intent));
     }
 

@@ -29,18 +29,6 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/LightTextToolbarOverlay">
 
-            <TextView
-                android:id="@+id/note__activity__text_note_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="sans-serif-medium"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                tools:ignore="UnusedAttribute" />
-
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>

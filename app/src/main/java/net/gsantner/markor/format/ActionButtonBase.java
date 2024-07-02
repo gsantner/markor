@@ -17,6 +17,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -305,45 +307,34 @@ public abstract class ActionButtonBase {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
-    private void setupRepeat(final View btn, final ActionItem action) {
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupRepeat(final View btn) {
         // Velocity and acceleration parameters
-        final int initialDelay = 400, deltaDelay = 50, minDelay = 100;
-        final Integer token = action.keyId;
+        final int INITIAL_DELAY = 400, DELTA_DELAY = 50, MIN_DELAY = 100;
+        final Handler handler = new Handler();
 
-        btn.setOnTouchListener(new View.OnTouchListener() {
-            Handler handler = null;
-            int delay = initialDelay;
-
-            @SuppressLint("ClickableViewAccessibility")
+        final Runnable repeater = new Runnable() {
+            int delay = INITIAL_DELAY;
             @Override
-            public boolean onTouch(final View v, final MotionEvent event) {
-                if (handler == null) {
-                    handler = v.getHandler();
-                }
-
-                final int action = event.getAction();
-                if (action == MotionEvent.ACTION_DOWN) {
-                    delay = initialDelay;
-                    onClick(v);
-                    return true;
-                } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-                    handler.removeCallbacksAndMessages(token);
-                    return true;
-                }
-                return false;
+            public void run() {
+                btn.callOnClick();
+                delay = Math.max(MIN_DELAY, delay - DELTA_DELAY);
+                handler.postDelayed(this, delay);
             }
+        };
 
-            private void onClick(final View v) {
-                try {
-                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                    onActionClick(action.keyId);
-                    handler.postDelayed(() -> onClick(v), token, delay);
-                    delay = Math.max(minDelay, delay - deltaDelay);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+        btn.setOnLongClickListener(v -> {
+            btn.callOnClick(); // Trigger immediately
+            handler.postDelayed(repeater, INITIAL_DELAY);
+            return true;
+        });
+
+        btn.setOnTouchListener((view, event) ->  {
+            final int eac = event.getAction();
+            if (eac == MotionEvent.ACTION_UP || eac == MotionEvent.ACTION_CANCEL) {
+                handler.removeCallbacksAndMessages(null);
             }
+            return false;
         });
     }
 
@@ -355,18 +346,19 @@ public abstract class ActionButtonBase {
         btn.setContentDescription(desc);
         TooltipCompat.setTooltipText(btn, desc);
 
-        if (action.isRepeatable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            setupRepeat(btn, action);
+        btn.setOnClickListener(v -> {
+            try {
+                // run action
+                v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+                onActionClick(action.keyId);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        if (action.isRepeatable) {
+            setupRepeat(btn);
         } else {
-            btn.setOnClickListener(v -> {
-                try {
-                    // run action
-                    v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-                    onActionClick(action.keyId);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            });
             btn.setOnLongClickListener(v -> {
                 try {
                     v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
@@ -710,7 +702,7 @@ public abstract class ActionButtonBase {
                     } else {
                         final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
                         if (f.canRead()) {
-                            DocumentActivity.handleFileClick(getActivity(), f, null);
+                            DocumentActivity.launch(getActivity(), f, null, null);
                             return true;
                         }
                     }
@@ -825,6 +817,17 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_image: {
                 AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                return true;
+            }
+            case R.string.abid_common_new_line_below: {
+                // Long press = line above
+                final Editable text = _hlEditor.getText();
+                if (text != null) {
+                    final int sel = TextViewUtils.getSelection(text)[0];
+                    final int lineStart = TextViewUtils.getLineStart(text, sel);
+                    text.insert(lineStart, "\n");
+                    _hlEditor.setSelection(lineStart);
+                }
                 return true;
             }
         }

@@ -1115,7 +1115,6 @@ public class GsContextUtils {
             context.startActivityForResult(intent, requestCode);
         } else {
             context.startActivity(intent);
-
         }
         context.overridePendingTransition(getResId(context, ResType.DIMEN, "fadein"), getResId(context, ResType.DIMEN, "fadeout"));
         if (finishFromActivity != null && finishFromActivity) {
@@ -1312,6 +1311,7 @@ public class GsContextUtils {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
+
         context.startActivity(intent);
     }
 
@@ -1345,7 +1345,6 @@ public class GsContextUtils {
         }
         return false;
     }
-
 
     /**
      * Request installation of APK specified by file
@@ -2881,20 +2880,14 @@ public class GsContextUtils {
         return false;
     }
 
-    /**
-     * Blinks the view passed in as parameter
-     *
-     * @param view View to be blinked
-     */
     public static void blinkView(final View view) {
-
         if (view == null) {
             return;
         }
 
-        final ObjectAnimator animator = ObjectAnimator.ofFloat(
-                        view, View.ALPHA, 0.1f, 1.0f, 0.1f, 1.0f)
-                .setDuration(500);
+        final ObjectAnimator animator = ObjectAnimator
+                .ofFloat(view, View.ALPHA, 0.2f, 1.0f)
+                .setDuration(500L);
 
         view.setTag(BLINK_ANIMATOR_TAG, new WeakReference<>(animator));
 
@@ -2924,7 +2917,6 @@ public class GsContextUtils {
                 }
             }
         }
-
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {

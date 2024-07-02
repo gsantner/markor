@@ -8,23 +8,18 @@ import net.gsantner.opoc.format.GsTextUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class OrgmodeTextConverter extends TextConverterBase {
-    private static final List<String> EXT_ORG = Arrays.asList(".org");
-    private static final List<String> EXT = new ArrayList<>();
+    private static final List<String> EXT = Collections.singletonList(".org");
 
     /**
      * this file is exported by browserify from  <a href="https://github.com/mooz/org-js">org-js</a>
      */
     public static final String HTML_ORG_JS_INCLUDE = "<script src='file:///android_asset/orgmode/org-bundle.js'></script>\n";
     public static final String HTML_ORG_CSS_INCLUDE = "<link href='file:///android_asset/orgmode/org.css' type='text/css' rel='stylesheet'/>\n";
-
-
-    static {
-        EXT.addAll(EXT_ORG);
-    }
 
     //########################
     //## Methods
@@ -61,8 +56,9 @@ public class OrgmodeTextConverter extends TextConverterBase {
         return CONTENT_TYPE_HTML;
     }
 
+
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return EXT.contains(extWithDot);
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return EXT.contains(ext);
     }
 }

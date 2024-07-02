@@ -46,12 +46,12 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.widget.TextViewCompat;
 
-import net.gsantner.markor.R;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
@@ -123,6 +123,8 @@ public class GsSearchOrCustomTextDialog {
         public int searchHintText = android.R.string.search_go;
         @DrawableRes
         public int clearInputIcon = android.R.drawable.ic_menu_close_clear_cancel;
+        @StyleRes
+        public int dialogStyle = 0;
     }
 
     public static class Adapter extends BaseAdapter {
@@ -242,7 +244,8 @@ public class GsSearchOrCustomTextDialog {
     }
 
     public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
-        final int dialogStyle = GsContextUtils.instance.getResId(activity, GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
+        final int dialogStyle = dopt.dialogStyle != 0 ? dopt.dialogStyle : GsContextUtils.instance.getResId(activity,
+                GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
 
         final Adapter listAdapter = new Adapter(activity, dopt);
@@ -307,7 +310,7 @@ public class GsSearchOrCustomTextDialog {
         // Ok button only present under these circumstances
         final boolean isSearchOk = dopt.callback != null && dopt.isSearchEnabled;
         final boolean isMultiSelOk = dopt.positionCallback != null && dopt.isMultiSelectEnabled;
-        final boolean isPlainDialog = dopt.callback != null && (dopt.data == null || dopt.data.size() == 0);
+        final boolean isPlainDialog = dopt.callback != null && (dopt.data == null || dopt.data.isEmpty());
         if (isSearchOk || isMultiSelOk || isPlainDialog) {
             dialogBuilder.setPositiveButton(dopt.okButtonText, (dialogInterface, i) -> {
                 final String searchText = dopt.isSearchEnabled ? searchEditText.getText().toString() : null;
@@ -333,7 +336,9 @@ public class GsSearchOrCustomTextDialog {
             return false;
         });
 
+        dialog.show();
         final Window win = dialog.getWindow();
+
         if (win != null) {
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
@@ -342,26 +347,23 @@ public class GsSearchOrCustomTextDialog {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
             }
-            dialog.show();
 
-            DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+            final DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
             if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
                 GsContextUtils.windowAspectRatio(win, displayMetrics, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1]);
             } else {
-                int ds_w = dopt.dialogWidthDp < 100 ? dopt.dialogWidthDp : ((int) (dopt.dialogWidthDp * displayMetrics.density));
-                int ds_h = dopt.dialogHeightDp < 100 ? dopt.dialogHeightDp : ((int) (dopt.dialogHeightDp * displayMetrics.density));
-                ds_w = (ds_w * 1.1 > displayMetrics.widthPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_w;
-                ds_h = (ds_h * 1.1 > displayMetrics.heightPixels) ? ViewGroup.LayoutParams.MATCH_PARENT : ds_h;
-                win.setLayout(ds_w, ds_h);
+                final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams();
+                wlp.copyFrom(win.getAttributes());
+                wlp.width = dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : (int) (dopt.dialogWidthDp * displayMetrics.density);
+                wlp.height = dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : (int) (dopt.dialogHeightDp * displayMetrics.density);
+                win.setAttributes(wlp);
             }
 
             if (dopt.gravity != Gravity.NO_GRAVITY) {
-                WindowManager.LayoutParams wlp = win.getAttributes();
+                final WindowManager.LayoutParams wlp = win.getAttributes();
                 wlp.gravity = dopt.gravity;
                 win.setAttributes(wlp);
             }
-        } else {
-            dialog.show();
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
@@ -408,16 +410,9 @@ public class GsSearchOrCustomTextDialog {
 
         // Set ok button text initially
         setOkButtonState.callback();
-
         final GsCallback.a0 setSelectAllButtonState = () -> {
             if (selectAll != null) {
-                if (listAdapter._selectedItems.size() < dopt.data.size()) {
-                    selectAll.setContentDescription(activity.getString(R.string.select_all));
-                    ((Checkable) selectAll).setChecked(false);
-                } else {
-                    selectAll.setContentDescription(activity.getString(R.string.clear_selection));
-                    ((Checkable) selectAll).setChecked(true);
-                }
+                ((Checkable) selectAll).setChecked(listAdapter._selectedItems.size() >= dopt.data.size());
             }
         };
 
@@ -435,6 +430,8 @@ public class GsSearchOrCustomTextDialog {
                 setOkButtonState.callback();
                 setSelectAllButtonState.callback();
             });
+
+            selectAll.setContentDescription(activity.getString(android.R.string.selectAll));
         }
 
         // Item click action
@@ -481,7 +478,6 @@ public class GsSearchOrCustomTextDialog {
         );
         titleLayout.addView(titleTextLayout);
 
-
         if (dopt.titleText != 0) {
             final TextView title = new TextView(context, null, android.R.attr.windowTitleStyle);
             title.setSingleLine();
@@ -511,7 +507,7 @@ public class GsSearchOrCustomTextDialog {
             final TextView selectAll = (TextView) inflater.inflate(android.R.layout.simple_list_item_multiple_choice, titleLayout, false);
             selectAll.setTag("SELECT_ALL");
             selectAll.setText("");
-            TooltipCompat.setTooltipText(selectAll, context.getString(R.string.select_all));
+            TooltipCompat.setTooltipText(selectAll, context.getString(android.R.string.selectAll));
             // Remove padding to right to help align it
             titleLayout.setPadding(titleLayout.getPaddingLeft(), titleLayout.getPaddingTop(), 0, titleLayout.getPaddingBottom());
 

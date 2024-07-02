@@ -74,7 +74,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
 
     <string name="name">Name</string>
     <string name="url_or_path">URL / Path</string>
-    <string name="insert_link">Insert Link</string>
+    <string name="insert_link">Insert link</string>
+    <string name="format_link">Format link</string>
     <string name="insert_image">Insert Image</string>
 
     <string name="contributors">Contributors</string>

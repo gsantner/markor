@@ -47,6 +47,7 @@ import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Arrays;
@@ -99,20 +100,19 @@ public class FormatRegistry {
             new Format(FormatRegistry.FORMAT_KEYVALUE, R.string.key_value, ".json", CONVERTER_KEYVALUE),
             new Format(FormatRegistry.FORMAT_ASCIIDOC, R.string.asciidoc, ".adoc", CONVERTER_ASCIIDOC),
             new Format(FormatRegistry.FORMAT_ORGMODE, R.string.orgmode, ".org", CONVERTER_ORGMODE),
-            new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
             new Format(FormatRegistry.FORMAT_PLAIN, R.string.plaintext, ".txt", CONVERTER_PLAINTEXT),
+            new Format(FormatRegistry.FORMAT_EMBEDBINARY, R.string.embed_binary, ".jpg", CONVERTER_EMBEDBINARY),
             new Format(FormatRegistry.FORMAT_UNKNOWN, R.string.none, "", null)
     );
 
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
         final boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
         if (file != null) {
-            final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
             for (final Format format : FORMATS) {
                 if (textonly && format.converter instanceof EmbedBinaryTextConverter) {
                     continue;
                 }
-                if (format.converter != null && format.converter.isFileOutOfThisFormat(filepath)) {
+                if (format.converter != null && format.converter.isFileOutOfThisFormat(file)) {
                     return true;
                 }
             }
