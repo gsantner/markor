@@ -232,4 +232,29 @@ public class GsCollectionUtils {
 
         return values;
     }
+
+    public static class Holder<T> {
+        private T value;
+
+        public Holder(T value) {
+            this.value = value;
+        }
+
+        public T get() {
+            return value;
+        }
+
+        public Holder<T> set(T value){
+            this.value = value;
+            return this;
+        }
+
+        public T clear() {
+            try {
+                return value;
+            } finally {
+                value = null;
+            }
+        }
+    }
 }

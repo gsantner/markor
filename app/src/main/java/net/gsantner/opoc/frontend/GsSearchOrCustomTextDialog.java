@@ -338,7 +338,6 @@ public class GsSearchOrCustomTextDialog {
 
         dialog.show();
         final Window win = dialog.getWindow();
-
         if (win != null) {
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
@@ -348,22 +347,22 @@ public class GsSearchOrCustomTextDialog {
                 }
             }
 
+            final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams();
+            wlp.copyFrom(win.getAttributes());
+
             final DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
             if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
                 GsContextUtils.windowAspectRatio(win, displayMetrics, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1]);
             } else {
-                final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams();
-                wlp.copyFrom(win.getAttributes());
                 wlp.width = dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : (int) (dopt.dialogWidthDp * displayMetrics.density);
                 wlp.height = dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : (int) (dopt.dialogHeightDp * displayMetrics.density);
-                win.setAttributes(wlp);
             }
 
             if (dopt.gravity != Gravity.NO_GRAVITY) {
-                final WindowManager.LayoutParams wlp = win.getAttributes();
                 wlp.gravity = dopt.gravity;
-                win.setAttributes(wlp);
             }
+
+            win.setAttributes(wlp);
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);

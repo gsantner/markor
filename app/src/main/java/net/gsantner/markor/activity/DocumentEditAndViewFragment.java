@@ -231,11 +231,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 && activity != null) {
             final Window window = activity.getWindow();
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
             final int hidden = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN | adjustResize;
+            final int shown = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE | adjustResize;
 
             _hlEditor.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
                 if (hasFocus) {
@@ -243,8 +244,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _hlEditor.postDelayed(() -> window.setSoftInputMode(unchanged), 500);
                 } else {
                     final Boolean isOpen = TextViewUtils.isImeOpen(_hlEditor);
-                    if (isOpen != null && !isOpen) {
-                        window.setSoftInputMode(hidden);
+                    if (isOpen != null) {
+                        window.setSoftInputMode(isOpen ? shown : hidden);
                     }
                 }
             });
