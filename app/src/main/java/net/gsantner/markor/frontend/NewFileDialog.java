@@ -130,7 +130,6 @@ public class NewFileDialog extends DialogFragment {
 
         utf8BomCheckbox.setChecked(appSettings.getNewFileDialogLastUsedUtf8Bom());
         utf8BomCheckbox.setVisibility(appSettings.isExperimentalFeaturesEnabled() ? View.VISIBLE : View.GONE);
-        extEdit.setText(appSettings.getNewFileDialogLastUsedExtension());
         titleEdit.requestFocus();
         new Handler().postDelayed(new GsContextUtils.DoTouchView(titleEdit), 200);
 
@@ -176,10 +175,16 @@ public class NewFileDialog extends DialogFragment {
         typeAdapter.addAll(GsCollectionUtils.map(formats, f -> activity.getString(f.name)));
         typeSpinner.setAdapter(typeAdapter);
 
-        // Load name formats into spinner
-        final GsCallback.a1<Integer> typeCallback = pos -> {
+        // Set last used extension on first call to the typeSpinner listener
+        final String[] lastExt = new String[] { appSettings.getNewFileDialogLastUsedExtension() };
+
+        typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
             final FormatRegistry.Format fmt = formats.get(pos);
-            if (fmt.defaultExtensionWithDot != null) {
+
+            if (lastExt[0] != null) {
+                extEdit.setText(lastExt[0]);
+                lastExt[0] = null;
+            } else if (fmt.defaultExtensionWithDot != null) {
                 if (encryptCheckbox.isChecked()) {
                     extEdit.setText(fmt.defaultExtensionWithDot + JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION);
                 } else {
@@ -191,9 +196,7 @@ public class NewFileDialog extends DialogFragment {
             if (tpos >= 0) {
                 templateSpinner.setSelection(tpos);
             }
-        };
-
-        typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(typeCallback));
+        }));
 
         // Setup other checkboxes etc
         // -----------------------------------------------------------------------------------------
@@ -286,6 +289,7 @@ public class NewFileDialog extends DialogFragment {
             final FormatRegistry.Format fmt = formats.get(typeSpinner.getSelectedItemPosition());
             appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
             appSettings.setNewFileDialogLastUsedType(fmt.format);
+            appSettings.setNewFileDialogLastUsedExtension(extEdit.getText().toString().trim());
 
             if (!titleFormat.isEmpty()) {
                 appSettings.saveTitleFormat(titleFormat, MAX_TITLE_FORMATS);
@@ -297,7 +301,6 @@ public class NewFileDialog extends DialogFragment {
                 // We only make these changes if the file did not already exist
                 appSettings.setDocumentFormat(document.getPath(), fmt.format);
                 appSettings.setLastEditPosition(document.getPath(), content.second);
-                appSettings.setNewFileDialogLastUsedExtension(extEdit.getText().toString().trim());
 
                 callback(file);
 
@@ -339,14 +342,7 @@ public class NewFileDialog extends DialogFragment {
 
         // Initial creation - loop through and set type
         final int lastUsedType = appSettings.getNewFileDialogLastUsedType();
-        for (int i = 0; i < formats.size(); i++) {
-            final FormatRegistry.Format fmt = formats.get(i);
-            if (fmt.format == lastUsedType) {
-                typeSpinner.setSelection(i);
-                typeCallback.callback(i);
-                break;
-            }
-        }
+        typeSpinner.setSelection(GsCollectionUtils.indices(formats, f -> f.format == lastUsedType).get(0));
 
         titleEdit.requestFocus();
 

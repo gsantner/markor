@@ -785,6 +785,11 @@ public class GsFileUtils {
         return isWritable(file) || isWritable(file.getParentFile());
     }
 
+    public static boolean tryCreatePath(final File file) {
+        final File parent = file != null ? file.getParentFile() : null;
+        return canCreate(file) || (parent != null && parent.mkdirs() && canCreate(file));
+    }
+
 
     /**
      * Check if file is child of folder. A folder is not its own child.

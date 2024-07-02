@@ -58,7 +58,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         final boolean isVirtualDir = GsFileBrowserListAdapter.isVirtualFolder(file);
 
-        if (!file.exists() && !GsFileUtils.canCreate(file) && !isVirtualDir) {
+        if (!file.exists() && !GsFileUtils.tryCreatePath(file) && !isVirtualDir) {
             Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_SHORT).show();
             return;
         }

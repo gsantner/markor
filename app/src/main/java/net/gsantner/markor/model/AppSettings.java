@@ -918,11 +918,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public int getNewFileDialogLastUsedType() {
-        return getInt(R.string.pref_key__new_file_dialog_lastused_type, 0);
+        try {
+            final String typeStr = getString(R.string.pref_key__new_file_dialog_lastused_type, "");
+            return _cu.getResId(_context, GsContextUtils.ResType.STRING, typeStr);
+        } catch (ClassCastException e) {
+            return FormatRegistry.FORMAT_MARKDOWN;
+        }
     }
 
-    public void setNewFileDialogLastUsedType(int i) {
-        setInt(R.string.pref_key__new_file_dialog_lastused_type, i);
+    public void setNewFileDialogLastUsedType(final int format) {
+        setString(R.string.pref_key__new_file_dialog_lastused_type, _context.getString(format));
     }
 
     public void setFileBrowserLastBrowsedFolder(File f) {
@@ -1061,6 +1066,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         }
         setString(R.string.pref_key__title_format_list, toJsonString(updated));
     }
+
 
     private static String mapToJsonString(final Map<String, String> map) {
         return new JSONObject(map).toString();

@@ -288,8 +288,7 @@ public class Document implements Serializable {
     public static boolean testCreateParent(final File file) {
         try {
             final File parent = file.getParentFile();
-            boolean ok = parent != null && (parent.exists() || parent.mkdirs());
-            return ok;
+            return parent != null && (parent.exists() || parent.mkdirs());
         } catch (NullPointerException e) {
             return false;
         }
