@@ -87,7 +87,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         final Window window = dialog != null ? dialog.getWindow() : null;
         if (window != null) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-            setStyle(STYLE_NORMAL, R.style.AppTheme_Unified_Dialog_Rounded);
+            setStyle(STYLE_NORMAL, R.style.AppTheme_Unified);
         }
         return root;
     }
