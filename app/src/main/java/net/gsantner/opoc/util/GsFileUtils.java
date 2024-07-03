@@ -779,17 +779,16 @@ public class GsFileUtils {
     }
 
     /**
-     * Check if a file can be created (parent exists and can be written)
+     * Check if a file can be created.
+     * Checks if closest ancestor is writeable.
      */
-    public static boolean canCreate(final File file) {
-        return isWritable(file) || isWritable(file.getParentFile());
+    public static boolean canCreate(File file) {
+        // A file is creatable if the first existing ancestor is writeable
+        while (file != null && !file.exists()) {
+            file = file.getParentFile();
+        }
+        return isWritable(file);
     }
-
-    public static boolean tryCreatePath(final File file) {
-        final File parent = file != null ? file.getParentFile() : null;
-        return canCreate(file) || (parent != null && parent.mkdirs() && canCreate(file));
-    }
-
 
     /**
      * Check if file is child of folder. A folder is not its own child.

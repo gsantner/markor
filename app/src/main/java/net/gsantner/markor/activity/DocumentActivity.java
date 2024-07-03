@@ -56,13 +56,6 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
-        final boolean isVirtualDir = GsFileBrowserListAdapter.isVirtualFolder(file);
-
-        if (!file.exists() && !GsFileUtils.tryCreatePath(file) && !isVirtualDir) {
-            Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         if (GsFileUtils.getFilenameExtension(file).equals(".apk")) {
             GsContextUtils.instance.requestApkInstallation(activity, file);
             return;
@@ -76,7 +69,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         final AppSettings as = ApplicationObject.settings();
 
         final Intent intent;
-        if (isVirtualDir || file.isDirectory()) {
+        if (GsFileBrowserListAdapter.isVirtualFolder(file) || file.isDirectory()) {
             intent = new Intent(activity, MainActivity.class);
         } else {
             intent = new Intent(activity, DocumentActivity.class);
@@ -133,7 +126,7 @@ public class DocumentActivity extends MarkorBaseActivity {
         if (isYes) {
             openFile.callback(true);
         } else if (isLikelyTextfile) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
             dialog.setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
@@ -205,7 +198,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (file == null || file.isDirectory() || !FormatRegistry.isFileSupported(file)) {
+        if (!_cu.canWriteFile(this, file, false, true) || !FormatRegistry.isFileSupported(file)) {
             showNotSupportedMessage();
         } else {
             // Open in editor/viewer

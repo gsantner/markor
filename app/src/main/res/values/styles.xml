@@ -28,6 +28,7 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:alertDialogTheme">@style/AppTheme.Unified.Dialog.Rounded</item>
     </style>
 
     <style name="AppTheme.Unified.Dialog.Rounded" parent="AppTheme.Unified">

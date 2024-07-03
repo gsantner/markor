@@ -763,7 +763,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return (_document == null ||
                 _hlEditor == null ||
                 _appSettings == null ||
-                !_document.testCreateParent() ||
                 !_cu.canWriteFile(getContext(), _document.getFile(), false, true));
     }
 
