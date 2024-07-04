@@ -227,7 +227,8 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         dopt.titleText = _dopt.newDirButtonText;
         dopt.textColor = rcolor(_dopt.primaryTextColor);
         dopt.searchHintText = android.R.string.untitled;
-        dopt.callback = (name) -> _filesystemViewerAdapter.createDirectoryHere(name, true);
+        dopt.searchInputFilter = GsContextUtils.instance.makeFilenameInputFilter();
+        dopt.callback = name -> _filesystemViewerAdapter.createDirectoryHere(name);
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }

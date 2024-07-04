@@ -123,7 +123,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             _dopt.titleTextColor = _dopt.primaryTextColor;
         }
 
-        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder);
+        loadFolder(_dopt.startFolder != null ? _dopt.startFolder : _dopt.rootFolder, null);
     }
 
     @NonNull
@@ -254,7 +254,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     _dopt.listener.onFsViewerConfig(_dopt);
                 }
                 if (f.isDirectory() || isVirtualDirectory) {
-                    loadFolder(f);
+                    loadFolder(f, null);
                 }
             }
         }
@@ -265,12 +265,12 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public void reloadCurrentFolder() {
-        loadFolder(_currentFolder);
+        loadFolder(_currentFolder, null);
     }
 
     public void setCurrentFolder(final File folder) {
         if (folder != null && !folder.equals(_currentFolder)) {
-            loadFolder(folder);
+            loadFolder(folder, GsFileUtils.isChild(_currentFolder, folder) ? folder : null);
         }
     }
 
@@ -362,23 +362,21 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     if (areItemsSelected()) {
                         // There are 1 or more items selected yet
                         if (!toggleSelection(data) && file != null && file.isDirectory()) {
-                            loadFolder(file);
+                            loadFolder(file, null);
                         }
                     } else if (file != null) {
                         // No pre-selection
-                        if (file.isDirectory()) {
-                            loadFolder(file);
+                        if (file.isDirectory() || isVirtualStorage(file)) {
+                            loadFolder(file, _currentFolder);
                         } else if (file.isFile()) {
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
-                        } else if (isVirtualStorage(file)) {
-                            loadFolder(file);
                         }
                     }
                 }
                 return;
             }
             case R.id.ui__filesystem_dialog__home: {
-                loadFolder(_dopt.rootFolder);
+                loadFolder(_dopt.rootFolder, _currentFolder);
                 return;
             }
             case R.id.ui__filesystem_dialog__button_ok: {
@@ -394,14 +392,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
     public void toggleSelectionAll() {
         for (int i = 0; i < _adapterDataFiltered.size(); i++) {
-            TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
+            final TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
             toggleSelection(data);
         }
     }
 
     public void selectAll() {
         for (int i = 0; i < _adapterDataFiltered.size(); i++) {
-            TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
+            final TagContainer data = new TagContainer(_adapterDataFiltered.get(i), i);
             if (!_currentSelection.contains(data.file)) {
                 if (data.file.isDirectory() && getCurrentFolder().getParentFile() != null && getCurrentFolder().getParentFile().equals(data.file)) {
                     continue;
@@ -481,7 +479,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             final String absolutePath = _currentFolder.getAbsolutePath();
             if (_currentFolder != null && _currentFolder.getParentFile() != null && !_currentFolder.getParentFile().getAbsolutePath().equals(absolutePath)) {
                 unselectAll();
-                loadFolder(_currentFolder.getParentFile());
+                loadFolder(_currentFolder.getParentFile(), _currentFolder);
                 return true;
             }
             return false;
@@ -510,7 +508,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         return false;
     }
 
-    public File createDirectoryHere(final CharSequence name, final boolean show) {
+    public File createDirectoryHere(final CharSequence name) {
         if (name == null || _currentFolder == null || !_currentFolder.canWrite()) {
             return null;
         }
@@ -524,11 +522,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         try {
             final File file = new File(_currentFolder, trimmed);
             if (file.exists() || file.mkdir()) {
-                if (show) {
-                    showFile(file);
-                } else {
-                    reloadCurrentFolder();
-                }
+                loadFolder(_currentFolder, file);
                 return file;
             }
         } catch (SecurityException ignored) {
@@ -596,10 +590,6 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     private static final ExecutorService executorService = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
-
-    private void loadFolder(final File folder) {
-        loadFolder(folder, _currentFolder);
-    }
 
     private void loadFolder(final File folder, final @Nullable File toShow) {
         final boolean folderChanged = !folder.equals(_currentFolder);
@@ -720,12 +710,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                                     _recyclerView.post(() -> showAndFlash(toShow));
                                 }
                             });
+                        } else if (toShow != null && _adapterData.contains(toShow)) {
+                            _recyclerView.post(() -> showAndFlash(toShow));
                         }
 
                         if (_dopt.listener != null) {
                             _dopt.listener.onFsViewerDoUiUpdate(GsFileBrowserListAdapter.this);
                         }
                     });
+                } else if (toShow != null && _adapterData.contains(toShow)) {
+                    showAndFlash(toShow);
                 }
             }
         });

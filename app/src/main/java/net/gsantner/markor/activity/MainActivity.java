@@ -310,9 +310,8 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private void newItemCallback(final File file) {
         if (file.isFile()) {
             DocumentActivity.launch(MainActivity.this, file, false, null);
-        } else if (file.isDirectory()) {
-            _notebook.getAdapter().showFile(file);
         }
+        _notebook.getAdapter().showFile(file);
     }
 
     @Override

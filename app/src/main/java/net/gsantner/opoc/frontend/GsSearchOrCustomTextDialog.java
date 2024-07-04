@@ -18,6 +18,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -106,6 +107,7 @@ public class GsSearchOrCustomTextDialog {
         public GsCallback.a1<AlertDialog> neutralButtonCallback = null;
         public GsCallback.a1<DialogInterface> dismissCallback = null;
         public GsCallback.b2<CharSequence, CharSequence> searchFunction = GsSearchOrCustomTextDialog::standardSearch;
+        public @Nullable InputFilter searchInputFilter = null;
 
         @ColorInt
         public int textColor = 0xFF000000;
@@ -276,6 +278,10 @@ public class GsSearchOrCustomTextDialog {
 
         if (dopt.isSearchEnabled) {
             mainLayout.addView(searchView);
+
+            if (dopt.searchInputFilter != null) {
+                searchEditText.setFilters(new InputFilter[]{dopt.searchInputFilter});
+            }
         }
 
         final ListView listView = new ListView(activity);
