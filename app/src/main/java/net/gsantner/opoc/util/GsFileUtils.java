@@ -37,6 +37,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -527,9 +528,20 @@ public class GsFileUtils {
         return mime != null && (mime.startsWith("text/") || mime.contains("xml")) && !mime.contains("openxml");
     }
 
+    /** Reads the first kb of a file and checks if it is likely a text file **/
     public static boolean isContentsPlainText(final File file) {
-        final Pair<String, FileInfo> p = readTextFileFast(file);
-        return file.length() == 0 || (!p.second.ioError && !p.first.isEmpty());
+        // Empty files are considered text files
+        if (file.length() == 0) {
+            return true;
+        }
+
+        try (final FileInputStream fis = new FileInputStream(file)) {
+            final byte[] bytes = readCloseStreamWithSize(fis, 1024);
+            Charset.forName("UTF-8").newDecoder().decode(java.nio.ByteBuffer.wrap(bytes));
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     /**

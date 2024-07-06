@@ -115,6 +115,7 @@ public class WrRenameDialog extends DialogFragment {
         dialogBuilder.setView(root);
 
         EditText editText = root.findViewById(R.id.new_name);
+        editText.setFilters(new InputFilter[]{GsContextUtils.instance.makeFilenameInputFilter()});
         editText.requestFocus();
         editText.setText(file.getName());
 
