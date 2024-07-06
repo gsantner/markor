@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -36,7 +35,6 @@ import net.gsantner.opoc.frontend.base.GsFragmentBase;
 import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
-import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
 
@@ -51,7 +49,22 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     private static boolean nextLaunchTransparentBg = false;
 
-    public static void launch(final Activity activity, final File file, final Boolean doPreview, final Integer lineNumber) {
+    public static void launch(
+            final Activity activity,
+            final File file,
+            final Boolean doPreview,
+            final Integer lineNumber
+    ) {
+        launch(activity, file, doPreview, lineNumber, false);
+    }
+
+    private static void launch(
+            final Activity activity,
+            final File file,
+            final Boolean doPreview,
+            final Integer lineNumber,
+            final boolean forceOpenInThisApp
+    ) {
         if (activity == null || file == null) {
             return;
         }
@@ -61,7 +74,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             return;
         }
 
-        if (file.isFile() && !FormatRegistry.isFileSupported(file)) {
+        if (!forceOpenInThisApp && file.isFile() && !FormatRegistry.isFileSupported(file)) {
             askUserIfWantsToOpenFileInThisApp(activity, file);
             return;
         }
@@ -95,46 +108,18 @@ public class DocumentActivity extends MarkorBaseActivity {
         GsContextUtils.instance.animateToActivity(activity, intent, false, null);
     }
 
-    public static Object[] checkIfLikelyTextfileAndGetExt(File file) {
-        String fn = file.getName().toLowerCase();
-        if (!fn.contains(".")) {
-            return new Object[]{true, ""};
-        }
-        String ext = fn.substring(fn.lastIndexOf("."));
-        for (String ce : new String[]{".dummy"}) {
-            if (ext.equals(ce)) {
-                return new Object[]{true, ext};
-            }
-        }
-        return new Object[]{false, ext};
-    }
-
     public static void askUserIfWantsToOpenFileInThisApp(final Activity activity, final File file) {
-        final Object[] fret = checkIfLikelyTextfileAndGetExt(file);
-        final boolean isLikelyTextfile = (boolean) fret[0];
-        final String ext = (String) fret[1];
-        final boolean isYes = ApplicationObject.settings().isExtOpenWithThisApp(ext);
-
-        final GsCallback.a1<Boolean> openFile = (openInThisApp) -> {
-            if (openInThisApp) {
-                DocumentActivity.launch(activity, file, null, null);
-            } else {
-                new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
-            }
-        };
-
-        if (isYes) {
-            openFile.callback(true);
-        } else if (isLikelyTextfile) {
-            final AlertDialog.Builder dialog = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
-            dialog.setTitle(R.string.open_with)
+        if (GsFileUtils.isContentsPlainText(file)) {
+            new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded)
+                    .setTitle(R.string.open_with)
                     .setMessage(R.string.selected_file_may_be_a_textfile_want_to_open_in_editor)
                     .setIcon(R.drawable.ic_open_in_browser_black_24dp)
-                    .setPositiveButton(R.string.app_name, (dialog1, which) -> openFile.callback(true))
-                    .setNegativeButton(R.string.other, (dialog1, which) -> openFile.callback(false));
-            dialog.create().show();
+                    .setPositiveButton(R.string.app_name, (dialog1, which) -> DocumentActivity.launch(activity, file, null, null, true))
+                    .setNegativeButton(R.string.other, (dialog1, which) -> new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null))
+                    .create()
+                    .show();
         } else {
-            openFile.callback(false);
+            new MarkorContextUtils(activity).viewFileInOtherApp(activity, file, null);
         }
     }
 
@@ -198,7 +183,7 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         // Decide what to do with the file
         // -----------------------------------------------------------------------
-        if (!_cu.canWriteFile(this, file, false, true) || !FormatRegistry.isFileSupported(file)) {
+        if (file == null || !_cu.canWriteFile(this, file, false, true)) {
             showNotSupportedMessage();
         } else {
             // Open in editor/viewer

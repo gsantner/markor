@@ -122,7 +122,7 @@ public class GsFileUtils {
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("readTextFileFast: File " + file + " could not be read.");
             info.ioError = true;
         }
 
@@ -522,9 +522,14 @@ public class GsFileUtils {
         return mime;
     }
 
-    public static boolean isTextFile(File file) {
+    public static boolean isTextFile(final File file) {
         final String mime = getMimeType(file);
         return mime != null && (mime.startsWith("text/") || mime.contains("xml")) && !mime.contains("openxml");
+    }
+
+    public static boolean isContentsPlainText(final File file) {
+        final Pair<String, FileInfo> p = readTextFileFast(file);
+        return file.length() == 0 || (!p.second.ioError && !p.first.isEmpty());
     }
 
     /**

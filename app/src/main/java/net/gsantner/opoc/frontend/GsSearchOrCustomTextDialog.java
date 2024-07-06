@@ -24,7 +24,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -95,12 +94,9 @@ public class GsSearchOrCustomTextDialog {
         public boolean isSoftInputVisible = true;
         public boolean isDismissOnItemSelected = true;
         public int listPosition = -1;
-        public int gravity = Gravity.NO_GRAVITY;
         public int dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
         public int dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         public int searchInputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        public float[] portraitAspectRatio = {0.0f, 1.0f};
-        public float[] landscapeAspectRatio = {0.0f, 1.0f};
         public String extraFilter = null;
         public Collection<Integer> preSelected = null;
         public GsCallback.a1<Spannable> highlighter = null;
@@ -353,22 +349,10 @@ public class GsSearchOrCustomTextDialog {
                 }
             }
 
-            final WindowManager.LayoutParams wlp = new WindowManager.LayoutParams();
-            wlp.copyFrom(win.getAttributes());
-
-            final DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
-            if (dopt.portraitAspectRatio[0] > 0 && dopt.landscapeAspectRatio[0] > 0) {
-                GsContextUtils.windowAspectRatio(win, displayMetrics, dopt.portraitAspectRatio[0], dopt.portraitAspectRatio[1], dopt.landscapeAspectRatio[0], dopt.landscapeAspectRatio[1]);
-            } else {
-                wlp.width = dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : (int) (dopt.dialogWidthDp * displayMetrics.density);
-                wlp.height = dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : (int) (dopt.dialogHeightDp * displayMetrics.density);
-            }
-
-            if (dopt.gravity != Gravity.NO_GRAVITY) {
-                wlp.gravity = dopt.gravity;
-            }
-
-            win.setAttributes(wlp);
+            win.setLayout(
+                dopt.dialogWidthDp < 0 ? dopt.dialogWidthDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogWidthDp),
+                dopt.dialogHeightDp < 0 ? dopt.dialogHeightDp : GsContextUtils.instance.convertDpToPx(activity, dopt.dialogHeightDp)
+            );
         }
 
         final Button neutralButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
