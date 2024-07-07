@@ -7,7 +7,7 @@
  *
 #########################################################*/
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme.Unified.StartupFlash" parent="AppTheme.Unified">
         <item name="android:windowBackground">@color/dark__background</item>
@@ -29,6 +29,16 @@
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
+
+        <!-- Android V21 options; ignore IDE warnings -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap" tools:targetApi="lollipop">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
+
+        <!-- Android V28 options; ignore IDE warnings -->
+        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
