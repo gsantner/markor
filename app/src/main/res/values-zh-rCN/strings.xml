@@ -221,7 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻译</string>
     <string name="more_info_and_help">更多信息与帮助</string>
     <string name="report_bugs">报告 bug</string>
-    <string name="do_you_have_a_question_or_problem">你是否有疑问或问题？</string>
+    <string name="do_you_have_a_question_or_problem">存在疑问或问题吗？</string>
     <string name="join_community">加入社区</string>
     <string name="bug_reports_suggest_improvements">给出反馈，报告问题，或提出改进建议</string>
     <string name="help_translating_this_app">翻译本应用</string>
@@ -318,7 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">折行</string>
     <string name="line_numbers">行号</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
-    <string name="recursive_search_in_location">递归搜索于 %s</string>
+    <string name="recursive_search_in_location">在%s中递归搜索</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">总是使用本应用打开此列表包含的文件扩展名的文件，例如如果你想编辑网页文件和无扩展名的文件，请使用 \'None, .html, .css , .js\'。</string>
     <string name="open_file_with">打开文件</string>
