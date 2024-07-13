@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="16dp"
-    android:insetRight="16dp"
-    android:insetBottom="10dp"
-    android:insetTop="10dp">
+    android:insetLeft="8dp"
+    android:insetRight="8dp"
+    android:insetBottom="8dp"
+    android:insetTop="8dp">
     <shape>
-        <corners android:radius="16dp" />
+        <corners android:radius="@dimen/dialog_corner_radius"/>
         <solid android:color="?attr/colorBackgroundFloating" />
     </shape>
 </inset>
