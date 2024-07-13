@@ -266,7 +266,7 @@ public class GsContextUtils {
      */
     @ColorInt
     public int rcolor(final Context context, @ColorRes final int resId) {
-        if (resId == 0) {
+        if (context == null || resId == 0) {
             Log.e(getClass().getName(), "GsContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
         }
@@ -2681,10 +2681,12 @@ public class GsContextUtils {
     }
 
     public <T extends GsContextUtils> T setActivityNavigationBarBackgroundColor(final Activity context, @ColorInt Integer color) {
-        if (color != null) {
+        if (context != null && color != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    context.getWindow().setNavigationBarColor(color);
+                    final Window window = context.getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setNavigationBarColor(color);
                 }
             } catch (Exception ignored) {
             }

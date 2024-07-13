@@ -36,6 +36,8 @@
         <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
         <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/primary</item>
 
         <!-- Android V28 options; ignore IDE warnings -->
         <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
