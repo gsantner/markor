@@ -375,7 +375,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String theme, final boolean enableLineNumbers) {
+    private String getViewHlPrismIncludes(final String theme, final boolean isLineNumbersEnabled) {
         final StringBuilder sb = new StringBuilder(1000);
         sb.append(CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX);
         sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
@@ -387,7 +387,7 @@ public class MarkdownTextConverter extends TextConverterBase {
         sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
         sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
 
-        if (enableLineNumbers) {
+        if (isLineNumbersEnabled) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
