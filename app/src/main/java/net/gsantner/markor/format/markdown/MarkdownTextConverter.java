@@ -266,7 +266,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         // Enable View (block) code syntax highlighting
-        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+        if (markup.contains("```")) {
+            head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+        }
 
         // Enable Mermaid
         if (markup.contains("```mermaid")) {
