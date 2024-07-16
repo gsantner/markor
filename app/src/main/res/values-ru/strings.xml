@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Скрыть строку состояния</string>
     <string name="name">Имя</string>
     <string name="url_or_path">URL/путь</string>
-    <string name="insert_link">Вставить ссылку</string>
     <string name="insert_image">Вставить изображение</string>
     <string name="contributors">Разработчики</string>
     <string name="save_location">Сохранить расположение</string>
