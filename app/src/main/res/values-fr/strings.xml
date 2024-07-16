@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Dernière modification </string>
     <string name="select_this_folder">Sélectionner ce dossier</string>
     <string name="select">Sélectionner</string>
+    <string name="select_all">Tout sélectionner</string>
     <string name="create">Créer</string>
     <string name="select_entries">Sélectionnez une ou plusieurs entrées</string>
     <string name="one_item_selected">Une entrée sélectionnée</string>
@@ -220,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">Traduire</string>
     <string name="more_info_and_help">Plus d\'informations et d\'aide sur cette application</string>
     <string name="report_bugs">Signaler un bug</string>
+    <string name="do_you_have_a_question_or_problem">Une question ou un problème ?</string>
     <string name="join_community">Rejoindre la communauté</string>
     <string name="bug_reports_suggest_improvements">Commentaires et suggestions</string>
     <string name="help_translating_this_app">Traduire cette application</string>
@@ -316,6 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Retour à la ligne</string>
     <string name="line_numbers">Numéro de la ligne</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Afficher la suite du texte à la ligne suivante s\'il dépasse la largeur de l\'écran, plutôt que d\'utiliser le défilement horizontal.</string>
+    <string name="recursive_search_in_location">Recherche récursive dans %s</string>
     <string name="always_open_with_this_app">Toujours ouvrir avec cette application</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Toujours ouvrir avec cette application les fichiers dont l\'extension est contenue dans la liste. Utilisez \'None\', \'.html\', \'.css\', \'.js\' par exemple si vous voulez éditer des fichiers web ainsi que les fichiers sans extension.</string>
     <string name="open_file_with">Ouvrir le fichier avec</string>
@@ -338,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Combien de colonnes ? Appuyez sur le bouton du tableau pour démarrer une table (entête d\'insertion), appuyez sur court pour ajouter une ligne.</string>
     <string name="example_of_a_markdown_table">Exemple de tableau Markdown</string>
     <string name="delete_lines">Supprimer les lignes</string>
+    <string name="duplicate_lines">Dupliquer les lignes</string>
     <string name="unordered_list">Liste non ordonnée</string>
     <string name="ordered_list">Liste ordonnée</string>
     <string name="check_list">Liste de contrôle</string>
@@ -442,9 +446,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format_prefix_for_text_shared">Format/Préfixe des textes partagés dans Markor. Suis les règles de format de dates simplifiées d\'Android.\n\nUtiliser le texte réservé {{text}} pour positionner le texte partagé. S\'il n\'est pas spécifié, le texte partagé sera annexés et le format utilisé comme préfixe.</string>
     <string name="share_into_format">Partager dans - Format</string>
     <string name="attachment_folder_name">Nom du dossier en attachement</string>
+    <string name="attachment_folder_name_desc">Les sous-dossiers du dossier actuel où les pièces-jointes seront sauvegarder. Si laissé blanc, les pièces jointes seront sauvegardé dans le dossier actuel.</string>
     <string name="auto_format">Format automatique</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Dossier de modèles</string>
     <string name="error_could_not_open_file">Impossible d\'ouvrir le fichier.</string>
     <string name="document_error_clip">Erreur rencontrée: Texte copié dans le presse-papiers.</string>
+    <string name="wont_save_min_length">Les fichiers avec moins de %d caractères ne seront pas automatiquement sauvegardé afin d\'éviter les pertes de données.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Filtres syntaxiques avancés</a></small>]]></string>
     <string name="filter">Filtrer</string>
 </resources>

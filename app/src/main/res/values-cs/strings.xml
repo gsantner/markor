@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Naposledy změněno</string>
     <string name="select_this_folder">Vybrat tuto složku</string>
     <string name="select">Vybrat</string>
+    <string name="select_all">Vybrat vše</string>
     <string name="create">Vytvoøit</string>
     <string name="select_entries">Vyberte položky</string>
     <string name="one_item_selected">Jedna položka vybrána</string>
@@ -71,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Vložit obrázek</string>
     <string name="contributors">Spolupracovníci</string>
     <string name="save_location">Umístění pro ukládání</string>
+    <string name="saved_location_to">Uloženo do %s</string>
     <string name="select_storage_folder">Vyberte složku úložiště</string>
     <string name="licenses">Licence</string>
     <string name="changelog">Seznam změn</string>
@@ -79,6 +81,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="show_third_party_licenses">Zobrazit licence tøetí strany</string>
     <string name="language_change_restart_description">Pokud chcete zmìnit jazyk této aplikace, bude vyÂžadován její restart.</string>
     <string name="language">Jazyk</string>
+    <string name="storage_permission_required">Oprávnění k ukládání vyžadované pro čtení a zápis souborů</string>
     <string name="open_with">Otevřít pomocí</string>
     <string name="sort_by">Řadit podle</string>
     <string name="date">Datum</string>
@@ -173,6 +176,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_does_move_done_tasks">Přesun hotových úloh do zadaného souboru ve stejné složce</string>
     <string name="sort_tasks_by_selected_order">Řadit úkoly podle zvoleného pořadí</string>
     <string name="special_key">Speciální klíč</string>
+    <string name="asciidoc_special_key">Speciální AsciiDoc Obsah</string>
     <string name="key_page_up">Page Up (Page Up)</string>
     <string name="key_page_down">Page Down (Page Down)</string>
     <string name="move_text_one_line_up">Přesunout text o jeden řádek nahoru</string>
@@ -192,6 +196,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="unordered_list_char_asterisk">Hvězdička (*)</string>
     <string name="unordered_list_char_plus">Plus (+)</string>
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor může upravovat pouze lokální, offline dostupné dokumenty a nepodporuje správce souborů, které neposkytují plnou cestu ke souborům.</string>
+    <string name="permissions">Oprávnění</string>
+    <string name="permission_not_granted">Povolení nebylo uděleno</string>
     <string name="sync_to_local_folder_notice">Poznámka: Synchronizační aplikace mohou ukládat soubory do vlastních složek. Otevřete je tím, že změníte v aplikaci Markor umístění složky s dokumenty, nebo pomocí správce souborů.</string>
     <string name="vertical_alignment">Vertikální vyrovnání</string>
     <string name="horizontal_alignment">Vodorovné zarovnání</string>
@@ -207,11 +213,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Editovat text uprostřed obrazovky</string>
     <string name="clipboard">Schránka</string>
     <string name="select_existing_document">Vyberte existující dokument</string>
+    <string name="select_create_document">Vybrat nebo vytvořit dokument</string>
     <string name="open_source_licenses">Open Source licence</string>
     <string name="rate_this_app">Ohodnoťte tuto aplikaci</string>
     <string name="translate">Přeložit</string>
     <string name="more_info_and_help">Více informací a pomoc</string>
     <string name="report_bugs">Nahlásit chyby</string>
+    <string name="do_you_have_a_question_or_problem">Máte otázku nebo problém?</string>
     <string name="join_community">Připojte se ke komunitě</string>
     <string name="bug_reports_suggest_improvements">Dejte nám zpětnou vazbu, nahlašte chyby nebo navrhněte vylepšení</string>
     <string name="help_translating_this_app">Přeložte tuto aplikaci do jiných jazyků</string>
@@ -306,7 +314,9 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Zobrazit v posledních souborech</string>
     <string name="reload">Aktualizovat</string>
     <string name="wrap_words">Zalamování slov</string>
+    <string name="line_numbers">Čísla řádků</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Měkké zalomení, pokud text neodpovídá šířce obrazovky. Jinak je třeba povolit horizontální posuv.</string>
+    <string name="recursive_search_in_location">Rekurzivní vyhledávání v %s</string>
     <string name="always_open_with_this_app">Vždy otvírat pomocí této aplikace</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Vždy otvírat soubory touto aplikací, pokud mají příponu souboru z následujícího seznamu. Použijte \'None, .html, .css , .js\' pokud například chcete upravovat webové soubory a soubory bez přípony souboru.</string>
     <string name="open_file_with">Otevřít soubor pomocí</string>
@@ -357,6 +367,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Archivovat dokončené úkoly</string>
     <string name="create_new_file_or_folder">Vytvořit nový soubor nebo složku</string>
     <string name="choose_format">Zvolte formát</string>
+    <string name="clear_selection">Smazat výběr</string>
     <string name="selected">Vybrané</string>
     <string name="back">Zpět</string>
     <string name="expand_collapse">Rozbalit / Sbalit</string>
@@ -424,6 +435,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="due_today">Termín dnes</string>
     <string name="due_future">Termín v budoucnu</string>
     <string name="completed">Dokončeno</string>
+    <string name="advanced_filtering">Rozšířené filtrování</string>
     <string name="match_any">Odpovídat libovolné</string>
     <string name="match_all">Odpovídat vše</string>
     <string name="dynamic_notebook_root_links">Dynamické hledání kořene sešitu</string>
@@ -431,5 +443,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="share_into_format">Sdílet do - formát</string>
     <string name="auto_format">Automatický formát</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="error_could_not_open_file">Chyba: Nelze otevřít soubor.</string>
     <string name="document_error_clip">Došlo k chybě: Text zkopírován do schránky.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Pokročilý filtrovací syntax</a></small>]]></string>
+    <string name="filter">Filtr</string>
 </resources>
