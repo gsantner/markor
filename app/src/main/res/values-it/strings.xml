@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Nascondi la barra di stato</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Percorso</string>
-    <string name="insert_link">Inserisci collegamento</string>
     <string name="insert_image">Inserisci immagine</string>
     <string name="contributors">Collaboratori</string>
     <string name="save_location">Percorso di salvataggio</string>
