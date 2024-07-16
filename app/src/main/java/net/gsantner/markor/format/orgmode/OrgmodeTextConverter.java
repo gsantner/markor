@@ -6,8 +6,6 @@ import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.opoc.format.GsTextUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

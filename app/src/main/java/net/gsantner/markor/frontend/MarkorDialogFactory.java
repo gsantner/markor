@@ -25,7 +25,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;

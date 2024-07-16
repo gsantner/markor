@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import net.gsantner.markor.activity.DocumentActivity;
-import net.gsantner.markor.activity.MainActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
 import net.gsantner.markor.util.MarkorContextUtils;
-import net.gsantner.opoc.frontend.filebrowser.GsFileBrowserListAdapter;
 
 import java.io.File;
 

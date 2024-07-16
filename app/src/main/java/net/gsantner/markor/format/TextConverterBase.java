@@ -10,7 +10,6 @@ package net.gsantner.markor.format;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
 

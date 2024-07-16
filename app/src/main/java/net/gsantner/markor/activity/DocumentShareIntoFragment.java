@@ -27,11 +27,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
-import androidx.appcompat.widget.Toolbar;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
@@ -226,7 +226,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
                 _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
                 _linkCheckBox.setChecked(true);
                 _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
-                    _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
+                        _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
         }
 

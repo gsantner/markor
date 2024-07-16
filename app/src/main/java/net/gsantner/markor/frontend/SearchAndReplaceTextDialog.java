@@ -29,7 +29,6 @@ import androidx.appcompat.app.AlertDialog;
 import net.gsantner.markor.R;
 import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.model.GsSharedPreferencesPropertyBackend;
-import net.gsantner.opoc.util.GsContextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

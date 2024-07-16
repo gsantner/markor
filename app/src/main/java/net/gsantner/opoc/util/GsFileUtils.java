@@ -528,7 +528,9 @@ public class GsFileUtils {
         return mime != null && (mime.startsWith("text/") || mime.contains("xml")) && !mime.contains("openxml");
     }
 
-    /** Reads the first kb of a file and checks if it is likely a text file **/
+    /**
+     * Reads the first kb of a file and checks if it is likely a text file
+     **/
     public static boolean isContentsPlainText(final File file) {
         // Empty files are considered text files
         if (file.length() == 0) {

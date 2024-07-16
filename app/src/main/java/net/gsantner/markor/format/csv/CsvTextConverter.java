@@ -20,7 +20,6 @@ import com.opencsv.ICSVParser;
 
 import net.gsantner.markor.format.TextConverterBase;
 import net.gsantner.markor.format.markdown.MarkdownTextConverter;
-import net.gsantner.opoc.util.GsCollectionUtils;
 
 import java.io.BufferedReader;
 import java.io.Closeable;

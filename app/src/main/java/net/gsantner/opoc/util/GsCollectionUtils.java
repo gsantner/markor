@@ -269,7 +269,7 @@ public class GsCollectionUtils {
             return value;
         }
 
-        public Holder<T> set(T value){
+        public Holder<T> set(T value) {
             this.value = value;
             return this;
         }

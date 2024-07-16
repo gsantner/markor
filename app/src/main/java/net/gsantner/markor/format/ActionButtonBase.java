@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -310,6 +309,7 @@ public abstract class ActionButtonBase {
 
         final Runnable repeater = new Runnable() {
             int delay = INITIAL_DELAY;
+
             @Override
             public void run() {
                 btn.callOnClick();
@@ -324,7 +324,7 @@ public abstract class ActionButtonBase {
             return true;
         });
 
-        btn.setOnTouchListener((view, event) ->  {
+        btn.setOnTouchListener((view, event) -> {
             final int eac = event.getAction();
             if (eac == MotionEvent.ACTION_UP || eac == MotionEvent.ACTION_CANCEL) {
                 handler.removeCallbacksAndMessages(null);

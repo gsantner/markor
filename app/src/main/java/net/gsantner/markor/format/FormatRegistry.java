@@ -47,12 +47,10 @@ import net.gsantner.markor.frontend.textview.ListHandler;
 import net.gsantner.markor.frontend.textview.SyntaxHighlighterBase;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
-import net.gsantner.opoc.util.GsContextUtils;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class FormatRegistry {
     public static final int FORMAT_UNKNOWN = 0;

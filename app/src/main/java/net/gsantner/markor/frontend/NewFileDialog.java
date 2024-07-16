@@ -176,7 +176,7 @@ public class NewFileDialog extends DialogFragment {
         typeSpinner.setAdapter(typeAdapter);
 
         // Set last used extension on first call to the typeSpinner listener
-        final String[] lastExt = new String[] { appSettings.getNewFileDialogLastUsedExtension() };
+        final String[] lastExt = new String[]{appSettings.getNewFileDialogLastUsedExtension()};
 
         typeSpinner.setOnItemSelectedListener(new GsAndroidSpinnerOnItemSelectedAdapter(pos -> {
             final FormatRegistry.Format fmt = formats.get(pos);
