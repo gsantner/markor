@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">הסתר את סרגל המצב</string>
     <string name="name">שם</string>
     <string name="url_or_path">קישור לרשת / נתיב קובץ</string>
-    <string name="insert_link">הכנס קישור</string>
     <string name="insert_image">הכנס תמונה</string>
     <string name="contributors">תורמים</string>
     <string name="save_location">שמור מיקום</string>
