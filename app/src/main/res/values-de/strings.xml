@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Statusleiste verstecken</string>
     <string name="name">Name</string>
     <string name="url_or_path">URL / Pfad</string>
-    <string name="insert_link">Link einfügen</string>
     <string name="insert_image">Bild einfügen</string>
     <string name="contributors">Beitragende</string>
     <string name="save_location">Speicherort</string>
