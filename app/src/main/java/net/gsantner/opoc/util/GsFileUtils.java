@@ -37,6 +37,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -122,7 +123,7 @@ public class GsFileUtils {
         } catch (FileNotFoundException e) {
             System.err.println("readTextFileFast: File " + file + " not found.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("readTextFileFast: File " + file + " could not be read.");
             info.ioError = true;
         }
 
@@ -522,9 +523,27 @@ public class GsFileUtils {
         return mime;
     }
 
-    public static boolean isTextFile(File file) {
+    public static boolean isTextFile(final File file) {
         final String mime = getMimeType(file);
         return mime != null && (mime.startsWith("text/") || mime.contains("xml")) && !mime.contains("openxml");
+    }
+
+    /**
+     * Reads the first kb of a file and checks if it is likely a text file
+     **/
+    public static boolean isContentsPlainText(final File file) {
+        // Empty files are considered text files
+        if (file.length() == 0) {
+            return true;
+        }
+
+        try (final FileInputStream fis = new FileInputStream(file)) {
+            final byte[] bytes = readCloseStreamWithSize(fis, 1024);
+            Charset.forName("UTF-8").newDecoder().decode(java.nio.ByteBuffer.wrap(bytes));
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     /**
@@ -779,12 +798,16 @@ public class GsFileUtils {
     }
 
     /**
-     * Check if a file can be created (parent exists and can be written)
+     * Check if a file can be created.
+     * Checks if closest ancestor is writeable.
      */
-    public static boolean canCreate(final File file) {
-        return isWritable(file) || isWritable(file.getParentFile());
+    public static boolean canCreate(File file) {
+        // A file is creatable if the first existing ancestor is writeable
+        while (file != null && !file.exists()) {
+            file = file.getParentFile();
+        }
+        return isWritable(file);
     }
-
 
     /**
      * Check if file is child of folder. A folder is not its own child.
@@ -794,7 +817,7 @@ public class GsFileUtils {
      * @return if parent is a child of test
      */
     public static boolean isChild(final File parent, File test) {
-        if (parent.equals(test)) {
+        if (test == null || parent == null || parent.equals(test)) {
             return false;
         }
 

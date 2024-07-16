@@ -9,7 +9,6 @@ package net.gsantner.markor.frontend;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -83,7 +83,7 @@ public class DatetimeFormatDialog {
      */
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n, InflateParams"})
     public static void showDatetimeFormatDialog(final Activity activity, final HighlightingEditor hlEditor) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.time_format_dialog, null);
 
         final GsContextUtils cu = new GsContextUtils();
@@ -95,7 +95,6 @@ public class DatetimeFormatDialog {
         cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.SECOND, 0);
 
-        final AtomicReference<Dialog> dialog = new AtomicReference<>();
         final AtomicReference<GsCallback.a1<String>> callbackInsertTextToEditor = new AtomicReference<>();
         final ListPopupWindow popupWindow = new ListPopupWindow(activity);
         final TextView dateHeadline = viewRoot.findViewById(R.id.date_headline);
@@ -182,7 +181,7 @@ public class DatetimeFormatDialog {
         );
 
         // hide buttons when both check box are checked
-        View.OnClickListener onOptionsChangedListener = v -> {
+        final View.OnClickListener onOptionsChangedListener = v -> {
             boolean dateChangeable = !formatInsteadCheckbox.isChecked() && !alwaysNowCheckBox.isChecked();
             timePickButton.setEnabled(dateChangeable);
             datePickButton.setEnabled(dateChangeable);
@@ -191,16 +190,6 @@ public class DatetimeFormatDialog {
         };
         formatInsteadCheckbox.setOnClickListener(onOptionsChangedListener);
         alwaysNowCheckBox.setOnClickListener(onOptionsChangedListener);
-
-        callbackInsertTextToEditor.set((selectedFormat) -> {
-            setToNow(cal, alwaysNowCheckBox.isChecked());
-            String text = cu.formatDateTime(locale, selectedFormat, cal.getTimeInMillis());
-            previewTextView.setText(text);
-            hlEditor.insertOrReplaceTextOnCursor(getOutput(
-                    formatInsteadCheckbox.isChecked(), text, formatEditText.getText().toString())
-            );
-            dialog.get().dismiss();
-        });
 
         // set builder and implement buttons to discard and submit
         builder.setView(viewRoot)
@@ -212,7 +201,20 @@ public class DatetimeFormatDialog {
                     callbackInsertTextToEditor.get().callback(current);
                 });
 
-        dialog.set(builder.show());
+        final AlertDialog dialog = builder.create();
+
+        callbackInsertTextToEditor.set((selectedFormat) -> {
+            setToNow(cal, alwaysNowCheckBox.isChecked());
+            String text = cu.formatDateTime(locale, selectedFormat, cal.getTimeInMillis());
+            previewTextView.setText(text);
+            hlEditor.insertOrReplaceTextOnCursor(getOutput(
+                    formatInsteadCheckbox.isChecked(), text, formatEditText.getText().toString())
+            );
+            dialog.dismiss();
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     /**

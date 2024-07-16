@@ -49,7 +49,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                         break;
                     }
                 }
-                DocumentActivity.handleFileClick(_activity, file, null);
+                DocumentActivity.launch(_activity, file, null, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = ApplicationObject.settings();

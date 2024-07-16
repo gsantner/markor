@@ -158,12 +158,37 @@ public class GsCollectionUtils {
     public static <T, V> V accumulate(
             final Collection<T> collection,
             final GsCallback.r2<V, ? super T, V> func,
-            final V initial) {
+            final V initial
+    ) {
         V val = initial;
         for (final T item : collection) {
             val = func.callback(item, val);
         }
         return val;
+    }
+
+    public static <T> boolean any(
+            final Collection<T> collection,
+            final GsCallback.b1<T> predicate
+    ) {
+        for (final T item : collection) {
+            if (predicate.callback(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <T> boolean all(
+            final Collection<T> collection,
+            final GsCallback.b1<T> predicate
+    ) {
+        for (final T item : collection) {
+            if (!predicate.callback(item)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -231,5 +256,30 @@ public class GsCollectionUtils {
         }
 
         return values;
+    }
+
+    public static class Holder<T> {
+        private T value;
+
+        public Holder(T value) {
+            this.value = value;
+        }
+
+        public T get() {
+            return value;
+        }
+
+        public Holder<T> set(T value) {
+            this.value = value;
+            return this;
+        }
+
+        public T clear() {
+            try {
+                return value;
+            } finally {
+                value = null;
+            }
+        }
     }
 }

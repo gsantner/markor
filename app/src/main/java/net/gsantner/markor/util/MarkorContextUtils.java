@@ -8,6 +8,7 @@
 package net.gsantner.markor.util;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.print.PrintJob;
 import android.text.TextUtils;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -111,5 +113,14 @@ public class MarkorContextUtils extends GsContextUtils {
     public static File getValidIntentFile(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
         return f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f)) ? f : fallback;
+    }
+
+    @Override
+    public void startActivity(final Context context, final Intent intent) {
+        try {
+            super.startActivity(context, intent);
+        } catch (ActivityNotFoundException ignored) {
+            Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_SHORT).show();
+        }
     }
 }

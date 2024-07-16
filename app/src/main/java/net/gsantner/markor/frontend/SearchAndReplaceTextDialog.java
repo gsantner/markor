@@ -106,7 +106,7 @@ public class SearchAndReplaceTextDialog {
         }
 
         final Resources res = activity.getResources();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View viewRoot = activity.getLayoutInflater().inflate(R.layout.search_replace_dialog, null);
         final AtomicReference<Dialog> dialog = new AtomicReference<>();
 

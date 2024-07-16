@@ -25,7 +25,6 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -222,8 +221,6 @@ public class MarkorDialogFactory {
         dopt.data = availableData;
         dopt.highlightData = Collections.singletonList(as().getString(optLastSelected, o_context + d_desc));
         dopt.iconsForData = availableDataToIconMap;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = 530;
         dopt.okButtonText = 0;
 
         dopt.titleText = R.string.sort_tasks_by_selected_order;
@@ -282,6 +279,7 @@ public class MarkorDialogFactory {
             final String title = savedViews.get(i).first;
             final String query = savedViews.get(i).second;
             options.add(title);
+            icons.add(R.drawable.empty_blank);
             callbacks.add(() -> {
                 final DialogOptions doptView = makeSttLineSelectionDialog(activity, text, t -> TodoTxtFilter.isMatchQuery(t, query));
                 setQueryTitle(doptView, title, query);
@@ -310,7 +308,6 @@ public class MarkorDialogFactory {
         dopt.positionCallback = (posn) -> callbacks.get(posn.get(0)).callback();
         dopt.isSearchEnabled = false;
         dopt.titleText = R.string.browse_todo;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.MATCH_PARENT;
 
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
@@ -840,12 +837,12 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
-            TextViewUtils.selectLines(edit, headings.get(index).line);
+            final int line = headings.get(index).line;
 
-            final String header = headings.get(index).str;
-            final String headerText = header.substring(header.lastIndexOf('#') + 1).trim();
-            final String id = MarkdownTextConverter.generateHeaderId(headerText);
-            webView.loadUrl("javascript:document.getElementById('" + id + "').scrollIntoView();");
+            TextViewUtils.selectLines(edit, line);
+
+            final String id = MarkdownTextConverter.getIdForLineNumber(line);
+            webView.loadUrl(String.format("javascript:document.getElementById('%s').scrollIntoView();", id));
         };
 
         dopt.neutralButtonText = R.string.filter;
@@ -856,7 +853,6 @@ public class MarkorDialogFactory {
             dopt2.titleText = R.string.filter;
             dopt2.isSearchEnabled = false;
             dopt2.isMultiSelectEnabled = true;
-            dopt2.dialogWidthDp = 250;
             dopt2.positionCallback = (selected) -> {
                 // Update levels so the selected ones are true
                 state.disabledLevels.clear();
@@ -875,9 +871,6 @@ public class MarkorDialogFactory {
             GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt2);
         };
 
-        dopt.portraitAspectRatio = new float[]{0.95f, 0.8f};
-        dopt.landscapeAspectRatio = new float[]{0.7f, 0.95f};
-        dopt.gravity = Gravity.CENTER;
         dopt.dismissCallback = (d) -> {
             state.listPosition = dopt.listPosition;
             state.searchQuery = dopt.defaultText;
@@ -893,9 +886,8 @@ public class MarkorDialogFactory {
         dopt.data = Arrays.asList("1", "2", "4", "8");
         dopt.highlightData = Collections.singletonList(Integer.toString(indent));
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.titleText = R.string.indent;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -912,9 +904,9 @@ public class MarkorDialogFactory {
         dopt.data = sizes;
         dopt.highlightData = Collections.singletonList(Integer.toString(currentSize));
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.dialogHeightDp = 400;
         dopt.titleText = R.string.font_size;
+        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -970,11 +962,8 @@ public class MarkorDialogFactory {
         }
         dopt.data = data;
         dopt.isSearchEnabled = false;
-        dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         dopt.messageText = activity.getString(R.string.copy_move_conflict_message, fileName, destName);
         dopt.dialogWidthDp = WindowManager.LayoutParams.WRAP_CONTENT;
-        dopt.dialogHeightDp = WindowManager.LayoutParams.WRAP_CONTENT;
         GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
     }
 
@@ -997,7 +986,6 @@ public class MarkorDialogFactory {
         }
     }
 
-
     public static void showInsertSnippetDialog(final Activity activity, final GsCallback.a1<String> callback) {
         final DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
@@ -1017,5 +1005,6 @@ public class MarkorDialogFactory {
         dopt.clearInputIcon = R.drawable.ic_baseline_clear_24;
         dopt.textColor = ContextCompat.getColor(activity, R.color.primary_text);
         dopt.highlightColor = ContextCompat.getColor(activity, R.color.accent);
+        dopt.dialogStyle = R.style.Theme_AppCompat_DayNight_Dialog_Rounded;
     }
 }

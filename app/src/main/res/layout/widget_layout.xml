@@ -9,125 +9,120 @@
  *   https://opensource.org/licenses/MIT
 ###########################################################*/
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_2">
+    android:layout_height="wrap_content"
+    android:clipToOutline="true"
+    android:outlineProvider="background"
+    android:background="@drawable/rounded_corner_background">
+
+    <LinearLayout
+        android:id="@+id/widget_header"
+        android:layout_width="match_parent"
+        android:layout_height="36sp"
+        android:background="@color/primary">
+
+        <TextView
+            android:id="@+id/widget_header_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:paddingStart="15sp"
+            android:paddingLeft="15sp"
+            android:paddingEnd="0sp"
+            android:paddingRight="0sp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/widget_main"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/fab_circle"
+        android:elevation="2dp"
+        android:src="@drawable/ic_home_black_24dp"
+        app:tint="@color/white" />
+
+    <ImageButton
+        android:id="@+id/widget_new_note"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/widget_main"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/fab_circle"
+        android:elevation="2dp"
+        android:src="@drawable/ic_add_white_24dp"
+        app:tint="@color/white" />
+
+    <ImageButton
+        android:id="@+id/widget_todo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/widget_new_note"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/fab_circle"
+        android:elevation="2dp"
+        android:src="@drawable/ic_assignment_turned_in_black_24dp"
+        app:tint="@color/white" />
+
+    <ImageButton
+        android:id="@+id/widget_quicknote"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/widget_todo"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/fab_circle"
+        android:elevation="2dp"
+        android:src="@drawable/ic_lightning_black_24dp"
+        app:tint="@color/white" />
 
     <RelativeLayout
+        android:id="@+id/widget_list_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_2"
-        tools:ignore="UselessParent">
+        android:layout_below="@id/widget_header"
+        android:background="@color/background_2">
 
-        <LinearLayout
-            android:id="@+id/widget_header"
+        <TextView
+            android:id="@+id/widget_empty_hint"
             android:layout_width="match_parent"
-            android:layout_height="36sp"
-            android:background="@color/primary">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:textColor="@color/light_grey"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/widget_header_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|start"
-                android:paddingStart="15sp"
-                android:paddingLeft="15sp"
-                android:paddingEnd="0sp"
-                android:paddingRight="0sp"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/widget_main"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/fab_circle"
-            android:elevation="2dp"
-            android:src="@drawable/ic_home_black_24dp"
-            android:tint="@color/white" />
-
-        <ImageButton
-            android:id="@+id/widget_new_note"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/widget_main"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/fab_circle"
-            android:elevation="2dp"
-            android:src="@drawable/ic_add_white_24dp"
-            android:tint="@color/white" />
-
-        <ImageButton
-            android:id="@+id/widget_todo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/widget_new_note"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/fab_circle"
-            android:elevation="2dp"
-            android:src="@drawable/ic_assignment_turned_in_black_24dp"
-            android:tint="@color/white" />
-
-        <ImageButton
-            android:id="@+id/widget_quicknote"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/widget_todo"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/fab_circle"
-            android:elevation="2dp"
-            android:src="@drawable/ic_lightning_black_24dp"
-            android:tint="@color/white" />
-
-        <RelativeLayout
-            android:id="@+id/widget_list_container"
+        <ListView
+            android:id="@+id/widget_notes_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/widget_header"
-            android:background="@color/background_2">
-
-            <TextView
-                android:id="@+id/widget_empty_hint"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:textColor="@color/light_grey"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <ListView
-                android:id="@+id/widget_notes_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/background"
-                android:divider="@color/grey"
-                android:dividerHeight="0.5dp" />
-        </RelativeLayout>
+            android:layout_gravity="start"
+            android:background="@color/background"
+            android:divider="@color/grey"
+            android:dividerHeight="0.5dp" />
     </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>
