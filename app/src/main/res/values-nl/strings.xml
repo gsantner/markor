@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Verberg statusbalk</string>
     <string name="name">Naam</string>
     <string name="url_or_path">URL / Pad</string>
-    <string name="insert_link">Voeg koppeling toe</string>
     <string name="insert_image">Voeg afbeelding toe</string>
     <string name="contributors">Bijdragers</string>
     <string name="save_location">Locatie opslaan</string>
