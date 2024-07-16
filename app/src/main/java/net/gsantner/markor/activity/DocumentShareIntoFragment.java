@@ -11,19 +11,25 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.util.Patterns;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.CompoundButtonCompat;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 
@@ -36,7 +42,6 @@ import net.gsantner.markor.frontend.AttachLinkOrFileDialog;
 import net.gsantner.markor.frontend.NewFileDialog;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.textview.HighlightingEditor;
-import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
@@ -58,6 +63,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     public static final String FRAGMENT_TAG = "DocumentShareIntoFragment";
     public static final String EXTRA_SHARED_TEXT = "EXTRA_SHARED_TEXT";
     public static final String TEXT_TOKEN = "{{text}}";
+
+    private static final String CHECKBOX_TAG = "insert_link_checkbox";
 
     public static DocumentShareIntoFragment newInstance(final Intent intent) {
         final DocumentShareIntoFragment f = new DocumentShareIntoFragment();
@@ -88,7 +95,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
     @Override
     public void onViewCreated(final @NonNull View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HighlightingEditor _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
+        final HighlightingEditor _hlEditor = view.findViewById(R.id.document__fragment__share_into__highlighting_editor);
 
         final String sharedText = (getArguments() != null ? getArguments().getString(EXTRA_SHARED_TEXT, "") : "").trim();
         final ShareIntoImportOptionsFragment _shareIntoImportOptionsFragment;
@@ -102,7 +109,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
 
         if (_shareIntoImportOptionsFragment != null) {
-            _shareIntoImportOptionsFragment.setEditor(_hlEditor);
+            _shareIntoImportOptionsFragment._editor = _hlEditor;
+            _shareIntoImportOptionsFragment._linkCheckBox = addCheckBoxToToolbar();
         }
 
         _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getFontSize());
@@ -116,22 +124,74 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         }
     }
 
+    private CheckBox addCheckBoxToToolbar() {
+
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return null;
+        }
+
+        final Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            return null;
+        }
+
+        CheckBox checkBox = toolbar.findViewWithTag(CHECKBOX_TAG);
+        if (checkBox == null) {
+
+            checkBox = new CheckBox(activity);
+            checkBox.setText(R.string.format_link);
+            checkBox.setTag(CHECKBOX_TAG);
+            CompoundButtonCompat.setButtonTintList(checkBox, ColorStateList.valueOf(Color.WHITE));
+            checkBox.setTextColor(Color.WHITE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                checkBox.setLayoutDirection(CheckBox.LAYOUT_DIRECTION_RTL);
+            }
+
+            final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(
+                    Toolbar.LayoutParams.WRAP_CONTENT,
+                    Toolbar.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER_VERTICAL | Gravity.END
+            );
+
+            final int margin = _cu.convertDpToPx(activity, 10);
+            layoutParams.setMargins(0, 0, margin, 0);
+
+            toolbar.addView(checkBox, layoutParams);
+        }
+
+        return checkBox;
+    }
+
+    private void removeCheckbox() {
+        final Activity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        final Toolbar toolbar = activity.findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            return;
+        }
+
+        final CheckBox checkBox = toolbar.findViewWithTag(CHECKBOX_TAG);
+        if (checkBox != null) {
+            toolbar.removeView(checkBox);
+        }
+    }
+
     @Override
     public String getFragmentTag() {
         return FRAGMENT_TAG;
     }
-
-    @Override
-    public boolean onBackPressed() {
-        return false;
-    }
-
 
     public static class ShareIntoImportOptionsFragment extends GsPreferenceFragmentBase<AppSettings> {
         public static final String TAG = "ShareIntoImportOptionsFragment";
         private File workingDir;
 
         private EditText _editor = null;
+        private CheckBox _linkCheckBox = null;
 
         @Override
         public boolean isDividerVisible() {
@@ -140,10 +200,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
         public void setWorkingDir(File dir) {
             workingDir = dir;
-        }
-
-        public void setEditor(final EditText editor) {
-            _editor = editor;
         }
 
         @Override
@@ -166,43 +222,44 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             super.afterOnCreate(savedInstances, context);
             doUpdatePreferences();
 
-            if (_editor != null) {
-                final CheckBoxPreference asLinkPref = (CheckBoxPreference) findPreference(R.string.pref_key__attach_as_link);
-                if (asLinkPref != null) {
-                    asLinkPref.setVisible(hasLinks(_editor.getText()));
-                    asLinkPref.setChecked(true);
-                    _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
-                            asLinkPref.setVisible(hasLinks(ctext))));
-                }
+            if (_editor != null && _linkCheckBox != null) {
+                _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
+                _linkCheckBox.setChecked(true);
+                _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
+                        _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
         }
 
         private boolean shareAsLink() {
-            final CheckBoxPreference asLinkPref = (CheckBoxPreference) findPreference(R.string.pref_key__attach_as_link);
-            return asLinkPref != null && asLinkPref.isVisible() && asLinkPref.isEnabled() && asLinkPref.isChecked();
+            return _linkCheckBox != null && _linkCheckBox.getVisibility() == View.VISIBLE && _linkCheckBox.isChecked();
         }
 
         private void appendToExistingDocumentAndClose(final File file, final boolean showEditor) {
-            final Activity context = getActivity();
+            final Activity activity = getActivity();
+            if (activity == null) {
+                return;
+            }
+
             final Document document = new Document(file);
             final int format = _appSettings.getDocumentFormat(document.getPath(), document.getFormat());
             final String formatted = getFormatted(shareAsLink(), file, format);
 
-            final String oldContent = document.loadContent(context);
+            final String oldContent = document.loadContent(activity);
             if (oldContent != null) {
                 final String nline = oldContent.endsWith("\n") ? "" : "\n";
                 final String newContent = oldContent + nline + formatted;
-                document.saveContent(context, newContent);
+                document.saveContent(activity, newContent);
             } else {
-                Toast.makeText(context, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
             }
 
             _appSettings.addRecentFile(file);
+
             if (showEditor) {
-                showInDocumentActivity(document);
-            } else {
-                context.finish();
+                DocumentActivity.launch(activity, document.getFile(), null, -1);
             }
+
+            activity.finish();
         }
 
         private static Pair<String, File> getLinePath(final CharSequence line) {
@@ -242,50 +299,6 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             });
 
             return hasLinks[0];
-        }
-
-        /**
-         * Iterates over each line of the text and checks if it is a path or link
-         * The whole line has to be a path or the line must end with a link to match.
-         *
-         * @param text Text to parse
-         * @return List of pairs.
-         * The first element of the pair is the start and end index of the link/path.
-         * Second element is true if it is a path, false if it is a link.
-         */
-        public static List<Pair<int[], Boolean>> findLinksAndPaths(final CharSequence text) {
-            final List<Pair<int[], Boolean>> links = new ArrayList<>();
-
-            GsTextUtils.forEachline(text, (line, start, end) -> {
-
-                start = TextViewUtils.getNextNonWhitespace(text, start);
-                end = TextViewUtils.getLastNonWhitespace(text, end - 1) + 1;
-
-                if (start != -1 && end != -1 && start <= end) {
-
-                    final String trimmed = text.subSequence(start, end).toString();
-                    final boolean hasSpaces = trimmed.contains(" ") || trimmed.contains("\\t");
-
-                    // Test for web links
-                    if (!hasSpaces && Patterns.WEB_URL.matcher(trimmed).matches()) {
-                        links.add(Pair.create(new int[]{start, end}, false));
-                        return true;
-                    }
-
-                    // Test for file links
-                    try {
-                        if (new File(trimmed.replace("%20", " ")).exists()) {
-                            links.add(Pair.create(new int[]{start, end}, true));
-                            return true;
-                        }
-                    } catch (NullPointerException ignored) {
-                    }
-                }
-
-                return true;
-            });
-
-            return links;
         }
 
         public static String getLinkTitle(final String link) {

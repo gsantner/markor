@@ -30,12 +30,18 @@ import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
+import com.vladsch.flexmark.html.AttributeProvider;
+import com.vladsch.flexmark.html.AttributeProviderFactory;
 import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.html.renderer.HeaderIdGenerator;
+import com.vladsch.flexmark.html.renderer.AttributablePart;
+import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Document;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
+import com.vladsch.flexmark.util.html.Attributes;
+import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
@@ -49,11 +55,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MarkdownTextConverter extends TextConverterBase {
@@ -149,7 +155,8 @@ public class MarkdownTextConverter extends TextConverterBase {
             TypographicExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Typographic-Extension
             GitLabExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Extensions#gitlab-flavoured-markdown
             AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
-            FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
+            FootnoteExtension.create(),            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
+            LineNumberIdExtension.create()
     );
     public static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
@@ -331,15 +338,11 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         if (enableLineNumbers) {
             // For Prism line numbers plugin
-            onLoadJs += "enableLineNumbers();adjustLineNumbers();";
+            onLoadJs += "enableLineNumbers(); adjustLineNumbers();";
         }
 
         // Deliver result
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
-    }
-
-    public static String generateHeaderId(String headerText) {
-        return HeaderIdGenerator.generateId(headerText, toDashChars, false, false);
     }
 
     private String escapeSpacesInLink(final String markup) {
@@ -391,9 +394,8 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches() && !filepath.toLowerCase().endsWith(".txt")) || filepath.toLowerCase().endsWith(".md.txt");
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(name).matches() && !name.endsWith(".txt")) || name.endsWith(".md.txt");
     }
 
     private Map<String, List<String>> extractYamlAttributes(final String markup) {
@@ -439,5 +441,61 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         return markupReplaced;
+    }
+
+    // Extension to add line numbers to headings
+    // ---------------------------------------------------------------------------------------------
+
+    public static String getIdForLineNumber(final int num) {
+        return "line-" + num;
+    }
+
+    private static class LineNumberIdProvider implements AttributeProvider {
+        @Override
+        public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
+            if (node instanceof com.vladsch.flexmark.ast.Heading) {
+                final Document document = node.getDocument();
+                final int lineNumber = document.getLineNumber(node.getStartOffset());
+                attributes.addValue("id", getIdForLineNumber(lineNumber));
+            }
+        }
+    }
+
+    private static class LineNumberIdProviderFactory implements AttributeProviderFactory {
+
+        @Override
+        public Set<Class<? extends AttributeProviderFactory>> getAfterDependents() {
+            return null;
+        }
+
+        @Override
+        public Set<Class<? extends AttributeProviderFactory>> getBeforeDependents() {
+            return null;
+        }
+
+        @Override
+        public boolean affectsGlobalScope() {
+            return false;
+        }
+
+        @Override
+        public AttributeProvider create(LinkResolverContext context) {
+            return new LineNumberIdProvider();
+        }
+    }
+
+    private static class LineNumberIdExtension implements HtmlRenderer.HtmlRendererExtension {
+        @Override
+        public void rendererOptions(MutableDataHolder options) {
+        }
+
+        @Override
+        public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+            rendererBuilder.attributeProviderFactory(new LineNumberIdProviderFactory());
+        }
+
+        public static HtmlRenderer.HtmlRendererExtension create() {
+            return new LineNumberIdExtension();
+        }
     }
 }
