@@ -105,7 +105,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     private static final String CSS_PREFIX = "<link rel='stylesheet' href='file:///android_asset/";
     private static final String CSS_POSTFIX = "'/>";
-    private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset/";
+    private static final String JS_PREFIX = "<script src='file:///android_asset/";
     private static final String JS_POSTFIX = "'></script>";
 
     public static final String HTML_KATEX_INCLUDE = CSS_PREFIX + "katex/katex.min.css" + CSS_POSTFIX +
@@ -272,9 +272,17 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += CSS_KATEX;
         }
 
+        // Enable View (block) code syntax highlighting
+        if (markup.contains("```")) {
+            head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+        }
+
         // Enable Mermaid
         if (markup.contains("```mermaid")) {
-            head += HTML_MERMAID_INCLUDE;
+            head += HTML_MERMAID_INCLUDE
+                    + "<script>mermaid.initialize({theme:'"
+                    + (GsContextUtils.instance.isDarkModeEnabled(context) ? "dark" : "default")
+                    + "',logLevel:5,securityLevel:'loose'});</script>";
         }
 
         // Enable flexmark Admonition support
@@ -282,9 +290,6 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += HTML_ADMONITION_INCLUDE;
             head += CSS_ADMONITION;
         }
-
-        // Enable View (block) code syntax highlighting
-        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
@@ -375,20 +380,23 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String themeName, final boolean enableLineNumbers) {
+    private String getViewHlPrismIncludes(final String theme, final boolean isLineNumbersEnabled) {
         final StringBuilder sb = new StringBuilder(1000);
-        sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX);
         sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX);
 
-        if (enableLineNumbers) {
+        sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
+
+        if (isLineNumbersEnabled) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
         }
-        sb.append("\n");
 
         return sb.toString();
     }

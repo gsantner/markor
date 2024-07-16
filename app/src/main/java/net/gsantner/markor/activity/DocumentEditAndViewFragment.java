@@ -371,6 +371,12 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             } else if (keyCode == KeyEvent.KEYCODE_S) {
                 saveDocument(true);
                 return true;
+            } else if (keyCode == KeyEvent.KEYCODE_Y) {
+                if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo()) {
+                    _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::redo);
+                    updateUndoRedoIconStates();
+                }
+                return true;
             } else if (keyCode == KeyEvent.KEYCODE_Z) {
                 if (_editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo()) {
                     _hlEditor.withAutoFormatDisabled(_editTextUndoRedoHelper::undo);

@@ -1,6 +1,6 @@
 pre[class*="language-"] {
     position: relative;
-    padding-left: 0.8em; /* padding left of codes */
+    padding-left: 0.8em; /* left padding of the code */
     counter-reset: linenumber;
 }
 
