@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Nascondi la barra di stato</string>
     <string name="name">Nome</string>
     <string name="url_or_path">URL / Percorso</string>
+    <string name="insert_link">Inserisci collegamento</string>
+    <string name="format_link">Formatta collegamento</string>
     <string name="insert_image">Inserisci immagine</string>
     <string name="contributors">Collaboratori</string>
     <string name="save_location">Percorso di salvataggio</string>
@@ -342,6 +344,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Quante colonne? Premi a lungo il pulsante tabella per creare una tabella (inserisce intestazione), premilo brevemente per aggiungere una riga.</string>
     <string name="example_of_a_markdown_table">Esempio di tabella Markdown</string>
     <string name="delete_lines">Elimina righe</string>
+    <string name="duplicate_lines">Righe duplicate</string>
     <string name="unordered_list">Elenco non ordinato</string>
     <string name="ordered_list">Elenco ordinato</string>
     <string name="check_list">Checklist</string>
