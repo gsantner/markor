@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme.Unified.StartupFlash" parent="AppTheme.Unified">
         <item name="android:windowBackground">@color/dark__background</item>
@@ -28,6 +28,19 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
+
+        <!-- Android V21 options; ignore IDE warnings -->
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap" tools:targetApi="lollipop">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap" tools:targetApi="lollipop">true</item>
+        <item name="android:windowSharedElementEnterTransition" tools:targetApi="lollipop">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition" tools:targetApi="lollipop">@android:transition/move</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/primary</item>
+
+        <!-- Android V28 options; ignore IDE warnings -->
+        <item name="android:dialogCornerRadius" tools:targetApi="p">@dimen/dialog_corner_radius</item>
     </style>
 
     <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -37,7 +50,6 @@
     <style name="AppTheme.PreferenceTheme.CategoryStyle" parent="Preference.Category">
         <item name="android:layout">@layout/opoc_pref_category_text</item>
     </style>
-
 
     <style name="LightTextToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:actionModeBackground">@color/primary_dark</item>
@@ -57,5 +69,11 @@
         <item name="android:paddingRight">8dip</item>
         <item name="android:paddingStart">8dip</item>
         <item name="android:paddingEnd">8dip</item>
+    </style>
+
+    <style name="Theme.AppCompat.DayNight.Dialog.Rounded" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="dialogCornerRadius">@dimen/dialog_corner_radius</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 </resources>

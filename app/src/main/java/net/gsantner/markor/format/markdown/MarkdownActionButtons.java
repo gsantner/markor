@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -26,22 +26,16 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownActionButtons extends ActionButtonBase {
 
-    // Group 1 matches text, group 2 matches path
-    private static final Pattern MARKDOWN_LINK = Pattern.compile("\\[([^\\]]*)\\]\\(([^)]+)\\)");
-
     private static final Pattern WEB_URL = Pattern.compile("https?://[^\\s/$.?#].[^\\s]*");
 
-    private final Set<Integer> _disabledHeadings = new HashSet<>();
+    private final MarkorDialogFactory.HeadlineDialogState _headlineDialogState = new MarkorDialogFactory.HeadlineDialogState();
 
     public static final String LINE_PREFIX = "^(>\\s|#{1,6}\\s|\\s*[-*+](?:\\s\\[[ xX]\\])?\\s|\\s*\\d+[.)]\\s)?";
 
@@ -234,40 +228,63 @@ public class MarkdownActionButtons extends ActionButtonBase {
         }
     }
 
+    public static class Link {
+        public final String title, link;
+        public final boolean isImage;
+        public final int start, end;
+
+        private Link(String title, String link, boolean isImage, int start, int end) {
+            this.title = title;
+            this.link = link;
+            this.isImage = isImage;
+            this.start = start;
+            this.end = end;
+        }
+
+        public boolean isValid() {
+            return !link.isEmpty() && start >= 0 && end >= 0;
+        }
+
+        public static Link extract(final CharSequence text, final int pos) {
+            final int[] sel = TextViewUtils.getLineSelection(text, pos);
+            if (sel != null && sel[0] != -1 && sel[1] != -1) {
+                final String line = text.subSequence(sel[0], sel[1]).toString();
+                final Matcher m = MarkdownSyntaxHighlighter.LINK.matcher(line);
+                final int po = pos - sel[0];
+
+                while (m.find()) {
+                    final int start = m.start(), end = m.end();
+                    if (start <= po && end >= po) {
+                        final boolean isImage = m.group(1) != null;
+                        return new Link(m.group(2), m.group(3), isImage, start, end);
+                    }
+                }
+            }
+
+            return new Link("", "", false, -1, -1);
+        }
+    }
+
     private boolean followLinkUnderCursor() {
         final int sel = TextViewUtils.getSelection(_hlEditor)[0];
         if (sel < 0) {
             return false;
         }
 
-        final String line = TextViewUtils.getSelectedLines(_hlEditor, sel);
-        final int cursor = sel - TextViewUtils.getLineStart(_hlEditor.getText(), sel);
-
-        final Matcher m = MARKDOWN_LINK.matcher(line);
-
-        final ArrayList<String> linksUnderCursor = new ArrayList<>();
-        while (m.find()) {
-            final String group = m.group(2);
-            if (m.start() <= cursor && m.end() >= cursor && group != null) {
-                linksUnderCursor.add(group);
-            }
-        }
-
-        // We want to search the line backwards in order to find the link closest to the cursor
-        // This helps us to match a link right after the cursor when there is one right before
-        for (int i = linksUnderCursor.size() - 1; i >= 0; i--) {
-            final String group = linksUnderCursor.get(i);
-            if (WEB_URL.matcher(group).matches()) {
-                GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), group);
+        final Link link = Link.extract(_hlEditor.getText(), sel);
+        if (link.isValid()) {
+            if (WEB_URL.matcher(link.link).matches()) {
+                GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), link.link);
                 return true;
             } else {
-                final File f = GsFileUtils.makeAbsolute(group, _document.getFile().getParentFile());
+                final File f = GsFileUtils.makeAbsolute(link.link, _document.getFile().getParentFile());
                 if (GsFileUtils.canCreate(f)) {
-                    DocumentActivity.handleFileClick(getActivity(), f, null);
+                    DocumentActivity.launch(getActivity(), f, null, null);
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -304,7 +321,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
     @Override
     public boolean runTitleClick() {
         final Matcher m = MarkdownReplacePatternGenerator.PREFIX_ATX_HEADING.matcher("");
-        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _disabledHeadings, (text, start, end) -> {
+        MarkorDialogFactory.showHeadlineDialog(getActivity(), _hlEditor, _webView, _headlineDialogState, (text, start, end) -> {
             if (m.reset(text.subSequence(start, end)).find()) {
                 return m.end(2) - m.start(2) - 1;
             }

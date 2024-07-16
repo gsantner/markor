@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -87,7 +87,7 @@ public class PlaintextTextConverter extends TextConverterBase {
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return EXT.contains(extWithDot) || _appSettings.isExtOpenWithThisApp(extWithDot) || GsFileUtils.isTextFile(new File(filepath));
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return EXT.contains(ext) || _appSettings.isExtOpenWithThisApp(ext) || GsFileUtils.isTextFile(file);
     }
 }

@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2017-2023 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2017-2024 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -25,7 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
-import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
+import net.gsantner.markor.format.markdown.MarkdownActionButtons;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
@@ -40,7 +41,6 @@ import net.gsantner.opoc.util.GsFileUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.io.File;
-import java.util.regex.Matcher;
 
 public class AttachLinkOrFileDialog {
     public final static int IMAGE_ACTION = 2, FILE_OR_LINK_ACTION = 3, AUDIO_ACTION = 4;
@@ -84,7 +84,7 @@ public class AttachLinkOrFileDialog {
     ) {
         final int[] sel = TextViewUtils.getSelection(edit);
 
-        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Theme_AppCompat_DayNight_Dialog_Rounded);
         final View view = activity.getLayoutInflater().inflate(R.layout.select_path_dialog, null);
         final EditText inputPathName = view.findViewById(R.id.ui__select_path_dialog__name);
         final EditText inputPathUrl = view.findViewById(R.id.ui__select_path_dialog__url);
@@ -103,21 +103,14 @@ public class AttachLinkOrFileDialog {
             } else if (edit.length() == 0) {
                 inputPathName.setText("");
             } else {
-                final int[] lineSel = TextViewUtils.getLineSelection(edit, sel);
-                final String line = edit.subSequence(lineSel[0], lineSel[1]).toString();
-                final Matcher m;
-                if (action == IMAGE_ACTION) {
-                    m = MarkdownSyntaxHighlighter.ACTION_IMAGE_PATTERN.matcher(line);
-                } else if (action == FILE_OR_LINK_ACTION) {
-                    m = MarkdownSyntaxHighlighter.ACTION_LINK_PATTERN.matcher(line);
-                } else {
-                    m = null;
-                }
-                if (m != null && m.find() && sel[0] >= m.start() && sel[1] <= m.end()) {
-                    inputPathName.setText(m.group(1));
-                    inputPathUrl.setText((m.group(2)));
-                    sel[0] = m.start() + lineSel[0];
-                    sel[1] = m.end() + lineSel[0];
+                final MarkdownActionButtons.Link link = MarkdownActionButtons.Link.extract(edit, sel[0]);
+                final boolean isImage = action == IMAGE_ACTION && link.isImage;
+                final boolean isLink = action == FILE_OR_LINK_ACTION && !link.isImage;
+                if (link.isValid() && (isImage || isLink)) {
+                    inputPathName.setText(link.title);
+                    inputPathUrl.setText(link.link);
+                    sel[0] = link.start;
+                    sel[1] = link.end;
                 }
             }
         }
@@ -161,6 +154,7 @@ public class AttachLinkOrFileDialog {
         buttonPictureEdit.setOnClickListener(v -> _insertItem.callback(InsertType.IMAGE_EDIT));
 
         dialog.show();
+        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     private enum InsertType {
@@ -231,8 +225,9 @@ public class AttachLinkOrFileDialog {
     }
 
     private static String formatLink(String title, String path, final int textFormatId, final InsertType action) {
-        title = title.trim().replace(")", "\\)");
-        path = path.trim().replace(")", "\\)")
+        title = title.trim().replace("|", "/");
+
+        path = path.trim()
                 // Workaround for parser - cannot deal with spaces and have other entities problems
                 .replace(" ", "%20")
                 // Disable space encoding for Jekyll

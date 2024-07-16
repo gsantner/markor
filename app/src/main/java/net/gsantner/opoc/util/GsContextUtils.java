@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2016-2023 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2016-2024 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2016-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2016-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -153,9 +153,11 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 @SuppressWarnings({"UnusedReturnValue", "rawtypes", "unused"})
 public class GsContextUtils {
@@ -190,6 +192,7 @@ public class GsContextUtils {
     public final static int REQUEST_STORAGE_PERMISSION_M = 50004;
     public final static int REQUEST_STORAGE_PERMISSION_R = 50005;
     public final static int REQUEST_RECORD_AUDIO = 50006;
+    private final static int BLINK_ANIMATOR_TAG = -1206813720;
 
     public static int TEXTFILE_OVERWRITE_MIN_TEXT_LENGTH = 2;
     protected static Pair<File, List<Pair<String, String>>> m_cacheLastExtractFileMetadata;
@@ -263,7 +266,7 @@ public class GsContextUtils {
      */
     @ColorInt
     public int rcolor(final Context context, @ColorRes final int resId) {
-        if (resId == 0) {
+        if (context == null || resId == 0) {
             Log.e(getClass().getName(), "GsContextUtils::rcolor: resId is 0!");
             return Color.BLACK;
         }
@@ -1114,7 +1117,6 @@ public class GsContextUtils {
             context.startActivityForResult(intent, requestCode);
         } else {
             context.startActivity(intent);
-
         }
         context.overridePendingTransition(getResId(context, ResType.DIMEN, "fadein"), getResId(context, ResType.DIMEN, "fadeout"));
         if (finishFromActivity != null && finishFromActivity) {
@@ -1311,6 +1313,7 @@ public class GsContextUtils {
         if (!(context instanceof Activity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
+
         context.startActivity(intent);
     }
 
@@ -1344,7 +1347,6 @@ public class GsContextUtils {
         }
         return false;
     }
-
 
     /**
      * Request installation of APK specified by file
@@ -2133,6 +2135,17 @@ public class GsContextUtils {
         return file != null && file.getParentFile() != null && CONTENT_RESOLVER_FILE_PROXY_SEGMENT.equals(file.getParentFile().getName());
     }
 
+    public Collection<File> getCacheDirs(final Context context) {
+        final Set<File> dirs = new HashSet<>();
+        dirs.add(context.getCacheDir());
+        dirs.add(context.getExternalCacheDir());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            dirs.addAll(Arrays.asList(context.getExternalCacheDirs()));
+        }
+        dirs.removeAll(Collections.singleton(null));
+        return dirs;
+    }
+
     /**
      * Check whether or not a file can be written.
      * Requires storage access framework permission for external storage (SD)
@@ -2141,53 +2154,26 @@ public class GsContextUtils {
      * @param isDir Whether or not the given file parameter is a directory
      * @return Whether or not the file can be written
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public boolean canWriteFile(final Context context, final File file, final boolean isDir, final boolean trySaf) {
         if (file == null) {
             return false;
         }
-        final String realpath = file.getAbsolutePath();
-
-        // try to ensure parent directories exist and are writable
-        GsCallback.a2<File, Boolean> tryMkdirs = (f, isDir1) -> {
-            try {
-                File target = (isDir1 ? f : f.getParentFile());
-                //noinspection ConstantConditions
-                target.mkdirs();
-                target.setWritable(true);
-            } catch (Exception ignored) {
-            }
-            try {
-                if (f.exists()) {
-                    f.setWritable(true);
-                }
-            } catch (Exception ignored) {
-            }
-        };
-
-        //  Own AppData directories do not require any special permission or handling
-        final ArrayList<File> appCacheDirs = new ArrayList<>(Arrays.asList(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT ? context.getExternalCacheDirs() : new File[]{context.getExternalCacheDir()}));
-        appCacheDirs.add(context.getCacheDir());
-        appCacheDirs.removeAll(Collections.singleton(null));
-        for (File dir : appCacheDirs) {
-            if (dir.getParentFile() != null && realpath.startsWith(dir.getParentFile().getAbsolutePath())) {
-                tryMkdirs.callback(file.getAbsoluteFile(), false);
-                return true;
-            }
-        }
 
         // Try direct file access
-        tryMkdirs.callback(file, isDir);
-        if (!isDir && file.getParentFile() != null ? file.getParentFile().canWrite() : file.canWrite()) {
+        if (GsFileUtils.canCreate(file)) {
             return true;
         }
 
-        // Try with SAF
-        DocumentFile dof = getDocumentFile(context, file, isDir);
-        //noinspection RedundantIfStatement
-        if (trySaf && dof != null && dof.canWrite()) {
+        // Own AppData directories do not require any special permission or handling
+        if (GsCollectionUtils.any(getCacheDirs(context), f -> GsFileUtils.isChild(f, file))) {
             return true;
         }
+
+        if (trySaf) {
+            final DocumentFile dof = getDocumentFile(context, file, isDir);
+            return dof != null && dof.canWrite();
+        }
+
         return false;
     }
 
@@ -2695,10 +2681,12 @@ public class GsContextUtils {
     }
 
     public <T extends GsContextUtils> T setActivityNavigationBarBackgroundColor(final Activity context, @ColorInt Integer color) {
-        if (color != null) {
+        if (context != null && color != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    context.getWindow().setNavigationBarColor(color);
+                    final Window window = context.getWindow();
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setNavigationBarColor(color);
                 }
             } catch (Exception ignored) {
             }
@@ -2880,38 +2868,43 @@ public class GsContextUtils {
         return false;
     }
 
-    /**
-     * Blinks the view passed in as parameter
-     * @param view View to be blinked
-     * @return A callback to terminate the blinking
-     */
-    public static @Nullable GsCallback.a0 blinkView(final View view) {
-
+    public static void blinkView(final View view) {
         if (view == null) {
-            return null;
+            return;
         }
 
-        final ObjectAnimator animator = ObjectAnimator.ofFloat(
-                view, View.ALPHA, 1.0f, 0.1f, 1.0f, 0.1f, 1.0f)
-                .setDuration(800);
+        final ObjectAnimator animator = ObjectAnimator
+                .ofFloat(view, View.ALPHA, 0.2f, 1.0f)
+                .setDuration(500L);
+
+        view.setTag(BLINK_ANIMATOR_TAG, new WeakReference<>(animator));
+
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 view.setAlpha(1.0f);
+                view.setTag(BLINK_ANIMATOR_TAG, null);
             }
         });
 
-        final WeakReference<ObjectAnimator> animatorRef = new WeakReference<>(animator);
-        final GsCallback.a0 terminateCallback = () -> {
-            final ObjectAnimator a = animatorRef.get();
-            if (a != null) {
-                a.cancel();
-            }
-        };
-
         animator.start();
+    }
 
-        return terminateCallback;
+    public static void stopBlinking(final View view) {
+        if (view == null) {
+            return;
+        }
+
+        final Object tagRef = view.getTag(BLINK_ANIMATOR_TAG);
+        if (tagRef instanceof WeakReference) {
+            final Object tag = ((WeakReference<?>) tagRef).get();
+            if (tag instanceof ObjectAnimator) {
+                final ObjectAnimator anim = ((ObjectAnimator) tag);
+                if (anim.isRunning()) {
+                    anim.cancel();
+                }
+            }
+        }
     }
 
     public static boolean fadeInOut(final View in, final View out, final boolean animate) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -221,6 +221,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="translate">翻译</string>
     <string name="more_info_and_help">更多信息与帮助</string>
     <string name="report_bugs">报告 bug</string>
+    <string name="do_you_have_a_question_or_problem">存在疑问或问题吗？</string>
     <string name="join_community">加入社区</string>
     <string name="bug_reports_suggest_improvements">给出反馈，报告问题，或提出改进建议</string>
     <string name="help_translating_this_app">翻译本应用</string>
@@ -317,6 +318,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">折行</string>
     <string name="line_numbers">行号</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">如果文字不适合屏幕宽度则软打断。否则启用横向滚动。</string>
+    <string name="recursive_search_in_location">在%s中递归搜索</string>
     <string name="always_open_with_this_app">总是使用本应用打开</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">总是使用本应用打开此列表包含的文件扩展名的文件，例如如果你想编辑网页文件和无扩展名的文件，请使用 \'None, .html, .css , .js\'。</string>
     <string name="open_file_with">打开文件</string>
@@ -339,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">需要多少列？长按表格按钮来新建一个表格 (插入表头) ，短按以添加一行。</string>
     <string name="example_of_a_markdown_table">Markdown 表格示例</string>
     <string name="delete_lines">删除行</string>
+    <string name="duplicate_lines">复制行</string>
     <string name="unordered_list">无序列表</string>
     <string name="ordered_list">有序列表</string>
     <string name="check_list">复选列表</string>
@@ -367,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">存档已完成的任务</string>
     <string name="create_new_file_or_folder">创建一个新的文件或文件夹</string>
     <string name="choose_format">选择格式</string>
+    <string name="clear_selection">清除选项</string>
     <string name="selected">已选择</string>
     <string name="back">后退</string>
     <string name="expand_collapse">展开/收起</string>

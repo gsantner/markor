@@ -1,6 +1,6 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2022-2023 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2022-2024 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
 #########################################################*/
@@ -161,7 +161,7 @@ public class EmbedBinaryTextConverter extends TextConverterBase {
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return EXT.contains(extWithDot);
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return EXT.contains(ext);
     }
 }

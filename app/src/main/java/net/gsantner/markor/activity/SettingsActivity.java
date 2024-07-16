@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -289,6 +289,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.quicknote;
                             dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.newDirButtonEnable = false;
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;
@@ -306,6 +307,7 @@ public class SettingsActivity extends MarkorBaseActivity {
                         public void onFsViewerConfig(GsFileBrowserOptions.Options dopt) {
                             dopt.titleText = R.string.todo;
                             dopt.rootFolder = _appSettings.getNotebookDirectory();
+                            dopt.newDirButtonEnable = false;
                         }
                     }, fragManager, getActivity(), MarkorFileBrowserFactory.IsMimeText);
                     return true;

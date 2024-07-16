@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -75,13 +75,16 @@ public class Document implements Serializable {
         _fileExtension = GsFileUtils.getFilenameExtension(_file);
 
         // Set initial format
-        final String fnlower = _file.getName().toLowerCase();
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter.isFileOutOfThisFormat(fnlower)) {
+            if (format.converter == null || format.converter.isFileOutOfThisFormat(_file)) {
                 setFormat(format.format);
                 break;
             }
         }
+    }
+
+    public static String getPath(final File file) {
+        return file != null ? file.getAbsolutePath() : "";
     }
 
     // Get a default file
@@ -190,7 +193,7 @@ public class Document implements Serializable {
     }
 
     public boolean isBinaryFileNoTextLoading() {
-        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file.getAbsolutePath());
+        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file);
     }
 
     public boolean isEncrypted() {
@@ -285,8 +288,7 @@ public class Document implements Serializable {
     public static boolean testCreateParent(final File file) {
         try {
             final File parent = file.getParentFile();
-            boolean ok = parent != null && (parent.exists() || parent.mkdirs());
-            return ok;
+            return parent != null && (parent.exists() || parent.mkdirs());
         } catch (NullPointerException e) {
             return false;
         }

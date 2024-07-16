@@ -1,6 +1,6 @@
 /*#######################################################
  * Copyright (c) 2013-2017 Joseph Johnson https://stackoverflow.com/a/19494006
- * Copyright (c) 2017-2023 Gregor Santner
+ * Copyright (c) 2017-2024 Gregor Santner
  *
  * Licensed under the MIT license.
  * You can get a copy of the license text here:

@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -64,6 +64,8 @@ public class MarkorFileBrowserFactory {
         opts.secondaryTextColor = R.color.secondary_text;
         opts.backgroundColor = R.color.background;
         opts.titleTextColor = R.color.primary_text;
+        opts.fileColor = R.color.file;
+        opts.folderColor = R.color.folder;
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
 

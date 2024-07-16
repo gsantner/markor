@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *     https://github.com/gsantner/opoc/#licensing
@@ -18,7 +18,7 @@ public class TodoTxtFileRecognitionTests {
 
     @Test
     public void checkTodoTxtFileRecognition() {
-        Pattern p = TodoTxtTask.TODOTXT_FILE_PATTERN;
+        Pattern p = TodoTxtTextConverter.TODOTXT_FILE_PATTERN;
         assertThat(ispm(p, "todo.txt")).isEqualTo(true);
         assertThat(ispm(p, "ToDO.txt")).isEqualTo(true);
         assertThat(ispm(p, "todo.archive.txt")).isEqualTo(true);

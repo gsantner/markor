@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
 
 To the extent possible under law, the person who associated CC0 with
 this file has waived all copyright and related or neighboring rights
@@ -59,7 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Son düzenleme</string>
     <string name="select_this_folder">Bu klasörü seç</string>
     <string name="select">Seç</string>
-    <string name="select_all">Tümünü seç</string>
+    <string name="select_all">Hepsini seç</string>
     <string name="create">Oluştur</string>
     <string name="select_entries">Öğeleri seç</string>
     <string name="one_item_selected">Bir öğe seçildi</string>
@@ -83,7 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Dil</string>
     <string name="storage_permission_required">Depolama izni, dosyaları okumak ve yazmak için gereklidir</string>
     <string name="open_with">Şununla aç</string>
-    <string name="sort_by">Sırala</string>
+    <string name="sort_by">Göre sırala</string>
     <string name="date">Tarihe göre sırala</string>
     <string name="deleteme____1">Ada göre sırala</string>
     <string name="size">Boyut</string>
@@ -127,7 +127,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="create_note" needed="false">Not Oluştur</string>
     <string name="special_documents" needed="false">Özel belgeler</string>
     <string name="keep_screen_on" needed="false">Ekranı açık tut</string>
-    <string name="disallow_screenshots">ekran alıntılarına izin verme</string>
+    <string name="disallow_screenshots">Ekran görüntülerine izin verme</string>
     <string name="back_to_previous_folder" needed="false">Önceki klasöre dön</string>
     <string name="app_settings" needed="false">Uygulama Ayarları</string>
     <string name="editor_settings" needed="false">Düzenleyici Ayarları</string>
@@ -198,7 +198,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="filemanager_doesnot_supply_required_data__appspecific">Markor sadece yerel, çevrimdışı kullanılabilir belgeleri düzenleyebilir ve tam dosya yolunu sağlamayan dosya yöneticilerini desteklemez.</string>
     <string name="file_does_not_exist_and_cant_be_created">Dosya veya dizin mevcut değil ve oluşturulamıyor</string>
     <string name="permissions">İzinler</string>
-    <string name="permission_paths_revert">Varsayılan dosya yollarına geri dönülsün mü?</string>
+    <string name="permission_paths_revert">Varsayılan dizin\'e geri gidilsin mi ?</string>
     <string name="permission_not_granted">İzin verilmedi</string>
     <string name="sync_to_local_folder_notice">Not: Bir eşitleme uygulaması kullanırsanız, dosyalar bilinen veya özel klasörlerde bulunabilir, Markor\'un belge klasörünü değiştirerek dosyaları açabilir veya dosyayı farklı bir dosya yöneticisi ile açabilirsiniz.</string>
     <string name="vertical_alignment">Dikey hizalama</string>
@@ -209,17 +209,19 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="top">Üst</string>
     <string name="bottom">Alt</string>
     <string name="center">Merkez</string>
-    <string name="actionbutton_spacing">ActionButton aralığı</string>
-    <string name="horizontal_space_between_actionbuttons">ActionButtons arasındaki yatay boşluk</string>
+    <string name="actionbutton_spacing">EtkileşimTuşu aralığı</string>
+    <string name="horizontal_space_between_actionbuttons">EtkileşimTuşları arasındaki yatay boşluk</string>
     <string name="center_text">Metni ortala</string>
     <string name="edit_text_in_center_of_screen">Metni ekranın ortasında düzenleyin</string>
     <string name="clipboard">Pano</string>
     <string name="select_existing_document">Mevcut belegeyi seç</string>
+    <string name="select_create_document">Dosya seç ya da oluştur</string>
     <string name="open_source_licenses">Açık Kaynak Lisansları</string>
     <string name="rate_this_app">Bu uygulamayı değerlendir</string>
     <string name="translate">Çeviri</string>
     <string name="more_info_and_help">Bu uygulama hakkında daha fazla bilgi alın ve yardım edin</string>
     <string name="report_bugs">Hataları bildir</string>
+    <string name="do_you_have_a_question_or_problem">Sorunuz mu var ya da probleminiz mi var?</string>
     <string name="join_community">Topluluğa katıl</string>
     <string name="bug_reports_suggest_improvements">Geri bildirim verin, hataları bildirin veya iyileştirmeler önerin</string>
     <string name="help_translating_this_app">Bu uygulamayı diğer dillere çevirin</string>
@@ -314,10 +316,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="list_in_recent_files">Son dosyalarda listele</string>
     <string name="reload">Yeniden Yükle</string>
     <string name="wrap_words">Kelimeleri kaydır</string>
+    <string name="line_numbers">Satır numaraları</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Metin ekran genişliğine sığmıyorsa yumuşak ara ver. Başka şekilde yatay kaydırmayı etkinleştirir.</string>
+    <string name="recursive_search_in_location">%s içindeki dosyayı ve içindeki dosyaları ara</string>
     <string name="always_open_with_this_app">Her zaman bu uygulamayla aç</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Liste dosya uzantısını içerdiğinde dosyaları her zaman bu uygulamayla aç. Örneğin web dosyalarını ve dosya uzantısı olmayan dosyaları düzenlemek istiyorsanız \'Yok, .html, .css, .js\' seçeneğini kullanın.</string>
-    <string name="open_file_with">İle aç</string>
+    <string name="open_file_with">Dosyayı ile aç</string>
     <string name="rotate">Döndür</string>
     <string name="template">Şablon</string>
     <string name="send_debug_log">Hata Ayıklama Günlüğü Gönder</string>
@@ -337,6 +341,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Kaç sütun var? Bir tablo başlatmak için tablo düğmesine uzun basın (başlık ekleyin), satır eklemek için kısa basın.</string>
     <string name="example_of_a_markdown_table">Markdown tablosu örneği</string>
     <string name="delete_lines">Satırları sil</string>
+    <string name="duplicate_lines">Satırları çoğalt</string>
     <string name="unordered_list">Sırasız liste</string>
     <string name="ordered_list">Sıralı liste</string>
     <string name="check_list">Kontrol listesi</string>
@@ -351,7 +356,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="heading_3">Başlık 3</string>
     <string name="heading_4">Başlık 4</string>
     <string name="heading_5">Başlık 5</string>
-    <string name="heading_6">Başlık 6</string>
+    <string name="heading_6">Üst başlık 6</string>
     <string name="bold">Kalın</string>
     <string name="italic">İtalik</string>
     <string name="highlighted">Vurgulanmış</string>
@@ -365,6 +370,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="archive_completed_tasks">Tamamlanan görevleri arşivle</string>
     <string name="create_new_file_or_folder">Yeni dosya ya da klasör oluştur</string>
     <string name="choose_format">Biçim seç</string>
+    <string name="clear_selection">Seçimi sil</string>
     <string name="selected">Seçili</string>
     <string name="back">Geri</string>
     <string name="expand_collapse">Genişlet / Daralt</string>
@@ -403,13 +409,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="import_settings_from_backup_json_file_on_success_the_app_is_restarted">Yedek json dosyasından ayarları içe aktarın. Başarılı olursa, uygulama yeniden başlatılır.</string>
     <string name="failed_to_restore_settings_from_backup">Yedeklemeden ayarlar geri yüklenemedi</string>
     <string name="newline_is_new_paragraph">Yenisatır = yeni paragraf</string>
-    <string name="search_in_content">içerikte arama yap</string>
-    <string name="max_search_depth">Derinlemesine arama yap</string>
+    <string name="search_in_content">Içerikte arama yap</string>
+    <string name="max_search_depth">Arama derinliği</string>
     <string name="ignore_list">Listeyi yok say</string>
     <string name="do_not_search_specified_files_and_folders">Belirtilen dosya ve dizinlerde arama yapma. \n Yeni satırı ayraç olarak kullan \n Alıntıları birebir dizin adı olarak kullan: \"Test\".\n Ya da Normal İfadeyi kullan.\'^[.].*\'\n Örneğin: ^\\..*\n\"test\"\n\"Test\"\n.*gizli.*\n.*YEDEK.*\n.*.ini</string>
     <string name="regex_search">Normal ifade arama</string>
     <string name="case_sensitive">Büyük küçük harfe duyarlı</string>
-    <string name="stop_search_after_first_match">İlk eşleşmeden sonra aramayı durdur</string>
+    <string name="stop_search_after_first_match">İlk eşleşmede durdur</string>
     <string name="regex_can_not_be_compiled">Normal ifade sıralanamamaktadır</string>
     <string name="keep_both">Her ikisini de koru</string>
     <string name="skip">Atla</string>
@@ -420,12 +426,12 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="copy_move_conflict_message">\'%s\' zaten %s içinde var</string>
     <string name="additional_contexts_and_projects">Ek bağlamlar ve projeler</string>
     <string name="enter_space_seperated_contexts_and_projects_these_will">Boşlukla ayrılmış @bağlamları ve +projeleri girin. Bunlar her zaman todo.txt ekleme diyaloglarında görünecektir.</string>
-    <string name="infinite">Sonsuz</string>
-    <string name="browse_by_project">Projelere gözat</string>
+    <string name="infinite">Sınırsız</string>
+    <string name="browse_by_project">Proje başına gözat</string>
     <string name="browse_by_context">Bağlama göre araştır</string>
     <string name="insert_project">Proje Ekle</string>
     <string name="insert_context">Bağlam ekle</string>
-    <string name="browse_todo">Görevleri incele</string>
+    <string name="browse_todo">Yapılacaklara gözat</string>
     <string name="browse_by_priority">Önceliklere gözat</string>
     <string name="browse_by_due_date">Bitiş tarihine göre göz gezdir</string>
     <string name="due_overdue">Gecikmiş</string>
@@ -439,8 +445,11 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="search_dynamically_for_notebook_root">Wiki bağlantılarını takip etmek için, notebook.zim dosyasını mevcut not defterinin kaynağını saptamak için ara. Eğer çoklu zim not defteri kullanıyorsanız ya da uygulamadaki not defteri dizini senin zim not defterinle uyuşmuyorsa bunu işaretle.</string>
     <string name="share_into_format_prefix_for_text_shared">Markor\'a paylaşılan metin için biçim/ön ek. Android\'in SimpleDateFormat kurallarına uyar.\n\nPaylaşılan metni konumlandırmak için {{text}} kullanın. Konum belirtilmezse, biçim başta kullanılır ve paylaşılan metin sona eklenir.</string>
     <string name="share_into_format">Paylaşım - Sayfa Düzeninde</string>
+    <string name="attachment_folder_name">Ek klasörün adı</string>
+    <string name="attachment_folder_name_desc">Eklerin kaydedileceği geçerli klasörün altındaki alt klasör. Boş bırakılırsa, ekler şuandaki klasöre kaydedilir.</string>
     <string name="auto_format">Otomatik biçim</string>
     <string name="insert_snippet">Kod parçacığı ekle</string>
+    <string name="snippet_directory">Snippet / Şablon dizini</string>
     <string name="error_could_not_open_file">Hata: Dosya açılamadı.</string>
     <string name="document_error_clip">Karşılaşılan hata: Metin panoya kopyalandı.</string>
     <string name="wont_save_min_length">%d\'den az karaktere sahip dosyalar, veri kaybını önlemek için otomatik olarak kaydedilmez.</string>

@@ -1,9 +1,9 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2018-2023 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2018-2024 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
@@ -160,6 +160,10 @@ public final class TextViewUtils {
 
     public static int[] getLineSelection(final CharSequence text, final int[] sel) {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
+    }
+
+    public static int[] getLineSelection(final CharSequence text, final int sel) {
+        return getLineSelection(text, new int[]{sel, sel});
     }
 
     public static int[] getLineSelection(final TextView text) {
@@ -754,7 +758,7 @@ public final class TextViewUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             final WindowInsets insets = view.getRootWindowInsets();
             if (insets != null) {
-                insets.isVisible(WindowInsets.Type.ime());
+                return insets.isVisible(WindowInsets.Type.ime());
             }
         }
         return null; // Uncertain

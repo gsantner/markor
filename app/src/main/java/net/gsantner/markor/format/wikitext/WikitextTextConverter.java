@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -158,31 +158,15 @@ public class WikitextTextConverter extends TextConverterBase {
         return "![" + file.getName() + "](" + markdownPathToImage + ")";
     }
 
-    /**
-     * NOTE: This method only works if the full file path is specified.
-     *
-     * @param filepath   of a file
-     * @param extWithDot
-     * @return true if the file extension is .txt and the file contains a zim header; false otherwise
-     */
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        if (extWithDot.equals(".txt")) {
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new FileReader(new File(filepath)));
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        if (ext.equals(".txt")) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 return WikitextSyntaxHighlighter.ZIMHEADER_CONTENT_TYPE_ONLY.matcher(reader.readLine()).find();
             } catch (Exception ignored) {
-            } finally {
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (Exception ignored) {
-                }
             }
         }
-        return Arrays.asList(new String[]{".wikitext"}).contains(extWithDot);
+        return Arrays.asList(new String[]{".wikitext"}).contains(ext);
     }
 
     /*

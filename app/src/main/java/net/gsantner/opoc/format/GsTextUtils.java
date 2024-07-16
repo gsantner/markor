@@ -1,16 +1,15 @@
 /*#######################################################
  *
- * SPDX-FileCopyrightText: 2019-2023 Gregor Santner <gsantner AT mailbox DOT org>
+ * SPDX-FileCopyrightText: 2019-2024 Gregor Santner <gsantner AT mailbox DOT org>
  * SPDX-License-Identifier: Unlicense OR CC0-1.0
  *
- * Written 2019-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ * Written 2019-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  * To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
  * You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 #########################################################*/
 package net.gsantner.opoc.format;
 
 import android.util.Base64;
-import android.widget.EditText;
 
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -354,6 +353,12 @@ public class GsTextUtils {
         return posns;
     }
 
+    /**
+     * Iterate over lines in a text
+     *
+     * @param text     Text to iterate over
+     * @param callback Callback to call for each line. Return false to stop iteration.
+     */
     public static void forEachline(final CharSequence text, GsCallback.b3<Integer, Integer, Integer> callback) {
         final List<Integer> ends = findChar(text, '\n');
         int start = 0, i = 0;

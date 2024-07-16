@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2018-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2018-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -30,12 +30,18 @@ import com.vladsch.flexmark.ext.typographic.TypographicExtension;
 import com.vladsch.flexmark.ext.wikilink.WikiLinkExtension;
 import com.vladsch.flexmark.ext.yaml.front.matter.AbstractYamlFrontMatterVisitor;
 import com.vladsch.flexmark.ext.yaml.front.matter.YamlFrontMatterExtension;
+import com.vladsch.flexmark.html.AttributeProvider;
+import com.vladsch.flexmark.html.AttributeProviderFactory;
 import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.html.renderer.HeaderIdGenerator;
+import com.vladsch.flexmark.html.renderer.AttributablePart;
+import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Document;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
+import com.vladsch.flexmark.util.html.Attributes;
+import com.vladsch.flexmark.util.options.MutableDataHolder;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import net.gsantner.markor.R;
@@ -49,11 +55,11 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import other.com.vladsch.flexmark.ext.katex.FlexmarkKatexExtension;
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
 
 @SuppressWarnings({"unchecked", "WeakerAccess"})
 public class MarkdownTextConverter extends TextConverterBase {
@@ -99,7 +105,7 @@ public class MarkdownTextConverter extends TextConverterBase {
 
     private static final String CSS_PREFIX = "<link rel='stylesheet' href='file:///android_asset/";
     private static final String CSS_POSTFIX = "'/>";
-    private static final String JS_PREFIX = "<script type='text/javascript' src='file:///android_asset/";
+    private static final String JS_PREFIX = "<script src='file:///android_asset/";
     private static final String JS_POSTFIX = "'></script>";
 
     public static final String HTML_KATEX_INCLUDE = CSS_PREFIX + "katex/katex.min.css" + CSS_POSTFIX +
@@ -149,7 +155,8 @@ public class MarkdownTextConverter extends TextConverterBase {
             TypographicExtension.create(),        // https://github.com/vsch/flexmark-java/wiki/Typographic-Extension
             GitLabExtension.create(),             // https://github.com/vsch/flexmark-java/wiki/Extensions#gitlab-flavoured-markdown
             AdmonitionExtension.create(),         // https://github.com/vsch/flexmark-java/wiki/Extensions#admonition
-            FootnoteExtension.create()            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
+            FootnoteExtension.create(),            // https://github.com/vsch/flexmark-java/wiki/Footnotes-Extension#overview
+            LineNumberIdExtension.create()
     );
     public static final Parser flexmarkParser = Parser.builder().extensions(flexmarkExtensions).build();
     public static final HtmlRenderer flexmarkRenderer = HtmlRenderer.builder().extensions(flexmarkExtensions).build();
@@ -265,9 +272,17 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += CSS_KATEX;
         }
 
+        // Enable View (block) code syntax highlighting
+        if (markup.contains("```")) {
+            head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+        }
+
         // Enable Mermaid
         if (markup.contains("```mermaid")) {
-            head += HTML_MERMAID_INCLUDE;
+            head += HTML_MERMAID_INCLUDE
+                    + "<script>mermaid.initialize({theme:'"
+                    + (GsContextUtils.instance.isDarkModeEnabled(context) ? "dark" : "default")
+                    + "',logLevel:5,securityLevel:'loose'});</script>";
         }
 
         // Enable flexmark Admonition support
@@ -275,9 +290,6 @@ public class MarkdownTextConverter extends TextConverterBase {
             head += HTML_ADMONITION_INCLUDE;
             head += CSS_ADMONITION;
         }
-
-        // Enable View (block) code syntax highlighting
-        head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
 
         // Jekyll: Replace {{ site.baseurl }} with ..--> usually used in Jekyll blog _posts folder which is one folder below repository root, for reference to e.g. pictures in assets folder
         markup = markup.replace("{{ site.baseurl }}", "..").replace(TOKEN_SITE_DATE_JEKYLL, TOKEN_POST_TODAY_DATE);
@@ -331,15 +343,11 @@ public class MarkdownTextConverter extends TextConverterBase {
 
         if (enableLineNumbers) {
             // For Prism line numbers plugin
-            onLoadJs += "enableLineNumbers();adjustLineNumbers();";
+            onLoadJs += "enableLineNumbers(); adjustLineNumbers();";
         }
 
         // Deliver result
         return putContentIntoTemplate(context, converted, lightMode, file, onLoadJs, head);
-    }
-
-    public static String generateHeaderId(String headerText) {
-        return HeaderIdGenerator.generateId(headerText, toDashChars, false, false);
     }
 
     private String escapeSpacesInLink(final String markup) {
@@ -372,28 +380,30 @@ public class MarkdownTextConverter extends TextConverterBase {
     }
 
     @SuppressWarnings({"StringConcatenationInsideStringBufferAppend"})
-    private String getViewHlPrismIncludes(final String themeName, final boolean enableLineNumbers) {
+    private String getViewHlPrismIncludes(final String theme, final boolean isLineNumbersEnabled) {
         final StringBuilder sb = new StringBuilder(1000);
-        sb.append(CSS_PREFIX + "prism/themes/prism" + themeName + ".min.css" + CSS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/themes/prism" + theme + ".min.css" + CSS_POSTFIX);
         sb.append(CSS_PREFIX + "prism/style.css" + CSS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
-        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(CSS_PREFIX + "prism/plugins/toolbar/prism-toolbar.css" + CSS_POSTFIX);
 
-        if (enableLineNumbers) {
+        sb.append(JS_PREFIX + "prism/prism.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/main.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/autoloader/prism-autoloader.min.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/toolbar/prism-toolbar.min.js" + JS_POSTFIX);
+        sb.append(JS_PREFIX + "prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.js" + JS_POSTFIX);
+
+        if (isLineNumbersEnabled) {
             sb.append(CSS_PREFIX + "prism/plugins/line-numbers/style.css" + CSS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/prism-line-numbers.min.js" + JS_POSTFIX);
             sb.append(JS_PREFIX + "prism/plugins/line-numbers/main.js" + JS_POSTFIX);
         }
-        sb.append("\n");
 
         return sb.toString();
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        filepath = filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, "");
-        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(filepath).matches() && !filepath.toLowerCase().endsWith(".txt")) || filepath.toLowerCase().endsWith(".md.txt");
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return (MarkdownTextConverter.PATTERN_HAS_FILE_EXTENSION_FOR_THIS_FORMAT.matcher(name).matches() && !name.endsWith(".txt")) || name.endsWith(".md.txt");
     }
 
     private Map<String, List<String>> extractYamlAttributes(final String markup) {
@@ -439,5 +449,61 @@ public class MarkdownTextConverter extends TextConverterBase {
         }
 
         return markupReplaced;
+    }
+
+    // Extension to add line numbers to headings
+    // ---------------------------------------------------------------------------------------------
+
+    public static String getIdForLineNumber(final int num) {
+        return "line-" + num;
+    }
+
+    private static class LineNumberIdProvider implements AttributeProvider {
+        @Override
+        public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
+            if (node instanceof com.vladsch.flexmark.ast.Heading) {
+                final Document document = node.getDocument();
+                final int lineNumber = document.getLineNumber(node.getStartOffset());
+                attributes.addValue("id", getIdForLineNumber(lineNumber));
+            }
+        }
+    }
+
+    private static class LineNumberIdProviderFactory implements AttributeProviderFactory {
+
+        @Override
+        public Set<Class<? extends AttributeProviderFactory>> getAfterDependents() {
+            return null;
+        }
+
+        @Override
+        public Set<Class<? extends AttributeProviderFactory>> getBeforeDependents() {
+            return null;
+        }
+
+        @Override
+        public boolean affectsGlobalScope() {
+            return false;
+        }
+
+        @Override
+        public AttributeProvider create(LinkResolverContext context) {
+            return new LineNumberIdProvider();
+        }
+    }
+
+    private static class LineNumberIdExtension implements HtmlRenderer.HtmlRendererExtension {
+        @Override
+        public void rendererOptions(MutableDataHolder options) {
+        }
+
+        @Override
+        public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+            rendererBuilder.attributeProviderFactory(new LineNumberIdProviderFactory());
+        }
+
+        public static HtmlRenderer.HtmlRendererExtension create() {
+            return new LineNumberIdExtension();
+        }
     }
 }

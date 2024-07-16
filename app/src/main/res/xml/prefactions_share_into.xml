@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -12,11 +12,6 @@
     android:layout_height="match_parent"
     android:title="@string/share_to_arrow">
 
-    <CheckBoxPreference
-        android:icon="@drawable/ic_link_black_24dp"
-        android:key="@string/pref_key__attach_as_link"
-        android:checked="true"
-        android:title="@string/insert_link" />
     <Preference
         android:icon="@drawable/ic_lightning_black_24dp"
         android:key="@string/pref_key__share_into__quicknote"
@@ -63,7 +58,6 @@
         android:icon="@drawable/ic_favorite_black_24dp"
         android:key="@string/pref_key__popular_documents"
         android:title="@string/popular_documents" />
-
 
 
 </PreferenceScreen> <!-- Screen -->

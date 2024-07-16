@@ -1,6 +1,6 @@
 /*#######################################################
  *
- *   Maintained 2017-2023 by Gregor Santner <gsantner AT mailbox DOT org>
+ *   Maintained 2017-2024 by Gregor Santner <gsantner AT mailbox DOT org>
  *   License of this file: Apache 2.0
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
@@ -49,7 +49,7 @@ public class MarkorWebViewClient extends GsWebViewClient {
                         break;
                     }
                 }
-                DocumentActivity.handleFileClick(_activity, file, null);
+                DocumentActivity.launch(_activity, file, null, null);
             } else {
                 MarkorContextUtils su = new MarkorContextUtils(_activity);
                 AppSettings settings = ApplicationObject.settings();
