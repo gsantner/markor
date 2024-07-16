@@ -14,14 +14,14 @@ import androidx.core.text.TextUtilsCompat;
 import net.gsantner.markor.format.TextConverterBase;
 
 import java.io.File;
-
-import other.de.stanetz.jpencconverter.JavaPasswordbasedCryption;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("WeakerAccess")
 public class TodoTxtTextConverter extends TextConverterBase {
 
     private static final String HTML100_BODY_PRE_BEGIN = "<pre style='white-space: pre-wrap;font-family: " + TOKEN_FONT + "' >";
     private static final String HTML101_BODY_PRE_END = "</pre>";
+    public static final Pattern TODOTXT_FILE_PATTERN = Pattern.compile("(?i)(^todo[-.]?.*)|(.*[-.]todo\\.((txt)|(text))$)");
 
 
     //########################
@@ -48,7 +48,8 @@ public class TodoTxtTextConverter extends TextConverterBase {
     }
 
     @Override
-    protected boolean isFileOutOfThisFormat(String filepath, String extWithDot) {
-        return TodoTxtTask.isTodoFile(filepath.replace(JavaPasswordbasedCryption.DEFAULT_ENCRYPTION_EXTENSION, ""));
+    protected boolean isFileOutOfThisFormat(final File file, final String name, final String ext) {
+        return name.equals("todo.txt") ||
+                (TODOTXT_FILE_PATTERN.matcher(name).matches() && (name.endsWith(".txt") || name.endsWith(".text")));
     }
 }

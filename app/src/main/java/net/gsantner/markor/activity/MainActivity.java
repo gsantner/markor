@@ -98,7 +98,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         // noinspection PointlessBooleanExpression - Send Test intent
         if (BuildConfig.IS_TEST_BUILD && false) {
-            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null, null);
+            DocumentActivity.launch(this, new File("/sdcard/Documents/mordor/aa-beamer.md"), true, null);
         }
 
         _cu.applySpecialLaunchersVisibility(this, _appSettings.isSpecialFileLaunchersEnabled());
@@ -182,12 +182,12 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         super.onNewIntent(intent);
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
+            _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
             if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
-                _notebook.post(() -> _notebook.setCurrentFolder(file));
+                _notebook.setCurrentFolder(file);
             } else {
-                _notebook.post(() -> _notebook.getAdapter().showFile(file));
+                _notebook.getAdapter().showFile(file);
             }
-            _bottomNav.postDelayed(() -> _bottomNav.setSelectedItemId(R.id.nav_notebook), 10);
         }
     }
 
@@ -309,10 +309,9 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     private void newItemCallback(final File file) {
         if (file.isFile()) {
-            DocumentActivity.launch(MainActivity.this, file, false, null, null);
-        } else if (file.isDirectory()) {
-            _notebook.getAdapter().showFile(file);
+            DocumentActivity.launch(MainActivity.this, file, false, null);
         }
+        _notebook.getAdapter().showFile(file);
     }
 
     @Override
@@ -451,7 +450,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
                 @Override
                 public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
-                    DocumentActivity.handleFileClick(MainActivity.this, file, lineNumber);
+                    DocumentActivity.launch(MainActivity.this, file, null, lineNumber);
                 }
             });
         }

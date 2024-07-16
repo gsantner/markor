@@ -196,7 +196,7 @@ public class WikitextActionButtons extends ActionButtonBase {
         if (resolver.isWebLink()) {
             getCu().openWebpageInExternalBrowser(getContext(), resolvedLink);
         } else {
-            DocumentActivity.launch(getActivity(), new File(resolvedLink), false, null, null);
+            DocumentActivity.launch(getActivity(), new File(resolvedLink), false, null);
         }
     }
 

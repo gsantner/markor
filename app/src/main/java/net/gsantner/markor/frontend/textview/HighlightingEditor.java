@@ -147,6 +147,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
     public void setDynamicHighlightingEnabled(final boolean enable) {
         _isDynamicHighlightingEnabled = enable;
+        updateHighlighting(true);
     }
 
     public boolean isDynamicHighlightingEnabled() {

@@ -162,6 +162,10 @@ public final class TextViewUtils {
         return sel != null && sel.length >= 2 ? new int[]{getLineStart(text, sel[0]), getLineEnd(text, sel[1])} : null;
     }
 
+    public static int[] getLineSelection(final CharSequence text, final int sel) {
+        return getLineSelection(text, new int[]{sel, sel});
+    }
+
     public static int[] getLineSelection(final TextView text) {
         return getLineSelection(text.getText());
     }
@@ -754,7 +758,7 @@ public final class TextViewUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             final WindowInsets insets = view.getRootWindowInsets();
             if (insets != null) {
-                insets.isVisible(WindowInsets.Type.ime());
+                return insets.isVisible(WindowInsets.Type.ime());
             }
         }
         return null; // Uncertain

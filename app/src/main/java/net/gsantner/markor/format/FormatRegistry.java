@@ -51,7 +51,6 @@ import net.gsantner.markor.model.Document;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class FormatRegistry {
     public static final int FORMAT_UNKNOWN = 0;
@@ -107,12 +106,11 @@ public class FormatRegistry {
     public static boolean isFileSupported(final File file, final boolean... textOnly) {
         final boolean textonly = textOnly != null && textOnly.length > 0 && textOnly[0];
         if (file != null) {
-            final String filepath = file.getAbsolutePath().toLowerCase(Locale.ROOT);
             for (final Format format : FORMATS) {
                 if (textonly && format.converter instanceof EmbedBinaryTextConverter) {
                     continue;
                 }
-                if (format.converter != null && format.converter.isFileOutOfThisFormat(filepath)) {
+                if (format.converter != null && format.converter.isFileOutOfThisFormat(file)) {
                     return true;
                 }
             }
