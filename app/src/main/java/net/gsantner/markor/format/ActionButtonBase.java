@@ -14,11 +14,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
@@ -33,7 +30,6 @@ import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
@@ -292,13 +288,12 @@ public abstract class ActionButtonBase {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void recreateActionButtons(ViewGroup barLayout, ActionItem.DisplayMode displayMode) {
+    public void recreateActionButtons(final ViewGroup barLayout, final ActionItem.DisplayMode displayMode) {
         barLayout.removeAllViews();
-        setBarVisible(barLayout, true);
-
         final Map<String, ActionItem> map = getActiveActionMap();
         final List<String> orderedKeys = getActionOrder();
         final Set<String> disabledKeys = new HashSet<>(getDisabledActions());
+
         for (final String key : orderedKeys) {
             final ActionItem action = map.get(key);
             if (!disabledKeys.contains(key) && (action.displayMode == displayMode || action.displayMode == ActionItem.DisplayMode.ANY)) {
@@ -372,12 +367,6 @@ public abstract class ActionButtonBase {
         final int sidePadding = _buttonHorizontalMargin + btn.getPaddingLeft(); // Left and right are symmetrical
         btn.setPadding(sidePadding, btn.getPaddingTop(), sidePadding, btn.getPaddingBottom());
         barLayout.addView(btn);
-    }
-
-    protected void setBarVisible(ViewGroup barLayout, boolean visible) {
-        if (barLayout.getId() == R.id.document__fragment__edit__text_actions_bar && barLayout.getParent() instanceof HorizontalScrollView) {
-            ((HorizontalScrollView) barLayout.getParent()).setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
     }
 
     protected void runRegularPrefixAction(String action) {
