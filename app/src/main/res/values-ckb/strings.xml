@@ -62,7 +62,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">شارنەوەی شریتی دۆخ</string>
     <string name="name">ناو</string>
     <string name="url_or_path">ناونیشان / شوێن</string>
-    <string name="insert_link">زیادکردنی بەستەر</string>
     <string name="insert_image">زیادکردنی وێنە</string>
     <string name="contributors">بەشداربووان</string>
     <string name="save_location">شوێنی پاراستن</string>
