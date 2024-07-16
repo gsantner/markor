@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Naposledy upravené</string>
     <string name="select_this_folder">Vybrať túto zložku</string>
     <string name="select">Vybrať</string>
+    <string name="select_all">Vybrať všetko</string>
     <string name="create">Vytvoriť</string>
     <string name="select_entries">Vybrať položky</string>
     <string name="one_item_selected">Vybral si jednu položku</string>
@@ -71,6 +72,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="insert_image">Vložiť obrázok</string>
     <string name="contributors">Prispievatelia</string>
     <string name="save_location">Miesto uloženia súborov</string>
+    <string name="saved_location_to">Uložené do %s</string>
     <string name="select_storage_folder">Vybrať zložku pre uloženie</string>
     <string name="licenses">Licencie</string>
     <string name="changelog">Záznam zmien</string>
@@ -81,6 +83,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="language">Jazyk</string>
     <string name="open_with">Otvoriť použitím</string>
     <string name="sort_by">Zoradiť podľa</string>
+    <string name="date">Dátum</string>
     <string name="deleteme____1">Názov</string>
     <string name="size">Veľkosť</string>
     <string name="contribute">Prispejte</string>
