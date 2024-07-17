@@ -68,6 +68,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Amaga la barra d\'estat</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Ruta</string>
+    <string name="insert_link">Insereix un enllaç</string>
     <string name="insert_image">Insereix imatge</string>
     <string name="contributors">Col·laboradors</string>
     <string name="save_location">Desa la ubicació</string>
