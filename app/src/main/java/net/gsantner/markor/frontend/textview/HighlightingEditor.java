@@ -622,10 +622,8 @@ public class HighlightingEditor extends AppCompatEditText {
          * Reset to the state without line numbers.
          */
         public void reset() {
-            if (_editor.getPaddingLeft() != _defaultPaddingLeft) {
-                _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
-                _maxNumberDigits = 0;
-            }
+            _editor.setPadding(_defaultPaddingLeft, _editor.getPaddingTop(), _editor.getPaddingRight(), _editor.getPaddingBottom());
+            _maxNumberDigits = 0;
         }
     }
 }
