@@ -35,8 +35,8 @@ android {
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
-        buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
-        buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage()}\""
+        buildConfigField "String", "GITHASH", "\"${getGitHash}\""
+        buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage}\""
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
 
@@ -71,23 +71,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     packagingOptions {
-        exclude 'META-INF/LICENSE-LGPL-2.1.txt'
-        exclude 'META-INF/LICENSE-LGPL-3.txt'
-        exclude 'META-INF/LICENSE-W3C-TEST'
+        resources {
+            excludes += ['META-INF/LICENSE-LGPL-2.1.txt', 'META-INF/LICENSE-LGPL-3.txt', 'META-INF/LICENSE-W3C-TEST']
+        }
     }
+
 
     compileOptions {
         encoding = 'UTF-8'
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
+    namespace 'net.gsantner.markor'
+    lint {
         abortOnError false
+        disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
     }
+
 }
 
 dependencies {
