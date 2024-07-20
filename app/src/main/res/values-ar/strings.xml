@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">إخفاء شريط الحالة</string>
     <string name="name">الإسم</string>
     <string name="url_or_path">الرابط \ المسار</string>
-    <string name="insert_link">إضافة رابط</string>
     <string name="insert_image">إضافة صورة</string>
     <string name="contributors">المساهمون</string>
     <string name="save_location">حفظ المسار</string>

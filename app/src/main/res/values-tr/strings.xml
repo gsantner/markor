@@ -68,7 +68,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Durum çubuğunu gizle</string>
     <string name="name">Adı</string>
     <string name="url_or_path">URL / Yol</string>
-    <string name="insert_link">Bağlantı Ekle</string>
+    <string name="insert_link">Bağlantı ekle</string>
     <string name="insert_image">Resim Ekle</string>
     <string name="contributors">Katkıda Bulunanlar</string>
     <string name="save_location">Kayıt konumu</string>

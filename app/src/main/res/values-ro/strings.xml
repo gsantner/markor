@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Ascunde bara de stare</string>
     <string name="name">Nume</string>
     <string name="url_or_path">URL / Cale</string>
-    <string name="insert_link">Insert Link</string>
     <string name="insert_image">Inserare imagine</string>
     <string name="contributors">Contribuitori</string>
     <string name="save_location">Salvează locația</string>

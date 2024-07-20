@@ -66,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">තත්ව තීරුව සඟවන්න</string>
     <string name="name">නම</string>
     <string name="url_or_path">URL / මාර්ගය</string>
-    <string name="insert_link">සබැඳිය ඇතුළු කරන්න</string>
     <string name="insert_image">රූපය ඇතුළු කරන්න</string>
     <string name="contributors">සහදායකයින්</string>
     <string name="save_location">ස්ථානය සුරකින්න</string>

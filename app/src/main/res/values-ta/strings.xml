@@ -66,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">நிலைப் பட்டியை மறை</string>
     <string name="name">பெயர்</string>
     <string name="url_or_path">இணைய முகவரி/ கோப்பின் பாதை</string>
-    <string name="insert_link">இணைப்பை செருகவும்</string>
     <string name="insert_image">படத்தை செருகவும்</string>
     <string name="contributors">பங்களிப்பாளர்கள்</string>
     <string name="save_location">இருப்பிடத்தை சேமி</string>

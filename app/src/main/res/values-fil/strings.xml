@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Itago ang status bar</string>
     <string name="name">Pangalan</string>
     <string name="url_or_path">URL / Daanan</string>
-    <string name="insert_link">Magsingit ng Link</string>
     <string name="insert_image">Magsingit ng Larawan</string>
     <string name="contributors">Mga Nag-ambag</string>
     <string name="save_location">Lugar ng Pagse-save-an</string>

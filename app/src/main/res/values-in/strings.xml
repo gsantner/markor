@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Sembunyikan kolom status</string>
     <string name="name">Nama</string>
     <string name="url_or_path">URL / Folder</string>
-    <string name="insert_link">Masukkan Link</string>
     <string name="insert_image">Masukkan Gambar/Foto</string>
     <string name="contributors">Kontributor</string>
     <string name="save_location">Lokasi penyimpanan</string>

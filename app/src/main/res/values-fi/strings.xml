@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Piilota tilarivi</string>
     <string name="name">Nimi</string>
     <string name="url_or_path">URL / polku</string>
-    <string name="insert_link">Lisää linkki</string>
     <string name="insert_image">Lisää kuva</string>
     <string name="contributors">Osallistujat</string>
     <string name="save_location">Tallenna sijainti</string>

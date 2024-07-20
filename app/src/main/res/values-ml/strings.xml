@@ -64,7 +64,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="items_selected_witharg" tools:ignore="PluralsCandidate">%d എണ്ണം തിരഞ്ഞെടുത്തിരിക്കുന്നു</string>
     <string name="hide_statusbar">സ്റ്റാറ്റസ്ബാർ മറയ്ക്കുക</string>
     <string name="name">പേര്</string>
-    <string name="insert_link">ലിങ്ക് ചേർക്കുക</string>
     <string name="insert_image">ചിത്രം ചേർക്കുക</string>
     <string name="contributors">സംഭാവകർ</string>
     <string name="save_location">സേവ് ചെയ്യേണ്ട സ്ഥലം</string>

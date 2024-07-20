@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">ステータスバーを非表示</string>
     <string name="name">名前</string>
     <string name="url_or_path">URL / パス</string>
-    <string name="insert_link">リンクを挿入</string>
     <string name="insert_image">画像を挿入</string>
     <string name="contributors">貢献者</string>
     <string name="save_location">保存場所</string>

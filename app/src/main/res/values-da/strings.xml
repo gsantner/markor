@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Skjul statuslinje</string>
     <string name="name">Navn</string>
     <string name="url_or_path">URL / Sti</string>
-    <string name="insert_link">Indsæt link</string>
     <string name="insert_image">Indsæt billede</string>
     <string name="contributors">Bidragsydere</string>
     <string name="save_location">Gem lokation</string>
