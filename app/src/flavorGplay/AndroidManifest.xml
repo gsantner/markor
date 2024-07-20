@@ -11,7 +11,6 @@
 <!-- Do NOT run auto format on this file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.gsantner.markor"
     tools:ignore="ObsoleteSdkInt"
     tools:targetApi="jelly_bean">
 

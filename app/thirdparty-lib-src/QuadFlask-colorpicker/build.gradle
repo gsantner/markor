@@ -7,8 +7,6 @@ android {
 	defaultConfig {
 		minSdkVersion 14
 		targetSdkVersion rootProject.ext.version_compileSdk
-		versionCode 11
-		versionName "0.0.11"
 	}
 	buildTypes {
 		release {
@@ -16,11 +14,11 @@ android {
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
-	lintOptions {
-		disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
+	namespace 'com.flask.colorpicker'
+	lint {
 		abortOnError false
 		checkReleaseBuilds false
-		tasks.lint.enabled = false
+		disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
 	}
 }
 
