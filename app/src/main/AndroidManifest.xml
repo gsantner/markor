@@ -193,6 +193,8 @@
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
 
+                <action android:name="com.google.android.gms.actions.CREATE_NOTE" />
+
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/*" />
             </intent-filter>
