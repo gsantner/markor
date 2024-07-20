@@ -96,12 +96,6 @@ public class FileSearchResultSelectorDialog {
                 .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
                 .create();
 
-        final Window window = dialog.getWindow();
-        if (window != null) {
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        }
-
         expandableListView.setOnGroupClickListener((parent, view, groupPosition, id) -> {
             final FitFile groupItem = (FitFile) parent.getExpandableListAdapter().getGroup(groupPosition);
             if (groupItem.children.isEmpty()) {
@@ -144,6 +138,11 @@ public class FileSearchResultSelectorDialog {
         });
 
         dialog.show();
+        final Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     private static List<FitFile> filter(final List<FitFile> searchResults, String query) {
