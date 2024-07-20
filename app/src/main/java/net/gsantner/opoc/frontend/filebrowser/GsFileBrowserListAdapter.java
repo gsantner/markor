@@ -82,6 +82,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final List<File> _adapterData; // List of current folder
     private final List<File> _adapterDataFiltered; // Filtered list of current folder
     private final Set<File> _currentSelection;
+    private File _currentFile;
     private File _currentFolder;
     private final Context _context;
     private StringFilter _filter;
@@ -375,6 +376,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         if (file.isDirectory() || isVirtualStorage(file)) {
                             loadFolder(file, _currentFolder);
                         } else if (file.isFile()) {
+                            _currentFile = file;
                             _dopt.listener.onFsViewerSelected(_dopt.requestId, file, null);
                         }
                     }
@@ -726,6 +728,13 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                     });
                 } else if (toShow != null && _adapterData.contains(toShow)) {
                     showAndFlash(toShow);
+                }
+
+                if (_currentFile != null) {
+                    _recyclerView.post(() -> {
+                        showAndFlash(_currentFile);
+                        _currentFile = null;
+                    });
                 }
             }
         });

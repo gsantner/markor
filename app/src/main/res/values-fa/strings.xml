@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">مخفی کردن نوار وضعیت</string>
     <string name="name">نام</string>
     <string name="url_or_path">آدرس(URL) / مسیر</string>
-    <string name="insert_link">وارد کردن لینک</string>
     <string name="insert_image">وارد کردن تصویر</string>
     <string name="contributors">همکاران</string>
     <string name="save_location">ذخیره مکان</string>

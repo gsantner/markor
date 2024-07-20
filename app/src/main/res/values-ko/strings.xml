@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">상태 표시줄 숨기기</string>
     <string name="name">이름/제목</string>
     <string name="url_or_path">URL / 경로</string>
-    <string name="insert_link">링크 삽입</string>
     <string name="insert_image">이미지 삽입</string>
     <string name="contributors">기여자</string>
     <string name="save_location">위치 저장</string>

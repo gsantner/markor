@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Ẩn thanh trạng thái</string>
     <string name="name">Tên</string>
     <string name="url_or_path">URL / đường dẫn</string>
-    <string name="insert_link">Chèn liên kết</string>
     <string name="insert_image">Chèn hình ảnh</string>
     <string name="contributors">Những người đóng góp</string>
     <string name="save_location">Lưu vị trí</string>

@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Skjul statusfelt</string>
     <string name="name">Navn</string>
     <string name="url_or_path">Nettadresse / sti</string>
-    <string name="insert_link">Sett inn lenke</string>
     <string name="insert_image">Sett inn bilde</string>
     <string name="contributors">Bidragsytere</string>
     <string name="save_location">Lagre posisjon</string>

@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Cacher la barre de statut</string>
     <string name="name">Nom</string>
     <string name="url_or_path">URL / Chemin</string>
-    <string name="insert_link">Insérer lien</string>
     <string name="insert_image">Insérer image</string>
     <string name="contributors">Contributeurs</string>
     <string name="save_location">Enregistrer la localisation</string>

@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Skryť stavový riadok</string>
     <string name="name">Názov</string>
     <string name="url_or_path">URL / Cesta k súboru</string>
-    <string name="insert_link">Vložiť link</string>
     <string name="insert_image">Vložiť obrázok</string>
     <string name="contributors">Prispievatelia</string>
     <string name="save_location">Miesto uloženia súborov</string>

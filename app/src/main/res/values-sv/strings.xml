@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Dölj statusfältet</string>
     <string name="name">Namn</string>
     <string name="url_or_path">URL / sökväg</string>
-    <string name="insert_link">Infoga länk</string>
     <string name="insert_image">Infoga bild</string>
     <string name="contributors">Medhjälpare</string>
     <string name="save_location">Spara plats</string>

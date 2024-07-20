@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">隐藏状态栏</string>
     <string name="name">名称</string>
     <string name="url_or_path">URL / 路径</string>
-    <string name="insert_link">插入链接</string>
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>

@@ -12,7 +12,6 @@
 <!-- Do NOT run auto format on this file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="net.gsantner.markor"
     tools:targetApi="jelly_bean">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -192,6 +191,8 @@
 
                 <action android:name="com.google.android.gm.action.AUTO_SEND" />
                 <category android:name="com.google.android.voicesearch.SELF_NOTE" />
+
+                <action android:name="com.google.android.gms.actions.CREATE_NOTE" />
 
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="text/*" />

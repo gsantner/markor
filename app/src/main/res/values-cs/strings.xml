@@ -68,7 +68,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Schovat statusbar</string>
     <string name="name">Název</string>
     <string name="url_or_path">URL / Cesta</string>
-    <string name="insert_link">Vložit odkaz</string>
     <string name="insert_image">Vložit obrázek</string>
     <string name="contributors">Spolupracovníci</string>
     <string name="save_location">Umístění pro ukládání</string>

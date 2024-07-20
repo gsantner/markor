@@ -66,7 +66,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">स्थिति पट्टी छुपाएँ</string>
     <string name="name">नाम</string>
     <string name="url_or_path">URL / पथ</string>
-    <string name="insert_link">लिंक सम्मिलित करें</string>
     <string name="insert_image">चित्र डालें</string>
     <string name="contributors">योगदान कर्ता</string>
     <string name="save_location">सहेजने का स्थान</string>

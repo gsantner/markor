@@ -67,7 +67,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Státuszsor elrejtése</string>
     <string name="name">Név</string>
     <string name="url_or_path">URL / elérési út</string>
-    <string name="insert_link">Link beillesztése</string>
     <string name="insert_image">Kép beillesztése</string>
     <string name="contributors">Hozzájárulók</string>
     <string name="save_location">Mentési hely</string>
