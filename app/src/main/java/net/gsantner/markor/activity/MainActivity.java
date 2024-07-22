@@ -72,6 +72,14 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IS_DEBUG_ENABLED |= BuildConfig.IS_TEST_BUILD;
+
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            _appSettings.getNotebookDirectory().mkdirs();
+        } catch (Exception ignored) {
+        }
+
+
         _cu = new MarkorContextUtils(this);
         setContentView(R.layout.main__activity);
         _bottomNav = findViewById(R.id.bottom_navigation_bar);

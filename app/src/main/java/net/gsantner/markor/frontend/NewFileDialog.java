@@ -342,7 +342,8 @@ public class NewFileDialog extends DialogFragment {
 
         // Initial creation - loop through and set type
         final int lastUsedType = appSettings.getNewFileDialogLastUsedType();
-        typeSpinner.setSelection(GsCollectionUtils.indices(formats, f -> f.format == lastUsedType).get(0));
+        final List<Integer> indices = GsCollectionUtils.indices(formats, f -> f.format == lastUsedType);
+        typeSpinner.setSelection(indices.isEmpty() ? 0 : indices.get(0));
 
         titleEdit.requestFocus();
 
