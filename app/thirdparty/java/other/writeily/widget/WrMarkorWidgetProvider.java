@@ -20,6 +20,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import androidx.annotation.ColorInt;
+import androidx.core.content.ContextCompat;
+
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.MainActivity;
@@ -41,6 +44,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
 
         final int staticFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
         final int mutableFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
+        final @ColorInt int color = ContextCompat.getColor(context, R.color.white);
 
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (final int appWidgetId : appWidgetIds) {
@@ -57,6 +61,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_TEXT, "");
             views.setOnClickPendingIntent(R.id.widget_new_note, PendingIntent.getActivity(context, requestCode++, openShare, staticFlags));
+            views.setInt(R.id.widget_new_note, "setColorFilter", color);
 
             // Open Folder
             final Intent goToFolder = new Intent(context, MainActivity.class)
@@ -70,6 +75,7 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
             views.setOnClickPendingIntent(R.id.widget_todo, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
+            views.setInt(R.id.widget_todo, "setColorFilter", color);
 
             // Open QuickNote
             final Intent openQuickNote = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
@@ -77,12 +83,14 @@ public class WrMarkorWidgetProvider extends AppWidgetProvider {
                     .putExtra(Document.EXTRA_FILE, appSettings.getQuickNoteFile())
                     .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
             views.setOnClickPendingIntent(R.id.widget_quicknote, PendingIntent.getActivity(context, requestCode++, openQuickNote, staticFlags));
+            views.setInt(R.id.widget_quicknote, "setColorFilter", color);
 
             // Open Notebook
             final Intent goHome = new Intent(context, MainActivity.class)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra(Document.EXTRA_FILE, appSettings.getNotebookDirectory());
             views.setOnClickPendingIntent(R.id.widget_main, PendingIntent.getActivity(context, requestCode++, goHome, staticFlags));
+            views.setInt(R.id.widget_main, "setColorFilter", color);
 
             // ListView
             final Intent notesListIntent = new Intent(context, WrFilesWidgetService.class)

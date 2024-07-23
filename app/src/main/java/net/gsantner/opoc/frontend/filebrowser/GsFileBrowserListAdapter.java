@@ -184,15 +184,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
+        final boolean isFile = file.isFile();
 
-        holder.image.postDelayed(() -> {
-            holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
-            holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
                     ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
-        }, 60);
+        holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
+        holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.fileImage : _dopt.folderImage);
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                        isSelected ? _dopt.accentColor : (!file.isFile() ? _dopt.folderColor : _dopt.fileColor)),
+                isSelected ? _dopt.accentColor : isFile? _dopt.fileColor : _dopt.folderColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(0xFFE3B51B);

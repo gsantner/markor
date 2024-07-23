@@ -339,6 +339,7 @@ public class GsSearchOrCustomTextDialog {
         });
 
         dialog.show();
+
         final Window win = dialog.getWindow();
         if (win != null) {
             if (dopt.isSearchEnabled) {

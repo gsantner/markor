@@ -149,9 +149,10 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        _recyclerList.addItemDecoration(dividerItemDecoration);
+        // final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        // final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
+        // _recyclerList.addItemDecoration(dividerItemDecoration);
+        _recyclerList.setItemViewCacheSize(20);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
         _recyclerList.setAdapter(_filesystemViewerAdapter);
