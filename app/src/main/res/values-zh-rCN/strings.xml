@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">隐藏状态栏</string>
     <string name="name">名称</string>
     <string name="url_or_path">URL / 路径</string>
+    <string name="insert_link">插入链接</string>
+    <string name="format_link">格式化链接</string>
     <string name="insert_image">插入图片</string>
     <string name="contributors">贡献者</string>
     <string name="save_location">保存位置</string>
@@ -249,7 +251,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="description">描述</string>
     <string name="edit_picture">编辑图片</string>
     <string name="math">启用数学公式渲染</string>
-    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML Front Matter 属性。输入的关键词用逗号分隔。留空表示无或使用“*”表示全部。 \n\n如果文档中定义了任何属性 (即 title: \'你好\')， 并且你的文档也有 {{ post.title }}，那么该属性将被替换。你可以像这样自定义 Front Mtter 标题</string>
+    <string name="enter_yaml_front_matter_attributes_to_show">在已浏览文档的顶部显示输入的 YAML Front Matter 属性。以逗号分隔输入的关键词。留空表示无或使用 \'*\' 表示所有。\n\n在文档中如果定义了任何属性 (例如 title: \'Hello\')，并且你的文档中也含有 {{ post.title }}，那么该属性将被替换。你可以使用以上方式自定义 Front Matter 标题。</string>
     <string name="table_of_contents">目录</string>
     <string name="miscellaneous">杂项设置</string>
     <string name="prefer_view">首选视图</string>
@@ -433,7 +435,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="browse_todo">浏览待办事项</string>
     <string name="browse_by_priority">按优先级浏览</string>
     <string name="browse_by_due_date">按截止时间浏览</string>
-    <string name="due_overdue">过期时间</string>
+    <string name="due_overdue">到期时间</string>
     <string name="due_today">今日到期</string>
     <string name="due_future">将来到期</string>
     <string name="completed">已完成</string>
