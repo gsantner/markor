@@ -114,15 +114,20 @@ public class MarkorDialogFactory {
 
         baseConf(activity, dopt);
         dopt.titleText = R.string.table;
-        dopt.messageText = activity.getString(R.string.how_much_columns_press_table_button_long_to_start_table);
+        dopt.messageText = activity.getString(R.string.how_much_columns_press_table_button_long_to_start_table) + "\n";
         dopt.messageText += activity.getString(R.string.example_of_a_markdown_table) + ":\n\n";
-        dopt.messageText += "| id | name | info |\n|-----|-----------|--------|\n| 1  | John   | text |\n| 2  | Anna   | text |\n";
+        dopt.messageText += "" +
+                "| id | name | info |\n" +
+                "|----| ---- | ---- |\n" +
+                "| 1  | John | text |\n" +
+                "| 2  | Anna | text |";
 
         dopt.callback = colsStr -> {
             as().setInt(PREF_LAST_USED_TABLE_SIZE, Integer.parseInt(colsStr));
             callback.callback(Integer.parseInt(colsStr), isHeader);
         };
         dopt.data = availableData;
+        dopt.isSoftInputVisible = false;
         dopt.searchInputType = InputType.TYPE_CLASS_NUMBER;
         dopt.highlightData = Collections.singletonList(Integer.toString(lastUsedTableSize));
         dopt.searchHintText = R.string.search_or_custom;
