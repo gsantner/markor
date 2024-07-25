@@ -692,7 +692,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 final int marginBottom = hide ? 0 : (int) getResources().getDimension(R.dimen.textactions_bar_height);
                 setMarginBottom(editScroll, marginBottom);
                 setMarginBottom(viewScroll, marginBottom);
-
             }
         }
     }

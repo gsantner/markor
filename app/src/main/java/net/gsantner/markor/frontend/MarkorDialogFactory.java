@@ -899,11 +899,11 @@ public class MarkorDialogFactory {
         DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
-        final int minFontSize = 1;
+        final int minFontSize = 5;
         final int maxFontSize = 36;
         final List<String> sizes = new ArrayList<>();
         for (int i = minFontSize; i <= maxFontSize; i++) {
-            if (i == currentSize) dopt.listPosition = i - 2;
+            if (i == currentSize) dopt.listPosition = i - minFontSize - 2;
             sizes.add(Integer.toString(i));
         }
         dopt.data = sizes;
