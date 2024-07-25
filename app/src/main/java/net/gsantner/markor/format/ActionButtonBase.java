@@ -49,6 +49,7 @@ import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 import net.gsantner.opoc.format.GsTextUtils;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 import net.gsantner.opoc.util.GsCollectionUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
@@ -80,6 +81,8 @@ public abstract class ActionButtonBase {
     protected Document _document;
     protected AppSettings _appSettings;
     protected int _indent;
+
+    private final GsSearchOrCustomTextDialog.DialogState _specialKeyDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     public static final String ACTION_ORDER_PREF_NAME = "action_order";
     private static final String ORDER_SUFFIX = "_order";
@@ -949,7 +952,7 @@ public abstract class ActionButtonBase {
         _hlEditor.requestFocus();
         _hlEditor.setSelection(sel[0], sel[1]);
 
-        MarkorDialogFactory.showSpecialKeyDialog(getActivity(), (callbackPayload) -> {
+        MarkorDialogFactory.showSpecialKeyDialog(getActivity(), _specialKeyDialogState, (callbackPayload) -> {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {
                 _hlEditor.requestFocus();
             }
