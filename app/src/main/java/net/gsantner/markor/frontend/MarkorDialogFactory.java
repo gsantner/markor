@@ -899,6 +899,7 @@ public class MarkorDialogFactory {
         final int maxFontSize = 36;
         final List<String> sizes = new ArrayList<>();
         for (int i = minFontSize; i <= maxFontSize; i++) {
+            if (i == currentSize) dopt.listPosition = i - 2;
             sizes.add(Integer.toString(i));
         }
         dopt.data = sizes;
