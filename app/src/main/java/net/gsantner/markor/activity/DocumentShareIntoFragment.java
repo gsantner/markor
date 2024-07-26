@@ -220,9 +220,9 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
         @Override
         protected void afterOnCreate(Bundle savedInstances, Context context) {
             super.afterOnCreate(savedInstances, context);
-            doUpdatePreferences();
 
             if (_editor != null && _linkCheckBox != null) {
+                doUpdatePreferences();
                 _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
                 _linkCheckBox.setChecked(true);
                 _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
