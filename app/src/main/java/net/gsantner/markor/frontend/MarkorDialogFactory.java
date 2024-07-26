@@ -840,9 +840,7 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
-
-            final String id = MarkdownTextConverter.getIdForLineNumber(line);
-            webView.loadUrl(String.format("javascript:document.getElementById('%s').scrollIntoView();", id));
+            webView.loadUrl(String.format("javascript:document.querySelector('[line=\"%d\"]').scrollIntoView();", line));
         };
 
         dopt.neutralButtonText = R.string.filter;
