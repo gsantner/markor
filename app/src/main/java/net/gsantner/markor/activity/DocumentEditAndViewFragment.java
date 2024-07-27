@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -140,7 +141,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Instead we try to create it, and exit if that isn't possible
         if (isStateBad()) {
             Toast.makeText(activity, R.string.error_could_not_open_file, Toast.LENGTH_LONG).show();
-            activity.finish();
+            if (activity != null) {
+                activity.finish();
+            }
             return;
         }
 
@@ -165,9 +168,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
         webSettings.setAllowUniversalAccessFromFileURLs(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            webSettings.setMediaPlaybackRequiresUserGesture(false);
-        }
+        webSettings.setMediaPlaybackRequiresUserGesture(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
@@ -231,7 +232,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // We set the keyboard to be hidden if it was hidden when we lost focus
         // This works well to preserve keyboard state.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 && activity != null) {
+        if (activity != null) {
             final Window window = activity.getWindow();
             final int adjustResize = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             final int unchanged = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED | adjustResize;
@@ -331,27 +332,29 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // SearchView (View Mode)
         _menuSearchViewForViewMode = (SearchView) menu.findItem(R.id.action_search_view).getActionView();
-        _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
-        _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
-        _menuSearchViewForViewMode.setOnQueryTextFocusChangeListener((v, searchHasFocus) -> {
-            if (!searchHasFocus) {
-                _menuSearchViewForViewMode.setQuery("", false);
-                _menuSearchViewForViewMode.setIconified(true);
-            }
-        });
-        _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String text) {
-                _webView.findNext(true);
-                return true;
-            }
+        if (_menuSearchViewForViewMode != null) {
+            _menuSearchViewForViewMode.setSubmitButtonEnabled(true);
+            _menuSearchViewForViewMode.setQueryHint(getString(R.string.search));
+            _menuSearchViewForViewMode.setOnQueryTextFocusChangeListener((v, searchHasFocus) -> {
+                if (!searchHasFocus) {
+                    _menuSearchViewForViewMode.setQuery("", false);
+                    _menuSearchViewForViewMode.setIconified(true);
+                }
+            });
+            _menuSearchViewForViewMode.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String text) {
+                    _webView.findNext(true);
+                    return true;
+                }
 
-            @Override
-            public boolean onQueryTextChange(String text) {
-                _webView.findAllAsync(text);
-                return true;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String text) {
+                    _webView.findAllAsync(text);
+                    return true;
+                }
+            });
+        }
 
         // Set various initial states
         updateMenuToggleStates(_document.getFormat());
@@ -393,14 +396,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     private void updateUndoRedoIconStates() {
+        Drawable d;
         final boolean canUndo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanUndo();
-        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo) {
-            _undoMenuItem.setEnabled(canUndo).getIcon().mutate().setAlpha(canUndo ? 255 : 40);
+        if (_undoMenuItem != null && _undoMenuItem.isEnabled() != canUndo && (d = _undoMenuItem.setEnabled(canUndo).getIcon()) != null) {
+            d.mutate().setAlpha(canUndo ? 255 : 40);
         }
 
         final boolean canRedo = _editTextUndoRedoHelper != null && _editTextUndoRedoHelper.getCanRedo();
-        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo) {
-            _redoMenuItem.setEnabled(canRedo).getIcon().mutate().setAlpha(canRedo ? 255 : 40);
+        if (_redoMenuItem != null && _redoMenuItem.isEnabled() != canRedo && (d = _redoMenuItem.setEnabled(canRedo).getIcon()) != null) {
+            d.mutate().setAlpha(canRedo ? 255 : 40);
         }
     }
 
@@ -654,9 +658,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void checkTextChangeState() {
         final boolean isTextChanged = !_document.isContentSame(_hlEditor.getText());
+        Drawable d;
 
-        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged) {
-            _saveMenuItem.setEnabled(isTextChanged).getIcon().mutate().setAlpha(isTextChanged ? 255 : 40);
+        if (_saveMenuItem != null && _saveMenuItem.isEnabled() != isTextChanged && (d = _saveMenuItem.setEnabled(isTextChanged).getIcon()) != null) {
+            d.mutate().setAlpha(isTextChanged ? 255 : 40);
         }
     }
 
@@ -843,8 +848,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public void setViewModeVisibility(boolean show, final boolean animate) {
         final Activity activity = getActivity();
-        show |= _document.isBinaryFileNoTextLoading();
+        if (activity == null) {
+            return;
+        }
 
+        show |= _document.isBinaryFileNoTextLoading();
         _format.getActions().recreateActionButtons(_textActionsBar, show ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         showHideActionBar();
         if (show) {
@@ -903,10 +911,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     public Document getDocument() {
         return _document;
-    }
-
-    public WebView getWebView() {
-        return _webView;
     }
 
     public String getTextString() {
