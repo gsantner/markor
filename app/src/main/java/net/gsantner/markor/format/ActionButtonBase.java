@@ -32,11 +32,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.Utils;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.activity.DocumentActivity;
@@ -992,46 +987,6 @@ public abstract class ActionButtonBase {
                 _hlEditor.insertOrReplaceTextOnCursor("»«");
             } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
                 _hlEditor.setSelectionExpandWholeLines();
-            }
-        });
-    }
-
-    public void showColorPickerDialog() {
-        MarkorDialogFactory.showColorSelectionModeDialog(getActivity(), new GsCallback.a1<Integer>() {
-            @Override
-            public void callback(Integer colorInsertType) {
-                ColorPickerDialogBuilder
-                        .with(_hlEditor.getContext())
-                        .setTitle(R.string.color)
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                        .density(12)
-                        .setPositiveButton(android.R.string.ok, new ColorPickerClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                String hex = Utils.getHexString(selectedColor, false).toLowerCase();
-                                int pos = _hlEditor.getSelectionStart();
-                                switch (colorInsertType) {
-                                    case R.string.hexcode: {
-                                        _hlEditor.getText().insert(pos, hex);
-                                        break;
-                                    }
-                                    case R.string.foreground: {
-                                        _hlEditor.getText().insert(pos, "<span style='color:" + hex + ";'></span>");
-                                        _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
-                                        break;
-                                    }
-                                    case R.string.background: {
-                                        _hlEditor.getText().insert(pos, "<span style='background-color:" + hex + ";'></span>");
-                                        _hlEditor.setSelection(_hlEditor.getSelectionStart() - 7);
-                                        break;
-                                    }
-                                }
-
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, null)
-                        .build()
-                        .show();
             }
         });
     }

@@ -454,18 +454,12 @@ public class MarkdownTextConverter extends TextConverterBase {
     // Extension to add line numbers to headings
     // ---------------------------------------------------------------------------------------------
 
-    public static String getIdForLineNumber(final int num) {
-        return "line-" + num;
-    }
-
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
-            if (node instanceof com.vladsch.flexmark.ast.Heading) {
-                final Document document = node.getDocument();
-                final int lineNumber = document.getLineNumber(node.getStartOffset());
-                attributes.addValue("id", getIdForLineNumber(lineNumber));
-            }
+            final Document document = node.getDocument();
+            final int lineNumber = document.getLineNumber(node.getStartOffset());
+            attributes.addValue("line", "" + lineNumber);
         }
     }
 
