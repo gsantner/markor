@@ -201,6 +201,9 @@ public class SearchAndReplaceTextDialog {
 
         builder.setView(viewRoot).setNegativeButton(R.string.cancel, null);
         dialog.set(builder.show());
+
+        //noinspection DataFlowIssue
+        dialog.get().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void performReplace(final boolean replaceAll) {

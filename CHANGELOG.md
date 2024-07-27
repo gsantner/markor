@@ -1,5 +1,14 @@
 ### Recent changes
 - See [Discussions](https://github.com/gsantner/markor/discussions), [Issues](https://github.com/gsantner/markor/issues) and [Project news](https://github.com/gsantner/markor/blob/master/NEWS.md) to see what is going on.
+- New Updates also visible here: <https://github.com/gsantner/markor/releases>
+
+### v2.12 series
+- [2.12.0](https://github.com/gsantner/markor/compare/v2.11.1...v2.12.0)
+- [2.12.1](https://github.com/gsantner/markor/compare/v2.12.0...v2.12.1)
+- [2.12.2](https://github.com/gsantner/markor/compare/v2.12.1...v2.12.2)
+- [2.12.3](https://github.com/gsantner/markor/compare/v2.12.2...v2.12.3)
+- [2.12.4](https://github.com/gsantner/markor/compare/v2.12.3...v2.12.4)
+- [2.12.5](https://github.com/gsantner/markor/compare/v2.12.4...v2.12.5)
 
 ### v2.11 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers))
 - Reworked attachments (PR #2106 by @harshad1)
