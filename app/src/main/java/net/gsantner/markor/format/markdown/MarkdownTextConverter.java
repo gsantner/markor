@@ -457,11 +457,9 @@ public class MarkdownTextConverter extends TextConverterBase {
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
-            if (node instanceof com.vladsch.flexmark.ast.Heading) {
-                final Document document = node.getDocument();
-                final int lineNumber = document.getLineNumber(node.getStartOffset());
-                attributes.addValue("line", "" + lineNumber);
-            }
+            final Document document = node.getDocument();
+            final int lineNumber = document.getLineNumber(node.getStartOffset());
+            attributes.addValue("line", "" + lineNumber);
         }
     }
 

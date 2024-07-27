@@ -840,7 +840,12 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
-            webView.loadUrl(String.format("javascript:document.querySelector('[line=\"%d\"]').scrollIntoView();", line));
+            final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                webView.evaluateJavascript(jumpJs, null);
+            } else {
+                webView.loadUrl("javascript:" + jumpJs);
+            }
         };
 
         dopt.neutralButtonText = R.string.filter;
