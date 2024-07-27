@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/todo_widget_layout"
+    android:minWidth="200dp"
+    android:minHeight="100dp"
+    android:targetCellHeight="2"
+    android:targetCellWidth="3"
+    android:minResizeWidth="100dp"
+    android:minResizeHeight="50dp"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000" />
