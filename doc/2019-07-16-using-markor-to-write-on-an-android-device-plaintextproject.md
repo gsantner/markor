@@ -118,8 +118,7 @@ utility.
 
 ![Writing this article with Markor](https://plaintextproject.online/images/markor/markor-todo.png)
 
-You can add tags to task, as well as [contexts](http://tools-for-
-thought.com/2008/10/31/using-contexts-to-simplify-list-management/). You can
+You can add tags to task, as well as [contexts](http://tools-for-thought.com/2008/10/31/using-contexts-to-simplify-list-management/). You can
 give your tasks a priority or mark them as done.
 
 ## Getting Your Files Off Your Device
