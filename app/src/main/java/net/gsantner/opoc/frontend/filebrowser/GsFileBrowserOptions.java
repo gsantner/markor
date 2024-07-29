@@ -49,14 +49,15 @@ public class GsFileBrowserOptions {
         public String requestId = "show_dialog";
         public String sortByType = GsFileUtils.SORT_BY_NAME;
 
+        public String descriptionFormat = null;
+
         // Dialog type
         public boolean
                 doSelectFolder = true,
                 doSelectFile = false,
                 doSelectMultiple = false;
 
-        public boolean mustStartWithRootFolder = true,
-                sortFolderFirst = true,
+        public boolean sortFolderFirst = true,
                 sortReverse = false,
                 descModtimeInsteadOfParent = false,
                 filterShowDotFiles = true;

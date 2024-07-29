@@ -283,8 +283,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
 
     @Override
     public boolean onBackPressed() {
-        if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.canGoUp() && !_filesystemViewerAdapter.isCurrentFolderHome()) {
-            _filesystemViewerAdapter.goUp();
+        if (_filesystemViewerAdapter != null && _filesystemViewerAdapter.goBack()) {
             return true;
         }
         return super.onBackPressed();

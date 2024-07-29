@@ -76,4 +76,9 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="colorAccent">@color/accent</item>
     </style>
+
+    <style name="TextAppearance.AppCompat.Subhead.Ellipsize" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:ellipsize">end</item>
+        <item name="android:cursorVisible">false</item>
+    </style>
 </resources>
