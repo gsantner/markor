@@ -112,7 +112,7 @@ public class MarkorContextUtils extends GsContextUtils {
 
     public static File getValidIntentFile(final Intent intent, final File fallback) {
         final File f = getIntentFile(intent, null);
-        return f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f)) ? f : fallback;
+        return f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f)) ? f : fallback;
     }
 
     @Override

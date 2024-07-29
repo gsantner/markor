@@ -34,7 +34,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleKt;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -215,7 +213,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         holder.title.setText(isGoUp ? ".." : titleText, TextView.BufferType.SPANNABLE);
         holder.title.setTextColor(ContextCompat.getColor(_context, _dopt.primaryTextColor));
 
-        if (!isFileWriteable(displayFile, isGoUp) && !isVirtualFolder(displayFile) && holder.title.length() > 0) {
+        if (!isFileWriteable(displayFile, isGoUp) && !isVirtualStorage(displayFile) && holder.title.length() > 0) {
             try {
                 ((Spannable) holder.title.getText()).setSpan(STRIKE_THROUGH_SPAN, 0, holder.title.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } catch (Exception ignored) {
@@ -294,7 +292,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             final String path = savedInstanceState.getString(EXTRA_CURRENT_FOLDER);
             if (path != null) {
                 final File f = new File(path);
-                final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualFolder(f);
+                final boolean isVirtualDirectory = _virtualMapping.containsKey(f) || isVirtualStorage(f);
 
                 if (isVirtualDirectory && _dopt != null && _dopt.listener != null) {
                     _dopt.listener.onFsViewerConfig(_dopt);
@@ -328,7 +326,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public boolean isCurrentFolderVirtual() {
-        return isVirtualFolder(_currentFolder);
+        return isVirtualStorage(_currentFolder);
     }
 
     public static class TagContainer {
@@ -410,7 +408,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         }
                     } else if (file != null) {
                         // No pre-selection
-                        if (file.isDirectory() || isVirtualFolder(file)) {
+                        if (file.isDirectory() || isVirtualStorage(file)) {
                             loadFolder(file, isParent(file, _currentFolder) ? _currentFolder : null);
                         } else if (file.isFile()) {
                             _currentFile = file;
@@ -710,7 +708,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
 
                 if (canGoUp(folder)) {
                     if (
-                        isVirtualFolder(folder) ||
+                        isVirtualStorage(folder) ||
                         _virtualMapping.containsValue(folder) ||
                         !GsFileUtils.isChild(VIRTUAL_STORAGE_ROOT, folder)
                     ) {
@@ -868,7 +866,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
     }
 
-    public static boolean isVirtualFolder(final File file) {
+    public static boolean isVirtualStorage(final File file) {
         return VIRTUAL_STORAGE_RECENTS.equals(file) ||
                VIRTUAL_STORAGE_FAVOURITE.equals(file) ||
                VIRTUAL_STORAGE_POPULAR.equals(file) ||

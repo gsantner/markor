@@ -191,7 +191,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         final File file = MarkorContextUtils.getValidIntentFile(intent, null);
         if (_notebook != null && file != null) {
             _viewPager.setCurrentItem(tabIdToPos(R.id.nav_notebook), false);
-            if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualFolder(file)) {
+            if (file.isDirectory() || GsFileBrowserListAdapter.isVirtualStorage(file)) {
                 _notebook.setCurrentFolder(file);
             } else {
                 _notebook.getAdapter().showFile(file);
@@ -429,7 +429,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
                     dopt.rootFolder = _appSettings.getNotebookDirectory();
                     final File fallback = _appSettings.getFolderToLoadByMenuId(_appSettings.getAppStartupFolderMenuId());
                     final File file = MarkorContextUtils.getValidIntentFile(getIntent(), fallback);
-                    if (!GsFileBrowserListAdapter.isVirtualFolder(file) && file.isFile()) {
+                    if (!GsFileBrowserListAdapter.isVirtualStorage(file) && file.isFile()) {
                         dopt.startFolder = file.getParentFile();
                         toShow = file;
                     } else {
