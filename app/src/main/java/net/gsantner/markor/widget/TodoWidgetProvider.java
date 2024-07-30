@@ -20,6 +20,7 @@ public class TodoWidgetProvider extends AppWidgetProvider {
 
             final Intent intent = new Intent(context, TodoWidgetService.class);
             views.setRemoteAdapter(R.id.todo_widget_list_view, intent);
+            views.setEmptyView(R.id.todo_widget_list_view, R.id.todo_widget_empty_view);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }

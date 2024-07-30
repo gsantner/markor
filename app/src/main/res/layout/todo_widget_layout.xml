@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/todo_widget_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ListView
         android:id="@+id/todo_widget_list_view"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         android:divider="@color/grey"
         android:dividerHeight="0.5dp" />
+
+    <TextView
+        android:id="@+id/todo_widget_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Empty"
+        android:gravity="center"
+        android:visibility="gone" />
+</LinearLayout>
