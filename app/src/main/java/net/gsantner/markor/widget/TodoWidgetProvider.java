@@ -26,7 +26,8 @@ public class TodoWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public static void updateTodoWidget() {
+    // Update all widget lists and shortcuts for all widgets
+    public static void updateTodoWidgets() {
         final Context context = ApplicationObject.get().getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         if (appWidgetManager == null) {

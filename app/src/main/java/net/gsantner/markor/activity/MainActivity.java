@@ -504,7 +504,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     protected void onPause() {
         super.onPause();
         WrMarkorWidgetProvider.updateLauncherWidgets();
-        TodoWidgetProvider.updateTodoWidget();
+        TodoWidgetProvider.updateTodoWidgets();
     }
 
     @Override
