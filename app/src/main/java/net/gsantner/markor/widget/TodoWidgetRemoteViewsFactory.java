@@ -8,6 +8,7 @@ import android.widget.RemoteViewsService;
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.markor.model.Document;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -56,7 +57,8 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
         views.setTextViewText(R.id.todo_widget_item_text, _lines.get(position));
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
-        final Intent fillInIntent = new Intent();
+        final Intent fillInIntent = new Intent()
+                .putExtra(Document.EXTRA_FILE_LINE_NUMBER, position);
         views.setOnClickFillInIntent(R.id.todo_widget_item_text, fillInIntent);
 
         return views;

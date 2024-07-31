@@ -24,6 +24,7 @@ public class TodoWidgetProvider extends AppWidgetProvider {
         final AppSettings appSettings = ApplicationObject.settings();
 
         final int staticFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
+        final int mutableFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ? PendingIntent.FLAG_MUTABLE : 0);
 
         for (int appWidgetId : appWidgetIds) {
 
@@ -36,9 +37,8 @@ public class TodoWidgetProvider extends AppWidgetProvider {
 
             final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)
-                    .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile())
-                    .putExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
-            views.setPendingIntentTemplate(R.id.todo_widget_list_view, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
+                    .putExtra(Document.EXTRA_FILE, appSettings.getTodoFile());
+            views.setPendingIntentTemplate(R.id.todo_widget_list_view, PendingIntent.getActivity(context, requestCode++, openTodo, mutableFlags));
             views.setOnClickPendingIntent(R.id.todo_widget_container, PendingIntent.getActivity(context, requestCode++, openTodo, staticFlags));
 
             // Tell the AppWidgetManager to perform an update on the current app widget

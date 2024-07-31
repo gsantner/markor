@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
+import net.gsantner.markor.model.Document;
 import net.gsantner.markor.util.MarkorContextUtils;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class OpenFromShortcutOrWidgetActivity extends MarkorBaseActivity {
     private void launchActivityAndFinish(Intent intent) {
         final File file = MarkorContextUtils.getIntentFile(intent, null);
         if (file != null) {
-            DocumentActivity.launch(this, file, null, null);
+            DocumentActivity.launch(this, file, null, intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1));
         }
         finish();
     }
