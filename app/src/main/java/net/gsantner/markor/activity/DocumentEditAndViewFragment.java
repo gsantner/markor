@@ -65,6 +65,7 @@ import net.gsantner.opoc.web.GsWebViewChromeClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.util.Objects;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
@@ -288,7 +289,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _appSettings.addRecentFile(_document.getFile());
         _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
         _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
-        TodoWidgetProvider.updateTodoWidgets();
+
+        if(Objects.equals(_document.getPath(), _appSettings.getTodoFile().getPath()))
+        {
+            TodoWidgetProvider.updateTodoWidgets();
+        }
         super.onPause();
     }
 
