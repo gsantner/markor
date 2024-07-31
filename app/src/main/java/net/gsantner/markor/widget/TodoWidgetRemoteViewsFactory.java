@@ -19,10 +19,12 @@ import java.util.List;
 public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final Context _context;
+    private final AppSettings _appSettings;
     private final List<String> _lines;
 
     public TodoWidgetRemoteViewsFactory(Context context, Intent intent) {
         _context = context;
+        _appSettings = ApplicationObject.settings();
         _lines = new ArrayList<>();
     }
 
@@ -34,8 +36,7 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     @Override
     public void onDataSetChanged() {
         _lines.clear();
-        AppSettings appSettings = ApplicationObject.settings();
-        File todoFile = appSettings.getTodoFile();
+        File todoFile = _appSettings.getTodoFile();
         _lines.addAll(readFileContent(todoFile));
     }
 
@@ -53,7 +54,7 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
         views.setTextViewText(R.id.todo_widget_item_text, _lines.get(position));
-        views.setInt(R.id.todo_widget_item_text, "setTextColor", ApplicationObject.settings().getEditorForegroundColor());
+        views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent();
         views.setOnClickFillInIntent(R.id.todo_widget_item_text, fillInIntent);

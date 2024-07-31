@@ -22,6 +22,7 @@ public class TodoWidgetProvider extends AppWidgetProvider {
 
         int requestCode = 1;
         final AppSettings appSettings = ApplicationObject.settings();
+
         final int staticFlags = PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
 
         for (int appWidgetId : appWidgetIds) {
