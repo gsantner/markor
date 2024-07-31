@@ -31,6 +31,7 @@ public class TodoWidgetProvider extends AppWidgetProvider {
             final Intent intent = new Intent(context, TodoWidgetService.class);
             views.setRemoteAdapter(R.id.todo_widget_list_view, intent);
             views.setEmptyView(R.id.todo_widget_list_view, R.id.todo_widget_empty_view);
+            views.setInt(R.id.todo_widget_list_view, "setBackgroundColor", appSettings.getEditorBackgroundColor());
 
             final Intent openTodo = new Intent(context, OpenFromShortcutOrWidgetActivity.class)
                     .setAction(Intent.ACTION_EDIT)

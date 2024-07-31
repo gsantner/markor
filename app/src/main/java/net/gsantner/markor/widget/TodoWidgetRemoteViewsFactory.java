@@ -53,6 +53,7 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
         views.setTextViewText(R.id.todo_widget_item_text, _lines.get(position));
+        views.setInt(R.id.todo_widget_item_text, "setTextColor", ApplicationObject.settings().getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent();
         views.setOnClickFillInIntent(R.id.todo_widget_item_text, fillInIntent);
