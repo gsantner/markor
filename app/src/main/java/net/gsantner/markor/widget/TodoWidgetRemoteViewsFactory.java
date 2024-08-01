@@ -7,13 +7,10 @@ import android.widget.RemoteViewsService;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
+import net.gsantner.markor.format.todotxt.TodoTxtTask;
 import net.gsantner.markor.model.AppSettings;
 import net.gsantner.markor.model.Document;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +18,14 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
     private final Context _context;
     private final AppSettings _appSettings;
-    private final List<String> _lines;
+    private final Document _document;
+    private final List<TodoTxtTask> _tasks;
 
     public TodoWidgetRemoteViewsFactory(Context context, Intent intent) {
         _context = context;
         _appSettings = ApplicationObject.settings();
-        _lines = new ArrayList<>();
+        _document = new Document(_appSettings.getTodoFile());
+        _tasks = new ArrayList<>();
     }
 
     @Override
@@ -36,25 +35,29 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
 
     @Override
     public void onDataSetChanged() {
-        _lines.clear();
-        File todoFile = _appSettings.getTodoFile();
-        _lines.addAll(readFileContent(todoFile));
+        _tasks.clear();
+        final String content = _document.loadContent(_context);
+        if (content == null) {
+            return;
+        }
+        List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(content);
+        _tasks.addAll(tasks);
     }
 
     @Override
     public void onDestroy() {
-        _lines.clear();
+        _tasks.clear();
     }
 
     @Override
     public int getCount() {
-        return _lines.size();
+        return _tasks.size();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(_context.getPackageName(), R.layout.todo_widget_list_item);
-        views.setTextViewText(R.id.todo_widget_item_text, _lines.get(position));
+        views.setTextViewText(R.id.todo_widget_item_text, _tasks.get(position).getDescription());
         views.setInt(R.id.todo_widget_item_text, "setTextColor", _appSettings.getEditorForegroundColor());
 
         final Intent fillInIntent = new Intent()
@@ -82,19 +85,5 @@ public class TodoWidgetRemoteViewsFactory implements RemoteViewsService.RemoteVi
     @Override
     public boolean hasStableIds() {
         return false;
-    }
-
-    private List<String> readFileContent(File file) {
-        List<String> content = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                content.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            content.add("Error reading file");
-        }
-        return content;
     }
 }
