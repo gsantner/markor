@@ -171,10 +171,12 @@ public class WikitextLinkResolverTests {
     }
 
     @Test
-    public void doesNotResolveTopLevelLinkIfRootCannotBeDetermined() {
+    public void assumesCurrentDirAsTopLevelLinkIfRootCannotBeDetermined() {
         WikitextLinkResolver resolver = WikitextLinkResolver.resolve("[[:Your page:The coolest page]]", null, notebookRoot.resolve("My_page/Yet_another_page.txt").toFile(), true);
-        assertNull(resolver.getNotebookRootDir());
-        assertNull(resolver.getResolvedLink());
+        Path currentDir = notebookRoot.resolve("My_page");
+        assertEquals(currentDir.toFile(), resolver.getNotebookRootDir());
+        Path expectedLink = currentDir.resolve("Your_page/The_coolest_page.txt");
+        assertEquals(expectedLink.toString(), resolver.getResolvedLink());
     }
 
     @Test
