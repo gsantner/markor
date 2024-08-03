@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Istichi sa barra de s\'istadu</string>
     <string name="name">Nùmene</string>
     <string name="url_or_path">URL / Àndala</string>
+    <string name="insert_link">Inserta unu ligàmene</string>
+    <string name="format_link">Formata su ligàmene</string>
     <string name="insert_image">Inserta un\'immàgine</string>
     <string name="contributors">Contribuidores</string>
     <string name="save_location">Logu de sarvamentu</string>

@@ -59,6 +59,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="last_modified">Дата зміни</string>
     <string name="select_this_folder">Обрати поточну директорію</string>
     <string name="select">Обрати</string>
+    <string name="select_all">Вибрати все</string>
     <string name="create">Створити</string>
     <string name="select_entries">Обрати елементи</string>
     <string name="one_item_selected">Один елемент обрано</string>
@@ -67,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Сховати рядок статусу</string>
     <string name="name">Ім\'я</string>
     <string name="url_or_path">URL / Шлях</string>
+    <string name="insert_link">Вставити посилання</string>
+    <string name="format_link">Формат посилання</string>
     <string name="insert_image">Вставити зображення</string>
     <string name="contributors">Учасники</string>
     <string name="save_location">Розташування сховища</string>
@@ -213,11 +216,13 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="edit_text_in_center_of_screen">Центрувати текст у редакторі</string>
     <string name="clipboard">Буфер обміну</string>
     <string name="select_existing_document">Обрати наявний документ</string>
+    <string name="select_create_document">Виберіть або створіть документ</string>
     <string name="open_source_licenses">Ліцензії з відкритим кодом</string>
     <string name="rate_this_app">Оцініть додаток</string>
     <string name="translate">Перекласти</string>
     <string name="more_info_and_help">Додаткова інформація та допомога</string>
     <string name="report_bugs">Повідомити про помилку</string>
+    <string name="do_you_have_a_question_or_problem">У вас є питання чи проблема?</string>
     <string name="join_community">Приєднатися до спільноти</string>
     <string name="bug_reports_suggest_improvements">Залиште відгук, повідомте про помилки або запропонуйте покращення</string>
     <string name="help_translating_this_app">Перекласти цей додаток на інші мови</string>
@@ -314,6 +319,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="wrap_words">Перенесення рядків</string>
     <string name="line_numbers">Нумерація рядків</string>
     <string name="soft_break_if_not_fit_to_width_else_enable_horizontal_scrolling">Додавати м\'які переноси замість відображення смуги горизонтальної прокрутки, коли текст не вміщається у ширину екрану.</string>
+    <string name="recursive_search_in_location">Рекурсивний пошук у %s</string>
     <string name="always_open_with_this_app">Завжди відкривати цією програмою</string>
     <string name="always_open_files_with_this_app_when_list_contains_file_extension">Завжди відкривати файли цією програмою, якщо розширення є у списку. Наприклад, додайте \'None, .html, .css , .js\' для редагування веб-файлів і файлів без розширення.</string>
     <string name="open_file_with">Відкрити файл за допомогою</string>
@@ -336,6 +342,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="how_much_columns_press_table_button_long_to_start_table">Скільки колонок? Тривале натискання кнопки таблиці починає таблицю (вставляє заголовок), коротке натискання для додавання ряду.</string>
     <string name="example_of_a_markdown_table">Приклад таблиці в Markdown</string>
     <string name="delete_lines">Видалити рядки</string>
+    <string name="duplicate_lines">Повторювані рядки</string>
     <string name="unordered_list">Ненумерований список</string>
     <string name="ordered_list">Нумерований список</string>
     <string name="check_list">Список</string>
@@ -437,8 +444,16 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="match_all">Відповідає всім</string>
     <string name="dynamic_notebook_root_links">Динамічний пошук кореневого блокноту</string>
     <string name="search_dynamically_for_notebook_root">Для того, щоб перейти за посиланнями в вікі, динамічно шукати файл notebook.zim для визначення кореневої директорії для поточного записника. Поставте галочку, якщо ви використовуєте декілька самоблокнотів чи папку з нотатником у програмі не відповідає вашому зошит зошиту.</string>
+    <string name="share_into_format_prefix_for_text_shared">Формат/префікс для тексту, наданого в Markor. Відповідає правилам SimpleDateFormat Android.\n\nВикористовуйте заповнювач {{text}}, щоб розташувати спільний текст. Якщо не вказано, спільний текст додається, а формат використовується як префікс.</string>
     <string name="share_into_format">Поділитися у форматі - Формат</string>
+    <string name="attachment_folder_name">Назва теки вкладень</string>
+    <string name="attachment_folder_name_desc">Вкладена тека в поточній теці, де зберігатимуться вкладення. Якщо залишити порожнім, вкладення буде збережено в поточній теці.</string>
     <string name="auto_format">Автоматичний формат</string>
     <string name="insert_snippet">Insert snippet</string>
+    <string name="snippet_directory">Каталог фрагментів / шаблонів</string>
+    <string name="error_could_not_open_file">Помилка: Не вдалося відкрити файл.</string>
     <string name="document_error_clip">Помилка виявлення: текст скопійовано до буфера обміну.</string>
+    <string name="wont_save_min_length">Файли з менш ніж %d символами не зберігаються автоматично, щоб запобігти втраті даних.</string>
+    <string name="advanced_filtering_help"><![CDATA[<small><a href="https://www.github.com/gsantner/markor/discussions/1940">Розширений синтаксис фільтрації</a></small>]]></string>
+    <string name="filter">Фільтр</string>
 </resources>
