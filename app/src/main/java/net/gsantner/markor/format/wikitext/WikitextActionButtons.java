@@ -20,6 +20,7 @@ import net.gsantner.markor.frontend.MarkorDialogFactory;
 import net.gsantner.markor.frontend.textview.AutoTextFormatter;
 import net.gsantner.markor.frontend.textview.TextViewUtils;
 import net.gsantner.markor.model.Document;
+import net.gsantner.opoc.frontend.GsSearchOrCustomTextDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ import java.util.regex.Matcher;
 
 public class WikitextActionButtons extends ActionButtonBase {
 
-    private MarkorDialogFactory.HeadlineDialogState _headlineDialogState = new MarkorDialogFactory.HeadlineDialogState();
+    private GsSearchOrCustomTextDialog.DialogState _headlineDialogState = new GsSearchOrCustomTextDialog.DialogState();
 
     public WikitextActionButtons(@NonNull Context context, Document document) {
         super(context, document);

@@ -30,7 +30,7 @@ Where:
 * **[Kanthi Subramanian](https://github.com/subkanthi)**<br/>~° File Info Dialog
 * **[Emanuele Petriglia](https://github.com/ema-pe)**<br/>~° Italian translation
 * **[Tiago Danin](https://tiagodanin.github.io)**<br/>~° Brazilian Portuguese translation
-* **[Jesica Chu](https://github.com/jesicachu)**<br/>~° Spanish and Traiditonal Chinese translation
+* **[Jesica Chu](https://github.com/jesicachu)**<br/>~° Spanish and Traditional Chinese translation
 * **[Ankush S Shetkar](https://www.linkedin.com/in/livelycoder/)**<br/>~° Added Chrome custom tabs for urls
 * **[Lars Pontoppidan](https://github.com/larpon)**<br/>~° Danish translation
 * **[Amaya Lim](https://github.com/nightrainlily)**<br/>~° Improved project description
@@ -42,7 +42,7 @@ Where:
 * **[Vladislav Glinsky](https://github.com/cl0ne)**<br/>~° Ukrainian/Russian translations
 * **[David Hebbeker](https://david.hebbeker.info/)**<br/>~° Added tooltips for text actions
 * **[Harshad Srinivasan](https://github.com/harshad1)**<br/>~° Added functionality to handle leading spaces in lists
-* **[Niels](https://stackoverflow.com/users/432115/niels)**<br/>~° Added encryption for textfile contents
+* **[Niels](https://stackoverflow.com/users/432115/niels)**<br/>~° Added encryption for text file contents
 * **[Helguli](https://github.com/Helguli)**<br/>~° Added fast scroll to editor
 * **[Patricia Heimfarth](https://github.com/PatriciaHeimfarth)**<br/>~° Added checkbox for todo completion date
 * **[Peter Schwede](https://github.com/pschwede)**<br/>~° Added Zim-Wiki support
@@ -52,5 +52,5 @@ Where:
 * **[Li Guanglin](https://github.com/guanglinn)**<br/>~° Added line numbers support
 * **[bigger124](https://github.com/bigger124)**<br>~° Added OrgMode-Support
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
-* **[Matthew White](https://github.com/mehw)**<br>~° Zim-Wiki link/attachment conformance.
+* **[Matthew White](https://github.com/mehw)**<br>~° Zim-Wiki link/attachment conformance
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action

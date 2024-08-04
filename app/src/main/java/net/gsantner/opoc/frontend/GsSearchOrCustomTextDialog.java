@@ -129,7 +129,9 @@ public class GsSearchOrCustomTextDialog {
     public static class DialogState {
         public int listPosition = -1;
         public String defaultText = "";
+        public String searchQuery = "";
         public Parcelable instanceState;
+        public Set<Integer> disabledLevels = new HashSet<>(); // For HeadlineDialog
     }
 
     public static class Adapter extends BaseAdapter {

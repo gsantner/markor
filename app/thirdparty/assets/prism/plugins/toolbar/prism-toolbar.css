@@ -42,20 +42,19 @@ div.code-toolbar > .toolbar > .toolbar-item > button {
 div.code-toolbar > .toolbar > .toolbar-item > a,
 div.code-toolbar > .toolbar > .toolbar-item > button,
 div.code-toolbar > .toolbar > .toolbar-item > span {
-	color: #bbb;
+	color: #aaa;
 	font-size: 0.8em;
 	text-transform: none;
-	background: #f5f2f0;
-	background: rgba(224, 224, 224, 0.3);
-	box-shadow: 0 2px 0 0 rgba(0,0,0,0.2);
+	background: rgba(215, 215, 215, 0.4);
+	box-shadow: 0 2px 0 0 rgba(150,150,150,0.8);
 	border-radius: 0.4em;
 	display: inline-block;
-	min-width: 75%;
-	max-height: 1.6em;
-	padding-left: 0.35em;
-	padding-right: 0.35em;
+	min-width: 80%;
+	max-height: 1.8em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 	padding-top: 0.2em;
-	padding-bottom: 0.4em;
+	padding-bottom: 0.2em;
 }
 
 div.code-toolbar > .toolbar > .toolbar-item > a:hover,
@@ -63,7 +62,7 @@ div.code-toolbar > .toolbar > .toolbar-item > a:focus,
 div.code-toolbar > .toolbar > .toolbar-item > button:hover,
 div.code-toolbar > .toolbar > .toolbar-item > button:focus,
 div.code-toolbar > .toolbar > .toolbar-item > span:hover,
-/* div.code-toolbar > .toolbar > .toolbar-item > span:focus */ {
-	color: inherit;
+div.code-toolbar > .toolbar > .toolbar-item > span:focus {
+	color: rgba(0, 0, 200, 0.8);
 	text-decoration: none;
 }
