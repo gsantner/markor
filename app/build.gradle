@@ -19,8 +19,6 @@ rootProject.ext.version_minSdk = 18
 ext.version_library_flexmark = "0.64.8"
 
 android {
-    buildToolsVersion rootProject.ext.version_buildTools
-    compileSdkVersion rootProject.ext.version_compileSdk
 
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
@@ -31,6 +29,7 @@ android {
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
         targetSdkVersion rootProject.ext.version_compileSdk
+        compileSdk rootProject.ext.version_compileSdk
         buildConfigField "boolean", "IS_TEST_BUILD", "false"
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
@@ -40,7 +39,7 @@ android {
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
 
-    flavorDimensions "default"
+    flavorDimensions = ["default"]
     productFlavors {
         flavorAtest {
             applicationId "net.gsantner.markor_test"
