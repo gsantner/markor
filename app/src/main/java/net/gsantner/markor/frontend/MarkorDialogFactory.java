@@ -38,7 +38,6 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -789,12 +788,6 @@ public class MarkorDialogFactory {
         }
     }
 
-    public static class HeadlineDialogState {
-        public Set<Integer> disabledLevels = new HashSet<>();
-        public String searchQuery = "";
-        public int listPosition = -1;
-    }
-
     /**
      * Show a dialog to select a heading
      *
@@ -808,7 +801,7 @@ public class MarkorDialogFactory {
             final Activity activity,
             final EditText edit,
             final WebView webView,
-            final HeadlineDialogState state,
+            final GsSearchOrCustomTextDialog.DialogState state,
             final GsCallback.r3<Integer, CharSequence, Integer, Integer> levelCallback
     ) {
         // Get all headings and their levels
@@ -836,7 +829,6 @@ public class MarkorDialogFactory {
         dopt.searchHintText = R.string.search;
         dopt.isSearchEnabled = true;
         dopt.isSoftInputVisible = false;
-        dopt.listPosition = state.listPosition;
         dopt.defaultText = state.searchQuery;
 
         dopt.positionCallback = result -> {
@@ -845,11 +837,7 @@ public class MarkorDialogFactory {
 
             TextViewUtils.selectLines(edit, line);
             final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                webView.evaluateJavascript(jumpJs, null);
-            } else {
-                webView.loadUrl("javascript:" + jumpJs);
-            }
+            webView.evaluateJavascript(jumpJs, null);
         };
 
         dopt.neutralButtonText = R.string.filter;
@@ -879,11 +867,10 @@ public class MarkorDialogFactory {
         };
 
         dopt.dismissCallback = (d) -> {
-            state.listPosition = dopt.listPosition;
             state.searchQuery = dopt.defaultText;
         };
 
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt, state);
     }
 
     public static void showIndentSizeDialog(final Activity activity, final int indent, final GsCallback.a1<String> callback) {
