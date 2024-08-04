@@ -836,7 +836,8 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
-            final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
+            final String selectors = "\"h1[line='#'], h2[line='#'], h3[line='#'], h4[line='#'], h5[line='#'], h6[line='#']\"";
+            final String jumpJs = "document.querySelector(" + selectors.replaceAll("#", String.valueOf(line)) + ").scrollIntoView();";
             webView.evaluateJavascript(jumpJs, null);
         };
 
