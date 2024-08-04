@@ -144,7 +144,7 @@ dependencies {
 
     // Tool libraries
     //noinspection AnnotationProcessorOnCompilePath
-    implementation 'commons-io:commons-io:2.7'
+    implementation 'commons-io:commons-io:2.13.0'
     if (enable_plugin_kotlin) {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${version_plugin_kotlin}"
     }
