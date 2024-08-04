@@ -16,7 +16,7 @@ if (enable_plugin_kotlin) {
 rootProject.ext.version_minSdk = 18
 
 // https://github.com/vsch/flexmark-java/releases
-ext.version_library_flexmark = "0.42.14"
+ext.version_library_flexmark = "0.64.8"
 
 android {
     buildToolsVersion rootProject.ext.version_buildTools
@@ -134,7 +134,6 @@ dependencies {
         // do not get transitive 'commons-beanutils:commons-beanutils as the opencsv bean <-> csv feature is not used
         exclude group: 'commons-beanutils', module: 'commons-beanutils'
     }
-
 
 
     // UI libs
