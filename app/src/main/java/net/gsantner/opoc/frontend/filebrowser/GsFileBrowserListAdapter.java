@@ -736,6 +736,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 if (_currentFile != null) {
                     _recyclerView.post(() -> {
                         showAndFlash(_currentFile);
+                        final int position = getFilePosition(_currentFile);
+                        if (position >= 0) notifyItemChanged(position);
                         _currentFile = null;
                     });
                 }
