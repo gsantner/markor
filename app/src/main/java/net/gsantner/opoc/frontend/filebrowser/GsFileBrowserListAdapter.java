@@ -187,11 +187,11 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         final boolean isFile = file.isFile();
 
         holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
-                    ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
+                ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
         holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
         holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.fileImage : _dopt.folderImage);
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                isSelected ? _dopt.accentColor : isFile? _dopt.fileColor : _dopt.folderColor),
+                        isSelected ? _dopt.accentColor : isFile ? _dopt.fileColor : _dopt.folderColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(0xFFE3B51B);
@@ -668,7 +668,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
                     for (final File file : newData) {
                         final String absPath = file.getAbsolutePath();
-                        final String absExt = externalFileDir.getAbsolutePath() ;
+                        final String absExt = externalFileDir.getAbsolutePath();
                         if (!canWrite(file) && !absPath.equals("/") && absExt.startsWith(absPath)) {
                             final int depth = GsTextUtils.countChars(absPath, '/')[0];
                             if (depth < 3) {
@@ -736,6 +736,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 if (_currentFile != null) {
                     _recyclerView.post(() -> {
                         showAndFlash(_currentFile);
+                        final int position = getFilePosition(_currentFile);
+                        if (position >= 0) notifyItemChanged(position);
                         _currentFile = null;
                     });
                 }
