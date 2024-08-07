@@ -57,7 +57,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_todotxt_add_project, R.drawable.ic_new_label_black_24dp, R.string.add_project),
                 new ActionItem(R.string.abid_todotxt_priority, R.drawable.ic_star_border_black_24dp, R.string.priority),
                 new ActionItem(R.string.abid_todotxt_archive_done_tasks, R.drawable.ic_archive_black_24dp, R.string.archive_completed_tasks),
-                new ActionItem(R.string.abid_todotxt_current_date, R.drawable.ic_date_range_black_24dp, R.string.current_date),
+                new ActionItem(R.string.abid_todotxt_due_date, R.drawable.ic_date_range_black_24dp, R.string.due_date),
                 new ActionItem(R.string.abid_todotxt_sort_todo, R.drawable.ic_sort_by_alpha_black_24dp, R.string.sort_by),
                 new ActionItem(R.string.abid_common_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link),
                 new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
@@ -119,7 +119,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 });
                 return true;
             }
-            case R.string.abid_todotxt_current_date: {
+            case R.string.abid_todotxt_due_date: {
                 setDueDate(_appSettings.getDueDateOffset());
                 return true;
             }
@@ -208,7 +208,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 }
                 return true;
             }
-            case R.string.abid_todotxt_current_date: {
+            case R.string.abid_todotxt_due_date: {
                 setDate();
                 return true;
             }
