@@ -127,7 +127,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
 
     public File getSnippetsDirectory() {
         final File _default = new File(getNotebookDirectory(), ".app/snippets");
-        final File snf = new File(getString(R.string.pref_key__quicknote_filepath, _default.getAbsolutePath()));
+        final File snf = new File(getString(R.string.pref_key__snippet_directory_path, _default.getAbsolutePath()));
         return snf.isDirectory() && snf.canRead() ? snf : _default;
     }
 
@@ -1047,6 +1047,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         final String js = getString(R.string.pref_key__title_format_list, "[]");
         final Set<String> formats = new LinkedHashSet<>(jsonStringToList(js));
         formats.addAll(Arrays.asList(
+                "`yyyy-MM-dd`-{{title}}",
                 "{{date}}_{{title}}",
                 "{{date}}T{{time}}_{{title}}",
                 "`yyyyMMddHHmmss`_{{title}}",

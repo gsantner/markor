@@ -69,6 +69,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="name">名稱</string>
     <string name="url_or_path">網址 / 路徑</string>
     <string name="insert_link">插入連結</string>
+    <string name="format_link">格式化連結</string>
     <string name="insert_image">插入圖像</string>
     <string name="contributors">貢獻人</string>
     <string name="save_location">保存位置</string>

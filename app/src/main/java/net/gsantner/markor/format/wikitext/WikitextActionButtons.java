@@ -62,6 +62,7 @@ public class WikitextActionButtons extends ActionButtonBase {
                 new ActionItem(R.string.abid_common_deindent, R.drawable.ic_format_indent_decrease_black_24dp, R.string.deindent),
                 new ActionItem(R.string.abid_wikitext_h4, R.drawable.format_header_4, R.string.heading_4),
                 new ActionItem(R.string.abid_wikitext_h5, R.drawable.format_header_5, R.string.heading_5),
+                new ActionItem(R.string.abid_common_insert_audio, R.drawable.ic_keyboard_voice_black_24dp, R.string.audio),
                 new ActionItem(R.string.abid_common_insert_image, R.drawable.ic_image_black_24dp, R.string.insert_image),
                 new ActionItem(R.string.abid_common_insert_link, R.drawable.ic_link_black_24dp, R.string.insert_link)
         );

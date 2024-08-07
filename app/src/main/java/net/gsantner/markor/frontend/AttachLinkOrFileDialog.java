@@ -27,6 +27,8 @@ import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
 import net.gsantner.markor.format.FormatRegistry;
 import net.gsantner.markor.format.markdown.MarkdownActionButtons;
+import net.gsantner.markor.format.markdown.MarkdownSyntaxHighlighter;
+import net.gsantner.markor.format.wikitext.WikitextLinkResolver;
 import net.gsantner.markor.frontend.filebrowser.MarkorFileBrowserFactory;
 import net.gsantner.markor.frontend.filesearch.FileSearchDialog;
 import net.gsantner.markor.frontend.filesearch.FileSearchEngine;
@@ -61,7 +63,7 @@ public class AttachLinkOrFileDialog {
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
             return "[%TITLE%](%LINK%)";
         } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "{{%LINK%|%TITLE%}}";
+            return "[[LINK|TITLE]]";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:%LINK%[%TITLE%]";
         } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
@@ -72,6 +74,9 @@ public class AttachLinkOrFileDialog {
     }
 
     private static String getAudioFormat(final int textFormatId) {
+        if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+            return "[[LINK|TITLE]]";
+        }
         return "<audio src='%LINK%' controls><a href='%LINK%'>%TITLE%</a></audio>";
     }
 
@@ -304,35 +309,72 @@ public class AttachLinkOrFileDialog {
 
             // If path is not under notebook, copy it to the res folder
             File file = new File(path);
-            if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
-                final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
-                attachmentDir.mkdirs();
-                GsFileUtils.copyFile(file, local);
-                file = local;
-            }
 
-            // Pull the appropriate title
-            String title = "";
-            if (nameEdit != null) {
-                title = nameEdit.getText().toString();
-            }
+            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+                final File notebookDir = _appSettings.getNotebookDirectory();
+                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
+                path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
+                if (path.startsWith("/")) {
+                    final File zimAttachmentDir = WikitextLinkResolver.findAttachmentDir(currentFile);
+                    final File local = GsFileUtils.findNonConflictingDest(zimAttachmentDir, file.getName());
+                    zimAttachmentDir.mkdirs();
+                    GsFileUtils.copyFile(file, local);
+                    file = local;
+                    path = WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot);
+                }
+                insertLink.callback(path, path);
+            } else {
+                if (!GsFileUtils.isChild(_appSettings.getNotebookDirectory(), file)) {
+                    final File local = GsFileUtils.findNonConflictingDest(attachmentDir, file.getName());
+                    attachmentDir.mkdirs();
+                    GsFileUtils.copyFile(file, local);
+                    file = local;
+                }
 
-            if (GsTextUtils.isNullOrEmpty(title)) {
-                title = GsFileUtils.getFilenameWithoutExtension(file);
-            }
+                // Pull the appropriate title
+                String title = "";
+                if (nameEdit != null) {
+                    title = nameEdit.getText().toString();
+                }
 
-            insertLink.callback(title, GsFileUtils.relativePath(currentFile, file));
+                if (GsTextUtils.isNullOrEmpty(title)) {
+                    title = GsFileUtils.getFilenameWithoutExtension(file);
+                }
+                insertLink.callback(title, GsFileUtils.relativePath(currentFile, file));
+            }
         };
 
         final MarkorContextUtils cu = new MarkorContextUtils(activity);
 
         final GsCallback.a1<File> setFields = file -> {
-            if (pathEdit != null) {
-                pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
-            }
+            if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
+                // About the Zim's window 'Insert Link', where it is possible to browse for a file to select,
+                // Zim defaults, for the first time, to the file link's path to set the description when it's
+                // considered empty.  Then, Zim will automatically replace a description with the path of the
+                // next selection only if the description had been already automatically set, or manually set
+                // before switching the file, to the path of the current selection.  Zim will not replace the
+                // description that had been manually set to the path of a future selection, after exchanging
+                // that file.  Nor Zim will replace an empty description if this happens after the first time
+                // a link is inserted.  Here, for clarity, always replace an empty description, or one set to
+                // the path of the current selection, with the path of the next selection.
+                if (nameEdit.getText().toString().equals(pathEdit.getText().toString())) {
+                    nameEdit.setText("");
+                }
 
-            if (nameEdit != null && GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
-                nameEdit.setText(GsFileUtils.getNameWithoutExtension(file.getName()));
+                final File notebookDir = _appSettings.getNotebookDirectory();
+                final boolean shouldDynamicallyDetermineRoot = _appSettings.isWikitextDynamicNotebookRootEnabled();
+                pathEdit.setText(WikitextLinkResolver.resolveSystemFilePath(file, notebookDir, currentFile, shouldDynamicallyDetermineRoot));
+
+                if (GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
+                    nameEdit.setText(pathEdit.getText());
+                }
+            }  else {
+                if (pathEdit != null) {
+                    pathEdit.setText(GsFileUtils.relativePath(currentFile, file));
+                }
+                if (nameEdit != null && GsTextUtils.isNullOrEmpty(nameEdit.getText())) {
+                    nameEdit.setText(GsFileUtils.getNameWithoutExtension(file.getName()));
+                }
             }
         };
 
@@ -356,7 +398,8 @@ public class AttachLinkOrFileDialog {
                         break;
                     }
 
-                    final File rel = new File(currentFile.getParentFile(), path).getAbsoluteFile();
+                    final File currentDir = (textFormatId == FormatRegistry.FORMAT_WIKITEXT) ? WikitextLinkResolver.findAttachmentDir(currentFile) : currentFile.getParentFile();
+                    final File rel = new File(currentDir, path).getAbsoluteFile();
                     if (rel.isFile()) {
                         cu.requestFileEdit(activity, rel);
                     }

@@ -258,10 +258,15 @@ public class NewFileDialog extends DialogFragment {
         final MarkorContextUtils cu = new MarkorContextUtils(getContext());
         dialogBuilder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
         dialogBuilder.setPositiveButton(getString(android.R.string.ok), (dialogInterface, i) -> {
+            final FormatRegistry.Format fmt = formats.get(typeSpinner.getSelectedItemPosition());
 
             final String title = getTitle.callback();
             final String ext = extEdit.getText().toString().trim();
-            final String fileName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title + ext);
+            String fileName = GsFileUtils.getFilteredFilenameWithoutDisallowedChars(title + ext);
+
+            if (fmt.format == FormatRegistry.FORMAT_WIKITEXT) {
+                fileName = fileName.replace(" ", "_");
+            }
 
             // Get template string
             // -------------------------------------------------------------------------------------
@@ -286,7 +291,6 @@ public class NewFileDialog extends DialogFragment {
             // These are done even if the file isn't created
             final String titleFormat = formatEdit.getText().toString().trim();
             appSettings.setTemplateTitleFormat(templateAdapter.getItem(ti), titleFormat);
-            final FormatRegistry.Format fmt = formats.get(typeSpinner.getSelectedItemPosition());
             appSettings.setTypeTemplate(fmt.format, (String) templateSpinner.getSelectedItem());
             appSettings.setNewFileDialogLastUsedType(fmt.format);
             appSettings.setNewFileDialogLastUsedExtension(extEdit.getText().toString().trim());

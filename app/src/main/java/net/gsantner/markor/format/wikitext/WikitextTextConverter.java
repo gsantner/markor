@@ -22,7 +22,10 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -155,7 +158,49 @@ public class WikitextTextConverter extends TextConverterBase {
         String currentPageFileName = file.getName();
         String currentPageFolderName = currentPageFileName.replaceFirst(".txt$", "");
         String markdownPathToImage = FilenameUtils.concat(currentPageFolderName, imagePathFromPageFolder);
-        return "![" + file.getName() + "](" + markdownPathToImage + ")";
+
+        // Zim may insert in the image link, after a '?' character, the 'id', 'width',
+        // 'height', 'type', and 'href' tags, separating them with a '&' character, so
+        // you may not want to use '?' and '&' as directory or file name:
+        // https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/c88cf3cb53896bf272e87704826b77e82eddb3ef/zim/formats/__init__.py#L903
+        final int pos = markdownPathToImage.indexOf("?");
+        if (pos != -1) {
+            final String image = markdownPathToImage.substring(0, pos);
+            final String[] options = markdownPathToImage.substring(pos + 1).split("&");
+            String link = null; // <a href="link"></a> or [![name](image)](link)
+            StringBuilder attributes = new StringBuilder(); // <img id="" width="" height="" />
+            // The 'type' tag is for backward compatibility of image generators before
+            // Zim version 0.70.  Here, it probably may be ignored:
+            // https://github.com/zim-desktop-wiki/zim-desktop-wiki/blob/c88cf3cb53896bf272e87704826b77e82eddb3ef/zim/formats/wiki.py#586
+            final Pattern tags = Pattern.compile("(id|width|height|href)=(.+)", Pattern.CASE_INSENSITIVE);
+            for (String item : options) {
+                final Matcher data = tags.matcher(item);
+                if (data.matches()) {
+                    final String key = Objects.requireNonNull(data.group(1)).toLowerCase();
+                    String value = data.group(2);
+                    try {
+                        value = URLDecoder.decode(value, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    if (key.equals("href")) {
+                        link = value;
+                    } else {
+                        attributes.append(String.format("%s=\"%s\" ", key, value));
+                    }
+                }
+            }
+            String html = String.format("<img src=\"%s\" alt=\"%s\" %s/>", image, currentPageFileName, attributes);
+            if (link != null) {
+                AppSettings settings = ApplicationObject.settings();
+                File notebookDir = settings.getNotebookDirectory();
+                link = WikitextLinkResolver.resolveAttachmentPath(link, notebookDir, file, settings.isWikitextDynamicNotebookRootEnabled());
+                html = String.format("<a href=\"%s\">%s</a>", link, html);
+            }
+            return html;
+        }
+
+        return String.format("![%s](%s)", currentPageFileName, markdownPathToImage);
     }
 
     @Override

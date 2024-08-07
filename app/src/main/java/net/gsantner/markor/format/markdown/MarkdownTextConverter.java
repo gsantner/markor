@@ -90,7 +90,7 @@ public class MarkdownTextConverter extends TextConverterBase {
     //########################
     //## Injected CSS / JS / HTML
     //########################
-    public static final String CSS_BODY = CSS_S + "body{margin:0;padding:1.25vh 2.5vw}" + CSS_E;
+    public static final String CSS_BODY = CSS_S + "body{margin:0;padding:0.25vh 3.5vw}" + CSS_E;
     public static final String CSS_HEADER_UNDERLINE = CSS_S + " .header_no_underline { text-decoration: none; color: " + TOKEN_BW_INVERSE_OF_THEME + "; } h1 < a.header_no_underline { border-bottom: 2px solid #eaecef; } " + CSS_E;
     public static final String CSS_H1_H2_UNDERLINE = CSS_S + " h1,h2 { border-bottom: 2px solid " + TOKEN_BW_INVERSE_OF_THEME_HEADER_UNDERLINE + "; } " + CSS_E;
     public static final String CSS_BLOCKQUOTE_VERTICAL_LINE = CSS_S + "blockquote{padding:0px 14px;border-" + TOKEN_TEXT_DIRECTION + ":3.5px solid #dddddd;margin:4px 0}" + CSS_E;
@@ -275,6 +275,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable View (block) code syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+            if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
+                onLoadJs += "wrapCodeBlockWords();";
+            }
         }
 
         // Enable Mermaid
@@ -335,10 +338,6 @@ public class MarkdownTextConverter extends TextConverterBase {
             if (c > 1) {
                 converted = converted.replace(HTML_PRESENTATION_BEAMER_SLIDE_START_DIV.replace("NO", Integer.toString(c - 1)), "</div></div> <!-- Final presentation slide -->");
             }
-        }
-
-        if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
-            onLoadJs += "wrapCodeBlockWords();";
         }
 
         if (enableLineNumbers) {
@@ -454,18 +453,12 @@ public class MarkdownTextConverter extends TextConverterBase {
     // Extension to add line numbers to headings
     // ---------------------------------------------------------------------------------------------
 
-    public static String getIdForLineNumber(final int num) {
-        return "line-" + num;
-    }
-
     private static class LineNumberIdProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, AttributablePart part, Attributes attributes) {
-            if (node instanceof com.vladsch.flexmark.ast.Heading) {
-                final Document document = node.getDocument();
-                final int lineNumber = document.getLineNumber(node.getStartOffset());
-                attributes.addValue("id", getIdForLineNumber(lineNumber));
-            }
+            final Document document = node.getDocument();
+            final int lineNumber = document.getLineNumber(node.getStartOffset());
+            attributes.addValue("line", "" + lineNumber);
         }
     }
 

@@ -47,7 +47,7 @@ allprojects {
         google()
     }
 
-    tasks.matching { task -> task.name.matches('.*generate.*Resources') }.all {
+    tasks.matching { task -> task.name.matches('(.*generate.*Resources)|(.*map.*SourceSetPaths)') }.all {
         task -> task.dependsOn copyRepoFiles
     }
 
