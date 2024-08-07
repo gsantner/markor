@@ -275,7 +275,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">選擇日期</string>
     <string name="pick_time">選擇時間</string>
     <string name="get_format_instead_date_or_time">不含日期或時間的原始格式</string>
-    <string name="always_use_current_date_and_time">總是使用目前的日期 &amp; 時間</string>
+    <string name="use_current_date_and_time">總是使用目前的日期 &amp; 時間</string>
     <string name="result">結果</string>
     <string name="just_time">僅時間</string>
     <string name="just_date">僅日期</string>

@@ -258,7 +258,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Pumili ng petsa</string>
     <string name="pick_time">Pumili ng oras</string>
     <string name="get_format_instead_date_or_time">Kunin mismo ang ayos imbes ang petsa o oras</string>
-    <string name="always_use_current_date_and_time">Palaging gamitin ang petsa ngayon &amp; oras</string>
+    <string name="use_current_date_and_time">Palaging gamitin ang petsa ngayon &amp; oras</string>
     <string name="result">Resulta</string>
     <string name="just_time">Oras lamang</string>
     <string name="just_date">Petsa lamang</string>

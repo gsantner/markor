@@ -292,7 +292,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Pick date</string>
     <string name="pick_time">Pick time</string>
     <string name="get_format_instead_date_or_time">Get format instead date or time</string>
-    <string name="always_use_current_date_and_time">Always use current date &amp; time</string>
+    <string name="use_current_date_and_time">Use current date &amp; time</string>
     <string name="result">Result</string>
     <string name="just_time">Time only</string>
     <string name="just_date">Date only</string>

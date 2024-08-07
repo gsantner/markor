@@ -272,7 +272,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Vybrat datum</string>
     <string name="pick_time">Vybrat čas</string>
     <string name="get_format_instead_date_or_time">Formát místo data nebo času</string>
-    <string name="always_use_current_date_and_time">Vždy používat aktuální datum &amp; čas</string>
+    <string name="use_current_date_and_time">Vždy používat aktuální datum &amp; čas</string>
     <string name="result">Výsledek</string>
     <string name="just_time">Pouze čas</string>
     <string name="just_date">Pouze datum</string>

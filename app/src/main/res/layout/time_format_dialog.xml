@@ -154,11 +154,11 @@
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/always_use_current_datetime_checkbox"
+            android:id="@+id/use_current_datetime_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/always_use_current_date_and_time" />
+            android:text="@string/use_current_date_and_time" />
     </LinearLayout>
 
 </ScrollView>

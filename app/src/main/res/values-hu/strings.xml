@@ -257,7 +257,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Válassz dátumot</string>
     <string name="pick_time">Válassz időpontot</string>
     <string name="get_format_instead_date_or_time">Formátum megjelenítése dátum vagy idő helyett</string>
-    <string name="always_use_current_date_and_time">Mindig az aktuális dátum és idő használata</string>
+    <string name="use_current_date_and_time">Mindig az aktuális dátum és idő használata</string>
     <string name="result">Eredmény</string>
     <string name="just_time">Csak idő</string>
     <string name="just_date">Csak dátum</string>

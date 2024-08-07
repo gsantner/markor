@@ -264,7 +264,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Alege data</string>
     <string name="pick_time">Alege ora</string>
     <string name="get_format_instead_date_or_time">Obțineți formatul în loc de data sau ora</string>
-    <string name="always_use_current_date_and_time">Utilizaţi întotdeauna data curentă &amp; ora</string>
+    <string name="use_current_date_and_time">Utilizaţi întotdeauna data curentă &amp; ora</string>
     <string name="result">Rezultat</string>
     <string name="just_time">Doar timp</string>
     <string name="just_date">Doar data</string>

@@ -271,7 +271,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Оберіть дату</string>
     <string name="pick_time">Оберіть час</string>
     <string name="get_format_instead_date_or_time">Вжити формат замість дати або часу</string>
-    <string name="always_use_current_date_and_time">Завжди використовувати поточні дату і час</string>
+    <string name="use_current_date_and_time">Завжди використовувати поточні дату і час</string>
     <string name="result">Результат</string>
     <string name="just_time">Лише час</string>
     <string name="just_date">Лише дата</string>

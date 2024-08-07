@@ -276,7 +276,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Выбрать дату</string>
     <string name="pick_time">Выбор времени</string>
     <string name="get_format_instead_date_or_time">Получить формат вместо даты или времени</string>
-    <string name="always_use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
+    <string name="use_current_date_and_time">Всегда использовать текущую дату &amp; время</string>
     <string name="result">Результат</string>
     <string name="just_time">Только время</string>
     <string name="just_date">Только дата</string>

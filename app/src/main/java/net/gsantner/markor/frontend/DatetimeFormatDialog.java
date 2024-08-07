@@ -103,7 +103,7 @@ public class DatetimeFormatDialog {
         final Button datePickButton = viewRoot.findViewById(R.id.start_datepicker_button);
         final Button timePickButton = viewRoot.findViewById(R.id.start_timepicker_button);
         final CheckBox formatInsteadCheckbox = viewRoot.findViewById(R.id.get_format_instead_date_or_time_checkbox);
-        final CheckBox alwaysNowCheckBox = viewRoot.findViewById(R.id.always_use_current_datetime_checkbox);
+        final CheckBox useCurrentDateCheckbox = viewRoot.findViewById(R.id.use_current_datetime_checkbox);
 
         final List<String> recentFormats = getRecentFormats(activity);
         final List<String> allFormats = getAllFormats(recentFormats);
@@ -117,7 +117,7 @@ public class DatetimeFormatDialog {
         popupWindow.setOnItemClickListener((parent, view, position, id) -> {
             formatEditText.setText(allFormats.get(position));
             popupWindow.dismiss();
-            setToNow(cal, alwaysNowCheckBox.isChecked());
+            setToNow(cal, useCurrentDateCheckbox.isChecked());
             previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
         });
 
@@ -143,7 +143,7 @@ public class DatetimeFormatDialog {
             @Override
             public void afterTextChanged(Editable s) {
                 if (editTime + DELAY > System.currentTimeMillis()) {
-                    setToNow(cal, alwaysNowCheckBox.isChecked());
+                    setToNow(cal, useCurrentDateCheckbox.isChecked());
                     previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                     final boolean error = previewTextView.getText().toString().isEmpty() && !formatEditText.getText().toString().isEmpty();
                     formatEditText.setError(error ? "^^^!!!  'normal text'" : null);
@@ -165,7 +165,7 @@ public class DatetimeFormatDialog {
 
         // Pick Date Dialog
         datePickButton.setOnClickListener(button -> new DatePickerDialog(activity, (view, year, month, day) -> {
-                    alwaysNowCheckBox.setChecked(false);
+                    useCurrentDateCheckbox.setChecked(false);
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
@@ -175,7 +175,7 @@ public class DatetimeFormatDialog {
 
         // Pick Time Dialog
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
-                    alwaysNowCheckBox.setChecked(false);
+                    useCurrentDateCheckbox.setChecked(false);
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
                     previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
@@ -186,11 +186,11 @@ public class DatetimeFormatDialog {
             dateHeadline.setEnabled(!formatInsteadCheckbox.isChecked());
             datePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
             timePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
-            alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
+            useCurrentDateCheckbox.setEnabled(!formatInsteadCheckbox.isChecked());
         });
 
-        alwaysNowCheckBox.setOnClickListener(v -> {
-            setToNow(cal, alwaysNowCheckBox.isChecked());
+        useCurrentDateCheckbox.setOnClickListener(v -> {
+            setToNow(cal, useCurrentDateCheckbox.isChecked());
             previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
         });
 
@@ -207,7 +207,7 @@ public class DatetimeFormatDialog {
         final AlertDialog dialog = builder.create();
 
         callbackInsertTextToEditor.set((selectedFormat) -> {
-            setToNow(cal, alwaysNowCheckBox.isChecked());
+            setToNow(cal, useCurrentDateCheckbox.isChecked());
             String text = cu.formatDateTime(locale, selectedFormat, cal.getTimeInMillis());
             previewTextView.setText(text);
             hlEditor.insertOrReplaceTextOnCursor(getOutput(

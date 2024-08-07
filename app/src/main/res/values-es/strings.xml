@@ -273,7 +273,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Elegir fecha</string>
     <string name="pick_time">Elegir hora</string>
     <string name="get_format_instead_date_or_time">Cambiar formato de fecha y hora</string>
-    <string name="always_use_current_date_and_time">Utilizar siempre la fecha actual &amp; hora</string>
+    <string name="use_current_date_and_time">Utilizar siempre la fecha actual &amp; hora</string>
     <string name="result">Resultado</string>
     <string name="just_time">Sólo hora</string>
     <string name="just_date">Sólo fecha</string>

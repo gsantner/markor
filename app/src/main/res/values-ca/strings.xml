@@ -276,7 +276,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">Tria la data</string>
     <string name="pick_time">Tria l\'hora</string>
     <string name="get_format_instead_date_or_time">Obtén el format en lloc de la data o l\'hora</string>
-    <string name="always_use_current_date_and_time">Utilitza sempre la data i l\'hora actual</string>
+    <string name="use_current_date_and_time">Utilitza sempre la data i l\'hora actual</string>
     <string name="result">Resultat</string>
     <string name="just_time">Només l\'hora</string>
     <string name="just_date">Només la data</string>
