@@ -165,6 +165,7 @@ public class DatetimeFormatDialog {
 
         // Pick Date Dialog
         datePickButton.setOnClickListener(button -> new DatePickerDialog(activity, (view, year, month, day) -> {
+                    alwaysNowCheckBox.setChecked(false);
                     cal.set(Calendar.YEAR, year);
                     cal.set(Calendar.MONTH, month);
                     cal.set(Calendar.DAY_OF_MONTH, day);
@@ -174,24 +175,24 @@ public class DatetimeFormatDialog {
 
         // Pick Time Dialog
         timePickButton.setOnClickListener(button -> new TimePickerDialog(activity, (timePicker, hour, min) -> {
+                    alwaysNowCheckBox.setChecked(false);
                     cal.set(Calendar.HOUR_OF_DAY, hour);
                     cal.set(Calendar.MINUTE, min);
                     previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
                 }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         );
 
-        // hide buttons when both check box are checked
-        final View.OnClickListener onOptionsChangedListener = v -> {
-            boolean dateChangeable = !formatInsteadCheckbox.isChecked() && !alwaysNowCheckBox.isChecked();
-            timePickButton.setEnabled(dateChangeable);
-            datePickButton.setEnabled(dateChangeable);
+        formatInsteadCheckbox.setOnClickListener(v -> {
             dateHeadline.setEnabled(!formatInsteadCheckbox.isChecked());
             datePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
             timePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
             alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
-        };
-        formatInsteadCheckbox.setOnClickListener(onOptionsChangedListener);
-        alwaysNowCheckBox.setOnClickListener(onOptionsChangedListener);
+        });
+
+        alwaysNowCheckBox.setOnClickListener(v -> {
+            setToNow(cal, alwaysNowCheckBox.isChecked());
+            previewTextView.setText(cu.formatDateTime(locale, formatEditText.getText().toString(), cal.getTimeInMillis()));
+        });
 
         // set builder and implement buttons to discard and submit
         builder.setView(viewRoot)
