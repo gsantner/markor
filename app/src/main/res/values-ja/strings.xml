@@ -265,7 +265,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">日付を選択</string>
     <string name="pick_time">時間を選択</string>
     <string name="get_format_instead_date_or_time">日付や時間の代わりに形式を取得</string>
-    <string name="always_use_current_date_and_time">常に現在の日付と時間を使用する</string>
+    <string name="use_current_date_and_time">常に現在の日付と時間を使用する</string>
     <string name="result">結果</string>
     <string name="just_time">時間のみ</string>
     <string name="just_date">日付のみ</string>

@@ -264,7 +264,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pick_date">اختر تاريخاً</string>
     <string name="pick_time">اختر الوقت</string>
     <string name="get_format_instead_date_or_time">كتابة الصيغة وليس التاريخ أو الوقت</string>
-    <string name="always_use_current_date_and_time">دائما استخدم الوقت والتاريخ الحاليين</string>
+    <string name="use_current_date_and_time">دائما استخدم الوقت والتاريخ الحاليين</string>
     <string name="result">النتيجة</string>
     <string name="just_time">الوقت فقط</string>
     <string name="just_date">التاريخ فقط</string>
