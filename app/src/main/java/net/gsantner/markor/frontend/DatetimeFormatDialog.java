@@ -186,6 +186,8 @@ public class DatetimeFormatDialog {
             timePickButton.setEnabled(dateChangeable);
             datePickButton.setEnabled(dateChangeable);
             dateHeadline.setEnabled(!formatInsteadCheckbox.isChecked());
+            datePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
+            timePickButton.setEnabled(!formatInsteadCheckbox.isChecked());
             alwaysNowCheckBox.setEnabled(!formatInsteadCheckbox.isChecked());
         };
         formatInsteadCheckbox.setOnClickListener(onOptionsChangedListener);
