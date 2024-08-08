@@ -54,3 +54,4 @@ Where:
 * **[Ayowel](https://github.com/ayowel)**<br>~° Mermaid update
 * **[Matthew White](https://github.com/mehw)**<br>~° Zim-Wiki link/attachment conformance.
 * **[Markus Paintner](https://github.com/goli4thus)**<br/>~° Added duplicate lines action
+* **[TheChuan1503](https://github.com/TheChuan1503)**<br/>~° Translate the README.md into zh-CN

@@ -6,6 +6,11 @@
 
 
 # Markor
+
+English | [简体中文](README.zh-CN.md)
+<br/><br/>
+
+
 <img src="/app/src/main/ic_launcher-web.png" align="left" width="128" hspace="10" vspace="10">
 <b>Text editor - Notes &amp; ToDo (for Android)</b>.
 <br/>Simple and lightweight, supporting Markdown, todo.txt, Zim & more!<br/><br/>
