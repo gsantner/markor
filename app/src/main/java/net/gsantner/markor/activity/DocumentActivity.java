@@ -37,17 +37,23 @@ import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsFileUtils;
 
 import java.io.File;
+import java.util.Stack;
 
 import other.so.AndroidBug5497Workaround;
 
 public class DocumentActivity extends MarkorBaseActivity {
-    public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
 
     private Toolbar _toolbar;
-
     private FragmentManager _fragManager;
 
     private static boolean nextLaunchTransparentBg = false;
+
+    public static void launch(final Activity activity, final Intent intent) {
+        final File file = MarkorContextUtils.getIntentFile(intent, null);
+        final Integer lineNumber = intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER) ? intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1) : null;
+        final Boolean doPreview = intent.hasExtra(Document.EXTRA_DO_PREVIEW) ? intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) : null;
+        launch(activity, file, doPreview, lineNumber);
+    }
 
     public static void launch(
             final Activity activity,
@@ -90,18 +96,16 @@ public class DocumentActivity extends MarkorBaseActivity {
 
         intent.putExtra(Document.EXTRA_FILE, file);
 
-        if (lineNumber != null && lineNumber >= 0) {
+        if (lineNumber != null) {
             intent.putExtra(Document.EXTRA_FILE_LINE_NUMBER, lineNumber);
         }
 
         if (doPreview != null) {
-            intent.putExtra(DocumentActivity.EXTRA_DO_PREVIEW, doPreview);
+            intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled()) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
         nextLaunchTransparentBg = (activity instanceof MainActivity);
@@ -190,7 +194,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             final Document doc = new Document(file);
             Integer startLine = null;
             if (intent.hasExtra(Document.EXTRA_FILE_LINE_NUMBER)) {
-                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, -1);
+                startLine = intent.getIntExtra(Document.EXTRA_FILE_LINE_NUMBER, Document.EXTRA_FILE_LINE_NUMBER_LAST);
             } else if (intentData != null) {
                 final String line = intentData.getQueryParameter("line");
                 if (line != null) {
@@ -203,7 +207,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             if (startLine != null) {
                 // If a line is requested, open in edit mode so the line is shown
                 startInPreview = false;
-            } else if (intent.getBooleanExtra(EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index.")) {
+            } else if (intent.getBooleanExtra(Document.EXTRA_DO_PREVIEW, false) || file.getName().startsWith("index.")) {
                 startInPreview = true;
             }
 
@@ -272,7 +276,7 @@ public class DocumentActivity extends MarkorBaseActivity {
     }
 
     public void showTextEditor(final Document document, final Integer lineNumber, final Boolean startPreview) {
-        final GsFragmentBase currentFragment = getCurrentVisibleFragment();
+        final GsFragmentBase<?, ?> currentFragment = getCurrentVisibleFragment();
 
         final boolean sameDocumentRequested = (
                 currentFragment instanceof DocumentEditAndViewFragment &&
@@ -297,21 +301,15 @@ public class DocumentActivity extends MarkorBaseActivity {
     @Override
     @SuppressWarnings("StatementWithEmptyBody")
     public void onBackPressed() {
-        FragmentManager fragMgr = getSupportFragmentManager();
-        GsFragmentBase top = getCurrentVisibleFragment();
-        if (top != null) {
-            if (!top.onBackPressed()) {
-                if (fragMgr.getBackStackEntryCount() == 1) {
-                    // Back action was not handled by fragment, handle in activity
-                } else if (fragMgr.getBackStackEntryCount() > 0) {
-                    // Back action was to go one fragment back
-                    fragMgr.popBackStack();
-                    return;
-                }
-            } else {
-                // Was handled by child fragment
-                return;
-            }
+        final int entryCount = _fragManager.getBackStackEntryCount();
+        final GsFragmentBase<?, ?> top = getCurrentVisibleFragment();
+
+        // We pop the stack to go back to the previous fragment
+        // if the top fragment does not handle the back press
+        // Doesn't actually get called as we have 1 fragment in the stack
+        if (top != null && !top.onBackPressed() && entryCount > 1) {
+            _fragManager.popBackStack();
+            return;
         }
 
         // Handle in this activity
@@ -324,10 +322,10 @@ public class DocumentActivity extends MarkorBaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onReceiveKeyPress(getCurrentVisibleFragment(), keyCode, event) ? true : super.onKeyDown(keyCode, event);
+        return super.onReceiveKeyPress(getCurrentVisibleFragment(), keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
-    public GsFragmentBase showFragment(GsFragmentBase fragment) {
+    public GsFragmentBase<?, ?> showFragment(GsFragmentBase<?, ?> fragment) {
         if (fragment != getCurrentVisibleFragment()) {
             _fragManager.beginTransaction()
                     .replace(R.id.document__placeholder_fragment, fragment, fragment.getFragmentTag())
@@ -338,11 +336,11 @@ public class DocumentActivity extends MarkorBaseActivity {
         return fragment;
     }
 
-    public synchronized GsFragmentBase getExistingFragment(final String fragmentTag) {
-        return (GsFragmentBase) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+    public synchronized GsFragmentBase<?, ?> getExistingFragment(final String fragmentTag) {
+        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentByTag(fragmentTag);
     }
 
-    private GsFragmentBase getCurrentVisibleFragment() {
-        return (GsFragmentBase) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
+    private GsFragmentBase<?, ?> getCurrentVisibleFragment() {
+        return (GsFragmentBase<?, ?>) getSupportFragmentManager().findFragmentById(R.id.document__placeholder_fragment);
     }
 }

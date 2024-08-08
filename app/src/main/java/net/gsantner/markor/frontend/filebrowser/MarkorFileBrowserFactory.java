@@ -53,7 +53,6 @@ public class MarkorFileBrowserFactory {
         opts.newDirButtonText = R.string.create_folder;
         opts.upButtonEnable = true;
         opts.homeButtonEnable = true;
-        opts.mustStartWithRootFolder = false;
         opts.contentDescriptionFolder = R.string.folder;
         opts.contentDescriptionSelected = R.string.selected;
         opts.contentDescriptionFile = R.string.file;
@@ -68,6 +67,7 @@ public class MarkorFileBrowserFactory {
         opts.folderColor = R.color.folder;
         opts.fileImage = R.drawable.ic_file_white_24dp;
         opts.folderImage = R.drawable.ic_folder_white_24dp;
+        opts.descriptionFormat = appSettings.getString(R.string.pref_key__file_description_format, "");
 
         opts.titleText = R.string.select;
 
@@ -109,6 +109,7 @@ public class MarkorFileBrowserFactory {
     ) {
         final GsFileBrowserOptions.Options opts = prepareFsViewerOpts(context, false, listener);
         opts.fileOverallFilter = fileOverallFilter;
+        opts.descModtimeInsteadOfParent = true;
         return showDialog(fm, opts);
     }
 
@@ -119,6 +120,7 @@ public class MarkorFileBrowserFactory {
     ) {
         final GsFileBrowserOptions.Options opts = prepareFsViewerOpts(context, true, listener);
         opts.okButtonText = R.string.select_this_folder;
+        opts.descModtimeInsteadOfParent = true;
         return showDialog(fm, opts);
     }
 }

@@ -251,16 +251,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
-    }
 
-    @Override
-    public void onFragmentFirstTimeVisible() {
-        _primaryScrollView.invalidate();
-        int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
-
-        // First start - overwrite start position if needed
-        if (_savedInstanceState == null) {
-            final Bundle args = getArguments();
+        if (savedInstanceState == null) {
+            int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
             if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
                 final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
                 if (lno >= 0) {
@@ -269,9 +262,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     startPos = _hlEditor.length();
                 }
             }
-        }
 
-        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+            TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
+        }
     }
 
     @Override
@@ -442,8 +435,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _editTextUndoRedoHelper.setTextView(_hlEditor);
                 }
 
-                _hlEditor.setSelection(sel[0], sel[1]);
-                TextViewUtils.showSelection(_hlEditor);
+                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
             }
             checkTextChangeState();
 

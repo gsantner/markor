@@ -357,7 +357,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     public void setFavouriteFiles(final Collection<File> files) {
         final Set<String> set = new LinkedHashSet<>();
         for (final File f : files) {
-            if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f))) {
+            if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f))) {
                 set.add(f.getAbsolutePath());
             }
         }
@@ -600,7 +600,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         final Set<File> set = new LinkedHashSet<>();
         for (final String fp : paths) {
             final File f = new File(fp);
-            if (f.exists() || GsFileBrowserListAdapter.isVirtualStorage(f)) {
+            if (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f)) {
                 set.add(f);
             }
         }

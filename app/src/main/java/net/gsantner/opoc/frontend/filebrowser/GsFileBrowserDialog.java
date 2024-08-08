@@ -127,6 +127,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _toolBar.setTitleTextColor(rcolor(_dopt.titleTextColor));
         _toolBar.setTitle(_dopt.titleText);
         _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
+        _toolBar.setSubtitleTextAppearance(activity, R.style.TextAppearance_AppCompat_Subhead_Ellipsize);
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -149,9 +150,9 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
 
         root.setBackgroundColor(rcolor(_dopt.backgroundColor));
 
-        // final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
-        // final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
-        // _recyclerList.addItemDecoration(dividerItemDecoration);
+        final LinearLayoutManager lam = (LinearLayoutManager) _recyclerList.getLayoutManager();
+        final DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(activity, lam.getOrientation());
+        _recyclerList.addItemDecoration(dividerItemDecoration);
         _recyclerList.setItemViewCacheSize(20);
 
         _filesystemViewerAdapter = new GsFileBrowserListAdapter(_dopt, activity);
@@ -280,7 +281,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
             _callback.onFsViewerDoUiUpdate(adapter);
         }
         if (adapter.getCurrentFolder() != null) {
-            _toolBar.setSubtitle(adapter.getCurrentFolder().getName());
+            _toolBar.setSubtitle(adapter.getCurrentFolder().getPath());
         }
     }
 

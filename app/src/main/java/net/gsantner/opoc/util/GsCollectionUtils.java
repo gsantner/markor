@@ -18,9 +18,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 // Class for general utilities
@@ -258,28 +260,23 @@ public class GsCollectionUtils {
         return values;
     }
 
-    public static class Holder<T> {
-        private T value;
-
-        public Holder(T value) {
-            this.value = value;
+    public static <K, V> Map<V, K> reverse(final Map<K, V> map) {
+        final Map<V, K> reversed = new HashMap<>();
+        for (final Map.Entry<K, V> entry : map.entrySet()) {
+            reversed.put(entry.getValue(), entry.getKey());
         }
+        return reversed;
+    }
 
-        public T get() {
-            return value;
-        }
+    public static <K, V> V getOrDefault(final Map<K, V> map, final K key, final V defaultValue) {
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
 
-        public Holder<T> set(T value) {
-            this.value = value;
-            return this;
-        }
-
-        public T clear() {
-            try {
-                return value;
-            } finally {
-                value = null;
-            }
+    public static <T> void deduplicate(final Collection<T> data) {
+        if (!(data instanceof Set)) {
+            final LinkedHashSet<T> deduped = new LinkedHashSet<>(data);
+            data.clear();
+            data.addAll(deduped);
         }
     }
 }
