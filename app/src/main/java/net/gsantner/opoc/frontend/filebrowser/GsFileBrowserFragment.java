@@ -91,6 +91,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     private Menu _fragmentMenu;
     private MarkorContextUtils _cu;
     private Toolbar _toolbar;
+    private File _lastSelectedFile;
 
     //########################
     //## Methods
@@ -183,6 +184,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     @Override
     public void onFsViewerSelected(String request, File file, final Integer lineNumber) {
         if (_callback != null) {
+            _filesystemViewerAdapter.showFileAfterNextLoad(file);
             _callback.onFsViewerSelected(_dopt.requestId, file, lineNumber);
         }
     }

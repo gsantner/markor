@@ -366,7 +366,7 @@ public final class TextViewUtils {
                 }
 
                 edit.setSelection(start, end);
-                edit.postDelayed(() -> showSelection(edit, start, end), 250);
+                edit.post(() -> showSelection(edit, start, end));
             });
         }
     }
