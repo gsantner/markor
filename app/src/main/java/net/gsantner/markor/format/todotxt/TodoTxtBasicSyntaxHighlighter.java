@@ -12,9 +12,9 @@ public class TodoTxtBasicSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private final static int COLOR_PRIORITY_A = 0xffEF2929;
     private final static int COLOR_PRIORITY_B = 0xffF57900;
-    private final static int COLOR_PRIORITY_C = 0xff73D216;
+    private final static int COLOR_PRIORITY_C = 0xff63BB16;
     private final static int COLOR_PRIORITY_D = 0xff0099CC;
-    private final static int COLOR_PRIORITY_E = 0xffEDD400;
+    private final static int COLOR_PRIORITY_E = 0xffAA55CC;
     private final static int COLOR_PRIORITY_F = 0xff888A85;
 
     private final static int COLOR_DONE_DARK = 0x999d9d9d;
