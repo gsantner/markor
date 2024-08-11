@@ -74,18 +74,17 @@ public class MarkorDialogFactory {
         return ApplicationObject.settings();
     }
 
-    public static void showSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
+    public static void showSpecialKeyDialog(Activity activity, GsSearchOrCustomTextDialog.DialogState state, GsCallback.a1<String> callback) {
         DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = callback;
         String[] actions = activity.getResources().getStringArray(R.array.textactions_press_key__text);
         dopt.data = new ArrayList<>(Arrays.asList(actions));
-
         dopt.dialogHeightDp = 530;
         dopt.titleText = R.string.special_key;
         dopt.isSearchEnabled = false;
         dopt.okButtonText = 0;
-        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt);
+        GsSearchOrCustomTextDialog.showMultiChoiceDialogWithSearchFilterUI(activity, dopt, state);
     }
 
     public static void showAsciidocSpecialKeyDialog(Activity activity, GsCallback.a1<String> callback) {
@@ -115,15 +114,20 @@ public class MarkorDialogFactory {
 
         baseConf(activity, dopt);
         dopt.titleText = R.string.table;
-        dopt.messageText = activity.getString(R.string.how_much_columns_press_table_button_long_to_start_table);
+        dopt.messageText = activity.getString(R.string.how_much_columns_press_table_button_long_to_start_table) + "\n";
         dopt.messageText += activity.getString(R.string.example_of_a_markdown_table) + ":\n\n";
-        dopt.messageText += "| id | name | info |\n|-----|-----------|--------|\n| 1  | John   | text |\n| 2  | Anna   | text |\n";
+        dopt.messageText += "" +
+                "| id | name | info |\n" +
+                "|----| ---- | ---- |\n" +
+                "| 1  | John | text |\n" +
+                "| 2  | Anna | text |";
 
         dopt.callback = colsStr -> {
             as().setInt(PREF_LAST_USED_TABLE_SIZE, Integer.parseInt(colsStr));
             callback.callback(Integer.parseInt(colsStr), isHeader);
         };
         dopt.data = availableData;
+        dopt.isSoftInputVisible = false;
         dopt.searchInputType = InputType.TYPE_CLASS_NUMBER;
         dopt.highlightData = Collections.singletonList(Integer.toString(lastUsedTableSize));
         dopt.searchHintText = R.string.search_or_custom;
@@ -840,9 +844,12 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
-
-            final String id = MarkdownTextConverter.getIdForLineNumber(line);
-            webView.loadUrl(String.format("javascript:document.getElementById('%s').scrollIntoView();", id));
+            final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                webView.evaluateJavascript(jumpJs, null);
+            } else {
+                webView.loadUrl("javascript:" + jumpJs);
+            }
         };
 
         dopt.neutralButtonText = R.string.filter;
@@ -895,10 +902,11 @@ public class MarkorDialogFactory {
         DialogOptions dopt = new DialogOptions();
         baseConf(activity, dopt);
         dopt.callback = (selectedDialogValueAsString -> callback.callback(Integer.parseInt(selectedDialogValueAsString)));
-        final int minFontSize = 1;
+        final int minFontSize = 5;
         final int maxFontSize = 36;
         final List<String> sizes = new ArrayList<>();
         for (int i = minFontSize; i <= maxFontSize; i++) {
+            if (i == currentSize) dopt.listPosition = i - minFontSize - 2;
             sizes.add(Integer.toString(i));
         }
         dopt.data = sizes;

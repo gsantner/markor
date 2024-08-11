@@ -31,20 +31,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
-            android:minHeight="1dp"
             android:gravity="top"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textMultiLine|textCapSentences"
+            android:minHeight="1dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingBottom="@dimen/editor_bottom_margin"
             android:scrollbars="none"
             android:textCursorDrawable="@drawable/cursor_accent" />
-
     </net.gsantner.markor.frontend.DraggableScrollbarScrollView>
 
-    <HorizontalScrollView
+    <net.gsantner.opoc.frontend.GsHorizontalScrollView
         android:id="@+id/document__fragment__edit__text_actions_bar__scrolling_parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/textactions_bar_height"
@@ -58,14 +57,14 @@
             android:layout_height="match_parent"
             android:background="@color/textActionBarColor"
             android:orientation="horizontal" />
-    </HorizontalScrollView>
+    </net.gsantner.opoc.frontend.GsHorizontalScrollView>
 
     <net.gsantner.markor.web.DraggableScrollbarWebView
         android:id="@+id/document__fragment_view_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         android:layout_marginBottom="@dimen/textactions_bar_height"
+        android:background="@color/background"
         android:visibility="gone" />
 
     <FrameLayout
@@ -74,5 +73,4 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:visibility="gone" />
-
 </FrameLayout>

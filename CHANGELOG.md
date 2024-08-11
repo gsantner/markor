@@ -9,6 +9,7 @@
 - [2.12.3](https://github.com/gsantner/markor/compare/v2.12.2...v2.12.3)
 - [2.12.4](https://github.com/gsantner/markor/compare/v2.12.3...v2.12.4)
 - [2.12.5](https://github.com/gsantner/markor/compare/v2.12.4...v2.12.5)
+- [2.12.6](https://github.com/gsantner/markor/compare/v2.12.5...v2.12.6)
 
 ### v2.11 ([Details](https://github.com/gsantner/markor/blob/master/NEWS.md#markor-v211---asciidoc-csv-and-org-mode-todotxt-advanced-search-line-numbers))
 - Reworked attachments (PR #2106 by @harshad1)
