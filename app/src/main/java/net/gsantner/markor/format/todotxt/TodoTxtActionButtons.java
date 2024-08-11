@@ -106,16 +106,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
             case R.string.abid_todotxt_priority: {
                 MarkorDialogFactory.showPriorityDialog(getActivity(), selTasks.get(0).getPriority(), (priority) -> {
-                    ArrayList<ReplacePattern> patterns = new ArrayList<>();
-                    if (priority.length() > 1) {
-                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
-                    } else if (priority.length() == 1) {
-                        final String _priority = String.format("(%c) ", priority.charAt(0));
-                        patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, _priority));
-                        patterns.add(new ReplacePattern("^\\s*", _priority));
-                    }
-                    runRegexReplaceAction(patterns);
-                    trimLeadingWhiteSpace();
+                    setPriority(priority.length() == 1 ? priority.charAt(0) : TodoTxtTask.PRIORITY_NONE);
                 });
                 return true;
             }
@@ -205,6 +196,35 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     final List<TodoTxtTask> tasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
                     TodoTxtTask.sortTasks(tasks, last.get(0), Boolean.parseBoolean(last.get(1)));
                     setEditorTextAsync(TodoTxtTask.tasksToString(tasks));
+                }
+                return true;
+            }
+            case R.string.abid_todotxt_priority: {
+                final Editable text = _hlEditor.getText();
+                final int[] sel = TextViewUtils.getSelection(_hlEditor);
+                final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
+                if (linesStart == 0) {
+                    setPriority(TodoTxtTask.PRIORITY_NONE);
+                    return true;
+                }
+                final int prevLineStart = TextViewUtils.getLineStart(text, linesStart - 1);
+                final int prevLineEnd = TextViewUtils.getLineEnd(text, prevLineStart);
+                final String prevLine = text.subSequence(prevLineStart, prevLineEnd).toString();
+                final char prevPriority = new TodoTxtTask(prevLine).getPriority();
+
+                final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, sel[0], sel[1]);
+                boolean areAllSamePriority = true;
+                for (TodoTxtTask task : tasks) {
+                    final char commonPriority = tasks.get(0).getPriority();
+                    if (task.getPriority() != commonPriority) {
+                        areAllSamePriority = false;
+                        break;
+                    }
+                }
+                if (areAllSamePriority && prevPriority == tasks.get(0).getPriority()) {
+                    setPriority(TodoTxtTask.PRIORITY_NONE);
+                } else {
+                    setPriority(prevPriority);
                 }
                 return true;
             }
@@ -301,6 +321,19 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             }
         }
         editable.replace(sel[0], sel[1], thing);
+    }
+
+    private void setPriority(char priority) {
+        ArrayList<ReplacePattern> patterns = new ArrayList<>();
+        if (priority == TodoTxtTask.PRIORITY_NONE) {
+            patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, ""));
+        } else {
+            final String _priority = String.format("(%c) ", priority);
+            patterns.add(new ReplacePattern(TodoTxtTask.PATTERN_PRIORITY_ANY, _priority));
+            patterns.add(new ReplacePattern("^\\s*", _priority));
+        }
+        runRegexReplaceAction(patterns);
+        trimLeadingWhiteSpace();
     }
 
     private static Calendar parseDateString(final String dateString, final Calendar fallback) {
