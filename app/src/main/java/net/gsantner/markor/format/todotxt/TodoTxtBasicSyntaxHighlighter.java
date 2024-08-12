@@ -11,11 +11,11 @@ public class TodoTxtBasicSyntaxHighlighter extends SyntaxHighlighterBase {
     private final static int COLOR_CONTEXT = 0xff88b04b;
 
     private final static int COLOR_PRIORITY_A = 0xffEF2929;
-    private final static int COLOR_PRIORITY_B = 0xffF57900;
-    private final static int COLOR_PRIORITY_C = 0xff63BB16;
-    private final static int COLOR_PRIORITY_D = 0xff0099CC;
-    private final static int COLOR_PRIORITY_E = 0xffAA55CC;
-    private final static int COLOR_PRIORITY_F = 0xff888A85;
+    private final static int COLOR_PRIORITY_B = 0xffd16900;
+    private final static int COLOR_PRIORITY_C = 0xff59a112;
+    private final static int COLOR_PRIORITY_D = 0xff0091c2;
+    private final static int COLOR_PRIORITY_E = 0xffa952cb;
+    private final static int COLOR_PRIORITY_F = 0xff878986;
 
     private final static int COLOR_DONE_DARK = 0x999d9d9d;
     private final static int COLOR_DONE_LIGHT = 0x993d3d3d;
