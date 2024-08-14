@@ -359,8 +359,10 @@ public class GsSearchOrCustomTextDialog {
             if (dopt.isSearchEnabled) {
                 if (dopt.isSoftInputVisible) {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    searchEditText.postDelayed(() -> win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED), 500);
+                    searchEditText.requestFocus();
                 } else {
-                    win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+                    win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED);
                 }
             }
 
@@ -375,10 +377,6 @@ public class GsSearchOrCustomTextDialog {
             neutralButton.setVisibility(Button.VISIBLE);
             neutralButton.setText(dopt.neutralButtonText);
             neutralButton.setOnClickListener((button) -> dopt.neutralButtonCallback.callback(dialog));
-        }
-
-        if (dopt.isSearchEnabled) {
-            searchEditText.requestFocus();
         }
 
         if (dopt.defaultText != null) {
@@ -543,7 +541,6 @@ public class GsSearchOrCustomTextDialog {
         final AppCompatEditText searchEditText = new AppCompatEditText(context);
         searchEditText.setText(dopt.defaultText);
         searchEditText.setSingleLine(true);
-        searchEditText.setMaxLines(1);
         searchEditText.setTextColor(dopt.textColor);
         searchEditText.setHintTextColor((dopt.textColor & 0x00FFFFFF) | 0x99000000);
         searchEditText.setHint(dopt.searchHintText);

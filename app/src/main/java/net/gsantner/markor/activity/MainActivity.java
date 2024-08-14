@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit;
 
 import other.writeily.widget.WrMarkorWidgetProvider;
 
-public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener, NavigationBarView.OnItemSelectedListener {
+public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFragment.FilesystemFragmentOptionsListener {
 
     public static boolean IS_DEBUG_ENABLED = false;
 
@@ -101,7 +101,11 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Setup viewpager
         _viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
         _viewPager.setOffscreenPageLimit(4);
-        _bottomNav.setOnItemSelectedListener(this);
+        _bottomNav.setOnItemSelectedListener((item) -> {
+            _viewPager.setCurrentItem(tabIdToPos(item.getItemId()));
+            return true;
+        });
+
         reduceViewpagerSwipeSensitivity();
 
         // noinspection PointlessBooleanExpression - Send Test intent
@@ -343,12 +347,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        _viewPager.setCurrentItem(tabIdToPos(item.getItemId()));
-        return true;
-    }
-
     public String getFileBrowserTitle() {
         final File file = _appSettings.getFileBrowserLastBrowsedFolder();
         String title = getString(R.string.app_name);
@@ -406,7 +404,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
         if (pos == tabIdToPos(R.id.nav_notebook)) {
             _fab.show();
-            _cu.showSoftKeyboard(this, false);
+            _cu.showSoftKeyboard(this, false, _notebook.getView());
         } else {
             _fab.hide();
             restoreDefaultToolbar();

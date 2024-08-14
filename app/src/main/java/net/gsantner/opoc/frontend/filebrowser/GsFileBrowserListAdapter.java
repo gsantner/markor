@@ -96,6 +96,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     private final Map<File, Integer> _fileIdMap = new HashMap<>();
     private final Map<File, Parcelable> _folderScrollMap = new HashMap<>();
     private final Stack<File> _backStack = new Stack<>();
+    private long _prevModSum = 0;
 
     //########################
     //## Methods
@@ -488,11 +489,8 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         }
 
         boolean clickHandled = false;
-        if (data.file != null && _currentFolder != null) {
-            if (data.file.isDirectory() && data.file.equals(_currentFolder.getParentFile())) {
-                // goUp
-                clickHandled = true;
-            } else if (_currentSelection.contains(data.file)) {
+        if (data.file != null && _currentFolder != null && !isParent(data.file, _currentFolder)) {
+            if (_currentSelection.contains(data.file)) {
                 // Single selection
                 _currentSelection.remove(data.file);
                 clickHandled = true;
@@ -734,6 +732,10 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             GsFileUtils.sortFiles(newData, _dopt.sortByType, _dopt.sortFolderFirst, _dopt.sortReverse);
         }
 
+        // Testing if modtimes have changed (modtimes generally only increase)
+        final long modSum = GsCollectionUtils.accumulate(newData, (f, s) -> s + f.lastModified(), 0L);
+        final boolean modSumChanged = modSum != _prevModSum;
+
         if (canGoUp(folder)) {
             if (
                 isVirtualFolder(folder) ||
@@ -746,7 +748,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        if (folderChanged || !newData.equals(_adapterData)) {
+        if (folderChanged || modSumChanged || !newData.equals(_adapterData)) {
             _recyclerView.post(() -> {
                 // Modify all these values in the UI thread
                 _adapterData.clear();
@@ -754,6 +756,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 _currentSelection.retainAll(_adapterData);
                 _filter.filter(_filter._lastFilter);
                 _currentFolder = folder;
+                _prevModSum = modSum;
 
                 if (folderChanged) {
                     _fileIdMap.clear();

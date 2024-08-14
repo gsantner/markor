@@ -64,7 +64,7 @@
             android:label="@string/app_name"
             android:launchMode="singleInstance"
             android:taskAffinity=".activity.MainActivity"
-            android:windowSoftInputMode="stateUnchanged|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
