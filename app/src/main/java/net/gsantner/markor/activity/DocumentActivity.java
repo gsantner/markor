@@ -104,7 +104,7 @@ public class DocumentActivity extends MarkorBaseActivity {
             intent.putExtra(Document.EXTRA_DO_PREVIEW, doPreview);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && as.isMultiWindowEnabled() && !(activity instanceof DocumentActivity)) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         }
 
