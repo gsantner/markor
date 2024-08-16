@@ -5,10 +5,6 @@ import android.os.Bundle;
 
 import net.gsantner.markor.activity.DocumentActivity;
 import net.gsantner.markor.activity.MarkorBaseActivity;
-import net.gsantner.markor.model.Document;
-import net.gsantner.markor.util.MarkorContextUtils;
-
-import java.io.File;
 
 /**
  * This Activity exists solely to launch DocumentActivity with the correct intent

@@ -110,7 +110,7 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     @Override
-    protected void onDraw(final Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if (_numEnabled) {
