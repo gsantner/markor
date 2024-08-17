@@ -525,7 +525,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
     }
 
     public boolean canGoBack() {
-        return !_backStack.empty();
+        return !_backStack.isEmpty();
     }
 
     public boolean goUp() {
@@ -666,7 +666,7 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
         if (GO_BACK_SIGNIFIER == folder) {
             toLoad = _backStack.pop();
         } else {
-            if (folderChanged) {
+            if (folderChanged && _currentFolder != null) {
                 _backStack.push(_currentFolder);
             }
             toLoad = folder;

@@ -330,7 +330,7 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
         // Exit confirmed with 2xBack
         if (_doubleBackToExitPressedOnce) {
             super.onBackPressed();
-            _appSettings.setFileBrowserLastBrowsedFolder(_appSettings.getNotebookDirectory());
+            _appSettings.setFileBrowserLastBrowsedFolder(_notebook.getCurrentFolder());
             return;
         }
 

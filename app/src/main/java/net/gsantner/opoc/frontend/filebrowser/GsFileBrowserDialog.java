@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -127,7 +128,7 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         _toolBar.setTitleTextColor(rcolor(_dopt.titleTextColor));
         _toolBar.setTitle(_dopt.titleText);
         _toolBar.setSubtitleTextColor(rcolor(_dopt.secondaryTextColor));
-        _toolBar.setSubtitleTextAppearance(activity, R.style.TextAppearance_AppCompat_Subhead_Ellipsize);
+        setSubtitleApprearance(_toolBar);
 
         _homeButton.setImageResource(_dopt.homeButtonImage);
         _homeButton.setVisibility(_dopt.homeButtonEnable ? View.VISIBLE : View.GONE);
@@ -301,5 +302,31 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
         if (getDialog() != null && (w = getDialog().getWindow()) != null) {
             w.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
+    }
+
+    private static void setSubtitleApprearance(final Toolbar toolbar) {
+        final String test = "__%%SUBTITLE%%__";
+        toolbar.setSubtitle(test);
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            final View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                final TextView tv = (TextView) child;
+                if (test.contentEquals(tv.getText())) {
+
+                    tv.setEllipsize(TextUtils.TruncateAt.START);
+                    tv.setSingleLine(true);
+                    final Toolbar.LayoutParams params = new Toolbar.LayoutParams(
+                            Toolbar.LayoutParams.MATCH_PARENT,
+                            Toolbar.LayoutParams.WRAP_CONTENT
+                    );
+                    tv.setLayoutParams(params);
+
+                    break;
+                }
+            }
+        }
+
+        toolbar.setSubtitle("");
     }
 }
