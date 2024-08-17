@@ -367,11 +367,11 @@ public class NewFileDialog extends DialogFragment {
     private Pair<String, Integer> getTemplateContent(final String template, final String name) {
         String text = TextViewUtils.interpolateSnippet(template, name, "");
 
-        final int startingIndex = template.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
-        text = text.replace(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
+        final int startingIndex = text.indexOf(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN);
+        text = text.replaceAll(HighlightingEditor.PLACE_CURSOR_HERE_TOKEN, "");
 
         // Has no utility in a new file
-        text = text.replace(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
+        text = text.replaceAll(HighlightingEditor.INSERT_SELECTION_HERE_TOKEN, "");
 
         return Pair.create(text, startingIndex);
     }
