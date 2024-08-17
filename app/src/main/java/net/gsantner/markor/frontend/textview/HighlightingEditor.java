@@ -97,7 +97,6 @@ public class HighlightingEditor extends AppCompatEditText {
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnScrollChangedListener(() -> updateHighlighting(false));
-        observer.addOnGlobalLayoutListener(() -> updateHighlighting(false));
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -122,8 +121,8 @@ public class HighlightingEditor extends AppCompatEditText {
     // ---------------------------------------------------------------------------------------------
 
     private boolean isScrollSignificant() {
-        return (_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
-                (_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
+        return Math.abs(_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
+                Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
     private void updateHighlighting(final boolean recompute) {

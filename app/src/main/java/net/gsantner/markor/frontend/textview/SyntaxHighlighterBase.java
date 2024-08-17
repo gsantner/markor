@@ -213,7 +213,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     public boolean hasSpans() {
-        return _spannable != null && _groups.size() > 0;
+        return _spannable != null && !_groups.isEmpty();
     }
 
     /**
