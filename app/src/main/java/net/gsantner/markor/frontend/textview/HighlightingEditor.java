@@ -97,6 +97,7 @@ public class HighlightingEditor extends AppCompatEditText {
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnScrollChangedListener(() -> updateHighlighting(false));
+        observer.addOnGlobalLayoutListener(() -> updateHighlighting(false));
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);

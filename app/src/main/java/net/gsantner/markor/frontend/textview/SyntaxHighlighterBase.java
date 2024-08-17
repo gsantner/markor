@@ -154,7 +154,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public SyntaxHighlighterBase clearDynamic() {
+    public synchronized SyntaxHighlighterBase clearDynamic() {
         if (_spannable == null) {
             return this;
         }
@@ -173,7 +173,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public SyntaxHighlighterBase clearStatic() {
+    public synchronized SyntaxHighlighterBase clearStatic() {
         if (_spannable == null) {
             return this;
         }
@@ -197,7 +197,7 @@ public abstract class SyntaxHighlighterBase {
      * @param spannable Spannable to work on
      * @return this
      */
-    public SyntaxHighlighterBase setSpannable(@Nullable final Spannable spannable) {
+    public synchronized SyntaxHighlighterBase setSpannable(@Nullable final Spannable spannable) {
         if (spannable != _spannable) {
             _groups.clear();
             _appliedDynamic.clear();
@@ -213,7 +213,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     public boolean hasSpans() {
-        return _spannable != null && !_groups.isEmpty();
+        return _spannable != null && _groups.size() > 0;
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class SyntaxHighlighterBase {
      * @param delta Apply to
      * @return this
      */
-    public SyntaxHighlighterBase fixup(final int after, final int delta) {
+    public synchronized SyntaxHighlighterBase fixup(final int after, final int delta) {
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
             // Very simple fixup. If the group is entirely after 'after', adjust it's region
@@ -260,7 +260,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public SyntaxHighlighterBase applyDynamic(final int[] range) {
+    public synchronized SyntaxHighlighterBase applyDynamic(final int[] range) {
         if (_spannable == null) {
             return this;
         }
@@ -292,7 +292,7 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
-    public SyntaxHighlighterBase applyStatic() {
+    public synchronized SyntaxHighlighterBase applyStatic() {
         if (_spannable == null || _staticApplied) {
             return this;
         }
@@ -314,7 +314,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     // Reflow selected region's lines
-    public final SyntaxHighlighterBase reflow(final int[] range) {
+    public final synchronized SyntaxHighlighterBase reflow(final int[] range) {
         if (TextViewUtils.checkRange(_spannable, range)) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             _spannable.removeSpan(_layoutUpdater);
@@ -328,7 +328,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public final SyntaxHighlighterBase recompute() {
+    public synchronized final SyntaxHighlighterBase recompute() {
         _groups.clear();
         _appliedDynamic.clear();
         _staticApplied = false;
