@@ -275,6 +275,9 @@ public class MarkdownTextConverter extends TextConverterBase {
         // Enable View (block) code syntax highlighting
         if (markup.contains("```")) {
             head += getViewHlPrismIncludes(GsContextUtils.instance.isDarkModeEnabled(context) ? "-tomorrow" : "", enableLineNumbers);
+            if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
+                onLoadJs += "wrapCodeBlockWords();";
+            }
         }
 
         // Enable Mermaid
@@ -335,10 +338,6 @@ public class MarkdownTextConverter extends TextConverterBase {
             if (c > 1) {
                 converted = converted.replace(HTML_PRESENTATION_BEAMER_SLIDE_START_DIV.replace("NO", Integer.toString(c - 1)), "</div></div> <!-- Final presentation slide -->");
             }
-        }
-
-        if (_appSettings.getDocumentWrapState(file.getAbsolutePath())) {
-            onLoadJs += "wrapCodeBlockWords();";
         }
 
         if (enableLineNumbers) {
