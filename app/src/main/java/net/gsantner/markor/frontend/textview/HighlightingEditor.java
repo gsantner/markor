@@ -135,16 +135,12 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     private boolean doHl() {
-        return _hlEnabled && _hl != null && getLayout() != null;
+        return _hlEnabled && _hl != null && getLayout() != null && getLocalVisibleRect(_hlRect);
     }
 
     private void updateHighlighting() {
         if (doHl()) {
-
-            final boolean visible = getLocalVisibleRect(_hlRect);
-
-            // Don't highlight unless shifted sufficiently or a recompute is required
-            if (visible && _hl.hasSpans() && isScrollSignificant()) {
+            if (_hl.hasSpans() && isScrollSignificant()) {
                 _oldHlRect.set(_hlRect);
                 final int[] newHlRegion = hlRegion(_hlRect);
                 _hl.clearDynamic().applyDynamic(newHlRegion);
@@ -163,7 +159,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hl.compute();
         if (!_textChangedWhileRecomputing.get()) {
             post(() -> {
-                getLocalVisibleRect(_oldHlRect);
+                _oldHlRect.set(_hlRect);
                 _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion(_oldHlRect));
             });
         }
