@@ -89,7 +89,7 @@ public abstract class ActionButtonBase {
         _document = document;
         _appSettings = ApplicationObject.settings();
         _buttonHorizontalMargin = GsContextUtils.instance.convertDpToPx(context, _appSettings.getEditorActionButtonItemPadding());
-        _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.getPath() : null);
+        _indent = _appSettings.getDocumentIndentSize(_document != null ? _document.path : null);
     }
 
     // Override to implement custom onClick
@@ -641,15 +641,15 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.AUDIO_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_insert_link: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.FILE_OR_LINK_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_insert_image: {
-                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.getFile());
+                AttachLinkOrFileDialog.showInsertImageOrLinkDialog(AttachLinkOrFileDialog.IMAGE_ACTION, _document.getFormat(), _activity, text, _document.file);
                 return true;
             }
             case R.string.abid_common_ordered_list_renumber: {
@@ -670,7 +670,7 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 MarkorDialogFactory.showInsertSnippetDialog(_activity, (snip) -> {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(snip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
                     _lastSnip = snip;
                 });
                 return true;
@@ -687,7 +687,7 @@ public abstract class ActionButtonBase {
                     if (WEB_URL.matcher(resource).matches()) {
                         url = resource;
                     } else {
-                        final File f = GsFileUtils.makeAbsolute(resource, _document.getFile().getParentFile());
+                        final File f = GsFileUtils.makeAbsolute(resource, _document.file.getParentFile());
                         if (f.canRead()) {
                             DocumentActivity.launch(getActivity(), f, null, null);
                             return true;
@@ -741,7 +741,7 @@ public abstract class ActionButtonBase {
                 return true;
             }
             case R.string.abid_common_view_file_in_other_app: {
-                _cu.viewFileInOtherApp(getContext(), _document.getFile(), GsFileUtils.getMimeType(_document.getFile()));
+                _cu.viewFileInOtherApp(getContext(), _document.file, GsFileUtils.getMimeType(_document.file));
                 return true;
             }
             case R.string.abid_common_rotate_screen: {
@@ -761,7 +761,7 @@ public abstract class ActionButtonBase {
             case R.string.abid_common_indent: {
                 MarkorDialogFactory.showIndentSizeDialog(_activity, _indent, (size) -> {
                     _indent = Integer.parseInt(size);
-                    _appSettings.setDocumentIndentSize(_document.getPath(), _indent);
+                    _appSettings.setDocumentIndentSize(_document.path, _indent);
                 });
                 return true;
             }
@@ -790,20 +790,20 @@ public abstract class ActionButtonBase {
             }
             case R.string.abid_common_insert_snippet: {
                 if (!TextUtils.isEmpty(_lastSnip)) {
-                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.getTitle(), TextViewUtils.getSelectedText(_hlEditor)));
+                    _hlEditor.insertOrReplaceTextOnCursor(TextViewUtils.interpolateSnippet(_lastSnip, _document.title, TextViewUtils.getSelectedText(_hlEditor)));
                 }
                 return true;
             }
             case R.string.abid_common_insert_audio: {
-                AttachLinkOrFileDialog.insertAudioRecording(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertAudioRecording(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_insert_link: {
-                AttachLinkOrFileDialog.insertGalleryPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertGalleryPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_insert_image: {
-                AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.getFile());
+                AttachLinkOrFileDialog.insertCameraPhoto(_activity, _document.getFormat(), _hlEditor.getText(), _document.file);
                 return true;
             }
             case R.string.abid_common_new_line_below: {

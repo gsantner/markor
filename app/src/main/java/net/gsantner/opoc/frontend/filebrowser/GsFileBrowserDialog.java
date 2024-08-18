@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -81,6 +82,20 @@ public class GsFileBrowserDialog extends DialogFragment implements GsFileBrowser
     //########################
     //## Methods
     //########################
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity()) {
+            @Override
+            public void onBackPressed() {
+                if (_filesystemViewerAdapter == null || !_filesystemViewerAdapter.goBack()) {
+                    this.dismiss();
+                }
+            }
+        };
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.opoc_filesystem_dialog, container, false);

@@ -241,7 +241,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             final Document document = new Document(file);
-            final int format = _appSettings.getDocumentFormat(document.getPath(), document.getFormat());
+            final int format = _appSettings.getDocumentFormat(document.path, document.getFormat());
             final String formatted = getFormatted(shareAsLink(), file, format);
 
             final String oldContent = document.loadContent(activity);
@@ -256,7 +256,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             _appSettings.addRecentFile(file);
 
             if (showEditor) {
-                DocumentActivity.launch(activity, document.getFile(), null, -1);
+                DocumentActivity.launch(activity, document.file, null, -1);
             }
 
             activity.finish();

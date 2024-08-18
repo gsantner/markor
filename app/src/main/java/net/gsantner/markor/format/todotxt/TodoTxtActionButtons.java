@@ -124,7 +124,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_archive_done_tasks: {
-                final String last = _appSettings.getLastTodoDoneName(_document.getPath());
+                final String last = _appSettings.getLastTodoDoneName(_document.path);
                 MarkorDialogFactory.showSttArchiveDialog(getActivity(), last, (callbackPayload) -> {
                     callbackPayload = Document.normalizeFilename(callbackPayload);
 
@@ -148,7 +148,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                         }
                     }
                     if (!move.isEmpty() && _document.testCreateParent()) {
-                        File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
+                        File doneFile = new File(_document.file.getParentFile(), callbackPayload);
                         String doneFileContents = "";
                         if (doneFile.exists() && doneFile.canRead()) {
                             doneFileContents = GsFileUtils.readTextFileFast(doneFile).first.trim() + "\n";
@@ -165,7 +165,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                             );
                         }
                     }
-                    _appSettings.setLastTodoDoneName(_document.getPath(), callbackPayload);
+                    _appSettings.setLastTodoDoneName(_document.path, callbackPayload);
                 });
                 return true;
             }

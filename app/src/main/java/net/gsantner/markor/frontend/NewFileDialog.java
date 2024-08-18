@@ -296,8 +296,8 @@ public class NewFileDialog extends DialogFragment {
                 document.saveContent(activity, content.first, cu, true);
 
                 // We only make these changes if the file did not already exist
-                appSettings.setDocumentFormat(document.getPath(), fmt.format);
-                appSettings.setLastEditPosition(document.getPath(), content.second);
+                appSettings.setDocumentFormat(document.path, fmt.format);
+                appSettings.setLastEditPosition(document.path, content.second);
 
                 callback(file);
 
