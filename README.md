@@ -92,7 +92,6 @@ There is no dedicated view mode implemented.
 * [**FAQ**](README.md#FAQ)
   * [File browser, file management](README.md#file-browser--file-management)
   * [Format: Markdown](README.md#format-markdown)
-  * [Format: Markdown](README.md#format-markdown)
   * [Format: todo.txt](README.md#format-todotxt)
 * [**More**](doc)
   * [Synced plaintext TODO and notes - Vim / Vimwiki, Markor Android, Syncthing, GTD (Pitt)](doc/2020-09-26-vimwiki-sync-plaintext-to-do-and-notes-todotxt-markdown.md)

@@ -18,6 +18,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Parcelable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spannable;
@@ -123,6 +124,12 @@ public class GsSearchOrCustomTextDialog {
         public int clearInputIcon = android.R.drawable.ic_menu_close_clear_cancel;
         @StyleRes
         public int dialogStyle = 0;
+    }
+
+    public static class DialogState {
+        public int listPosition = -1;
+        public String defaultText = "";
+        public Parcelable instanceState;
     }
 
     public static class Adapter extends BaseAdapter {
@@ -241,7 +248,7 @@ public class GsSearchOrCustomTextDialog {
         return text.toString().toLowerCase(locale).contains(constraint.toString().toLowerCase(locale));
     }
 
-    public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
+    public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt, final DialogState state) {
         final int dialogStyle = dopt.dialogStyle != 0 ? dopt.dialogStyle : GsContextUtils.instance.getResId(activity,
                 GsContextUtils.ResType.STYLE, dopt.isDarkDialog ? "Theme_AppCompat_Dialog" : "Theme_AppCompat_Light_Dialog");
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, dialogStyle);
@@ -284,6 +291,10 @@ public class GsSearchOrCustomTextDialog {
         listView.setId(LIST_VIEW_ID);
         listView.setAdapter(listAdapter);
 
+        if (state != null && state.instanceState != null) {
+            listView.onRestoreInstanceState(state.instanceState);
+        }
+
         if (dopt.listPosition >= 0) {
             listView.setSelection(dopt.listPosition);
         }
@@ -294,9 +305,12 @@ public class GsSearchOrCustomTextDialog {
         mainLayout.addView(listView, listLayout);
 
         dialogBuilder.setOnDismissListener((dialogInterface) -> {
-            // Update state
-            dopt.listPosition = listView.getFirstVisiblePosition();
-            dopt.defaultText = searchEditText.getText().toString();
+            if (state != null) {
+                // Store/Update dialog state
+                state.instanceState = listView.onSaveInstanceState();
+                state.listPosition = listView.getFirstVisiblePosition();
+                state.defaultText = searchEditText.getText().toString();
+            }
 
             if (dopt.dismissCallback != null) {
                 dopt.dismissCallback.callback(dialogInterface);
@@ -339,6 +353,7 @@ public class GsSearchOrCustomTextDialog {
         });
 
         dialog.show();
+
         final Window win = dialog.getWindow();
         if (win != null) {
             if (dopt.isSearchEnabled) {
@@ -443,6 +458,10 @@ public class GsSearchOrCustomTextDialog {
         });
 
         listView.setOnItemLongClickListener((parent, view, pos, id) -> directActivate.callback(pos));
+    }
+
+    public static void showMultiChoiceDialogWithSearchFilterUI(final Activity activity, final DialogOptions dopt) {
+        showMultiChoiceDialogWithSearchFilterUI(activity, dopt, null);
     }
 
     private static View makeTitleView(final Context context, final DialogOptions dopt) {

@@ -13,7 +13,7 @@ if (enable_plugin_kotlin) {
     apply plugin: 'kotlin-kapt'
 }
 
-rootProject.ext.version_minSdk = 16
+rootProject.ext.version_minSdk = 18
 
 // https://github.com/vsch/flexmark-java/releases
 ext.version_library_flexmark = "0.42.14"
@@ -25,8 +25,8 @@ android {
     defaultConfig {
         resValue "string", "manifest_package_id", "net.gsantner.markor"
         applicationId "net.gsantner.markor"
-        versionName "2.12.2"
-        versionCode 151
+        versionName "2.12.5"
+        versionCode 154
 
         multiDexEnabled true
         minSdkVersion rootProject.ext.version_minSdk
@@ -35,8 +35,8 @@ android {
         buildConfigField "boolean", "IS_GPLAY_BUILD", "false"
         buildConfigField "String[]", "DETECTED_ANDROID_LOCALES", "${findUsedAndroidLocales()}"
         buildConfigField "String", "BUILD_DATE", "\"${getBuildDate()}\""
-        buildConfigField "String", "GITHASH", "\"${getGitHash()}\""
-        buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage()}\""
+        buildConfigField "String", "GITHASH", "\"${getGitHash}\""
+        buildConfigField "String", "GITMSG", "\"${getGitLastCommitMessage}\""
         setProperty("archivesBaseName", applicationId + "-v" + versionCode + "-" + versionName)
     }
 
@@ -71,23 +71,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     packagingOptions {
-        exclude 'META-INF/LICENSE-LGPL-2.1.txt'
-        exclude 'META-INF/LICENSE-LGPL-3.txt'
-        exclude 'META-INF/LICENSE-W3C-TEST'
+        resources {
+            excludes += ['META-INF/LICENSE-LGPL-2.1.txt', 'META-INF/LICENSE-LGPL-3.txt', 'META-INF/LICENSE-W3C-TEST']
+        }
     }
+
 
     compileOptions {
         encoding = 'UTF-8'
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
+    namespace 'net.gsantner.markor'
+    lint {
         abortOnError false
+        disable 'MissingTranslation', 'InvalidPackage', 'ObsoleteLintCustomCheck', 'DefaultLocale', 'UnusedAttribute', 'VectorRaster', 'InflateParams', 'IconLocation', 'UnusedResources', 'TypographyEllipsis'
     }
+
 }
 
 dependencies {
@@ -141,7 +142,7 @@ dependencies {
     implementation 'com.github.AppIntro:AppIntro:6.2.0'
     implementation 'com.kailashdabhi:om-recorder:1.1.5'
     implementation 'com.github.mertakdut:EpubParser:1.0.95'
-    implementation project(':app:thirdparty-lib-src:QuadFlask-colorpicker')
+    implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
 
     // Tool libraries
     //noinspection AnnotationProcessorOnCompilePath

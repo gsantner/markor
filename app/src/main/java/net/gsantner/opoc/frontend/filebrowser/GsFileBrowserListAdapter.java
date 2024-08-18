@@ -184,15 +184,14 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
             }
         }
 
-        holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
+        final boolean isFile = file.isFile();
 
-        holder.image.postDelayed(() -> {
-            holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : (!file.isFile() ? _dopt.folderImage : _dopt.fileImage));
-            holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
+        holder.description.setText(!_dopt.descModtimeInsteadOfParent || holder.title.getText().toString().equals("..")
                     ? descriptionFile.getAbsolutePath() : formatFileDescription(file, _prefApp.getString("pref_key__file_description_format", "")));
-        }, 60);
+        holder.description.setTextColor(ContextCompat.getColor(_context, _dopt.secondaryTextColor));
+        holder.image.setImageResource(isSelected ? _dopt.selectedItemImage : isFile ? _dopt.fileImage : _dopt.folderImage);
         holder.image.setColorFilter(ContextCompat.getColor(_context,
-                        isSelected ? _dopt.accentColor : (!file.isFile() ? _dopt.folderColor : _dopt.fileColor)),
+                isSelected ? _dopt.accentColor : isFile? _dopt.fileColor : _dopt.folderColor),
                 android.graphics.PorterDuff.Mode.SRC_ATOP);
         if (!isSelected && isFavourite) {
             holder.image.setColorFilter(0xFFE3B51B);
@@ -645,15 +644,18 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                         virtualMapping.put(VIRTUAL_STORAGE_APP_DATA_PRIVATE, appDataFolder);
                         newData.add(VIRTUAL_STORAGE_APP_DATA_PRIVATE);
                     }
-                } else if (folder.isDirectory()) {
-                    GsCollectionUtils.addAll(newData, folder.listFiles(GsFileBrowserListAdapter.this));
                 } else if (folder.equals(VIRTUAL_STORAGE_RECENTS)) {
                     newData.addAll(_dopt.recentFiles);
                 } else if (folder.equals(VIRTUAL_STORAGE_POPULAR)) {
                     newData.addAll(_dopt.popularFiles);
                 } else if (folder.equals(VIRTUAL_STORAGE_FAVOURITE)) {
                     newData.addAll(_dopt.favouriteFiles);
-                } else if (folder.getAbsolutePath().equals("/storage/emulated")) {
+                } else if (folder.isDirectory()) {
+                    GsCollectionUtils.addAll(newData, folder.listFiles(GsFileBrowserListAdapter.this));
+                }
+
+                // Some special folders get special children
+                if (folder.getAbsolutePath().equals("/storage/emulated")) {
                     newData.add(new File(folder, "0"));
                 } else if (folder.getAbsolutePath().equals("/")) {
                     newData.add(new File(folder, "storage"));
@@ -664,15 +666,16 @@ public class GsFileBrowserListAdapter extends RecyclerView.Adapter<GsFileBrowser
                 }
 
                 for (final File externalFileDir : ContextCompat.getExternalFilesDirs(_context, null)) {
-                    for (int i = 0; i < newData.size(); i++) {
-                        final File file = newData.get(i);
-                        if (!canWrite(file) && !file.getAbsolutePath().equals("/") && externalFileDir != null && externalFileDir.getAbsolutePath().startsWith(file.getAbsolutePath())) {
-                            final int depth = GsTextUtils.countChars(file.getAbsolutePath(), '/')[0];
+                    for (final File file : newData) {
+                        final String absPath = file.getAbsolutePath();
+                        final String absExt = externalFileDir.getAbsolutePath() ;
+                        if (!canWrite(file) && !absPath.equals("/") && absExt.startsWith(absPath)) {
+                            final int depth = GsTextUtils.countChars(absPath, '/')[0];
                             if (depth < 3) {
                                 final File parent = file.getParentFile();
                                 if (parent != null) {
                                     final File remap = new File(parent.getAbsolutePath(), "appdata-public (" + file.getName() + ")");
-                                    virtualMapping.put(remap, new File(externalFileDir.getAbsolutePath()));
+                                    virtualMapping.put(remap, new File(absExt));
                                     newData.add(remap);
                                 }
                             }
