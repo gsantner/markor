@@ -128,7 +128,7 @@ public abstract class SyntaxHighlighterBase {
 
     private final ForceUpdateLayout _layoutUpdater;
 
-    private final List<SpanGroup> _groups;
+    private final List<SpanGroup> _groups, _groupBuffer;
     private final NavigableSet<Integer> _appliedDynamic;
     private boolean _staticApplied = false;
 
@@ -138,6 +138,7 @@ public abstract class SyntaxHighlighterBase {
     public SyntaxHighlighterBase(final AppSettings as) {
         _appSettings = as;
         _groups = new ArrayList<>();
+        _groupBuffer = new ArrayList<>();
         _appliedDynamic = new TreeSet<>();
 
         _layoutUpdater = new ForceUpdateLayout();
@@ -329,9 +330,21 @@ public abstract class SyntaxHighlighterBase {
      * @return this
      */
     public synchronized final SyntaxHighlighterBase recompute() {
+        return compute().setComputed();
+    }
+
+    public synchronized final SyntaxHighlighterBase setComputed() {
         _groups.clear();
         _appliedDynamic.clear();
         _staticApplied = false;
+        _groups.addAll(_groupBuffer);
+        _groupBuffer.clear();
+        return this;
+    }
+
+    // Note - this code is _not_ synchronized as it does not affect any working state
+    public final SyntaxHighlighterBase compute() {
+        _groupBuffer.clear();
 
         if (TextUtils.isEmpty(_spannable)) {
             return this;
@@ -356,7 +369,7 @@ public abstract class SyntaxHighlighterBase {
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
         if (end > start && span != null) {
-            _groups.add(new SpanGroup(span, start, end));
+            _groupBuffer.add(new SpanGroup(span, start, end));
         }
     }
 

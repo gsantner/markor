@@ -34,6 +34,12 @@ import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @SuppressWarnings("UnusedReturnValue")
 public class HighlightingEditor extends AppCompatEditText {
 
@@ -58,7 +64,8 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _autoFormatEnabled;
     private boolean _saveInstanceState = true;
     private final LineNumbersDrawer _lineNumbersDrawer = new LineNumbersDrawer(this);
-
+    private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
+    private final AtomicBoolean _textChangedWhileRecomputing = new AtomicBoolean(false);
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -83,6 +90,7 @@ public class HighlightingEditor extends AppCompatEditText {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
+                    _textChangedWhileRecomputing.set(true);
                 }
             }
 
@@ -96,8 +104,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
         // Listen to and update highlighting
         final ViewTreeObserver observer = getViewTreeObserver();
-        observer.addOnScrollChangedListener(() -> updateHighlighting(false));
-        observer.addOnGlobalLayoutListener(() -> updateHighlighting(false));
+        observer.addOnScrollChangedListener(this::updateHighlighting);
+        observer.addOnGlobalLayoutListener(this::updateHighlighting);
 
         // Fix for Android 12 perf issues - https://github.com/gsantner/markor/discussions/1794
         setEmojiCompatEnabled(false);
@@ -126,28 +134,44 @@ public class HighlightingEditor extends AppCompatEditText {
                 Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
-    private void updateHighlighting(final boolean recompute) {
-        if (_hlEnabled && _hl != null && getLayout() != null) {
+    private boolean doHl() {
+        return _hlEnabled && _hl != null && getLayout() != null;
+    }
+
+    private void updateHighlighting() {
+        if (doHl()) {
 
             final boolean visible = getLocalVisibleRect(_hlRect);
 
             // Don't highlight unless shifted sufficiently or a recompute is required
-            if (recompute || (visible && _hl.hasSpans() && isScrollSignificant())) {
+            if (visible && _hl.hasSpans() && isScrollSignificant()) {
                 _oldHlRect.set(_hlRect);
-
-                final int[] newHlRegion = hlRegion(_hlRect); // Compute this _before_ clear
-                _hl.clearDynamic();
-                if (recompute) {
-                    _hl.clearStatic().recompute().applyStatic();
-                }
-                _hl.applyDynamic(newHlRegion);
+                final int[] newHlRegion = hlRegion(_hlRect);
+                _hl.clearDynamic().applyDynamic(newHlRegion);
             }
+        }
+    }
+
+    private void recomputeHighlighting() {
+        if (doHl()) {
+            executor.execute(this::_recomputeHighlightingAsync);
+        }
+    }
+
+    private synchronized void _recomputeHighlightingAsync() {
+        _textChangedWhileRecomputing.set(false);
+        _hl.compute();
+        if (!_textChangedWhileRecomputing.get()) {
+            post(() -> {
+                getLocalVisibleRect(_oldHlRect);
+                _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion(_oldHlRect));
+            });
         }
     }
 
     public void setDynamicHighlightingEnabled(final boolean enable) {
         _isDynamicHighlightingEnabled = enable;
-        updateHighlighting(true);
+        recomputeHighlighting();
     }
 
     public boolean isDynamicHighlightingEnabled() {
@@ -163,7 +187,7 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_hl != null) {
             initHighlighter();
-            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), () -> updateHighlighting(true));
+            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), this::recomputeHighlighting);
             _hlDebounced.run();
         } else {
             _hlDebounced = null;
@@ -266,7 +290,7 @@ public class HighlightingEditor extends AppCompatEditText {
     protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (changedView == this && visibility == View.VISIBLE) {
-            updateHighlighting(true);
+            recomputeHighlighting();
         }
     }
 
