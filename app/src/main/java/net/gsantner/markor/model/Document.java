@@ -54,10 +54,12 @@ public class Document implements Serializable {
     public static final String EXTRA_DO_PREVIEW = "EXTRA_DO_PREVIEW";
     public static final int EXTRA_FILE_LINE_NUMBER_LAST = -919385553; // Flag for last line
 
-    private final File _file;
-    private final String _fileExtension;
-    private String _title = "";
-    private String _path = "";
+    // Exposed properties
+    public final File file;
+    public final String extension;
+    public final String title;
+    public final String path;
+
     private long _modTime = -1; // The file's mod time when it was last touched by this document
     private long _touchTime = -1; // The last time this document touched the file
     private GsFileUtils.FileInfo _fileInfo;
@@ -69,15 +71,15 @@ public class Document implements Serializable {
     private long _lastHash = 0;
     private int _lastLength = -1;
 
-    public Document(@NonNull final File file) {
-        _file = file;
-        _path = _file.getAbsolutePath();
-        _title = GsFileUtils.getFilenameWithoutExtension(_file);
-        _fileExtension = GsFileUtils.getFilenameExtension(_file);
+    public Document(@NonNull final File f) {
+        path = getPath(f);
+        file = new File(path);
+        title = GsFileUtils.getFilenameWithoutExtension(file);
+        extension = GsFileUtils.getFilenameExtension(file);
 
         // Set initial format
         for (final FormatRegistry.Format format : FormatRegistry.FORMATS) {
-            if (format.converter == null || format.converter.isFileOutOfThisFormat(_file)) {
+            if (format.converter == null || format.converter.isFileOutOfThisFormat(file)) {
                 setFormat(format.format);
                 break;
             }
@@ -85,7 +87,13 @@ public class Document implements Serializable {
     }
 
     public static String getPath(final File file) {
-        return file != null ? file.getAbsolutePath() : "";
+        try {
+            return file.getCanonicalPath();
+        } catch (IOException e) {
+            return file.getAbsolutePath();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     // Get a default file
@@ -93,15 +101,6 @@ public class Document implements Serializable {
         final File notebook = ApplicationObject.settings().getNotebookDirectory();
         final File random = new File(notebook, getFileNameWithTimestamp(true));
         return new Document(random);
-    }
-
-    public String getPath() {
-        return _path;
-    }
-
-    @NonNull
-    public File getFile() {
-        return _file;
     }
 
     private void initModTimePref() {
@@ -113,13 +112,13 @@ public class Document implements Serializable {
 
     private long getGlobalTouchTime() {
         initModTimePref();
-        return _modTimePref.getLong(_file.getAbsolutePath(), 0);
+        return _modTimePref.getLong(file.getAbsolutePath(), 0);
     }
 
     private void setGlobalTouchTime() {
         initModTimePref();
         _touchTime = System.currentTimeMillis();
-        _modTimePref.edit().putLong(_file.getAbsolutePath(), _touchTime).apply();
+        _modTimePref.edit().putLong(file.getAbsolutePath(), _touchTime).apply();
     }
 
     public void resetChangeTracking() {
@@ -136,37 +135,29 @@ public class Document implements Serializable {
     public long fileModTime() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).lastModifiedTime().toMillis();
+                return Files.readAttributes(file.toPath(), BasicFileAttributes.class).lastModifiedTime().toMillis();
             }
         } catch (IOException ignored) {
         }
-        return _file.lastModified();
+        return file.lastModified();
     }
 
     public long fileBytes() {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                return Files.readAttributes(_file.toPath(), BasicFileAttributes.class).size();
+                return Files.readAttributes(file.toPath(), BasicFileAttributes.class).size();
             }
         } catch (Exception ignored) {
         }
-        return _file.length();
-    }
-
-    public String getTitle() {
-        return _title;
-    }
-
-    public String getName() {
-        return _file.getName();
+        return file.length();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Document) {
             Document other = ((Document) obj);
-            return equalsc(_file, other._file)
-                    && equalsc(getTitle(), other.getTitle())
+            return equalsc(file, other.file)
+                    && equalsc(title, other.title)
                     && (getFormat() == other.getFormat());
         }
         return super.equals(obj);
@@ -177,7 +168,7 @@ public class Document implements Serializable {
     }
 
     public String getFileExtension() {
-        return _fileExtension;
+        return extension;
     }
 
     @StringRes
@@ -194,11 +185,11 @@ public class Document implements Serializable {
     }
 
     public boolean isBinaryFileNoTextLoading() {
-        return _file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(_file);
+        return file != null && FormatRegistry.CONVERTER_EMBEDBINARY.isFileOutOfThisFormat(file);
     }
 
     public boolean isEncrypted() {
-        return isEncrypted(_file);
+        return isEncrypted(file);
     }
 
     private void setContentHash(final CharSequence s) {
@@ -219,27 +210,27 @@ public class Document implements Serializable {
             content = "";
         } else if (isEncrypted() && (pw = getPasswordWithWarning(context)) != null) {
             try {
-                final byte[] encryptedContext = GsFileUtils.readCloseStreamWithSize(new FileInputStream(_file), (int) _file.length());
+                final byte[] encryptedContext = GsFileUtils.readCloseStreamWithSize(new FileInputStream(file), (int) file.length());
                 if (encryptedContext.length > JavaPasswordbasedCryption.Version.NAME_LENGTH) {
                     content = JavaPasswordbasedCryption.getDecryptedText(encryptedContext, pw);
                 } else {
                     content = new String(encryptedContext, StandardCharsets.UTF_8);
                 }
             } catch (FileNotFoundException e) {
-                Log.e(Document.class.getName(), "loadDocument:  File " + _file + " not found.");
+                Log.e(Document.class.getName(), "loadDocument:  File " + file + " not found.");
                 content = "";
             } catch (JavaPasswordbasedCryption.EncryptionFailedException |
                      IllegalArgumentException e) {
                 Toast.makeText(context, R.string.could_not_decrypt_file_content_wrong_password_or_is_the_file_maybe_not_encrypted, Toast.LENGTH_LONG).show();
-                Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + _file + ". " + e.getMessage(), e);
+                Log.e(Document.class.getName(), "loadDocument:  decrypt failed for File " + file + ". " + e.getMessage(), e);
                 content = "";
             }
         } else {
             // We try to load 2x. If both times fail, we return null
-            Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(_file);
+            Pair<String, GsFileUtils.FileInfo> result = GsFileUtils.readTextFileFast(file);
             if (result.second.ioError) {
-                Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, trying again.");
-                result = GsFileUtils.readTextFileFast(_file);
+                Log.i(Document.class.getName(), "loadDocument:  File " + file + " read error, trying again.");
+                result = GsFileUtils.readTextFileFast(file);
             }
             content = result.first;
             _fileInfo = result.second;
@@ -248,7 +239,7 @@ public class Document implements Serializable {
         if (MainActivity.IS_DEBUG_ENABLED) {
             AppSettings.appendDebugLog(
                     "\n\n\n--------------\nLoaded document, filepattern "
-                            + getName().replaceAll(".*\\.", "-")
+                            + title.replaceAll(".*\\.", "-")
                             + ", chars: " + content.length() + " bytes:" + content.getBytes().length
                             + "(" + GsFileUtils.getReadableFileSize(content.getBytes().length, true) +
                             "). Language >" + Locale.getDefault()
@@ -259,7 +250,7 @@ public class Document implements Serializable {
             // Force next load on failure
             setContentHash(null);
             resetChangeTracking();
-            Log.i(Document.class.getName(), "loadDocument:  File " + _file + " read error, could not load file.");
+            Log.i(Document.class.getName(), "loadDocument:  File " + file + " read error, could not load file.");
             return null;
         } else {
             // Also set hash and time on load - should prevent unnecessary saves
@@ -283,7 +274,7 @@ public class Document implements Serializable {
     }
 
     public boolean testCreateParent() {
-        return testCreateParent(_file);
+        return testCreateParent(file);
     }
 
     public static boolean testCreateParent(final File file) {
@@ -329,9 +320,9 @@ public class Document implements Serializable {
             }
 
             cu = cu != null ? cu : new MarkorContextUtils(context);
-            final boolean isContentResolverProxyFile = cu.isContentResolverProxyFile(_file);
-            if (cu.isUnderStorageAccessFolder(context, _file, false) || isContentResolverProxyFile) {
-                cu.writeFile(context, _file, false, (fileOpened, fos) -> {
+            final boolean isContentResolverProxyFile = cu.isContentResolverProxyFile(file);
+            if (cu.isUnderStorageAccessFolder(context, file, false) || isContentResolverProxyFile) {
+                cu.writeFile(context, file, false, (fileOpened, fos) -> {
                     try {
                         if (_fileInfo != null && _fileInfo.hasBom) {
                             fos.write(0xEF);
@@ -342,7 +333,7 @@ public class Document implements Serializable {
 
                         // Also overwrite content resolver proxy file in addition to writing back to the origin
                         if (isContentResolverProxyFile) {
-                            GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                            GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
                         }
 
                     } catch (Exception e) {
@@ -352,20 +343,20 @@ public class Document implements Serializable {
                 success = true;
             } else {
                 // Try write 2x
-                success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
                 if (!success || fileBytes() < contentAsBytes.length) {
-                    success = GsFileUtils.writeFile(_file, contentAsBytes, _fileInfo);
+                    success = GsFileUtils.writeFile(file, contentAsBytes, _fileInfo);
                 }
             }
 
             final long size = fileBytes();
             if (fileBytes() < contentAsBytes.length) {
                 success = false;
-                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length + "; file=" + _file);
+                Log.i(Document.class.getName(), "File write failed; size = " + size + "; length = " + contentAsBytes.length + "; file=" + file);
             }
 
         } catch (JavaPasswordbasedCryption.EncryptionFailedException e) {
-            Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + getPath() + ". " + e.getMessage(), e);
+            Log.e(Document.class.getName(), "writeContent:  encrypt failed for File " + path + ". " + e.getMessage(), e);
             Toast.makeText(context, R.string.could_not_encrypt_file_content_the_file_was_not_saved, Toast.LENGTH_LONG).show();
             success = false;
         }
@@ -375,7 +366,7 @@ public class Document implements Serializable {
             _modTime = fileModTime();
             setGlobalTouchTime();
         } else {
-            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes() + "; file=" + _file);
+            Log.i(Document.class.getName(), "File write failed, size = " + fileBytes() + "; file=" + file);
         }
 
         return success;

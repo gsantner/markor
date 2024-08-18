@@ -277,7 +277,7 @@ public class MarkdownActionButtons extends ActionButtonBase {
                 GsContextUtils.instance.openWebpageInExternalBrowser(getActivity(), link.link);
                 return true;
             } else {
-                final File f = GsFileUtils.makeAbsolute(link.link, _document.getFile().getParentFile());
+                final File f = GsFileUtils.makeAbsolute(link.link, _document.file.getParentFile());
                 if (GsFileUtils.canCreate(f)) {
                     DocumentActivity.launch(getActivity(), f, null, null);
                     return true;

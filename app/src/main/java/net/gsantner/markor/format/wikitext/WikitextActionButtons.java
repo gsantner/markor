@@ -188,7 +188,7 @@ public class WikitextActionButtons extends ActionButtonBase {
             return;
         }
 
-        WikitextLinkResolver resolver = WikitextLinkResolver.resolve(fullWikitextLink, _appSettings.getNotebookDirectory(), _document.getFile(), _appSettings.isWikitextDynamicNotebookRootEnabled());
+        WikitextLinkResolver resolver = WikitextLinkResolver.resolve(fullWikitextLink, _appSettings.getNotebookDirectory(), _document.file, _appSettings.isWikitextDynamicNotebookRootEnabled());
         String resolvedLink = resolver.getResolvedLink();
         if (resolvedLink == null) {
             return;
