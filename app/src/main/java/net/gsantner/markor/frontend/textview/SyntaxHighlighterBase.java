@@ -271,7 +271,9 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
-        for (final SpanGroup group : _groups) {
+        for (int i = 0; i < _groups.size(); i++) {
+            final SpanGroup group = _groups.get(i);
+
             if (group.isStatic) {
                 continue;
             }
