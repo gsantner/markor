@@ -155,7 +155,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public synchronized SyntaxHighlighterBase clearDynamic() {
+    public SyntaxHighlighterBase clearDynamic() {
         if (_spannable == null) {
             return this;
         }
@@ -174,7 +174,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public synchronized SyntaxHighlighterBase clearStatic() {
+    public SyntaxHighlighterBase clearStatic() {
         if (_spannable == null) {
             return this;
         }
@@ -198,7 +198,7 @@ public abstract class SyntaxHighlighterBase {
      * @param spannable Spannable to work on
      * @return this
      */
-    public synchronized SyntaxHighlighterBase setSpannable(@Nullable final Spannable spannable) {
+    public SyntaxHighlighterBase setSpannable(@Nullable final Spannable spannable) {
         if (spannable != _spannable) {
             _groups.clear();
             _appliedDynamic.clear();
@@ -214,7 +214,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     public boolean hasSpans() {
-        return _spannable != null && _groups.size() > 0;
+        return _spannable != null && !_groups.isEmpty();
     }
 
     /**
@@ -233,7 +233,7 @@ public abstract class SyntaxHighlighterBase {
      * @param delta Apply to
      * @return this
      */
-    public synchronized SyntaxHighlighterBase fixup(final int after, final int delta) {
+    public SyntaxHighlighterBase fixup(final int after, final int delta) {
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
             // Very simple fixup. If the group is entirely after 'after', adjust it's region
@@ -261,7 +261,7 @@ public abstract class SyntaxHighlighterBase {
      *
      * @return this
      */
-    public synchronized SyntaxHighlighterBase applyDynamic(final int[] range) {
+    public SyntaxHighlighterBase applyDynamic(final int[] range) {
         if (_spannable == null) {
             return this;
         }
@@ -271,9 +271,7 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
-        for (int i = 0; i < _groups.size(); i++) {
-            final SpanGroup group = _groups.get(i);
-
+        for (final SpanGroup group : _groups) {
             if (group.isStatic) {
                 continue;
             }
@@ -293,13 +291,12 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
-    public synchronized SyntaxHighlighterBase applyStatic() {
+    public SyntaxHighlighterBase applyStatic() {
         if (_spannable == null || _staticApplied) {
             return this;
         }
 
-        for (int i = 0; i < _groups.size(); i++) {
-            final SpanGroup group = _groups.get(i);
+        for (final SpanGroup group : _groups) {
             if (group.isStatic) {
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
@@ -315,7 +312,7 @@ public abstract class SyntaxHighlighterBase {
     }
 
     // Reflow selected region's lines
-    public final synchronized SyntaxHighlighterBase reflow(final int[] range) {
+    public final SyntaxHighlighterBase reflow(final int[] range) {
         if (TextViewUtils.checkRange(_spannable, range)) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             _spannable.removeSpan(_layoutUpdater);
@@ -323,17 +320,17 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
+    public final SyntaxHighlighterBase recompute() {
+        return compute().setComputed();
+    }
+
     /**
-     * Recompute all spans. References to existing spans will be lost.
+     * Make computed spans current. References to existing spans will be lost.
      * Caller is responsible for calling 'clear()' before this, if necessary
      *
      * @return this
      */
-    public synchronized final SyntaxHighlighterBase recompute() {
-        return compute().setComputed();
-    }
-
-    public synchronized final SyntaxHighlighterBase setComputed() {
+    public final SyntaxHighlighterBase setComputed() {
         _groups.clear();
         _appliedDynamic.clear();
         _staticApplied = false;
@@ -342,7 +339,12 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
-    // Note - this code is _not_ synchronized as it does not affect any working state
+    /**
+     * Compute all highlighting spans to a buffer.
+     * The buffer is not made current until one calls 'setComputed'
+     *
+     * @return this
+     */
     public final SyntaxHighlighterBase compute() {
         _groupBuffer.clear();
 
@@ -353,7 +355,7 @@ public abstract class SyntaxHighlighterBase {
         // Highlighting cannot generate exceptions!
         try {
             generateSpans();
-            Collections.sort(_groups); // Dramatically improves performance
+            Collections.sort(_groupBuffer); // Dramatically improves performance
         } catch (Exception ex) {
             Log.w(getClass().getName(), ex);
         } catch (Error er) {

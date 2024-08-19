@@ -65,7 +65,7 @@ public class HighlightingEditor extends AppCompatEditText {
     private boolean _saveInstanceState = true;
     private final LineNumbersDrawer _lineNumbersDrawer = new LineNumbersDrawer(this);
     private final ExecutorService executor = new ThreadPoolExecutor(0, 3, 60, TimeUnit.SECONDS, new SynchronousQueue<>());
-    private final AtomicBoolean _textChangedWhileRecomputing = new AtomicBoolean(false);
+    private final AtomicBoolean _textUnchangedWhileHighlighting = new AtomicBoolean(true);
 
     public HighlightingEditor(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -90,7 +90,7 @@ public class HighlightingEditor extends AppCompatEditText {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
                     _hl.fixup(start, before, count);
-                    _textChangedWhileRecomputing.set(true);
+                    _textUnchangedWhileHighlighting.set(false);
                 }
             }
 
@@ -134,35 +134,43 @@ public class HighlightingEditor extends AppCompatEditText {
                 Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
-    private boolean doHl() {
-        return _hlEnabled && _hl != null && getLayout() != null && getLocalVisibleRect(_hlRect);
+    private boolean canHighlight() {
+        return _hlEnabled && _hl != null && getLayout() != null;
     }
 
     private void updateHighlighting() {
-        if (doHl()) {
-            if (_hl.hasSpans() && isScrollSignificant()) {
-                _oldHlRect.set(_hlRect);
-                final int[] newHlRegion = hlRegion(_hlRect);
-                _hl.clearDynamic().applyDynamic(newHlRegion);
-            }
+        if (canHighlight() && getLocalVisibleRect(_hlRect) && isScrollSignificant()) {
+            _hl.clearDynamic().applyDynamic(hlRegion());
+            _oldHlRect.set(_hlRect);
         }
     }
 
     private void recomputeHighlighting() {
-        if (doHl()) {
-            executor.execute(this::_recomputeHighlightingAsync);
+        if (canHighlight()) {
+            _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion());
         }
     }
 
-    private synchronized void _recomputeHighlightingAsync() {
-        _textChangedWhileRecomputing.set(false);
-        _hl.compute();
-        if (!_textChangedWhileRecomputing.get()) {
-            post(() -> {
-                _oldHlRect.set(_hlRect);
-                _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion(_oldHlRect));
-            });
+    /**
+     * Computing the highlighting spans for a lot of text can be slow so we do it async
+     * 1. We set a flag to check that the text did not change when we were computing
+     * 2. We trigger the computation to a buffer
+     * 3. If the text did not change during computation, we apply the highlighting
+     */
+    private void recomputeHighlightingAsync() {
+        if (canHighlight()) {
+            executor.execute(this::_recomputeHighlightingWorker);
         }
+    }
+
+    private synchronized void _recomputeHighlightingWorker() {
+        _textUnchangedWhileHighlighting.set(true);
+        _hl.compute();
+        post(() -> {
+            if (_textUnchangedWhileHighlighting.get()) {
+                _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion());
+            }
+        });
     }
 
     public void setDynamicHighlightingEnabled(final boolean enable) {
@@ -183,8 +191,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
         if (_hl != null) {
             initHighlighter();
-            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), this::recomputeHighlighting);
-            _hlDebounced.run();
+            _hlDebounced = TextViewUtils.makeDebounced(getHandler(), _hl.getHighlightingDelay(), this::recomputeHighlightingAsync);
+            recomputeHighlighting();
         } else {
             _hlDebounced = null;
         }
@@ -241,11 +249,11 @@ public class HighlightingEditor extends AppCompatEditText {
     }
 
     // Region to highlight
-    private int[] hlRegion(final Rect rect) {
+    private int[] hlRegion() {
         if (_isDynamicHighlightingEnabled) {
-            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * rect.height()) + _hlShiftThreshold;
-            final int startY = rect.centerY() - hlSize;
-            final int endY = rect.centerY() + hlSize;
+            final int hlSize = Math.round(HIGHLIGHT_REGION_SIZE * _hlRect.height()) + _hlShiftThreshold;
+            final int startY = _hlRect.centerY() - hlSize;
+            final int endY = _hlRect.centerY() + hlSize;
             return new int[]{rowStart(startY), rowEnd(endY)};
         } else {
             return new int[]{0, length()};
