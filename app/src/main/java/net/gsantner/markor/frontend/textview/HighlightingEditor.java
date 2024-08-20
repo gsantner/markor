@@ -134,19 +134,25 @@ public class HighlightingEditor extends AppCompatEditText {
                 Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
     }
 
-    private boolean canHighlight() {
-        return _hlEnabled && _hl != null && getLayout() != null;
+    // The order of tests here is important
+    // - we want to run getLocalVisibleRect even if recompute is true
+    // - we want to run isScrollSignificant after getLocalVisibleRect
+    private boolean runHighlight(final boolean recompute) {
+        return _hlEnabled && _hl != null &&
+                (getLocalVisibleRect(_hlRect) || recompute) &&
+                (recompute || _hl.hasSpans()) &&
+                (recompute || isScrollSignificant());
     }
 
     private void updateHighlighting() {
-        if (canHighlight() && getLocalVisibleRect(_hlRect) && isScrollSignificant()) {
+        if (runHighlight(false)) {
             _hl.clearDynamic().applyDynamic(hlRegion());
             _oldHlRect.set(_hlRect);
         }
     }
 
     private void recomputeHighlighting() {
-        if (canHighlight()) {
+        if (runHighlight(true)) {
             _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion());
         }
     }
@@ -158,7 +164,7 @@ public class HighlightingEditor extends AppCompatEditText {
      * 3. If the text did not change during computation, we apply the highlighting
      */
     private void recomputeHighlightingAsync() {
-        if (canHighlight()) {
+        if (runHighlight(true)) {
             executor.execute(this::_recomputeHighlightingWorker);
         }
     }
