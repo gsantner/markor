@@ -201,7 +201,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_ctrl_a">Select all (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
     <string name="zero_width_space">Zero-width space</string>
-    <string name="em_space">Paragraph indent (&amp;emsp;)</string>
+    <string name="em_space">Em space (&amp;emsp;)</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
     <string name="unordered_list_character">Unordered list character</string>
