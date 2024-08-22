@@ -58,9 +58,10 @@
         <item translatable="false">@string/key_pos_end_document</item>
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
-        <item translatable="false">@string/search</item>
         <item translatable="false">@string/zero_width_space</item>
+        <item translatable="false">@string/em_space</item>
         <item translatable="false">@string/break_page_pdf_print</item>
+        <item translatable="false">@string/search</item>
         <item translatable="false">@string/ohm</item>
         <item translatable="false">@string/char_punctation_mark_arrows</item>
         <item translatable="false">@string/shrug</item>

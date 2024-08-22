@@ -200,6 +200,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="key_pos_end_document">Document End</string>
     <string name="key_ctrl_a">Select all (Ctrl+A)</string>
     <string name="key_tab">Tabulator</string>
+    <string name="zero_width_space">Zero-width space</string>
+    <string name="em_space">Paragraph indent (&amp;emsp;)</string>
     <string name="start_on_bottom">Start on bottom</string>
     <string name="start_on_bottom_when_loading_document">Upon loading a document, position cursor at its end</string>
     <string name="unordered_list_character">Unordered list character</string>
@@ -274,7 +276,6 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="no_calendar_app_is_installed">No calendar app is installed!</string>
     <string name="popular_documents">Popular documents</string>
     <string name="color">Color</string>
-    <string name="zero_width_space">Zero-width space</string>
     <string name="basic_color_scheme">Basic color scheme</string>
     <string name="background_foreground_color_in_editor_works_dark_light">Changes background and foreground color of the text editor. Adjusts to app theme so available in light and dark theme. Syntax highlighting colors remain the same.</string>
     <string name="preset">Preset</string>

@@ -12,7 +12,6 @@ import static android.util.Patterns.WEB_URL;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.text.Editable;
@@ -973,10 +972,12 @@ public abstract class ActionButtonBase {
                 _hlEditor.insertOrReplaceTextOnCursor("\u0009");
             } else if (callbackPayload.equals(rstr(R.string.zero_width_space))) {
                 _hlEditor.insertOrReplaceTextOnCursor("\u200B");
-            } else if (callbackPayload.equals(rstr(R.string.search))) {
-                onSearch();
+            } else if (callbackPayload.equals(rstr(R.string.em_space))) {
+                _hlEditor.insertOrReplaceTextOnCursor("\u2003");
             } else if (callbackPayload.equals(rstr(R.string.break_page_pdf_print))) {
                 _hlEditor.insertOrReplaceTextOnCursor("<div style='page-break-after:always;'></div>");
+            } else if (callbackPayload.equals(rstr(R.string.search))) {
+                onSearch();
             } else if (callbackPayload.equals(rstr(R.string.ohm))) {
                 _hlEditor.insertOrReplaceTextOnCursor("Ω");
             } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
