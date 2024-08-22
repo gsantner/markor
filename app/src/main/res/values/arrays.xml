@@ -52,10 +52,11 @@
         <item translatable="false">@string/key_page_down</item>
         <item translatable="false">@string/key_pos_1</item>
         <item translatable="false">@string/key_pos_end</item>
-        <item translatable="false">@string/move_text_one_line_up</item>
-        <item translatable="false">@string/move_text_one_line_down</item>
         <item translatable="false">@string/key_pos_1_document</item>
         <item translatable="false">@string/key_pos_end_document</item>
+        <item translatable="false">@string/move_text_one_line_up</item>
+        <item translatable="false">@string/move_text_one_line_down</item>
+        <item translatable="false">@string/select_current_line</item>
         <item translatable="false">@string/key_ctrl_a</item>
         <item translatable="false">@string/key_tab</item>
         <item translatable="false">@string/zero_width_space</item>
@@ -64,9 +65,8 @@
         <item translatable="false">@string/search</item>
         <item translatable="false">@string/ohm</item>
         <item translatable="false">@string/char_punctation_mark_arrows</item>
-        <item translatable="false">@string/shrug</item>
         <item translatable="false">@string/continued_overline</item>
-        <item translatable="false">@string/select_current_line</item>
+        <item translatable="false">@string/shrug</item>
     </string-array>
 
     <string-array name="asciidoc_textactions_press_key__text" translatable="false">

@@ -960,12 +960,14 @@ public abstract class ActionButtonBase {
                 _hlEditor.simulateKeyPress(KeyEvent.KEYCODE_MOVE_END);
             } else if (callbackPayload.equals(rstr(R.string.key_pos_1_document))) {
                 _hlEditor.setSelection(0);
+            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
+                _hlEditor.setSelection(_hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_up))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, true);
             } else if (callbackPayload.equals(rstr(R.string.move_text_one_line_down))) {
                 ActionButtonBase.moveLineSelectionBy1(_hlEditor, false);
-            } else if (callbackPayload.equals(rstr(R.string.key_pos_end_document))) {
-                _hlEditor.setSelection(_hlEditor.length());
+            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
+                _hlEditor.setSelectionExpandWholeLines();
             } else if (callbackPayload.equals(rstr(R.string.key_ctrl_a))) {
                 _hlEditor.setSelection(0, _hlEditor.length());
             } else if (callbackPayload.equals(rstr(R.string.key_tab))) {
@@ -980,14 +982,12 @@ public abstract class ActionButtonBase {
                 onSearch();
             } else if (callbackPayload.equals(rstr(R.string.ohm))) {
                 _hlEditor.insertOrReplaceTextOnCursor("Ω");
+            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
+                _hlEditor.insertOrReplaceTextOnCursor("»«");
             } else if (callbackPayload.equals(rstr(R.string.continued_overline))) {
                 _hlEditor.insertOrReplaceTextOnCursor("‾‾‾‾‾");
             } else if (callbackPayload.equals(rstr(R.string.shrug))) {
                 _hlEditor.insertOrReplaceTextOnCursor("¯\\_(ツ)_/¯");
-            } else if (callbackPayload.equals(rstr(R.string.char_punctation_mark_arrows))) {
-                _hlEditor.insertOrReplaceTextOnCursor("»«");
-            } else if (callbackPayload.equals(rstr(R.string.select_current_line))) {
-                _hlEditor.setSelectionExpandWholeLines();
             }
         });
     }
