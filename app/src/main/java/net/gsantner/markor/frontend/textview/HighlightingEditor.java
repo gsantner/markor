@@ -138,7 +138,7 @@ public class HighlightingEditor extends AppCompatEditText {
     // - we want to run getLocalVisibleRect even if recompute is true
     // - we want to run isScrollSignificant after getLocalVisibleRect
     private boolean runHighlight(final boolean recompute) {
-        return _hlEnabled && _hl != null &&
+        return _hlEnabled && _hl != null && getLayout() != null &&
                 (getLocalVisibleRect(_hlRect) || recompute) &&
                 (recompute || _hl.hasSpans()) &&
                 (recompute || isScrollSignificant());
@@ -151,7 +151,7 @@ public class HighlightingEditor extends AppCompatEditText {
         }
     }
 
-    private void recomputeHighlighting() {
+    public void recomputeHighlighting() {
         if (runHighlight(true)) {
             _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion());
         }
@@ -478,18 +478,6 @@ public class HighlightingEditor extends AppCompatEditText {
         simulateKeyPress(KeyEvent.KEYCODE_MOVE_HOME);
         setSelection(getSelectionStart() + offset);
         return getSelectionStart();
-    }
-
-    // Set selection to fill whole lines
-    // Returns original selectionStart
-    public int setSelectionExpandWholeLines() {
-        final int[] sel = TextViewUtils.getSelection(this);
-        final CharSequence text = getText();
-        setSelection(
-                TextViewUtils.getLineStart(text, sel[0]),
-                TextViewUtils.getLineEnd(text, sel[1])
-        );
-        return sel[0];
     }
 
     public boolean indexesValid(int... indexes) {

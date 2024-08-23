@@ -155,6 +155,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
+        _webView.setBackgroundColor(Color.TRANSPARENT);
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
@@ -176,9 +177,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(_document.path, _document.getFormat()));
-        applyTextFormat(_document.getFormat());
-        _format.getActions().setDocument(_document);
+        applyTextFormat(_appSettings.getDocumentFormat(_document.path, _document.getFormat()));
 
         if (activity instanceof DocumentActivity) {
             ((DocumentActivity) activity).setDocumentTitle(_document.title);
@@ -217,7 +216,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-        _webView.setBackgroundColor(Color.TRANSPARENT);
 
         // Various settings
         setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path));
@@ -251,20 +249,26 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 }
             });
         }
+    }
 
-        if (savedInstanceState == null) {
-            int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
-            if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-                final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-                if (lno >= 0) {
-                    startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
-                    startPos = _hlEditor.length();
-                }
+    @Override
+    protected void onFragmentFirstTimeVisible() {
+        final Bundle args = getArguments();
+
+        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            if (lno >= 0) {
+                startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
+            } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
+                startPos = _hlEditor.length();
             }
-
-            TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
         }
+
+        _primaryScrollView.invalidate();
+        // Can affect layout so run before setting scroll position
+        _hlEditor.recomputeHighlighting();
+        TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
     @Override
@@ -280,7 +284,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView.onPause();
         _appSettings.addRecentFile(_document.file);
         _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
-        _appSettings.setLastEditPosition(_document.path, _hlEditor.getSelectionStart());
+        _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
         super.onPause();
     }
 
@@ -657,6 +661,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    @Override
     public void applyTextFormat(final int textFormatId) {
         final Activity activity = getActivity();
         if (activity == null) {
@@ -669,6 +674,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
         _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _format.getActions()
+                .setDocument(_document)
                 .setUiReferences(activity, _hlEditor, _webView)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());

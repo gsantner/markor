@@ -224,7 +224,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             if (_editor != null && _linkCheckBox != null) {
                 doUpdatePreferences();
                 _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE);
-                _linkCheckBox.setChecked(true);
+                _linkCheckBox.setChecked(_appSettings.getFormatShareAsLink());
                 _editor.addTextChangedListener(GsTextWatcherAdapter.on((ctext, arg2, arg3, arg4) ->
                         _linkCheckBox.setVisibility(hasLinks(_editor.getText()) ? View.VISIBLE : View.GONE)));
             }
@@ -242,7 +242,8 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
 
             final Document document = new Document(file);
             final int format = _appSettings.getDocumentFormat(document.path, document.getFormat());
-            final String formatted = getFormatted(shareAsLink(), file, format);
+            final boolean asLink = shareAsLink();
+            final String formatted = getFormatted(asLink, file, format);
 
             final String oldContent = document.loadContent(activity);
             if (oldContent != null) {
@@ -254,6 +255,7 @@ public class DocumentShareIntoFragment extends MarkorBaseFragment {
             }
 
             _appSettings.addRecentFile(file);
+            _appSettings.setFormatShareAsLink(asLink);
 
             if (showEditor) {
                 DocumentActivity.launch(activity, document.file, null, -1);

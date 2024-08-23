@@ -1068,6 +1068,13 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         setString(R.string.pref_key__title_format_list, toJsonString(updated));
     }
 
+    public void setFormatShareAsLink(final boolean asLink) {
+        setBool(R.string.pref_key__format_share_as_link, asLink);
+    }
+
+    public boolean getFormatShareAsLink() {
+        return getBool(R.string.pref_key__format_share_as_link, true);
+    }
 
     private static String mapToJsonString(final Map<String, String> map) {
         return new JSONObject(map).toString();

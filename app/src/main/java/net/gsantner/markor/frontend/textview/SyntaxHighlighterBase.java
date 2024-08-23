@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 import net.gsantner.markor.format.general.ColorUnderlineSpan;
 import net.gsantner.markor.format.plaintext.PlaintextSyntaxHighlighter;
 import net.gsantner.markor.model.AppSettings;
+import net.gsantner.opoc.format.GsTextUtils;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.wrapper.GsCallback;
 
@@ -262,15 +263,11 @@ public abstract class SyntaxHighlighterBase {
      * @return this
      */
     public SyntaxHighlighterBase applyDynamic(final int[] range) {
-        if (_spannable == null) {
+        if (GsTextUtils.isValidSelection(_spannable, range) && range.length < 2) {
             return this;
         }
 
         final int length = _spannable.length();
-        if (!TextViewUtils.checkRange(length, range)) {
-            return this;
-        }
-
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
 
@@ -315,7 +312,7 @@ public abstract class SyntaxHighlighterBase {
 
     // Reflow selected region's lines
     public final SyntaxHighlighterBase reflow(final int[] range) {
-        if (TextViewUtils.checkRange(_spannable, range)) {
+        if (GsTextUtils.isValidSelection(_spannable, range) && range.length >= 2) {
             _spannable.setSpan(_layoutUpdater, range[0], range[1], Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             _spannable.removeSpan(_layoutUpdater);
         }
