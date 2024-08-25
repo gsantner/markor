@@ -50,7 +50,7 @@ public final class TextViewUtils {
 
     public static int getLineStart(final CharSequence s, final int sel) {
         int i = sel;
-        if (GsTextUtils.isValidIndex(s, i)) {
+        if (GsTextUtils.isValidSelection(s, i)) {
             for (; i > 0; i--) {
                 if (s.charAt(i - 1) == '\n') {
                     break;
@@ -63,7 +63,7 @@ public final class TextViewUtils {
 
     public static int getLineEnd(final CharSequence s, final int sel) {
         int i = sel;
-        if (GsTextUtils.isValidIndex(s, i)) {
+        if (GsTextUtils.isValidSelection(s, i)) {
             for (; i < s.length(); i++) {
                 if (s.charAt(i) == '\n') {
                     break;

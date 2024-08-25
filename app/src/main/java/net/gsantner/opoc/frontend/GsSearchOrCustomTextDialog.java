@@ -364,6 +364,10 @@ public class GsSearchOrCustomTextDialog {
                 } else {
                     win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                 }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    win.setDecorFitsSystemWindows(true);
+                }
             }
 
             win.setLayout(

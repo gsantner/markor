@@ -467,9 +467,7 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
                     if (confirmed) {
                         Runnable deleter = () -> {
                             WrMarkorSingleton.getInstance().deleteSelectedItems(currentSelection, getContext());
-                            _recyclerList.post(() -> {
-                                _filesystemViewerAdapter.reloadCurrentFolder();
-                            });
+                            _recyclerList.post(() -> _filesystemViewerAdapter.reloadCurrentFolder());
                         };
                         new Thread(deleter).start();
                     }
@@ -551,13 +549,13 @@ public class GsFileBrowserFragment extends GsFragmentBase<GsSharedPreferencesPro
     ///////////////
     public void askForDeletingFilesRecursive(WrConfirmDialog.ConfirmDialogCallback confirmCallback) {
         final ArrayList<File> itemsToDelete = new ArrayList<>(_filesystemViewerAdapter.getCurrentSelection());
-        StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
+        final StringBuilder message = new StringBuilder(String.format(getString(R.string.do_you_really_want_to_delete_this_witharg), getResources().getQuantityString(R.plurals.documents, itemsToDelete.size())) + "\n\n");
 
-        for (File f : itemsToDelete) {
-            message.append("\n").append(f.getAbsolutePath());
+        for (final File f : itemsToDelete) {
+            message.append("\n").append(f.getName());
         }
 
-        WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
+        final WrConfirmDialog confirmDialog = WrConfirmDialog.newInstance(getString(R.string.confirm_delete), message.toString(), itemsToDelete, confirmCallback);
         confirmDialog.show(getChildFragmentManager(), WrConfirmDialog.FRAGMENT_TAG);
     }
 
