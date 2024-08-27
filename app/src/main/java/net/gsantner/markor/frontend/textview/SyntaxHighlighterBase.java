@@ -103,7 +103,7 @@ public abstract class SyntaxHighlighterBase {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * A class representing any span
+     * A class holding any span
      */
     public static class SpanGroup implements Comparable<SpanGroup> {
         int start, end;
@@ -114,7 +114,7 @@ public abstract class SyntaxHighlighterBase {
             span = o;
             start = s;
             end = e;
-            isStatic = o instanceof UpdateLayout;
+            isStatic = (span instanceof UpdateLayout || span instanceof StaticSpan);
         }
 
         @Override
@@ -125,6 +125,9 @@ public abstract class SyntaxHighlighterBase {
 
     private static class ForceUpdateLayout implements UpdateLayout {
         // Empty class - just implements UpdateLayout
+    }
+
+    public interface StaticSpan extends UpdateAppearance {
     }
 
     private final ForceUpdateLayout _layoutUpdater;
@@ -189,7 +192,7 @@ public abstract class SyntaxHighlighterBase {
 
         _staticApplied = false;
 
-        return this;
+        return reflow();
     }
 
     /**
@@ -262,6 +265,7 @@ public abstract class SyntaxHighlighterBase {
                     break;
                 } else {
                     group.start += _fixupDelta;
+                    group.end += _fixupDelta;
                 }
             }
             clearFixup();
@@ -325,6 +329,8 @@ public abstract class SyntaxHighlighterBase {
         return this;
     }
 
+
+
     public SyntaxHighlighterBase applyStatic() {
         if (_spannable == null || _staticApplied) {
             return this;
@@ -334,13 +340,13 @@ public abstract class SyntaxHighlighterBase {
 
         for (final SpanGroup group : _groups) {
             if (group.isStatic) {
-                _spannable.setSpan(group.span, group.start, group.start + group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
         _staticApplied = true;
 
-        return this;
+        return reflow();
     }
 
     public final SyntaxHighlighterBase reflow() {

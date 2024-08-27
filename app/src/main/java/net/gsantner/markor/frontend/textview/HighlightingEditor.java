@@ -129,6 +129,15 @@ public class HighlightingEditor extends AppCompatEditText {
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
+    private void batch(final Runnable runnable) {
+        try {
+            beginBatchEdit();
+            runnable.run();
+        } finally {
+            endBatchEdit();
+        }
+    }
+
     private boolean isScrollSignificant() {
         return Math.abs(_oldHlRect.top - _hlRect.top) > _hlShiftThreshold ||
                 Math.abs(_hlRect.bottom - _oldHlRect.bottom) > _hlShiftThreshold;
@@ -146,14 +155,14 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private void updateHighlighting() {
         if (runHighlight(false)) {
-            _hl.clearDynamic().applyDynamic(hlRegion());
+            batch(() -> _hl.clearDynamic().applyDynamic(hlRegion()));
             _oldHlRect.set(_hlRect);
         }
     }
 
     public void recomputeHighlighting() {
         if (runHighlight(true)) {
-            _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion());
+            batch(() -> _hl.clearAll().recompute().applyStatic().applyDynamic(hlRegion()));
         }
     }
 
@@ -174,7 +183,7 @@ public class HighlightingEditor extends AppCompatEditText {
         _hl.compute();
         post(() -> {
             if (_textUnchangedWhileHighlighting.get()) {
-                _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion());
+                batch(() -> _hl.clearAll().setComputed().applyStatic().applyDynamic(hlRegion()));
             }
         });
     }
