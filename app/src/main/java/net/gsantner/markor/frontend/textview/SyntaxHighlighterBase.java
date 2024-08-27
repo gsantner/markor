@@ -106,14 +106,14 @@ public abstract class SyntaxHighlighterBase {
      * A class representing any span
      */
     public static class SpanGroup implements Comparable<SpanGroup> {
-        int start, end;
+        int start, length;
         final Object span;
         final boolean isStatic;
 
-        SpanGroup(Object o, int s, int e) {
+        SpanGroup(Object o, int s, int l) {
             span = o;
             start = s;
-            end = e;
+            length = l;
             isStatic = o instanceof UpdateLayout;
         }
 
@@ -132,6 +132,7 @@ public abstract class SyntaxHighlighterBase {
     private final List<SpanGroup> _groups, _groupBuffer;
     private final NavigableSet<Integer> _appliedDynamic;
     private boolean _staticApplied = false;
+    private int _fixupAfter = -1, _fixupDelta = 0;
 
     protected Spannable _spannable;
     protected final AppSettings _appSettings;
@@ -141,7 +142,6 @@ public abstract class SyntaxHighlighterBase {
         _groups = new ArrayList<>();
         _groupBuffer = new ArrayList<>();
         _appliedDynamic = new TreeSet<>();
-
         _layoutUpdater = new ForceUpdateLayout();
     }
 
@@ -225,29 +225,62 @@ public abstract class SyntaxHighlighterBase {
         return fixup(start + before, count - before);
     }
 
-    // Adjust all spans after a change in the text
-
     /**
      * Adjust all currently computed spans. Use to adjust spans after text edited.
+     * We internally buffer / batch these fixes for increased performance
      *
      * @param after Apply to spans with region starting after 'after'
      * @param delta Apply to
      * @return this
      */
     public SyntaxHighlighterBase fixup(final int after, final int delta) {
-        for (int i = _groups.size() - 1; i >= 0; i--) {
-            final SpanGroup group = _groups.get(i);
-            // Very simple fixup. If the group is entirely after 'after', adjust it's region
-            if (group.start <= after) {
-                // We iterate backwards. As groups are sorted, if start is before after, can break out
-                break;
-            } else {
-                group.start += delta;
-                group.end += delta;
-            }
+        if (_fixupAfter == -1) {
+            _fixupAfter = after;
+            _fixupDelta = delta;
+        } else if (isFixupOverlap(after, delta)) {
+            _fixupAfter = Math.min(_fixupAfter, after);
+            _fixupDelta += delta;
+        } else {
+            applyFixup();
         }
         return this;
     }
+
+    // Test if fixup region overlaps with the current fixup
+    private boolean isFixupOverlap(final int after, final int delta) {
+        return (after >= _fixupAfter && after <= _fixupAfter + Math.abs(_fixupDelta)) ||
+                (_fixupAfter >= after && _fixupAfter <= after + Math.abs(delta));
+    }
+
+    private SyntaxHighlighterBase applyFixup() {
+        if (_fixupAfter >= 0 && _fixupDelta != 0) {
+            for (int i = _groups.size() - 1; i >= 0; i--) {
+                final SpanGroup group = _groups.get(i);
+                // Very simple fixup. If the group is entirely after 'after', adjust it's region
+                if (group.start <= _fixupAfter) {
+                    // We iterate backwards. As groups are sorted, if start is before after, can break out
+                    break;
+                } else {
+                    group.start += _fixupDelta;
+                }
+            }
+            clearFixup();
+        }
+        return this;
+    }
+
+    private void clearFixup() {
+        _fixupAfter = -1;
+        _fixupDelta = 0;
+    }
+
+    // The fixup logic offsets all spans after a certain point by a delta
+    // All spans after = (start + before) are offset by (count - before)
+    // If we are typing text or deleting text naturally, we can batch these changes
+    // The delta will be 1 or -1 for each character added or removed
+    // The start would move back if we are deleting text
+    // The delta would increase if we are adding text
+
 
     public SyntaxHighlighterBase applyAll() {
         return applyDynamic().applyStatic();
@@ -267,6 +300,8 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
+        applyFixup();
+
         final int length = _spannable.length();
         for (int i = 0; i < _groups.size(); i++) {
             final SpanGroup group = _groups.get(i);
@@ -280,9 +315,10 @@ public abstract class SyntaxHighlighterBase {
                 break;
             }
 
-            final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
+            final int end = group.start + group.length;
+            final boolean valid = group.start >= 0 && end > range[0] && end <= length;
             if (valid && !_appliedDynamic.contains(i)) {
-                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _spannable.setSpan(group.span, group.start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 _appliedDynamic.add(i);
             }
         }
@@ -295,9 +331,11 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
+        applyFixup();
+
         for (final SpanGroup group : _groups) {
             if (group.isStatic) {
-                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _spannable.setSpan(group.span, group.start, group.start + group.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
@@ -335,6 +373,7 @@ public abstract class SyntaxHighlighterBase {
         _staticApplied = false;
         _groups.addAll(_groupBuffer);
         _groupBuffer.clear();
+        clearFixup();
         return this;
     }
 
@@ -370,7 +409,7 @@ public abstract class SyntaxHighlighterBase {
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
         if (end > start && span != null) {
-            _groupBuffer.add(new SpanGroup(span, start, end));
+            _groupBuffer.add(new SpanGroup(span, start, end - start));
         }
     }
 

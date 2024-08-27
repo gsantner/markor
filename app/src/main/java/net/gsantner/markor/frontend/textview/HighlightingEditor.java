@@ -89,8 +89,8 @@ public class HighlightingEditor extends AppCompatEditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (_hlEnabled && _hl != null) {
-                    _hl.fixup(start, before, count);
                     _textUnchangedWhileHighlighting.set(false);
+                    _hl.fixup(start, before, count);
                 }
             }
 
