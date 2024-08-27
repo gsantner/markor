@@ -106,14 +106,14 @@ public abstract class SyntaxHighlighterBase {
      * A class representing any span
      */
     public static class SpanGroup implements Comparable<SpanGroup> {
-        int start, length;
+        int start, end;
         final Object span;
         final boolean isStatic;
 
-        SpanGroup(Object o, int s, int l) {
+        SpanGroup(Object o, int s, int e) {
             span = o;
             start = s;
-            length = l;
+            end = e;
             isStatic = o instanceof UpdateLayout;
         }
 
@@ -226,11 +226,11 @@ public abstract class SyntaxHighlighterBase {
     }
 
     /**
-     * Adjust all currently computed spans. Use to adjust spans after text edited.
+     * Adjust all currently computed spans so that the spans are still valid after text changes
      * We internally buffer / batch these fixes for increased performance
      *
      * @param after Apply to spans with region starting after 'after'
-     * @param delta Apply to
+     * @param delta How much to shift each span
      * @return this
      */
     public SyntaxHighlighterBase fixup(final int after, final int delta) {
@@ -315,10 +315,9 @@ public abstract class SyntaxHighlighterBase {
                 break;
             }
 
-            final int end = group.start + group.length;
-            final boolean valid = group.start >= 0 && end > range[0] && end <= length;
+            final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
             if (valid && !_appliedDynamic.contains(i)) {
-                _spannable.setSpan(group.span, group.start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 _appliedDynamic.add(i);
             }
         }
@@ -335,7 +334,7 @@ public abstract class SyntaxHighlighterBase {
 
         for (final SpanGroup group : _groups) {
             if (group.isStatic) {
-                _spannable.setSpan(group.span, group.start, group.start + group.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                _spannable.setSpan(group.span, group.start, group.start + group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
@@ -409,7 +408,7 @@ public abstract class SyntaxHighlighterBase {
 
     protected final void addSpanGroup(final Object span, final int start, final int end) {
         if (end > start && span != null) {
-            _groupBuffer.add(new SpanGroup(span, start, end - start));
+            _groupBuffer.add(new SpanGroup(span, start, end));
         }
     }
 
