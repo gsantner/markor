@@ -183,16 +183,22 @@ public abstract class SyntaxHighlighterBase {
             return this;
         }
 
+        boolean hasStatic = false;
         for (int i = _groups.size() - 1; i >= 0; i--) {
             final SpanGroup group = _groups.get(i);
             if (group.isStatic) {
+                hasStatic = true;
                 _spannable.removeSpan(group.span);
             }
         }
 
+        if (hasStatic) {
+            reflow();
+        }
+
         _staticApplied = false;
 
-        return reflow();
+        return this;
     }
 
     /**
@@ -338,15 +344,21 @@ public abstract class SyntaxHighlighterBase {
 
         applyFixup();
 
+        boolean hasStatic = false;
         for (final SpanGroup group : _groups) {
             if (group.isStatic) {
+                hasStatic = true;
                 _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }
 
+        if (hasStatic) {
+            reflow();
+        }
+
         _staticApplied = true;
 
-        return reflow();
+        return this;
     }
 
     public final SyntaxHighlighterBase reflow() {

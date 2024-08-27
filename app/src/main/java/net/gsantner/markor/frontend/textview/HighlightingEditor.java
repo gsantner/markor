@@ -155,7 +155,8 @@ public class HighlightingEditor extends AppCompatEditText {
 
     private void updateHighlighting() {
         if (runHighlight(false)) {
-            batch(() -> _hl.clearDynamic().applyDynamic(hlRegion()));
+            // Do not batch as we do not want to reflow
+           _hl.clearDynamic().applyDynamic(hlRegion());
             _oldHlRect.set(_hlRect);
         }
     }
