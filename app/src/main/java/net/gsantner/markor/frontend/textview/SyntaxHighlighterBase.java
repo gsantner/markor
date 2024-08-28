@@ -5,6 +5,7 @@
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
 #########################################################*/
+
 package net.gsantner.markor.frontend.textview;
 
 import android.graphics.Canvas;
@@ -45,6 +46,49 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This is the base class for syntax highlighting, it contains routines for
+ * managing highlighting spans in the HighlightingEditor.
+ * <p>
+ * Android's EditText uses a SpannableStringBuilder class to manage it's text, and
+ * DynamicLayout to to manage the text layout. Both are not very efficient with a large
+ * number of spans.
+ * <p>
+ * The approach taken here is to:
+ * 1. Compute all spans (highlighting) for the text
+ * 2. Apply only those spans which are currently in the viewport
+ * 3. Update (remove and reapply) spans when the viewport moves (i.e we scroll)
+ * <p>
+ * Spans are further divided into two categories: dynamic and static.
+ * - Dynamic spans are updated as one scrolls, as described above
+ * - Static spans are applied once and never updated. These are typically used for
+ *   spans which affect the text layout.
+ *   - For example, a span which makes text bigger.
+ *   - Updating these dynamically would make the text jump around as one scrolls
+ * <p>
+ * Fixup:
+ * - As the user types we shift all spans to accomodate the changed text.
+ * - This is done so that dynamically applied spans are applied to the correct region.
+ * - Fixup is batched and performed only if necessary.
+ * <p>
+ * Span generation:
+ * - Derived classes should override generateSpans() to generate all spans
+ * - New spans are added by calling addSpanGroup()
+ * - The HighlightingEditor will trigger the generation of spans when the text changes.
+ *   - This is debounced so that changes are batched
+ *   - Span generation is done on a background thread
+ * <p>
+ * Other performance tips:
+ * - Performance is heavily dependent on the number of spans applied to the text.
+ * - Combine related spans into a single span if possible
+ *   - HighlightSpan is a helper class which can be used to create a span with multiple attributes
+ *   - For example, a span which makes text bold and italic
+ * - Absolutely minimize the number of spans implementing `UpdateLayout`
+ *   - These spans trigger a text layout update when changed in any way
+ *   - Instead consider using a span implementing `StaticSpan`
+ *     - If StaticSpans are present, the text is reflowed after applying them
+ *     - This happens once, and not for each span, which is much more efficient
+ */
 public abstract class SyntaxHighlighterBase {
 
     protected final static int LONG_HIGHLIGHTING_DELAY = 2400;
@@ -284,14 +328,6 @@ public abstract class SyntaxHighlighterBase {
         _fixupDelta = 0;
     }
 
-    // The fixup logic offsets all spans after a certain point by a delta
-    // All spans after = (start + before) are offset by (count - before)
-    // If we are typing text or deleting text naturally, we can batch these changes
-    // The delta will be 1 or -1 for each character added or removed
-    // The start would move back if we are deleting text
-    // The delta would increase if we are adding text
-
-
     public SyntaxHighlighterBase applyAll() {
         return applyDynamic().applyStatic();
     }
@@ -306,57 +342,51 @@ public abstract class SyntaxHighlighterBase {
      * @return this
      */
     public SyntaxHighlighterBase applyDynamic(final int[] range) {
-        if (GsTextUtils.isValidSelection(_spannable, range) && range.length < 2) {
-            return this;
-        }
+        if (GsTextUtils.isValidSelection(_spannable, range) && range.length >= 2) {
+            applyFixup();
+            final int length = _spannable.length();
+            for (int i = 0; i < _groups.size(); i++) {
+                final SpanGroup group = _groups.get(i);
 
-        applyFixup();
+                if (group.isStatic) {
+                    continue;
+                }
 
-        final int length = _spannable.length();
-        for (int i = 0; i < _groups.size(); i++) {
-            final SpanGroup group = _groups.get(i);
+                if (group.start >= range[1]) {
+                    // As we are sorted on start, we can break out after the first group.start > end
+                    break;
+                }
 
-            if (group.isStatic) {
-                continue;
-            }
-
-            if (group.start >= range[1]) {
-                // As we are sorted on start, we can break out after the first group.start > end
-                break;
-            }
-
-            final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
-            if (valid && !_appliedDynamic.contains(i)) {
-                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                _appliedDynamic.add(i);
+                final boolean valid = group.start >= 0 && group.end > range[0] && group.end <= length;
+                if (valid && !_appliedDynamic.contains(i)) {
+                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _appliedDynamic.add(i);
+                }
             }
         }
-
         return this;
     }
 
 
 
     public SyntaxHighlighterBase applyStatic() {
-        if (_spannable == null || _staticApplied) {
-            return this;
-        }
+        if (_spannable != null && !_staticApplied) {
+            applyFixup();
 
-        applyFixup();
-
-        boolean hasStatic = false;
-        for (final SpanGroup group : _groups) {
-            if (group.isStatic) {
-                hasStatic = true;
-                _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            boolean hasStatic = false;
+            for (final SpanGroup group : _groups) {
+                if (group.isStatic) {
+                    hasStatic = true;
+                    _spannable.setSpan(group.span, group.start, group.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
             }
-        }
 
-        if (hasStatic) {
-            reflow();
-        }
+            if (hasStatic) {
+                reflow();
+            }
 
-        _staticApplied = true;
+            _staticApplied = true;
+        }
 
         return this;
     }

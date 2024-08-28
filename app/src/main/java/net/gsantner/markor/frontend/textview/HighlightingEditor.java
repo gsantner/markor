@@ -129,6 +129,9 @@ public class HighlightingEditor extends AppCompatEditText {
     // Highlighting
     // ---------------------------------------------------------------------------------------------
 
+    // Batch edit spans (or anything else, really)
+    // This triggers a reflow which will bring focus back to the cursor.
+    // Therefore it cannot be used for updating the highlighting as one scrolls
     private void batch(final Runnable runnable) {
         try {
             beginBatchEdit();
@@ -146,6 +149,7 @@ public class HighlightingEditor extends AppCompatEditText {
     // The order of tests here is important
     // - we want to run getLocalVisibleRect even if recompute is true
     // - we want to run isScrollSignificant after getLocalVisibleRect
+    // - We don't care about the presence of spans or scroll significance if recompute is true
     private boolean runHighlight(final boolean recompute) {
         return _hlEnabled && _hl != null && getLayout() != null &&
                 (getLocalVisibleRect(_hlRect) || recompute) &&
