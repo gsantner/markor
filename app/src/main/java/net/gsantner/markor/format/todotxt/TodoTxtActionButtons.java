@@ -227,10 +227,10 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     }
                 }
                 if (areAllSamePriority) {
-                    if(prevPriority != tasks.get(0).getPriority()) {
+                    if(prevPriority != tasks.get(0).getPriority() && prevPriority != '\0') {
                         setPriority(prevPriority);
                     }
-                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority()){
+                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority() && nextPriority != '\0'){
                         setPriority(nextPriority);
                     }
                     else {
