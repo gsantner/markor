@@ -202,27 +202,40 @@ public class TodoTxtActionButtons extends ActionButtonBase {
             case R.string.abid_todotxt_priority: {
                 final Editable text = _hlEditor.getText();
                 final int[] sel = TextViewUtils.getSelection(_hlEditor);
-                final int linesStart = TextViewUtils.getLineStart(text, sel[0]);
-                if (linesStart == 0) {
-                    setPriority(TodoTxtTask.PRIORITY_NONE);
-                    return true;
-                }
-                final int prevLineStart = TextViewUtils.getLineStart(text, linesStart - 1);
-                final int prevLineEnd = TextViewUtils.getLineEnd(text, prevLineStart);
-                final String prevLine = text.subSequence(prevLineStart, prevLineEnd).toString();
-                final char prevPriority = new TodoTxtTask(prevLine).getPriority();
-
+                final int lineStart = TextViewUtils.getLineStart(text, sel[0]);
+                final int lineEnd = TextViewUtils.getLineEnd(text, sel[1]);
                 final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, sel[0], sel[1]);
+                char prevPriority = '\0';
+                char nextPriority = '\0';
                 boolean areAllSamePriority = true;
+                if (lineStart != 0) {
+                    final int prevLineStart = TextViewUtils.getLineStart(text, lineStart - 1);
+                    final int prevLineEnd = TextViewUtils.getLineEnd(text, prevLineStart);
+                    final String prevLine = text.subSequence(prevLineStart, prevLineEnd).toString();
+                    prevPriority = new TodoTxtTask(prevLine).getPriority();
+                }
+                if (lineEnd != text.length()) {
+                    final int nextLineStart = TextViewUtils.getLineStart(text, lineEnd + 1);
+                    final int nextLineEnd = TextViewUtils.getLineEnd(text, nextLineStart);
+                    final String nextLine = text.subSequence(nextLineStart, nextLineEnd).toString();
+                    nextPriority = new TodoTxtTask(nextLine).getPriority();
+                }
                 for (TodoTxtTask task : tasks) {
-                    final char commonPriority = tasks.get(0).getPriority();
-                    if (task.getPriority() != commonPriority) {
+                    if (task.getPriority() != tasks.get(0).getPriority()) {
                         areAllSamePriority = false;
                         break;
                     }
                 }
-                if (areAllSamePriority && prevPriority == tasks.get(0).getPriority()) {
-                    setPriority(TodoTxtTask.PRIORITY_NONE);
+                if (areAllSamePriority) {
+                    if(prevPriority != tasks.get(0).getPriority()) {
+                        setPriority(prevPriority);
+                    }
+                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority()){
+                        setPriority(nextPriority);
+                    }
+                    else {
+                        setPriority(TodoTxtTask.PRIORITY_NONE);
+                    }
                 } else {
                     setPriority(prevPriority);
                 }
