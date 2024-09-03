@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class GsWebViewClient extends WebViewClient {
+    protected OnPageFinishedListener m_onPageFinishedListener;
     protected final WeakReference<WebView> m_webView;
 
     public GsWebViewClient(final WebView webView) {
@@ -26,6 +27,7 @@ public class GsWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(final WebView webView, final String url) {
         __onPageFinished_restoreScrollY(webView, url);
+        m_onPageFinishedListener.onPageFinished(webView);
         super.onPageFinished(webView, url);
     }
 
@@ -50,7 +52,8 @@ public class GsWebViewClient extends WebViewClient {
     /**
      * Apply vertical scroll position on next page load
      *
-     * @param scrollY scroll position from {@link WebView#getScrollY()}
+     * @param scrollY scroll position from {@link WebView#getScrollY()}.<br/>
+     *                disable scroll position restoration on page finished if the value is negative.
      */
     public void setRestoreScrollY(final int scrollY) {
         m_restoreScrollY = scrollY;
@@ -58,4 +61,17 @@ public class GsWebViewClient extends WebViewClient {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
+
+    public interface OnPageFinishedListener {
+        /**
+         * Called when a page has finished loading.
+         *
+         * @param v The view that loaded the page.
+         */
+        void onPageFinished(WebView v);
+    }
+
+    public void setOnPageFinishedListener(OnPageFinishedListener listener) {
+        m_onPageFinishedListener = listener;
+    }
 }

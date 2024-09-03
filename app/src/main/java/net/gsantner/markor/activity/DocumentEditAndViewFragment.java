@@ -62,15 +62,17 @@ import net.gsantner.opoc.frontend.textview.TextViewUndoRedo;
 import net.gsantner.opoc.util.GsContextUtils;
 import net.gsantner.opoc.util.GsCoolExperimentalStuff;
 import net.gsantner.opoc.web.GsWebViewChromeClient;
+import net.gsantner.opoc.web.GsWebViewClient;
 import net.gsantner.opoc.wrapper.GsTextWatcherAdapter;
 
 import java.io.File;
+import java.util.Collections;
 
 @SuppressWarnings({"UnusedReturnValue"})
 @SuppressLint("NonConstantResourceId")
 public class DocumentEditAndViewFragment extends MarkorBaseFragment implements FormatRegistry.TextFormatApplier {
     public static final String FRAGMENT_TAG = "DocumentEditAndViewFragment";
-    public static final String SAVESTATE_DOCUMENT = "DOCUMENT";
+    public static final String SAVE_STATE_DOCUMENT = "DOCUMENT";
     public static final String START_PREVIEW = "START_PREVIEW";
 
     public static DocumentEditAndViewFragment newInstance(final @NonNull Document document, final Integer lineNumber, final Boolean preview) {
@@ -102,6 +104,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     private MenuItem _saveMenuItem, _undoMenuItem, _redoMenuItem;
     private boolean _isPreviewVisible;
     private boolean _nextConvertToPrintMode = false;
+    private int _firstVisibleLineNumber = 1;
 
 
     public DocumentEditAndViewFragment() {
@@ -112,8 +115,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-        if (savedInstanceState != null && savedInstanceState.containsKey(SAVESTATE_DOCUMENT)) {
-            _document = (Document) savedInstanceState.getSerializable(SAVESTATE_DOCUMENT);
+        if (savedInstanceState != null && savedInstanceState.containsKey(SAVE_STATE_DOCUMENT)) {
+            _document = (Document) savedInstanceState.getSerializable(SAVE_STATE_DOCUMENT);
         } else if (args != null && args.containsKey(Document.EXTRA_DOCUMENT)) {
             _document = (Document) args.get(Document.EXTRA_DOCUMENT);
         }
@@ -152,6 +155,16 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _webViewClient = new MarkorWebViewClient(_webView, activity);
+        _webViewClient.setOnPageFinishedListener(new GsWebViewClient.OnPageFinishedListener() {
+            @Override
+            public void onPageFinished(WebView v) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    return;
+                }
+                _firstVisibleLineNumber = _hlEditor.getFirstVisibleLineNumber();
+                _webView.evaluateJavascript("editor2Preview(" + _firstVisibleLineNumber + ");", null);
+            }
+        });
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
@@ -293,7 +306,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable(SAVESTATE_DOCUMENT, _document);
+        outState.putSerializable(SAVE_STATE_DOCUMENT, _document);
         super.onSaveInstanceState(outState);
     }
 
@@ -858,17 +871,30 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         if (show) {
             updateViewModeText();
             _cu.showSoftKeyboard(activity, false, _hlEditor);
-            _hlEditor.clearFocus();
             _hlEditor.postDelayed(() -> _cu.showSoftKeyboard(activity, false, _hlEditor), 300);
+            _webView.requestFocus();
             GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
-            _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            // _webViewClient.setRestoreScrollY(_webView.getScrollY());
+            _hlEditor.requestFocus();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                _webView.evaluateJavascript("preview2Editor(" + _firstVisibleLineNumber + ");", result -> {
+                    Log.i("AAA", "preview2Editor result： " + result);
+                    if (result.startsWith("null")) {
+                        return;
+                    }
+                    if (Character.isDigit(result.charAt(0))) {
+                        final int lineNumber = Integer.parseInt(result);
+                        if (lineNumber > 0) {
+                            TextViewUtils.selectLines(_hlEditor, false, Collections.singletonList(lineNumber));
+                        }
+                    }
+                });
+            }
             GsContextUtils.fadeInOut(_primaryScrollView, _webView, animate);
         }
-
         _nextConvertToPrintMode = false;
         _isPreviewVisible = show;
-
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
     }
 

@@ -38,7 +38,6 @@ import androidx.core.content.ContextCompat;
 
 import net.gsantner.markor.ApplicationObject;
 import net.gsantner.markor.R;
-import net.gsantner.markor.format.markdown.MarkdownTextConverter;
 import net.gsantner.markor.format.todotxt.TodoTxtBasicSyntaxHighlighter;
 import net.gsantner.markor.format.todotxt.TodoTxtFilter;
 import net.gsantner.markor.format.todotxt.TodoTxtTask;
@@ -844,7 +843,7 @@ public class MarkorDialogFactory {
             final int line = headings.get(index).line;
 
             TextViewUtils.selectLines(edit, line);
-            final String jumpJs = "document.querySelector('[line=\"" + line + "\"]').scrollIntoView();";
+            final String jumpJs = "document.querySelector(\"[data-line='" + line + "']\").scrollIntoView();";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 webView.evaluateJavascript(jumpJs, null);
             } else {

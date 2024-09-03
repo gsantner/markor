@@ -249,6 +249,34 @@ public class HighlightingEditor extends AppCompatEditText {
         return layout.getLineEnd(line);
     }
 
+    public int getFirstVisibleLineNumber() {
+        final Rect visibleRect = new Rect();
+        if (!getLocalVisibleRect(visibleRect)) {
+            return 0;
+        }
+
+        final CharSequence text = getText();
+        final Layout layout = getLayout();
+        if (text == null || layout == null) {
+            return 0;
+        }
+
+        // Calculate the first visible line number
+        final int count = layout.getLineCount();
+        for (int i = 0, number = 1; i < count; i++) {
+            final int start = layout.getLineStart(i);
+            if (start == 0 || text.charAt(start - 1) == '\n') {
+                final int y = layout.getLineBottom(i);
+                if (y > visibleRect.top) {
+                    return number - 1;
+                }
+                number++;
+            }
+        }
+
+        return 0;
+    }
+
     // Various overrides
     // ---------------------------------------------------------------------------------------------
     public void setSaveInstanceState(final boolean save) {

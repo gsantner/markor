@@ -250,11 +250,6 @@ public final class TextViewUtils {
         return i;
     }
 
-
-    public static void selectLines(final EditText edit, final Integer... positions) {
-        selectLines(edit, Arrays.asList(positions));
-    }
-
     /**
      * Select the given indices.
      * Case 1: Only one index -> Put cursor on that line
@@ -263,14 +258,14 @@ public final class TextViewUtils {
      *
      * @param positions: Line indices to select
      */
-    public static void selectLines(final EditText edit, final List<Integer> positions) {
+    public static void selectLines(final EditText edit, final boolean setSelection, final List<Integer> positions) {
         if (!edit.hasFocus()) {
             edit.requestFocus();
         }
         final CharSequence text = edit.getText();
         if (positions.size() == 1) { // Case 1 index
-            final int posn = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
-            setSelectionAndShow(edit, posn);
+            final int sel = TextViewUtils.getIndexFromLineOffset(text, positions.get(0), 0);
+            setSelectionAndShow(edit, setSelection, sel);
         } else if (positions.size() > 1) {
             final TreeSet<Integer> pSet = new TreeSet<>(positions);
             final int selStart, selEnd;
@@ -294,12 +289,19 @@ public final class TextViewUtils {
         }
     }
 
-    public static void showSelection(final TextView text) {
-        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    public static void selectLines(final EditText edit, final List<Integer> positions) {
+        selectLines(edit, true, positions);
+    }
+
+    public static void selectLines(final EditText edit, final Integer... positions) {
+        selectLines(edit, Arrays.asList(positions));
+    }
+
+    public static void selectLines(final EditText edit, final boolean setSelection, final Integer... positions) {
+        selectLines(edit, setSelection, Arrays.asList(positions));
     }
 
     public static void showSelection(final TextView text, final int start, final int end) {
-
         // Get view info
         // ------------------------------------------------------------
         final Layout layout = text.getLayout();
@@ -351,7 +353,11 @@ public final class TextViewUtils {
         text.post(() -> text.requestRectangleOnScreen(region));
     }
 
-    public static void setSelectionAndShow(final EditText edit, final int... sel) {
+    public static void showSelection(final TextView text) {
+        showSelection(text, text.getSelectionStart(), text.getSelectionEnd());
+    }
+
+    public static void setSelectionAndShow(final EditText edit, boolean setSelection, final int... sel) {
         if (sel == null || sel.length == 0) {
             return;
         }
@@ -364,11 +370,16 @@ public final class TextViewUtils {
                 if (!edit.hasFocus() && edit.getVisibility() != View.GONE) {
                     edit.requestFocus();
                 }
-
-                edit.setSelection(start, end);
+                if (setSelection) {
+                    edit.setSelection(start, end);
+                }
                 edit.postDelayed(() -> showSelection(edit, start, end), 250);
             });
         }
+    }
+
+    public static void setSelectionAndShow(final EditText edit, final int... sel) {
+        setSelectionAndShow(edit, true, sel);
     }
 
     /**
