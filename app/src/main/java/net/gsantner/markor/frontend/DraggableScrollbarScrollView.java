@@ -2,7 +2,6 @@ package net.gsantner.markor.frontend;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -83,9 +82,7 @@ public class DraggableScrollbarScrollView extends ScrollView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setSmoothScrollingEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
-        }
+        _ltr = getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         final DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         _grabWidth = (int) (1.5 * (float) getVerticalScrollbarWidth() * displayMetrics.density);
     }

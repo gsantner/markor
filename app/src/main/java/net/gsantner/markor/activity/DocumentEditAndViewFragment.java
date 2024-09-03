@@ -879,7 +879,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.requestFocus();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 _webView.evaluateJavascript("preview2Editor(" + _firstVisibleLineNumber + ");", result -> {
-                    Log.i("AAA", "preview2Editor result： " + result);
                     if (result.startsWith("null")) {
                         return;
                     }
