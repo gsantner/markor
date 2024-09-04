@@ -875,12 +875,11 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _webView.requestFocus();
             GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
-            // _webViewClient.setRestoreScrollY(_webView.getScrollY());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                _webView.evaluateJavascript("preview2Edit(" + _firstVisibleLineNumber + ");", result -> {
+                _webView.evaluateJavascript("preview2Edit();", result -> {
                     if (Character.isDigit(result.charAt(0))) {
                         final int lineNumber = Integer.parseInt(result);
-                        if (lineNumber > 0) {
+                        if (lineNumber > 0 && (lineNumber < _firstVisibleLineNumber - 2 || lineNumber > _firstVisibleLineNumber + 2)) {
                             TextViewUtils.selectLines(_hlEditor, false, Collections.singletonList(lineNumber));
                         }
                     }
@@ -889,8 +888,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.requestFocus();
             GsContextUtils.fadeInOut(_primaryScrollView, _webView, animate);
         }
-        _nextConvertToPrintMode = false;
         _isPreviewVisible = show;
+        _nextConvertToPrintMode = false;
         ((AppCompatActivity) activity).supportInvalidateOptionsMenu();
     }
 

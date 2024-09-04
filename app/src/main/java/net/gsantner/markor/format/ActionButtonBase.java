@@ -993,7 +993,7 @@ public abstract class ActionButtonBase {
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
             final int pos = _hlEditor.getSelectionStart();
-            if (pos == 0) {
+            if (pos < 1) {
                 _hlEditor.setSelection(_hlEditor.getText().length());
             } else if (pos == _hlEditor.getText().length()) {
                 _hlEditor.setSelection(0);

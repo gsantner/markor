@@ -42,11 +42,9 @@ function edit2Preview(lineNumber) {
 
 /**
  * Find the target line number, that is the value of data-line attribute of target element (generally the first visible element).
- * Params: lineNumber - as a base position.
- * Return: 0 if the line number found is around lineNumber (it means there is no need to adjust scrolling for this minor change),
- *        -1 if the target element cannot not be found.
+ * Return: -1 if the target element cannot not be found.
  */
-function preview2Edit(lineNumber) {
+function preview2Edit() {
     const elements = document.querySelectorAll("[data-line]");
     if (elements == null || elements.length == 0) {
         return -1;
@@ -59,12 +57,7 @@ function preview2Edit(lineNumber) {
         const top = element.getBoundingClientRect().top;
         const bottom = element.getBoundingClientRect().bottom;
         if (top > TOP_MARGIN && bottom > 0 && bottom < BOTTOM_MARGIN) {
-            const number = parseInt(element.getAttribute("data-line"));
-            if (number > lineNumber - 3 && number < lineNumber + 3) {
-                return 0;
-            } else {
-                return number;
-            }
+            return parseInt(element.getAttribute("data-line"));
         }
     }
 
