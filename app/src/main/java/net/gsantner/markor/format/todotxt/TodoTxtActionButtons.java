@@ -205,8 +205,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 final int lineStart = TextViewUtils.getLineStart(text, sel[0]);
                 final int lineEnd = TextViewUtils.getLineEnd(text, sel[1]);
                 final List<TodoTxtTask> tasks = TodoTxtTask.getTasks(text, sel[0], sel[1]);
-                char prevPriority = '\0';
-                char nextPriority = '\0';
+                char prevPriority = '\0', nextPriority = '\0';
                 boolean areAllSamePriority = true;
                 if (lineStart != 0) {
                     final int prevLineStart = TextViewUtils.getLineStart(text, lineStart - 1);
@@ -230,14 +229,18 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                     if(prevPriority != tasks.get(0).getPriority() && prevPriority != '\0') {
                         setPriority(prevPriority);
                     }
-                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority() && nextPriority != '\0'){
+                    else if(nextPriority != tasks.get(tasks.size() - 1).getPriority() && nextPriority != '\0') {
                         setPriority(nextPriority);
                     }
                     else {
                         setPriority(TodoTxtTask.PRIORITY_NONE);
                     }
                 } else {
-                    setPriority(prevPriority);
+                    if(prevPriority != '\0') {
+                        setPriority(prevPriority);
+                    } else {
+                        setPriority(tasks.get(0).getPriority());
+                    }
                 }
                 return true;
             }
