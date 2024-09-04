@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,7 +30,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.pixplicity.generate.OnFeedbackListener;
 
 import net.gsantner.markor.BuildConfig;
 import net.gsantner.markor.R;
