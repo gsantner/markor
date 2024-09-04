@@ -62,7 +62,6 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
     private MoreFragment _more;
     private FloatingActionButton _fab;
 
-    private boolean _doubleBackToExitPressedOnce;
     private MarkorContextUtils _cu;
     private File _quickSwitchPrevFolder = null;
 
@@ -327,32 +326,20 @@ public class MainActivity extends MarkorBaseActivity implements GsFileBrowserFra
 
     @Override
     public void onBackPressed() {
-        // Exit confirmed with 2xBack
-        if (_doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            _appSettings.setFileBrowserLastBrowsedFolder(_notebook.getCurrentFolder());
-            return;
-        }
-
         // Check if fragment handled back press
         final GsFragmentBase<?, ?> frag = getPosFragment(getCurrentPos());
-        if (frag != null && frag.onBackPressed()) {
-            return;
+        if (frag == null || !frag.onBackPressed()) {
+            super.onBackPressed();
         }
-
-        // Confirm exit with back / snack bar
-        _doubleBackToExitPressedOnce = true;
-        _cu.showSnackBar(this, R.string.press_back_again_to_exit, false, R.string.exit, view -> finish());
-        new Handler().postDelayed(() -> _doubleBackToExitPressedOnce = false, 2000);
     }
 
     public String getFileBrowserTitle() {
-        final File file = _appSettings.getFileBrowserLastBrowsedFolder();
-        String title = getString(R.string.app_name);
-        if (!_appSettings.getNotebookDirectory().getAbsolutePath().equals(file.getAbsolutePath())) {
-            title = "> " + file.getName();
+        final File file = _notebook.getCurrentFolder();
+        if (file != null && !_appSettings.getNotebookDirectory().equals(file)) {
+            return "> " + file.getName();
+        } else {
+            return getString(R.string.app_name);
         }
-        return title;
     }
 
     public int tabIdToPos(final int id) {

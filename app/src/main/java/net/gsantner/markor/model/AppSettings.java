@@ -87,7 +87,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setNotebookDirectory(final File file) {
-        setString(R.string.pref_key__notebook_directory, file.getAbsolutePath());
+        setString(R.string.pref_key__notebook_directory, Document.getPath(file));
     }
 
     public File getNotebookDirectory() {
@@ -106,7 +106,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setQuickNoteFile(final File file) {
-        setString(R.string.pref_key__quicknote_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__quicknote_filepath, Document.getPath(file));
     }
 
     public File getDefaultQuickNoteFile() {
@@ -118,7 +118,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setTodoFile(final File file) {
-        setString(R.string.pref_key__todo_filepath, file.getAbsolutePath());
+        setString(R.string.pref_key__todo_filepath, Document.getPath(file));
     }
 
     public File getDefaultTodoFile() {
@@ -132,7 +132,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setSnippetDirectory(final File folder) {
-        setString(R.string.pref_key__snippet_directory_path, folder.getAbsolutePath());
+        setString(R.string.pref_key__snippet_directory_path, Document.getPath(folder));
     }
 
     public String getFontFamily() {
@@ -340,15 +340,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         if (!listFileInRecents(file)) {
             return;
         }
+        final String path = Document.getPath(file);
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
             ArrayList<String> recent = getRecentDocuments();
-            recent.add(0, file.getAbsolutePath());
-            recent.remove(getTodoFile().getAbsolutePath());
-            recent.remove(getQuickNoteFile().getAbsolutePath());
+            recent.add(0, path);
+            recent.remove(Document.getPath(getTodoFile()));
+            recent.remove(Document.getPath(getQuickNoteFile()));
             recent.remove("");
             recent.remove(null);
 
-            setInt(file.getAbsolutePath(), getInt(file.getAbsolutePath(), 0, _prefCache) + 1, _prefCache);
+            setInt(path, getInt(path, 0, _prefCache) + 1, _prefCache);
             setRecentDocuments(recent);
         }
         ShortcutUtils.setShortcuts(_context);
@@ -358,7 +359,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         final Set<String> set = new LinkedHashSet<>();
         for (final File f : files) {
             if (f != null && (f.exists() || GsFileBrowserListAdapter.isVirtualFolder(f))) {
-                set.add(f.getAbsolutePath());
+                set.add(Document.getPath(f));
             }
         }
         setStringList(R.string.pref_key__favourite_files, GsCollectionUtils.map(set, p -> p));
@@ -422,8 +423,8 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
             return;
         }
         if (!file.equals(getTodoFile()) && !file.equals(getQuickNoteFile())) {
-            setInt(PREF_PREFIX_VIEW_SCROLL_X + file.getAbsolutePath(), scrollX, _prefCache);
-            setInt(PREF_PREFIX_VIEW_SCROLL_Y + file.getAbsolutePath(), scrollY, _prefCache);
+            setInt(PREF_PREFIX_VIEW_SCROLL_X + Document.getPath(file), scrollX, _prefCache);
+            setInt(PREF_PREFIX_VIEW_SCROLL_Y + Document.getPath(file), scrollY, _prefCache);
         }
     }
 
@@ -550,14 +551,14 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
         if (file == null || !file.exists()) {
             return -1;
         }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_X + file.getAbsolutePath(), -3, _prefCache);
+        return getInt(PREF_PREFIX_VIEW_SCROLL_X + Document.getPath(file), -3, _prefCache);
     }
 
     public int getLastViewPositionY(File file) {
         if (file == null || !file.exists()) {
             return -1;
         }
-        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + file.getAbsolutePath(), -3, _prefCache);
+        return getInt(PREF_PREFIX_VIEW_SCROLL_Y + Document.getPath(file), -3, _prefCache);
     }
 
     private List<String> getPopularDocumentsSorted() {
@@ -813,16 +814,16 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public boolean listFileInRecents(File file) {
-        return getBool(file.getAbsolutePath() + "_list_in_recents", true);
+        return getBool(Document.getPath(file) + "_list_in_recents", true);
     }
 
     public void setListFileInRecents(File file, boolean value) {
-        setBool(file.getAbsolutePath() + "_list_in_recents", value);
+        setBool(Document.getPath(file) + "_list_in_recents", value);
 
         if (!value) {
             ArrayList<String> recent = getRecentDocuments();
-            if (recent.contains(file.getAbsolutePath())) {
-                recent.remove(file.getAbsolutePath());
+            if (recent.contains(Document.getPath(file))) {
+                recent.remove(Document.getPath(file));
                 setRecentDocuments(recent);
             }
         }
@@ -837,11 +838,11 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }*/
 
     public int getRating(File file) {
-        return getInt(file.getAbsolutePath() + "_rating", 0);
+        return getInt(Document.getPath(file) + "_rating", 0);
     }
 
     public void setRating(File file, int value) {
-        setInt(file.getAbsolutePath() + "_rating", value);
+        setInt(Document.getPath(file) + "_rating", value);
     }
 
     public boolean isEditorLineBreakingEnabled() {
@@ -931,7 +932,7 @@ public class AppSettings extends GsSharedPreferencesPropertyBackend {
     }
 
     public void setFileBrowserLastBrowsedFolder(File f) {
-        setString(R.string.pref_key__file_browser_last_browsed_folder, f.getAbsolutePath());
+        setString(R.string.pref_key__file_browser_last_browsed_folder, Document.getPath(f));
     }
 
     public File getFileBrowserLastBrowsedFolder() {
