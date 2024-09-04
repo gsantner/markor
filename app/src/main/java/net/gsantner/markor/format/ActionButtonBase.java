@@ -992,10 +992,16 @@ public abstract class ActionButtonBase {
 
     public void runJumpBottomTopAction(ActionItem.DisplayMode displayMode) {
         if (displayMode == ActionItem.DisplayMode.EDIT) {
-            int pos = _hlEditor.getSelectionStart();
-            _hlEditor.setSelection(pos == 0 ? _hlEditor.getText().length() : 0);
+            final int pos = _hlEditor.getSelectionStart();
+            if (pos == 0) {
+                _hlEditor.setSelection(_hlEditor.getText().length());
+            } else if (pos == _hlEditor.getText().length()) {
+                _hlEditor.setSelection(0);
+            } else {
+                TextViewUtils.showSelection(_hlEditor);
+            }
         } else if (displayMode == ActionItem.DisplayMode.VIEW) {
-            boolean top = _webView.getScrollY() > 100;
+            final boolean top = _webView.getScrollY() > 100;
             _webView.scrollTo(0, top ? 0 : _webView.getContentHeight());
             if (!top) {
                 _webView.scrollBy(0, 1000);
@@ -1003,5 +1009,4 @@ public abstract class ActionButtonBase {
             }
         }
     }
-
 }
