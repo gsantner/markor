@@ -33,7 +33,6 @@ import net.gsantner.opoc.wrapper.GsCallback;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -291,14 +290,6 @@ public final class TextViewUtils {
 
     public static void selectLines(final EditText edit, final List<Integer> positions) {
         selectLines(edit, true, positions);
-    }
-
-    public static void selectLines(final EditText edit, final Integer... positions) {
-        selectLines(edit, Arrays.asList(positions));
-    }
-
-    public static void selectLines(final EditText edit, final boolean setSelection, final Integer... positions) {
-        selectLines(edit, setSelection, Arrays.asList(positions));
     }
 
     public static void showSelection(final TextView text, final int start, final int end) {

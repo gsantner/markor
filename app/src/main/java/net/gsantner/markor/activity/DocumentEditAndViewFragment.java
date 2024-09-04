@@ -162,7 +162,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     return;
                 }
                 _firstVisibleLineNumber = _hlEditor.getFirstVisibleLineNumber();
-                _webView.evaluateJavascript("editor2Preview(" + _firstVisibleLineNumber + ");", null);
+                _webView.evaluateJavascript("edit2Preview(" + _firstVisibleLineNumber + ");", null);
             }
         });
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
@@ -876,12 +876,8 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             GsContextUtils.fadeInOut(_webView, _primaryScrollView, animate);
         } else {
             // _webViewClient.setRestoreScrollY(_webView.getScrollY());
-            _hlEditor.requestFocus();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                _webView.evaluateJavascript("preview2Editor(" + _firstVisibleLineNumber + ");", result -> {
-                    if (result.startsWith("null")) {
-                        return;
-                    }
+                _webView.evaluateJavascript("preview2Edit(" + _firstVisibleLineNumber + ");", result -> {
                     if (Character.isDigit(result.charAt(0))) {
                         final int lineNumber = Integer.parseInt(result);
                         if (lineNumber > 0) {
@@ -890,6 +886,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     }
                 });
             }
+            _hlEditor.requestFocus();
             GsContextUtils.fadeInOut(_primaryScrollView, _webView, animate);
         }
         _nextConvertToPrintMode = false;

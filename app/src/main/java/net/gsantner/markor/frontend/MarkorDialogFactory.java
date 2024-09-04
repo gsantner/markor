@@ -840,14 +840,19 @@ public class MarkorDialogFactory {
 
         dopt.positionCallback = result -> {
             final int index = filtered.get(result.get(0));
-            final int line = headings.get(index).line;
+            final int line = headings.get(index).line + 1;
 
-            TextViewUtils.selectLines(edit, line);
-            final String jumpJs = "document.querySelector(\"[data-line='" + line + "']\").scrollIntoView();";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                webView.evaluateJavascript(jumpJs, null);
-            } else {
-                webView.loadUrl("javascript:" + jumpJs);
+            if (edit.isShown()) {
+                TextViewUtils.selectLines(edit, false, Collections.singletonList(line));
+            }
+
+            if (webView.isShown()) {
+                final String jumpJs = "document.querySelector(\"[data-line='" + line + "']\").scrollIntoView();";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    webView.evaluateJavascript(jumpJs, null);
+                } else {
+                    webView.loadUrl("javascript:" + jumpJs);
+                }
             }
         };
 
