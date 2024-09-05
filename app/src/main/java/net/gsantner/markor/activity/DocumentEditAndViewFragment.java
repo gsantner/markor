@@ -147,7 +147,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             return;
         }
 
-        if (_appSettings.getSetWebViewFulldrawing()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && _appSettings.getSetWebViewFulldrawing()) {
             WebView.enableSlowWholeDocumentDraw();
         }
 
@@ -170,7 +170,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         webSettings.setAllowUniversalAccessFromFileURLs(false);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
 
-        if (BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && BuildConfig.IS_TEST_BUILD && BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true); // Inspect on computer chromium browser: chrome://inspect/#devices
         }
 
@@ -194,9 +194,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
 
         _hlEditor.setSaveInstanceState(false); // We will reload from disk
-        _document.resetChangeTracking(); // force next reload
-
-        // If not set by loadDocument, se the undo-redo helper here
+        _document.resetChangeTracking(); // Force next reload
+        loadDocument();
+        // If not set the undo-redo helper by loadDocument, set it here
         if (_editTextUndoRedoHelper == null) {
             _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
         }
@@ -217,8 +217,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
         _webView.setBackgroundColor(Color.TRANSPARENT);
-
-        loadDocument();
 
         // Various settings
         setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.getPath()));
@@ -547,8 +545,10 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     Toast.makeText(activity, R.string.please_wait, Toast.LENGTH_LONG).show();
                     _webView.postDelayed(() -> {
                         if (item.getItemId() == R.id.action_share_pdf) {
-                            _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
-                        } else if (item.getItemId() != R.id.action_share_pdf) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                _cu.printOrCreatePdfFromWebview(_webView, _document, getTextString().contains("beamer\n"));
+                            }
+                        } else {
                             Bitmap bmp = _cu.getBitmapFromWebView(_webView, item.getItemId() == R.id.action_share_image);
                             _cu.shareImage(getContext(), bmp, null);
                         }
