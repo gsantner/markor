@@ -193,14 +193,6 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             setViewModeVisibility(startInPreview, false);
         }
 
-        _hlEditor.setSaveInstanceState(false); // We will reload from disk
-        _document.resetChangeTracking(); // Force next reload
-        loadDocument();
-        // If not set the undo-redo helper by loadDocument, set it here
-        if (_editTextUndoRedoHelper == null) {
-            _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
-        }
-
         // Configure the editor. Doing so after load helps prevent some errors
         // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
@@ -222,6 +214,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.getPath()));
         updateMenuToggleStates(0);
         // ---------------------------------------------------------
+
+        _hlEditor.setSaveInstanceState(false); // We will reload from disk
+        _document.resetChangeTracking(); // Force next reload
+        loadDocument();
+        // If not set the undo-redo helper by loadDocument, set it here
+        if (_editTextUndoRedoHelper == null) {
+            _editTextUndoRedoHelper = new TextViewUndoRedo(_hlEditor);
+        }
 
         final Runnable debounced = TextViewUtils.makeDebounced(500, () -> {
             checkTextChangeState();
