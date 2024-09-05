@@ -264,8 +264,7 @@ public class HighlightingEditor extends AppCompatEditText {
         // Calculate the first visible line number
         final int count = layout.getLineCount();
         for (int i = 1, number = 1; i < count; i++) {
-            final int start = layout.getLineStart(i);
-            if (text.charAt(start - 1) == '\n') {
+            if (text.charAt(layout.getLineStart(i) - 1) == '\n') {
                 if (layout.getLineTop(i) > visibleRect.top) {
                     return number;
                 }

@@ -46,7 +46,7 @@ function edit2Preview(lineNumber) {
  */
 function preview2Edit() {
     const elements = document.querySelectorAll("[data-line]");
-    if (elements == null || elements.length == 0) {
+    if (elements == null) {
         return -1;
     }
 
