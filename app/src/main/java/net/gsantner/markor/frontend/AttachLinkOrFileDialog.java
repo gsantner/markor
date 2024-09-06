@@ -62,7 +62,7 @@ public class AttachLinkOrFileDialog {
         if (textFormatId == FormatRegistry.FORMAT_MARKDOWN) {
             return "[%TITLE%](%LINK%)";
         } else if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "[[LINK|TITLE]]";
+            return "[[%LINK%|%TITLE%]]";
         } else if (textFormatId == FormatRegistry.FORMAT_ASCIIDOC) {
             return "link:%LINK%[%TITLE%]";
         } else if (textFormatId == FormatRegistry.FORMAT_TODOTXT) {
@@ -74,9 +74,10 @@ public class AttachLinkOrFileDialog {
 
     private static String getAudioFormat(final int textFormatId) {
         if (textFormatId == FormatRegistry.FORMAT_WIKITEXT) {
-            return "[[LINK|TITLE]]";
+            return "[[%LINK%|%TITLE%]]";
+        } else {
+            return "<audio src='%LINK%' controls><a href='%LINK%'>%TITLE%</a></audio>";
         }
-        return "<audio src='%LINK%' controls><a href='%LINK%'>%TITLE%</a></audio>";
     }
 
     public static void showInsertImageOrLinkDialog(
