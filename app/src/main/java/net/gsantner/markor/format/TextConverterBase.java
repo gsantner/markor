@@ -107,12 +107,12 @@ public abstract class TextConverterBase {
             final boolean lineNum) {
         String html;
         try {
-            html = convertMarkup(content, context, lightMode, lineNum, document.getFile());
+            html = convertMarkup(content, context, lightMode, lineNum, document.file);
         } catch (Exception e) {
             html = "Please report at project issue tracker: " + e;
         }
 
-        String parent = document.getFile().getParent();
+        String parent = document.file.getParent();
         if (parent == null) {
             parent = _appSettings.getNotebookDirectory().getAbsolutePath();
         }

@@ -242,11 +242,6 @@ public class AsciidocActionButtons extends ActionButtonBase {
     // idea based on runSpecialKeyAction()
     private void runAsciidocSpecialKeyAction() {
 
-        // Needed to prevent selection from being overwritten on refocus
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
-        _hlEditor.clearFocus();
-        _hlEditor.requestFocus();
-        _hlEditor.setSelection(sel[0], sel[1]);
         // showAsciidocSpecialKeyDialog is used instead of showSpecialKeyDialog
         MarkorDialogFactory.showAsciidocSpecialKeyDialog(getActivity(), (callbackPayload) -> {
             if (!_hlEditor.hasSelection() && _hlEditor.length() > 0) {

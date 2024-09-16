@@ -124,49 +124,7 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_todotxt_archive_done_tasks: {
-                final String last = _appSettings.getLastTodoDoneName(_document.getPath());
-                MarkorDialogFactory.showSttArchiveDialog(getActivity(), last, (callbackPayload) -> {
-                    callbackPayload = Document.normalizeFilename(callbackPayload);
-
-                    final ArrayList<TodoTxtTask> keep = new ArrayList<>();
-                    final ArrayList<TodoTxtTask> move = new ArrayList<>();
-                    final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(_hlEditor.getText());
-
-                    final int[] sel = TextViewUtils.getSelection(_hlEditor);
-                    final CharSequence text = _hlEditor.getText();
-                    final int[] selStart = TextViewUtils.getLineOffsetFromIndex(text, sel[0]);
-                    final int[] selEnd = TextViewUtils.getLineOffsetFromIndex(text, sel[1]);
-
-                    for (int i = 0; i < allTasks.size(); i++) {
-                        final TodoTxtTask task = allTasks.get(i);
-                        if (task.isDone()) {
-                            move.add(task);
-                            if (i <= selStart[0]) selStart[0]--;
-                            if (i <= selEnd[0]) selEnd[0]--;
-                        } else {
-                            keep.add(task);
-                        }
-                    }
-                    if (!move.isEmpty() && _document.testCreateParent()) {
-                        File doneFile = new File(_document.getFile().getParentFile(), callbackPayload);
-                        String doneFileContents = "";
-                        if (doneFile.exists() && doneFile.canRead()) {
-                            doneFileContents = GsFileUtils.readTextFileFast(doneFile).first.trim() + "\n";
-                        }
-                        doneFileContents += TodoTxtTask.tasksToString(move) + "\n";
-
-                        // Write to done file
-                        if (new Document(doneFile).saveContent(getActivity(), doneFileContents)) {
-                            final String tasksString = TodoTxtTask.tasksToString(keep);
-                            _hlEditor.setText(tasksString);
-                            _hlEditor.setSelection(
-                                    TextViewUtils.getIndexFromLineOffset(tasksString, selStart),
-                                    TextViewUtils.getIndexFromLineOffset(tasksString, selEnd)
-                            );
-                        }
-                    }
-                    _appSettings.setLastTodoDoneName(_document.getPath(), callbackPayload);
-                });
+                archiveDoneTasks();
                 return true;
             }
             case R.string.abid_todotxt_sort_todo: {
@@ -216,6 +174,48 @@ public class TodoTxtActionButtons extends ActionButtonBase {
                 return runCommonLongPressAction(action);
             }
         }
+    }
+
+    public void archiveDoneTasks() {
+        final String lastDoneName = _appSettings.getLastTodoDoneName(_document.path);
+        MarkorDialogFactory.showSttArchiveDialog(getActivity(), lastDoneName, callbackPayload -> {
+            final String doneName = Document.normalizeFilename(callbackPayload);
+            final CharSequence text = _hlEditor.getText();
+            final int[] sel = TextViewUtils.getSelection(text);
+            final int[][] offsets = TextViewUtils.getLineOffsetFromIndex(text, sel);
+
+            final ArrayList<TodoTxtTask> keep = new ArrayList<>();
+            final ArrayList<TodoTxtTask> move = new ArrayList<>();
+            final List<TodoTxtTask> allTasks = TodoTxtTask.getAllTasks(text);
+
+            for (int i = 0; i < allTasks.size(); i++) {
+                final TodoTxtTask task = allTasks.get(i);
+                if (task.isDone()) {
+                    move.add(task);
+                    if (i <= offsets[0][0]) offsets[0][0]--;
+                    if (i <= offsets[1][0]) offsets[1][0]--;
+                } else {
+                    keep.add(task);
+                }
+            }
+
+            if (!move.isEmpty() && _document.testCreateParent()) {
+                final File doneFile = new File(_document.file.getParentFile(),  doneName);
+                final StringBuilder doneContents = new StringBuilder();
+                if (doneFile.exists() && doneFile.canRead()) {
+                    doneContents.append(GsFileUtils.readTextFileFast(doneFile).first.trim()).append("\n");
+                }
+                doneContents.append(TodoTxtTask.tasksToString(move)).append("\n");
+
+                // Write to done file
+                if (new Document(doneFile).saveContent(getActivity(), doneContents.toString())) {
+                    final String tasksString = TodoTxtTask.tasksToString(keep);
+                    _hlEditor.setText(tasksString);
+                    TextViewUtils.setSelectionFromOffsets(_hlEditor, offsets);
+                }
+            }
+            _appSettings.setLastTodoDoneName(_document.path,  doneName);
+        });
     }
 
     @Override
@@ -288,6 +288,10 @@ public class TodoTxtActionButtons extends ActionButtonBase {
 
     private static void insertInline(final Editable editable, String thing) {
         final int[] sel = TextViewUtils.getSelection(editable);
+        if (sel[0] < 0) {
+            return;
+        }
+
         if (sel[0] > 0) {
             final char before = editable.charAt(sel[0] - 1);
             if (before != ' ' && before != '\n') {
@@ -318,12 +322,15 @@ public class TodoTxtActionButtons extends ActionButtonBase {
     }
 
     private void setDate() {
-        final int[] sel = TextViewUtils.getSelection(_hlEditor);
         final Editable text = _hlEditor.getText();
+        final int[] sel = TextViewUtils.getSelection(text);
+        if (text == null || sel[0] < 0) {
+            return;
+        }
         final String selStr = text.subSequence(sel[0], sel[1]).toString();
-        Calendar initDate = parseDateString(selStr, Calendar.getInstance());
+        final Calendar initDate = parseDateString(selStr, Calendar.getInstance());
 
-        DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
+        final DatePickerDialog.OnDateSetListener listener = (_view, year, month, day) -> {
             Calendar fmtCal = Calendar.getInstance();
             fmtCal.set(year, month, day);
             final String newDate = TodoTxtTask.DATEF_YYYY_MM_DD.format(fmtCal.getTime());
