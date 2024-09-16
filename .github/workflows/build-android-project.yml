@@ -57,14 +57,14 @@ jobs:
 
     - name: "Artifacts: All"
       if: always()
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v4
       with:
         name: "all"
         path: dist
         retention-days: 5
 
     - name: "Artifacts: Android APK"
-      uses: actions/upload-artifact@v2.2.1
+      uses: actions/upload-artifact@v4
       with:
         name: "android-apk"
         path: |
