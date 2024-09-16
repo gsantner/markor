@@ -430,7 +430,11 @@ public class GsTextUtils {
     }
 
     public static boolean isValidIndex(final CharSequence s, final int... indices) {
-        return s != null && inRange(0, s.length() - 1, indices);
+        return s != null && indices != null && inRange(0, s.length() - 1, indices);
+    }
+
+    public static boolean isValidSelection(final CharSequence s, final int... indices) {
+        return s != null && indices != null && inRange(0, s.length(), indices);
     }
 
     // Checks if all values are in [min, max] _inclusive_

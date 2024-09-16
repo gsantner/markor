@@ -80,7 +80,7 @@ public class MarkorContextUtils extends GsContextUtils {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
     public PrintJob printOrCreatePdfFromWebview(final WebView webview, Document document, boolean... landscape) {
-        String jobName = String.format("%s (%s)", document.getTitle(), webview.getContext().getString(R.string.app_name_real));
+        String jobName = String.format("%s (%s)", document.title, webview.getContext().getString(R.string.app_name_real));
         return super.print(webview, jobName, landscape);
     }
 
