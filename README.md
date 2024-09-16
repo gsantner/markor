@@ -256,7 +256,7 @@ Todo.txt is a simple text format for todo. Each line of text is a task. The idea
 
 
 ![todotxt](doc/assets/todotxt-format-dark.png#gh-dark-mode-only)
-![todotxt](doc/assets/todotxt-format-light.png#gh-light-mode-only)
+![todotxt](doc/assets/todotxt-format.png#gh-light-mode-only)
 
 #### How to mark a task done?
 Done tasks are marked by a `x ` in begining of the line and can optionally be moved to a done/archive file.
