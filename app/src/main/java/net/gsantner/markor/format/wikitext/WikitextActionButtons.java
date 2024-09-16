@@ -164,12 +164,7 @@ public class WikitextActionButtons extends ActionButtonBase {
                 return true;
             }
             case R.string.abid_wikitext_code_inline: {
-                _hlEditor.withAutoFormatDisabled(() -> {
-                    final int c = _hlEditor.setSelectionExpandWholeLines();
-                    _hlEditor.getText().insert(_hlEditor.getSelectionStart(), "\n'''\n");
-                    _hlEditor.getText().insert(_hlEditor.getSelectionEnd(), "\n'''\n");
-                    _hlEditor.setSelection(c + "\n'''\n".length());
-                });
+                _hlEditor.withAutoFormatDisabled(() -> surroundBlock(_hlEditor.getText(), "'''"));
                 return true;
             }
             default: {
@@ -188,7 +183,7 @@ public class WikitextActionButtons extends ActionButtonBase {
             return;
         }
 
-        WikitextLinkResolver resolver = WikitextLinkResolver.resolve(fullWikitextLink, _appSettings.getNotebookDirectory(), _document.getFile(), _appSettings.isWikitextDynamicNotebookRootEnabled());
+        WikitextLinkResolver resolver = WikitextLinkResolver.resolve(fullWikitextLink, _appSettings.getNotebookDirectory(), _document.file, _appSettings.isWikitextDynamicNotebookRootEnabled());
         String resolvedLink = resolver.getResolvedLink();
         if (resolvedLink == null) {
             return;

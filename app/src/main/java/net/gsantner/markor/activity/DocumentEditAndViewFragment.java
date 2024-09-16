@@ -155,6 +155,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _webView.setWebChromeClient(new GsWebViewChromeClient(_webView, activity, view.findViewById(R.id.document__fragment_fullscreen_overlay)));
         _webView.setWebViewClient(_webViewClient);
         _webView.addJavascriptInterface(this, "Android");
+        _webView.setBackgroundColor(Color.TRANSPARENT);
         WebSettings webSettings = _webView.getSettings();
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
@@ -176,17 +177,15 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
 
         // Upon construction, the document format has been determined from extension etc
         // Here we replace it with the last saved format.
-        _document.setFormat(_appSettings.getDocumentFormat(_document.getPath(), _document.getFormat()));
-        applyTextFormat(_document.getFormat());
-        _format.getActions().setDocument(_document);
+        applyTextFormat(_appSettings.getDocumentFormat(_document.path, _document.getFormat()));
 
         if (activity instanceof DocumentActivity) {
-            ((DocumentActivity) activity).setDocumentTitle(_document.getTitle());
+            ((DocumentActivity) activity).setDocumentTitle(_document.title);
         }
 
         // Preview mode set before loadDocument to prevent flicker
         final Bundle args = getArguments();
-        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.getPath());
+        final boolean startInPreview = _appSettings.getDocumentPreviewState(_document.path);
         if (args != null && savedInstanceState == null) { // Use the launch flag on first launch
             setViewModeVisibility(args.getBoolean(START_PREVIEW, startInPreview), false);
         } else {
@@ -205,22 +204,21 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         // Configure the editor. Doing so after load helps prevent some errors
         // ---------------------------------------------------------
         _hlEditor.setLineSpacing(0, _appSettings.getEditorLineSpacing());
-        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.getPath()));
+        _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, _appSettings.getDocumentFontSize(_document.path));
         _hlEditor.setTypeface(GsFontPreferenceCompat.typeface(getContext(), _appSettings.getFontFamily(), Typeface.NORMAL));
         _hlEditor.setBackgroundColor(_appSettings.getEditorBackgroundColor());
         _hlEditor.setTextColor(_appSettings.getEditorForegroundColor());
         _hlEditor.setGravity(_appSettings.isEditorStartEditingInCenter() ? Gravity.CENTER : Gravity.NO_GRAVITY);
-        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.getPath(), _hlEditor.getText()));
-        _hlEditor.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.getPath()));
-        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
+        _hlEditor.setHighlightingEnabled(_appSettings.getDocumentHighlightState(_document.path, _hlEditor.getText()));
+        _hlEditor.setLineNumbersEnabled(_appSettings.getDocumentLineNumbersEnabled(_document.path));
+        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Do not need to send contents to accessibility
             _hlEditor.setImportantForAccessibility(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
-        _webView.setBackgroundColor(Color.TRANSPARENT);
 
         // Various settings
-        setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.getPath()));
+        setHorizontalScrollMode(isDisplayedAtMainActivity() || _appSettings.getDocumentWrapState(_document.path));
         updateMenuToggleStates(0);
         // ---------------------------------------------------------
 
@@ -254,23 +252,22 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     @Override
-    public void onFragmentFirstTimeVisible() {
-        _primaryScrollView.invalidate();
-        int startPos = _appSettings.getLastEditPosition(_document.getPath(), _hlEditor.length());
+    protected void onFragmentFirstTimeVisible() {
+        final Bundle args = getArguments();
 
-        // First start - overwrite start position if needed
-        if (_savedInstanceState == null) {
-            final Bundle args = getArguments();
-            if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
-                final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
-                if (lno >= 0) {
-                    startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
-                } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
-                    startPos = _hlEditor.length();
-                }
+        int startPos = _appSettings.getLastEditPosition(_document.path, _hlEditor.length());
+        if (args != null && args.containsKey(Document.EXTRA_FILE_LINE_NUMBER)) {
+            final int lno = args.getInt(Document.EXTRA_FILE_LINE_NUMBER);
+            if (lno >= 0) {
+                startPos = TextViewUtils.getIndexFromLineOffset(_hlEditor.getText(), lno, 0);
+            } else if (lno == Document.EXTRA_FILE_LINE_NUMBER_LAST) {
+                startPos = _hlEditor.length();
             }
         }
 
+        _primaryScrollView.invalidate();
+        // Can affect layout so run before setting scroll position
+        _hlEditor.recomputeHighlighting();
         TextViewUtils.setSelectionAndShow(_hlEditor, startPos);
     }
 
@@ -285,9 +282,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     public void onPause() {
         saveDocument(false);
         _webView.onPause();
-        _appSettings.addRecentFile(_document.getFile());
-        _appSettings.setDocumentPreviewState(_document.getPath(), _isPreviewVisible);
-        _appSettings.setLastEditPosition(_document.getPath(), _hlEditor.getSelectionStart());
+        _appSettings.addRecentFile(_document.file);
+        _appSettings.setDocumentPreviewState(_document.path, _isPreviewVisible);
+        _appSettings.setLastEditPosition(_document.path, TextViewUtils.getSelection(_hlEditor)[0]);
         super.onPause();
     }
 
@@ -442,8 +439,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                     _editTextUndoRedoHelper.setTextView(_hlEditor);
                 }
 
-                _hlEditor.setSelection(sel[0], sel[1]);
-                TextViewUtils.showSelection(_hlEditor);
+                TextViewUtils.setSelectionAndShow(_hlEditor, sel);
             }
             checkTextChangeState();
 
@@ -502,7 +498,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 return true;
             }
             case R.id.action_share_path: {
-                _cu.shareText(getActivity(), _document.getFile().getAbsolutePath(), GsContextUtils.MIME_TEXT_PLAIN);
+                _cu.shareText(getActivity(), _document.file.getAbsolutePath(), GsContextUtils.MIME_TEXT_PLAIN);
                 return true;
             }
             case R.id.action_share_text: {
@@ -513,7 +509,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_share_file: {
                 if (saveDocument(false)) {
-                    _cu.shareStream(getActivity(), _document.getFile(), GsContextUtils.MIME_TEXT_PLAIN);
+                    _cu.shareStream(getActivity(), _document.file, GsContextUtils.MIME_TEXT_PLAIN);
                 }
                 return true;
             }
@@ -522,7 +518,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (saveDocument(false)) {
                     TextConverterBase converter = FormatRegistry.getFormat(_document.getFormat(), activity, _document).getConverter();
                     _cu.shareText(getActivity(),
-                            converter.convertMarkup(getTextString(), getActivity(), false, _hlEditor.getLineNumbersEnabled(), _document.getFile()),
+                            converter.convertMarkup(getTextString(), getActivity(), false, _hlEditor.getLineNumbersEnabled(), _document.file),
                             "text/" + (item.getItemId() == R.id.action_share_html ? "html" : "plain")
                     );
                 }
@@ -530,7 +526,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_share_calendar_event: {
                 if (saveDocument(false)) {
-                    if (!_cu.createCalendarAppointment(getActivity(), _document.getTitle(), getTextString(), null)) {
+                    if (!_cu.createCalendarAppointment(getActivity(), _document.title, getTextString(), null)) {
                         Toast.makeText(activity, R.string.no_calendar_app_is_installed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -567,7 +563,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
                 if (itemId != _document.getFormat()) {
                     _document.setFormat(itemId);
                     applyTextFormat(itemId);
-                    _appSettings.setDocumentFormat(_document.getPath(), _document.getFormat());
+                    _appSettings.setDocumentFormat(_document.path, _document.getFormat());
                 }
                 return true;
             }
@@ -603,14 +599,14 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             }
             case R.id.action_wrap_words: {
                 final boolean newState = !isWrapped();
-                _appSettings.setDocumentWrapState(_document.getPath(), newState);
+                _appSettings.setDocumentWrapState(_document.path, newState);
                 setHorizontalScrollMode(newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_line_numbers: {
                 final boolean newState = !_hlEditor.getLineNumbersEnabled();
-                _appSettings.setDocumentLineNumbersEnabled(_document.getPath(), newState);
+                _appSettings.setDocumentLineNumbersEnabled(_document.path, newState);
                 _hlEditor.setLineNumbersEnabled(newState);
                 updateMenuToggleStates(0);
                 return true;
@@ -618,34 +614,34 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
             case R.id.action_enable_highlighting: {
                 final boolean newState = !_hlEditor.getHighlightingEnabled();
                 _hlEditor.setHighlightingEnabled(newState);
-                _appSettings.setDocumentHighlightState(_document.getPath(), newState);
+                _appSettings.setDocumentHighlightState(_document.path, newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_enable_auto_format: {
                 final boolean newState = !_hlEditor.getAutoFormatEnabled();
                 _hlEditor.setAutoFormatEnabled(newState);
-                _appSettings.setDocumentAutoFormatEnabled(_document.getPath(), newState);
+                _appSettings.setDocumentAutoFormatEnabled(_document.path, newState);
                 updateMenuToggleStates(0);
                 return true;
             }
             case R.id.action_info: {
                 if (saveDocument(false)) { // In order to have the correct info displayed
-                    FileInfoDialog.show(_document.getFile(), getParentFragmentManager());
+                    FileInfoDialog.show(_document.file, getParentFragmentManager());
                 }
                 return true;
             }
             case R.id.action_set_font_size: {
-                MarkorDialogFactory.showFontSizeDialog(activity, _appSettings.getDocumentFontSize(_document.getPath()), (newSize) -> {
+                MarkorDialogFactory.showFontSizeDialog(activity, _appSettings.getDocumentFontSize(_document.path), (newSize) -> {
                     _hlEditor.setTextSize(TypedValue.COMPLEX_UNIT_SP, (float) newSize);
-                    _appSettings.setDocumentFontSize(_document.getPath(), newSize);
+                    _appSettings.setDocumentFontSize(_document.path, newSize);
                 });
                 return true;
             }
             case R.id.action_show_file_browser: {
                 // Delay because I want menu to close before we open the file browser
                 _hlEditor.postDelayed(() -> {
-                    final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.getFile());
+                    final Intent intent = new Intent(activity, MainActivity.class).putExtra(Document.EXTRA_FILE, _document.file);
                     GsContextUtils.instance.animateToActivity(activity, intent, false, null);
                 }, 250);
                 return true;
@@ -665,6 +661,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         }
     }
 
+    @Override
     public void applyTextFormat(final int textFormatId) {
         final Activity activity = getActivity();
         if (activity == null) {
@@ -675,8 +672,9 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         _hlEditor.setHighlighter(_format.getHighlighter());
         _hlEditor.setDynamicHighlightingEnabled(_appSettings.isDynamicHighlightingEnabled());
         _hlEditor.setAutoFormatters(_format.getAutoFormatInputFilter(), _format.getAutoFormatTextWatcher());
-        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.getPath()));
+        _hlEditor.setAutoFormatEnabled(_appSettings.getDocumentAutoFormatEnabled(_document.path));
         _format.getActions()
+                .setDocument(_document)
                 .setUiReferences(activity, _hlEditor, _webView)
                 .recreateActionButtons(_textActionsBar, _isPreviewVisible ? ActionButtonBase.ActionItem.DisplayMode.VIEW : ActionButtonBase.ActionItem.DisplayMode.EDIT);
         updateMenuToggleStates(_format.getFormatId());
@@ -788,7 +786,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
     }
 
     public boolean isSdStatusBad() {
-        if (_cu.isUnderStorageAccessFolder(getContext(), _document.getFile(), false) &&
+        if (_cu.isUnderStorageAccessFolder(getContext(), _document.file, false) &&
                 _cu.getStorageAccessFrameworkTreeUri(getContext()) == null) {
             _cu.showMountSdDialog(getActivity());
             return true;
@@ -801,7 +799,7 @@ public class DocumentEditAndViewFragment extends MarkorBaseFragment implements F
         return (_document == null ||
                 _hlEditor == null ||
                 _appSettings == null ||
-                !_cu.canWriteFile(getContext(), _document.getFile(), false, true));
+                !_cu.canWriteFile(getContext(), _document.file, false, true));
     }
 
     // Save the file

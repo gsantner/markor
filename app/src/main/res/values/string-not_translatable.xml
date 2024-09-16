@@ -422,6 +422,7 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="pref_key__filetype_template_map" translatable="false">pref_key__filetype_template_map</string>
     <string name="pref_key__template_title_format_map" translatable="false">pref_key__template_title_format_map</string>
     <string name="pref_key__title_format_list" translatable="false">pref_key__title_format_list</string>
+    <string name="pref_key__format_share_as_link" translatable="false">pref_key__format_share_as_link</string>
     <string name="squarebrackets" translatable="false">Square Brackets</string>
     <string name="csv" translatable="false">CSV</string>
     <string name="orgmode" translatable="false">OrgMode</string>

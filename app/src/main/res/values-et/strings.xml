@@ -68,6 +68,8 @@ work. If not, see <https://creativecommons.org/publicdomain/zero/1.0/>.
     <string name="hide_statusbar">Peida olekuriba</string>
     <string name="name">Nimi</string>
     <string name="url_or_path">URL / failitee</string>
+    <string name="insert_link">Sisesta link</string>
+    <string name="format_link">Lingi vormistus</string>
     <string name="insert_image">Sisesta pilt</string>
     <string name="contributors">Toetajad</string>
     <string name="save_location">Määra asukohad</string>
